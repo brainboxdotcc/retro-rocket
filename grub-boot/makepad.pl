@@ -5,5 +5,5 @@ system("dd if=/dev/zero of=pad bs=1 count=$num");
 system("cat  stage1 stage2 pad kernel.bin > floppy.img");
 my $s3 = -s 'floppy.img';
 $num = 1474560 - $s3;
-system("dd if=/dev/zero of=pad bs=1 count=$num");
+system("dd if=/dev/zero of=pad bs=$num count=1");
 system("cat pad >>floppy.img");
