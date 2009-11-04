@@ -55,4 +55,8 @@ void blitconsole(console* c);
 
 void initconsole(console* c);
 
+void setbackground(console* c, unsigned char background);
+
+void setforeground(console* c, unsigned char foreground);
+
 #endif

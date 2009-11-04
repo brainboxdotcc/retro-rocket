@@ -131,3 +131,13 @@ void initconsole(console* c)
 	clearscreen(c);
 }
 
+void setbackground(console* c, unsigned char background)
+{
+	c->attributes = (background << 4) | (c->attributes & 0x0F);
+}
+
+void setforeground(console* c, unsigned char foreground)
+{
+	c->attributes = (foreground) | (c->attributes & 0xF0);
+}
+
