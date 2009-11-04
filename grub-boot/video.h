@@ -18,11 +18,9 @@
 #define VIDEO_MEMORY_END 0xB9000
 
 /* Structure to represent a console screen.
- * In the future this will also include the actual
- * screen buffer and we will use a function to blit
- * it to the screen memory depending on which console
- * is being displayed. When blitting, this will update
- * the cursor location
+ * Low level output functions such as put() operate
+ * against one of these structures which must be displayed
+ * to video ram using blitconsole().
  */
 typedef struct
 {
