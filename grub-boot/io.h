@@ -15,4 +15,14 @@ static inline unsigned char inb(int port)
 	return value;
 }
 
+static inline void interrupts_on()
+{
+	asm volatile("sti");
+}
+
+static inline void interrupts_off()
+{
+	asm volatile("cli");
+}
+
 #endif

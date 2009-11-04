@@ -2,7 +2,7 @@
 
 unsigned int strlen(const char* str)
 {
-	int len = 0;
+	unsigned int len = 0;
 	for(; *str; ++str)
 		len++;
 	return len;

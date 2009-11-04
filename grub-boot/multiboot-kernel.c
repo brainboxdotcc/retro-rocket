@@ -2,10 +2,18 @@
 #include "kernel.h"
 #include "video.h"
 #include "printf.h"
+#include "interrupts.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
 console* current_console;
+
+void _memset(void *dest, char val, int len)
+{
+	char *temp = (char *)dest;
+	for ( ; len != 0; len--) *temp++ = val;
+}
+
 
 void kmain(void* mbd, unsigned int magic)
 {
@@ -13,6 +21,9 @@ void kmain(void* mbd, unsigned int magic)
 	current_console = &cons;
 	initconsole(current_console);
 	clearscreen(current_console);
+
+	init_idt();
+	interrupts_on();
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
@@ -27,8 +38,13 @@ void kmain(void* mbd, unsigned int magic)
 
 	printf("Sixty-Four kernel booting from %s...\n", (const char*)((long*)mbd)[16]);
 
-	blitconsole(current_console);
+	//blitconsole(current_console);
+	//
+	asm volatile("int $0x03");
 
-	for(;;);
+	for(;;)
+	{
+		blitconsole(current_console);
+	}
 }
 
