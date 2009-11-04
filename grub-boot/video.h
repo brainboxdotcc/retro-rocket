@@ -29,7 +29,7 @@ typedef struct
 	unsigned int x;
 	unsigned int y;
 	unsigned char attributes;
-	unsigned char video[SCREEN_SIZE];
+	unsigned char video[SCREEN_LAST_CELL];
 } console;
 
 /* Prototypes for simple console functions */

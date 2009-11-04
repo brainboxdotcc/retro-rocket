@@ -7,16 +7,13 @@ static unsigned char* video = (unsigned char*) VIDEO_MEMORY;
 /* Clear the screen */
 void clearscreen(console* c)
 {
-	unsigned char* vptr = video;
-	for(; vptr < (unsigned char*) VIDEO_MEMORY_END;)
+	unsigned int x = 0;
+	for (; x < SCREEN_LAST_CELL;)
 	{
-		/* Because we want to set the default colour on
-		 * all cells we can't just roll over the entire
-		 * screen with \0.
-		 */
-		*vptr++ = ' ';
-		*vptr++ = c->attributes;
+		c->video[x++] = ' ';
+		c->video[x++] = c->attributes;
 	}
+
 	c->x = 0;
 	c->y = 0;
 	setcursor(c);
@@ -85,8 +82,8 @@ void put(console* c, const char n)
 
 	unsigned int pos = (c->x * 2) + (c->y * SCREEN_WIDTH_BYTES);
 
-	video[pos] = n;
-	video[pos + 1] = c->attributes;
+	c->video[pos] = n;
+	c->video[pos + 1] = c->attributes;
 
 	c->x++;
 	if (c->x > SCREEN_WIDTH - 1)
@@ -130,13 +127,7 @@ void blitconsole(console* c)
 
 void initconsole(console* c)
 {
-	c->x = c->y = 0;
 	c->attributes = DEFAULT_COLOUR;
-	int x = 0;
-	for (; x < SCREEN_SIZE; x += 2)
-	{
-		c->video[x] = ' ';
-		c->video[x+1] = c->attributes;
-	}
+	clearscreen(c);
 }
 
