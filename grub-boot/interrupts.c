@@ -33,10 +33,10 @@ void irq_handler(registers_t regs)
 		handler(regs);
 	}
 
-	if (regs.int_no == 33)
+	/*if (regs.int_no == 33)
 	{
 		printf("Keypress eax=%d\n", regs.eax);
-	}
+	}*/
 } 
 
 //#####################################################

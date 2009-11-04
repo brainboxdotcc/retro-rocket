@@ -1,6 +1,7 @@
 #ifndef __INTERRUPTS_H__
 #define __INTERRUPTS_H__
 
+// Defined in assembly.s
 extern void isr0 ();
 extern void isr1 ();
 extern void isr2 ();
@@ -50,24 +51,28 @@ extern void irq13();
 extern void irq14();
 extern void irq15();
 
-#define IRQ0 32
-#define IRQ1 33
-#define IRQ2 34
-#define IRQ3 35
-#define IRQ4 36
-#define IRQ5 37
-#define IRQ6 38
-#define IRQ7 39
-#define IRQ8 40
-#define IRQ9 41
-#define IRQ10 42
-#define IRQ11 43
-#define IRQ12 44
-#define IRQ13 45
-#define IRQ14 46
-#define IRQ15 47
+// Mappings of IRQ numbers to interrupt numbers
 
-struct idt_entry_struct {
+#define IRQ0 32		// System timer
+#define IRQ1 33		// Keyboard
+#define IRQ2 34		// Cascade
+#define IRQ3 35		// COM2
+#define IRQ4 36		// COM1
+#define IRQ5 37		// Sound
+#define IRQ6 38		// FDD
+#define IRQ7 39		// Parallel
+#define IRQ8 40		// RTC
+#define IRQ9 41		// Network, SCSI, unallocated
+#define IRQ10 42	// Network, SCSI, unallocated
+#define IRQ11 43	// Network, SCSI, unallocated
+#define IRQ12 44	// PS2 Mouse
+#define IRQ13 45	// FPU
+#define IRQ14 46	// Primary IDE
+#define IRQ15 47	// Secondary IDE
+
+// An IDT table entry
+struct idt_entry_struct
+{
    short base_lo;
    short sel;
    char  always0; 
@@ -76,40 +81,57 @@ struct idt_entry_struct {
 } __attribute__((packed));
 typedef struct idt_entry_struct idt_entry_t;
 
-struct idt_ptr_struct {
+// IDT table header, points to a list of idt_entry_struct
+struct idt_ptr_struct
+{
    short limit;
    void *base; 
 } __attribute__((packed));
 typedef struct idt_ptr_struct idt_ptr_t;
 
-struct gdt_entry_struct {
-    short limit_low;       
-    short base_low;       
-    char  base_middle;  
-    char  access;      
-    char  granularity;
-    char  base_high;
+// A GDT table entry
+struct gdt_entry_struct
+{
+	short limit_low;	   
+	short base_low;	   
+	char  base_middle;  
+	char  access;	  
+	char  granularity;
+	char  base_high;
 } __attribute__((packed));
 typedef struct gdt_ptr_struct gdt_ptr_t;
 
-struct gdt_ptr_struct {
-    short limit;    
-    void *base;     
+// GDT table header, points to a list of gtdt_entry_struct
+struct gdt_ptr_struct
+{
+	short limit;	
+	void *base;	 
 } __attribute__((packed));
 typedef struct gdt_entry_struct gdt_entry_t;
 
+// Flush the IDT with an LIDT instruction
 void idt_flush(void * base);
+
+// Flish the GDT with an LGDT instruction
 void gdt_flush(void * base);
 
-typedef struct registers {
-    int ds;
-    int edi, esi, ebp, esp, ebx, edx, ecx, eax; 
-    int int_no, err_code;
-    int eip, cs, eflags, useresp, ss;
+// Registers, used for obtaining information in an ISR
+typedef struct registers
+{
+	int ds;
+	int edi, esi, ebp, esp, ebx, edx, ecx, eax; 
+	int int_no, err_code;
+	int eip, cs, eflags, useresp, ss;
 } registers_t;
 
+// Interrupt handler definition
 typedef void (*isr_t)(registers_t);
 
+// Initialise default IDT
 void init_idt();
 
+// Register a new interrupt handler
+void register_interrupt_handler(int n, isr_t handler);
+
 #endif
+
