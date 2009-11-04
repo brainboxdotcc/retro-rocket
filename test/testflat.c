@@ -1,6 +1,12 @@
 int _start()
 {
-	const char* n = "This is a test flat binary";
+	char x[1024];
+	char n[1024];
 	int q = 0;
-	q++;
+	const char* t = n;
+	for (; *t; ++t)
+	{
+		x[++q] = *t;
+	}
+	return 1;
 }
