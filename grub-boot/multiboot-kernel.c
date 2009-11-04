@@ -5,12 +5,13 @@
 
 void kmain(void* mbd, unsigned int magic)
 {
-	cursor cursor_position;
-	clearscreen(&cursor_position);
+	console cons;
+	initconsole(&cons);
+	clearscreen(&cons);
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
-		putstring(&cursor_position,"Invalid magic number from multiboot. System halted.\n");
+		putstring(&cons,"Invalid magic number from multiboot. System halted.\n");
 		for(;;);
 	}
 	    
@@ -19,7 +20,9 @@ void kmain(void* mbd, unsigned int magic)
 	/* or do your offsets yourself. The following is merely an example. */ 
 	//char * boot_loader_name =(char*) ((long*)mbd)[16];
 
-	putstring(&cursor_position, "Sixty-Four kernel booting...\n");
+	putstring(&cons, "Sixty-Four kernel booting...\n");
+
+	blitconsole(&cons);
 
 	for(;;);
 }

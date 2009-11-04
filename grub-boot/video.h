@@ -1,13 +1,6 @@
 #ifndef __VIDEO_H__
 #define __VIDEO_H__
 
-/* Simple structure to represent a screen cursor position */
-typedef struct
-{
-	unsigned int x;
-	unsigned int y;
-} cursor;
-
 /* Default background/foreground colour for text output (white on black) */
 #define DEFAULT_COLOUR 0x07
 
@@ -24,23 +17,42 @@ typedef struct
 #define VIDEO_MEMORY 0xB8000
 #define VIDEO_MEMORY_END 0xB9000
 
+/* Structure to represent a console screen.
+ * In the future this will also include the actual
+ * screen buffer and we will use a function to blit
+ * it to the screen memory depending on which console
+ * is being displayed. When blitting, this will update
+ * the cursor location
+ */
+typedef struct
+{
+	unsigned int x;
+	unsigned int y;
+	unsigned char attributes;
+	unsigned char video[SCREEN_SIZE];
+} console;
+
 /* Prototypes for simple console functions */
 
 /* Clear the screen and set cursor to 0,0 */
-void clearscreen(cursor* c);
+void clearscreen(console* c);
 
 /* Set cursor position to given coordinates */
-void setcursor(cursor* c);
+void setcursor(console* c);
 
 /* Output a null terminated C string at the given cursor coordinates then update the
  * cursor coordinates to the end of the string, scrolling the screen if needed.
  */
-void putstring(cursor* c, char* message);
+void putstring(console* c, char* message);
 
 /* Output a character to the screen at the given cursor coordinates then update the
  * cursor coordinates to the cell after the character, scrolling the screen if needed.
  * This is called internally by putstring().
  */
-void put(cursor* c, const char n);
+void put(console* c, const char n);
+
+void blitconsole(console* c);
+
+void initconsole(console* c);
 
 #endif
