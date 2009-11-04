@@ -1,17 +1,22 @@
 #include "io.h"
+#include "kernel.h"
 #include "video.h"
+#include "printf.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
+
+console* current_console;
 
 void kmain(void* mbd, unsigned int magic)
 {
 	console cons;
-	initconsole(&cons);
-	clearscreen(&cons);
+	current_console = &cons;
+	initconsole(current_console);
+	clearscreen(current_console);
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
-		putstring(&cons,"Invalid magic number from multiboot. System halted.\n");
+		putstring(current_console, "Invalid magic number from multiboot. System halted.\n");
 		for(;;);
 	}
 	    
@@ -20,9 +25,9 @@ void kmain(void* mbd, unsigned int magic)
 	/* or do your offsets yourself. The following is merely an example. */ 
 	//char * boot_loader_name =(char*) ((long*)mbd)[16];
 
-	putstring(&cons, "Sixty-Four kernel booting...\n");
+	printf("Sixty-Four kernel booting from %s...\n", (const char*)((long*)mbd)[16]);
 
-	blitconsole(&cons);
+	blitconsole(current_console);
 
 	for(;;);
 }
