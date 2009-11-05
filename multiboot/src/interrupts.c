@@ -14,6 +14,7 @@ isr_t interrupt_handlers[256];
 
 void register_interrupt_handler(int n, isr_t handler)
 {
+	/* XXX: Needs error checking, and a way to unregister a handler */
 	interrupt_handlers[n] = handler;
 } 
 
