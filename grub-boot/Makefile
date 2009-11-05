@@ -6,7 +6,9 @@ all:
 	gcc -m32 -o string.o -c string.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	gcc -m32 -o printf.o -c printf.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	gcc -m32 -o interrupts.o -c interrupts.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o
+	gcc -m32 -o errorhandler.o -c errorhandler.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o keyboard.o -c keyboard.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o
 	chmod ugo-x kernel.bin
 	perl makepad.pl
 	-bochs -q -f bochsrc

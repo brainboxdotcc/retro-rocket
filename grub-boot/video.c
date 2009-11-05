@@ -27,7 +27,7 @@ void relocate_line(console* c, unsigned int source, unsigned int dest)
 	unsigned int sourcepos = source * SCREEN_WIDTH_BYTES;
 	unsigned int destpos = dest * SCREEN_WIDTH_BYTES;
 	int chars = 0;
-	for (; chars < SCREEN_WIDTH_BYTES; chars++)
+	for (; chars < SCREEN_WIDTH_BYTES * 2; chars++)
 	{
 		c->video[destpos++] = c->video[sourcepos++];
 		++chars;
