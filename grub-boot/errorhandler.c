@@ -15,7 +15,7 @@ void init_error_handler()
 
 void error_handler(registers_t regs)
 {
-	const char* const error_table[] = {
+	static const char* const error_table[] = {
 		"Division by zero exception",
 		"Debug exception",
 		"Non maskable interrupt",
