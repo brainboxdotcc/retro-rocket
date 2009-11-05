@@ -50,6 +50,9 @@ extern void irq12();
 extern void irq13();
 extern void irq14();
 extern void irq15();
+extern void isr48();
+extern void isr49();
+extern void isr50();
 
 // Mappings of IRQ numbers to interrupt numbers
 

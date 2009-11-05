@@ -44,7 +44,7 @@ void kmain(void* mbd, unsigned int magic)
 
 	//blitconsole(current_console);
 	//
-	asm volatile("int $0x03");
+	asm volatile("int $50");
 
 	for(;;)
 	{
