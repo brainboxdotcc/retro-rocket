@@ -1,13 +1,13 @@
 all:
-	nasm -f elf -o loader.o loader.asm
-	gcc -m32 -o assembly.o -c assembly.s -Wall -nostdlib -nostartfiles -nodefaultlibs
-	gcc -m32 -o multiboot-kernel.o -c multiboot-kernel.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	gcc -m32 -o video.o -c video.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	gcc -m32 -o string.o -c string.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	gcc -m32 -o printf.o -c printf.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	gcc -m32 -o interrupts.o -c interrupts.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	gcc -m32 -o errorhandler.o -c errorhandler.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	gcc -m32 -o keyboard.o -c keyboard.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	nasm -f elf -o loader.o asm/loader.asm
+	gcc -m32 -o assembly.o -c asm/assembly.s -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o multiboot-kernel.o -c src/multiboot-kernel.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o video.o -c src/video.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o string.o -c src/string.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o printf.o -c src/printf.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o interrupts.o -c src/interrupts.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o errorhandler.o -c src/errorhandler.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	gcc -m32 -o keyboard.o -c src/keyboard.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o
 	chmod ugo-x kernel.bin
 	perl makepad.pl

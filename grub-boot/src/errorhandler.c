@@ -1,8 +1,8 @@
-#include "video.h"
-#include "interrupts.h"
-#include "errorhandler.h"
-#include "printf.h"
-#include "kernel.h"
+#include "../include/video.h"
+#include "../include/interrupts.h"
+#include "../include/errorhandler.h"
+#include "../include/printf.h"
+#include "../include/kernel.h"
 
 void error_handler(registers_t regs);
 

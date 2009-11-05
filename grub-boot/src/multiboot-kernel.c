@@ -1,10 +1,10 @@
-#include "io.h"
-#include "kernel.h"
-#include "video.h"
-#include "printf.h"
-#include "interrupts.h"
-#include "errorhandler.h"
-#include "keyboard.h"
+#include "../include/io.h"
+#include "../include/kernel.h"
+#include "../include/video.h"
+#include "../include/printf.h"
+#include "../include/interrupts.h"
+#include "../include/errorhandler.h"
+#include "../include/keyboard.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 

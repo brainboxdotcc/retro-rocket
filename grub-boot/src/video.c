@@ -1,5 +1,5 @@
-#include "io.h"
-#include "video.h"
+#include "../include/io.h"
+#include "../include/video.h"
 
 /* Internal use: graphics buffer address in flat memory model */
 static unsigned char* video = (unsigned char*) VIDEO_MEMORY;

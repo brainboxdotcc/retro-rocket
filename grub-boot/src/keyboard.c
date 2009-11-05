@@ -1,9 +1,9 @@
-#include "video.h"
-#include "interrupts.h"
-#include "keyboard.h"
-#include "printf.h"
-#include "kernel.h"
-#include "io.h"
+#include "../include/video.h"
+#include "../include/interrupts.h"
+#include "../include/keyboard.h"
+#include "../include/printf.h"
+#include "../include/kernel.h"
+#include "../include/io.h"
 
 void keyboard_handler(registers_t regs);
 

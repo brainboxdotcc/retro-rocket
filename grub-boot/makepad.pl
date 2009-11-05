@@ -7,4 +7,5 @@ my $s3 = -s 'floppy.img';
 $num = 1474560 - $s3;
 system("dd if=/dev/zero of=pad bs=$num count=1");
 system("cat pad >>floppy.img");
+system("gzip -c floppy.img > floppy.img.gz");
 system("rm -f pad");

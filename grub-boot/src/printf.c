@@ -1,7 +1,7 @@
-#include "video.h"
-#include "kernel.h"
-#include "string.h"
-#include "printf.h"
+#include "../include/video.h"
+#include "../include/kernel.h"
+#include "../include/string.h"
+#include "../include/printf.h"
 
 /*****************************************************************************
 name:	do_printf

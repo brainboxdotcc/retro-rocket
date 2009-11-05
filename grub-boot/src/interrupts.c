@@ -1,8 +1,8 @@
-#include "video.h"
-#include "kernel.h"
-#include "interrupts.h"
-#include "printf.h"
-#include "io.h"
+#include "../include/video.h"
+#include "../include/kernel.h"
+#include "../include/interrupts.h"
+#include "../include/printf.h"
+#include "../include/io.h"
 
 gdt_entry_t gdt_entries[5];
 gdt_ptr_t   gdt_ptr;
