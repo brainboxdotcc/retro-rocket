@@ -10,4 +10,5 @@ system("cp stage* iso/boot/grub/");
 system("cp menu.lst iso/boot/grub/");
 chdir("iso");
 system("mkisofs -R -V \"SIXTY-FOUR\" -b boot/grub/iso9660_stage1_5 -o ../sixty-four.iso -no-emul-boot -boot-load-size 4 -boot-info-table .");
-
+chdir("..");
+system("bzip2 -c sixty-four.iso > sixty-four.iso.bz2");
