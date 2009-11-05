@@ -10,5 +10,5 @@ all:
 	gcc -m32 -o keyboard.o -c src/keyboard.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o
 	chmod ugo-x kernel.bin
-	perl makepad.pl
+	perl makeiso.pl
 	-bochs -q -f bochsrc
