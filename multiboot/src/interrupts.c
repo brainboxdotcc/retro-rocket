@@ -10,7 +10,7 @@ idt_entry_t idt_entries[256];
 idt_ptr_t   idt_ptr; 
 isr_t interrupt_handlers[256];
 
-// Handlers #####################################
+/* Handlers */
 
 void register_interrupt_handler(int n, isr_t handler)
 {
@@ -18,11 +18,13 @@ void register_interrupt_handler(int n, isr_t handler)
 	interrupt_handlers[n] = handler;
 } 
 
+/* Default ISR handler */
 void isr_handler(registers_t regs)
 {
 	printf("INT=%d ERRORCODE=%d\n", regs.int_no, regs.err_code);
-} 
+}
 
+/* Default IRQ handler */
 void irq_handler(registers_t regs)
 {
 	if (regs.int_no >= 40) outb(0xA0, 0x20); // EOI
@@ -33,11 +35,6 @@ void irq_handler(registers_t regs)
 		isr_t handler = interrupt_handlers[regs.int_no];
 		handler(regs);
 	}
-
-	/*if (regs.int_no == 33)
-	{
-		printf("Keypress eax=%d\n", regs.eax);
-	}*/
 } 
 
 //#####################################################
