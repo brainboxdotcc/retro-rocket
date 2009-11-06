@@ -9,7 +9,8 @@ all:
 	gcc -m32 -o errorhandler.o -c src/errorhandler.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	gcc -m32 -o keyboard.o -c src/keyboard.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	gcc -m32 -o timer.o -c src/timer.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o timer.o
+	gcc -m32 -o kmalloc.o -c src/kmalloc.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o timer.o kmalloc.o
 	chmod ugo-x kernel.bin
 	perl makeiso.pl
 	-bochs -q -f bochsrc
