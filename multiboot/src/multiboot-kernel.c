@@ -27,6 +27,7 @@ void kmain(void* mbd, unsigned int magic)
 
 	init_gdt();
 	init_idt();
+	u32int a = kmalloc(8);
 	init_paging();
 	init_timer(50);
 	interrupts_on();
@@ -48,6 +49,15 @@ void kmain(void* mbd, unsigned int magic)
 	printf("Sixty-Four kernel booting from %s...\n", (const char*)((long*)mbd)[16]);
 
 	asm volatile("int $50");
+
+u32int b = kmalloc(8);
+u32int c = kmalloc(8);
+printf("a: %x b: %x\nc: %x ", a, b, c);
+kfree(c);
+kfree(b);
+u32int d = kmalloc(12);
+printf("d: %x\n", d);
+kfree(d);
 
 	for(;;)
 	{

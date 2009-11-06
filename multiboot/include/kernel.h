@@ -3,6 +3,8 @@
 
 #include "video.h"
 
+#define ASSERT(x) 
+
 #define NULL 0
 extern console* current_console;
 
