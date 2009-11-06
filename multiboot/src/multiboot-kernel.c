@@ -23,6 +23,7 @@ void kmain(void* mbd, unsigned int magic)
 	initconsole(current_console);
 	clearscreen(current_console);
 
+	init_gdt();
 	init_idt();
 	interrupts_on();
 

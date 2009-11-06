@@ -133,6 +133,8 @@ typedef void (*isr_t)(registers_t);
 // Initialise default IDT
 void init_idt();
 
+void init_gdt();
+
 // Register a new interrupt handler
 void register_interrupt_handler(int n, isr_t handler);
 
