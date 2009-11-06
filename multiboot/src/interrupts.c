@@ -14,7 +14,11 @@ isr_t interrupt_handlers[256];
 
 void register_interrupt_handler(int n, isr_t handler)
 {
-	/* XXX: Needs error checking, and a way to unregister a handler */
+	if (interrupt_handlers[n] != 0)
+	{
+		printf("*** BUG *** INT %d claimed twice!\n", n);
+		return;
+	}
 	interrupt_handlers[n] = handler;
 } 
 
