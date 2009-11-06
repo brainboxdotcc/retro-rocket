@@ -20,17 +20,18 @@ void _memset(void *dest, char val, int len)
 
 void kmain(void* mbd, unsigned int magic)
 {
-	console cons;
-	current_console = &cons;
-	initconsole(current_console);
-	clearscreen(current_console);
-
 	init_gdt();
 	init_idt();
+	init_error_handler();
+	init_basic_keyboard();
 	u32int a = kmalloc(8);
 	init_paging();
 	init_timer(50);
 	interrupts_on();
+
+	console* cons = (console*)kmalloc(sizeof(console));
+	current_console = cons;
+	initconsole(current_console);
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
@@ -42,9 +43,6 @@ void kmain(void* mbd, unsigned int magic)
 	/* (http://www.gnu.org/software/grub/manual/multiboot/multiboot.html#multiboot_002eh) */
 	/* or do your offsets yourself. The following is merely an example. */ 
 	//char * boot_loader_name =(char*) ((long*)mbd)[16];
-
-	init_error_handler();
-	init_basic_keyboard();
 
 	printf("Sixty-Four kernel booting from %s...\n", (const char*)((long*)mbd)[16]);
 
