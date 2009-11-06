@@ -5,6 +5,7 @@
 #include "../include/interrupts.h"
 #include "../include/errorhandler.h"
 #include "../include/keyboard.h"
+#include "../include/timer.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -25,6 +26,7 @@ void kmain(void* mbd, unsigned int magic)
 
 	init_gdt();
 	init_idt();
+	init_timer(50);
 	interrupts_on();
 
 	if (magic != MULTIBOOT_MAGIC)
