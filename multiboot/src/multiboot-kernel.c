@@ -6,6 +6,7 @@
 #include "../include/errorhandler.h"
 #include "../include/keyboard.h"
 #include "../include/timer.h"
+#include "../include/paging.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -26,6 +27,7 @@ void kmain(void* mbd, unsigned int magic)
 
 	init_gdt();
 	init_idt();
+	init_paging();
 	init_timer(50);
 	interrupts_on();
 
@@ -45,8 +47,6 @@ void kmain(void* mbd, unsigned int magic)
 
 	printf("Sixty-Four kernel booting from %s...\n", (const char*)((long*)mbd)[16]);
 
-	//blitconsole(current_console);
-	//
 	asm volatile("int $50");
 
 	for(;;)

@@ -9,7 +9,10 @@ void error_handler(registers_t regs);
 void init_error_handler()
 {
 	int interrupt = 0;
-	for (; interrupt < 19; ++interrupt)
+	for (; interrupt < 14; ++interrupt)
+		register_interrupt_handler(interrupt, error_handler);
+	// Skip 14, page fault. This is used by the paging code.
+	for (interrupt = 15; interrupt < 19; ++interrupt)
 		register_interrupt_handler(interrupt, error_handler);
 }
 
