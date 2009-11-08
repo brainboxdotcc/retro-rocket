@@ -109,11 +109,13 @@ void free_frame(page_t *page)
     }
 }
 
-void init_paging()
+u32int init_paging(void* mbd)
 {
     // The size of physical memory. For the moment we 
     // assume it is 16MB big.
-    u32int mem_end_page = 0x1000000;
+    //u32int mem_end_page = 0x1000000;
+    u32int mem_end_page = ((long*)mbd)[2] * 1024;
+    //u32int mem_end_page = 0x1000000;
     
     nframes = mem_end_page / 0x1000;
     frames = (u32int*)kmalloc(INDEX_FROM_BIT(nframes));
@@ -160,6 +162,8 @@ void init_paging()
 
     // Initialise the kernel heap.
     kheap = create_heap(KHEAP_START, KHEAP_START+KHEAP_INITIAL_SIZE, 0xCFFFF000, 0, 0); 
+
+    return mem_end_page - ((long*)mbd)[1];
 }
 
 void switch_page_directory(page_directory_t *dir)

@@ -2,12 +2,16 @@
 #include "../include/printf.h"
 #include "../include/io.h"
 #include "../include/kernel.h"
+#include "../include/video.h"
 
 u32int ticks = 0;
+//extern console* current_console;
 
 static void timer_callback(registers_t regs)
 {
 	ticks++;
+	if (current_console && current_console->dirty)
+		blitconsole(current_console);
 	//printf("Tick: %d\n", ticks);
 }
 

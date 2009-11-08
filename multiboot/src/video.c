@@ -16,6 +16,7 @@ void clearscreen(console* c)
 
 	c->x = 0;
 	c->y = 0;
+	c->dirty = 1;
 	setcursor(c);
 }
 
@@ -67,6 +68,7 @@ void setcursor(console* c)
  */
 void put(console* c, const char n)
 {
+	c->dirty = 1;
 	switch (n)
 	{
 		case '\0':
@@ -106,6 +108,8 @@ void putstring(console* c, char* message)
 
 void blitconsole(console* c)
 {
+	c->dirty = 0;
+
 	/* TODO: Optimised memcpy here */
 	unsigned char* vptr = (unsigned char*)video;
 	unsigned int n = 0;

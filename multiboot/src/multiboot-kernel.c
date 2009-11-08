@@ -7,6 +7,7 @@
 #include "../include/keyboard.h"
 #include "../include/timer.h"
 #include "../include/paging.h"
+#include "../include/kmalloc.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -20,46 +21,38 @@ void _memset(void *dest, char val, int len)
 
 void kmain(void* mbd, unsigned int magic)
 {
-	init_gdt();
-	init_idt();
-	init_error_handler();
-	init_basic_keyboard();
-	u32int a = kmalloc(8);
-	init_paging();
-	init_timer(50);
-	interrupts_on();
+	u32int memorysize = 0;
+	if (magic == MULTIBOOT_MAGIC)
+	{
+		init_gdt();
+		init_idt();
+		init_error_handler();
+		init_basic_keyboard();
+		memorysize = init_paging(mbd);
+		init_timer(50);
+		interrupts_on();
+	}
 
 	console* cons = (console*)kmalloc(sizeof(console));
+	initconsole(cons);
 	current_console = cons;
-	initconsole(current_console);
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
 		putstring(current_console, "Invalid magic number from multiboot. System halted.\n");
-		for(;;);
+		wait_forever();
 	}
-	    
-	/* You could either use multiboot.h */
-	/* (http://www.gnu.org/software/grub/manual/multiboot/multiboot.html#multiboot_002eh) */
-	/* or do your offsets yourself. The following is merely an example. */ 
-	//char * boot_loader_name =(char*) ((long*)mbd)[16];
+	else
+	{    
+		/* You could either use multiboot.h */
+		/* (http://www.gnu.org/software/grub/manual/multiboot/multiboot.html#multiboot_002eh) */
+		/* or do your offsets yourself. The following is merely an example. */ 
+		//char * boot_loader_name =(char*) ((long*)mbd)[16];
 
-	printf("Sixty-Four kernel booting from %s...\n", (const char*)((long*)mbd)[16]);
+		printf("Sixty-Four kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
-	asm volatile("int $50");
-
-u32int b = kmalloc(8);
-u32int c = kmalloc(8);
-printf("a: %x b: %x\nc: %x ", a, b, c);
-kfree(c);
-kfree(b);
-u32int d = kmalloc(12);
-printf("d: %x\n", d);
-kfree(d);
-
-	for(;;)
-	{
-		blitconsole(current_console);
+		asm volatile("int $50");
+		wait_forever();
 	}
 }
 

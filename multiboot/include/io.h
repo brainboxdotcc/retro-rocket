@@ -25,4 +25,9 @@ static inline void interrupts_off()
 	asm volatile("cli");
 }
 
+static inline void wait_forever()
+{
+	for (;;) asm volatile("hlt");
+}
+
 #endif

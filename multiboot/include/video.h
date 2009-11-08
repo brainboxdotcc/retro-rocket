@@ -24,6 +24,7 @@
  */
 typedef struct
 {
+	char dirty;
 	unsigned int x;
 	unsigned int y;
 	unsigned char attributes;
