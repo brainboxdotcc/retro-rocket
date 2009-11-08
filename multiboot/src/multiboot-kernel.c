@@ -11,7 +11,7 @@
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
-console* current_console;
+console* current_console = NULL;
 
 void _memset(void *dest, char val, int len)
 {
@@ -39,7 +39,8 @@ void kmain(void* mbd, unsigned int magic)
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
-		putstring(current_console, "Invalid magic number from multiboot. System halted.\n");
+		printf("Invalid magic number %x from multiboot. System halted.\n", magic);
+		blitconsole(current_console);
 		wait_forever();
 	}
 	else
