@@ -144,7 +144,27 @@ void ParseVPD(iso9660* info, unsigned char* buffer)
 {
 }
 
-iso9660* mount_volume(u32int drivenumber)
+int iso_change_directory(iso9660* info, const char* newdirectory)
+{
+	FS_DirectoryEntry* currentdir = info->root;
+	for(; currentdir->next; currentdir = currentdir->next)
+	{
+		if ((currentdir->flags & FS_DIRECTORY) && !strcmp(newdirectory, currentdir->filename))
+		{
+			FS_DirectoryEntry* newdir = ParseDirectory(info, currentdir->lbapos, currentdir->size);
+			if (newdir)
+			{
+				FREE_LINKED_LIST(FS_DirectoryEntry*, info->root);
+				info->root = newdir;
+				return 1;
+			}
+			return 0;
+		}
+	}
+	return 0;
+}
+
+iso9660* iso_mount_volume(u32int drivenumber)
 {
 	unsigned char* buffer = (unsigned char*)kmalloc(2048);
 	iso9660* info = (iso9660*)kmalloc(sizeof(iso9660));

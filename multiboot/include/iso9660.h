@@ -100,6 +100,7 @@ typedef struct
 	unsigned char reserved[653];
 } __attribute__((packed)) PVD;
 
-iso9660* mount_volume(u32int drivenumber);
+iso9660* iso_mount_volume(u32int drivenumber);
+int iso_change_directory(iso9660* info, const char* newdirectory);
 
 #endif

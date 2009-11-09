@@ -59,7 +59,8 @@ void kmain(void* mbd, unsigned int magic)
 
 		asm volatile("int $50");
 
-		iso9660* iso = mount_volume(0);
+		putstring(current_console, "VFS/ISO9660 tests, mounting filesystem on drive 0\n");
+		iso9660* iso = iso_mount_volume(0);
 
 		u32int directory_entries;
 		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
@@ -67,7 +68,16 @@ void kmain(void* mbd, unsigned int magic)
 		FS_DirectoryEntry* n;
 		printf("VFS dir of %d files:\n", directory_entries);
 		for(n = iso->root; n->next; n = n->next)
-			printf("%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
+			printf("    %s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
+
+		putstring(current_console, "Now change dir to 'boot'...\n");
+
+		printf("iso_change_directory(): %s\n", iso_change_directory(iso, "boot") ? "success" : "failure");
+
+		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
+		printf("VFS dir of %d files:\n", directory_entries);
+		for(n = iso->root; n->next; n = n->next)
+			printf("    %s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
 
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
 		kfree(iso);

@@ -5,4 +5,6 @@ unsigned int strlen(const char* str);
 
 unsigned char tolower(unsigned char input);
 
+int strcmp(const char* s1, const char* s2);
+
 #endif
