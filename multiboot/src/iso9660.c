@@ -6,6 +6,9 @@
 #include "../include/string.h"
 #include "../include/kmalloc.h"
 
+#define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
+				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
+
 int ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes);
 
 
@@ -16,6 +19,11 @@ void ParseBOOT(iso9660* info, unsigned char* buffer)
 int ParsePVD(iso9660* info, unsigned char* buffer)
 {
 	PVD* pvd = (PVD*)buffer;
+	if (!VERIFY_ISO9660(pvd))
+	{
+		putstring(current_console, "ISO9660: Invalid PVD found, identifier is not 'CD001'\n");
+		return 0;
+	}
 	char* ptr = pvd->volumeidentifier + 31;
 	for (; ptr != pvd->volumeidentifier && *ptr == ' '; --ptr)
 	{
