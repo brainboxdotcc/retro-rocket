@@ -10,7 +10,7 @@
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
 
-int ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes);
+FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes);
 
 
 void ParseBOOT(iso9660* info, unsigned char* buffer)
@@ -34,7 +34,7 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 	}
 
 	int j = 0;
-	info->volume_name = (char*)kmalloc(strlen(pvd->volumeidentifier));
+	info->volume_name = (char*)kmalloc(strlen(pvd->volumeidentifier) + 1);
 	for (ptr = pvd->volumeidentifier; *ptr; ++ptr)
 		info->volume_name[j++] = *ptr;
 	// Null-terminate volume name
@@ -42,11 +42,9 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 
 	info->pathtable_lba = pvd->lsb_pathtable_L_lba;
 	info->rootextent_lba = pvd->root_directory.extent_lba_lsb;
+	info->root = ParseDirectory(info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
 
-	pvd->root_directory.filename[pvd->root_directory.filename_length] = 0;
-
-
-	return ParseDirectory(info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
+	return info->root != 0;
 }
 
 void DumpHex(unsigned char* address, u32int length)
@@ -66,7 +64,7 @@ void DumpHex(unsigned char* address, u32int length)
 	}
 }
 
-int ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes)
+FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes)
 {
 	unsigned char* dirbuffer = (unsigned char*)kmalloc(lengthbytes);
 	int j;
@@ -76,10 +74,12 @@ int ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes)
 	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (unsigned int)dirbuffer))
 	{
 		printf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
-		return 0;
+		return NULL;
 	}
 
-	//DumpHex(dirbuffer, 0x150);
+	FS_DirectoryEntry* first = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+	FS_DirectoryEntry* thisentry = first;
+	first->next = 0;
 
 	// Iterate each of the entries in this directory, enumerating files
 	unsigned char* walkbuffer = dirbuffer;
@@ -96,17 +96,44 @@ int ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes)
 		if (entrycount > 2)
 		{
 			fentry->filename[fentry->filename_length] = 0;
-			printf("File size: %d lba %x\n", fentry->data_length_lsb, fentry->extent_lba_lsb);
+			/*printf("File size: %d lba %x\n", fentry->data_length_lsb, fentry->extent_lba_lsb);
 			printf("%d/%02d/%02d %02d:%02d:%02d ", fentry->recording_date.years_since_1900 + 1900, fentry->recording_date.month, fentry->recording_date.day, fentry->recording_date.hour, fentry->recording_date.minute, fentry->recording_date.second);
 			printf("file_flags: %d ", fentry->file_flags);
-			printf("filename: '%s'\n", fentry->filename);
+			printf("filename: '%s'\n", fentry->filename);*/
+			
+			thisentry->filename = (char*)kmalloc(strlen(fentry->filename) + 1);
+			j = 0;
+			char* ptr = fentry->filename;
+			// Stop at end of string or at ; which seperates the version id from the filename.
+			// We don't want the version ids.
+			for (; *ptr && *ptr != ';'; ++ptr)
+				thisentry->filename[j++] = tolower(*ptr);
+			thisentry->filename[j] = 0;
+
+			thisentry->year = fentry->recording_date.years_since_1900 + 1900;
+			thisentry->month = fentry->recording_date.month;
+			thisentry->day = fentry->recording_date.day;
+			thisentry->hour = fentry->recording_date.hour;
+			thisentry->min = fentry->recording_date.minute;
+			thisentry->sec = fentry->recording_date.second;
+			thisentry->device = info->drivenumber;
+			thisentry->lbapos = fentry->extent_lba_lsb;
+			thisentry->size = fentry->data_length_lsb;
+			thisentry->flags = 0;
+			if (fentry->file_flags & 0x02)
+				thisentry->flags |= FS_DIRECTORY;
+
+			FS_DirectoryEntry* next = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+			thisentry->next = next;
+			next->next = 0;
+			thisentry = next;
 		}
 		walkbuffer += fentry->length;
 	}
 
 	kfree(dirbuffer);
 
-	return 1;
+	return first;
 }
 
 void ParseSVD(iso9660* info, unsigned char* buffer)

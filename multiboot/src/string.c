@@ -8,3 +8,7 @@ unsigned int strlen(const char* str)
 	return len;
 }
 
+unsigned char tolower(unsigned char input)
+{
+	return (input | 0x20);
+}

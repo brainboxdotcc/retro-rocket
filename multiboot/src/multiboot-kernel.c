@@ -10,6 +10,7 @@
 #include "../include/kmalloc.h"
 #include "../include/ata.h"
 #include "../include/iso9660.h"
+#include "../include/filesystem.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -59,6 +60,16 @@ void kmain(void* mbd, unsigned int magic)
 		asm volatile("int $50");
 
 		iso9660* iso = mount_volume(0);
+
+		u32int directory_entries;
+		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
+
+		FS_DirectoryEntry* n;
+		printf("VFS dir of %d files:\n", directory_entries);
+		for(n = iso->root; n->next; n = n->next)
+			printf("%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
+
+		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
 		kfree(iso);
 
 		wait_forever();

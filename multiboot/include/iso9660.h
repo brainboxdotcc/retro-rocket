@@ -2,6 +2,7 @@
 #define __ISO9660_H__
 
 #include "kernel.h"
+#include "filesystem.h"
 
 // Location of primary volume descriptor
 #define PVD_LBA 0x10
@@ -12,6 +13,7 @@ typedef struct
 	char* volume_name;
 	u32int pathtable_lba;
 	u32int rootextent_lba;
+	FS_DirectoryEntry* root;
 } iso9660;
 
 typedef struct

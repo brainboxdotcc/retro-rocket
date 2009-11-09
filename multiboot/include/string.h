@@ -3,4 +3,6 @@
 
 unsigned int strlen(const char* str);
 
+unsigned char tolower(unsigned char input);
+
 #endif

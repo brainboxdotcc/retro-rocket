@@ -3,6 +3,8 @@
 
 #include "kernel.h"
 
+#define FS_DIRECTORY 0x00000001
+
 typedef struct
 {
 	char* filename;
@@ -12,9 +14,10 @@ typedef struct
 	u8int hour;
 	u8int min;
 	u8int sec;
-	u8int flags;
 	u32int lbapos;
 	u32int device;
+	u32int size;
+	u32int flags;
 	struct FS_DirectoryEntry* next;
 
 } FS_DirectoryEntry;

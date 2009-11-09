@@ -5,6 +5,9 @@
 
 #define ASSERT(x) 
 
+#define FREE_LINKED_LIST(type, start) { type n = start; for (;n->next;) { type oldn = n; n = n->next; kfree(oldn); } }
+#define LINKED_LIST_COUNT(type, start, variable) { variable = 0; type n = start; for (;n->next; n = n->next, ++variable); }
+
 #define NULL 0
 extern console* current_console;
 
