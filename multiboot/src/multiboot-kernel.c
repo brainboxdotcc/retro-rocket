@@ -57,8 +57,8 @@ void kmain(void* mbd, unsigned int magic)
 
 		asm volatile("int $50");
 
-		/*int lba = 0;
-		for (; lba < 100; lba++)
+		int lba = 16;
+		for (; lba < 18; lba++)
 		{
 			unsigned char* buffer = (unsigned char*)kmalloc(10240);
 			_memset(buffer, 1, 10240);
@@ -72,7 +72,7 @@ void kmain(void* mbd, unsigned int magic)
 				}
 			}
 			kfree(buffer);
-		}*/
+		}
 
 		wait_forever();
 	}
