@@ -9,6 +9,7 @@
 #include "../include/paging.h"
 #include "../include/kmalloc.h"
 #include "../include/ata.h"
+#include "../include/iso9660.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -57,22 +58,8 @@ void kmain(void* mbd, unsigned int magic)
 
 		asm volatile("int $50");
 
-		int lba = 16;
-		for (; lba < 18; lba++)
-		{
-			unsigned char* buffer = (unsigned char*)kmalloc(10240);
-			_memset(buffer, 1, 10240);
-			int n = 0;
-			ide_read_sectors(0, 5, lba, (unsigned int)buffer);
-			for (; n < 512; ++n)
-			{
-				if (buffer[n] != 0)
-				{
-					put(current_console, buffer[n]);
-				}
-			}
-			kfree(buffer);
-		}
+		iso9660* iso = mount_volume(0);
+		kfree(iso);
 
 		wait_forever();
 	}

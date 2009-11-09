@@ -253,7 +253,7 @@ void ide_initialize()
 	register_interrupt_handler(IRQ15, ide_irq);
 }
 
-unsigned char ide_ata_access(	unsigned char direction, unsigned char drive, unsigned int lba, unsigned char numsects, unsigned int edi)
+unsigned char ide_ata_access(unsigned char direction, unsigned char drive, unsigned int lba, unsigned char numsects, unsigned int edi)
 {
 	unsigned char lba_mode, dma, cmd;
 	unsigned char lba_io[6];
@@ -464,17 +464,23 @@ unsigned char ide_atapi_read(unsigned char drive, unsigned int lba, unsigned cha
 	return 0; // Easy, ... Isn't it?
 }
 
-void ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi)
+int ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi)
 {
 	int i;
 	// 1: Check if the drive presents:
 	// ==================================
 	if (drive > 3 || ide_devices[drive].reserved == 0)
+	{
 		printf("Drive %d not found\n", drive);		// Drive Not Found!
+		return 0;
+	}
 	// 2: Check if inputs are valid:
 	// ==================================
 	else if (((lba + numsects) > ide_devices[drive].size) && (ide_devices[drive].type == IDE_ATA))
+	{
 		printf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
+		return 0;
+	}
 	// 3: Read in PIO Mode through Polling & IRQs:
 	// ============================================
 	else
@@ -492,19 +498,27 @@ void ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int 
 			}
 		}
 		ide_print_error(drive, err);
+		return !err;
 	}
+	return 0;
 }
 
-void ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi)
+int ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi)
 {
 	// 1: Check if the drive presents:
 	// ==================================
 	if (drive > 3 || ide_devices[drive].reserved == 0)
+	{
 		printf("Drive %d not found\n", drive);		// Drive Not Found!
+		return 0;
+	}
 	// 2: Check if inputs are valid:
 	// ==================================
 	else if (((lba + numsects) > ide_devices[drive].size) && (ide_devices[drive].type == IDE_ATA))
+	{
 		printf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
+		return 0;
+	}
 	// 3: Read in PIO Mode through Polling & IRQs:
 	// ============================================
 	else
@@ -515,10 +529,13 @@ void ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int
 		else if (ide_devices[drive].type == IDE_ATAPI)
 			err = 4; // Write-Protected.
 		ide_print_error(drive, err);
+
+		return !err;
 	}
+	return 0;
 }
 
-void ide_atapi_eject(unsigned char drive)
+int ide_atapi_eject(unsigned char drive)
 {
 	unsigned int channel = ide_devices[drive].channel;
 	unsigned int slavebit = ide_devices[drive].drive;
@@ -529,11 +546,17 @@ void ide_atapi_eject(unsigned char drive)
 	// 1: Check if the drive presents:
 	// ==================================
 	if (drive > 3 || ide_devices[drive].reserved == 0)
+	{
 		printf("Drive %d not found\n", drive);
+		return 0;
+	}
 	// 2: Check if drive isn't ATAPI:
 	// ==================================
 	else if (ide_devices[drive].type == IDE_ATA)
+	{
 		printf("Command aborted on drive %d\n", drive);		 // Command Aborted.
+		return 0;
+	}
 	// 3: Eject ATAPI Driver:
 	// ============================================
 	else
@@ -582,7 +605,8 @@ void ide_atapi_eject(unsigned char drive)
 				err = 0; // DRQ is not needed here.
 		}
 		ide_print_error(drive, err);
+		return !err;
 	}
+	return 0;
 }
-
 
