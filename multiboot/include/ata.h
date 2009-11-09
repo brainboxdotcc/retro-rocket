@@ -1,6 +1,8 @@
 #ifndef __ATA_H__
 #define __ATA_H__
 
+#include "interrupts.h"
+
 #define    ATA_SR_BSY      0x80
 #define    ATA_SR_DRDY      0x40
 #define    ATA_SR_DF      0x20
@@ -104,6 +106,10 @@ typedef struct {
 
 unsigned char ide_read(unsigned char channel, unsigned char reg);
 void ide_write(unsigned char channel, unsigned char reg, unsigned char data);
-void ide_initialize(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, unsigned int BAR3, unsigned int BAR4);
+void ide_initialize();
+void ide_irq(registers_t regs);
+void ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi);
+void ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi);
 
 #endif
+

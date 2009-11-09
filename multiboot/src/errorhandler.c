@@ -3,6 +3,7 @@
 #include "../include/errorhandler.h"
 #include "../include/printf.h"
 #include "../include/kernel.h"
+#include "../include/io.h"
 
 void error_handler(registers_t regs);
 
@@ -41,7 +42,7 @@ void error_handler(registers_t regs)
 	};
 	printf("Fatal exception %X: %s", regs.int_no, error_table[regs.int_no]);
 	blitconsole(current_console);
-	for(;;);
+	wait_forever();
 }
 
 

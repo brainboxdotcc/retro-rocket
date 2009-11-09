@@ -53,9 +53,27 @@ void kmain(void* mbd, unsigned int magic)
 
 		printf("Sixty-Four kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
-		ide_initialize(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
+		ide_initialize();
 
 		asm volatile("int $50");
+
+		int lba = 0;
+		for (; lba < 100; lba++)
+		{
+			unsigned char* buffer = (unsigned char*)kmalloc(10240);
+			_memset(buffer, 1, 10240);
+			int n = 0;
+			ide_read_sectors(0, 5, lba, (unsigned int)buffer);
+			for (; n < 512; ++n)
+			{
+				if (buffer[n] != 0)
+				{
+					put(current_console, buffer[n]);
+				}
+			}
+			kfree(buffer);
+		}
+
 		wait_forever();
 	}
 }

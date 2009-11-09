@@ -14,6 +14,7 @@ unsigned static char atapi_packet[12] = {0xA8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 unsigned char ide_read(unsigned char channel, unsigned char reg)
 {
+	//printf("channel %d base: %x ctrl: %x base+reg: %x\n", channel, channels[channel].base, channels[channel].ctrl, channels[channel].base + reg);
 	unsigned char result;
 	if   (reg > 0x07 && reg < 0x0C) ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
 	if   (reg < 0x08) result = inb(channels[channel].base  + reg - 0x00);
@@ -27,10 +28,10 @@ unsigned char ide_read(unsigned char channel, unsigned char reg)
 void ide_write(unsigned char channel, unsigned char reg, unsigned char data)
 {
 	if   (reg > 0x07 && reg < 0x0C) ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
-	if   (reg < 0x08) outb(data, channels[channel].base  + reg - 0x00);
-	else if   (reg < 0x0C) outb(data, channels[channel].base  + reg - 0x06);
-	else if   (reg < 0x0E) outb(data, channels[channel].ctrl  + reg - 0x0A);
-	else if   (reg < 0x16) outb(data, channels[channel].bmide + reg - 0x0E);
+	if   (reg < 0x08) outb(channels[channel].base  + reg - 0x00, data);
+	else if   (reg < 0x0C) outb(channels[channel].base  + reg - 0x06, data);
+	else if   (reg < 0x0E) outb(channels[channel].ctrl  + reg - 0x0A, data);
+	else if   (reg < 0x16) outb(channels[channel].bmide + reg - 0x0E, data);
 	if   (reg > 0x07 && reg < 0x0C) ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN);
 }
 
@@ -60,7 +61,7 @@ unsigned char ide_polling(unsigned char channel, unsigned int advanced_check) {
    while (ide_read(channel, ATA_REG_STATUS) & ATA_SR_BSY); // Wait for BSY to be zero.
 
    if (advanced_check) {
-
+	
       unsigned char state = ide_read(channel, ATA_REG_STATUS); // Read Status Register.
 
       // (III) Check For Errors:
@@ -111,7 +112,7 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err) {
 #define DEBUG(x) printf("DBG: %s\n", x);blitconsole(current_console);
 
 
-void ide_initialize(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, unsigned int BAR3, unsigned int BAR4)
+void ide_initialize()
 {
 	int type, base, masterslave, k, err, count = 0;
 	// 1- Detect I/O Ports which interface IDE Controller:
@@ -214,6 +215,8 @@ void ide_initialize(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
 
 		}
 	}
+	register_interrupt_handler(IRQ14, ide_irq);
+	register_interrupt_handler(IRQ15, ide_irq);
 }
 
    /* ATA/ATAPI Read/Write Modes:
@@ -235,7 +238,7 @@ void ide_initialize(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
     *   - Polling Status         (+) // Suitable for Singletasking   
     */
 
-unsigned char ide_ata_access(   unsigned char direction, unsigned char drive, unsigned int lba, unsigned char numsects, unsigned short selector, unsigned int edi)
+unsigned char ide_ata_access(   unsigned char direction, unsigned char drive, unsigned int lba, unsigned char numsects, unsigned int edi)
 {
    unsigned char lba_mode /* 0: CHS, 1:LBA28, 2: LBA48 */, dma /* 0: No DMA, 1: DMA */, cmd;
    unsigned char lba_io[6];
@@ -331,7 +334,6 @@ unsigned char ide_ata_access(   unsigned char direction, unsigned char drive, un
 		 return err; // Polling, then set error and exit if there is.
 
          asm("pushw %es");
-         asm("mov %%ax, %%es"::"a"(selector));
          asm("rep insw"::"c"(words), "d"(bus), "D"(edi)); // Receive Data.
          asm("popw %es");
          edi += (words*2);
@@ -343,7 +345,6 @@ unsigned char ide_ata_access(   unsigned char direction, unsigned char drive, un
 	 {
             ide_polling(channel, 0); // Polling.
             asm("pushw %ds");
-            asm("mov %%ax, %%ds"::"a"(selector));
             asm("rep outsw"::"c"(words), "d"(bus), "S"(edi)); // Send Data
             asm("popw %ds");
             edi += (words*2);
@@ -368,7 +369,7 @@ void ide_irq(registers_t regs)
    ide_irq_invoked = 1;
 }
 
-unsigned char ide_atapi_read(unsigned char drive, unsigned int lba, unsigned char numsects, unsigned short selector, unsigned int edi)
+unsigned char ide_atapi_read(unsigned char drive, unsigned int lba, unsigned char numsects, unsigned int edi)
 {
    unsigned int   channel      = ide_devices[drive].channel;
    unsigned int   slavebit      = ide_devices[drive].drive;
@@ -424,7 +425,6 @@ unsigned char ide_atapi_read(unsigned char drive, unsigned int lba, unsigned cha
       if ((err = ide_polling(channel, 1)))
 	     return err;      // Polling and return if error.
       asm("pushw %es");
-      asm("mov %%ax, %%es"::"a"(selector));
       asm("rep insw"::"c"(words), "d"(bus), "D"(edi));// Receive Data.
       asm("popw %es");
       edi += (words*2);
@@ -437,10 +437,11 @@ unsigned char ide_atapi_read(unsigned char drive, unsigned int lba, unsigned cha
    // ------------------------------------------------------------------
    while (ide_read(channel, ATA_REG_STATUS) & (ATA_SR_BSY | ATA_SR_DRQ));
 
+
    return 0; // Easy, ... Isn't it?
 }
 
-void ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned short es, unsigned int edi)
+void ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi)
 {
    int i;
    // 1: Check if the drive presents:
@@ -457,15 +458,21 @@ void ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int 
    else {
       unsigned char err;
       if (ide_devices[drive].type == IDE_ATA)
-         err = ide_ata_access(ATA_READ, drive, lba, numsects, es, edi);
+      {
+         err = ide_ata_access(ATA_READ, drive, lba, numsects, edi);
+      }
       else if (ide_devices[drive].type == IDE_ATAPI)
+      {
          for (i = 0; i < numsects; i++)
-            err = ide_atapi_read(drive, lba + i, 1, es, edi + (i*2048));
-      printf("IDE error: %d", ide_print_error(drive, err));
+	 {
+            err = ide_atapi_read(drive, lba + i, 1, edi + (i*2048));
+	 }
+      }
+      ide_print_error(drive, err);
    }
 }
 
-void ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned short es, unsigned int edi)
+void ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi)
 {
    // 1: Check if the drive presents:
    // ==================================
@@ -479,10 +486,10 @@ void ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int
    else {
       unsigned char err;
       if (ide_devices[drive].type == IDE_ATA)
-         err = ide_ata_access(ATA_WRITE, drive, lba, numsects, es, edi);
+         err = ide_ata_access(ATA_WRITE, drive, lba, numsects, edi);
       else if (ide_devices[drive].type == IDE_ATAPI)
          err = 4; // Write-Protected.
-      printf("IDE error: %d", ide_print_error(drive, err));
+      ide_print_error(drive, err);
    }
 }
 
@@ -549,7 +556,7 @@ void ide_atapi_eject(unsigned char drive)
          err = ide_polling(channel, 1);            // Polling and get error code.
          if (err == 3) err = 0; // DRQ is not needed here.
       }
-      printf("IDE error: %d", ide_print_error(drive, err)); // Return;
+      ide_print_error(drive, err); // Return;
 
    }
 }
