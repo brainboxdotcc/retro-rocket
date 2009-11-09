@@ -15,6 +15,9 @@ static inline unsigned char inb(int port)
 	return value;
 }
 
+#define insl(port, buffer, count) \
+	         asm volatile("cld; rep; insl" :: "D" (buffer), "d" (port), "c" (count))
+
 static inline void interrupts_on()
 {
 	asm volatile("sti");

@@ -7,6 +7,12 @@
 u32int ticks = 0;
 //extern console* current_console;
 
+void sleep_one_tick()
+{
+	u32int oldticks = ticks;
+	while (oldticks != ticks);
+}
+
 static void timer_callback(registers_t regs)
 {
 	ticks++;

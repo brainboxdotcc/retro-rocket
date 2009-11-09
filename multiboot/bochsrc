@@ -281,6 +281,7 @@ ata3: enabled=0, ioaddr1=0x168, ioaddr2=0x360, irq=9
 #   ata2-master: type=disk, mode=flat, path=62M.sample, cylinders=940, heads=8, spt=17
 #   ata2-slave:  type=disk, mode=flat, path=112M.sample, cylinders=900, heads=15, spt=17
 #   ata3-master: type=disk, mode=flat, path=483M.sample, cylinders=1024, heads=15, spt=63
+#ata0-master: type=disk, mode=flat, path=harddisk.img
 ata0-slave:  type=cdrom, path=sixty-four.iso, status=inserted
 #=======================================================================
 #ata0-master: type=disk, mode=flat, path="30M.sample"

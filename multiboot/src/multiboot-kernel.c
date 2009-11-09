@@ -8,6 +8,7 @@
 #include "../include/timer.h"
 #include "../include/paging.h"
 #include "../include/kmalloc.h"
+#include "../include/ata.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -51,6 +52,8 @@ void kmain(void* mbd, unsigned int magic)
 		//char * boot_loader_name =(char*) ((long*)mbd)[16];
 
 		printf("Sixty-Four kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
+
+		ide_initialize(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
 
 		asm volatile("int $50");
 		wait_forever();
