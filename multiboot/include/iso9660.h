@@ -47,9 +47,10 @@ typedef struct
 	u32int data_length_msb;
 	DIRECTORY_date recording_date;
 	unsigned char file_flags;
-	unsigned char interleave_unit_size;
-	unsigned short int sequence_number_lsb;
-	unsigned short int sequence_number_msb;
+	unsigned short interleave_unit_size;
+	unsigned short sequence_number_lsb;
+	unsigned short sequence_number_msb;
+	//char sequence[6];
 	unsigned char filename_length;
 	char filename[12];
 } __attribute__((packed)) ISO9660_directory;

@@ -5,6 +5,7 @@
 #include "../include/ata.h"
 #include "../include/string.h"
 #include "../include/kmalloc.h"
+#include "../include/filesystem.h"
 
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
@@ -44,7 +45,25 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 
 	pvd->root_directory.filename[pvd->root_directory.filename_length] = 0;
 
+
 	return ParseDirectory(info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
+}
+
+void DumpHex(unsigned char* address, u32int length)
+{
+	int index = 0;
+	for(; index < length; index += 16)
+	{
+		printf("%04x: ", index);
+		int hex = 0;
+		for (; hex < 16; ++hex)
+			printf("%02x ", address[index + hex]);
+		putstring(current_console, " | ");
+		for (hex = 0; hex < 16; ++hex)
+			put(current_console, (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+
+		put(current_console, '\n');
+	}
 }
 
 int ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes)
@@ -60,8 +79,30 @@ int ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes)
 		return 0;
 	}
 
-	for(j = 0; j < lengthbytes; ++j)
-		put(current_console, dirbuffer[j]);
+	//DumpHex(dirbuffer, 0x150);
+
+	// Iterate each of the entries in this directory, enumerating files
+	unsigned char* walkbuffer = dirbuffer;
+	int entrycount = 0;
+	while (walkbuffer < dirbuffer + lengthbytes)
+	{
+		entrycount++;
+		ISO9660_directory* fentry = (ISO9660_directory*)walkbuffer;
+
+		if (fentry->length == 0)
+			break;
+
+		// Skip the first two entries, '.' and '..'
+		if (entrycount > 2)
+		{
+			fentry->filename[fentry->filename_length] = 0;
+			printf("File size: %d lba %x\n", fentry->data_length_lsb, fentry->extent_lba_lsb);
+			printf("%d/%02d/%02d %02d:%02d:%02d ", fentry->recording_date.years_since_1900 + 1900, fentry->recording_date.month, fentry->recording_date.day, fentry->recording_date.hour, fentry->recording_date.minute, fentry->recording_date.second);
+			printf("file_flags: %d ", fentry->file_flags);
+			printf("filename: '%s'\n", fentry->filename);
+		}
+		walkbuffer += fentry->length;
+	}
 
 	kfree(dirbuffer);
 
