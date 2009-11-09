@@ -163,7 +163,7 @@ u32int init_paging(void* mbd)
     // Initialise the kernel heap.
     kheap = create_heap(KHEAP_START, KHEAP_START+KHEAP_INITIAL_SIZE, 0xCFFFF000, 0, 0); 
 
-    return mem_end_page - ((long*)mbd)[1];
+    return mem_end_page - ((long*)mbd)[1] + 1024;
 }
 
 void switch_page_directory(page_directory_t *dir)
