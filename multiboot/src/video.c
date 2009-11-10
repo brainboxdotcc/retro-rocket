@@ -1,5 +1,6 @@
 #include "../include/io.h"
 #include "../include/video.h"
+#include "../include/memcpy.h"
 
 /* Internal use: graphics buffer address in flat memory model */
 static unsigned char* video = (unsigned char*) VIDEO_MEMORY;
@@ -110,11 +111,7 @@ void blitconsole(console* c)
 {
 	c->dirty = 0;
 
-	/* TODO: Optimised memcpy here */
-	unsigned char* vptr = (unsigned char*)video;
-	unsigned int n = 0;
-	for(; vptr < (unsigned char*) VIDEO_MEMORY_END;)
-		*vptr++ = c->video[n++];
+	memcpy(video, c->video, VIDEO_MEMORY_SIZE);
 
 	/* For writing to video memory we have to multiply offsets by 2
 	 * to account for text attributes for each cell, but when setting

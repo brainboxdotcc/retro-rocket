@@ -32,6 +32,7 @@
 /* Address in flat memory of video ram */
 #define VIDEO_MEMORY 0xB8000
 #define VIDEO_MEMORY_END 0xB9000
+#define VIDEO_MEMORY_SIZE 0x1000
 
 /* Structure to represent a console screen.
  * Low level output functions such as put() operate
