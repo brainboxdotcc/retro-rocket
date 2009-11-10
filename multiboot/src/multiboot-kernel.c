@@ -63,22 +63,8 @@ void kmain(void* mbd, unsigned int magic)
 		for(n = iso->root; n->next; n = n->next)
 			printf("\t%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
 
-		putstring(current_console, "Now changing dir to 'boot'...\n");
-
-		printf("iso_change_directory(): %s\n", iso_change_directory(iso, "boot") ? "success" : "failure");
-
-		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
-		printf("VFS dir of %d files:\n", directory_entries);
-		for(n = iso->root; n->next; n = n->next)
-			printf("\t%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
-
+		printf("iso_change_directory() to 'boot': %s\n", iso_change_directory(iso, "boot") ? "success" : "failure");
 		printf("iso_change_directory() to 'grub': %s\n", iso_change_directory(iso, "grub") ? "success" : "failure");
-
-		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
-		printf("VFS dir of %d files:\n", directory_entries);
-		for(n = iso->root; n->next; n = n->next)
-			printf("\t%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
-
 		char* filebuf = (char*)kmalloc(10240);
 
 		printf("iso_read_file(): %s\n", iso_read_file(iso, "menu.lst", 0, 104, filebuf) ? "success" : "failure");
