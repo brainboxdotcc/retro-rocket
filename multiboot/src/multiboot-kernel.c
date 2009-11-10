@@ -74,6 +74,8 @@ void kmain(void* mbd, unsigned int magic)
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
 		kfree(iso);
 
+		printf("Done with FS tests\n");
+
 		wait_forever();
 	}
 }

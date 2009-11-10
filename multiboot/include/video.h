@@ -4,6 +4,22 @@
 /* Default background/foreground colour for text output (white on black) */
 #define DEFAULT_COLOUR 0x07
 
+#define COLOUR_DARKBLUE 1
+#define COLOUR_DARKGREEN 2
+#define COLOUR_DARKCYAN 3
+#define COLOUR_DARKRED 4
+#define COLOUR_DARKMAGENTA 5
+#define COLOUR_ORANGE 6
+#define COLOUR_WHITE 7
+#define COLOUR_GREY 8
+#define COLOUR_LIGHTBLUE 9
+#define COLOUR_LIGHTGREEN 10
+#define COLOUR_LIGHTCYAN 11
+#define COLOUR_LIGHTRED 12
+#define COLOUR_LIGHTMAGENTA 13
+#define COLOUR_LIGHTYELLOW 14
+#define COLOUR_LIGHTWHITE 15
+
 /* Screen width and height of default display mode */
 #define SCREEN_WIDTH 80
 #define SCREEN_HEIGHT 24
