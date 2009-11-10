@@ -42,7 +42,7 @@ static void clear_frame(u32int frame_addr)
 }
 
 // Static function to test if a bit is set.
-static u32int test_frame(u32int frame_addr)
+static u32int UNUSED test_frame(u32int frame_addr)
 {
 	u32int frame = frame_addr/0x1000;
 	u32int idx = INDEX_FROM_BIT(frame);
