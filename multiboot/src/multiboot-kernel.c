@@ -59,7 +59,7 @@ void kmain(void* mbd, unsigned int magic)
 
 		FS_DirectoryEntry* n;
 		printf("VFS dir of %d files:\n", directory_entries);
-		for(n = iso->root; n->next; n = (FS_DirectoryEntry*) n->next)
+		for(n = iso->root; n->next; n = n->next)
 			printf("    %s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
 
 		putstring(current_console, "Now changing dir to 'boot'...\n");
@@ -68,7 +68,7 @@ void kmain(void* mbd, unsigned int magic)
 
 		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
 		printf("VFS dir of %d files:\n", directory_entries);
-		for(n = iso->root; n->next; n = (FS_DirectoryEntry*) n->next)
+		for(n = iso->root; n->next; n = n->next)
 			printf("    %s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
 
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
