@@ -57,6 +57,11 @@ void scroll_screen(console* c)
  */
 void setcursor(console* c)
 {
+	if (c->x > SCREEN_WIDTH - 1)
+	{
+		c->x = 0;
+		c->y++;
+	}
 	if (c->y > SCREEN_HEIGHT)
 	{
 		scroll_screen(c);
@@ -81,6 +86,12 @@ void put(console* c, const char n)
 			setcursor(c);
 			return;
 		break;
+		case '\t':
+			if (c->x % TAB_WIDTH != 0 || c->x == 0)
+				c->x += TAB_WIDTH - (c->x % TAB_WIDTH);
+			setcursor(c);
+			return;
+		break;
 	}
 
 	unsigned int pos = (c->x * 2) + (c->y * SCREEN_WIDTH_BYTES);
@@ -89,11 +100,6 @@ void put(console* c, const char n)
 	c->video[pos + 1] = c->attributes;
 
 	c->x++;
-	if (c->x > SCREEN_WIDTH - 1)
-	{
-		c->x = 0;
-		c->y++;
-	}
 	setcursor(c);
 }
 

@@ -1,9 +1,8 @@
 #ifndef __VIDEO_H__
 #define __VIDEO_H__
 
-/* Default background/foreground colour for text output (white on black) */
-#define DEFAULT_COLOUR 0x07
-
+/* Colour names */
+#define COLOUR_BLACK 0
 #define COLOUR_DARKBLUE 1
 #define COLOUR_DARKGREEN 2
 #define COLOUR_DARKCYAN 3
@@ -19,6 +18,12 @@
 #define COLOUR_LIGHTMAGENTA 13
 #define COLOUR_LIGHTYELLOW 14
 #define COLOUR_LIGHTWHITE 15
+
+/* Default background/foreground colour for text output (white on black) */
+#define DEFAULT_COLOUR COLOUR_WHITE
+
+/* Tab width for \t character in output */
+#define TAB_WIDTH 6
 
 /* Screen width and height of default display mode */
 #define SCREEN_WIDTH 80
