@@ -206,7 +206,7 @@ void *memcpy(void *dest, const void *src, u32int count)
 		START_VAL(src8);
 
 		while (count--)
-	{
+		{
 			INC_VAL(dst8) = INC_VAL(src8);
 		}
 
@@ -228,14 +228,16 @@ void *memcpy(void *dest, const void *src, u32int count)
 			u32int *src32 = (u32int *)(((u32int)src8) PRE_LOOP_ADJUST);
 			u32int length = count / 4;
 
-			while (length & 7) {
+			while (length & 7)
+			{
 				CP32_INCR();
 				length--;
 			}
 
 			length /= 8;
 
-			while (length--) {
+			while (length--)
+			{
 				CP32(0);
 				CP32(1);
 				CP32(2);
@@ -252,12 +254,14 @@ void *memcpy(void *dest, const void *src, u32int count)
 			src8 = CAST_32_TO_8(src32, 0);
 			dst8 = CAST_32_TO_8(dst32, 0);
 
-			if (count & 2) {
+			if (count & 2)
+			{
 				*dst8++ = *src8++;
 				*dst8++ = *src8++;
 			}
 
-			if (count & 1) {
+			if (count & 1)
+			{
 				*dst8 = *src8;
 			}
 
@@ -272,14 +276,16 @@ void *memcpy(void *dest, const void *src, u32int count)
 			u32int srcWord = INC_VAL(src32);
 			u32int dstWord;
 
-			while (length & 7) {
+			while (length & 7)
+			{
 				CP32_INCR_SH(8, 24);
 				length--;
 			}
 
 			length /= 8;
 
-			while (length--) {
+			while (length--)
+			{
 				CP32_SH(0, 8, 24);
 				CP32_SH(1, 8, 24);
 				CP32_SH(2, 8, 24);
@@ -296,12 +302,14 @@ void *memcpy(void *dest, const void *src, u32int count)
 			src8 = CAST_32_TO_8(src32, -3);
 			dst8 = CAST_32_TO_8(dst32, 0);
 
-			if (count & 2) {
+			if (count & 2)
+			{
 				*dst8++ = *src8++;
 				*dst8++ = *src8++;
 			}
 
-			if (count & 1) {
+			if (count & 1)
+			{
 				*dst8 = *src8;
 			}
 
@@ -316,14 +324,16 @@ void *memcpy(void *dest, const void *src, u32int count)
 			u32int srcWord = INC_VAL(src32);
 			u32int dstWord;
 
-			while (length & 7) {
+			while (length & 7)
+			{
 				CP32_INCR_SH(16, 16);
 				length--;
 			}
 
 			length /= 8;
 
-			while (length--) {
+			while (length--)
+			{
 				CP32_SH(0, 16, 16);
 				CP32_SH(1, 16, 16);
 				CP32_SH(2, 16, 16);
@@ -340,12 +350,14 @@ void *memcpy(void *dest, const void *src, u32int count)
 			src8 = CAST_32_TO_8(src32, -2);
 			dst8 = CAST_32_TO_8(dst32, 0);
 
-			if (count & 2) {
+			if (count & 2)
+			{
 				*dst8++ = *src8++;
 				*dst8++ = *src8++;
 			}
 
-			if (count & 1) {
+			if (count & 1)
+			{
 				*dst8 = *src8;
 			}
 
@@ -360,7 +372,8 @@ void *memcpy(void *dest, const void *src, u32int count)
 			u32int srcWord = INC_VAL(src32);
 			u32int dstWord;
 
-			while (length & 7) {
+			while (length & 7)
+			{
 				CP32_INCR_SH(24, 8);
 				length--;
 			}
