@@ -5,6 +5,7 @@
 #include "../include/kernel.h"
 #include "../include/io.h"
 #include "../include/kmalloc.h"
+#include "../include/memcpy.h"
 
 void keyboard_handler(registers_t regs);
 static int ringbuffer_truncate(ringbuffer * rb, unsigned long ulong);
