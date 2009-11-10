@@ -207,18 +207,30 @@ void page_fault(registers_t regs)
 	u32int faulting_address;
 	asm volatile("mov %%cr2, %0" : "=r" (faulting_address));
 	
+	putstring(current_console, "Page fault! ");
 	// The error code gives us details of what happened.
 	int present   = !(regs.err_code & 0x1); // Page not present
 	int rw = regs.err_code & 0x2;		   // Write operation?
 	int us = regs.err_code & 0x4;		   // Processor was in user-mode?
 	int reserved = regs.err_code & 0x8;	 // Overwritten CPU-reserved bits of page entry?
-	int id = regs.err_code & 0x10;		  // Caused by an instruction fetch?
+	//int id = regs.err_code & 0x10;		  // Caused by an instruction fetch?
 
-	// Output an error message.
-/*	if (present) {monitor_write("present ");}
-	if (rw) {monitor_write("read-only ");}
-	if (us) {monitor_write("user-mode ");}
-	if (reserved) {monitor_write("reserved ");}*/
+	if (present)
+	{
+		putstring(current_console, "present ");
+	}
+	if (rw)
+	{
+		putstring(current_console, "read-only ");
+	}
+	if (us)
+	{
+		putstring(current_console, "user-mode ");
+	}
+	if (reserved)
+	{
+		putstring(current_console, "reserved ");
+	}
+	put(current_console, '\n');
 }
-
 

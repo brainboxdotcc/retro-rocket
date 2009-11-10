@@ -5,7 +5,7 @@
 
 #define FS_DIRECTORY 0x00000001
 
-typedef struct
+typedef struct FS_DirectoryEntryTag
 {
 	char* filename;
 	u16int year;
@@ -18,7 +18,7 @@ typedef struct
 	u32int device;
 	u32int size;
 	u32int flags;
-	struct FS_DirectoryEntry* next;
+	struct FS_DirectoryEntryTag* next;
 
 } FS_DirectoryEntry;
 
