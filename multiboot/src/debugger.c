@@ -1,4 +1,6 @@
 #include "../include/debugger.h"
+#include "../include/printf.h"
+#include "../include/video.h"
 
 void DumpHex(unsigned char* address, u32int length)
 {
