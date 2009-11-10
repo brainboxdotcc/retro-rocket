@@ -21,4 +21,6 @@ all:
 	perl makeiso.pl
 
 run: all
-	-bochs -q -f bochsrc
+	#-bochs -q -f bochsrc
+	qemu -cdrom sixty-four.iso
+
