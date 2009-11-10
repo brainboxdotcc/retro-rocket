@@ -14,7 +14,8 @@ all:
 	gcc -m32 -o ordered_array.o -c src/ordered_array.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	gcc -m32 -o ata.o -c src/ata.c -Wall -nostdlib -nostartfiles -nodefaultlibs
 	gcc -m32 -o iso9660.o -c src/iso9660.c -Wall -nostdlib -nostartfiles -nodefaultlibs
-	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o timer.o kmalloc.o paging.o ordered_array.o ata.o iso9660.o
+	gcc -m32 -o debugger.o -c src/debugger.c -Wall -nostdlib -nostartfiles -nodefaultlibs
+	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o timer.o kmalloc.o paging.o ordered_array.o ata.o iso9660.o debugger.o
 	chmod ugo-x kernel.bin
 	perl makeiso.pl
 	-bochs -q -f bochsrc
