@@ -57,6 +57,7 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (unsigned int)dirbuffer))
 	{
 		printf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
+		kfree(dirbuffer);
 		return NULL;
 	}
 
@@ -78,18 +79,12 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 		// Skip the first two entries, '.' and '..'
 		if (entrycount > 2)
 		{
-			fentry->filename[fentry->filename_length] = 0;
-			/*printf("File size: %d lba %x\n", fentry->data_length_lsb, fentry->extent_lba_lsb);
-			printf("%d/%02d/%02d %02d:%02d:%02d ", fentry->recording_date.years_since_1900 + 1900, fentry->recording_date.month, fentry->recording_date.day, fentry->recording_date.hour, fentry->recording_date.minute, fentry->recording_date.second);
-			printf("file_flags: %d ", fentry->file_flags);
-			printf("filename: '%s'\n", fentry->filename);*/
-			
-			thisentry->filename = (char*)kmalloc(strlen(fentry->filename) + 1);
+			thisentry->filename = (char*)kmalloc(fentry->filename_length + 1);
 			j = 0;
 			char* ptr = fentry->filename;
 			// Stop at end of string or at ; which seperates the version id from the filename.
 			// We don't want the version ids.
-			for (; *ptr && *ptr != ';'; ++ptr)
+			for (; j < fentry->filename_length && *ptr != ';'; ++ptr)
 				thisentry->filename[j++] = tolower(*ptr);
 			thisentry->filename[j] = 0;
 
@@ -115,7 +110,6 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 	}
 
 	kfree(dirbuffer);
-
 	return first;
 }
 

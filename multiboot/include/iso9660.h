@@ -4,9 +4,12 @@
 #include "kernel.h"
 #include "filesystem.h"
 
-// Location of primary volume descriptor
+// LBA location of primary volume descriptor on a CD
 #define PVD_LBA 0x10
 
+/* ISO9660 structure. This maps an ISO9660 filesystem to a linked
+ * list of VFS entries which can be used in the virtual filesystem.
+ */
 typedef struct
 {
 	u32int drivenumber;
@@ -16,6 +19,7 @@ typedef struct
 	FS_DirectoryEntry* root;
 } iso9660;
 
+/* Date structure as defined in the primary volume descriptor */
 typedef struct
 {
 	char year[4];
@@ -28,54 +32,65 @@ typedef struct
 	char tz_offset;
 } __attribute__((packed)) PVD_date;
 
+/* Per-file date entries (they differe from above to save space) */
 typedef struct
 {
-	unsigned char years_since_1900;
-	unsigned char month;
-	unsigned char day;
-	unsigned char hour;
-	unsigned char minute;
-	unsigned char second;
+	u8int years_since_1900;
+	u8int month;
+	u8int day;
+	u8int hour;
+	u8int minute;
+	u8int second;
 	char tz_offset;
 } __attribute__((packed)) DIRECTORY_date;
 
+/* Directory entry (may refer to a file or another directory) */
 typedef struct
 {
-	unsigned char length;
-	unsigned char attribute_length;
+	u8int length;
+	u8int attribute_length;
 	u32int extent_lba_lsb;
 	u32int extent_lba_msb;
 	u32int data_length_lsb;
 	u32int data_length_msb;
 	DIRECTORY_date recording_date;
-	unsigned char file_flags;
-	unsigned short interleave_unit_size;
-	unsigned short sequence_number_lsb;
-	unsigned short sequence_number_msb;
-	//char sequence[6];
-	unsigned char filename_length;
+	u8int file_flags;
+	u16int interleave_unit_size;
+	u16int sequence_number_lsb;
+	u16int sequence_number_msb;
+	u8int filename_length;
+	/* NOTE: Filenames may be longer than 12 characters,
+	 * up to filename_length in size. This does not trample
+	 * any following structs, because where this happens,
+	 * we walk a list of entries by using the length field
+	 * which accounts for long filenames.
+	 */
 	char filename[12];
 } __attribute__((packed)) ISO9660_directory;
 
 // Primary volume descriptor
 typedef struct
 {
-	unsigned char typecode;
+	u8int typecode;
 	char standardidentifier[5];
-	unsigned char version;
-	unsigned char unused;
+	u8int version;
+	u8int unused;
 	char systemidentifier[32];
 	char volumeidentifier[32];
 	char unused2[8];
 	u32int lsb_volumespacesize;
 	u32int msb_volumespacesize;
 	char unused3[32];
-	unsigned short int lsb_volumesetsize;
-	unsigned short int msb_volumesetsize;
-	unsigned short int lsb_volumeseqno;
-	unsigned short int msb_volumeseqno;
-	unsigned short int lsb_blocksize;
-	unsigned short int msb_blocksize;
+	u16int lsb_volumesetsize;
+	u16int msb_volumesetsize;
+	u16int lsb_volumeseqno;
+	u16int msb_volumeseqno;
+	u16int lsb_blocksize;
+	u16int msb_blocksize;
+	/* OK, whoever thought it was a good idea to have
+	 * dual-endianness copies of every value larger than
+	 * one byte in the structure needs a kicking.
+	 */
 	u32int lsb_pathtablesize;
 	u32int msb_pathtablesize;
 	u32int lsb_pathtable_L_lba;
@@ -94,13 +109,20 @@ typedef struct
 	PVD_date volume_modification_date;
 	PVD_date volume_expire_date;
 	PVD_date volume_effective_date;
-	unsigned char file_structure_version;
+	u8int file_structure_version;
 	char unused4;
-	unsigned char application_use[512];
-	unsigned char reserved[653];
+	u8int application_use[512];
+	u8int reserved[653];
 } __attribute__((packed)) PVD;
 
+/* Mount an ISO 9660 filesystem on a given drive number (drive number from enumeration in ata.h)
+ * Returns either NULL or an iso9660* which references the volume information and initially the
+ * root directory of the dis.
+ */
 iso9660* iso_mount_volume(u32int drivenumber);
+
+/* Given an iso9660 structure which references an existing directory, chdir to a new directory within */
 int iso_change_directory(iso9660* info, const char* newdirectory);
 
 #endif
+
