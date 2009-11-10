@@ -5,6 +5,7 @@
 #include "../include/ata.h"
 #include "../include/string.h"
 #include "../include/kmalloc.h"
+#include "../include/memcpy.h"
 #include "../include/filesystem.h"
 
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
@@ -88,6 +89,10 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 				thisentry->filename[j++] = tolower(*ptr);
 			thisentry->filename[j] = 0;
 
+			/* Filenames ending in '.' are not allowed */
+			if (thisentry->filename[j - 1] == '.')
+				thisentry->filename[j - 1] = 0;
+
 			thisentry->year = fentry->recording_date.years_since_1900 + 1900;
 			thisentry->month = fentry->recording_date.month;
 			thisentry->day = fentry->recording_date.day;
@@ -121,14 +126,27 @@ void ParseVPD(iso9660* info, unsigned char* buffer)
 {
 }
 
+FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32int flags)
+{
+	FS_DirectoryEntry* currententry = info->root;
+	for(; currententry->next; currententry = currententry->next)
+	{
+		if ((flags != 0) && !(currententry->flags & flags))
+			continue;
+		if (!strcmp(filename, currententry->filename))
+		{
+			return currententry;
+		}
+	}
+	return NULL;
+}
+
 int iso_change_directory(iso9660* info, const char* newdirectory)
 {
-	FS_DirectoryEntry* currentdir = info->root;
-	for(; currentdir->next; currentdir = currentdir->next)
+	FS_DirectoryEntry* dir = HuntEntry(info, newdirectory, FS_DIRECTORY);
+	if (dir)
 	{
-		if ((currentdir->flags & FS_DIRECTORY) && !strcmp(newdirectory, currentdir->filename))
-		{
-			FS_DirectoryEntry* newdir = ParseDirectory(info, currentdir->lbapos, currentdir->size);
+			FS_DirectoryEntry* newdir = ParseDirectory(info, dir->lbapos, dir->size);
 			if (newdir)
 			{
 				FREE_LINKED_LIST(FS_DirectoryEntry*, info->root);
@@ -136,7 +154,27 @@ int iso_change_directory(iso9660* info, const char* newdirectory)
 				return 1;
 			}
 			return 0;
+	}
+	return 0;
+}
+
+int iso_read_file(iso9660* info, const char* filename, u32int start, u32int length, unsigned char* buffer)
+{
+	FS_DirectoryEntry* file = HuntEntry(info, filename, 0);
+	if (file)
+	{
+		u32int sectors_size = length / 2048 + 1;
+		u32int sectors_start = start / 2048 + file->lbapos;
+		unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
+		if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (unsigned int)readbuf))
+		{
+			printf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
+			kfree(readbuf);
+			return 0;
 		}
+		memcpy(buffer, readbuf + (start % 2048), length);
+		kfree(readbuf);
+		return 1;
 	}
 	return 0;
 }
