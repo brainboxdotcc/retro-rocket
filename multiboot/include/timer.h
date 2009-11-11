@@ -3,6 +3,8 @@
 
 void sleep_one_tick();
 void init_timer(u32int frequency);
+void beep(u32int pitch);
+void stopbeep();
 
 #endif
 

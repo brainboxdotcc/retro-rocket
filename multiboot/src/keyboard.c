@@ -6,6 +6,7 @@
 #include "../include/io.h"
 #include "../include/kmalloc.h"
 #include "../include/memcpy.h"
+#include "../include/timer.h"
 
 static ringbuffer* keyboard_buffer;
 
@@ -59,6 +60,7 @@ unsigned char translate_keycode(unsigned char scancode, u8int escaped, u8int shi
 }
 
 
+
 void keyboard_handler(registers_t regs)
 {
 	unsigned char new_scan_code = inb(0x60);
@@ -100,6 +102,7 @@ void keyboard_handler(registers_t regs)
 				if (rb_appenddata(keyboard_buffer, &x, 1) != 0)
 				{
 					// Error inserting keypress into the buffer, emit a beep
+					beep(1000);
 				}
 				else
 				{

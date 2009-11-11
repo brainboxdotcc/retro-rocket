@@ -5,7 +5,32 @@
 #include "../include/video.h"
 
 u32int ticks = 0;
-//extern console* current_console;
+u32int timer_freq = 0;
+u32int beep_end = 0;
+
+void beep(u32int pitch)
+{
+	u32int Div;
+	u8int tmp;
+	
+	Div = 1193180 / pitch;
+	outb(0x43, 0xb6);
+	outb(0x42, (u8int) (Div) );
+	outb(0x42, (u8int) (Div >> 8));
+
+	tmp = inb(0x61);
+	if (tmp != (tmp | 3))
+		outb(0x61, tmp | 3);
+
+	beep_end = ticks + timer_freq / 2;
+}
+ 
+void stopbeep()
+{
+	u8int tmp = (inb(0x61) & 0xFC);
+	outb(0x61, tmp);
+	beep_end = 0;
+}
 
 void sleep_one_tick()
 {
@@ -18,11 +43,14 @@ static void timer_callback(registers_t regs)
 	ticks++;
 	if (current_console && current_console->dirty)
 		blitconsole(current_console);
-	//printf("Tick: %d\n", ticks);
+	if (beep_end != 0 && ticks > beep_end)
+		stopbeep();
 }
 
 void init_timer(u32int frequency)
 {
+	timer_freq = frequency;
+
 	// Firstly, register our timer callback.
 	register_interrupt_handler(IRQ0, &timer_callback);
 
