@@ -3,6 +3,7 @@
 #include "../include/io.h"
 #include "../include/kernel.h"
 #include "../include/video.h"
+#include "../include/taskswitch.h"
 
 u32int ticks = 0;
 u32int timer_freq = 0;
@@ -47,6 +48,8 @@ static void timer_callback(registers_t regs)
 		blitconsole(current_console);
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();
+
+	switch_task();
 }
 
 void init_timer(u32int frequency)

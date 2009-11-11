@@ -7,10 +7,10 @@
 extern heap_t *kheap;
 
 // The kernel's page directory
-page_directory_t *kernel_directory=0;
+page_directory_t *kernel_directory = 0;
 
 // The current page directory;
-page_directory_t *current_directory=0;
+page_directory_t *current_directory = 0;
 
 // A bitset of frames - used or free.
 u32int *frames;
@@ -22,6 +22,8 @@ extern u32int placement_address;
 // Macros used in the bitset algorithms.
 #define INDEX_FROM_BIT(a) (a/(8*4))
 #define OFFSET_FROM_BIT(a) (a%(8*4))
+
+static page_table_t *clone_table(page_table_t *src, u32int *physAddr);
 
 // Static function to set a bit in the frames bitset
 static void set_frame(u32int frame_addr)
@@ -109,6 +111,69 @@ void free_frame(page_t *page)
 	}
 }
 
+page_directory_t *clone_directory(page_directory_t *src)
+{
+   u32int phys;
+   // Make a new page directory and obtain its physical address.
+   page_directory_t *dir = (page_directory_t*)kmalloc_ap(sizeof(page_directory_t), &phys);
+   // Ensure that it is blank.
+   _memset(dir, 0, sizeof(page_directory_t)); 
+   // Get the offset of tablesPhysical from the start of the page_directory_t structure.
+   u32int offset = (u32int)dir->tablesPhysical - (u32int)dir;
+
+   // Then the physical address of dir->tablesPhysical is:
+   dir->physicalAddr = phys + offset; 
+   int i;
+   for (i = 0; i < 1024; i++)
+   {
+       if (!src->tables[i])
+           continue; 
+
+        if (kernel_directory->tables[i] == src->tables[i])
+        {
+           // It's in the kernel, so just use the same pointer.
+           dir->tables[i] = src->tables[i];
+           dir->tablesPhysical[i] = src->tablesPhysical[i];
+        }
+        else
+        {
+           // Copy the table.
+           u32int phys;
+           dir->tables[i] = clone_table(src->tables[i], &phys);
+           dir->tablesPhysical[i] = phys | 0x07;
+        } 
+   }
+   return dir;
+}
+
+static page_table_t *clone_table(page_table_t *src, u32int *physAddr)
+{
+   // Make a new page table, which is page aligned.
+   page_table_t *table = (page_table_t*)kmalloc_ap(sizeof(page_table_t), physAddr);
+   // Ensure that the new table is blank.
+   _memset(table, 0, sizeof(page_directory_t));
+
+   // For every entry in the table...
+   int i;
+   for (i = 0; i < 1024; i++)
+   {
+       if (src->pages[i].frame)
+       {
+          // Get a new frame.
+          alloc_frame(&table->pages[i], 0, 0);
+          // Clone the flags from source to destination.
+          if (src->pages[i].present) table->pages[i].present = 1;
+          if (src->pages[i].rw)      table->pages[i].rw = 1;
+          if (src->pages[i].user)    table->pages[i].user = 1;
+          if (src->pages[i].accessed)table->pages[i].accessed = 1;
+          if (src->pages[i].dirty)   table->pages[i].dirty = 1;
+          // Physically copy the data across. This function is in process.s.
+          copy_page_physical(src->pages[i].frame*0x1000, table->pages[i].frame*0x1000); 
+       }
+   }
+   return table;
+} 
+
 u32int init_paging(void* mbd)
 {
 	// The size of physical memory. For the moment we 
@@ -122,9 +187,10 @@ u32int init_paging(void* mbd)
 	_memset(frames, 0, INDEX_FROM_BIT(nframes));
 	
 	// Let's make a page directory.
+	u32int phys;
 	kernel_directory = (page_directory_t*)kmalloc_a(sizeof(page_directory_t));
 	_memset(kernel_directory, 0, sizeof(page_directory_t));
-	current_directory = kernel_directory;
+	kernel_directory->physicalAddr = (u32int)kernel_directory->tablesPhysical;
 
 	// Map some pages in the kernel heap area.
 	// Here we call get_page but not alloc_frame. This causes page_table_t's
@@ -133,7 +199,7 @@ u32int init_paging(void* mbd)
 	// placement_address between identity mapping and enabling the heap!
 	int i = 0;
 	for (i = KHEAP_START; i < KHEAP_START+KHEAP_INITIAL_SIZE; i += 0x1000)
-   	get_page(i, 1, kernel_directory); 
+	   	get_page(i, 1, kernel_directory); 
 	
 	// We need to identity map (phys addr = virt addr) from
 	// 0x0 to the end of used memory, so we can access this
@@ -163,13 +229,18 @@ u32int init_paging(void* mbd)
 	// Initialise the kernel heap.
 	kheap = create_heap(KHEAP_START, KHEAP_START+KHEAP_INITIAL_SIZE, 0xCFFFF000, 0, 0); 
 
+	//printf("Here\n");
+	
+	current_directory = clone_directory(kernel_directory);
+	switch_page_directory(current_directory);
+
 	return mem_end_page - ((long*)mbd)[1] + 1024;
 }
 
 void switch_page_directory(page_directory_t *dir)
 {
 	current_directory = dir;
-	asm volatile("mov %0, %%cr3":: "r"(&dir->tablesPhysical));
+	asm volatile("mov %0, %%cr3":: "r"(dir->physicalAddr));
 	u32int cr0;
 	asm volatile("mov %%cr0, %0": "=r"(cr0));
 	cr0 |= 0x80000000; // Enable paging!
@@ -207,7 +278,7 @@ void page_fault(registers_t regs)
 	u32int faulting_address;
 	asm volatile("mov %%cr2, %0" : "=r" (faulting_address));
 	
-	putstring(current_console, "Page fault! ");
+	printf("Page fault at 0x%8x! ", faulting_address);
 	// The error code gives us details of what happened.
 	int present   = !(regs.err_code & 0x1); // Page not present
 	int rw = regs.err_code & 0x2;		   // Write operation?

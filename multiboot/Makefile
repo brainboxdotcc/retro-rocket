@@ -1,6 +1,7 @@
 all:
-	nasm -f elf -o loader.o asm/loader.asm
+	nasm -felf -o loader.o asm/loader.asm
 	gcc -m32 -o assembly.o -c asm/assembly.s -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
+	nasm -felf -o process.o asm/process.asm
 	gcc -m32 -o multiboot-kernel.o -c src/multiboot-kernel.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 	gcc -m32 -o video.o -c src/video.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 	gcc -m32 -o string.o -c src/string.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
@@ -16,7 +17,8 @@ all:
 	gcc -m32 -o iso9660.o -c src/iso9660.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 	gcc -m32 -o debugger.o -c src/debugger.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 	gcc -m32 -o memcpy.o -c src/memcpy.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
-	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o timer.o kmalloc.o paging.o ordered_array.o ata.o iso9660.o debugger.o memcpy.o
+	gcc -m32 -o taskswitch.o -c src/taskswitch.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
+	ld -m elf_i386 -T linker.ld -o kernel.bin loader.o multiboot-kernel.o video.o printf.o string.o interrupts.o assembly.o errorhandler.o keyboard.o timer.o kmalloc.o paging.o ordered_array.o ata.o iso9660.o debugger.o memcpy.o process.o taskswitch.o
 	chmod ugo-x kernel.bin
 	perl makeiso.pl
 

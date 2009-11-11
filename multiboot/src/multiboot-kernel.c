@@ -12,10 +12,12 @@
 #include "../include/iso9660.h"
 #include "../include/filesystem.h"
 #include "../include/debugger.h"
+#include "../include/taskswitch.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
 console* current_console = NULL;
+u32int initial_esp = NULL;
 
 void _memset(void *dest, char val, int len)
 {
@@ -23,9 +25,10 @@ void _memset(void *dest, char val, int len)
 	for ( ; len != 0; len--) *temp++ = val;
 }
 
-void kmain(void* mbd, unsigned int magic)
+void kmain(void* mbd, unsigned int magic, u32int sp)
 {
 	u32int memorysize = 0;
+	initial_esp = sp;
 	if (magic == MULTIBOOT_MAGIC)
 	{
 		init_gdt();
@@ -35,6 +38,8 @@ void kmain(void* mbd, unsigned int magic)
 		memorysize = init_paging(mbd);
 		init_timer(50);
 		interrupts_on();
+
+		initialise_tasking();
 	}
 
 	console* cons = (console*)kmalloc(sizeof(console));
@@ -76,6 +81,8 @@ void kmain(void* mbd, unsigned int magic)
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
 		kfree(iso);
 
+		int ret = fork();
+		printf("Fork: %d\n", ret);
 		printf("Tabs\tOne\tTwo\tThree\n");
 		printf("Tabst\tOne\tThree\tFour\n");
 

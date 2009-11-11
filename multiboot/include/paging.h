@@ -66,4 +66,6 @@ void alloc_frame(page_t *page, int is_kernel, int is_writeable);
 
 void free_frame(page_t *page);
 
+page_directory_t *clone_directory(page_directory_t *src);
+
 #endif
