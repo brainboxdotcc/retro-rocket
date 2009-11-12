@@ -11,12 +11,8 @@ isr_t interrupt_handlers[256];
 
 /* Handlers */
 
-void register_interrupt_handler(int n, isr_t handler)
+void register_interrupt_handler(u8int n, isr_t handler)
 {
-	if (n < 0 || n > 255)
-	{
-		printf("*** BUG *** Attempt to claim out-of-range interrupt %d\n", n);
-	}
 	if (interrupt_handlers[n] != 0)
 	{
 		printf("*** BUG *** INT %d claimed twice!\n", n);
@@ -53,9 +49,9 @@ void idt_set_gate(int num, void *base, short sel, char flags)
 {
 	idt_entries[num].base_lo = (int)base & 0xFFFF;
 	idt_entries[num].base_hi = ((int)base >> 16) & 0xFFFF;
-	idt_entries[num].sel	 = sel;
+	idt_entries[num].sel = sel;
 	idt_entries[num].always0 = 0;
-	idt_entries[num].flags   = flags /* | 0x60 */;
+	idt_entries[num].flags = flags /* | 0x60 */;
 } 
 
 void init_idt()

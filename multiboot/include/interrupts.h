@@ -1,6 +1,8 @@
 #ifndef __INTERRUPTS_H__
 #define __INTERRUPTS_H__
 
+#include "kernel.h"
+
 // Defined in assembly.s
 extern void isr0 ();
 extern void isr1 ();
@@ -78,8 +80,8 @@ struct idt_entry_struct
 {
    short base_lo;
    short sel;
-   char  always0; 
-   char  flags;
+   char always0; 
+   char flags;
    short base_hi;
 } __attribute__((packed));
 typedef struct idt_entry_struct idt_entry_t;
@@ -97,10 +99,10 @@ struct gdt_entry_struct
 {
 	short limit_low;	   
 	short base_low;	   
-	char  base_middle;  
-	char  access;	  
-	char  granularity;
-	char  base_high;
+	char base_middle;  
+	char access;	  
+	char granularity;
+	char base_high;
 } __attribute__((packed));
 typedef struct gdt_ptr_struct gdt_ptr_t;
 
@@ -136,7 +138,7 @@ void init_idt();
 void init_gdt();
 
 // Register a new interrupt handler
-void register_interrupt_handler(int n, isr_t handler);
+void register_interrupt_handler(u8int n, isr_t handler);
 
 #endif
 
