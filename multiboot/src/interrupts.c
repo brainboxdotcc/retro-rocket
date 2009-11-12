@@ -1,19 +1,22 @@
-#include "../include/video.h"
 #include "../include/kernel.h"
 #include "../include/interrupts.h"
 #include "../include/printf.h"
 #include "../include/io.h"
 
 gdt_entry_t gdt_entries[5];
-gdt_ptr_t   gdt_ptr;
+gdt_ptr_t gdt_ptr;
 idt_entry_t idt_entries[256];
-idt_ptr_t   idt_ptr; 
+idt_ptr_t idt_ptr; 
 isr_t interrupt_handlers[256];
 
 /* Handlers */
 
 void register_interrupt_handler(int n, isr_t handler)
 {
+	if (n < 0 || n > 255)
+	{
+		printf("*** BUG *** Attempt to claim out-of-range interrupt %d\n", n);
+	}
 	if (interrupt_handlers[n] != 0)
 	{
 		printf("*** BUG *** INT %d claimed twice!\n", n);
@@ -25,7 +28,6 @@ void register_interrupt_handler(int n, isr_t handler)
 /* Default ISR handler */
 void isr_handler(registers_t regs)
 {
-	//printf("INT=%d ERRORCODE=%d\n", regs.int_no, regs.err_code);
 	if (interrupt_handlers[regs.int_no] != 0)
 	{
 		isr_t handler = interrupt_handlers[regs.int_no];
@@ -36,14 +38,11 @@ void isr_handler(registers_t regs)
 /* Default IRQ handler */
 void irq_handler(registers_t regs)
 {
-	if (regs.int_no >= 40) outb(0xA0, 0x20); // EOI
+	if (regs.int_no >= 40)
+		outb(0xA0, 0x20);
 	outb(0x20, 0x20);
 
-	if (interrupt_handlers[regs.int_no] != 0)
-	{
-		isr_t handler = interrupt_handlers[regs.int_no];
-		handler(regs);
-	}
+	isr_handler(regs);
 } 
 
 //#####################################################
@@ -73,8 +72,8 @@ void init_idt()
 	outb(0x21, 0x0);
 	outb(0xA1, 0x0);
 
-	idt_ptr.limit = sizeof(idt_entry_t) * 256 -1;
-	idt_ptr.base  = &idt_entries;
+	idt_ptr.limit = sizeof(idt_entry_t) * 256 - 1;
+	idt_ptr.base = &idt_entries;
 	_memset(&idt_entries, 0, sizeof(idt_entry_t) * 256);
 	idt_set_gate( 0, isr0 , 0x08, 0x8E);
 	idt_set_gate( 1, isr1 , 0x08, 0x8E);
@@ -135,13 +134,13 @@ void init_idt()
 
 static void gdt_set_gate(int num, int base, int limit, char access, char gran)
 {
-	gdt_entries[num].base_low	= (base & 0xFFFF);
+	gdt_entries[num].base_low = (base & 0xFFFF);
 	gdt_entries[num].base_middle = (base >> 16) & 0xFF;
-	gdt_entries[num].base_high   = (base >> 24) & 0xFF;
-	gdt_entries[num].limit_low   = (limit & 0xFFFF);
+	gdt_entries[num].base_high = (base >> 24) & 0xFF;
+	gdt_entries[num].limit_low = (limit & 0xFFFF);
 	gdt_entries[num].granularity = (limit >> 16) & 0x0F;   
 	gdt_entries[num].granularity |= gran & 0xF0;
-	gdt_entries[num].access	  = access;
+	gdt_entries[num].access	= access;
 }
 
 void init_gdt()
@@ -155,3 +154,4 @@ void init_gdt()
 	gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User mode data segment
 	gdt_flush(&gdt_ptr);
 }
+
