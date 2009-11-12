@@ -73,9 +73,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 		printf("iso_read_file(): %s\n", iso_read_file(iso, "menu.lst", 0, 104, filebuf) ? "success" : "failure");
 
-u32int *ptr = (u32int*)0xA0000000;
-u32int do_page_fault = *ptr;
-
 		DumpHex(filebuf, 101);
 
 		kfree(filebuf);
