@@ -54,9 +54,10 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 	{
 		printf("Sixty-Four kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
-		ide_initialize();
+		ide_initialise();
+		init_debug();
 
-		putstring(current_console, "VFS/ISO9660 tests, mounting filesystem on drive 0\n");
+		/*putstring(current_console, "VFS/ISO9660 tests, mounting filesystem on drive 0\n");
 		iso9660* iso = iso_mount_volume(0);
 
 		u32int directory_entries;
@@ -78,7 +79,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		kfree(filebuf);
 
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
-		kfree(iso);
+		kfree(iso);*/
 
 		int ret = fork();
 		printf("Fork: %d\n", ret);

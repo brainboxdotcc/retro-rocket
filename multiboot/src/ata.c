@@ -147,7 +147,7 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err) {
 	return err;
 }
 
-void ide_initialize()
+void ide_initialise()
 {
 	int type, base, masterslave, k, err, count = 0;
 	// 1- Define I/O Ports which interface IDE Controller

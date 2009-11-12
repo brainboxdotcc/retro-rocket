@@ -106,7 +106,7 @@ typedef struct {
 
 unsigned char ide_read(unsigned char channel, unsigned char reg);
 void ide_write(unsigned char channel, unsigned char reg, unsigned char data);
-void ide_initialize();
+void ide_initialise();
 void ide_irq(registers_t regs);
 int ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi);
 int ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi);
