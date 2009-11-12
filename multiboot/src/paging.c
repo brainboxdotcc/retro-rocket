@@ -4,6 +4,7 @@
 #include "../include/kmalloc.h"
 #include "../include/printf.h"
 #include "../include/io.h"
+#include "../include/debugger.h"
 
 extern heap_t *kheap;
 
