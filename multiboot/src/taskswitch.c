@@ -160,9 +160,6 @@ void switch_task()
 
 int fork()
 {
-u32int *ptr = (u32int*)0xA0000000;
-                      u32int do_page_fault = *ptr;
-
 	// We are modifying kernel structures, and so cannot
 	asm volatile("cli");
 
