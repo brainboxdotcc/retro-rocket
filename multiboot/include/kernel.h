@@ -27,7 +27,7 @@
              ` Z,--   /               \\ \n\
                \\__.  (   /       ______) \n\
                  \\   l  /-----~~\" / \n\
-                  Y   \\          / \n\
+                  Y   \\          /\n\
                   |    \"x______.^ \n\
                   |           \\ \n\
 \n"); setforeground(current_console, COLOUR_LIGHTWHITE);\
