@@ -283,6 +283,7 @@ void page_fault(registers_t regs)
 	u32int faulting_address;
 	asm volatile("mov %%cr2, %0" : "=r" (faulting_address));
 	
+	PANIC_BANNER;
 	printf("Page fault accessing address 0x%x, EIP=0x%x: ", faulting_address, regs.eip);
 	// The error code gives us details of what happened.
 	int present   = !(regs.err_code & 0x1); // Page not present
@@ -307,8 +308,7 @@ void page_fault(registers_t regs)
 	{
 		putstring(current_console, "reserved ");
 	}
-	printf(" id=%d\n", id);
-	printf("This is a fatal system error. The system has been halted.\n");
+	printf("id=%d", id);
 	blitconsole(current_console);
 	asm volatile("cli");
 	wait_forever();

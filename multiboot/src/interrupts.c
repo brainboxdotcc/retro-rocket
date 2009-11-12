@@ -25,7 +25,7 @@ void register_interrupt_handler(int n, isr_t handler)
 /* Default ISR handler */
 void isr_handler(registers_t regs)
 {
-	printf("INT=%d ERRORCODE=%d\n", regs.int_no, regs.err_code);
+	//printf("INT=%d ERRORCODE=%d\n", regs.int_no, regs.err_code);
 	if (interrupt_handlers[regs.int_no] != 0)
 	{
 		isr_t handler = interrupt_handlers[regs.int_no];
