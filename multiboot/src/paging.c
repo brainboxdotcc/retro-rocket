@@ -25,6 +25,8 @@ extern u32int placement_address;
 
 static page_table_t *clone_table(page_table_t *src, u32int *physAddr);
 
+extern void copy_page_physical(u32int src, u32int dest);
+
 // Static function to set a bit in the frames bitset
 static void set_frame(u32int frame_addr)
 {
