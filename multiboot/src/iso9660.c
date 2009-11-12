@@ -210,6 +210,7 @@ iso9660* iso_mount_volume(u32int drivenumber)
 			if (!ParsePVD(info, buffer))
 			{
 				kfree(info);
+				kfree(buffer);
 				return NULL;
 			}
 		}
@@ -230,5 +231,7 @@ iso9660* iso_mount_volume(u32int drivenumber)
 		}
 	}
 
+	kfree(buffer);
 	return info;
 }
+
