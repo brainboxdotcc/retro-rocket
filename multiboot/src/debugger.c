@@ -6,6 +6,7 @@
 #include "../include/string.h"
 #include "../include/kmalloc.h"
 #include "../include/memcpy.h"
+#include "../include/interrupts.h"
 
 typedef struct symbol
 {
@@ -14,6 +15,13 @@ typedef struct symbol
 	u8int type;
 	struct symbol* next;
 } symbol_t;
+
+typedef struct stack_frame {
+	struct stack_frame *next;
+	void *addr;
+} stack_frame_t;
+
+static symbol_t* symbol_table = NULL;
 
 void DumpHex(unsigned char* address, u32int length)
 {
@@ -71,6 +79,7 @@ void init_debug()
 		if (!iso_read_file(iso, "kernel.sym", 0, filesize, filecontent))
 		{
 			symbol_fail();
+			kfree(filecontent);
 			kfree(iso->root);
 			kfree(iso);
 			return;
@@ -86,7 +95,7 @@ void init_debug()
 		u32int offset = 0;
 		u32int symcount = 0;
 		u32int sizebytes = 0;
-		symbol_t* symbol_table = (symbol_t*)kmalloc(sizeof(symbol_t));
+		symbol_table = (symbol_t*)kmalloc(sizeof(symbol_t));
 		symbol_t* thisentry = symbol_table;
 
 		while (offset < filesize)
@@ -139,5 +148,49 @@ void init_debug()
 		kfree(filecontent);
 		printf("Read %d symbols from /kernel.sym (%d bytes)\n", symcount, sizebytes);
 	}
+}
+
+const char* findsymbol(u32int address, u32int* offset)
+{
+	symbol_t* walksyms = symbol_table;
+	u32int lastsymaddr = symbol_table->address;
+	symbol_t* lastsym = symbol_table;
+	for (; walksyms->next; walksyms = walksyms->next)
+	{
+		if (address >= lastsymaddr && address <= walksyms->address)
+		{
+			*offset = address - lastsymaddr;
+			return lastsym->name;
+		}
+		lastsym = walksyms;
+		lastsymaddr = walksyms->address;
+	}
+	return NULL;
+}
+
+void backtrace(registers_t regs)
+{
+	stack_frame_t *frame;
+	frame = (stack_frame_t *)regs.ebp;
+	u32int page = (u32int) frame & 0xFFFFF000;
+	u32int offset = 0;
+	const char* name = NULL;
+
+	if (!symbol_table)
+	{
+		printf("No symbols available for backtrace\n");
+		return;
+	}
+
+	setforeground(current_console, COLOUR_LIGHTGREEN);
+	name = findsymbol((u32int)regs.eip, &offset);
+	printf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, regs.eip);
+	while(frame && ((u32int) frame & 0xFFFFF000) == page)
+	{
+		name = findsymbol((u32int)frame->addr, &offset);
+		printf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, frame->addr);
+		frame = frame->next;
+	}
+	setforeground(current_console, COLOUR_WHITE);
 }
 

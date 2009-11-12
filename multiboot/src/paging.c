@@ -308,7 +308,8 @@ void page_fault(registers_t regs)
 	{
 		putstring(current_console, "reserved ");
 	}
-	printf("id=%d", id);
+	printf("id=%d\n", id);
+	backtrace(regs);
 	blitconsole(current_console);
 	asm volatile("cli");
 	wait_forever();

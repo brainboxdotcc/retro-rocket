@@ -2,6 +2,7 @@
 #define __DEBUGGER_H__
 
 #include "kernel.h"
+#include "interrupts.h"
 
 #define SYM_ABSOLUTE 'A'
 #define SYM_BSS 'B'
@@ -26,5 +27,7 @@ void DumpHex(unsigned char* address, u32int length);
 
 // Initialise debugger, read symbols from boot device. These are used for backtraces.
 void init_debug();
+
+void backtrace(registers_t regs);
 
 #endif
