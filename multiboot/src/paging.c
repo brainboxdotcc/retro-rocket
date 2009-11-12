@@ -89,6 +89,8 @@ void alloc_frame(page_t *page, int is_kernel, int is_writeable)
 		if (idx == (u32int)-1)
 		{
 			// PANIC! no free frames!!
+			printf("*** BUG *** No more frames!\n");
+			for(;;);
 		}
 		set_frame(idx*0x1000);
 		page->present = 1;
@@ -189,7 +191,7 @@ u32int init_paging(void* mbd)
 	_memset(frames, 0, INDEX_FROM_BIT(nframes));
 	
 	// Let's make a page directory.
-	u32int phys;
+	//u32int phys;
 	kernel_directory = (page_directory_t*)kmalloc_a(sizeof(page_directory_t));
 	_memset(kernel_directory, 0, sizeof(page_directory_t));
 	kernel_directory->physicalAddr = (u32int)kernel_directory->tablesPhysical;
