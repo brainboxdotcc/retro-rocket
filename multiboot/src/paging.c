@@ -3,6 +3,7 @@
 #include "../include/paging.h"
 #include "../include/kmalloc.h"
 #include "../include/printf.h"
+#include "../include/io.h"
 
 extern heap_t *kheap;
 
@@ -282,13 +283,13 @@ void page_fault(registers_t regs)
 	u32int faulting_address;
 	asm volatile("mov %%cr2, %0" : "=r" (faulting_address));
 	
-	printf("Page fault at 0x%8x! ", faulting_address);
+	printf("Page fault accessing address 0x%x, EIP=0x%x: ", faulting_address, regs.eip);
 	// The error code gives us details of what happened.
 	int present   = !(regs.err_code & 0x1); // Page not present
 	int rw = regs.err_code & 0x2;		   // Write operation?
 	int us = regs.err_code & 0x4;		   // Processor was in user-mode?
 	int reserved = regs.err_code & 0x8;	 // Overwritten CPU-reserved bits of page entry?
-	//int id = regs.err_code & 0x10;		  // Caused by an instruction fetch?
+	int id = regs.err_code & 0x10;		  // Caused by an instruction fetch?
 
 	if (present)
 	{
@@ -306,6 +307,10 @@ void page_fault(registers_t regs)
 	{
 		putstring(current_console, "reserved ");
 	}
-	put(current_console, '\n');
+	printf(" id=%d\n", id);
+	printf("This is a fatal system error. The system has been halted.\n");
+	blitconsole(current_console);
+	asm volatile("cli");
+	wait_forever();
 }
 

@@ -40,8 +40,10 @@ void error_handler(registers_t regs)
 		"Alignment check exception",
 		"Machine check exception",
 	};
-	printf("Fatal exception %X: %s", regs.int_no, error_table[regs.int_no]);
+	printf("Fatal exception 0x%2x at 0x%8x: %s\n", regs.int_no, regs.eip, error_table[regs.int_no]);
+	printf("This is a fatal system error. The system has been halted.\n");
 	blitconsole(current_console);
+	asm volatile("cli");
 	wait_forever();
 }
 

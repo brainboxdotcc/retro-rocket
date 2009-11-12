@@ -1,6 +1,6 @@
 all:
 	nasm -felf -o loader.o asm/loader.asm
-	gcc -m32 -o assembly.o -c asm/assembly.s -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
+	gcc -m32  -o assembly.o -c asm/assembly.s -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 	nasm -felf -o process.o asm/process.asm
 	gcc -m32 -o multiboot-kernel.o -c src/multiboot-kernel.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 	gcc -m32 -o video.o -c src/video.c -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs

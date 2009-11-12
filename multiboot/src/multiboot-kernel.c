@@ -38,7 +38,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		memorysize = init_paging(mbd);
 		init_timer(50);
 		interrupts_on();
-
 		initialise_tasking();
 	}
 
@@ -80,6 +79,9 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
 		kfree(iso);
+
+u32int *ptr = (u32int*)0xA0000000;
+u32int do_page_fault = *ptr;
 
 		int ret = fork();
 		printf("Fork: %d\n", ret);

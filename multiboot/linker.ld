@@ -6,8 +6,10 @@
 ENTRY(loader)
 SECTIONS
 {
-
-    .text 0x100000 :
+    .multibootheader 0x100000 : {
+	    *(.multibootheader)
+    }
+    .text :
     {
         code = .; _code = .; __code = .;
         *(.text)
