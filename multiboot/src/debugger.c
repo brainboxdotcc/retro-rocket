@@ -157,6 +157,11 @@ const char* findsymbol(u32int address, u32int* offset)
 	symbol_t* lastsym = symbol_table;
 	for (; walksyms->next; walksyms = walksyms->next)
 	{
+		/* This check between the last address and this address works because the
+		 * symbol list in /kernel.sym is sorted by address, lowest first. This makes
+		 * it simpler to load and process the list at runtime by doing the donkey-
+		 * work at compile-time.
+		 */
 		if (address >= lastsymaddr && address <= walksyms->address)
 		{
 			*offset = address - lastsymaddr;
@@ -182,6 +187,7 @@ void backtrace(registers_t regs)
 		return;
 	}
 
+	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
 	setforeground(current_console, COLOUR_LIGHTGREEN);
 	name = findsymbol((u32int)regs.eip, &offset);
 	printf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, regs.eip);
