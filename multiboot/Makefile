@@ -1,4 +1,4 @@
-LDFLAGS=-m `perl getsystem.pl` -T linker.ld
+LDFLAGS=-m `perl build/getsystem.pl` -T build/linker.ld
 CFLAGS=-g -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 ASOURCES=assembly.o loader.o process.o
 CSOURCES=debugger.o interrupts.o keyboard.o multiboot-kernel.o paging.o taskswitch.o video.o ata.o errorhandler.o iso9660.o kmalloc.o memcpy.o ordered_array.o printf.o string.o timer.o
@@ -15,7 +15,7 @@ link:
 	chmod ugo-x kernel.bin
 
 iso:
-	perl makeiso.pl
+	perl build/makeiso.pl
 
 source:
 	make -C asm all
