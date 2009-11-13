@@ -148,13 +148,7 @@ void switch_task()
 	//   the next instruction.
 	// * Jumps to the location in ECX (remember we put the new EIP in there).
 	//
-	// XXX: For usermode, put the code from switch_to_usermode at the end of the function.
-	// XXX: We must remember to switch stack. Take out the sti and the jmp ecx and put the
-	// code from switch_to_usermode here. the iret instruction will cancel the interrupt flag,
-	// as interrupts were enabled prior to entering the timer routine and EFLAGS is pushed.
-	//
-	// Use a cmp and je just before the sti here to check if the supervisoor flag is set (see notes
-	// below) in the process, if it is, we just sti;jmp, otherwise we drop privileges.
+	// XXX: We must remember to switch stack for usermode?
 	asm volatile("			\
 		cli;			\
 		mov %0, %%ecx;		\
