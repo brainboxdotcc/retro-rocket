@@ -1,5 +1,6 @@
 #include "../include/kernel.h"
 #include "../include/interrupts.h"
+#include "../include/taskswitch.h"
 #include "../include/printf.h"
 #include "../include/io.h"
 
@@ -8,6 +9,8 @@ gdt_ptr_t gdt_ptr;
 idt_entry_t idt_entries[256];
 idt_ptr_t idt_ptr; 
 isr_t interrupt_handlers[256];
+
+extern void tss_flush();
 
 /* Handlers */
 
@@ -128,7 +131,7 @@ void init_idt()
 
 // GDT Setting Area (Protected Mode)
 
-static void gdt_set_gate(int num, int base, int limit, char access, char gran)
+void gdt_set_gate(int num, int base, int limit, char access, char gran)
 {
 	gdt_entries[num].base_low = (base & 0xFFFF);
 	gdt_entries[num].base_middle = (base >> 16) & 0xFF;
@@ -141,13 +144,15 @@ static void gdt_set_gate(int num, int base, int limit, char access, char gran)
 
 void init_gdt()
 {
-	gdt_ptr.limit = (sizeof(gdt_entry_t) * 5) - 1;
+	gdt_ptr.limit = (sizeof(gdt_entry_t) * 6) - 1;
 	gdt_ptr.base  = &gdt_entries;
 	gdt_set_gate(0, 0, 0, 0, 0);				
 	gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Code segment
 	gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Data segment
 	gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User mode code segment
 	gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User mode data segment
+	write_tss(5, 0x10, 0x0);
 	gdt_flush(&gdt_ptr);
+	tss_flush();
 }
 

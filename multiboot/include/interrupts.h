@@ -137,6 +137,8 @@ void init_idt();
 
 void init_gdt();
 
+void gdt_set_gate(int num, int base, int limit, char access, char gran);
+
 // Register a new interrupt handler
 void register_interrupt_handler(u8int n, isr_t handler);
 

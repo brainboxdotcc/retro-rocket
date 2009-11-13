@@ -18,6 +18,9 @@ extern page_directory_t *current_directory;
 extern void alloc_frame(page_t*,int,int);
 extern u32int initial_esp;
 extern u32int read_eip();
+extern void tss_flush();
+
+tss_entry_t tss_entry;
 
 // The next available process ID.
 u32int next_pid = 1;
@@ -110,8 +113,8 @@ void switch_task()
 	// One of two things could have happened when this function exits - 
 	// (a) We called the function and it returned the EIP as requested.
 	// (b) We have just switched tasks, and because the saved EIP is essentially
-	//     the instruction after read_eip(), it will seem as if read_eip has just
-	//     returned.
+	//	  the instruction after read_eip(), it will seem as if read_eip has just
+	//	  returned.
 	// In the second case we need to return immediately. To detect it we put a dummy
 	// value in EAX further down at the end of this function. As C returns values in EAX,
 	// it will look like the return value is this dummy value! (0x12345).
@@ -143,9 +146,9 @@ void switch_task()
 	// * Loads the stack and base pointers from the new task struct.
 	// * Changes page directory to the physical address (physicalAddr) of the new directory.
 	// * Puts a dummy value (0x12345) in EAX so that above we can recognise that we've just
-	//   switched task.
+	//	switched task.
 	// * Restarts interrupts. The STI instruction has a delay - it doesn't take effect until after
-	//   the next instruction.
+	//	the next instruction.
 	// * Jumps to the location in ECX (remember we put the new EIP in there).
 	//
 	// XXX: We must remember to switch stack for usermode?
@@ -251,4 +254,35 @@ int getpid()
 {
 	return current_task->id;
 }
+
+void set_kernel_stack(u32int stack)
+{
+	   tss_entry.esp0 = stack;
+}
+
+// Initialise our task state segment structure.
+void write_tss(s32int num, u16int ss0, u32int esp0)
+{
+	// Firstly, let's compute the base and limit of our entry into the GDT.
+	u32int base = (u32int) &tss_entry;
+	u32int limit = base + sizeof(tss_entry);
+
+	// Now, add our TSS descriptor's address to the GDT.
+	gdt_set_gate(num, base, limit, 0xE9, 0x00);
+
+	// Ensure the descriptor is initially zero.
+	_memset(&tss_entry, 0, sizeof(tss_entry));
+
+	tss_entry.ss0  = ss0;  // Set the kernel stack segment.
+	tss_entry.esp0 = esp0; // Set the kernel stack pointer.
+
+	// Here we set the cs, ss, ds, es, fs and gs entries in the TSS. These specify what
+	// segments should be loaded when the processor switches to kernel mode. Therefore
+	// they are just our normal kernel code/data segments - 0x08 and 0x10 respectively,
+	// but with the last two bits set, making 0x0b and 0x13. The setting of these bits
+	// sets the RPL (requested privilege level) to 3, meaning that this TSS can be used
+	// to switch to kernel mode from ring 3.
+	tss_entry.cs	= 0x0b;
+	tss_entry.ss = tss_entry.ds = tss_entry.es = tss_entry.fs = tss_entry.gs = 0x13;
+} 
 
