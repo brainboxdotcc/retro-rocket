@@ -146,6 +146,11 @@ void switch_task()
 	// * Restarts interrupts. The STI instruction has a delay - it doesn't take effect until after
 	//   the next instruction.
 	// * Jumps to the location in ECX (remember we put the new EIP in there).
+	//
+	// XXX: For usermode, put the code from switch_to_usermode at the end of the function.
+	// XXX: We must remember to switch stack. Take out the sti and the jmp ecx and put the
+	// code from switch_to_usermode here. the iret instruction will cancel the interrupt flag,
+	// as interrupts were enabled prior to entering the timer routine and EFLAGS is pushed.
 	asm volatile("		\
 		cli;			\
 		mov %0, %%ecx;	\
@@ -157,6 +162,15 @@ void switch_task()
 		jmp *%%ecx		"
 		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr));
 }
+
+// Create process steps:
+// (1) sanity check ELF file
+// (2) call fork() below, with a (yet to be added) ring parameter
+// (3) grab some pages and load the elf sections into them
+// (4) loop this thread until we are in usermode (we can check this by looking
+// at our selector etc)
+// (5) once in usermode call the entrypoint of the executable
+// (6) if it exits, we have to handle thread termination...
 
 int fork()
 {
@@ -187,7 +201,6 @@ int fork()
 	tmp_task->next = new_task;
 
 	// This will be the entry point for the new process.
-	// XXX: For CreateProcess, this is the entrypoint of the elf file
 	u32int eip = read_eip();
 
 
@@ -206,11 +219,9 @@ int fork()
 	}
 	else
 	{
-		// We are the child.
-		// XXX: For CreateProcess, drop to usermode!
-		// XXX: Note that this might be akward, as this expects
-		// XXX: to return via an iret to become usermode.
-		// XXX: Would we do this in the task switch?
+		// We are the child process
+		// XXX: Child process should drop to usermode. 
+		// XXX: See switch_task();
 		return 0;
 	}
 
