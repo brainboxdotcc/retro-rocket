@@ -80,7 +80,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
 		kfree(iso);
 
-		int ret = fork();
+		int ret = fork(1);
 		printf("Fork: %d\n", ret);
 		printf("Tabs\tOne\tTwo\tThree\n");
 		printf("Tabst\tOne\tThree\tFour\n");

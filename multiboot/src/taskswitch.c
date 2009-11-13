@@ -35,6 +35,7 @@ void initialise_tasking()
 	current_task->id = next_pid++;
 	current_task->esp = current_task->ebp = 0;
 	current_task->eip = 0;
+	current_task->supervisor = 1;
 	current_task->page_directory = current_directory;
 	current_task->next = 0;
 
@@ -154,28 +155,49 @@ void switch_task()
 	//
 	// Use a cmp and je just before the sti here to check if the supervisoor flag is set (see notes
 	// below) in the process, if it is, we just sti;jmp, otherwise we drop privileges.
-	asm volatile("		\
+	asm volatile("			\
 		cli;			\
-		mov %0, %%ecx;	\
-		mov %1, %%esp;	\
-		mov %2, %%ebp;	\
-		mov %3, %%cr3;	\
+		mov %0, %%ecx;		\
+		mov %1, %%esp;		\
+		mov %2, %%ebp;		\
+		cmp 0, %4;		\
+		je usermode;		\
+	supervisormode:			\
+		mov %3, %%cr3; 		\
 		mov $0x12345, %%eax;	\
 		sti;			\
-		jmp *%%ecx		"
-		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr));
+		jmp *%%ecx;		\
+	usermode:			\
+		mov $0x23, %%ax;	\
+		mov %%ax, %%ds;		\
+		mov %%ax, %%es;		\
+		mov %%ax, %%fs; 	\
+		mov %%ax, %%gs; 	\
+		mov %%esp, %%eax; 	\
+		pushl $0x23; 		\
+		pushl %%eax; 		\
+		pushf; 			\
+		pop %%eax; 		\
+		or $0x200, %%eax; 	\
+		push %%eax;		\
+		pushl $0x1B;		\
+		push %%ecx;		\
+		mov %3, %%cr3;		\
+		iret;			\
+		"
+		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr), "a"(current_task->supervisor));
 }
 
 // Create process steps:
-// (1) sanity check ELF file
+// (1) sanity check ELF file, grab some pages and load elf into them
 // (2) call fork() below, with a (yet to be added) supervisor parameter
-// (3) grab some pages and load the elf sections into them
-// (4) loop this thread until we are in usermode (we can check this by looking
+// (3) in PARENT process, we can get rid of the ELF pages?
+// (4) loop the new thread until we are in usermode (we can check this by looking
 // at our selector etc)
 // (5) once in usermode call the entrypoint of the executable
 // (6) if it exits, we have to handle thread termination...
 
-int fork()
+int fork(u8int supervisor)
 {
 	// We are modifying kernel structures, and so cannot
 	asm volatile("cli");
@@ -194,6 +216,7 @@ int fork()
 	new_task->id = next_pid++;
 	new_task->esp = new_task->ebp = 0;
 	new_task->eip = 0;
+	new_task->supervisor = supervisor;
 	new_task->page_directory = directory;
 	new_task->next = 0;
 
@@ -224,7 +247,7 @@ int fork()
 	{
 		// We are the child process
 		// XXX: Child process should drop to usermode. 
-		// XXX: See switch_task();
+		// XXX: See switch_task() and comments above
 		return 0;
 	}
 
