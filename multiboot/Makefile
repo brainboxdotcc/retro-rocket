@@ -3,7 +3,7 @@ CFLAGS=-g -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefault
 ASOURCES=assembly.o loader.o process.o
 CSOURCES=debugger.o interrupts.o keyboard.o multiboot-kernel.o paging.o taskswitch.o video.o ata.o errorhandler.o iso9660.o kmalloc.o memcpy.o ordered_array.o printf.o string.o timer.o
 
-all: source link iso
+all: source link
 
 run: all emulator
 
@@ -13,8 +13,6 @@ clean:
 link:
 	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o
 	chmod ugo-x kernel.bin
-
-iso:
 	perl build/makeiso.pl
 
 source:
@@ -23,3 +21,4 @@ source:
 
 emulator:
 	qemu -cdrom sixty-four.iso
+
