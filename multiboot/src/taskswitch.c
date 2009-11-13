@@ -164,6 +164,8 @@ int fork()
 	asm volatile("cli");
 
 	// Take a pointer to this process' task struct for later reference.
+	// XXX: If the parent exits this needs to be amended. Right now there
+	// is no facility for threads/processes to exit.
 	task_t *parent_task = (task_t*)current_task;
 
 	// Clone the address space.
@@ -185,6 +187,7 @@ int fork()
 	tmp_task->next = new_task;
 
 	// This will be the entry point for the new process.
+	// XXX: For CreateProcess, this is the entrypoint of the elf file
 	u32int eip = read_eip();
 
 
@@ -204,6 +207,10 @@ int fork()
 	else
 	{
 		// We are the child.
+		// XXX: For CreateProcess, drop to usermode!
+		// XXX: Note that this might be akward, as this expects
+		// XXX: to return via an iret to become usermode.
+		// XXX: Would we do this in the task switch?
 		return 0;
 	}
 
