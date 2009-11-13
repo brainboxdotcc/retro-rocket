@@ -36,3 +36,5 @@ align 4
 stack:
    resb STACKSIZE                     ; reserve 16k stack on a doubleword boundary
 
+section .text
+

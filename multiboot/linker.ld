@@ -21,6 +21,17 @@ SECTIONS
         data = .; _data = .; __data = .;
         *(.data)
         *(.rodata)
+	*(.debug_abbrev)
+	*(.debug_info)
+	*(.debug_line)
+	*(.debug_frame)
+	*(.debug_loc)
+	*(.debug_pubnames)
+	*(.debug_aranges)
+	*(.debug_str)
+	*(.comment)
+	*(.debug_ranges)
+
         . = ALIGN(4096);
     }
 

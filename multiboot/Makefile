@@ -1,4 +1,4 @@
-CFLAGS=-m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
+CFLAGS=-g -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 
 all:
 	nasm -felf -o loader.o asm/loader.asm
