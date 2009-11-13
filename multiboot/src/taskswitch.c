@@ -151,6 +151,9 @@ void switch_task()
 	// XXX: We must remember to switch stack. Take out the sti and the jmp ecx and put the
 	// code from switch_to_usermode here. the iret instruction will cancel the interrupt flag,
 	// as interrupts were enabled prior to entering the timer routine and EFLAGS is pushed.
+	//
+	// Use a cmp and je just before the sti here to check if the supervisoor flag is set (see notes
+	// below) in the process, if it is, we just sti;jmp, otherwise we drop privileges.
 	asm volatile("		\
 		cli;			\
 		mov %0, %%ecx;	\
@@ -165,7 +168,7 @@ void switch_task()
 
 // Create process steps:
 // (1) sanity check ELF file
-// (2) call fork() below, with a (yet to be added) ring parameter
+// (2) call fork() below, with a (yet to be added) supervisor parameter
 // (3) grab some pages and load the elf sections into them
 // (4) loop this thread until we are in usermode (we can check this by looking
 // at our selector etc)
