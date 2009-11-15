@@ -5,6 +5,7 @@
 #include "../include/printf.h"
 #include "../include/paging.h"
 #include "../include/memcpy.h"
+#include "../include/io.h"
 
 // The currently running task.
 volatile task_t *current_task;
@@ -245,6 +246,7 @@ int fork(u8int supervisor)
 		// We are the child process
 		// XXX: Child process should drop to usermode. 
 		// XXX: See switch_task() and comments above
+		outb(0x20, 0x20); /*end of interrupt */
 		return 0;
 	}
 

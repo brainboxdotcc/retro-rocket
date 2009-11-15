@@ -124,7 +124,10 @@ void init_idt()
 	idt_set_gate(47, irq15, 0x08, 0x8E);
 	idt_set_gate(48, isr48, 0x08, 0x8E);
 	idt_set_gate(49, isr49, 0x08, 0x8E);
-	idt_set_gate(50, isr50, 0x08, 0x8E);
+	/* Different privilege flags for this, so that it can be called
+	 * from usermode (this is the syscall gate)
+	 */
+	idt_set_gate(50, isr50, 0x08, 0xFE);
 
 	idt_flush(&idt_ptr);
 }
