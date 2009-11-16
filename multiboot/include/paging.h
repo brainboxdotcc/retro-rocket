@@ -1,6 +1,7 @@
 #ifndef __PAGING_H__
 #define __PAGING_H__
 
+#include "kernel.h"
 #include "interrupts.h"
 
 typedef struct page
@@ -67,5 +68,9 @@ void alloc_frame(page_t *page, int is_kernel, int is_writeable);
 void free_frame(page_t *page);
 
 page_directory_t *clone_directory(page_directory_t *src);
+
+void sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t *dir);
+
+void release_sect(u32int start, u32int end, page_directory_t *dir);
 
 #endif

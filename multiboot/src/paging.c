@@ -133,21 +133,21 @@ page_directory_t *clone_directory(page_directory_t *src)
    for (i = 0; i < 1024; i++)
    {
        if (!src->tables[i])
-           continue; 
+	   continue; 
 
-        if (kernel_directory->tables[i] == src->tables[i])
-        {
-           // It's in the kernel, so just use the same pointer.
-           dir->tables[i] = src->tables[i];
-           dir->tablesPhysical[i] = src->tablesPhysical[i];
-        }
-        else
-        {
-           // Copy the table.
-           u32int phys;
-           dir->tables[i] = clone_table(src->tables[i], &phys);
-           dir->tablesPhysical[i] = phys | 0x07;
-        } 
+	if (kernel_directory->tables[i] == src->tables[i])
+	{
+	   // It's in the kernel, so just use the same pointer.
+	   dir->tables[i] = src->tables[i];
+	   dir->tablesPhysical[i] = src->tablesPhysical[i];
+	}
+	else
+	{
+	   // Copy the table.
+	   u32int phys;
+	   dir->tables[i] = clone_table(src->tables[i], &phys);
+	   dir->tablesPhysical[i] = phys | 0x07;
+	} 
    }
    return dir;
 }
@@ -165,16 +165,16 @@ static page_table_t *clone_table(page_table_t *src, u32int *physAddr)
    {
        if (src->pages[i].frame)
        {
-          // Get a new frame.
-          alloc_frame(&table->pages[i], 0, 0);
-          // Clone the flags from source to destination.
-          if (src->pages[i].present) table->pages[i].present = 1;
-          if (src->pages[i].rw)      table->pages[i].rw = 1;
-          if (src->pages[i].user)    table->pages[i].user = 1;
-          if (src->pages[i].accessed)table->pages[i].accessed = 1;
-          if (src->pages[i].dirty)   table->pages[i].dirty = 1;
-          // Physically copy the data across. This function is in process.s.
-          copy_page_physical(src->pages[i].frame*0x1000, table->pages[i].frame*0x1000); 
+	  // Get a new frame.
+	  alloc_frame(&table->pages[i], 0, 0);
+	  // Clone the flags from source to destination.
+	  if (src->pages[i].present) table->pages[i].present = 1;
+	  if (src->pages[i].rw)      table->pages[i].rw = 1;
+	  if (src->pages[i].user)    table->pages[i].user = 1;
+	  if (src->pages[i].accessed)table->pages[i].accessed = 1;
+	  if (src->pages[i].dirty)   table->pages[i].dirty = 1;
+	  // Physically copy the data across. This function is in process.s.
+	  copy_page_physical(src->pages[i].frame*0x1000, table->pages[i].frame*0x1000); 
        }
    }
    return table;
@@ -292,27 +292,38 @@ void page_fault(registers_t regs)
 	int us = regs.err_code & 0x4;		   // Processor was in user-mode?
 	int reserved = regs.err_code & 0x8;	 // Overwritten CPU-reserved bits of page entry?
 	int id = regs.err_code & 0x10;		  // Caused by an instruction fetch?
-
-	if (present)
-	{
-		putstring(current_console, "present ");
-	}
-	if (rw)
-	{
-		putstring(current_console, "read-only ");
-	}
-	if (us)
-	{
-		putstring(current_console, "user-mode ");
-	}
-	if (reserved)
-	{
-		putstring(current_console, "reserved ");
-	}
-	printf("id=%d\n", id);
+	printf("Page fault accessing address 0x%x, EIP=0x%x: %s%s%s%s (id=%d)",
+			faulting_address,
+			regs.eip,
+			present ? "present " : "",
+			rw ? "readonly " : "",
+			us ? "usermode " : "",
+			reserved ? "reserved " : "",
+			id);
 	backtrace(regs);
 	blitconsole(current_console);
 	asm volatile("cli");
 	wait_forever();
+}
+
+void sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t *dir)
+{
+	u32int reg;
+	u32int i = start;
+	for (; i < end; i+=0x1000)
+		alloc_frame( get_page(i, 1, dir), usr, rw);
+	/* Flush translation lookaside buffer */
+	asm volatile("mov %%cr3, %0": "=r"(reg));	/* read cr3 */
+	asm volatile("mov %0, %%cr3":: "r"(reg));	/* write cr3 */
+}
+
+void release_sect(u32int start, u32int end, page_directory_t *dir)
+{
+	u32int reg;
+	u32int i = start;
+	for (; i < end; i+=0x1000)
+		free_frame( get_page(i, 0, dir));
+	asm volatile("mov %%cr3, %0": "=r"(reg));	/* read cr3 */
+	asm volatile("mov %0, %%cr3":: "r"(reg));	/* write cr3 */
 }
 
