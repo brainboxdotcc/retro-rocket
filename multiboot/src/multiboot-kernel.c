@@ -55,9 +55,11 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		printf("Sixty-Four kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
 		ide_initialise();
+		init_filesystem();
+		init_iso9660();
 		init_debug();
 
-		iso9660* iso = iso_mount_volume(0);
+		/*iso9660* iso = iso_mount_volume(0);
 
 		u32int directory_entries;
 		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
@@ -78,7 +80,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		kfree(filebuf);
 
 		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
-		kfree(iso);
+		kfree(iso);*/
 
 		int ret = fork(1);
 		printf("Fork: %d\n", ret);

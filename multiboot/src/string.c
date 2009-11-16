@@ -111,3 +111,12 @@ u32int strlcpy(char *dst, const char *src, u32int siz)
 	return(s - src - 1); /* count does not include NUL */
 }
 
+char* strdup(const char* string)
+{
+	u32int siz = strlen(string) + 1;
+	char* result = (char*)kmalloc(siz);
+	strlcpy(result, string, siz);
+	*(result+siz) = 0;
+	return result;
+}
+

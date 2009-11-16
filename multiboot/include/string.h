@@ -13,6 +13,8 @@ u32int strlcat(char *dst, const char *src, u32int siz);
 
 u32int strlcpy(char *dst, const char *src, u32int siz);
 
+char* strdup(const char* string);
+
 u32int hextoint(const char* n1);
 
 #endif

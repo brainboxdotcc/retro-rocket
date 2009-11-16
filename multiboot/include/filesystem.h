@@ -5,6 +5,13 @@
 
 #define FS_DIRECTORY 0x00000001
 
+//struct FS_FileSystem;
+
+typedef void* (*get_directory)(void*);
+typedef int (*read_file)(void*, const char*, u32int, u32int, unsigned char*);
+typedef int (*write_file)(void*, const char*, u32int, u32int, unsigned char*);
+typedef int (*delete_file)(void*, const char*);
+
 typedef struct FS_DirectoryEntryTag
 {
 	char* filename;
@@ -22,24 +29,36 @@ typedef struct FS_DirectoryEntryTag
 
 } FS_DirectoryEntry;
 
-typedef int (*change_directory)(void*, const char*);
-typedef int (*read_file)(void*, const char*, u32int, u32int, unsigned char*);
-typedef int (*write_file)(void*, const char*, u32int, u32int, unsigned char*);
-typedef int (*delete_file)(void*, const char*);
-
 typedef struct FileSystem_t
 {
 	char name[32];
-	change_directory chdir;
+	get_directory getdir;
 	read_file readfile;
 	write_file writefile;
 	delete_file rm;
 	struct FileSystem_t* next;
-
 } FS_FileSystem;
+
+typedef struct FS_Tree_t
+{
+	u8int dirty;
+	char* name;
+	struct FS_Tree_t* parent;
+	u32int num_child_dirs;
+	struct FS_Tree_t** child_dirs;
+	struct FS_DirectoryEntry* files;
+	struct FS_FileSystem* responsible_driver;
+	u32int lbapos;
+	u32int device;
+	u32int size;
+	void* opaque;
+} FS_Tree;
+
 
 int register_filesystem(FS_FileSystem* newfs);
 
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs);
+
+void init_filesystem();
 
 #endif

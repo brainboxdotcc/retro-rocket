@@ -121,10 +121,9 @@ typedef struct
  */
 iso9660* iso_mount_volume(u32int drivenumber);
 
-/* Given an iso9660 structure which references an existing directory, chdir to a new directory within */
-int iso_change_directory(iso9660* info, const char* newdirectory);
+int iso_read_file(void* info, const char* filename, u32int start, u32int length, unsigned char* buffer);
 
-int iso_read_file(iso9660* info, const char* filename, u32int start, u32int length, unsigned char* buffer);
+void init_iso9660();
 
 #endif
 

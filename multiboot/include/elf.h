@@ -5,7 +5,7 @@
 
 typedef u32int Elf32_Addr;
 typedef u16int Elf32_Half;
-typedef u32int Elf32_Off
+typedef u32int Elf32_Off;
 typedef s32int Elf32_Sword;
 typedef u32int Elf32_Word;
 
@@ -28,9 +28,9 @@ typedef struct {
 	Elf32_Half e_shstrndx;	/* Index of string table in section header */
 } Elf32_Ehdr;
 
-/* The string table is a list of null terminated strings. */
+	/* The string table is a list of null terminated strings. */
 
-/* Values for Elf32_Ehdr::e_type */
+	/* Values for Elf32_Ehdr::e_type */
 #define ET_NONE 0
 #define ET_REL 1
 #define ET_EXEC 2
@@ -39,7 +39,7 @@ typedef struct {
 #define ET_LOPROC 0xff00
 #define ET_HIPROC 0xffff
 
-/* Values for Elf32_Ehdr::e_machine */
+	/* Values for Elf32_Ehdr::e_machine */
 #define EM_NONE 0
 #define EM_M32 1
 #define EM_SPARC 2
@@ -49,7 +49,7 @@ typedef struct {
 #define EM_860 7
 #define EM_MIPS 8
 
-/* Values for Elf32_Ehdr::e_version */
+	/* Values for Elf32_Ehdr::e_version */
 #define EV_NONE 0
 #define EV_CURRENT 1
 
@@ -64,23 +64,23 @@ enum IdentValues
 #define ELFMAGIC2 'L'
 #define ELFMAGIC3 'F'
 
-/* Values for e_ident[EI_CLASS] */
+	/* Values for e_ident[EI_CLASS] */
 #define ELFCLASSNONE 0
 #define ELFCLASS32 1
 #define ELFCLASS64 2
 
-/* Values for e_ident[EI_DATA] */
+	/* Values for e_ident[EI_DATA] */
 #define ELFDATANONE 0
 #define ELFDATA2LSB 1	/* Little-endian */
 #define ELFDATA2MSB 2	/* Big-endian */
 
-/* Validates if this is a 32 bit x86 executable */
+	/* Validates if this is a 32 bit x86 executable */
 #define IS_INTEL_32(header) (header.e_ident[EI_CLASS] == ELFCLASS32 && header.e_ident[EI_DATA] == ELFDATA2LSB && header.e_machine == EM_386 && header.e_flags == 0)
 
-/* Validates if this is a 64 bit x86_64 executable */
+	/* Validates if this is a 64 bit x86_64 executable */
 #define IS_INTEL_64(header) (header.e_ident[EI_CLASS] == ELFCLASS64 && header.e_ident[EI_DATA] == ELFDATA2LSB && header.e_machine == EM_386 && header.e_flags == 0)
 
-/* Special section indexes */
+	/* Special section indexes */
 #define SHN_UNDEF 0
 #define SHN_LORESERVE 0xff00
 #define SHN_LOPROC 0xff00
@@ -102,7 +102,7 @@ typedef struct {
 	Elf32_Word sh_entsize;	/* Size of each entry in the data in bytes */
 } Elf32_Shdr;
 
-/* Values for Elf32_Shdr::sh_type */
+	/* Values for Elf32_Shdr::sh_type */
 #define SHT_NULL		0
 #define SHT_PROGBITS		1
 #define SHT_SYMTAB		2
@@ -120,7 +120,7 @@ typedef struct {
 #define SHT_LOUSER		0x80000000
 #define SHT_HIUSER		0xffffffff
 
-/* Values for Elf32_Shdr::sh_flags */
+	/* Values for Elf32_Shdr::sh_flags */
 #define SHF_WRITE		0x01		/* Contains writeable data */
 #define SHF_ALLOC		0x02		/* Should be loaded during process execution */
 #define SHF_EXECINSTR		0x04		/* Contains executable data */

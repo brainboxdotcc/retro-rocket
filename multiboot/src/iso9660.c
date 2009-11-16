@@ -141,25 +141,15 @@ FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32int flags)
 	return NULL;
 }
 
-int iso_change_directory(iso9660* info, const char* newdirectory)
+void* iso_get_directory(void* t)
 {
-	FS_DirectoryEntry* dir = HuntEntry(info, newdirectory, FS_DIRECTORY);
-	if (dir)
-	{
-			FS_DirectoryEntry* newdir = ParseDirectory(info, dir->lbapos, dir->size);
-			if (newdir)
-			{
-				FREE_LINKED_LIST(FS_DirectoryEntry*, info->root);
-				info->root = newdir;
-				return 1;
-			}
-			return 0;
-	}
-	return 0;
+	FS_Tree* treeitem = (FS_Tree*)t;
+	return (void*)ParseDirectory((iso9660*)treeitem->opaque, treeitem->lbapos, treeitem->size);
 }
 
-int iso_read_file(iso9660* info, const char* filename, u32int start, u32int length, unsigned char* buffer)
+int iso_read_file(void* i, const char* filename, u32int start, u32int length, unsigned char* buffer)
 {
+	iso9660* info = (iso9660*)i;
 	FS_DirectoryEntry* file = HuntEntry(info, filename, 0);
 	if (file)
 	{
@@ -234,4 +224,16 @@ iso9660* iso_mount_volume(u32int drivenumber)
 	kfree(buffer);
 	return info;
 }
+
+void init_iso9660()
+{
+	FS_FileSystem* iso9660_fs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
+	strlcpy(iso9660_fs->name, "iso9660", 31);
+	iso9660_fs->getdir = iso_get_directory;
+	iso9660_fs->readfile = iso_read_file;
+	iso9660_fs->writefile = NULL;
+	iso9660_fs->rm = NULL;
+	register_filesystem(iso9660_fs);
+}
+
 
