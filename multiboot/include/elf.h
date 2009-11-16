@@ -90,16 +90,16 @@ enum IdentValues
 #define SHN_HIRESERVE 0xffff
 
 typedef struct {
-        Elf32_Word sh_name;	/* Index into string table section */
-        Elf32_Word sh_type;	/* Section type */
-        Elf32_Word sh_flags;	/* Section flags */
-        Elf32_Addr sh_addr;	/* Section load address or 0 */
-        Elf32_Off  sh_offset;	/* Section offset, from beginning of file to the data */
-        Elf32_Word sh_size;	/* Section size in bytes */
-        Elf32_Word sh_link;	/* Link to header table index */
-        Elf32_Word sh_info;	/* Extra information */
-        Elf32_Word sh_addralign;/* Alignment constraints, or 0/1 for no constraints */
-        Elf32_Word sh_entsize;	/* Size of each entry in the data in bytes */
+	Elf32_Word sh_name;	/* Index into string table section */
+	Elf32_Word sh_type;	/* Section type */
+	Elf32_Word sh_flags;	/* Section flags */
+	Elf32_Addr sh_addr;	/* Section load address or 0 */
+	Elf32_Off  sh_offset;	/* Section offset, from beginning of file to the data */
+	Elf32_Word sh_size;	/* Section size in bytes */
+	Elf32_Word sh_link;	/* Link to header table index */
+	Elf32_Word sh_info;	/* Extra information */
+	Elf32_Word sh_addralign;/* Alignment constraints, or 0/1 for no constraints */
+	Elf32_Word sh_entsize;	/* Size of each entry in the data in bytes */
 } Elf32_Shdr;
 
 /* Values for Elf32_Shdr::sh_type */
@@ -125,6 +125,22 @@ typedef struct {
 #define SHF_ALLOC		0x02		/* Should be loaded during process execution */
 #define SHF_EXECINSTR		0x04		/* Contains executable data */
 #define SHF_MASKPROC		0xf0000000	/* Processor specific values mask */
+
+/* Relocation entry info */
+typedef struct {
+	Elf32_Addr  r_offset;
+	Elf32_Word  r_info;
+} Elf32_Rel;
+
+typedef struct {
+	Elf32_Addr  r_offset;	/* Location of relocation, virtual address */
+	Elf32_Word  r_info;	/* Symbol table index and type of relocation */
+	Elf32_Sword r_addend;
+} Elf32_Rela;
+
+#define ELF32_R_SYM(i)    ((i)>>8)
+#define ELF32_R_TYPE(i)   ((unsigned char)(i))
+#define ELF32_R_INFO(s,t) (((s)<<8)+(unsigned char)(t))
 
 
 #endif
