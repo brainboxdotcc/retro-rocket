@@ -13,6 +13,8 @@
 
 FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes);
 
+static FS_FileSystem* iso9660_fs = NULL;
+
 
 void ParseBOOT(iso9660* info, unsigned char* buffer)
 {
@@ -43,6 +45,7 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 
 	info->pathtable_lba = pvd->lsb_pathtable_L_lba;
 	info->rootextent_lba = pvd->root_directory.extent_lba_lsb;
+	info->rootextent_len = pvd->root_directory.data_length_lsb;
 	info->root = ParseDirectory(info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
 
 	return info->root != 0;
@@ -144,7 +147,16 @@ FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32int flags)
 void* iso_get_directory(void* t)
 {
 	FS_Tree* treeitem = (FS_Tree*)t;
-	return (void*)ParseDirectory((iso9660*)treeitem->opaque, treeitem->lbapos, treeitem->size);
+	if (treeitem)
+	{
+		iso9660* info = (iso9660*)treeitem->opaque;
+		return (void*)ParseDirectory((iso9660*)treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, treeitem->size ? treeitem->size : info->rootextent_len);
+	}
+	else
+	{
+		printf("*** BUG *** iso_get_directory: null FS_Tree*!\n");
+		return NULL;
+	}
 }
 
 int iso_read_file(void* i, const char* filename, u32int start, u32int length, unsigned char* buffer)
@@ -221,13 +233,14 @@ iso9660* iso_mount_volume(u32int drivenumber)
 		}
 	}
 
+	printf("iso9660: Mounted volume '%s' on drive %d\n", info->volume_name, drivenumber);
 	kfree(buffer);
 	return info;
 }
 
 void init_iso9660()
 {
-	FS_FileSystem* iso9660_fs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
+	iso9660_fs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
 	strlcpy(iso9660_fs->name, "iso9660", 31);
 	iso9660_fs->getdir = iso_get_directory;
 	iso9660_fs->readfile = iso_read_file;
@@ -236,4 +249,9 @@ void init_iso9660()
 	register_filesystem(iso9660_fs);
 }
 
+void iso9660_attach(u32int drivenumber, const char* path)
+{
+	iso9660* isofs = iso_mount_volume(drivenumber);
+	attach_filesystem(path, iso9660_fs, isofs);
+}
 

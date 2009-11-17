@@ -19,6 +19,11 @@ void retrieve_node_from_driver(FS_Tree* node)
 {
 	/* XXX: Check there isnt already content in node->files */
 	FS_FileSystem* driver = node->responsible_driver;
+	if (driver->getdir == NULL)
+	{
+		/* Driver does not implement getdir() */
+		return;
+	}
 	node->files = driver->getdir(node);
 	node->dirty = 0;
 	FS_DirectoryEntry* x = node->files;
@@ -26,55 +31,113 @@ void retrieve_node_from_driver(FS_Tree* node)
 	{
 		if (x->flags & FS_DIRECTORY)
 		{
+			/* Insert a new child directory into node->child_dirs,
+			 * Make each dir empty and 'dirty' and get its opaque
+			 * from the parent dir
+			 */
+			if (node->child_dirs == NULL)
+			{
+				node->child_dirs = (FS_Tree*)kmalloc(sizeof(FS_Tree));
+				node->child_dirs->next = NULL;
+			}
+			else
+			{
+				FS_Tree* newnode = (FS_Tree*)kmalloc(sizeof(FS_Tree));
+				newnode->next = node->child_dirs;
+				node->child_dirs = newnode;
+			}
+
+			node->child_dirs->name = x->filename;
+			node->child_dirs->lbapos = x->lbapos;
+			node->child_dirs->size = x->size;
+			node->child_dirs->device = x->device;
+			node->child_dirs->opaque = node->opaque;
+			node->child_dirs->dirty = 1;
+			node->child_dirs->responsible_driver = node->responsible_driver;
 		}
 	}
 }
 
-FS_Tree* walk_to_node(FS_Tree* current_node, const char* virtual_path)
+typedef struct DirStack_t
 {
-	/* Request for root dir always works */
-	if (!strcmp(virtual_path, "/"))
-		return fs_tree;
+	char* name;
+	struct DirStack_t* next;
+} DirStack;
 
-	char* copy = strdup(virtual_path);
-	char* findslash;
-	for (findslash = copy; *findslash != 0 && *findslash != '/'; ++findslash);
-	*findslash = '0';
-
+FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
+{
 	if (current_node->dirty != 0)
 		retrieve_node_from_driver(current_node);
 
-	if (current_node->name != NULL && !strcmp(current_node->name, copy))
+	if (current_node != NULL && !strcmp(current_node->name, dir_stack->name))
 	{
-		kfree(copy);
-		return current_node;
+		dir_stack = dir_stack->next;
+		if (!dir_stack)
+			return current_node;
 	}
 
-	u32int index = 0;
-	for (index = 0; index < current_node->num_child_dirs; index++)
+	FS_Tree* dirs = current_node->child_dirs;
+	for (; dirs; dirs = dirs->next)
 	{
-		FS_Tree* result = walk_to_node(current_node->child_dirs[index++], virtual_path);
+		FS_Tree* result = walk_to_node_internal(dirs, dir_stack);
 		if (result != NULL)
-		{
-			kfree(copy);
 			return result;
-		}
 	}
+
 	return NULL;
 }
 
-int attach_filesystem(const char* virtual_path, FS_FileSystem* fs)
+FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
+{
+	if (!strcmp(path, "/"))
+		return fs_tree;
+
+	/* First build the dir stack */
+	DirStack* ds = (DirStack*)kmalloc(sizeof(DirStack));
+	DirStack* walk = ds;
+	char* copy = strdup(path);
+	char* parse;
+	char* last = copy + 1;
+
+	for (parse = copy + 1; *parse; ++parse)
+	{
+		if (*parse == '/')
+		{
+			*parse = 0;
+			walk->name = strdup(last);
+			last = parse + 1;
+
+                        DirStack* next = (DirStack*)kmalloc(sizeof(DirStack));
+			walk->next = next;
+			next->next = 0;
+			next->name = NULL;
+			walk = next;
+		}
+	}
+	walk->next = NULL;
+	walk->name = strdup(last);
+	FS_Tree* result = walk_to_node_internal(current_node, ds);
+	for(; ds; ds = ds->next)
+	{
+		kfree(ds->name);
+		kfree(ds);
+	}
+	return result;
+}
+
+int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 {
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
 	if (item)
 	{
 		item->responsible_driver = fs;
-		item->opaque = NULL;
+		item->opaque = opaque;
 		retrieve_node_from_driver(item);
+		printf("Driver '%s' attached to vpath '%s'\n", fs->name, virtual_path);
 	}
 	else
 	{
-		printf("Warning: Could not attach filesystem '%s' to vpath '%s'\n", fs->name, virtual_path);
+		printf("Warning: Could not attach driver '%s' to vpath '%s'\n", fs->name, virtual_path);
 	}
 	return 1;
 }
@@ -92,10 +155,16 @@ void init_filesystem()
 	fs_tree = (FS_Tree*)kmalloc(sizeof(FS_Tree));
 	fs_tree->name = NULL;
 	fs_tree->parent = fs_tree;
-	fs_tree->num_child_dirs = 0;
 	fs_tree->child_dirs = NULL;
 	fs_tree->files = NULL;
 	fs_tree->dirty = 0;
-	fs_tree->responsible_driver = filesystems; /* DummyFS */
 	fs_tree->opaque = NULL;
+
+	attach_filesystem("/", filesystems, NULL);
+}
+
+FS_DirectoryEntry* fs_get_items(const char* pathname)
+{
+	FS_Tree* item = walk_to_node(fs_tree, pathname);
+	return (item ? item->files : NULL);
 }

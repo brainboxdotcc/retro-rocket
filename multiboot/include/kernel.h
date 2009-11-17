@@ -13,7 +13,7 @@
 #define NULL 0
 
 #define PANIC_BANNER setforeground(current_console, COLOUR_LIGHTYELLOW); \
-	printf("\n\
+/*	printf("\n\
               ___  _____ \n\
             .'/,-Y\"     \"~-. \n\
             l.Y             ^. \n\
@@ -30,7 +30,7 @@
                   Y   \\          /\n\
                   |    \"x______.^ \n\
                   |           \\ \n\
-\n"); setforeground(current_console, COLOUR_LIGHTWHITE);\
+\n");*/ setforeground(current_console, COLOUR_LIGHTWHITE);\
 printf("This is a fatal system error and your system has been halted.\n\
 "); setforeground(current_console, COLOUR_LIGHTRED);
 

@@ -16,6 +16,7 @@ typedef struct
 	char* volume_name;
 	u32int pathtable_lba;
 	u32int rootextent_lba;
+	u32int rootextent_len;
 	FS_DirectoryEntry* root;
 } iso9660;
 
@@ -124,6 +125,7 @@ iso9660* iso_mount_volume(u32int drivenumber);
 int iso_read_file(void* info, const char* filename, u32int start, u32int length, unsigned char* buffer);
 
 void init_iso9660();
+void iso9660_attach(u32int drivenumber, const char* path);
 
 #endif
 
