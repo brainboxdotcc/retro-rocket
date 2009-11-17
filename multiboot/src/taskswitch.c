@@ -135,6 +135,10 @@ void switch_task()
 	// If we fell off the end of the linked list start again at the beginning.
 	if (!current_task) current_task = ready_queue;
 
+	//if (current_task->eip == eip)
+		/* Only one task running */
+	//	return;
+
 	eip = current_task->eip;
 	esp = current_task->esp;
 	ebp = current_task->ebp;
@@ -158,32 +162,13 @@ void switch_task()
 		mov %0, %%ecx;		\
 		mov %1, %%esp;		\
 		mov %2, %%ebp;		\
-		cmp 0, %4;		\
-		je usermode;		\
 	supervisormode:			\
 		mov %3, %%cr3; 		\
 		mov $0x12345, %%eax;	\
 		sti;			\
 		jmp *%%ecx;		\
-	usermode:			\
-		mov $0x23, %%ax;	\
-		mov %%ax, %%ds;		\
-		mov %%ax, %%es;		\
-		mov %%ax, %%fs; 	\
-		mov %%ax, %%gs; 	\
-		mov %%esp, %%eax; 	\
-		pushl $0x23; 		\
-		pushl %%eax; 		\
-		pushf; 			\
-		pop %%eax; 		\
-		or $0x200, %%eax; 	\
-		push %%eax;		\
-		pushl $0x1B;		\
-		push %%ecx;		\
-		mov %3, %%cr3;		\
-		iret;			\
 		"
-		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr), "a"(current_task->supervisor));
+		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr));
 }
 
 // Create process steps:

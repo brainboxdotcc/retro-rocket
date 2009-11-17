@@ -36,9 +36,9 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_error_handler();
 		init_basic_keyboard();
 		memorysize = init_paging(mbd);
+		initialise_tasking();
 		init_timer(50);
 		interrupts_on();
-		initialise_tasking();
 	}
 
 	console* cons = (console*)kmalloc(sizeof(console));
@@ -57,7 +57,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		ide_initialise();
 		init_filesystem();
 		init_iso9660();
-		//init_debug();
+		init_debug();
 		iso9660_attach(0, "/");
 
 		printf("Kernel vfs tests\n");
@@ -86,7 +86,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		printf("VFS dir of %d files:\n", itemsc);
 		for(n = items; n->next; n = n->next)
 			printf("\t%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
-
 		wait_forever();
 	}
 }
