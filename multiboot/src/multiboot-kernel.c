@@ -87,34 +87,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		for(n = items; n->next; n = n->next)
 			printf("\t%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
 
-		/*iso9660* iso = iso_mount_volume(0);
-
-		u32int directory_entries;
-		LINKED_LIST_COUNT(FS_DirectoryEntry*, iso->root, directory_entries);
-
-		FS_DirectoryEntry* n;
-		printf("VFS dir of %d files:\n", directory_entries);
-		for(n = iso->root; n->next; n = n->next)
-			printf("\t%s: size=%d flags=0x%02x\n", n->filename, n->size, n->flags);
-
-		printf("iso_change_directory() to 'boot': %s\n", iso_change_directory(iso, "boot") ? "success" : "failure");
-		printf("iso_change_directory() to 'grub': %s\n", iso_change_directory(iso, "grub") ? "success" : "failure");
-		char* filebuf = (char*)kmalloc(10240);
-
-		printf("iso_read_file(): %s\n", iso_read_file(iso, "menu.lst", 0, 104, filebuf) ? "success" : "failure");
-
-		DumpHex(filebuf, 101);
-
-		kfree(filebuf);
-
-		FREE_LINKED_LIST(FS_DirectoryEntry*, iso->root);
-		kfree(iso);*/
-
-		/*int ret = fork(1);
-		printf("Fork: %d\n", ret);
-		printf("Tabs\tOne\tTwo\tThree\n");
-		printf("Tabst\tOne\tThree\tFour\n");*/
-
 		wait_forever();
 	}
 }

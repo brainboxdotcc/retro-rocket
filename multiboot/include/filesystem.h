@@ -3,64 +3,90 @@
 
 #include "kernel.h"
 
-#define FS_DIRECTORY 0x00000001
+/* File flags for FS_DirectoryEntry */
+#define FS_DIRECTORY	0x00000001	/* Entry is a directory */
 
-//struct FS_FileSystem;
-
+/* Prototypes for filesystem drivers (see FS_FileSystem) */
 typedef void* (*get_directory)(void*);
 typedef int (*read_file)(void*, const char*, u32int, u32int, unsigned char*);
 typedef int (*write_file)(void*, const char*, u32int, u32int, unsigned char*);
 typedef int (*delete_file)(void*, const char*);
 
+/* A VFS directory entry. Files AND directories have these,
+ * but internally there is also a tree of FS_Tree* which is used
+ * for faster access and caching the structure to RAM
+ */
 typedef struct FS_DirectoryEntryTag
 {
-	char* filename;
-	u16int year;
-	u8int month;
-	u8int day;
-	u8int hour;
-	u8int min;
-	u8int sec;
-	u32int lbapos;
-	u32int device;
-	u32int size;
-	u32int flags;
-	struct FS_DirectoryEntryTag* next;
+	char* filename;		/* Entry name */
+	u16int year;		/* Creation year */
+	u8int month;		/* Creation month */
+	u8int day;		/* Creation day */
+	u8int hour;		/* Creation hour */
+	u8int min;		/* Creation minute */
+	u8int sec;		/* Creation second */
+	u32int lbapos;		/* LBA position of file (driver specific) */
+	u32int device;		/* Device ID (driver specific) */
+	u32int size;		/* File size in bytes */
+	u32int flags;		/* File flags (FS_*) */
+	struct FS_DirectoryEntryTag* next;	/* Next entry */
 
 } FS_DirectoryEntry;
 
+/* Defines a filesystem driver. A driver does not need to implement
+ * all functions listed here. An unimplemented function should be
+ * NULL, e.g. for a readonly filesystem there is no need to implement
+ * delete_file or write_file.
+ */
 typedef struct FileSystem_t
 {
-	char name[32];
-	get_directory getdir;
-	read_file readfile;
-	write_file writefile;
-	delete_file rm;
-	struct FileSystem_t* next;
+	char name[32];		/* Filesystem name */
+	get_directory getdir;	/* getdir() entrypoint */
+	read_file readfile;	/* readfile() entrypoint */
+	write_file writefile;	/* writefile() entrypoint */
+	delete_file rm;		/* rm() entrypoint */
+	struct FileSystem_t* next;	/* Next entry */
 } FS_FileSystem;
 
+/* Used internally by filesystem.c to cache directories to RAM,
+ * and to route requests for that directory through to their
+ * driver. Also used to attach a driver initially to its
+ * mountpoint unix style. FS_Tree structs are usually not
+ * usable or visible to non-filesystem drivers.
+ */
 typedef struct FS_Tree_t
 {
-	u8int dirty;
-	char* name;
-	struct FS_Tree_t* parent;
-	struct FS_Tree_t* child_dirs;
-	struct FS_DirectoryEntry* files;
-	struct FS_FileSystem* responsible_driver;
-	u32int lbapos;
-	u32int device;
-	u32int size;
-	void* opaque;
-	struct FS_Tree_t* next;
+	u8int dirty;		/* If this is set, the directory needs to be (re-)fetched from the filesystem driver */
+	char* name;		/* Directory name */
+	struct FS_Tree_t* parent;	/* Parent directory name */
+	struct FS_Tree_t* child_dirs;	/* Linked list of child directories */
+	struct FS_DirectoryEntry* files;	/* List of files (this also includes directories with FS_DIRECTORY bit set) */
+	struct FS_FileSystem* responsible_driver;	/* The driver responsible for handling this directory */
+	u32int lbapos;			/* Directory LBA position (driver specific) */
+	u32int device;			/* Directory device ID (driver specific) */
+	u32int size;			/* Directory size (usually meaningless except to drivers) */
+	void* opaque;			/* Opaque data (driver specific data) */
+	struct FS_Tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
 } FS_Tree;
 
 
+/* Register a new filesystem */
 int register_filesystem(FS_FileSystem* newfs);
 
+/* Attach a filesystem to a vfs directory. The opaque data is optional
+ * and if included is driver-specific.
+ */
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque);
 
+/* Initialise the filesystem
+ * This loads the DummyFS filesystem which manages the root directory
+ * until any other driver is loaded. DummyFS is a dummy and does nothing.
+ */
 void init_filesystem();
 
+/* Get a list of files in a directory. The directory path must be fully
+ * qualified from the root directory and must contain no trailing slash.
+ */
 FS_DirectoryEntry* fs_get_items(const char* pathname);
 
 #endif

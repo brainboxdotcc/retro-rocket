@@ -53,6 +53,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 			node->child_dirs->device = x->device;
 			node->child_dirs->opaque = node->opaque;
 			node->child_dirs->dirty = 1;
+			node->child_dirs->parent = node;
 			node->child_dirs->responsible_driver = node->responsible_driver;
 		}
 	}
