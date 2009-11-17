@@ -5,6 +5,7 @@ mkdir(".iso");
 system("cp kernel.bin .iso/");
 mkdir(".iso/boot");
 mkdir(".iso/boot/grub");
+mkdir(".iso/devices");
 system("cp grub/iso9660_stage1_5 .iso/boot/grub/");
 system("cp grub/stage* .iso/boot/grub/");
 system("cp grub/menu.lst .iso/boot/grub/");

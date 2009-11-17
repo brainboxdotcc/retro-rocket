@@ -13,6 +13,7 @@
 #include "../include/filesystem.h"
 #include "../include/debugger.h"
 #include "../include/taskswitch.h"
+#include "../include/devfs.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -59,6 +60,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_iso9660();
 		init_debug();
 		iso9660_attach(0, "/");
+		init_devfs();
 
 		printf("Kernel vfs tests\n");
 
