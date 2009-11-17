@@ -18,7 +18,7 @@ int register_filesystem(FS_FileSystem* newfs)
 void retrieve_node_from_driver(FS_Tree* node)
 {
 	/* XXX: Check there isnt already content in node->files */
-	FS_FileSystem* driver = node->responsible_driver;
+	FS_FileSystem* driver = (FS_FileSystem*)node->responsible_driver;
 	if (driver->getdir == NULL)
 	{
 		/* Driver does not implement getdir() */
@@ -26,7 +26,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 	}
 	node->files = driver->getdir(node);
 	node->dirty = 0;
-	FS_DirectoryEntry* x = node->files;
+	FS_DirectoryEntry* x = (FS_DirectoryEntry*)node->files;
 	for (; x; x = x->next)
 	{
 		if (x->flags & FS_DIRECTORY)
@@ -131,7 +131,7 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
 	if (item)
 	{
-		item->responsible_driver = fs;
+		item->responsible_driver = (void*)fs;
 		item->opaque = opaque;
 		retrieve_node_from_driver(item);
 		printf("Driver '%s' attached to vpath '%s'\n", fs->name, virtual_path);
@@ -167,5 +167,5 @@ void init_filesystem()
 FS_DirectoryEntry* fs_get_items(const char* pathname)
 {
 	FS_Tree* item = walk_to_node(fs_tree, pathname);
-	return (item ? item->files : NULL);
+	return (FS_DirectoryEntry*)(item ? item->files : NULL);
 }

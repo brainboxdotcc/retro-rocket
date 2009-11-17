@@ -1,4 +1,5 @@
 #include "../include/string.h"
+#include "../include/kmalloc.h"
 
 unsigned int strlen(const char* str)
 {
