@@ -22,12 +22,28 @@ void retrieve_node_from_driver(FS_Tree* node)
 	if (driver->getdir == NULL)
 	{
 		/* Driver does not implement getdir() */
+		printf("getdir not implememnted by driver!\n");
 		return;
 	}
+	printf("driver: 0x%08x node 0x%08x %s\n", driver, node, driver->name);
 	node->files = driver->getdir(node);
 	node->dirty = 0;
+	if (node->files == NULL)
+	{
+		printf("Empty directory %s!\n", node->name);
+		node->child_dirs = NULL;
+		node->parent = node;
+		return;
+	}
+	/* XXX: For directories that already contain items,
+	 * enumerate the list of directories, take note of the
+	 * responsible driver for this directory, and reuse these
+	 * responsible driver pointers on the new entries if they
+	 * crop up again. If we don't do this, then we will claim
+	 * ownership of another filesystems mountpoint!
+	 */
 	FS_DirectoryEntry* x = (FS_DirectoryEntry*)node->files;
-	for (; x; x = x->next)
+	for (; x->next; x = x->next)
 	{
 		if (x->flags & FS_DIRECTORY)
 		{
@@ -54,6 +70,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 			node->child_dirs->opaque = node->opaque;
 			node->child_dirs->dirty = 1;
 			node->child_dirs->parent = node;
+			printf("REPLACEMENT OF DRIVER PTR ON %s\n", x->filename ? x->filename : "/");
 			node->child_dirs->responsible_driver = node->responsible_driver;
 		}
 	}
@@ -68,7 +85,10 @@ typedef struct DirStack_t
 FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 {
 	if (current_node->dirty != 0)
+	{
+		printf("fetch from driver\n");
 		retrieve_node_from_driver(current_node);
+	}
 
 	if (current_node != NULL && !strcmp(current_node->name, dir_stack->name))
 	{
@@ -90,6 +110,7 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 
 FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 {
+	printf("Walk to node: %s\n", path);
 	if (!strcmp(path, "/"))
 		return fs_tree;
 
@@ -131,10 +152,13 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
 	if (item)
 	{
+		printf("REPLACEMENT OF DRIVER BY ATTACH\n");
 		item->responsible_driver = (void*)fs;
 		item->opaque = opaque;
+		item->dirty = 1;
+		item->files = item->child_dirs = NULL;
 		retrieve_node_from_driver(item);
-		printf("Driver '%s' attached to vpath '%s'\n", fs->name, virtual_path);
+		printf("Driver '%s' (0x%08x) attached to vpath '%s'\n", fs->name, fs, virtual_path);
 	}
 	else
 	{

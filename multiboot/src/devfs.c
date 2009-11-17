@@ -2,13 +2,16 @@
 #include "../include/filesystem.h"
 #include "../include/kmalloc.h"
 #include "../include/string.h"
+#include "../include/printf.h"
 
 FS_FileSystem* devfs = NULL;
+FS_DirectoryEntry* devfs_entries = NULL;
 
 void* devfs_get_directory(void* t)
 {
 	FS_Tree* treeitem = (FS_Tree*)t;
-	return NULL;
+	printf("devfs_getdir\n");
+	return devfs_entries;
 }
 
 int devfs_read_file(void* i, const char* filename, u32int start, u32int length, unsigned char* buffer)
@@ -25,7 +28,15 @@ void init_devfs()
 	devfs->writefile = NULL;
 	devfs->rm = NULL;
 	register_filesystem(devfs);
-	/* NB: The /dev mountpoint must exist in the root fs */
+	FS_DirectoryEntry* empty = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+	empty->next = NULL;
+	empty->flags = 0;
+	empty->filename = NULL;
+	devfs_entries = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+	devfs_entries->next = empty;
+	devfs_entries->flags = 0;
+	devfs_entries->filename = strdup("core");
+	/* NB: The /devices mountpoint must exist in the root fs */
 	attach_filesystem("/devices", devfs, NULL);
 }
 

@@ -65,6 +65,7 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 		return NULL;
 	}
 
+	u32int dir_items = 0;
 	FS_DirectoryEntry* first = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
 	FS_DirectoryEntry* thisentry = first;
 	first->next = 0;
@@ -108,6 +109,7 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 			thisentry->flags = 0;
 			if (fentry->file_flags & 0x02)
 				thisentry->flags |= FS_DIRECTORY;
+			dir_items++;
 
 			FS_DirectoryEntry* next = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
 			thisentry->next = next;
@@ -118,7 +120,13 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 	}
 
 	kfree(dirbuffer);
-	return first;
+	if (dir_items)
+		return first;
+	else
+	{
+		kfree(first);
+		return NULL;
+	}
 }
 
 void ParseSVD(iso9660* info, unsigned char* buffer)
@@ -146,9 +154,11 @@ FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32int flags)
 
 void* iso_get_directory(void* t)
 {
+	printf("iso_getdir ");
 	FS_Tree* treeitem = (FS_Tree*)t;
 	if (treeitem)
 	{
+		printf("%s\n", treeitem->name ? treeitem->name : "/");
 		iso9660* info = (iso9660*)treeitem->opaque;
 		return (void*)ParseDirectory((iso9660*)treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, treeitem->size ? treeitem->size : info->rootextent_len);
 	}
