@@ -110,8 +110,22 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 	return NULL;
 }
 
+u8int verify_path(const char* path)
+{
+	/* Valid paths must start with a / and not end with a / */
+	/* The filesystem internals all work with fully qualified
+	 * pathnames. Client processes must represent 'current'
+	 * directories to the user if they are required.
+	 */
+	u32int pathlen = strlen(path);
+	return ((*path == '/' && *(path + pathlen - 1) != '/') || !strcmp(path, "/"));
+}
+
 FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 {
+	if (!verify_path(path))
+		return NULL;
+
 	printf("Walk to node: %s\n", path);
 	if (!strcmp(path, "/"))
 		return fs_tree;
@@ -149,6 +163,64 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 	return result;
 }
 
+FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
+{
+	if (!directory)
+		return NULL;
+
+	FS_DirectoryEntry* entry = (FS_DirectoryEntry*)directory->files;
+	for (; entry->next; entry = entry->next)
+	{
+		/* Don't find directories, only files */
+		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcmp(filename, entry->filename)))
+			return entry;
+	}
+	return NULL;
+}
+
+FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
+{
+	if (!verify_path(pathandfile))
+		return NULL;
+
+	/* First, split the path and file components */
+	u32int namelen = strlen(pathandfile);
+	char* pathinfo = strdup(pathandfile);
+	char* filename = NULL;
+	char* pathname = NULL;
+	char* ptr;
+	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr)
+	{
+		if (*ptr == '/')
+		{
+			*ptr = 0;
+			filename = strdup(ptr + 1);
+			pathname = strdup(pathinfo);
+			break;
+		}
+	}
+	kfree(pathinfo);
+	if (!filename || !pathname || !*filename || !*pathname)
+	{
+		printf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
+		return NULL;
+	}
+	printf("fs_get_file_info: pathandfile='%s' path='%s' file='%s'\n", pathandfile, pathname, filename);
+	FS_Tree* directory = walk_to_node(fs_tree, pathname);
+	if (!directory)
+	{
+		printf("fs_get_file_info: No such path '%s'\n", pathname);
+		return NULL;
+	}
+	FS_DirectoryEntry* fileinfo = find_file_in_dir(directory, filename);
+	if (!fileinfo)
+	{
+		printf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
+		return NULL;
+	}
+	return fileinfo;
+}
+
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 {
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
@@ -158,7 +230,8 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 		item->responsible_driver = (void*)fs;
 		item->opaque = opaque;
 		item->dirty = 1;
-		item->files = item->child_dirs = NULL;
+		item->files = NULL;
+		item->child_dirs = NULL;
 		retrieve_node_from_driver(item);
 		printf("Driver '%s' (0x%08x) attached to vpath '%s'\n", fs->name, fs, virtual_path);
 	}

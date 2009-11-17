@@ -89,4 +89,6 @@ void init_filesystem();
  */
 FS_DirectoryEntry* fs_get_items(const char* pathname);
 
+FS_DirectoryEntry* fs_get_file_info(const char* pathandfile);
+
 #endif

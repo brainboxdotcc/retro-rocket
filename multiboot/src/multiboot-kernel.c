@@ -77,6 +77,11 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		LINKED_LIST_COUNT(FS_DirectoryEntry*, items, itemsc);
 		printf("VFS dir of %d files.\n", itemsc);
 
+		items = fs_get_file_info("/boot/grub/stage2");
+		printf("Result from fs_get_file_info(\"/boot/grub/stage2\"): 0x%08x\n", items);
+		if (items)
+			printf("name: %s size: %d lbapos: %d\n", items->filename, items->size, items->lbapos);
+
 		wait_forever();
 	}
 }
