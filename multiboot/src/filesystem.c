@@ -17,7 +17,9 @@ int register_filesystem(FS_FileSystem* newfs)
 
 void retrieve_node_from_driver(FS_Tree* node)
 {
-	/* XXX: Check there isnt already content in node->files */
+	/* XXX: Check there isnt already content in node->files, if there is,
+	 * delete the old content first to avoid a memleak.
+	 */
 	FS_FileSystem* driver = (FS_FileSystem*)node->responsible_driver;
 	if (driver->getdir == NULL)
 	{
