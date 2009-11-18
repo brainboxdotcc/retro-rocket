@@ -11,7 +11,7 @@
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
 
-FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes);
+FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba, u32int lengthbytes);
 
 static FS_FileSystem* iso9660_fs = NULL;
 
@@ -46,12 +46,12 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 	info->pathtable_lba = pvd->lsb_pathtable_L_lba;
 	info->rootextent_lba = pvd->root_directory.extent_lba_lsb;
 	info->rootextent_len = pvd->root_directory.data_length_lsb;
-	info->root = ParseDirectory(info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
+	info->root = ParseDirectory(NULL, info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
 
 	return info->root != 0;
 }
 
-FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int lengthbytes)
+FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba, u32int lengthbytes)
 {
 	unsigned char* dirbuffer = (unsigned char*)kmalloc(lengthbytes);
 	int j;
@@ -107,6 +107,7 @@ FS_DirectoryEntry* ParseDirectory(iso9660* info, u32int start_lba, u32int length
 			thisentry->lbapos = fentry->extent_lba_lsb;
 			thisentry->size = fentry->data_length_lsb;
 			thisentry->flags = 0;
+			thisentry->directory = node;
 			if (fentry->file_flags & 0x02)
 				thisentry->flags |= FS_DIRECTORY;
 			dir_items++;
@@ -154,13 +155,11 @@ FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32int flags)
 
 void* iso_get_directory(void* t)
 {
-	printf("iso_getdir ");
 	FS_Tree* treeitem = (FS_Tree*)t;
 	if (treeitem)
 	{
-		printf("%s\n", treeitem->name ? treeitem->name : "/");
 		iso9660* info = (iso9660*)treeitem->opaque;
-		return (void*)ParseDirectory((iso9660*)treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, treeitem->size ? treeitem->size : info->rootextent_len);
+		return (void*)ParseDirectory(treeitem, (iso9660*)treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, treeitem->size ? treeitem->size : info->rootextent_len);
 	}
 	else
 	{
@@ -169,26 +168,25 @@ void* iso_get_directory(void* t)
 	}
 }
 
-int iso_read_file(void* i, const char* filename, u32int start, u32int length, unsigned char* buffer)
+int iso_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 {
-	iso9660* info = (iso9660*)i;
-	FS_DirectoryEntry* file = HuntEntry(info, filename, 0);
-	if (file)
+	FS_DirectoryEntry* file = (FS_DirectoryEntry*)f;
+	FS_Tree* tree = (FS_Tree*)file->directory;
+	iso9660* info = (iso9660*)tree->opaque;
+
+	u32int sectors_size = length / 2048 + 1;
+	u32int sectors_start = start / 2048 + file->lbapos;
+
+	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
+	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (unsigned int)readbuf))
 	{
-		u32int sectors_size = length / 2048 + 1;
-		u32int sectors_start = start / 2048 + file->lbapos;
-		unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
-		if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (unsigned int)readbuf))
-		{
-			printf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
-			kfree(readbuf);
-			return 0;
-		}
-		memcpy(buffer, readbuf + (start % 2048), length);
+		printf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
 		kfree(readbuf);
-		return 1;
+		return 0;
 	}
-	return 0;
+	memcpy(buffer, readbuf + (start % 2048), length);
+	kfree(readbuf);
+	return 1;
 }
 
 iso9660* iso_mount_volume(u32int drivenumber)

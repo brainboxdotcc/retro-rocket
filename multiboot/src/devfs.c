@@ -10,7 +10,7 @@ FS_DirectoryEntry* devfs_entries = NULL;
 void* devfs_get_directory(void* t)
 {
 	FS_Tree* treeitem = (FS_Tree*)t;
-	printf("devfs_getdir\n");
+	devfs_entries->directory = t;
 	return devfs_entries;
 }
 
@@ -34,6 +34,7 @@ void init_devfs()
 	empty->filename = NULL;
 	devfs_entries = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
 	devfs_entries->next = empty;
+	devfs_entries->size = 0;
 	devfs_entries->flags = 0;
 	devfs_entries->filename = strdup("core");
 	/* NB: The /devices mountpoint must exist in the root fs */

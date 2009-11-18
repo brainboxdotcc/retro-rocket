@@ -24,15 +24,12 @@ void retrieve_node_from_driver(FS_Tree* node)
 	if (driver->getdir == NULL)
 	{
 		/* Driver does not implement getdir() */
-		printf("getdir not implememnted by driver!\n");
 		return;
 	}
-	printf("driver: 0x%08x node 0x%08x %s\n", driver, node, driver->name);
 	node->files = driver->getdir(node);
 	node->dirty = 0;
 	if (node->files == NULL)
 	{
-		printf("Empty directory %s!\n", node->name);
 		node->child_dirs = NULL;
 		node->parent = node;
 		return;
@@ -72,7 +69,6 @@ void retrieve_node_from_driver(FS_Tree* node)
 			node->child_dirs->opaque = node->opaque;
 			node->child_dirs->dirty = 1;
 			node->child_dirs->parent = node;
-			printf("REPLACEMENT OF DRIVER PTR ON %s\n", x->filename ? x->filename : "/");
 			node->child_dirs->responsible_driver = node->responsible_driver;
 		}
 	}
@@ -88,7 +84,6 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 {
 	if (current_node->dirty != 0)
 	{
-		printf("fetch from driver\n");
 		retrieve_node_from_driver(current_node);
 	}
 
@@ -126,7 +121,6 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 	if (!verify_path(path))
 		return NULL;
 
-	printf("Walk to node: %s\n", path);
 	if (!strcmp(path, "/"))
 		return fs_tree;
 
@@ -178,6 +172,16 @@ FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 	return NULL;
 }
 
+int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int length, unsigned char* buffer)
+{
+	//fs_read_file(void* info, const char* filename, u32int start, u32int length, unsigned char* buffer)
+	FS_FileSystem* fs = (FS_FileSystem*)file->directory->responsible_driver;
+	if (fs)
+		return fs->readfile(file, start, length, buffer);
+	else
+		return 0;
+}
+
 FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 {
 	if (!verify_path(pathandfile))
@@ -200,12 +204,18 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 		}
 	}
 	kfree(pathinfo);
-	if (!filename || !pathname || !*filename || !*pathname)
+
+	if (!filename || !pathname || !*filename)
 	{
 		printf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
 		return NULL;
 	}
-	printf("fs_get_file_info: pathandfile='%s' path='%s' file='%s'\n", pathandfile, pathname, filename);
+	if (*pathname == 0)
+	{
+		/* A file located on the root directory -- special case */
+		kfree(pathname);
+		pathname = strdup("/");
+	}
 	FS_Tree* directory = walk_to_node(fs_tree, pathname);
 	if (!directory)
 	{
@@ -226,18 +236,19 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
 	if (item)
 	{
-		printf("REPLACEMENT OF DRIVER BY ATTACH\n");
+		FS_FileSystem* oldfs = (FS_FileSystem*)item->responsible_driver;
 		item->responsible_driver = (void*)fs;
 		item->opaque = opaque;
 		item->dirty = 1;
 		item->files = NULL;
 		item->child_dirs = NULL;
 		retrieve_node_from_driver(item);
-		printf("Driver '%s' (0x%08x) attached to vpath '%s'\n", fs->name, fs, virtual_path);
+		printf("Driver '%s' attached to virtual path '%s' replacing driver '%s'\n", fs->name, virtual_path,
+				oldfs ? oldfs->name : "<none>");
 	}
 	else
 	{
-		printf("Warning: Could not attach driver '%s' to vpath '%s'\n", fs->name, virtual_path);
+		printf("Warning: Could not attach driver '%s' to virtual path '%s'\n", fs->name, virtual_path);
 	}
 	return 1;
 }
@@ -245,6 +256,8 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 void init_filesystem()
 {
 	filesystems = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
+	fs_tree = (FS_Tree*)kmalloc(sizeof(FS_Tree));
+
 	strlcpy(filesystems->name, "DummyFS", 31);
 	filesystems->getdir = NULL;
 	filesystems->readfile = NULL;
@@ -252,7 +265,6 @@ void init_filesystem()
 	filesystems->rm = NULL;
 	filesystems->next = NULL;
 
-	fs_tree = (FS_Tree*)kmalloc(sizeof(FS_Tree));
 	fs_tree->name = NULL;
 	fs_tree->parent = fs_tree;
 	fs_tree->child_dirs = NULL;

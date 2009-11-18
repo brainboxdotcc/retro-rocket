@@ -8,9 +8,11 @@
 
 /* Prototypes for filesystem drivers (see FS_FileSystem) */
 typedef void* (*get_directory)(void*);
-typedef int (*read_file)(void*, const char*, u32int, u32int, unsigned char*);
-typedef int (*write_file)(void*, const char*, u32int, u32int, unsigned char*);
-typedef int (*delete_file)(void*, const char*);
+typedef int (*read_file)(void*, u32int, u32int, unsigned char*);
+typedef int (*write_file)(void*, u32int, u32int, unsigned char*);
+typedef int (*delete_file)(void*);
+
+struct FS_Tree_t;
 
 /* A VFS directory entry. Files AND directories have these,
  * but internally there is also a tree of FS_Tree* which is used
@@ -29,6 +31,7 @@ typedef struct FS_DirectoryEntryTag
 	u32int device;		/* Device ID (driver specific) */
 	u32int size;		/* File size in bytes */
 	u32int flags;		/* File flags (FS_*) */
+	struct FS_Tree_t* directory;	/* Containing directory */
 	struct FS_DirectoryEntryTag* next;	/* Next entry */
 
 } FS_DirectoryEntry;
@@ -90,5 +93,7 @@ void init_filesystem();
 FS_DirectoryEntry* fs_get_items(const char* pathname);
 
 FS_DirectoryEntry* fs_get_file_info(const char* pathandfile);
+
+int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int end, unsigned char* buffer);
 
 #endif

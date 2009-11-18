@@ -53,14 +53,19 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 	}
 	else
 	{
-		printf("Sixty-Four kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
+		setforeground(current_console, COLOUR_LIGHTYELLOW);
+		printf("Sixty-Four");
+		setforeground(current_console, COLOUR_WHITE);
+		printf(" kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
 		ide_initialise();
 		init_filesystem();
 		init_iso9660();
-		init_debug();
 		iso9660_attach(0, "/");
 		init_devfs();
+
+		init_debug();
+		printf("\n");
 
 		printf("Kernel vfs tests\n");
 

@@ -50,38 +50,25 @@ void symbol_fail()
 
 void init_debug()
 {
-	iso9660* iso = iso_mount_volume(0);
-	if (!iso)
+	FS_DirectoryEntry* symfile = fs_get_file_info("/kernel.sym");
+	if (!symfile)
 	{
 		symbol_fail();
 		return;
 	}
-	FS_DirectoryEntry* n;
-	u32int filesize = 0;
-	for(n = iso->root; n->next; n = n->next)
-	{
-		if (n->flags == 0 && !strcmp(n->filename, "kernel.sym"))
-		{
-			filesize = n->size;
-			break;
-		}
-	}
+	u32int filesize = symfile->size;
 	if (filesize == 0)
 	{
 		symbol_fail();
-		kfree(iso->root);
-		kfree(iso);
 		return;
 	}
 	else
 	{
 		unsigned char* filecontent = (unsigned char*)kmalloc(filesize);
-		if (!iso_read_file(iso, "kernel.sym", 0, filesize, filecontent))
+		if (!fs_read_file(symfile, 0, filesize, filecontent))
 		{
 			symbol_fail();
 			kfree(filecontent);
-			kfree(iso->root);
-			kfree(iso);
 			return;
 		}
 		/* We now have the symbols in the filecontent buffer. Parse them to linked list,
@@ -143,10 +130,16 @@ void init_debug()
 			sizebytes += sizeof(symbol_t) + length;
 		}
 
-		kfree(iso->root);
-		kfree(iso);
 		kfree(filecontent);
-		printf("Read %d symbols from /kernel.sym (%d bytes)\n", symcount, sizebytes);
+		printf("Read ");
+		setforeground(current_console, COLOUR_LIGHTYELLOW);
+		printf("%d ", symcount);
+		setforeground(current_console, COLOUR_WHITE);
+		printf("symbols from ");
+		setforeground(current_console, COLOUR_LIGHTYELLOW);
+		printf("/kernel.sym ");
+		setforeground(current_console, COLOUR_WHITE);
+		printf("(%d bytes)\n", sizebytes);
 	}
 }
 

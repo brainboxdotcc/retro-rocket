@@ -149,7 +149,6 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err) {
 
 void ide_initialise()
 {
-	printf("Starting IDE...\n");
 	int type, base, masterslave, k, err, count = 0;
 	// 1- Define I/O Ports which interface IDE Controller
 	channels[ATA_PRIMARY].base = 0x1F0;
