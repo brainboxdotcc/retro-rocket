@@ -23,13 +23,13 @@ emulator:
 	qemu -cdrom sixty-four.iso
 
 debug:
-	qemu -s -cdrom sixty-four.iso &
+	nohup qemu -s -cdrom sixty-four.iso &
 	gdb -command=.gdbargs
 
 remoterun: all
 	qemu -vnc 127.0.0.1:0 -cdrom sixty-four.iso
 
 remotedebug: all
-	qemu -s -vnc 127.0.0.1:0 -cdrom sixty-four.iso &
+	nohup qemu -s -vnc 127.0.0.1:0 -cdrom sixty-four.iso &
 	gdb -command=.gdbargs
 
