@@ -22,3 +22,8 @@ source:
 emulator:
 	qemu -cdrom sixty-four.iso
 
+debug:
+	qemu -s -cdrom sixty-four.iso &
+	gdb -command=.gdbargs
+
+
