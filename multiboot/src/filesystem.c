@@ -2,9 +2,13 @@
 #include "../include/kmalloc.h"
 #include "../include/string.h"
 #include "../include/printf.h"
+#include "../include/memcpy.h"
 
 FS_FileSystem* filesystems;
 FS_Tree* fs_tree;
+static u32int fd_last = 0;
+static u32int fd_alloc = 0;
+static FS_Handle* filehandles[FD_MAX] = { NULL };
 
 int register_filesystem(FS_FileSystem* newfs)
 {
@@ -13,6 +17,123 @@ int register_filesystem(FS_FileSystem* newfs)
 	newfs->next = filesystems;
 	filesystems = newfs;
 	return 1;
+}
+
+int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
+{
+	if (fd_alloc >= FD_MAX)
+		return -1;
+
+	while (filehandles[fd_last] != NULL)
+	{
+		if (filehandles[fd_last] == NULL)
+		{
+			filehandles[fd_last] = (FS_Handle*)kmalloc(sizeof(FS_Handle));
+			filehandles[fd_last]->type = type;
+			filehandles[fd_last]->outbuflen = filehandles[fd_last]->inbuflen = 0;
+			filehandles[fd_last]->file = file;
+			filehandles[fd_last]->seekpos = 0;
+			fd_alloc++;
+			fd_last++;
+			return fd_last - 1;
+		}
+		fd_last++;
+		if (fd_last >= FD_MAX)
+			fd_last = 0;
+	}
+	return -1;
+}
+
+u32int destroy_filehandle(u32int descriptor)
+{
+	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
+		return 0;
+	else
+	{
+		kfree(filehandles[descriptor]);
+		filehandles[descriptor] = NULL;
+		if (descriptor < fd_last)
+			fd_last = descriptor;
+		fd_alloc--;
+	}
+	return 1;
+}
+
+int _open(const char* filename, int oflag)
+{
+	FS_DirectoryEntry* file = fs_get_file_info(filename);
+	if (file == NULL)
+		return -1;
+
+	int fd = alloc_filehandle(file_input, file);
+	if (fd == -1)
+		return -1;
+
+	if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, IOBUFSZ, filehandles[fd]->inbuf))
+	{
+		destroy_filehandle(fd);
+		return -1;
+	}
+
+	return fd;
+}
+
+void flush_filehandle(u32int descriptor)
+{
+	/* Until we have writeable filesystems this is a stub */
+}
+
+int _close(u32int descriptor)
+{
+	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
+		return -1;
+
+	flush_filehandle(descriptor);
+	destroy_filehandle(descriptor);
+
+	return 0;
+}
+
+int _read(int fd, void *buffer, unsigned int count)
+{
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
+		return -1;
+
+	if ((filehandles[fd]->seekpos + count) > filehandles[fd]->file->size)
+	{
+		/* Request too large, truncate it */
+		count = filehandles[fd]->file->size - filehandles[fd]->seekpos;
+	}
+	else if (((filehandles[fd]->seekpos % IOBUFSZ) + count) > IOBUFSZ)
+	{
+		/* memcpy what's left of this buffer, load a new buffer. */
+		int readbytes = 0;
+		while (readbytes < count)
+		{
+			int rb = IOBUFSZ - (filehandles[fd]->seekpos % IOBUFSZ);
+			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, rb, filehandles[fd]->inbuf))
+				return -1;
+
+			memcpy(buffer + readbytes, filehandles[fd]->inbuf + (filehandles[fd]->seekpos % IOBUFSZ), rb);
+
+			filehandles[fd]->seekpos += rb;
+			readbytes += rb;
+		}
+
+
+	}
+	else
+	{
+		/* we can do the entire read in the current buffer only */
+		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf))
+			return -1;
+
+		memcpy(buffer, filehandles[fd]->inbuf, count);
+
+		filehandles[fd]->seekpos += count;
+	}
+
+	return count;
 }
 
 void retrieve_node_from_driver(FS_Tree* node)

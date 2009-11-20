@@ -3,6 +3,15 @@
 
 #include "kernel.h"
 
+#define FD_MAX 128
+#define IOBUFSZ 2048
+
+#define _O_APPEND   0x00000001
+#define _O_CREAT    0x00000002
+#define _O_RDONLY   0x00000004
+#define _O_WRONLY   0x00000008
+#define _O_RDWR     (_O_WRONLY|_O_RDONLY)
+
 /* File flags for FS_DirectoryEntry */
 #define FS_DIRECTORY	0x00000001	/* Entry is a directory */
 
@@ -72,6 +81,24 @@ typedef struct FS_Tree_t
 	struct FS_Tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
 } FS_Tree;
 
+typedef enum
+{
+	file_input,
+	file_output,
+	file_random
+} FS_HandleType;
+
+typedef struct FS_Handle_t
+{
+	FS_HandleType type;
+	unsigned char inbuf[IOBUFSZ];
+	unsigned char outbuf[IOBUFSZ];
+	u16int inbuflen;
+	u16int outbuflen;
+	FS_DirectoryEntry* file;
+	u32int seekpos;
+} FS_Handle;
+
 
 /* Register a new filesystem */
 int register_filesystem(FS_FileSystem* newfs);
@@ -95,5 +122,11 @@ FS_DirectoryEntry* fs_get_items(const char* pathname);
 FS_DirectoryEntry* fs_get_file_info(const char* pathandfile);
 
 int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int end, unsigned char* buffer);
+
+int _open(const char *filename, int oflag);
+
+int _read(int fd, void *buffer, unsigned int count);
+
+int _close(u32int fd);
 
 #endif

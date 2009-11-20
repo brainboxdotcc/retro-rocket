@@ -10,11 +10,11 @@ FS_DirectoryEntry* devfs_entries = NULL;
 void* devfs_get_directory(void* t)
 {
 	FS_Tree* treeitem = (FS_Tree*)t;
-	devfs_entries->directory = t;
+	devfs_entries->directory = treeitem;
 	return devfs_entries;
 }
 
-int devfs_read_file(void* i, const char* filename, u32int start, u32int length, unsigned char* buffer)
+int devfs_read_file(void* file, u32int start, u32int length, unsigned char* buffer)
 {
 	return 0;
 }
