@@ -14,6 +14,7 @@
 
 /* File flags for FS_DirectoryEntry */
 #define FS_DIRECTORY	0x00000001	/* Entry is a directory */
+#define FS_MOUNTPOINT	0x00000002	/* Entry is a mountpoint */
 
 /* Prototypes for filesystem drivers (see FS_FileSystem) */
 typedef void* (*get_directory)(void*);
