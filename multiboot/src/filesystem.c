@@ -3,6 +3,7 @@
 #include "../include/string.h"
 #include "../include/printf.h"
 #include "../include/memcpy.h"
+#include "../include/io.h"
 
 FS_FileSystem* filesystems;
 FS_Tree* fs_tree;
@@ -19,22 +20,24 @@ int register_filesystem(FS_FileSystem* newfs)
 	return 1;
 }
 
+/* Allocate a new file descriptor and attach it to 'file' */
 int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
 {
-	printf("Alloc filehandle\n");
+	/* Check we havent used up all available fds */
 	if (fd_alloc >= FD_MAX)
 		return -1;
 
-	while (1)
+	u32int iter = 0;
+	while (iter++ < FD_MAX)
 	{
+		/* Found an empty slot */
 		if (filehandles[fd_last] == NULL)
 		{
+			/* Initialise FS_Handle struct */
 			filehandles[fd_last] = (FS_Handle*)kmalloc(sizeof(FS_Handle));
 			filehandles[fd_last]->type = type;
-			filehandles[fd_last]->outbuflen = filehandles[fd_last]->inbuflen = 0;
 			filehandles[fd_last]->file = file;
 			filehandles[fd_last]->seekpos = 0;
-			printf("Allocated fd %d\n", fd_last);
 			fd_alloc++;
 			fd_last++;
 			return fd_last - 1;
@@ -42,6 +45,8 @@ int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
 		else
 		{
 			fd_last++;
+
+			/* Reached the end of the list? loop back around */
 			if (fd_last >= FD_MAX)
 				fd_last = 0;
 		}
@@ -49,14 +54,22 @@ int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
 	return -1;
 }
 
+/* Free a file descriptor */
 u32int destroy_filehandle(u32int descriptor)
 {
+	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
 		return 0;
 	else
 	{
 		kfree(filehandles[descriptor]);
 		filehandles[descriptor] = NULL;
+		/* Make the search faster for the next process to ask
+		 * for an fd, and try to keep some semblence of POSIX
+		 * compliance by making this fd immediately available
+		 * as the next fd if it is lower than what we're handing
+		 * out next.
+		 */
 		if (descriptor < fd_last)
 			fd_last = descriptor;
 		fd_alloc--;
@@ -64,73 +77,108 @@ u32int destroy_filehandle(u32int descriptor)
 	return 1;
 }
 
+/* Open a file for access */
 int _open(const char* filename, int oflag)
 {
+	/* First check if we can find the file in the filesystem */
 	FS_DirectoryEntry* file = fs_get_file_info(filename);
 	if (file == NULL)
 		return -1;
 
-
+	/* Allocate a file handle. NOTE, currently restricted to
+	 * read-only file access by hard-coding the param here.
+	 */
 	int fd = alloc_filehandle(file_input, file);
 	if (fd == -1)
 		return -1;
 
-	if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, IOBUFSZ, filehandles[fd]->inbuf))
+	/* Read an initial buffer into the structure up to IOBUFSZ in size */
+	if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
+			file->size < IOBUFSZ ? file->size : IOBUFSZ, filehandles[fd]->inbuf))
 	{
+		/* If we couldnt get the initial buffer, there is something wrong.
+		 * Give up the filehandle and return error.
+		 */
 		destroy_filehandle(fd);
 		return -1;
 	}
 
+	/* Return the allocated file descriptor */
 	return fd;
 }
 
+/* Write out buffered data to a file open for writing */
 void flush_filehandle(u32int descriptor)
 {
 	/* Until we have writeable filesystems this is a stub */
 }
 
+/* Close an open file descriptor */
 int _close(u32int descriptor)
 {
+	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
 		return -1;
 
-	flush_filehandle(descriptor);
-	destroy_filehandle(descriptor);
+	/* Flush any files that arent readonly */
+	if (filehandles[descriptor] != file_input)
+		flush_filehandle(descriptor);
 
-	return 0;
+	return destroy_filehandle(descriptor) ? 0 : -1;
 }
 
+/* Read bytes from an open file */
 int _read(int fd, void *buffer, unsigned int count)
 {
+	/* Sanity checks */
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
 		return -1;
 
+	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size)
+		return 0;
+
+	/* Check that the size of the request and current position
+	 * don't place any part of the buffer past the bounds of the file
+	 */
 	if ((filehandles[fd]->seekpos + count) > filehandles[fd]->file->size)
 	{
-		/* Request too large, truncate it */
+		/* Request too large, truncate it to EOF */
 		count = filehandles[fd]->file->size - filehandles[fd]->seekpos;
 	}
-	else if (((filehandles[fd]->seekpos % IOBUFSZ) + count) > IOBUFSZ)
+
+	if (((filehandles[fd]->seekpos % IOBUFSZ) + count) > IOBUFSZ)
 	{
-		/* memcpy what's left of this buffer, load a new buffer. */
+		/* The requested buffer size is too large to read in one operation.
+		 * Continually read into the input buffer in IOBUFSZ chunks maximum
+		 * until all data is read.
+		 */
 		int readbytes = 0;
-		while (readbytes < count)
+		while (count > 0)
 		{
-			int rb = IOBUFSZ - (filehandles[fd]->seekpos % IOBUFSZ);
+			int rb;
+			if (count > IOBUFSZ)
+				rb = IOBUFSZ;
+			else
+				rb = count;
+
 			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, rb, filehandles[fd]->inbuf))
 				return -1;
 
-			memcpy(buffer + readbytes, filehandles[fd]->inbuf + (filehandles[fd]->seekpos % IOBUFSZ), rb);
+			memcpy(buffer + readbytes, filehandles[fd]->inbuf, rb);
 
 			filehandles[fd]->seekpos += rb;
 			readbytes += rb;
+			count -= rb;
 		}
+		count = readbytes;
 
 
 	}
 	else
 	{
-		/* we can do the entire read in the current buffer only */
+		/* we can do the entire read from only the current IO buffer */
+
+		/* Read the entire lot in one go */
 		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf))
 			return -1;
 
@@ -309,7 +357,6 @@ FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 
 int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int length, unsigned char* buffer)
 {
-	//fs_read_file(void* info, const char* filename, u32int start, u32int length, unsigned char* buffer)
 	FS_FileSystem* fs = (FS_FileSystem*)file->directory->responsible_driver;
 	if (fs)
 		return fs->readfile(file, start, length, buffer);

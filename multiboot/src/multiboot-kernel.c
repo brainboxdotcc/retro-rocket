@@ -79,16 +79,15 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 			printf("File opened with fd=%d\n", fd);
 			while (!_eof(fd))
 			{
-				char z;
-				int nread = _read(fd, &z, 1);
+				unsigned char z[2090];
+				int nread = _read(fd, z, 2089);
 				if (nread < 1)
 				{
-					printf("Read error\n");
+					printf("\nRead error\n");
 					break;
 				}
-				printf("%c", z);
-				int j;
-				for (j = 0; j < 10000000; j++);
+				z[nread] = 0;
+				printf("%s", z);
 			}
 			printf("\nFile EOF\n");
 			if (_close(fd))

@@ -88,15 +88,17 @@ typedef enum
 	file_random
 } FS_HandleType;
 
+/* The data for an open file descriptor.
+ * The FD table is an array of pointers to these
+ * structs, any closed FD is NULL.
+ */
 typedef struct FS_Handle_t
 {
-	FS_HandleType type;
-	unsigned char inbuf[IOBUFSZ];
-	unsigned char outbuf[IOBUFSZ];
-	u16int inbuflen;
-	u16int outbuflen;
-	FS_DirectoryEntry* file;
-	u32int seekpos;
+	FS_HandleType type;		/* Filehandle type */
+	unsigned char inbuf[IOBUFSZ];	/* Input buffer size */
+	unsigned char outbuf[IOBUFSZ];	/* Output buffer size */
+	FS_DirectoryEntry* file;	/* File which is open */
+	u32int seekpos;			/* Seek position within file */
 } FS_Handle;
 
 
@@ -119,16 +121,31 @@ void init_filesystem();
  */
 FS_DirectoryEntry* fs_get_items(const char* pathname);
 
+/* Retrieve file information on any arbitrary filename.
+ */
 FS_DirectoryEntry* fs_get_file_info(const char* pathandfile);
 
-int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int end, unsigned char* buffer);
+/* Read raw bytes from any arbitrary file.
+ */
+int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int length, unsigned char* buffer);
 
+/* POSIX _open function, opens a file for read or write access,
+ * or creates a new file.
+ */
 int _open(const char *filename, int oflag);
 
+/* POSIX _read function, reads bytes from an open file.
+ */
 int _read(int fd, void *buffer, unsigned int count);
 
+/* POSIX _close function, closes an open file.
+ */
 int _close(u32int fd);
 
+/* POSIX _eof function, reports wether or not we have reached
+ * the end of file marker on any open file.
+ */
 int _eof(int fd);
 
 #endif
+
