@@ -127,6 +127,37 @@ int _close(u32int descriptor)
 	return destroy_filehandle(descriptor) ? 0 : -1;
 }
 
+long _lseek(int fd, long offset, int origin)
+{
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
+		return -1;
+	else
+	{
+		if (offset + origin > filehandles[fd]->file->size)
+			return -1;
+		else
+		{
+			filehandles[fd]->seekpos = offset + origin;
+			/* Flush output before seeking */
+			flush_filehandle(fd);
+			/* Refresh input buffer */
+			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, IOBUFSZ, filehandles[fd]->inbuf))
+				return -1;
+			else
+				return filehandles[fd]->seekpos;
+		}
+	}
+	return -1;
+}
+
+long _tell(int fd)
+{
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
+		return -1;
+	else
+		return filehandles[fd]->seekpos;
+}
+
 /* Read bytes from an open file */
 int _read(int fd, void *buffer, unsigned int count)
 {

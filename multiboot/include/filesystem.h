@@ -147,5 +147,9 @@ int _close(u32int fd);
  */
 int _eof(int fd);
 
+long _lseek(int fd, long offset, int origin);
+
+long _tell(int fd);
+
 #endif
 
