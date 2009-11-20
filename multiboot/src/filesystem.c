@@ -21,10 +21,11 @@ int register_filesystem(FS_FileSystem* newfs)
 
 int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
 {
+	printf("Alloc filehandle\n");
 	if (fd_alloc >= FD_MAX)
 		return -1;
 
-	while (filehandles[fd_last] != NULL)
+	while (1)
 	{
 		if (filehandles[fd_last] == NULL)
 		{
@@ -33,13 +34,17 @@ int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
 			filehandles[fd_last]->outbuflen = filehandles[fd_last]->inbuflen = 0;
 			filehandles[fd_last]->file = file;
 			filehandles[fd_last]->seekpos = 0;
+			printf("Allocated fd %d\n", fd_last);
 			fd_alloc++;
 			fd_last++;
 			return fd_last - 1;
 		}
-		fd_last++;
-		if (fd_last >= FD_MAX)
-			fd_last = 0;
+		else
+		{
+			fd_last++;
+			if (fd_last >= FD_MAX)
+				fd_last = 0;
+		}
 	}
 	return -1;
 }
@@ -64,6 +69,7 @@ int _open(const char* filename, int oflag)
 	FS_DirectoryEntry* file = fs_get_file_info(filename);
 	if (file == NULL)
 		return -1;
+
 
 	int fd = alloc_filehandle(file_input, file);
 	if (fd == -1)
@@ -134,6 +140,14 @@ int _read(int fd, void *buffer, unsigned int count)
 	}
 
 	return count;
+}
+
+int _eof(int fd)
+{
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
+		return -1;
+
+	return (filehandles[fd]->seekpos >= filehandles[fd]->file->size);
 }
 
 void retrieve_node_from_driver(FS_Tree* node)

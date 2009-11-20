@@ -37,7 +37,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_error_handler();
 		init_basic_keyboard();
 		memorysize = init_paging(mbd);
-		initialise_tasking();
+		//initialise_tasking();
 		init_timer(50);
 		interrupts_on();
 	}
@@ -69,23 +69,34 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 		printf("Kernel vfs tests\n");
 
-		u32int itemsc;
-		FS_DirectoryEntry* n;
-		FS_DirectoryEntry* items = fs_get_items("/boot/grub");
-		printf("Result from fs_get_items(\"/boot/grub\"): 0x%08x\n", items);
-
-		LINKED_LIST_COUNT(FS_DirectoryEntry*, items, itemsc);
-		printf("VFS dir of %d files.\n", itemsc);
-
-		items = fs_get_items("/devices");
-		printf("Result from fs_get_items(\"/devices\"): 0x%08x\n", items);
-		LINKED_LIST_COUNT(FS_DirectoryEntry*, items, itemsc);
-		printf("VFS dir of %d files.\n", itemsc);
-
-		items = fs_get_file_info("/boot/grub/stage2");
-		printf("Result from fs_get_file_info(\"/boot/grub/stage2\"): 0x%08x\n", items);
-		if (items)
-			printf("name: %s size: %d lbapos: %d\n", items->filename, items->size, items->lbapos);
+		int fd = _open("/kernel.sym", _O_RDONLY);
+		if (fd == -1)
+		{
+			printf("File open error\n");
+		}
+		else
+		{
+			printf("File opened with fd=%d\n", fd);
+			while (!_eof(fd))
+			{
+				char z;
+				int nread = _read(fd, &z, 1);
+				if (nread < 1)
+				{
+					printf("Read error\n");
+					break;
+				}
+				printf("%c", z);
+				int j;
+				for (j = 0; j < 10000000; j++);
+			}
+			printf("\nFile EOF\n");
+			if (_close(fd))
+			{
+				printf("File close error\n");
+			}
+		}
+		printf("Done\n");
 
 		wait_forever();
 	}

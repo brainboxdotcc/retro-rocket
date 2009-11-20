@@ -129,4 +129,6 @@ int _read(int fd, void *buffer, unsigned int count);
 
 int _close(u32int fd);
 
+int _eof(int fd);
+
 #endif
