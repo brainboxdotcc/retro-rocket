@@ -67,9 +67,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_debug();
 		printf("\n");
 
-		printf("Kernel vfs tests\n");
-
-		int fd = _open("/kernel.sym", _O_RDONLY);
+		load_elf("/kernel.bin");
+		/*int fd = _open("/kernel.sym", _O_RDONLY);
 		if (fd == -1)
 		{
 			printf("File open error\n");
@@ -95,7 +94,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 				printf("File close error\n");
 			}
 		}
-		printf("Done\n");
+		printf("Done\n");*/
 
 		wait_forever();
 	}

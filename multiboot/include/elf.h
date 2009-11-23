@@ -74,11 +74,11 @@ enum IdentValues
 #define ELFDATA2LSB 1	/* Little-endian */
 #define ELFDATA2MSB 2	/* Big-endian */
 
-	/* Validates if this is a 32 bit x86 executable */
-#define IS_INTEL_32(header) (header.e_ident[EI_CLASS] == ELFCLASS32 && header.e_ident[EI_DATA] == ELFDATA2LSB && header.e_machine == EM_386 && header.e_flags == 0)
+/* Validates if this is a 32 bit x86 executable */
+#define IS_INTEL_32(header) (header->e_ident[EI_CLASS] == ELFCLASS32 && header->e_ident[EI_DATA] == ELFDATA2LSB && header->e_machine == EM_386 && header->e_flags == 0)
 
-	/* Validates if this is a 64 bit x86_64 executable */
-#define IS_INTEL_64(header) (header.e_ident[EI_CLASS] == ELFCLASS64 && header.e_ident[EI_DATA] == ELFDATA2LSB && header.e_machine == EM_386 && header.e_flags == 0)
+/* Validates if this is a 64 bit x86_64 executable */
+#define IS_INTEL_64(header) (header->e_ident[EI_CLASS] == ELFCLASS64 && header->e_ident[EI_DATA] == ELFDATA2LSB && header->e_machine == EM_386 && header->e_flags == 0)
 
 	/* Special section indexes */
 #define SHN_UNDEF 0
