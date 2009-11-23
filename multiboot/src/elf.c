@@ -14,6 +14,7 @@ u8int load_elf(const char* path_to_file)
 {
 	int fh = _open(path_to_file, _O_RDONLY);
 	unsigned char* stringtable = NULL;
+	unsigned char* stringtablesym = NULL;
 
 	if (fh < 0)
 	{
@@ -43,7 +44,6 @@ u8int load_elf(const char* path_to_file)
 		}
 
 		printf("Elf32_Ehdr\n");
-		DumpHex((unsigned char*)fileheader, sizeof(Elf32_Ehdr));
 
 		printf("e_type=%d e_machine=%d e_version=%d e_entry=%x e_phoff=%d e_shoff=%d e_flags=%d\n",
 				fileheader->e_type,
@@ -76,25 +76,50 @@ u8int load_elf(const char* path_to_file)
 		Elf32_Shdr* shdr = get_sectionheader(fh, fileheader, fileheader->e_shstrndx);
 
 		printf("String table section header\n");
-		printf("sh_name=%d sh_type=%d sh_flags=%d sh_addr=%x sh_offset=%d sh_size=%d sh_link=%d\n",
-				shdr->sh_name,
-				shdr->sh_type,
-				shdr->sh_flags,
-				shdr->sh_addr,
-				shdr->sh_offset,
-				shdr->sh_size,
-				shdr->sh_link);
-		printf("sh_info=%d sh_addralign=%d sh_entsize=%d\n",
-				shdr->sh_info,
-				shdr->sh_addralign,
-				shdr->sh_entsize);
-
 		printf("Reading %d bytes of strings at offset %d\n", shdr->sh_size, shdr->sh_offset);
 
 		stringtable = (unsigned char*)kmalloc(shdr->sh_size);
 		_lseek(fh, shdr->sh_offset, 0);
-		n_read = _read(fh, stringtable, sizeof(Elf32_Shdr));
-		DumpHex(stringtable, shdr->sh_size);
+		n_read = _read(fh, stringtable, shdr->sh_size);
+		kfree(shdr);
+
+		shdr = get_section_by_name(fh, fileheader, stringtable, ".strtab");
+		stringtablesym = (unsigned char*)kmalloc(shdr->sh_size);
+		_lseek(fh, shdr->sh_offset, 0);
+		n_read = _read(fh, stringtablesym, shdr->sh_size);
+		kfree(shdr);
+
+
+		printf("Fetching symbol table\n");
+		shdr = get_section_by_name(fh, fileheader, stringtable, ".symtab");
+		printf("Got %s\n", stringtable + shdr->sh_name);
+
+		u32int symtab_offset = shdr->sh_offset;
+		u32int symtab_size = shdr->sh_size;
+
+		printf("symbol table ofs=%d size=%d\n", symtab_offset, symtab_size / sizeof(Elf32_Sym));
+		_lseek(fh, symtab_offset, 0);
+
+		u32int offset = 0;
+
+		Elf32_Sym* sym = (Elf32_Sym*)kmalloc(sizeof(Elf32_Sym));
+		while (offset < symtab_size)
+		{
+			_read(fh, sym, sizeof(Elf32_Sym));
+			if (sym->st_name != 0)
+			{
+				printf("st_name=%s(%d) st_value=%08x st_size=%d st_info=%d st_other=%d st_shndx=%d\n",
+						stringtablesym + sym->st_name, sym->st_name,
+						sym->st_value,
+						sym->st_size,
+						sym->st_info,
+						sym->st_other,
+						sym->st_shndx
+						);
+				printf("ELF32_ST_BIND=%d ELF32_ST_TYPE=%d\n", ELF32_ST_BIND(sym->st_info), ELF32_ST_TYPE(sym->st_info));
+			}
+			offset += sizeof(Elf32_Sym);
+		}
 
 		int sh;
 		for (sh = 0; sh < fileheader->e_shnum; sh++)
@@ -119,7 +144,7 @@ Elf32_Shdr* get_section_by_name(int fh, Elf32_Ehdr* fileheader, unsigned char* s
 	for (sh = 0; sh < fileheader->e_shnum; sh++)
 	{
 		Elf32_Shdr* hdr = get_sectionheader(fh, fileheader, sh);
-		if (!strcmp(stringtable + hdr->sh_name, name))
+		if (!strcmp((char*)stringtable + hdr->sh_name, name))
 			return hdr;
 		else
 			kfree(hdr);

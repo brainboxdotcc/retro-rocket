@@ -11,7 +11,8 @@ typedef u32int Elf32_Word;
 
 #define EI_NIDENT     16
 
-typedef struct {
+typedef struct
+{
 	unsigned char e_ident[EI_NIDENT];
 	Elf32_Half e_type;
 	Elf32_Half e_machine;
@@ -26,7 +27,7 @@ typedef struct {
 	Elf32_Half e_shentsize;	/* Size of one section header */
 	Elf32_Half e_shnum;	/* Number of entries in section header table */
 	Elf32_Half e_shstrndx;	/* Index of string table in section header */
-} Elf32_Ehdr;
+} __attribute__((__packed__)) Elf32_Ehdr;
 
 	/* The string table is a list of null terminated strings. */
 
@@ -89,7 +90,8 @@ enum IdentValues
 #define SHN_COMMON 0xfff2
 #define SHN_HIRESERVE 0xffff
 
-typedef struct {
+typedef struct
+{
 	Elf32_Word sh_name;	/* Index into string table section */
 	Elf32_Word sh_type;	/* Section type */
 	Elf32_Word sh_flags;	/* Section flags */
@@ -100,7 +102,7 @@ typedef struct {
 	Elf32_Word sh_info;	/* Extra information */
 	Elf32_Word sh_addralign;/* Alignment constraints, or 0/1 for no constraints */
 	Elf32_Word sh_entsize;	/* Size of each entry in the data in bytes */
-} Elf32_Shdr;
+} __attribute__((__packed__)) Elf32_Shdr;
 
 	/* Values for Elf32_Shdr::sh_type */
 #define SHT_NULL		0
@@ -127,20 +129,36 @@ typedef struct {
 #define SHF_MASKPROC		0xf0000000	/* Processor specific values mask */
 
 /* Relocation entry info */
-typedef struct {
+typedef struct
+{
 	Elf32_Addr  r_offset;
 	Elf32_Word  r_info;
-} Elf32_Rel;
+} __attribute__((__packed__)) Elf32_Rel;
 
-typedef struct {
+typedef struct
+{
 	Elf32_Addr  r_offset;	/* Location of relocation, virtual address */
 	Elf32_Word  r_info;	/* Symbol table index and type of relocation */
 	Elf32_Sword r_addend;
-} Elf32_Rela;
+} __attribute__((__packed__)) Elf32_Rela;
 
 #define ELF32_R_SYM(i)    ((i)>>8)
 #define ELF32_R_TYPE(i)   ((unsigned char)(i))
 #define ELF32_R_INFO(s,t) (((s)<<8)+(unsigned char)(t))
 
+typedef struct
+{
+	Elf32_Word st_name;
+	Elf32_Addr st_value;
+	Elf32_Word st_size;
+	unsigned char st_info;
+	unsigned char st_other;
+	Elf32_Half st_shndx;
+} __attribute__((__packed__)) Elf32_Sym;
+
+#define ELF32_ST_BIND(i)	((i) >> 4)
+#define ELF32_ST_TYPE(i)	((i) & 0x0F)
+#define ELF32_ST_INFO(b, t)	(((b) << 4) + ((t) & 0x0F))
 
 #endif
+
