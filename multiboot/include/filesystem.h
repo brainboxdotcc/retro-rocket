@@ -96,8 +96,10 @@ typedef enum
 typedef struct FS_Handle_t
 {
 	FS_HandleType type;		/* Filehandle type */
-	unsigned char inbuf[IOBUFSZ];	/* Input buffer size */
-	unsigned char outbuf[IOBUFSZ];	/* Output buffer size */
+	unsigned char* inbuf;		/* Input buffer */
+	unsigned char* outbuf;		/* Output buffer */
+	u32int outbufsize;		/* Output buffer size */
+	u32int inbufsize;		/* Input buffer size */
 	FS_DirectoryEntry* file;	/* File which is open */
 	u32int seekpos;			/* Seek position within file */
 } FS_Handle;

@@ -21,7 +21,7 @@ int register_filesystem(FS_FileSystem* newfs)
 }
 
 /* Allocate a new file descriptor and attach it to 'file' */
-int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
+int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file, u32int ibufsz, u32int obufsz)
 {
 	/* Check we havent used up all available fds */
 	if (fd_alloc >= FD_MAX)
@@ -38,6 +38,18 @@ int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file)
 			filehandles[fd_last]->type = type;
 			filehandles[fd_last]->file = file;
 			filehandles[fd_last]->seekpos = 0;
+
+			filehandles[fd_last]->inbufsize = ibufsz;
+			filehandles[fd_last]->outbufsize = obufsz;
+			if (ibufsz)
+				filehandles[fd_last]->inbuf = (unsigned char*)kmalloc(ibufsz);
+			else
+				filehandles[fd_last]->inbuf = NULL;
+			if (obufsz)
+				filehandles[fd_last]->outbuf = (unsigned char*)kmalloc(obufsz);
+			else
+				filehandles[fd_last]->outbuf = NULL;
+
 			fd_alloc++;
 			fd_last++;
 			return fd_last - 1;
@@ -62,6 +74,10 @@ u32int destroy_filehandle(u32int descriptor)
 		return 0;
 	else
 	{
+		if (filehandles[fd_last]->inbuf)
+			kfree(filehandles[fd_last]->inbuf);
+		if (filehandles[fd_last]->outbuf)
+			kfree(filehandles[fd_last]->outbuf);
 		kfree(filehandles[descriptor]);
 		filehandles[descriptor] = NULL;
 		/* Make the search faster for the next process to ask
@@ -88,13 +104,14 @@ int _open(const char* filename, int oflag)
 	/* Allocate a file handle. NOTE, currently restricted to
 	 * read-only file access by hard-coding the param here.
 	 */
-	int fd = alloc_filehandle(file_input, file);
+	int fd = alloc_filehandle(file_input, file, IOBUFSZ, 0);
 	if (fd == -1)
 		return -1;
 
-	/* Read an initial buffer into the structure up to IOBUFSZ in size */
+	/* Read an initial buffer into the structure up to fd->inbufsize in size */
 	if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
-			file->size < IOBUFSZ ? file->size : IOBUFSZ, filehandles[fd]->inbuf))
+			file->size < filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
+			filehandles[fd]->inbuf))
 	{
 		/* If we couldnt get the initial buffer, there is something wrong.
 		 * Give up the filehandle and return error.
@@ -141,7 +158,7 @@ long _lseek(int fd, long offset, int origin)
 			/* Flush output before seeking */
 			flush_filehandle(fd);
 			/* Refresh input buffer */
-			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, IOBUFSZ, filehandles[fd]->inbuf))
+			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, filehandles[fd]->inbufsize, filehandles[fd]->inbuf))
 				return -1;
 			else
 				return filehandles[fd]->seekpos;
@@ -177,18 +194,18 @@ int _read(int fd, void *buffer, unsigned int count)
 		count = filehandles[fd]->file->size - filehandles[fd]->seekpos;
 	}
 
-	if (((filehandles[fd]->seekpos % IOBUFSZ) + count) > IOBUFSZ)
+	if (((filehandles[fd]->seekpos % filehandles[fd]->inbufsize) + count) > filehandles[fd]->inbufsize)
 	{
 		/* The requested buffer size is too large to read in one operation.
-		 * Continually read into the input buffer in IOBUFSZ chunks maximum
-		 * until all data is read.
+		 * Continually read into the input buffer in filehandles[fd]->inbufsize
+		 * chunks maximum until all data is read.
 		 */
 		int readbytes = 0;
 		while (count > 0)
 		{
 			int rb;
-			if (count > IOBUFSZ)
-				rb = IOBUFSZ;
+			if (count > filehandles[fd]->inbufsize)
+				rb = filehandles[fd]->inbufsize;
 			else
 				rb = count;
 
