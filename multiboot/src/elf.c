@@ -90,47 +90,29 @@ u8int load_elf(const char* path_to_file)
 		kfree(shdr);
 
 
-		printf("Fetching symbol table\n");
-		shdr = get_section_by_name(fh, fileheader, stringtable, ".symtab");
-		printf("Got %s\n", stringtable + shdr->sh_name);
+		printf("Fetching %d program headers at %d\n", fileheader->e_phnum, fileheader->e_phoff);
 
-		u32int symtab_offset = shdr->sh_offset;
-		u32int symtab_size = shdr->sh_size;
+		unsigned char* mem = (unsigned char*)kmalloc(fileheader->e_phnum * sizeof(Elf32_Phdr));
+		_lseek(fh, fileheader->e_phoff, 0);
+		_read(fh, mem, fileheader->e_phnum * sizeof(Elf32_Phdr));
+		DumpHex(mem, fileheader->e_phnum * sizeof(Elf32_Phdr));
 
-		printf("symbol table ofs=%d size=%d\n", symtab_offset, symtab_size / sizeof(Elf32_Sym));
-		_lseek(fh, symtab_offset, 0);
-
-		u32int offset = 0;
-
-		Elf32_Sym* sym = (Elf32_Sym*)kmalloc(sizeof(Elf32_Sym));
-		while (offset < symtab_size)
+		Elf32_Phdr* phdr = (Elf32_Phdr*)kmalloc(sizeof(Elf32_Phdr));
+		int head;
+		_lseek(fh, fileheader->e_phoff, 0);
+		for (head = 0; head < fileheader->e_phnum; head++)
 		{
-			_read(fh, sym, sizeof(Elf32_Sym));
-			if (sym->st_name != 0)
-			{
-				printf("st_name=%s(%d) st_value=%08x st_size=%d st_info=%d st_other=%d st_shndx=%d\n",
-						stringtablesym + sym->st_name, sym->st_name,
-						sym->st_value,
-						sym->st_size,
-						sym->st_info,
-						sym->st_other,
-						sym->st_shndx
-						);
-				printf("ELF32_ST_BIND=%d ELF32_ST_TYPE=%d\n", ELF32_ST_BIND(sym->st_info), ELF32_ST_TYPE(sym->st_info));
-			}
-			offset += sizeof(Elf32_Sym);
+			printf("Offset: %d\n", fileheader->e_phoff + (fileheader->e_phentsize * head));
+			n_read = _read(fh, phdr, fileheader->e_phentsize);
+			printf("phdr: p_type=%08x p_offset=%d p_vaddr=%08x p_addr=%08x p_filesz=%d\n", phdr->p_type, phdr->p_offset,
+					phdr->p_vaddr, phdr->p_addr, phdr->p_filesz);
+			printf("      p_memsz=%d p_flags=%08x p_align=%d\n", phdr->p_memsz, phdr->p_flags, phdr->p_align);
 		}
+		kfree(phdr);
 
-		int sh;
-		for (sh = 0; sh < fileheader->e_shnum; sh++)
-		{
-			Elf32_Shdr* hdr = get_sectionheader(fh, fileheader, sh);
-			printf("Section %d: %s\n", sh, stringtable + hdr->sh_name);
-			kfree(hdr);
-		}
 
 		kfree(stringtable);
-		kfree(shdr);
+		kfree(stringtablesym);
 		kfree(fileheader);
 
 		return 1;

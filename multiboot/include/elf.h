@@ -146,6 +146,7 @@ typedef struct
 #define ELF32_R_TYPE(i)   ((unsigned char)(i))
 #define ELF32_R_INFO(s,t) (((s)<<8)+(unsigned char)(t))
 
+/* Symbol table entry */
 typedef struct
 {
 	Elf32_Word st_name;
@@ -159,6 +160,42 @@ typedef struct
 #define ELF32_ST_BIND(i)	((i) >> 4)
 #define ELF32_ST_TYPE(i)	((i) & 0x0F)
 #define ELF32_ST_INFO(b, t)	(((b) << 4) + ((t) & 0x0F))
+
+/* Program header */
+typedef struct
+{
+	Elf32_Word p_type;
+	Elf32_Off p_offset;
+	Elf32_Addr p_vaddr;
+	Elf32_Addr p_addr;
+	Elf32_Word p_filesz;
+	Elf32_Word p_memsz;
+	Elf32_Word p_flags;
+	Elf32_Word p_align;
+}  Elf32_Phdr;
+
+#define PT_NULL		0
+#define PT_LOAD		1
+#define PT_DYNAMIC	2
+#define PT_INTERP	3
+
+
+/* Not officially part of the specification, but used by many open
+ * source operating systems
+ */
+#define PT_LOOS			0x60000000		/* OS-specific start */
+#define PT_HIOS			0x6fffffff		/* OS-specific end */
+
+/* These are OS specific craq that linux throws into the elf binary.
+ * We don't actually interpret these sections but we do log them
+ * and make the code aware of their existence.
+ */
+#define PT_GNU_EH_FRAME		0x6474e550		/* Used for C++ constructors somehow */
+#define PT_SUNW_EH_FRAME	PT_GNU_EH_FRAME
+#define PT_GNU_STACK		(PT_LOOS + 0x474E551)	/* GNU craq, PAX executable stack flags */
+#define PT_GNU_RELRO		(PT_LOOS + 0x474E552)	/* GNU craq, PAX readonly relocated locations */
+#define PT_PAX_FLAGS		(PT_LOOS + 0x5041580)	/* GNU craq, PAX flags */
+
 
 #endif
 
