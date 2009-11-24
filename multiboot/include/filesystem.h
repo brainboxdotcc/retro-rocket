@@ -4,7 +4,7 @@
 #include "kernel.h"
 
 #define FD_MAX 128
-#define IOBUFSZ 2048
+#define IOBUFSZ 4096
 
 #define _O_APPEND   0x00000001
 #define _O_CREAT    0x00000002

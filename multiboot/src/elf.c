@@ -95,6 +95,7 @@ u8int load_elf(const char* path_to_file)
 				printf("load_elf: Can't read whole Elf32_Phdr #%d\n", head);
 				break;
 			}
+			printf("Program header %d of %d\n", head, fileheader->e_phnum);
 
 			switch (phdr->p_type)
 			{
@@ -105,14 +106,16 @@ u8int load_elf(const char* path_to_file)
 						u32int curpos = _tell(fh);
 						_lseek(fh, phdr->p_offset, 0);
 						sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
+						/* The ELF spec says the memory must be zeroed */
+						_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
 						n_read = _read(fh, (void*)phdr->p_vaddr, phdr->p_filesz);
-						printf("PT_LOAD: loaded and mapped memory from elf file\n");
 						if (n_read < phdr->p_filesz)
 						{
 							error = 1;
 							printf("load_elf: Can't read entire PT_LOAD section!\n");
+							break;
 						}
-						_lseek(fh, curpos, 0);
+						printf("PT_LOAD: loaded and mapped memory from elf file\n");
 					}
 					else
 					{
