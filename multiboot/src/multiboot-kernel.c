@@ -63,7 +63,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_iso9660();
 		iso9660_attach(0, "/");
 		init_devfs();
-
 		init_debug();
 		printf("\n");
 
@@ -95,6 +94,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 			}
 		}
 		printf("Done\n");*/
+
+		printf("Epic done!\n");
 
 		wait_forever();
 	}

@@ -13,10 +13,12 @@ volatile task_t *current_task;
 // The start of the task linked list.
 volatile task_t *ready_queue;
 
+u32int ret_addr;                         /* Execution address immediately after exec syscall */
+u32int ret_esp;                          /* Stack pointer immediately after exec syscall */
+
 // Some externs are needed to access members in paging.c...
 extern page_directory_t *kernel_directory;
 extern page_directory_t *current_directory;
-extern void alloc_frame(page_t*,int,int);
 extern u32int initial_esp;
 extern u32int read_eip();
 extern void tss_flush();
@@ -101,6 +103,9 @@ void move_stack(void *new_stack_start, u32int size)
 
 void switch_task()
 {
+	// Off for now till we make this work with the new paging system
+	return;
+
 	// If we haven't initialised tasking yet, just return.
 	if (!current_task)
 		return;
@@ -157,7 +162,7 @@ void switch_task()
 	// * Jumps to the location in ECX (remember we put the new EIP in there).
 	//
 	// XXX: We must remember to switch stack for usermode?
-	asm volatile("			\
+	/*asm volatile("			\
 		cli;			\
 		mov %0, %%ecx;		\
 		mov %1, %%esp;		\
@@ -168,7 +173,7 @@ void switch_task()
 		sti;			\
 		jmp *%%ecx;		\
 		"
-		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr));
+		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr));*/
 }
 
 // Create process steps:

@@ -174,10 +174,17 @@ int iso_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 	FS_Tree* tree = (FS_Tree*)file->directory;
 	iso9660* info = (iso9660*)tree->opaque;
 
-	u32int sectors_size = length / 2048 + 1;
+	u32int sectors_size = length / 2048;
 	u32int sectors_start = start / 2048 + file->lbapos;
 
+	// Because its not valid to read 0 sectors, we must make sure we read at least one,
+	// and to make sure we read the remainder because this is an integer division,
+	// we must read one more than we asked for for safety.
+	sectors_size++;
+
+	//printf("kmallocing %d bytes\n", sectors_size * 2048);
 	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
+	//printf("Got %08x\n", readbuf);
 	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (unsigned int)readbuf))
 	{
 		printf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
@@ -185,6 +192,8 @@ int iso_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 		return 0;
 	}
 	memcpy(buffer, readbuf + (start % 2048), length);
+
+	//printf("Freeing ptr %08x\n", readbuf);
 	kfree(readbuf);
 	return 1;
 }
