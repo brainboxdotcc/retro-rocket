@@ -178,7 +178,9 @@ typedef struct
 #define PT_LOAD		1
 #define PT_DYNAMIC	2
 #define PT_INTERP	3
-
+#define PT_NOTE		4
+#define PT_SHLIB	5
+#define PT_PHDR		6
 
 /* Not officially part of the specification, but used by many open
  * source operating systems

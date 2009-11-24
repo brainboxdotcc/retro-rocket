@@ -69,11 +69,6 @@ u8int load_elf(const char* path_to_file)
 		n_read = _read(fh, stringtablesym, shdr->sh_size);
 		kfree(shdr);
 
-		unsigned char* mem = (unsigned char*)kmalloc(fileheader->e_phnum * sizeof(Elf32_Phdr));
-		_lseek(fh, fileheader->e_phoff, 0);
-		_read(fh, mem, fileheader->e_phnum * sizeof(Elf32_Phdr));
-		DumpHex(mem, fileheader->e_phnum * sizeof(Elf32_Phdr));
-
 		Elf32_Phdr* phdr = (Elf32_Phdr*)kmalloc(sizeof(Elf32_Phdr));
 		int head, error = 0;
 		u32int fd1, *eip, sz;
@@ -94,30 +89,49 @@ u8int load_elf(const char* path_to_file)
 		for (head = 0; head < fileheader->e_phnum; head++)
 		{
 			n_read = _read(fh, phdr, fileheader->e_phentsize);
-			printf("phdr: p_type=%08x p_offset=%d p_vaddr=%08x p_addr=%08x p_filesz=%d\n", phdr->p_type, phdr->p_offset,
-					phdr->p_vaddr, phdr->p_addr, phdr->p_filesz);
-			printf("      p_memsz=%d p_flags=%08x p_align=%d\n", phdr->p_memsz, phdr->p_flags, phdr->p_align);
+			if (n_read < fileheader->e_phentsize)
+			{
+				error = 1;
+				printf("load_elf: Can't read whole Elf32_Phdr #%d\n", head);
+				break;
+			}
 
 			switch (phdr->p_type)
 			{
 				case PT_LOAD:
 					/* Load a section of code (.text) */
-					if (phdr->p_vaddr >= 0x200000)
+					if (phdr->p_vaddr >= 0x800000 && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
 					{
 						u32int curpos = _tell(fh);
 						_lseek(fh, phdr->p_offset, 0);
 						sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
 						n_read = _read(fh, (void*)phdr->p_vaddr, phdr->p_filesz);
+						printf("PT_LOAD: loaded and mapped memory from elf file\n");
+						if (n_read < phdr->p_filesz)
+						{
+							error = 1;
+							printf("load_elf: Can't read entire PT_LOAD section!\n");
+						}
 						_lseek(fh, curpos, 0);
 					}
 					else
 					{
-						break;
 						error = 1;
-						printf("load_elf: Can't map PT_LOAD section below vaddr 0x200000!\n");
+						printf("load_elf: Can't map PT_LOAD section below vaddr 0x800000 or above user heap!\n");
 					}
 				break;
+				case PT_SHLIB:
+					printf("PT_SHLIB: not supported yet!\n");
+				case PT_PHDR:
+					/* Address of program header. This is included in the PT_LOAD sections
+					 * and can be safely skipped over
+					 */
+				break;
+				case PT_INTERP:
+					printf("load_elf: Warning: PT_INTERP: not supported yet!\n");
+				break;
 				case PT_DYNAMIC:
+					printf("load_elf: Warning: PT_DYNAMIC: not supported yet!\n");
 				break;
 				case PT_NULL:
 				case PT_GNU_STACK:
@@ -125,6 +139,9 @@ u8int load_elf(const char* path_to_file)
 					/* Nothing done for these */
 				break;
 			}
+
+			if (error)
+				break;
 		}
 		kfree(phdr);
 
@@ -140,11 +157,13 @@ u8int load_elf(const char* path_to_file)
 			 */
 		}
 
+		printf("Would execute from 0x%08x\n", fileheader->e_entry);
+
 		kfree(stringtable);
 		kfree(stringtablesym);
 		kfree(fileheader);
 
-		return 1;
+		return !error;
 	}
 	return 0;
 }

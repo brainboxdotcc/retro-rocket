@@ -66,7 +66,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_debug();
 		printf("\n");
 
-		load_elf("/kernel.bin");
+		load_elf("/sh");
 		/*int fd = _open("/kernel.sym", _O_RDONLY);
 		if (fd == -1)
 		{
