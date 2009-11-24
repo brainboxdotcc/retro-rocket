@@ -100,7 +100,7 @@ u8int load_elf(const char* path_to_file)
 			{
 				case PT_LOAD:
 					/* Load a section of code (.text) */
-					if (phdr->p_vaddr >= 0x800000 && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
+					if (phdr->p_vaddr >= UPROGSTART && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
 					{
 						u32int curpos = _tell(fh);
 						_lseek(fh, phdr->p_offset, 0);
@@ -117,7 +117,7 @@ u8int load_elf(const char* path_to_file)
 					else
 					{
 						error = 1;
-						printf("load_elf: Can't map PT_LOAD section below vaddr 0x800000 or above user heap!\n");
+						printf("load_elf: Can't map PT_LOAD section below vaddr 0x%08x or above user heap!\n", UPROGSTART);
 					}
 				break;
 				case PT_SHLIB:
@@ -128,7 +128,21 @@ u8int load_elf(const char* path_to_file)
 					 */
 				break;
 				case PT_INTERP:
-					printf("load_elf: Warning: PT_INTERP: not supported yet!\n");
+				{
+					u32int curpos = _tell(fh);
+
+					_lseek(fh, phdr->p_offset, 0);
+					unsigned char* interpreter = (unsigned char*)kmalloc(phdr->p_memsz);
+					n_read = _read(fh, interpreter, phdr->p_filesz);
+					if (n_read < phdr->p_filesz)
+					{
+						error = 1;
+						printf("load_elf: Can't read entire interpreter name!\n");
+					}
+					printf("load_elf: File %s specifies an interpreter '%s', but this is not supported.\n", path_to_file, interpreter);
+					_lseek(fh, curpos, 0);
+					kfree(interpreter);
+				}
 				break;
 				case PT_DYNAMIC:
 					printf("load_elf: Warning: PT_DYNAMIC: not supported yet!\n");

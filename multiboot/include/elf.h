@@ -3,6 +3,8 @@
 
 #include "kernel.h"
 
+#define UPROGSTART 0x1000000
+
 typedef u32int Elf32_Addr;
 typedef u16int Elf32_Half;
 typedef u32int Elf32_Off;
