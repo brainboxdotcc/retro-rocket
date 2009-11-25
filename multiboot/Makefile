@@ -1,7 +1,7 @@
 LDFLAGS=-m `perl build/getsystem.pl` -T build/linker.ld
 CFLAGS=-fPIC -pipe -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 ASOURCES=assembly.o loader.o process.o
-CSOURCES=debugger.o interrupts.o keyboard.o multiboot-kernel.o paging.o taskswitch.o video.o ata.o errorhandler.o iso9660.o kmalloc.o memcpy.o ordered_array.o printf.o string.o timer.o filesystem.o elf.o devfs.o
+CSOURCES=debugger.o interrupts.o keyboard.o multiboot-kernel.o paging.o taskswitch.o video.o ata.o errorhandler.o iso9660.o kmalloc.o memcpy.o printf.o string.o timer.o filesystem.o elf.o devfs.o
 
 all: source link
 
