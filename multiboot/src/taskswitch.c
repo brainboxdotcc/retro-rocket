@@ -271,27 +271,26 @@ void proc_chstack(u32int address, u32int size){	/*Move Current Stack */
 	asm volatile("mov %0, %%ebp" : : "r" (new_bp));
 }
 
-void start_initial_task(void){
+void start_initial_task(void)
+{
 	u32int size, place;
-// 	u32int eip;
 	u32int eflags;
 
 	asm volatile ("sti;");	
-	/*Sozoume flags me IF = 1 ( mporousame |= 0x200 ) */
 	asm volatile ("	pushf;\
 			pop %%eax;\
 			movl %%eax, %0; " : "=r"(eflags)
 	);
 	asm volatile ("cli;");	/*disable interrupts */
-// 	eip = read_eip();
+
 	size = get_init_size();
 	place = 0x40000000;
 
-	/*Sign ta pages se User mode RW */
-	sign_sect(place,place + size, 1, 1,current_directory);
-	memcpy((char*)place, (char*)&init, size);		/*Copy ton kodika tis init */
-	/*Kai ftiaxnoume ena fake IRET gia na girisoume se User Mode */
-	/*orizoume data segment selectors */
+	/* Allocate pages for usermode use, read-write, for init process */
+	sign_sect(place, place + size, 1, 1, current_directory);
+	memcpy(place, &init, size);		/* Copy init into this area */
+	/* Set up for return to usermode via iret (return to? lol...) */
+	/* Start off by setting the correct segment selectors */
 	asm volatile("\
 		mov $0x23, %ax; \
 		mov %ax, %ds; \
@@ -301,18 +300,18 @@ void start_initial_task(void){
 		pushl $0x23; \
 		pushl $0x7FFFFFFC; \
 	");	
-	/*to pushl $0x7FFFF004; eiani apla ena push mesa sto stack gia esp, opoudipote, kalo omos
-	  tha itan na ginei stin arxi tou stack, Na simiothei oti gia na glitosoume transaction valame
-	  fixed value,NOTICE den einai compatible me USTACK kai USTACK_SIZE pou exoume orisei sta header */
+	/* The value 0x7FFFF004 is pushed to esp, the stack pointer.
+	 * These should match USTACK+USTACK_SIZE
+	 */
 	asm volatile("pushl %%eax;" : : "a"(eflags));
 	asm volatile("\
 		pushl $0x1B; \
 		pushl $0x40000000; \
 		iret; \
 	");
-/*Vriskomaste se KERNEL SPACE, i init DEN mporei na kanei return edw apo User space.
-  Par ola afta, an thelisoume gia opoiodipote logo na sosoume to "call" apo edw,
-  kanoume uncomment ta comented lines */
+	/* At the iret above we exit kernelmode and enter usermode (ring 0). 
+	 * When this happens we begin execution at 0x40000000.
+	 */
 }
 
 static process_t* next_proc(void)
@@ -328,7 +327,6 @@ static process_t* next_proc(void)
 			return ret;
 		ret = ret->next;
 	}
-	/*Ap tin arxi */
 	ret = proc_list;
 	while (ret != proc_current)
 	{
@@ -338,14 +336,13 @@ static process_t* next_proc(void)
 			return ret;
 		ret = ret->next;
 	}
-	/*Den vrethike allo running proc */
 	return proc_current;
 }
 
 static void proc_clear()
 {
 	process_t* tmp;
-	tmp = proc_list->next;	/*Den mporei to init na einai dead */
+	tmp = proc_list->next;	/* Don't allow killing of init in first process slot */
 	while (tmp)
 	{
 		if (tmp->state == PROC_DELETE)
@@ -355,24 +352,27 @@ static void proc_clear()
 	deathflag = 0;
 }
 
-static process_t* proc_kill(process_t* p){
+static process_t* proc_kill(process_t* p)
+{
 	process_t *prev, *next;
 	prev = p->prev;
 	next = p->next;
 	prev->next = next;
 	if (next) next->prev = prev;
 
-	kfree((void*)(p->kstack - 0x1000 +4));
+	kfree((void*)(p->kstack - 0x1000 + 4));
 	kill_directory(p->dir);
 	kfree(p);
 
 	return prev;
 }
 
-static u32int checkpid(u32int pid){
+static u32int checkpid(u32int pid)
+{
 	process_t* ret = 0;
 	for (ret = proc_list; ret ; ret = ret->next)
-		if (ret->pid == pid) break;
+		if (ret->pid == pid)
+			break;
 	return (u32int)ret;
 }
 
