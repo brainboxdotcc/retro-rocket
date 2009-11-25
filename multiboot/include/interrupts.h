@@ -3,6 +3,38 @@
 
 #include "kernel.h"
 
+struct tss_entry
+{
+        u16int prev_tss; u16int res1;
+        u32int esp0;                    /*ESP pou tha kanei load */
+        u16int ss0; u16int res2;        /*SS pou tha kanei load */
+        u32int esp1;
+        u16int ss1; u16int res3;
+        u32int esp2;
+        u16int ss2; u16int res4;
+        u32int cr3;
+        u32int eip;
+        u32int eflags;
+        u32int eax;
+        u32int ecx;
+        u32int edx;
+        u32int ebx;
+        u32int esp;
+        u32int ebp;
+        u32int esi;
+        u32int edi;
+        u16int es; u16int res5;
+        u16int cs; u16int res6;
+        u16int ss; u16int res7;
+        u16int ds; u16int res8;
+        u16int fs; u16int res9;
+        u16int gs; u16int resA;
+        u16int ldt;u16int resB;
+        u16int trap;
+        u16int iomap_base;
+} __attribute__((packed));
+typedef struct tss_entry tss_entry_t;
+
 // Defined in assembly.s
 extern void isr0 ();
 extern void isr1 ();

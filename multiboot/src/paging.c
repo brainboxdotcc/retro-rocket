@@ -163,8 +163,8 @@ void kill_directory(page_directory_t *src)
 //		a crash.
 //
 // 		kill_table(src->tables[i]);
-// 		kfree(src->tables[i]);
-// 		src->tables[i] = 0;
+//		kfree(src->tables[i]);
+//		src->tables[i] = 0;
 	}
 	kfree(src);
 	asm volatile("sti");

@@ -39,6 +39,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_basic_keyboard();
 		memorysize = init_paging(mbd);
 		//initialise_tasking();
+		init_process_manager();
 		init_timer(50);
 		interrupts_on();
 	}
@@ -65,7 +66,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		iso9660_attach(0, "/");
 		init_devfs();
 		init_debug();
-		printf("\n");
+		printf("Init size: %d\n\n", get_init_size());
 
 		load_elf("/sh");
 		/*int fd = _open("/kernel.sym", _O_RDONLY);

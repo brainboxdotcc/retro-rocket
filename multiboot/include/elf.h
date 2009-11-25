@@ -200,6 +200,7 @@ typedef struct
 #define PT_GNU_RELRO		(PT_LOOS + 0x474E552)	/* GNU craq, PAX readonly relocated locations */
 #define PT_PAX_FLAGS		(PT_LOOS + 0x5041580)	/* GNU craq, PAX flags */
 
+u8int load_elf(const char* path_to_file);
 
 #endif
 

@@ -3,70 +3,48 @@
 
 #include "kernel.h"
 #include "paging.h"
+#include "video.h"
+#include "interrupts.h"
 
-// This structure defines a 'task' - a process.
-typedef struct task
-{
-	int id;			// Process ID.
-	u32int esp, ebp;	// Stack and base pointers.
-	u32int eip;		// Instruction pointer.
-	u8int supervisor;	// Is a supervisor (kernel mode) task
-	page_directory_t *page_directory; // Page directory.
-	struct task *next;	// The next task in a linked list.
-} task_t;
+#define PROC_RUNNING	0
+#define PROC_IDLE	1
+#define PROC_DELETE	2
 
-// A struct describing a Task State Segment.
-struct tss_entry_struct
-{
-	u32int prev_tss;		// The previous TSS - if we used hardware task switching this would form a linked list.
-	u32int esp0;			// The stack pointer to load when we change to kernel mode.
-	u32int ss0;			// The stack segment to load when we change to kernel mode.
-	u32int esp1;			// Unused...
-	u32int ss1;
-	u32int esp2;
-	u32int ss2;
-	u32int cr3;
-	u32int eip;
-	u32int eflags;
-	u32int eax;
-	u32int ecx;
-	u32int edx;
-	u32int ebx;
-	u32int esp;
-	u32int ebp;
-	u32int esi;
-	u32int edi;
-	u32int es;			// The value to load into ES when we change to kernel mode.
-	u32int cs;			// The value to load into CS when we change to kernel mode.
-	u32int ss;			// The value to load into SS when we change to kernel mode.
-	u32int ds;			// The value to load into DS when we change to kernel mode.
-	u32int fs;			// The value to load into FS when we change to kernel mode.
-	u32int gs;			// The value to load into GS when we change to kernel mode.
-	u32int ldt;			// Unused...
-	u16int trap;
-	u16int iomap_base;
-} __attribute__((packed));
+typedef struct {
+	/*Identification */
+	u32int			pid;	/*PROCESS ID */
+	u32int			ppid;	/*Parent PID */
+	u32int			uid;	/*User id - Future use */
+	u32int			gid;	/*Group id - Future use */
+	u32int			state;	/*Running state */
 
-typedef struct tss_entry_struct tss_entry_t;
+	/*Process Switching */
+	registers_t		regs;	/*Current State (gia return) */
+	console*		tty;	/*Terminal - 0 == ignore IO */
+	page_directory_t*	dir;	/*to Address Space tou proc */
+	u32int			kstack;	/*Kernel Stack */
 
-// Initialises the tasking system.
-void initialise_tasking();
+	/*Process Management */
+	void*			prev;	/*Prev Process */
+	void*			next;	/*Next Process */
+}process_t;
 
-// Called by the timer hook, this changes the running process.
-void switch_task();
+/*Prototypes - KERNEL mode ONLY */
+void	init_process_manager(void);	/*Initialisation kai dimiourgia 1ou Process */
+void	proc_switch(registers_t regs);	/*O Scheduler mas - Klisi se afton == Process change */
+void	proc_chstack(u32int address, u32int size);	/*Metafora stack ektos kernel space */
+void	proc_set_semaphore(void);	/*Disable Multitasking */
+void	proc_clear_semaphore(void);	/*Enable Multitasking */
+u32int	proc_change_tty(u32int tty);	/*Change Process Terminal */
+void	start_initial_task(void);	/*Start init() se USER MODE */
 
-// Forks the current process, spawning a new one with a different
-// memory space.
-int fork(u8int supervisor);
-
-// Causes the current process' stack to be forcibly moved to a new location.
-void move_stack(void *new_stack_start, u32int size);
-
-// Returns the pid of the current process.
-int getpid();
-
-void write_tss(s32int num, u16int ss0, u32int esp0);
-
-void set_kernel_stack(u32int stack);
+/*Process Manager USER-MODE Interface */
+void	set_state(u32int state);
+u32int	fork(registers_t regs);
+u32int	getpid(void);
+u32int	getppid(void);
+void	exit(void);
+void	wait(u32int pid);
+u32int get_init_size();
 
 #endif

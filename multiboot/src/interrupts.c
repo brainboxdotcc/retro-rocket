@@ -10,7 +10,25 @@ idt_entry_t idt_entries[256];
 idt_ptr_t idt_ptr; 
 isr_t interrupt_handlers[256];
 
+tss_entry_t tss_entry;
+
 extern void tss_flush();
+
+static void write_tss(s32int num, u16int ss0, s32int esp0)
+{
+        u32int base = (u32int) &tss_entry;
+        u32int limit = base + sizeof(tss_entry_t);
+
+        _memset((char*)&tss_entry, 0, sizeof(tss_entry_t));
+        gdt_set_gate(num, base, limit, 0xE9, 0x00);
+
+        tss_entry.ss0  = ss0;   /*kernel stack segment */
+        tss_entry.esp0 = esp0;  /*stack pointer */
+
+        tss_entry.cs   = 0x0b;
+        tss_entry.ss = tss_entry.ds = tss_entry.es = tss_entry.fs = tss_entry.gs = 0x13;
+}
+
 
 /* Handlers */
 

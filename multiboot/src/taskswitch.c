@@ -1,280 +1,380 @@
 #include "../include/kernel.h"
 #include "../include/taskswitch.h"
-#include "../include/interrupts.h"
-#include "../include/kmalloc.h"
-#include "../include/printf.h"
 #include "../include/paging.h"
+#include "../include/filesystem.h"
+#include "../include/interrupts.h"
+#include "../include/elf.h"
+#include "../include/printf.h"
+#include "../include/kmalloc.h"
 #include "../include/memcpy.h"
-#include "../include/io.h"
 
-// The currently running task.
-volatile task_t *current_task;
+process_t* proc_current = 0;
+process_t* proc_list;
 
-// The start of the task linked list.
-volatile task_t *ready_queue;
+u32int nextid = 1;
+u32int semaphore = 0;
+u32int deathflag = 0;
 
-u32int ret_addr;                         /* Execution address immediately after exec syscall */
-u32int ret_esp;                          /* Stack pointer immediately after exec syscall */
+extern page_directory_t *current_directory;	/*Gia to change stack, apo paging.c */
+extern u32int initial_esp;			/*Episis gia stack change, apo kernel.c */
+extern console* current_console;		/*Xreiazetai gia to initialise */
+extern u32int ret_addr;				/*Ret address meta apo syscall */
+extern u32int ret_esp;				/*Ret esp meta apo syscall */
+extern tss_entry_t tss_entry;			/* Task state segment */
 
-// Some externs are needed to access members in paging.c...
-extern page_directory_t *kernel_directory;
-extern page_directory_t *current_directory;
-extern u32int initial_esp;
-extern u32int read_eip();
-extern void tss_flush();
+/*Voithitikes routines */
+static u32int read_eip();	/*Epistrefei to Instruction pointer ap to simeio pou klithike */
+static process_t* next_proc();
+static u32int checkpid(u32int pid);
+static void proc_clear();	/*Psaxnei teliomena processes kai ta kanei kill */
+static process_t* proc_kill(process_t*);
 
-tss_entry_t tss_entry;
-
-// The next available process ID.
-u32int next_pid = 1;
-
-void initialise_tasking()
-{
-	// Rather important stuff happening, no interrupts please!
-	asm volatile("cli");
-
-	// Relocate the stack so we know where it is.
-	move_stack((void*)0xE0000000, 0x2000);
-
-	// Initialise the first task (kernel task)
-	current_task = ready_queue = (task_t*)kmalloc(sizeof(task_t));
-	current_task->id = next_pid++;
-	current_task->esp = current_task->ebp = 0;
-	current_task->eip = 0;
-	current_task->supervisor = 1;
-	current_task->page_directory = current_directory;
-	current_task->next = 0;
-
-	// Reenable interrupts.
-	asm volatile("sti");
+void set_kernel_stack(u32int stack){
+	tss_entry.esp0 = stack;
 }
 
-void move_stack(void *new_stack_start, u32int size)
+void init()
 {
-	u32int i;
-	// Allocate some space for the new stack.
-	for( i = (u32int)new_stack_start; i >= ((u32int)new_stack_start-size); i -= 0x1000)
+	/*uint32 pid = 0, pid2 = 0;
+
+	asm volatile("int $0x7F" : : "a"(SYS_FORK));
+	asm volatile("mov %%eax, %0" : "=a"(pid));
+	if (!pid)
 	{
-		// General-purpose stack is in user-mode.
-		alloc_frame( get_page(i, 1, current_directory), 0 /* User mode */, 1 /* Is writable */ );
-	}
-	
-	// Flush the TLB by reading and writing the page directory address again.
-	u32int pd_addr;
-	asm volatile("mov %%cr3, %0" : "=r" (pd_addr));
-	asm volatile("mov %0, %%cr3" : : "r" (pd_addr));
-
-	// Old ESP and EBP, read from registers.
-	u32int old_stack_pointer;
-	asm volatile("mov %%esp, %0" : "=r" (old_stack_pointer));
-	u32int old_base_pointer;
-	asm volatile("mov %%ebp, %0" : "=r" (old_base_pointer));
-
-	// Offset to add to old stack addresses to get a new stack address.
-	u32int offset = (u32int)new_stack_start - initial_esp;
-
-	// New ESP and EBP.
-	u32int new_stack_pointer = old_stack_pointer + offset;
-	u32int new_base_pointer	= old_base_pointer	+ offset;
-
-	// Copy the stack.
-	memcpy((void*)new_stack_pointer, (void*)old_stack_pointer, initial_esp-old_stack_pointer);
-
-	// Backtrace through the original stack, copying new values into
-	// the new stack.	
-	for(i = (u32int)new_stack_start; i > (u32int)new_stack_start-size; i -= 4)
-	{
-		u32int tmp = * (u32int*)i;
-		// If the value of tmp is inside the range of the old stack, assume it is a base pointer
-		// and remap it. This will unfortunately remap ANY value in this range, whether they are
-		// base pointers or not.
-		if (( old_stack_pointer < tmp) && (tmp < initial_esp))
-		{
-			tmp = tmp + offset;
-			u32int *tmp2 = (u32int*)i;
-			*tmp2 = tmp;
-		}
-	}
-
-	// Change stacks.
-	asm volatile("mov %0, %%esp" : : "r" (new_stack_pointer));
-	asm volatile("mov %0, %%ebp" : : "r" (new_base_pointer));
-}
-
-void switch_task()
-{
-	// Off for now till we make this work with the new paging system
-	return;
-
-	// If we haven't initialised tasking yet, just return.
-	if (!current_task)
-		return;
-
-	// Read esp, ebp now for saving later on.
-	u32int esp, ebp, eip;
-	asm volatile("mov %%esp, %0" : "=r"(esp));
-	asm volatile("mov %%ebp, %0" : "=r"(ebp));
-
-	// Read the instruction pointer. We do some cunning logic here:
-	// One of two things could have happened when this function exits - 
-	// (a) We called the function and it returned the EIP as requested.
-	// (b) We have just switched tasks, and because the saved EIP is essentially
-	//	  the instruction after read_eip(), it will seem as if read_eip has just
-	//	  returned.
-	// In the second case we need to return immediately. To detect it we put a dummy
-	// value in EAX further down at the end of this function. As C returns values in EAX,
-	// it will look like the return value is this dummy value! (0x12345).
-	eip = read_eip();
-
-	// Have we just switched tasks?
-	if (eip == 0x12345)
-		return;
-
-	// No, we didn't switch tasks. Let's save some register values and switch.
-	current_task->eip = eip;
-	current_task->esp = esp;
-	current_task->ebp = ebp;
-	
-	// Get the next task to run.
-	current_task = current_task->next;
-	// If we fell off the end of the linked list start again at the beginning.
-	if (!current_task) current_task = ready_queue;
-
-	//if (current_task->eip == eip)
-		/* Only one task running */
-	//	return;
-
-	eip = current_task->eip;
-	esp = current_task->esp;
-	ebp = current_task->ebp;
-
-	// Make sure the memory manager knows we've changed page directory.
-	current_directory = current_task->page_directory;
-	// Here we:
-	// * Stop interrupts so we don't get interrupted.
-	// * Temporarily puts the new EIP location in ECX.
-	// * Loads the stack and base pointers from the new task struct.
-	// * Changes page directory to the physical address (physicalAddr) of the new directory.
-	// * Puts a dummy value (0x12345) in EAX so that above we can recognise that we've just
-	//	switched task.
-	// * Restarts interrupts. The STI instruction has a delay - it doesn't take effect until after
-	//	the next instruction.
-	// * Jumps to the location in ECX (remember we put the new EIP in there).
-	//
-	// XXX: We must remember to switch stack for usermode?
-	/*asm volatile("			\
-		cli;			\
-		mov %0, %%ecx;		\
-		mov %1, %%esp;		\
-		mov %2, %%ebp;		\
-	supervisormode:			\
-		mov %3, %%cr3; 		\
-		mov $0x12345, %%eax;	\
-		sti;			\
-		jmp *%%ecx;		\
-		"
-		 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr));*/
-}
-
-// Create process steps:
-// (1) sanity check ELF file, grab some pages and load elf into them
-// (2) call fork() below, with a (yet to be added) supervisor parameter
-// (3) in PARENT process, we can get rid of the ELF pages?
-// (4) loop the new thread until we are in usermode (we can check this by looking
-// at our selector etc)
-// (5) once in usermode call the entrypoint of the executable
-// (6) if it exits, we have to handle thread termination...
-
-int fork(u8int supervisor)
-{
-	// We are modifying kernel structures, and so cannot
-	asm volatile("cli");
-
-	// Take a pointer to this process' task struct for later reference.
-	// XXX: If the parent exits this needs to be amended. Right now there
-	// is no facility for threads/processes to exit.
-	task_t *parent_task = (task_t*)current_task;
-
-	// Clone the address space.
-	page_directory_t *directory = clone_directory(current_directory);
-
-	// Create a new process.
-	task_t *new_task = (task_t*)kmalloc(sizeof(task_t));
-
-	new_task->id = next_pid++;
-	new_task->esp = new_task->ebp = 0;
-	new_task->eip = 0;
-	new_task->supervisor = supervisor;
-	new_task->page_directory = directory;
-	new_task->next = 0;
-
-	// Add it to the end of the ready queue.
-	task_t *tmp_task = (task_t*)ready_queue;
-	while (tmp_task->next)
-		tmp_task = tmp_task->next;
-	tmp_task->next = new_task;
-
-	// This will be the entry point for the new process.
-	u32int eip = read_eip();
-
-
-	// We could be the parent or the child here - check.
-	if (current_task == parent_task)
-	{
-		// We are the parent, so set up the esp/ebp/eip for our child.
-		u32int esp; asm volatile("mov %%esp, %0" : "=r"(esp));
-		u32int ebp; asm volatile("mov %%ebp, %0" : "=r"(ebp));
-		new_task->esp = esp;
-		new_task->ebp = ebp;
-		new_task->eip = eip;
-		asm volatile("sti");
-
-		return new_task->id;
+		asm volatile("int $0x7F" : : "a"(SYS_SETMTX));
+		asm volatile("int $0x7F" : : "a"(SYS_EXEC), "b"("/programs/"));
+		asm volatile("int $0x7F" : : "a"(SYS_CLRMTX));
 	}
 	else
 	{
-		// We are the child process
-		// XXX: Child process should drop to usermode. 
-		// XXX: See switch_task() and comments above
-		outb(0x20, 0x20); /*end of interrupt */
-		return 0;
+		while(1);       // System idle process
+	}*/
+}
+
+static void* byte_after_init; /* DO *NOT* MOVE THIS!!! */
+
+u32int get_init_size()
+{
+	return (u32int)((u32int)&byte_after_init - (u32int)&init);
+}
+
+void init_process_manager(void){
+	process_t* fst_proc;
+
+	deathflag = 0;
+	fst_proc = (process_t*)kmalloc(sizeof(process_t));	/*Alloc xoro gia to process */
+	_memset((char*)fst_proc, 0 , sizeof(process_t));		/*Nullify */
+
+	asm volatile("cli");					/*Den theloume na ginei apopeira switch */
+	proc_chstack(USTACK - 0x4, USTACK_SIZE);		/*Metaferoume stack se User Space */
+
+	/*DEN xreiazete na ftiaksoume STATE kathws o scheduler sozei
+	  to current state sto Current process kai kanei load to epomeno.
+	  Sto simio loipon pou exoume 1 process mono, to State tha graftei
+	  ap ton scheduler kai tha ksanaginei load. apla :) */
+
+	/*Initialize to 1o process, den xreiazete eksigisi */
+	fst_proc->state = PROC_RUNNING;
+	fst_proc->pid = nextid++;
+	fst_proc->ppid = 0;
+	fst_proc->tty = current_console;
+	fst_proc->dir = current_directory;
+	fst_proc->kstack = (u32int)kmalloc_ext(0x1000, 1, 0);	/*Alloc to kernel stack tou */
+	_memset((char*)fst_proc->kstack, 0 , 0x1000);	/*Nullify */
+	fst_proc->kstack += 0x1000-4;
+	set_kernel_stack(proc_current->kstack);		/*Orizoume to esp0 tou TSS oste na ginei load otan kanoume
+							  jump se user mode. Pali tha mporouse na ginei init apo ton
+							  scheduler, alla logo krisimotitas, pronooume */
+	fst_proc->next = 0;	/*Monadiko stoixeio stin lista */
+	fst_proc->prev = 0;
+
+	proc_current = fst_proc;	/*Arxikopoioume kai ta global */
+	proc_list = fst_proc;
+
+	proc_clear_semaphore();		/*Enable multitasking */
+
+	asm volatile("sti");		/*Teliosame */
+}
+
+void proc_set_semaphore(void){	/*Enable multitasking */
+	while (!semaphore)
+		semaphore = 1;
+}
+
+void proc_clear_semaphore(void){/*Disable multitasking */
+	semaphore = 0;
+}
+
+u32int getpid(void){
+	return proc_current->pid;
+}
+
+u32int getppid(void){		/*Get process ID */
+	return proc_current->ppid;
+}
+
+u32int proc_change_tty(u32int tty){	/* XXX: STUB */
+	console* tmp;
+	tmp = current_console;
+	if (tmp)
+		proc_current->tty = tmp;
+	return (u32int)tmp;
+}
+
+void	set_state(u32int state){
+	proc_current->state = state;
+}
+
+void	exit(void){
+	process_t* parent;
+	for (parent = proc_list; parent ; parent = parent->next){
+		if (parent->pid == proc_current->ppid){ 
+			parent->state = PROC_RUNNING;
+			break;
+		}
 	}
-
+	proc_current->state = PROC_DELETE;
 }
 
-int getpid()
-{
-	return current_task->id;
+void	wait(u32int pid){
+	process_t* chld = (void*)checkpid(pid);
+	while (chld){
+		chld = (void*)checkpid(pid);
+		if (!chld) break;
+		if (chld->state == PROC_DELETE) break;
+		proc_current->state = PROC_IDLE;
+	}
+	proc_current->state = PROC_RUNNING;
 }
 
-void set_kernel_stack(u32int stack)
-{
-	   tss_entry.esp0 = stack;
+void proc_switch(registers_t regs){	/*Contex Switch routina */
+/*CRITICAL NOTE: O scheduler exei sxediastei gia xrisi Kernel stack, mesa se Kernel space,
+		 kathws kanei switch page directory. Stin periptosi pou den exoume mpei akoma
+		 se User mode (opote kai xrisi 2 stack), SE KAMIA PERIPTOSI den prepei na uparxoun
+		 2 diergasies, alla mono 1. Meta tin metavasi se User mode, eimaste ok */
+	if (proc_current == 0)	/*Unitialised Process Manager */
+		return;
+ 	if (semaphore == 1)	/*Disabled multitasking */
+		return;
+
+	asm volatile("cli");	/*Den theloume interrupts oso kanoume switch */
+	/*Sozoume current state se current process */
+	memcpy(&proc_current->regs, &regs, sizeof(registers_t));
+
+	/*Psaxnoume to epomeno proc */
+	proc_current = next_proc();
+
+	/*Load to state tou neou process */
+	memcpy(&regs, &proc_current->regs, sizeof(registers_t));
+
+	/*Kai kanoume switch */
+	switch_page_directory(proc_current->dir);
+	set_kernel_stack(proc_current->kstack);
+
+	/*H iret tha kanei return sto neo state pleon, sto neo Address Space */
+	if (deathflag)
+		proc_clear();
 }
 
-// Initialise our task state segment structure.
-void write_tss(s32int num, u16int ss0, u32int esp0)
+u32int fork(registers_t regs){	/*Copy STATE+Address space se neo process */
+/*To child tha arxisei na ekteleite apo ekei pou tha kanei return afti i fork. To 
+  sygkekrimeno body tha ektelestei MONO sto parent process */
+	process_t *parent, *child, *tmp;
+	u32int ret = 0;
+
+	/*Arxikopoioume voithitikes vars */
+	parent = proc_current;
+	child = (process_t*)kmalloc(sizeof(process_t));
+	_memset((char*)child, 0, sizeof(process_t));
+
+	/*Arxikopoioume to child process */
+	child->state = PROC_RUNNING;
+	child->pid = nextid++;
+	child->ppid = parent->pid;
+	child->tty = parent->tty;
+	child->uid = parent->uid;
+	child->gid = parent->gid;
+	child->kstack = (u32int)kmalloc_ext(0x1000,1,0);		/*diko tou kernel stack */
+	_memset((char*)child->kstack, 0 , 0x1000);		/*Nullify */
+	child->kstack += 0x1000-4;
+	memcpy(&child->regs, &regs, sizeof(registers_t));/*State copy */
+	child->regs.eax = 0;					/*Return == 0 sto iret */
+
+	/*Vriskoume to telefteo proc stin lista */
+	tmp = proc_list;
+	while (tmp->next)
+		tmp = tmp->next;
+
+	asm volatile("cli");	/*Gia na min kanei switch edw */
+
+	/*Prosthetoume to child stin lista */
+	tmp->next = child;
+	child->prev = tmp;
+	child->next = 0;
+
+	/*Clone Adress Space */
+	child->dir = clone_directory(parent->dir);
+
+	/*To return value */
+	ret = child->pid;
+	asm volatile("sti");
+	return ret;
+}
+
+void exec(char* path)
 {
-	// Firstly, let's compute the base and limit of our entry into the GDT.
-	u32int base = (u32int) &tss_entry;
-	u32int limit = base + sizeof(tss_entry);
+	/* Replace core image with new binary and execute it */
+	load_elf(path);
+}
 
-	// Now, add our TSS descriptor's address to the GDT.
-	gdt_set_gate(num, base, limit, 0xE9, 0x00);
+void proc_chstack(u32int address, u32int size){	/*Move Current Stack */
+	u32int i,*p;
+	u32int old_sp, old_bp;	/*Ta esp ebp pou isxioun */
+	u32int new_sp, new_bp;	/*Ta esp ebp pou tha orisoume, tha xreiastoun gia
+				  to re-positioning twn pointers mesa sto stack */
 
-	// Ensure the descriptor is initially zero.
-	_memset(&tss_entry, 0, sizeof(tss_entry));
+	i = address - size;	/*Upologizoume to base */
+	i &= 0xFFFFF000;	/*Se page Bound */
 
-	tss_entry.ss0  = ss0;  // Set the kernel stack segment.
-	tss_entry.esp0 = esp0; // Set the kernel stack pointer.
+	sign_sect(i, (address & 0xFFFFF000) + 0x1000, 1, 1, current_directory);	/*User mode */
 
-	// Here we set the cs, ss, ds, es, fs and gs entries in the TSS. These specify what
-	// segments should be loaded when the processor switches to kernel mode. Therefore
-	// they are just our normal kernel code/data segments - 0x08 and 0x10 respectively,
-	// but with the last two bits set, making 0x0b and 0x13. The setting of these bits
-	// sets the RPL (requested privilege level) to 3, meaning that this TSS can be used
-	// to switch to kernel mode from ring 3.
-	tss_entry.cs	= 0x0b;
-	tss_entry.ss = tss_entry.ds = tss_entry.es = tss_entry.fs = tss_entry.gs = 0x13;
-} 
+	asm volatile("mov %%esp, %0" : "=r" (old_sp));
+	asm volatile("mov %%ebp, %0" : "=r" (old_bp));
+	
+	/*Ypologizoume tin diafora metaksi arxikou stack me neou
+	  Na simiosoume oti exoume apothikefsei ton arxiko stack pointer
+	  sto initial_esp sto kernel.c, efoson theloume na antigrapsoume olo 
+	  to stack apo to entry point tou purina kai meta */
+	i = address - initial_esp;
+	
+	new_sp = old_sp + i;
+	new_bp = old_bp + i;
+
+	/*Menei loipon na kanoume copy ta Stack data, kai fix ta pointers pou vriskonte 
+	mesa sto palio stack range, pithana push ebp oste na teriazoun sto new */
+	memcpy((char*)new_sp, (char*)old_sp, initial_esp - old_sp);
+
+	/*Psaxnoume tora ta data kai fix ta addresses mesa sto stack */
+	for (p = (void*)(address - size); address >= (u32int)p ; p++){
+		if (*p >= old_sp && *p <= initial_esp)	/*Address sto palio stack range */
+			*p += i;	/*fix += tin diafora twn old stack me new stack */
+	}
+	/*Telos fortonoume ta 2 registers pou sxetizonte me to stack stis nees times */
+	asm volatile("mov %0, %%esp" : : "r" (new_sp));
+	asm volatile("mov %0, %%ebp" : : "r" (new_bp));
+}
+
+void start_initial_task(void){
+	u32int size, place;
+// 	u32int eip;
+	u32int eflags;
+
+	asm volatile ("sti;");	
+	/*Sozoume flags me IF = 1 ( mporousame |= 0x200 ) */
+	asm volatile ("	pushf;\
+			pop %%eax;\
+			movl %%eax, %0; " : "=r"(eflags)
+	);
+	asm volatile ("cli;");	/*disable interrupts */
+// 	eip = read_eip();
+	size = get_init_size();
+	place = 0x40000000;
+
+	/*Sign ta pages se User mode RW */
+	sign_sect(place,place + size, 1, 1,current_directory);
+	memcpy((char*)place, (char*)&init, size);		/*Copy ton kodika tis init */
+	/*Kai ftiaxnoume ena fake IRET gia na girisoume se User Mode */
+	/*orizoume data segment selectors */
+	asm volatile("\
+		mov $0x23, %ax; \
+		mov %ax, %ds; \
+		mov %ax, %es; \
+		mov %ax, %fs; \
+		mov %ax, %gs; \
+		pushl $0x23; \
+		pushl $0x7FFFFFFC; \
+	");	
+	/*to pushl $0x7FFFF004; eiani apla ena push mesa sto stack gia esp, opoudipote, kalo omos
+	  tha itan na ginei stin arxi tou stack, Na simiothei oti gia na glitosoume transaction valame
+	  fixed value,NOTICE den einai compatible me USTACK kai USTACK_SIZE pou exoume orisei sta header */
+	asm volatile("pushl %%eax;" : : "a"(eflags));
+	asm volatile("\
+		pushl $0x1B; \
+		pushl $0x40000000; \
+		iret; \
+	");
+/*Vriskomaste se KERNEL SPACE, i init DEN mporei na kanei return edw apo User space.
+  Par ola afta, an thelisoume gia opoiodipote logo na sosoume to "call" apo edw,
+  kanoume uncomment ta comented lines */
+}
+
+static process_t* next_proc(void){
+	process_t* ret, tmp;
+
+	ret = proc_current->next;
+	while (ret){
+		if (ret->state == PROC_DELETE)
+			deathflag = 1;
+		if (ret->state == PROC_RUNNING)
+			return ret;
+		ret = ret->next;
+	}
+	/*Ap tin arxi */
+	ret = proc_list;
+	while (ret != proc_current){
+		if (ret->state == PROC_DELETE)
+			deathflag = 1;
+		if (ret->state == PROC_RUNNING)
+			return ret;
+		ret = ret->next;
+	}
+	/*Den vrethike allo running proc */
+	return proc_current;
+}
+
+static void proc_clear()
+{
+	process_t* tmp;
+	tmp = proc_list->next;	/*Den mporei to init na einai dead */
+	while (tmp){
+		if (tmp->state == PROC_DELETE)
+			tmp = proc_kill(tmp);
+		tmp = tmp->next;
+	}
+	deathflag = 0;
+}
+
+static process_t* proc_kill(process_t* p){
+	process_t *prev, *next;
+	prev = p->prev;
+	next = p->next;
+	prev->next = next;
+	if (next) next->prev = prev;
+
+	kfree(p->kstack - 0x1000 +4);
+	kill_directory(p->dir);
+	kfree(p);
+
+	return prev;
+}
+
+static u32int checkpid(u32int pid){
+	process_t* ret = 0;
+	for (ret = proc_list; ret ; ret = ret->next)
+		if (ret->pid == pid) break;
+	return (u32int)ret;
+}
+
+static u32int read_eip()
+{
+/*Sto __cdecl calling convertion, exoun ginei me tin seira pushed (ap to pio prosfato)
+	ebp, eip, function arguments
+  Emeis thelontas loipon na ftasoume sto eip, kanoume 2 pop */
+	asm volatile("popl %ebx");	/*pop Base pointer pou egine aftomata push logo __cdecl conv*/
+	asm volatile("popl %eax");	/*pop Instruction pointer gia return -- To opoio kai theloume */
+	asm volatile("pushl %eax");	/*Ksana push gia na epanaferoume tin stiva opos itan */
+	asm volatile("pushl %ebx");
+	/*Sto eax exoume to Instruction pointer opou tha kanei return i sinartisi, opote kai
+	  kaname afto pou thelame */
+}
 
