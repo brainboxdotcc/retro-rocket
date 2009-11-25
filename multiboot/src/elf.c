@@ -176,6 +176,7 @@ u8int load_elf(const char* path_to_file)
 
 		printf("Would execute from 0x%08x\n", fileheader->e_entry);
 
+		_close(fh);
 		kfree(stringtable);
 		kfree(stringtablesym);
 		kfree(fileheader);
@@ -201,9 +202,21 @@ Elf32_Shdr* get_section_by_name(int fh, Elf32_Ehdr* fileheader, unsigned char* s
 
 Elf32_Shdr* get_sectionheader(int fh, Elf32_Ehdr* fileheader, int headernum)
 {
+	if (headernum < 0 || headernum > fileheader->e_shnum)
+		return NULL;
+
 	Elf32_Shdr* shdr = (Elf32_Shdr*)kmalloc(sizeof(Elf32_Shdr));
-	_lseek(fh, fileheader->e_shoff + (sizeof(Elf32_Shdr) * headernum), 0);
+	if (_lseek(fh, fileheader->e_shoff + (sizeof(Elf32_Shdr) * headernum), 0))
+	{
+		kfree(shdr);
+		return NULL;
+	}
 	int n_read = _read(fh, shdr, sizeof(Elf32_Shdr));
+	if (n_read < sizeof(Elf32_Shdr))
+	{
+		kfree(shdr);
+		return NULL;
+	}
 	return shdr;
 }
 

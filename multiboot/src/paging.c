@@ -4,6 +4,7 @@
 #include "../include/paging.h"
 #include "../include/kmalloc.h"
 #include "../include/printf.h"
+#include "../include/debugger.h"
 
 page_directory_t *current_directory=0;	/* Currently active page directory */
 page_directory_t *proc_initial = 0;	/* Initial page directory for user process */

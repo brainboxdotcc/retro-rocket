@@ -14,6 +14,7 @@
 #include "../include/debugger.h"
 #include "../include/taskswitch.h"
 #include "../include/devfs.h"
+#include "../include/elf.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
