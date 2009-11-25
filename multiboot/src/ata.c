@@ -388,7 +388,7 @@ void ide_wait_irq()
 	ide_irq_invoked = 0;
 }
 
-void ide_irq(registers_t regs)
+void ide_irq(registers_t* regs)
 {
 	ide_irq_invoked = 1;
 }

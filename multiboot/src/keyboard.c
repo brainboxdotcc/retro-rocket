@@ -10,7 +10,7 @@
 
 static ringbuffer* keyboard_buffer;
 
-void keyboard_handler(registers_t regs);
+void keyboard_handler(registers_t* regs);
 static int ringbuffer_truncate(ringbuffer * rb, unsigned long ulong);
 
 static u8int escaped = 0;
@@ -61,7 +61,7 @@ unsigned char translate_keycode(unsigned char scancode, u8int escaped, u8int shi
 
 
 
-void keyboard_handler(registers_t regs)
+void keyboard_handler(registers_t* regs)
 {
 	unsigned char new_scan_code = inb(0x60);
 

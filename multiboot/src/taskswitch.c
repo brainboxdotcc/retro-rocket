@@ -23,7 +23,7 @@ extern u32int ret_esp;				/*Ret esp meta apo syscall */
 extern tss_entry_t tss_entry;			/* Task state segment */
 
 /*Voithitikes routines */
-static u32int read_eip();	/*Epistrefei to Instruction pointer ap to simeio pou klithike */
+//static u32int read_eip();	/*Epistrefei to Instruction pointer ap to simeio pou klithike */
 static process_t* next_proc();
 static u32int checkpid(u32int pid);
 static void proc_clear();	/*Psaxnei teliomena processes kai ta kanei kill */
@@ -147,7 +147,9 @@ void	wait(u32int pid){
 	proc_current->state = PROC_RUNNING;
 }
 
-void proc_switch(registers_t regs){	/*Contex Switch routina */
+void proc_switch(registers_t* regs)
+{
+	/*Contex Switch routina */
 /*CRITICAL NOTE: O scheduler exei sxediastei gia xrisi Kernel stack, mesa se Kernel space,
 		 kathws kanei switch page directory. Stin periptosi pou den exoume mpei akoma
 		 se User mode (opote kai xrisi 2 stack), SE KAMIA PERIPTOSI den prepei na uparxoun
@@ -159,13 +161,13 @@ void proc_switch(registers_t regs){	/*Contex Switch routina */
 
 	asm volatile("cli");	/*Den theloume interrupts oso kanoume switch */
 	/*Sozoume current state se current process */
-	memcpy(&proc_current->regs, &regs, sizeof(registers_t));
+	memcpy(&proc_current->regs, regs, sizeof(registers_t));
 
 	/*Psaxnoume to epomeno proc */
 	proc_current = next_proc();
 
 	/*Load to state tou neou process */
-	memcpy(&regs, &proc_current->regs, sizeof(registers_t));
+	memcpy(regs, &proc_current->regs, sizeof(registers_t));
 
 	/*Kai kanoume switch */
 	switch_page_directory(proc_current->dir);
@@ -176,7 +178,8 @@ void proc_switch(registers_t regs){	/*Contex Switch routina */
 		proc_clear();
 }
 
-u32int fork(registers_t regs){	/*Copy STATE+Address space se neo process */
+u32int fork(registers_t* regs)
+{	/*Copy STATE+Address space se neo process */
 /*To child tha arxisei na ekteleite apo ekei pou tha kanei return afti i fork. To 
   sygkekrimeno body tha ektelestei MONO sto parent process */
 	process_t *parent, *child, *tmp;
@@ -197,7 +200,7 @@ u32int fork(registers_t regs){	/*Copy STATE+Address space se neo process */
 	child->kstack = (u32int)kmalloc_ext(0x1000,1,0);		/*diko tou kernel stack */
 	_memset((char*)child->kstack, 0 , 0x1000);		/*Nullify */
 	child->kstack += 0x1000-4;
-	memcpy(&child->regs, &regs, sizeof(registers_t));/*State copy */
+	memcpy(&child->regs, regs, sizeof(registers_t));/*State copy */
 	child->regs.eax = 0;					/*Return == 0 sto iret */
 
 	/*Vriskoume to telefteo proc stin lista */
@@ -308,11 +311,13 @@ void start_initial_task(void){
   kanoume uncomment ta comented lines */
 }
 
-static process_t* next_proc(void){
-	process_t* ret, tmp;
+static process_t* next_proc(void)
+{
+	process_t* ret;
 
 	ret = proc_current->next;
-	while (ret){
+	while (ret)
+	{
 		if (ret->state == PROC_DELETE)
 			deathflag = 1;
 		if (ret->state == PROC_RUNNING)
@@ -321,7 +326,8 @@ static process_t* next_proc(void){
 	}
 	/*Ap tin arxi */
 	ret = proc_list;
-	while (ret != proc_current){
+	while (ret != proc_current)
+	{
 		if (ret->state == PROC_DELETE)
 			deathflag = 1;
 		if (ret->state == PROC_RUNNING)
@@ -336,7 +342,8 @@ static void proc_clear()
 {
 	process_t* tmp;
 	tmp = proc_list->next;	/*Den mporei to init na einai dead */
-	while (tmp){
+	while (tmp)
+	{
 		if (tmp->state == PROC_DELETE)
 			tmp = proc_kill(tmp);
 		tmp = tmp->next;
@@ -351,7 +358,7 @@ static process_t* proc_kill(process_t* p){
 	prev->next = next;
 	if (next) next->prev = prev;
 
-	kfree(p->kstack - 0x1000 +4);
+	kfree((void*)(p->kstack - 0x1000 +4));
 	kill_directory(p->dir);
 	kfree(p);
 
@@ -365,16 +372,11 @@ static u32int checkpid(u32int pid){
 	return (u32int)ret;
 }
 
-static u32int read_eip()
-{
-/*Sto __cdecl calling convertion, exoun ginei me tin seira pushed (ap to pio prosfato)
-	ebp, eip, function arguments
-  Emeis thelontas loipon na ftasoume sto eip, kanoume 2 pop */
-	asm volatile("popl %ebx");	/*pop Base pointer pou egine aftomata push logo __cdecl conv*/
-	asm volatile("popl %eax");	/*pop Instruction pointer gia return -- To opoio kai theloume */
-	asm volatile("pushl %eax");	/*Ksana push gia na epanaferoume tin stiva opos itan */
-	asm volatile("pushl %ebx");
-	/*Sto eax exoume to Instruction pointer opou tha kanei return i sinartisi, opote kai
-	  kaname afto pou thelame */
-}
+//static u32int read_eip()
+//{
+//	asm volatile("popl %ebx");	/*pop Base pointer pou egine aftomata push logo __cdecl conv*/
+//	asm volatile("popl %eax");	/*pop Instruction pointer gia return -- To opoio kai theloume */
+//	asm volatile("pushl %eax");	/*Ksana push gia na epanaferoume tin stiva opos itan */
+//	asm volatile("pushl %ebx");
+//}
 

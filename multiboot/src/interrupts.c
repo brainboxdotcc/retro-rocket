@@ -45,10 +45,15 @@ void register_interrupt_handler(u8int n, isr_t handler)
 /* Default ISR handler */
 void isr_handler(registers_t regs)
 {
-	if (interrupt_handlers[regs.int_no] != 0)
+	u8int int_no = regs.int_no & 0xFF;
+	if (interrupt_handlers[int_no] != 0)
 	{
-		isr_t handler = interrupt_handlers[regs.int_no];
-		handler(regs);
+		isr_t handler = interrupt_handlers[int_no];
+		handler(&regs);
+		/* After we return these regs will be pushed onto the stack,
+		 * in the right order so that when iret returns they become
+		 * the process state.
+		 */
 	}
 }
 

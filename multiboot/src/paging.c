@@ -33,7 +33,7 @@ void alloc_frame(page_t *page, u8int f_usr, u8int f_rw);
 void free_frame(page_t *page);
 
 /* Page fault handler */
-void page_fault_handler(registers_t regs);
+void page_fault_handler(registers_t* regs);
 
 /* Initialise paging */
 u32int init_paging(void* mbd)
@@ -306,30 +306,30 @@ void free_frame(page_t *page)
 	}
 }
 
-void page_fault_handler(registers_t regs)
+void page_fault_handler(registers_t* regs)
 {
 	u32int faulting_address; 
 	asm volatile("mov %%cr2, %0" : "=r" (faulting_address)); 
 
 	PANIC_BANNER;
-	printf("Page fault accessing address 0x%x, EIP=0x%x: ", faulting_address, regs.eip);
-	int present = !(regs.err_code & 0x1);
-	int rw = regs.err_code & 0x2;
-	int us = regs.err_code & 0x4;
-	int reserved = regs.err_code & 0x8;
-	int id = regs.err_code & 0x10;
+	printf("Page fault accessing address 0x%x, EIP=0x%x: ", faulting_address, regs->eip);
+	int present = !(regs->err_code & 0x1);
+	int rw = regs->err_code & 0x2;
+	int us = regs->err_code & 0x4;
+	int reserved = regs->err_code & 0x8;
+	int id = regs->err_code & 0x10;
 
 	printf("Page fault accessing address 0x%x, EIP=0x%x: %s%s%s%s (id=%d)", 
 			faulting_address, 
-			regs.eip, 
+			regs->eip, 
 			present ? "present " : "", 
 			rw ? "readonly " : "", 
 			us ? "usermode " : "", 
 			reserved ? "reserved " : "", 
 			id); 
-	backtrace(regs); 
+	backtrace(regs);
 	blitconsole(current_console); 
 	asm volatile("cli");
-	wait_forever(); 
+	wait_forever();
 }
 

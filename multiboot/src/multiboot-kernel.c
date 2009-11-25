@@ -15,6 +15,7 @@
 #include "../include/taskswitch.h"
 #include "../include/devfs.h"
 #include "../include/elf.h"
+#include "../include/syscall.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -39,6 +40,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_basic_keyboard();
 		memorysize = init_paging(mbd);
 		//initialise_tasking();
+		init_syscall();
 		init_process_manager();
 		init_timer(50);
 		interrupts_on();

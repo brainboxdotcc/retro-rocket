@@ -162,7 +162,7 @@ typedef struct registers
 } registers_t;
 
 // Interrupt handler definition
-typedef void (*isr_t)(registers_t);
+typedef void (*isr_t)(registers_t*);
 
 // Initialise default IDT
 void init_idt();

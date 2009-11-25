@@ -41,7 +41,7 @@ void sleep_one_tick()
 	while (oldticks != ticks);
 }
 
-static void timer_callback(registers_t regs)
+static void timer_callback(registers_t* regs)
 {
 	ticks++;
 	if (current_console && current_console->dirty)
@@ -49,7 +49,7 @@ static void timer_callback(registers_t regs)
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();
 
-	switch_task();
+	proc_switch(regs);
 }
 
 void init_timer(u32int frequency)

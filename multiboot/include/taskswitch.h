@@ -31,7 +31,7 @@ typedef struct {
 
 /*Prototypes - KERNEL mode ONLY */
 void	init_process_manager(void);	/*Initialisation kai dimiourgia 1ou Process */
-void	proc_switch(registers_t regs);	/*O Scheduler mas - Klisi se afton == Process change */
+void	proc_switch(registers_t* regs);	/*O Scheduler mas - Klisi se afton == Process change */
 void	proc_chstack(u32int address, u32int size);	/*Metafora stack ektos kernel space */
 void	proc_set_semaphore(void);	/*Disable Multitasking */
 void	proc_clear_semaphore(void);	/*Enable Multitasking */
@@ -40,7 +40,7 @@ void	start_initial_task(void);	/*Start init() se USER MODE */
 
 /*Process Manager USER-MODE Interface */
 void	set_state(u32int state);
-u32int	fork(registers_t regs);
+u32int	fork(registers_t* regs);
 u32int	getpid(void);
 u32int	getppid(void);
 void	exit(void);

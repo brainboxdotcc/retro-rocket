@@ -166,10 +166,10 @@ const char* findsymbol(u32int address, u32int* offset)
 	return NULL;
 }
 
-void backtrace(registers_t regs)
+void backtrace(registers_t* regs)
 {
 	stack_frame_t *frame;
-	frame = (stack_frame_t *)regs.ebp;
+	frame = (stack_frame_t *)regs->ebp;
 	u32int page = (u32int) frame & 0xFFFFF000;
 	u32int offset = 0;
 	const char* name = NULL;
@@ -182,8 +182,8 @@ void backtrace(registers_t regs)
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
 	setforeground(current_console, COLOUR_LIGHTGREEN);
-	name = findsymbol((u32int)regs.eip, &offset);
-	printf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, regs.eip);
+	name = findsymbol((u32int)regs->eip, &offset);
+	printf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, regs->eip);
 	while(frame && ((u32int) frame & 0xFFFFF000) == page)
 	{
 		name = findsymbol((u32int)frame->addr, &offset);

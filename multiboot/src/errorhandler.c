@@ -6,7 +6,7 @@
 #include "../include/io.h"
 #include "../include/debugger.h"
 
-void error_handler(registers_t regs);
+void error_handler(registers_t* regs);
 
 void init_error_handler()
 {
@@ -18,7 +18,7 @@ void init_error_handler()
 		register_interrupt_handler(interrupt, error_handler);
 }
 
-void error_handler(registers_t regs)
+void error_handler(registers_t* regs)
 {
 	static const char* const error_table[] = {
 		"Division by zero exception",
@@ -42,7 +42,7 @@ void error_handler(registers_t regs)
 		"Machine check exception",
 	};
 	PANIC_BANNER;
-	printf("Fatal exception 0x%2x at 0x%8x: %s\n", regs.int_no, regs.eip, error_table[regs.int_no]);
+	printf("Fatal exception 0x%2x at 0x%8x: %s\n", regs->int_no, regs->eip, error_table[regs->int_no]);
 	backtrace(regs);
 	blitconsole(current_console);
 	asm volatile("cli");
