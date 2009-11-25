@@ -39,7 +39,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_error_handler();
 		init_basic_keyboard();
 		memorysize = init_paging(mbd);
-		//initialise_tasking();
 		init_syscall();
 		init_process_manager();
 		init_timer(50);
