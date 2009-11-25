@@ -3,6 +3,7 @@
 #include "../include/paging.h"
 #include "../include/filesystem.h"
 #include "../include/interrupts.h"
+#include "../include/syscall.h"
 #include "../include/elf.h"
 #include "../include/printf.h"
 #include "../include/kmalloc.h"
@@ -35,23 +36,26 @@ void set_kernel_stack(u32int stack){
 
 void init()
 {
-	/*uint32 pid = 0, pid2 = 0;
+	u32int pid = 0;
 
-	asm volatile("int $0x7F" : : "a"(SYS_FORK));
+	asm volatile("int $50" : : "a"(SYS_FORK));
 	asm volatile("mov %%eax, %0" : "=a"(pid));
 	if (!pid)
 	{
-		asm volatile("int $0x7F" : : "a"(SYS_SETMTX));
-		asm volatile("int $0x7F" : : "a"(SYS_EXEC), "b"("/programs/"));
-		asm volatile("int $0x7F" : : "a"(SYS_CLRMTX));
+		asm volatile("int $50" : : "a"(SYS_SETMTX));
+		asm volatile("int $50" : : "a"(SYS_EXEC), "b"("/programs/consh"));
+		asm volatile("int $50" : : "a"(SYS_CLRMTX));
 	}
 	else
 	{
 		while(1);       // System idle process
-	}*/
+	}
 }
 
-static void* byte_after_init; /* DO *NOT* MOVE THIS!!! */
+/* Do NOT move this from immediately after init() */
+static void byte_after_init()
+{
+}
 
 u32int get_init_size()
 {
