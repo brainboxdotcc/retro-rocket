@@ -2,8 +2,7 @@
 #define __KERNEL__H__
 
 #include "video.h"
-
-#define ASSERT(x) 
+#include "io.h"
 
 #define UNUSED __attribute__ ((unused))
 
@@ -34,7 +33,10 @@
 printf("This is a fatal system error and your system has been halted.\n\
 "); setforeground(current_console, COLOUR_LIGHTRED);
 
-
+#define assert(expr, line) if (!(expr)) { \
+	      printf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \
+	      blitconsole(current_console); \
+	      wait_forever(); }
 
 extern console* current_console;
 
@@ -44,6 +46,12 @@ typedef unsigned short u16int;
 typedef          short s16int;
 typedef unsigned char  u8int;
 typedef          char  s8int;
+
+enum
+{
+	false = 0,
+	true = 1
+} bool;
 
 void _memset(void *dest, char val, int len);
 

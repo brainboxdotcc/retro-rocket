@@ -14,20 +14,20 @@ heap_t*	kheap = 0;	/*Kernel Heap */
 heap_t*	uheap = 0;	/*User Heap */
 
 /*H lista mas tha einai ordered kai tha ftiaksoume tis voithitikes routines xeirismou */
-static header_t* ord_list_insert(header_t *insert,header_t *list);	/*Insert se taksinomimeni lista */
-static header_t* ord_list_remove(header_t *remove,header_t *list);	/*Remove ap tin lista, return list */
-static header_t* ord_list_get_nnode(u32int n,header_t *list);		/*Epistrefei to N node */
-static header_t* ord_list_get_last(header_t *list);			/*Epistrefei Last node */
-static header_t* ord_list_src_size(u32int sz,header_t *list);		/*Psaxnoume gia sz < BLOCK size */
-static header_t* ord_list_src_head(header_t* head,header_t *list);	/*Psaxnei node me header */
+header_t* ord_list_insert(header_t *insert,header_t *list);	/*Insert se taksinomimeni lista */
+header_t* ord_list_remove(header_t *remove,header_t *list);	/*Remove ap tin lista, return list */
+header_t* ord_list_get_nnode(u32int n,header_t *list);		/*Epistrefei to N node */
+header_t* ord_list_get_last(header_t *list);			/*Epistrefei Last node */
+header_t* ord_list_src_size(u32int sz,header_t *list);		/*Psaxnoume gia sz < BLOCK size */
+header_t* ord_list_src_head(header_t* head,header_t *list);	/*Psaxnei node me header */
 
 /*Voithitikes routines tou memory manager */
 static void* alloc(u32int size,u8int align,heap_t *heap);/*ALLOCATE memory apo heap */
 static void free_int(void*, heap_t *heap);		/*FREE memory apo heap */
-static void expand_heap(u32int size, heap_t *heap);	/*Megalonoume to heap kata size bytes (paligned)*/
-static void shrink_heap(u32int size, heap_t *heap);	/*Mikrenoume to heap kata size bytes (paligned) */
-static void fix_heap_list(heap_t *heap);		/*Frontizei oste panta na yparxei block os to end */
-static header_t* palign_block(u32int size, heap_t *heap);
+void expand_heap(u32int size, heap_t *heap);	/*Megalonoume to heap kata size bytes (paligned)*/
+void shrink_heap(u32int size, heap_t *heap);	/*Mikrenoume to heap kata size bytes (paligned) */
+void fix_heap_list(heap_t *heap);		/*Frontizei oste panta na yparxei block os to end */
+header_t* palign_block(u32int size, heap_t *heap);
 
 /********************************************************/
 
@@ -193,14 +193,15 @@ static void free_int(void *addr, heap_t *heap){
 // 	heap->list_free = ord_list_insert(th,heap->list_free);
 }
 
-static void expand_heap(u32int size, heap_t *heap){
+void expand_heap(u32int size, heap_t *heap)
+{
 /*Kanei Expand to megethos tou heap kata size (paligned) bytes */
 	/*To expand ginete se page boundaries */
 	if (size & 0xFFF){	/*an den einai pagigned */
 		size &= 0xFFFFF000;
 		size += 0x1000;
 	}
-	if (!heap) printf("HEAP EXPAND - NULL HEAP");
+	assert(heap != NULL, "HEAP EXPAND - NULL HEAP");
 	/*expand mexri max size */
 	if (heap->end_addr + size > heap->max_size) 
 		size = heap->max_size - heap->end_addr;
@@ -212,30 +213,23 @@ static void expand_heap(u32int size, heap_t *heap){
 	fix_heap_list(heap);				/*Fix list */
 }
 
-static void shrink_heap(u32int size, heap_t *heap){
-/*Kanei shrink to megethos tou heap kata size (paligned) bytes */
+void shrink_heap(u32int size, heap_t* heap)
+{
+	/* Shrink a heap, but not below min_size */
 	u32int tmp = (u32int)heap->end_addr - size;
 	tmp &= 0xFFFFF000;
 
-	//printf("tmp=%08x\n", tmp);
-
-	if (!heap) printf("HEAP SHRINK - NULL HEAP");
-	if (tmp < heap->min_size)	/*An einai mikrotero apo min size */
-	{
-		//printf("Cant shrink below min_size\n");
-		tmp = heap->min_size;	/*to kanoume fix sta metra tou min */
-	}
+	assert(heap != NULL, "HEAP SHRINK - NULL HEAP");
+	if (tmp < heap->min_size)	/* Check for shrinking below min_size */
+		tmp = heap->min_size;
 
 	release_sect(tmp, heap->end_addr,current_directory);	/*Release pages */
-	//printf("release_sect done with %08x %08x\n", tmp, heap->end_addr);
 	heap->end_addr = tmp;					/*Adjust end */
 
-	//printf("fix_heap_list\n");
 	fix_heap_list(heap);
-	//printf("fix_heap_list done\n");
 }
 
-static void fix_heap_list(heap_t *heap){
+void fix_heap_list(heap_t *heap){
 /*Frontizei etsi oste An kai efoson yparxei adesmeftos xoros sto telos tou heap
   na Orizete Block H na epekteinetai to yparxon. Mporei na xrisimopoieitai se kathe 
   Expand h akoma kai se Contract < Min_size */
@@ -244,7 +238,7 @@ static void fix_heap_list(heap_t *heap){
 
 	//printf("fhl 1\n");
 
-	if (!heap) printf("HEAP FIX LIST - NULL HEAP");
+	assert(heap != NULL, "HEAP FIX LIST - NULL HEAP");
 
 	/*Adjust Blocks */
 	/*Psaxnoume to telefteo footer sto heap */
@@ -313,7 +307,8 @@ bbreak:
 	//printf("fhl 5\n");
 }
 
-static header_t* palign_block(u32int size, heap_t *heap){
+header_t* palign_block(u32int size, heap_t *heap)
+{
 	header_t* th = ord_list_src_size(size, heap->list_free);	/*Penoume to 1o diathesimo block */
 	header_t *tmp_h;
 	footer_t *tmp_f, *tmp_f2;
@@ -374,16 +369,19 @@ void* kmalloc_org(u32int size, u8int align,u32int *phys){
 
 void* kmalloc_ext(u32int size, u8int align, u32int *phys){
 	void* ret;
-	if (kheap){
+	if (kheap)
+	{
 		ret = alloc(size,align,kheap);
-		if (phys){	/*Vriskoume to physical address k to epistrefoume */
+		if (phys)
+		{	/*Vriskoume to physical address k to epistrefoume */
 			page_t *page = get_page((u32int)ret, 0, current_directory);
 			*phys = (page->frame * 0x1000) + (((u32int)ret) & 0xFFF);
 		}
 		return ret;
 	}
 	else {
-		if (align) { /*Morfopoioume se page boundaries */
+		if (align)
+		{ /*Morfopoioume se page boundaries */
 			heap_pos &= 0xFFFFF000;
 			heap_pos += 0x1000;	/*Next bound */
 		}
@@ -416,23 +414,28 @@ void* malloc_ext(u32int size, u8int align, u32int *phys){
 	return 0;
 }
 
-void* malloc(u32int size){	/*Pio genikis xriseos */
+void* malloc(u32int size)
+{	/*Pio genikis xriseos */
 	return malloc_ext(size, 0, 0);
 }
 
-void	free(void* addr){
+void	free(void* addr)
+{
 	if (uheap) free_int(addr,uheap);
 }
 
 /*Ylopoiisi routinwn xeirismou taksinomimenis listas */
-static header_t* ord_list_insert(header_t *insert,header_t *list){
+header_t* ord_list_insert(header_t *insert,header_t *list)
+{
 	header_t *tmp = list,*tmp2;
-	if (!tmp) {	/*Keni lista */
+	if (!tmp)
+	{	/*Keni lista */
 		insert->prev = 0;
 		insert->next = 0;
 		return insert;
 	}
-	if (tmp->size >= insert->size){	/*Stin 1i thesi */
+	if (tmp->size >= insert->size)
+	{	/*Stin 1i thesi */
 		tmp->prev = insert;
 		insert->next = tmp;
 		insert->prev = 0;
@@ -441,7 +444,8 @@ static header_t* ord_list_insert(header_t *insert,header_t *list){
 	tmp2 = tmp;
 	tmp = tmp->next;
 	while (tmp){	/*Mesa stin lista */
-		if (tmp->size >= insert->size){
+		if (tmp->size >= insert->size)
+		{
 			tmp->prev = insert;
 			insert->next = tmp;
 			tmp2->next = insert;
@@ -459,7 +463,8 @@ static header_t* ord_list_insert(header_t *insert,header_t *list){
 	return list;	
 }
 
-static header_t* ord_list_remove(header_t *remove,header_t *list){
+header_t* ord_list_remove(header_t *remove,header_t *list)
+{
 	header_t *prev,*next;
 	prev = remove->prev;
 	next = remove->next;
@@ -471,7 +476,8 @@ static header_t* ord_list_remove(header_t *remove,header_t *list){
 	return list;
 }
 
-static header_t* ord_list_src_size(u32int sz,header_t *list){
+header_t* ord_list_src_size(u32int sz,header_t *list)
+{
 	header_t*tmp = list;
 	if (!list) return 0;
 	if (tmp->size >= sz) return tmp;
@@ -484,18 +490,22 @@ static header_t* ord_list_src_size(u32int sz,header_t *list){
 	return 0;
 }
 
-/*static header_t* ord_list_get_nnode(u32int n,header_t *list){
+header_t* ord_list_get_nnode(u32int n,header_t *list)
+{
 	header_t*tmp = list;
 	u32int i;
 	if (!list) return 0;
 	for (i = 0; i < n && tmp->next; i++, tmp=tmp->next);
 	if (i == n) return tmp;
 	return 0;
-}*/
+}
 
-static header_t* ord_list_get_last(header_t *list){
+header_t* ord_list_get_last(header_t *list)
+{
 	header_t*tmp = list;
-	if (!list) return 0;	/*Keni lista */
+	if (!list)
+		return 0;	/*Keni lista */
 	while (tmp->next) tmp = tmp->next;
 	return tmp;
 }
+
