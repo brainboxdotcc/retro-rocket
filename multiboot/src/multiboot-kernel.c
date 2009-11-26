@@ -69,7 +69,9 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_debug();
 		printf("Init size: %d\n\n", get_init_size());
 
-		load_elf("/sh");
+		asm volatile("int $50" : : "a"(SYS_FSWITCH));
+		start_initial_task();
+		//load_elf("/sh");
 		/*int fd = _open("/kernel.sym", _O_RDONLY);
 		if (fd == -1)
 		{

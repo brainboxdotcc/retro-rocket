@@ -20,7 +20,8 @@ void init_syscall(void)
 
 void syscall_handler(registers_t* regs)
 {
-	// 	proc_set_semaphore();
+	proc_set_semaphore();
+	printf("syscall 0x%04x\n", regs->eax);
 	argv_t* argv;
 	ret_addr = 0;
 	ret_esp = 0;
@@ -68,7 +69,9 @@ void syscall_handler(registers_t* regs)
 
 		/*-------------- PROCESS MANAGER --------------- */
 		case SYS_FORK:{		/*ebx == return ptr */
+			printf("Fork syscall\n");
 			regs->eax = fork(regs);
+			printf("Fork completed\n");
 			break;
 		}
 		case SYS_EXEC:
@@ -126,5 +129,5 @@ void syscall_handler(registers_t* regs)
 			regs->useresp = ret_esp;
 		}
 	}
-	// proc_clear_semaphore();
+	proc_clear_semaphore();
 }

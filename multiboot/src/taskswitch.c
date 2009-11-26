@@ -37,9 +37,13 @@ void set_kernel_stack(u32int stack){
 void init()
 {
 	u32int pid = 0;
-
 	asm volatile("int $50" : : "a"(SYS_FORK));
 	asm volatile("mov %%eax, %0" : "=a"(pid));
+
+	asm volatile("int $50" : : "a"(SYS_PUTS), "b"("Test"));
+
+	while (1);
+
 	if (!pid)
 	{
 		asm volatile("int $50" : : "a"(SYS_SETMTX));
@@ -59,10 +63,12 @@ static void byte_after_init()
 
 u32int get_init_size()
 {
+	return 10000;
 	return (u32int)((u32int)&byte_after_init - (u32int)&init);
 }
 
-void init_process_manager(void){
+void init_process_manager(void)
+{
 	process_t* fst_proc;
 
 	deathflag = 0;
@@ -169,6 +175,8 @@ void proc_switch(registers_t* regs)
 
 	/*Psaxnoume to epomeno proc */
 	proc_current = next_proc();
+	
+	printf("ps %d\n",proc_current->pid);
 
 	/*Load to state tou neou process */
 	memcpy(regs, &proc_current->regs, sizeof(registers_t));
@@ -176,6 +184,8 @@ void proc_switch(registers_t* regs)
 	/*Kai kanoume switch */
 	switch_page_directory(proc_current->dir);
 	set_kernel_stack(proc_current->kstack);
+
+	printf("pse %d %08x\n",proc_current->pid, proc_current->regs.eip);
 
 	/*H iret tha kanei return sto neo state pleon, sto neo Address Space */
 	if (deathflag)
@@ -189,10 +199,14 @@ u32int fork(registers_t* regs)
 	process_t *parent, *child, *tmp;
 	u32int ret = 0;
 
+	printf("Fork...\n");
+
 	/*Arxikopoioume voithitikes vars */
 	parent = proc_current;
 	child = (process_t*)kmalloc(sizeof(process_t));
 	_memset((char*)child, 0, sizeof(process_t));
+
+	printf("f1\n");
 
 	/*Arxikopoioume to child process */
 	child->state = PROC_RUNNING;
@@ -205,12 +219,17 @@ u32int fork(registers_t* regs)
 	_memset((char*)child->kstack, 0 , 0x1000);		/*Nullify */
 	child->kstack += 0x1000-4;
 	memcpy(&child->regs, regs, sizeof(registers_t));/*State copy */
-	child->regs.eax = 0;					/*Return == 0 sto iret */
+	child->regs.eax = 0;
+	/*Return == 0 sto iret */
+
+	printf("f2\n");
 
 	/*Vriskoume to telefteo proc stin lista */
 	tmp = proc_list;
 	while (tmp->next)
 		tmp = tmp->next;
+
+	printf("f3\n");
 
 	asm volatile("cli");	/*Gia na min kanei switch edw */
 
@@ -225,6 +244,7 @@ u32int fork(registers_t* regs)
 	/*To return value */
 	ret = child->pid;
 	asm volatile("sti");
+	printf("f4\n");
 	return ret;
 }
 

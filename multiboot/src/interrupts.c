@@ -77,7 +77,7 @@ void idt_set_gate(int num, void *base, short sel, char flags)
 	idt_entries[num].base_hi = ((int)base >> 16) & 0xFFFF;
 	idt_entries[num].sel = sel;
 	idt_entries[num].always0 = 0;
-	idt_entries[num].flags = flags /* | 0x60 */;
+	idt_entries[num].flags = flags | 0x60;
 } 
 
 void init_idt()
@@ -150,7 +150,7 @@ void init_idt()
 	/* Different privilege flags for this, so that it can be called
 	 * from usermode (this is the syscall gate)
 	 */
-	idt_set_gate(50, isr50, 0x08, 0xFE);
+	idt_set_gate(50, isr50, 0x08, 0xEE);
 
 	idt_flush(&idt_ptr);
 }
