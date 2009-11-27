@@ -49,6 +49,7 @@ static void timer_callback(registers_t* regs)
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();
 
+	//printf("Timer\n");
 	proc_switch(regs);
 }
 

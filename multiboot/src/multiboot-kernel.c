@@ -22,6 +22,8 @@
 console* current_console = NULL;
 u32int initial_esp = NULL;
 
+static unsigned char* vid = (unsigned char*) VIDEO_MEMORY;
+
 void _memset(void *dest, char val, int len)
 {
 	char *temp = (char *)dest;
@@ -30,24 +32,38 @@ void _memset(void *dest, char val, int len)
 
 void kmain(void* mbd, unsigned int magic, u32int sp)
 {
+	*vid = '1';
 	u32int memorysize = 0;
 	initial_esp = sp;
 	if (magic == MULTIBOOT_MAGIC)
 	{
+		*vid = '2';
 		init_gdt();
+		*vid = '3';
 		init_idt();
-		init_error_handler();
-		init_basic_keyboard();
+		*vid = '4';
 		memorysize = init_paging(mbd);
+		*vid = '5';
+		init_error_handler();
+		*vid = '6';
+		init_basic_keyboard();
+		*vid = '7';
 		init_syscall();
-		init_process_manager();
-		init_timer(50);
-		interrupts_on();
+		*vid = '9';
+		init_timer(10);
+		*vid = 'A';
 	}
 
 	console* cons = (console*)kmalloc(sizeof(console));
 	initconsole(cons);
 	current_console = cons;
+	blitconsole(cons);
+
+	*vid = 'B';
+
+	interrupts_on();
+
+	*vid = 'C';
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
@@ -69,8 +85,11 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_debug();
 		printf("Init size: %d\n\n", get_init_size());
 
+		init_process_manager();
+
 		asm volatile("int $50" : : "a"(SYS_FSWITCH));
 		start_initial_task();
+
 		//load_elf("/sh");
 		/*int fd = _open("/kernel.sym", _O_RDONLY);
 		if (fd == -1)

@@ -17,6 +17,7 @@ u32int semaphore = 0;
 u32int deathflag = 0;
 
 extern page_directory_t *current_directory;	/*Gia to change stack, apo paging.c */
+extern page_directory_t *kernel_directory;
 extern u32int initial_esp;			/*Episis gia stack change, apo kernel.c */
 extern console* current_console;		/*Xreiazetai gia to initialise */
 extern u32int ret_addr;				/*Ret address meta apo syscall */
@@ -40,18 +41,21 @@ void init()
 	asm volatile("int $50" : : "a"(SYS_FORK));
 	asm volatile("mov %%eax, %0" : "=a"(pid));
 
-	asm volatile("int $50" : : "a"(SYS_PUTS), "b"("Test"));
-
-	while (1);
+	//asm volatile("int $50" : : "a"(SYS_PUTCH), "b"('A'));
+	//asm volatile("int $50" : : "a"(SYS_PUTCH), "b"(pid));
+	asm volatile("int $50" : : "a"(SYS_PUTS), "b"("after fork\n"));
 
 	if (!pid)
 	{
+		asm volatile("int $50" : : "a"(SYS_PUTS), "b"("shell spawn\n"));
 		asm volatile("int $50" : : "a"(SYS_SETMTX));
 		asm volatile("int $50" : : "a"(SYS_EXEC), "b"("/programs/consh"));
 		asm volatile("int $50" : : "a"(SYS_CLRMTX));
+		while(1);
 	}
 	else
 	{
+		asm volatile("int $50" : : "a"(SYS_PUTS), "b"("idle\n"));
 		while(1);       // System idle process
 	}
 }
@@ -157,6 +161,8 @@ void	wait(u32int pid){
 	proc_current->state = PROC_RUNNING;
 }
 
+int old_eip = 0;
+
 void proc_switch(registers_t* regs)
 {
 	/*Contex Switch routina */
@@ -164,19 +170,28 @@ void proc_switch(registers_t* regs)
 		 kathws kanei switch page directory. Stin periptosi pou den exoume mpei akoma
 		 se User mode (opote kai xrisi 2 stack), SE KAMIA PERIPTOSI den prepei na uparxoun
 		 2 diergasies, alla mono 1. Meta tin metavasi se User mode, eimaste ok */
+	//printf("psent\n",proc_current->pid);
+	//blitconsole(current_console);
+
 	if (proc_current == 0)	/*Unitialised Process Manager */
 		return;
  	if (semaphore == 1)	/*Disabled multitasking */
 		return;
 
-	asm volatile("cli");	/*Den theloume interrupts oso kanoume switch */
+	//printf("psent2\n",proc_current->pid);
+	//blitconsole(current_console);
+
+	asm volatile("cli");
 	/*Sozoume current state se current process */
 	memcpy(&proc_current->regs, regs, sizeof(registers_t));
 
 	/*Psaxnoume to epomeno proc */
 	proc_current = next_proc();
 	
-	printf("ps %d\n",proc_current->pid);
+	//if (proc_current->regs.eip != 0x40000060)
+	//	printf("ps %d %08x\n",proc_current->pid, proc_current->regs.eip);
+	//old_eip = proc_current->regs.eip;
+	//blitconsole(current_console);
 
 	/*Load to state tou neou process */
 	memcpy(regs, &proc_current->regs, sizeof(registers_t));
@@ -185,7 +200,8 @@ void proc_switch(registers_t* regs)
 	switch_page_directory(proc_current->dir);
 	set_kernel_stack(proc_current->kstack);
 
-	printf("pse %d %08x\n",proc_current->pid, proc_current->regs.eip);
+	//printf("pse %d %08x\n",proc_current->pid, proc_current->regs.eip);
+	//blitconsole(current_console);
 
 	/*H iret tha kanei return sto neo state pleon, sto neo Address Space */
 	if (deathflag)
@@ -196,6 +212,7 @@ u32int fork(registers_t* regs)
 {	/*Copy STATE+Address space se neo process */
 /*To child tha arxisei na ekteleite apo ekei pou tha kanei return afti i fork. To 
   sygkekrimeno body tha ektelestei MONO sto parent process */
+	//asm volatile("cli");
 	process_t *parent, *child, *tmp;
 	u32int ret = 0;
 
@@ -219,10 +236,16 @@ u32int fork(registers_t* regs)
 	_memset((char*)child->kstack, 0 , 0x1000);		/*Nullify */
 	child->kstack += 0x1000-4;
 	memcpy(&child->regs, regs, sizeof(registers_t));/*State copy */
+	printf("parent eip=%08x child eip=%08x\n", regs->eip, child->regs.eip);
 	child->regs.eax = 0;
 	/*Return == 0 sto iret */
 
 	printf("f2\n");
+
+	if (parent->dir == kernel_directory)
+	{
+		printf("Parent dir = kernel directory\n");
+	}
 
 	/*Vriskoume to telefteo proc stin lista */
 	tmp = proc_list;
@@ -230,8 +253,6 @@ u32int fork(registers_t* regs)
 		tmp = tmp->next;
 
 	printf("f3\n");
-
-	asm volatile("cli");	/*Gia na min kanei switch edw */
 
 	/*Prosthetoume to child stin lista */
 	tmp->next = child;
@@ -243,7 +264,8 @@ u32int fork(registers_t* regs)
 
 	/*To return value */
 	ret = child->pid;
-	asm volatile("sti");
+	printf("child pid=%d%c our pid=%d%c\n", ret, ret, parent->pid, parent->pid);
+	//asm volatile("sti");
 	printf("f4\n");
 	return ret;
 }

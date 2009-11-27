@@ -14,10 +14,10 @@ gdtref:
 	/* IDT Declarations */
 .globl isr_common_stub
 isr_common_stub:
-	xchg %bx, %bx
+	;xchg %bx, %bx
 
 	pusha
-	mov %ds, %ax
+	mov %ds, %eax
 	push %eax
 	mov $0x10, %ax
 	mov %ax, %ds
@@ -34,7 +34,7 @@ isr_common_stub:
 	mov %bx, %gs
 	popa
 
-	xchg %bx, %bx
+	;xchg %bx, %bx
 
 	add $8, %esp
 	sti
