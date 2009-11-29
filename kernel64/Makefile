@@ -3,26 +3,29 @@ CFLAGS=-pipe -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefa
 ASOURCES=loader.o
 CSOURCES=kernel.o
 
-all: source link
+all: loader source link
 
 run: all emulator
 
 clean:
-	rm asm/*.o src/*.o
+	rm asm/*.o src/*.o loader/*.o
 
 link:
-	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o
-	chmod ugo-x kernel.bin
+	-ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o
+	-chmod ugo-x kernel.bin
 	perl build/makeiso.pl
 
+loader:
+	make -C loader all
+
 source:
-	make -C asm all
-	make -C src all CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
+	-make -C asm all
+	-make -C src all CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 emulator:
 	qemu -no-reboot -no-shutdown -cdrom sixty-four.iso
 
-debug:
+debug: all
 	nohup qemu -no-reboot -no-shutdown -S -gdb tcp::1234 -cdrom sixty-four.iso &
 	sleep 2
 	gdb -command=.gdbargs

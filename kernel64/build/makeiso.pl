@@ -2,7 +2,7 @@
 
 system("rm -rf .iso");
 mkdir(".iso");
-system("cp kernel.bin .iso/");
+system("cp loader/kernel-loader .iso/");
 mkdir(".iso/boot");
 mkdir(".iso/boot/grub");
 mkdir(".iso/devices");
