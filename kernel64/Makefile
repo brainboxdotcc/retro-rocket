@@ -3,7 +3,7 @@ CFLAGS=-pipe -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefa
 ASOURCES=loader.o
 CSOURCES=kernel.o
 
-all: loader source link
+all: source link
 
 run: all emulator
 
@@ -15,10 +15,8 @@ link:
 	-chmod ugo-x kernel.bin
 	perl build/makeiso.pl
 
-loader:
-	make -C loader all
-
 source:
+	make -C loader all
 	-make -C asm all
 	-make -C src all CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
