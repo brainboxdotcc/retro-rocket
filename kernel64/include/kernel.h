@@ -18,6 +18,13 @@ enum bool
 	true
 };
 
+static inline void memset(void *dest, char val, int len)
+{
+	char *temp = (char *)dest;
+		for ( ; len != 0; len--) *temp++ = val;
+}
+
+
 #include "printf.h"
 #include "video.h"
 #include "string.h"

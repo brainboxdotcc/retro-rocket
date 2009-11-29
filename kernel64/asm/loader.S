@@ -154,6 +154,11 @@ long_64_mode:
 
 	jmp		kmain
 
+// Default exception handler
+.global DefaultHandler
+DefaultHandler:
+	iret
+
 .align 4
 gdt64:
 	// first entry, also the gdt descriptor
@@ -168,8 +173,9 @@ mbinfo:
 	.long 0
 	.long 0
 
-.data
-.align 8
+;.data
+;.align 8
 stack:
-	.skip 0x4000
+	.skip 0x8000
 stack_end:
+

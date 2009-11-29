@@ -37,7 +37,7 @@ typedef struct
 	u32 reserved2:8;	/* unused */
 	u32 zero:5;
 	u32 reserved3:19;	/* reserved */
-} GateDescriptor64;
+} Gate64;
 
 /* IDT Entries for exceptions */
 #define	IDT_EX_DIV		0	/* Divide Error */
@@ -62,6 +62,20 @@ typedef struct
 
 #define	IDTSZ		256	/* Number of entries in interrupt descriptor table */
 
+#define	BYTES   0
+#define PAGES	1
 
+#define OP32	1	
+
+#define LONG	1
+
+#define GDT_NULL	0	/* Null selector */
+#define GDT_DATA64	1	/* Data selector */
+#define GDT_CODE64 	2	/* 64 bit code */
+
+#define	IDXTOSEL(s)	((s) << 3)		/* index to selector */
+#define	SEL_GDT(s, r)	(IDXTOSEL(s) | r)	/* global sel */
+
+#define	SDT_SYSIGT	14	/* system interrupt gate */
 
 #endif

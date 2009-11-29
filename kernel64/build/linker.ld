@@ -18,6 +18,7 @@ SECTIONS
         _data = .;
         *(.data)
 	*(.debug*)
+	*(.bss)
         . = ALIGN(4096);
    }
 
@@ -26,13 +27,6 @@ SECTIONS
        _ehframe = .;
        *(.ehframe)
         . = ALIGN(4096);
-   }
-
-   .bss :
-   {
-       _bss = .;
-       *(.bss)
-       . = ALIGN(4096);
    }
 
    _end = .;

@@ -8,7 +8,7 @@ all: source link
 run: all emulator
 
 clean:
-	rm asm/*.o src/*.o loader/*.o
+	rm asm/*.o src/*.o
 
 link:
 	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o

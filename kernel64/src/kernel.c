@@ -7,6 +7,7 @@ void kmain(MultiBoot* mb, u64 stackaddr)
 	printf("Sixty-Four ");
 	setforeground(COLOUR_WHITE);
 	printf("kernel booting from %s...\n", mb->bootloadername);
+	MakeTables();
 
 	if (!detect_apic())
 	{
