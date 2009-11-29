@@ -110,14 +110,8 @@ void put(const char n)
  */
 void putstring(const char* message)
 {
-	int j = 0;
-	for (; ; ++message)
-	{
-		put('_');
+	for (; *message; ++message)
 		put(*message);
-		if (j++ > 30)
-			return;
-	}
 }
 
 void initconsole()

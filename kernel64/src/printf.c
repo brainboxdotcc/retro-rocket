@@ -14,9 +14,6 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 	unsigned char state, radix;
 	long num;
 
-	/* FIX: Skip the first argument in the va_list, as it is the format specifier! */
-	va_incr(args, const char*);
-
 	state = flags = count = given_wd = 0;
 /* begin scanning format specifier list */
 	for(; *fmt; fmt++)
@@ -122,20 +119,17 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 DO_NUM:				if(flags & PR_32)
 				{
 					num = va_arg(args, unsigned long);
-					va_incr(args, unsigned long);
 				}
 /* h=short=16 bits (signed or unsigned) */
 				else if(flags & PR_16)
 				{
 					if(flags & PR_SG)
 					{
-						num = va_arg(args, short);
-						va_incr(args, unsigned short);
+						num = va_arg(args, int);
 					}
 					else
 					{
-						num = va_arg(args, unsigned short);
-						va_incr(args, unsigned short);
+						num = va_arg(args, unsigned int);
 					}
 				}
 /* no h nor l: sizeof(int) bits (signed or unsigned) */
@@ -144,12 +138,10 @@ DO_NUM:				if(flags & PR_32)
 					if(flags & PR_SG)
 					{
 						num = va_arg(args, int);
-						va_incr(args, int);
 					}
 					else
 					{
 						num = va_arg(args, unsigned int);
-						va_incr(args, unsigned int);
 					}
 				}
 /* take care of sign */
@@ -184,15 +176,13 @@ OK, I found my mistake. The math here is _always_ unsigned */
 				flags &= ~PR_LZ;
 				where--;
 				*where = (unsigned char)va_arg(args,
-					unsigned char);
-				va_incr(args, unsigned char);
+					int);
 				actual_wd = 1;
 				goto EMIT2;
 			case 's':
 /* disallow pad-left-with-zeroes for %s */
 				flags &= ~PR_LZ;
 				where = va_arg(args, unsigned char *);
-				va_incr(args, unsigned char*);
 EMIT:
 				actual_wd = strlen((const char*)where);
 				if(flags & PR_WS)

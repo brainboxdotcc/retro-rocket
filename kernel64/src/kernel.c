@@ -3,7 +3,6 @@
 void kmain(MultiBoot* mb, u64 stackaddr)
 {
 	initconsole();
-	put('E');
-	putstring("This is a test of a longer string");
+	printf("The future is %s not %s", "now", "then");
 	asm volatile("cli; hlt");
 }
