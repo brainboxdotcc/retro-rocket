@@ -18,14 +18,14 @@ multiboot:
 // AOUT Kludge, required for legacy grub to load ELF64
 .long	multiboot
 .long	LOAD_ADDRESS	
-.long	_end	
+.long	_end
 .long	0				
 .long	_start	
 
 .global _start
 _start:
+	mov %ebx, mbinfo
 	push %eax
-	push %ebx
 
 	// Clear screen
 	mov     $0x0720, %ax	// White colour attribute, space character
@@ -33,7 +33,6 @@ _start:
 	mov	$0xB8000, %edi
 	rep stosw
 
-	pop %ebx
 	pop %eax
 
 	cmp $0x2BADB002, %eax
@@ -133,7 +132,7 @@ long_64_mode:
 	mov		$stack_end, %rsp
 
 	// First parameter: ebx should contain a pointer to the multiboot info structure
-	mov		%rbx, %rdi
+	mov		mbinfo, %rdi
 	// Second parameter: Stack location
 	mov		%rsp, %rsi
 
@@ -148,6 +147,10 @@ gdt64:
 	// entry 64bit code segment
     .long 0x00000000
     .long 0x00af9a00
+
+mbinfo:
+	.long 0
+	.long 0
 
 .data
 .align 8

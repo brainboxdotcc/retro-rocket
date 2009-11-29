@@ -24,22 +24,35 @@ enum bool
 #include "io.h"
 #include "memcpy.h"
 
-// Multiboot information structure
+/* Multiboot information structure
+ * IMPORTANT NOTE: Because GRUB 0.97 is 32 bit, it loads
+ * the kernel through the 'AOUT kludge' which means this
+ * multiboot parameter it passes has all of its values as
+ * 32 bit pointers. It may only exist within the first four
+ * gigabytes of RAM (usually it is placed somewhere after
+ * the loaded kernel). Be aware of its limitations when
+ * accessing ANY of its pointers!
+ */
 typedef struct
 {
-	unsigned long flags;
-	unsigned long mem_lower;
-	unsigned long mem_upper;
-	unsigned long boot_device;
-	unsigned long commandline;
-	unsigned long mods_count;
-	unsigned long mods_addr;
-	unsigned long elf_headers_num;
-	unsigned long elf_headers_size;
-	unsigned long elf_headers_addr;
-	unsigned long elf_headers_shndx;
-	unsigned long mmap_len;
-	unsigned long mmap_addr;
+	u32 flags;
+	u32 mem_lower;
+	u32 mem_upper;
+	u32 boot_device;
+	u32 commandline;
+	u32 mods_count;
+	u32 mods_addr;
+	u32 elf_headers_num;
+	u32 elf_headers_size;
+	u32 elf_headers_addr;
+	u32 elf_headers_shndx;
+	u32 mmap_len;
+	u32 mmap_addr;
+	u32 drives_length;
+	u32 drives_addr;
+	u32 config_table;
+	u32 bootloadername;
+	u32 apm_table;
 } MultiBoot; 
 
 #endif

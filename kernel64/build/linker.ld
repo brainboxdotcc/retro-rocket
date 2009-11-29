@@ -36,6 +36,7 @@ SECTIONS
    }
 
    _end = .;
+   codehigh = .;
 
    /DISCARD/ :
    {

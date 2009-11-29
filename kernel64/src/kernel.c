@@ -3,6 +3,10 @@
 void kmain(MultiBoot* mb, u64 stackaddr)
 {
 	initconsole();
-	printf("The future is %s not %s", "now", "then");
+	setforeground(COLOUR_LIGHTYELLOW);
+	printf("Sixty-Four ");
+	setforeground(COLOUR_WHITE);
+	printf("kernel booting from %s...\n", mb->bootloadername);
+
 	asm volatile("cli; hlt");
 }
