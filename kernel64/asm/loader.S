@@ -1,11 +1,13 @@
 .code32
 
-#define LOAD_ADDRESS 0x100000 // 1MB
-#define PGTABLE_BASE 0x8000
-
-#define MB_MAGIC	0x1BADB002
-#define MB_FLAGS	(1<<0 | 1<<1 | 1<<16)				// page align, meminfo, rest of header
-#define MB_CHECKSUM (-(MB_MAGIC + MB_FLAGS))
+#define LOAD_ADDRESS		0x100000 // 1MB
+#define PGTABLE_BASE		0x8000
+#define MULTIBOOT_PAGE_ALIGN	1 << 0
+#define MULTIBOOT_MEMORY_INFO	1 << 1
+#define MULTIBOOT_AOUT_KLUDGE	1 << 16
+#define MB_MAGIC		0x1BADB002
+#define MB_FLAGS		(MULTIBOOT_PAGE_ALIGN | MULTIBOOT_MEMORY_INFO | MULTIBOOT_AOUT_KLUDGE)
+#define MB_CHECKSUM		(-(MB_MAGIC + MB_FLAGS))
 
 .align 4
 
@@ -13,7 +15,7 @@ multiboot:
 .long	MB_MAGIC		
 .long	MB_FLAGS	
 .long 	MB_CHECKSUM	
-	// address part of the header
+// AOUT Kludge, required for legacy grub to load ELF64
 .long	multiboot
 .long	LOAD_ADDRESS	
 .long	_end	
@@ -22,8 +24,27 @@ multiboot:
 
 .global _start
 _start:
+	push %eax
+	push %ebx
 
-_enter64:
+	// Clear screen
+	mov     $0x0720, %ax	// White colour attribute, space character
+	mov	$0x1000, %ecx
+	mov	$0xB8000, %edi
+	rep stosw
+
+	pop %ebx
+	pop %eax
+
+	cmp $0x2BADB002, %eax
+	jne nomultiboot
+
+	// Check the CPU is 64 bit
+	mov $0x80000001, %eax
+	cpuid
+	and $(1 << 29), %edx
+	jz not64bit
+
 	// zero out 3 pages of ram where we're going to build some page tables
 	xor     %eax, %eax
 	mov     $PGTABLE_BASE, %edi
@@ -78,23 +99,41 @@ _enter64:
 	bts     $31, %eax
 	mov     %eax, %cr0
 
-	ljmp	$0x08,$(long_64_mode)
+	ljmp	$0x08, $(long_64_mode)
+
+need64bit:
+.string "A\7 \7s\7i\7x\7t\7y\7 \7f\7o\7u\7r\7 \7b\7i\7t\7 \7p\7r\7o\7c\7e\7s\7s\7o\7r\7 \7i\7s\7 \7r\7e\7q\7u\7i\7r\7e\7d\7 \7t\7o\7 \7r\7u\7n\7 \7t\7h\7i\7s\7 \7o\7p\7e\7r\7a\7t\7i\7n\7g\7 \7s\7y\7s\7t\7e\7m\7.\7"
+need64bitend:
+needmultiboot:
+.string "T\7h\7i\7s\7 \7o\7p\7e\7r\7a\7t\7i\7n\7g\7 \7s\7y\7s\7t\7e\7m\7 \7m\7u\7s\7t\7 \7b\7e\7 \7b\7o\7o\7t\7e\7d\7 \7f\7r\7o\7m\7 \7a\7 \7m\7u\7l\7t\7i\7b\7o\7o\7t\7 \7c\7o\7m\7p\7l\7i\7a\7n\7t\7 \7b\7o\7o\7t\7l\7o\7a\7d\7e\7r\7 \7s\7u\7c\7h\7 \7a\7s\7 \7G\7N\7U\7 \7G\7R\7U\7B\7.\7"
+needmultibootend:
+
+// If the multiboot magic is wrong on booting, we just loop
+not64bit:
+	mov $need64bit, %esi
+	mov $(need64bitend - need64bit), %ecx
+	jmp print_and_halt
+
+nomultiboot:
+	mov $needmultiboot, %esi
+	mov $(needmultibootend - needmultiboot), %ecx
+
+print_and_halt:
+	shr $1, %ecx
+	mov $0xB8000, %edi
+	rep movsw
+	cli
+	hlt
+
 
 .code64
 long_64_mode:
-	// print an a
-	;mov		$0xb8000, %rax
-	;movw	$0x0f61, 0(%rax)
 
 	// set up the stack
 	mov		$stack_end, %rsp
 
-	// print a b
-	;mov		$0xb8000, %rax
-	;movw	$0x0f62, 2(%rax)
-
 	// ebx should contain a pointer to the multiboot info structure
-	mov		%rbx,%rdi
+	mov		%rbx, %rdi
 
 	jmp		kmain
 
@@ -107,7 +146,6 @@ gdt64:
 	// entry 64bit code segment
     .long 0x00000000
     .long 0x00af9a00
-
 
 .data
 .align 8
