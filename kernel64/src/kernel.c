@@ -1,10 +1,9 @@
 #include "../include/kernel.h"
 
-console current_console;
-
 void kmain(MultiBoot* mb, u64 stackaddr)
 {
-	initconsole(&current_console);
-	printf("Epic win.\n");
+	initconsole();
+	put('E');
+	putstring("This is a test of a longer string");
 	asm volatile("cli; hlt");
 }

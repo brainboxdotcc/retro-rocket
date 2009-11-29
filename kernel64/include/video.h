@@ -64,7 +64,7 @@ void setcursor();
 /* Output a null terminated C string at the given cursor coordinates then update the
  * cursor coordinates to the end of the string, scrolling the screen if needed.
  */
-void putstring(char* message);
+void putstring(const char* message);
 
 /* Output a character to the screen at the given cursor coordinates then update the
  * cursor coordinates to the cell after the character, scrolling the screen if needed.

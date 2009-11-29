@@ -1,10 +1,7 @@
 #include "../include/kernel.h"
 #include "../include/io.h"
 
-/* Internal use: graphics buffer address in flat memory model */
-static unsigned char* video = (unsigned char*) VIDEO_MEMORY;
-
-static console c;
+console c;
 
 /* Clear the screen */
 void clearscreen()
@@ -87,13 +84,13 @@ void put(const char n)
 		case '\n':
 			c.x = 0;
 			c.y++;
-			setcursor(c);
+			setcursor();
 			return;
 		break;
 		case '\t':
 			if (c.x % TAB_WIDTH != 0 || c.x == 0)
 				c.x += TAB_WIDTH - (c.x % TAB_WIDTH);
-			setcursor(c);
+			setcursor();
 			return;
 		break;
 	}
@@ -111,17 +108,23 @@ void put(const char n)
  * handled by put() and setcursor(), and the internal functions it
  * calls.
  */
-void putstring(char* message)
+void putstring(const char* message)
 {
-	for(; *message; ++message)
+	int j = 0;
+	for (; ; ++message)
+	{
+		put('_');
 		put(*message);
+		if (j++ > 30)
+			return;
+	}
 }
 
 void initconsole()
 {
 	c.attributes = DEFAULT_COLOUR;
-	c.video = video;
-	clearscreen(c);
+	c.video = (u8*)VIDEO_MEMORY;
+	clearscreen();
 }
 
 void setbackground(unsigned char background)

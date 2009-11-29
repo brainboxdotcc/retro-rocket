@@ -7,8 +7,8 @@ SECTIONS
     .text :
     {
         _code = .;
+	*(.multibootheader)
         *(.text)
-        *(.rodata*)
         . = ALIGN(4096);
     }
 
@@ -16,6 +16,8 @@ SECTIONS
    {
         _data = .;
         *(.data)
+	*(.rodata*)
+	*(.debug*)
         . = ALIGN(4096);
    }
 
