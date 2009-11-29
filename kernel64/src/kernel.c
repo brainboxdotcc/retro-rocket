@@ -8,5 +8,11 @@ void kmain(MultiBoot* mb, u64 stackaddr)
 	setforeground(COLOUR_WHITE);
 	printf("kernel booting from %s...\n", mb->bootloadername);
 
-	asm volatile("cli; hlt");
+	if (!detect_apic())
+	{
+		printf("Could not detect local APIC. System initialisation halted.\n");
+		wait_forever();
+	}
+
+	wait_forever();
 }

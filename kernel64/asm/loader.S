@@ -38,6 +38,22 @@ _start:
 	cmp $0x2BADB002, %eax
 	jne nomultiboot
 
+	// Check if the CPU has CPUID, if it doesnt its way way too old
+	pushf
+	pop %eax
+	mov %eax, %ebx
+	xor $0x200000, %eax
+	and $0x200000, %ebx
+	push %eax
+	popf
+	pushf
+	pop %eax
+	and $0x200000, %eax
+	xor %ebx, %eax
+	shr $21, %eax
+	cmp $0, %eax
+	jz not64bit
+
 	// Check the CPU is 64 bit
 	mov $0x80000001, %eax
 	cpuid

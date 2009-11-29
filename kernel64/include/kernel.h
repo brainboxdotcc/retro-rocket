@@ -23,6 +23,7 @@ enum bool
 #include "string.h"
 #include "io.h"
 #include "memcpy.h"
+#include "apic.h"
 
 /* Multiboot information structure
  * IMPORTANT NOTE: Because GRUB 0.97 is 32 bit, it loads
