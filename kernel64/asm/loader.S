@@ -117,10 +117,10 @@ _start:
 	ljmp	$0x08, $(long_64_mode)
 
 need64bit:
-.string "A\7 \7s\7i\7x\7t\7y\7 \7f\7o\7u\7r\7 \7b\7i\7t\7 \7p\7r\7o\7c\7e\7s\7s\7o\7r\7 \7i\7s\7 \7r\7e\7q\7u\7i\7r\7e\7d\7 \7t\7o\7 \7r\7u\7n\7 \7t\7h\7i\7s\7 \7o\7p\7e\7r\7a\7t\7i\7n\7g\7 \7s\7y\7s\7t\7e\7m\7.\7"
+.string "A\7 \7s\15i\15x\15t\15y\15 \15f\15o\15u\15r\15 \15b\15i\15t\15 \15p\15r\15o\15c\15e\15s\15s\15o\15r\15 \7i\7s\7 \7r\7e\7q\7u\7i\7r\7e\7d\7 \7t\7o\7 \7r\7u\7n\7 \7t\7h\7i\7s\7 \7o\7p\7e\7r\7a\7t\7i\7n\7g\7 \7s\7y\7s\7t\7e\7m\7.\7"
 need64bitend:
 needmultiboot:
-.string "T\7h\7i\7s\7 \7o\7p\7e\7r\7a\7t\7i\7n\7g\7 \7s\7y\7s\7t\7e\7m\7 \7m\7u\7s\7t\7 \7b\7e\7 \7b\7o\7o\7t\7e\7d\7 \7f\7r\7o\7m\7 \7a\7 \7m\7u\7l\7t\7i\7b\7o\7o\7t\7 \7c\7o\7m\7p\7l\7i\7a\7n\7t\7 \7b\7o\7o\7t\7l\7o\7a\7d\7e\7r\7 \7s\7u\7c\7h\7 \7a\7s\7 \7G\7N\7U\7 \7G\7R\7U\7B\7.\7"
+.string "T\7h\7i\7s\7 \7o\7p\7e\7r\7a\7t\7i\7n\7g\7 \7s\7y\7s\7t\7e\7m\7 \7m\7u\7s\7t\7 \7b\7e\7 \7b\7o\7o\7t\7e\7d\7 \7f\7r\7o\7m\7 \7a\7 \7m\7u\7l\7t\7i\7b\7o\7o\7t\7 \7c\7o\7m\7p\7l\7i\7a\7n\7t\7 \7b\7o\7o\7t\7l\7o\7a\7d\7e\7r\7 \7s\7u\7c\7h\7 \7a\7s\7 \7G\15N\15U\15 \15G\15R\15U\15B\15.\7"
 needmultibootend:
 
 // If the multiboot magic is wrong on booting, we just loop

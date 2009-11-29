@@ -20,4 +20,4 @@ source:
 	make -C src all CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 emulator:
-	bochs -qf bochs.conf
+	-bochs -qf bochs.conf
