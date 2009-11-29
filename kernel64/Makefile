@@ -1,7 +1,7 @@
 LDFLAGS=-T build/linker.ld
 CFLAGS=-pipe -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
 ASOURCES=loader.o
-CSOURCES=kernel.o
+CSOURCES=kernel.o printf.o string.o video.o memcpy.o
 
 all: source link
 

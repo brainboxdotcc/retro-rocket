@@ -1,12 +1,10 @@
 #include "../include/kernel.h"
 
-#define VIDEO_MEMORY			0xB8000
+console current_console;
 
-unsigned char* VideoRam = (unsigned char*)VIDEO_MEMORY;
-
-void kmain(MultiBoot* mb)
+void kmain(MultiBoot* mb, u64 stackaddr)
 {
-	VideoRam[0] = 'C';
-	VideoRam[2] = 'E';
+	initconsole(&current_console);
+	printf("Epic win.\n");
 	asm volatile("cli; hlt");
 }

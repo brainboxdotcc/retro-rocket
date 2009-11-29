@@ -132,8 +132,10 @@ long_64_mode:
 	// set up the stack
 	mov		$stack_end, %rsp
 
-	// ebx should contain a pointer to the multiboot info structure
+	// First parameter: ebx should contain a pointer to the multiboot info structure
 	mov		%rbx, %rdi
+	// Second parameter: Stack location
+	mov		%rsp, %rsi
 
 	jmp		kmain
 
