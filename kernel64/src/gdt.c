@@ -9,7 +9,6 @@ GDTIDT64 IDT64;
 GDTEntry64 GDTEntries[256];
 Gate64 IDTEntries[256];
 
-
 void SetGDTEntry(GDTEntry64 *dp, u32 lmode, void *base, u32 size, u32 type, u32 dpl, u32 gran, u32 defopsz)
 {
 	memset(dp, 0, sizeof(*dp));
