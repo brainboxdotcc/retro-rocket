@@ -152,12 +152,65 @@ long_64_mode:
 	// Second parameter: Stack location
 	mov		%rsp, %rsi
 
-	jmp		kmain
+	push %rdi
+	push %rsi
+
+	xor %rdi, %rdi		// Store the IDT entries at address 0.
+	mov $30, %rcx		// There are 20 of them specifically for handing exceptions
+	mov $exception_handlers, %r10
+make_exception_gates:
+	mov (%r10), %rax
+	add $8, %r10
+	push %rax			// save the exception gate to the stack for later use
+	stosw				// store the low word (15..0) of the address
+	mov $0x08, %ax
+	stosw				// store the segment selector
+	mov $0x8E00, %ax
+	stosw 			// store exception gate marker
+	pop %rax				// get the exception gate back
+	shr $16, %rax
+	stosw				// store the high word (31..16) of the address
+	shr $16, %rax
+	stosl				// store the high dword (63..32) of the address.
+	xor %rax, %rax
+	stosl				// reserved
+	dec %rcx
+	jnz make_exception_gates
+
+	mov $(50-30), %rcx	// For the remaining interrupts, 
+make_interrupt_gates:
+	mov (%r10), %rax
+	add $8, %r10
+	push %rax			// save the interrupt gate to the stack for later use
+	stosw				// store the low word (15..0) of the address
+	mov $0x08, %ax
+	stosw				// store the segment selector
+	mov $0x8F00, %ax
+	stosw				// store interrupt gate marker
+	pop %rax			// get the interrupt gate back
+	shr $16, %rax
+	stosw				// store the high word (31..16) of the address
+	shr $16, %rax
+	stosl				// store the high dword (63..32) of the address.
+	xor %rax, %rax
+	stosl				// reserved
+	dec %rcx
+	jnz make_interrupt_gates
+
+	lidt idt64
+
+	// Restore saved params for kmain
+	pop %rsi
+	pop %rdi
+
+	jmp kmain
 
 // Default exception handler
-.global DefaultHandler
-DefaultHandler:
-	iret
+exception_gate:
+	jmp not64bit
+
+interrupt_gate:
+	iretq
 
 .align 4
 gdt64:
@@ -166,15 +219,157 @@ gdt64:
 	.long gdt64
 	.word 0
 	// entry 64bit code segment
-    .long 0x00000000
+    .long 0x0000ffff
     .long 0x00af9a00
+
+idt64:
+	.word 0xfff
+	.quad 0
 
 mbinfo:
 	.long 0
 	.long 0
 
-;.data
-;.align 8
+.macro ISR_NOERR isr
+	.globl isr\isr
+	isr\isr :
+		cli
+		mov $0, %rsi
+		mov $ \isr, %rdi
+		jmp interrupt_stub
+.endm
+
+.macro ISR_ERR isr
+	.globl isr\isr
+	isr\isr :
+		cli
+		pop %rax
+		mov %rax, %rsi
+		mov $ \isr, %rdi
+		jmp interrupt_stub
+.endm
+
+.macro IRQ num byte
+	.globl irq\num
+	irq\num :
+		cli
+		mov $0, %rsi
+		mov $ \byte, %rdi
+		jmp irq_stub
+.endm
+
+
+ISR_NOERR 0
+ISR_NOERR 1
+ISR_NOERR 2
+ISR_NOERR 3
+ISR_NOERR 4
+ISR_NOERR 5
+ISR_NOERR 6
+ISR_NOERR 7
+ISR_ERR 8
+ISR_NOERR 9
+ISR_ERR 10 
+ISR_ERR 11
+ISR_ERR 12
+ISR_ERR 13
+ISR_ERR 14
+ISR_NOERR 15
+ISR_NOERR 16
+ISR_NOERR 17
+ISR_NOERR 18
+ISR_NOERR 19
+ISR_NOERR 20
+ISR_NOERR 21
+ISR_NOERR 22
+ISR_NOERR 23
+ISR_NOERR 24
+ISR_NOERR 25
+ISR_NOERR 26
+ISR_NOERR 27
+ISR_NOERR 28
+ISR_NOERR 29
+ISR_NOERR 30
+IRQ 0, 31
+IRQ 1, 32
+IRQ 2, 33
+IRQ 3, 34
+IRQ 4, 35
+IRQ 5, 36
+IRQ 6, 37
+IRQ 7, 38
+IRQ 8, 39
+IRQ 9, 40
+IRQ 10, 41
+IRQ 11, 42
+IRQ 12, 43
+IRQ 13, 45
+IRQ 14, 46
+IRQ 15, 47
+ISR_NOERR 48
+ISR_NOERR 49
+ISR_NOERR 50
+
+irq_stub:
+	call IRQ
+	iretq
+
+interrupt_stub:
+	call Interrupt
+	iretq
+
+exception_handlers:
+        .quad isr0
+        .quad isr1
+        .quad isr2
+        .quad isr3
+        .quad isr4
+        .quad isr5
+        .quad isr6
+        .quad isr7
+        .quad isr8
+        .quad isr9
+        .quad isr10
+        .quad isr11
+        .quad isr12
+        .quad isr13
+        .quad isr14
+        .quad isr15
+        .quad isr16
+        .quad isr17
+        .quad isr18
+        .quad isr19
+        .quad isr20
+        .quad isr21
+        .quad isr22
+        .quad isr23
+        .quad isr24
+        .quad isr25
+        .quad isr26
+        .quad isr27
+        .quad isr28
+        .quad isr29
+        .quad isr30
+        .quad irq0
+        .quad irq1
+        .quad irq2
+        .quad irq3
+        .quad irq4
+        .quad irq5
+        .quad irq6
+        .quad irq7
+        .quad irq8
+        .quad irq9
+        .quad irq10
+        .quad irq11
+        .quad irq12
+        .quad irq13
+        .quad irq14
+        .quad irq15
+        .quad isr48
+        .quad isr49
+        .quad isr50
+
 stack:
 	.skip 0x8000
 stack_end:
