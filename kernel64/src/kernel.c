@@ -15,5 +15,6 @@ void kmain(MultiBoot* mb, u64 stackaddr)
 		wait_forever();
 	}
 
+	printf("Would continue boot sequence, but brain hasnt got any further!\n");
 	wait_forever();
 }

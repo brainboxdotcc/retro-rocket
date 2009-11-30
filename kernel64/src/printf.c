@@ -1,12 +1,6 @@
 #include "../include/kernel.h"
 #include "../include/string.h"
 
-/*****************************************************************************
-name:	do_printf
-action:	minimal subfunction for ?printf, calls function
-	'fn' with arg 'ptr' for each character to be output
-returns:total number of characters output
-*****************************************************************************/
 static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 {
 	unsigned flags, actual_wd, count, given_wd;
@@ -15,12 +9,12 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 	long num;
 
 	state = flags = count = given_wd = 0;
-/* begin scanning format specifier list */
+	/* begin scanning format specifier list */
 	for(; *fmt; fmt++)
 	{
 		switch(state)
 		{
-/* STATE 0: AWAITING % */
+		/* STATE 0: AWAITING % */
 		case 0:
 			if(*fmt != '%')	/* not %... */
 			{
@@ -28,11 +22,11 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 				count++;
 				break;
 			}
-/* found %, get next char and advance state to check if next char is a flag */
+			/* found %, get next char and advance state to check if next char is a flag */
 			state++;
 			fmt++;
 			/* FALL THROUGH */
-/* STATE 1: AWAITING FLAGS (%-0) */
+			/* STATE 1: AWAITING FLAGS (%-0) */
 		case 1:
 			if(*fmt == '%')	/* %% */
 			{
@@ -49,16 +43,16 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 					flags |= PR_LJ;
 				break;
 			}
-/* not a flag char: advance state to check if it's field width */
+			/* not a flag char: advance state to check if it's field width */
 			state++;
-/* check now for '%0...' */
+			/* check now for '%0...' */
 			if(*fmt == '0')
 			{
 				flags |= PR_LZ;
 				fmt++;
 			}
 			/* FALL THROUGH */
-/* STATE 2: AWAITING (NUMERIC) FIELD WIDTH */
+			/* STATE 2: AWAITING (NUMERIC) FIELD WIDTH */
 		case 2:
 			if(*fmt >= '0' && *fmt <= '9')
 			{
@@ -66,10 +60,10 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 					(*fmt - '0');
 				break;
 			}
-/* not field width: advance state to check if it's a modifier */
+			/* not field width: advance state to check if it's a modifier */
 			state++;
 			/* FALL THROUGH */
-/* STATE 3: AWAITING MODIFIER CHARS (FNlh) */
+			/* STATE 3: AWAITING MODIFIER CHARS (FNlh) */
 		case 3:
 			if(*fmt == 'F')
 			{
@@ -88,10 +82,10 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 				flags |= PR_16;
 				break;
 			}
-/* not modifier: advance state to check if it's a conversion char */
+			/* not modifier: advance state to check if it's a conversion char */
 			state++;
 			/* FALL THROUGH */
-/* STATE 4: AWAITING CONVERSION CHARS (Xxpndiuocs) */
+			/* STATE 4: AWAITING CONVERSION CHARS (Xxpndiuocs) */
 		case 4:
 			where = buf + PR_BUFLEN - 1;
 			*where = '\0';
@@ -100,7 +94,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			case 'X':
 				flags |= PR_CA;
 				/* FALL THROUGH */
-/* xxx - far pointers (%Fp, %Fn) not yet supported */
+				/* xxx - far pointers (%Fp, %Fn) not yet supported */
 			case 'x':
 			case 'p':
 			case 'n':
@@ -115,12 +109,13 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 				goto DO_NUM;
 			case 'o':
 				radix = 8;
-/* load the value to be printed. l=long=32 bits: */
-DO_NUM:				if(flags & PR_32)
+				/* load the value to be printed. l=long=32 bits: */
+			DO_NUM:
+				if(flags & PR_32)
 				{
 					num = va_arg(args, unsigned long);
 				}
-/* h=short=16 bits (signed or unsigned) */
+				/* h=short=16 bits (signed or unsigned) */
 				else if(flags & PR_16)
 				{
 					if(flags & PR_SG)
@@ -132,7 +127,7 @@ DO_NUM:				if(flags & PR_32)
 						num = va_arg(args, unsigned int);
 					}
 				}
-/* no h nor l: sizeof(int) bits (signed or unsigned) */
+				/* no h nor l: sizeof(int) bits (signed or unsigned) */
 				else
 				{
 					if(flags & PR_SG)
@@ -144,7 +139,7 @@ DO_NUM:				if(flags & PR_32)
 						num = va_arg(args, unsigned int);
 					}
 				}
-/* take care of sign */
+				/* take care of sign */
 				if(flags & PR_SG)
 				{
 					if(num < 0)
@@ -153,8 +148,7 @@ DO_NUM:				if(flags & PR_32)
 						num = -num;
 					}
 				}
-/* convert binary to octal/decimal/hex ASCII
-OK, I found my mistake. The math here is _always_ unsigned */
+				/* convert binary to octal/decimal/hex ASCII */
 				do
 				{
 					unsigned long temp;
@@ -172,7 +166,7 @@ OK, I found my mistake. The math here is _always_ unsigned */
 				while(num != 0);
 				goto EMIT;
 			case 'c':
-/* disallow pad-left-with-zeroes for %c */
+				/* disallow pad-left-with-zeroes for %c */
 				flags &= ~PR_LZ;
 				where--;
 				*where = (unsigned char)va_arg(args,
@@ -180,22 +174,23 @@ OK, I found my mistake. The math here is _always_ unsigned */
 				actual_wd = 1;
 				goto EMIT2;
 			case 's':
-/* disallow pad-left-with-zeroes for %s */
+				/* disallow pad-left-with-zeroes for %s */
 				flags &= ~PR_LZ;
 				where = va_arg(args, unsigned char *);
-EMIT:
+			EMIT:
 				actual_wd = strlen((const char*)where);
 				if(flags & PR_WS)
 					actual_wd++;
-/* if we pad left with ZEROES, do the sign now */
+				/* if we pad left with ZEROES, do the sign now */
 				if((flags & (PR_WS | PR_LZ)) ==
 					(PR_WS | PR_LZ))
 				{
 					fn('-', &ptr);
 					count++;
 				}
-/* pad on left with spaces or zeroes (for right justify) */
-EMIT2:				if((flags & PR_LJ) == 0)
+				/* pad on left with spaces or zeroes (for right justify) */
+			EMIT2:
+				if((flags & PR_LJ) == 0)
 				{
 					while(given_wd > actual_wd)
 					{
@@ -205,19 +200,19 @@ EMIT2:				if((flags & PR_LJ) == 0)
 						given_wd--;
 					}
 				}
-/* if we pad left with SPACES, do the sign now */
+				/* if we pad left with SPACES, do the sign now */
 				if((flags & (PR_WS | PR_LZ)) == PR_WS)
 				{
 					fn('-', &ptr);
 					count++;
 				}
-/* emit string/char/converted number */
+				/* emit string/char/converted number */
 				while(*where != '\0')
 				{
 					fn(*where++, &ptr);
 					count++;
 				}
-/* pad on right with spaces (for left justify) */
+				/* pad on right with spaces (for left justify) */
 				if(given_wd < actual_wd)
 					given_wd = 0;
 				else given_wd -= actual_wd;
@@ -238,9 +233,6 @@ EMIT2:				if((flags & PR_LJ) == 0)
 	return count;
 }
 
-/*****************************************************************************
-SPRINTF
-*****************************************************************************/
 static int vsprintf_help(unsigned c, void **ptr)
 {
 	char *dst;
@@ -250,8 +242,7 @@ static int vsprintf_help(unsigned c, void **ptr)
 	*ptr = dst;
 	return 0 ;
 }
-/*****************************************************************************
-*****************************************************************************/
+
 int vsprintf(char *buf, const char *fmt, va_list args)
 {
 	int rv;
@@ -260,8 +251,7 @@ int vsprintf(char *buf, const char *fmt, va_list args)
 	buf[rv] = '\0';
 	return rv;
 }
-/*****************************************************************************
-*****************************************************************************/
+
 int sprintf(char *buf, const char *fmt, ...)
 {
 	va_list args;
@@ -272,21 +262,18 @@ int sprintf(char *buf, const char *fmt, ...)
 	va_end(args);
 	return rv;
 }
-/*****************************************************************************
-*****************************************************************************/
+
 int vprintf_help(unsigned c, void **ptr)
 {
 	put(c);
 	return 0 ;
 }
-/*****************************************************************************
-*****************************************************************************/
+
 int vprintf(const char *fmt, va_list args)
 {
 	return do_printf(fmt, args, vprintf_help, NULL);
 }
-/*****************************************************************************
-*****************************************************************************/
+
 int printf(const char *fmt, ...)
 {
 	va_list args;
@@ -297,6 +284,4 @@ int printf(const char *fmt, ...)
 	va_end(args);
 	return rv;
 }
-/*****************************************************************************
-*****************************************************************************/
 

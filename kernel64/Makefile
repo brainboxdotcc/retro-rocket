@@ -21,3 +21,7 @@ source:
 
 emulator:
 	-bochs -qf bochs.conf
+
+harddisk:
+	qemu-img create harddisk.img 1G
+
