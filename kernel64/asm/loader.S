@@ -231,7 +231,6 @@ mbinfo:
 	.long 0
 
 .macro ISR_NOERR isr
-	.globl isr\isr
 	isr\isr :
 		cli
 		mov $0, %rsi
@@ -240,7 +239,6 @@ mbinfo:
 .endm
 
 .macro ISR_ERR isr
-	.globl isr\isr
 	isr\isr :
 		cli
 		pop %rax
@@ -250,7 +248,6 @@ mbinfo:
 .endm
 
 .macro IRQ num byte
-	.globl irq\num
 	irq\num :
 		cli
 		mov $0, %rsi
