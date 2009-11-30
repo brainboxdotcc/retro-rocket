@@ -230,6 +230,10 @@ mbinfo:
 	.long 0
 	.long 0
 
+// These macros are based on JamesM's macros for 32 bit interrupt handlers.
+// I have refactored them to use amd64 ABI instead of the stack for parameter passing.
+
+// An ISR with no error code
 .macro ISR_NOERR isr
 	isr\isr :
 		cli
@@ -238,6 +242,7 @@ mbinfo:
 		jmp interrupt_stub
 .endm
 
+// An ISR with an error code
 .macro ISR_ERR isr
 	isr\isr :
 		cli
@@ -247,6 +252,7 @@ mbinfo:
 		jmp interrupt_stub
 .endm
 
+// An IRQ (a special-case ISR, no error code)
 .macro IRQ num byte
 	irq\num :
 		cli
