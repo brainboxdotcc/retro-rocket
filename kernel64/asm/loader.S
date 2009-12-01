@@ -329,12 +329,14 @@ irq_stub:
 	call IRQ
 	pop %rdi
 	pop %rsi
+	sti
 	iretq
 
 interrupt_stub:
 	call Interrupt
 	pop %rdi
 	pop %rsi
+	sti
 	iretq
 
 exception_handlers:
