@@ -22,6 +22,9 @@ source:
 emulator:
 	-bochs -qf bochs.conf
 
+remoterun:
+	-qemu-system-x86_64 -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso
+
 harddisk:
 	qemu-img create harddisk.img 1G
 

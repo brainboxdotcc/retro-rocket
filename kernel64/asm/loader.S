@@ -167,47 +167,50 @@ long_64_mode:
 	push %rdi
 	push %rsi
 
-	xor %rdi, %rdi		// Store the IDT entries at address 0.
-	mov $32, %rcx		// There are 20 of them specifically for handing exceptions
-	mov $exception_handlers, %r10
-make_exception_gates:
-	mov (%r10), %rax
-	add $8, %r10
-	push %rax			// save the exception gate to the stack for later use
-	stosw				// store the low word (15..0) of the address
-	mov $0x08, %ax
-	stosw				// store the segment selector
-	mov $0x8E00, %ax
-	stosw 				// store exception gate marker
-	pop %rax			// get the exception gate back
-	shr $16, %rax
-	stosw				// store the high word (31..16) of the address
-	shr $16, %rax
-	stosl				// store the high dword (63..32) of the address.
-	xor %rax, %rax
-	stosl				// reserved
-	dec %rcx
-	jnz make_exception_gates
+	// Idea for this taken from baremetal OS, but with some extra stuff
+	// to look up the jump addresses from a jump-table.
 
-	mov $(51-32), %rcx	// For the remaining interrupts, 
-make_interrupt_gates:
-	mov (%r10), %rax
+	xor %rdi, %rdi		// Storage location for IDT gates
+	mov $32, %rcx		// There are 32 of them specifically for handing exceptions
+	mov $exception_handlers, %r10
+exception_gate_loop:
+	mov (%r10), %rax		// Get the gate jump-table address in r10
 	add $8, %r10
-	push %rax			// save the interrupt gate to the stack for later use
-	stosw				// store the low word (15..0) of the address
+	push %rax			// save the exception gate
+	stosw				// Low word of gate address
 	mov $0x08, %ax
-	stosw				// store the segment selector
-	mov $0x8F00, %ax
-	stosw				// store interrupt gate marker
-	pop %rax			// get the interrupt gate back
+	stosw				// selector (CS)
+	mov $0x8E00, %ax
+	stosw 				// exception gate 8E: callable only by ring 0
+	pop %rax			// restore gate address
 	shr $16, %rax
-	stosw				// store the high word (31..16) of the address
+	stosw				// bits 31-16 of gate address
 	shr $16, %rax
-	stosl				// store the high dword (63..32) of the address.
+	stosl				// bits 63-32 of gate address
 	xor %rax, %rax
-	stosl				// reserved
+	stosl				// reserved fields, set to zero
 	dec %rcx
-	jnz make_interrupt_gates
+	jnz exception_gate_loop
+
+	mov $(51-32), %rcx
+interrupt_gate_loop:
+	mov (%r10), %rax		// Get the gate jump-table address in r10 again
+	add $8, %r10
+	push %rax
+	stosw
+	mov $0x08, %ax
+	stosw
+	mov $0x8F00, %ax		// Interrupt gate 8F: callable from ring 0 only
+	stosw
+	pop %rax
+	shr $16, %rax
+	stosw
+	shr $16, %rax
+	stosl
+	xor %rax, %rax
+	stosl
+	dec %rcx
+	jnz interrupt_gate_loop
 
 	lidt idt64
 
@@ -224,14 +227,16 @@ gdt64:
 	.long gdt64
 	.word 0
 	// entry 64bit code segment
-	.long 0x0000ffff
-	.long 0x00af9a00
-	.long 0x0000ffff
-	.long 0x00af9200
+	.long 0x0000ffff	// 0xffff: No limit
+	.long 0x00af9a00	// 9a: Executable, Read-Only
+
+	// entry for 64bit data segment
+	.long 0x0000ffff	// 0xffff: No limit
+	.long 0x00af9200	// 92: Non-executable, Read-Write
 
 idt64:
 	.word 0xffff
-	.quad 0
+	.quad 0			// Address 0x0 is given over to IDT
 
 mbinfo:
 	.long 0
