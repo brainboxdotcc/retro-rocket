@@ -226,9 +226,11 @@ gdt64:
 	// entry 64bit code segment
 	.long 0x0000ffff
 	.long 0x00af9a00
+	.long 0x0000ffff
+	.long 0x00af9200
 
 idt64:
-	.word 0xfff
+	.word 0xffff
 	.quad 0
 
 mbinfo:

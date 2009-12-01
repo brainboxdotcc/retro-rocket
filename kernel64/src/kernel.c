@@ -13,7 +13,7 @@ void kmain(MultiBoot* mb, u64 stackaddr)
 		printf("Could not detect local APIC. System initialisation halted.\n");
 		wait_forever();
 	}
-
+	
 	asm volatile("int $49");
 
 	printf("Would continue boot sequence, but brain hasnt got any further!\n");
