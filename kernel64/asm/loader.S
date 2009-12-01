@@ -1,3 +1,15 @@
+//
+// Sixty-Four loader trampoline.
+//
+// This file changes the current operating mode of the processor from protected mode (32-bit) to
+// long mode (64-bit), sets up paging and interrupt/exception handling, then passes control to the
+// C portions of the kernel. Many of the assembler routines here just marshall low-level events into
+// the C code, for example turning interrupts into calls to the Interrupt() function in interrupts.c.
+//
+// This file also provides multiboot facility for the kernel, by defining a multiboot header with the
+// "a.out kludge" required for grub 0.97 to load a 64 bit ELF file.
+//
+
 .code32
 
 #define LOAD_ADDRESS		0x100000 // 1MB
@@ -156,7 +168,7 @@ long_64_mode:
 	push %rsi
 
 	xor %rdi, %rdi		// Store the IDT entries at address 0.
-	mov $30, %rcx		// There are 20 of them specifically for handing exceptions
+	mov $32, %rcx		// There are 20 of them specifically for handing exceptions
 	mov $exception_handlers, %r10
 make_exception_gates:
 	mov (%r10), %rax
@@ -166,8 +178,8 @@ make_exception_gates:
 	mov $0x08, %ax
 	stosw				// store the segment selector
 	mov $0x8E00, %ax
-	stosw 			// store exception gate marker
-	pop %rax				// get the exception gate back
+	stosw 				// store exception gate marker
+	pop %rax			// get the exception gate back
 	shr $16, %rax
 	stosw				// store the high word (31..16) of the address
 	shr $16, %rax
@@ -177,7 +189,7 @@ make_exception_gates:
 	dec %rcx
 	jnz make_exception_gates
 
-	mov $(50-30), %rcx	// For the remaining interrupts, 
+	mov $(51-32), %rcx	// For the remaining interrupts, 
 make_interrupt_gates:
 	mov (%r10), %rax
 	add $8, %r10
@@ -205,13 +217,6 @@ make_interrupt_gates:
 
 	jmp kmain
 
-// Default exception handler
-exception_gate:
-	jmp not64bit
-
-interrupt_gate:
-	iretq
-
 .align 4
 gdt64:
 	// first entry, also the gdt descriptor
@@ -219,8 +224,8 @@ gdt64:
 	.long gdt64
 	.word 0
 	// entry 64bit code segment
-    .long 0x0000ffff
-    .long 0x00af9a00
+	.long 0x0000ffff
+	.long 0x00af9a00
 
 idt64:
 	.word 0xfff
@@ -237,6 +242,8 @@ mbinfo:
 .macro ISR_NOERR isr
 	isr\isr :
 		cli
+		push %rsi
+		push %rdi
 		mov $0, %rsi
 		mov $ \isr, %rdi
 		jmp interrupt_stub
@@ -247,6 +254,8 @@ mbinfo:
 	isr\isr :
 		cli
 		pop %rax
+		push %rsi
+		push %rdi
 		mov %rax, %rsi
 		mov $ \isr, %rdi
 		jmp interrupt_stub
@@ -256,6 +265,8 @@ mbinfo:
 .macro IRQ num byte
 	irq\num :
 		cli
+		push %rsi
+		push %rdi
 		mov $0, %rsi
 		mov $ \byte, %rdi
 		jmp irq_stub
@@ -316,10 +327,14 @@ ISR_NOERR 50
 
 irq_stub:
 	call IRQ
+	pop %rdi
+	pop %rsi
 	iretq
 
 interrupt_stub:
 	call Interrupt
+	pop %rdi
+	pop %rsi
 	iretq
 
 exception_handlers:
@@ -375,6 +390,8 @@ exception_handlers:
         .quad isr49
         .quad isr50
 
+.data
+.align 8
 stack:
 	.skip 0x8000
 stack_end:
