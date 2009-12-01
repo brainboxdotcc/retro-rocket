@@ -293,19 +293,20 @@ ISR_NOERR 27
 ISR_NOERR 28
 ISR_NOERR 29
 ISR_NOERR 30
-IRQ 0, 31
-IRQ 1, 32
-IRQ 2, 33
-IRQ 3, 34
-IRQ 4, 35
-IRQ 5, 36
-IRQ 6, 37
-IRQ 7, 38
-IRQ 8, 39
-IRQ 9, 40
-IRQ 10, 41
-IRQ 11, 42
-IRQ 12, 43
+ISR_NOERR 31
+IRQ 0, 32
+IRQ 1, 33
+IRQ 2, 34
+IRQ 3, 35
+IRQ 4, 36
+IRQ 5, 37
+IRQ 6, 38
+IRQ 7, 39
+IRQ 8, 40
+IRQ 9, 41
+IRQ 10, 42
+IRQ 11, 43
+IRQ 12, 44
 IRQ 13, 45
 IRQ 14, 46
 IRQ 15, 47
@@ -353,6 +354,7 @@ exception_handlers:
         .quad isr28
         .quad isr29
         .quad isr30
+	.quad isr31
         .quad irq0
         .quad irq1
         .quad irq2

@@ -14,7 +14,7 @@ void kmain(MultiBoot* mb, u64 stackaddr)
 		wait_forever();
 	}
 
-	asm volatile("int $5");
+	asm volatile("int $49");
 
 	printf("Would continue boot sequence, but brain hasnt got any further!\n");
 	wait_forever();

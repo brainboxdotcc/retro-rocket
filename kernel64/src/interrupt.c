@@ -6,7 +6,10 @@
 void Interrupt(u64 isrnumber, u64 errorcode)
 {
 	printf("Interrupt %d\n", isrnumber);
-	if (isrnumber != 5)
+
+	// For exceptions, for now we just halt.
+	// Most of these are fatal for the moment until we get userland up.
+	if (isrnumber < 32)
 		wait_forever();
 }
 
