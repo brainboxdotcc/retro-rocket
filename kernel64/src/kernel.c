@@ -7,7 +7,7 @@ void kmain(MultiBoot* mb, u64 stackaddr, u64 memorymb)
 	printf("Sixty-Four ");
 	setforeground(COLOUR_WHITE);
 	printf("kernel booting from %s...\n", mb->bootloadername);
-	printf("%d (0x%08x) MB RAM detected\n", memorymb, memorymb);
+	printf("%d MB RAM detected\n", memorymb);
 
 	if (!detect_apic())
 	{
