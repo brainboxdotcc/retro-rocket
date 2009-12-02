@@ -72,6 +72,16 @@ _start:
 	and $(1 << 29), %edx
 	jz not64bit
 
+	// Calculate the memory size in megs
+	mov mbinfo, %esi
+	add $8, %esi
+        mov (%esi), %edx
+	sub $4, %esi
+	add (%esi), %edx
+	shr $10, %edx
+	inc %edx
+	mov %edx, memorysize
+
 	// zero out 3 pages of ram where we're going to build some page tables
 	xor     %eax, %eax
 	mov     $PGTABLE_BASE, %edi
@@ -217,6 +227,7 @@ interrupt_gate_loop:
 	// Restore saved params for kmain
 	pop %rsi
 	pop %rdi
+	mov memorysize, %rdx
 
 	jmp kmain
 
@@ -239,8 +250,10 @@ idt64:
 	.quad 0			// Address 0x0 is given over to IDT
 
 mbinfo:
-	.long 0
-	.long 0
+	.quad 0
+
+memorysize:
+	.quad 0
 
 // These macros are based on JamesM's macros for 32 bit interrupt handlers.
 // I have refactored them to use amd64 ABI instead of the stack for parameter passing.
