@@ -22,7 +22,7 @@ source:
 emulator:
 	-bochs -qf bochs.conf
 
-remoterun:
+remoterun: all
 	-qemu-system-x86_64 -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso
 
 harddisk:
