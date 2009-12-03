@@ -94,23 +94,20 @@ _start:
 	mov     $((PGTABLE_BASE + 0x2000) | 0x3), %eax
 	mov     %eax, (PGTABLE_BASE + 0x1000)
 
-	// 2MB pages to identity map the first 16MB ram
+	// Identity map the RAM in megabyte pages
+	// Up to 0xffffffff. This should include APIC tables.
+	mov	memorysize, %edx
+	shl	$10, %edx
+	mov	$PGTABLE_BASE, %ecx
+	add	$0x2000, %ecx
 	mov     $(0 | (1<<7) | 3), %eax
-	mov     %eax, (PGTABLE_BASE + 0x2000)
-	add     $0x200000, %eax
-	mov     %eax, (PGTABLE_BASE + 0x2008)
-	add     $0x200000, %eax        
-	mov     %eax, (PGTABLE_BASE + 0x2010)
-	add     $0x200000, %eax        
-	mov     %eax, (PGTABLE_BASE + 0x2018)
-	add     $0x200000, %eax        
-	mov     %eax, (PGTABLE_BASE + 0x2020)
-	add     $0x200000, %eax        
-	mov     %eax, (PGTABLE_BASE + 0x2028)
-	add     $0x200000, %eax        
-	mov     %eax, (PGTABLE_BASE + 0x2030)
-	add     $0x200000, %eax        
-	mov     %eax, (PGTABLE_BASE + 0x2038)
+
+create_pagetable:
+	mov     %eax, (%ecx)
+	add     $0x100000, %eax
+	add	$8, %ecx
+	cmp	%eax, %edx
+	jl	create_pagetable
 
 	// set the page table base
 	mov     $PGTABLE_BASE, %eax
