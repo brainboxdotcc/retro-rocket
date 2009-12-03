@@ -100,11 +100,25 @@ _start:
 	shl	$10, %edx
 	mov	$PGTABLE_BASE, %ecx
 	add	$0x2000, %ecx
+
+	mov     $(0 | (1 << 6) | 3), %eax
+
 	mov     $(0 | (1<<7) | 3), %eax
 
 create_pagetable:
-	mov     %eax, (%ecx)
-	add     $0x100000, %eax
+	mov	%eax, %ebx
+	cmp	$0x5000, %eax
+	// Pages below 0x5000 are uncached, this is to allow us to
+	// relocate the APIC at 0x4000.
+	jge	cached_page
+uncached_page:
+	or	$(0 | (1<<6) | 3), %ebx	// 4k page, Page cache disable
+	jmp	write_entry
+cached_page:
+	or	$(0 | (1<<7) | 3), %ebx	// 4m page, Page cache enable
+write_entry:
+	mov	%ebx, (%ecx)
+	add     $0x200000, %eax
 	add	$8, %ecx
 	cmp	%eax, %edx
 	jl	create_pagetable
