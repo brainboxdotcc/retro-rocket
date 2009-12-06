@@ -8,6 +8,7 @@ void kmain(MultiBoot* mb, u64 stackaddr, u64 memorymb)
 	setforeground(COLOUR_WHITE);
 	printf("kernel booting from %s...\n", mb->bootloadername);
 	printf("%d MB RAM detected\n", memorymb);
+	initialise_paging();
 
 	if (!detect_apic())
 	{

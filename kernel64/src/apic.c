@@ -9,6 +9,23 @@
 #define APIC_ID 0x0020
 #define APIC_VERSION 0x0030
 
+void DumpHex(unsigned char* address, u32 length)
+{
+        int index = 0;
+        for(; index < length; index += 16)
+        {
+                printf("%04x: ", index);
+                int hex = 0;
+                for (; hex < 16; ++hex)
+                        printf("%02x ", address[index + hex]);
+                putstring(" | ");
+                for (hex = 0; hex < 16; ++hex)
+                        put((address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+
+                put('\n');
+        }
+}
+
 volatile u32* APIC;
 
 void read_msr(u32 msr, u32 *lo, u32 *hi)
@@ -65,6 +82,7 @@ int detect_apic()
 		set_apic_base(APIC_ADDRESS);
 		printf("Detected a%s local APIC, base: %08x\n", apic_enabled() ? "n enabled" : " disabled", get_apic_base());
 		printf("Local APIC version: %d ID: %d\n", apic_read(APIC_VERSION) & 0xFF, ((apic_read(APIC_ID))>>24)&0xFF);
+		//DumpHex(APIC, 0x100);
 		return 1;
 	}
 	return 0;

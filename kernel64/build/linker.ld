@@ -29,7 +29,7 @@ SECTIONS
         . = ALIGN(4096);
    }
 
-   _end = .;
+   end = .; _end = .; __end = .;
    codehigh = .;
 
    /DISCARD/ :

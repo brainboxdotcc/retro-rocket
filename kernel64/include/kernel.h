@@ -31,6 +31,7 @@ static inline void memset(void *dest, char val, int len)
 #include "io.h"
 #include "memcpy.h"
 #include "apic.h"
+#include "paging.h"
 
 /* Multiboot information structure
  * IMPORTANT NOTE: Because GRUB 0.97 is 32 bit, it loads
