@@ -2,7 +2,7 @@
 #include "../include/filesystem.h"
 #include "../include/kmalloc.h"
 #include "../include/string.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 
 FS_FileSystem* devfs = NULL;
 FS_DirectoryEntry* devfs_entries = NULL;

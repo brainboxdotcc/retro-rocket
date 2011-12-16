@@ -1,7 +1,7 @@
 #include "../include/video.h"
 #include "../include/interrupts.h"
 #include "../include/keyboard.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/kernel.h"
 #include "../include/io.h"
 #include "../include/kmalloc.h"
@@ -52,7 +52,7 @@ unsigned char translate_keycode(unsigned char scancode, u8int escaped, u8int shi
 	if (scancode > 0x53 || keyboard_scan_map_lower[scancode] == 0)
 	{
 		/* Special key */
-		printf("Keyboard: Special key not implemented yet\n");
+		kprintf("Keyboard: Special key not implemented yet\n");
 		return 0;
 	}
 	else
@@ -106,7 +106,7 @@ void keyboard_handler(registers_t* regs)
 				}
 				else
 				{
-					printf("Inserted key '%c'\n", x);
+					kprintf("Inserted key '%c'\n", x);
 				}
 			}
 

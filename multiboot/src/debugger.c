@@ -1,5 +1,5 @@
 #include "../include/debugger.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/video.h"
 #include "../include/iso9660.h"
 #include "../include/filesystem.h"
@@ -28,10 +28,10 @@ void DumpHex(unsigned char* address, u32int length)
 	int index = 0;
 	for(; index < length; index += 16)
 	{
-		printf("%04x: ", index);
+		kprintf("%04x: ", index);
 		int hex = 0;
 		for (; hex < 16; ++hex)
-			printf("%02x ", address[index + hex]);
+			kprintf("%02x ", address[index + hex]);
 		putstring(current_console, " | ");
 		for (hex = 0; hex < 16; ++hex)
 			put(current_console, (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
@@ -43,8 +43,8 @@ void DumpHex(unsigned char* address, u32int length)
 void symbol_fail()
 {
 	setforeground(current_console, COLOUR_DARKRED);
-	printf("Warning: Could not load /kernel.sym from boot device.\n");
-	printf("Debug symbols will be unavailable if there is a kernel panic.\n");
+	kprintf("Warning: Could not load /kernel.sym from boot device.\n");
+	kprintf("Debug symbols will be unavailable if there is a kernel panic.\n");
 	setforeground(current_console, COLOUR_WHITE);
 }
 
@@ -131,15 +131,15 @@ void init_debug()
 		}
 
 		kfree(filecontent);
-		printf("Read ");
+		kprintf("Read ");
 		setforeground(current_console, COLOUR_LIGHTYELLOW);
-		printf("%d ", symcount);
+		kprintf("%d ", symcount);
 		setforeground(current_console, COLOUR_WHITE);
-		printf("symbols from ");
+		kprintf("symbols from ");
 		setforeground(current_console, COLOUR_LIGHTYELLOW);
-		printf("/kernel.sym ");
+		kprintf("/kernel.sym ");
 		setforeground(current_console, COLOUR_WHITE);
-		printf("(%d bytes)\n", sizebytes);
+		kprintf("(%d bytes)\n", sizebytes);
 	}
 }
 
@@ -176,18 +176,18 @@ void backtrace(registers_t* regs)
 
 	if (!symbol_table)
 	{
-		printf("No symbols available for backtrace\n");
+		kprintf("No symbols available for backtrace\n");
 		return;
 	}
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
 	setforeground(current_console, COLOUR_LIGHTGREEN);
 	name = findsymbol((u32int)regs->eip, &offset);
-	printf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, regs->eip);
+	kprintf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, regs->eip);
 	while(frame && ((u32int) frame & 0xFFFFF000) == page)
 	{
 		name = findsymbol((u32int)frame->addr, &offset);
-		printf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, frame->addr);
+		kprintf("\tat %s+0%04x [0x%08x]\n",  name ? name : "[???]", offset, frame->addr);
 		frame = frame->next;
 	}
 	setforeground(current_console, COLOUR_WHITE);

@@ -1,7 +1,7 @@
 #ifndef __IO_H__
 #define __IO_H__
 
-#include "printf.h"
+#include "kprintf.h"
 #include "kernel.h"
 
 /* Output one byte to an I/O port. Privileged operation. */

@@ -1,6 +1,6 @@
 #include "../include/kernel.h"
 #include "../include/iso9660.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/io.h"
 #include "../include/ata.h"
 #include "../include/string.h"
@@ -60,7 +60,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 
 	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (unsigned int)dirbuffer))
 	{
-		printf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
+		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
 		kfree(dirbuffer);
 		return NULL;
 	}
@@ -163,7 +163,7 @@ void* iso_get_directory(void* t)
 	}
 	else
 	{
-		printf("*** BUG *** iso_get_directory: null FS_Tree*!\n");
+		kprintf("*** BUG *** iso_get_directory: null FS_Tree*!\n");
 		return NULL;
 	}
 }
@@ -182,18 +182,18 @@ int iso_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 	// we must read one more than we asked for for safety.
 	sectors_size++;
 
-	//printf("kmallocing %d bytes\n", sectors_size * 2048);
+	//kprintf("kmallocing %d bytes\n", sectors_size * 2048);
 	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
-	//printf("Got %08x\n", readbuf);
+	//kprintf("Got %08x\n", readbuf);
 	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (unsigned int)readbuf))
 	{
-		printf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
+		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
 		kfree(readbuf);
 		return 0;
 	}
 	memcpy(buffer, readbuf + (start % 2048), length);
 
-	//printf("Freeing ptr %08x\n", readbuf);
+	//kprintf("Freeing ptr %08x\n", readbuf);
 	kfree(readbuf);
 	return 1;
 }
@@ -209,7 +209,7 @@ iso9660* iso_mount_volume(u32int drivenumber)
 	{
 		if (!ide_read_sectors(drivenumber, 1, VolumeDescriptorPos++, (unsigned int)buffer))
 		{
-			printf("ISO9660: Could not read LBA sector 0x%x!\n", VolumeDescriptorPos);
+			kprintf("ISO9660: Could not read LBA sector 0x%x!\n", VolumeDescriptorPos);
 			kfree(info);
 			return NULL;
 		}
@@ -246,11 +246,11 @@ iso9660* iso_mount_volume(u32int drivenumber)
 		else if (VolumeDescriptorID >= 0x04 && VolumeDescriptorID <= 0xFE)
 		{
 			// Reserved and unknown ID
-			printf("ISO9660: WARNING: Unknown volume descriptor 0x%x at LBA 0x%x!\n", VolumeDescriptorID, VolumeDescriptorPos);
+			kprintf("ISO9660: WARNING: Unknown volume descriptor 0x%x at LBA 0x%x!\n", VolumeDescriptorID, VolumeDescriptorPos);
 		}
 	}
 
-	printf("iso9660: Mounted volume '%s' on drive %d\n", info->volume_name, drivenumber);
+	kprintf("iso9660: Mounted volume '%s' on drive %d\n", info->volume_name, drivenumber);
 	kfree(buffer);
 	return info;
 }

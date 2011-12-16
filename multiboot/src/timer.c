@@ -1,5 +1,5 @@
 #include "../include/interrupts.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/io.h"
 #include "../include/kernel.h"
 #include "../include/video.h"
@@ -49,7 +49,7 @@ static void timer_callback(registers_t* regs)
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();
 
-	//printf("Timer\n");
+	//kprintf("Timer\n");
 	proc_switch(regs);
 }
 

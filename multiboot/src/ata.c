@@ -1,5 +1,5 @@
 #include "../include/ata.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/kernel.h"
 #include "../include/io.h"
 #include "../include/timer.h"
@@ -14,7 +14,7 @@ unsigned static char atapi_packet[12] = {0xA8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 unsigned char ide_read(unsigned char channel, unsigned char reg)
 {
-	//printf("channel %d base: %x ctrl: %x base+reg: %x\n", channel, channels[channel].base, channels[channel].ctrl, channels[channel].base + reg);
+	//kprintf("channel %d base: %x ctrl: %x base+reg: %x\n", channel, channels[channel].base, channels[channel].ctrl, channels[channel].base + reg);
 	unsigned char result;
 	if (reg > 0x07 && reg < 0x0C) ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
 	if (reg < 0x08) result = inb(channels[channel].base + reg - 0x00);
@@ -90,10 +90,10 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err) {
 	if (err == 0)
 		return err;
 
-	printf("IDE drive %d error:\n ", drive);
+	kprintf("IDE drive %d error:\n ", drive);
 	if (err == 1)
 	{
-		printf("%s", "- Device Fault\n ");
+		kprintf("%s", "- Device Fault\n ");
 		err = 19;
 	}
 	else if (err == 2)
@@ -101,45 +101,45 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err) {
 		unsigned char st = ide_read(ide_devices[drive].channel, ATA_REG_ERROR);
 		if (st & ATA_ER_AMNF)
 		{
-			printf("%s", "- No Address Mark Found\n ");
+			kprintf("%s", "- No Address Mark Found\n ");
 			err = 7;
 		}
 		if ((st & ATA_ER_TK0NF) || (st & ATA_ER_MCR) || (st & ATA_ER_MC))
 		{
-			printf("%s", "- No Media or Media Error\n ");
+			kprintf("%s", "- No Media or Media Error\n ");
 			err = 3;
 		}
 		if (st & ATA_ER_ABRT)
 		{
-			printf("%s", "- Command Aborted\n ");
+			kprintf("%s", "- Command Aborted\n ");
 			err = 20;
 		}
 		if (st & ATA_ER_IDNF)
 		{
-			printf("%s", "- ID mark not Found\n ");
+			kprintf("%s", "- ID mark not Found\n ");
 			err = 21;
 		}
 		if (st & ATA_ER_UNC)
 		{
-			printf("%s", "- Uncorrectable Data Error\n ");
+			kprintf("%s", "- Uncorrectable Data Error\n ");
 			err = 22;
 		}
 		if (st & ATA_ER_BBK)
 		{
-			printf("%s", "- Bad Sectors\n ");
+			kprintf("%s", "- Bad Sectors\n ");
 			err = 13;
 		}
 	} else if (err == 3)
 	{
-		printf("%s", "- Reads Nothing\n ");
+		kprintf("%s", "- Reads Nothing\n ");
 		err = 23;
 	}
 	else if (err == 4)
 	{
-		printf("%s", "- Write Protected\n ");
+		kprintf("%s", "- Write Protected\n ");
 		err = 8;
 	}
-	printf("- [%s %s] %s\n",
+	kprintf("- [%s %s] %s\n",
 		(const char *[]){"Primary","Secondary"}[ide_devices[drive].channel],
 		(const char *[]){"Master", "Slave"}[ide_devices[drive].drive],
 		ide_devices[drive].model);
@@ -176,7 +176,7 @@ void ide_initialise()
 			outb(base + 6, masterslave);
 			outb(base + 7, 0xEC);
 			unsigned char x = inb(base + 7);
-			//printf("%s %s Status: %d\n", base == 0x1F0 ? "Primary" : "Secondary", masterslave == 0xA0 ? "master" : "slave", x);
+			//kprintf("%s %s Status: %d\n", base == 0x1F0 ? "Primary" : "Secondary", masterslave == 0xA0 ? "master" : "slave", x);
 
 			// Nothing at all on this connection
 			if (x == 0)
@@ -241,9 +241,9 @@ void ide_initialise()
 					ide_devices[count].model[k--] = 0;
 
 				if (type == IDE_ATAPI)
-					printf("%s: ATAPI CDROM\n", ide_devices[count].model);
+					kprintf("%s: ATAPI CDROM\n", ide_devices[count].model);
 				else
-					printf("%s: %dGb IDE\n", ide_devices[count].model, ide_devices[count].size / 1024 / 1024 / 2);
+					kprintf("%s: %dGb IDE\n", ide_devices[count].model, ide_devices[count].size / 1024 / 1024 / 2);
 				count++;
 			}
 
@@ -471,14 +471,14 @@ int ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int l
 	// ==================================
 	if (drive > 3 || ide_devices[drive].reserved == 0)
 	{
-		printf("Drive %d not found\n", drive);		// Drive Not Found!
+		kprintf("Drive %d not found\n", drive);		// Drive Not Found!
 		return 0;
 	}
 	// 2: Check if inputs are valid:
 	// ==================================
 	else if (((lba + numsects) > ide_devices[drive].size) && (ide_devices[drive].type == IDE_ATA))
 	{
-		printf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
+		kprintf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
 		return 0;
 	}
 	// 3: Read in PIO Mode through Polling & IRQs:
@@ -509,14 +509,14 @@ int ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int 
 	// ==================================
 	if (drive > 3 || ide_devices[drive].reserved == 0)
 	{
-		printf("Drive %d not found\n", drive);		// Drive Not Found!
+		kprintf("Drive %d not found\n", drive);		// Drive Not Found!
 		return 0;
 	}
 	// 2: Check if inputs are valid:
 	// ==================================
 	else if (((lba + numsects) > ide_devices[drive].size) && (ide_devices[drive].type == IDE_ATA))
 	{
-		printf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
+		kprintf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
 		return 0;
 	}
 	// 3: Read in PIO Mode through Polling & IRQs:
@@ -547,14 +547,14 @@ int ide_atapi_eject(unsigned char drive)
 	// ==================================
 	if (drive > 3 || ide_devices[drive].reserved == 0)
 	{
-		printf("Drive %d not found\n", drive);
+		kprintf("Drive %d not found\n", drive);
 		return 0;
 	}
 	// 2: Check if drive isn't ATAPI:
 	// ==================================
 	else if (ide_devices[drive].type == IDE_ATA)
 	{
-		printf("Command aborted on drive %d\n", drive);		 // Command Aborted.
+		kprintf("Command aborted on drive %d\n", drive);		 // Command Aborted.
 		return 0;
 	}
 	// 3: Eject ATAPI Driver:

@@ -1,7 +1,7 @@
 #include "../include/video.h"
 #include "../include/interrupts.h"
 #include "../include/errorhandler.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/kernel.h"
 #include "../include/io.h"
 #include "../include/debugger.h"
@@ -42,7 +42,7 @@ void error_handler(registers_t* regs)
 		"Machine check exception",
 	};
 	PANIC_BANNER;
-	printf("Fatal exception 0x%2x at 0x%8x: %s\n", regs->int_no, regs->eip, error_table[regs->int_no]);
+	kprintf("Fatal exception 0x%2x at 0x%8x: %s\n", regs->int_no, regs->eip, error_table[regs->int_no]);
 	backtrace(regs);
 	blitconsole(current_console);
 	asm volatile("cli");

@@ -1,5 +1,5 @@
-#ifndef __PRINTF__H__
-#define __PRINTF__H__
+#ifndef __KPRINTF__H__
+#define __KPRINTF__H__
 
 /* Assume: width of stack == width of int. Don't use sizeof(char *) or
 other pointer because sizeof(char *)==4 for LARGE-model 16-bit code.
@@ -45,12 +45,12 @@ typedef void *va_list;
 
 typedef int (*fnptr_t)(unsigned c, void **helper);
 
-int vsprintf(char *buf, const char *fmt, va_list args);
+int kvsprintf(char *buf, const char *fmt, va_list args);
 
-int sprintf(char *buf, const char *fmt, ...);
+int ksprintf(char *buf, const char *fmt, ...);
 
-int vprintf(const char *fmt, va_list args);
+int kvprintf(const char *fmt, va_list args);
 
-int printf(const char *fmt, ...);
+int kprintf(const char *fmt, ...);
 
 #endif

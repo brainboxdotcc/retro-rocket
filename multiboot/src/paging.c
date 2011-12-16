@@ -3,7 +3,7 @@
 #include "../include/interrupts.h"
 #include "../include/paging.h"
 #include "../include/kmalloc.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/debugger.h"
 
 page_directory_t *current_directory=0;	/* Currently active page directory */
@@ -280,7 +280,7 @@ static u32int first_frame(void)
 			}
 		}
 	}
-	printf("No free memory frames");
+	kprintf("No free memory frames");
 	return 0xFFFFFFFF;		/* Well, we're boned! */
 }
 
@@ -312,14 +312,14 @@ void page_fault_handler(registers_t* regs)
 	asm volatile("mov %%cr2, %0" : "=r" (faulting_address)); 
 
 	//PANIC_BANNER;
-	printf("Page fault accessing address 0x%x, EIP=0x%x: ", faulting_address, regs->eip);
+	kprintf("Page fault accessing address 0x%x, EIP=0x%x: ", faulting_address, regs->eip);
 	int present = !(regs->err_code & 0x1);
 	int rw = regs->err_code & 0x2;
 	int us = regs->err_code & 0x4;
 	int reserved = regs->err_code & 0x8;
 	int id = regs->err_code & 0x10;
 
-	printf("Page fault accessing address 0x%x, EIP=0x%x: %s%s%s%s (id=%d)", 
+	kprintf("Page fault accessing address 0x%x, EIP=0x%x: %s%s%s%s (id=%d)", 
 			faulting_address, 
 			regs->eip, 
 			present ? "present " : "", 

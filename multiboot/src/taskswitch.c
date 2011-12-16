@@ -5,7 +5,6 @@
 #include "../include/interrupts.h"
 #include "../include/syscall.h"
 #include "../include/elf.h"
-#include "../include/printf.h"
 #include "../include/kmalloc.h"
 #include "../include/memcpy.h"
 
@@ -16,6 +15,7 @@ u32int nextid = 1;
 u32int semaphore = 0;
 u32int deathflag = 0;
 
+extern usermode_init;
 extern page_directory_t *current_directory;	/*Gia to change stack, apo paging.c */
 extern page_directory_t *kernel_directory;
 extern u32int initial_esp;			/*Episis gia stack change, apo kernel.c */
@@ -30,6 +30,7 @@ static process_t* next_proc();
 static u32int checkpid(u32int pid);
 static void proc_clear();	/*Psaxnei teliomena processes kai ta kanei kill */
 static process_t* proc_kill(process_t*);
+void printbanner();
 
 void set_kernel_stack(u32int stack){
 	tss_entry.esp0 = stack;
@@ -37,27 +38,16 @@ void set_kernel_stack(u32int stack){
 
 void init()
 {
-	u32int pid = 0;
-	asm volatile("int $50" : : "a"(SYS_FORK));
-	asm volatile("mov %%eax, %0" : "=a"(pid));
+	printbanner();
+	for(;;);
+}
 
-	//asm volatile("int $50" : : "a"(SYS_PUTCH), "b"('A'));
-	//asm volatile("int $50" : : "a"(SYS_PUTCH), "b"(pid));
-	asm volatile("int $50" : : "a"(SYS_PUTS), "b"("after fork\n"));
+#define USERLAND
+#undef USERLAND
 
-	if (!pid)
-	{
-		asm volatile("int $50" : : "a"(SYS_PUTS), "b"("shell spawn\n"));
-		asm volatile("int $50" : : "a"(SYS_SETMTX));
-		asm volatile("int $50" : : "a"(SYS_EXEC), "b"("/programs/consh"));
-		asm volatile("int $50" : : "a"(SYS_CLRMTX));
-		while(1);
-	}
-	else
-	{
-		asm volatile("int $50" : : "a"(SYS_PUTS), "b"("idle\n"));
-		while(1);       // System idle process
-	}
+void printbanner()
+{
+	//kprintf("Dropped to userland.\n");
 }
 
 /* Do NOT move this from immediately after init() */
@@ -67,7 +57,6 @@ static void byte_after_init()
 
 u32int get_init_size()
 {
-	return 10000;
 	return (u32int)((u32int)&byte_after_init - (u32int)&init);
 }
 
@@ -170,7 +159,7 @@ void proc_switch(registers_t* regs)
 		 kathws kanei switch page directory. Stin periptosi pou den exoume mpei akoma
 		 se User mode (opote kai xrisi 2 stack), SE KAMIA PERIPTOSI den prepei na uparxoun
 		 2 diergasies, alla mono 1. Meta tin metavasi se User mode, eimaste ok */
-	//printf("psent\n",proc_current->pid);
+	//kprintf("psent\n",proc_current->pid);
 	//blitconsole(current_console);
 
 	if (proc_current == 0)	/*Unitialised Process Manager */
@@ -178,7 +167,7 @@ void proc_switch(registers_t* regs)
  	if (semaphore == 1)	/*Disabled multitasking */
 		return;
 
-	//printf("psent2\n",proc_current->pid);
+	//kprintf("psent2\n",proc_current->pid);
 	//blitconsole(current_console);
 
 	asm volatile("cli");
@@ -189,7 +178,7 @@ void proc_switch(registers_t* regs)
 	proc_current = next_proc();
 	
 	//if (proc_current->regs.eip != 0x40000060)
-	//	printf("ps %d %08x\n",proc_current->pid, proc_current->regs.eip);
+	//	kprintf("ps %d %08x\n",proc_current->pid, proc_current->regs.eip);
 	//old_eip = proc_current->regs.eip;
 	//blitconsole(current_console);
 
@@ -200,7 +189,7 @@ void proc_switch(registers_t* regs)
 	switch_page_directory(proc_current->dir);
 	set_kernel_stack(proc_current->kstack);
 
-	//printf("pse %d %08x\n",proc_current->pid, proc_current->regs.eip);
+	//kprintf("pse %d %08x\n",proc_current->pid, proc_current->regs.eip);
 	//blitconsole(current_console);
 
 	/*H iret tha kanei return sto neo state pleon, sto neo Address Space */
@@ -216,14 +205,14 @@ u32int fork(registers_t* regs)
 	process_t *parent, *child, *tmp;
 	u32int ret = 0;
 
-	printf("Fork...\n");
+	kprintf("Fork...\n");
 
 	/*Arxikopoioume voithitikes vars */
 	parent = proc_current;
 	child = (process_t*)kmalloc(sizeof(process_t));
 	_memset((char*)child, 0, sizeof(process_t));
 
-	printf("f1\n");
+	kprintf("f1\n");
 
 	/*Arxikopoioume to child process */
 	child->state = PROC_RUNNING;
@@ -236,15 +225,15 @@ u32int fork(registers_t* regs)
 	_memset((char*)child->kstack, 0 , 0x1000);		/*Nullify */
 	child->kstack += 0x1000-4;
 	memcpy(&child->regs, regs, sizeof(registers_t));/*State copy */
-	printf("parent eip=%08x child eip=%08x\n", regs->eip, child->regs.eip);
+	kprintf("parent eip=%08x child eip=%08x\n", regs->eip, child->regs.eip);
 	child->regs.eax = 0;
 	/*Return == 0 sto iret */
 
-	printf("f2\n");
+	kprintf("f2\n");
 
 	if (parent->dir == kernel_directory)
 	{
-		printf("Parent dir = kernel directory\n");
+		kprintf("Parent dir = kernel directory\n");
 	}
 
 	/*Vriskoume to telefteo proc stin lista */
@@ -252,7 +241,7 @@ u32int fork(registers_t* regs)
 	while (tmp->next)
 		tmp = tmp->next;
 
-	printf("f3\n");
+	kprintf("f3\n");
 
 	/*Prosthetoume to child stin lista */
 	tmp->next = child;
@@ -264,9 +253,9 @@ u32int fork(registers_t* regs)
 
 	/*To return value */
 	ret = child->pid;
-	printf("child pid=%d%c our pid=%d%c\n", ret, ret, parent->pid, parent->pid);
-	//asm volatile("sti");
-	printf("f4\n");
+	kprintf("child pid=%d%c our pid=%d%c\n", ret, ret, parent->pid, parent->pid);
+	asm volatile("sti");
+	kprintf("f4\n");
 	return ret;
 }
 
@@ -341,7 +330,8 @@ void start_initial_task(void)
 		mov %ax, %gs; \
 		pushl $0x23; \
 		pushl $0x7FFFFFFC; \
-	");	
+	");
+	usermode_init = 0;	
 	/* The value 0x7FFFF004 is pushed to esp, the stack pointer.
 	 * These should match USTACK+USTACK_SIZE
 	 */

@@ -21,7 +21,7 @@ void init_syscall(void)
 void syscall_handler(registers_t* regs)
 {
 	//proc_set_semaphore();
-	printf("syscall 0x%04x\n", regs->eax);
+	kprintf("syscall 0x%04x\n", regs->eax);
 	argv_t* argv;
 	ret_addr = 0;
 	ret_esp = 0;
@@ -69,9 +69,9 @@ void syscall_handler(registers_t* regs)
 
 		/*-------------- PROCESS MANAGER --------------- */
 		case SYS_FORK:{		/*ebx == return ptr */
-			printf("Fork syscall\n");
+			kprintf("Fork syscall\n");
 			regs->eax = fork(regs);
-			printf("Fork completed result=%d\n", regs->eax);
+			kprintf("Fork completed result=%d\n", regs->eax);
 			break;
 		}
 		case SYS_EXEC:
@@ -111,7 +111,7 @@ void syscall_handler(registers_t* regs)
 		}
 
 		default:
-			printf("Unknown syscall 0x%04x!\n", regs->eax);
+			kprintf("Unknown syscall 0x%04x!\n", regs->eax);
 		break;
 	}
 
@@ -123,7 +123,7 @@ void syscall_handler(registers_t* regs)
 	if (ret_addr)
 	{
 		/*Return address changed, probably by fork or exec */
-		printf("ret_addr changed, eip was %d now %d\n", regs->eip, ret_addr);
+		kprintf("ret_addr changed, eip was %d now %d\n", regs->eip, ret_addr);
 		regs->eip = ret_addr;
 		if (ret_esp)
 		{

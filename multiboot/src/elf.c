@@ -3,7 +3,7 @@
 #include "../include/kmalloc.h"
 #include "../include/kmalloc.h"
 #include "../include/string.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/paging.h"
 #include "../include/filesystem.h"
 #include "../include/debugger.h"
@@ -25,7 +25,7 @@ u8int load_elf(const char* path_to_file)
 
 	if (fh < 0)
 	{
-		printf("load_elf: Invalid path or filename '%s'\n", path_to_file);
+		kprintf("load_elf: Invalid path or filename '%s'\n", path_to_file);
 		return 0;
 	}
 	else
@@ -37,7 +37,7 @@ u8int load_elf(const char* path_to_file)
 		{
 			kfree(fileheader);
 			_close(fh);
-			printf("load_elf: Could not read entire Elf32_Ehdr from '%s'\n", path_to_file);
+			kprintf("load_elf: Could not read entire Elf32_Ehdr from '%s'\n", path_to_file);
 			return 0;
 		}
 
@@ -46,13 +46,13 @@ u8int load_elf(const char* path_to_file)
 		{
 			kfree(fileheader);
 			_close(fh);
-			printf("load_elf: The file '%s' is not an ELF executable!\n", path_to_file);
+			kprintf("load_elf: The file '%s' is not an ELF executable!\n", path_to_file);
 			return 0;
 		}
 
 		if (fileheader->e_type != ET_EXEC || !IS_INTEL_32(fileheader))
 		{
-			printf("load_elf: File not executable\n");
+			kprintf("load_elf: File not executable\n");
 			kfree(fileheader);
 			_close(fh);
 			return 0;
@@ -92,10 +92,10 @@ u8int load_elf(const char* path_to_file)
 			if (n_read < fileheader->e_phentsize)
 			{
 				error = 1;
-				printf("load_elf: Can't read whole Elf32_Phdr #%d\n", head);
+				kprintf("load_elf: Can't read whole Elf32_Phdr #%d\n", head);
 				break;
 			}
-			printf("Program header %d of %d\n", head, fileheader->e_phnum);
+			kprintf("Program header %d of %d\n", head, fileheader->e_phnum);
 
 			switch (phdr->p_type)
 			{
@@ -112,19 +112,19 @@ u8int load_elf(const char* path_to_file)
 						if (n_read < phdr->p_filesz)
 						{
 							error = 1;
-							printf("load_elf: Can't read entire PT_LOAD section!\n");
+							kprintf("load_elf: Can't read entire PT_LOAD section!\n");
 							break;
 						}
-						printf("PT_LOAD: loaded and mapped memory from elf file\n");
+						kprintf("PT_LOAD: loaded and mapped memory from elf file\n");
 					}
 					else
 					{
 						error = 1;
-						printf("load_elf: Can't map PT_LOAD section below vaddr 0x%08x or above user heap!\n", UPROGSTART);
+						kprintf("load_elf: Can't map PT_LOAD section below vaddr 0x%08x or above user heap!\n", UPROGSTART);
 					}
 				break;
 				case PT_SHLIB:
-					printf("PT_SHLIB: not supported yet!\n");
+					kprintf("PT_SHLIB: not supported yet!\n");
 				case PT_PHDR:
 					/* Address of program header. This is included in the PT_LOAD sections
 					 * and can be safely skipped over
@@ -140,15 +140,15 @@ u8int load_elf(const char* path_to_file)
 					if (n_read < phdr->p_filesz)
 					{
 						error = 1;
-						printf("load_elf: Can't read entire interpreter name!\n");
+						kprintf("load_elf: Can't read entire interpreter name!\n");
 					}
-					printf("load_elf: File %s specifies an interpreter '%s', but this is not supported.\n", path_to_file, interpreter);
+					kprintf("load_elf: File %s specifies an interpreter '%s', but this is not supported.\n", path_to_file, interpreter);
 					_lseek(fh, curpos, 0);
 					kfree(interpreter);
 				}
 				break;
 				case PT_DYNAMIC:
-					printf("load_elf: Warning: PT_DYNAMIC: not supported yet!\n");
+					kprintf("load_elf: Warning: PT_DYNAMIC: not supported yet!\n");
 				break;
 				case PT_NULL:
 				case PT_GNU_STACK:
@@ -174,7 +174,7 @@ u8int load_elf(const char* path_to_file)
 			 */
 		}
 
-		printf("Would execute from 0x%08x\n", fileheader->e_entry);
+		kprintf("Would execute from 0x%08x\n", fileheader->e_entry);
 
 		_close(fh);
 		kfree(stringtable);

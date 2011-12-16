@@ -1,7 +1,8 @@
 #include "../include/io.h"
+#include "../include/string.h"
 #include "../include/kernel.h"
 #include "../include/video.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/interrupts.h"
 #include "../include/errorhandler.h"
 #include "../include/keyboard.h"
@@ -16,11 +17,13 @@
 #include "../include/devfs.h"
 #include "../include/elf.h"
 #include "../include/syscall.h"
+#include "../include/ubasic.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
 console* current_console = NULL;
 u32int initial_esp = NULL;
+int usermode_init = 0;
 
 static unsigned char* vid = (unsigned char*) VIDEO_MEMORY;
 
@@ -67,15 +70,15 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 	if (magic != MULTIBOOT_MAGIC)
 	{
-		printf("Invalid magic number %x from multiboot. System halted.\n", magic);
+		kprintf("Invalid magic number %x from multiboot. System halted.\n", magic);
 		wait_forever();
 	}
 	else
 	{
 		setforeground(current_console, COLOUR_LIGHTYELLOW);
-		printf("Sixty-Four");
+		kprintf("Sixty-Four");
 		setforeground(current_console, COLOUR_WHITE);
-		printf(" kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
+		kprintf(" kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
 		ide_initialise();
 		init_filesystem();
@@ -83,43 +86,56 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		iso9660_attach(0, "/");
 		init_devfs();
 		init_debug();
-		printf("Init size: %d\n\n", get_init_size());
+		kprintf("Init size: %d\n\n", get_init_size());
+
+
+		const char* program = strdup(
+			"100 print \"subroutine\"\n");
+
+ 		ubasic_init(program);
+		do
+		{
+			ubasic_run();
+		} while (!ubasic_finished());
+
 
 		init_process_manager();
 
 		asm volatile("int $50" : : "a"(SYS_FSWITCH));
 		start_initial_task();
 
+		proc_set_semaphore();
+
 		//load_elf("/sh");
 		/*int fd = _open("/kernel.sym", _O_RDONLY);
 		if (fd == -1)
 		{
-			printf("File open error\n");
+			kprintf("File open error\n");
 		}
 		else
 		{
-			printf("File opened with fd=%d\n", fd);
+			kprintf("File opened with fd=%d\n", fd);
 			while (!_eof(fd))
 			{
 				unsigned char z[2090];
 				int nread = _read(fd, z, 2089);
 				if (nread < 1)
 				{
-					printf("\nRead error\n");
+					kprintf("\nRead error\n");
 					break;
 				}
 				z[nread] = 0;
-				printf("%s", z);
+				kprintf("%s", z);
 			}
-			printf("\nFile EOF\n");
+			kprintf("\nFile EOF\n");
 			if (_close(fd))
 			{
-				printf("File close error\n");
+				kprintf("File close error\n");
 			}
 		}
-		printf("Done\n");*/
+		kprintf("Done\n");*/
 
-		printf("Epic done!\n");
+		kprintf("Epic done!\n");
 
 		wait_forever();
 	}

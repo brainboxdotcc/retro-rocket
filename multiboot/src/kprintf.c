@@ -1,7 +1,7 @@
 #include "../include/video.h"
 #include "../include/kernel.h"
 #include "../include/string.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 
 /*****************************************************************************
 name:	do_printf
@@ -253,7 +253,7 @@ EMIT2:				if((flags & PR_LJ) == 0)
 /*****************************************************************************
 SPRINTF
 *****************************************************************************/
-static int vsprintf_help(unsigned c, void **ptr)
+static int kvsprintf_help(unsigned c, void **ptr)
 {
 	char *dst;
 
@@ -264,50 +264,54 @@ static int vsprintf_help(unsigned c, void **ptr)
 }
 /*****************************************************************************
 *****************************************************************************/
-int vsprintf(char *buf, const char *fmt, va_list args)
+int kvsprintf(char *buf, const char *fmt, va_list args)
 {
 	int rv;
 
-	rv = do_printf(fmt, args, vsprintf_help, (void *)buf);
+	rv = do_printf(fmt, args, kvsprintf_help, (void *)buf);
 	buf[rv] = '\0';
 	return rv;
 }
 /*****************************************************************************
 *****************************************************************************/
-int sprintf(char *buf, const char *fmt, ...)
+int ksprintf(char *buf, const char *fmt, ...)
 {
 	va_list args;
 	int rv;
 
 	va_start(args, fmt);
-	rv = vsprintf(buf, fmt, args);
+	rv = kvsprintf(buf, fmt, args);
 	va_end(args);
 	return rv;
 }
 /*****************************************************************************
 *****************************************************************************/
-int vprintf_help(unsigned c, void **ptr)
+int kvprintf_help(unsigned c, void **ptr)
 {
+#ifdef USERLAND
+	asm volatile("int $50" : : "a"(SYS_PUTCH), "b"(c));
+#else
 	put(current_console, c);
+#endif
 	return 0 ;
 }
 /*****************************************************************************
 *****************************************************************************/
-int vprintf(const char *fmt, va_list args)
+int kvprintf(const char *fmt, va_list args)
 {
-	return do_printf(fmt, args, vprintf_help, NULL);
+	return do_printf(fmt, args, kvprintf_help, NULL);
 }
 /*****************************************************************************
 *****************************************************************************/
-int printf(const char *fmt, ...)
+int kprintf(const char *fmt, ...)
 {
 	va_list args;
 	int rv;
 
 	va_start(args, fmt);
-	rv = vprintf(fmt, args);
+	rv = kvprintf(fmt, args);
 	va_end(args);
-	blitconsole(current_console);
+	//blitconsole(current_console);
 	return rv;
 }
 /*****************************************************************************

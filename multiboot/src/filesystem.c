@@ -1,7 +1,7 @@
 #include "../include/filesystem.h"
 #include "../include/kmalloc.h"
 #include "../include/string.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/memcpy.h"
 #include "../include/io.h"
 
@@ -13,7 +13,7 @@ static FS_Handle* filehandles[FD_MAX] = { NULL };
 
 int register_filesystem(FS_FileSystem* newfs)
 {
-	printf("Registering filesystem '%s'\n", newfs->name);
+	kprintf("Registering filesystem '%s'\n", newfs->name);
 	/* Add the new filesystem to the start of the list */
 	newfs->next = filesystems;
 	filesystems = newfs;
@@ -437,7 +437,7 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 
 	if (!filename || !pathname || !*filename)
 	{
-		printf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
+		kprintf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
 		return NULL;
 	}
 	if (*pathname == 0)
@@ -449,13 +449,13 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 	FS_Tree* directory = walk_to_node(fs_tree, pathname);
 	if (!directory)
 	{
-		printf("fs_get_file_info: No such path '%s'\n", pathname);
+		kprintf("fs_get_file_info: No such path '%s'\n", pathname);
 		return NULL;
 	}
 	FS_DirectoryEntry* fileinfo = find_file_in_dir(directory, filename);
 	if (!fileinfo)
 	{
-		printf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
+		kprintf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
 		return NULL;
 	}
 	return fileinfo;
@@ -473,12 +473,12 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 		item->files = NULL;
 		item->child_dirs = NULL;
 		retrieve_node_from_driver(item);
-		printf("Driver '%s' attached to virtual path '%s' replacing driver '%s'\n", fs->name, virtual_path,
+		kprintf("Driver '%s' attached to virtual path '%s' replacing driver '%s'\n", fs->name, virtual_path,
 				oldfs ? oldfs->name : "<none>");
 	}
 	else
 	{
-		printf("Warning: Could not attach driver '%s' to virtual path '%s'\n", fs->name, virtual_path);
+		kprintf("Warning: Could not attach driver '%s' to virtual path '%s'\n", fs->name, virtual_path);
 	}
 	return 1;
 }
