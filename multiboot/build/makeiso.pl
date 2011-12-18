@@ -9,7 +9,6 @@ mkdir(".iso/devices");
 system("cp grub/iso9660_stage1_5 .iso/boot/grub/");
 system("cp grub/stage* .iso/boot/grub/");
 system("cp grub/menu.lst .iso/boot/grub/");
-system("cp sh .iso/");
 system("nm -a kernel.bin | sort -d >.iso/kernel.sym");
 chdir(".iso");
 system("mkisofs -R -V \"SIXTY-FOUR\" -b boot/grub/iso9660_stage1_5 -o ../sixty-four.iso -no-emul-boot -boot-load-size 4 -boot-info-table .");
