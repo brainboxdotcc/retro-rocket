@@ -33,16 +33,21 @@
 #define MAX_STRINGLEN 1024
 #define MAX_GOSUB_STACK_DEPTH 255
 #define MAX_FOR_STACK_DEPTH 50
-#define MAX_VARNUM 26
 
 struct for_state
 {
         int line_after_for;
-        int for_variable;
+        char* for_variable;
         int to;
         int step;
 };
 
+struct ub_var_int
+{
+	char* varname;
+	int value;
+	struct ub_var_int* next;
+};
 
 struct ubasic_ctx
 {
@@ -54,15 +59,16 @@ struct ubasic_ctx
         int gosub_stack_ptr;
         struct for_state for_stack[MAX_FOR_STACK_DEPTH];
         int for_stack_ptr;
-        char variables[MAX_VARNUM];
+        struct ub_var_int* int_variables;
         int ended;
 
 };
 
 struct ubasic_ctx* ubasic_init(const char *program);
+void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);
-int ubasic_get_variable(int varnum, struct ubasic_ctx* ctx);
-void ubasic_set_variable(int varum, int value, struct ubasic_ctx* ctx);
+int ubasic_get_variable(const char* varname, struct ubasic_ctx* ctx);
+void ubasic_set_variable(const char* varname, int value, struct ubasic_ctx* ctx);
 
 #endif /* __UBASIC_H__ */

@@ -90,14 +90,19 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 
 		const char* program = strdup(
-			"100 print \"subroutine\"\n");
+"10 a = 3200\n\
+20 foobar = 50\n\
+25 bazqux = 40\n\
+30 print \"Variables\"\n\
+40 print foobar + bazqux - 1, 89\n\
+50 print \"Craq\"");
 
  		struct ubasic_ctx* ctx = ubasic_init(program);
 		do
 		{
 			ubasic_run(ctx);
 		} while (!ubasic_finished(ctx));
-		kfree(ctx);
+		ubasic_destroy(ctx);
 
 
 		/*init_process_manager();

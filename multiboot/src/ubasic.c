@@ -41,6 +41,7 @@
 #include "../include/tokenizer.h"
 #include "../include/kprintf.h"
 #include "../include/kmalloc.h"
+#include "../include/string.h"
 
 static int expr(struct ubasic_ctx* ctx);
 static void line_statement(struct ubasic_ctx* ctx);
@@ -51,12 +52,20 @@ struct ubasic_ctx* ubasic_init(const char *program)
 {
 	struct ubasic_ctx* ctx = (struct ubasic_ctx*)kmalloc(sizeof(struct ubasic_ctx));
 	ctx->current_token = TOKENIZER_ERROR;	
-	ctx->program_ptr = program;
+	ctx->int_variables = NULL;
+	ctx->program_ptr = strdup(program);
 	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
   	tokenizer_init(program, ctx);
 	ctx->ended = 0;
 	return ctx;
 }
+
+void ubasic_destroy(struct ubasic_ctx* ctx)
+{
+	kfree((char*)ctx->program_ptr);
+	kfree(ctx);
+}
+
 /*---------------------------------------------------------------------------*/
 static void accept(int token, struct ubasic_ctx* ctx)
 {
@@ -72,8 +81,10 @@ static void accept(int token, struct ubasic_ctx* ctx)
 static int varfactor(struct ubasic_ctx* ctx)
 {
   int r;
-  DEBUG_PRINTF("varfactor: obtaining %d from variable %d\n", ctx->variables[tokenizer_variable_num(ctx)], tokenizer_variable_num(ctx));
-  r = ubasic_get_variable(tokenizer_variable_num(ctx), ctx);
+  const char* vn = tokenizer_variable_name(ctx);
+  //kprintf("varfactor '%s' ", vn);
+  r = ubasic_get_variable(vn, ctx);
+  //kprintf("varfactor val = %d\n", r);
   accept(TOKENIZER_VARIABLE, ctx);
   return r;
 }
@@ -222,6 +233,7 @@ static void goto_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void print_statement(struct ubasic_ctx* ctx)
 {
+  int numprints = 0;
   accept(TOKENIZER_PRINT, ctx);
   do {
     DEBUG_PRINTF("Print loop\n");
@@ -240,8 +252,9 @@ static void print_statement(struct ubasic_ctx* ctx)
     } else {
       break;
     }
+    numprints++;
   } while(tokenizer_token(ctx) != TOKENIZER_CR &&
-	  tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
+	  tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && numprints < 255);
   kprintf("\n");
   DEBUG_PRINTF("End of print\n");
   tokenizer_next(ctx);
@@ -275,9 +288,9 @@ static void if_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void let_statement(struct ubasic_ctx* ctx)
 {
-  int var;
+  const char* var;
 
-  var = tokenizer_variable_num(ctx);
+  var = tokenizer_variable_name(ctx);
 
   accept(TOKENIZER_VARIABLE, ctx);
   accept(TOKENIZER_EQ, ctx);
@@ -317,18 +330,19 @@ static void return_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void next_statement(struct ubasic_ctx* ctx)
 {
-  int var;
+  const char* var;
   
   accept(TOKENIZER_NEXT, ctx);
-  var = tokenizer_variable_num(ctx);
+  var = tokenizer_variable_name(ctx);
   accept(TOKENIZER_VARIABLE, ctx);
   if(ctx->for_stack_ptr > 0 &&
-     var == ctx->for_stack[ctx->for_stack_ptr - 1].for_variable) {
+     !strcmp(var, ctx->for_stack[ctx->for_stack_ptr - 1].for_variable)) {
     ubasic_set_variable(var,
 			ubasic_get_variable(var, ctx) + 1, ctx);
     if(ubasic_get_variable(var, ctx) <= ctx->for_stack[ctx->for_stack_ptr - 1].to) {
       jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
     } else {
+      kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
       ctx->for_stack_ptr--;
       accept(TOKENIZER_CR, ctx);
     }
@@ -341,10 +355,11 @@ static void next_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void for_statement(struct ubasic_ctx* ctx)
 {
-  int for_variable, to;
+  const char* for_variable;
+  int to;
   
   accept(TOKENIZER_FOR, ctx);
-  for_variable = tokenizer_variable_num(ctx);
+  for_variable = tokenizer_variable_name(ctx);
   accept(TOKENIZER_VARIABLE, ctx);
   accept(TOKENIZER_EQ, ctx);
   ubasic_set_variable(for_variable, expr(ctx), ctx);
@@ -354,7 +369,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 
   if(ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH) {
     ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx);
-    ctx->for_stack[ctx->for_stack_ptr].for_variable = for_variable;
+    ctx->for_stack[ctx->for_stack_ptr].for_variable = strdup(for_variable);
     ctx->for_stack[ctx->for_stack_ptr].to = to;
     DEBUG_PRINTF("for_statement: new for, var %d to %d\n",
 		 ctx->for_stack[for_stack_ptr].for_variable,
@@ -438,21 +453,50 @@ int ubasic_finished(struct ubasic_ctx* ctx)
   return ctx->ended || tokenizer_finished(ctx);
 }
 /*---------------------------------------------------------------------------*/
-void
-ubasic_set_variable(int varnum, int value, struct ubasic_ctx* ctx)
+void ubasic_set_variable(const char* var, int value, struct ubasic_ctx* ctx)
 {
-  if(varnum > 0 && varnum <= MAX_VARNUM) {
-    ctx->variables[varnum] = value;
+  if (ctx->int_variables == NULL)
+  {
+	  ctx->int_variables = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
+	  ctx->int_variables->next = NULL;
+	  ctx->int_variables->varname = strdup(var);
+	  ctx->int_variables->value = value;
+  }
+  else
+  {
+	  struct ub_var_int* cur = ctx->int_variables;
+	  for (; cur; cur = cur->next)
+	  {
+		  if (!strcmp(var, cur->varname))
+		  {
+			  cur->value = value;
+			  return;
+		  }
+	  }
+	  struct ub_var_int* newvar = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
+	  newvar->next = ctx->int_variables;
+	  newvar->varname = strdup(var);
+	  newvar->value = value;
+	  ctx->int_variables = newvar;
   }
 }
 /*---------------------------------------------------------------------------*/
-int
-ubasic_get_variable(int varnum, struct ubasic_ctx* ctx)
+int ubasic_get_variable(const char* var, struct ubasic_ctx* ctx)
 {
-  if(varnum > 0 && varnum <= MAX_VARNUM) {
-    return ctx->variables[varnum];
-  }
-  return 0;
+	if (ctx->int_variables == NULL)
+		return 0; /* No such variable */
+
+	struct ub_var_int* cur = ctx->int_variables;
+	for (; cur; cur = cur->next)
+	{
+		if (!strcmp(var, cur->varname))
+		{
+			return cur->value;
+		}
+	}
+
+	return 0; /* No such variable */
 }
+
 /*---------------------------------------------------------------------------*/
 
