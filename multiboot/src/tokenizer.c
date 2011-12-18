@@ -152,9 +152,9 @@ static int get_next_token(struct ubasic_ctx* ctx)
     }
   }
 
-  if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z')) {
+  if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) {
     ctx->nextptr = ctx->ptr;
-    while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z'))
+    while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->ptr == '$'))
 	    ctx->nextptr++;
     //ctx->nextptr++;
     //kprintf("Variable. nextptr = %08x ptr = %08x\n", ctx->nextptr, ctx->ptr);
@@ -231,17 +231,14 @@ int tokenizer_finished(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 {
-  //return *ctx->ptr - 'a';
-  static char varname[MAX_VARNAME];
-  int count = 0;
-  //kprintf("Ptr: %08x; *ctx->ptr=%d\n", ctx->ptr, *ctx->ptr);
-  while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z')) && count < MAX_VARNAME)
-  {
-	//kprintf("Add: %c\n", ctx->ptr);
-	varname[count++] = *(ctx->ptr++);
-  }
-  varname[count] = 0;
-  //kprintf("variable name: %s\n", varname);
-  return varname;
+	static char varname[MAX_VARNAME];
+	int count = 0;
+	while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) && count < MAX_VARNAME)
+	{
+		varname[count++] = *(ctx->ptr++);
+	}
+	varname[count] = 0;
+	/* TODO: Validate variable name, weed out e.g. TEST$$ or $TEST$ which are not valid. */
+	return varname;
 }
 /*---------------------------------------------------------------------------*/

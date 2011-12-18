@@ -49,6 +49,27 @@ struct ub_var_int
 	struct ub_var_int* next;
 };
 
+struct ub_var_string
+{
+	char* varname; /* Not including the $ on the end! */
+	char* value;
+	struct ub_var_string* next;
+};
+
+struct ub_var_int_array
+{
+	char* varname;
+	struct ub_var_int* values;
+	int itemcount;
+};
+
+struct ub_var_string_array
+{
+	char* varname;
+	struct ub_var_string* values;
+	int itemcount;
+};
+
 struct ubasic_ctx
 {
         char const *ptr, *nextptr;
@@ -60,6 +81,9 @@ struct ubasic_ctx
         struct for_state for_stack[MAX_FOR_STACK_DEPTH];
         int for_stack_ptr;
         struct ub_var_int* int_variables;
+	struct ub_var_string* str_variables;
+	struct ub_var_int_array* int_array_variables;
+	struct ub_var_string_array* string_array_variables;
         int ended;
 
 };

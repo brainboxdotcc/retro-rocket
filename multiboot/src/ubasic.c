@@ -455,34 +455,44 @@ int ubasic_finished(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 void ubasic_set_variable(const char* var, int value, struct ubasic_ctx* ctx)
 {
-  if (ctx->int_variables == NULL)
-  {
-	  ctx->int_variables = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
-	  ctx->int_variables->next = NULL;
-	  ctx->int_variables->varname = strdup(var);
-	  ctx->int_variables->value = value;
-  }
-  else
-  {
-	  struct ub_var_int* cur = ctx->int_variables;
-	  for (; cur; cur = cur->next)
-	  {
-		  if (!strcmp(var, cur->varname))
-		  {
-			  cur->value = value;
-			  return;
-		  }
-	  }
-	  struct ub_var_int* newvar = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
-	  newvar->next = ctx->int_variables;
-	  newvar->varname = strdup(var);
-	  newvar->value = value;
-	  ctx->int_variables = newvar;
-  }
+	/* first, itdentify the variable's type. Look for $ for string,
+	 * and parenthesis for arrays
+	 */
+
+
+	if (ctx->int_variables == NULL)
+	{
+		ctx->int_variables = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
+		ctx->int_variables->next = NULL;
+		ctx->int_variables->varname = strdup(var);
+		ctx->int_variables->value = value;
+	}
+	else
+	{
+		struct ub_var_int* cur = ctx->int_variables;
+		for (; cur; cur = cur->next)
+		{
+			if (!strcmp(var, cur->varname))
+			{
+				cur->value = value;
+				return;
+			}
+		}
+		struct ub_var_int* newvar = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
+		newvar->next = ctx->int_variables;
+		newvar->varname = strdup(var);
+		newvar->value = value;
+		ctx->int_variables = newvar;
+	}
 }
 /*---------------------------------------------------------------------------*/
 int ubasic_get_variable(const char* var, struct ubasic_ctx* ctx)
 {
+	/* first, itdentify the variable's type. Look for $ for string,
+	 * and parenthesis for arrays
+	 */
+
+
 	if (ctx->int_variables == NULL)
 		return 0; /* No such variable */
 
