@@ -1,7 +1,7 @@
 #include "../include/kernel.h"
 #include "../include/kmalloc.h"
 #include "../include/paging.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 
 extern u32int end;		/*Einai to telos tou telefteou section
 				  h allios i arxi tou default heap mas ;) */

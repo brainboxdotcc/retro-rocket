@@ -66,14 +66,13 @@ enum {
   TOKENIZER_CR,
 };
 
-void tokenizer_init(const char *program);
-void tokenizer_next(void);
-int tokenizer_token(void);
-int tokenizer_num(void);
-int tokenizer_variable_num(void);
-void tokenizer_string(char *dest, int len);
-
-int tokenizer_finished(void);
-void tokenizer_error_print(void);
+void tokenizer_init(const char *program, struct ubasic_ctx* ctx);
+void tokenizer_next(struct ubasic_ctx* ctx);
+int tokenizer_token(struct ubasic_ctx* ctx);
+int tokenizer_num(struct ubasic_ctx* ctx);
+int tokenizer_variable_num(struct ubasic_ctx* ctx);
+void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
+int tokenizer_finished(struct ubasic_ctx* ctx);
+void tokenizer_error_print(struct ubasic_ctx* ctx);
 
 #endif /* __TOKENIZER_H__ */

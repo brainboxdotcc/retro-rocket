@@ -12,7 +12,7 @@
 #define NULL 0
 
 #define PANIC_BANNER setforeground(current_console, COLOUR_LIGHTYELLOW); \
-/*	printf("\n\
+/*	kprintf("\n\
               ___  _____ \n\
             .'/,-Y\"     \"~-. \n\
             l.Y             ^. \n\
@@ -30,11 +30,11 @@
                   |    \"x______.^ \n\
                   |           \\ \n\
 \n");*/ setforeground(current_console, COLOUR_LIGHTWHITE);\
-printf("This is a fatal system error and your system has been halted.\n\
+kprintf("This is a fatal system error and your system has been halted.\n\
 "); setforeground(current_console, COLOUR_LIGHTRED);
 
 #define assert(expr, line) if (!(expr)) { \
-	      printf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \
+	      kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \
 	      blitconsole(current_console); \
 	      wait_forever(); }
 

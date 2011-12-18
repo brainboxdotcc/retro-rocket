@@ -1,7 +1,7 @@
 #include "../include/kernel.h"
 #include "../include/interrupts.h"
 #include "../include/taskswitch.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 #include "../include/io.h"
 
 gdt_entry_t gdt_entries[5];
@@ -36,7 +36,7 @@ void register_interrupt_handler(u8int n, isr_t handler)
 {
 	if (interrupt_handlers[n] != 0)
 	{
-		printf("*** BUG *** INT %d claimed twice!\n", n);
+		kprintf("*** BUG *** INT %d claimed twice!\n", n);
 		return;
 	}
 	interrupt_handlers[n] = handler;

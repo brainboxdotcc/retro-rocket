@@ -288,11 +288,7 @@ int ksprintf(char *buf, const char *fmt, ...)
 *****************************************************************************/
 int kvprintf_help(unsigned c, void **ptr)
 {
-#ifdef USERLAND
-	asm volatile("int $50" : : "a"(SYS_PUTCH), "b"(c));
-#else
 	put(current_console, c);
-#endif
 	return 0 ;
 }
 /*****************************************************************************

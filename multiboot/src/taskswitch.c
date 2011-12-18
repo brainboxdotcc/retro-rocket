@@ -7,6 +7,7 @@
 #include "../include/elf.h"
 #include "../include/kmalloc.h"
 #include "../include/memcpy.h"
+#include "../include/printf.h"
 
 process_t* proc_current = 0;
 process_t* proc_list;
@@ -30,7 +31,6 @@ static process_t* next_proc();
 static u32int checkpid(u32int pid);
 static void proc_clear();	/*Psaxnei teliomena processes kai ta kanei kill */
 static process_t* proc_kill(process_t*);
-void printbanner();
 
 void set_kernel_stack(u32int stack){
 	tss_entry.esp0 = stack;
@@ -38,16 +38,7 @@ void set_kernel_stack(u32int stack){
 
 void init()
 {
-	printbanner();
 	for(;;);
-}
-
-#define USERLAND
-#undef USERLAND
-
-void printbanner()
-{
-	//kprintf("Dropped to userland.\n");
 }
 
 /* Do NOT move this from immediately after init() */

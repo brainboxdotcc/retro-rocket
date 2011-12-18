@@ -92,19 +92,20 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		const char* program = strdup(
 			"100 print \"subroutine\"\n");
 
- 		ubasic_init(program);
+ 		struct ubasic_ctx* ctx = ubasic_init(program);
 		do
 		{
-			ubasic_run();
-		} while (!ubasic_finished());
+			ubasic_run(ctx);
+		} while (!ubasic_finished(ctx));
+		kfree(ctx);
 
 
-		init_process_manager();
+		/*init_process_manager();
 
 		asm volatile("int $50" : : "a"(SYS_FSWITCH));
 		start_initial_task();
 
-		proc_set_semaphore();
+		proc_set_semaphore();*/
 
 		//load_elf("/sh");
 		/*int fd = _open("/kernel.sym", _O_RDONLY);

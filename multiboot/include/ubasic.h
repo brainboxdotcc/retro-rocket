@@ -30,11 +30,39 @@
 #ifndef __UBASIC_H__
 #define __UBASIC_H__
 
-void ubasic_init(const char *program);
-void ubasic_run(void);
-int ubasic_finished(void);
+#define MAX_STRINGLEN 1024
+#define MAX_GOSUB_STACK_DEPTH 255
+#define MAX_FOR_STACK_DEPTH 50
+#define MAX_VARNUM 26
 
-int ubasic_get_variable(int varnum);
-void ubasic_set_variable(int varum, int value);
+struct for_state
+{
+        int line_after_for;
+        int for_variable;
+        int to;
+        int step;
+};
+
+
+struct ubasic_ctx
+{
+        char const *ptr, *nextptr;
+        int current_token;
+        char const *program_ptr;
+        char string[MAX_STRINGLEN];
+        int gosub_stack[MAX_GOSUB_STACK_DEPTH];
+        int gosub_stack_ptr;
+        struct for_state for_stack[MAX_FOR_STACK_DEPTH];
+        int for_stack_ptr;
+        char variables[MAX_VARNUM];
+        int ended;
+
+};
+
+struct ubasic_ctx* ubasic_init(const char *program);
+void ubasic_run(struct ubasic_ctx* ctx);
+int ubasic_finished(struct ubasic_ctx* ctx);
+int ubasic_get_variable(int varnum, struct ubasic_ctx* ctx);
+void ubasic_set_variable(int varum, int value, struct ubasic_ctx* ctx);
 
 #endif /* __UBASIC_H__ */
