@@ -28,7 +28,7 @@ debug:
 	gdb -command=.gdbargs
 
 remoterun: all
-	qemu -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso
+	qemu -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso -monitor stdio
 
 remotedebug: all
 	nohup qemu -S -gdb tcp::1234 -no-reboot -no-shutdown -vnc 0.0.0.0:1 -cdrom sixty-four.iso &

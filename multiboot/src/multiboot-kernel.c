@@ -93,8 +93,9 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 "10 a = 3200\n\
 20 foobar = 50\n\
 25 bazqux = 40\n\
+26 mystring$ = \"A String\"\n\
 30 print \"Variables\"\n\
-40 print foobar + bazqux - 1, 89\n\
+40 print foobar + bazqux - 1, 89, mystring$ + \" extra\"\n\
 50 print \"Craq\"");
 
  		struct ubasic_ctx* ctx = ubasic_init(program);

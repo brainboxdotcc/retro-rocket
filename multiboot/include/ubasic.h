@@ -92,7 +92,8 @@ struct ubasic_ctx* ubasic_init(const char *program);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);
-int ubasic_get_variable(const char* varname, struct ubasic_ctx* ctx);
-void ubasic_set_variable(const char* varname, int value, struct ubasic_ctx* ctx);
+int ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
+const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
+void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
 
 #endif /* __UBASIC_H__ */

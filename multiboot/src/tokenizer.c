@@ -156,7 +156,8 @@ static int get_next_token(struct ubasic_ctx* ctx)
     ctx->nextptr = ctx->ptr;
     while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->ptr == '$'))
 	    ctx->nextptr++;
-    //ctx->nextptr++;
+    if (*ctx->nextptr == '$')
+    	ctx->nextptr++;
     //kprintf("Variable. nextptr = %08x ptr = %08x\n", ctx->nextptr, ctx->ptr);
     return TOKENIZER_VARIABLE;
   }
