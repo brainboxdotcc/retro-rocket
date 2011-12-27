@@ -42,6 +42,8 @@
 #include "../include/kprintf.h"
 #include "../include/kmalloc.h"
 #include "../include/string.h"
+#include "../include/input.h"
+#include "../include/video.h"
 
 static int expr(struct ubasic_ctx* ctx);
 static void line_statement(struct ubasic_ctx* ctx);
@@ -53,12 +55,13 @@ void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx)
 void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx);
 
 /*---------------------------------------------------------------------------*/
-struct ubasic_ctx* ubasic_init(const char *program)
+struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 {
 	struct ubasic_ctx* ctx = (struct ubasic_ctx*)kmalloc(sizeof(struct ubasic_ctx));
 	ctx->current_token = TOKENIZER_ERROR;	
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
+	ctx->cons = cons;
 	ctx->program_ptr = strdup(program);
 	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
   	tokenizer_init(program, ctx);
@@ -344,13 +347,15 @@ static void print_statement(struct ubasic_ctx* ctx)
       tokenizer_next(ctx);
     } else if(tokenizer_token(ctx) == TOKENIZER_SEMICOLON) {
       tokenizer_next(ctx);
+    } else if (tokenizer_token(ctx) == TOKENIZER_PLUS) {
+      tokenizer_next(ctx);
     } else if(tokenizer_token(ctx) == TOKENIZER_VARIABLE ||
 	      tokenizer_token(ctx) == TOKENIZER_NUMBER) {
 	    {
 		    /* Check if it's a string or numeric expression */
-		    char* oldctx = ctx->ptr;
+		    const char* oldctx = ctx->ptr;
 		    if (tokenizer_token(ctx) != TOKENIZER_NUMBER
-				    && *ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))
+				    && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$')))
 		    {
 			    ctx->ptr = oldctx;
 			    kprintf("%s", str_expr(ctx));
@@ -397,6 +402,35 @@ static void if_statement(struct ubasic_ctx* ctx)
     }
   }
 }
+
+static void input_statement(struct ubasic_ctx* ctx)
+{
+	const char* var;
+	accept(TOKENIZER_INPUT, ctx);
+	var = tokenizer_variable_name(ctx);
+	DEBUG_PRINTF("varname: %s\n", var);
+	accept(TOKENIZER_VARIABLE, ctx);
+
+	DEBUG_PRINTF("Var Last Letter: %c\n", var[strlen(var) - 1]);
+
+	char* inbuf = (char*)kmalloc(10240);
+	kinput(inbuf, 10240, ctx->cons);
+
+	switch (var[strlen(var) - 1])
+	{
+		case '$':
+			ubasic_set_string_variable(var, inbuf, ctx);
+		break;
+		default:
+			ubasic_set_int_variable(var, atoi(inbuf), ctx);
+		break;
+	}
+
+	kfree(inbuf);
+
+	accept(TOKENIZER_CR, ctx);
+}
+
 /*---------------------------------------------------------------------------*/
 static void let_statement(struct ubasic_ctx* ctx)
 {
@@ -547,6 +581,9 @@ static void statement(struct ubasic_ctx* ctx)
     break;
   case TOKENIZER_END:
     end_statement(ctx);
+    break;
+  case TOKENIZER_INPUT:
+    input_statement(ctx);
     break;
   case TOKENIZER_LET:
     accept(TOKENIZER_LET, ctx);

@@ -30,6 +30,8 @@
 #ifndef __UBASIC_H__
 #define __UBASIC_H__
 
+#include "video.h"
+
 #define MAX_STRINGLEN 1024
 #define MAX_GOSUB_STACK_DEPTH 255
 #define MAX_FOR_STACK_DEPTH 50
@@ -84,11 +86,12 @@ struct ubasic_ctx
 	struct ub_var_string* str_variables;
 	struct ub_var_int_array* int_array_variables;
 	struct ub_var_string_array* string_array_variables;
+	console* cons;
         int ended;
 
 };
 
-struct ubasic_ctx* ubasic_init(const char *program);
+struct ubasic_ctx* ubasic_init(const char *program, console* cons);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);

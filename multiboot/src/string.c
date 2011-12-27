@@ -37,6 +37,14 @@ char* strchr(const char *s, int c)
 	return NULL;
 }
 
+int abs(int a)
+{
+	if (a < 0)
+		return +a;
+	else
+		return a;
+}
+
 int strncmp(const char* s1, const char* s2, u32int n)
 {
 	if (n == 0)

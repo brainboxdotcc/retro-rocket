@@ -63,6 +63,7 @@ static const struct keyword_token keywords[] = {
   {"gosub", TOKENIZER_GOSUB},
   {"return", TOKENIZER_RETURN},
   {"call", TOKENIZER_CALL},
+  {"input", TOKENIZER_INPUT},
   {"end", TOKENIZER_END},
   {NULL, TOKENIZER_ERROR}
 };
@@ -222,7 +223,7 @@ void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 void tokenizer_error_print(struct ubasic_ctx* ctx)
 {
-  kprintf("%s\n", ctx->ptr);
+  kprintf("Error at: %s\n", ctx->ptr);
 }
 /*---------------------------------------------------------------------------*/
 int tokenizer_finished(struct ubasic_ctx* ctx)

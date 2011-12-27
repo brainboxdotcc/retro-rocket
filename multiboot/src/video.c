@@ -1,6 +1,7 @@
 #include "../include/io.h"
 #include "../include/video.h"
 #include "../include/memcpy.h"
+#include "../include/string.h"
 
 /* Internal use: graphics buffer address in flat memory model */
 static unsigned char* video = (unsigned char*) VIDEO_MEMORY;
@@ -66,6 +67,16 @@ void setcursor(console* c)
 	{
 		scroll_screen(c);
 		c->y = SCREEN_HEIGHT;
+	}
+	if (c->x < 0)
+	{
+		c->x = 80 - abs(c->x);
+		c->y--;
+	}
+	if (c->y < 0)
+	{
+		/* Todo: Handle scrolling downwards */
+		c->y = 0;
 	}
 }
 

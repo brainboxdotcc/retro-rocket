@@ -8,10 +8,11 @@
 #include "../include/memcpy.h"
 #include "../include/timer.h"
 
-static ringbuffer* keyboard_buffer;
+static char keyboard_buffer[1024];
+static int bufwriteptr = 0;
+static int bufreadptr = 0;
 
 void keyboard_handler(registers_t* regs);
-static int ringbuffer_truncate(ringbuffer * rb, unsigned long ulong);
 
 static u8int escaped = 0;
 static u8int shift_state = 0;
@@ -41,7 +42,8 @@ static const char keyboard_scan_map_upper[] = {0, 27, '!', '"', '?', '$', '%', '
 
 void init_basic_keyboard()
 {
-	keyboard_buffer = rb_create(128, 0);
+	bufwriteptr = 0;
+	bufreadptr = 0;
 	register_interrupt_handler(IRQ1, keyboard_handler);
 }
 
@@ -99,14 +101,15 @@ void keyboard_handler(registers_t* regs)
 
 			if (x)
 			{
-				if (rb_appenddata(keyboard_buffer, &x, 1) != 0)
+				if (bufreadptr > bufwriteptr)
 				{
-					// Error inserting keypress into the buffer, emit a beep
 					beep(1000);
 				}
 				else
 				{
-					kprintf("Inserted key '%c'\n", x);
+					keyboard_buffer[bufwriteptr++] = x;
+					if (bufwriteptr > 1024)
+						bufwriteptr = 0;
 				}
 			}
 
@@ -119,95 +122,9 @@ void keyboard_handler(registers_t* regs)
 }
 
 
-ringbuffer * rb_create(u32int size, unsigned long initialOffset)
+char kgetc(console* cons)
 {
-	ringbuffer * ret = (ringbuffer*)kmalloc(sizeof(ringbuffer));
-	ret->buf = (char*)kmalloc(size);
-	ret->size = size;
-	ret->start = initialOffset % size;
-	ret->end = initialOffset % size;
-	return ret;
-}
-
-void rb_free(ringbuffer * rb)
-{
-	kfree(rb->buf);
-	kfree(rb);
-}
-
-static void rb_read(char * dest, ringbuffer * rb, unsigned long ulong, u32int size)
-{
-	unsigned long offset = ulong_to_offset(rb, ulong);
-	if(offset + size < rb->size) {
-		memcpy(dest, &(rb->buf[offset]), size);
-	}
-	else
-	{
-		int firstPieceLength = rb->size - offset;
-		int secondPieceLength = size - firstPieceLength;
-		memcpy(dest, &(rb->buf[offset]), firstPieceLength);
-		memcpy(dest + firstPieceLength, &(rb->buf[0]), secondPieceLength);
-	}
-}
-
-static void rb_write(ringbuffer * rb, char *src, unsigned long ulong, u32int size)
-{
-	int offset = ulong_to_offset(rb, ulong);
-	if(offset + size < rb->size)
-	{
-		memcpy(&(rb->buf[offset]), src, size);
-	} 
-	else
-	{
-		int firstPieceLength = rb->size - offset;
-		int secondPieceLength = size - firstPieceLength;
-		memcpy(&(rb->buf[offset]), src, firstPieceLength);
-		memcpy(&(rb->buf[0]), src + firstPieceLength, secondPieceLength);
-	}
-}
-
-int rb_appenddata(ringbuffer * rb, char * dat, u32int size)
-{
-	if(size > rb->size)
-		return -1;			 // Too large for buffer
-
-	if(rb->size < (rb->end-rb->start) + size)
-		return -2;			 // No more free space
-
-	rb_write(rb, dat, rb->end, size);
-	rb->end += size;
-
-	return 0;
+	while (bufreadptr >= bufwriteptr);
+	return keyboard_buffer[bufreadptr++];
 
 }
-
-unsigned long rb_getappendpos(ringbuffer * rb)
-{
-	return rb->end;
-}
-
-unsigned long rb_getreadpos(ringbuffer * rb)
-{
-	return rb->start;
-}
-
-int rb_readdata(char * buf, ringbuffer * rb, u32int size)
-{
-	if (size > rb->size)
-		return -1;			 // Request for chunk larger than entire ringbuffer
-
-	if (rb->start + size > rb->end)
-		return -2;
-
-	unsigned long n = ulong_to_offset(rb, rb->start);
-	rb_read(buf, rb, n, size);
-
-	return ringbuffer_truncate(rb, rb->start + size);
-}
-
-static int ringbuffer_truncate(ringbuffer * rb, unsigned long ulong)
-{
-	rb->start = ulong;
-	return 0;
-}
-

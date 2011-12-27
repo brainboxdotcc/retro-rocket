@@ -18,6 +18,7 @@
 #include "../include/elf.h"
 #include "../include/syscall.h"
 #include "../include/ubasic.h"
+#include "../include/input.h"
 
 #define MULTIBOOT_MAGIC 0x2BADB002
 
@@ -86,8 +87,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		iso9660_attach(0, "/");
 		init_devfs();
 		init_debug();
-		kprintf("Init size: %d\n\n", get_init_size());
 
+		interrupts_on();
 
 		const char* program = strdup(
 "10 a = 3200\n\
@@ -96,51 +97,16 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 26 mystring$ = \"A String\"\n\
 30 print \"Variables\"\n\
 40 print foobar + bazqux - 1, 89, mystring$ + \" extra\"\n\
-50 print \"Craq\"");
+45 input inp$\n\
+50 print \"You entered: \" + inp$ + \" ...What Craq\"");
 
- 		struct ubasic_ctx* ctx = ubasic_init(program);
+ 		struct ubasic_ctx* ctx = ubasic_init(program, current_console);
 		do
 		{
 			ubasic_run(ctx);
-		} while (!ubasic_finished(ctx));
+		}
+		while (!ubasic_finished(ctx));
 		ubasic_destroy(ctx);
-
-
-		/*init_process_manager();
-
-		asm volatile("int $50" : : "a"(SYS_FSWITCH));
-		start_initial_task();
-
-		proc_set_semaphore();*/
-
-		//load_elf("/sh");
-		/*int fd = _open("/kernel.sym", _O_RDONLY);
-		if (fd == -1)
-		{
-			kprintf("File open error\n");
-		}
-		else
-		{
-			kprintf("File opened with fd=%d\n", fd);
-			while (!_eof(fd))
-			{
-				unsigned char z[2090];
-				int nread = _read(fd, z, 2089);
-				if (nread < 1)
-				{
-					kprintf("\nRead error\n");
-					break;
-				}
-				z[nread] = 0;
-				kprintf("%s", z);
-			}
-			kprintf("\nFile EOF\n");
-			if (_close(fd))
-			{
-				kprintf("File close error\n");
-			}
-		}
-		kprintf("Done\n");*/
 
 		kprintf("Epic done!\n");
 

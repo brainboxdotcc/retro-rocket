@@ -44,7 +44,7 @@ void sleep_one_tick()
 static void timer_callback(registers_t* regs)
 {
 	ticks++;
-	if (current_console && current_console->dirty)
+	if ((current_console && current_console->dirty) || (current_console != NULL && ticks % 10 == 0))
 		blitconsole(current_console);
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();

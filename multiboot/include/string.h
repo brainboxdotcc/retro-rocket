@@ -25,4 +25,6 @@ unsigned char isdigit(const char x);
 
 int atoi(const char *s);
 
+int abs(int a);
+
 #endif
