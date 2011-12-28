@@ -7,7 +7,7 @@
 #include "../include/elf.h"
 #include "../include/kmalloc.h"
 #include "../include/memcpy.h"
-#include "../include/printf.h"
+#include "../include/kprintf.h"
 
 process_t* proc_current = 0;
 process_t* proc_list;
@@ -310,7 +310,7 @@ void start_initial_task(void)
 
 	/* Allocate pages for usermode use, read-write, for init process */
 	sign_sect(place, place + size, 1, 1, current_directory);
-	memcpy(place, &init, size);		/* Copy init into this area */
+	//memcpy(place, &init, size);		/* Copy init into this area */
 	/* Set up for return to usermode via iret (return to? lol...) */
 	/* Start off by setting the correct segment selectors */
 	asm volatile("\
