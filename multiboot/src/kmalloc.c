@@ -5,7 +5,15 @@
 
 extern u32int end;		/*Einai to telos tou telefteou section
 				  h allios i arxi tou default heap mas ;) */
-u32int heap_pos = (u32int)&end;
+//u32int heap_pos = (u32int)&end;
+
+// Heap starts at 1mb boundary, we have a higher-half kernel
+// and most of the user tasks and programs are on the kernel heap
+// as interpreted managed code, so we might as well start here and
+// expand upwards.
+
+u32int heap_pos = (u32int)0x200000;
+
 
 extern page_directory_t *kernel_directory;
 extern page_directory_t *current_directory;
@@ -266,7 +274,9 @@ void fix_heap_list(heap_t *heap)
 		if (tf->magic == HEAP_MAGIC)
 		{
 			/*1o check */
-			if (tf->header >= heap->heap_addr && tf->header <= heap->end_addr && tf->header->magic == HEAP_MAGIC)
+			if (tf->header >= heap->heap_addr &&
+					tf->header <= heap->end_addr &&
+					tf->header->magic == HEAP_MAGIC)
 			{
 				/*Double check */
 				goto bbreak;			/*vriskomaste se pragmatiko block end */

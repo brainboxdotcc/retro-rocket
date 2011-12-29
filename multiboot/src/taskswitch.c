@@ -16,7 +16,7 @@ u32int nextid = 1;
 u32int semaphore = 0;
 u32int deathflag = 0;
 
-extern usermode_init;
+extern int usermode_init;
 extern page_directory_t *current_directory;	/*Gia to change stack, apo paging.c */
 extern page_directory_t *kernel_directory;
 extern u32int initial_esp;			/*Episis gia stack change, apo kernel.c */
