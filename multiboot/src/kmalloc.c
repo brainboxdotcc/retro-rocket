@@ -7,12 +7,12 @@ extern u32int end;		/*Einai to telos tou telefteou section
 				  h allios i arxi tou default heap mas ;) */
 //u32int heap_pos = (u32int)&end;
 
-// Heap starts at 1mb boundary, we have a higher-half kernel
+// Heap starts at 4mb boundary, we have a higher-half kernel
 // and most of the user tasks and programs are on the kernel heap
 // as interpreted managed code, so we might as well start here and
 // expand upwards.
 
-u32int heap_pos = (u32int)0x200000;
+u32int heap_pos = (u32int)0x400000;
 
 
 extern page_directory_t *kernel_directory;
