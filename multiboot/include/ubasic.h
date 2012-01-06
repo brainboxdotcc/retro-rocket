@@ -76,6 +76,7 @@ struct ubasic_ctx
 {
         char const *ptr, *nextptr;
         int current_token;
+	int current_linenum;
         char const *program_ptr;
         char string[MAX_STRINGLEN];
         int gosub_stack[MAX_GOSUB_STACK_DEPTH];

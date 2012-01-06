@@ -3,6 +3,12 @@
 
 #include "kernel.h"
 
+struct gc_str
+{
+	const char* ptr;
+	struct gc_str* next;
+};
+
 unsigned int strlen(const char* str);
 
 unsigned char tolower(unsigned char input);
@@ -18,6 +24,8 @@ u32int strlcat(char *dst, const char *src, u32int siz);
 u32int strlcpy(char *dst, const char *src, u32int siz);
 
 char* strdup(const char* string);
+char* gc_strdup(const char* string);
+int gc();
 
 u32int hextoint(const char* n1);
 

@@ -51,6 +51,10 @@ typedef struct
 	unsigned int y;
 	unsigned char attributes;
 	unsigned char video[SCREEN_LAST_CELL];
+	unsigned char last;
+	char* internalbuffer;
+	char* buffer;
+	int bufcnt;
 } console;
 
 /* Prototypes for simple console functions */

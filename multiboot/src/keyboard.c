@@ -122,9 +122,12 @@ void keyboard_handler(registers_t* regs)
 }
 
 
-char kgetc(console* cons)
+unsigned char kgetc(console* cons)
 {
-	while (bufreadptr >= bufwriteptr);
+	if (bufreadptr >= bufwriteptr)
+		return 255;
+
 	return keyboard_buffer[bufreadptr++];
 
 }
+

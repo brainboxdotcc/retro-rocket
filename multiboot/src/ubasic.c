@@ -71,6 +71,17 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 
 void ubasic_destroy(struct ubasic_ctx* ctx)
 {
+	for (; ctx->int_variables; ctx->int_variables = ctx->int_variables->next)
+	{
+		kfree(ctx->int_variables->varname);
+		kfree(ctx->int_variables);
+	}
+	for (; ctx->str_variables; ctx->str_variables = ctx->str_variables->next)
+	{
+		kfree(ctx->str_variables->varname);
+		kfree(ctx->str_variables->value);
+		kfree(ctx->str_variables);
+	}
 	kfree((char*)ctx->program_ptr);
 	kfree(ctx);
 }
@@ -276,7 +287,7 @@ static const char* str_expr(struct ubasic_ctx* ctx)
 		op = tokenizer_token(ctx);
 		DEBUG_PRINTF("new token\n");
 	}
-	return strdup(tmp);
+	return gc_strdup(tmp);
 }
 /*---------------------------------------------------------------------------*/
 static int relation(struct ubasic_ctx* ctx)
@@ -331,12 +342,22 @@ static void goto_statement(struct ubasic_ctx* ctx)
   accept(TOKENIZER_GOTO, ctx);
   jump_linenum(tokenizer_num(ctx), ctx);
 }
+
+static void colour_statement(struct ubasic_ctx* ctx, int tok)
+{
+	accept(tok, ctx);
+	setforeground(ctx->cons, expr(ctx));
+	accept(TOKENIZER_CR, ctx);
+}
+
 /*---------------------------------------------------------------------------*/
 static void print_statement(struct ubasic_ctx* ctx)
 {
   int numprints = 0;
+  int no_newline = 0;
   accept(TOKENIZER_PRINT, ctx);
   do {
+    no_newline = 0;
     DEBUG_PRINTF("Print loop\n");
     if(tokenizer_token(ctx) == TOKENIZER_STRING) {
       tokenizer_string(ctx->string, sizeof(ctx->string), ctx);
@@ -346,6 +367,7 @@ static void print_statement(struct ubasic_ctx* ctx)
       kprintf(" ");
       tokenizer_next(ctx);
     } else if(tokenizer_token(ctx) == TOKENIZER_SEMICOLON) {
+      no_newline = 1;
       tokenizer_next(ctx);
     } else if (tokenizer_token(ctx) == TOKENIZER_PLUS) {
       tokenizer_next(ctx);
@@ -372,7 +394,10 @@ static void print_statement(struct ubasic_ctx* ctx)
     numprints++;
   } while(tokenizer_token(ctx) != TOKENIZER_CR &&
 	  tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && numprints < 255);
-  kprintf("\n");
+  
+  if (!no_newline)
+	  kprintf("\n");
+
   DEBUG_PRINTF("End of print\n");
   tokenizer_next(ctx);
 }
@@ -406,6 +431,7 @@ static void if_statement(struct ubasic_ctx* ctx)
 static void input_statement(struct ubasic_ctx* ctx)
 {
 	const char* var;
+
 	accept(TOKENIZER_INPUT, ctx);
 	var = tokenizer_variable_name(ctx);
 	DEBUG_PRINTF("varname: %s\n", var);
@@ -413,22 +439,26 @@ static void input_statement(struct ubasic_ctx* ctx)
 
 	DEBUG_PRINTF("Var Last Letter: %c\n", var[strlen(var) - 1]);
 
-	char* inbuf = (char*)kmalloc(10240);
-	kinput(inbuf, 10240, ctx->cons);
-
-	switch (var[strlen(var) - 1])
+	if (kinput(10240, ctx->cons) != 0)
 	{
-		case '$':
-			ubasic_set_string_variable(var, inbuf, ctx);
-		break;
-		default:
-			ubasic_set_int_variable(var, atoi(inbuf), ctx);
-		break;
+		switch (var[strlen(var) - 1])
+		{
+			case '$':
+				ubasic_set_string_variable(var, kgetinput(ctx->cons), ctx);
+			break;
+			default:
+				ubasic_set_int_variable(var, atoi(kgetinput(ctx->cons)), ctx);
+			break;
+		}
+
+		kfreeinput(ctx->cons);
+
+		accept(TOKENIZER_CR, ctx);
 	}
-
-	kfree(inbuf);
-
-	accept(TOKENIZER_CR, ctx);
+	else
+	{
+		jump_linenum(ctx->current_linenum, ctx);
+	}
 }
 
 /*---------------------------------------------------------------------------*/
@@ -558,6 +588,12 @@ static void statement(struct ubasic_ctx* ctx)
   token = tokenizer_token(ctx);
 
   switch(token) {
+  case TOKENIZER_COLOR:
+    colour_statement(ctx, TOKENIZER_COLOR);
+    break;
+  case TOKENIZER_COLOUR:
+    colour_statement(ctx, TOKENIZER_COLOUR);
+    break;
   case TOKENIZER_PRINT:
     print_statement(ctx);
     break;
@@ -598,8 +634,8 @@ static void statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void line_statement(struct ubasic_ctx* ctx)
 {
-  DEBUG_PRINTF("----------- Line number %d ---------\n", tokenizer_num(ctx));
-  /*    current_linenum = tokenizer_num();*/
+  ctx->current_linenum = tokenizer_num(ctx);
+  DEBUG_PRINTF("----------- Line number %d ---------\n", ctx->current_linenum);
   accept(TOKENIZER_NUMBER, ctx);
   statement(ctx);
   return;
@@ -613,6 +649,8 @@ void ubasic_run(struct ubasic_ctx* ctx)
   }
 
   line_statement(ctx);
+
+  gc();
 }
 /*---------------------------------------------------------------------------*/
 int ubasic_finished(struct ubasic_ctx* ctx)

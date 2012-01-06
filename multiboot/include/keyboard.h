@@ -5,6 +5,6 @@
 #include "video.h"
 
 void init_basic_keyboard();
-char kgetc(console* cons);
+unsigned char kgetc(console* cons);
 
 #endif

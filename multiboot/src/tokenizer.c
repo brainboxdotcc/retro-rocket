@@ -64,6 +64,8 @@ static const struct keyword_token keywords[] = {
   {"return", TOKENIZER_RETURN},
   {"call", TOKENIZER_CALL},
   {"input", TOKENIZER_INPUT},
+  {"color", TOKENIZER_COLOR},
+  {"colour", TOKENIZER_COLOUR},
   {"end", TOKENIZER_END},
   {NULL, TOKENIZER_ERROR}
 };
@@ -105,7 +107,7 @@ static int singlechar(struct ubasic_ctx* ctx)
   return 0;
 }
 /*---------------------------------------------------------------------------*/
-static int get_next_token(struct ubasic_ctx* ctx)
+int get_next_token(struct ubasic_ctx* ctx)
 {
   struct keyword_token const *kt;
   int i;

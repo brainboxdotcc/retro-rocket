@@ -1,6 +1,8 @@
 #include "../include/string.h"
 #include "../include/kmalloc.h"
 
+struct gc_str* gc_list = NULL;
+
 unsigned int strlen(const char* str)
 {
 	unsigned int len = 0;
@@ -156,6 +158,47 @@ char* strdup(const char* string)
 	*(result+siz) = 0;
 	return result;
 }
+
+char* gc_strdup(const char* string)
+{
+	u32int siz = strlen(string) + 1;
+	char* result = (char*)kmalloc(siz);
+	strlcpy(result, string, siz);
+	*(result+siz) = 0;
+
+	if (gc_list == NULL)
+	{
+		gc_list = (struct gc_str*)kmalloc(sizeof(struct gc_str));
+		gc_list->next = NULL;
+		gc_list->ptr = result;
+	}
+	else
+	{
+		struct gc_str* new = (struct gc_str*)kmalloc(sizeof(struct gc_str));
+		new->next = gc_list;
+		new->ptr = result;
+		gc_list = new;
+	}
+
+	return result;
+}
+
+int gc()
+{
+	struct gc_str* cur = gc_list;
+	for (; cur; cur = cur->next)
+	{
+		kfree(cur->ptr);
+	}
+
+	for (cur = gc_list; cur; cur = cur->next)
+	{
+		kfree(cur);
+	}
+
+	gc_list = NULL;
+}
+
 
 
 int atoi(const char *s)

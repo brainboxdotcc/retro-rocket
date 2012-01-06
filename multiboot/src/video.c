@@ -146,6 +146,7 @@ void blitconsole(console* c)
 void initconsole(console* c)
 {
 	c->attributes = DEFAULT_COLOUR;
+	c->internalbuffer = NULL;
 	clearscreen(c);
 }
 

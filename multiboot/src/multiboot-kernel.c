@@ -90,15 +90,20 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 		interrupts_on();
 
-		const char* program = strdup(
-"10 a = 3200\n\
+		const char* program = "10 a = 3200\n\
 20 foobar = 50\n\
-25 bazqux = 40\n\
-26 mystring$ = \"A String\"\n\
-30 print \"Variables\"\n\
+21 bazqux = 40\n\
+22 mystring$ = \"A String\"\n\
+23 print \"Welcome to \";\n\
+24 color 14\n\
+25 print \"the test \";\n\
+26 color 7\n\
+27 print \"script!\"\n\
+30 print \"Variables test: \";\n\
 40 print foobar + bazqux - 1, 89, mystring$ + \" extra\"\n\
+42 print \"Enter a string: \";\n\
 45 input inp$\n\
-50 print \"You entered: \" + inp$ + \" ...What Craq\"");
+50 print \"You entered: \" + inp$ + \" ...What Craq\"";
 
  		struct ubasic_ctx* ctx = ubasic_init(program, current_console);
 		do
@@ -108,7 +113,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		while (!ubasic_finished(ctx));
 		ubasic_destroy(ctx);
 
-		kprintf("Epic done!\n");
+		kprintf("System Halted.\n");
 
 		wait_forever();
 	}

@@ -4,6 +4,8 @@
 #include "kernel.h"
 #include "video.h"
 
-unsigned int kinput(char* buffer, unsigned int maxlen, console* cons);
+unsigned int kinput(unsigned int maxlen, console* cons);
+void kfreeinput(console* cons);
+char* kgetinput(console* cons);
 
 #endif
