@@ -186,8 +186,10 @@ char* gc_strdup(const char* string)
 int gc()
 {
 	struct gc_str* cur = gc_list;
+	int n = 0;
 	for (; cur; cur = cur->next)
 	{
+		n++;
 		kfree(cur->ptr);
 	}
 
@@ -197,6 +199,8 @@ int gc()
 	}
 
 	gc_list = NULL;
+
+	return n;
 }
 
 

@@ -85,33 +85,23 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_filesystem();
 		init_iso9660();
 		iso9660_attach(0, "/");
-		init_devfs();
+		//init_devfs();
+		kprintf("init_debug\n");
 		init_debug();
+		kprintf("interrupts_on()\n");
 
 		interrupts_on();
 
-		const char* program = "10 a = 3200\n\
-20 foobar = 50\n\
-21 bazqux = 40\n\
-22 mystring$ = \"A String\"\n\
-23 print \"Welcome to \";\n\
-24 color 14\n\
-25 print \"the test \";\n\
-26 color 7\n\
-27 print \"script!\"\n\
-30 print \"Variables test: \";\n\
-40 print foobar + bazqux - 1, 89, mystring$ + \" extra\"\n\
-42 print \"Enter a string: \";\n\
-45 input inp$\n\
-50 print \"You entered: \" + inp$ + \" ...What Craq\"";
-
- 		struct ubasic_ctx* ctx = ubasic_init(program, current_console);
+		struct process* proc = proc_load("/programs/test", current_console);
+		kprintf("New process. name: %s size: %d pid %d\n", proc->name, proc->size, proc->pid);
+		int n = 0;
 		do
 		{
-			ubasic_run(ctx);
+			proc_run(proc);
+			n++;
 		}
-		while (!ubasic_finished(ctx));
-		ubasic_destroy(ctx);
+		while (n < 10);
+		proc_kill(proc);
 
 		kprintf("System Halted.\n");
 

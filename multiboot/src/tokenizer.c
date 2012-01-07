@@ -230,6 +230,7 @@ void tokenizer_error_print(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 int tokenizer_finished(struct ubasic_ctx* ctx)
 {
+  //kprintf("tokenizer_finished? %d %08x\n", *ctx->ptr, ctx->ptr);
   return *ctx->ptr == 0 || ctx->current_token == TOKENIZER_ENDOFINPUT;
 }
 /*---------------------------------------------------------------------------*/

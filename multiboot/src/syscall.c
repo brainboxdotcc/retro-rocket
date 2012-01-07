@@ -67,49 +67,6 @@ void syscall_handler(registers_t* regs)
 			break;
 		}
 
-		/*-------------- PROCESS MANAGER --------------- */
-		case SYS_FORK:{		/*ebx == return ptr */
-			kprintf("Fork syscall\n");
-			regs->eax = fork(regs);
-			kprintf("Fork completed result=%d\n", regs->eax);
-			break;
-		}
-		case SYS_EXEC:
-		{
-			/*ebx == path ptr */
-			char* path = strdup((const char*)regs->ebx);
-			load_elf(path);
-			kfree(path);
-			break;
-		}
-		case SYS_GETPID:{	/*ebx == return ptr */
-			regs->ebx = getpid();
-			break;
-		}
-		case SYS_FSWITCH:{	/* Force Switch -- no args */
-			proc_switch(regs);
-			break;
-		}
-		case SYS_SETMTX:{	/* void */
-			proc_set_semaphore();
-			break;
-		}
-		case SYS_CLRMTX:{	/* void */
-			proc_clear_semaphore();
-			proc_switch(regs);
-			break;
-		}
-		case SYS_WAITPID:{	/*ebx == pid */
-			asm volatile ("sti");
-			wait(regs->ebx);
-			break;
-		}
-		case SYS_EXIT:{
-			exit();
-			proc_switch(regs);
-			break;
-		}
-
 		default:
 			kprintf("Unknown syscall 0x%04x!\n", regs->eax);
 		break;

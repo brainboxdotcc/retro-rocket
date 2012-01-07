@@ -71,8 +71,6 @@ u8int load_elf(const char* path_to_file)
 
 		Elf32_Phdr* phdr = (Elf32_Phdr*)kmalloc(sizeof(Elf32_Phdr));
 		int head, error = 0;
-		u32int fd1, *eip, sz;
-		page_directory_t* dir;
 
 		/*
 		XXX: We really REALLY need to validate all the elf sections
@@ -103,7 +101,6 @@ u8int load_elf(const char* path_to_file)
 					/* Load a section of code (.text) */
 					if (phdr->p_vaddr >= UPROGSTART && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
 					{
-						u32int curpos = _tell(fh);
 						_lseek(fh, phdr->p_offset, 0);
 						sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
 						/* The ELF spec says the memory must be zeroed */

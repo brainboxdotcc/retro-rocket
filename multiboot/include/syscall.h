@@ -19,17 +19,6 @@
 #define SYS_MALLOC	0x305
 #define SYS_FREE	0x306
 
-/* Process manager Control */
-#define SYS_FORK	0x400
-#define SYS_EXEC	0x401
-#define SYS_GETPID	0x402
-#define SYS_FSWITCH	0x403
-#define SYS_SETMTX	0x405
-#define SYS_CLRMTX	0x406
-#define SYS_WAITPID	0x407
-#define SYS_EXIT	0x408
-#define SYS_NAME_PROC	0x409
-
 /* Argument Vector gia routines me >3 arguments */
 typedef struct {
 	u32int cnt;
