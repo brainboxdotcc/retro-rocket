@@ -37,6 +37,7 @@ void init_devfs()
 	devfs_entries->size = 0;
 	devfs_entries->flags = 0;
 	devfs_entries->filename = strdup("core");
+	//kprintf("Calling attach\n");
 	/* NB: The /devices mountpoint must exist in the root fs */
 	attach_filesystem("/devices", devfs, NULL);
 }

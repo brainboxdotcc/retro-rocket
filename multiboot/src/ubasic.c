@@ -637,13 +637,15 @@ static void line_statement(struct ubasic_ctx* ctx)
   ctx->current_linenum = tokenizer_num(ctx);
   DEBUG_PRINTF("----------- Line number %d ---------\n", ctx->current_linenum);
   accept(TOKENIZER_NUMBER, ctx);
+  //kprintf("%s\n", ctx->ptr);
   statement(ctx);
   return;
 }
 /*---------------------------------------------------------------------------*/
 void ubasic_run(struct ubasic_ctx* ctx)
 {
-  if(tokenizer_finished(ctx)) {
+  if(ubasic_finished(ctx)) {
+    kprintf("End of program: '%s' %c\n", ctx->program_ptr, *(ctx->ptr - 2));
     DEBUG_PRINTF("uBASIC program finished\n");
     return;
   }
@@ -655,7 +657,9 @@ void ubasic_run(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 int ubasic_finished(struct ubasic_ctx* ctx)
 {
-  return ctx->ended || tokenizer_finished(ctx);
+	int st = ctx->ended || tokenizer_finished(ctx);
+	//kprintf("finish: st=%d ended=%d tokfin=%d\n", st, ctx->ended, tokenizer_finished(ctx));
+	return st;
 }
 /*---------------------------------------------------------------------------*/
 void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* ctx)

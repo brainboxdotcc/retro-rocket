@@ -20,22 +20,22 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 	if (fsi != NULL)
 	{
 		unsigned char* programtext = (unsigned char*)kmalloc(fsi->size + 1);
+		*(programtext + fsi->size) = 0;
 		if (fs_read_file(fsi, 0, fsi->size, programtext))
 		{
-			kprintf("program len = %d size = %d\n", strlen(programtext), fsi->size);
+			//kprintf("program len = %d size = %d\n", strlen(programtext), fsi->size);
 			struct process* newproc = (struct process*)kmalloc(sizeof(struct process));
 			newproc->code = ubasic_init((const char*)programtext, cons);
 			newproc->name = strdup(fsi->filename);
 			newproc->pid = nextid++;
 			newproc->size = fsi->size;
 			newproc->cons = cons;
-			//kfree(programtext);
-
+			newproc->text = programtext;
 			return newproc;
 		}
 		else
 		{
-			//kfree(programtext);
+			kfree(programtext);
 		}
 
 		return NULL;
@@ -51,14 +51,17 @@ void proc_run(struct process* proc)
 
 void proc_kill(struct process* proc)
 {
-	kprintf("prog: '%s'\n", proc->code->program_ptr);
+	//kprintf("prog: '%s'\n", proc->code->program_ptr);
 	kprintf("proc_kill\n");
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
+	kfree(proc->text);
 }
 
 int proc_ended(struct process* proc)
 {
-	return ubasic_finished(proc->code);
+	int r = ubasic_finished(proc->code);
+	//kprintf("r=%d\n", r);
+	return r;
 }
 

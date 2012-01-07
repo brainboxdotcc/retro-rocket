@@ -22,6 +22,7 @@ struct process {
 	char*			directory;
 	char*			name;
 	u32int			size;
+	unsigned char*		text;
 
 	struct console*		cons;
 

@@ -85,22 +85,18 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_filesystem();
 		init_iso9660();
 		iso9660_attach(0, "/");
-		//init_devfs();
-		kprintf("init_debug\n");
+		init_devfs();
 		init_debug();
-		kprintf("interrupts_on()\n");
 
 		interrupts_on();
 
 		struct process* proc = proc_load("/programs/test", current_console);
-		kprintf("New process. name: %s size: %d pid %d\n", proc->name, proc->size, proc->pid);
-		int n = 0;
+		kprintf("Launched process /programs/test: procname: %s size: %d pid %d\n\n", proc->name, proc->size, proc->pid);
 		do
 		{
 			proc_run(proc);
-			n++;
 		}
-		while (n < 10);
+		while (!proc_ended(proc));
 		proc_kill(proc);
 
 		kprintf("System Halted.\n");
