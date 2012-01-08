@@ -36,48 +36,27 @@ void _memset(void *dest, char val, int len)
 
 void kmain(void* mbd, unsigned int magic, u32int sp)
 {
-	*vid = '1';
 	u32int memorysize = 0;
 	initial_esp = sp;
+	console* cons = NULL;
+	
 	if (magic == MULTIBOOT_MAGIC)
 	{
-		*vid = '2';
 		init_gdt();
-		*vid = '3';
 		init_idt();
-		*vid = '4';
 		memorysize = init_paging(mbd);
-		*vid = '5';
 		init_error_handler();
-		*vid = '6';
 		init_basic_keyboard();
-		*vid = '7';
 		init_syscall();
-		*vid = '9';
 		init_timer(10);
-		*vid = 'A';
-	}
+		cons = (console*)kmalloc(sizeof(console));
+		initconsole(cons);
+		current_console = cons;
+		blitconsole(cons);
+		interrupts_on();
 
-	console* cons = (console*)kmalloc(sizeof(console));
-	initconsole(cons);
-	current_console = cons;
-	blitconsole(cons);
-
-	*vid = 'B';
-
-	interrupts_on();
-
-	*vid = 'C';
-
-	if (magic != MULTIBOOT_MAGIC)
-	{
-		kprintf("Invalid magic number %x from multiboot. System halted.\n", magic);
-		wait_forever();
-	}
-	else
-	{
 		setforeground(current_console, COLOUR_LIGHTYELLOW);
-		kprintf("Sixty-Four");
+		kprintf("Retro Rocket");
 		setforeground(current_console, COLOUR_WHITE);
 		kprintf(" kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
@@ -87,8 +66,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		iso9660_attach(0, "/");
 		init_devfs();
 		init_debug();
-
-		interrupts_on();
 
 		struct process* proc = proc_load("/programs/test", current_console);
 		kprintf("Launched process /programs/test: procname: %s size: %d pid %d\n\n", proc->name, proc->size, proc->pid);
@@ -100,7 +77,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		proc_kill(proc);
 
 		kprintf("System Halted.\n");
-
-		wait_forever();
 	}
+
+	wait_forever();
 }
+
