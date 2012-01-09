@@ -274,9 +274,9 @@ void fix_heap_list(heap_t *heap)
 		if (tf->magic == HEAP_MAGIC)
 		{
 			/*1o check */
-			if (tf->header >= heap->heap_addr &&
-					tf->header <= heap->end_addr &&
-					tf->header->magic == HEAP_MAGIC)
+			if ((int)tf->header >= (int)heap->heap_addr &&
+					(int)tf->header <= (int)heap->end_addr &&
+					(int)tf->header->magic == HEAP_MAGIC)
 			{
 				/*Double check */
 				goto bbreak;			/*vriskomaste se pragmatiko block end */

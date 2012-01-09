@@ -190,7 +190,7 @@ int gc()
 	for (; cur; cur = cur->next)
 	{
 		n++;
-		kfree(cur->ptr);
+		kfree((char*)cur->ptr);
 	}
 
 	for (cur = gc_list; cur; cur = cur->next)

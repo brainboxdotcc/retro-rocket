@@ -25,7 +25,7 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 		{
 			//kprintf("program len = %d size = %d\n", strlen(programtext), fsi->size);
 			struct process* newproc = (struct process*)kmalloc(sizeof(struct process));
-			newproc->code = ubasic_init((const char*)programtext, cons);
+			newproc->code = ubasic_init((const char*)programtext, (console*)cons);
 			newproc->name = strdup(fsi->filename);
 			newproc->pid = nextid++;
 			newproc->size = fsi->size;

@@ -26,8 +26,6 @@ console* current_console = NULL;
 u32int initial_esp = NULL;
 int usermode_init = 0;
 
-static unsigned char* vid = (unsigned char*) VIDEO_MEMORY;
-
 void _memset(void *dest, char val, int len)
 {
 	char *temp = (char *)dest;
@@ -67,7 +65,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_devfs();
 		init_debug();
 
-		struct process* proc = proc_load("/programs/test", current_console);
+		struct process* proc = proc_load("/programs/test", (struct console*)current_console);
 		kprintf("Launched process /programs/test: procname: %s size: %d pid %d\n\n", proc->name, proc->size, proc->pid);
 		do
 		{

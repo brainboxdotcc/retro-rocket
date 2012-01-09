@@ -23,11 +23,11 @@ extern heap_t*	uheap;
 
 /* Forward declarations */
 static page_table_t *clone_table(page_table_t *src, u32int phys);
-static void kill_table(page_table_t *src);
+//static void kill_table(page_table_t *src);
 static void copy_page_physical(u32int src, u32int dest);
 static void set_frame(u32int frame_addr);
 static void clear_frame(u32int frame_addr);
-static u32int test_frame(u32int frame_addr);
+//static u32int test_frame(u32int frame_addr);
 static u32int first_frame(void);
 void alloc_frame(page_t *page, u8int f_usr, u8int f_rw);
 void free_frame(page_t *page);
@@ -205,7 +205,7 @@ static page_table_t *clone_table(page_table_t *src, u32int phys)
 	return ret;
 }
 
-static void kill_table(page_table_t *src)
+/*static void kill_table(page_table_t *src)
 {
 	u32int i;
 
@@ -216,7 +216,7 @@ static void kill_table(page_table_t *src)
 
 		free_frame(&(src->pages[i]));
 	}
-}
+}*/
 
 static void copy_page_physical(u32int src, u32int dest)
 {
@@ -258,12 +258,12 @@ static void clear_frame(u32int frame_addr){
 	frames[index] &= ~(0x1 << offset);
 }
 
-static u32int test_frame(u32int frame_addr){
+/*static u32int test_frame(u32int frame_addr){
 	u32int frame = frame_addr / 0x1000;
 	u32int index  = frame / 32;
 	u32int offset = frame % 32;
 	return (frames[index] & (0x1 << offset));
-}
+}*/
 
 static u32int first_frame(void)
 {
