@@ -38,5 +38,7 @@ void proc_run(struct process* proc);
 int proc_ended(struct process* proc);
 void proc_kill(struct process* proc);
 void proc_show_list();
+void proc_loop();
+void proc_timer();
 
 #endif

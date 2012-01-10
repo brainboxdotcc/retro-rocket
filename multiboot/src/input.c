@@ -23,6 +23,7 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 		cons->internalbuffer = (char*)kmalloc(maxlen + 1);
 		cons->buffer = cons->internalbuffer;
 		cons->bufcnt = 0;
+		//kprintf("new buf");
 	}
 
 	switch (cons->last)
@@ -70,7 +71,7 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 void kfreeinput(console* cons)
 {
 	kfree(cons->internalbuffer);
-	cons->internalbuffer = NULL;
+	cons->internalbuffer = cons->buffer = NULL;
 }
 
 char* kgetinput(console* cons)

@@ -46,7 +46,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_error_handler();
 		init_basic_keyboard();
 		init_syscall();
-		init_timer(10);
+		init_timer(50);
 		cons = (console*)kmalloc(sizeof(console));
 		initconsole(cons);
 		current_console = cons;
@@ -67,12 +67,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 		struct process* proc = proc_load("/programs/test", (struct console*)current_console);
 		kprintf("Launched process /programs/test: procname: %s size: %d pid %d\n\n", proc->name, proc->size, proc->pid);
-		do
-		{
-			proc_run(proc);
-		}
-		while (!proc_ended(proc));
-		proc_kill(proc);
+		proc_loop();
 
 		kprintf("System Halted.\n");
 	}

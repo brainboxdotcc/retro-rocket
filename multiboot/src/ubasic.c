@@ -44,6 +44,7 @@
 #include "../include/string.h"
 #include "../include/input.h"
 #include "../include/video.h"
+#include "../include/taskswitch.h"
 
 static int expr(struct ubasic_ctx* ctx);
 static void line_statement(struct ubasic_ctx* ctx);
@@ -428,6 +429,13 @@ static void if_statement(struct ubasic_ctx* ctx)
   }
 }
 
+static void chain_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_CHAIN, ctx);
+	proc_load(str_expr(ctx), ctx->cons);
+	accept(TOKENIZER_CR, ctx);
+}
+
 static void input_statement(struct ubasic_ctx* ctx)
 {
 	const char* var;
@@ -494,8 +502,7 @@ static void let_statement(struct ubasic_ctx* ctx)
 	accept(TOKENIZER_CR, ctx);
 }
 /*---------------------------------------------------------------------------*/
-static void
-gosub_statement(struct ubasic_ctx* ctx)
+static void gosub_statement(struct ubasic_ctx* ctx)
 {
   int linenum;
   accept(TOKENIZER_GOSUB, ctx);
@@ -593,6 +600,9 @@ static void statement(struct ubasic_ctx* ctx)
     break;
   case TOKENIZER_COLOUR:
     colour_statement(ctx, TOKENIZER_COLOUR);
+    break;
+  case TOKENIZER_CHAIN:
+    chain_statement(ctx);
     break;
   case TOKENIZER_PRINT:
     print_statement(ctx);

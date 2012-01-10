@@ -48,6 +48,9 @@ static void timer_callback(registers_t* regs)
 		blitconsole(current_console);
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();
+
+	//kprintf("*");
+	proc_timer();
 }
 
 void init_timer(u32int frequency)

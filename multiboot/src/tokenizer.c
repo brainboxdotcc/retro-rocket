@@ -68,6 +68,7 @@ static const struct keyword_token keywords[] = {
   {"COLOR", TOKENIZER_COLOR},
   {"COLOUR", TOKENIZER_COLOUR},
   {"END", TOKENIZER_END},
+  {"CHAIN", TOKENIZER_CHAIN},
   {NULL, TOKENIZER_ERROR}
 };
 
