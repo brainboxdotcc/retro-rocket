@@ -31,6 +31,23 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			newproc->size = fsi->size;
 			newproc->cons = cons;
 			newproc->text = programtext;
+
+			if (proc_list == NULL)
+			{
+				/* First process */
+				proc_list = newproc;
+				newproc->next = NULL;
+				newproc->prev = NULL;
+			}
+			else
+			{
+				/* Any other process */
+				newproc->next = proc_list;
+				newproc->prev = NULL;
+				proc_list->prev = newproc;
+				proc_list = newproc;
+			}
+
 			return newproc;
 		}
 		else
@@ -53,15 +70,31 @@ void proc_kill(struct process* proc)
 {
 	//kprintf("prog: '%s'\n", proc->code->program_ptr);
 	kprintf("proc_kill\n");
+	struct process* cur = proc_list;
+	for (; cur; cur = cur->next)
+	{
+		if (cur->pid == proc->pid)
+		{
+			struct process* next = proc->next;
+			struct process* prev = proc->prev;
+
+			/* Remove this process from the linked list */
+			prev->next = next;
+			next->prev = prev;
+		}
+	}
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
 	kfree(proc->text);
 }
 
+void proc_show_list()
+{
+}
+
 int proc_ended(struct process* proc)
 {
 	int r = ubasic_finished(proc->code);
-	//kprintf("r=%d\n", r);
 	return r;
 }
 
