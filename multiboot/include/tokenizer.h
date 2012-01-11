@@ -55,6 +55,7 @@ enum {
   TOKENIZER_INPUT,
   TOKENIZER_COLOUR,
   TOKENIZER_COLOR,
+  TOKENIZER_EVAL,
   TOKENIZER_END,
   TOKENIZER_COMMA,
   TOKENIZER_SEMICOLON,
@@ -80,7 +81,7 @@ int tokenizer_num(struct ubasic_ctx* ctx);
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx);
 void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
 int tokenizer_finished(struct ubasic_ctx* ctx);
-void tokenizer_error_print(struct ubasic_ctx* ctx);
+void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error);
 int get_next_token(struct ubasic_ctx* ctx);
 
 #endif /* __TOKENIZER_H__ */

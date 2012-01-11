@@ -69,6 +69,7 @@ static const struct keyword_token keywords[] = {
   {"COLOUR", TOKENIZER_COLOUR},
   {"END", TOKENIZER_END},
   {"CHAIN", TOKENIZER_CHAIN},
+  {"EVAL", TOKENIZER_EVAL},
   {NULL, TOKENIZER_ERROR}
 };
 
@@ -225,9 +226,20 @@ void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
   dest[string_len] = 0;
 }
 /*---------------------------------------------------------------------------*/
-void tokenizer_error_print(struct ubasic_ctx* ctx)
+void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 {
-  kprintf("Error at: %s\n", ctx->ptr);
+	if (ctx->eval_linenum == 0)
+	{
+		if (ctx->ended == 0)
+			kprintf("Error at: line %d: %s\n", ctx->current_linenum, error);
+  		ctx->ended = 1;
+	}
+	else
+	{
+		ubasic_set_string_variable("ERROR$", error, ctx);
+		ubasic_set_int_variable("ERROR", 1, ctx);
+		jump_linenum(ctx->eval_linenum, ctx);
+	}
 }
 /*---------------------------------------------------------------------------*/
 int tokenizer_finished(struct ubasic_ctx* ctx)

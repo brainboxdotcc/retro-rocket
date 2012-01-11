@@ -77,10 +77,12 @@ struct ubasic_ctx
         char const *ptr, *nextptr;
         int current_token;
 	int current_linenum;
-        char const *program_ptr;
+        char *program_ptr;
         char string[MAX_STRINGLEN];
         int gosub_stack[MAX_GOSUB_STACK_DEPTH];
         int gosub_stack_ptr;
+	int oldlen;
+	int eval_linenum;
         struct for_state for_stack[MAX_FOR_STACK_DEPTH];
         int for_stack_ptr;
         struct ub_var_int* int_variables;
@@ -99,5 +101,9 @@ int ubasic_finished(struct ubasic_ctx* ctx);
 int ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
+void jump_linenum(int linenum, struct ubasic_ctx* ctx);
+void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx);
+void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx);
+void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx);
 
 #endif /* __UBASIC_H__ */

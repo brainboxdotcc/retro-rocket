@@ -65,8 +65,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_devfs();
 		init_debug();
 
-		struct process* proc = proc_load("/programs/test", (struct console*)current_console);
-		kprintf("Launched process /programs/test: procname: %s size: %d pid %d\n\n", proc->name, proc->size, proc->pid);
+		struct process* proc = proc_load("/programs/init", (struct console*)current_console);
+		kprintf("Launching /programs/init...\n");
 		proc_loop();
 
 		kprintf("System Halted.\n");

@@ -51,9 +51,6 @@ static void line_statement(struct ubasic_ctx* ctx);
 static void statement(struct ubasic_ctx* ctx);
 static const char* str_expr(struct ubasic_ctx* ctx);
 const char* str_varfactor(struct ubasic_ctx* ctx);
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx);
-void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx);
-void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx);
 
 /*---------------------------------------------------------------------------*/
 struct ubasic_ctx* ubasic_init(const char *program, console* cons)
@@ -63,7 +60,9 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
 	ctx->cons = cons;
-	ctx->program_ptr = strdup(program);
+	ctx->oldlen = 0;
+	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
+	strlcpy(ctx->program_ptr, program, strlen(program) + 5000);
 	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
   	tokenizer_init(program, ctx);
 	ctx->ended = 0;
@@ -93,7 +92,7 @@ static void accept(int token, struct ubasic_ctx* ctx)
   if (token != tokenizer_token(ctx)) {
     DEBUG_PRINTF("Token not what was expected (expected %d, got %d)\n",
 		 token, tokenizer_token(ctx));
-    tokenizer_error_print(ctx);
+    tokenizer_error_print(ctx, "Unexpected token");
   }
   DEBUG_PRINTF("Expected %d, got it\n", token);
   tokenizer_next(ctx);
@@ -320,8 +319,9 @@ static int relation(struct ubasic_ctx* ctx)
   }
   return r1;
 }
+
 /*---------------------------------------------------------------------------*/
-static void jump_linenum(int linenum, struct ubasic_ctx* ctx)
+void jump_linenum(int linenum, struct ubasic_ctx* ctx)
 {
   tokenizer_init(ctx->program_ptr, ctx);
   while(tokenizer_num(ctx) != linenum) {
@@ -436,6 +436,35 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	accept(TOKENIZER_CR, ctx);
 }
 
+static void eval_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_EVAL, ctx);
+	const char* v = str_expr(ctx);
+	accept(TOKENIZER_CR, ctx);
+
+	if (ctx->oldlen == 0)
+	{
+		ubasic_set_string_variable("ERROR$", "", ctx);
+		ubasic_set_int_variable("ERROR", 0, ctx);
+		ctx->oldlen = strlen(ctx->program_ptr);
+		strlcat(ctx->program_ptr, "9998 ", ctx->oldlen + 5000);
+		strlcat(ctx->program_ptr, v, ctx->oldlen + 5000);
+		strlcat(ctx->program_ptr, "\n9999 RETURN\n", ctx->oldlen + 5000);
+
+		ctx->eval_linenum = ctx->current_linenum;
+
+		ctx->gosub_stack[ctx->gosub_stack_ptr++] = ctx->current_linenum;
+
+		jump_linenum(9998, ctx);
+	}
+	else
+	{
+		ctx->program_ptr[ctx->oldlen] = 0;
+		ctx->oldlen = 0;
+		ctx->eval_linenum = 0;
+	}
+}
+
 static void input_statement(struct ubasic_ctx* ctx)
 {
 	const char* var;
@@ -514,7 +543,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
     ctx->gosub_stack_ptr++;
     jump_linenum(linenum, ctx);
   } else {
-    DEBUG_PRINTF("gosub_statement: gosub stack exhausted\n");
+    tokenizer_error_print(ctx, "gosub_statement: gosub stack exhausted\n");
   }
 }
 /*---------------------------------------------------------------------------*/
@@ -525,7 +554,7 @@ static void return_statement(struct ubasic_ctx* ctx)
     ctx->gosub_stack_ptr--;
     jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
   } else {
-    DEBUG_PRINTF("return_statement: non-matching return\n");
+    tokenizer_error_print(ctx, "return_statement: non-matching return\n");
   }
 }
 /*---------------------------------------------------------------------------*/
@@ -548,7 +577,7 @@ static void next_statement(struct ubasic_ctx* ctx)
       accept(TOKENIZER_CR, ctx);
     }
   } else {
-    DEBUG_PRINTF("next_statement: non-matching next (expected %s, found %s)\n", ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, var);
+    tokenizer_error_print(ctx, "next_statement: non-matching next\n");
     accept(TOKENIZER_CR, ctx);
   }
 
@@ -578,7 +607,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 		 
     ctx->for_stack_ptr++;
   } else {
-    DEBUG_PRINTF("for_statement: for stack depth exceeded\n");
+    tokenizer_error_print(ctx, "for_statement: for stack depth exceeded\n");
   }
 }
 /*---------------------------------------------------------------------------*/
@@ -603,6 +632,9 @@ static void statement(struct ubasic_ctx* ctx)
     break;
   case TOKENIZER_CHAIN:
     chain_statement(ctx);
+    break;
+  case TOKENIZER_EVAL:
+    eval_statement(ctx);
     break;
   case TOKENIZER_PRINT:
     print_statement(ctx);
@@ -638,7 +670,7 @@ static void statement(struct ubasic_ctx* ctx)
     let_statement(ctx);
     break;
   default:
-    DEBUG_PRINTF("ubasic.c: statement(): not implemented %d\n", token);
+    tokenizer_error_print(ctx, "token not implemented\n");
   }
 }
 /*---------------------------------------------------------------------------*/
@@ -655,7 +687,7 @@ static void line_statement(struct ubasic_ctx* ctx)
 void ubasic_run(struct ubasic_ctx* ctx)
 {
   if(ubasic_finished(ctx)) {
-    kprintf("End of program: '%s' %c\n", ctx->program_ptr, *(ctx->ptr - 2));
+    //kprintf("End of program: '%s' %c\n", ctx->program_ptr, *(ctx->ptr - 2));
     DEBUG_PRINTF("uBASIC program finished\n");
     return;
   }
@@ -787,7 +819,7 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 		}
 	}
 
-	DEBUG_PRINTF("Not found string var: %s\n", var);
+	tokenizer_error_print(ctx, "No such variable\n");
 	return "";
 }
 
@@ -805,6 +837,7 @@ int ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 		}
 	}
 
+	tokenizer_error_print(ctx, "No such variable\n");
 	return 0; /* No such variable */
 }
 
