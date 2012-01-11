@@ -132,6 +132,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 
 void ParseSVD(iso9660* info, unsigned char* buffer)
 {
+	kprintf("SVD found\n");
 }
 
 void ParseVPD(iso9660* info, unsigned char* buffer)

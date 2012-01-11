@@ -128,24 +128,30 @@ int get_next_token(struct ubasic_ctx* ctx)
 	  ctx->nextptr = ctx->ptr + i;
 	  return TOKENIZER_NUMBER;
 	} else {
-	  DEBUG_PRINTF("get_next_token: error due to too short number\n");
+	  tokenizer_error_print(ctx, "Number too short");
 	  return TOKENIZER_ERROR;
 	}
       }
       if(!isdigit(ctx->ptr[i])) {
-	DEBUG_PRINTF("get_next_token: error due to malformed number\n");
+	tokenizer_error_print(ctx, "Malformed number");
 	return TOKENIZER_ERROR;
       }
     }
-    DEBUG_PRINTF("get_next_token: error due to too long number\n");
+    tokenizer_error_print(ctx, "Number too long");
     return TOKENIZER_ERROR;
   } else if(singlechar(ctx)) {
     ctx->nextptr = ctx->ptr + 1;
     return singlechar(ctx);
   } else if(*ctx->ptr == '"') {
     ctx->nextptr = ctx->ptr;
+    int strl = 0;
     do {
       ++ctx->nextptr;
+      if (++strl > 10240)
+      {
+	      tokenizer_error_print(ctx, "String constant too long");
+	      break;
+      }
     } while(*ctx->nextptr != '"');
     ++ctx->nextptr;
     return TOKENIZER_STRING;
@@ -160,8 +166,16 @@ int get_next_token(struct ubasic_ctx* ctx)
 
   if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) {
     ctx->nextptr = ctx->ptr;
+    int varl = 0;
     while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->ptr == '$'))
+    {
 	    ctx->nextptr++;
+	    if (++varl > 60)
+	    {
+		    tokenizer_error_print(ctx, "Variable name too long");
+		    break;
+	    }
+    }
     if (*ctx->nextptr == '$')
     	ctx->nextptr++;
     //kprintf("Variable. nextptr = %08x ptr = %08x\n", ctx->nextptr, ctx->ptr);

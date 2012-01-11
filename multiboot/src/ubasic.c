@@ -725,9 +725,38 @@ void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* 
 	}
 }
 
+int valid_string_var(const char* name)
+{
+	const char* i;
+	//kprintf("check var '%s'\n", name);
+	if (strlen(name) < 2)
+		return 0;
+	if (name[strlen(name) - 1] != '$')
+		return 0;
+	for (i = name; *i != '$'; i++)
+	{
+		if (*i == '$' && *(i + 1) != 0)
+		       return 0;	
+	}
+	if ((*name >='A' && *name <= 'Z') || (*name >= 'a' && *name <= 'z'))
+	{
+		return 1;
+	}
+	else return 0;
+}
+
+int valid_int_var(const char* name)
+{
+	return 1;
+}
+
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx)
 {
-	DEBUG_PRINTF("SET STRING %s '%s'\n", var, value);
+	if (!valid_string_var(var))
+	{
+		tokenizer_error_print(ctx, "Malformed variable name\n");
+		return;
+	}
 	if (ctx->str_variables == NULL)
 	{
 		DEBUG_PRINTF("First string var\n");
@@ -769,6 +798,12 @@ void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ct
 
 void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx)
 {
+	if (!valid_int_var(var))
+	{
+		tokenizer_error_print(ctx, "Malformed variable name\n");
+		return;
+	}
+
 	if (ctx->int_variables == NULL)
 	{
 		ctx->int_variables = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
