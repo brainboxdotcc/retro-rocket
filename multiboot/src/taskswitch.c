@@ -77,7 +77,7 @@ void proc_run(struct process* proc)
 void proc_kill(struct process* proc)
 {
 	//kprintf("prog: '%s'\n", proc->code->program_ptr);
-	kprintf("proc_kill\n");
+	//kprintf("proc_kill\n");
 	interrupts_off();
 	struct process* cur = proc_list;
 	
@@ -89,8 +89,10 @@ void proc_kill(struct process* proc)
 	else
 		proc_current = NULL;
 
+	int countprocs = 0;
 	for (; cur; cur = cur->next)
 	{
+		countprocs++;
 		if (cur->pid == proc->pid)
 		{
 			struct process* next = proc->next;
@@ -101,9 +103,19 @@ void proc_kill(struct process* proc)
 			next->prev = prev;
 		}
 	}
+
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
 	kfree(proc->text);
+
+	/* milled the last process! */
+	if (countprocs == 1)
+	{
+		kprintf("\nSystem halted.");
+		blitconsole(current_console);
+		wait_forever();
+	}
+
 	interrupts_on();
 }
 
