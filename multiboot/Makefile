@@ -20,18 +20,18 @@ source:
 	make -C src all CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 emulator:
-	qemu -no-reboot -no-shutdown -cdrom sixty-four.iso
+	qemu -smp 4 -no-reboot -no-shutdown -cdrom sixty-four.iso
 
 debug:
-	nohup qemu -no-reboot -no-shutdown -S -gdb tcp::1234 -cdrom sixty-four.iso &
+	nohup qemu -smp 4 -no-reboot -no-shutdown -S -gdb tcp::1234 -cdrom sixty-four.iso &
 	sleep 2
 	gdb -command=.gdbargs
 
 remoterun: all
-	qemu -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso -monitor stdio
+	qemu -smp 4 -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso -monitor stdio
 
 remotedebug: all
-	nohup qemu -S -gdb tcp::1234 -no-reboot -no-shutdown -vnc 0.0.0.0:1 -cdrom sixty-four.iso &
+	nohup qemu -smp 4 -S -gdb tcp::1234 -no-reboot -no-shutdown -vnc 0.0.0.0:1 -cdrom sixty-four.iso &
 	sleep 2
 	gdb -command=.gdbargs
 
