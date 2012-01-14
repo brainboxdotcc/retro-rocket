@@ -7,6 +7,7 @@
 #include "../include/kmalloc.h"
 #include "../include/memcpy.h"
 #include "../include/filesystem.h"
+#include "../include/debugger.h"
 
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
@@ -43,6 +44,7 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 	// Null-terminate volume name
 	info->volume_name[j] = 0;
 
+	info->joliet = 0;
 	info->pathtable_lba = pvd->lsb_pathtable_L_lba;
 	info->rootextent_lba = pvd->root_directory.extent_lba_lsb;
 	info->rootextent_len = pvd->root_directory.data_length_lsb;
@@ -84,18 +86,39 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 		// Skip the first two entries, '.' and '..'
 		if (entrycount > 2)
 		{
-			thisentry->filename = (char*)kmalloc(fentry->filename_length + 1);
-			j = 0;
-			char* ptr = fentry->filename;
-			// Stop at end of string or at ; which seperates the version id from the filename.
-			// We don't want the version ids.
-			for (; j < fentry->filename_length && *ptr != ';'; ++ptr)
-				thisentry->filename[j++] = tolower(*ptr);
-			thisentry->filename[j] = 0;
+			if (info->joliet == 0)
+			{
+				thisentry->filename = (char*)kmalloc(fentry->filename_length + 1);
+				j = 0;
+				char* ptr = fentry->filename;
+				// Stop at end of string or at ; which seperates the version id from the filename.
+				// We don't want the version ids.
+				for (; j < fentry->filename_length && *ptr != ';'; ++ptr)
+					thisentry->filename[j++] = tolower(*ptr);
+				thisentry->filename[j] = 0;
 
-			/* Filenames ending in '.' are not allowed */
-			if (thisentry->filename[j - 1] == '.')
-				thisentry->filename[j - 1] = 0;
+				/* Filenames ending in '.' are not allowed */
+				if (thisentry->filename[j - 1] == '.')
+					thisentry->filename[j - 1] = 0;
+			}
+			else
+			{
+				// Parse joliet filename, 16-bit unicode UCS-2
+				thisentry->filename = (char*)kmalloc((fentry->filename_length / 2) + 1);
+				j = 0;
+				char* ptr = fentry->filename;
+				for (; j < fentry->filename_length / 2; ptr += 2)
+				{
+					thisentry->filename[j++] = *(ptr + 1);
+					if (*ptr != 0)
+					{
+						kprintf("Unsupported character range %02x", *ptr);
+						wait_forever();
+					}
+				}
+				thisentry->filename[j] = 0;
+				//kprintf("'%s' ", thisentry->filename);
+			}
 
 			thisentry->year = fentry->recording_date.years_since_1900 + 1900;
 			thisentry->month = fentry->recording_date.month;
@@ -108,9 +131,12 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 			thisentry->size = fentry->data_length_lsb;
 			thisentry->flags = 0;
 			thisentry->directory = node;
+
 			if (fentry->file_flags & 0x02)
 				thisentry->flags |= FS_DIRECTORY;
 			dir_items++;
+
+			//kprintf(" %d\n", thisentry->flags);
 
 			FS_DirectoryEntry* next = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
 			thisentry->next = next;
@@ -118,6 +144,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 			thisentry = next;
 		}
 		walkbuffer += fentry->length;
+
 	}
 
 	kfree(dirbuffer);
@@ -132,7 +159,40 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 
 void ParseSVD(iso9660* info, unsigned char* buffer)
 {
-	kprintf("SVD found\n");
+	PVD* svd = (PVD*)buffer;
+        if (!VERIFY_ISO9660(svd))
+	{
+		putstring(current_console, "ISO9660: Invalid SVD found, identifier is not 'CD001'\n");
+		return;
+	}
+
+	int joliet = 0;
+	if (svd->escape_seq[0] == '%' && svd->escape_seq[1] == '/')
+	{
+		switch (svd->escape_seq[2])
+		{
+			case '@':
+				joliet = 1;
+			break;
+			case 'C':
+				joliet = 2;
+			break;
+			case 'E':
+				joliet = 3;
+			break;
+		}
+	}
+
+	if (joliet)
+	{
+		kprintf("Joliet extensions found on CD drive %d, UCS-2 Level %d\n", info->drivenumber, joliet);
+		info->joliet = joliet;
+		info->pathtable_lba = svd->lsb_pathtable_L_lba;
+		info->rootextent_lba = svd->root_directory.extent_lba_lsb;
+		info->rootextent_len = svd->root_directory.data_length_lsb;
+		info->root = ParseDirectory(NULL, info, svd->root_directory.extent_lba_lsb, svd->root_directory.data_length_lsb);
+	}
+	return;
 }
 
 void ParseVPD(iso9660* info, unsigned char* buffer)

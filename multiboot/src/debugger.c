@@ -50,12 +50,14 @@ void symbol_fail()
 
 void init_debug()
 {
+	//kprintf("init_debug\n");
 	FS_DirectoryEntry* symfile = fs_get_file_info("/kernel.sym");
 	if (!symfile)
 	{
 		symbol_fail();
 		return;
 	}
+	//kprintf("init_debug 2\n");
 	u32int filesize = symfile->size;
 	if (filesize == 0)
 	{
@@ -64,9 +66,11 @@ void init_debug()
 	}
 	else
 	{
+		//kprintf("init_debug 3\n");
 		unsigned char* filecontent = (unsigned char*)kmalloc(filesize);
 		if (!fs_read_file(symfile, 0, filesize, filecontent))
 		{
+			//kprintf("init_debug 4\n");
 			symbol_fail();
 			kfree(filecontent);
 			return;
@@ -74,6 +78,7 @@ void init_debug()
 		/* We now have the symbols in the filecontent buffer. Parse them to linked list,
 		 * and free the buffer.
 		 */
+		//kprintf("init_debug 5\n");
 		unsigned char* ptr = filecontent;
 		char symbol_address[32];
 		char type[2];
@@ -84,6 +89,8 @@ void init_debug()
 		u32int sizebytes = 0;
 		symbol_table = (symbol_t*)kmalloc(sizeof(symbol_t));
 		symbol_t* thisentry = symbol_table;
+
+		//kprintf("init_debug 6\n");
 
 		while (offset < filesize)
 		{

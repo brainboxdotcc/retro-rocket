@@ -21,6 +21,7 @@ int devfs_read_file(void* file, u32int start, u32int length, unsigned char* buff
 
 void init_devfs()
 {
+	return;
 	devfs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
 	strlcpy(devfs->name, "devfs", 31);
 	devfs->getdir = devfs_get_directory;
@@ -40,6 +41,7 @@ void init_devfs()
 	//kprintf("Calling attach\n");
 	/* NB: The /devices mountpoint must exist in the root fs */
 	attach_filesystem("/devices", devfs, NULL);
+	//kprintf("attach done\n");
 }
 
 

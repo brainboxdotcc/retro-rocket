@@ -13,6 +13,7 @@
 typedef struct
 {
 	u32int drivenumber;
+	int joliet;
 	char* volume_name;
 	u32int pathtable_lba;
 	u32int rootextent_lba;
@@ -81,7 +82,9 @@ typedef struct
 	char unused2[8];
 	u32int lsb_volumespacesize;
 	u32int msb_volumespacesize;
-	char unused3[32];
+	//char unused3[32];
+	char escape_seq[8];
+	char unused3[32-8];
 	u16int lsb_volumesetsize;
 	u16int msb_volumesetsize;
 	u16int lsb_volumeseqno;
@@ -115,6 +118,10 @@ typedef struct
 	u8int application_use[512];
 	u8int reserved[653];
 } __attribute__((packed)) PVD;
+
+typedef struct
+{
+} __attribute__((packed)) SVD;
 
 /* Mount an ISO 9660 filesystem on a given drive number (drive number from enumeration in ata.h)
  * Returns either NULL or an iso9660* which references the volume information and initially the

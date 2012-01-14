@@ -454,6 +454,22 @@ static void eval_statement(struct ubasic_ctx* ctx)
 	}
 }
 
+static void openin_statement(struct ubasic_ctx* ctx)
+{
+}
+
+static void read_statement(struct ubasic_ctx* ctx)
+{
+}
+
+static void close_statement(struct ubasic_ctx* ctx)
+{
+}
+
+static void eof_statement(struct ubasic_ctx* ctx)
+{
+}
+
 static void input_statement(struct ubasic_ctx* ctx)
 {
 	const char* var;
@@ -624,6 +640,18 @@ static void statement(struct ubasic_ctx* ctx)
     break;
   case TOKENIZER_EVAL:
     eval_statement(ctx);
+    break;
+  case TOKENIZER_OPENIN:
+    openin_statement(ctx);
+    break;
+  case TOKENIZER_READ:
+    read_statement(ctx);
+    break;
+  case TOKENIZER_CLOSE:
+    close_statement(ctx);
+    break;
+  case TOKENIZER_EOF:
+    eof_statement(ctx);
     break;
   case TOKENIZER_PRINT:
     print_statement(ctx);

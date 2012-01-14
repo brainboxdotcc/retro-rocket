@@ -316,16 +316,16 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 	//kprintf("walk to node 1 %08x %08x %s\n", current_node, dir_stack, current_node->name);
 	if (current_node != NULL && current_node->dirty != 0)
 	{
-		//kprintf("walk to node 2\n");
+		//kprintf("walk to node 2 - current node not null, and dirty\n");
 		retrieve_node_from_driver(current_node);
-		//kprintf("walk to node 3\n");
+		//kprintf("walk to node 3 - retrieve from driver ok\n");
 	}
-	//kprintf("walk to node 4\n");
+	//kprintf("walk to node 4 - outside dirty check\n");
 	
 
 	if (current_node != NULL && !strcmp(current_node->name, dir_stack->name))
 	{
-//kprintf("walk to node 5\n");
+//kprintf("walk to node 5 - found match current node %s dirstack name %s\n", current_node->name, dir_stack->name);
 		dir_stack = dir_stack->next;
 		if (!dir_stack)
 			return current_node;
@@ -335,7 +335,7 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 	FS_Tree* dirs = current_node->child_dirs;
 	for (; dirs; dirs = dirs->next)
 	{
-//kprintf("walk to node 7\n");
+//kprintf("walk to node 7 %08x %08x %s\n", current_node, dir_stack, current_node->name);
 		FS_Tree* result = walk_to_node_internal(dirs, dir_stack);
 		if (result != NULL)
 			return result;
@@ -474,29 +474,30 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 {
-//	kprintf("attach\n");
+	//kprintf("attach\n");
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
-//	kprintf("attach 2\n");
+	//kprintf("attach 2\n");
 	if (item)
 	{
-//		kprintf("attach 3\n");
+		//kprintf("attach 3\n");
 		FS_FileSystem* oldfs = (FS_FileSystem*)item->responsible_driver;
 		item->responsible_driver = (void*)fs;
 		item->opaque = opaque;
 		item->dirty = 1;
 		item->files = NULL;
 		item->child_dirs = NULL;
-//		kprintf("attach 4\n");
+		//kprintf("attach 4\n");
 		retrieve_node_from_driver(item);
-//		kprintf("attach 5\n");
+		//kprintf("attach 5\n");
 		kprintf("Driver '%s' attached to virtual path '%s' replacing driver '%s'\n", fs->name, virtual_path,
 				oldfs ? oldfs->name : "<none>");
-//		kprintf("attach 6\n");
+		//kprintf("attach 6\n");
 	}
 	else
 	{
-//		kprintf("attach 7\n");
+		//kprintf("attach 7\n");
 		kprintf("Warning: Could not attach driver '%s' to virtual path '%s'\n", fs->name, virtual_path);
+		return 0;
 	}
 	return 1;
 }

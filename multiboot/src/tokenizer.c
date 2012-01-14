@@ -59,6 +59,10 @@ static const struct keyword_token keywords[] = {
   {"END", TOKENIZER_END},
   {"CHAIN", TOKENIZER_CHAIN},
   {"EVAL", TOKENIZER_EVAL},
+  {"OPENIN", TOKENIZER_OPENIN},
+  {"READ", TOKENIZER_READ},
+  {"CLOSE", TOKENIZER_CLOSE},
+  {"EOF", TOKENIZER_EOF},
   {NULL, TOKENIZER_ERROR}
 };
 
