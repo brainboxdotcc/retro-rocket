@@ -243,7 +243,7 @@ void ide_initialise()
 				if (type == IDE_ATAPI)
 					kprintf("%s: ATAPI CDROM\n", ide_devices[count].model);
 				else
-					kprintf("%s: %dGb IDE\n", ide_devices[count].model, ide_devices[count].size / 1024 / 1024 / 2);
+					kprintf("%s: %d MB IDE HARD DISK\n", ide_devices[count].model, ide_devices[count].size / 1024 / 2);
 				count++;
 			}
 

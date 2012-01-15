@@ -16,6 +16,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 
 static FS_FileSystem* iso9660_fs = NULL;
 
+extern ide_device ide_devices[4];
 
 void ParseBOOT(iso9660* info, unsigned char* buffer)
 {
@@ -323,6 +324,17 @@ void init_iso9660()
 	iso9660_fs->writefile = NULL;
 	iso9660_fs->rm = NULL;
 	register_filesystem(iso9660_fs);
+}
+
+int find_first_cdrom()
+{
+	int i;
+	for (i = 0; i < 4; i++)
+		if (ide_devices[i].type == IDE_ATAPI)
+			return i;
+	kprintf("No CDROM devices found on IDE bus, system halted.\n");
+	wait_forever();
+	return 0;
 }
 
 void iso9660_attach(u32int drivenumber, const char* path)

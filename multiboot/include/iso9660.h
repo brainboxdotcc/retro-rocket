@@ -133,6 +133,7 @@ int iso_read_file(void* file, u32int start, u32int length, unsigned char* buffer
 
 void init_iso9660();
 void iso9660_attach(u32int drivenumber, const char* path);
+int find_first_cdrom();
 
 #endif
 

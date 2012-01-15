@@ -11,6 +11,7 @@
 #include "../include/kmalloc.h"
 #include "../include/ata.h"
 #include "../include/iso9660.h"
+#include "../include/fat32.h"
 #include "../include/filesystem.h"
 #include "../include/debugger.h"
 #include "../include/taskswitch.h"
@@ -61,7 +62,9 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		ide_initialise();
 		init_filesystem();
 		init_iso9660();
-		iso9660_attach(0, "/");
+		iso9660_attach(find_first_cdrom(), "/");
+		init_fat32();
+		fat32_attach(find_first_harddisk(), "/harddisk");
 		init_devfs();
 		init_debug();
 
