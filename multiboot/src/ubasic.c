@@ -25,6 +25,8 @@
 #define DEBUG_PRINTF(...)
 #endif
 
+#define ubasic_error(str) tokenizer_error_print(ctx, str)
+
 #include "../include/kernel.h"
 #include "../include/ubasic.h"
 #include "../include/tokenizer.h"
@@ -81,7 +83,7 @@ static void accept(int token, struct ubasic_ctx* ctx)
   if (token != tokenizer_token(ctx)) {
     DEBUG_PRINTF("Token not what was expected (expected %d, got %d)\n",
 		 token, tokenizer_token(ctx));
-    tokenizer_error_print(ctx, "Unexpected token");
+    tokenizer_error_print(ctx, "No such keyword");
   }
   DEBUG_PRINTF("Expected %d, got it\n", token);
   tokenizer_next(ctx);
@@ -687,7 +689,7 @@ static void statement(struct ubasic_ctx* ctx)
     let_statement(ctx);
     break;
   default:
-    tokenizer_error_print(ctx, "token not implemented\n");
+    tokenizer_error_print(ctx, "Unknown keyword\n");
   }
 }
 /*---------------------------------------------------------------------------*/

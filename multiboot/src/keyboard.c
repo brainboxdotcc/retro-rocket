@@ -15,6 +15,7 @@ static int bufreadptr = 0;
 void keyboard_handler(registers_t* regs);
 
 static u8int escaped = 0;
+static u8int caps_lock = 0;
 static u8int shift_state = 0;
 static u8int ctrl_state = 0;
 static u8int alt_state = 0;
@@ -54,11 +55,23 @@ unsigned char translate_keycode(unsigned char scancode, u8int escaped, u8int shi
 	if (scancode > 0x53 || keyboard_scan_map_lower[scancode] == 0)
 	{
 		/* Special key */
-		kprintf("Keyboard: Special key not implemented yet\n");
+		kprintf("Keyboard: Special key %08x not implemented yet\n", scancode);
 		return 0;
 	}
 	else
-		return (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
+	{
+		if (caps_lock)
+		{
+			char v = (shift_state ? keyboard_scan_map_lower : keyboard_scan_map_upper)[scancode];
+			if (v < 'a' || v > 'z')
+				if (v < 'A' || v > 'Z')
+					v = (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
+
+			return v;
+		}
+		else
+			return (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
+	}
 }
 
 
@@ -67,6 +80,8 @@ void keyboard_handler(registers_t* regs)
 {
 	unsigned char new_scan_code = inb(0x60);
 
+	//kprintf("%02x", new_scan_code);
+
 	if (escaped)
 		new_scan_code += 256;
 	switch(new_scan_code)
@@ -74,6 +89,12 @@ void keyboard_handler(registers_t* regs)
 		case 0x2a:
 		case 0x36:
 			shift_state = 1;
+		break;
+		case 0x3A:
+			caps_lock = 1;
+		break;
+		case 0xBA:
+			caps_lock = 0;
 		break;
 		case 0xaa:
 		case 0xb6:

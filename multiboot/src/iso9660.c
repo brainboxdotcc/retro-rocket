@@ -109,12 +109,10 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 				char* ptr = fentry->filename;
 				for (; j < fentry->filename_length / 2; ptr += 2)
 				{
-					thisentry->filename[j++] = *(ptr + 1);
 					if (*ptr != 0)
-					{
-						kprintf("Unsupported character range %02x", *ptr);
-						wait_forever();
-					}
+						thisentry->filename[j++] = '?';
+					else
+						thisentry->filename[j++] = *(ptr + 1);
 				}
 				thisentry->filename[j] = 0;
 				//kprintf("'%s' ", thisentry->filename);
