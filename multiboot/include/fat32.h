@@ -5,9 +5,18 @@
 #include "filesystem.h"
 
 // Offset of partition table in MBR
-#define PARTITION_TABLE_OFFSET 0x1BE
-#define CLUSTER_SIZE 4096
-#define SECTORS_PER_CLUSTER 8
+#define PARTITION_TABLE_OFFSET	0x1BE
+
+#define CLUSTER_SIZE		4096
+#define SECTORS_PER_CLUSTER	8
+
+#define ATTR_READ_ONLY		0x01
+#define ATTR_HIDDEN		0x02
+#define ATTR_SYSTEM		0x04
+#define ATTR_VOLUME_ID		0x08
+#define ATTR_DIRECTORY		0x10
+#define ATTR_ARCHIVE		0x20
+#define ATTR_LONG_NAME		0x0F
 
 typedef struct
 {
@@ -41,6 +50,22 @@ typedef struct
 	u32int* fat;
 	FS_DirectoryEntry* root;
 } fat32;
+
+typedef struct
+{
+	char name[11];
+	u8int attr;
+	u8int nt;
+	u8int create_time_tenths;
+	u16int create_time;
+	u16int create_date;
+	u16int access_date;
+	u16int first_cluster_hi;
+	u16int write_time;
+	u16int write_date;
+	u16int first_cluster_lo;
+	u32int size;
+} __attribute__((packed)) DirectoryEntry;
 
 typedef struct
 {

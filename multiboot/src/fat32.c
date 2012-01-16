@@ -41,15 +41,21 @@ void* fat32_get_directory(void* t)
 u32int GetFATEntry(fat32* info, u32int cluster)
 {
 	u32int* buffer = (u32int*)kmalloc(512);
-	u32int FATOffset = cluster * 4;
-	u32int ThisFATSecNum = info->start + info->reservedsectors + (FATOffset / 512);
-	u32int ThisFATEntOffset = FATOffset % 512;
-	if (!ide_read_sectors(info->drivenumber, 1, ThisFATSecNum, (unsigned int)buffer))
+	//u32int FATOffset = cluster * 4;
+	//u32int ThisFATSecNum = info->start + info->reservedsectors + (FATOffset / 512);
+	//u32int ThisFATEntOffset = FATOffset % 512;
+	//
+	u32int FATEntrySector = info->start + info->reservedsectors + ((cluster * 4) / 512);
+	u32int FATEntryOffset = (u32int) (cluster % 512);
+
+	kprintf("cluster=%08x fatentrysector=%08x fatentryoffset=%08x\n", cluster, FATEntrySector, FATEntryOffset);
+
+	if (!ide_read_sectors(info->drivenumber, 1, FATEntrySector, (unsigned int)buffer))
 	{
 	}
 	//DumpHex(buffer, 16);
 	//kprintf("Sector at LBA %08x offset %08x\n", ThisFATSecNum, ThisFATEntOffset);
-	u32int entry = buffer[ThisFATEntOffset] & 0x0FFFFFFF;
+	u32int entry = buffer[FATEntryOffset] & 0x0FFFFFFF;
 	kfree(buffer);
 	return entry;
 }
@@ -102,11 +108,31 @@ int ReadFAT(fat32* info)
 	}
 	
 	ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, info->rootdircluster), (unsigned int)buffer);
+
+	u32int rootfat = GetFATEntry(info, info->rootdircluster);
+
+	DirectoryEntry* de = (DirectoryEntry*)(buffer + sizeof(DirectoryEntry));
+	DumpHex(de, sizeof(DirectoryEntry));
+	u32int pos = (u32int)(((u32int)de->first_cluster_hi << 16) + (u32int)de->first_cluster_lo);
+	
+	kprintf("rootfat=%08x '%c%c%c%c%c%c%c%c%c%c%c' %02x %d %08x\n", rootfat, de->name[0], de->name[1],de->name[2],de->name[3],de->name[4],de->name[5],de->name[6],de->name[7],de->name[8],de->name[9],de->name[10], de->attr, de->size, pos);
+
+	ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, pos), (unsigned int)buffer);
+
 	DumpHex(buffer, 0x5f);
 
-	int j;
-	for (j = 2; j < 10; j++)
-		kprintf("%d %08x\n", j, GetFATEntry(info, j));
+	u32int fe = GetFATEntry(info, pos);
+
+	kprintf("%08x\n", fe);
+
+	ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, fe), (unsigned int)buffer);
+
+	DumpHex(buffer, 0x5f);
+
+
+	//int j;
+	//for (j = 0; j < 18; j++)
+	//	kprintf("%d %08x\n", j, GetFATEntry(info, j));
 
 	kfree(buffer);
 
