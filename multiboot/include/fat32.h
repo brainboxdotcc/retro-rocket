@@ -4,12 +4,10 @@
 #include "kernel.h"
 #include "filesystem.h"
 
-// LBA location of primary volume descriptor on a CD
+// Offset of partition table in MBR
 #define PARTITION_TABLE_OFFSET 0x1BE
-
-/* ISO9660 structure. This maps an ISO9660 filesystem to a linked
- * list of VFS entries which can be used in the virtual filesystem.
- */
+#define CLUSTER_SIZE 4096
+#define SECTORS_PER_CLUSTER 8
 
 typedef struct
 {
@@ -35,6 +33,12 @@ typedef struct
 	char* volume_name;
 	u32int start;
 	u32int length;
+	u32int rootdircluster;
+	u16int reservedsectors;
+	u16int fsinfocluster;
+	u8int numberoffats;
+	u32int fatsize;
+	u32int* fat;
 	FS_DirectoryEntry* root;
 } fat32;
 
@@ -73,7 +77,6 @@ typedef struct
 } __attribute__((packed)) ParameterBlock;
 
 fat32* fat32_mount_volume(u32int drivenumber);
-
 int fat32_read_file(void* file, u32int start, u32int length, unsigned char* buffer);
 void* iso_get_directory(void* t);
 void init_fat32();

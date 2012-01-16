@@ -38,27 +38,49 @@ void* fat32_get_directory(void* t)
 	return NULL;
 }
 
-void ReadFAT(fat32* info)
+u32int GetFATEntry(fat32* info, u32int cluster)
 {
-	kprintf("Parsing FAT32 on drive %d starting at LBA %08x\n", info->drivenumber, info->start);
+	u32int* buffer = (u32int*)kmalloc(512);
+	u32int FATOffset = cluster * 4;
+	u32int ThisFATSecNum = info->start + info->reservedsectors + (FATOffset / 512);
+	u32int ThisFATEntOffset = FATOffset % 512;
+	if (!ide_read_sectors(info->drivenumber, 1, ThisFATSecNum, (unsigned int)buffer))
+	{
+	}
+	//DumpHex(buffer, 16);
+	//kprintf("Sector at LBA %08x offset %08x\n", ThisFATSecNum, ThisFATEntOffset);
+	u32int entry = buffer[ThisFATEntOffset] & 0x0FFFFFFF;
+	kfree(buffer);
+	return entry;
+}
 
-	unsigned char* buffer = (unsigned char*)kmalloc(512);
+u32int ClusLBA(fat32* info, u32int cluster)
+{
+	u32int FirstDataSector = info->reservedsectors + (info->numberoffats * info->fatsize);
+	u32int FirstSectorofCluster = ((cluster - 2) * 8) + FirstDataSector;
+	return info->start + FirstSectorofCluster;
+}
+
+int ReadFAT(fat32* info)
+{
+	//kprintf("Parsing FAT32 on drive %d starting at LBA %08x\n", info->drivenumber, info->start);
+
+	unsigned char* buffer = (unsigned char*)kmalloc(512 * 8);
 	_memset(buffer, 0, 512);
 	if (!ide_read_sectors(info->drivenumber, 1, info->start, (unsigned int)buffer))
 	{
 		kprintf("FAT32: Could not read partition boot sector!\n");
 		kfree(buffer);
-		return;
+		return 0;
 	}
 
 	ParameterBlock* par = (ParameterBlock*)buffer;
-	//DumpHex(par, sizeof(ParameterBlock));
 
 	if (par->signature != 0x28 && par->signature != 0x29)
 	{
 		kprintf("FAT32: Invalid extended bios paramter block signature\n");
 		kfree(buffer);
-		return;
+		return 0;
 	}
 
 	*(par->volumelabel + 11) = 0;
@@ -66,9 +88,29 @@ void ReadFAT(fat32* info)
 		par->volumelabel[strlen(par->volumelabel) - 1] = 0;
 
 	info->volume_name = strdup(par->volumelabel);
-	//kprintf("'%s'\n", par->volumelabel);
+	info->rootdircluster = par->rootdircluster;
+	info->reservedsectors = par->reservedsectors;
+	info->fsinfocluster = par->fsinfocluster;
+	info->numberoffats = par->numberoffats;
+	info->fatsize = par->sectorsperfat;
+
+	if (par->sectorspercluster != 8)
+	{
+		kprintf("FAT32: Invalid sectors per cluster value (%d)\n", par->sectorspercluster);
+		kfree(buffer);
+		return 0;
+	}
+	
+	ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, info->rootdircluster), (unsigned int)buffer);
+	DumpHex(buffer, 0x5f);
+
+	int j;
+	for (j = 2; j < 10; j++)
+		kprintf("%d %08x\n", j, GetFATEntry(info, j));
 
 	kfree(buffer);
+
+	return 1;
 }
 
 fat32* fat32_mount_volume(u32int drivenumber)
@@ -87,7 +129,7 @@ fat32* fat32_mount_volume(u32int drivenumber)
 
 	//DumpHex(ptab, sizeof(ptab));
 
-	int i;
+	int i, success;
 	for (i = 0; i < 4; i++)
 	{
 		//kprintf("%02x %08x %08x\n", ptab->p_entry[i].systemid, ptab->p_entry[i].startlba, ptab->p_entry[i].length);
@@ -99,16 +141,16 @@ fat32* fat32_mount_volume(u32int drivenumber)
 			info->partitionid = i;
 			info->start = p->startlba;
 			info->length = p->length;
-			ReadFAT(info);
+			success = ReadFAT(info);
 			kfree(buffer);
-			return info;
+			return success ? info : NULL;
 		}
 	}
 
 	//kprintf("fat32: Mounted volume '%s' on drive %d\n", info->volume_name, drivenumber);
 	kprintf("No FAT32 partitions found on IDE drive %d\n", drivenumber);
 	kfree(buffer);
-	return info;
+	return NULL;
 }
 
 void init_fat32()
@@ -136,7 +178,10 @@ void fat32_attach(u32int drivenumber, const char* path)
 	if (drivenumber >= 0)
 	{
 		fat32* fat32fs = fat32_mount_volume(drivenumber);
-		//attach_filesystem(path, fat32_fs, fat32fs);
+		if (fat32fs)
+		{
+			//attach_filesystem(path, fat32_fs, fat32fs);
+		}
 	}
 }
 
