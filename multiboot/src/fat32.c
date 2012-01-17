@@ -13,15 +13,101 @@ static FS_FileSystem* fat32_fs = NULL;
 
 extern ide_device ide_devices[4];
 
-FS_DirectoryEntry* ParseFat32Directory(FS_Tree* node, fat32* info, u32int start_lba, u32int lengthbytes)
+u32int ClusLBA(fat32* info, u32int cluster);
+
+FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 {
-	/*if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (unsigned int)dirbuffer))
+	unsigned char* buffer = (unsigned char*)kmalloc(512 * 8);
+	int bufferoffset = 0;
+	FS_DirectoryEntry* list = NULL;
+	u8int end = 0;
+	while (!end)
 	{
-		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
-		kfree(dirbuffer);
-		return NULL;
-	}*/
-	return NULL;
+		end = 1;
+		if (!ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, cluster), (unsigned int)buffer))
+		{
+			kfree(buffer);
+			return NULL;
+		}
+		
+		DirectoryEntry* entry = (DirectoryEntry*)(buffer + bufferoffset);
+
+		while (entry->name[0] != 0)
+		{
+			if (entry->name[0] != 0xE5)
+			{
+				char name[13];
+				char dotless[13];
+
+				strlcpy(name, entry->name, 9);
+				//kprintf("1 '%s'\n", name);
+				char* trans;
+				for (trans = name; *trans; ++trans)
+					if (*trans == ' ')
+						*trans = 0;
+				//kprintf("2 '%s'\n", name);
+				strlcat(name, ".", 10);
+				//kprintf("3 '%s'\n", name);
+				strlcat(name, &(entry->name[8]), 12);
+				//kprintf("4 '%s'\n", name);
+				for (trans = name; *trans; ++trans)
+					if (*trans == ' ')
+						*trans = 0;
+				
+				// remove trailing oot on dir names
+				if (name[strlen(name) - 1] == '.')
+					name[strlen(name) - 1] = 0;
+
+				strlcpy(dotless, entry->name, 12);
+				for (trans = dotless + 11; trans >= dotless; --trans)
+					if (*trans == ' ')
+						*trans = 0;
+				dotless[12] = 0;
+				name[12] = 0;
+
+
+				if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && tree == NULL)
+				{
+					kfree(info->volume_name);
+					info->volume_name = strdup(dotless);
+					kprintf("FAT32 volume label: '%s'\n", info->volume_name);
+				}
+				else
+				{
+
+					FS_DirectoryEntry* file = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+
+					//kprintf("5 '%s'\n", name);
+					file->filename = strdup(name);
+					file->lbapos = (u32int)(((u32int)entry->first_cluster_hi << 16) | (u32int)entry->first_cluster_lo);
+					file->directory = tree;
+					file->flags = 0;
+					file->size = entry->size;
+					if (entry->attr & ATTR_DIRECTORY)
+						file->flags |= FS_DIRECTORY;
+
+
+					kprintf("'%s' flags=%02x size=%d clus=%08x\n", file->filename, file->flags, file->size, file->lbapos);
+
+					if (list == NULL)
+					{
+						file->next = NULL;
+						list = file;
+					}
+					else
+					{
+						file->next = list;
+						list = file;
+					}
+				}
+			}
+			bufferoffset += 32;
+			entry = (DirectoryEntry*)(buffer + bufferoffset);
+		}
+	}
+	kfree(buffer);
+
+	return list;
 }
 
 int fat32_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
@@ -72,7 +158,7 @@ int ReadFAT(fat32* info)
 	//kprintf("Parsing FAT32 on drive %d starting at LBA %08x\n", info->drivenumber, info->start);
 
 	unsigned char* buffer = (unsigned char*)kmalloc(512 * 8);
-	_memset(buffer, 0, 512);
+	_memset(buffer, 0, 512 * 8);
 	if (!ide_read_sectors(info->drivenumber, 1, info->start, (unsigned int)buffer))
 	{
 		kprintf("FAT32: Could not read partition boot sector!\n");
@@ -106,30 +192,11 @@ int ReadFAT(fat32* info)
 		kfree(buffer);
 		return 0;
 	}
+
+	info->root = ParseFAT32Dir(NULL, info, info->rootdircluster);
+
+	//u32int pos = (u32int)(((u32int)de->first_cluster_hi << 16) + (u32int)de->first_cluster_lo);
 	
-	ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, info->rootdircluster), (unsigned int)buffer);
-
-	u32int rootfat = GetFATEntry(info, info->rootdircluster);
-
-	DirectoryEntry* de = (DirectoryEntry*)(buffer + sizeof(DirectoryEntry));
-	DumpHex(de, sizeof(DirectoryEntry));
-	u32int pos = (u32int)(((u32int)de->first_cluster_hi << 16) + (u32int)de->first_cluster_lo);
-	
-	kprintf("rootfat=%08x '%c%c%c%c%c%c%c%c%c%c%c' %02x %d %08x\n", rootfat, de->name[0], de->name[1],de->name[2],de->name[3],de->name[4],de->name[5],de->name[6],de->name[7],de->name[8],de->name[9],de->name[10], de->attr, de->size, pos);
-
-	ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, pos), (unsigned int)buffer);
-
-	DumpHex(buffer, 0x5f);
-
-	u32int fe = GetFATEntry(info, pos);
-
-	kprintf("%08x\n", fe);
-
-	ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, fe), (unsigned int)buffer);
-
-	DumpHex(buffer, 0x5f);
-
-
 	//int j;
 	//for (j = 0; j < 18; j++)
 	//	kprintf("%d %08x\n", j, GetFATEntry(info, j));
