@@ -1,5 +1,5 @@
-#ifndef __ISO9660_H__
-#define __ISO9660_H__
+#ifndef __FAT32_H__
+#define __FAT32_H__
 
 #include "kernel.h"
 #include "filesystem.h"
@@ -17,6 +17,8 @@
 #define ATTR_DIRECTORY		0x10
 #define ATTR_ARCHIVE		0x20
 #define ATTR_LONG_NAME		0x0F
+
+struct FSInfo;
 
 typedef struct
 {
@@ -37,6 +39,17 @@ typedef struct
 
 typedef struct
 {
+	u32int signature1;
+	char reserved1[480];
+	u32int structsig;
+	u32int freecount;
+	u32int nextfree;
+	char reserved2[12];
+	u32int trailsig;
+} __attribute__((packed)) FSInfo;
+
+typedef struct
+{
 	u32int drivenumber;
 	u8int partitionid;
 	char* volume_name;
@@ -49,6 +62,7 @@ typedef struct
 	u32int fatsize;
 	u32int* fat;
 	FS_DirectoryEntry* root;
+	FSInfo* info;
 } fat32;
 
 typedef struct

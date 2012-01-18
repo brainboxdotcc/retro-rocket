@@ -153,6 +153,20 @@ u32int ClusLBA(fat32* info, u32int cluster)
 	return info->start + FirstSectorofCluster;
 }
 
+int ReadFSInfo(fat32* info)
+{
+	if (!ide_read_sectors(info->drivenumber, 1, info->start + info->fsinfocluster, (unsigned int)info->info))
+	{
+		return 0;
+	}
+
+	kprintf("sig1=%08x\n", info->info->signature1);
+
+	DumpHex(info->info, 16);
+
+	return 1;
+}
+
 int ReadFAT(fat32* info)
 {
 	//kprintf("Parsing FAT32 on drive %d starting at LBA %08x\n", info->drivenumber, info->start);
@@ -185,6 +199,9 @@ int ReadFAT(fat32* info)
 	info->fsinfocluster = par->fsinfocluster;
 	info->numberoffats = par->numberoffats;
 	info->fatsize = par->sectorsperfat;
+	info->info = (FSInfo*)kmalloc(sizeof(FSInfo));
+
+	ReadFSInfo(info);
 
 	if (par->sectorspercluster != 8)
 	{
