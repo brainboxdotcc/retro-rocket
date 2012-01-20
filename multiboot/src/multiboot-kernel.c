@@ -68,12 +68,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_devfs();
 		init_debug();
 
-		FS_DirectoryEntry* fsi = fs_get_items("/harddisk/FDOS");
-		for (; fsi; fsi = fsi->next)
-		{
-			kprintf("file='%s' sz=%d\n", fsi->filename, fsi->size);
-		}
-
 		struct process* proc = proc_load("/programs/init", (struct console*)current_console);
 		kprintf("Launching /programs/init...\n");
 		proc_loop();

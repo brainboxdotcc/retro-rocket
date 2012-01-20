@@ -251,6 +251,8 @@ void retrieve_node_from_driver(FS_Tree* node)
 	/* XXX: Check there isnt already content in node->files, if there is,
 	 * delete the old content first to avoid a memleak.
 	 */
+
+	//kprintf("retrieve_node_from_driver\n");
 	if (node == NULL)
 		return;
 
@@ -266,6 +268,8 @@ void retrieve_node_from_driver(FS_Tree* node)
 		kprintf("*** BUG *** Driver %08x on node '%s' is null or does not support getdir()! (getdir=%08x)\n", driver, node->name, driver->getdir);
 		return;
 	}
+
+	//kprintf("call getdir, node->lbapos=%d node->name=%s\n", node->lbapos, node->name);
 
 	node->files = driver->getdir(node);
 	node->dirty = 0;
@@ -409,6 +413,8 @@ FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 {
 	if (!directory)
 		return NULL;
+
+	//kprintf("find_file_in_dir %s %d", directory->name, directory->lbapos);
 
 	FS_DirectoryEntry* entry = (FS_DirectoryEntry*)directory->files;
 	for (; entry; entry = entry->next)

@@ -33,6 +33,8 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 		
 		DirectoryEntry* entry = (DirectoryEntry*)(buffer + bufferoffset);
 
+		//DumpHex(entry, 32);
+
 		int entries = 0; // max of 128 file entries per cluster
 
 		while (entry->name[0] != 0 && entries++ < 128)
@@ -51,7 +53,7 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 				//kprintf("2 '%s'\n", name);
 				strlcat(name, ".", 10);
 				//kprintf("3 '%s'\n", name);
-				strlcat(name, &(entry->name[8]), 12);
+				strlcat(name, &(entry->name[8]), 13);
 				//kprintf("4 '%s'\n", name);
 				for (trans = name; *trans; ++trans)
 					if (*trans == ' ')
@@ -71,46 +73,49 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 				if (name[0] == 0)
 					break;
 
-				if (name[0] == '.')
-					continue;
-
-
-				if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && tree == NULL)
-				{
-					kfree(info->volume_name);
-					info->volume_name = strdup(dotless);
-					kprintf("FAT32 volume label: '%s'\n", info->volume_name);
-				}
-				else
+				if (name[0] != '.')
 				{
 
-					FS_DirectoryEntry* file = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
 
-					//kprintf("5 '%s'\n", name);
-					file->filename = strdup(name);
-					file->lbapos = (u32int)(((u32int)entry->first_cluster_hi << 16) | (u32int)entry->first_cluster_lo);
-					file->directory = tree;
-					file->flags = 0;
-					file->size = entry->size;
-
-					//kprintf("%04x %04x\n", entry->create_time, entry->create_date);
-
-					if (entry->attr & ATTR_DIRECTORY)
-						file->flags |= FS_DIRECTORY;
-
-
-					//kprintf("%d. '%s' flags=%02x size=%d clus=%08x\n", entries, file->filename, file->flags, file->size, file->lbapos);
-
-					if (file->size > 10000000)
-						for(;;);
-
-					file->next = list;
-					list = file;
+					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && tree == NULL)
+					{
+						kfree(info->volume_name);
+						info->volume_name = strdup(dotless);
+						kprintf("FAT32 volume label: '%s'\n", info->volume_name);
+					}
+					else
+					{
+	
+						FS_DirectoryEntry* file = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+	
+						//kprintf("5 '%s'\n", name);
+						file->filename = strdup(name);
+						file->lbapos = (u32int)(((u32int)entry->first_cluster_hi << 16) | (u32int)entry->first_cluster_lo);
+						file->directory = tree;
+						file->flags = 0;
+						file->size = entry->size;
+	
+						//kprintf("%04x %04x\n", entry->create_time, entry->create_date);
+	
+						if (entry->attr & ATTR_DIRECTORY)
+							file->flags |= FS_DIRECTORY;
+	
+	
+						//kprintf("%d. '%s' flags=%02x size=%d clus=%08x\n", entries, file->filename, file->flags, file->size, file->lbapos);
+	
+						if (file->size > 10000000)
+							for(;;);
+	
+						file->next = list;
+						list = file;
+					}
 				}
 			}
 			bufferoffset += 32;
 			entry = (DirectoryEntry*)(buffer + bufferoffset);
 		}
+
+		//kprintf("End dir parse\n");
 
 		// advnce to next cluster in chain until EOF
 		u32int nextcluster = GetFATEntry(info, cluster);
@@ -130,38 +135,49 @@ int fat32_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 	FS_Tree* tree = (FS_Tree*)file->directory;
 	fat32* info = (fat32*)tree->opaque;
 
-	u32int cluster = GetFATEntry(info, file->lbapos);
+	//kprintf("fat32_read_file start=%d len=%d\n", start, length);
+
+	u32int cluster = file->lbapos;
 	u32int clustercount = 0;
 	u32int first = 1;
 	unsigned char* clbuf = (unsigned char*)kmalloc(4096);
 
+	//kprintf("First cluster: %08x\n", cluster);
+
 	// vAdvance until we are at the correct location
-	while ((clustercount++ < start % 4096) && (cluster != 0x0fffffff))
-		cluster = GetFATEntry(info, file->lbapos);
+	while ((clustercount++ < start / 4096) && (cluster != 0x0fffffff))
+	{
+		cluster = GetFATEntry(info, cluster);
+		//kprintf("Advance to next cluster %08x\n", cluster);
+	}
 
 	while (1)
 	{
-		if (!ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, cluster), (unsigned int)buffer))
+		//kprintf("Read file clusters cluster=%08x\n", cluster);
+		if (!ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, cluster), (unsigned int)clbuf))
 		{
 			kprintf("Read failure in fat32_read_file cluster=%08x\n", cluster);
 			kfree(clbuf);
 			return 0;
 		}
 
+		//DumpHex(buffer, 16);
+
 		int to_read = length - start;
 		if (length > 4096)
 			to_read = 4096;
 		if (first == 1)
-			memcpy(buffer, cluster + (start % 4096), to_read - (start % 4096));
+			memcpy(buffer, clbuf + (start % 4096), to_read - (start % 4096));
 		else
-			memcpy(buffer, cluster, to_read);
+			memcpy(buffer, clbuf, to_read);
 
+		buffer += to_read;
 		first = 0;
+
+		cluster = GetFATEntry(info, cluster);
 
 		if (cluster == 0x0fffffff)
 			break;
-		else
-			cluster = GetFATEntry(info, file->lbapos);
 	}
 
 
@@ -176,7 +192,7 @@ void* fat32_get_directory(void* t)
 	if (treeitem)
 	{
 		fat32* info = (fat32*)treeitem->opaque;
-		kprintf("Asked for fat32 dir '%s'\n", treeitem->name);
+		//kprintf("Asked for fat32 dir '%s' pos=%d\n", treeitem->name, treeitem->lbapos);
 		return (void*)ParseFAT32Dir(treeitem, info, treeitem->lbapos ? treeitem->lbapos : info->rootdircluster);
 	}
 	else
@@ -194,7 +210,7 @@ u32int GetFATEntry(fat32* info, u32int cluster)
 	//u32int ThisFATEntOffset = FATOffset % 512;
 	//
 	u32int FATEntrySector = info->start + info->reservedsectors + ((cluster * 4) / 512);
-	u32int FATEntryOffset = (u32int) (cluster % 512);
+	u32int FATEntryOffset = (u32int) (cluster % 128);  // 512/4
 
 	//kprintf("cluster=%08x fatentrysector=%08x fatentryoffset=%08x\n", cluster, FATEntrySector, FATEntryOffset);
 
