@@ -5,7 +5,7 @@
 #include "../include/memcpy.h"
 #include "../include/io.h"
 
-FS_FileSystem* filesystems;
+FS_FileSystem* filesystems, *dummyfs;
 FS_Tree* fs_tree;
 static u32int fd_last = 0;
 static u32int fd_alloc = 0;
@@ -251,17 +251,28 @@ void retrieve_node_from_driver(FS_Tree* node)
 	/* XXX: Check there isnt already content in node->files, if there is,
 	 * delete the old content first to avoid a memleak.
 	 */
+	if (node == NULL)
+		return;
+
 	FS_FileSystem* driver = (FS_FileSystem*)node->responsible_driver;
-	if (driver->getdir == NULL)
+
+	if (driver == dummyfs)
+		return;
+
+	//kprintf("drv=%08x getdir=%08x\n", driver, driver->getdir);
+	if (driver == NULL || driver->getdir == NULL)
 	{
 		/* Driver does not implement getdir() */
+		kprintf("*** BUG *** Driver %08x on node '%s' is null or does not support getdir()! (getdir=%08x)\n", driver, node->name, driver->getdir);
 		return;
 	}
+
 	node->files = driver->getdir(node);
 	node->dirty = 0;
+	node->child_dirs = NULL;
+
 	if (node->files == NULL)
 	{
-		node->child_dirs = NULL;
 		node->parent = node;
 		return;
 	}
@@ -273,34 +284,28 @@ void retrieve_node_from_driver(FS_Tree* node)
 	 * ownership of another filesystems mountpoint!
 	 */
 	FS_DirectoryEntry* x = (FS_DirectoryEntry*)node->files;
-	for (; x->next; x = x->next)
+	for (; x; x = x->next)
 	{
+		//kprintf("Parse entry '%s'@%08x\n", x->filename, x);
 		if (x->flags & FS_DIRECTORY)
 		{
 			/* Insert a new child directory into node->child_dirs,
 			 * Make each dir empty and 'dirty' and get its opaque
 			 * from the parent dir
 			 */
-			if (node->child_dirs == NULL)
-			{
-				node->child_dirs = (FS_Tree*)kmalloc(sizeof(FS_Tree));
-				node->child_dirs->next = NULL;
-			}
-			else
-			{
-				FS_Tree* newnode = (FS_Tree*)kmalloc(sizeof(FS_Tree));
-				newnode->next = node->child_dirs;
-				node->child_dirs = newnode;
-			}
+			FS_Tree* newnode = (FS_Tree*)kmalloc(sizeof(FS_Tree));
 
-			node->child_dirs->name = x->filename;
-			node->child_dirs->lbapos = x->lbapos;
-			node->child_dirs->size = x->size;
-			node->child_dirs->device = x->device;
-			node->child_dirs->opaque = node->opaque;
-			node->child_dirs->dirty = 1;
-			node->child_dirs->parent = node;
-			node->child_dirs->responsible_driver = node->responsible_driver;
+			newnode->name = x->filename;
+			newnode->lbapos = x->lbapos;
+			newnode->size = x->size;
+			newnode->device = x->device;
+			newnode->opaque = node->opaque;
+			newnode->dirty = 1;
+			newnode->parent = node;
+			newnode->responsible_driver = node->responsible_driver;
+
+			newnode->next = node->child_dirs;
+			node->child_dirs = newnode;
 		}
 	}
 }
@@ -323,9 +328,10 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 	//kprintf("walk to node 4 - outside dirty check\n");
 	
 
-	if (current_node != NULL && !strcmp(current_node->name, dir_stack->name))
+	if (current_node != NULL && dir_stack && !strcmp(current_node->name, dir_stack->name))
 	{
-//kprintf("walk to node 5 - found match current node %s dirstack name %s\n", current_node->name, dir_stack->name);
+		//kprintf("found match current node %s dirstack name %s\n", current_node->name, dir_stack->name);
+
 		dir_stack = dir_stack->next;
 		if (!dir_stack)
 			return current_node;
@@ -335,7 +341,7 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 	FS_Tree* dirs = current_node->child_dirs;
 	for (; dirs; dirs = dirs->next)
 	{
-//kprintf("walk to node 7 %08x %08x %s\n", current_node, dir_stack, current_node->name);
+		//kprintf("looking at node name (%s): %08x\n", dirs->name, dirs->responsible_driver);
 		FS_Tree* result = walk_to_node_internal(dirs, dir_stack);
 		if (result != NULL)
 			return result;
@@ -405,7 +411,7 @@ FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 		return NULL;
 
 	FS_DirectoryEntry* entry = (FS_DirectoryEntry*)directory->files;
-	for (; entry->next; entry = entry->next)
+	for (; entry; entry = entry->next)
 	{
 		/* Don't find directories, only files */
 		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcmp(filename, entry->filename)))
@@ -486,6 +492,7 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 		item->dirty = 1;
 		item->files = NULL;
 		item->child_dirs = NULL;
+		item->lbapos = 0; // special value always refers to root dir
 		//kprintf("attach 4\n");
 		retrieve_node_from_driver(item);
 		//kprintf("attach 5\n");
@@ -513,6 +520,8 @@ void init_filesystem()
 	filesystems->writefile = NULL;
 	filesystems->rm = NULL;
 	filesystems->next = NULL;
+
+	dummyfs = filesystems;
 
 	fs_tree->name = NULL;
 	fs_tree->parent = fs_tree;

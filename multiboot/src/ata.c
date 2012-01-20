@@ -478,7 +478,7 @@ int ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int l
 	// ==================================
 	else if (((lba + numsects) > ide_devices[drive].size) && (ide_devices[drive].type == IDE_ATA))
 	{
-		kprintf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
+		kprintf("Seek to invalid position LBA=0x%08x\n", lba+numsects);					 // Seeking to invalid position.
 		return 0;
 	}
 	// 3: Read in PIO Mode through Polling & IRQs:

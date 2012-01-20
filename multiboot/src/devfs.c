@@ -29,12 +29,8 @@ void init_devfs()
 	devfs->writefile = NULL;
 	devfs->rm = NULL;
 	register_filesystem(devfs);
-	FS_DirectoryEntry* empty = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
-	empty->next = NULL;
-	empty->flags = 0;
-	empty->filename = NULL;
 	devfs_entries = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
-	devfs_entries->next = empty;
+	devfs_entries->next = NULL;
 	devfs_entries->size = 0;
 	devfs_entries->flags = 0;
 	devfs_entries->filename = strdup("core");

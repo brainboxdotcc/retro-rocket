@@ -69,9 +69,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 	}
 
 	u32int dir_items = 0;
-	FS_DirectoryEntry* first = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
-	FS_DirectoryEntry* thisentry = first;
-	first->next = 0;
+	FS_DirectoryEntry* list = NULL;
 
 	// Iterate each of the entries in this directory, enumerating files
 	unsigned char* walkbuffer = dirbuffer;
@@ -87,6 +85,8 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 		// Skip the first two entries, '.' and '..'
 		if (entrycount > 2)
 		{
+			FS_DirectoryEntry* thisentry = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+
 			if (info->joliet == 0)
 			{
 				thisentry->filename = (char*)kmalloc(fentry->filename_length + 1);
@@ -137,23 +137,16 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 
 			//kprintf(" %d\n", thisentry->flags);
 
-			FS_DirectoryEntry* next = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
-			thisentry->next = next;
-			next->next = 0;
-			thisentry = next;
+			thisentry->next = list;
+			list = thisentry;
 		}
 		walkbuffer += fentry->length;
 
 	}
 
 	kfree(dirbuffer);
-	if (dir_items)
-		return first;
-	else
-	{
-		kfree(first);
-		return NULL;
-	}
+
+	return list;
 }
 
 void ParseSVD(iso9660* info, unsigned char* buffer)
