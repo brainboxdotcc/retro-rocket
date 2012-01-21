@@ -91,6 +91,11 @@ void put(console* c, const char n)
 		case '\0':
 			return;
 		break;
+		case '\r':
+			c->x = 0;
+			setcursor(c);
+			return;
+		break;
 		case '\n':
 			c->x = 0;
 			c->y++;

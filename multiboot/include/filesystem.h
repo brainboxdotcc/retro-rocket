@@ -37,8 +37,9 @@ typedef struct FS_DirectoryEntryTag
 	u8int hour;		/* Creation hour */
 	u8int min;		/* Creation minute */
 	u8int sec;		/* Creation second */
-	u32int lbapos;		/* LBA position of file (driver specific) */
-	u32int device;		/* Device ID (driver specific) */
+	u32int lbapos;		/* On-device position of file (driver specific, e.g. for iso9660
+				   it is a raw sector, but for fat32 it is a cluster number) */
+	u32int device;		/* Device ID (driver specific, for ide devices it is the index) */
 	u32int size;		/* File size in bytes */
 	u32int flags;		/* File flags (FS_*) */
 	struct FS_Tree_t* directory;	/* Containing directory */
