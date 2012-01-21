@@ -850,15 +850,24 @@ void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx)
 		ctx->int_variables = newvar;
 	}
 }
+
+const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
+{
+	return "";
+}
+
+int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
+{
+	kprintf("eval_int_fn fn_name=%s, ctx=%c\n", fn_name, *ctx->ptr);
+	return 0;
+}
+
 /*---------------------------------------------------------------------------*/
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 {
-	DEBUG_PRINTF("ubasic_get_string_variable %s\n", var);
-
-	if (ctx->str_variables == NULL)
+	if (var[0] == 'F' && var[1] == 'N')
 	{
-		DEBUG_PRINTF("no string vars\n");
-		return ""; /* No such variable */
+		return ubasic_eval_str_fn(var, ctx);
 	}
 
 	DEBUG_PRINTF("find string var%s\n", var);
@@ -880,8 +889,10 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 
 int ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 {
-	if (ctx->int_variables == NULL)
-		return 0; /* No such variable */
+	if (var[0] == 'F' & var[1] == 'N')
+	{
+		return ubasic_eval_int_fn(var, ctx);
+	}
 
 	struct ub_var_int* cur = ctx->int_variables;
 	for (; cur; cur = cur->next)
