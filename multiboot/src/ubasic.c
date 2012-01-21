@@ -47,9 +47,15 @@ const char* str_varfactor(struct ubasic_ctx* ctx);
 struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 {
 	struct ubasic_ctx* ctx = (struct ubasic_ctx*)kmalloc(sizeof(struct ubasic_ctx));
+	int i;
+
 	ctx->current_token = TOKENIZER_ERROR;	
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
+	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+		ctx->local_int_variables[i] = NULL;
+	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+		ctx->local_string_variables[i] = NULL;
 	ctx->cons = cons;
 	ctx->oldlen = 0;
 	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
@@ -125,25 +131,26 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static int factor(struct ubasic_ctx* ctx)
 {
-  int r;
+      int r;
 
-  DEBUG_PRINTF("factor: token %d\n", tokenizer_token(ctx));
-  switch(tokenizer_token(ctx)) {
-  case TOKENIZER_NUMBER:
-    r = tokenizer_num(ctx);
-    DEBUG_PRINTF("factor: number %d\n", r);
-    accept(TOKENIZER_NUMBER, ctx);
-    break;
-  case TOKENIZER_LEFTPAREN:
-    accept(TOKENIZER_LEFTPAREN, ctx);
-    r = expr(ctx);
-    accept(TOKENIZER_RIGHTPAREN, ctx);
-    break;
-  default:
-    r = varfactor(ctx);
-    break;
-  }
-  return r;
+	//kprintf("factor: token %d\n", tokenizer_token(ctx));
+	switch(tokenizer_token(ctx))
+	{
+		case TOKENIZER_NUMBER:
+			r = tokenizer_num(ctx);
+			//kprintf("factor: number %d\n", r);
+			accept(TOKENIZER_NUMBER, ctx);
+		break;
+		case TOKENIZER_LEFTPAREN:
+			accept(TOKENIZER_LEFTPAREN, ctx);
+			r = expr(ctx);
+			accept(TOKENIZER_RIGHTPAREN, ctx);
+		break;
+		default:
+			r = varfactor(ctx);
+		break;
+	}
+	return r;
 }
 
 static const char* str_factor(struct ubasic_ctx* ctx)
@@ -181,6 +188,7 @@ static int term(struct ubasic_ctx* ctx)
   int op;
 
   f1 = factor(ctx);
+  //kprintf("Factor is %d\n", f1);
   op = tokenizer_token(ctx);
   DEBUG_PRINTF("term: token %d\n", op);
   while(op == TOKENIZER_ASTR ||
@@ -210,7 +218,7 @@ static int expr(struct ubasic_ctx* ctx)
 {
   int t1, t2;
   int op;
-  
+
   t1 = term(ctx);
   op = tokenizer_token(ctx);
   DEBUG_PRINTF("expr: token %d\n", op);
@@ -220,7 +228,6 @@ static int expr(struct ubasic_ctx* ctx)
 	op == TOKENIZER_OR) {
     tokenizer_next(ctx);
     t2 = term(ctx);
-    DEBUG_PRINTF("expr: %d %d %d\n", t1, op, t2);
     switch(op) {
     case TOKENIZER_PLUS:
       t1 = t1 + t2;
@@ -851,6 +858,58 @@ void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx)
 	}
 }
 
+static int bracket_depth = 0;
+char* item_begin = NULL;
+
+void begin_comma_list(struct ubasic_ctx* ctx)
+{
+	bracket_depth = 0;
+	item_begin = ctx->ptr;
+}
+
+const char* extract_comma_list(struct ubasic_ctx* ctx)
+{
+	if (*ctx->ptr == '(')
+	{
+		bracket_depth++;
+		if (bracket_depth == 1)
+			item_begin = ctx->ptr + 1;
+	}
+	else if (*ctx->ptr == ')')
+		bracket_depth--;
+
+	if ((*ctx->ptr == ',' && bracket_depth == 1) || (*ctx->ptr == ')' && bracket_depth == 0))
+	{
+		// next item
+		// set local vars here
+		// Set ctx to item_begin, call expr(), set ctx back again. Change expr to stop on comma.
+		char oldval = *ctx->ptr;
+		char oldct = ctx->current_token;
+		char* oldptr = ctx->ptr;
+		char* oldnextptr = ctx->nextptr;
+		ctx->nextptr = item_begin;
+		ctx->ptr = item_begin;
+		ctx->current_token = get_next_token(ctx);
+		*oldptr = 0;
+		kprintf("*** Calling with '%s'\n", ctx->ptr);
+		int val = expr(ctx);
+		*oldptr = oldval;
+		ctx->ptr = oldptr;
+		ctx->nextptr = oldnextptr;
+		ctx->current_token = oldct;
+		kprintf("val=%d\n", val);
+		item_begin = ctx->ptr + 1;
+	}
+
+	if (bracket_depth == 0 || *ctx->ptr == 0)
+		return NULL;
+
+	ctx->ptr++;
+
+	return 1;
+
+}
+
 const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	return "";
@@ -859,6 +918,8 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	kprintf("eval_int_fn fn_name=%s, ctx=%c\n", fn_name, *ctx->ptr);
+	begin_comma_list(ctx);
+	while (extract_comma_list(ctx));
 	return 0;
 }
 
@@ -870,16 +931,18 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 		return ubasic_eval_str_fn(var, ctx);
 	}
 
-	DEBUG_PRINTF("find string var%s\n", var);
+	struct ub_var_string* list[] = {ctx->local_string_variables, ctx->str_variables};
+	int j;
 
-	struct ub_var_string* cur = ctx->str_variables;
-	for (; cur; cur = cur->next)
+	for (j = 0; j < 2; j++)
 	{
-		DEBUG_PRINTF("var search %s\n", var);
-		if (!strcmp(var, cur->varname))
+		struct ub_var_string* cur = list[j];
+		for (; cur; cur = cur->next)
 		{
-			DEBUG_PRINTF("string var %s found val=%s\n", var, cur->value);
-			return cur->value;
+			if (!strcmp(var, cur->varname))
+			{
+				return cur->value;
+			}
 		}
 	}
 
@@ -889,19 +952,26 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 
 int ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 {
-	if (var[0] == 'F' & var[1] == 'N')
+	if (var[0] == 'F' && var[1] == 'N')
 	{
 		return ubasic_eval_int_fn(var, ctx);
 	}
 
-	struct ub_var_int* cur = ctx->int_variables;
-	for (; cur; cur = cur->next)
+	struct ub_var_int* list[] = {ctx->local_int_variables, ctx->int_variables};
+	int j;
+
+	for (j = 0; j < 2; j++)
 	{
-		if (!strcmp(var, cur->varname))
+		struct ub_var_int* cur = list[j];
+		for (; cur; cur = cur->next)
 		{
-			return cur->value;
+			if (!strcmp(var, cur->varname))
+			{
+				return cur->value;
+			}
 		}
 	}
+
 
 	tokenizer_error_print(ctx, "No such variable\n");
 	return 0; /* No such variable */

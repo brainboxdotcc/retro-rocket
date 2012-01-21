@@ -69,6 +69,8 @@ struct ubasic_ctx
         char *program_ptr;
         char string[MAX_STRINGLEN];
         int gosub_stack[MAX_GOSUB_STACK_DEPTH];
+	struct ub_var_int* local_int_variables[MAX_GOSUB_STACK_DEPTH];
+	struct ub_var_string* local_string_variables[MAX_GOSUB_STACK_DEPTH];
         int gosub_stack_ptr;
 	int oldlen;
 	int eval_linenum;
