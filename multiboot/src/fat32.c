@@ -241,10 +241,10 @@ int ReadFSInfo(fat32* info)
 		return 0;
 	}
 
-	//kprintf("sig1=%08x\n", info->info->signature1);
-
 	if (info->info->signature1 != 0x41615252)
 	{
+		kprintf("Malformed FAT32 FSInfo sector!\n");
+		// TODO: Mount readonly here!!!
 		return 0;
 	}
 
