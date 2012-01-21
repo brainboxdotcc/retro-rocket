@@ -423,7 +423,8 @@ static void if_statement(struct ubasic_ctx* ctx)
 static void chain_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_CHAIN, ctx);
-	proc_load(str_expr(ctx), ctx->cons);
+	struct process* p = proc_load(str_expr(ctx), ctx->cons);
+	proc_wait(proc_cur(), p->pid);
 	accept(TOKENIZER_CR, ctx);
 }
 

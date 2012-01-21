@@ -19,6 +19,8 @@ struct process {
 	u32int			state;	/*Running state */
 	u32int			start_time;
 
+	u32int			waitpid;	/* PID we are waiting on compltion of */
+
 	char*			directory;
 	char*			name;
 	u32int			size;
@@ -34,6 +36,9 @@ struct process {
 };
 
 struct process* proc_load(const char* fullpath, struct console* cons);
+struct process* proc_find(u32int pid);
+struct process* proc_cur();
+void proc_wait(struct process* proc, u32int otherpid);
 void proc_run(struct process* proc);
 int proc_ended(struct process* proc);
 void proc_kill(struct process* proc);
