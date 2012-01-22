@@ -32,7 +32,8 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			newproc->pid = nextid++;
 			newproc->size = fsi->size;
 			newproc->cons = cons;
-			newproc->text = programtext;
+			//newproc->text = programtext;
+			kfree(programtext);
 
 			interrupts_off();
 
@@ -157,7 +158,7 @@ void proc_kill(struct process* proc)
 
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
-	kfree(proc->text);
+	//kfree(proc->text);
 
 	/* milled the last process! */
 	if (proc_list == NULL)

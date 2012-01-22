@@ -47,6 +47,27 @@ struct ub_var_string
 	struct ub_var_string* next;
 };
 
+typedef enum
+{
+	FT_FN,
+	FT_PROC
+} ub_fn_type;
+
+struct ub_param
+{
+	char* name;
+	struct ub_param* next;
+};
+
+struct ub_proc_fn_def
+{
+	char* name;
+	ub_fn_type type;
+	int line;
+	struct ub_param* params;
+	struct ub_proc_fn_def* next;
+};
+
 struct ub_var_int_array
 {
 	char* varname;
@@ -76,6 +97,7 @@ struct ubasic_ctx
 	int eval_linenum;
         struct for_state for_stack[MAX_FOR_STACK_DEPTH];
         int for_stack_ptr;
+	struct ub_proc_fn_def* defs;
         struct ub_var_int* int_variables;
 	struct ub_var_string* str_variables;
 	struct ub_var_int_array* int_array_variables;

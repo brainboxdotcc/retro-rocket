@@ -58,12 +58,168 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 		ctx->local_string_variables[i] = NULL;
 	ctx->cons = cons;
 	ctx->oldlen = 0;
+	// We allocate 5000 bytes extra on the end of the program for EVAL space,
+	// as EVAL appends to the prgram on lines 9998 and 9999.
 	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
 	strlcpy(ctx->program_ptr, program, strlen(program) + 5000);
 	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
-  	tokenizer_init(program, ctx);
+	ctx->defs = NULL;
+
+	// Scan the program for functions and procedures
+
+        tokenizer_init(ctx->program_ptr, ctx);
+
+	int currentline = 0;
+
+	while (1)
+	{
+		currentline = tokenizer_num(ctx);
+		char* linestart = ctx->ptr;
+		do
+		{
+			do
+			{
+				tokenizer_next(ctx);
+			}
+			while (tokenizer_token(ctx) != TOKENIZER_CR && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
+			
+			char* lineend = ctx->ptr;
+			
+			char* linetext = (char*)kmalloc(lineend - linestart + 1);
+			strlcpy(linetext, linestart, lineend - linestart + 1);
+
+			char* search = linetext;
+
+			while (*search++ >= '0' && *search <= '9')
+				search++;
+			--search;
+
+			while (*search++ == ' ');
+			--search;
+
+			if (!strncmp(search, "DEF ", 4))
+			{
+				search += 4;
+				ub_fn_type type = FT_FN;
+				if (!strncmp(search, "FN", 2))
+				{
+					search += 2;
+					while (*search++ == ' ');
+					type = FT_FN;
+				}
+				else if (!strncmp(search, "PROC", 2))
+				{
+					search += 4;
+					while (*search++ == ' ');
+					type = FT_PROC;
+				}
+
+				char name[1024];
+				int ni = 0;
+				struct ub_proc_fn_def* def = (struct ub_proc_fn_def*)kmalloc(sizeof(struct ub_proc_fn_def));
+				--search;
+				while (ni < 1023 && *search != '\n' && *search != 0 && *search != '(')
+				{
+					name[ni++] = *search++;
+				}
+				name[ni] = 0;
+
+				def->name = strdup(name);
+				def->type = type;
+				def->line = currentline;
+				def->next = ctx->defs;
+
+				/* Parse parameters */
+
+				def->params = NULL;
+
+				if (*search == '(')
+				{
+					search++;
+					// Parse parameters
+					char pname[1024];
+					int pni = 0;
+					while (*search != 0)
+					{
+						if (pni < 1023 && *search != ',' && *search != ')' && *search != ' ')
+							pname[pni++] = *search;
+
+						if (*search == ',' || *search == ')')
+						{
+							pname[pni] = 0;
+							struct ub_param* par = (struct ub_param*)kmalloc(sizeof(struct ub_param));
+							//kprintf("pn='%s'\n", pname);
+
+							par->next = NULL;
+							par->name = strdup(pname);
+
+							if (def->params == NULL)
+							{
+								def->params = par;
+							}
+							else
+							{
+								struct ub_param* cur = def->params;
+								for (; cur; cur = cur->next)
+								{
+									if (cur->next == NULL)
+									{
+										cur->next = par;
+										break;
+									}
+								}
+							}
+
+							if (*search == ')')
+								break;
+
+							pni = 0;
+						}
+
+						search++;
+
+					}
+				}
+
+				ctx->defs = def;
+
+				//kprintf("Name='%s'\n", name);
+			}
+
+
+			if (tokenizer_token(ctx) == TOKENIZER_CR)
+			{
+				tokenizer_next(ctx);
+			}
+
+			kfree(linetext);
+
+			if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT)
+			{
+				break;
+			}
+		}
+		while (tokenizer_token(ctx) != TOKENIZER_NUMBER && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
+
+		if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT)
+			break;
+	}
+
+	tokenizer_init(ctx->program_ptr, ctx);
+
 	ctx->ended = 0;
 	return ctx;
+}
+
+struct ub_proc_fn_def* ubasic_find_fn(const char* name, struct ubasic_ctx* ctx)
+{
+	struct ub_proc_fn_def* cur = ctx->defs;
+	for (; cur; cur = cur->next)
+	{
+		if (!strcmp(name, cur->name))
+			return cur;
+	}
+	return NULL;
 }
 
 void ubasic_destroy(struct ubasic_ctx* ctx)
@@ -287,6 +443,7 @@ static int relation(struct ubasic_ctx* ctx)
 
 	return r1;
 }
+
 
 /*---------------------------------------------------------------------------*/
 void jump_linenum(int linenum, struct ubasic_ctx* ctx)

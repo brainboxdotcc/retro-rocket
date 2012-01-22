@@ -15,3 +15,7 @@
 70 EVAL inp$
 80 IF ERROR = 1 THEN PRINT "Execution error: " + ERROR$
 90 GOTO 20
+100 DEF FNfoo(a, a$)
+120 PRINT a
+130 PRINT a$
+140 =a
