@@ -120,6 +120,8 @@ void proc_kill(struct process* proc)
 	
 	interrupts_off();
 	struct process* cur = proc_list;
+
+	//kprintf("'%s'\n", proc->code->program_ptr);
 	
 	int countprocs = 0;
 	for (; cur; cur = cur->next)

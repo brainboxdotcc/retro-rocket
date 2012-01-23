@@ -45,6 +45,7 @@ static const struct keyword_token keywords[] = {
   {"IF", TOKENIZER_IF},
   {"THEN", TOKENIZER_THEN},
   {"ELSE", TOKENIZER_ELSE},
+  {"DEF", TOKENIZER_DEF},
   {"FOR", TOKENIZER_FOR},
   {"TO", TOKENIZER_TO},
   {"STEP", TOKENIZER_STEP},
@@ -243,8 +244,8 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 	}
 	else
 	{
-		ubasic_set_string_variable("ERROR$", error, ctx);
-		ubasic_set_int_variable("ERROR", 1, ctx);
+		ubasic_set_string_variable("ERROR$", error, ctx, 0);
+		ubasic_set_int_variable("ERROR", 1, ctx, 0);
 		jump_linenum(ctx->eval_linenum, ctx);
 	}
 }

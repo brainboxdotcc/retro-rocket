@@ -115,8 +115,8 @@ int ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
 void jump_linenum(int linenum, struct ubasic_ctx* ctx);
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx);
-void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx);
-void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx);
+void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local);
+void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local);
+void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx, int local);
 
 #endif /* __UBASIC_H__ */
