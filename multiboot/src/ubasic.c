@@ -280,7 +280,7 @@ static void accept(int token, struct ubasic_ctx* ctx)
 {
 	if (token != tokenizer_token(ctx))
 	{
-		//kprintf("Expected %d got %d\n", token, tokenizer_token(ctx));
+		kprintf("Expected %d got %d\n", token, tokenizer_token(ctx));
 		tokenizer_error_print(ctx, "No such keyword");
 	}
 	tokenizer_next(ctx);
@@ -290,9 +290,11 @@ static int varfactor(struct ubasic_ctx* ctx)
 {
 	const char* vn = tokenizer_variable_name(ctx);
 	int r = ubasic_get_int_variable(vn, ctx);
-
-	accept(TOKENIZER_VARIABLE, ctx);
-
+	// Special case for builin functions
+	if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
+		accept(TOKENIZER_RIGHTPAREN, ctx);
+	else
+		accept(TOKENIZER_VARIABLE, ctx);
 	return r;
 }
 
@@ -762,6 +764,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void return_statement(struct ubasic_ctx* ctx)
 {
+	//kprintf("Return\n");
 	accept(TOKENIZER_RETURN, ctx);
 	if (ctx->gosub_stack_ptr > 0)
 	{
@@ -1224,7 +1227,6 @@ void ubasic_restore_state(struct ubasic_ctx* ctx)
 #define PARAMS_GET_ITEM(type) { gotone = 0; \
 	while (!gotone) \
 	{ \
-		kprintf("gotone %c\n", *ctx->ptr); \
 		if (*ctx->ptr == '(') { \
 			bracket_depth++; \
 			if (bracket_depth == 1) \
@@ -1246,11 +1248,11 @@ void ubasic_restore_state(struct ubasic_ctx* ctx)
 			itemtype = type; \
 			if (itemtype = BIP_STRING) \
 			{ \
-				kprintf("str expr %s\n", ctx->ptr);strval = str_expr(ctx); \
+				strval = str_expr(ctx); \
 			} \
 			else \
 			{ \
-				kprintf("int expr %s\n", ctx->ptr);intval = expr(ctx); kprintf("returned %d\n", intval); \
+				intval = expr(ctx); \
 			} \
 			*oldptr = oldval; \
 			ctx->ptr = oldptr; \
@@ -1269,17 +1271,20 @@ void ubasic_restore_state(struct ubasic_ctx* ctx)
 	} \
 }
 
+#define PARAMS_END(NAME) { \
+	ctx->ptr--; \
+	if (*ctx->ptr != ')') \
+		tokenizer_error_print(ctx, "Too many parameters for function " NAME ); \
+}
+
 int ubasic_abs(struct ubasic_ctx* ctx)
 {
-	kprintf("ubasic_abs\n");
 	PARAMS_START;
-
-	kprintf("Done params_start\n");
 
 	PARAMS_GET_ITEM(BIP_INT);
 	int v = intval;
 
-	kprintf("Done get_int, v=%d\n", v);
+	PARAMS_END("ABS");
 
 	if (v < 0)
 		return 0 + -v;

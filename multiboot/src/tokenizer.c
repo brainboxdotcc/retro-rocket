@@ -161,9 +161,24 @@ int get_next_token(struct ubasic_ctx* ctx)
   if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) {
     ctx->nextptr = ctx->ptr;
     int varl = 0;
-    while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->ptr == '$'))
+    while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->ptr == '$') || (*ctx->nextptr == '('))
     {
 	    ctx->nextptr++;
+	    if (*ctx->nextptr == '(')
+	    {
+			//kprintf("Nextptr found open bracket\n");
+			int bracketdepth = 1;
+			do
+			{
+				ctx->nextptr++;
+				if (*ctx->nextptr == '(')
+					bracketdepth++;
+				else if (*ctx->nextptr == ')')
+					bracketdepth--;
+			}
+			while (bracketdepth > 1 && *ctx->nextptr != 0);
+	    }
+	    else
 	    if (++varl > 60)
 	    {
 		    tokenizer_error_print(ctx, "Variable name too long");
@@ -248,6 +263,9 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 		ubasic_set_int_variable("ERROR", 1, ctx, 0);
 		jump_linenum(ctx->eval_linenum, ctx);
 	}
+
+	//kprintf("'%s'\n", ctx->program_ptr);
+	//kprintf("'%s'\n", ctx->ptr);
 }
 /*---------------------------------------------------------------------------*/
 int tokenizer_finished(struct ubasic_ctx* ctx)
