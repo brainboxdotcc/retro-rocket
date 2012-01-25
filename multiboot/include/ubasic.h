@@ -93,6 +93,7 @@ struct ubasic_ctx
         char const *ptr, *nextptr;
         int current_token;
 	int current_linenum;
+	int errored;
         char *program_ptr;
         char string[MAX_STRINGLEN];
         int gosub_stack[MAX_GOSUB_STACK_DEPTH];
@@ -113,6 +114,16 @@ struct ubasic_ctx
 	ub_return_type fn_type;
 	void* fn_return;
 
+};
+
+int ubasic_abs(struct ubasic_ctx* ctx);
+
+typedef int (*builtin_int_fn)(struct ubasic_ctx* ctx);
+
+struct ubasic_int_fn
+{
+	builtin_int_fn handler;
+	const char* name;
 };
 
 struct ubasic_ctx* ubasic_init(const char *program, console* cons);

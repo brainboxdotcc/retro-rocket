@@ -44,6 +44,12 @@ static const char* str_expr(struct ubasic_ctx* ctx);
 const char* str_varfactor(struct ubasic_ctx* ctx);
 void ubasic_parse_fn(struct ubasic_ctx* ctx);
 
+struct ubasic_int_fn builtin_int[] =
+{
+	{ ubasic_abs, "ABS" },
+	{ NULL, NULL }
+};
+
 /*---------------------------------------------------------------------------*/
 struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 {
@@ -59,6 +65,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 		ctx->local_string_variables[i] = NULL;
 	ctx->cons = cons;
 	ctx->oldlen = 0;
+	ctx->errored = 0;
 	ctx->fn_return = NULL;
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the prgram on lines 9998 and 9999.
@@ -91,6 +98,7 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 		ctx->local_string_variables[i] = old->local_string_variables[i];
 
 	ctx->cons = old->cons;
+	ctx->errored = 0;
 	ctx->oldlen = old->oldlen;
 	ctx->fn_return = NULL;
 	ctx->program_ptr = old->program_ptr;
@@ -280,7 +288,7 @@ static void accept(int token, struct ubasic_ctx* ctx)
 {
 	if (token != tokenizer_token(ctx))
 	{
-		kprintf("Expected %d got %d\n", token, tokenizer_token(ctx));
+		//kprintf("Expected %d got %d\n", token, tokenizer_token(ctx));
 		tokenizer_error_print(ctx, "No such keyword");
 	}
 	tokenizer_next(ctx);
@@ -291,10 +299,15 @@ static int varfactor(struct ubasic_ctx* ctx)
 	const char* vn = tokenizer_variable_name(ctx);
 	int r = ubasic_get_int_variable(vn, ctx);
 	// Special case for builin functions
-	if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
-		accept(TOKENIZER_RIGHTPAREN, ctx);
+	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
+		tokenizer_error_print(ctx, "Too many parameters for builtin function");
 	else
-		accept(TOKENIZER_VARIABLE, ctx);
+	{
+		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
+			accept(TOKENIZER_RIGHTPAREN, ctx);
+		else
+			accept(TOKENIZER_VARIABLE, ctx);
+	}
 	return r;
 }
 
@@ -935,6 +948,7 @@ static void statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void line_statement(struct ubasic_ctx* ctx)
 {
+	ctx->errored = 0;
 	ctx->current_linenum = tokenizer_num(ctx);
 	DEBUG_PRINTF("----------- Line number %d ---------\n", ctx->current_linenum);
 	accept(TOKENIZER_NUMBER, ctx);
@@ -1294,10 +1308,14 @@ int ubasic_abs(struct ubasic_ctx* ctx)
 
 int ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int* res)
 {
-	if (!strcmp(fn_name, "ABS"))
+	int i;
+	for (i = 0; builtin_int[i].name; ++i)
 	{
-		*res = ubasic_abs(ctx);
-		return 1;
+		if (!strcmp(fn_name, builtin_int[i].name))
+		{
+			*res = builtin_int[i].handler(ctx);
+			return 1;
+		}
 	}
 	return 0;
 }

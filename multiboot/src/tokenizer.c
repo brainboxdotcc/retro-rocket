@@ -259,13 +259,14 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 	}
 	else
 	{
-		ubasic_set_string_variable("ERROR$", error, ctx, 0);
-		ubasic_set_int_variable("ERROR", 1, ctx, 0);
+		if (ctx->errored == 0)
+		{
+			ubasic_set_string_variable("ERROR$", error, ctx, 0);
+			ubasic_set_int_variable("ERROR", 1, ctx, 0);
+			ctx->errored = 1;
+		}
 		jump_linenum(ctx->eval_linenum, ctx);
 	}
-
-	//kprintf("'%s'\n", ctx->program_ptr);
-	//kprintf("'%s'\n", ctx->ptr);
 }
 /*---------------------------------------------------------------------------*/
 int tokenizer_finished(struct ubasic_ctx* ctx)
