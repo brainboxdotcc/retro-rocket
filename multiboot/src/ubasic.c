@@ -59,6 +59,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 		ctx->local_string_variables[i] = NULL;
 	ctx->cons = cons;
 	ctx->oldlen = 0;
+	ctx->fn_return = NULL;
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the prgram on lines 9998 and 9999.
 	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
@@ -91,6 +92,7 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 
 	ctx->cons = old->cons;
 	ctx->oldlen = old->oldlen;
+	ctx->fn_return = NULL;
 	ctx->program_ptr = old->program_ptr;
 	ctx->for_stack_ptr = old->for_stack_ptr;
 	ctx->gosub_stack_ptr = old->gosub_stack_ptr;
@@ -835,6 +837,20 @@ static void end_statement(struct ubasic_ctx* ctx)
 	ctx->ended = 1;
 }
 
+static void eq_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_EQ, ctx);
+
+	if (ctx->fn_type == RT_STRING)
+		ctx->fn_return = (void*)str_expr(ctx);
+	else
+		ctx->fn_return = (void*)expr(ctx);
+
+	accept(TOKENIZER_CR, ctx);
+
+	ctx->ended = 1;
+}
+
 /*---------------------------------------------------------------------------*/
 static void statement(struct ubasic_ctx* ctx)
 {
@@ -903,6 +919,9 @@ static void statement(struct ubasic_ctx* ctx)
 			/* Fall through. */
 		case TOKENIZER_VARIABLE:
 			let_statement(ctx);
+		break;
+		case TOKENIZER_EQ:
+			eq_statement(ctx);
 		break;
 		default:
 			tokenizer_error_print(ctx, "Unknown keyword\n");
@@ -1199,12 +1218,73 @@ void ubasic_restore_state(struct ubasic_ctx* ctx)
 {
 }
 
+#define BIP_STRING 0
+#define BIP_INT 1
+#define PARAMS_START int itemtype = BIP_INT; int intval; char* strval; char* oldval; char oldct; char* oldptr; char* oldnextptr; int gotone = 0; int bracket_depth = 0; char* item_begin = ctx->ptr; char itembuf[10240];
+#define PARAMS_GET_ITEM(type) { gotone = 0; \
+	while (!gotone) \
+	{ \
+		kprintf("gotone %c\n", *ctx->ptr); \
+		if (*ctx->ptr == '(') { \
+			bracket_depth++; \
+			if (bracket_depth == 1) \
+				item_begin = ctx->ptr + 1; \
+		} \
+       		else if (*ctx->ptr == ')') \
+			bracket_depth--; \
+		if ((*ctx->ptr == ',' && bracket_depth == 1) || (*ctx->ptr == ')' && bracket_depth == 0)) \
+		{ \
+			gotone = 1; \
+			oldval = *ctx->ptr; \
+			oldct = ctx->current_token; \
+			oldptr = ctx->ptr; \
+			oldnextptr = ctx->nextptr; \
+			ctx->nextptr = item_begin; \
+			ctx->ptr = item_begin; \
+			ctx->current_token = get_next_token(ctx); \
+			*oldptr = 0; \
+			itemtype = type; \
+			if (itemtype = BIP_STRING) \
+			{ \
+				kprintf("str expr %s\n", ctx->ptr);strval = str_expr(ctx); \
+			} \
+			else \
+			{ \
+				kprintf("int expr %s\n", ctx->ptr);intval = expr(ctx); kprintf("returned %d\n", intval); \
+			} \
+			*oldptr = oldval; \
+			ctx->ptr = oldptr; \
+			ctx->nextptr = oldnextptr; \
+			ctx->current_token = oldct; \
+			item_begin = ctx->ptr + 1; \
+			gotone = 1; \
+		} \
+		if (bracket_depth == 0 || *ctx->ptr == 0) \
+		{ \
+			ctx->nextptr = ctx->ptr; \
+			ctx->current_token = get_next_token(ctx); \
+			gotone = 1; \
+		} \
+		ctx->ptr++; \
+	} \
+}
+
 int ubasic_abs(struct ubasic_ctx* ctx)
 {
-	bracket_depth = 0;
-	item_begin = ctx->ptr;
+	kprintf("ubasic_abs\n");
+	PARAMS_START;
 
+	kprintf("Done params_start\n");
 
+	PARAMS_GET_ITEM(BIP_INT);
+	int v = intval;
+
+	kprintf("Done get_int, v=%d\n", v);
+
+	if (v < 0)
+		return 0 + -v;
+	else
+		return v;
 }
 
 int ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int* res)
@@ -1221,6 +1301,7 @@ int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	//kprintf("eval_int_fn fn_name=%s, ctx=%c\n", fn_name, *ctx->ptr);
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
+	int rv = 0;
 	if (def != NULL)
 	{
 		ctx->gosub_stack_ptr++;
@@ -1234,18 +1315,28 @@ int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		// Evaluate the entire fn here atomically.
 		//call_linenum(line, ctx);
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
+		atomic->fn_type = RT_INT;
 		jump_linenum(def->line, atomic);
 
 		while (!ubasic_finished(atomic))
 		{
 			line_statement(atomic);
 		}
+		if (atomic->fn_return == NULL)
+			tokenizer_error_print(ctx, "End of function without returning value");
+		else
+		{
+			rv = (int)atomic->fn_return;
+		}
 		
 		// Only free the base struct!
 		kfree(atomic);
 
 		ctx->gosub_stack_ptr--;
+
+		return rv;
 	}
+	tokenizer_error_print(ctx, "No such integer FN");
 	return 0;
 }
 

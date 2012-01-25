@@ -53,6 +53,12 @@ typedef enum
 	FT_PROC
 } ub_fn_type;
 
+typedef enum
+{
+	RT_STRING,
+	RT_INT
+} ub_return_type;
+
 struct ub_param
 {
 	char* name;
@@ -104,6 +110,8 @@ struct ubasic_ctx
 	struct ub_var_string_array* string_array_variables;
 	console* cons;
         int ended;
+	ub_return_type fn_type;
+	void* fn_return;
 
 };
 
