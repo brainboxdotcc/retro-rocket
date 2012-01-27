@@ -36,6 +36,7 @@
 #include "../include/input.h"
 #include "../include/video.h"
 #include "../include/taskswitch.h"
+#include "../include/filesystem.h"
 
 static int expr(struct ubasic_ctx* ctx);
 static void line_statement(struct ubasic_ctx* ctx);
@@ -48,6 +49,9 @@ struct ubasic_int_fn builtin_int[] =
 {
 	{ ubasic_abs, "ABS" },
 	{ ubasic_len, "LEN" },
+	{ ubasic_openin, "OPENIN" },
+	{ ubasic_eof, "EOF" },
+	{ ubasic_read, "READ" },
 	{ NULL, NULL }
 };
 
@@ -708,6 +712,8 @@ static void read_statement(struct ubasic_ctx* ctx)
 
 static void close_statement(struct ubasic_ctx* ctx)
 {
+	_close(expr(ctx));
+	accept(TOKENIZER_CR, ctx);
 }
 
 static void eof_statement(struct ubasic_ctx* ctx)
@@ -1331,6 +1337,30 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	ctx->ptr--; \
 	if (*ctx->ptr != ')') \
 		tokenizer_error_print(ctx, "Too many parameters for function " NAME ); \
+}
+
+int ubasic_openin(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	return _open(strval, _O_RDONLY);
+}
+
+int ubasic_eof(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	return _eof(intval);
+}
+
+int ubasic_read(struct ubasic_ctx* ctx)
+{
+	char res;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	if (_read(intval, &res, 1) != 1)
+		tokenizer_error_print(ctx, "Error reading from file");
+	return res;
 }
 
 char* ubasic_left(struct ubasic_ctx* ctx)
