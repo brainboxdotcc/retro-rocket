@@ -704,20 +704,24 @@ static void def_statement(struct ubasic_ctx* ctx)
 
 static void openin_statement(struct ubasic_ctx* ctx)
 {
+	tokenizer_error_print(ctx, "OPENIN is a function");
 }
 
 static void read_statement(struct ubasic_ctx* ctx)
 {
+	tokenizer_error_print(ctx, "READ is a function");
 }
 
 static void close_statement(struct ubasic_ctx* ctx)
 {
+	accept(TOKENIZER_CLOSE, ctx);
 	_close(expr(ctx));
 	accept(TOKENIZER_CR, ctx);
 }
 
 static void eof_statement(struct ubasic_ctx* ctx)
 {
+	tokenizer_error_print(ctx, "EOF is a function");
 }
 
 static void input_statement(struct ubasic_ctx* ctx)

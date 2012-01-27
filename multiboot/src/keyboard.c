@@ -52,25 +52,50 @@ void init_basic_keyboard()
 // Map a keyboard scan code to an ASCII value
 unsigned char translate_keycode(unsigned char scancode, u8int escaped, u8int shift_state, u8int ctrl_state, u8int alt_state)
 {
-	if (scancode > 0x53 || keyboard_scan_map_lower[scancode] == 0)
+	if (escaped)
 	{
-		/* Special key */
-		kprintf("Keyboard: Special key %08x not implemented yet\n", scancode);
+		switch (scancode)
+		{
+			case 0x48:
+				kprintf("UP");
+			break;
+			case 0x50:
+				kprintf("DOWN");
+			break;
+			case 0x4B:
+				kprintf("LEFT");
+			break;
+			case 0x4D:
+				kprintf("RIGHT");
+			break;
+			default:
+				kprintf("Unknown escape seq: %02x", scancode);
+			break;
+		}
 		return 0;
 	}
 	else
 	{
-		if (caps_lock)
+		if (scancode > 0x53 || keyboard_scan_map_lower[scancode] == 0)
 		{
-			char v = (shift_state ? keyboard_scan_map_lower : keyboard_scan_map_upper)[scancode];
-			if (v < 'a' || v > 'z')
-				if (v < 'A' || v > 'Z')
-					v = (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
-
-			return v;
+			/* Special key */
+			kprintf("Keyboard: Special key %08x not implemented yet\n", scancode);
+			return 0;
 		}
 		else
-			return (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
+		{
+			if (caps_lock)
+			{
+				char v = (shift_state ? keyboard_scan_map_lower : keyboard_scan_map_upper)[scancode];
+				if (v < 'a' || v > 'z')
+					if (v < 'A' || v > 'Z')
+						v = (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
+	
+				return v;
+			}
+			else
+				return (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
+		}
 	}
 }
 
