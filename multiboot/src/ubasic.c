@@ -47,6 +47,13 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx);
 struct ubasic_int_fn builtin_int[] =
 {
 	{ ubasic_abs, "ABS" },
+	{ ubasic_len, "LEN" },
+	{ NULL, NULL }
+};
+
+struct ubasic_str_fn builtin_str[] =
+{
+	{ ubasic_left, "LEFT$" },
 	{ NULL, NULL }
 };
 
@@ -317,14 +324,20 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 	if (*ctx->ptr == '"')
 	{
 		tokenizer_string(ctx->string, sizeof(ctx->string), ctx);
-		accept(TOKENIZER_STRING, ctx);
+		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
+			accept(TOKENIZER_RIGHTPAREN, ctx);
+		else
+			accept(TOKENIZER_STRING, ctx);
 		return ctx->string;
 	}
 	else
 	{
 		const char* vn = tokenizer_variable_name(ctx);
 		r = ubasic_get_string_variable(vn, ctx);
-		accept(TOKENIZER_VARIABLE, ctx);
+		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
+			accept(TOKENIZER_RIGHTPAREN, ctx);
+		else
+			accept(TOKENIZER_VARIABLE, ctx);
 	}
 	return r;
 }
@@ -737,18 +750,23 @@ static void let_statement(struct ubasic_ctx* ctx)
 	const char* var;
 	const char* _expr;
 
-	var = tokenizer_variable_name(ctx);
+	var = gc_strdup(tokenizer_variable_name(ctx));
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
+
+	//kprintf("let '%s' = ", var);
 
 	switch (var[strlen(var) - 1])
 	{
 		case '$':
 			_expr = str_expr(ctx);
+			//kprintf(var);
 			ubasic_set_string_variable(var, _expr, ctx, 0);
+			//kprintf("'%s'\n", _expr);
 		break;
 		default:
 			ubasic_set_int_variable(var, expr(ctx), ctx, 0);
+			//kprintf("numeric\n");
 		break;
 	}
 	accept(TOKENIZER_CR, ctx);
@@ -1026,6 +1044,8 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 {
 	struct ub_var_int* list[] = {ctx->str_variables, ctx->local_string_variables[ctx->gosub_stack_ptr]};
 
+	//kprintf("set string '%s' to '%s' %d\n", var, value, local);
+
 	if (!valid_string_var(var))
 	{
 		tokenizer_error_print(ctx, "Malformed variable name\n");
@@ -1224,20 +1244,42 @@ const char* extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ct
 
 const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
-	return "";
-}
+	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
+	const char* rv = gc_strdup("");
+	if (def != NULL)
+	{
+		ctx->gosub_stack_ptr++;
+		begin_comma_list(def, ctx);
+		while (extract_comma_list(def, ctx));
+		struct ubasic_ctx* atomic = ubasic_clone(ctx);
+		atomic->fn_type = RT_STRING;
+		jump_linenum(def->line, atomic);
 
-void ubasic_save_state(struct ubasic_ctx* ctx)
-{
-}
+		while (!ubasic_finished(atomic))
+		{
+			line_statement(atomic);
+		}
+		if (atomic->fn_return == NULL)
+			tokenizer_error_print(ctx, "End of function without returning value");
+		else
+		{
+			rv = (const char*)atomic->fn_return;
+		}
 
-void ubasic_restore_state(struct ubasic_ctx* ctx)
-{
+		/* Only free the base struct! */
+		kfree(atomic);
+
+		ctx->gosub_stack_ptr--;
+
+		return rv;
+	}
+	tokenizer_error_print(ctx, "No such string FN");
+	return rv;
 }
 
 #define BIP_STRING 0
 #define BIP_INT 1
-#define PARAMS_START int itemtype = BIP_INT; int intval; char* strval; char* oldval; char oldct; char* oldptr; char* oldnextptr; int gotone = 0; int bracket_depth = 0; char* item_begin = ctx->ptr; char itembuf[10240];
+#define PARAMS_START int itemtype = BIP_INT; int intval; char* strval; char* oldval; char oldct; char* oldptr; char* oldnextptr; int gotone = 0; int bracket_depth = 0; char* item_begin = ctx->ptr;
 #define PARAMS_GET_ITEM(type) { gotone = 0; \
 	while (!gotone) \
 	{ \
@@ -1260,7 +1302,7 @@ void ubasic_restore_state(struct ubasic_ctx* ctx)
 			ctx->current_token = get_next_token(ctx); \
 			*oldptr = 0; \
 			itemtype = type; \
-			if (itemtype = BIP_STRING) \
+			if (itemtype == BIP_STRING) \
 			{ \
 				strval = str_expr(ctx); \
 			} \
@@ -1289,6 +1331,25 @@ void ubasic_restore_state(struct ubasic_ctx* ctx)
 	ctx->ptr--; \
 	if (*ctx->ptr != ')') \
 		tokenizer_error_print(ctx, "Too many parameters for function " NAME ); \
+}
+
+char* ubasic_left(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_GET_ITEM(BIP_INT);
+	if (intval > strlen(strval))
+		intval = strlen(strval);
+	char* cut = gc_strdup(strval);
+	*(cut + intval) = 0;
+	return cut;
+}
+
+int ubasic_len(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	return strlen(strval);
 }
 
 int ubasic_abs(struct ubasic_ctx* ctx)
@@ -1320,9 +1381,23 @@ int ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int* res)
 	return 0;
 }
 
+int ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** res)
+{
+	int i;
+	for (i = 0; builtin_str[i].name; ++i)
+	{
+		if (!strcmp(fn_name, builtin_str[i].name))
+		{
+			*res = builtin_str[i].handler(ctx);
+			return 1;
+		}
+	}
+	return 0;
+}
+
+
 int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
-	//kprintf("eval_int_fn fn_name=%s, ctx=%c\n", fn_name, *ctx->ptr);
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	int rv = 0;
 	if (def != NULL)
@@ -1331,12 +1406,6 @@ int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
-
-		//ctx->gosub_stack[ctx->gosub_stack_ptr] = ctx->current_linenum;
-		//ctx->gosub_stack_ptr++;
-		// XXX We cant use jumo_linenum here,
-		// Evaluate the entire fn here atomically.
-		//call_linenum(line, ctx);
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
 		atomic->fn_type = RT_INT;
 		jump_linenum(def->line, atomic);
@@ -1351,8 +1420,8 @@ int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		{
 			rv = (int)atomic->fn_return;
 		}
-		
-		// Only free the base struct!
+
+		/* Only free the base struct! */
 		kfree(atomic);
 
 		ctx->gosub_stack_ptr--;
@@ -1366,6 +1435,11 @@ int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 {
+	char* retv;
+	int t = ubasic_builtin_str_fn(var, ctx, &retv);
+	if (t)
+		return retv;
+
 	if (var[0] == 'F' && var[1] == 'N')
 	{
 		const char* res = ubasic_eval_str_fn(var, ctx);

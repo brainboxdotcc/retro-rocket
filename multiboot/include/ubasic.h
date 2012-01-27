@@ -116,13 +116,25 @@ struct ubasic_ctx
 
 };
 
+// Builtin integer functions
 int ubasic_abs(struct ubasic_ctx* ctx);
+int ubasic_len(struct ubasic_ctx* ctx);
+
+// Builtin string functions
+char* ubasic_left(struct ubasic_ctx* ctx);
 
 typedef int (*builtin_int_fn)(struct ubasic_ctx* ctx);
+typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
 
 struct ubasic_int_fn
 {
 	builtin_int_fn handler;
+	const char* name;
+};
+
+struct ubasic_str_fn
+{
+	builtin_str_fn handler;
 	const char* name;
 };
 
