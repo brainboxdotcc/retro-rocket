@@ -53,12 +53,15 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_eof, "EOF" },
 	{ ubasic_read, "READ" },
 	{ ubasic_instr, "INSTR" },
+	{ ubasic_asc, "ASC" },
 	{ NULL, NULL }
 };
 
 struct ubasic_str_fn builtin_str[] =
 {
 	{ ubasic_left, "LEFT$" },
+	{ ubasic_chr, "CHR$" },
+	{ ubasic_readstring, "READ$" },
 	{ NULL, NULL }
 };
 
@@ -1369,6 +1372,21 @@ int ubasic_eof(struct ubasic_ctx* ctx)
 	return _eof(intval);
 }
 
+int ubasic_asc(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	return *strval;
+}
+
+char* ubasic_chr(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	char res[2] = {(char)intval, 0};
+	return gc_strdup(res);
+}
+
 int ubasic_instr(struct ubasic_ctx* ctx)
 {
 	int i;
@@ -1383,6 +1401,30 @@ int ubasic_instr(struct ubasic_ctx* ctx)
 		if (!strncmp(haystack + i, needle, strlen(needle)))
 			return i + 1;
 	return 0;
+}
+
+char* ubasic_readstring(struct ubasic_ctx* ctx)
+{
+	//kprintf("read string\n");
+	char* res = (char*)kmalloc(1024);
+	int ofs = 0;
+	*res = 0;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	while (!_eof(intval) && ofs < 1024)
+	{
+		if (_read(intval, res + ofs, 1) != 1)
+			tokenizer_error_print(ctx, "Error reading from file");
+		if (*(res + ofs) == '\n')
+			break;
+		else
+			ofs++;
+		//kprintf("Got byte %d", res[ofs - 1]);
+	}
+	*(res+ofs) = 0;
+	char* ret = gc_strdup(res);
+	kfree(res);
+	return ret;
 }
 
 int ubasic_read(struct ubasic_ctx* ctx)

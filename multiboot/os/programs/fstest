@@ -1,4 +1,6 @@
 10 FH = OPENIN("/programs/fstest")
+15 V$=READ$(FH)
+20 PRINT V$
 20 PRINT "File Handle: ";
 30 PRINT FH
 40 BYTE = READ(FH)

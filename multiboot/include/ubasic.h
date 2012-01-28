@@ -123,9 +123,12 @@ int ubasic_openin(struct ubasic_ctx* ctx);
 int ubasic_eof(struct ubasic_ctx* ctx);
 int ubasic_read(struct ubasic_ctx* ctx);
 int ubasic_instr(struct ubasic_ctx* ctx);
+int ubasic_asc(struct ubasic_ctx* ctx);
 
 // Builtin string functions
 char* ubasic_left(struct ubasic_ctx* ctx);
+char* ubasic_chr(struct ubasic_ctx* ctx);
+char* ubasic_readstring(struct ubasic_ctx* ctx);
 
 typedef int (*builtin_int_fn)(struct ubasic_ctx* ctx);
 typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
