@@ -162,7 +162,8 @@ int get_next_token(struct ubasic_ctx* ctx)
   if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) {
     ctx->nextptr = ctx->ptr;
     int varl = 0;
-    while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->nextptr == '$') || (*ctx->nextptr == '('))
+    while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->nextptr == '$') || (*ctx->nextptr == '(')
+		    || (varl > 0 && isdigit(*ctx->nextptr)))
     {
 	    //kprintf("%c", *ctx->nextptr);
 	    ctx->nextptr++;
