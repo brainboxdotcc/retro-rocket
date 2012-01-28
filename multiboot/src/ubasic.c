@@ -52,6 +52,7 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_openin, "OPENIN" },
 	{ ubasic_eof, "EOF" },
 	{ ubasic_read, "READ" },
+	{ ubasic_instr, "INSTR" },
 	{ NULL, NULL }
 };
 
@@ -654,7 +655,9 @@ static void if_statement(struct ubasic_ctx* ctx)
 static void chain_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_CHAIN, ctx);
-	struct process* p = proc_load(str_expr(ctx), ctx->cons);
+	const char* pn = str_expr(ctx);
+	//kprintf("Chaining '%s'\n", pn);
+	struct process* p = proc_load(pn, ctx->cons);
 	proc_wait(proc_cur(), p->pid);
 	accept(TOKENIZER_CR, ctx);
 }
@@ -1355,6 +1358,22 @@ int ubasic_eof(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	return _eof(intval);
+}
+
+int ubasic_instr(struct ubasic_ctx* ctx)
+{
+	int i;
+	char* haystack;
+	char* needle;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	haystack = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	needle = strval;
+	for (i = 0; i < strlen(haystack) - strlen(needle) + 1; ++i)
+		if (!strncmp(haystack + i, needle, strlen(needle)))
+			return i + 1;
+	return 0;
 }
 
 int ubasic_read(struct ubasic_ctx* ctx)

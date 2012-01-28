@@ -7,16 +7,24 @@
 16 PRINT "BASIC shell."
 17 PRINT "Type END to exit the shell and shut down."
 18 PRINT ""
+19 PATH$ = "/programs"
 20 COLOR 14
 30 PRINT PROMPT$;
 40 COLOR 7
 50 PRINT "> ";
 60 INPUT inp$
 70 EVAL inp$
-80 IF ERROR = 1 THEN PRINT "Execution error: " + ERROR$
+80 IF ERROR = 1 THEN GOTO 100
 90 GOTO 20
-100 DEF FNfoo(a, a$)
-120 PRINT a
-130 PRINT a$
-140 PRINT "End of function"
-140 =a+1
+100 commandidx = INSTR(inp$," ")
+101 IF commandidx > 0 THEN GOTO 105
+102 command$ = inp$
+103 GOTO 105
+104 command$ = LEFT$(inp$,commandidx)
+105 FH = OPENIN(PATH$ + "/" + command$)
+110 IF FH < 0 THEN GOTO 140
+115 CLOSE FH
+120 CHAIN PATH$ + "/" + command$
+130 GOTO 20
+140 PRINT "No such command: " + command$
+140 GOTO 20

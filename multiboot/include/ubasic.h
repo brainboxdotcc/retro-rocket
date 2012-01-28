@@ -122,6 +122,7 @@ int ubasic_len(struct ubasic_ctx* ctx);
 int ubasic_openin(struct ubasic_ctx* ctx);
 int ubasic_eof(struct ubasic_ctx* ctx);
 int ubasic_read(struct ubasic_ctx* ctx);
+int ubasic_instr(struct ubasic_ctx* ctx);
 
 // Builtin string functions
 char* ubasic_left(struct ubasic_ctx* ctx);

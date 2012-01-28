@@ -115,9 +115,9 @@ int get_next_token(struct ubasic_ctx* ctx)
     return TOKENIZER_ENDOFINPUT;
   }
   
-  if(isdigit(*ctx->ptr)) {
-    for(i = 0; i < MAX_NUMLEN; ++i) {
-      if(!isdigit(ctx->ptr[i])) {
+  if (isdigit(*ctx->ptr)) {
+    for (i = 0; i < MAX_NUMLEN; ++i) {
+      if (!isdigit(ctx->ptr[i])) {
 	if(i > 0) {
 	  ctx->nextptr = ctx->ptr + i;
 	  return TOKENIZER_NUMBER;
