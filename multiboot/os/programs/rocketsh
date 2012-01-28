@@ -1,30 +1,30 @@
 10 PROMPT$ = "ROCKETSH"
-11 PRINT ""
-12 PRINT "Welcome to ";
-13 COLOR 14
-14 PRINT "Retro Rocket ";
-15 COLOR 7
-16 PRINT "BASIC shell."
-17 PRINT "Type END to exit the shell and shut down."
-18 PRINT ""
-19 PATH$ = "/programs"
-20 COLOR 14
-30 PRINT PROMPT$;
-40 COLOR 7
-50 PRINT "> ";
-60 INPUT inp$
-70 EVAL inp$
-80 IF ERROR = 1 THEN GOTO 100
-90 GOTO 20
-100 commandidx = INSTR(inp$," ")
-101 IF commandidx > 0 THEN GOTO 105
-102 command$ = inp$
-103 GOTO 105
-104 command$ = LEFT$(inp$,commandidx)
-105 FH = OPENIN(PATH$ + "/" + command$)
-110 IF FH < 0 THEN GOTO 140
-115 CLOSE FH
-120 CHAIN PATH$ + "/" + command$
-130 GOTO 20
-140 PRINT "No such command: " + command$
-140 GOTO 20
+20 PRINT ""
+30 PRINT "Welcome to ";
+40 COLOR 14
+50 PRINT "Retro Rocket ";
+60 COLOR 7
+70 PRINT "BASIC shell."
+80 PRINT "Type END to exit the shell and shut down."
+90 PRINT ""
+100 PATH$ = "/programs"
+110 COLOR 14
+120 PRINT PROMPT$;
+130 COLOR 7
+140 PRINT "> ";
+150 INPUT inp$
+160 EVAL inp$
+170 IF ERROR = 1 THEN GOTO 190
+180 GOTO 110
+190 commandidx = INSTR(inp$," ")
+200 IF commandidx > 0 THEN GOTO 230
+210 command$ = inp$
+220 GOTO 240
+230 command$ = LEFT$(inp$,commandidx)
+240 FH = OPENIN(PATH$ + "/" + command$)
+250 IF FH < 0 THEN GOTO 290
+260 CLOSE FH
+270 CHAIN PATH$ + "/" + command$
+280 GOTO 110
+290 PRINT "No such command: " + command$
+300 GOTO 110
