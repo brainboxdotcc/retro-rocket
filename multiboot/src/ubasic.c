@@ -691,6 +691,14 @@ static void eval_statement(struct ubasic_ctx* ctx)
 	}
 }
 
+static void rem_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_REM, ctx);
+	while (tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && tokenizer_token(ctx) != TOKENIZER_CR)
+		tokenizer_next(ctx);
+	accept(TOKENIZER_CR, ctx);
+}
+
 static void def_statement(struct ubasic_ctx* ctx)
 {
 	// Because the function or procedure definition is pre-parsed by ubasic_init(),
@@ -698,10 +706,8 @@ static void def_statement(struct ubasic_ctx* ctx)
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we dont fall through into a function.
 	accept(TOKENIZER_DEF, ctx);
-	
 	while (tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && tokenizer_token(ctx) != TOKENIZER_CR)
 		tokenizer_next(ctx);
-
 	accept(TOKENIZER_CR, ctx);
 }
 
@@ -907,6 +913,9 @@ static void statement(struct ubasic_ctx* ctx)
 
 	switch (token)
 	{
+		case TOKENIZER_REM:
+			rem_statement(ctx);
+		break;
 		case TOKENIZER_COLOR:
 			colour_statement(ctx, TOKENIZER_COLOR);
 		break;
