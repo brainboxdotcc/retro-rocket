@@ -53,7 +53,7 @@ heap_t*	create_heap(u32int addr, u32int end, u32int max, u32int min, u8int user,
 	heap->user = user;			/* User or kernel heap */
 	heap->rw = rw;				/* R/W */
 
-	/*Ftiaxnoume to 1o block */
+	/* Define new */
 	header = (header_t*)addr;		/* Header at the beginning of the heap */
 	header->magic = HEAP_MAGIC;		/* ID byte */
 	header->size = (end-addr - sizeof(header_t) - sizeof(footer_t));	/* size of the heap */
@@ -163,7 +163,7 @@ static void free_int(void *addr, heap_t *heap)
 			if (tf_left->header->free)
 			{
 				/* If its free */
-			i	th_left = tf_left->header;	/* Assign to left */
+				th_left = tf_left->header;	/* Assign to left */
 				heap->list_free = ord_list_remove(th_left,heap->list_free);
 				th = th_left;
 			}
@@ -251,37 +251,38 @@ void shrink_heap(u32int size, heap_t* heap)
 
 void fix_heap_list(heap_t *heap)
 {
-/*Frontizei etsi oste An kai efoson yparxei adesmeftos xoros sto telos tou heap
-  na Orizete Block H na epekteinetai to yparxon. Mporei na xrisimopoieitai se kathe 
-  Expand h akoma kai se Contract < Min_size */
+	/* Makes sure that if and when there is space in the unattached end of the heap
+	 * to contain the block or extend the existing heap. Can be used with any
+	 * size of block the even when shrinking below min_size
+	 */
 	header_t* th;
 	footer_t* tf;
 
 	assert(heap != NULL, "HEAP FIX LIST - NULL HEAP");
 
-	/*Adjust Blocks */
-	/*Psaxnoume to telefteo footer sto heap */
-	u8int *p;				/*seek byte */
-	p = (u8int*)heap->end_addr - sizeof(footer_t);		/*Tha psaxnoume byte pros byte gia Magic Number */
+	/* Adjust Blocks */
+	/* Find the footer of the heap */
+	u8int *p;				/* seek byte */
+	p = (u8int*)heap->end_addr - sizeof(footer_t);		/* We are looking for the 1-byte Magic Number */
 
 	for (tf = (footer_t*)p; tf >= (footer_t*)heap->heap_addr; tf = (footer_t*)--p)
 	{
 		if (tf->magic == HEAP_MAGIC)
 		{
-			/*1o check */
+			/* link check */
 			if ((int)tf->header >= (int)heap->heap_addr &&
 					(int)tf->header <= (int)heap->end_addr &&
 					(int)tf->header->magic == HEAP_MAGIC)
 			{
-				/*Double check */
-				goto bbreak;			/*vriskomaste se pragmatiko block end */
+				/* Double check */
+				goto bbreak;			/* Found the real block end */
 			}
 		}
 	}
 
 bbreak:
 
-	/*to tf mas vriskete eite sto last footer, eite sto start */
+	/* In tf we find the last footer, or the start of the heap */
 	if (tf == (footer_t*)heap->heap_addr)
 	{
 		/*An den exei vrethei oute 1 block */
@@ -292,7 +293,7 @@ bbreak:
 		th->free = 1;
 		th->prev = 0;
 		th->next = 0;
-								/*to footer */
+		/* define footer */
 		tf = (footer_t*)((u32int)th + sizeof(header_t) + th->size);
 		tf->magic = HEAP_MAGIC;
 		tf->header = th;

@@ -1,27 +1,26 @@
-#include "../include/io.h"
-#include "../include/string.h"
-#include "../include/kernel.h"
-#include "../include/video.h"
-#include "../include/kprintf.h"
-#include "../include/interrupts.h"
-#include "../include/errorhandler.h"
-#include "../include/keyboard.h"
-#include "../include/timer.h"
-#include "../include/paging.h"
-#include "../include/kmalloc.h"
-#include "../include/ata.h"
-#include "../include/iso9660.h"
-#include "../include/fat32.h"
-#include "../include/filesystem.h"
-#include "../include/debugger.h"
-#include "../include/taskswitch.h"
-#include "../include/devfs.h"
-#include "../include/elf.h"
-#include "../include/syscall.h"
-#include "../include/ubasic.h"
-#include "../include/input.h"
-
-#define MULTIBOOT_MAGIC 0x2BADB002
+#include <io.h>
+#include <string.h>
+#include <kernel.h>
+#include <video.h>
+#include <kprintf.h>
+#include <interrupts.h>
+#include <errorhandler.h>
+#include <keyboard.h>
+#include <timer.h>
+#include <paging.h>
+#include <kmalloc.h>
+#include <ata.h>
+#include <iso9660.h>
+#include <fat32.h>
+#include <filesystem.h>
+#include <debugger.h>
+#include <taskswitch.h>
+#include <devfs.h>
+#include <elf.h>
+#include <syscall.h>
+#include <ubasic.h>
+#include <input.h>
+#include <multiboot.h>
 
 console* current_console = NULL;
 u32int initial_esp = NULL;
