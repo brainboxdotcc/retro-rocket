@@ -6,7 +6,8 @@
  */
 
 #define HEAP_MAGIC 0xDEADDEAD
-#define KHEAP_START 0x0C000000
+//#define KHEAP_START 0x0C000000
+#define KHEAP_START &end
 #define UHEAP_START 0x0F000000
 
 struct footer;

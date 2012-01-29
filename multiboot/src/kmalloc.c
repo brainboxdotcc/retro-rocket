@@ -3,39 +3,34 @@
 #include "../include/paging.h"
 #include "../include/kprintf.h"
 
-extern u32int end;		/*Einai to telos tou telefteou section
-				  h allios i arxi tou default heap mas ;) */
-//u32int heap_pos = (u32int)&end;
+extern u32int end;		/* Heap straight after kernel */
+u32int heap_pos = (u32int)&end;
 
-// Heap starts at 4mb boundary, we have a higher-half kernel
-// and most of the user tasks and programs are on the kernel heap
-// as interpreted managed code, so we might as well start here and
-// expand upwards.
-
-u32int heap_pos = (u32int)0x400000;
-
+u32int allocated = 0;
+u32int allocations = 0;
 
 extern page_directory_t *kernel_directory;
 extern page_directory_t *current_directory;
-/*Tha yparxoun 2 energa heap, tou kernel kai tou proccess */
-heap_t*	kheap = 0;	/*Kernel Heap */
-heap_t*	uheap = 0;	/*User Heap */
 
-/*H lista mas tha einai ordered kai tha ftiaksoume tis voithitikes routines xeirismou */
-header_t* ord_list_insert(header_t *insert,header_t *list);	/*Insert se taksinomimeni lista */
-header_t* ord_list_remove(header_t *remove,header_t *list);	/*Remove ap tin lista, return list */
-header_t* ord_list_get_nnode(u32int n,header_t *list);		/*Epistrefei to N node */
-header_t* ord_list_get_last(header_t *list);			/*Epistrefei Last node */
-header_t* ord_list_src_size(u32int sz,header_t *list);		/*Psaxnoume gia sz < BLOCK size */
-header_t* ord_list_src_head(header_t* head,header_t *list);	/*Psaxnei node me header */
+/* Two heaps, one for kernel and one for user */
+heap_t*	kheap = 0;	/* Kernel Heap */
+heap_t*	uheap = 0;	/* User Heap */
+
+/* Our list will be ordered and will construct the internal structures */
+header_t* ord_list_insert(header_t *insert,header_t *list);	/* Insert into ordered list */
+header_t* ord_list_remove(header_t *remove,header_t *list);	/* Remove item from list, return list */
+header_t* ord_list_get_nnode(u32int n,header_t *list);		/* Get N'th ordered node */
+header_t* ord_list_get_last(header_t *list);			/* Get last ordered node */
+header_t* ord_list_src_size(u32int sz,header_t *list);		/* We are looking for sz <BLOCK size */
+header_t* ord_list_src_head(header_t* head,header_t *list);	/* Looking for node header */
 
 /*Voithitikes routines tou memory manager */
-static void* alloc(u32int size,u8int align,heap_t *heap);/*ALLOCATE memory apo heap */
-static void free_int(void*, heap_t *heap);		/*FREE memory apo heap */
-void expand_heap(u32int size, heap_t *heap);	/*Megalonoume to heap kata size bytes (paligned)*/
-void shrink_heap(u32int size, heap_t *heap);	/*Mikrenoume to heap kata size bytes (paligned) */
-void fix_heap_list(heap_t *heap);		/*Frontizei oste panta na yparxei block os to end */
-header_t* palign_block(u32int size, heap_t *heap);
+static void* alloc(u32int size,u8int align,heap_t *heap);/* Allocate memory on the heap */
+static void free_int(void*, heap_t *heap);		/* Free memory on the heap */
+void expand_heap(u32int size, heap_t *heap);	/* Extend the heap by size bytes (paligned)*/
+void shrink_heap(u32int size, heap_t *heap);	/* Shrink the heap to size bytes (paligned) */
+void fix_heap_list(heap_t *heap);		/* Always ensure the block is within the heap */
+header_t* palign_block(u32int size, heap_t *heap);	/* Page align block */
 
 /********************************************************/
 
@@ -49,147 +44,147 @@ heap_t*	create_heap(u32int addr, u32int end, u32int max, u32int min, u8int user,
 	assert(addr < end, "CREATE HEAP - START > END");
 	assert(max > end, "CREATE HEAP - END > MAX");
 
-	_memset((char*)heap, 0, sizeof(heap_t));	/*Nullify */
- 	heap->list_free = (header_t*)addr;	/*Sto 1o (monadiko) header */
-	heap->heap_addr = addr;			/*Orizoume ta members tou heap */
-	heap->end_addr = end;			/*heap end */
-	heap->max_size = max;			/*MAX size */
-	heap->min_size = min;			/*MIN size */
-	heap->user = user;			/*Attributes gia ta pages sto expand */
-	heap->rw = rw;				/*to idio */
+	_memset((char*)heap, 0, sizeof(heap_t));	/* Nullify */
+ 	heap->list_free = (header_t*)addr;	/* In the first (unique) header */
+	heap->heap_addr = addr;			/* Define heap base address */
+	heap->end_addr = end;			/* Heap end */
+	heap->max_size = max;			/* Max size */
+	heap->min_size = min;			/* Min size */
+	heap->user = user;			/* User or kernel heap */
+	heap->rw = rw;				/* R/W */
 
 	/*Ftiaxnoume to 1o block */
-	header = (header_t*)addr;		/*Header, stin arxi tou heap */
-	header->magic = HEAP_MAGIC;		/*ID byte */
-	header->size = (end-addr - sizeof(header_t) - sizeof(footer_t));	/*size full */
-	header->free = 1;			/*Diathesimo */
-	header->prev = 0;			/*Proto entry (prev==0)*/
-	header->next = 0;			/*Telefteo entry (next==0) */
-	/*kai to footer */
-	footer = (footer_t*)((u32int)header + sizeof(header_t) + header->size);	/*seek */
-	footer->magic = HEAP_MAGIC;		/*ID byte */
-	footer->header = header;		/*point sto header */
+	header = (header_t*)addr;		/* Header at the beginning of the heap */
+	header->magic = HEAP_MAGIC;		/* ID byte */
+	header->size = (end-addr - sizeof(header_t) - sizeof(footer_t));	/* size of the heap */
+	header->free = 1;			/* Available */
+	header->prev = 0;			/* Previous entry (prev==0)  */
+	header->next = 0;			/* Next entry (next==0) */
+	/* Define footer */
+	footer = (footer_t*)((u32int)header + sizeof(header_t) + header->size);	/* seek */
+	footer->magic = HEAP_MAGIC;		/* ID byte */
+	footer->header = header;		/* point to header */
 
-	return heap;				/*telos */
+	return heap;
 }
 
 static void *alloc(u32int size,u8int palign, heap_t *heap)
 {
-	void *ret;		/*return address */
-	u32int b_total, b_new;	/*Voithitika gia to split */
-	header_t *th;		/*pointer gia block header */
-	footer_t *tf;		/*pointer gia block footer */
+	void *ret;		/* return address */
+	u32int b_total, b_new;	/* Helpful for split */
+	header_t *th;		/* pointer to block header */
+	footer_t *tf;		/* pointer to block footer */
 
 	if (!heap)
-		return 0;	/*null heap */
+		return 0;	/* null heap */
 
-	/*Psaxnoume free block pou na xoraei to size */
-	if (!ord_list_src_size(size, heap->list_free))	/*an den yparxei arketa megalo elefthero block */
-		expand_heap(size - (ord_list_get_last(heap->list_free))->size, heap);	/*expand heap */
-	if (palign)	/*An zitithike page aligned address */
-		th = palign_block(size, heap);	/*Pernoume page aligned block */
-	else		/*allios */
-		th = ord_list_src_size(size, heap->list_free);	/*Penoume to 1o diathesimo block */
+	/* We are looking for a free block that fits the size */
+	if (!ord_list_src_size(size, heap->list_free))	/* ... if there is no large enough free block */
+		expand_heap(size - (ord_list_get_last(heap->list_free))->size, heap);	/* expand heap */
+	if (palign)	/* If requested page aligned address */
+		th = palign_block(size, heap);	/* Pass page aligned block */
+	else		/* otherwise... */
+		th = ord_list_src_size(size, heap->list_free);	/* Pass the first available block */
 
 	if (!th)
-		return 0;					/*Den vrethike xoros */
+		return 0;					/* We could not find space */
 
-	heap->list_free = ord_list_remove(th, heap->list_free);	/*Afairoume to entry */
+	heap->list_free = ord_list_remove(th, heap->list_free);	/* Remove the entry */
 	tf = (footer_t*)((u32int)th + sizeof(header_t) + th->size);
 	if (th->magic != HEAP_MAGIC)
-		return 0;	/*Elegxos an uparxei header */
+		return 0;	/* Check if header */
 	if (tf->magic != HEAP_MAGIC)
-		return 0;	/*Elegxos an uparxei footer */
+		return 0;	/* Check if footer */
 
-	/*Yparxoun 2 periptoseis, H desmevoume olo to block, H to kanoume split */
-	b_total = sizeof(header_t) + th->size + sizeof(footer_t);	/*Sinoliko size tou block */
-	b_new	= sizeof(header_t) + size + sizeof(footer_t);		/*Sinoliko size tou neou */
+	/* There are two possibilities, either it fits into the block, or split */
+	b_total = sizeof(header_t) + th->size + sizeof(footer_t);	/* total size of the block */
+	b_new	= sizeof(header_t) + size + sizeof(footer_t);		/* total size of the new entry */
 	if (b_total - b_new > sizeof(header_t) +  sizeof(footer_t))
 	{
-		/*Xoraei block sto keno */
-		/*Kanoume split, mikrenoume to arxiko block */
-		th->free = 0;		/*Sign oti xrisimopoieitai */
-		th->size = size;	/*Neo size */
+		/* Fits in the empty block */
+		/*  we split, copy the original block */
+		th->free = 0;		/* Mark it used */
+		th->size = size;	/* New size */
 		tf = (footer_t*)((u32int)th + sizeof(header_t) + th->size);
-		tf->magic = HEAP_MAGIC;	/*Neo footer */
+		tf->magic = HEAP_MAGIC;	/* New footer */
 		tf->header = th;
-		/*To address meta to header gia return */
+		/* The address of the header to return */
 		ret = ((void*)((u32int)th+sizeof(header_t)));
 
-		/*Ftiaxnoume ena kainourio free block sto keno xoro */
-		th = (header_t*)((u32int)tf + sizeof(footer_t));	/*Neo header gia free block */
-		th->magic = HEAP_MAGIC;					/*ID byte */
+		/* Make aa new free block in the space */
+		th = (header_t*)((u32int)tf + sizeof(footer_t));	/* New header for the free block */
+		th->magic = HEAP_MAGIC;					/* ID byte */
 		th->size = b_total - b_new - sizeof(header_t) - sizeof(footer_t);
-		th->free = 1;						/*diathesimo */
-		tf = (footer_t*)((u32int)th + sizeof(header_t) + th->size);	/*neo footer */
-		tf->magic = HEAP_MAGIC;	/*den einai aparaitito kathos ipirxe footer idi */
-		tf->header = th;	/*point sto neo header */
+		th->free = 1;						/* Make free */
+		tf = (footer_t*)((u32int)th + sizeof(header_t) + th->size);	/* new footer */
+		tf->magic = HEAP_MAGIC;	/* not necessary since there was already a footer */
+		tf->header = th;	/* point to new header */
 
-		/*Vazoume neo entry gia to kainourio free block */
+		/* Put a new entry for the new free block */
 		heap->list_free = ord_list_insert(th,heap->list_free);
 	}
 	else 
 	{
-		/*Den xoraei split opote to desmevoume olokliro */
-		th->free = 0;		/*Sign oti xrisimopoieitai */
+		/* It can be split */
+		th->free = 0;		/* Mark as used */
 		ret = ((void*)((u32int)th+sizeof(header_t)));
 	}
-	/*Telos kanoume return tin diefthinsi meta to header pou desmefsame */
+	/* Finally, return the address in the header we created */
 	return ret;
 }
 
 static void free_int(void *addr, heap_t *heap)
 {
-	header_t *th,*th_left, *th_right;	/*pointers gia current, previous kai next block */
-	footer_t *tf,*tf_left, *tf_right;	/*tha xrisimopoiithoun ta prev kai next sto merge */
+	header_t *th,*th_left, *th_right;	/* pointers to the current, previous and next block */
+	footer_t *tf,*tf_left, *tf_right;	/* will use the prev and next to merge the list on deletion */
 
 	if (!heap)
-		return;	/*null heap */
+		return;	/* null heap */
 	if (addr < (void*)heap->heap_addr || addr > (void*)heap->end_addr)
-		return; /*addr not in heap */
+		return; /* addr not in heap */
 
-	th = (header_t*)((u32int)addr - sizeof(header_t));		/*Pernoume to header */
-	tf = (footer_t*)((u32int)th + sizeof(header_t) + th->size);	/*kai to footer */
+	th = (header_t*)((u32int)addr - sizeof(header_t));		/* Pass the header address */
+	tf = (footer_t*)((u32int)th + sizeof(header_t) + th->size);	/* and the footer */
 
 	if (th->magic != HEAP_MAGIC)
-		return;	/*Elegxos an uparxei header */
+		return;	/* Check if header */
 	if (tf->magic != HEAP_MAGIC)
-		return;	/*Elegxos an uparxei footer */
+		return;	/* Check if footer */
 
-	/*Enosi Free blocks */
-	/*Tsekaroume an uparxei free block aristera */
+	/* Find associated free blocks */
+	/* Check if a free block left */
 	if ((u32int)th != (u32int)heap->heap_addr)
 	{
-		/*an yparxei xoros aristera */
+		/* if there is space left */
 		tf_left = (footer_t*)((u32int)th - sizeof(footer_t));
 		if (tf_left->magic == HEAP_MAGIC && tf_left->header->magic == HEAP_MAGIC)
 		{
-			/*An yparxei block... */
+			/* Although there is a block... */
 			if (tf_left->header->free)
 			{
-				/*An einai free */
-				th_left = tf_left->header;	/*Enosi aristera */
+				/* If its free */
+			i	th_left = tf_left->header;	/* Assign to left */
 				heap->list_free = ord_list_remove(th_left,heap->list_free);
 				th = th_left;
 			}
 		}
 	}
 
-	/*Tsekaroume an uparxei free block deksia */
+	/* Check if a free block */
 	if ((u32int)tf + sizeof(footer_t) != (u32int)heap->end_addr)
 	{
-		/*an yparxei xoros deksia */
+		/* ... if there is space to the right */
 		th_right = (header_t*)((u32int)tf + sizeof(footer_t));
 		if (th_right->magic == HEAP_MAGIC)
 		{
-			/*an uparxei block .. */
+			/* a free block... */
 			tf_right = (footer_t*)((u32int)th_right + sizeof(header_t) + th_right->size);
 			if (tf_right->magic == HEAP_MAGIC)
 			{
 				/*double check */
 				if (th_right->free == 1)
 				{
-					/*an einai free */
+					/* if free */
 					heap->list_free = ord_list_remove(th_right,heap->list_free);
 					tf = tf_right;
 				}
@@ -197,7 +192,7 @@ static void free_int(void *addr, heap_t *heap)
 		}
 	}
 
-	/*Opote pleon exoume ena free block me header == th kai footer == tf */
+	/* So now we have a free block where header == th and footer == tf */
 	th->free = 1;
 	th->magic = HEAP_MAGIC;
 	th->size = (u32int)tf - ((u32int)th + sizeof(header_t));
@@ -206,36 +201,36 @@ static void free_int(void *addr, heap_t *heap)
 
 	if (heap->end_addr == (u32int)tf + sizeof(footer_t))
 	{	
-		/*An itan Last block */
+		/* If it was the Last block */
 		shrink_heap(th->size + sizeof(header_t) + sizeof(footer_t), heap);	/*Shrink */
 	}
 	else
 	{	
-		/*allios vazoume entry */
+		/* Otherwise we insert the entry */
 		heap->list_free = ord_list_insert(th,heap->list_free);
 	}
+
+	allocated -= th->size;
 }
 
 void expand_heap(u32int size, heap_t *heap)
 {
-/*Kanei Expand to megethos tou heap kata size (paligned) bytes */
-	/*To expand ginete se page boundaries */
+	/* Expand to make the size of the heap a new aligned size */
 	if (size & 0xFFF)
 	{
-		/*an den einai pagigned */
+		/* make it page aligned if it is not already */
 		size &= 0xFFFFF000;
 		size += 0x1000;
 	}
 	assert(heap != NULL, "HEAP EXPAND - NULL HEAP");
-	/*expand mexri max size */
+	/*expand up to max size */
 	if (heap->end_addr + size > heap->max_size) 
 		size = heap->max_size - heap->end_addr;
-	/*Orizoume pages */
+	/* We now define the pages */
 	sign_sect(heap->end_addr, heap->end_addr+size, heap->user, heap->rw,current_directory);
-	_memset((char*)heap->end_addr, 0 , size);	/*Nullify */
-	heap->end_addr += size;				/*Adjust to end */
-
-	fix_heap_list(heap);				/*Fix list */
+	_memset((char*)heap->end_addr, 0 , size);	/* Nullify */
+	heap->end_addr += size;				/* Adjust to end */
+	fix_heap_list(heap);				/* Fix list */
 }
 
 void shrink_heap(u32int size, heap_t* heap)
@@ -391,21 +386,22 @@ void* kmalloc_org(u32int size, u8int align,u32int *phys)
 {
 	void* ret;
 
-		if (align)
-		{
-			/*Morfopoioume se page boundaries */
-			heap_pos &= 0xFFFFF000;
-			heap_pos += 0x1000;	/*Next bound */
-		}
-		if (phys) /*epistrefoume to Alloc address sto phys */
-			*phys = heap_pos;
-		ret = (void*)heap_pos;
-		heap_pos += size;
-		return ret;
+	if (align)
+	{
+		/*Morfopoioume se page boundaries */
+		heap_pos &= 0xFFFFF000;
+		heap_pos += 0x1000;	/*Next bound */
+	}
+	if (phys) /*epistrefoume to Alloc address sto phys */
+		*phys = heap_pos;
+	ret = (void*)heap_pos;
+	heap_pos += size;
+	return ret;
 }
 
 void* kmalloc_ext(u32int size, u8int align, u32int *phys)
 {
+	allocated += size;
 	void* ret;
 	if (kheap)
 	{
