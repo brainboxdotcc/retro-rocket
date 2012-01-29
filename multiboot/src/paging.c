@@ -6,6 +6,8 @@
 #include "../include/kprintf.h"
 #include "../include/debugger.h"
 
+extern u32int end;
+
 page_directory_t *current_directory=0;	/* Currently active page directory */
 page_directory_t *proc_initial = 0;	/* Initial page directory for user process */
 page_directory_t *kernel_directory=0;	/* Kernel directory */

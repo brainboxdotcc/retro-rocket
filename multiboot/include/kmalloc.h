@@ -6,8 +6,11 @@
  */
 
 #define HEAP_MAGIC 0xDEADDEAD
-//#define KHEAP_START 0x0C000000
-#define KHEAP_START &end
+// 16mb
+//#define KHEAP_START 0x01000000
+// 4mb
+#define KHEAP_START 0x00400000
+//#define KHEAP_START 0x00200000
 #define UHEAP_START 0x0F000000
 
 struct footer;

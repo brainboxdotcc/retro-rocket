@@ -5,6 +5,7 @@
 
 extern u32int end;		/* Heap straight after kernel */
 u32int heap_pos = (u32int)&end;
+//u32int heap_pos = 0x00200000;
 
 u32int allocated = 0;
 u32int allocations = 0;
