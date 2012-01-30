@@ -1,12 +1,12 @@
-#include "../include/elf.h"
-#include "../include/kernel.h"
-#include "../include/kmalloc.h"
-#include "../include/kmalloc.h"
-#include "../include/string.h"
-#include "../include/kprintf.h"
-#include "../include/paging.h"
-#include "../include/filesystem.h"
-#include "../include/debugger.h"
+#include <elf.h>
+#include <kernel.h>
+#include <kmalloc.h>
+#include <kmalloc.h>
+#include <string.h>
+#include <kprintf.h>
+#include <paging.h>
+#include <filesystem.h>
+#include <debugger.h>
 
 Elf32_Shdr* get_section_by_name(int fh, Elf32_Ehdr* fileheader, unsigned char* stringtable, const char* name);
 Elf32_Shdr* get_sectionheader(int fh, Elf32_Ehdr* fileheader, int headernum);

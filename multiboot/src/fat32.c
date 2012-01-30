@@ -1,13 +1,13 @@
-#include "../include/kernel.h"
-#include "../include/fat32.h"
-#include "../include/kprintf.h"
-#include "../include/io.h"
-#include "../include/ata.h"
-#include "../include/string.h"
-#include "../include/kmalloc.h"
-#include "../include/memcpy.h"
-#include "../include/filesystem.h"
-#include "../include/debugger.h"
+#include <kernel.h>
+#include <fat32.h>
+#include <kprintf.h>
+#include <io.h>
+#include <ata.h>
+#include <string.h>
+#include <kmalloc.h>
+#include <memcpy.h>
+#include <filesystem.h>
+#include <debugger.h>
 
 static FS_FileSystem* fat32_fs = NULL;
 

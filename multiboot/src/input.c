@@ -1,8 +1,8 @@
-#include "../include/string.h"
-#include "../include/kmalloc.h"
-#include "../include/keyboard.h"
-#include "../include/input.h"
-#include "../include/timer.h"
+#include <string.h>
+#include <kmalloc.h>
+#include <keyboard.h>
+#include <input.h>
+#include <timer.h>
 
 /* Return values:
  * 0: Not finished entering a line

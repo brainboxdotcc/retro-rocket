@@ -1,7 +1,7 @@
-#include "../include/kernel.h"
-#include "../include/kmalloc.h"
-#include "../include/paging.h"
-#include "../include/kprintf.h"
+#include <kernel.h>
+#include <kmalloc.h>
+#include <paging.h>
+#include <kprintf.h>
 
 extern u32int end;		/* Heap straight after kernel */
 u32int heap_pos = (u32int)&end;

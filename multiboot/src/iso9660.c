@@ -1,13 +1,13 @@
-#include "../include/kernel.h"
-#include "../include/iso9660.h"
-#include "../include/kprintf.h"
-#include "../include/io.h"
-#include "../include/ata.h"
-#include "../include/string.h"
-#include "../include/kmalloc.h"
-#include "../include/memcpy.h"
-#include "../include/filesystem.h"
-#include "../include/debugger.h"
+#include <kernel.h>
+#include <iso9660.h>
+#include <kprintf.h>
+#include <io.h>
+#include <ata.h>
+#include <string.h>
+#include <kmalloc.h>
+#include <memcpy.h>
+#include <filesystem.h>
+#include <debugger.h>
 
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')

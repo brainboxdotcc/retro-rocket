@@ -27,16 +27,16 @@
 
 #define ubasic_error(str) tokenizer_error_print(ctx, str)
 
-#include "../include/kernel.h"
-#include "../include/ubasic.h"
-#include "../include/tokenizer.h"
-#include "../include/kprintf.h"
-#include "../include/kmalloc.h"
-#include "../include/string.h"
-#include "../include/input.h"
-#include "../include/video.h"
-#include "../include/taskswitch.h"
-#include "../include/filesystem.h"
+#include <kernel.h>
+#include <ubasic.h>
+#include <tokenizer.h>
+#include <kprintf.h>
+#include <kmalloc.h>
+#include <string.h>
+#include <input.h>
+#include <video.h>
+#include <taskswitch.h>
+#include <filesystem.h>
 
 static int expr(struct ubasic_ctx* ctx);
 static void line_statement(struct ubasic_ctx* ctx);

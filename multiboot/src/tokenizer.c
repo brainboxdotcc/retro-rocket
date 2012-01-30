@@ -25,12 +25,12 @@
 #define DEBUG_PRINTF(...)
 #endif
 
-#include "../include/kernel.h"
-#include "../include/string.h"
-#include "../include/ubasic.h"
-#include "../include/tokenizer.h"
-#include "../include/memcpy.h"
-#include "../include/kprintf.h"
+#include <kernel.h>
+#include <string.h>
+#include <ubasic.h>
+#include <tokenizer.h>
+#include <memcpy.h>
+#include <kprintf.h>
 
 #define MAX_NUMLEN 10
 

@@ -1,7 +1,7 @@
-#include "../include/io.h"
-#include "../include/video.h"
-#include "../include/memcpy.h"
-#include "../include/string.h"
+#include <io.h>
+#include <video.h>
+#include <memcpy.h>
+#include <string.h>
 
 /* Internal use: graphics buffer address in flat memory model */
 static unsigned char* video = (unsigned char*) VIDEO_MEMORY;

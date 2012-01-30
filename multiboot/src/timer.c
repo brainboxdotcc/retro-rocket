@@ -1,9 +1,9 @@
-#include "../include/interrupts.h"
-#include "../include/kprintf.h"
-#include "../include/io.h"
-#include "../include/kernel.h"
-#include "../include/video.h"
-#include "../include/taskswitch.h"
+#include <interrupts.h>
+#include <kprintf.h>
+#include <io.h>
+#include <kernel.h>
+#include <video.h>
+#include <taskswitch.h>
 
 u32int ticks = 0;
 u32int timer_freq = 0;

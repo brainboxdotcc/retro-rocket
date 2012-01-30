@@ -46,8 +46,8 @@
  **
  *******************************************************************/
 
-#include "../include/kernel.h"
-#include "../include/memcpy.h"
+#include <kernel.h>
+#include <memcpy.h>
 
 /********************************************************************
  ** Configuration definitions.

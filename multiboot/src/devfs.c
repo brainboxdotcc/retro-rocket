@@ -1,8 +1,8 @@
-#include "../include/devfs.h"
-#include "../include/filesystem.h"
-#include "../include/kmalloc.h"
-#include "../include/string.h"
-#include "../include/kprintf.h"
+#include <devfs.h>
+#include <filesystem.h>
+#include <kmalloc.h>
+#include <string.h>
+#include <kprintf.h>
 
 FS_FileSystem* devfs = NULL;
 FS_DirectoryEntry* devfs_entries = NULL;

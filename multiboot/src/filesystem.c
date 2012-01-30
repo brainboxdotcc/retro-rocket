@@ -1,9 +1,9 @@
-#include "../include/filesystem.h"
-#include "../include/kmalloc.h"
-#include "../include/string.h"
-#include "../include/kprintf.h"
-#include "../include/memcpy.h"
-#include "../include/io.h"
+#include <filesystem.h>
+#include <kmalloc.h>
+#include <string.h>
+#include <kprintf.h>
+#include <memcpy.h>
+#include <io.h>
 
 FS_FileSystem* filesystems, *dummyfs;
 FS_Tree* fs_tree;

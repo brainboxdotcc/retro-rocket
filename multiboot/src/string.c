@@ -1,5 +1,5 @@
-#include "../include/string.h"
-#include "../include/kmalloc.h"
+#include <string.h>
+#include <kmalloc.h>
 
 struct gc_str* gc_list = NULL;
 

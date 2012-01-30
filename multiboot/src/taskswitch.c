@@ -1,13 +1,13 @@
-#include "../include/kernel.h"
-#include "../include/taskswitch.h"
-#include "../include/paging.h"
-#include "../include/filesystem.h"
-#include "../include/interrupts.h"
-#include "../include/syscall.h"
-#include "../include/string.h"
-#include "../include/kmalloc.h"
-#include "../include/memcpy.h"
-#include "../include/kprintf.h"
+#include <kernel.h>
+#include <taskswitch.h>
+#include <paging.h>
+#include <filesystem.h>
+#include <interrupts.h>
+#include <syscall.h>
+#include <string.h>
+#include <kmalloc.h>
+#include <memcpy.h>
+#include <kprintf.h>
 
 struct process* proc_current = NULL;	/* This can be changed by an interrupt, MAKE A COPY */
 struct process* proc_list = NULL;

@@ -1,12 +1,12 @@
-#include "../include/video.h"
-#include "../include/interrupts.h"
-#include "../include/keyboard.h"
-#include "../include/kprintf.h"
-#include "../include/kernel.h"
-#include "../include/io.h"
-#include "../include/kmalloc.h"
-#include "../include/memcpy.h"
-#include "../include/timer.h"
+#include <video.h>
+#include <interrupts.h>
+#include <keyboard.h>
+#include <kprintf.h>
+#include <kernel.h>
+#include <io.h>
+#include <kmalloc.h>
+#include <memcpy.h>
+#include <timer.h>
 
 static char keyboard_buffer[1024];
 static int bufwriteptr = 0;

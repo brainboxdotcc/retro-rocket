@@ -1,12 +1,12 @@
-#include "../include/debugger.h"
-#include "../include/kprintf.h"
-#include "../include/video.h"
-#include "../include/iso9660.h"
-#include "../include/filesystem.h"
-#include "../include/string.h"
-#include "../include/kmalloc.h"
-#include "../include/memcpy.h"
-#include "../include/interrupts.h"
+#include <debugger.h>
+#include <kprintf.h>
+#include <video.h>
+#include <iso9660.h>
+#include <filesystem.h>
+#include <string.h>
+#include <kmalloc.h>
+#include <memcpy.h>
+#include <interrupts.h>
 
 typedef struct symbol
 {

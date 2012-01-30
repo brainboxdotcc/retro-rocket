@@ -1,10 +1,10 @@
-#include "../include/kernel.h"
-#include "../include/io.h"
-#include "../include/interrupts.h"
-#include "../include/paging.h"
-#include "../include/kmalloc.h"
-#include "../include/kprintf.h"
-#include "../include/debugger.h"
+#include <kernel.h>
+#include <io.h>
+#include <interrupts.h>
+#include <paging.h>
+#include <kmalloc.h>
+#include <kprintf.h>
+#include <debugger.h>
 
 extern u32int end;
 

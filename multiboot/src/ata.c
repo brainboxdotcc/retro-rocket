@@ -1,9 +1,9 @@
-#include "../include/ata.h"
-#include "../include/kprintf.h"
-#include "../include/kernel.h"
-#include "../include/io.h"
-#include "../include/timer.h"
-#include "../include/interrupts.h"
+#include <ata.h>
+#include <kprintf.h>
+#include <kernel.h>
+#include <io.h>
+#include <timer.h>
+#include <interrupts.h>
 
 ide_device ide_devices[4];
 channel channels[2];

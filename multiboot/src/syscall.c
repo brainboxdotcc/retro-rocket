@@ -1,11 +1,11 @@
-#include "../include/kernel.h"
-#include "../include/interrupts.h"
-#include "../include/kmalloc.h"
-#include "../include/string.h"
-#include "../include/elf.h"
-#include "../include/taskswitch.h"
-#include "../include/syscall.h"
-#include "../include/filesystem.h"
+#include <kernel.h>
+#include <interrupts.h>
+#include <kmalloc.h>
+#include <string.h>
+#include <elf.h>
+#include <taskswitch.h>
+#include <syscall.h>
+#include <filesystem.h>
 
 u32int ret_addr;
 u32int ret_esp;

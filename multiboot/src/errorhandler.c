@@ -1,10 +1,10 @@
-#include "../include/video.h"
-#include "../include/interrupts.h"
-#include "../include/errorhandler.h"
-#include "../include/kprintf.h"
-#include "../include/kernel.h"
-#include "../include/io.h"
-#include "../include/debugger.h"
+#include <video.h>
+#include <interrupts.h>
+#include <errorhandler.h>
+#include <kprintf.h>
+#include <kernel.h>
+#include <io.h>
+#include <debugger.h>
 
 void error_handler(registers_t* regs);
 
