@@ -32,6 +32,7 @@ void _memset(void *dest, char val, int len)
 	for ( ; len != 0; len--) *temp++ = val;
 }
 
+
 void kmain(void* mbd, unsigned int magic, u32int sp)
 {
 	u32int memorysize = 0;
