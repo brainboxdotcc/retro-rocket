@@ -23,8 +23,8 @@
 #include <multiboot.h>
 
 console* current_console = NULL;
-u32int initial_esp = NULL;
-int usermode_init = 0;
+//u32int initial_esp = NULL;
+//int usermode_init = 0;
 
 void _memset(void *dest, char val, int len)
 {
@@ -36,7 +36,6 @@ void _memset(void *dest, char val, int len)
 void kmain(void* mbd, unsigned int magic, u32int sp)
 {
 	u32int memorysize = 0;
-	initial_esp = sp;
 	console* cons = NULL;
 	
 	if (magic == MULTIBOOT_MAGIC)
@@ -68,9 +67,16 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_devfs();
 		init_debug();
 
-		proc_load("/programs/init", (struct console*)current_console);
-		kprintf("Launching /programs/init...\n");
-		proc_loop();
+		struct process* init = proc_load("/programs/init", (struct console*)current_console);
+		if (!init)
+		{
+			kprintf("/programs/init missing!\n");
+		}
+		else
+		{
+			kprintf("Launching /programs/init...\n");
+			proc_loop();
+		}
 
 		kprintf("System Halted.\n");
 	}

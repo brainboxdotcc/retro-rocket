@@ -18,12 +18,15 @@ u32int GetFATEntry(fat32* info, u32int cluster);
 
 FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 {
+	//kprintf("Cluster at start of fn: %d\n", cluster);
+
 	unsigned char* buffer = (unsigned char*)kmalloc(512 * 8);
-	int bufferoffset = 0;
 	FS_DirectoryEntry* list = NULL;
 
 	while (1)
 	{
+		int bufferoffset = 0;
+		//kprintf("Cluster at start of loop: %d\n", cluster);
 		if (!ide_read_sectors(info->drivenumber, SECTORS_PER_CLUSTER, ClusLBA(info, cluster), (unsigned int)buffer))
 		{
 			kprintf("Read failure in ParseFAT32Dir cluster=%08x\n", cluster);
@@ -77,9 +80,8 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 				{
 
 
-					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && tree == NULL)
+					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && tree == NULL && info->volume_name == NULL)
 					{
-						kfree(info->volume_name);
 						info->volume_name = strdup(dotless);
 						kprintf("FAT32 volume label: '%s'\n", info->volume_name);
 					}
@@ -101,10 +103,11 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 							file->flags |= FS_DIRECTORY;
 	
 	
+						// XXX
 						//kprintf("%d. '%s' flags=%02x size=%d clus=%08x\n", entries, file->filename, file->flags, file->size, file->lbapos);
 	
-						if (file->size > 10000000)
-							for(;;);
+						//if (file->size > 10000000)
+						//	for(;;);
 	
 						file->next = list;
 						list = file;
@@ -115,14 +118,24 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
 			entry = (DirectoryEntry*)(buffer + bufferoffset);
 		}
 
+		if (entry->name[0] == 0)
+			break;
+
 		//kprintf("End dir parse\n");
 
 		// advnce to next cluster in chain until EOF
 		u32int nextcluster = GetFATEntry(info, cluster);
-		if (nextcluster = 0x0fffffff)
+		if (nextcluster >= 0x0ffffff0)
+		{
+			//kprintf("Cluster break\n");
 			break;
+		}
 		else
+		{
+			//kprintf("Old cluster=%d\n", cluster);
 			cluster = nextcluster;
+			//kprintf("Next cluster=%d\n", cluster);
+		}
 	}
 	kfree(buffer);
 
@@ -145,7 +158,7 @@ int fat32_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 	//kprintf("First cluster: %08x\n", cluster);
 
 	// vAdvance until we are at the correct location
-	while ((clustercount++ < start / 4096) && (cluster != 0x0fffffff))
+	while ((clustercount++ < start / 4096) && (cluster < 0x0ffffff0))
 	{
 		cluster = GetFATEntry(info, cluster);
 		//kprintf("Advance to next cluster %08x\n", cluster);
@@ -176,7 +189,7 @@ int fat32_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 
 		cluster = GetFATEntry(info, cluster);
 
-		if (cluster == 0x0fffffff)
+		if (cluster >= 0x0ffffff0)
 			break;
 	}
 
@@ -273,11 +286,7 @@ int ReadFAT(fat32* info)
 		return 0;
 	}
 
-	*(par->volumelabel + 11) = 0;
-	while (par->volumelabel[strlen(par->volumelabel) - 1] == ' ')
-		par->volumelabel[strlen(par->volumelabel) - 1] = 0;
-
-	info->volume_name = strdup(par->volumelabel);
+	info->volume_name = NULL;
 	info->rootdircluster = par->rootdircluster;
 	info->reservedsectors = par->reservedsectors;
 	info->fsinfocluster = par->fsinfocluster;
