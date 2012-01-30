@@ -23,8 +23,6 @@
 #include <multiboot.h>
 
 console* current_console = NULL;
-//u32int initial_esp = NULL;
-//int usermode_init = 0;
 
 void _memset(void *dest, char val, int len)
 {
