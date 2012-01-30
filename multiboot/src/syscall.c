@@ -10,7 +10,7 @@
 u32int ret_addr;
 u32int ret_esp;
 
-/*Syscall handler */
+/* Syscall handler */
 void syscall_handler(registers_t* regs);
 
 void init_syscall(void)
@@ -20,7 +20,6 @@ void init_syscall(void)
 
 void syscall_handler(registers_t* regs)
 {
-	//proc_set_semaphore();
 	kprintf("syscall 0x%04x\n", regs->eax);
 	argv_t* argv;
 	ret_addr = 0;
@@ -72,14 +71,9 @@ void syscall_handler(registers_t* regs)
 		break;
 	}
 
-	/*Dinoume genika to regs, alla exoume k extra interface 
-	  pou einai pio Sosto, pio non-hacky. Kai i fork kai i
-	  fswitch tha itan kalitero an prosarmozontousan se tetio interface 
-	  (me full state , oxi mono eip esp) pou tha ginete se ola ta interrupt pou
-	  mporei na prokalesoun state change. Gia tin ora, mono i exec to kanei */
 	if (ret_addr)
 	{
-		/*Return address changed, probably by fork or exec */
+		/* Return address changed, probably by fork or exec */
 		kprintf("ret_addr changed, eip was %d now %d\n", regs->eip, ret_addr);
 		regs->eip = ret_addr;
 		if (ret_esp)
@@ -87,5 +81,5 @@ void syscall_handler(registers_t* regs)
 			regs->useresp = ret_esp;
 		}
 	}
-	//proc_clear_semaphore();
 }
+

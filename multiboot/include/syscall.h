@@ -3,6 +3,8 @@
 
 #include "kernel.h"
 
+/* NOTE: Not used at present, may not be used for forseeable future */
+
 /* Terminal Control */
 #define SYS_PUTCH	0x100
 #define SYS_PUTS	0x101
@@ -19,7 +21,7 @@
 #define SYS_MALLOC	0x305
 #define SYS_FREE	0x306
 
-/* Argument Vector gia routines me >3 arguments */
+/* Argument list for syscalls with more than 3 arguments */
 typedef struct {
 	u32int cnt;
 	u32int* vect;
