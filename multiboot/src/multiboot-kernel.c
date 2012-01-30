@@ -68,7 +68,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_devfs();
 		init_debug();
 
-		struct process* proc = proc_load("/programs/init", (struct console*)current_console);
+		proc_load("/programs/init", (struct console*)current_console);
 		kprintf("Launching /programs/init...\n");
 		proc_loop();
 
