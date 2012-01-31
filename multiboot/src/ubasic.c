@@ -54,6 +54,7 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_read, "READ" },
 	{ ubasic_instr, "INSTR" },
 	{ ubasic_asc, "ASC" },
+	{ ubasic_getnamecount, "GETNAMECOUNT" },
 	{ NULL, NULL }
 };
 
@@ -62,6 +63,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_left, "LEFT$" },
 	{ ubasic_chr, "CHR$" },
 	{ ubasic_readstring, "READ$" },
+	{ ubasic_getname, "GETNAME$" },
 	{ NULL, NULL }
 };
 
@@ -832,15 +834,14 @@ static void return_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void next_statement(struct ubasic_ctx* ctx)
 {
-	const char* var;
-  
 	accept(TOKENIZER_NEXT, ctx);
-	var = tokenizer_variable_name(ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
-	if (ctx->for_stack_ptr > 0 && !strcmp(var, ctx->for_stack[ctx->for_stack_ptr - 1].for_variable))
+	if (ctx->for_stack_ptr > 0)
 	{
-		ubasic_set_int_variable(var, ubasic_get_int_variable(var, ctx) + 1, ctx, 0);
-		if (ubasic_get_int_variable(var, ctx) <= ctx->for_stack[ctx->for_stack_ptr - 1].to)
+		int incr = ubasic_get_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
+		//kprintf("incr is %d\n", incr);
+		ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, 0);
+
+		if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to)
 		{
 			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
 		}
@@ -864,10 +865,12 @@ static void for_statement(struct ubasic_ctx* ctx)
 	int to;
   
 	accept(TOKENIZER_FOR, ctx);
-	for_variable = tokenizer_variable_name(ctx);
+	for_variable = strdup(tokenizer_variable_name(ctx));
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
 	ubasic_set_int_variable(for_variable, expr(ctx), ctx, 0);
+	int v = ubasic_get_int_variable(for_variable, ctx);
+	//kprintf("Initial var is %d\n", v);
 	accept(TOKENIZER_TO, ctx);
 	to = expr(ctx);
 	accept(TOKENIZER_CR, ctx);
@@ -875,7 +878,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH)
 	{
 		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx);
-		ctx->for_stack[ctx->for_stack_ptr].for_variable = strdup(for_variable);
+		ctx->for_stack[ctx->for_stack_ptr].for_variable = for_variable;
 		ctx->for_stack[ctx->for_stack_ptr].to = to;
 		DEBUG_PRINTF("for_statement: new for, var %s to %d\n", ctx->for_stack[ctx->for_stack_ptr].for_variable, ctx->for_stack[ctx->for_stack_ptr].to); 
 		ctx->for_stack_ptr++;
@@ -1363,6 +1366,38 @@ int ubasic_openin(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	return _open(strval, _O_RDONLY);
+}
+
+int ubasic_getnamecount(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	FS_DirectoryEntry* fsl = fs_get_items(strval);
+	int count = 0;
+	while (fsl)
+	{
+		fsl = fsl->next;
+		count++;
+	}
+	return count;
+}
+
+char* ubasic_getname(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_GET_ITEM(BIP_INT);
+	FS_DirectoryEntry* fsl = fs_get_items(strval);
+	int count = 0;
+	while (fsl)
+	{
+		if (count++ == intval)
+		{
+			return gc_strdup(fsl->filename);
+		}
+		fsl = fsl->next;
+	}
+	return gc_strdup("");
 }
 
 int ubasic_eof(struct ubasic_ctx* ctx)
