@@ -9,7 +9,7 @@ ide_device ide_devices[4];
 channel channels[2];
 
 unsigned char ide_buf[2048] = {0};
-unsigned static char ide_irq_invoked = 0;
+unsigned static volatile char ide_irq_invoked = 0;
 unsigned static char atapi_packet[12] = {0xA8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 unsigned char ide_read(unsigned char channel, unsigned char reg)
@@ -385,7 +385,7 @@ unsigned char ide_ata_access(unsigned char direction, unsigned char drive, unsig
 void ide_wait_irq()
 {
 	while (!ide_irq_invoked);
-	ide_irq_invoked = 0;
+		ide_irq_invoked = 0;
 }
 
 void ide_irq(registers_t* regs)

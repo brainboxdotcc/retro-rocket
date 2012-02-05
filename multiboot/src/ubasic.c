@@ -55,6 +55,7 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_instr, "INSTR" },
 	{ ubasic_asc, "ASC" },
 	{ ubasic_getnamecount, "GETNAMECOUNT" },
+	{ ubasic_getsize, "GETSIZE" },
 	{ NULL, NULL }
 };
 
@@ -1398,6 +1399,24 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 		fsl = fsl->next;
 	}
 	return gc_strdup("");
+}
+
+int ubasic_getsize(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_GET_ITEM(BIP_INT);
+	FS_DirectoryEntry* fsl = fs_get_items(strval);
+	int count = 0;
+	while (fsl)
+	{
+		if (count++ == intval)
+		{
+			return fsl->size;
+		}
+		fsl = fsl->next;
+	}
+	return 0;
 }
 
 int ubasic_eof(struct ubasic_ctx* ctx)

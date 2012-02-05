@@ -125,6 +125,7 @@ int ubasic_read(struct ubasic_ctx* ctx);
 int ubasic_instr(struct ubasic_ctx* ctx);
 int ubasic_asc(struct ubasic_ctx* ctx);
 int ubasic_getnamecount(struct ubasic_ctx* ctx);
+int ubasic_getsize(struct ubasic_ctx* ctx);
 
 // Builtin string functions
 char* ubasic_left(struct ubasic_ctx* ctx);
