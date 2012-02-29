@@ -80,35 +80,29 @@ u32int init_paging(void* mbd)
 			mm = (MB_MemMap*)((u32int)mm + mm->size + sizeof(mm->size));
 	}
 
-	if (bestlen == 0)
+	// Nothing to speak of. less than 4mb free; give up!
+	if (bestlen < 0x400000)
 		wait_forever();
 
-	//if (bestlen > 32 * 1024 * 1024)
-	//	bestlen = 32 * 1024 * 1024;
-	//
-	//
 	heapstart = KHEAP_START;
 	if (bestaddr > heapstart)	// Best block somehow above 4mb default heap pos
 		heapstart = bestaddr;
 
+	// Clear screen  - console driver unavailable this early.
+	u8int* clr = 0xB8000;
+	for (; clr < 0xB8FFF; ++clr)
+		*clr = 0;
+
+	u32int min = 0x100000 * 128;
+	if (bestlen < min)
+		min = bestlen - 0x1000;
+
 	heaplen = bestlen;
 
-	//kprintf("HEAP: Best fit; start=0x%08x max=%08x\n", heapstart, bestlen);
-
-	sign_sect(heapstart, heapstart + 0xA00000, 0, 1, current_directory);
-	kheap = create_heap(heapstart, heapstart + 0xA00000, heapstart + bestlen - 0x1000, heapstart + 0xA00000, 0, 1);
-	/*sign_sect(KHEAP_START, KHEAP_START + 0x10000, 0, 1, current_directory);
-	kheap = create_heap(KHEAP_START, KHEAP_START + 0x10000, bestaddr + bestlen - 0x1000, KHEAP_START + 0x10000, 0, 1);
-	*/
+	noisy_sign_sect(heapstart, heapstart + min, 0, 1, current_directory);
+	kheap = create_heap(heapstart, heapstart + min, heapstart + bestlen - 0x1000, heapstart + min, 0, 1);
 	current_directory = clone_directory(kernel_directory);
 	switch_page_directory(current_directory);
-
-	//sign_sect(UHEAP_START, UHEAP_START + 0x10000, 1, 1, current_directory);
-	//uheap = create_heap(UHEAP_START, UHEAP_START + 0x10000, UHEAP_START + 0xF0000, UHEAP_START + 0xC000, 1, 1);
-
-	/*Init to exec() Initial directory */
-	//proc_initial = clone_directory(current_directory);
-	//sign_sect(USTACK - USTACK_SIZE,USTACK, 1, 1, proc_initial);	/*User Stack */
 
 	return bestlen; 
 }
@@ -118,21 +112,37 @@ void print_heapinfo()
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	kprintf("HEAP: ");
 	setforeground(current_console, COLOUR_WHITE);
-	kprintf("Best fit; start=0x%08x max=%08x\n", heapstart, heaplen);
+	kprintf("Best fit; start=0x%08x max=0x%08x\n", heapstart, heaplen);
 }
 
 void sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t *dir)
 {
 	u32int i;
 	for (i = start; i < end; i+=0x1000)
-	{
-		//kprintf("Sign: %08x\n", i);
-		//blitconsole(current_console);
 		alloc_frame( get_page(i, 1, dir), usr, rw);
-	}
 	/* Flush translation lookaside buffer */
 	asm volatile("mov %%cr3, %0": "=r"(l3));	/* read cr3 */
 	asm volatile("mov %0, %%cr3":: "r"(l3));	/* write cr3 */
+}
+
+void noisy_sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t* dir)
+{
+	u32int i, m = 0;
+	u8int* screenofs = 0xB8000;
+	for (i = start; i < end; i+=0x1000)
+	{
+		alloc_frame( get_page(i, 1, dir), usr, rw);
+		if (m++ > 0x500)
+		{
+			// Quick and dirty progress bar. No console driver this early in the boot sequence.
+			*screenofs++ = '.';
+			*screenofs++ = 0x0F;
+			m = 0;
+		}
+	}
+	/* Flush translation lookaside buffer */
+	asm volatile("mov %%cr3, %0": "=r"(l3));
+	asm volatile("mov %0, %%cr3":: "r"(l3));
 }
 
 void release_sect(u32int start, u32int end, page_directory_t *dir)
