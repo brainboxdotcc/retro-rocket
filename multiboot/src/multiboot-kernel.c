@@ -38,6 +38,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 	
 	if (magic == MULTIBOOT_MAGIC)
 	{
+		preboot_clrscr();
 		init_gdt();
 		init_idt();
 		memorysize = init_paging(mbd);

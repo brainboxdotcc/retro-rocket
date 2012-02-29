@@ -41,14 +41,20 @@ heap_t*	create_heap(u32int addr, u32int end, u32int max, u32int min, u8int user,
 	header_t* header;
 	footer_t* footer;
 
-	assert((!(addr % 0x1000) && !(end % 0x1000)),"CREATE HEAP - NON PAGE ALIGNED");
-	assert(addr < end, "CREATE HEAP - START > END");
-	assert(max > end, "CREATE HEAP - END > MAX");
+	if ((addr % 0x1000) != 0 || (end % 0x1000) != 0)
+		preboot_fail("Non-page-aligned heap");
+
+	if (addr > end)
+		preboot_fail("Start of heap is greater than end of heap");
+
+	if (end > max)
+		preboot_fail("End of heap is beyond maximum heap");
 
 	int i = addr;
-	for (; i < end; i+=0x1000)
+	for (; i < end; i += 0x1000)
 	{
-		assert(!invalid_frame(i), "CREATE HEAP - INITAL HEAP OVERLAYS RESERVED RAM");
+		if (invalid_frame(i))
+			preboot_fail("Internal error: (BUG) Initial heap overlays reserved RAM");
 	}
 
 	_memset((char*)heap, 0, sizeof(heap_t));	/* Nullify */

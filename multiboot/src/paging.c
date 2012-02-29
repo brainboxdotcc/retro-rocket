@@ -80,19 +80,15 @@ u32int init_paging(void* mbd)
 			mm = (MB_MemMap*)((u32int)mm + mm->size + sizeof(mm->size));
 	}
 
-	// Nothing to speak of. less than 4mb free; give up!
-	if (bestlen < 0x400000)
-		wait_forever();
+	// Nothing to speak of. less than 8mb free; give up!
+	if (bestlen < 0x800000)
+		preboot_fail("Less than 8mb of ram available, system halted.");
 
 	heapstart = KHEAP_START;
 	if (bestaddr > heapstart)	// Best block somehow above 4mb default heap pos
 		heapstart = bestaddr;
 
-	// Clear screen  - console driver unavailable this early.
-	u8int* clr = 0xB8000;
-	for (; clr < 0xB8FFF; ++clr)
-		*clr = 0;
-
+	// Default heap to 128mb. If theres less ram than this in the machine, lower it.
 	u32int min = 0x100000 * 128;
 	if (bestlen < min)
 		min = bestlen - 0x1000;
@@ -123,6 +119,25 @@ void sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t *
 	/* Flush translation lookaside buffer */
 	asm volatile("mov %%cr3, %0": "=r"(l3));	/* read cr3 */
 	asm volatile("mov %0, %%cr3":: "r"(l3));	/* write cr3 */
+}
+
+void preboot_clrscr()
+{
+	u8int* clr = 0xB8000;
+	for (; clr < 0xB8FFF; ++clr)
+		*clr = 0;
+}
+
+void preboot_fail(char* msg)
+{
+	preboot_clrscr();
+	u8int* screen = 0xB8000;
+	for (; *msg; msg++)
+	{
+		*screen++ = *msg;
+		*screen++ = 0x0F;
+	}
+	wait_forever();
 }
 
 void noisy_sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t* dir)

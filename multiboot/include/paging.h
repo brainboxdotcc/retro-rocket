@@ -48,6 +48,8 @@ void kill_directory(page_directory_t *src);
 int invalid_frame(u32int physaddr);
 page_directory_t *init_procdir(void);
 void print_heapinfo();
+void preboot_fail(char* msg);
+void preboot_clrscr();
 
 #endif
 
