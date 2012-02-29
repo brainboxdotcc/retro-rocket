@@ -45,6 +45,12 @@ heap_t*	create_heap(u32int addr, u32int end, u32int max, u32int min, u8int user,
 	assert(addr < end, "CREATE HEAP - START > END");
 	assert(max > end, "CREATE HEAP - END > MAX");
 
+	int i = addr;
+	for (; i < end; i+=0x1000)
+	{
+		assert(!invalid_frame(i), "CREATE HEAP - INITAL HEAP OVERLAYS RESERVED RAM");
+	}
+
 	_memset((char*)heap, 0, sizeof(heap_t));	/* Nullify */
  	heap->list_free = (header_t*)addr;	/* In the first (unique) header */
 	heap->heap_addr = addr;			/* Define heap base address */
@@ -217,6 +223,8 @@ static void free_int(void *addr, heap_t *heap)
 void expand_heap(u32int size, heap_t *heap)
 {
 	/* Expand to make the size of the heap a new aligned size */
+	//kprintf("expand_heap by %d from %08x\n", size, heap->end_addr);
+	//blitconsole(current_console);
 	if (size & 0xFFF)
 	{
 		/* make it page aligned if it is not already */
@@ -225,7 +233,7 @@ void expand_heap(u32int size, heap_t *heap)
 	}
 	assert(heap != NULL, "HEAP EXPAND - NULL HEAP");
 	/*expand up to max size */
-	if (heap->end_addr + size > heap->max_size) 
+	if (heap->end_addr + size > heap->max_size || heap->end_addr + size < heap->heap_addr) 
 		size = heap->max_size - heap->end_addr;
 	/* We now define the pages */
 	sign_sect(heap->end_addr, heap->end_addr+size, heap->user, heap->rw,current_directory);

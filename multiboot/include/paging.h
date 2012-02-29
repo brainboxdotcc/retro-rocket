@@ -45,7 +45,9 @@ void release_sect(u32int start, u32int end, page_directory_t *dir);
 page_t *get_page(u32int addr, u8int make, page_directory_t *dir);
 page_directory_t *clone_directory(page_directory_t *src);
 void kill_directory(page_directory_t *src);
+int invalid_frame(u32int physaddr);
 page_directory_t *init_procdir(void);
+void print_heapinfo();
 
 #endif
 

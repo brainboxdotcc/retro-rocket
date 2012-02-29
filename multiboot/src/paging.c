@@ -5,6 +5,7 @@
 #include <kmalloc.h>
 #include <kprintf.h>
 #include <debugger.h>
+#include <multiboot.h>
 
 extern u32int end;
 
@@ -18,8 +19,13 @@ u32int nframes;
 
 static u32int *l1,*l2,l3,l4;	/* Global variables for use in code where we may not have a safe stack */
 
+MultiBoot* mb;
+
+u32int heapstart, heaplen;
+
 /* User and kernel memory heaps, defined in kmalloc.c */
 extern u32int heap_pos;
+extern u32int start;
 extern heap_t*	kheap;
 extern heap_t*	uheap;
 
@@ -40,6 +46,7 @@ void page_fault_handler(registers_t* regs);
 /* Initialise paging */
 u32int init_paging(void* mbd)
 {
+	mb = (MultiBoot*)mbd;
 	u32int m_size = ((long*)mbd)[2] * 1024; 
 	nframes = m_size / 0x1000;			/* 0x1000 = page size */
 	frames = kmalloc(nframes / 32);			/* Allocate bitmap for pages */
@@ -51,32 +58,78 @@ u32int init_paging(void* mbd)
 	current_directory = kernel_directory;
 
 	/* sign all sections for the kernel and its heap */
-	sign_sect(0, heap_pos + 0xF000, 0, 1, kernel_directory);	/*0 - heap_pos == KERNEL IMAGE,su,rw */
+	sign_sect(0, heap_pos + 0x100000, 0, 1, kernel_directory);	/*0 - heap_pos == KERNEL IMAGE,su,rw */
 
 	register_interrupt_handler(14, page_fault_handler);	/* Install our page fault handler */
 	switch_page_directory(kernel_directory);		/* Enable paging by switching page directories */
 
-	sign_sect(KHEAP_START, KHEAP_START + 0x500000, 0, 1, current_directory);
-	kheap = create_heap(KHEAP_START,KHEAP_START + 0x500000, KHEAP_START + 0x800000, KHEAP_START + 0x100000, 0, 1);
 
+	MB_MemMap* mm = mb->mmap_addr;
+	u32int bestlen = 0;
+	u32int bestaddr = 0;
+	while ((u32int)mm < mb->mmap_len + mb->mmap_addr)
+	{
+		if (mm->lenlow > bestlen && mm->type == MB_MM_AVAIL)
+		{
+			bestaddr = mm->addrlow;
+			bestlen = mm->lenlow;
+		}
+		if (mm->lenlow + mm->addrlow == 0x0) /* Wrapped around 32-bit value */
+			break;
+		else
+			mm = (MB_MemMap*)((u32int)mm + mm->size + sizeof(mm->size));
+	}
+
+	if (bestlen == 0)
+		wait_forever();
+
+	//if (bestlen > 32 * 1024 * 1024)
+	//	bestlen = 32 * 1024 * 1024;
+	//
+	//
+	heapstart = KHEAP_START;
+	if (bestaddr > heapstart)	// Best block somehow above 4mb default heap pos
+		heapstart = bestaddr;
+
+	heaplen = bestlen;
+
+	//kprintf("HEAP: Best fit; start=0x%08x max=%08x\n", heapstart, bestlen);
+
+	sign_sect(heapstart, heapstart + 0xA00000, 0, 1, current_directory);
+	kheap = create_heap(heapstart, heapstart + 0xA00000, heapstart + bestlen - 0x1000, heapstart + 0xA00000, 0, 1);
+	/*sign_sect(KHEAP_START, KHEAP_START + 0x10000, 0, 1, current_directory);
+	kheap = create_heap(KHEAP_START, KHEAP_START + 0x10000, bestaddr + bestlen - 0x1000, KHEAP_START + 0x10000, 0, 1);
+	*/
 	current_directory = clone_directory(kernel_directory);
 	switch_page_directory(current_directory);
 
-	sign_sect(UHEAP_START, UHEAP_START + 0x10000, 1, 1, current_directory);
-	uheap = create_heap(UHEAP_START, UHEAP_START + 0x10000, UHEAP_START + 0xF0000, UHEAP_START + 0xC000, 1, 1);
+	//sign_sect(UHEAP_START, UHEAP_START + 0x10000, 1, 1, current_directory);
+	//uheap = create_heap(UHEAP_START, UHEAP_START + 0x10000, UHEAP_START + 0xF0000, UHEAP_START + 0xC000, 1, 1);
 
 	/*Init to exec() Initial directory */
-	proc_initial = clone_directory(current_directory);
-	sign_sect(USTACK - USTACK_SIZE,USTACK, 1, 1, proc_initial);	/*User Stack */
+	//proc_initial = clone_directory(current_directory);
+	//sign_sect(USTACK - USTACK_SIZE,USTACK, 1, 1, proc_initial);	/*User Stack */
 
-	return m_size - ((long*)mbd)[1] + 1024; 
+	return bestlen; 
+}
+
+void print_heapinfo()
+{
+	setforeground(current_console, COLOUR_LIGHTYELLOW);
+	kprintf("HEAP: ");
+	setforeground(current_console, COLOUR_WHITE);
+	kprintf("Best fit; start=0x%08x max=%08x\n", heapstart, heaplen);
 }
 
 void sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t *dir)
 {
 	u32int i;
 	for (i = start; i < end; i+=0x1000)
+	{
+		//kprintf("Sign: %08x\n", i);
+		//blitconsole(current_console);
 		alloc_frame( get_page(i, 1, dir), usr, rw);
+	}
 	/* Flush translation lookaside buffer */
 	asm volatile("mov %%cr3, %0": "=r"(l3));	/* read cr3 */
 	asm volatile("mov %0, %%cr3":: "r"(l3));	/* write cr3 */
@@ -246,21 +299,24 @@ static void copy_page_physical(u32int src, u32int dest)
 
 }
 
-static void set_frame(u32int frame_addr){
+static void set_frame(u32int frame_addr)
+{
 	u32int frame = frame_addr / 0x1000;	/* 0x1000 == page size */
 	u32int index  = frame / 32;		/* 32 == sizeof(*frames) */
 	u32int offset = frame % 32;
 	frames[index] |= (0x1 << offset);
 }
 
-static void clear_frame(u32int frame_addr){
+static void clear_frame(u32int frame_addr)
+{
 	u32int frame = frame_addr / 0x1000;
 	u32int index  = frame / 32;
 	u32int offset = frame % 32;
 	frames[index] &= ~(0x1 << offset);
 }
 
-/*static u32int test_frame(u32int frame_addr){
+/*static u32int test_frame(u32int frame_addr)
+{
 	u32int frame = frame_addr / 0x1000;
 	u32int index  = frame / 32;
 	u32int offset = frame % 32;
@@ -284,6 +340,26 @@ static u32int first_frame(void)
 	}
 	kprintf("No free memory frames");
 	return 0xFFFFFFFF;		/* Well, we're boned! */
+}
+
+/* Returns non-zero if a given physical address is unusable for page allocation */
+int invalid_frame(u32int physaddr)
+{
+	//return 0;
+	MB_MemMap* mm = mb->mmap_addr;
+	while ((u32int)mm < mb->mmap_len + mb->mmap_addr)
+	{
+		if (physaddr >= mm->addrlow && physaddr < mm->addrlow + mm->lenlow - 1 && mm->type != MB_MM_AVAIL)
+		{
+			//kprintf("%08x falls within %08x + %08x\n", physaddr, mm->addrlow, mm->lenlow);
+			return 1;
+		}
+		if (mm->lenlow + mm->addrlow == 0x0) /* Wrapped around 32-bit value */
+			break;
+		else
+			mm = (MB_MemMap*)((u32int)mm + mm->size + sizeof(mm->size));
+	}
+	return 0;
 }
 
 void alloc_frame(page_t *page, u8int f_usr, u8int f_rw)

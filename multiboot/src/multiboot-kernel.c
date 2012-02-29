@@ -49,6 +49,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		initconsole(cons);
 		current_console = cons;
 		blitconsole(cons);
+
 		interrupts_on();
 
 		setforeground(current_console, COLOUR_LIGHTYELLOW);
@@ -56,6 +57,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		setforeground(current_console, COLOUR_WHITE);
 		kprintf(" kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
 
+		print_heapinfo();
 		ide_initialise();
 		init_filesystem();
 		init_iso9660();
@@ -64,6 +66,30 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		fat32_attach(find_first_harddisk(), "/harddisk");
 		init_devfs();
 		init_debug();
+
+		/*MultiBoot* mb = (MultiBoot*)mbd;
+
+		kprintf("flags=%08x mem_lower=%d mem_upper=%d boot_device=%08x mmap_addr=%08x\n", mb->flags, mb->mem_lower, mb->mem_upper, mb->boot_device, mb->mmap_addr);
+
+		kprintf("Boot device avail: %s\n", (mb->flags & MB_BOOTDEV) ? "Yes" : "No");
+		kprintf("Loader name avail: %s\n", (mb->flags & MB_BOOTLOADERNAME) ? "Yes" : "No");
+		kprintf("Memory Map avail: %s\n", (mb->flags & MB_MEMMAP) ? "Yes" : "No");
+		
+		MB_MemMap* mm = mb->mmap_addr;
+
+		kprintf("Memory map len: %08x\n", mb->mmap_len);
+
+		int c = 0;
+		while ((u32int)mm < mb->mmap_len + mb->mmap_addr)
+		{
+			kprintf("MMAP[%d] size=%08x addrlow=%08x lenlow=%08x type=%d\n",
+				c++, mm->size, mm->addrlow, mm->lenlow, mm->type);
+
+			if (mm->lenlow + mm->addrlow == 0x0)
+				break;
+			else
+				mm = (MB_MemMap*)((u32int)mm + mm->size + sizeof(mm->size));
+		}*/
 
 		struct process* init = proc_load("/programs/init", (struct console*)current_console);
 		if (!init)
