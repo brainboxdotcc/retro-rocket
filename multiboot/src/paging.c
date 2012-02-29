@@ -63,6 +63,8 @@ u32int init_paging(void* mbd)
 	register_interrupt_handler(14, page_fault_handler);	/* Install our page fault handler */
 	switch_page_directory(kernel_directory);		/* Enable paging by switching page directories */
 
+	if (!(mb->flags & MB_MEMMAP))
+		preboot_fail("MultiBoot loader did not pass BIOS memory map to kernel.");
 
 	MB_MemMap* mm = mb->mmap_addr;
 	u32int bestlen = 0;
