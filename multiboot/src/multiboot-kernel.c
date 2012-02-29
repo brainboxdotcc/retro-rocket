@@ -33,12 +33,13 @@ void _memset(void *dest, char val, int len)
 
 void kmain(void* mbd, unsigned int magic, u32int sp)
 {
+	MultiBoot* mb = (MultiBoot*)mbd;
 	u32int memorysize = 0;
 	console* cons = NULL;
+	preboot_clrscr();
 	
 	if (magic == MULTIBOOT_MAGIC)
 	{
-		preboot_clrscr();
 		init_gdt();
 		init_idt();
 		memorysize = init_paging(mbd);
@@ -56,7 +57,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		setforeground(current_console, COLOUR_LIGHTYELLOW);
 		kprintf("Retro Rocket");
 		setforeground(current_console, COLOUR_WHITE);
-		kprintf(" kernel booting from %s...\n%dMb usable RAM detected.\n", (const char*)((long*)mbd)[16], memorysize / 1024 / 1024);
+		kprintf(" kernel booting from %s...\n%dMb usable RAM detected.\n",
+				(mb->flags & MB_BOOTLOADERNAME) ? mb->bootloadername : "<unknnown>", memorysize / 1024 / 1024);
 
 		print_heapinfo();
 		ide_initialise();
@@ -82,6 +84,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		kprintf("System Halted.\n");
 	}
 
+	preboot_fail("Must be loaded from a MultiBoot compliant loader.");
 	wait_forever();
 }
 
