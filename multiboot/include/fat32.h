@@ -7,9 +7,6 @@
 // Offset of partition table in MBR
 #define PARTITION_TABLE_OFFSET	0x1BE
 
-#define CLUSTER_SIZE		4096
-#define SECTORS_PER_CLUSTER	8
-
 #define ATTR_READ_ONLY		0x01
 #define ATTR_HIDDEN		0x02
 #define ATTR_SYSTEM		0x04
@@ -60,6 +57,7 @@ typedef struct
 	u16int fsinfocluster;
 	u8int numberoffats;
 	u32int fatsize;
+	u32int clustersize;
 	u32int* fat;
 	FS_DirectoryEntry* root;
 	FSInfo* info;
