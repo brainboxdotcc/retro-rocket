@@ -52,20 +52,20 @@ u32int init_paging(void* mbd)
 		preboot_fail("MultiBoot loader did not pass memory sizes to kernel.");
 
 	u32int m_size = mb->mem_upper * 1024; 
-	nframes = m_size / 0x1000;			/* 0x1000 = page size */
-	frames = kmalloc(nframes / 32);			/* Allocate bitmap for pages */
-	_memset((char*)frames, 0, nframes / 32);	/* Set all contents to zero */
+	//nframes = m_size / 0x1000;			/* 0x1000 = page size */
+	//frames = kmalloc(nframes / 32);			/* Allocate bitmap for pages */
+	//_memset((char*)frames, 0, nframes / 32);	/* Set all contents to zero */
 
-	kernel_directory = kmalloc_ext(sizeof(page_directory_t), 1, 0);
-	_memset((char*)kernel_directory, 0, sizeof(page_directory_t));
-	kernel_directory->phys = (u32int)(&kernel_directory->tablesPhysical);
-	current_directory = kernel_directory;
+	//kernel_directory = kmalloc_ext(sizeof(page_directory_t), 1, 0);
+	//_memset((char*)kernel_directory, 0, sizeof(page_directory_t));
+	//kernel_directory->phys = (u32int)(&kernel_directory->tablesPhysical);
+	//current_directory = kernel_directory;
 
 	/* sign all sections for the kernel and its heap */
-	sign_sect(0, heap_pos + 0x100000, 0, 1, kernel_directory);	/*0 - heap_pos == KERNEL IMAGE,su,rw */
+	//sign_sect(0, heap_pos + 0x100000, 0, 1, kernel_directory);	/*0 - heap_pos == KERNEL IMAGE,su,rw */
 
 	register_interrupt_handler(14, page_fault_handler);	/* Install our page fault handler */
-	switch_page_directory(kernel_directory);		/* Enable paging by switching page directories */
+	//switch_page_directory(kernel_directory);		/* Enable paging by switching page directories */
 
 	if (!(mb->flags & MB_MEMMAP))
 		preboot_fail("MultiBoot loader did not pass BIOS memory map to kernel.");
@@ -101,10 +101,10 @@ u32int init_paging(void* mbd)
 
 	heaplen = bestlen;
 
-	noisy_sign_sect(heapstart, heapstart + min, 0, 1, current_directory);
-	kheap = create_heap(heapstart, heapstart + min, heapstart + bestlen - 0x1000, heapstart + min, 0, 1);
-	current_directory = clone_directory(kernel_directory);
-	switch_page_directory(current_directory);
+	//noisy_sign_sect(heapstart, heapstart + min, 0, 1, current_directory);
+	kheap = create_heap(heapstart, min, bestlen - 0x1000, min, 0, 1);
+	//current_directory = clone_directory(kernel_directory);
+	//switch_page_directory(current_directory);
 
 	return bestlen; 
 }
@@ -119,6 +119,7 @@ void print_heapinfo()
 
 void sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t *dir)
 {
+	return;
 	u32int i;
 	for (i = start; i < end; i+=0x1000)
 		alloc_frame( get_page(i, 1, dir), usr, rw);
@@ -148,6 +149,7 @@ void preboot_fail(char* msg)
 
 void noisy_sign_sect(u32int start, u32int end, u8int usr, u8int rw, page_directory_t* dir)
 {
+	return;
 	u32int i, m = 0;
 	u8int* screenofs = 0xB8000;
 	for (i = start; i < end; i+=0x1000)

@@ -21,7 +21,7 @@ source:
 	make -C src all CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 emulator:
-	qemu -hda ../harddisk0 -smp 4 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d
+	qemu -m 32 -hda ../harddisk0 -smp 4 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d
 
 debug:
 	nohup qemu -hda ../harddisk0 -smp 4 -no-reboot -no-shutdown -S -gdb tcp::1234 -cdrom sixty-four.iso -boot d &
@@ -32,7 +32,7 @@ remoterun: all
 	qemu -hda ../harddisk0 -smp 4 -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso -monitor stdio -boot d
 
 remotedebug: all
-	nohup qemu -hda ../harddisk0 -smp 4 -S -gdb tcp::1234 -no-reboot -no-shutdown -vnc 0.0.0.0:1 -cdrom sixty-four.iso -boot d &
+	nohup qemu -m 32 -hda ../harddisk0 -smp 4 -S -gdb tcp::1234 -no-reboot -no-shutdown -vnc 0.0.0.0:1 -cdrom sixty-four.iso -boot d &
 	sleep 2
 	gdb -command=.gdbargs
 
