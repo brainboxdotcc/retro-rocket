@@ -78,6 +78,8 @@ void list_pci(u8int showbars)
 			{
 				kprintf("    BAR%d: %s %08x\n", bar, (cur->restype[bar] == PCI_BAR_IOPORT) ? "I/O port" : "Memory", cur->bar[bar]);
 			}
+			if (cur->irq != 0xff && cur->irq != 0x00)
+				kprintf("    IRQ %d\n", cur->irq);
 		}
 	}
 }
@@ -108,6 +110,7 @@ void scan_pci_bus(int bus)
 			dev->deviceif = (class >> 8) & 0xFF;
 			dev->bus = bus;
 			dev->slot = slot;
+			dev->irq = 0xff;
 			dev->deviceclass = (class >> 24) & 0xFF;
 			dev->next = pci_devices;
 
@@ -116,6 +119,12 @@ void scan_pci_bus(int bus)
 
 			int maxbars = 6;
 			
+			if (headertype == 0x00)
+			{
+				u32int irq = pci_read_config(bus, slot, 0, PCI_OFS_IRQ);
+				irq &= 0xff;
+				dev->irq = irq;
+			}
 			if (headertype == 0x01)	/* PCI/PCI bus or multifunction */
 			{
 				u32int secondary_bus = pci_read_config(bus, slot, 0, PCI_OFS_SECONDARYBUS);

@@ -6,6 +6,7 @@
 #define PCI_OFS_CLASS	0x08
 #define PCI_OFS_FLAGS	0x0C
 #define PCI_OFS_BARS	0x10
+#define PCI_OFS_IRQ	0x3C
 
 #define PCI_OFS_SECONDARYBUS	0x18
 
@@ -157,6 +158,7 @@ typedef struct PCI_DeviceTag
 	u8int	deviceclass;
 	u8int	devicesubclass;
 	u8int	deviceif;
+	u8int irq;
 	u32int	bar[6];
 	u32int	restype[6];
 	u8int	bus;
