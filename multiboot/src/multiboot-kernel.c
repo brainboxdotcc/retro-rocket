@@ -21,6 +21,7 @@
 #include <ubasic.h>
 #include <input.h>
 #include <multiboot.h>
+#include <pci.h>
 
 console* current_console = NULL;
 
@@ -69,6 +70,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		fat32_attach(find_first_harddisk(), "/harddisk");
 		init_devfs();
 		init_debug();
+
+		init_pci();
 
 		struct process* init = proc_load("/programs/init", (struct console*)current_console);
 		if (!init)

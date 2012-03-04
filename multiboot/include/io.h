@@ -23,8 +23,19 @@ static inline unsigned short inw(int port)
 	unsigned short value;
 	asm volatile("inw %w1, %w0" : "=a"(value) : "Nd"(port));
 	return value;
-}                               
+}
 
+static inline unsigned long inl(int port)
+{
+	unsigned long value;
+	asm volatile("inl %%dx, %%eax" : "=a" (value) : "d" (port));
+	return value;
+}
+
+static inline void outl(int port, unsigned long value)
+{
+	asm volatile("outl %%eax, %%dx" : : "d" (port), "a" (value));
+}
 
 #define insl(port, buffer, count) \
 	         asm volatile("cld; rep; insl" :: "D" (buffer), "d" (port), "c" (count))

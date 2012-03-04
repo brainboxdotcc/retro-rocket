@@ -52,6 +52,7 @@ u32int init_paging(void* mbd)
 		preboot_fail("MultiBoot loader did not pass memory sizes to kernel.");
 
 	u32int m_size = mb->mem_upper * 1024; 
+	
 	//nframes = m_size / 0x1000;			/* 0x1000 = page size */
 	//frames = kmalloc(nframes / 32);			/* Allocate bitmap for pages */
 	//_memset((char*)frames, 0, nframes / 32);	/* Set all contents to zero */
