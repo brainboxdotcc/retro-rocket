@@ -59,7 +59,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		kprintf("Retro Rocket");
 		setforeground(current_console, COLOUR_WHITE);
 		kprintf(" kernel booting from %s...\n%dMb usable RAM detected.\n",
-				(mb->flags & MB_BOOTLOADERNAME) ? mb->bootloadername : "<unknnown>", memorysize / 1024 / 1024);
+				(mb->flags & MB_BOOTLOADERNAME) ? mb->bootloadername : "<unknown>", memorysize / 1024 / 1024);
 
 		print_heapinfo();
 		ide_initialise();
