@@ -28,46 +28,65 @@ const char* pci_subclass_name(u8int class, u8int subclass, u8int progif)
 	return "Unknown Device Subclass";
 }
 
+void pci_write_config_word(u16int bus, u16int slot, u16int func, u16int offset, u16int value)
+{
+	u32int address;
+	u32int lbus = (u32int)bus;
+	u32int lslot = (u32int)slot;
+	u32int lfunc = (u32int)func;
+
+	/* Enable bit always set here */
+	address = (u32int)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((u32int)0x80000000));
+	outl(0xCF8, address);
+	outw(0xCFC, value);
+}
+
 u32int pci_read_config(u16int bus, u16int slot, u16int func, u16int offset)
 {
 	u32int address;
 	u32int lbus = (u32int)bus;
 	u32int lslot = (u32int)slot;
 	u32int lfunc = (u32int)func;
-	//u16int tmp = 0;
 
-	/* create configuration address */
+	/* create configuration address, enable bit set */
 	address = (u32int)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((u32int)0x80000000));
-				   
-	/* write out the address */
+
 	outl(0xCF8, address);
-	
-	/* read in the data */
-	/* (offset & 2) * 8) = 0 will choose the first word of the 32 bits register */
-	//tmp = (u16int)((inl (0xCFC) >> ((offset & 2) * 8)) & 0xffff);
 	return inl(0xCFC);
 }
 
 u32int pci_get_vendor_and_device(unsigned short bus, unsigned short slot)
 {
-	//u16int vendor, device;
-	//if ((vendor = pci_read_config(bus, slot, 0, PCI_OFS_VENDOR)) != 0xFFFF)
-	//{
-	//	device = pci_read_config(bus, slot, 0, PCI_OFS_DEVICE);
-	//}
-	//return ((u32int)vendor << 16 | device);
 	return pci_read_config(bus, slot, 0, PCI_OFS_VENDOR);
+}
+
+void pci_enable_device(PCI_Device* dev)
+{
+	u32int current_setting = pci_read_config(dev->bus, dev->slot, 0, PCI_OFS_STATUS_CMD);
+	u32int cmd = (current_setting & 0xffff) | PCI_CMD_PORTIO_ENABLE | PCI_CMD_MEMIO_ENABLE;
+	pci_write_config_word(dev->bus, dev->slot, 0, PCI_OFS_STATUS_CMD + 2, cmd & 0xffff);
+}
+
+PCI_Device* pci_find(u16int bus, u16int slot)
+{
+	PCI_Device* cur = pci_devices;
+	for (; cur; cur = cur->next)
+	{
+		if (cur->bus == bus && cur->slot == slot)
+			return cur;
+	}
+	return NULL;
 }
 
 void list_pci(u8int showbars)
 {
 	PCI_Device* cur = pci_devices;
-	for (; cur;
-			cur = cur->next)
+	for (; cur; cur = cur->next)
 	{
-		kprintf("%04x:%04x - on bus %d slot %d: %s\n",
+		kprintf("%04x:%04x [%02x] - on bus %d slot %d: %s\n",
 				cur->vendordevice & 0xffff,
 				(cur->vendordevice >> 16) & 0xffff,
+				cur->headertype,
 				cur->bus,
 				cur->slot,
 				pci_subclass_name(cur->deviceclass, cur->devicesubclass, cur->deviceif));
@@ -101,11 +120,13 @@ void scan_pci_bus(int bus)
 			u32int flags = pci_read_config(bus, slot, 0, PCI_OFS_FLAGS);
 			u32int class = pci_read_config(bus, slot, 0, PCI_OFS_CLASS);
 			u32int headertype = (flags >> 16) & 0x7f;
+			u32int mf = (flags >> 16) & 0x80;
 			
 			int bar;
 
 			PCI_Device* dev = kmalloc(sizeof(PCI_Device));
 			dev->vendordevice = id;
+			dev->headertype = (flags >> 16) & 0xff;
 			dev->devicesubclass = (class >> 16) & 0xFF;
 			dev->deviceif = (class >> 8) & 0xFF;
 			dev->bus = bus;
@@ -119,16 +140,16 @@ void scan_pci_bus(int bus)
 
 			int maxbars = 6;
 			
-			if (headertype == 0x00)
+			if (headertype == 0x00 && !mf)
 			{
 				u32int irq = pci_read_config(bus, slot, 0, PCI_OFS_IRQ);
 				irq &= 0xff;
 				dev->irq = irq;
 			}
-			if (headertype == 0x01)	/* PCI/PCI bus or multifunction */
+			if (headertype == 0x01 || mf)		/* PCI/PCI bus or multifunction */
 			{
 				u32int secondary_bus = pci_read_config(bus, slot, 0, PCI_OFS_SECONDARYBUS);
-				kprintf("Secondary: %08x\n", secondary_bus);
+
 				secondary_bus = (secondary_bus >> 8) & 0xFF;
 				if (secondary_bus != bus)
 					scan_pci_bus(secondary_bus);
