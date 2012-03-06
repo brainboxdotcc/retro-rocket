@@ -5,9 +5,9 @@
 #include <video.h>
 #include <taskswitch.h>
 
-u32int ticks = 0;
+u64int ticks = 0;
 u32int timer_freq = 0;
-u32int beep_end = 0;
+u64int beep_end = 0;
 
 void beep(u32int pitch)
 {
@@ -37,8 +37,13 @@ void stopbeep()
 
 void sleep_one_tick()
 {
-	u32int oldticks = ticks;
+	u64int oldticks = ticks;
 	while (oldticks != ticks);
+}
+
+u64int get_ticks()
+{
+	return ticks;
 }
 
 static void timer_callback(registers_t* regs)
@@ -63,4 +68,5 @@ void init_timer(u32int frequency)
 	u8int h = (u8int)( (divisor>>8) & 0xFF );
 	outb(0x40, l);
 	outb(0x40, h);
-} 
+}
+

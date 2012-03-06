@@ -29,6 +29,7 @@ typedef struct PCI_DeviceTag
 	u32int	restype[6];
 	u8int	bus;
 	u8int	slot;
+	u8int	func;
 	struct PCI_DeviceTag* next;
 } PCI_Device;
 

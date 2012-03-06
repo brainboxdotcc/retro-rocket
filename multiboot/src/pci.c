@@ -42,6 +42,7 @@ const SubClass PCI_DevSubClass[] =
 	{ 0x00, 0x01, 0x00, "Pre-2.0 PCI VGA Compatible"} ,
 	{ 0x01, 0x00, 0x00, "SCSI Controller"} ,
 	{ 0x01, 0x01, 0x00, "IDE Controller"} ,
+	{ 0x01, 0x01, 0x80, "PIIX4 IDE Controller" },
 	{ 0x01, 0x02, 0x00, "Floppy Controller"} ,
 	{ 0x01, 0x03, 0x00, "IPI Mass Storage Controller"} ,
 	{ 0x01, 0x04, 0x00, "RAID Controller"} ,
@@ -195,9 +196,9 @@ u32int pci_read_config(u16int bus, u16int slot, u16int func, u16int offset)
 	return inl(0xCFC);
 }
 
-u32int pci_get_vendor_and_device(unsigned short bus, unsigned short slot)
+u32int pci_get_vendor_and_device(u16int bus, u16int slot, u16int func)
 {
-	return pci_read_config(bus, slot, 0, PCI_OFS_VENDOR);
+	return pci_read_config(bus, slot, func, PCI_OFS_VENDOR);
 }
 
 void pci_enable_device(PCI_Device* dev)
@@ -223,13 +224,12 @@ void list_pci(u8int showbars)
 	PCI_Device* cur = pci_devices;
 	for (; cur; cur = cur->next)
 	{
-		kprintf("%04x:%04x [%02x] - on bus %d slot %d: %s\n",
+		kprintf("%04x:%04x - on %d:%d.%d: %s\n",
 				cur->vendordevice & 0xffff,
 				(cur->vendordevice >> 16) & 0xffff,
-				cur->headertype,
-				cur->bus,
-				cur->slot,
-				pci_subclass_name(cur->deviceclass, cur->devicesubclass, cur->deviceif));
+				cur->bus, cur->slot, cur->func,
+				pci_subclass_name(cur->deviceclass, cur->devicesubclass, cur->deviceif),
+				cur->deviceclass, cur->devicesubclass, cur->deviceif);
 		if (showbars)
 		{
 			int bar = 0;
@@ -251,67 +251,90 @@ void init_pci()
 
 void scan_pci_bus(int bus)
 {
-	int slot = 0;
+	u16int slot = 0;
 	for (; slot < 63; slot++)
 	{
-		u32int id = pci_get_vendor_and_device(bus, slot);
-		if ((id & 0xffff) != 0xffff)
+		u16int func = 0;
+		u8int mf = 0;
+
+		while (func < 64)
 		{
-			u32int flags = pci_read_config(bus, slot, 0, PCI_OFS_FLAGS);
-			u32int class = pci_read_config(bus, slot, 0, PCI_OFS_CLASS);
-			u32int headertype = (flags >> 16) & 0x7f;
-			u32int mf = (flags >> 16) & 0x80;
+			u32int id = pci_get_vendor_and_device(bus, slot, func);
+			if ((id & 0xffff) != 0xffff)
+			{
+				u32int flags = pci_read_config(bus, slot, func, PCI_OFS_FLAGS);
+				u32int class = pci_read_config(bus, slot, func, PCI_OFS_CLASS);
+				u32int headertype = (flags >> 16) & 0x7f;
+				if ((flags >> 16) & 0x80)
+					mf = 1;
 			
-			int bar;
+				int bar;
 
-			PCI_Device* dev = kmalloc(sizeof(PCI_Device));
-			dev->vendordevice = id;
-			dev->headertype = (flags >> 16) & 0xff;
-			dev->devicesubclass = (class >> 16) & 0xFF;
-			dev->deviceif = (class >> 8) & 0xFF;
-			dev->bus = bus;
-			dev->slot = slot;
-			dev->irq = 0xff;
-			dev->deviceclass = (class >> 24) & 0xFF;
-			dev->next = pci_devices;
+				PCI_Device* dev = kmalloc(sizeof(PCI_Device));
+				dev->vendordevice = id;
+				dev->headertype = (flags >> 16) & 0xff;
+				dev->devicesubclass = (class >> 16) & 0xFF;
+				dev->deviceif = (class >> 8) & 0xFF;
+				dev->bus = bus;
+				dev->slot = slot;
+				dev->func = func;
+				dev->irq = 0xff;
+				dev->deviceclass = (class >> 24) & 0xFF;
+				dev->next = pci_devices;
 
-			for (bar = 0; bar < 6; ++bar)
-				dev->bar[bar] = 0;
+				for (bar = 0; bar < 6; ++bar)
+					dev->bar[bar] = 0;
 
-			int maxbars = 6;
-			
-			if (headertype == 0x00 && !mf)
-			{
-				u32int irq = pci_read_config(bus, slot, 0, PCI_OFS_IRQ);
-				irq &= 0xff;
-				dev->irq = irq;
-			}
-			if (headertype == 0x01 || mf)		/* PCI/PCI bus or multifunction */
-			{
-				u32int secondary_bus = pci_read_config(bus, slot, 0, PCI_OFS_SECONDARYBUS);
-
-				secondary_bus = (secondary_bus >> 8) & 0xFF;
-				if (secondary_bus != bus)
-					scan_pci_bus(secondary_bus);
-				maxbars = 2;
-			}
-
-			for (bar = 0; bar < maxbars; ++bar)
-			{
-				u32int b = pci_read_config(bus, slot, 0, PCI_OFS_BARS + (bar * 4));
-				if ((b & 1) == 0)
+				int maxbars = 6;
+		
+				if (headertype == 0x00)
 				{
-					dev->restype[bar] = PCI_BAR_MEMORY;
-					dev->bar[bar] = b & 0xFFFFFFF0;
+					u32int irq = pci_read_config(bus, slot, func, PCI_OFS_IRQ);
+					irq &= 0xff;
+					dev->irq = irq;
+				}
+				if (headertype == 0x01)		/* PCI/PCI bus */
+				{
+					u32int secondary_bus = pci_read_config(bus, slot, func, PCI_OFS_SECONDARYBUS);
+
+					secondary_bus = (secondary_bus >> 8) & 0xFF;
+					if (secondary_bus != bus)
+						scan_pci_bus(secondary_bus);
+					maxbars = 2;
+				}
+	
+				for (bar = 0; bar < maxbars; ++bar)
+				{
+					u32int b = pci_read_config(bus, slot, func, PCI_OFS_BARS + (bar * 4));
+					if ((b & 1) == 0)
+					{
+						dev->restype[bar] = PCI_BAR_MEMORY;
+						dev->bar[bar] = b & 0xFFFFFFF0;
+					}
+					else
+					{
+						dev->restype[bar] = PCI_BAR_IOPORT;
+						dev->bar[bar] = b & 0xFFFFFFFC;
+					}
+				}
+
+				pci_devices = dev;
+
+				if (mf)
+				{
+					func++;
 				}
 				else
 				{
-					dev->restype[bar] = PCI_BAR_IOPORT;
-					dev->bar[bar] = b & 0xFFFFFFFC;
+					mf = func = 0;
+					break;
 				}
 			}
-
-			pci_devices = dev;
+			else
+			{
+				mf = func = 0;
+				break;
+			}
 		}
 	}
 }

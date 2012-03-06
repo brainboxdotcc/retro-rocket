@@ -89,27 +89,27 @@ typedef struct
 	unsigned short base;  // I/O Base.
 	unsigned short ctrl;  // Control Base
 	unsigned short bmide; // Bus Master IDE
-	unsigned char  nIEN;  // nIEN (No Interrupt);
+	unsigned char  nIEN;  // nIEN (No Interrupt)
 } channel;
 
 typedef struct {
-	unsigned char  reserved;    // 0 (Empty) or 1 (This Drive really exists).
-	unsigned char  channel;     // 0 (Primary Channel) or 1 (Secondary Channel).
-	unsigned char  drive;       // 0 (Master Drive) or 1 (Slave Drive).
-	unsigned short type;        // 0: ATA, 1:ATAPI.
-	unsigned short sign;       // Drive Signature
-	unsigned short capabilities;// Features.
-	unsigned int   commandsets; // Command Sets Supported.
-	unsigned int   size;       // Size in Sectors.
-	unsigned char  model[41];   // Model in string.
+	unsigned char  reserved;     // 0 (Empty) or 1 (This Drive really exists).
+	unsigned char  channel;      // 0 (Primary Channel) or 1 (Secondary Channel).
+	unsigned char  drive;        // 0 (Master Drive) or 1 (Slave Drive).
+	unsigned short type;         // 0: ATA, 1:ATAPI.
+	unsigned short sign;         // Drive Signature
+	unsigned short capabilities; // Features.
+	unsigned int   commandsets;  // Command Sets Supported.
+	u64int         size;         // Size in Sectors.
+	unsigned char  model[41];    // Model in string.
 } ide_device;
 
 unsigned char ide_read(unsigned char channel, unsigned char reg);
 void ide_write(unsigned char channel, unsigned char reg, unsigned char data);
 void ide_initialise();
 void ide_irq(registers_t* regs);
-int ide_read_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi);
-int ide_write_sectors(unsigned char drive, unsigned char numsects, unsigned int lba, unsigned int edi);
+int ide_read_sectors(unsigned char drive, unsigned char numsects, u64int lba, unsigned int edi);
+int ide_write_sectors(unsigned char drive, unsigned char numsects, u64int lba, unsigned int edi);
 int ide_atapi_eject(unsigned char drive);
 
 #endif

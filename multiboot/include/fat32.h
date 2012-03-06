@@ -54,7 +54,7 @@ typedef struct
 	u32int length;
 	u32int rootdircluster;
 	u16int reservedsectors;
-	u16int fsinfocluster;
+	u32int fsinfocluster;
 	u8int numberoffats;
 	u32int fatsize;
 	u32int clustersize;

@@ -40,12 +40,14 @@ kprintf("This is a fatal system error and your system has been halted.\n\
 
 extern console* current_console;
 
-typedef unsigned int   u32int;
-typedef          int   s32int;
-typedef unsigned short u16int;
-typedef          short s16int;
-typedef unsigned char  u8int;
-typedef          char  s8int;
+typedef unsigned long long	u64int;
+typedef          long long	s64int;
+typedef unsigned int		u32int;
+typedef          int		s32int;
+typedef unsigned short		u16int;
+typedef          short		s16int;
+typedef unsigned char		u8int;
+typedef          char		s8int;
 
 enum
 {

@@ -13,7 +13,7 @@ static FS_FileSystem* fat32_fs = NULL;
 
 extern ide_device ide_devices[4];
 
-u32int ClusLBA(fat32* info, u32int cluster);
+u64int ClusLBA(fat32* info, u32int cluster);
 u32int GetFATEntry(fat32* info, u32int cluster);
 
 FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32int cluster)
@@ -239,10 +239,10 @@ u32int GetFATEntry(fat32* info, u32int cluster)
 	return entry;
 }
 
-u32int ClusLBA(fat32* info, u32int cluster)
+u64int ClusLBA(fat32* info, u32int cluster)
 {
-	u32int FirstDataSector = info->reservedsectors + (info->numberoffats * info->fatsize);
-	u32int FirstSectorofCluster = ((cluster - 2) * (info->clustersize / 512) ) + FirstDataSector;
+	u64int FirstDataSector = info->reservedsectors + (info->numberoffats * info->fatsize);
+	u64int FirstSectorofCluster = ((cluster - 2) * (info->clustersize / 512) ) + FirstDataSector;
 	return info->start + FirstSectorofCluster;
 }
 
