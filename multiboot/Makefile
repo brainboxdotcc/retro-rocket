@@ -11,7 +11,7 @@ clean:
 	rm asm/*.o src/*.o
 
 link:
-	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o /usr/lib/gcc/i486-linux-gnu/4.4/libgcc.a
+	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o `locate libgcc.a | head -n1`
 	chmod ugo-x kernel.bin
 	perl build/makeiso.pl
 	scp sixty-four.iso brain@brainbox.cc:/var/www/tmp/rr/rr.iso &
