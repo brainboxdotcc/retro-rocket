@@ -73,6 +73,8 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 
 		init_pci();
 
+		load_elf("/programs/sh");
+
 		struct process* init = proc_load("/programs/init", (struct console*)current_console);
 		if (!init)
 		{

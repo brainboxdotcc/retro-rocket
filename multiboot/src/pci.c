@@ -246,7 +246,7 @@ void list_pci(u8int showbars)
 void init_pci()
 {
 	scan_pci_bus(0);
-	//list_pci(1);
+	list_pci(0);
 }
 
 void scan_pci_bus(int bus)
@@ -296,10 +296,18 @@ void scan_pci_bus(int bus)
 				if (headertype == 0x01)		/* PCI/PCI bus */
 				{
 					u32int secondary_bus = pci_read_config(bus, slot, func, PCI_OFS_SECONDARYBUS);
+					u32int sb = secondary_bus;
 
 					secondary_bus = (secondary_bus >> 8) & 0xFF;
-					if (secondary_bus != bus)
+					if (secondary_bus == 0)
+					{
+						pci_write_config_word(bus, slot, func, PCI_OFS_SECONDARYBUS + 2, (sb & 0xFF00) | ((bus + 1) & 0xFF));
+						scan_pci_bus(bus + 1);
+					}
+					else if (secondary_bus != bus)
+					{
 						scan_pci_bus(secondary_bus);
+					}
 					maxbars = 2;
 				}
 	

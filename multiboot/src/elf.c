@@ -102,9 +102,13 @@ u8int load_elf(const char* path_to_file)
 					if (phdr->p_vaddr >= UPROGSTART && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
 					{
 						_lseek(fh, phdr->p_offset, 0);
-						sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
+						//sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
 						/* The ELF spec says the memory must be zeroed */
-						_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
+						//_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
+						//
+						// NOTE: Here, the actual load address compiled for is phdr->p_vaddr,
+						// this is what we are relocating to when we fixup.
+						//
 						n_read = _read(fh, (void*)phdr->p_vaddr, phdr->p_filesz);
 						if (n_read < phdr->p_filesz)
 						{
@@ -112,7 +116,7 @@ u8int load_elf(const char* path_to_file)
 							kprintf("load_elf: Can't read entire PT_LOAD section!\n");
 							break;
 						}
-						kprintf("PT_LOAD: loaded and mapped memory from elf file\n");
+						kprintf("PT_LOAD: loaded and mapped %d bytes memory from elf file to 0x%08x\n", phdr->p_filesz, phdr->p_vaddr);
 					}
 					else
 					{
@@ -161,8 +165,8 @@ u8int load_elf(const char* path_to_file)
 
 		if (!error)
 		{
-			ret_addr = fileheader->e_entry;	/* Entry address of program */
-			ret_esp = USTACK - 4;    /* Return Stack pointer */
+			//ret_addr = fileheader->e_entry;	/* Entry address of program */
+			//ret_esp = USTACK - 4;    /* Return Stack pointer */
 		}
 		else
 		{
