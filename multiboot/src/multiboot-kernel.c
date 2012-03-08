@@ -47,7 +47,7 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_error_handler();
 		init_basic_keyboard();
 		init_syscall();
-		init_timer(50);
+		init_timer(250);
 		cons = (console*)kmalloc(sizeof(console));
 		initconsole(cons);
 		current_console = cons;
@@ -72,8 +72,6 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_debug();
 
 		init_pci();
-
-		load_elf("/programs/sh");
 
 		struct process* init = proc_load("/programs/init", (struct console*)current_console);
 		if (!init)

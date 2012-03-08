@@ -88,8 +88,7 @@ void proc_run(struct process* proc)
 		proc->waitpid = 0;
 		ubasic_run(proc->code);
 	}
-	else
-		asm volatile("hlt");
+
 	//else
 	//	kprintf("proc_find(%d) == %d\n.\n", proc->waitpid, proc_find(proc->waitpid));
 }

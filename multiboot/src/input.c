@@ -16,7 +16,10 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 	cons->last = kgetc(cons);
 	
 	if (cons->last == 255)
+	{
+		asm volatile("hlt");
 		return 0;
+	}
 
 	if (cons->buffer == NULL)
 	{

@@ -84,16 +84,18 @@ u8int load_elf(const char* path_to_file)
 		*/
 
 		_lseek(fh, fileheader->e_phoff, 0);
+		kprintf("Headers: %d\n", fileheader->e_phnum);
 		for (head = 0; head < fileheader->e_phnum; head++)
 		{
 			n_read = _read(fh, phdr, fileheader->e_phentsize);
+
 			if (n_read < fileheader->e_phentsize)
 			{
 				error = 1;
 				kprintf("load_elf: Can't read whole Elf32_Phdr #%d\n", head);
 				break;
 			}
-			kprintf("Program header %d of %d\n", head, fileheader->e_phnum);
+			kprintf("Program header %d of %d type %02x\n", head, fileheader->e_phnum, phdr->p_type);
 
 			switch (phdr->p_type)
 			{
@@ -101,15 +103,17 @@ u8int load_elf(const char* path_to_file)
 					/* Load a section of code (.text) */
 					if (phdr->p_vaddr >= UPROGSTART && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
 					{
+						u32int curpos = _tell(fh);
 						_lseek(fh, phdr->p_offset, 0);
 						//sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
 						/* The ELF spec says the memory must be zeroed */
-						//_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
+						_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
 						//
 						// NOTE: Here, the actual load address compiled for is phdr->p_vaddr,
 						// this is what we are relocating to when we fixup.
 						//
 						n_read = _read(fh, (void*)phdr->p_vaddr, phdr->p_filesz);
+						_lseek(fh, curpos, 0);
 						if (n_read < phdr->p_filesz)
 						{
 							error = 1;
