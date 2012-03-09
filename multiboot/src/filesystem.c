@@ -146,24 +146,40 @@ int _close(u32int descriptor)
 
 long _lseek(int fd, long offset, int origin)
 {
+	//kprintf("LSEEK ");
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
+	{
+		//kprintf("Bad FD %d\n", fd);
 		return -1;
+	}
 	else
 	{
+		//kprintf("1 ");
 		if (offset + origin > filehandles[fd]->file->size)
+		{
+			//kprintf("offset + origin > %d\n", filehandles[fd]->file->size);
 			return -1;
+		}
 		else
 		{
+			//kprintf("2 ");
 			filehandles[fd]->seekpos = offset + origin;
 			/* Flush output before seeking */
 			flush_filehandle(fd);
 			/* Refresh input buffer */
 			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, filehandles[fd]->inbufsize, filehandles[fd]->inbuf))
+			{
+				//kprintf("Read buffer failure");
 				return -1;
+			}
 			else
+			{
+				//kprintf("3 %d ", filehandles[fd]->seekpos);
 				return filehandles[fd]->seekpos;
+			}
 		}
 	}
+	//kprintf("E ");
 	return -1;
 }
 

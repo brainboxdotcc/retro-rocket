@@ -10,6 +10,7 @@
 
 Elf32_Shdr* get_section_by_name(int fh, Elf32_Ehdr* fileheader, unsigned char* stringtable, const char* name);
 Elf32_Shdr* get_sectionheader(int fh, Elf32_Ehdr* fileheader, int headernum);
+void list_named_sections(int fh, Elf32_Ehdr* fileheader, unsigned char* stringtable);
 
 extern page_directory_t* current_directory;	/* Current page directory */
 extern u32int end;				/* End of kernel */
@@ -50,7 +51,7 @@ u8int load_elf(const char* path_to_file)
 			return 0;
 		}
 
-		if (fileheader->e_type != ET_EXEC || !IS_INTEL_32(fileheader))
+		if (fileheader->e_type != ET_DYN || !IS_INTEL_32(fileheader))
 		{
 			kprintf("load_elf: File not executable\n");
 			kfree(fileheader);
@@ -63,11 +64,13 @@ u8int load_elf(const char* path_to_file)
 		_lseek(fh, shdr->sh_offset, 0);
 		n_read = _read(fh, stringtable, shdr->sh_size);
 		kfree(shdr);
-		shdr = get_section_by_name(fh, fileheader, stringtable, ".strtab");
+		shdr = get_section_by_name(fh, fileheader, stringtable, ".dynstr");
 		stringtablesym = (unsigned char*)kmalloc(shdr->sh_size);
 		_lseek(fh, shdr->sh_offset, 0);
 		n_read = _read(fh, stringtablesym, shdr->sh_size);
 		kfree(shdr);
+
+		list_named_sections(fh, fileheader, stringtable);
 
 		Elf32_Phdr* phdr = (Elf32_Phdr*)kmalloc(sizeof(Elf32_Phdr));
 		int head, error = 0;
@@ -95,41 +98,41 @@ u8int load_elf(const char* path_to_file)
 				kprintf("load_elf: Can't read whole Elf32_Phdr #%d\n", head);
 				break;
 			}
-			kprintf("Program header %d of %d type %02x\n", head, fileheader->e_phnum, phdr->p_type);
+			//kprintf("Program header %d of %d type %02x\n", head, fileheader->e_phnum, phdr->p_type);
 
 			switch (phdr->p_type)
 			{
 				case PT_LOAD:
 					/* Load a section of code (.text) */
-					if (phdr->p_vaddr >= UPROGSTART && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
+					//if (phdr->p_vaddr >= UPROGSTART && (phdr->p_vaddr + phdr->p_memsz < UHEAP_START))
 					{
-						u32int curpos = _tell(fh);
+						u32int curpos2 = _tell(fh);
 						_lseek(fh, phdr->p_offset, 0);
 						//sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
 						/* The ELF spec says the memory must be zeroed */
-						_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
+						//_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
 						//
 						// NOTE: Here, the actual load address compiled for is phdr->p_vaddr,
 						// this is what we are relocating to when we fixup.
 						//
-						n_read = _read(fh, (void*)phdr->p_vaddr, phdr->p_filesz);
-						_lseek(fh, curpos, 0);
-						if (n_read < phdr->p_filesz)
+						//n_read = _read(fh, (void*)phdr->p_vaddr, phdr->p_filesz);
+						_lseek(fh, curpos2, 0);
+						/*if (n_read < phdr->p_filesz)
 						{
 							error = 1;
 							kprintf("load_elf: Can't read entire PT_LOAD section!\n");
 							break;
-						}
-						kprintf("PT_LOAD: loaded and mapped %d bytes memory from elf file to 0x%08x\n", phdr->p_filesz, phdr->p_vaddr);
+						}*/
+						//kprintf("PT_LOAD: loaded and mapped %d bytes memory from elf file to 0x%08x\n", phdr->p_filesz, phdr->p_vaddr);
 					}
-					else
-					{
-						error = 1;
-						kprintf("load_elf: Can't map PT_LOAD section below vaddr 0x%08x or above user heap!\n", UPROGSTART);
-					}
+					//else
+					//{
+						//error = 1;
+						//kprintf("load_elf: Can't map PT_LOAD section below vaddr 0x%08x or above user heap!\n", UPROGSTART);
+					//}
 				break;
 				case PT_SHLIB:
-					kprintf("PT_SHLIB: not supported yet!\n");
+					//kprintf("PT_SHLIB: not supported yet!\n");
 				case PT_PHDR:
 					/* Address of program header. This is included in the PT_LOAD sections
 					 * and can be safely skipped over
@@ -145,15 +148,24 @@ u8int load_elf(const char* path_to_file)
 					if (n_read < phdr->p_filesz)
 					{
 						error = 1;
-						kprintf("load_elf: Can't read entire interpreter name!\n");
+						//kprintf("load_elf: Can't read entire interpreter name!\n");
 					}
-					kprintf("load_elf: File %s specifies an interpreter '%s', but this is not supported.\n", path_to_file, interpreter);
+					//kprintf("load_elf: File %s specifies an interpreter '%s', but this is not supported.\n", path_to_file, interpreter);
 					_lseek(fh, curpos, 0);
 					kfree(interpreter);
 				}
 				break;
 				case PT_DYNAMIC:
-					kprintf("load_elf: Warning: PT_DYNAMIC: not supported yet!\n");
+				{
+					//kprintf("load_elf: Warning: PT_DYNAMIC: not supported yet!\n");
+					u32int curpos = _tell(fh);
+					_lseek(fh, phdr->p_offset, 0);
+					u8int* dynamic = (u8int*)kmalloc(phdr->p_memsz);
+					_read(fh, dynamic, phdr->p_filesz);
+					//DumpHex(dynamic, phdr->p_memsz);
+					kfree(dynamic);
+					_lseek(fh, curpos, 0);
+				}
 				break;
 				case PT_NULL:
 				case PT_GNU_STACK:
@@ -191,6 +203,19 @@ u8int load_elf(const char* path_to_file)
 	return 0;
 }
 
+void list_named_sections(int fh, Elf32_Ehdr* fileheader, unsigned char* stringtable)
+{
+	int sh;
+	for (sh = 0; sh < fileheader->e_shnum; sh++)
+	{
+		Elf32_Shdr* hdr = get_sectionheader(fh, fileheader, sh);
+		if (*(stringtable + hdr->sh_name))
+			kprintf("%d: %s ", sh, stringtable + hdr->sh_name);
+		kfree(hdr);
+	}
+	kprintf("\n");
+}
+
 Elf32_Shdr* get_section_by_name(int fh, Elf32_Ehdr* fileheader, unsigned char* stringtable, const char* name)
 {
 	int sh;
@@ -198,7 +223,10 @@ Elf32_Shdr* get_section_by_name(int fh, Elf32_Ehdr* fileheader, unsigned char* s
 	{
 		Elf32_Shdr* hdr = get_sectionheader(fh, fileheader, sh);
 		if (!strcmp((char*)stringtable + hdr->sh_name, name))
+		{
+			//kprintf("Section %d = %s\n", sh, name);
 			return hdr;
+		}
 		else
 			kfree(hdr);
 	}
@@ -207,21 +235,25 @@ Elf32_Shdr* get_section_by_name(int fh, Elf32_Ehdr* fileheader, unsigned char* s
 
 Elf32_Shdr* get_sectionheader(int fh, Elf32_Ehdr* fileheader, int headernum)
 {
+	//kprintf("get_sectionheader %d max=%d ", headernum, fileheader->e_shnum);
 	if (headernum < 0 || headernum > fileheader->e_shnum)
 		return NULL;
 
 	Elf32_Shdr* shdr = (Elf32_Shdr*)kmalloc(sizeof(Elf32_Shdr));
-	if (_lseek(fh, fileheader->e_shoff + (sizeof(Elf32_Shdr) * headernum), 0))
+	if (_lseek(fh, fileheader->e_shoff + (sizeof(Elf32_Shdr) * headernum), 0) == -1)
 	{
+		//kprintf("Bad offset %d\n",fileheader->e_shoff + (sizeof(Elf32_Shdr) * headernum));
 		kfree(shdr);
 		return NULL;
 	}
 	int n_read = _read(fh, shdr, sizeof(Elf32_Shdr));
 	if (n_read < sizeof(Elf32_Shdr))
 	{
+		//kprintf("Didnt read everything\n");
 		kfree(shdr);
 		return NULL;
 	}
+	//kprintf("Name=%d\n", shdr->sh_name);
 	return shdr;
 }
 
