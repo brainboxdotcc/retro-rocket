@@ -1,21 +1,29 @@
 LDFLAGS=-m `perl build/getsystem.pl` -T build/linker.ld
-CFLAGS=-static-libgcc -pipe -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs -I ../include
-ASOURCES=assembly.o loader.o process.o
-CSOURCES=debugger.o interrupts.o keyboard.o multiboot-kernel.o paging.o taskswitch.o video.o ata.o errorhandler.o iso9660.o kmalloc.o memcpy.o kprintf.o string.o timer.o filesystem.o elf.o devfs.o syscall.o ubasic.o tokenizer.o input.o fat32.o pci.o apic.o
+CFLAGSBASE=-static-libgcc -pipe -m32 -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
+CFLAGS=$(CFLAGSBASE) -I ../include
+CFLAGSMODS=$(CFLAGSBASE) -I ../../include
+ASOURCES=assembly.o loader.o process.o modload.o
+CSOURCES=debugger.o interrupts.o keyboard.o multiboot-kernel.o paging.o taskswitch.o video.o ata.o errorhandler.o iso9660.o kmalloc.o memcpy.o kprintf.o string.o timer.o filesystem.o elf.o devfs.o syscall.o ubasic.o tokenizer.o input.o fat32.o pci.o apic.o module.o
 
-all: source mods link
+all: beginmsg source mods link
+	@echo "*** COMPLETED COMPILATION ***"
+
+beginmsg:
+	@echo "*** COMPILING CORE ***"
 
 run: all emulator
 
-clean:
+clean: modclean
 	rm asm/*.o src/*.o
+
+modclean:
 	make -C src/modules clean
 
 mods:
-	make -C src/modules all LDFLAGS="${LDFLAGS}" CFLAGS="${CFLAGS}"
+	make -C src/modules all LDFLAGS="${LDFLAGS}" CFLAGS="${CFLAGSMODS}"
 
 link:
-	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o `locate libgcc.a | head -n1`
+	ld $(LDFLAGS) -o kernel.bin asm/loader.o asm/process.o asm/assembly.o src/*.o `locate libgcc.a | head -n1`
 	chmod ugo-x kernel.bin
 	make -C src/modules install
 	perl build/makeiso.pl
