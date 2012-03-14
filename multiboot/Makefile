@@ -3,12 +3,16 @@ CFLAGS=-static-libgcc -pipe -m32 -Wall -nostdlib -nostdinc -ffreestanding -nosta
 ASOURCES=assembly.o loader.o process.o
 CSOURCES=debugger.o interrupts.o keyboard.o multiboot-kernel.o paging.o taskswitch.o video.o ata.o errorhandler.o iso9660.o kmalloc.o memcpy.o kprintf.o string.o timer.o filesystem.o elf.o devfs.o syscall.o ubasic.o tokenizer.o input.o fat32.o pci.o apic.o
 
-all: source link
+all: source mods link
 
 run: all emulator
 
 clean:
 	rm asm/*.o src/*.o
+	make -C src/modules clean
+
+mods:
+	make -C src/modules all LDFLAGS="${LDFLAGS}" CFLAGS="${CFLAGS}"
 
 link:
 	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o `locate libgcc.a | head -n1`

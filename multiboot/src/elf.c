@@ -1,7 +1,6 @@
 #include <elf.h>
 #include <kernel.h>
 #include <kmalloc.h>
-#include <kmalloc.h>
 #include <string.h>
 #include <kprintf.h>
 #include <paging.h>
@@ -53,7 +52,7 @@ u8int load_elf(const char* path_to_file)
 
 		if (fileheader->e_type != ET_DYN || !IS_INTEL_32(fileheader))
 		{
-			kprintf("load_elf: File not executable\n");
+			kprintf("load_elf: File not executable %02x\n", fileheader->e_type);
 			kfree(fileheader);
 			_close(fh);
 			return 0;
@@ -74,6 +73,13 @@ u8int load_elf(const char* path_to_file)
 
 		Elf32_Phdr* phdr = (Elf32_Phdr*)kmalloc(sizeof(Elf32_Phdr));
 		int head, error = 0;
+
+		u32int* loadaddrs = kmalloc(fileheader->e_phnum * sizeof(u32int));
+		u32int* virtaddrs = kmalloc(fileheader->e_phnum * sizeof(u32int));
+		u32int* loadsizes = kmalloc(fileheader->e_phnum * sizeof(u32int));
+		_memset(loadaddrs, 0, fileheader->e_phnum * sizeof(u32int));
+		_memset(virtaddrs, 0, fileheader->e_phnum * sizeof(u32int));
+		_memset(loadsizes, 0, fileheader->e_phnum * sizeof(u32int));
 
 		/*
 		XXX: We really REALLY need to validate all the elf sections
@@ -109,21 +115,31 @@ u8int load_elf(const char* path_to_file)
 						u32int curpos2 = _tell(fh);
 						_lseek(fh, phdr->p_offset, 0);
 						//sign_sect(phdr->p_vaddr, phdr->p_vaddr + phdr->p_memsz, 1, 1, current_directory);
-						/* The ELF spec says the memory must be zeroed */
-						//_memset((void*)phdr->p_vaddr, 0, phdr->p_memsz);
+						/* The ELF spec says the memory must be zeroed, and to make life easy for ourselves we
+						 * always make sure this is page-aligned.
+						*/
+						u8int* alloc = kmalloc_ext(phdr->p_memsz, 1, 0);
+
+						loadaddrs[head] = alloc;
+						virtaddrs[head] = phdr->p_vaddr;
+						loadsizes[head] = phdr->p_memsz;
+
+						// save phdr->p_vaddr and alloc for later relocation.
+
+						_memset(alloc, 0, phdr->p_memsz);
 						//
 						// NOTE: Here, the actual load address compiled for is phdr->p_vaddr,
 						// this is what we are relocating to when we fixup.
 						//
-						//n_read = _read(fh, (void*)phdr->p_vaddr, phdr->p_filesz);
+						n_read = _read(fh, alloc, phdr->p_filesz);
 						_lseek(fh, curpos2, 0);
-						/*if (n_read < phdr->p_filesz)
+						if (n_read < phdr->p_filesz)
 						{
 							error = 1;
 							kprintf("load_elf: Can't read entire PT_LOAD section!\n");
 							break;
-						}*/
-						//kprintf("PT_LOAD: loaded and mapped %d bytes memory from elf file to 0x%08x\n", phdr->p_filesz, phdr->p_vaddr);
+						}
+						kprintf("PT_LOAD: loaded and mapped %d bytes memory from elf file to 0x%08x\n", loadsizes[head], loadaddrs[head]);
 					}
 					//else
 					//{
@@ -191,9 +207,18 @@ u8int load_elf(const char* path_to_file)
 			 */
 		}
 
-		kprintf("Would execute from 0x%08x\n", fileheader->e_entry);
+		Elf32_Shdr* reloc_hdr = get_section_by_name(fh, fileheader, stringtable, ".text.rel");
+		_lseek(fh, reloc_hdr->sh_offset, 0);
+		u8int* relocations = (u8int*)kmalloc(reloc_hdr->sh_size);
+		_read(fh, relocations, reloc_hdr->sh_size);
+		DumpHex(relocations, reloc_hdr->sh_size);
+
+
+
+		//kprintf("Would execute from 0x%08x\n", fileheader->e_entry);
 
 		_close(fh);
+		kfree(relocations);
 		kfree(stringtable);
 		kfree(stringtablesym);
 		kfree(fileheader);
