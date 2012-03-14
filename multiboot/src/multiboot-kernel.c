@@ -22,6 +22,7 @@
 #include <input.h>
 #include <multiboot.h>
 #include <pci.h>
+#include <module.h>
 
 console* current_console = NULL;
 
@@ -71,9 +72,9 @@ void kmain(void* mbd, unsigned int magic, u32int sp)
 		init_devfs();
 		init_debug();
 
-		init_pci();
+		//init_pci();
 
-		//load_elf("/programs/sh");
+		init_modules();
 		load_module("/modules/test.ko");
 
 		struct process* init = proc_load("/programs/init", (struct console*)current_console);

@@ -8,20 +8,12 @@
 #include <memcpy.h>
 #include <interrupts.h>
 
-typedef struct symbol
-{
-	char* name;
-	u32int address;
-	u8int type;
-	struct symbol* next;
-} symbol_t;
-
-typedef struct stack_frame {
-	struct stack_frame *next;
-	void *addr;
-} stack_frame_t;
-
 static symbol_t* symbol_table = NULL;
+
+symbol_t* get_sym_table()
+{
+	return symbol_table;
+}
 
 void DumpHex(unsigned char* address, u32int length)
 {

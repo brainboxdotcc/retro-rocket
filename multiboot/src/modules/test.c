@@ -2,7 +2,7 @@
 
 extern int modinit(KernelInfo* ki)
 {
-
+	int v = ki->findsym("test");
 	return 0;
 }
 

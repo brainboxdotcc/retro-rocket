@@ -21,6 +21,19 @@
 #define SYM_STABS '-'
 #define SYM_UNKNOWN '?'
 
+typedef struct symbol
+{
+	char* name;
+	u32int address;
+	u8int type;
+	struct symbol* next;
+} symbol_t;
+
+typedef struct stack_frame {
+	struct stack_frame *next;
+	void *addr;
+} stack_frame_t;
+
 // Create a hex dump of a region of ram, displayed in BBC Miro/Archimedes *DUMP style,
 // dumped to current_console.
 void DumpHex(unsigned char* address, u32int length);
@@ -29,5 +42,7 @@ void DumpHex(unsigned char* address, u32int length);
 void init_debug();
 
 void backtrace(registers_t* regs);
+
+symbol_t* get_sym_table();
 
 #endif

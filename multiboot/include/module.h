@@ -2,16 +2,20 @@
 #define __MOD_H__
 
 #include "kernel.h"
+#include "debugger.h"
 
 #define MODSTART 0x600
 
+typedef u32int (*sym_find)(const char*);
+
 typedef struct KernelInfoTag
 {
-	int dummy;
+	symbol_t* symbols;
+	sym_find findsym;
 } KernelInfo;
 
-typedef int (*mod_init)(int, KernelInfo*);
-typedef int (*mod_fini)(int, KernelInfo*);
+typedef int (*mod_init)(KernelInfo*);
+typedef int (*mod_fini)(KernelInfo*);
 
 typedef struct ModuleHeaderTag
 {
@@ -30,6 +34,7 @@ typedef struct ModuleTag
 } Module;
 
 
+int init_modules();
 int load_module(const char* name);
 
 #endif

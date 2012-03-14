@@ -6,8 +6,37 @@
 #include <paging.h>
 #include <filesystem.h>
 #include <debugger.h>
+#include <memcpy.h>
 
 Module* modlist = NULL;
+Module* paged = NULL;
+KernelInfo* ki = NULL;
+
+int page_module(Module* mod)
+{
+	if (paged == mod)
+		return 0;
+	else
+	{
+		memcpy((void*)MODSTART, mod->progbits, mod->size);
+		paged = mod;
+	}
+	return mod->size;
+}
+
+u32int find_symbol(const char* symbol)
+{
+	kprintf("Module looking up symbol '%s'\n", symbol);
+	return NULL;
+}
+
+int init_modules()
+{
+	ki = (KernelInfo*)kmalloc(sizeof(KernelInfo));
+	ki->symbols = get_sym_table();
+	ki->findsym = find_symbol;
+	return 0;
+}
 
 int load_module(const char* name)
 {
@@ -44,7 +73,14 @@ int load_module(const char* name)
 			newmod->header = head;
 
 			modlist = newmod;
-		
+
+			kprintf("New module %s, init=%08x fini=%08x\n", name, newmod->header->modinit, newmod->header->modfini);
+
+			page_module(newmod);
+
+			newmod->header->modinit(ki);
+			newmod->header->modfini(ki);
+
 			_close(fh);
 		}
 	}
