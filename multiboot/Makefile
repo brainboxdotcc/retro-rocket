@@ -17,6 +17,7 @@ mods:
 link:
 	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o `locate libgcc.a | head -n1`
 	chmod ugo-x kernel.bin
+	make -C src/modules install
 	perl build/makeiso.pl
 	scp sixty-four.iso brain@brainbox.cc:/var/www/tmp/rr/rr.iso &
 

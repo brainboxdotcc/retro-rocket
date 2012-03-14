@@ -10,3 +10,5 @@ clean:
 	gcc ${CFLAGS} -c $<
 	ld -Ttext 0x600 --oformat binary -o $@ $(patsubst %.ko,%.o,$@)
 
+install:
+	install *.ko ../../os/modules/
