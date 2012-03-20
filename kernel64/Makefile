@@ -1,7 +1,11 @@
-LDFLAGS=-m `perl build/getsystem.pl` -T build/linker.ld
-CFLAGS=-pipe -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs
-ASOURCES=loader.o
-CSOURCES=kernel.o printf.o string.o video.o memcpy.o apic.o interrupt.o paging.o
+CC=x86_64-elf-gcc
+LD=x86_64-elf-ld
+AS=x86_64-elf-as
+GAS=x86_64-elf-gas
+LDFLAGS=-m elf_x86_64 -T build/linker.ld
+CFLAGS=-pipe -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large
+ASOURCES=boot.o loader.o
+CSOURCES=kernel.o printf.o string.o video.o memcpy.o interrupt.o paging.o
 
 all: source link
 
@@ -11,16 +15,16 @@ clean:
 	rm asm/*.o src/*.o
 
 link:
-	ld $(LDFLAGS) -o kernel.bin src/*.o asm/*.o
+	$(LD) $(LDFLAGS) -o kernel.bin src/*.o asm/*.o
 	chmod ugo-x kernel.bin
 	perl build/makeiso.pl
 
 source:
-	make -C asm all
-	make -C src all CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
+	make -C asm all CC="$(CC)" ASOURCES="$(ASOURCES)" CFLAGS="$(CFLAGS)"
+	make -C src all CC="$(CC)" CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 emulator:
-	-bochs -qf bochs.conf
+	-qemu-system-x86_64 -soundhw ac97 -usb -usbdevice mouse -m 32 -hda ../harddisk0 -smp 8 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d
 
 remoterun: all
 	-qemu-system-x86_64 -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso

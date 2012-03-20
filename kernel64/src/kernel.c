@@ -1,20 +1,18 @@
 #include "../include/kernel.h"
 
-void kmain(MultiBoot* mb, u64 stackaddr, u64 memorymb)
+void kmain_ap()
+{
+	asm volatile("cli; hlt");
+}
+
+void kmain()
 {
 	initconsole();
 	setforeground(COLOUR_LIGHTYELLOW);
 	printf("Sixty-Four ");
 	setforeground(COLOUR_WHITE);
-	printf("kernel booting from %s...\n", mb->bootloadername);
-	printf("%d MB RAM detected\n", memorymb);
-	initialise_paging();
-
-	if (!detect_apic())
-	{
-		printf("Could not detect local APIC. System initialisation halted.\n");
-		wait_forever();
-	}
+	printf("kernel booting from %s...\n", "Hydrogen");
+	printf("%d MB RAM detected\n", 64);
 	
 	asm volatile("int $49");
 

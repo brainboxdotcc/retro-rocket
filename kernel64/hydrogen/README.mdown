@@ -1,0 +1,114 @@
+Hydrogen
+======================
+Hydrogen is a loader for AMD64 kernels. While being loaded itself by any
+multiboot 1 compatible boot loader (tested with GRUB2) that supports loading of
+ELF64 binaries, it sets up the environment for an AMD64 kernel attached as
+a multiboot module. 
+
+When developing operating systems for AMD64 one is faced with lots of legacy
+dating back to the roots of X86. Hydrogen is made to handle most of it to hand
+the OS developers a clean and mostly legacy-free system.
+
+Ships with a compiled copy of the GRUB2 bootloader (as stage2_eltorito image).
+This binary can easily be replaced by any other compilation of GRUB2 that supports
+iso9660 and multiboot or any other compatible boot loader.
+
+Also ships with example kernels (grouped by primary language) in examples/. Build
+them using *make install* in their respective directory (copies the kernel.bin to
+iso/boot/) and run *make run* in the main directory.
+
+Features
+----------------------
+
+  - Symmetric Multiprocessing: Hydrogen parses the system's ACPI tables to discover
+    installed and enabled processors, boots them into long mode and leaves them
+    in a halted state.
+  - Multiboot Compatibility: Hydrogen is compatible with multiboot 1 bootloaders
+    that are capable of loading ELF64 binaries. That way it profits from the wide
+    variety of hardware, file systems and boot procedures that is supported by
+    GRUB2 and others.
+  - Information Table: Hydrogen gathers the information it can find in ACPI and
+    multiboot tables and puts them into a single info structure storing information
+    important for a kernel to know about the system (memory layout, number of
+    processors, modules).
+  - Clean Memory Layout: Hydrogen leaves the memory in a well defined state. No
+    need to make assumptions about memory layout anymore.
+  - Legacy Initialization: Hydrogen initializes components like the 8259 PIC and
+    sets them to a default state that requires no further setup when the
+    component is not used or only little in the case it is.
+  - ELF64 Support: Pass your kernel as an ELF64 executable file and it is
+  	automatically mapped to the right virtual addresses.
+  - Configurability: Put a configuration table in your kernel binary to alter
+    Hydrogen's default behavior, e.g. an AP entry point or IRQ to interrupt
+    vector mappings.
+
+Build Requirements
+----------------------
+Hydrogen requires the following tools to build:
+
+  - GNU ld (tested version: 2.21.51.0.6)
+  - GNU objcopy (tested version: 2.21.51.0.6)
+  - mkisofs (tested version: 1.1.11)
+  - nasm (tested version: 2.09.07)
+  
+Hydrogen has been tested using following emulators:
+
+  - bochs (tested version: 2.4.6)
+  - qemu-system-x86_64 (tested version: 0.15.1; using qemu-kvm-0.15.1)
+  
+Limitations
+----------------------
+Currenty Hydrogen identity maps the first 64GB of physical memory using 2MB
+pages. Behaviour on systems with more than 64GB of memory installed is undefined.
+
+Make sure your ELF64 kernel is only loaded into the higher half of the address
+space to avoid collisions with memory mapped in the lower half.
+
+How To Use
+----------------------
+Hydrogen searches for an ELF64 kernel binary as multiboot module with the
+cmdline string 'kernel64', loads it into virtual memory and jumps to its entry
+point.
+
+Hydrogen is loaded at 0x100000 (the 1MB mark) and reserves 16kB of memory for
+code and data, which can be reclaimed by the kernel with no risk. Behind that,
+i.e. to 0x104000, all info tables and system structures (like GDT, IDT and paging
+structures) are placed (see inc/memory.h and inc/info.h for more details), followed
+by the loaded modules, the kernel binary and paging structures. The free_mem_begin
+field of the main info table points to the first freely available page in physical
+memory.
+
+When the PIC flag is set in the flags field of the info table, the loader has
+detected and initialized an 8259 PIC. Its first IRQ vector is set to 0x30 and
+all IRQs are masked (even when a modified IRQ to vector map is given in the
+config table).
+
+Additionally, Hydrogen initializes all I/O APICs in the system and sets up
+the redirections of all global system interrupts that map to ISA IRQs to begin
+at vector 0x30 by default (note that I/O APIC and PIC use the same vectors, so
+make sure to keep them masked in at least one of them). All redirections are masked.
+
+You can pass a configuration table to Hydrogen by creating a symbol 'hydrogen_config'.
+Using the table you can (also see inc/config.asm):
+
+ - Define an entry point for your APs.
+ - Alter IRQ to interrupt vector mappings.
+ - Unmask a set of IRQs (both only on the I/O APICs, not on the PIC).
+
+Related Work
+----------------------
+In development of the Hydrogen Loader the project Pure64 [1] by Return Infinity
+has been a great inspiration. While serving a quite similar purpose and also
+sharing the basic design philosophy, Pure64 is a stage 2 loader and has to care
+about loading the kernel from the boot medium itself, which is why to the date
+when Hydrogen was started it only supported FAT16 as a file system and did not
+support loading from devices other than a hard drive.
+
+Hydrogen has been developed out of the wish to profit from GRUB2's wide support
+of hardware, file systems and devices while still not having to care about the
+annoying and lengthy setup required for modern AMD64 systems.
+
+The author thanks the Return Infinity team for their great work and the inspiration
+that came with it.
+
+[1] http://www.returninfinity.com/pure64.html
