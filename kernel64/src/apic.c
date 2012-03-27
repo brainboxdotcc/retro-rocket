@@ -1,5 +1,5 @@
-#include "../include/kernel.h"
-#include "../include/cpuid.h"
+#include <kernel.h>
+#include <cpuid.h>
 
 #define APIC_ADDRESS 0x4000
 #define APIC_BASE_MSR 0x1B

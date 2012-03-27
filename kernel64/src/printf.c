@@ -1,5 +1,5 @@
-#include "../include/kernel.h"
-#include "../include/string.h"
+#include <kernel.h>
+#include <string.h>
 
 static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 {

@@ -1,5 +1,5 @@
-#include "../include/kernel.h"
-#include "../include/interrupt.h"
+#include <kernel.h>
+#include <interrupt.h>
 
 /* Both the Interrupt() and ISR() functions are dispatched from the assembly code trampoline via a pre-set IDT */
 

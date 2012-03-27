@@ -1,4 +1,4 @@
-#include "../include/kernel.h"
+#include <kernel.h>
 
 // The kernel's page directory
 page_directory_t* kernel_directory = 0;

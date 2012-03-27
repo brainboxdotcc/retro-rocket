@@ -1,3 +1,66 @@
+.code64
+.extern Interrupt
+.extern IRQ
+.global idt_init
+.extern idt64
+
+.text
+
+idt_init:
+	push %rdi
+	push %rsi
+
+	// Idea for this taken from baremetal OS, but with some extra stuff
+	// to look up the jump addresses from a jump-table.
+
+	xor %rdi, %rdi		// Storage location for IDT gates
+	mov $32, %rcx		// There are 32 of them specifically for handing exceptions
+	movabs $exception_handlers, %r10
+exception_gate_loop:
+	mov (%r10), %rax		// Get the gate jump-table address in r10
+	add $8, %r10
+	push %rax			// save the exception gate
+	stosw				// Low word of gate address
+	mov $0x08, %ax
+	stosw				// selector (CS)
+	mov $0x8E00, %ax
+	stosw 				// exception gate 8E: callable only by ring 0
+	pop %rax			// restore gate address
+	shr $16, %rax
+	stosw				// bits 31-16 of gate address
+	shr $16, %rax
+	stosl				// bits 63-32 of gate address
+	xor %rax, %rax
+	stosl				// reserved fields, set to zero
+	dec %rcx
+	jnz exception_gate_loop
+
+	mov $(51-32), %rcx
+interrupt_gate_loop:
+	mov (%r10), %rax		// Get the gate jump-table address in r10 again
+	add $8, %r10
+	push %rax
+	stosw
+	mov $0x08, %ax
+	stosw
+	mov $0x8F00, %ax		// Interrupt gate 8F: callable from ring 0 only
+	stosw
+	pop %rax
+	shr $16, %rax
+	stosw
+	shr $16, %rax
+	stosl
+	xor %rax, %rax
+	stosl
+	dec %rcx
+	jnz interrupt_gate_loop
+
+	// Restore saved params for kmain
+	pop %rsi
+	pop %rdi
+
+	retq
+
 // These macros are based on JamesM's macros for 32 bit interrupt handlers.
 // I have refactored them to use amd64 ABI instead of the stack for parameter passing.
 
@@ -8,7 +71,7 @@
 		push %rsi
 		push %rdi
 		mov $0, %rsi
-		mov $ \isr, %rdi
+		movabs $ \isr, %rdi
 		jmp interrupt_stub
 .endm
 
@@ -20,7 +83,7 @@
 		push %rsi
 		push %rdi
 		mov %rax, %rsi
-		mov $ \isr, %rdi
+		movabs $ \isr, %rdi
 		jmp interrupt_stub
 .endm
 
@@ -102,8 +165,6 @@ interrupt_stub:
 	sti
 	iretq
 
-.globl exception_handlers
-
 exception_handlers:
         .quad isr0
         .quad isr1
@@ -156,5 +217,8 @@ exception_handlers:
         .quad isr48
         .quad isr49
         .quad isr50
+
+
+.data
 
 

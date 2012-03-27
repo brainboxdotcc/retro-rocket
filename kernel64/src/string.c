@@ -1,4 +1,4 @@
-#include "../include/kernel.h"
+#include <kernel.h>
 
 unsigned int strlen(const char* str)
 {

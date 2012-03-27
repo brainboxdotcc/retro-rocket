@@ -11,6 +11,7 @@ typedef unsigned char u8;	// 8 bit unsigned
 typedef char s8;		// 8 bit signed
 
 #define NULL 0
+#define kprintf printf
 
 enum bool
 {

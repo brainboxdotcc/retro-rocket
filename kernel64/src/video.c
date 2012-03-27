@@ -1,5 +1,5 @@
-#include "../include/kernel.h"
-#include "../include/io.h"
+#include <kernel.h>
+#include <io.h>
 
 console c;
 
