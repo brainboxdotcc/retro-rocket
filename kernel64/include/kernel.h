@@ -34,35 +34,8 @@ static inline void memset(void *dest, char val, int len)
 #include "apic.h"
 #include "paging.h"
 
-/* Multiboot information structure
- * IMPORTANT NOTE: Because GRUB 0.97 is 32 bit, it loads
- * the kernel through the 'AOUT kludge' which means this
- * multiboot parameter it passes has all of its values as
- * 32 bit pointers. It may only exist within the first four
- * gigabytes of RAM (usually it is placed somewhere after
- * the loaded kernel). Be aware of its limitations when
- * accessing ANY of its pointers!
- */
-typedef struct
-{
-	u32 flags;
-	u32 mem_lower;
-	u32 mem_upper;
-	u32 boot_device;
-	u32 commandline;
-	u32 mods_count;
-	u32 mods_addr;
-	u32 elf_headers_num;
-	u32 elf_headers_size;
-	u32 elf_headers_addr;
-	u32 elf_headers_shndx;
-	u32 mmap_len;
-	u32 mmap_addr;
-	u32 drives_length;
-	u32 drives_addr;
-	u32 config_table;
-	u32 bootloadername;
-	u32 apm_table;
-} MultiBoot; 
+#define assert(expr, line) if (!(expr)) { \
+	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \
+	wait_forever(); }
 
 #endif

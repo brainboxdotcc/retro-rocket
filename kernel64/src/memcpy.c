@@ -1,5 +1,12 @@
 #include <kernel.h>
 
+void _memset(void *dest, char val, u64 len)
+{
+	char *temp = (char *)dest;
+	for ( ; len != 0; len--) *temp++ = val;
+}
+
+
 void *memcpy(void *dest, const void *src, u64 len)
 {
 	u64 i;

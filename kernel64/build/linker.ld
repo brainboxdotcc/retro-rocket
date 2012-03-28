@@ -36,7 +36,7 @@ SECTIONS
        . = ALIGN(4096);
    }
 
-   end = .;
+   k_end = . - KERNEL_VMA;
 
    /DISCARD/ :
    {

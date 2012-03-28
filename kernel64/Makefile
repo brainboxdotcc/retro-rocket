@@ -3,9 +3,9 @@ LD=x86_64-elf-ld
 AS=x86_64-elf-as
 GAS=x86_64-elf-gas
 LDFLAGS=-m elf_x86_64 -T build/linker.ld
-CFLAGS=-pipe -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -I ../include
+CFLAGS=-pipe -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -mno-sse3 -mno-3dnow -I ../include
 ASOURCES=boot.o loader.o
-CSOURCES=kernel.o printf.o string.o video.o memcpy.o interrupt.o paging.o hydrogen.o debugger.o
+CSOURCES=kernel.o printf.o string.o video.o memcpy.o interrupt.o paging.o hydrogen.o debugger.o kmalloc.o
 
 all: source link
 
@@ -24,7 +24,7 @@ source:
 	make -C src all CC="$(CC)" CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 emulator:
-	-qemu-system-x86_64 -soundhw ac97 -usb -usbdevice mouse -m 32 -hda ../harddisk0 -smp 8 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d
+	-qemu-system-x86_64 -soundhw ac97 -usb -usbdevice mouse -m 512 -hda ../harddisk0 -smp 8 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d
 
 remoterun: all
 	-qemu-system-x86_64 -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso

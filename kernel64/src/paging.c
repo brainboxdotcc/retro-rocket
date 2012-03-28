@@ -10,43 +10,9 @@ page_directory_t* current_directory = 0;
 u64 *frames;
 u64 nframes;
 
-extern u64 end;
+extern u64 k_end;
 
-u64 placement_address = (u64)&end;
-
-u64 kmalloc_int(u64 sz, int align, u64 *phys)
-{
-    if (align == 1 && (placement_address & 0xFFF))
-    {
-	    placement_address &= 0xFFFFF000;
-	    placement_address += 0x1000;
-    }
-    if (phys)
-	    *phys = placement_address;
-    u64 tmp = placement_address;
-    placement_address += sz;
-    return tmp;
-}
-
-u64 kmalloc_a(u64 sz)
-{
-	return kmalloc_int(sz, 1, 0);
-}
-
-u64 kmalloc_p(u64 sz, u64 *phys)
-{
-	return kmalloc_int(sz, 0, phys);
-}
-
-u64 kmalloc_ap(u64 sz, u64 *phys)
-{
-	return kmalloc_int(sz, 1, phys);
-}
-
-u64 kmalloc(u64 sz)
-{
-	return kmalloc_int(sz, 0, 0);
-}
+u64 placement_address = (u64)&k_end;
 
 // Macros used in the bitset algorithms.
 #define INDEX_FROM_BIT(a) (a/(8*4))
@@ -68,15 +34,6 @@ static void clear_frame(u64 frame_addr)
     u64 idx = INDEX_FROM_BIT(frame);
     u64 off = OFFSET_FROM_BIT(frame);
     frames[idx] &= ~(0x1 << off);
-}
-
-// Static function to test if a bit is set.
-static u64 test_frame(u64 frame_addr)
-{
-    u64 frame = frame_addr/0x1000;
-    u64 idx = INDEX_FROM_BIT(frame);
-    u64 off = OFFSET_FROM_BIT(frame);
-    return (frames[idx] & (0x1 << off));
 }
 
 // Static function to find the first free frame.
@@ -140,35 +97,6 @@ void free_frame(page_t *page)
 
 void initialise_paging()
 {
-    // The size of physical memory. For the moment we 
-    // assume it is 16MB big.
-    u64 mem_end_page = 0x1000000;
-    
-    nframes = mem_end_page / 0x1000;
-    frames = (u64*)kmalloc(INDEX_FROM_BIT(nframes));
-    memset(frames, 0, INDEX_FROM_BIT(nframes));
-    
-    // Let's make a page directory.
-    kernel_directory = (page_directory_t*)kmalloc_a(sizeof(page_directory_t));
-    current_directory = kernel_directory;
-
-    // We need to identity map (phys addr = virt addr) from
-    // 0x0 to the end of used memory, so we can access this
-    // transparently, as if paging wasn't enabled.
-    // NOTE that we use a while loop here deliberately.
-    // inside the loop body we actually change placement_address
-    // by calling kmalloc(). A while loop causes this to be
-    // computed on-the-fly rather than once at the start.
-    int i = 0;
-    while (i < placement_address)
-    {
-	// Kernel code is readable but not writeable from userspace.
-	alloc_frame( get_page(i, 1, kernel_directory), 0, 0);
-	i += 0x1000;
-    }
-
-    // Now, enable paging!
-    switch_page_directory(kernel_directory);
 }
 
 void switch_page_directory(page_directory_t *dir)
@@ -183,24 +111,6 @@ void switch_page_directory(page_directory_t *dir)
 
 page_t *get_page(u64 address, int make, page_directory_t *dir)
 {
-    // Turn the address into an index.
-    address /= 0x1000;
-    // Find the page table containing this address.
-    u64 table_idx = address / 1024;
-    if (dir->tables[table_idx]) // If this table is already assigned
-    {
-        return &dir->tables[table_idx]->pages[address%1024];
-    }
-    else if(make)
-    {
-        u64 tmp;
-        dir->tables[table_idx] = (page_table_t*)kmalloc_ap(sizeof(page_table_t), &tmp);
-        dir->tablesPhysical[table_idx] = tmp | 0x7; // PRESENT, RW, US.
-        return &dir->tables[table_idx]->pages[address%1024];
-    }
-    else
-    {
-        return 0;
-    }
+	return 0;
 }
 
