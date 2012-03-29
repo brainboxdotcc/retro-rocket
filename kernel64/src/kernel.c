@@ -3,6 +3,7 @@
 #include <debugger.h>
 #include <spinlock.h>
 #include <kmalloc.h>
+#include <timer.h>
 
 /* 64-bit IDT is at 0x0, same position as realmode IDT */
 u16 idt64[5] = {0xffff, 0x0000, 0x0000, 0x0000, 0x0000 };
@@ -27,6 +28,8 @@ void kmain()
 	asm volatile("lidtq (%0)\n"::"r"(idt64));
 
 	heap_init();
+
+	init_timer(50);
 	
 	asm volatile("int $49");
 
@@ -39,5 +42,6 @@ void kmain()
 	}
 
 	printf("Would continue boot sequence, but brain hasnt got any further!\n");
-	wait_forever();
+	//wait_forever();
+	while (1) { continue; }
 }
