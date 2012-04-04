@@ -67,9 +67,7 @@ interrupt_gate_loop:
 // An ISR with no error code
 .macro ISR_NOERR isr
 	isr\isr :
-		cli
-		push %rsi
-		push %rdi
+		MPUSHA
 		mov $0, %rsi
 		movabs $ \isr, %rdi
 		jmp interrupt_stub
@@ -78,10 +76,8 @@ interrupt_gate_loop:
 // An ISR with an error code
 .macro ISR_ERR isr
 	isr\isr :
-		cli
 		pop %rax
-		push %rsi
-		push %rdi
+		MPUSHA
 		mov %rax, %rsi
 		movabs $ \isr, %rdi
 		jmp interrupt_stub
@@ -90,12 +86,46 @@ interrupt_gate_loop:
 // An IRQ (a special-case ISR, no error code)
 .macro IRQ num byte
 	irq\num :
-		cli
-		push %rsi
-		push %rdi
+		MPUSHA
 		mov $0, %rsi
 		mov $ \byte, %rdi
 		jmp irq_stub
+.endm
+
+.macro MPUSHA
+	push %r15
+	push %r14
+	push %r13
+	push %r12
+	push %r11
+	push %r10
+	push %r9
+	push %r8
+	push %rdi
+	push %rsi
+	push %rbp
+	push %rbx
+	push %rdx
+	push %rcx
+	push %rax
+.endm
+
+.macro MPOPA
+	pop %rax
+	pop %rcx
+	pop %rdx
+	pop %rbx
+	pop %rbp
+	pop %rsi
+	pop %rdi
+	pop %r8
+	pop %r9
+	pop %r10
+	pop %r11
+	pop %r12
+	pop %r13
+	pop %r14
+	pop %r15
 .endm
 
 
@@ -153,16 +183,12 @@ ISR_NOERR 50
 
 irq_stub:
 	call IRQ
-	pop %rdi
-	pop %rsi
-	sti
+	MPOPA
 	iretq
 
 interrupt_stub:
 	call Interrupt
-	pop %rdi
-	pop %rsi
-	sti
+	MPOPA
 	iretq
 
 exception_handlers:

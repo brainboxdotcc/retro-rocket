@@ -4,6 +4,7 @@
 #include <spinlock.h>
 #include <kmalloc.h>
 #include <timer.h>
+#include <ioapic.h>
 
 /* 64-bit IDT is at 0x0, same position as realmode IDT */
 u16 idt64[5] = {0xffff, 0x0000, 0x0000, 0x0000, 0x0000 };
@@ -12,7 +13,10 @@ extern void idt_init();
 
 void kmain_ap()
 {
-	asm volatile("cli; hlt");
+	//idt_init();
+	//asm volatile("lidtq (%0)\n"::"r"(idt64));
+	//asm volatile("sti");
+	while (1) { asm volatile("hlt"); }
 }
 
 void kmain()
@@ -22,16 +26,23 @@ void kmain()
 	printf("Retro-Rocket ");
 	setforeground(COLOUR_WHITE);
 	printf("64-bit SMP kernel booting from %s...\n", "Hydrogen");
-	printf("%d processors detected\n", hydrogen_info->proc_count);
+	printf("%d processors detected, %d IOAPICs\n", hydrogen_info->proc_count, hydrogen_info->ioapic_count);
 
 	idt_init();
 	asm volatile("lidtq (%0)\n"::"r"(idt64));
 
 	heap_init();
 
+	asm volatile("sti");
+
+	int in = 16;
+	for (in = 0; in < 3; in++)
+	{
+		ioapic_redir_unmask(in);
+	}
 	init_timer(50);
 	
-	asm volatile("int $49");
+	//asm volatile("int $49");
 
 	HydrogenInfoMemory* mi = hydrogen_mmap;
 	int memcnt = 0;
