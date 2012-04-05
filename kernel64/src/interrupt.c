@@ -17,9 +17,9 @@ void Interrupt(u64 isrnumber, u64 errorcode)
 	}
 }
 
-void IRQ(u64 isrnumber, u64 errorcode)
+void IRQ(u64 isrnumber, u64 irqnum)
 {
-	printf("IRQ %d\n", isrnumber);
-	*((u32*)(hydrogen_info->lapic_paddr + 0xB0)) = 0;
+	printf("IRQ %d\n", irqnum);
+	*((volatile u32*)(hydrogen_info->lapic_paddr + 0xB0)) = 0;
 }
 
