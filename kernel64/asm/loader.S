@@ -179,7 +179,7 @@ IRQ 14, 46
 IRQ 15, 47
 ISR_NOERR 48
 ISR_NOERR 49
-ISR_NOERR 50
+IRQ 16, 50
 
 irq_stub:
 	call IRQ
@@ -242,7 +242,7 @@ exception_handlers:
         .quad irq15
         .quad isr48
         .quad isr49
-        .quad isr50
+        .quad irq16
 
 
 .data

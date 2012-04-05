@@ -45,6 +45,6 @@ hydrogen_config:
 	.flags: dd 0x0				; No flags
 	.ap_entry: dq boot_ap		; boot_ap as entry point for APs
 	.irq_table: dq 0x0	; Default IRQ table
-	.lapic_tmrvec: db 0x40		; LAPIC timer vector
+	.lapic_tmrvec: db 50		; LAPIC timer vector
 	.info_vaddr: dq 0xFFFFFF1000000000
 	.stack_vaddr: dq 0xFFFFFF2000000000
