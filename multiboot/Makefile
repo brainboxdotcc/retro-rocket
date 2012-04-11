@@ -23,7 +23,7 @@ mods:
 	make -C src/modules all LDFLAGS="${LDFLAGS}" CFLAGS="${CFLAGSMODS}"
 
 link:
-	ld $(LDFLAGS) -o kernel.bin asm/loader.o asm/process.o asm/assembly.o src/*.o `locate libgcc.a | head -n1`
+	ld $(LDFLAGS) -o kernel.bin asm/loader.o asm/process.o asm/assembly.o src/*.o `find /usr/lib -name libgcc.a | head -n1`
 	chmod ugo-x kernel.bin
 	make -C src/modules install
 	perl build/makeiso.pl
