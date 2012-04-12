@@ -1,14 +1,10 @@
+#include <kernel.h>
 #include <filesystem.h>
-#include <kmalloc.h>
-#include <string.h>
-#include <kprintf.h>
-#include <memcpy.h>
-#include <io.h>
 
 FS_FileSystem* filesystems, *dummyfs;
 FS_Tree* fs_tree;
-static u32int fd_last = 0;
-static u32int fd_alloc = 0;
+static u32 fd_last = 0;
+static u32 fd_alloc = 0;
 static FS_Handle* filehandles[FD_MAX] = { NULL };
 
 int register_filesystem(FS_FileSystem* newfs)
@@ -21,13 +17,13 @@ int register_filesystem(FS_FileSystem* newfs)
 }
 
 /* Allocate a new file descriptor and attach it to 'file' */
-int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file, u32int ibufsz, u32int obufsz)
+int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file, u32 ibufsz, u32 obufsz)
 {
 	/* Check we havent used up all available fds */
 	if (fd_alloc >= FD_MAX)
 		return -1;
 
-	u32int iter = 0;
+	u32 iter = 0;
 	while (iter++ < FD_MAX)
 	{
 		/* Found an empty slot */
@@ -67,7 +63,7 @@ int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file, u32int ibufsz,
 }
 
 /* Free a file descriptor */
-u32int destroy_filehandle(u32int descriptor)
+u32 destroy_filehandle(u32 descriptor)
 {
 	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
@@ -125,13 +121,13 @@ int _open(const char* filename, int oflag)
 }
 
 /* Write out buffered data to a file open for writing */
-void flush_filehandle(u32int descriptor)
+void flush_filehandle(u32 descriptor)
 {
 	/* Until we have writeable filesystems this is a stub */
 }
 
 /* Close an open file descriptor */
-int _close(u32int descriptor)
+int _close(u32 descriptor)
 {
 	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
@@ -378,7 +374,7 @@ u8int verify_path(const char* path)
 	 * pathnames. Client processes must represent 'current'
 	 * directories to the user if they are required.
 	 */
-	u32int pathlen = strlen(path);
+	u32 pathlen = strlen(path);
 	return ((*path == '/' && *(path + pathlen - 1) != '/') || !strcmp(path, "/"));
 }
 
@@ -442,7 +438,7 @@ FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 	return NULL;
 }
 
-int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int length, unsigned char* buffer)
+int fs_read_file(FS_DirectoryEntry* file, u32 start, u32 length, unsigned char* buffer)
 {
 	FS_FileSystem* fs = (FS_FileSystem*)file->directory->responsible_driver;
 	if (fs)
@@ -457,7 +453,7 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 		return NULL;
 
 	/* First, split the path and file components */
-	u32int namelen = strlen(pathandfile);
+	u32 namelen = strlen(pathandfile);
 	char* pathinfo = strdup(pathandfile);
 	char* filename = NULL;
 	char* pathname = NULL;

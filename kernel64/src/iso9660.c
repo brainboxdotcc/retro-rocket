@@ -1,18 +1,11 @@
 #include <kernel.h>
-#include <iso9660.h>
-#include <kprintf.h>
-#include <io.h>
-#include <ata.h>
-#include <string.h>
-#include <kmalloc.h>
-#include <memcpy.h>
 #include <filesystem.h>
-#include <debugger.h>
+#include <iso9660.h>
 
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
 
-FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba, u32int lengthbytes);
+FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32 start_lba, u32 lengthbytes);
 
 static FS_FileSystem* iso9660_fs = NULL;
 
@@ -54,7 +47,7 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 	return info->root != 0;
 }
 
-FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba, u32int lengthbytes)
+FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32 start_lba, u32 lengthbytes)
 {
 	unsigned char* dirbuffer = (unsigned char*)kmalloc(lengthbytes);
 	int j;
@@ -68,7 +61,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32int start_lba
 		return NULL;
 	}
 
-	u32int dir_items = 0;
+	u32 dir_items = 0;
 	FS_DirectoryEntry* list = NULL;
 
 	// Iterate each of the entries in this directory, enumerating files
@@ -191,7 +184,7 @@ void ParseVPD(iso9660* info, unsigned char* buffer)
 {
 }
 
-FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32int flags)
+FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32 flags)
 {
 	FS_DirectoryEntry* currententry = info->root;
 	for(; currententry->next; currententry = currententry->next)
@@ -221,14 +214,14 @@ void* iso_get_directory(void* t)
 	}
 }
 
-int iso_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
+int iso_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 {
 	FS_DirectoryEntry* file = (FS_DirectoryEntry*)f;
 	FS_Tree* tree = (FS_Tree*)file->directory;
 	iso9660* info = (iso9660*)tree->opaque;
 
-	u32int sectors_size = length / 2048;
-	u32int sectors_start = start / 2048 + file->lbapos;
+	u32 sectors_size = length / 2048;
+	u32 sectors_start = start / 2048 + file->lbapos;
 
 	// Because its not valid to read 0 sectors, we must make sure we read at least one,
 	// and to make sure we read the remainder because this is an integer division,
@@ -251,12 +244,12 @@ int iso_read_file(void* f, u32int start, u32int length, unsigned char* buffer)
 	return 1;
 }
 
-iso9660* iso_mount_volume(u32int drivenumber)
+iso9660* iso_mount_volume(u32 drivenumber)
 {
 	unsigned char* buffer = (unsigned char*)kmalloc(2048);
 	iso9660* info = (iso9660*)kmalloc(sizeof(iso9660));
 	_memset(buffer, 0, 2048);
-	u32int VolumeDescriptorPos = PVD_LBA;
+	u32 VolumeDescriptorPos = PVD_LBA;
 	info->drivenumber = drivenumber;
 	while (1)
 	{
@@ -330,7 +323,7 @@ int find_first_cdrom()
 	return 0;
 }
 
-void iso9660_attach(u32int drivenumber, const char* path)
+void iso9660_attach(u32 drivenumber, const char* path)
 {
 	iso9660* isofs = iso_mount_volume(drivenumber);
 	attach_filesystem(path, iso9660_fs, isofs);

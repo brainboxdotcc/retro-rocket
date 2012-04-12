@@ -1,8 +1,6 @@
 #ifndef __FILESYSTEM_H__
 #define __FILESYSTEM_H__
 
-#include "kernel.h"
-
 #define FD_MAX 128
 #define IOBUFSZ 4096
 
@@ -18,8 +16,8 @@
 
 /* Prototypes for filesystem drivers (see FS_FileSystem) */
 typedef void* (*get_directory)(void*);
-typedef int (*read_file)(void*, u32int, u32int, unsigned char*);
-typedef int (*write_file)(void*, u32int, u32int, unsigned char*);
+typedef int (*read_file)(void*, u32, u32, unsigned char*);
+typedef int (*write_file)(void*, u32, u32, unsigned char*);
 typedef int (*delete_file)(void*);
 
 struct FS_Tree_t;
@@ -37,11 +35,11 @@ typedef struct FS_DirectoryEntryTag
 	u8int hour;		/* Creation hour */
 	u8int min;		/* Creation minute */
 	u8int sec;		/* Creation second */
-	u32int lbapos;		/* On-device position of file (driver specific, e.g. for iso9660
+	u32 lbapos;		/* On-device position of file (driver specific, e.g. for iso9660
 				   it is a raw sector, but for fat32 it is a cluster number) */
-	u32int device;		/* Device ID (driver specific, for ide devices it is the index) */
-	u32int size;		/* File size in bytes */
-	u32int flags;		/* File flags (FS_*) */
+	u32 device;		/* Device ID (driver specific, for ide devices it is the index) */
+	u32 size;		/* File size in bytes */
+	u32 flags;		/* File flags (FS_*) */
 	struct FS_Tree_t* directory;	/* Containing directory */
 	struct FS_DirectoryEntryTag* next;	/* Next entry */
 
@@ -76,9 +74,9 @@ typedef struct FS_Tree_t
 	struct FS_Tree_t* child_dirs;	/* Linked list of child directories */
 	struct FS_DirectoryEntry* files;	/* List of files (this also includes directories with FS_DIRECTORY bit set) */
 	struct FS_FileSystem* responsible_driver;	/* The driver responsible for handling this directory */
-	u32int lbapos;			/* Directory LBA position (driver specific) */
-	u32int device;			/* Directory device ID (driver specific) */
-	u32int size;			/* Directory size (usually meaningless except to drivers) */
+	u32 lbapos;			/* Directory LBA position (driver specific) */
+	u32 device;			/* Directory device ID (driver specific) */
+	u32 size;			/* Directory size (usually meaningless except to drivers) */
 	void* opaque;			/* Opaque data (driver specific data) */
 	struct FS_Tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
 } FS_Tree;
@@ -99,10 +97,10 @@ typedef struct FS_Handle_t
 	FS_HandleType type;		/* Filehandle type */
 	unsigned char* inbuf;		/* Input buffer */
 	unsigned char* outbuf;		/* Output buffer */
-	u32int outbufsize;		/* Output buffer size */
-	u32int inbufsize;		/* Input buffer size */
+	u32 outbufsize;		/* Output buffer size */
+	u32 inbufsize;		/* Input buffer size */
 	FS_DirectoryEntry* file;	/* File which is open */
-	u32int seekpos;			/* Seek position within file */
+	u32 seekpos;			/* Seek position within file */
 } FS_Handle;
 
 
@@ -131,7 +129,7 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile);
 
 /* Read raw bytes from any arbitrary file.
  */
-int fs_read_file(FS_DirectoryEntry* file, u32int start, u32int length, unsigned char* buffer);
+int fs_read_file(FS_DirectoryEntry* file, u32 start, u32 length, unsigned char* buffer);
 
 /* POSIX _open function, opens a file for read or write access,
  * or creates a new file.
@@ -144,7 +142,7 @@ int _read(int fd, void *buffer, unsigned int count);
 
 /* POSIX _close function, closes an open file.
  */
-int _close(u32int fd);
+int _close(u32 fd);
 
 /* POSIX _eof function, reports wether or not we have reached
  * the end of file marker on any open file.
