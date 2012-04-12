@@ -110,7 +110,7 @@ void heap_init()
 
 	heaplen = bestlen;
 
-	kprintf("%016llx\n", heap_pos);
+	//kprintf("%016llx\n", heap_pos);
 
 	kheap = create_heap(heapstart, min, bestlen - 0x1000, min, 0, 1);
 

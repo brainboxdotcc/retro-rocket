@@ -246,7 +246,7 @@ int iso_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 
 iso9660* iso_mount_volume(u32 drivenumber)
 {
-	kprintf("Mounting volume on %d\n", drivenumber);
+	//kprintf("Mounting volume on %d\n", drivenumber);
 	unsigned char* buffer = (unsigned char*)kmalloc(2048);
 	iso9660* info = (iso9660*)kmalloc(sizeof(iso9660));
 	_memset(buffer, 0, 2048);
