@@ -427,11 +427,12 @@ void ide_wait_irq()
 void ide_irq(u8 isr, u64 error, u64 irq)
 {
 	ide_irq_invoked = 1;
-	kprintf("IDE IRQ\n");
+	//kprintf("IDE IRQ\n");
 }
 
 unsigned char ide_atapi_read(unsigned char drive, u64 lba, unsigned char numsects, u64 edi)
 {
+	//kprintf("ide_atapi_read\n");
 	unsigned int channel = ide_devices[drive].channel;
 	unsigned int slavebit = ide_devices[drive].drive;
 	unsigned int bus = channels[channel].base;
@@ -474,16 +475,22 @@ unsigned char ide_atapi_read(unsigned char drive, u64 lba, unsigned char numsect
 	ide_write(channel, ATA_REG_COMMAND, ATA_CMD_PACKET);		// Send the Command.
 	// (VII): Waiting for the driver to finish or invoke an error:
 	// ------------------------------------------------------------------
+	//kprintf("ide_atapi_read 2\n");
 	if ((err = ide_polling(channel, 1)))
-		return err;		 // Polling and return if error.
+		return err;		// Polling and return if error.
+	//kprintf("ide_atapi_read 3\n");
 	// (VIII): Sending the packet data:
 	// ------------------------------------------------------------------
-	asm("rep	outsw"::"c"(6), "d"(bus), "S"(atapi_packet));	// Send Packet Data
+	//asm("rep	outsw"::"c"(6), "d"(bus), "S"(atapi_packet));	// Send Packet Data
+	outsw(bus, &atapi_packet, 6);
+	//kprintf("ide_atapi_read 4\n");
 	// (IX): Recieving Data:
 	// ------------------------------------------------------------------
 	for (i = 0; i < numsects; i++)
 	{
-		ide_wait_irq();					// Wait for an IRQ.
+		//kprintf("ide_atapi_read 4.5\n");
+		ide_wait_irq();				// Wait for an IRQ.
+		//kprintf("ide_atapi_read 4.6\n");
 		if ((err = ide_polling(channel, 1)))
 			return err;		// Polling and return if error.
 		//asm("mov %es, %rax; push %rax");
@@ -491,15 +498,22 @@ unsigned char ide_atapi_read(unsigned char drive, u64 lba, unsigned char numsect
 		//asm("pop %rax; mov %rax, %es");
 		insw(bus, edi, words);
 		edi += (words*2);
+		//kprintf("ide_atapi_read 5\n");
 	}
+	//kprintf("ide_atapi_read 6\n");
 	// (X): Waiting for an IRQ:
 	// ------------------------------------------------------------------
 	ide_wait_irq();
+
+	//kprintf("ide_atapi_read 7\n");
 
 	// (XI): Waiting for BSY & DRQ to clear:
 	// ------------------------------------------------------------------
 	u64 timer_start = get_ticks();
 	while (ide_read(channel, ATA_REG_STATUS) & (ATA_SR_BSY | ATA_SR_DRQ) && get_ticks() - timer_start < 100);
+
+	//kprintf("ide_atapi_read  8\n");
+
 	return 0; // Easy, ... Isn't it?
 }
 

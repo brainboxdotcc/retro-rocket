@@ -19,6 +19,7 @@ void register_interrupt_handler(u8 n, isr_t handler)
 		return;
 	}
 	interrupt_handlers[n] = handler;
+	//kprintf("Registered handler %d to %016llx\n", n, &handler);
 }
 
 
@@ -44,6 +45,8 @@ void Interrupt(u64 isrnumber, u64 errorcode)
 
 void IRQ(u64 isrnumber, u64 irqnum)
 {
+	if (irqnum > 0)
+		kprintf("IRQ %d\n", irqnum);
 	if (interrupt_handlers[isrnumber] != NULL)
 	{
 		isr_t handler = interrupt_handlers[isrnumber];

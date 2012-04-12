@@ -20,7 +20,7 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 	PVD* pvd = (PVD*)buffer;
 	if (!VERIFY_ISO9660(pvd))
 	{
-		putstring(current_console, "ISO9660: Invalid PVD found, identifier is not 'CD001'\n");
+		kprintf("ISO9660: Invalid PVD found, identifier is not 'CD001'\n");
 		return 0;
 	}
 	char* ptr = pvd->volumeidentifier + 31;
@@ -54,7 +54,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32 start_lba, u
 
 	_memset(dirbuffer, 0, lengthbytes);
 
-	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (unsigned int)dirbuffer))
+	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (u64)dirbuffer))
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
 		kfree(dirbuffer);
@@ -147,7 +147,7 @@ void ParseSVD(iso9660* info, unsigned char* buffer)
 	PVD* svd = (PVD*)buffer;
         if (!VERIFY_ISO9660(svd))
 	{
-		putstring(current_console, "ISO9660: Invalid SVD found, identifier is not 'CD001'\n");
+		kprintf("ISO9660: Invalid SVD found, identifier is not 'CD001'\n");
 		return;
 	}
 
@@ -231,7 +231,7 @@ int iso_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 	//kprintf("kmallocing %d bytes\n", sectors_size * 2048);
 	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
 	//kprintf("Got %08x\n", readbuf);
-	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (unsigned int)readbuf))
+	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (u64)readbuf))
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
 		kfree(readbuf);
@@ -246,6 +246,7 @@ int iso_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 
 iso9660* iso_mount_volume(u32 drivenumber)
 {
+	kprintf("Mounting volume on %d\n", drivenumber);
 	unsigned char* buffer = (unsigned char*)kmalloc(2048);
 	iso9660* info = (iso9660*)kmalloc(sizeof(iso9660));
 	_memset(buffer, 0, 2048);
@@ -253,7 +254,7 @@ iso9660* iso_mount_volume(u32 drivenumber)
 	info->drivenumber = drivenumber;
 	while (1)
 	{
-		if (!ide_read_sectors(drivenumber, 1, VolumeDescriptorPos++, (unsigned int)buffer))
+		if (!ide_read_sectors(drivenumber, 1, VolumeDescriptorPos++, (u64)buffer))
 		{
 			kprintf("ISO9660: Could not read LBA sector 0x%x!\n", VolumeDescriptorPos);
 			kfree(info);

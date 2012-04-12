@@ -29,12 +29,12 @@ struct FS_Tree_t;
 typedef struct FS_DirectoryEntryTag
 {
 	char* filename;		/* Entry name */
-	u16int year;		/* Creation year */
-	u8int month;		/* Creation month */
-	u8int day;		/* Creation day */
-	u8int hour;		/* Creation hour */
-	u8int min;		/* Creation minute */
-	u8int sec;		/* Creation second */
+	u16 year;		/* Creation year */
+	u8 month;		/* Creation month */
+	u8 day;		/* Creation day */
+	u8 hour;		/* Creation hour */
+	u8 min;		/* Creation minute */
+	u8 sec;		/* Creation second */
 	u32 lbapos;		/* On-device position of file (driver specific, e.g. for iso9660
 				   it is a raw sector, but for fat32 it is a cluster number) */
 	u32 device;		/* Device ID (driver specific, for ide devices it is the index) */
@@ -68,7 +68,7 @@ typedef struct FileSystem_t
  */
 typedef struct FS_Tree_t
 {
-	u8int dirty;		/* If this is set, the directory needs to be (re-)fetched from the filesystem driver */
+	u8 dirty;		/* If this is set, the directory needs to be (re-)fetched from the filesystem driver */
 	char* name;		/* Directory name */
 	struct FS_Tree_t* parent;	/* Parent directory name */
 	struct FS_Tree_t* child_dirs;	/* Linked list of child directories */

@@ -37,12 +37,15 @@ void kmain()
 	asm volatile("sti");
 
 	int in = 16;
-	for (in = 0; in < 3; in++)
+	for (in = 0; in < 16; in++)
 	{
 		ioapic_redir_unmask(in);
 	}
-	init_timer(50);
+	//init_timer(50);
 	ide_initialise();
+	init_filesystem();
+	init_iso9660();
+	iso9660_attach(find_first_cdrom(), "/");
 
 	//asm volatile("int $49");
 

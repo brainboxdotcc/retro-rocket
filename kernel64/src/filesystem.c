@@ -367,7 +367,7 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 	return NULL;
 }
 
-u8int verify_path(const char* path)
+u8 verify_path(const char* path)
 {
 	/* Valid paths must start with a / and not end with a / */
 	/* The filesystem internals all work with fully qualified
