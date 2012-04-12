@@ -35,7 +35,7 @@ void error_handler(u8 int_no, u64 errorcode, u64 irq_no)
 		"Alignment check exception",
 		"Machine check exception",
 	};
-	//PANIC_BANNER;
+	PANIC_BANNER;
 	setforeground(COLOUR_LIGHTRED);
 	kprintf("Fatal exception %02x: %s\n", int_no, error_table[int_no]);
 	backtrace();
