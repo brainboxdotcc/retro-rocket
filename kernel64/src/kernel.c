@@ -46,6 +46,7 @@ void kmain()
 	init_filesystem();
 	init_iso9660();
 	iso9660_attach(find_first_cdrom(), "/");
+	init_devfs();
 
 	//asm volatile("int $49");
 
