@@ -28,6 +28,7 @@ void kmain()
 	printf("64-bit SMP kernel booting from %s...\n", "Hydrogen");
 	printf("%d processors detected, %d IOAPICs\n", hydrogen_info->proc_count, hydrogen_info->ioapic_count);
 
+	init_interrupts();
 	idt_init();
 	asm volatile("lidtq (%0)\n"::"r"(idt64));
 
@@ -41,7 +42,8 @@ void kmain()
 		ioapic_redir_unmask(in);
 	}
 	init_timer(50);
-	
+	ide_initialise();
+
 	//asm volatile("int $49");
 
 	HydrogenInfoMemory* mi = hydrogen_mmap;

@@ -33,6 +33,8 @@ static inline void memset(void *dest, char val, int len)
 #include "memcpy.h"
 #include "apic.h"
 #include "paging.h"
+#include "timer.h"
+
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

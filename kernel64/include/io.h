@@ -22,12 +22,29 @@ static inline unsigned short inw(int port)
 	return value;
 }                               
 
+static inline void outw(int port, unsigned short value)
+{
+	asm volatile("outw %w0, %w1" : : "a"(value), "Nd"(port));
+}
 
-#define insl(port, buffer, count) \
-	         asm volatile("cld; rep; insl" :: "D" (buffer), "d" (port), "c" (count))
+static inline unsigned long inl(int port)
+{
+	unsigned long value;
+	asm volatile("inl %%dx, %%eax" : "=a" (value) : "d" (port));
+	return value;
+}
 
-#define insw(port, buffer, count) \
-		asm volatile("cld; rep; insw" :: "D" (buffer), "d" (port), "c" (count))
+static inline void outl(int port, unsigned long value)
+{
+	asm volatile("outl %%eax, %%dx" : : "d" (port), "a" (value));
+}
+
+#define insl(port, buffer, count) { int v = 0; u32* b = (u32*)buffer; for (; v < count; v++) b[v] = inl(port); }
+
+#define insw(port, buffer, count) { int v = 0; u16* b = (u16*)buffer; for (; v < count; v++) b[v] = inw(port); }
+
+#define outsw(port, buffer, count) { int v = 0; u16* b = (u16*)buffer; for (; v < count; v++) outw(port, b[v]); }
+
 
 static inline void interrupts_on()
 {
