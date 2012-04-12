@@ -40,6 +40,9 @@ static inline void memset(void *dest, char val, int len)
 #include "filesystem.h"
 #include "iso9660.h"
 #include "devfs.h"
+#include "fat32.h"
+#include "debugger.h"
+#include "errorhandler.h"
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

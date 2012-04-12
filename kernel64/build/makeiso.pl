@@ -6,6 +6,7 @@ system("cp kernel.bin .iso/");
 mkdir(".iso/boot");
 mkdir(".iso/boot");
 mkdir(".iso/devices");
+mkdir(".iso/harddisk");
 system("cp grub/* .iso/boot/");
 system("nm -a kernel.bin | sort -d >.iso/kernel.sym");
 chdir(".iso");

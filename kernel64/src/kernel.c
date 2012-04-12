@@ -19,6 +19,23 @@ void kmain_ap()
 	while (1) { asm volatile("hlt"); }
 }
 
+void bt3()
+{
+	int a = 1 - 1;
+	int b = 1;
+	int c = b / a;
+}
+
+void bt2()
+{
+	bt3();
+}
+
+void backtracetest()
+{
+	bt2();
+}
+
 void kmain()
 {
 	initconsole();
@@ -32,6 +49,7 @@ void kmain()
 	idt_init();
 	asm volatile("lidtq (%0)\n"::"r"(idt64));
 
+	init_error_handler();
 	heap_init();
 
 	asm volatile("sti");
@@ -41,22 +59,16 @@ void kmain()
 	{
 		ioapic_redir_unmask(in);
 	}
-	//init_timer(50);
+	init_timer(100);
 	ide_initialise();
 	init_filesystem();
 	init_iso9660();
 	iso9660_attach(find_first_cdrom(), "/");
+	init_fat32();
+	fat32_attach(find_first_harddisk(), "/harddisk");
 	init_devfs();
-
-	//asm volatile("int $49");
-
-	HydrogenInfoMemory* mi = hydrogen_mmap;
-	int memcnt = 0;
-	while (memcnt++ < hydrogen_info->mmap_count)
-	{
-		kprintf("Start: %016lx Length: %016lx Avail: %d\n",mi->begin, mi->length, mi->available); 
-		mi =  (HydrogenInfoMemory*)((u64)mi + (u64)sizeof(HydrogenInfoMemory));
-	}
+	init_debug();
+	backtracetest();
 
 	printf("Would continue boot sequence, but brain hasnt got any further!\n");
 	//wait_forever();

@@ -59,16 +59,16 @@ int strncmp(const char* s1, const char* s2, u32 n)
 	return (0);
 }
 
-u32 hextoint(const char* n1)
+u64 hextoint(const char* n1)
 {
 	u32 length = strlen(n1);
-	u32 result = 0;
+	u64 result = 0;
 	int i = 0, fact = 1;
 
 	if (length)
 	{
-		if (length>8)
-			length = 8;
+		if (length > 16)
+			length = 16;
 
 		for(i = length - 1; i >= 0; i--)
 		{

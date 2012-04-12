@@ -25,7 +25,7 @@ char* strdup(const char* string);
 char* gc_strdup(const char* string);
 int gc();
 
-u32 hextoint(const char* n1);
+u64 hextoint(const char* n1);
 
 unsigned char isdigit(const char x);
 
