@@ -18,8 +18,7 @@ void kmain()
 	setforeground(COLOUR_LIGHTYELLOW);
 	printf("Retro-Rocket ");
 	setforeground(COLOUR_WHITE);
-	printf("64-bit SMP kernel booting from %s...\n", "Hydrogen");
-	printf("%d processors detected, %d IOAPICs\n", hydrogen_info->proc_count, hydrogen_info->ioapic_count);
+	printf("64-bit SMP kernel booting, %d processors detected\n", hydrogen_info->proc_count);
 
 	init_interrupts();
 	idt_init();
