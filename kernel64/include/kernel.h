@@ -47,13 +47,16 @@ static inline void memset(void *dest, char val, int len)
 kprintf("This is a fatal system error and your system has been halted.\n\
 "); setforeground(COLOUR_LIGHTRED);
 
+#include "idt.h"
 #include "spinlock.h"
+#include "hydrogen.h"
 #include "printf.h"
 #include "video.h"
 #include "string.h"
 #include "io.h"
 #include "memcpy.h"
 #include "apic.h"
+#include "ioapic.h"
 #include "paging.h"
 #include "timer.h"
 #include "kmalloc.h"
