@@ -25,6 +25,6 @@ lock_spinlock:
 
 ; Unlock the spinlock at address pointd to by rdi
 unlock_spinlock:
-	mov byte [rdi], 0
+	lock mov byte [rdi], 0
 	ret
 
