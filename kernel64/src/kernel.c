@@ -36,8 +36,12 @@ void backtracetest()
 	bt2();
 }
 
+spinlock init_barrier;
+
 void kmain()
 {
+	init_spinlock(&init_barrier);
+	lock_spinlock(&init_barrier);
 	initconsole();
 	setforeground(COLOUR_LIGHTYELLOW);
 	printf("Retro-Rocket ");
@@ -68,6 +72,9 @@ void kmain()
 	fat32_attach(find_first_harddisk(), "/harddisk");
 	init_devfs();
 	init_debug();
+
+	unlock_spinlock(&init_barrier);
+
 	backtracetest();
 
 	printf("Would continue boot sequence, but brain hasnt got any further!\n");
