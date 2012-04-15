@@ -25,7 +25,7 @@ static inline void memset(void *dest, char val, int len)
 		for ( ; len != 0; len--) *temp++ = val;
 }
 
-#define PANIC_BANNER setforeground(COLOUR_LIGHTYELLOW); \
+#define PANIC_BANNER setforeground(current_console, COLOUR_LIGHTYELLOW); \
       kprintf("\n\
               ___  _____ \n\
             .'/,-Y\"     \"~-. \n\
@@ -43,9 +43,9 @@ static inline void memset(void *dest, char val, int len)
                   Y   \\          /\n\
                   |    \"x______.^ \n\
                   |           \\ \n\
-\n"); setforeground(COLOUR_LIGHTWHITE);\
+\n"); setforeground(current_console, COLOUR_LIGHTWHITE);\
 kprintf("This is a fatal system error and your system has been halted.\n\
-"); setforeground(COLOUR_LIGHTRED);
+"); setforeground(current_console, COLOUR_LIGHTRED);
 
 #include "idt.h"
 #include "spinlock.h"
@@ -68,6 +68,9 @@ kprintf("This is a fatal system error and your system has been halted.\n\
 #include "fat32.h"
 #include "debugger.h"
 #include "errorhandler.h"
+#include "keyboard.h"
+#include "input.h"
+#include "pci.h"
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

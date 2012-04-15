@@ -119,9 +119,9 @@ void heap_init()
 
 void print_heapinfo()
 {
-	setforeground(COLOUR_LIGHTYELLOW);
+	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	kprintf("HEAP: ");
-	setforeground(COLOUR_WHITE);
+	setforeground(current_console, COLOUR_WHITE);
 	kprintf("Best fit; start=0x%llx max=0x%llx length=%ld kb\n", heapstart, heaplen, (heaplen - heapstart) / 1024);
 }
 

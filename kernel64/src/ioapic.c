@@ -62,7 +62,7 @@ void ioapic_redir_unmask(u32 gsi)
 	HydrogenInfoIOAPIC *ioapic = ioapic_find(gsi);
 	u32 lower = ioapic_register_read(0x10 + gsi * 2, ioapic);
         u32 upper = ioapic_register_read(0x10 + gsi * 2 + 1, ioapic);
-	lower = lower & IOAPIC_INT_UNMASK | (gsi + 32);
+	lower = lower & (IOAPIC_INT_UNMASK | (gsi + 32));
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
 	ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
 }

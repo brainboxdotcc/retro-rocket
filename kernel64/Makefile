@@ -5,7 +5,7 @@ GAS=x86_64-elf-gas
 LDFLAGS=-m elf_x86_64 -T build/linker.ld
 CFLAGS=-pipe -Wall -nostdlib -nostdinc -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -mno-sse3 -mno-3dnow -I ../include
 ASOURCES=boot.o loader.o spinlock.o
-CSOURCES=kernel.o printf.o string.o video.o memcpy.o interrupt.o paging.o hydrogen.o debugger.o kmalloc.o timer.o ioapic.o ata.o filesystem.o iso9660.o devfs.o fat32.o errorhandler.o idt.o
+CSOURCES=kernel.o printf.o string.o video.o memcpy.o interrupt.o paging.o hydrogen.o debugger.o kmalloc.o timer.o ioapic.o ata.o filesystem.o iso9660.o devfs.o fat32.o errorhandler.o idt.o keyboard.o input.o pci.o
 
 all: source link
 

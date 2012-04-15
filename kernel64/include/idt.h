@@ -4,6 +4,7 @@
 /* Function body defined in asm/idt.S */
 
 extern u16 idt64[5];
+void idt_setup();
 void idt_init();
 
 #endif

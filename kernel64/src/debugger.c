@@ -16,20 +16,20 @@ void DumpHex(unsigned char* address, u64 length)
 		int hex = 0;
 		for (; hex < 16; ++hex)
 			kprintf("%02x ", address[index + hex]);
-		putstring(" | ");
+		putstring(current_console, " | ");
 		for (hex = 0; hex < 16; ++hex)
-			put((address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+			put(current_console, (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
 
-		put('\n');
+		put(current_console, '\n');
 	}
 }
 
 void symbol_fail()
 {
-	setforeground(COLOUR_DARKRED);
+	setforeground(current_console, COLOUR_DARKRED);
 	kprintf("Warning: Could not load /kernel.sym from boot device.\n");
 	kprintf("Debug symbols will be unavailable if there is a kernel panic.\n");
-	setforeground(COLOUR_WHITE);
+	setforeground(current_console, COLOUR_WHITE);
 }
 
 void init_debug()
@@ -127,13 +127,13 @@ void init_debug()
 
 		kfree(filecontent);
 		kprintf("Read ");
-		setforeground(COLOUR_LIGHTYELLOW);
+		setforeground(current_console, COLOUR_LIGHTYELLOW);
 		kprintf("%d ", symcount);
-		setforeground(COLOUR_WHITE);
+		setforeground(current_console, COLOUR_WHITE);
 		kprintf("symbols from ");
-		setforeground(COLOUR_LIGHTYELLOW);
+		setforeground(current_console, COLOUR_LIGHTYELLOW);
 		kprintf("/kernel.sym ");
-		setforeground(COLOUR_WHITE);
+		setforeground(current_console, COLOUR_WHITE);
 		kprintf("(%d bytes)\n", sizebytes);
 	}
 }
@@ -154,7 +154,7 @@ const char* findsymbol(u64 address, u64* offset)
 		 * it simpler to load and process the list at runtime by doing the donkey-
 		 * work at compile-time.
 		 */
-		if (address >= lastsymaddr && address <= walksyms->address & 0xffffffff)
+		if (address >= lastsymaddr && address <= (walksyms->address & 0xffffffff))
 		{
 			*offset = address - lastsymaddr;
 			return lastsym->name;
@@ -181,13 +181,13 @@ void backtrace()
 	}
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
-	setforeground(COLOUR_LIGHTGREEN);
+	setforeground(current_console, COLOUR_LIGHTGREEN);
 	while(frame && ((u64)frame & 0xFFFFFFFFFFFFF000ull) == page)
 	{
 		name = findsymbol((u64)frame->addr, &offset);
 		kprintf("\tat %s()+0%08x [0x%016x]\n",  name ? name : "[???]", offset, frame->addr);
 		frame = frame->next;
 	}
-	setforeground(COLOUR_WHITE);
+	setforeground(current_console, COLOUR_WHITE);
 }
 

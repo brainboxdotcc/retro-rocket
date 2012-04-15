@@ -50,32 +50,40 @@ typedef struct
 	unsigned int x;
 	unsigned int y;
 	unsigned char attributes;
-	unsigned char* video;
+	unsigned char video[SCREEN_LAST_CELL];
+	unsigned char last;
+	char* internalbuffer;
+	char* buffer;
+	int bufcnt;
 } console;
 
 /* Prototypes for simple console functions */
 
 /* Clear the screen and set cursor to 0,0 */
-void clearscreen();
+void clearscreen(console* c);
 
 /* Set cursor position to given coordinates */
-void setcursor();
+void setcursor(console* c);
 
 /* Output a null terminated C string at the given cursor coordinates then update the
  * cursor coordinates to the end of the string, scrolling the screen if needed.
  */
-void putstring(const char* message);
+void putstring(console* c, char* message);
 
 /* Output a character to the screen at the given cursor coordinates then update the
  * cursor coordinates to the cell after the character, scrolling the screen if needed.
  * This is called internally by putstring().
  */
-void put(const char n);
+void put(console* c, const char n);
 
-void initconsole();
+void blitconsole(console* c);
 
-void setbackground(unsigned char background);
+void initconsole(console* c);
 
-void setforeground(unsigned char foreground);
+void setbackground(console* c, unsigned char background);
+
+void setforeground(console* c, unsigned char foreground);
+
+extern console* current_console;
 
 #endif

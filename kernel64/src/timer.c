@@ -41,9 +41,12 @@ u64 get_ticks()
 	return ticks;
 }
 
-static void timer_callback()
+static void timer_callback(u8 isr, u64 errorcode, u64 irq)
 {
 	ticks++;
+	if ((current_console && current_console->dirty) || (current_console != NULL && ticks % 10 == 0))
+		blitconsole(current_console);
+
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();
 	//proc_timer();
@@ -52,7 +55,7 @@ static void timer_callback()
 void init_timer(u32 frequency)
 {
 	timer_freq = frequency;
-	//register_interrupt_handler(IRQ0, &timer_callback);
+	register_interrupt_handler(IRQ0, &timer_callback);
 	u32 divisor = 1193180 / frequency;
 	outb(0x43, 0x36);
 	u8 l = (u8)(divisor & 0xFF);

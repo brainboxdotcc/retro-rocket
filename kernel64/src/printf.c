@@ -265,7 +265,7 @@ int sprintf(char *buf, const char *fmt, ...)
 
 int vprintf_help(unsigned c, void **ptr)
 {
-	put(c);
+	put(current_console, c);
 	return 0 ;
 }
 
