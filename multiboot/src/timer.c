@@ -25,7 +25,7 @@ void beep(u32int pitch)
 
 	// A beep is stopped by the timer interrupt half a second
 	// after it has been started, asyncronously and automatically.
-	beep_end = ticks + timer_freq / 2;
+	beep_end = ticks + timer_freq / 8;
 }
  
 void stopbeep()
