@@ -1,8 +1,8 @@
 #include <kernel.h>
 
-u64 ticks = 0;
-u32 timer_freq = 0;
-u64 beep_end = 0;
+volatile u64 ticks = 0;
+volatile u32 timer_freq = 0;
+volatile u64 beep_end = 0;
 
 void beep(u32 pitch)
 {

@@ -18,8 +18,12 @@ void kmain_ap()
 
 	kprintf("%d ", cpu_id());
 	cpunum++;
-	
-	while (1) asm volatile("hlt");
+
+	asm volatile("sti");
+
+	init_lapic_timer(50);
+
+	while (1);
 }
 
 void kmain()
@@ -47,14 +51,14 @@ void kmain()
 
 	asm volatile("sti");
 
-	int in = 16;
+	int in;
 	for (in = 0; in < 16; in++)
 	{
 		ioapic_redir_unmask(in);
 	}
 
 	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
-	init_timer(250);
+	init_timer(50);
 	init_basic_keyboard();
 	ide_initialise();
 
@@ -72,9 +76,11 @@ void kmain()
 
 	unlock_spinlock(&init_barrier);
 
-	while (cpus < hydrogen_info->proc_count) asm volatile("hlt");
+	init_lapic_timer(50);
+
+	while (cpunum < hydrogen_info->proc_count) asm volatile("hlt");
 
 	kprintf("OK\n");
 
-	while (1) asm volatile("hlt");
+	while (1);
 }

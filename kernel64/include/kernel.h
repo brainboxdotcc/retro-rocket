@@ -71,6 +71,7 @@ kprintf("This is a fatal system error and your system has been halted.\n\
 #include "keyboard.h"
 #include "input.h"
 #include "pci.h"
+#include "lapic_timer.h"
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

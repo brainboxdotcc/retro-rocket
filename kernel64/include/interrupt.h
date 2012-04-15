@@ -18,6 +18,7 @@
 #define IRQ13 45        // FPU
 #define IRQ14 46        // Primary IDE
 #define IRQ15 47        // Secondary IDE
+#define IRQ16 50	// LAPIC timer vector
 
 void Interrupt(u64 isrnumber, u64 errorcode);
 void IRQ(u64 isrnumber, u64 errorcode);

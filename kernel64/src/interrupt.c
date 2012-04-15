@@ -13,7 +13,7 @@ void init_interrupts()
 
 void register_interrupt_handler(u8 n, isr_t handler)
 {
-	if (interrupt_handlers[n] != 0)
+	if (interrupt_handlers[n] != 0 && interrupt_handlers[n] != handler)
 	{
 		kprintf("*** BUG *** INT %d claimed twice!\n", n);
 		return;
