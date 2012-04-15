@@ -23,7 +23,7 @@ void kmain_ap()
 
 	init_lapic_timer(50);
 
-	while (1);
+	while (1) asm volatile("hlt");
 }
 
 void kmain()
@@ -82,5 +82,5 @@ void kmain()
 
 	kprintf("OK\n");
 
-	while (1);
+	while (1) asm volatile("hlt");
 }

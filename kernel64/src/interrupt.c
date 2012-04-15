@@ -53,6 +53,7 @@ void IRQ(u64 isrnumber, u64 irqnum)
 		handler((u8)isrnumber, 0, irqnum);
 	}
 
-	*((volatile u32*)(hydrogen_info->lapic_paddr + 0xB0)) = 0;
+	if (irqnum != IRQ7)
+		*((volatile u32*)(hydrogen_info->lapic_paddr + 0xB0)) = 0;
 }
 

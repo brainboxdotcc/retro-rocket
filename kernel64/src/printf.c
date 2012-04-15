@@ -235,6 +235,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			break;
 		}
 	}
+	
 	unlock_spinlock(&printlock);
 	return count;
 }
