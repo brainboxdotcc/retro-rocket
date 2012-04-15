@@ -15,7 +15,7 @@ void kmain_ap()
 	 */
 	while (init_barrier);
 
-	kprintf("AP booting...\n");
+	kprintf("%d ", cpu_id());
 	
 	while (1) asm volatile("hlt");
 }
@@ -66,9 +66,9 @@ void kmain()
 
 	init_pci();
 
+	kprintf("Processors Booting: %d ", cpu_id());
+
 	unlock_spinlock(&init_barrier);
 
-	printf("Would continue boot sequence, but brain hasnt got any further!\n");
-	//wait_forever();
-	while (1) { continue; }
+	while (1) asm volatile("hlt");
 }
