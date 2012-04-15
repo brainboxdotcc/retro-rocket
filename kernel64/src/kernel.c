@@ -2,20 +2,34 @@
 
 console first_console;
 console* current_console = NULL;
-spinlock init_barrier;
+spinlock init_barrier = 0;
+u8 kmain_entered = 0;
 
 void kmain_ap()
 {
-	//idt_setup();
-	while (1) { asm volatile("hlt"); }
+	while (!kmain_entered);
+	idt_setup();
+
+	/* Wait on spinlock, without trying to acquire it.
+	 * If all the waiting APs try to aquire it, we get deadlock once the BSP releases it!
+	 */
+	while (init_barrier);
+
+	kprintf("AP booting...\n");
+	
+	while (1) asm volatile("hlt");
 }
 
 void kmain()
 {
-	current_console = &first_console;
 	init_spinlock(&init_barrier);
 	lock_spinlock(&init_barrier);
+
+	current_console = &first_console;
 	initconsole(current_console);
+
+	kmain_entered = 1;
+
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	printf("Retro-Rocket ");
 	setforeground(current_console, COLOUR_WHITE);
@@ -53,8 +67,6 @@ void kmain()
 	init_pci();
 
 	unlock_spinlock(&init_barrier);
-
-	sleep(3);
 
 	printf("Would continue boot sequence, but brain hasnt got any further!\n");
 	//wait_forever();

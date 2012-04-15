@@ -1,12 +1,17 @@
 #include <kernel.h>
 #include <string.h>
 
+spinlock printlock = 0;
+
 static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 {
 	unsigned flags, actual_wd, count, given_wd;
 	unsigned char *where, buf[PR_BUFLEN];
 	unsigned char state, radix;
 	long num;
+
+	while (printlock);
+	lock_spinlock(&printlock);
 
 	state = flags = count = given_wd = 0;
 	/* begin scanning format specifier list */
@@ -230,6 +235,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			break;
 		}
 	}
+	unlock_spinlock(&printlock);
 	return count;
 }
 

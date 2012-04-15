@@ -1,7 +1,7 @@
 #ifndef __SPINLOCK_H__
 #define __SPINLOCK_H__
 
-typedef u8 spinlock;
+typedef u32 spinlock;
 
 /* Function bodies for *_spinlock defined in asm/spinlock.asm */
 
