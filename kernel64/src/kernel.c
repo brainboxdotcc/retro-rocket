@@ -4,6 +4,7 @@ console first_console;
 console* current_console = NULL;
 spinlock init_barrier = 0;
 u8 kmain_entered = 0;
+u8 cpunum = 1;
 
 void kmain_ap()
 {
@@ -16,6 +17,7 @@ void kmain_ap()
 	while (init_barrier);
 
 	kprintf("%d ", cpu_id());
+	cpunum++;
 	
 	while (1) asm volatile("hlt");
 }
@@ -69,6 +71,10 @@ void kmain()
 	kprintf("Processors Booting: %d ", cpu_id());
 
 	unlock_spinlock(&init_barrier);
+
+	while (cpus < hydrogen_info->proc_count) asm volatile("hlt");
+
+	kprintf("OK\n");
 
 	while (1) asm volatile("hlt");
 }
