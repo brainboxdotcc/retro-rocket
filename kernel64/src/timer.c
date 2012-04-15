@@ -20,7 +20,7 @@ void beep(u32 pitch)
 
 	// A beep is stopped by the timer interrupt half a second
 	// after it has been started, asyncronously and automatically.
-	beep_end = ticks + timer_freq / 2;
+	beep_end = ticks + timer_freq / 8;
 }
  
 void stopbeep()
@@ -34,6 +34,14 @@ void sleep_one_tick()
 {
 	u64 oldticks = ticks;
 	while (oldticks != ticks);
+}
+
+void sleep(u64 secs)
+{
+	u64 start = ticks;
+	u64 end = start + (secs * timer_freq);
+	while (ticks < end)
+		asm volatile("hlt");
 }
 
 u64 get_ticks()

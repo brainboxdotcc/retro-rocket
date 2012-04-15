@@ -24,7 +24,7 @@ source:
 	make -C src all CC="$(CC)" CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 emulator:
-	-qemu-system-x86_64 -soundhw ac97 -usb -usbdevice mouse -m 512 -hda ../harddisk0 -smp 8 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d
+	-qemu-system-x86_64 -soundhw pcspk -soundhw ac97 -usb -usbdevice mouse -m 512 -hda ../harddisk0 -smp 8 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d
 
 remoterun: all
 	-qemu-system-x86_64 -vnc 0.0.0.0:1 -no-reboot -no-shutdown -cdrom sixty-four.iso

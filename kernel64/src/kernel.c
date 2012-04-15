@@ -38,7 +38,7 @@ void kmain()
 	}
 
 	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
-	init_timer(100);
+	init_timer(250);
 	init_basic_keyboard();
 	ide_initialise();
 
@@ -53,6 +53,8 @@ void kmain()
 	init_pci();
 
 	unlock_spinlock(&init_barrier);
+
+	sleep(3);
 
 	printf("Would continue boot sequence, but brain hasnt got any further!\n");
 	//wait_forever();
