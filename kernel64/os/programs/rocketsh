@@ -1,0 +1,31 @@
+5 REM *** Retro Rocket BASIC Shell ***
+10 PROMPT$ = "ROCKETSH"
+20 PRINT ""
+30 PRINT "Welcome to ";
+40 COLOR 14
+50 PRINT "Retro Rocket ";
+60 COLOR 7
+70 PRINT "BASIC shell."
+80 PRINT "Type END to exit the shell and shut down."
+90 PRINT ""
+100 PATH$ = "/programs"
+110 COLOR 14
+120 PRINT PROMPT$;
+130 COLOR 7
+140 PRINT "> ";
+150 INPUT inp$
+160 EVAL inp$
+170 IF ERROR = 1 THEN GOTO 190
+180 GOTO 110
+190 commandidx = INSTR(inp$," ")
+200 IF commandidx > 0 THEN GOTO 230
+210 command$ = inp$
+220 GOTO 240
+230 command$ = LEFT$(inp$,commandidx)
+240 FH = OPENIN(PATH$ + "/" + command$)
+250 IF FH < 0 THEN GOTO 290
+260 CLOSE FH
+270 CHAIN PATH$ + "/" + command$
+280 GOTO 110
+290 PRINT "No such command: " + command$
+300 GOTO 110

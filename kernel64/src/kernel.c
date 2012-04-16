@@ -23,7 +23,7 @@ void kmain_ap()
 
 	init_lapic_timer(50);
 
-	while (1) asm volatile("hlt");
+	proc_loop();
 }
 
 void kmain()
@@ -74,13 +74,20 @@ void kmain()
 
 	kprintf("Processors Booting: %d ", cpu_id());
 
+
+	struct process* init = proc_load("/programs/init", (struct console*)current_console);
+	if (!init)
+	{
+		kprintf("/programs/init missing!\n");
+	}
+
 	unlock_spinlock(&init_barrier);
 
 	init_lapic_timer(50);
 
 	while (cpunum < hydrogen_info->proc_count) asm volatile("hlt");
 
-	kprintf("OK\n");
+	kprintf("OK\nLaunching /programs/init...\n");
 
-	while (1) asm volatile("hlt");
+	proc_loop();
 }

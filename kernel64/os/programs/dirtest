@@ -1,0 +1,6 @@
+10 DIR$="/programs"
+20 N = GETNAMECOUNT(DIR$)
+30 FOR X = 0 TO N
+40 PRINT GETNAME$(DIR$,X); " "; GETSIZE(DIR$,X)
+50 NEXT
+60 PRINT N; " items in " + DIR$
