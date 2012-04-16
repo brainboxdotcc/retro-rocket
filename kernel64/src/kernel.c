@@ -72,7 +72,7 @@ void kmain()
 
 	init_pci();
 
-	kprintf("Processors Booting: %d ", cpu_id());
+	kprintf("Loading initial process...\n");
 
 
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);
@@ -81,6 +81,8 @@ void kmain()
 		kprintf("/programs/init missing!\n");
 	}
 
+	kprintf("Processors Booting: %d ", cpu_id());
+
 	unlock_spinlock(&init_barrier);
 
 	init_lapic_timer(50);
@@ -88,6 +90,8 @@ void kmain()
 	while (cpunum < hydrogen_info->proc_count) asm volatile("hlt");
 
 	kprintf("OK\nLaunching /programs/init...\n");
+
+	proc_show_list();
 
 	proc_loop();
 }
