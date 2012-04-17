@@ -3,7 +3,7 @@
 void lapic_timer(u8 isr, u64 errorcode, u64 irq)
 {
 	//put(current_console, cpu_id() + 48);
-	proc_timer();
+	//proc_timer();
 }
 
 void lapic_spurious(u8 isr, u64 errorcode, u64 irq)

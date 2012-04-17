@@ -14,6 +14,8 @@ struct process {
 	u32			gid;	/*Group id - Future use */
 	u32			state;	/*Running state */
 	u32			start_time;
+	u32			ticks;	/* Timeslice used */
+	spinlock		lock;
 
 	u32			waitpid;	/* PID we are waiting on compltion of */
 

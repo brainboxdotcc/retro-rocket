@@ -10,8 +10,8 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 	unsigned char state, radix;
 	long num;
 
-	while (printlock);
-	lock_spinlock(&printlock);
+	//while (printlock);
+	//lock_spinlock(&printlock);
 
 	state = flags = count = given_wd = 0;
 	/* begin scanning format specifier list */
@@ -236,7 +236,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 		}
 	}
 	
-	unlock_spinlock(&printlock);
+	//unlock_spinlock(&printlock);
 	return count;
 }
 

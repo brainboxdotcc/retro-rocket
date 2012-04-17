@@ -91,7 +91,7 @@ void kmain()
 
 	kprintf("OK\nLaunching /programs/init...\n");
 
-	proc_show_list();
+	//proc_show_list();
 
 	proc_loop();
 }
