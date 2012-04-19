@@ -2,7 +2,7 @@
 #define __FILESYSTEM_H__
 
 #define FD_MAX 128
-#define IOBUFSZ 4096
+#define IOBUFSZ 8192
 
 #define _O_APPEND   0x00000001
 #define _O_CREAT    0x00000002
@@ -101,6 +101,7 @@ typedef struct FS_Handle_t
 	u32 inbufsize;		/* Input buffer size */
 	FS_DirectoryEntry* file;	/* File which is open */
 	u32 seekpos;			/* Seek position within file */
+	u8 cached;			/* Entire file is cached to ram */
 } FS_Handle;
 
 

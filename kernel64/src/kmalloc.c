@@ -12,6 +12,8 @@ u64 allocations = 0;
 extern page_directory_t *kernel_directory;
 extern page_directory_t *current_directory;
 
+spinlock mlock = 0;
+
 /* Two heaps, one for kernel and one for user */
 heap_t*	kheap = 0;	/* Kernel Heap */
 heap_t*	uheap = 0;	/* User Heap */
@@ -179,8 +181,13 @@ static void *alloc(u64 size,u8 palign, heap_t *heap)
 	header_t *th;		/* pointer to block header */
 	footer_t *tf;		/* pointer to block footer */
 
+	lock_spinlock(&mlock);
+
 	if (!heap)
+	{
+		unlock_spinlock(&mlock);
 		return 0;	/* null heap */
+	}
 
 	/* We are looking for a free block that fits the size */
 	if (!ord_list_src_size(size, heap->list_free))	/* ... if there is no large enough free block */
@@ -191,14 +198,23 @@ static void *alloc(u64 size,u8 palign, heap_t *heap)
 		th = ord_list_src_size(size, heap->list_free);	/* Pass the first available block */
 
 	if (!th)
-		return 0;					/* We could not find space */
+	{
+		unlock_spinlock(&mlock);
+		return 0;
+	}		/* We could not find space */
 
 	heap->list_free = ord_list_remove(th, heap->list_free);	/* Remove the entry */
 	tf = (footer_t*)((u64)th + sizeof(header_t) + th->size);
 	if (th->magic != HEAP_MAGIC)
+	{
+		unlock_spinlock(&mlock);
 		return 0;	/* Check if header */
+	}
 	if (tf->magic != HEAP_MAGIC)
+	{
+		unlock_spinlock(&mlock);
 		return 0;	/* Check if footer */
+	}
 
 	/* There are two possibilities, either it fits into the block, or split */
 	b_total = sizeof(header_t) + th->size + sizeof(footer_t);	/* total size of the block */
@@ -234,6 +250,7 @@ static void *alloc(u64 size,u8 palign, heap_t *heap)
 		ret = ((void*)((u64)th+sizeof(header_t)));
 	}
 	/* Finally, return the address in the header we created */
+	unlock_spinlock(&mlock);
 	return ret;
 }
 
@@ -242,19 +259,32 @@ static void free_int(void *addr, heap_t *heap)
 	header_t *th,*th_left, *th_right;	/* pointers to the current, previous and next block */
 	footer_t *tf,*tf_left, *tf_right;	/* will use the prev and next to merge the list on deletion */
 
+	lock_spinlock(&mlock);
+
 	if (!heap)
+	{
+		unlock_spinlock(&mlock);
 		return;	/* null heap */
+	}
 	if (addr < (void*)heap->heap_addr || addr > (void*)heap->end_addr)
+	{
+		unlock_spinlock(&mlock);
 		return; /* addr not in heap */
+	}
 
 	th = (header_t*)((u64)addr - sizeof(header_t));		/* Pass the header address */
 	tf = (footer_t*)((u64)th + sizeof(header_t) + th->size);	/* and the footer */
 
 	if (th->magic != HEAP_MAGIC)
+	{
+		unlock_spinlock(&mlock);
 		return;	/* Check if header */
+	}
 	if (tf->magic != HEAP_MAGIC)
+	{
+		unlock_spinlock(&mlock);
 		return;	/* Check if footer */
-
+	}
 	/* Find associated free blocks */
 	/* Check if a free block left */
 	if ((u64)th != (u64)heap->heap_addr)
@@ -315,6 +345,8 @@ static void free_int(void *addr, heap_t *heap)
 	}
 
 	allocated -= th->size;
+
+	unlock_spinlock(&mlock);
 }
 
 void expand_heap(u64 size, heap_t *heap)

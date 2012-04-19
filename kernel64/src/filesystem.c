@@ -5,7 +5,7 @@ FS_FileSystem* filesystems, *dummyfs;
 FS_Tree* fs_tree;
 static u32 fd_last = 0;
 static u32 fd_alloc = 0;
-static FS_Handle* filehandles[FD_MAX] = { NULL };
+FS_Handle* filehandles[FD_MAX] = { NULL };
 
 int register_filesystem(FS_FileSystem* newfs)
 {
@@ -104,9 +104,10 @@ int _open(const char* filename, int oflag)
 	if (fd == -1)
 		return -1;
 
+	filehandles[fd]->cached = 0;
 	/* Read an initial buffer into the structure up to fd->inbufsize in size */
 	if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
-			file->size < filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
+			file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
 			filehandles[fd]->inbuf))
 	{
 		/* If we couldnt get the initial buffer, there is something wrong.
@@ -115,6 +116,13 @@ int _open(const char* filename, int oflag)
 		destroy_filehandle(fd);
 		return -1;
 	}
+	else
+	{
+		if (file->size <= filehandles[fd]->inbufsize)
+			filehandles[fd]->cached = 1;
+	}
+
+	//kprintf("cached=%d\n", filehandles[fd]->cached);
 
 	/* Return the allocated file descriptor */
 	return fd;
@@ -134,7 +142,7 @@ int _close(u32 descriptor)
 		return -1;
 
 	/* Flush any files that arent readonly */
-	if (filehandles[descriptor] != file_input)
+	if (filehandles[descriptor]->type != file_input)
 		flush_filehandle(descriptor);
 
 	return destroy_filehandle(descriptor) ? 0 : -1;
@@ -239,10 +247,16 @@ int _read(int fd, void *buffer, unsigned int count)
 		/* we can do the entire read from only the current IO buffer */
 
 		/* Read the entire lot in one go */
-		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf))
-			return -1;
-
-		memcpy(buffer, filehandles[fd]->inbuf, count);
+		if (filehandles[fd]->cached == 0)
+		{
+			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf))
+				return -1;
+			memcpy(buffer, filehandles[fd]->inbuf, count);
+		}
+		else
+		{
+			memcpy(buffer, filehandles[fd]->inbuf + filehandles[fd]->seekpos, count);
+		}
 
 		filehandles[fd]->seekpos += count;
 	}

@@ -1,14 +1,17 @@
 #include <kernel.h>
 
 struct process* proc_current[256] = { NULL };	/* This can be changed by an interrupt, MAKE A COPY */
-struct process* proc_list = NULL;
-static struct process* proc_running = NULL;	/* This is the safe copy of proc_current */
+struct process* proc_list[256] = { NULL };
+static struct process* proc_running[256] = { NULL };	/* This is the safe copy of proc_current */
+spinlock locks[256] = { 0 };;
 
 u32 nextid = 1;
-spinlock schedlock = 0;
+u8 nextcpu = 0;
+spinlock bkl = 0;
 
 struct process* proc_load(const char* fullpath, struct console* cons)
 {
+	//DumpHex(locks, 256 * 4);
 	FS_DirectoryEntry* fsi = fs_get_file_info(fullpath);
 	if (fsi != NULL)
 	{
@@ -16,6 +19,7 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 		*(programtext + fsi->size) = 0;
 		if (fs_read_file(fsi, 0, fsi->size, programtext))
 		{
+			//kprintf("program len = %d size = %d cpu=%d\n", strlen(programtext), fsi->size, nextcpu);
 			struct process* newproc = (struct process*)kmalloc(sizeof(struct process));
 			newproc->code = ubasic_init((const char*)programtext, (console*)cons);
 			newproc->waitpid = 0;
@@ -23,34 +27,44 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			newproc->pid = nextid++;
 			newproc->size = fsi->size;
 			newproc->cons = cons;
-			newproc->state = PROC_IDLE;
-			newproc->ticks = 0;
-			init_spinlock(&newproc->lock);
+			newproc->cpu = nextcpu;
+			//newproc->text = programtext;
 			kfree(programtext);
 
-			lock_spinlock(&schedlock);
+			interrupts_off();
+			bkl = 1;
 
-			if (proc_list == NULL)
+			if (proc_list[nextcpu] == NULL)
 			{
 				/* First process */
-				proc_list = newproc;
+				proc_list[nextcpu] = newproc;
 				newproc->next = NULL;
 				newproc->prev = NULL;
 			}
 			else
 			{
 				/* Any other process */
-				newproc->next = proc_list;
+				newproc->next = proc_list[nextcpu];
 				newproc->prev = NULL;
-				proc_list->prev = newproc;
-				proc_list = newproc;
+				proc_list[nextcpu]->prev = newproc;
+				proc_list[nextcpu] = newproc;
 			}
 
 			// No current proc? Make it the only proc.
-			//if (proc_current == NULL)
-			//	proc_current[cpu_id()] = proc_list;
+			if (proc_current[nextcpu] == NULL)
+				proc_current[nextcpu] = proc_list[nextcpu];
 
-			unlock_spinlock(&schedlock);
+			//kprintf("proc_load unlocking spin\n");
+			blitconsole(current_console);
+
+			nextcpu++;
+			if (nextcpu > hydrogen_info->proc_count - 1)
+				nextcpu = 0;
+
+			bkl = 0;
+			interrupts_on();
+
+			//kprintf("returning\n");
 
 			return newproc;
 		}
@@ -67,35 +81,39 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 
 struct process* proc_cur()
 {
-	return proc_current[cpu_id()];
+	return proc_running[cpu_id()];
 }
 
 void proc_run(struct process* proc)
 {
-	//kprintf("proc_run\n");
-	lock_spinlock(&proc->lock);
+	proc_running[cpu_id()] = proc;
 	if (proc->waitpid == 0)
-	{
 		ubasic_run(proc->code);
-	}
 	else if (proc_find(proc->waitpid) == NULL)
 	{
+		//kprintf("Process %d exited, resuming %d\n", proc->waitpid, proc->pid);
 		proc->waitpid = 0;
 		ubasic_run(proc->code);
 	}
-	proc->ticks++;
-	unlock_spinlock(&proc->lock);
+	//else
+	//	kprintf("proc_find(%d) == %d\n.\n", proc->waitpid, proc_find(proc->waitpid));
 }
 
 struct process* proc_find(u32 pid)
 {
-	lock_spinlock(&schedlock);
-	struct process* cur = proc_list;
+	interrupts_off();
+	bkl = 1;
 	struct process* foundproc = NULL;
-	for (; cur; cur = cur->next)
-		if (cur->pid == pid)
-			foundproc = cur;
-	unlock_spinlock(&schedlock);
+	int cpu = 0;
+	for (; cpu < 256; cpu++)
+	{
+		struct process* cur = proc_list[cpu];
+		for (; cur; cur = cur->next)
+			if (cur->pid == pid)
+				foundproc = cur;
+	}
+	bkl = 0;
+	interrupts_on();
 
 	return foundproc;
 }
@@ -111,8 +129,12 @@ void proc_kill(struct process* proc)
 	//kprintf("prog: '%s'\n", proc->code->program_ptr);
 	//kprintf("proc_kill %d\n", proc->pid);
 	
-	lock_spinlock(&schedlock);
-	struct process* cur = proc_list;
+	interrupts_off();
+	bkl = 1;
+
+	int cpu = proc->cpu;
+	
+	struct process* cur = proc_list[proc->cpu];
 
 	//kprintf("'%s'\n", proc->code->program_ptr);
 	
@@ -125,13 +147,13 @@ void proc_kill(struct process* proc)
 			if (proc->next == NULL && proc->prev == NULL)
 			{
 				// the only process!
-				proc_list = NULL;
+				proc_list[proc->cpu] = NULL;
 			}
 			else if (proc->prev == NULL && proc->next != NULL)
 			{
 				// first item
-				proc_list = proc->next;
-				proc_list->prev = NULL;
+				proc_list[proc->cpu] = proc->next;
+				proc_list[proc->cpu]->prev = NULL;
 			}
 			else if (proc->prev != NULL && proc->next == NULL)
 			{
@@ -149,107 +171,96 @@ void proc_kill(struct process* proc)
 		}
 	}
 
-	proc_current[cpu_id()] = NULL;
+	proc_current[proc->cpu] = proc_list[proc->cpu];
 
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
+	//kfree(proc->text);
 
-	/* Killed the last process! */
-	if (proc_list == NULL)
+	/* Killed the last process? */
+	int cpun = 0, proclists = 0;
+	for (; cpun < 256; cpun++)
+		if (proc_list[cpun] != NULL)
+			proclists++;
+
+	if (proclists == 0)
 	{
-		//kprintf("\nSystem halted.");
+		kprintf("\nSystem halted.");
 		blitconsole(current_console);
 		wait_forever();
 	}
 
-	unlock_spinlock(&schedlock);
+	bkl = 0;
+	interrupts_on();
 }
 
 void proc_show_list()
 {
-	lock_spinlock(&schedlock);
-	struct process* cur = proc_list;
-	for (; cur; cur = cur->next)
+	interrupts_off();
+	int cpu = 0;
+	for (; cpu < 256; cpu++)
 	{
-		kprintf("PID %d name %s\n", cur->pid, cur->name);
+		struct process* cur = proc_list[cpu];
+		for (; cur; cur = cur->next)
+		{
+			kprintf("PID %d CPU %d name %s\n", cur->pid, cpu, cur->name);
+		}
 	}
-	unlock_spinlock(&schedlock);
+	interrupts_on();
 }
 
 void proc_run_next()
 {
 	struct process* current;
-	lock_spinlock(&schedlock);
+	interrupts_off();
+	bkl = 1;
 	current = proc_current[cpu_id()];
-	unlock_spinlock(&schedlock);
+	bkl = 0;
+	interrupts_on();
+
+	//kprintf("*");
 
 	if (current != NULL)
 	{
+		//kprintf("?");
 		proc_run(current);
-		lock_spinlock(&schedlock);
-		current->state = PROC_IDLE;
-		unlock_spinlock(&schedlock);
+		//kprintf("!");
 		if (proc_ended(current))
+		{
+			//kprintf("$");
 			proc_kill(current);
+			//kprintf("@");
+		}
+		//kprintf("~");
 	}
-	//else
-	//	kprintf("current == null\n");
+	//kprintf("%%");
 }
 
 void proc_loop()
 {
 	while (1)
 	{
+		while (bkl);
 		proc_timer();
 		proc_run_next();
-		//asm volatile("hlt");
-	}
-}
 
-/* Find the first idle process and set it to RUNNING */
-struct process* proc_first_idle()
-{
-	struct process* cur = proc_list;
-	while (cur)
-	{
-		if (cur->state == PROC_IDLE)
-		{
-			//kprintf("first idle %08x\n", cur);
-			cur->state = PROC_RUNNING;
-			return cur;
-		}
-		else if (cur->state == PROC_RUNNING)
-		{
-			if (cur->ticks > 1)
-			{
-				cur->state = PROC_IDLE;
-				cur->ticks = 0;
-			}
-		}
-		cur = cur->next;
+		/* Idle till next timer interrupt */
+		//kprintf(".");
 	}
-	return NULL;
 }
 
 void proc_timer()
 {
-	//kprintf("proc_timer %08x\n", proc_list);
-	//
-	if (schedlock)
-	{
-		//kprintf("2");
+	bkl = 1;
+	if (proc_list[cpu_id()] == NULL)
 		return;
-	}
 
-	if (proc_list == NULL)
-	{
-		//kprintf("Proc_list == null\n");
-		return;
-	}
-
-	lock_spinlock(&schedlock);
-	proc_current[cpu_id()] = proc_first_idle();
-	unlock_spinlock(&schedlock);
+	if (proc_current[cpu_id()]->next == NULL)
+		proc_current[cpu_id()] = proc_list[cpu_id()];
+	else
+		proc_current[cpu_id()] = proc_current[cpu_id()]->next;
+	bkl = 0;
+	//kprintf("%08x", proc_current);
 }
 
 int proc_ended(struct process* proc)

@@ -4,7 +4,6 @@
 #define PROC_RUNNING	0
 #define PROC_IDLE	1
 #define PROC_DELETE	2
-#define PROC_BLOCKED	3
 
 struct process {
 	/*Identification */
@@ -14,10 +13,10 @@ struct process {
 	u32			gid;	/*Group id - Future use */
 	u32			state;	/*Running state */
 	u32			start_time;
-	u32			ticks;	/* Timeslice used */
-	spinlock		lock;
 
 	u32			waitpid;	/* PID we are waiting on compltion of */
+
+	u8			cpu;
 
 	char*			directory;
 	char*			name;
