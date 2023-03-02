@@ -1,0 +1,4 @@
+set watchdog 0
+symbol-file loader/kernel-loader
+target remote 127.0.0.1:1234
+continue
