@@ -27,7 +27,7 @@ link:
 	chmod ugo-x kernel.bin
 	make -C src/modules install
 	perl build/makeiso.pl
-	scp sixty-four.iso brain@brainbox.cc:/var/www/tmp/rr/rr.iso &
+	#scp sixty-four.iso brain@brainbox.cc:/var/www/tmp/rr/rr.iso &
 
 source:
 	make -C asm all
