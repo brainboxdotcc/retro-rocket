@@ -105,7 +105,7 @@ struct process* proc_find(u32 pid)
 	bkl = 1;
 	struct process* foundproc = NULL;
 	int cpu = 0;
-	for (; cpu < 256; cpu++)
+	for (; cpu < 1; cpu++)
 	{
 		struct process* cur = proc_list[cpu];
 		for (; cur; cur = cur->next)
@@ -207,6 +207,65 @@ void proc_show_list()
 		}
 	}
 	interrupts_on();
+}
+
+s64 proc_total()
+{
+	interrupts_off();
+	s64 tot = 0;
+	int cpu = 0;
+	for (; cpu < 256; cpu++)
+	{
+		struct process* cur = proc_list[cpu];
+		for (; cur; cur = cur->next)
+		{
+			tot++;
+		}
+	}
+	return tot;
+	interrupts_on();
+}
+
+const char* proc_name(s64 index)
+{
+	interrupts_off();
+	s64 tot = 0;
+	int cpu = 0;
+	for (; cpu < 256; cpu++)
+	{
+		struct process* cur = proc_list[cpu];
+		for (; cur; cur = cur->next)
+		{
+			if (tot == index) {
+				interrupts_on();
+				return cur->name;
+			}
+			tot++;
+		}
+	}
+	interrupts_on();
+	return "";
+}
+
+u32 proc_id(s64 index)
+{
+	interrupts_off();
+	s64 tot = 0;
+	int cpu = 0;
+	for (; cpu < 256; cpu++)
+	{
+		struct process* cur = proc_list[cpu];
+		for (; cur; cur = cur->next)
+		{
+			if (tot == index) {
+				interrupts_on();
+				return cur->pid;
+			}
+			tot++;
+		}
+	}
+	interrupts_on();
+	return 0;
 }
 
 void proc_run_next()

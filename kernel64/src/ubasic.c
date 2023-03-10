@@ -35,6 +35,9 @@ static void statement(struct ubasic_ctx* ctx);
 static const char* str_expr(struct ubasic_ctx* ctx);
 const char* str_varfactor(struct ubasic_ctx* ctx);
 void ubasic_parse_fn(struct ubasic_ctx* ctx);
+s64 ubasic_getproccount(struct ubasic_ctx* ctx);
+s64 ubasic_getprocid(struct ubasic_ctx* ctx);
+char* ubasic_getprocname(struct ubasic_ctx* ctx);
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -47,6 +50,8 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_asc, "ASC" },
 	{ ubasic_getnamecount, "GETNAMECOUNT" },
 	{ ubasic_getsize, "GETSIZE" },
+	{ ubasic_getproccount, "GETPROCCOUNT" },
+	{ ubasic_getprocid, "GETPROCID" },
 	{ NULL, NULL }
 };
 
@@ -56,6 +61,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_chr, "CHR$" },
 	{ ubasic_readstring, "READ$" },
 	{ ubasic_getname, "GETNAME$" },
+	{ ubasic_getprocname, "GETPROCNAME$" },
 	{ NULL, NULL }
 };
 
@@ -295,10 +301,10 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void accept(int token, struct ubasic_ctx* ctx)
 {
-	if (token != tokenizer_token(ctx))
-	{
-		//kprintf("Expected %d got %d\n", token, tokenizer_token(ctx));
-		tokenizer_error_print(ctx, "No such keyword");
+	char err[200];
+	sprintf(err, "Expected %s got %s\n", types[token], types[tokenizer_token(ctx)]);
+	if (token != tokenizer_token(ctx)) {
+		tokenizer_error_print(ctx, err);
 	}
 	tokenizer_next(ctx);
 }
@@ -1269,7 +1275,19 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 
 #define BIP_STRING 0
 #define BIP_INT 1
-#define PARAMS_START int itemtype = BIP_INT; [[maybe_unused]] int intval; [[maybe_unused]] char* strval; char oldval; char oldct; char* oldptr; char const* oldnextptr; int gotone = 0; int bracket_depth = 0; char const* item_begin = ctx->ptr;
+
+#define PARAMS_START \
+	[[maybe_unused]] int itemtype = BIP_INT; \
+	[[maybe_unused]] s64 intval; \
+	[[maybe_unused]] char* strval; \
+	[[maybe_unused]] char oldval; \
+	[[maybe_unused]] char oldct; \
+	[[maybe_unused]] char* oldptr; \
+	[[maybe_unused]] char const* oldnextptr; \
+	[[maybe_unused]] int gotone = 0; \
+	[[maybe_unused]] int bracket_depth = 0; \
+	[[maybe_unused]] char const* item_begin = ctx->ptr;
+
 #define PARAMS_GET_ITEM(type) { gotone = 0; \
 	while (!gotone) \
 	{ \
@@ -1320,7 +1338,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 #define PARAMS_END(NAME) { \
 	ctx->ptr--; \
 	if (*ctx->ptr != ')') \
-		tokenizer_error_print(ctx, "Too many parameters for function " NAME ); \
+		tokenizer_error_print(ctx, "Too many parameters for function " NAME); \
 }
 
 s64 ubasic_openin(struct ubasic_ctx* ctx)
@@ -1344,11 +1362,33 @@ s64 ubasic_getnamecount(struct ubasic_ctx* ctx)
 	return count;
 }
 
+s64 ubasic_getproccount(struct ubasic_ctx* ctx)
+{
+	return proc_total();
+}
+
+s64 ubasic_getprocid(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCID");
+	return proc_id(intval);
+}
+
+char* ubasic_getprocname(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCNAME$");
+	return gc_strdup(proc_name(intval));
+}
+
 char* ubasic_getname(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETNAME$");
 	FS_DirectoryEntry* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
@@ -1367,6 +1407,7 @@ s64 ubasic_getsize(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETSIZE");
 	FS_DirectoryEntry* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
@@ -1384,6 +1425,7 @@ s64 ubasic_eof(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("EOF");
 	return _eof(intval);
 }
 
@@ -1391,6 +1433,7 @@ s64 ubasic_asc(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("ASC");
 	return *strval;
 }
 
@@ -1398,6 +1441,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("CHR$");
 	char res[2] = {(char)intval, 0};
 	return gc_strdup(res);
 }
@@ -1412,6 +1456,7 @@ s64 ubasic_instr(struct ubasic_ctx* ctx)
 	haystack = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	needle = strval;
+	PARAMS_END("INSTR$");
 	for (i = 0; i < strlen(haystack) - strlen(needle) + 1; ++i)
 		if (!strncmp(haystack + i, needle, strlen(needle)))
 			return i + 1;
@@ -1426,6 +1471,7 @@ char* ubasic_readstring(struct ubasic_ctx* ctx)
 	*res = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("READ$");
 	while (!_eof(intval) && ofs < 1024)
 	{
 		if (_read(intval, res + ofs, 1) != 1)
@@ -1447,6 +1493,7 @@ s64 ubasic_read(struct ubasic_ctx* ctx)
 	char res;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("READ");
 	if (_read(intval, &res, 1) != 1)
 		tokenizer_error_print(ctx, "Error reading from file");
 	return res;
@@ -1457,6 +1504,7 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("LEFT");
 	if (intval > strlen(strval))
 		intval = strlen(strval);
 	char* cut = gc_strdup(strval);
@@ -1468,6 +1516,7 @@ s64 ubasic_len(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("LEN");
 	return strlen(strval);
 }
 

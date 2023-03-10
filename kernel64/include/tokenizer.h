@@ -73,6 +73,8 @@ enum {
   TOKENIZER_CR,
 };
 
+extern const char* types[];
+
 void tokenizer_init(const char *program, struct ubasic_ctx* ctx);
 void tokenizer_next(struct ubasic_ctx* ctx);
 int tokenizer_token(struct ubasic_ctx* ctx);

@@ -42,5 +42,8 @@ void proc_kill(struct process* proc);
 void proc_show_list();
 void proc_loop();
 void proc_timer();
+s64 proc_total();
+const char* proc_name(s64 index);
+u32 proc_id(s64 index);
 
 #endif

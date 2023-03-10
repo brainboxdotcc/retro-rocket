@@ -29,6 +29,56 @@
 
 #define MAX_NUMLEN 10
 
+const char* types[] = {
+  "ERROR",
+  "END OF INPUT",
+  "NUMBER",
+  "STRING",
+  "VARIABLE",
+  "LET",
+  "PRINT",
+  "IF",
+  "THEN",
+  "ELSE",
+  "CHAIN",
+  "FOR",
+  "TO",
+  "STEP",
+  "NEXT",
+  "GOTO",
+  "GOSUB",
+  "RETURN",
+  "CALL",
+  "INPUT",
+  "COLOUR",
+  "COLOR",
+  "EVAL",
+  "OPENIN",
+  "READ",
+  "CLOSE",
+  "EOF",
+  "DEF",
+  "PROC",
+  "FN",
+  "END",
+  "REM",
+  "COMMA",
+  "SEMICOLON",
+  "PLUS",
+  "MINUS",
+  "AND",
+  "OR",
+  "ASTR",
+  "SLASH",
+  "MOD",
+  "LEFTPAREN",
+  "RIGHTPAREN",
+  "LT",
+  "GT",
+  "EQ",
+  "CR",
+};
+
 struct keyword_token {
 	char *keyword;
 	int token;
@@ -252,7 +302,9 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 	if (ctx->eval_linenum == 0)
 	{
 		if (ctx->ended == 0) {
+			setforeground(current_console, COLOUR_LIGHTRED);
 			kprintf("Error at: line %d: %s\n", ctx->current_linenum, error);
+			setforeground(current_console, COLOUR_WHITE);
 			ctx->ended = 1;
 		}
 	}

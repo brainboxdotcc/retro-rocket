@@ -8,22 +8,7 @@ u8 cpunum = 1;
 
 void kmain_ap()
 {
-	while (!kmain_entered);
-	idt_setup();
-
-	/* Wait on spinlock, without trying to acquire it.
-	 * If all the waiting APs try to aquire it, we get deadlock once the BSP releases it!
-	 */
-	while (init_barrier);
-
-	kprintf("%d ", cpu_id());
-	cpunum++;
-
-	asm volatile("sti");
-
-	init_lapic_timer(50);
-
-	proc_loop();
+	while (1) asm volatile("hlt");
 }
 
 void kmain()
@@ -81,17 +66,11 @@ void kmain()
 		kprintf("/programs/init missing!\n");
 	}
 
-	kprintf("Processors Booting: %d ", cpu_id());
-
 	unlock_spinlock(&init_barrier);
 
 	init_lapic_timer(50);
 
-	while (cpunum < hydrogen_info->proc_count) asm volatile("hlt");
-
 	kprintf("OK\nLaunching /programs/init...\n");
-
-	//proc_show_list();
 
 	proc_loop();
 }
