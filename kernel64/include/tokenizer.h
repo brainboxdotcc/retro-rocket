@@ -19,6 +19,8 @@
 #ifndef __TOKENIZER_H__
 #define __TOKENIZER_H__
 
+#include <kernel.h>
+
 #define MAX_VARNAME 50
 
 enum {
@@ -74,7 +76,7 @@ enum {
 void tokenizer_init(const char *program, struct ubasic_ctx* ctx);
 void tokenizer_next(struct ubasic_ctx* ctx);
 int tokenizer_token(struct ubasic_ctx* ctx);
-int tokenizer_num(struct ubasic_ctx* ctx);
+s64 tokenizer_num(struct ubasic_ctx* ctx);
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx);
 void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
 int tokenizer_finished(struct ubasic_ctx* ctx);

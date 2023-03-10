@@ -30,7 +30,10 @@ u64 hextoint(const char* n1);
 unsigned char isdigit(const char x);
 
 int atoi(const char *s);
+s64 atoll(const char *s);
+u64 atoull(const char *s);
 
 int abs(int a);
+int labs(s64 a);
 
 #endif

@@ -132,7 +132,7 @@ void proc_kill(struct process* proc)
 	interrupts_off();
 	bkl = 1;
 
-	int cpu = proc->cpu;
+	//int cpu = proc->cpu;
 	
 	struct process* cur = proc_list[proc->cpu];
 

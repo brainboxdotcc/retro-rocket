@@ -14,7 +14,7 @@ void lapic_spurious(u8 isr, u64 errorcode, u64 irq)
 
 void init_lapic_timer(u32 quantum)
 {
-	u32 tmp, cpubusfreq;
+	u32 tmp;
 
 	register_interrupt_handler(IRQ7, lapic_spurious);
 	register_interrupt_handler(IRQ16, lapic_timer);

@@ -29,7 +29,7 @@
 
 #include <kernel.h>
 
-static int expr(struct ubasic_ctx* ctx);
+static s64 expr(struct ubasic_ctx* ctx);
 static void line_statement(struct ubasic_ctx* ctx);
 static void statement(struct ubasic_ctx* ctx);
 static const char* str_expr(struct ubasic_ctx* ctx);
@@ -72,12 +72,12 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 		ctx->local_int_variables[i] = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_string_variables[i] = NULL;
-	ctx->cons = cons;
+	ctx->cons = (struct console*)cons;
 	ctx->oldlen = 0;
 	ctx->errored = 0;
 	ctx->fn_return = NULL;
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
-	// as EVAL appends to the prgram on lines 9998 and 9999.
+	// as EVAL appends to the program on lines 9998 and 9999.
 	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
 	strlcpy(ctx->program_ptr, program, strlen(program) + 5000);
 	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
@@ -127,7 +127,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 	while (1)
 	{
 		currentline = tokenizer_num(ctx);
-		char* linestart = ctx->ptr;
+		char const* linestart = ctx->ptr;
 		do
 		{
 			do
@@ -136,7 +136,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 			}
 			while (tokenizer_token(ctx) != TOKENIZER_CR && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
 			
-			char* lineend = ctx->ptr;
+			char const* lineend = ctx->ptr;
 			
 			char* linetext = (char*)kmalloc(lineend - linestart + 1);
 			strlcpy(linetext, linestart, lineend - linestart + 1);
@@ -247,15 +247,15 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 
 			kfree(linetext);
 
-			if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT)
-			{
+			if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT) {
 				break;
 			}
 		}
 		while (tokenizer_token(ctx) != TOKENIZER_NUMBER && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
 
-		if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT)
+		if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT) {
 			break;
+		}
 	}
 
 	tokenizer_init(ctx->program_ptr, ctx);
@@ -303,10 +303,10 @@ static void accept(int token, struct ubasic_ctx* ctx)
 	tokenizer_next(ctx);
 }
 /*---------------------------------------------------------------------------*/
-static int varfactor(struct ubasic_ctx* ctx)
+static s64 varfactor(struct ubasic_ctx* ctx)
 {
 	const char* vn = tokenizer_variable_name(ctx);
-	int r = ubasic_get_int_variable(vn, ctx);
+	s64 r = ubasic_get_int_variable(vn, ctx);
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
@@ -345,9 +345,9 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 }
 
 /*---------------------------------------------------------------------------*/
-static int factor(struct ubasic_ctx* ctx)
+static s64 factor(struct ubasic_ctx* ctx)
 {
-      int r;
+      s64 r;
 
 	//kprintf("factor: token %d\n", tokenizer_token(ctx));
 	switch(tokenizer_token(ctx))
@@ -389,9 +389,9 @@ static const char* str_factor(struct ubasic_ctx* ctx)
 }
 
 /*---------------------------------------------------------------------------*/
-static int term(struct ubasic_ctx* ctx)
+static s64 term(struct ubasic_ctx* ctx)
 {
-	int f1, f2;
+	s64 f1, f2;
 	int op;
 
 	f1 = factor(ctx);
@@ -418,9 +418,9 @@ static int term(struct ubasic_ctx* ctx)
 	return f1;
 }
 /*---------------------------------------------------------------------------*/
-static int expr(struct ubasic_ctx* ctx)
+static s64 expr(struct ubasic_ctx* ctx)
 {
-	int t1, t2;
+	s64 t1, t2;
 	int op;
 
 	t1 = term(ctx);
@@ -513,7 +513,7 @@ static int relation(struct ubasic_ctx* ctx)
 
 
 /*---------------------------------------------------------------------------*/
-void jump_linenum(int linenum, struct ubasic_ctx* ctx)
+void jump_linenum(s64 linenum, struct ubasic_ctx* ctx)
 {
 	tokenizer_init(ctx->program_ptr, ctx);
 	
@@ -547,7 +547,7 @@ static void goto_statement(struct ubasic_ctx* ctx)
 static void colour_statement(struct ubasic_ctx* ctx, int tok)
 {
 	accept(tok, ctx);
-	setforeground(ctx->cons, expr(ctx));
+	setforeground((console*)ctx->cons, expr(ctx));
 	accept(TOKENIZER_CR, ctx);
 }
 
@@ -738,19 +738,19 @@ static void input_statement(struct ubasic_ctx* ctx)
 	var = tokenizer_variable_name(ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 
-	if (kinput(10240, ctx->cons) != 0)
+	if (kinput(10240, (console*)ctx->cons) != 0)
 	{
 		switch (var[strlen(var) - 1])
 		{
 			case '$':
-				ubasic_set_string_variable(var, kgetinput(ctx->cons), ctx, 0);
+				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, 0);
 			break;
 			default:
-				ubasic_set_int_variable(var, atoi(kgetinput(ctx->cons)), ctx, 0);
+				ubasic_set_int_variable(var, atoi(kgetinput((console*)ctx->cons)), ctx, 0);
 			break;
 		}
 
-		kfreeinput(ctx->cons);
+		kfreeinput((console*)ctx->cons);
 
 		accept(TOKENIZER_CR, ctx);
 	}
@@ -813,13 +813,10 @@ static void return_statement(struct ubasic_ctx* ctx)
 {
 	//kprintf("Return\n");
 	accept(TOKENIZER_RETURN, ctx);
-	if (ctx->gosub_stack_ptr > 0)
-	{
+	if (ctx->gosub_stack_ptr > 0) {
 		ctx->gosub_stack_ptr--;
 		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
-	}
-	else
-	{
+	} else {
 		tokenizer_error_print(ctx, "return_statement: non-matching return\n");
 	}
 }
@@ -853,7 +850,7 @@ static void next_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void for_statement(struct ubasic_ctx* ctx)
 {
-	const char* for_variable;
+	char* for_variable;
 	int to;
   
 	accept(TOKENIZER_FOR, ctx);
@@ -861,7 +858,8 @@ static void for_statement(struct ubasic_ctx* ctx)
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
 	ubasic_set_int_variable(for_variable, expr(ctx), ctx, 0);
-	int v = ubasic_get_int_variable(for_variable, ctx);
+	[[maybe_unused]]
+	s64 v = ubasic_get_int_variable(for_variable, ctx);
 	//kprintf("Initial var is %d\n", v);
 	accept(TOKENIZER_TO, ctx);
 	to = expr(ctx);
@@ -892,10 +890,11 @@ static void eq_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_EQ, ctx);
 
-	if (ctx->fn_type == RT_STRING)
+	if (ctx->fn_type == RT_STRING) {
 		ctx->fn_return = (void*)str_expr(ctx);
-	else
+	} else {
 		ctx->fn_return = (void*)expr(ctx);
+	}
 
 	accept(TOKENIZER_CR, ctx);
 
@@ -988,7 +987,6 @@ static void line_statement(struct ubasic_ctx* ctx)
 {
 	ctx->errored = 0;
 	ctx->current_linenum = tokenizer_num(ctx);
-	DEBUG_PRINTF("----------- Line number %d ---------\n", ctx->current_linenum);
 	accept(TOKENIZER_NUMBER, ctx);
 	//kprintf("%s\n", ctx->ptr);
 	statement(ctx);
@@ -1062,62 +1060,58 @@ int valid_int_var(const char* name)
 
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local)
 {
-	struct ub_var_int* list[] = {ctx->str_variables, ctx->local_string_variables[ctx->gosub_stack_ptr]};
+	struct ub_var_string* list[] = {
+		ctx->str_variables,
+		ctx->local_string_variables[ctx->gosub_stack_ptr]
+	};
 
 	//kprintf("set string '%s' to '%s' %d\n", var, value, local);
 
-	if (!valid_string_var(var))
-	{
+	if (!valid_string_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name\n");
 		return;
 	}
-	if (list[local] == NULL)
-	{
-		if (local)
-		{
+	if (list[local] == NULL) {
+		if (local) {
 			ctx->local_string_variables[ctx->gosub_stack_ptr] = (struct ub_var_string*)kmalloc(sizeof(struct ub_var_string));
 			ctx->local_string_variables[ctx->gosub_stack_ptr]->next = NULL;
 			ctx->local_string_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
 			ctx->local_string_variables[ctx->gosub_stack_ptr]->value = strdup(value);
-		}
-		else
-		{
+		} else {
 			ctx->str_variables = (struct ub_var_string*)kmalloc(sizeof(struct ub_var_string));
 			ctx->str_variables->next = NULL;
 			ctx->str_variables->varname = strdup(var);
 			ctx->str_variables->value = strdup(value);
 		}
 		return;
-	}
-	else
-	{
+	} else {
 		struct ub_var_string* cur = ctx->str_variables;
-		if (local)
+		if (local) {
 			cur = ctx->local_string_variables[ctx->gosub_stack_ptr];
-
-		for (; cur; cur = cur->next)
-		{
-			if (!strcmp(var, cur->varname))
-			{
+		}
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
 				kfree(cur->value);
 				cur->value = strdup(value);
 				return;
 			}
 		}
 		struct ub_var_string* newvar = (struct ub_var_string*)kmalloc(sizeof(struct ub_var_string));
-		if (local)
+		if (local) {
 			newvar->next = ctx->local_string_variables[ctx->gosub_stack_ptr];
-		else
+		} else {
 			newvar->next = ctx->str_variables;
+		}
 
 		newvar->next = ctx->str_variables;
 		newvar->varname = strdup(var);
 		newvar->value = strdup(value);
 	
-		if (local)
+		if (local) {
 			ctx->local_string_variables[ctx->gosub_stack_ptr] = newvar;
-		else
+		} else {
 			ctx->str_variables = newvar;
+		}
 	}
 }
 
@@ -1127,7 +1121,10 @@ void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ct
 
 void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local)
 {
-	struct ub_var_int* list[] = {ctx->int_variables, ctx->local_int_variables[ctx->gosub_stack_ptr]};
+	struct ub_var_int* list[] = {
+		ctx->int_variables,
+		ctx->local_int_variables[ctx->gosub_stack_ptr]
+	};
 
 	if (!valid_int_var(var))
 	{
@@ -1167,45 +1164,35 @@ void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx,
 			}
 		}
 		struct ub_var_int* newvar = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
-		if (local)
-			newvar->next = ctx->local_int_variables[ctx->gosub_stack_ptr];
-		else
-			newvar->next = ctx->int_variables;
+		newvar->next = (local ? ctx->local_int_variables[ctx->gosub_stack_ptr] : ctx->int_variables);
 		newvar->varname = strdup(var);
 		newvar->value = value;
-		if (local)
+		if (local) {
 			ctx->local_int_variables[ctx->gosub_stack_ptr] = newvar;
-		else
+		} else {
 			ctx->int_variables = newvar;
+		}
 	}
 }
 
-static int bracket_depth = 0;
-char* item_begin = NULL;
-struct ub_param* param = NULL;
-
-void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx)
-{
-	bracket_depth = 0;
-	param = def->params;
-	item_begin = ctx->ptr;
+void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
+	ctx->bracket_depth = 0;
+	ctx->param = def->params;
+	ctx->item_begin = (char*)ctx->ptr;
 }
 
 
-
-const char* extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx)
-{
-	if (*ctx->ptr == '(')
-	{
-		bracket_depth++;
-		if (bracket_depth == 1)
-			item_begin = ctx->ptr + 1;
+u8 extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
+	if (*ctx->ptr == '(') {
+		ctx->bracket_depth++;
+		if (ctx->bracket_depth == 1) {
+			ctx->item_begin = ctx->ptr + 1;
+		}
 	}
-	else if (*ctx->ptr == ')')
-		bracket_depth--;
-
-	if ((*ctx->ptr == ',' && bracket_depth == 1) || (*ctx->ptr == ')' && bracket_depth == 0))
-	{
+	else if (*ctx->ptr == ')') {
+		ctx->bracket_depth--;
+	}
+	if ((*ctx->ptr == ',' && ctx->bracket_depth == 1) || (*ctx->ptr == ')' && ctx->bracket_depth == 0)) {
 		// next item
 		// set local vars here
 		// Set ctx to item_begin, call expr(), set ctx back again. Change expr to stop on comma.
@@ -1215,47 +1202,33 @@ const char* extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ct
 		// before we even GET here!
 		char oldval = *ctx->ptr;
 		char oldct = ctx->current_token;
-		char* oldptr = ctx->ptr;
-		char* oldnextptr = ctx->nextptr;
-		ctx->nextptr = item_begin;
-		ctx->ptr = item_begin;
+		char* oldptr = (char*)ctx->ptr;
+		char* oldnextptr = (char*)ctx->nextptr;
+		ctx->nextptr = ctx->item_begin;
+		ctx->ptr = ctx->item_begin;
 		ctx->current_token = get_next_token(ctx);
 		*oldptr = 0;
-		//kprintf("*** Calling with '%s'\n", ctx->ptr);
-		if (param)
-		{
-			//kprintf("Setting parameter '%s'\n", param->name);
-
-			if (param->name[strlen(param->name) - 1] == '$')
-			{
-				const char* val = str_expr(ctx);
-				//kprintf("String expr val '%s'\n", val);
-				ubasic_set_string_variable(param->name, val, ctx, 1);
-			}
-			else
-			{
-				int val = expr(ctx);
-				//kprintf("Int expr val '%d'\n", val);
-				ubasic_set_int_variable(param->name, val, ctx, 1);
+		if (ctx->param) {
+			if (ctx->param->name[strlen(ctx->param->name) - 1] == '$') {
+				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, 1);
+			} else {
+				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, 1);
 			}
 
-			param = param->next;
+			ctx->param = ctx->param->next;
 		}
 		*oldptr = oldval;
 		ctx->ptr = oldptr;
 		ctx->nextptr = oldnextptr;
 		ctx->current_token = oldct;
-		item_begin = ctx->ptr + 1;
+		ctx->item_begin = (char*)ctx->ptr + 1;
 	}
 
 	ctx->ptr++;
 
-	if (bracket_depth == 0 || *ctx->ptr == 0)
-	{
+	if (ctx->bracket_depth == 0 || *ctx->ptr == 0) {
 		ctx->nextptr = ctx->ptr;
-		//ctx->current_token = get_next_token(ctx);
-		//kprintf("current token %d\n", ctx->current_token);
-		return NULL;
+		return 0;
 	}
 
 	return 1;
@@ -1266,8 +1239,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	const char* rv = gc_strdup("");
-	if (def != NULL)
-	{
+	if (def != NULL) {
 		ctx->gosub_stack_ptr++;
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
@@ -1275,14 +1247,12 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		atomic->fn_type = RT_STRING;
 		jump_linenum(def->line, atomic);
 
-		while (!ubasic_finished(atomic))
-		{
+		while (!ubasic_finished(atomic)) {
 			line_statement(atomic);
 		}
-		if (atomic->fn_return == NULL)
+		if (atomic->fn_return == NULL) {
 			tokenizer_error_print(ctx, "End of function without returning value");
-		else
-		{
+		} else {
 			rv = (const char*)atomic->fn_return;
 		}
 
@@ -1299,7 +1269,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 
 #define BIP_STRING 0
 #define BIP_INT 1
-#define PARAMS_START int itemtype = BIP_INT; int intval; char* strval; char* oldval; char oldct; char* oldptr; char* oldnextptr; int gotone = 0; int bracket_depth = 0; char* item_begin = ctx->ptr;
+#define PARAMS_START int itemtype = BIP_INT; [[maybe_unused]] int intval; [[maybe_unused]] char* strval; char oldval; char oldct; char* oldptr; char const* oldnextptr; int gotone = 0; int bracket_depth = 0; char const* item_begin = ctx->ptr;
 #define PARAMS_GET_ITEM(type) { gotone = 0; \
 	while (!gotone) \
 	{ \
@@ -1315,7 +1285,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 			gotone = 1; \
 			oldval = *ctx->ptr; \
 			oldct = ctx->current_token; \
-			oldptr = ctx->ptr; \
+			oldptr = (char*)ctx->ptr; \
 			oldnextptr = ctx->nextptr; \
 			ctx->nextptr = item_begin; \
 			ctx->ptr = item_begin; \
@@ -1324,7 +1294,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 			itemtype = type; \
 			if (itemtype == BIP_STRING) \
 			{ \
-				strval = str_expr(ctx); \
+				strval = (char*)str_expr(ctx); \
 			} \
 			else \
 			{ \
@@ -1353,14 +1323,14 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		tokenizer_error_print(ctx, "Too many parameters for function " NAME ); \
 }
 
-int ubasic_openin(struct ubasic_ctx* ctx)
+s64 ubasic_openin(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	return _open(strval, _O_RDONLY);
 }
 
-int ubasic_getnamecount(struct ubasic_ctx* ctx)
+s64 ubasic_getnamecount(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1392,7 +1362,7 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	return gc_strdup("");
 }
 
-int ubasic_getsize(struct ubasic_ctx* ctx)
+s64 ubasic_getsize(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1410,14 +1380,14 @@ int ubasic_getsize(struct ubasic_ctx* ctx)
 	return 0;
 }
 
-int ubasic_eof(struct ubasic_ctx* ctx)
+s64 ubasic_eof(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	return _eof(intval);
 }
 
-int ubasic_asc(struct ubasic_ctx* ctx)
+s64 ubasic_asc(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1432,7 +1402,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 	return gc_strdup(res);
 }
 
-int ubasic_instr(struct ubasic_ctx* ctx)
+s64 ubasic_instr(struct ubasic_ctx* ctx)
 {
 	int i;
 	char* haystack;
@@ -1472,7 +1442,7 @@ char* ubasic_readstring(struct ubasic_ctx* ctx)
 	return ret;
 }
 
-int ubasic_read(struct ubasic_ctx* ctx)
+s64 ubasic_read(struct ubasic_ctx* ctx)
 {
 	char res;
 	PARAMS_START;
@@ -1494,14 +1464,14 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	return cut;
 }
 
-int ubasic_len(struct ubasic_ctx* ctx)
+s64 ubasic_len(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	return strlen(strval);
 }
 
-int ubasic_abs(struct ubasic_ctx* ctx)
+s64 ubasic_abs(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 
@@ -1516,13 +1486,19 @@ int ubasic_abs(struct ubasic_ctx* ctx)
 		return v;
 }
 
-int ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int* res)
-{
+/**
+ * @brief Check if a function name is a builtin function returning an integer value,
+ * if it is, call its handler and set its return value.
+ * 
+ * @param fn_name function name to look for
+ * @param ctx interpreter context
+ * @param res pointer to return value of function
+ * @return u64 true/false return
+ */
+char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, s64* res) {
 	int i;
-	for (i = 0; builtin_int[i].name; ++i)
-	{
-		if (!strcmp(fn_name, builtin_int[i].name))
-		{
+	for (i = 0; builtin_int[i].name; ++i) {
+		if (!strcmp(fn_name, builtin_int[i].name)) {
 			*res = builtin_int[i].handler(ctx);
 			return 1;
 		}
@@ -1530,13 +1506,20 @@ int ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int* res)
 	return 0;
 }
 
-int ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** res)
-{
+
+/**
+ * @brief Check if a function name is a builtin function returning a string,
+ * if it is, call its handler and set its return value.
+ * 
+ * @param fn_name function name to look for
+ * @param ctx interpreter context
+ * @param res pointer to return value of function
+ * @return u64 true/false return
+ */
+char ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** res) {
 	int i;
-	for (i = 0; builtin_str[i].name; ++i)
-	{
-		if (!strcmp(fn_name, builtin_str[i].name))
-		{
+	for (i = 0; builtin_str[i].name; ++i) {
+		if (!strcmp(fn_name, builtin_str[i].name)) {
 			*res = builtin_str[i].handler(ctx);
 			return 1;
 		}
@@ -1545,10 +1528,10 @@ int ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** re
 }
 
 
-int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
+s64 ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
-	int rv = 0;
+	s64 rv = 0;
 	if (def != NULL)
 	{
 		ctx->gosub_stack_ptr++;
@@ -1567,7 +1550,7 @@ int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 			tokenizer_error_print(ctx, "End of function without returning value");
 		else
 		{
-			rv = (int)atomic->fn_return;
+			rv = (s64)atomic->fn_return;
 		}
 
 		/* Only free the base struct! */
@@ -1581,6 +1564,17 @@ int ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	return 0;
 }
 
+/**
+ * @brief Returns true if 'varname' starts with FN
+ * (is a function call)
+ * 
+ * @param varname variable name to check
+ * @return char 1 if variable name is a function call, 0 if it is not
+ */
+char varname_is_function(const char* varname) {
+	return (*varname == 'F' && *(varname + 1) == 'N');
+}
+
 /*---------------------------------------------------------------------------*/
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 {
@@ -1589,26 +1583,23 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 	if (t)
 		return retv;
 
-	if (var[0] == 'F' && var[1] == 'N')
-	{
+	if (varname_is_function(var)) {
 		const char* res = ubasic_eval_str_fn(var, ctx);
 		return res;
 	}
 
-	//kprintf("Get '%s'\n", var);
-
-	struct ub_var_string* list[] = {ctx->local_string_variables[ctx->gosub_stack_ptr], ctx->str_variables};
+	struct ub_var_string* list[] = {
+		ctx->local_string_variables[ctx->gosub_stack_ptr],
+		ctx->str_variables
+	};
 	int j;
 
 	for (j = 0; j < 2; j++)
 	{
 		//kprintf("Iter %d\n", j);
 		struct ub_var_string* cur = list[j];
-		for (; cur; cur = cur->next)
-		{
-			//kprintf("'%s'=%s\n", cur->varname, cur->value);
-			if (!strcmp(var, cur->varname))
-			{
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
 				return cur->value;
 			}
 		}
@@ -1618,29 +1609,27 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 	return "";
 }
 
-int ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
+s64 ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 {
-	int retv;
-	int t = ubasic_builtin_int_fn(var, ctx, &retv);
-	if (t)
+	s64 retv = 0;
+	if (ubasic_builtin_int_fn(var, ctx, &retv)) {
 		return retv;
+	}
 		
-	if (var[0] == 'F' && var[1] == 'N')
-	{
-		int res = ubasic_eval_int_fn(var, ctx);
-		return res;
+	if (varname_is_function(var)) {
+		return ubasic_eval_int_fn(var, ctx);
 	}
 
-	struct ub_var_int* list[] = {ctx->local_int_variables[ctx->gosub_stack_ptr], ctx->int_variables};
+	struct ub_var_int* list[] = { 
+		ctx->local_int_variables[ctx->gosub_stack_ptr],
+		ctx->int_variables
+	};
 	int j;
 
-	for (j = 0; j < 2; j++)
-	{
+	for (j = 0; j < 2; j++)	{
 		struct ub_var_int* cur = list[j];
-		for (; cur; cur = cur->next)
-		{
-			if (!strcmp(var, cur->varname))
-			{
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
 				return cur->value;
 			}
 		}

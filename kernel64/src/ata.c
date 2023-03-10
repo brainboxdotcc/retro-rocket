@@ -412,7 +412,7 @@ unsigned char ide_ata_access(unsigned char direction, unsigned char drive, u64 l
 		}
 		ide_write(channel, ATA_REG_COMMAND, (char []) {	ATA_CMD_CACHE_FLUSH, ATA_CMD_CACHE_FLUSH, ATA_CMD_CACHE_FLUSH_EXT }[lba_mode]);
 		if ((err = ide_polling(channel, 0))); // Polling.
-			return err;
+		return err;
 	}
 
 	return 0; // Easy, ... Isn't it?
@@ -421,7 +421,7 @@ unsigned char ide_ata_access(unsigned char direction, unsigned char drive, u64 l
 void ide_wait_irq()
 {
 	while (!ide_irq_invoked);
-		ide_irq_invoked = 0;
+	ide_irq_invoked = 0;
 }
 
 void ide_irq(u8 isr, u64 error, u64 irq)

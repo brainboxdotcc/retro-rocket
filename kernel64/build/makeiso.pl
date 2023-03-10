@@ -10,7 +10,7 @@ mkdir(".iso/harddisk");
 system("cp grub/* .iso/boot/");
 system("nm -a kernel.bin | sort -d >.iso/kernel.sym");
 system("rm -rf .iso/os");
-system("svn export --force os .iso/");
+system("cp -rv os/* .iso/");
 chdir(".iso");
 system("mkisofs -J -R -V \"RETRO-ROCKET\" -b boot/stage2_eltorito -o ../sixty-four.iso -no-emul-boot -boot-load-size 4 -boot-info-table .");
 chdir("..");
