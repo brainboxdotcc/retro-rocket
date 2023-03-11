@@ -172,14 +172,14 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err)
 	return err;
 }
 
-void ide_initialise()
+void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, unsigned int BAR3, unsigned int BAR4)
 {
 	int type, base, masterslave, k, err, count = 0;
 	// 1- Define I/O Ports which interface IDE Controller
-	channels[ATA_PRIMARY].base = 0x1F0;
-	channels[ATA_PRIMARY].ctrl = 0x3F4;
-	channels[ATA_SECONDARY].base = 0x170;
-	channels[ATA_SECONDARY].ctrl = 0x374;
+	channels[ATA_PRIMARY].base = BAR0;
+	channels[ATA_PRIMARY].ctrl = BAR1;
+	channels[ATA_SECONDARY].base = BAR2;
+	channels[ATA_SECONDARY].ctrl = BAR3;
 	channels[ATA_PRIMARY].bmide = 0; // Bus Master IDE
 	channels[ATA_SECONDARY].bmide = 8; // Bus Master IDE
 
@@ -192,7 +192,7 @@ void ide_initialise()
 	// Refactored 9th Nov 2009. Did not properly detect ATAPI devices,
 	// due to not testing for ATAPI IDENTIFY ABORT soon enough before
 	// trying to wait on the command.
-	for (base = 0x1F0; base >= 0x170; base -= 0x80)
+	for (base = BAR0; base >= BAR2; base -= 0x80)
 	{
 		for (masterslave = 0xA0; masterslave <= 0xB0; masterslave += 0x10)
 		{

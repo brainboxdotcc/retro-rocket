@@ -34,6 +34,7 @@ typedef struct PCI_DeviceTag
 } PCI_Device;
 
 void init_pci();
+void list_pci(u8 showbars);
 void pci_enable_device(PCI_Device* dev);
 PCI_Device* pci_find(u16 bus, u16 slot);
 

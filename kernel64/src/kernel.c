@@ -45,7 +45,11 @@ void kmain()
 	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
 	init_timer(50);
 	init_basic_keyboard();
-	ide_initialise();
+
+	init_pci();
+	list_pci(0);
+
+	ide_initialise(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
 
 	init_filesystem();
 	init_iso9660();
@@ -54,8 +58,6 @@ void kmain()
 	fat32_attach(find_first_harddisk(), "/harddisk");
 	init_devfs();
 	init_debug();
-
-	init_pci();
 
 	kprintf("Loading initial process...\n");
 
