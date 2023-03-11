@@ -15,6 +15,12 @@ unsigned char isdigit(const char x)
 	return (x >= '0' && x <= '9');
 }
 
+unsigned char isxdigit(const char x)
+{
+	return (x >= '0' && x <= '9') || (x >= 'A' && x <= 'F');
+}
+
+
 unsigned char tolower(unsigned char input)
 {
 	return (input | 0x20);
@@ -235,7 +241,7 @@ int atoi(const char *s)
 	/* process each digit */
 	while (*s) {
 		const char *where;
-		unsigned digit;
+		int digit;
 		
 		/* look for the digit in the list of digits */
 		where = strchr(digits, *s);
@@ -265,34 +271,37 @@ int atoi(const char *s)
 	return val;
 }
 
-s64 atoll(const char *s)
+s64 atoll(const char *s, int radix)
 {
-	static const char digits[] = "0123456789";  /* legal digits in order */
+	static const char ddigits[] = "0123456789";  /* legal digits in order */
+	static const char xdigits[] = "0123456789ABCDEF";  /* legal digits in order */
+	const char* digits = radix == 16 ? xdigits : ddigits;
 	s64 val = 0;	 /* value we're accumulating */
 	char neg = 0;	      /* set to true if we see a minus sign */
 
 	/* skip whitespace */
-	while (*s==' ' || *s=='\t') {
+	while (*s == ' ' || *s == '\t') {
 		s++;
 	}
 
 	/* check for sign */
-	if (*s=='-') {
+	if (*s=='-' && radix == 10) {
 		neg=1;
 		s++;
-	}
-	else if (*s=='+') {
+	} else if (*s=='+' && radix == 10) {
+		s++;
+	} else if (*s == '&' && radix == 16) {
 		s++;
 	}
 
 	/* process each digit */
 	while (*s) {
 		const char *where;
-		unsigned digit;
+		s64 digit;
 		
 		/* look for the digit in the list of digits */
 		where = strchr(digits, *s);
-		if (where==NULL) {
+		if (where == NULL) {
 			/* not found; not a digit, so stop */
 			break;
 		}
@@ -303,16 +312,18 @@ s64 atoll(const char *s)
 		/* could (should?) check for overflow here */
 
 		/* shift the number over and add in the new digit */
-		val = val*10 + digit;
+		val = val * radix + digit;
 
 		/* look at the next character */
 		s++;
 	}
        
-	/* handle negative numbers */
-	if (neg) {
+	/* handle negative numbers (decimal only) */
+	if (neg && radix == 10) {
 		return -val;
 	}
+
+	//kprintf("atoll(...,%d) = %d\n", radix, val);
        
 	/* done */
 	return val;
@@ -335,7 +346,7 @@ u64 atoull(const char *s)
 	/* process each digit */
 	while (*s) {
 		const char *where;
-		unsigned digit;
+		u64 digit;
 		
 		/* look for the digit in the list of digits */
 		where = strchr(digits, *s);

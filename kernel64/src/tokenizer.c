@@ -27,12 +27,13 @@
 
 #include <kernel.h>
 
-#define MAX_NUMLEN 10
+#define MAX_NUMLEN 20
 
 const char* types[] = {
   "ERROR",
   "END OF INPUT",
   "NUMBER",
+  "HEX NUMBER",
   "STRING",
   "VARIABLE",
   "LET",
@@ -62,21 +63,22 @@ const char* types[] = {
   "FN",
   "END",
   "REM",
-  "COMMA",
-  "SEMICOLON",
-  "PLUS",
-  "MINUS",
+  ",",
+  ";",
+  "+",
+  "-",
   "AND",
   "OR",
-  "ASTR",
-  "SLASH",
+  "*",
+  "/",
   "MOD",
-  "LEFTPAREN",
-  "RIGHTPAREN",
-  "LT",
-  "GT",
-  "EQ",
-  "CR",
+  ")",
+  "(",
+  "<",
+  ">",
+  "=",
+  "NEW LINE",
+  "&",
 };
 
 struct keyword_token {
@@ -146,6 +148,8 @@ static int singlechar(struct ubasic_ctx* ctx)
 		return TOKENIZER_GT;
 	} else if(*ctx->ptr == '=') {
 		return TOKENIZER_EQ;
+	} else if(*ctx->ptr == '&') {
+		return TOKENIZER_AMPERSAND;
 	}
 	return 0;
 }
@@ -154,6 +158,7 @@ int get_next_token(struct ubasic_ctx* ctx)
 {
 	struct keyword_token const *kt;
 	int i;
+	char hex = 0;
 
 	DEBUG_PRINTF("get_next_token(): '%s'\n", ctx->ptr);
 
@@ -161,20 +166,41 @@ int get_next_token(struct ubasic_ctx* ctx)
 		return TOKENIZER_ENDOFINPUT;
 	}
 	
-	if (isdigit(*ctx->ptr)) {
-		for (i = 0; i < MAX_NUMLEN; ++i) {
-			if (!isdigit(ctx->ptr[i])) {
-				if(i > 0) {
-					ctx->nextptr = ctx->ptr + i;
-					return TOKENIZER_NUMBER;
-				} else {
-					tokenizer_error_print(ctx, "Number too short");
+	if (isdigit(*ctx->ptr) || *ctx->ptr == '&') {
+		hex = (*ctx->ptr == '&') ? 1 : 0;
+		//kprintf("Hex=%d\n", hex);
+		if (hex) {
+			ctx->ptr++;
+			for (i = 0; i < MAX_NUMLEN; ++i) {
+				if (!isxdigit(ctx->ptr[i])) {
+					if (i > 1) {
+						ctx->nextptr = ctx->ptr + i;
+						return TOKENIZER_HEXNUMBER;
+					} else {
+						tokenizer_error_print(ctx, "Hexadecimal number too short");
+						return TOKENIZER_ERROR;
+					}
+				}
+				if (!isxdigit(ctx->ptr[i])) {
+					tokenizer_error_print(ctx, "Malformed hexadecimal number");
 					return TOKENIZER_ERROR;
 				}
 			}
-			if (!isdigit(ctx->ptr[i])) {
-				tokenizer_error_print(ctx, "Malformed number");
-				return TOKENIZER_ERROR;
+		} else {
+			for (i = 0; i < MAX_NUMLEN; ++i) {
+				if (!isdigit(ctx->ptr[i])) {
+					if (i > 0) {
+						ctx->nextptr = ctx->ptr + i;
+						return TOKENIZER_NUMBER;
+					} else {
+						tokenizer_error_print(ctx, "Number too short");
+						return TOKENIZER_ERROR;
+					}
+				}
+				if (!isdigit(ctx->ptr[i])) {
+					tokenizer_error_print(ctx, "Malformed number");
+					return TOKENIZER_ERROR;
+				}
 			}
 		}
 		tokenizer_error_print(ctx, "Number too long");
@@ -272,9 +298,9 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 	return;
 }
 /*---------------------------------------------------------------------------*/
-s64 tokenizer_num(struct ubasic_ctx* ctx)
+s64 tokenizer_num(struct ubasic_ctx* ctx, int token)
 {
-	return atoll(ctx->ptr);
+	return token == TOKENIZER_NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
 }
 /*---------------------------------------------------------------------------*/
 void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
@@ -327,7 +353,7 @@ int tokenizer_finished(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 {
-	static char varname[MAX_VARNAME];
+	char varname[MAX_VARNAME];
 	int count = 0;
 	while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) && count < MAX_VARNAME)
 	{
@@ -335,6 +361,6 @@ const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 	}
 	varname[count] = 0;
 	/* TODO: Validate variable name, weed out e.g. TEST$$ or $TEST$ which are not valid. */
-	return varname;
+	return gc_strdup(varname);
 }
 /*---------------------------------------------------------------------------*/

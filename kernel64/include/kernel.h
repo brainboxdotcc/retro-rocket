@@ -1,8 +1,8 @@
 #ifndef __KERNEL_H__
 #define __KERNEL_H__
 
-typedef unsigned long u64;	// 64 bit unsigned
-typedef long s64;		// 64 bit signed
+typedef unsigned long long u64;	// 64 bit unsigned
+typedef long long s64;		// 64 bit signed
 typedef unsigned int u32;	// 32 bit unsigned
 typedef int s32;		// 32 bit signed
 typedef unsigned short u16;	// 16 bit unsigned

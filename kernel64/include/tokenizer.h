@@ -27,6 +27,7 @@ enum {
   TOKENIZER_ERROR,
   TOKENIZER_ENDOFINPUT,
   TOKENIZER_NUMBER,
+  TOKENIZER_HEXNUMBER,
   TOKENIZER_STRING,
   TOKENIZER_VARIABLE,
   TOKENIZER_LET,
@@ -71,6 +72,7 @@ enum {
   TOKENIZER_GT,
   TOKENIZER_EQ,
   TOKENIZER_CR,
+  TOKENIZER_AMPERSAND,
 };
 
 extern const char* types[];
@@ -78,7 +80,7 @@ extern const char* types[];
 void tokenizer_init(const char *program, struct ubasic_ctx* ctx);
 void tokenizer_next(struct ubasic_ctx* ctx);
 int tokenizer_token(struct ubasic_ctx* ctx);
-s64 tokenizer_num(struct ubasic_ctx* ctx);
+s64 tokenizer_num(struct ubasic_ctx* ctx, int token);
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx);
 void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
 int tokenizer_finished(struct ubasic_ctx* ctx);

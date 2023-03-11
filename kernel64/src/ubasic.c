@@ -132,7 +132,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 
 	while (1)
 	{
-		currentline = tokenizer_num(ctx);
+		currentline = tokenizer_num(ctx, TOKENIZER_NUMBER);
 		char const* linestart = ctx->ptr;
 		do
 		{
@@ -166,7 +166,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 					while (*search++ == ' ');
 					type = FT_FN;
 				}
-				else if (!strncmp(search, "PROC", 2))
+				else if (!strncmp(search, "PROC", 4))
 				{
 					search += 4;
 					while (*search++ == ' ');
@@ -311,8 +311,7 @@ static void accept(int token, struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static s64 varfactor(struct ubasic_ctx* ctx)
 {
-	const char* vn = tokenizer_variable_name(ctx);
-	s64 r = ubasic_get_int_variable(vn, ctx);
+	s64 r = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
@@ -340,8 +339,7 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 	}
 	else
 	{
-		const char* vn = tokenizer_variable_name(ctx);
-		r = ubasic_get_string_variable(vn, ctx);
+		r = ubasic_get_string_variable(tokenizer_variable_name(ctx), ctx);
 		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
 			accept(TOKENIZER_RIGHTPAREN, ctx);
 		else
@@ -353,15 +351,14 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static s64 factor(struct ubasic_ctx* ctx)
 {
-      s64 r;
+	s64 r = 0;
 
-	//kprintf("factor: token %d\n", tokenizer_token(ctx));
-	switch(tokenizer_token(ctx))
-	{
+	int tok = tokenizer_token(ctx);
+	switch (tok) {
 		case TOKENIZER_NUMBER:
-			r = tokenizer_num(ctx);
-			//kprintf("factor: number %d\n", r);
-			accept(TOKENIZER_NUMBER, ctx);
+		case TOKENIZER_HEXNUMBER:
+			r = tokenizer_num(ctx, tok);
+			accept(tok, ctx);
 		break;
 		case TOKENIZER_LEFTPAREN:
 			accept(TOKENIZER_LEFTPAREN, ctx);
@@ -523,7 +520,7 @@ void jump_linenum(s64 linenum, struct ubasic_ctx* ctx)
 {
 	tokenizer_init(ctx->program_ptr, ctx);
 	
-	while (tokenizer_num(ctx) != linenum)
+	while (tokenizer_num(ctx, TOKENIZER_NUMBER) != linenum)
 	{
 		do
 		{
@@ -540,14 +537,14 @@ void jump_linenum(s64 linenum, struct ubasic_ctx* ctx)
 		}
 		while(tokenizer_token(ctx) != TOKENIZER_NUMBER);
 
-		DEBUG_PRINTF("jump_linenum: Found line %d\n", tokenizer_num(ctx));
+		DEBUG_PRINTF("jump_linenum: Found line %d\n", tokenizer_num(ctx, TOKENIZER_NUMBER));
 	}
 }
 /*---------------------------------------------------------------------------*/
 static void goto_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_GOTO, ctx);
-	jump_linenum(tokenizer_num(ctx), ctx);
+	jump_linenum(tokenizer_num(ctx, TOKENIZER_NUMBER), ctx);
 }
 
 static void colour_statement(struct ubasic_ctx* ctx, int tok)
@@ -565,49 +562,32 @@ static void print_statement(struct ubasic_ctx* ctx)
 
 	accept(TOKENIZER_PRINT, ctx);
 
-	do
-	{
+	do {
 		no_newline = 0;
 		DEBUG_PRINTF("Print loop\n");
-		if (tokenizer_token(ctx) == TOKENIZER_STRING)
-    		{
+		if (tokenizer_token(ctx) == TOKENIZER_STRING) {
 			tokenizer_string(ctx->string, sizeof(ctx->string), ctx);
 			kprintf("%s", ctx->string);
 			tokenizer_next(ctx);
-		}
-    		else if (tokenizer_token(ctx) == TOKENIZER_COMMA)
-		{
+		} else if (tokenizer_token(ctx) == TOKENIZER_COMMA) {
 			kprintf(" ");
 			tokenizer_next(ctx);
-		}
-    		else if (tokenizer_token(ctx) == TOKENIZER_SEMICOLON)
-		{
+		} else if (tokenizer_token(ctx) == TOKENIZER_SEMICOLON) {
 			no_newline = 1;
 			tokenizer_next(ctx);
-		}
-    		else if (tokenizer_token(ctx) == TOKENIZER_PLUS)
-		{
+		} else if (tokenizer_token(ctx) == TOKENIZER_PLUS) {
 			tokenizer_next(ctx);
-		}
-		else if (tokenizer_token(ctx) == TOKENIZER_VARIABLE || tokenizer_token(ctx) == TOKENIZER_NUMBER)
-		{
-			{
-				/* Check if it's a string or numeric expression */
-				const char* oldctx = ctx->ptr;
-				if (tokenizer_token(ctx) != TOKENIZER_NUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$')))
-				{
-					ctx->ptr = oldctx;
-					kprintf("%s", str_expr(ctx));
-				}
-		 		else
-				{
-					ctx->ptr = oldctx;
-					kprintf("%d", expr(ctx));
-				}
+		} else if (tokenizer_token(ctx) == TOKENIZER_VARIABLE || tokenizer_token(ctx) == TOKENIZER_NUMBER || tokenizer_token(ctx) == TOKENIZER_HEXNUMBER) {
+			/* Check if it's a string or numeric expression */
+			const char* oldctx = ctx->ptr;
+			if (tokenizer_token(ctx) != TOKENIZER_NUMBER && tokenizer_token(ctx) != TOKENIZER_HEXNUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))) {
+				ctx->ptr = oldctx;
+				kprintf("%s", str_expr(ctx));
+			} else {
+				ctx->ptr = oldctx;
+				kprintf("%ld", expr(ctx));
 			}
-		}
-    		else
-		{
+		} else {
 			break;
 		}
 		numprints++;
@@ -752,7 +732,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, 0);
 			break;
 			default:
-				ubasic_set_int_variable(var, atoi(kgetinput((console*)ctx->cons)), ctx, 0);
+				ubasic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, 0);
 			break;
 		}
 
@@ -772,7 +752,7 @@ static void let_statement(struct ubasic_ctx* ctx)
 	const char* var;
 	const char* _expr;
 
-	var = gc_strdup(tokenizer_variable_name(ctx));
+	var = tokenizer_variable_name(ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
 
@@ -799,13 +779,13 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	int linenum;
 
 	accept(TOKENIZER_GOSUB, ctx);
-	linenum = tokenizer_num(ctx);
+	linenum = tokenizer_num(ctx, TOKENIZER_NUMBER);
 	accept(TOKENIZER_NUMBER, ctx);
 	accept(TOKENIZER_CR, ctx);
 
 	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH)
 	{
-		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx);
+		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, TOKENIZER_NUMBER);
 		ctx->gosub_stack_ptr++;
 		jump_linenum(linenum, ctx);
 	}
@@ -856,32 +836,29 @@ static void next_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void for_statement(struct ubasic_ctx* ctx)
 {
-	char* for_variable;
+	const char* for_variable;
 	int to;
   
 	accept(TOKENIZER_FOR, ctx);
-	for_variable = strdup(tokenizer_variable_name(ctx));
+	for_variable = tokenizer_variable_name(ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
 	ubasic_set_int_variable(for_variable, expr(ctx), ctx, 0);
-	[[maybe_unused]]
-	s64 v = ubasic_get_int_variable(for_variable, ctx);
-	//kprintf("Initial var is %d\n", v);
 	accept(TOKENIZER_TO, ctx);
 	to = expr(ctx);
 	accept(TOKENIZER_CR, ctx);
 
 	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH)
 	{
-		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx);
-		ctx->for_stack[ctx->for_stack_ptr].for_variable = for_variable;
+		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, TOKENIZER_NUMBER);
+		ctx->for_stack[ctx->for_stack_ptr].for_variable = (char*)for_variable;
 		ctx->for_stack[ctx->for_stack_ptr].to = to;
 		DEBUG_PRINTF("for_statement: new for, var %s to %d\n", ctx->for_stack[ctx->for_stack_ptr].for_variable, ctx->for_stack[ctx->for_stack_ptr].to); 
 		ctx->for_stack_ptr++;
 	}
 	else
 	{
-		tokenizer_error_print(ctx, "for_statement: for stack depth exceeded\n");
+		tokenizer_error_print(ctx, "Too many FOR");
 	}
 }
 
@@ -992,7 +969,7 @@ static void statement(struct ubasic_ctx* ctx)
 static void line_statement(struct ubasic_ctx* ctx)
 {
 	ctx->errored = 0;
-	ctx->current_linenum = tokenizer_num(ctx);
+	ctx->current_linenum = tokenizer_num(ctx, TOKENIZER_NUMBER);
 	accept(TOKENIZER_NUMBER, ctx);
 	//kprintf("%s\n", ctx->ptr);
 	statement(ctx);
@@ -1031,10 +1008,10 @@ void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* 
 			ubasic_set_string_variable(var, value, ctx, 0);
 		break;
 		case ')':
-			ubasic_set_array_variable(var, atoi(value), ctx, 0);
+			ubasic_set_array_variable(var, atoll(value, 10), ctx, 0);
 		break;
 		default:
-			ubasic_set_int_variable(var, atoi(value), ctx, 0);
+			ubasic_set_int_variable(var, atoll(value, 10), ctx, 0);
 		break;
 	}
 }

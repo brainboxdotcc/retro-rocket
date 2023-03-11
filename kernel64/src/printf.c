@@ -118,7 +118,11 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			DO_NUM:
 				if(flags & PR_32)
 				{
-					num = va_arg(args, unsigned long);
+					if(flags & PR_SG) {
+						num = va_arg(args, long long);
+					} else {
+						num = va_arg(args, unsigned long long);
+					}
 				}
 				/* h=short=16 bits (signed or unsigned) */
 				else if(flags & PR_16)

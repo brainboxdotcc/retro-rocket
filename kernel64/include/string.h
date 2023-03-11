@@ -28,9 +28,10 @@ int gc();
 u64 hextoint(const char* n1);
 
 unsigned char isdigit(const char x);
+unsigned char isxdigit(const char x);
 
 int atoi(const char *s);
-s64 atoll(const char *s);
+s64 atoll(const char *s, int radix);
 u64 atoull(const char *s);
 
 int abs(int a);
