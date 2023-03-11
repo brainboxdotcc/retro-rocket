@@ -559,6 +559,7 @@ static void print_statement(struct ubasic_ctx* ctx)
 {
 	int numprints = 0;
 	int no_newline = 0;
+	int next_hex = 0;
 
 	accept(TOKENIZER_PRINT, ctx);
 
@@ -575,6 +576,9 @@ static void print_statement(struct ubasic_ctx* ctx)
 		} else if (tokenizer_token(ctx) == TOKENIZER_SEMICOLON) {
 			no_newline = 1;
 			tokenizer_next(ctx);
+		} else if (tokenizer_token(ctx) == TOKENIZER_TILDE) {
+			next_hex = 1;
+			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == TOKENIZER_PLUS) {
 			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == TOKENIZER_VARIABLE || tokenizer_token(ctx) == TOKENIZER_NUMBER || tokenizer_token(ctx) == TOKENIZER_HEXNUMBER) {
@@ -585,7 +589,8 @@ static void print_statement(struct ubasic_ctx* ctx)
 				kprintf("%s", str_expr(ctx));
 			} else {
 				ctx->ptr = oldctx;
-				kprintf("%ld", expr(ctx));
+				kprintf(next_hex ? "%lX" : "%ld", expr(ctx));
+				next_hex = 0;
 			}
 		} else {
 			break;
@@ -791,7 +796,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	}
 	else
 	{
-		tokenizer_error_print(ctx, "gosub_statement: gosub stack exhausted\n");
+		tokenizer_error_print(ctx, "gosub_statement: gosub stack exhausted");
 	}
 }
 /*---------------------------------------------------------------------------*/
@@ -803,36 +808,31 @@ static void return_statement(struct ubasic_ctx* ctx)
 		ctx->gosub_stack_ptr--;
 		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
 	} else {
-		tokenizer_error_print(ctx, "return_statement: non-matching return\n");
+		tokenizer_error_print(ctx, "return_statement: non-matching return");
 	}
 }
 /*---------------------------------------------------------------------------*/
 static void next_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_NEXT, ctx);
-	if (ctx->for_stack_ptr > 0)
-	{
+	if (ctx->for_stack_ptr > 0) {
 		int incr = ubasic_get_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
 		//kprintf("incr is %d\n", incr);
 		ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, 0);
 
-		if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to)
-		{
+		if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) {
 			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
-		}
-		else
-		{
+		} else {
 			kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
 			ctx->for_stack_ptr--;
 			accept(TOKENIZER_CR, ctx);
 		}
-	}
-	else
-	{
-		tokenizer_error_print(ctx, "next_statement: non-matching next\n");
+	} else {
+		tokenizer_error_print(ctx, "next_statement: non-matching next");
 		accept(TOKENIZER_CR, ctx);
 	}
 }
+
 /*---------------------------------------------------------------------------*/
 static void for_statement(struct ubasic_ctx* ctx)
 {
@@ -848,16 +848,13 @@ static void for_statement(struct ubasic_ctx* ctx)
 	to = expr(ctx);
 	accept(TOKENIZER_CR, ctx);
 
-	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH)
-	{
+	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH) {
 		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, TOKENIZER_NUMBER);
 		ctx->for_stack[ctx->for_stack_ptr].for_variable = (char*)for_variable;
 		ctx->for_stack[ctx->for_stack_ptr].to = to;
 		DEBUG_PRINTF("for_statement: new for, var %s to %d\n", ctx->for_stack[ctx->for_stack_ptr].for_variable, ctx->for_stack[ctx->for_stack_ptr].to); 
 		ctx->for_stack_ptr++;
-	}
-	else
-	{
+	} else {
 		tokenizer_error_print(ctx, "Too many FOR");
 	}
 }
@@ -891,8 +888,7 @@ static void statement(struct ubasic_ctx* ctx)
   
 	token = tokenizer_token(ctx);
 
-	switch (token)
-	{
+	switch (token) {
 		case TOKENIZER_REM:
 			rem_statement(ctx);
 		break;
@@ -960,7 +956,7 @@ static void statement(struct ubasic_ctx* ctx)
 			eq_statement(ctx);
 		break;
 		default:
-			tokenizer_error_print(ctx, "Unknown keyword\n");
+			tokenizer_error_print(ctx, "Unknown keyword");
 			//kprintf("Bad token %d (%c) %c\n", token, token, ctx->current_token);
 		break;
 	}
@@ -978,10 +974,7 @@ static void line_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 void ubasic_run(struct ubasic_ctx* ctx)
 {
-	if (ubasic_finished(ctx))
-	{
-		//kprintf("End of program: '%s' %c\n", ctx->program_ptr, *(ctx->ptr - 2));
-		DEBUG_PRINTF("uBASIC program finished\n");
+	if (ubasic_finished(ctx)) {
 		return;
 	}
 	line_statement(ctx);
@@ -991,7 +984,6 @@ void ubasic_run(struct ubasic_ctx* ctx)
 int ubasic_finished(struct ubasic_ctx* ctx)
 {
 	int st = ctx->ended || tokenizer_finished(ctx);
-	//kprintf("finish: st=%d ended=%d tokfin=%d\n", st, ctx->ended, tokenizer_finished(ctx));
 	return st;
 }
 /*---------------------------------------------------------------------------*/
@@ -1002,8 +994,7 @@ void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* 
 	 */
 	const char last_letter = var[strlen(var) - 1];
 
-	switch (last_letter)
-	{
+	switch (last_letter) {
 		case '$':
 			ubasic_set_string_variable(var, value, ctx, 0);
 		break;
@@ -1019,25 +1010,33 @@ void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* 
 int valid_string_var(const char* name)
 {
 	const char* i;
-	//kprintf("check var '%s'\n", name);
-	if (strlen(name) < 2)
+	unsigned int varLength = strlen(name);
+	if (varLength < 2 || name[varLength - 1] != '$') {
 		return 0;
-	if (name[strlen(name) - 1] != '$')
-		return 0;
-	for (i = name; *i != '$'; i++)
-	{
-		if (*i == '$' && *(i + 1) != 0)
-		       return 0;	
 	}
-	if ((*name >='A' && *name <= 'Z') || (*name >= 'a' && *name <= 'z'))
-	{
-		return 1;
+	for (i = name; *i != '$'; i++) {
+		if (*i == '$' && *(i + 1) != 0) {
+		       return 0;
+		}
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
+			return 0;
+		}
 	}
-	else return 0;
+	return 1;
 }
 
 int valid_int_var(const char* name)
 {
+	const char* i;
+	unsigned int varLength = strlen(name);
+	if (varLength < 1) {
+		return 0;
+	}
+	for (i = name; *i; i++) {
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
+			return 0;
+		}
+	}
 	return 1;
 }
 
@@ -1051,7 +1050,7 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 	//kprintf("set string '%s' to '%s' %d\n", var, value, local);
 
 	if (!valid_string_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name\n");
+		tokenizer_error_print(ctx, "Malformed variable name");
 		return;
 	}
 	if (list[local] == NULL) {
@@ -1642,13 +1641,18 @@ s64 ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
-				return cur->value;
+				s64 v = cur->value;
+				/* If ERROR is read, it resets its value */
+				if (!strcmp(var, "ERROR")) {
+					ubasic_set_int_variable("ERROR", 0, ctx, 0);
+				}
+				return v;
 			}
 		}
 	}
 
 
-	tokenizer_error_print(ctx, "No such variable\n");
+	tokenizer_error_print(ctx, "No such variable");
 	return 0; /* No such variable */
 }
 

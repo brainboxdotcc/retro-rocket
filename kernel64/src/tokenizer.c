@@ -79,6 +79,7 @@ const char* types[] = {
   "=",
   "NEW LINE",
   "&",
+  "~",
 };
 
 struct keyword_token {
@@ -150,6 +151,8 @@ static int singlechar(struct ubasic_ctx* ctx)
 		return TOKENIZER_EQ;
 	} else if(*ctx->ptr == '&') {
 		return TOKENIZER_AMPERSAND;
+	} else if (*ctx->ptr == '~') {
+		return TOKENIZER_TILDE;
 	}
 	return 0;
 }
@@ -325,20 +328,18 @@ void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 {
-	if (ctx->eval_linenum == 0)
-	{
+	ubasic_set_string_variable("ERROR$", error, ctx, 0);
+	ubasic_set_int_variable("ERROR", 1, ctx, 0);
+	ubasic_set_int_variable("ERRORLINE", ctx->current_linenum, ctx, 0);
+	if (ctx->eval_linenum == 0) {
 		if (ctx->ended == 0) {
 			setforeground(current_console, COLOUR_LIGHTRED);
-			kprintf("Error at: line %d: %s\n", ctx->current_linenum, error);
+			kprintf("Error on line %d: %s\n", ctx->current_linenum, error);
 			setforeground(current_console, COLOUR_WHITE);
 			ctx->ended = 1;
 		}
-	}
-	else
-	{
+	} else {
 		if (ctx->errored == 0) {
-			ubasic_set_string_variable("ERROR$", error, ctx, 0);
-			ubasic_set_int_variable("ERROR", 1, ctx, 0);
 			ctx->errored = 1;
 		}
 		jump_linenum(ctx->eval_linenum, ctx);
