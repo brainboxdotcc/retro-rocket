@@ -840,7 +840,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 	int to;
   
 	accept(TOKENIZER_FOR, ctx);
-	for_variable = tokenizer_variable_name(ctx);
+	for_variable = strdup(tokenizer_variable_name(ctx));
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
 	ubasic_set_int_variable(for_variable, expr(ctx), ctx, 0);
@@ -1348,7 +1348,6 @@ s64 ubasic_getprocid(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETPROCID");
 	return proc_id(intval);
 }
 
@@ -1356,7 +1355,6 @@ char* ubasic_getprocname(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETPROCNAME$");
 	return gc_strdup(proc_name(intval));
 }
 
@@ -1365,7 +1363,6 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETNAME$");
 	FS_DirectoryEntry* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
@@ -1384,7 +1381,6 @@ s64 ubasic_getsize(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETSIZE");
 	FS_DirectoryEntry* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
@@ -1402,7 +1398,6 @@ s64 ubasic_eof(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("EOF");
 	return _eof(intval);
 }
 
@@ -1410,7 +1405,6 @@ s64 ubasic_asc(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("ASC");
 	return *strval;
 }
 
@@ -1418,7 +1412,6 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("CHR$");
 	char res[2] = {(char)intval, 0};
 	return gc_strdup(res);
 }
@@ -1433,7 +1426,6 @@ s64 ubasic_instr(struct ubasic_ctx* ctx)
 	haystack = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	needle = strval;
-	PARAMS_END("INSTR$");
 	for (i = 0; i < strlen(haystack) - strlen(needle) + 1; ++i)
 		if (!strncmp(haystack + i, needle, strlen(needle)))
 			return i + 1;
@@ -1448,7 +1440,6 @@ char* ubasic_readstring(struct ubasic_ctx* ctx)
 	*res = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("READ$");
 	while (!_eof(intval) && ofs < 1024)
 	{
 		if (_read(intval, res + ofs, 1) != 1)
@@ -1470,7 +1461,6 @@ s64 ubasic_read(struct ubasic_ctx* ctx)
 	char res;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("READ");
 	if (_read(intval, &res, 1) != 1)
 		tokenizer_error_print(ctx, "Error reading from file");
 	return res;
@@ -1481,7 +1471,6 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("LEFT");
 	if (intval > strlen(strval))
 		intval = strlen(strval);
 	char* cut = gc_strdup(strval);
@@ -1493,7 +1482,6 @@ s64 ubasic_len(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("LEN");
 	return strlen(strval);
 }
 
@@ -1503,8 +1491,6 @@ s64 ubasic_abs(struct ubasic_ctx* ctx)
 
 	PARAMS_GET_ITEM(BIP_INT);
 	int v = intval;
-
-	PARAMS_END("ABS");
 
 	if (v < 0)
 		return 0 + -v;
