@@ -7,13 +7,12 @@
 .text
 
 idt_init:
-	push %rdi
+	push %rdi // Storage location for IDT gates
 	push %rsi
 
 	// Idea for this taken from baremetal OS, but with some extra stuff
 	// to look up the jump addresses from a jump-table.
 
-	xor %rdi, %rdi		// Storage location for IDT gates
 	mov $32, %rcx		// There are 32 of them specifically for handing exceptions
 	movabs $exception_handlers, %r10
 exception_gate_loop:

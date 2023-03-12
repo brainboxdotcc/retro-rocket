@@ -1,10 +1,19 @@
 #ifndef __IDT_H__
 #define __IDT_H__
 
-/* Function body defined in asm/idt.S */
+#include <kernel.h>
 
-extern u16 idt64[5];
+struct idt_ptr {
+	u16 limit;
+	void* base;
+} __attribute__((packed));
+typedef struct idt_ptr idt_ptr_t;
+
+extern idt_ptr_t idt64;
+
 void idt_setup();
-void idt_init();
+
+/* Function body defined in asm/loader.S */
+void idt_init(void* idt);
 
 #endif
