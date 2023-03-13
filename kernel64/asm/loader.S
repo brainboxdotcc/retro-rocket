@@ -4,6 +4,18 @@
 .global idt_init
 .extern idt64
 
+/*
+    0. Null descriptor
+    8. 16-bit code descriptor. Base = 0, limit = 0xffff. Readable.
+    16. 16-bit data descriptor. Base = 0, limit = 0xffff. Writable.
+    24. 32-bit code descriptor. Base = 0, limit = 0xffffffff. Readable.
+    32. 32-bit data descriptor. Base = 0, limit = 0xffffffff. Writable.
+    40. 64-bit code descriptor. Base and limit irrelevant. Readable.
+    48. 64-bit data descriptor. Base and limit irrelevant. Writable.
+ */
+
+#define SELECTOR 40
+
 .text
 
 idt_init:
@@ -20,7 +32,7 @@ exception_gate_loop:
 	add $8, %r10
 	push %rax			// save the exception gate
 	stosw				// Low word of gate address
-	mov $0x08, %ax
+	mov $SELECTOR, %ax
 	stosw				// selector (CS)
 	mov $0x8E00, %ax
 	stosw 				// exception gate 8E: callable only by ring 0
@@ -40,7 +52,7 @@ interrupt_gate_loop:
 	add $8, %r10
 	push %rax
 	stosw
-	mov $0x08, %ax
+	mov $SELECTOR, %ax
 	stosw
 	mov $0x8F00, %ax		// Interrupt gate 8F: callable from ring 0 only
 	stosw

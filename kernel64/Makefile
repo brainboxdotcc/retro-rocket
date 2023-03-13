@@ -24,7 +24,7 @@ source:
 	make -C src all CC="$(CC)" CSOURCES="$(CSOURCES)" CFLAGS="$(CFLAGS)"
 
 remoterun: all
-	-qemu-system-x86_64 -s -smp 8 -usb -usbdevice mouse -m 4096 -hda ../harddisk0 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d -vnc 0.0.0.0:2 # -monitor stdio
+	-qemu-system-x86_64 -s -smp 8 -usb -usbdevice mouse -m 4096 -hda ../harddisk0 -no-reboot -no-shutdown -cdrom sixty-four.iso -boot d -vnc 0.0.0.0:2 -monitor stdio
 
 harddisk:
 	qemu-img create harddisk.img 1G

@@ -420,7 +420,7 @@ unsigned char ide_ata_access(unsigned char direction, unsigned char drive, u64 l
 
 void ide_wait_irq()
 {
-	//while (!ide_irq_invoked);
+	while (!ide_irq_invoked);
 	ide_irq_invoked = 0;
 }
 

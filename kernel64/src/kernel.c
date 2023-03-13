@@ -37,15 +37,10 @@ void kmain()
 	setforeground(current_console, COLOUR_WHITE);
 	printf("64-bit SMP kernel booting, %d processors detected\n", hydrogen_info->proc_count);
 
-	idt_setup();
-	init_error_handler();
-	
 	/* NB: Can't use kmalloc/kfree until heap_init is called.
 	 * This depends upon paging.
 	 */
 	heap_init();
-
-	asm volatile("sti");
 
 	detect_cores();
 
@@ -54,6 +49,9 @@ void kmain()
 	{
 		ioapic_redir_unmask(in);
 	}
+	idt_setup();
+	init_error_handler();
+	asm volatile("sti");
 
 	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
 	init_timer(50);
