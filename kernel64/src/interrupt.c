@@ -2,13 +2,10 @@
 #include <interrupt.h>
 #include <hydrogen.h>
 
-isr_t interrupt_handlers[256];
+isr_t interrupt_handlers[256] = { 0 };
 
 void init_interrupts()
 {
-	u16 i = 0;
-	for (; i < 256; i++)
-		interrupt_handlers[i] = NULL;
 }
 
 void register_interrupt_handler(u8 n, isr_t handler)
@@ -53,7 +50,8 @@ void IRQ(u64 isrnumber, u64 irqnum)
 		handler((u8)isrnumber, 0, irqnum);
 	}
 
-	if (irqnum != IRQ7)
-		*((volatile u32*)(hydrogen_info->lapic_paddr + 0xB0)) = 0;
+	if (irqnum != IRQ7) {
+		*((volatile u32*)(get_local_apic() + 0xB0)) = 0;
+	}
 }
 

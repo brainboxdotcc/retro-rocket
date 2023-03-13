@@ -9,5 +9,7 @@ void init_spinlock(spinlock* s);
 void lock_spinlock(spinlock* s);
 void unlock_spinlock(spinlock* s);
 
+void get_ioapic_address(u64* apic);
+
 #endif
 

@@ -6,6 +6,17 @@ spinlock init_barrier = 0;
 u8 kmain_entered = 0;
 u8 cpunum = 1;
 
+volatile struct limine_stack_size_request stack_size_request = {
+    .id = LIMINE_STACK_SIZE_REQUEST,
+    .revision = 0,
+    .stack_size = (1024 * 1024 * 2),
+};
+
+volatile struct limine_hhdm_request hhdm_request = {
+    .id = LIMINE_HHDM_REQUEST,
+    .revision = 0,
+};
+
 void kmain_ap()
 {
 	while (1) asm volatile("hlt");
@@ -36,6 +47,8 @@ void kmain()
 
 	asm volatile("sti");
 
+	detect_cores();
+
 	int in;
 	for (in = 0; in < 16; in++)
 	{
@@ -54,8 +67,8 @@ void kmain()
 	init_filesystem();
 	init_iso9660();
 	iso9660_attach(find_first_cdrom(), "/");
-	init_fat32();
-	fat32_attach(find_first_harddisk(), "/harddisk");
+	//init_fat32();
+	//fat32_attach(find_first_harddisk(), "/harddisk");
 	init_devfs();
 	init_debug();
 
