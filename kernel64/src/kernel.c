@@ -6,6 +6,17 @@ spinlock init_barrier = 0;
 u8 kmain_entered = 0;
 u8 cpunum = 1;
 
+volatile struct limine_stack_size_request stack_size_request = {
+    .id = LIMINE_STACK_SIZE_REQUEST,
+    .revision = 0,
+    .stack_size = (1024 * 1024 * 32),
+};
+
+volatile struct limine_hhdm_request hhdm_request = {
+    .id = LIMINE_HHDM_REQUEST,
+    .revision = 0,
+};
+
 void kmain_ap()
 {
 	while (1) asm volatile("hlt");
@@ -24,23 +35,25 @@ void kmain()
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	printf("Retro-Rocket ");
 	setforeground(current_console, COLOUR_WHITE);
-	printf("64-bit SMP kernel booting, %d processors detected\n", hydrogen_info->proc_count);
+	printf("64-bit SMP kernel booting\n");
 
-	idt_setup();
-	init_error_handler();
-	
 	/* NB: Can't use kmalloc/kfree until heap_init is called.
 	 * This depends upon paging.
 	 */
 	heap_init();
-
-	asm volatile("sti");
+	
+	detect_cores();
+	idt_setup();
 
 	int in;
 	for (in = 0; in < 16; in++)
 	{
 		ioapic_redir_unmask(in);
+		ioapic_redir_set_precalculated(in, 0, 0x2020 + in);
 	}
+
+	init_error_handler();
+	asm volatile("sti");
 
 	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
 	init_timer(50);
@@ -70,7 +83,7 @@ void kmain()
 
 	unlock_spinlock(&init_barrier);
 
-	init_lapic_timer(50);
+	//init_lapic_timer(50);
 
 	kprintf("OK\nLaunching /programs/init...\n");
 

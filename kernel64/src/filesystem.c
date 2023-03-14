@@ -70,10 +70,10 @@ u32 destroy_filehandle(u32 descriptor)
 		return 0;
 	else
 	{
-		if (filehandles[fd_last]->inbuf)
-			kfree(filehandles[fd_last]->inbuf);
-		if (filehandles[fd_last]->outbuf)
-			kfree(filehandles[fd_last]->outbuf);
+		if (filehandles[descriptor]->inbuf)
+			kfree(filehandles[descriptor]->inbuf);
+		if (filehandles[descriptor]->outbuf)
+			kfree(filehandles[descriptor]->outbuf);
 		kfree(filehandles[descriptor]);
 		filehandles[descriptor] = NULL;
 		/* Make the search faster for the next process to ask
@@ -348,36 +348,35 @@ typedef struct DirStack_t
 
 FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 {
-	//kprintf("walk to node 1 %08x %08x %s\n", current_node, dir_stack, current_node->name);
+	//kprintf("walk to node internal 1 %08x %08x %08x\n", current_node, dir_stack, current_node ? current_node->name : '(null)');
 	if (current_node != NULL && current_node->dirty != 0)
 	{
-		//kprintf("walk to node 2 - current node not null, and dirty\n");
+		//kprintf("walk to node internal 2 - current node not null, and dirty\n");
 		retrieve_node_from_driver(current_node);
-		//kprintf("walk to node 3 - retrieve from driver ok\n");
+		//kprintf("walk to node internal 3 - retrieve from driver ok\n");
 	}
-	//kprintf("walk to node 4 - outside dirty check\n");
+	//kprintf("walk to node internal 4 - outside dirty check\n");
 	
-
-	if (current_node != NULL && dir_stack && !strcmp(current_node->name, dir_stack->name))
+	if (current_node != NULL && dir_stack && current_node->name != NULL && dir_stack->name != NULL && !strcmp(current_node->name, dir_stack->name))
 	{
-		//kprintf("found match current node %s dirstack name %s\n", current_node->name, dir_stack->name);
+		//kprintf("found match current node internal %s dirstack name %s\n", current_node->name, dir_stack->name);
 
 		dir_stack = dir_stack->next;
 		if (!dir_stack)
 			return current_node;
 	}
 
-//kprintf("walk to node 6\n");
+//kprintf("walk to node internal 6\n");
 	FS_Tree* dirs = current_node->child_dirs;
 	for (; dirs; dirs = dirs->next)
 	{
-		//kprintf("looking at node name (%s): %08x\n", dirs->name, dirs->responsible_driver);
+//		kprintf("looking at node name (%s): %08x\n", dirs->name, dirs->responsible_driver);
 		FS_Tree* result = walk_to_node_internal(dirs, dir_stack);
 		if (result != NULL)
 			return result;
 	}
 
-//kprintf("walk to node 8\n");
+//kprintf("walk to node internal 8\n");
 	return NULL;
 }
 
@@ -486,7 +485,7 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 
 	if (!filename || !pathname || !*filename)
 	{
-		kprintf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
+//		kprintf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
 		return NULL;
 	}
 	if (*pathname == 0)
@@ -498,13 +497,13 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 	FS_Tree* directory = walk_to_node(fs_tree, pathname);
 	if (!directory)
 	{
-		kprintf("fs_get_file_info: No such path '%s'\n", pathname);
+//		kprintf("fs_get_file_info: No such path '%s'\n", pathname);
 		return NULL;
 	}
 	FS_DirectoryEntry* fileinfo = find_file_in_dir(directory, filename);
 	if (!fileinfo)
 	{
-		kprintf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
+//		kprintf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
 		return NULL;
 	}
 	return fileinfo;
@@ -512,12 +511,12 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 {
-	//kprintf("attach\n");
+//	kprintf("attach\n");
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
-	//kprintf("attach 2\n");
+//	kprintf("attach 2\n");
 	if (item)
 	{
-		//kprintf("attach 3\n");
+//		kprintf("attach 3\n");
 		FS_FileSystem* oldfs = (FS_FileSystem*)item->responsible_driver;
 		item->responsible_driver = (void*)fs;
 		item->opaque = opaque;
@@ -525,12 +524,12 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 		item->files = NULL;
 		item->child_dirs = NULL;
 		item->lbapos = 0; // special value always refers to root dir
-		//kprintf("attach 4\n");
+//		kprintf("attach 4\n");
 		retrieve_node_from_driver(item);
-		//kprintf("attach 5\n");
+//		kprintf("attach 5\n");
 		kprintf("Driver '%s' attached to virtual path '%s' replacing driver '%s'\n", fs->name, virtual_path,
 				oldfs ? oldfs->name : "<none>");
-		//kprintf("attach 6\n");
+//		kprintf("attach 6\n");
 	}
 	else
 	{

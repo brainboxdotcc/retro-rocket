@@ -58,7 +58,7 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			blitconsole(current_console);
 
 			nextcpu++;
-			if (nextcpu > hydrogen_info->proc_count - 1)
+			if (nextcpu > 0)
 				nextcpu = 0;
 
 			bkl = 0;

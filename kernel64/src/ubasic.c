@@ -1321,7 +1321,8 @@ s64 ubasic_openin(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	return _open(strval, _O_RDONLY);
+	int fd = _open(strval, _O_RDONLY);
+	return fd;
 }
 
 s64 ubasic_getnamecount(struct ubasic_ctx* ctx)

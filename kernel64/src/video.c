@@ -1,22 +1,14 @@
 #include <kernel.h>
 
-/* Internal use: graphics buffer address in flat memory model */
-static unsigned char* video = (unsigned char*) VIDEO_MEMORY;
+static volatile struct limine_terminal_request terminal_request = {
+    .id = LIMINE_TERMINAL_REQUEST,
+    .revision = 0
+};
 
 /* Clear the screen */
 void clearscreen(console* c)
 {
-	unsigned int x = 0;
-	for (; x < SCREEN_LAST_CELL;)
-	{
-		c->video[x++] = ' ';
-		c->video[x++] = c->attributes;
-	}
-
-	c->x = 0;
-	c->y = 0;
-	c->dirty = 1;
-	setcursor(c);
+	putstring(c, "\033[2J");
 }
 
 /* Moves a line from the source to destination. This is used internally
@@ -82,38 +74,12 @@ void setcursor(console* c)
  */
 void put(console* c, const char n)
 {
-	c->dirty = 1;
-	switch (n)
-	{
-		case '\0':
-			return;
-		break;
-		case '\r':
-			c->x = 0;
-			setcursor(c);
-			return;
-		break;
-		case '\n':
-			c->x = 0;
-			c->y++;
-			setcursor(c);
-			return;
-		break;
-		case '\t':
-			if (c->x % TAB_WIDTH != 0 || c->x == 0)
-				c->x += TAB_WIDTH - (c->x % TAB_WIDTH);
-			setcursor(c);
-			return;
-		break;
+	if (!c) {
+		return;
 	}
-
-	unsigned int pos = (c->x * 2) + (c->y * SCREEN_WIDTH_BYTES);
-
-	c->video[pos] = n;
-	c->video[pos + 1] = c->attributes;
-
-	c->x++;
-	setcursor(c);
+	struct limine_terminal *terminal = terminal_request.response->terminals[0];
+	terminal_request.response->write(terminal, &n, 1);
+    	c->dirty = 1;
 }
 
 /* Write a string to the screen. Most of the internals of this are
@@ -122,43 +88,104 @@ void put(console* c, const char n)
  */
 void putstring(console* c, char* message)
 {
-	for(; *message; ++message)
-		put(c, *message);
+	struct limine_terminal *terminal = terminal_request.response->terminals[0];
+	terminal_request.response->write(terminal, message, strlen(message));
 }
 
 void blitconsole(console* c)
 {
-	c->dirty = 0;
-
-	memcpy(video, c->video, VIDEO_MEMORY_SIZE);
-
-	/* For writing to video memory we have to multiply offsets by 2
-	 * to account for text attributes for each cell, but when setting
-	 * the cursor we do not need to do this.
-	 *
-	 * Set the cursor by writing to the CRTC I/O ports.
-	 */
-	unsigned int cursorpos = (c->x) + (c->y * SCREEN_WIDTH);
-	outb(0x3D4, 14);                    // write to register 14 first
-	outb(0x3D5, (cursorpos >> 8) & 0xFF); // output high byte
-	outb(0x3D4, 15);                    // again to register 15
-	outb(0x3D5, cursorpos & 0xFF);      // low byte in this register
 }
 
 void initconsole(console* c)
 {
 	c->attributes = DEFAULT_COLOUR;
 	c->internalbuffer = NULL;
+	if (terminal_request.response == NULL || terminal_request.response->terminal_count < 1) {
+		wait_forever();
+	}
 	clearscreen(c);
+}
+
+/*
+VGA
+
+$00 Black
+$01 Blue
+$02 Green
+$03 Cyan
+$04 Red
+$05 Magenta
+$06 Brown
+$07 White
+$08 Gray
+$09 Light Blue
+$0A Light Green
+$0B Light Cyan
+$0C Light Red
+$0D Light Magenta
+$0E Yellow
+$0F Bright White
+
+ANSI
+
+Black 	30
+Red 	31
+Green 	32
+Yellow 	33
+Blue 	34
+Magenta 35
+Cyan 	36
+White 	37
+*/
+unsigned char map_vga_to_ansi(unsigned char colour)
+{
+	switch (colour) {
+		case 0x00: // Black
+			return 30;
+		case 0x01: // Blue
+			return 34;
+		case 0x02: // Green
+			return 32;
+		case 0x03: // Cyan
+			return 36;
+		case 0x04: // Red
+			return 31;
+		case 0x05: // Magenta
+			return 35;
+		case 0x06: // Brown
+			return 33;
+		case 0x07: // White
+			return 37;
+		case 0x08: // Gray
+			return 90;
+		case 0x09: // Light Blue
+			return 94;
+		case 0x0A: // Light Green
+			return 92;
+		case 0x0B: // Light Cyan
+			return 96;
+		case 0x0C: // Light Red
+			return 91;
+		case 0x0D: // Light Magenta
+			return 95;
+		case 0x0E: // Yellow
+			return 93;
+		default: // Bright White
+			return 97;
+	}
 }
 
 void setbackground(console* c, unsigned char background)
 {
-	c->attributes = (background << 4) | (c->attributes & 0x0F);
+	char code[100];
+	sprintf(code, "%c[%dm", 27, background + 40);
+	putstring(c, code);
 }
 
 void setforeground(console* c, unsigned char foreground)
 {
-	c->attributes = (foreground) | (c->attributes & 0xF0);
+	char code[100];
+	sprintf(code, "%c[%dm", 27, map_vga_to_ansi(foreground));
+	putstring(c, code);
 }
 

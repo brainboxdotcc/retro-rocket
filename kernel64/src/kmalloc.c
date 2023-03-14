@@ -1,10 +1,15 @@
 #include <kernel.h>
 #include <kmalloc.h>
-#include <hydrogen.h>
+#include <limine.h>
 
 extern u64 k_end;		/* Heap straight after kernel */
-u64 heap_pos = (u64)&k_end;
-//u64 heap_pos = 0x00200000;
+//u64 heap_pos = (u64)&k_end;
+u64 heap_pos = 0x00200000;
+
+volatile struct limine_memmap_request memory_map_request = {
+    .id = LIMINE_MEMMAP_REQUEST,
+    .revision = 0,
+};
 
 u64 allocated = 0;
 u64 allocations = 0;
@@ -42,19 +47,18 @@ header_t* palign_block(u64 size, heap_t *heap);	/* Page align block */
 /* Returns non-zero if a given physical address is unusable for page allocation */
 char invalid_frame(u64 physaddr)
 {
-	HydrogenInfoMemory* mi = hydrogen_mmap;
+	return 0;
 	int memcnt = 0;
-	while (memcnt++ < hydrogen_info->mmap_count) {
-		if (physaddr >= mi->begin && physaddr < mi->begin + mi->length - 1 && mi->available != 1) {
+	while (memcnt < memory_map_request.response->entry_count) {
+		u64 base = memory_map_request.response->entries[memcnt]->base;
+		u64 len = memory_map_request.response->entries[memcnt]->length;
+		if (physaddr >= base && physaddr < base + len - 1 && 
+			memory_map_request.response->entries[memcnt]->type != LIMINE_MEMMAP_USABLE /*&&
+			memory_map_request.response->entries[memcnt]->type != LIMINE_MEMMAP_KERNEL_AND_MODULES*/
+		) {
 			return 1;
 		}
-		if (mi->length + mi->begin == 0x0) {
-			/* Wrapped around 64-bit value */
-			break;
-		}
-		else {
-			mi =  (HydrogenInfoMemory*)((u64)mi + (u64)sizeof(HydrogenInfoMemory));
-		}
+		memcnt++;
 	}
 	return 0;
 }
@@ -62,6 +66,7 @@ char invalid_frame(u64 physaddr)
 void preboot_fail(char* msg)
 {
 	kprintf("%s\n", msg);
+	blitconsole(current_console);
 	wait_forever();
 }
 
@@ -70,32 +75,27 @@ void heap_init()
 	u64 bestlen = 0;
 	u64 bestaddr = 0;
 
-	heapstart = hydrogen_info->free_mem_begin;
+	heapstart = 0;
 
-	HydrogenInfoMemory* mi = hydrogen_mmap;
 	int memcnt = 0;
-	while (memcnt++ < hydrogen_info->mmap_count) {
-		if (mi->length > bestlen && mi->available == 1) {
-			bestaddr = mi->begin;
-			bestlen = mi->length;
+	while (memcnt < memory_map_request.response->entry_count) {
+		if (memory_map_request.response->entries[memcnt]->length > bestlen && memory_map_request.response->entries[memcnt]->type == LIMINE_MEMMAP_USABLE) {
+			bestaddr = memory_map_request.response->entries[memcnt]->base;
+			bestlen = memory_map_request.response->entries[memcnt]->length;
 		}
-		if (mi->length + mi->begin == 0x0) {
-			/* Wrapped around 64-bit value */
-			break;
-		} else {
-			mi =  (HydrogenInfoMemory*)((u64)mi + (u64)sizeof(HydrogenInfoMemory));
-		}
+		memcnt++;
 	}
+	heapstart = bestaddr;
 
 	// Nothing to speak of. less than 8mb free; give up!
 	if (bestlen < 0x800000) {
 		preboot_fail("Less than 8mb of ram available, system halted.");
 	}
 
-	if (bestaddr > heapstart) {
-		// Best block somehow above 4mb default heap pos
-		heapstart = bestaddr;
+	if (!heapstart) {
+		preboot_fail("No usable block of memory found for heap");
 	}
+
 
 	// Default heap to 128mb. If theres less ram than this in the machine, lower it.
 	u64 min = 0x100000 * 128;
@@ -105,11 +105,22 @@ void heap_init()
 
 	heaplen = bestlen;
 
-	//kprintf("%016llx\n", heap_pos);
+	heap_pos = heapstart;
+	heapstart += 0x10000;
 
-	kheap = create_heap(heapstart, min, bestlen - 0x1000, min, 0, 1);
+	blitconsole(current_console);
+
+	/*heapstart = 0x10000;
+	min = (u64)0x100000 * 1024;
+	bestlen = (u64)0x100000 * (u64)1024 * (u64)2;*/
+
+	kheap = create_heap(heapstart, heapstart + heaplen, heapstart + heaplen, min, 0, 1);
+
+	blitconsole(current_console);
 
 	print_heapinfo();
+
+	blitconsole(current_console);
 }
 
 void print_heapinfo()
@@ -533,7 +544,7 @@ void* kmalloc_ext(u64 size, u8 align, u64 *phys)
 	} else {
 		if (align) {
 			/* Alignn to page boundries */
-			heap_pos &= 0xFFFFF000;
+			heap_pos &= 0xFFFFFFFFFFFFF000;
 			heap_pos += 0x1000;	/* Next page */
 		}
 		if (phys) {
@@ -542,6 +553,7 @@ void* kmalloc_ext(u64 size, u8 align, u64 *phys)
 		}
 		ret = (void*)heap_pos;
 		heap_pos += size;
+		//wait_forever();
 		return ret;
 	}
 }

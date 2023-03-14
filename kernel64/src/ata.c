@@ -427,7 +427,6 @@ void ide_wait_irq()
 void ide_irq(u8 isr, u64 error, u64 irq)
 {
 	ide_irq_invoked = 1;
-	//kprintf("IDE IRQ\n");
 }
 
 unsigned char ide_atapi_read(unsigned char drive, u64 lba, unsigned char numsects, u64 edi)

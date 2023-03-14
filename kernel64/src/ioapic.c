@@ -1,48 +1,58 @@
 #include <kernel.h>
-#include <hydrogen.h>
 #include <ioapic.h>
 
 #define IOAPIC_INT_UNMASK 0b11111111111111101111111100000000
+//#define IOAPIC_INT_UNMASK   0b11111111111111111111111111111111
 
-void ioapic_register_write(u32 index, u32 value, HydrogenInfoIOAPIC *ioapic)
+void ioapic_register_write(u32 index, u32 value, ioapic_t *ioapic)
 {
+	if (ioapic == NULL)
+		return;
 	u32 *mmio = (u32*)ioapic->paddr;
-	mmio[0] = index;
-	mmio[0x10 / 4] = value;
+	mmio[0] = index & 0xFF;
+	mmio[4] = value;
 }
 
-u32 ioapic_register_read(u32 index, HydrogenInfoIOAPIC* ioapic)
+u32 ioapic_register_read(u32 index, ioapic_t* ioapic)
 {
+	if (ioapic == NULL)
+		return 0;
 	u32 *mmio = (u32*) ioapic->paddr;
-	mmio[0] = index;
-	return mmio[0x10 / 4];
+	mmio[0] = index & 0xFF;
+	u32 ret = mmio[4];
+	return ret;
 }
 
-HydrogenInfoIOAPIC* ioapic_find(u32 gsi)
+ioapic_t* ioapic_find(u32 gsi)
 {
-	return hydrogen_ioapic;
-	kprintf("Looking for gsi %d\n", gsi);
-	HydrogenInfoIOAPIC* cur = hydrogen_ioapic;
-	u32 count = 0;
-	while (count++ < hydrogen_info->ioapic_count)
-	{
-		kprintf("IOAPIC base %d count %d\n", cur->gsi_base, cur->gsi_count);
-		if (cur->gsi_base >= gsi && cur->gsi_base + cur->gsi_count < gsi)
-		{
-			kprintf("Found apic\n");
-			return cur;
+	static ioapic_t ioapic_rec;
+	uint16_t ioapic_count = get_ioapic_count();
+	int v = 0;
+	for (; v < ioapic_count; ++v) {
+		ioapic_rec = get_ioapic(v);
+		if (gsi >= ioapic_rec.gsi_base && gsi < ioapic_rec.gsi_base + ioapic_rec.gsi_count) {
+			return &ioapic_rec;
 		}
-
-		cur = (HydrogenInfoIOAPIC*)((u64)cur + (u64)sizeof(HydrogenInfoIOAPIC));
 	}
 	return NULL;
 }
 
+void ioapic_redir_set_precalculated(u32 gsi, u32 upper, u32 lower)
+{
+	ioapic_t *ioapic = ioapic_find(gsi);
+	if (ioapic == NULL) {
+		return;
+	}
+        ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
+        ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
+}
+
 void ioapic_redir_set(u32 gsi, u32 vector, u32 del_mode, u32 dest_mode, u32 intpol, u32 trigger_mode, u32 mask)
 {
-	HydrogenInfoIOAPIC *ioapic = ioapic_find(gsi);
-	if (ioapic == NULL)
+	ioapic_t *ioapic = ioapic_find(gsi);
+	if (ioapic == NULL) {
 		return;
+	}
 	u32 lower =
 		(vector & 0xff) |
 		((del_mode << 8) & 0b111) |
@@ -50,8 +60,8 @@ void ioapic_redir_set(u32 gsi, u32 vector, u32 del_mode, u32 dest_mode, u32 intp
 		((intpol << 13) & 0b1) |
 		((trigger_mode << 15) & 0b1) |
 		((mask << 16) & 0b1);
-	u32 upper = (dest_mode << 24);
-	kprintf("upper=%08x lower=%08x %d %d %d %d %d %d\n", upper, lower, vector, del_mode, dest_mode, intpol, trigger_mode, mask);
+	//u32 upper = (dest_mode << 24);
+	u32 upper = 0;
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
 	ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
 }
@@ -59,22 +69,25 @@ void ioapic_redir_set(u32 gsi, u32 vector, u32 del_mode, u32 dest_mode, u32 intp
 // Unmask an interrupt on the IOAPIC and set its vector to GSI+32, e.g. IRQ0 = 32, IRQ1 = 33.
 void ioapic_redir_unmask(u32 gsi)
 {
-	HydrogenInfoIOAPIC *ioapic = ioapic_find(gsi);
+	ioapic_t *ioapic = ioapic_find(gsi);
+	if (ioapic == NULL) {
+		return;
+	}
 	u32 lower = ioapic_register_read(0x10 + gsi * 2, ioapic);
         u32 upper = ioapic_register_read(0x10 + gsi * 2 + 1, ioapic);
-	lower = lower & (IOAPIC_INT_UNMASK | (gsi + 32));
+	lower = lower & IOAPIC_INT_UNMASK;
+	lower |= (gsi + 32);
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
 	ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
 }
 
 void ioapic_redir_get(u32 gsi, u32* vector, u32* del_mode, u32* dest_mode, u32* intpol, u32* trigger_mode, u32* mask, u32* destination)
 {
-	HydrogenInfoIOAPIC* ioapic = ioapic_find(gsi);
+	ioapic_t* ioapic = ioapic_find(gsi);
 	if (ioapic == NULL)
 		return;
 	u32 lower = ioapic_register_read(0x10 + gsi * 2, ioapic);
 	u32 upper = ioapic_register_read(0x10 + gsi * 2 + 1, ioapic);
-	kprintf("rupper=%08x rlower=%08x\n", upper, lower);
 	*vector = lower & 0xFF;
 	*del_mode = (lower >> 8) & 0b111;
 	*dest_mode = (lower >> 11) & 0b1;
