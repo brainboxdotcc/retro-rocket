@@ -38,6 +38,7 @@ void Interrupt(u64 isrnumber, u64 errorcode)
 		printf("CPU %d halted with exception %016x, error code %016x.\n", cpu_id(), isrnumber, errorcode);
 		wait_forever();
 	}
+	*((volatile u32*)(0xFEE00000 + 0xB0)) = 0;
 }
 
 void IRQ(u64 isrnumber, u64 irqnum)
@@ -51,7 +52,7 @@ void IRQ(u64 isrnumber, u64 irqnum)
 	}
 
 	if (irqnum != IRQ7) {
-		*((volatile u32*)(get_local_apic() + 0xB0)) = 0;
+		*((volatile u32*)(0xFEE00000 + 0xB0)) = 0;
 	}
 }
 

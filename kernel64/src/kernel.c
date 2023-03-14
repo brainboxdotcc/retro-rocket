@@ -9,7 +9,7 @@ u8 cpunum = 1;
 volatile struct limine_stack_size_request stack_size_request = {
     .id = LIMINE_STACK_SIZE_REQUEST,
     .revision = 0,
-    .stack_size = (1024 * 1024 * 2),
+    .stack_size = (1024 * 1024 * 32),
 };
 
 volatile struct limine_hhdm_request hhdm_request = {
@@ -41,9 +41,8 @@ void kmain()
 	 * This depends upon paging.
 	 */
 	heap_init();
-
+	
 	detect_cores();
-
 	idt_setup();
 
 	int in;
@@ -53,7 +52,7 @@ void kmain()
 		ioapic_redir_set_precalculated(in, 0, 0x2020 + in);
 	}
 
-	//init_error_handler();
+	init_error_handler();
 	asm volatile("sti");
 
 	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
@@ -68,8 +67,8 @@ void kmain()
 	init_filesystem();
 	init_iso9660();
 	iso9660_attach(find_first_cdrom(), "/");
-	//init_fat32();
-	//fat32_attach(find_first_harddisk(), "/harddisk");
+	init_fat32();
+	fat32_attach(find_first_harddisk(), "/harddisk");
 	init_devfs();
 	init_debug();
 
@@ -84,7 +83,7 @@ void kmain()
 
 	unlock_spinlock(&init_barrier);
 
-	init_lapic_timer(50);
+	//init_lapic_timer(50);
 
 	kprintf("OK\nLaunching /programs/init...\n");
 

@@ -3,6 +3,11 @@
 /* Internal use: graphics buffer address in flat memory model */
 static unsigned char* video = (unsigned char*) VIDEO_MEMORY;
 
+static volatile struct limine_terminal_request terminal_request = {
+    .id = LIMINE_TERMINAL_REQUEST,
+    .revision = 0
+};
+
 /* Clear the screen */
 void clearscreen(console* c)
 {
@@ -82,11 +87,12 @@ void setcursor(console* c)
  */
 void put(console* c, const char n)
 {
-	outb(0xE9, n);
 	if (!c) {
 		return;
 	}
-	c->dirty = 1;
+	struct limine_terminal *terminal = terminal_request.response->terminals[0];
+	terminal_request.response->write(terminal, &n, 1);
+    	c->dirty = 1;
 	switch (n)
 	{
 		case '\0':
@@ -127,8 +133,8 @@ void put(console* c, const char n)
  */
 void putstring(console* c, char* message)
 {
-	for(; *message; ++message)
-		put(c, *message);
+	struct limine_terminal *terminal = terminal_request.response->terminals[0];
+	terminal_request.response->write(terminal, message, strlen(message));
 }
 
 void blitconsole(console* c)
@@ -155,6 +161,9 @@ void initconsole(console* c)
 	c->attributes = DEFAULT_COLOUR;
 	c->internalbuffer = NULL;
 	clearscreen(c);
+	if (terminal_request.response == NULL || terminal_request.response->terminal_count < 1) {
+		wait_forever();
+	}
 }
 
 void setbackground(console* c, unsigned char background)

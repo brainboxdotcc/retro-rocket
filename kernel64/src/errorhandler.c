@@ -5,10 +5,7 @@ void error_handler(u8 int_no, u64 errorcode, u64 irq_no);
 void init_error_handler()
 {
 	int interrupt = 0;
-	for (; interrupt < 14; ++interrupt)
-		register_interrupt_handler(interrupt, error_handler);
-	// Skip 14, page fault. This is used by the paging code.
-	for (interrupt = 15; interrupt < 19; ++interrupt)
+	for (; interrupt < 19; ++interrupt)
 		register_interrupt_handler(interrupt, error_handler);
 }
 
@@ -35,7 +32,7 @@ void error_handler(u8 int_no, u64 errorcode, u64 irq_no)
 		"Alignment check exception",
 		"Machine check exception",
 	};
-	PANIC_BANNER;
+	//PANIC_BANNER;
 	setforeground(current_console, COLOUR_LIGHTRED);
 	kprintf("Fatal exception %02x: %s\n", int_no, error_table[int_no]);
 	backtrace();

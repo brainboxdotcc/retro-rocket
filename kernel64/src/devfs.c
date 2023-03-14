@@ -23,9 +23,7 @@ void init_devfs()
 	devfs->readfile = devfs_read_file;
 	devfs->writefile = NULL;
 	devfs->rm = NULL;
-	kprintf("here\n");
 	register_filesystem(devfs);
-	kprintf("here2\n");
 	devfs_entries = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
 	devfs_entries->next = NULL;
 	devfs_entries->size = 0;

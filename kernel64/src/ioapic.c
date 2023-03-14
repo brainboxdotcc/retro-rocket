@@ -8,7 +8,6 @@ void ioapic_register_write(u32 index, u32 value, ioapic_t *ioapic)
 {
 	if (ioapic == NULL)
 		return;
-	kprintf("ioapic_register_write(%d,%d)\n", index, value);
 	u32 *mmio = (u32*)ioapic->paddr;
 	mmio[0] = index & 0xFF;
 	mmio[4] = value;
@@ -16,13 +15,11 @@ void ioapic_register_write(u32 index, u32 value, ioapic_t *ioapic)
 
 u32 ioapic_register_read(u32 index, ioapic_t* ioapic)
 {
-	kprintf("ioapic_register_read(%d,", index);
 	if (ioapic == NULL)
 		return 0;
 	u32 *mmio = (u32*) ioapic->paddr;
 	mmio[0] = index & 0xFF;
 	u32 ret = mmio[4];
-	kprintf("%016x) = %d\n", ioapic->paddr, ret);
 	return ret;
 }
 
@@ -46,7 +43,6 @@ void ioapic_redir_set_precalculated(u32 gsi, u32 upper, u32 lower)
 	if (ioapic == NULL) {
 		return;
 	}
-	kprintf("upper=%08x lower=%08x\n", upper, lower);
         ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
         ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
 }
@@ -66,7 +62,6 @@ void ioapic_redir_set(u32 gsi, u32 vector, u32 del_mode, u32 dest_mode, u32 intp
 		((mask << 16) & 0b1);
 	//u32 upper = (dest_mode << 24);
 	u32 upper = 0;
-	kprintf("upper=%08x lower=%08x vector=%d delmode=%d destmode=%d intpol=%d trigger=%d mask=%d\n", upper, lower, vector, del_mode, dest_mode, intpol, trigger_mode, mask);
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
 	ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
 }
@@ -78,13 +73,10 @@ void ioapic_redir_unmask(u32 gsi)
 	if (ioapic == NULL) {
 		return;
 	}
-	kprintf("ioapic_redir_unmask(%d)\n", gsi);
 	u32 lower = ioapic_register_read(0x10 + gsi * 2, ioapic);
         u32 upper = ioapic_register_read(0x10 + gsi * 2 + 1, ioapic);
-	kprintf("old upper: %08x, old lower: %08x\n", upper, lower);
 	lower = lower & IOAPIC_INT_UNMASK;
 	lower |= (gsi + 32);
-	kprintf("new lower: %08x mask %08x\n", lower, (IOAPIC_INT_UNMASK | (gsi + 32)));
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
 	ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
 }
@@ -96,7 +88,6 @@ void ioapic_redir_get(u32 gsi, u32* vector, u32* del_mode, u32* dest_mode, u32* 
 		return;
 	u32 lower = ioapic_register_read(0x10 + gsi * 2, ioapic);
 	u32 upper = ioapic_register_read(0x10 + gsi * 2 + 1, ioapic);
-	kprintf("rupper=%08x rlower=%08x\n", upper, lower);
 	*vector = lower & 0xFF;
 	*del_mode = (lower >> 8) & 0b111;
 	*dest_mode = (lower >> 11) & 0b1;
