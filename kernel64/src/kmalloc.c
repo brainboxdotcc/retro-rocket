@@ -65,8 +65,8 @@ char invalid_frame(u64 physaddr)
 
 void preboot_fail(char* msg)
 {
+	setforeground(current_console, COLOUR_LIGHTRED);
 	kprintf("%s\n", msg);
-	blitconsole(current_console);
 	wait_forever();
 }
 
@@ -108,19 +108,9 @@ void heap_init()
 	heap_pos = heapstart;
 	heapstart += 0x10000;
 
-	blitconsole(current_console);
-
-	/*heapstart = 0x10000;
-	min = (u64)0x100000 * 1024;
-	bestlen = (u64)0x100000 * (u64)1024 * (u64)2;*/
-
 	kheap = create_heap(heapstart, heapstart + heaplen, heapstart + heaplen, min, 0, 1);
 
-	blitconsole(current_console);
-
 	print_heapinfo();
-
-	blitconsole(current_console);
 }
 
 void print_heapinfo()
@@ -347,8 +337,6 @@ static void free_int(void *addr, heap_t *heap)
 void expand_heap(u64 size, heap_t *heap)
 {
 	/* Expand to make the size of the heap a new aligned size */
-	//kprintf("expand_heap by %d from %08x\n", size, heap->end_addr);
-	//blitconsole(current_console);
 	if (size & 0xFFF) {
 		/* make it page aligned if it is not already */
 		size &= 0xFFFFF000;
@@ -360,7 +348,6 @@ void expand_heap(u64 size, heap_t *heap)
 		size = heap->max_size - heap->end_addr;
 	}
 	/* We now define the pages */
-	//sign_sect(heap->end_addr, heap->end_addr+size, heap->user, heap->rw,current_directory);
 	_memset((char*)heap->end_addr, 0 , size);	/* Nullify */
 	heap->end_addr += size;				/* Adjust to end */
 	fix_heap_list(heap);				/* Fix list */
@@ -377,7 +364,6 @@ void shrink_heap(u64 size, heap_t* heap)
 		tmp = heap->min_size;
 	}
 
-	//release_sect(tmp, heap->end_addr,current_directory);	/*Release pages */
 	heap->end_addr = tmp;					/*Adjust end */
 
 	fix_heap_list(heap);

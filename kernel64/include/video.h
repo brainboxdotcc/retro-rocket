@@ -22,27 +22,9 @@
 /* Default background/foreground colour for text output (white on black) */
 #define DEFAULT_COLOUR COLOUR_WHITE
 
-/* Tab width for \t character in output */
-#define TAB_WIDTH 6
-
-/* Screen width and height of default display mode */
-#define SCREEN_WIDTH 80
-#define SCREEN_HEIGHT 24
-
-/* Screen widths and heights in bytes */
-#define SCREEN_WIDTH_BYTES SCREEN_WIDTH * 2
-#define SCREEN_SIZE SCREEN_WIDTH * 2 * SCREEN_HEIGHT
-#define SCREEN_LAST_CELL (SCREEN_HEIGHT + 1) * SCREEN_WIDTH_BYTES
-
-/* Address in flat memory of video ram */
-#define VIDEO_MEMORY 0xB8000
-#define VIDEO_MEMORY_END 0xB9000
-#define VIDEO_MEMORY_SIZE 0x1000
-
 /* Structure to represent a console screen.
  * Low level output functions such as put() operate
- * against one of these structures which must be displayed
- * to video ram using blitconsole().
+ * against one of these structures.
  */
 typedef struct
 {
@@ -50,7 +32,6 @@ typedef struct
 	unsigned int x;
 	unsigned int y;
 	unsigned char attributes;
-	unsigned char video[SCREEN_LAST_CELL];
 	unsigned char last;
 	char* internalbuffer;
 	char* buffer;
@@ -75,8 +56,6 @@ void putstring(console* c, char* message);
  * This is called internally by putstring().
  */
 void put(console* c, const char n);
-
-void blitconsole(console* c);
 
 void initconsole(console* c);
 

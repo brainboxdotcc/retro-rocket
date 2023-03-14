@@ -11,64 +11,6 @@ void clearscreen(console* c)
 	putstring(c, "\033[2J");
 }
 
-/* Moves a line from the source to destination. This is used internally
- * by scroll_screen()
- */
-void relocate_line(console* c, unsigned int source, unsigned int dest)
-{
-	unsigned int sourcepos = source * SCREEN_WIDTH_BYTES;
-	unsigned int destpos = dest * SCREEN_WIDTH_BYTES;
-	int chars = 0;
-	for (; chars < SCREEN_WIDTH_BYTES * 2; chars++)
-	{
-		c->video[destpos++] = c->video[sourcepos++];
-		++chars;
-	}
-}
-
-/* Scroll the entire screen up by one line
- */
-void scroll_screen(console* c)
-{
-	unsigned int line = 1;
-	for (; line <= SCREEN_HEIGHT; ++line)
-		relocate_line(c, line, line - 1);
-	unsigned int lastline = SCREEN_HEIGHT * SCREEN_WIDTH_BYTES;
-	for (; lastline < SCREEN_LAST_CELL;)
-	{
-		c->video[lastline++] = ' ';
-		c->video[lastline++] = DEFAULT_COLOUR;
-	}
-}
-
-/* Sets a new cursor position. If the cursor position is greater than
- * the height of the screen it will trigger a scroll by one line
- * and the Y position will be set to the last row which will be cleared.
- */
-void setcursor(console* c)
-{
-	if (c->x > SCREEN_WIDTH - 1)
-	{
-		c->x = 0;
-		c->y++;
-	}
-	if (c->y > SCREEN_HEIGHT)
-	{
-		scroll_screen(c);
-		c->y = SCREEN_HEIGHT;
-	}
-	if (c->x < 0)
-	{
-		c->x = 80 - abs(c->x);
-		c->y--;
-	}
-	if (c->y < 0)
-	{
-		/* Todo: Handle scrolling downwards */
-		c->y = 0;
-	}
-}
-
 /* Write one character to the screen. As this calls setcursor() it may
  * trigger scrolling if the character would be off-screen.
  */
@@ -92,13 +34,8 @@ void putstring(console* c, char* message)
 	terminal_request.response->write(terminal, message, strlen(message));
 }
 
-void blitconsole(console* c)
-{
-}
-
 void initconsole(console* c)
 {
-	c->attributes = DEFAULT_COLOUR;
 	c->internalbuffer = NULL;
 	if (terminal_request.response == NULL || terminal_request.response->terminal_count < 1) {
 		wait_forever();

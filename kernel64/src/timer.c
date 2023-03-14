@@ -52,12 +52,9 @@ u64 get_ticks()
 static void timer_callback(u8 isr, u64 errorcode, u64 irq)
 {
 	ticks++;
-	if ((current_console && current_console->dirty) || (current_console != NULL && ticks % 10 == 0))
-		blitconsole(current_console);
 
 	if (beep_end != 0 && ticks > beep_end)
 		stopbeep();
-	//proc_timer();
 }
 
 void init_timer(u32 frequency)

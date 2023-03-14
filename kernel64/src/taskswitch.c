@@ -54,9 +54,6 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			if (proc_current[nextcpu] == NULL)
 				proc_current[nextcpu] = proc_list[nextcpu];
 
-			//kprintf("proc_load unlocking spin\n");
-			blitconsole(current_console);
-
 			nextcpu++;
 			if (nextcpu > 0)
 				nextcpu = 0;
@@ -185,8 +182,8 @@ void proc_kill(struct process* proc)
 
 	if (proclists == 0)
 	{
+		setforeground(current_console, COLOUR_LIGHTRED);
 		kprintf("\nSystem halted.");
-		blitconsole(current_console);
 		wait_forever();
 	}
 

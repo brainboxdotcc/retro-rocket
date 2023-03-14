@@ -7,8 +7,6 @@
 
 unsigned int kinput(unsigned int maxlen, console* cons)
 {
-	blitconsole(cons);
-	
 	cons->last = kgetc(cons);
 	
 	if (cons->last == 255)
@@ -38,12 +36,9 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 				/* Advance text cursor back one space, if we are at x=0, move to x=79, y--.
 				 * If we are at y=0, scroll up?
 				 */
-				cons->x--;
 				put(cons, 8);
 				put(cons, ' ');
 				put(cons, 8);
-				cons->x--;
-				setcursor(cons);
 			}
 			else
 			{

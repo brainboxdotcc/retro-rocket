@@ -85,7 +85,7 @@ void kmain()
 
 	//init_lapic_timer(50);
 
-	kprintf("OK\nLaunching /programs/init...\n");
+	kprintf("Launching /programs/init...\n");
 
 	proc_loop();
 }
