@@ -485,7 +485,7 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 
 	if (!filename || !pathname || !*filename)
 	{
-		kprintf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
+//		kprintf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
 		return NULL;
 	}
 	if (*pathname == 0)
@@ -497,13 +497,13 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 	FS_Tree* directory = walk_to_node(fs_tree, pathname);
 	if (!directory)
 	{
-		kprintf("fs_get_file_info: No such path '%s'\n", pathname);
+//		kprintf("fs_get_file_info: No such path '%s'\n", pathname);
 		return NULL;
 	}
 	FS_DirectoryEntry* fileinfo = find_file_in_dir(directory, filename);
 	if (!fileinfo)
 	{
-		kprintf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
+//		kprintf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
 		return NULL;
 	}
 	return fileinfo;

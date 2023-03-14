@@ -39,7 +39,9 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 				 * If we are at y=0, scroll up?
 				 */
 				cons->x--;
-				kprintf(" ");
+				put(cons, 8);
+				put(cons, ' ');
+				put(cons, 8);
 				cons->x--;
 				setcursor(cons);
 			}
@@ -57,7 +59,7 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 			{
 				*(cons->buffer++) = cons->last;
 				cons->bufcnt++;
-				kprintf("%c", cons->last);
+				put(cons, cons->last);
 			}
 		break;
 	}

@@ -108,8 +108,6 @@ void heap_init()
 	heap_pos = heapstart;
 	heapstart += 0x10000;
 
-	kprintf("%016llx\n", heap_pos);
-
 	blitconsole(current_console);
 
 	/*heapstart = 0x10000;
