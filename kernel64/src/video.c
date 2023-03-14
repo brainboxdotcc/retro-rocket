@@ -83,6 +83,7 @@ void setcursor(console* c)
 void put(console* c, const char n)
 {
 	c->dirty = 1;
+	outb(0xE9, n);
 	switch (n)
 	{
 		case '\0':
@@ -97,6 +98,7 @@ void put(console* c, const char n)
 			c->x = 0;
 			c->y++;
 			setcursor(c);
+			outb(0xE9, 13);
 			return;
 		break;
 		case '\t':

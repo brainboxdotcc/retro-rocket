@@ -70,11 +70,16 @@ void detect_cores()
 		if(*ptr == 'A' && *(ptr + 1) == 'P' && *(ptr + 2) == 'I' && *(ptr + 3) == 'C') {
 			// found MADT
 			lapic_ptr = (uint64_t)(*((uint32_t*)(ptr+0x24)));
+			kprintf("Detected: 32-Bit Local APIC [base: %016x]\n", lapic_ptr);
 			ptr2 = ptr + *((uint32_t*)(ptr + 4));
 			// iterate on variable length records
 			for(ptr += 44; ptr < ptr2; ptr += ptr[1]) {
 				switch(ptr[0]) {
-					case 0: if(ptr[4] & 1) lapic_ids[numcore++] = ptr[3]; break; // found Processor Local APIC
+					case 0:
+						if(ptr[4] & 1) {
+							lapic_ids[numcore++] = ptr[3];
+						}
+					break; // found Processor Local APIC
 					case 1:
 						ioapic_ptr[numioapic] = (uint64_t)*((uint32_t*)(ptr+4));
 						ioapic_ids[numioapic] = ptr[2];
@@ -83,12 +88,19 @@ void detect_cores()
 						mmio[0] = 0x01;
 						uint32_t count = ((mmio[0x10 / 4]) & 0xFF) + 1;
 						ioapic_gsi_count[numioapic] = count;
+						kprintf("Detected: IOAPIC [base: %016x; id: %d gsi base: %d gsi count: %d]\n", ioapic_ptr[numioapic], ioapic_ids[numioapic], ioapic_gsi_base[numioapic], count);
 						numioapic++;
 					break;  // found IOAPIC
-					case 5: lapic_ptr = *((uint64_t*)(ptr+4)); break;             // found 64 bit LAPIC
+					case 5:
+						lapic_ptr = *((uint64_t*)(ptr+4));
+						kprintf("Detected: 64-Bit Local APIC [base: %016x]\n", lapic_ptr);
+					break;             // found 64 bit LAPIC
 				}
 			}
 			break;
 		}
+	}
+	if (numcore > 0) {
+		kprintf("SMP: %d cores, %d IOAPICs\n", numcore, numioapic);
 	}
 }

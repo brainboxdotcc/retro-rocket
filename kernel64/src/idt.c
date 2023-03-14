@@ -4,7 +4,7 @@
 
 /* 64-bit IDT is at &idt */
 idt_entry_t idt[255] = { 0 };
-idt_ptr_t idt64 = { 0xffff, &idt };
+idt_ptr_t idt64 = { 0xffff, idt };
 
 void idt_setup()
 {

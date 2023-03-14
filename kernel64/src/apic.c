@@ -6,13 +6,17 @@ u32 apic_read(u64 reg)
 {
 	u64 lapic = 0;
 	get_lapic_address(&lapic);
-	return *((volatile u32 *)(lapic + reg));
+	kprintf("apic_read(%016x) [%016x] = ", reg, lapic);
+	u32 res = *((volatile u32 *)(lapic + reg));
+	kprintf("%08x", res);
+	return res;
 }
 
 void apic_write(u64 reg, u32 value)
 {
 	u64 lapic = 0;
 	get_lapic_address(&lapic);
+	kprintf("apic_write(%016x, %08x)\n", reg, value);
 	*((volatile u32 *)(lapic + reg)) = value;
 }
 

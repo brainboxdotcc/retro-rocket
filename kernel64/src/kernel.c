@@ -35,7 +35,7 @@ void kmain()
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	printf("Retro-Rocket ");
 	setforeground(current_console, COLOUR_WHITE);
-	printf("64-bit SMP kernel booting, %d processors detected\n", hydrogen_info->proc_count);
+	printf("64-bit SMP kernel booting\n");
 
 	/* NB: Can't use kmalloc/kfree until heap_init is called.
 	 * This depends upon paging.
@@ -48,6 +48,7 @@ void kmain()
 	for (in = 0; in < 16; in++)
 	{
 		ioapic_redir_unmask(in);
+		ioapic_redir_set(in, in + 32, 0, 1, 1, 0, 0);
 	}
 	idt_setup();
 	init_error_handler();
