@@ -82,8 +82,11 @@ void setcursor(console* c)
  */
 void put(console* c, const char n)
 {
-	c->dirty = 1;
 	outb(0xE9, n);
+	if (!c) {
+		return;
+	}
+	c->dirty = 1;
 	switch (n)
 	{
 		case '\0':

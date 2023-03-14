@@ -1,6 +1,5 @@
 #include <kernel.h>
 #include <interrupt.h>
-#include <hydrogen.h>
 
 isr_t interrupt_handlers[256] = { 0 };
 
@@ -26,6 +25,7 @@ void Interrupt(u64 isrnumber, u64 errorcode)
 {
 	// For exceptions, for now we just halt.
 	// Most of these are fatal for the moment until we get userland up.
+	kprintf("Interrupt %d\n", isrnumber);
 
 	if (interrupt_handlers[isrnumber] != NULL)
 	{
@@ -35,7 +35,7 @@ void Interrupt(u64 isrnumber, u64 errorcode)
 
 	if (isrnumber < 32)
 	{
-		printf("CPU halted.\n");
+		printf("CPU %d halted with exception %016x, error code %016x.\n", cpu_id(), isrnumber, errorcode);
 		wait_forever();
 	}
 }

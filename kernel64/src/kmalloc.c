@@ -1,6 +1,5 @@
 #include <kernel.h>
 #include <kmalloc.h>
-#include <hydrogen.h>
 #include <limine.h>
 
 extern u64 k_end;		/* Heap straight after kernel */
@@ -49,7 +48,6 @@ header_t* palign_block(u64 size, heap_t *heap);	/* Page align block */
 char invalid_frame(u64 physaddr)
 {
 	return 0;
-	//HydrogenInfoMemory* mi = hydrogen_mmap;
 	int memcnt = 0;
 	while (memcnt < memory_map_request.response->entry_count) {
 		u64 base = memory_map_request.response->entries[memcnt]->base;
@@ -76,8 +74,6 @@ void heap_init()
 {
 	u64 bestlen = 0;
 	u64 bestaddr = 0;
-
-	//heapstart = hydrogen_info->free_mem_begin;
 
 	heapstart = 0;
 

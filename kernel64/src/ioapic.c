@@ -1,9 +1,8 @@
 #include <kernel.h>
-#include <hydrogen.h>
 #include <ioapic.h>
 
-//#define IOAPIC_INT_UNMASK 0b11111111111111101111111100000000
-#define IOAPIC_INT_UNMASK   0b11111111111111111111111111111111
+#define IOAPIC_INT_UNMASK 0b11111111111111101111111100000000
+//#define IOAPIC_INT_UNMASK   0b11111111111111111111111111111111
 
 void ioapic_register_write(u32 index, u32 value, ioapic_t *ioapic)
 {
@@ -41,6 +40,17 @@ ioapic_t* ioapic_find(u32 gsi)
 	return NULL;
 }
 
+void ioapic_redir_set_precalculated(u32 gsi, u32 upper, u32 lower)
+{
+	ioapic_t *ioapic = ioapic_find(gsi);
+	if (ioapic == NULL) {
+		return;
+	}
+	kprintf("upper=%08x lower=%08x\n", upper, lower);
+        ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
+        ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
+}
+
 void ioapic_redir_set(u32 gsi, u32 vector, u32 del_mode, u32 dest_mode, u32 intpol, u32 trigger_mode, u32 mask)
 {
 	ioapic_t *ioapic = ioapic_find(gsi);
@@ -54,8 +64,9 @@ void ioapic_redir_set(u32 gsi, u32 vector, u32 del_mode, u32 dest_mode, u32 intp
 		((intpol << 13) & 0b1) |
 		((trigger_mode << 15) & 0b1) |
 		((mask << 16) & 0b1);
-	u32 upper = (dest_mode << 24);
-	kprintf("upper=%08x lower=%08x %d %d %d %d %d %d\n", upper, lower, vector, del_mode, dest_mode, intpol, trigger_mode, mask);
+	//u32 upper = (dest_mode << 24);
+	u32 upper = 0;
+	kprintf("upper=%08x lower=%08x vector=%d delmode=%d destmode=%d intpol=%d trigger=%d mask=%d\n", upper, lower, vector, del_mode, dest_mode, intpol, trigger_mode, mask);
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
 	ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);
 }
@@ -71,7 +82,8 @@ void ioapic_redir_unmask(u32 gsi)
 	u32 lower = ioapic_register_read(0x10 + gsi * 2, ioapic);
         u32 upper = ioapic_register_read(0x10 + gsi * 2 + 1, ioapic);
 	kprintf("old upper: %08x, old lower: %08x\n", upper, lower);
-	lower = lower & (IOAPIC_INT_UNMASK | (gsi + 32));
+	lower = lower & IOAPIC_INT_UNMASK;
+	lower |= (gsi + 32);
 	kprintf("new lower: %08x mask %08x\n", lower, (IOAPIC_INT_UNMASK | (gsi + 32)));
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
 	ioapic_register_write(0x10 + gsi * 2 + 1, upper, ioapic);

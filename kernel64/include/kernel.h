@@ -59,7 +59,6 @@ kprintf("This is a fatal system error and your system has been halted.\n\
 #include "limine.h"
 #include "idt.h"
 #include "spinlock.h"
-#include "hydrogen.h"
 #include "printf.h"
 #include "video.h"
 #include "string.h"

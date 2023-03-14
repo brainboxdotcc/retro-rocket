@@ -21,6 +21,7 @@ struct idt_entry {
 typedef struct idt_entry idt_entry_t;
 
 extern idt_ptr_t idt64;
+//extern u16 idt64[5];
 
 void idt_setup();
 

@@ -44,14 +44,16 @@ void kmain()
 
 	detect_cores();
 
+	idt_setup();
+
 	int in;
 	for (in = 0; in < 16; in++)
 	{
 		ioapic_redir_unmask(in);
-		ioapic_redir_set(in, in + 32, 0, 1, 1, 0, 0);
+		ioapic_redir_set_precalculated(in, 0, 0x2020 + in);
 	}
-	idt_setup();
-	init_error_handler();
+
+	//init_error_handler();
 	asm volatile("sti");
 
 	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
