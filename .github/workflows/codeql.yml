@@ -39,6 +39,10 @@ jobs:
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     steps:
+    - name: Update vcpkg and install other dependencies
+      run: sudo apt-get update &&
+           sudo apt-get install nasm
+
     - name: Checkout repository
       uses: actions/checkout@v3
 
