@@ -4,7 +4,7 @@
 #include <kernel.h>
 
 struct idt_ptr {
-	u16 limit;
+	uint16_t limit;
 	void* base;
 } __attribute__((packed));
 typedef struct idt_ptr idt_ptr_t;
@@ -21,7 +21,7 @@ struct idt_entry {
 typedef struct idt_entry idt_entry_t;
 
 extern idt_ptr_t idt64;
-//extern u16 idt64[5];
+//extern uint16_t idt64[5];
 
 void idt_setup();
 

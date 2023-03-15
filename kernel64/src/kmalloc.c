@@ -2,17 +2,17 @@
 #include <kmalloc.h>
 #include <limine.h>
 
-extern u64 k_end;		/* Heap straight after kernel */
-//u64 heap_pos = (u64)&k_end;
-u64 heap_pos = 0x00200000;
+extern uint64_t k_end;		/* Heap straight after kernel */
+//uint64_t heap_pos = (uint64_t)&k_end;
+uint64_t heap_pos = 0x00200000;
 
 volatile struct limine_memmap_request memory_map_request = {
     .id = LIMINE_MEMMAP_REQUEST,
     .revision = 0,
 };
 
-u64 allocated = 0;
-u64 allocations = 0;
+uint64_t allocated = 0;
+uint64_t allocations = 0;
 
 spinlock mlock = 0;
 
@@ -20,35 +20,35 @@ spinlock mlock = 0;
 heap_t*	kheap = NULL;	/* Kernel Heap */
 heap_t*	uheap = NULL;	/* User Heap */
 
-u64 heapstart = KHEAP_START;
-u64 heaplen = 0;
+uint64_t heapstart = 0;
+uint64_t heaplen = 0;
 
 /* Our list will be ordered and will construct the internal structures */
 header_t* ord_list_insert(header_t *insert,header_t *list);	/* Insert into ordered list */
 header_t* ord_list_remove(header_t *remove,header_t *list);	/* Remove item from list, return list */
-header_t* ord_list_get_nnode(u64 n,header_t *list);		/* Get N'th ordered node */
+header_t* ord_list_get_nnode(uint64_t n,header_t *list);		/* Get N'th ordered node */
 header_t* ord_list_get_last(header_t *list);			/* Get last ordered node */
-header_t* ord_list_src_size(u64 sz,header_t *list);		/* We are looking for sz <BLOCK size */
+header_t* ord_list_src_size(uint64_t sz,header_t *list);		/* We are looking for sz <BLOCK size */
 header_t* ord_list_src_head(header_t* head,header_t *list);	/* Looking for node header */
 
 /* Memory manager utility routines */
-static void* alloc(u64 size,u8 align,heap_t *heap);/* Allocate memory on the heap */
+static void* alloc(uint64_t size,uint8_t align,heap_t *heap);/* Allocate memory on the heap */
 static void free_int(void*, heap_t *heap);		/* Free memory on the heap */
-void expand_heap(u64 size, heap_t *heap);	/* Extend the heap by size bytes (paligned)*/
-void shrink_heap(u64 size, heap_t *heap);	/* Shrink the heap to size bytes (paligned) */
+void expand_heap(uint64_t size, heap_t *heap);	/* Extend the heap by size bytes (paligned)*/
+void shrink_heap(uint64_t size, heap_t *heap);	/* Shrink the heap to size bytes (paligned) */
 void fix_heap_list(heap_t *heap);		/* Always ensure the block is within the heap */
-header_t* palign_block(u64 size, heap_t *heap);	/* Page align block */
+header_t* palign_block(uint64_t size, heap_t *heap);	/* Page align block */
 
 /********************************************************/
 
 /* Returns non-zero if a given physical address is unusable for page allocation */
-char invalid_frame(u64 physaddr)
+char invalid_frame(uint64_t physaddr)
 {
 	return 0;
 	int memcnt = 0;
 	while (memcnt < memory_map_request.response->entry_count) {
-		u64 base = memory_map_request.response->entries[memcnt]->base;
-		u64 len = memory_map_request.response->entries[memcnt]->length;
+		uint64_t base = memory_map_request.response->entries[memcnt]->base;
+		uint64_t len = memory_map_request.response->entries[memcnt]->length;
 		if (physaddr >= base && physaddr < base + len - 1 && 
 			memory_map_request.response->entries[memcnt]->type != LIMINE_MEMMAP_USABLE /*&&
 			memory_map_request.response->entries[memcnt]->type != LIMINE_MEMMAP_KERNEL_AND_MODULES*/
@@ -69,8 +69,8 @@ void preboot_fail(char* msg)
 
 void heap_init()
 {
-	u64 bestlen = 0;
-	u64 bestaddr = 0;
+	uint64_t bestlen = 0;
+	uint64_t bestaddr = 0;
 
 	heapstart = 0;
 
@@ -95,7 +95,7 @@ void heap_init()
 
 
 	// Default heap to 128mb. If theres less ram than this in the machine, lower it.
-	u64 min = 0x100000 * 128;
+	uint64_t min = 0x100000 * 128;
 	if (bestlen < min) {
 		min = bestlen - 0x1000;
 	}
@@ -119,7 +119,7 @@ void print_heapinfo()
 }
 
 
-heap_t*	create_heap(u64 addr, u64 end, u64 max, u64 min, u8 user, u8 rw)
+heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw)
 {
 	heap_t* heap = kmalloc(sizeof(heap_t));
 	header_t* header;
@@ -137,7 +137,7 @@ heap_t*	create_heap(u64 addr, u64 end, u64 max, u64 min, u8 user, u8 rw)
 		preboot_fail("End of heap is beyond maximum heap");
 	}
 
-	u64 i = addr;
+	uint64_t i = addr;
 	for (; i < end; i += 0x1000) {
 		if (invalid_frame(i))
 			preboot_fail("Internal error: (BUG) Initial heap overlays reserved RAM");
@@ -160,17 +160,17 @@ heap_t*	create_heap(u64 addr, u64 end, u64 max, u64 min, u8 user, u8 rw)
 	header->prev = 0;			/* Previous entry (prev==0)  */
 	header->next = 0;			/* Next entry (next==0) */
 	/* Define footer */
-	footer = (footer_t*)((u64)header + sizeof(header_t) + header->size);	/* seek */
+	footer = (footer_t*)((uint64_t)header + sizeof(header_t) + header->size);	/* seek */
 	footer->magic = HEAP_MAGIC;		/* ID byte */
 	footer->header = header;		/* point to header */
 
 	return heap;
 }
 
-static void *alloc(u64 size,u8 palign, heap_t *heap)
+static void *alloc(uint64_t size,uint8_t palign, heap_t *heap)
 {
 	void *ret = NULL;	/* return address */
-	u64 b_total, b_new;	/* Helpful for split */
+	uint64_t b_total, b_new;	/* Helpful for split */
 	header_t *th = NULL;	/* pointer to block header */
 	footer_t *tf = NULL;	/* pointer to block footer */
 
@@ -201,7 +201,7 @@ static void *alloc(u64 size,u8 palign, heap_t *heap)
 	}		
 
 	heap->list_free = ord_list_remove(th, heap->list_free);	/* Remove the entry */
-	tf = (footer_t*)((u64)th + sizeof(header_t) + th->size);
+	tf = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);
 
 	if (th->magic != HEAP_MAGIC) {
 		unlock_spinlock(&mlock);
@@ -221,18 +221,18 @@ static void *alloc(u64 size,u8 palign, heap_t *heap)
 		/*  we split, copy the original block */
 		th->free = 0;		/* Mark it used */
 		th->size = size;	/* New size */
-		tf = (footer_t*)((u64)th + sizeof(header_t) + th->size);
+		tf = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);
 		tf->magic = HEAP_MAGIC;	/* New footer */
 		tf->header = th;
 		/* The address of the header to return */
-		ret = ((void*)((u64)th+sizeof(header_t)));
+		ret = ((void*)((uint64_t)th+sizeof(header_t)));
 
 		/* Make aa new free block in the space */
-		th = (header_t*)((u64)tf + sizeof(footer_t));	/* New header for the free block */
+		th = (header_t*)((uint64_t)tf + sizeof(footer_t));	/* New header for the free block */
 		th->magic = HEAP_MAGIC;					/* ID byte */
 		th->size = b_total - b_new - sizeof(header_t) - sizeof(footer_t);
 		th->free = 1;						/* Make free */
-		tf = (footer_t*)((u64)th + sizeof(header_t) + th->size);	/* new footer */
+		tf = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);	/* new footer */
 		tf->magic = HEAP_MAGIC;	/* not necessary since there was already a footer */
 		tf->header = th;	/* point to new header */
 
@@ -241,7 +241,7 @@ static void *alloc(u64 size,u8 palign, heap_t *heap)
 	} else {
 		/* It can be split */
 		th->free = 0;		/* Mark as used */
-		ret = ((void*)((u64)th+sizeof(header_t)));
+		ret = ((void*)((uint64_t)th+sizeof(header_t)));
 	}
 	/* Finally, return the address in the header we created */
 	unlock_spinlock(&mlock);
@@ -266,8 +266,8 @@ static void free_int(void *addr, heap_t *heap)
 		return; /* addr not in heap */
 	}
 
-	th = (header_t*)((u64)addr - sizeof(header_t));		/* Pass the header address */
-	tf = (footer_t*)((u64)th + sizeof(header_t) + th->size);	/* and the footer */
+	th = (header_t*)((uint64_t)addr - sizeof(header_t));		/* Pass the header address */
+	tf = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);	/* and the footer */
 
 	if (th->magic != HEAP_MAGIC) {
 		unlock_spinlock(&mlock);
@@ -279,9 +279,9 @@ static void free_int(void *addr, heap_t *heap)
 	}
 	/* Find associated free blocks */
 	/* Check if a free block left */
-	if ((u64)th != (u64)heap->heap_addr) {
+	if ((uint64_t)th != (uint64_t)heap->heap_addr) {
 		/* if there is space left */
-		tf_left = (footer_t*)((u64)th - sizeof(footer_t));
+		tf_left = (footer_t*)((uint64_t)th - sizeof(footer_t));
 		if (tf_left->magic == HEAP_MAGIC && tf_left->header->magic == HEAP_MAGIC) {
 			/* Although there is a block... */
 			if (tf_left->header->free) {
@@ -294,12 +294,12 @@ static void free_int(void *addr, heap_t *heap)
 	}
 
 	/* Check if a free block */
-	if ((u64)tf + sizeof(footer_t) != (u64)heap->end_addr) {
+	if ((uint64_t)tf + sizeof(footer_t) != (uint64_t)heap->end_addr) {
 		/* ... if there is space to the right */
-		th_right = (header_t*)((u64)tf + sizeof(footer_t));
+		th_right = (header_t*)((uint64_t)tf + sizeof(footer_t));
 		if (th_right->magic == HEAP_MAGIC) {
 			/* a free block... */
-			tf_right = (footer_t*)((u64)th_right + sizeof(header_t) + th_right->size);
+			tf_right = (footer_t*)((uint64_t)th_right + sizeof(header_t) + th_right->size);
 			if (tf_right->magic == HEAP_MAGIC) {
 				/*double check */
 				if (th_right->free == 1) {
@@ -314,11 +314,11 @@ static void free_int(void *addr, heap_t *heap)
 	/* So now we have a free block where header == th and footer == tf */
 	th->free = 1;
 	th->magic = HEAP_MAGIC;
-	th->size = (u64)tf - ((u64)th + sizeof(header_t));
+	th->size = (uint64_t)tf - ((uint64_t)th + sizeof(header_t));
 	tf->magic = HEAP_MAGIC;
 	tf->header = th;
 
-	if (heap->end_addr == (u64)tf + sizeof(footer_t)) {	
+	if (heap->end_addr == (uint64_t)tf + sizeof(footer_t)) {	
 		/* If it was the Last block */
 		shrink_heap(th->size + sizeof(header_t) + sizeof(footer_t), heap);	/*Shrink */
 	} else {	
@@ -331,7 +331,7 @@ static void free_int(void *addr, heap_t *heap)
 	unlock_spinlock(&mlock);
 }
 
-void expand_heap(u64 size, heap_t *heap)
+void expand_heap(uint64_t size, heap_t *heap)
 {
 	/* Expand to make the size of the heap a new aligned size */
 	if (size & 0xFFF) {
@@ -350,10 +350,10 @@ void expand_heap(u64 size, heap_t *heap)
 	fix_heap_list(heap);				/* Fix list */
 }
 
-void shrink_heap(u64 size, heap_t* heap)
+void shrink_heap(uint64_t size, heap_t* heap)
 {
 	/* Shrink a heap, but not below min_size */
-	u64 tmp = (u64)heap->end_addr - size;
+	uint64_t tmp = (uint64_t)heap->end_addr - size;
 	tmp &= 0xFFFFF000;
 
 	assert(heap != NULL, "HEAP SHRINK - NULL HEAP");
@@ -379,16 +379,16 @@ void fix_heap_list(heap_t *heap)
 
 	/* Adjust Blocks */
 	/* Find the footer of the heap */
-	u8 *p;				/* seek byte */
-	p = (u8*)heap->end_addr - sizeof(footer_t);		/* We are looking for the 1-byte Magic Number */
+	uint8_t *p;				/* seek byte */
+	p = (uint8_t*)heap->end_addr - sizeof(footer_t);		/* We are looking for the 1-byte Magic Number */
 
 	for (tf = (footer_t*)p; tf >= (footer_t*)heap->heap_addr; tf = (footer_t*)--p) {
 		if (tf->magic == HEAP_MAGIC) {
 			/* link check */
 			if (
-				(u64)tf->header >= (u64)heap->heap_addr &&
-				(u64)tf->header <= (u64)heap->end_addr &&
-				(u64)tf->header->magic == HEAP_MAGIC
+				(uint64_t)tf->header >= (uint64_t)heap->heap_addr &&
+				(uint64_t)tf->header <= (uint64_t)heap->end_addr &&
+				(uint64_t)tf->header->magic == HEAP_MAGIC
 			) {
 				/* Double check, found the real block end */
 				goto bbreak;
@@ -409,7 +409,7 @@ bbreak:
 		th->prev = 0;
 		th->next = 0;
 		/* define footer */
-		tf = (footer_t*)((u64)th + sizeof(header_t) + th->size);
+		tf = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);
 		tf->magic = HEAP_MAGIC;
 		tf->header = th;
 
@@ -422,30 +422,30 @@ bbreak:
 		if (th->free) {
 			/* We are the free block, expand */
 			heap->list_free = ord_list_remove(th,heap->list_free);	/* remove the old entry */
-			tf = (footer_t*)((u64)heap->end_addr - sizeof(footer_t));	/* Footer at the end of the heap */
+			tf = (footer_t*)((uint64_t)heap->end_addr - sizeof(footer_t));	/* Footer at the end of the heap */
 			tf->magic = HEAP_MAGIC;
 			tf->header = th;
-			th->size = (u64)tf - (u64)th - sizeof(header_t);	/* fix size */
+			th->size = (uint64_t)tf - (uint64_t)th - sizeof(header_t);	/* fix size */
 			heap->list_free = ord_list_insert(th,heap->list_free);	/* put entry into list */
 			return;
 		} else {
 			/* If not, was used */
-			th = (header_t*)((u64)tf + sizeof(footer_t));		/* We make a new block immediately after */
+			th = (header_t*)((uint64_t)tf + sizeof(footer_t));		/* We make a new block immediately after */
 
 			th->magic = HEAP_MAGIC;
 			th->free = 1;
-			tf = (footer_t*)((u64)heap->end_addr - sizeof(footer_t));	/* Footer at the end of the heap */
+			tf = (footer_t*)((uint64_t)heap->end_addr - sizeof(footer_t));	/* Footer at the end of the heap */
 
 			tf->magic = HEAP_MAGIC;					/* Make new footer */
 			tf->header = th;
-			th->size = (u64)tf - (u64)th - sizeof(header_t);	/* fix size */
+			th->size = (uint64_t)tf - (uint64_t)th - sizeof(header_t);	/* fix size */
 			heap->list_free = ord_list_insert(th, heap->list_free);	/* Insert entry */
 			return;
 		}
 	}
 }
 
-header_t* palign_block(u64 size, heap_t *heap)
+header_t* palign_block(uint64_t size, heap_t *heap)
 {
 	header_t* th = ord_list_src_size(size, heap->list_free);	/* We pass the first available block */
 	header_t *tmp_h = NULL;
@@ -453,33 +453,33 @@ header_t* palign_block(u64 size, heap_t *heap)
 
 	/* If and when we need page align, We must start searching for a page aligned block, Creating one if neccessary */
 	while(th) {
-		if (((u64)th + sizeof(header_t)) % 0x1000  == 0) {
+		if (((uint64_t)th + sizeof(header_t)) % 0x1000  == 0) {
 			/* Already page aligned */
 			return th;
 		}
 
 		/* If block isn't page aligned, lets see if we can make one */
-		tmp_f = (footer_t*)((u64)th + sizeof(header_t) + th->size);	/* Add footer to block */
+		tmp_f = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);	/* Add footer to block */
 		tmp_h = th;
-		tmp_h = (header_t*)((u64)tmp_h & 0xFFFFF000);	/* Set tmp_h to a page boundry */
-		tmp_h = (header_t*)((u64)tmp_h + 0x1000);		/* the following one, specifically */
-		tmp_h = (header_t*)((u64)tmp_h - sizeof(header_t));  /* The DATA address must be page-aligned, not the header */
-		while ((u64)tmp_h < ((u64)tmp_f - sizeof(header_t))) {	/* Magic number is before the footer */
+		tmp_h = (header_t*)((uint64_t)tmp_h & 0xFFFFF000);	/* Set tmp_h to a page boundry */
+		tmp_h = (header_t*)((uint64_t)tmp_h + 0x1000);		/* the following one, specifically */
+		tmp_h = (header_t*)((uint64_t)tmp_h - sizeof(header_t));  /* The DATA address must be page-aligned, not the header */
+		while ((uint64_t)tmp_h < ((uint64_t)tmp_f - sizeof(header_t))) {	/* Magic number is before the footer */
 			if (
-				((u64)tmp_f - (u64)tmp_h - sizeof(header_t) >= size ) && /* Is there enough room after */
-				((u64)tmp_h - (u64)th > sizeof(header_t)+sizeof(footer_t))
+				((uint64_t)tmp_f - (uint64_t)tmp_h - sizeof(header_t) >= size ) && /* Is there enough room after */
+				((uint64_t)tmp_h - (uint64_t)th > sizeof(header_t)+sizeof(footer_t))
 			) {
 				/* Is there enough room before? Then we split the block to 2 free blocks and we alloc the second */
 				heap->list_free = ord_list_remove(th,heap->list_free);
-				tmp_f2 = (footer_t*)((u64)tmp_h - sizeof(footer_t));
+				tmp_f2 = (footer_t*)((uint64_t)tmp_h - sizeof(footer_t));
 				tmp_f2->magic = HEAP_MAGIC;
 				tmp_f2->header = th;
-				th->size = (u64)tmp_f2 - (u64)th - sizeof(header_t);
+				th->size = (uint64_t)tmp_f2 - (uint64_t)th - sizeof(header_t);
 				heap->list_free = ord_list_insert(th,heap->list_free);
 		
 				th = tmp_h;
 				th->magic = HEAP_MAGIC;
-				th->size = (u64)tmp_f - (u64)th - sizeof(header_t);
+				th->size = (uint64_t)tmp_f - (uint64_t)th - sizeof(header_t);
 				th->free = 1;
 				tmp_f->header = th;
 				tmp_f->magic = HEAP_MAGIC;
@@ -487,14 +487,14 @@ header_t* palign_block(u64 size, heap_t *heap)
 				return th;	/* All ready */
 			}
 			/* The next magic number... */
-			tmp_h = (header_t*)((u64)tmp_h + 0x1000);
+			tmp_h = (header_t*)((uint64_t)tmp_h + 0x1000);
 		}
 		th = th->next;	/* not find the right bound means next block */
 	}
 	return th;	/* here the header is either 0 or page aligned */
 }
 
-void* kmalloc_org(u64 size, u8 align,u64 *phys)
+void* kmalloc_org(uint64_t size, uint8_t align,uint64_t *phys)
 {
 	void* ret;
 
@@ -512,7 +512,7 @@ void* kmalloc_org(u64 size, u8 align,u64 *phys)
 	return ret;
 }
 
-void* kmalloc_ext(u64 size, u8 align, u64 *phys)
+void* kmalloc_ext(uint64_t size, uint8_t align, uint64_t *phys)
 {
 	allocated += size;
 	void* ret;
@@ -535,7 +535,7 @@ void* kmalloc_ext(u64 size, u8 align, u64 *phys)
 	}
 }
 
-void* kmalloc(u64 size)
+void* kmalloc(uint64_t size)
 {	/* More standard */
 	return kmalloc_ext(size, 0, 0);
 }
@@ -544,28 +544,6 @@ void kfree(void* addr)
 {
 	if (kheap) {
 		free_int(addr, kheap);
-	}
-}
-
-void* malloc_ext(u64 size, u8 align, u64 *phys)
-{
-	void* ret;
-	if (uheap) {
-		return alloc(size, align, uheap);
-	}
-	return NULL;
-}
-
-void* malloc(u64 size)
-{	
-	/* More standard */
-	return malloc_ext(size, 0, 0);
-}
-
-void free(void* addr)
-{
-	if (uheap) {
-		free_int(addr, uheap);
 	}
 }
 
@@ -627,7 +605,7 @@ header_t* ord_list_remove(header_t *remove,header_t *list)
 	return list;
 }
 
-header_t* ord_list_src_size(u64 sz,header_t *list)
+header_t* ord_list_src_size(uint64_t sz,header_t *list)
 {
 	header_t*tmp = list;
 	if (!list) {
@@ -646,10 +624,10 @@ header_t* ord_list_src_size(u64 sz,header_t *list)
 	return NULL;
 }
 
-header_t* ord_list_get_nnode(u64 n,header_t *list)
+header_t* ord_list_get_nnode(uint64_t n,header_t *list)
 {
 	header_t*tmp = list;
-	u64 i;
+	uint64_t i;
 	if (!list) {
 		return NULL;
 	}

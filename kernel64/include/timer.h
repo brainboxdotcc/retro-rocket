@@ -2,12 +2,12 @@
 #define TIMER_H
 
 void sleep_one_tick();
-void init_timer(u32 frequency);
-void beep(u32 pitch);
+void init_timer(uint32_t frequency);
+void beep(uint32_t pitch);
 void stopbeep();
-void sleep(u64 secs);
+void sleep(uint64_t secs);
 void sleep_one_tick();
-u64 get_ticks();
+uint64_t get_ticks();
 
 #endif
 

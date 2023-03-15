@@ -29,14 +29,14 @@
 
 #include <kernel.h>
 
-static s64 expr(struct ubasic_ctx* ctx);
+static int64_t expr(struct ubasic_ctx* ctx);
 static void line_statement(struct ubasic_ctx* ctx);
 static void statement(struct ubasic_ctx* ctx);
 static const char* str_expr(struct ubasic_ctx* ctx);
 const char* str_varfactor(struct ubasic_ctx* ctx);
 void ubasic_parse_fn(struct ubasic_ctx* ctx);
-s64 ubasic_getproccount(struct ubasic_ctx* ctx);
-s64 ubasic_getprocid(struct ubasic_ctx* ctx);
+int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
+int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
 char* ubasic_getprocname(struct ubasic_ctx* ctx);
 
 struct ubasic_int_fn builtin_int[] =
@@ -309,9 +309,9 @@ static void accept(int token, struct ubasic_ctx* ctx)
 	tokenizer_next(ctx);
 }
 /*---------------------------------------------------------------------------*/
-static s64 varfactor(struct ubasic_ctx* ctx)
+static int64_t varfactor(struct ubasic_ctx* ctx)
 {
-	s64 r = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
+	int64_t r = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
@@ -349,9 +349,9 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 }
 
 /*---------------------------------------------------------------------------*/
-static s64 factor(struct ubasic_ctx* ctx)
+static int64_t factor(struct ubasic_ctx* ctx)
 {
-	s64 r = 0;
+	int64_t r = 0;
 
 	int tok = tokenizer_token(ctx);
 	switch (tok) {
@@ -392,9 +392,9 @@ static const char* str_factor(struct ubasic_ctx* ctx)
 }
 
 /*---------------------------------------------------------------------------*/
-static s64 term(struct ubasic_ctx* ctx)
+static int64_t term(struct ubasic_ctx* ctx)
 {
-	s64 f1, f2;
+	int64_t f1, f2;
 	int op;
 
 	f1 = factor(ctx);
@@ -421,9 +421,9 @@ static s64 term(struct ubasic_ctx* ctx)
 	return f1;
 }
 /*---------------------------------------------------------------------------*/
-static s64 expr(struct ubasic_ctx* ctx)
+static int64_t expr(struct ubasic_ctx* ctx)
 {
-	s64 t1, t2;
+	int64_t t1, t2;
 	int op;
 
 	t1 = term(ctx);
@@ -516,7 +516,7 @@ static int relation(struct ubasic_ctx* ctx)
 
 
 /*---------------------------------------------------------------------------*/
-void jump_linenum(s64 linenum, struct ubasic_ctx* ctx)
+void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 {
 	tokenizer_init(ctx->program_ptr, ctx);
 	
@@ -1164,7 +1164,7 @@ void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 }
 
 
-u8 extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
+uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 	if (*ctx->ptr == '(') {
 		ctx->bracket_depth++;
 		if (ctx->bracket_depth == 1) {
@@ -1254,7 +1254,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 
 #define PARAMS_START \
 	[[maybe_unused]] int itemtype = BIP_INT; \
-	[[maybe_unused]] s64 intval; \
+	[[maybe_unused]] int64_t intval; \
 	[[maybe_unused]] char* strval; \
 	[[maybe_unused]] char oldval; \
 	[[maybe_unused]] char oldct; \
@@ -1317,7 +1317,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		tokenizer_error_print(ctx, "Too many parameters for function " NAME); \
 }
 
-s64 ubasic_openin(struct ubasic_ctx* ctx)
+int64_t ubasic_openin(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1325,7 +1325,7 @@ s64 ubasic_openin(struct ubasic_ctx* ctx)
 	return fd;
 }
 
-s64 ubasic_getnamecount(struct ubasic_ctx* ctx)
+int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1339,12 +1339,12 @@ s64 ubasic_getnamecount(struct ubasic_ctx* ctx)
 	return count;
 }
 
-s64 ubasic_getproccount(struct ubasic_ctx* ctx)
+int64_t ubasic_getproccount(struct ubasic_ctx* ctx)
 {
 	return proc_total();
 }
 
-s64 ubasic_getprocid(struct ubasic_ctx* ctx)
+int64_t ubasic_getprocid(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -1376,7 +1376,7 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	return gc_strdup("");
 }
 
-s64 ubasic_getsize(struct ubasic_ctx* ctx)
+int64_t ubasic_getsize(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1394,14 +1394,14 @@ s64 ubasic_getsize(struct ubasic_ctx* ctx)
 	return 0;
 }
 
-s64 ubasic_eof(struct ubasic_ctx* ctx)
+int64_t ubasic_eof(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	return _eof(intval);
 }
 
-s64 ubasic_asc(struct ubasic_ctx* ctx)
+int64_t ubasic_asc(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1416,7 +1416,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 	return gc_strdup(res);
 }
 
-s64 ubasic_instr(struct ubasic_ctx* ctx)
+int64_t ubasic_instr(struct ubasic_ctx* ctx)
 {
 	int i;
 	char* haystack;
@@ -1456,7 +1456,7 @@ char* ubasic_readstring(struct ubasic_ctx* ctx)
 	return ret;
 }
 
-s64 ubasic_read(struct ubasic_ctx* ctx)
+int64_t ubasic_read(struct ubasic_ctx* ctx)
 {
 	char res;
 	PARAMS_START;
@@ -1478,14 +1478,14 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	return cut;
 }
 
-s64 ubasic_len(struct ubasic_ctx* ctx)
+int64_t ubasic_len(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	return strlen(strval);
 }
 
-s64 ubasic_abs(struct ubasic_ctx* ctx)
+int64_t ubasic_abs(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 
@@ -1505,9 +1505,9 @@ s64 ubasic_abs(struct ubasic_ctx* ctx)
  * @param fn_name function name to look for
  * @param ctx interpreter context
  * @param res pointer to return value of function
- * @return u64 true/false return
+ * @return uint64_t true/false return
  */
-char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, s64* res) {
+char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int64_t* res) {
 	int i;
 	for (i = 0; builtin_int[i].name; ++i) {
 		if (!strcmp(fn_name, builtin_int[i].name)) {
@@ -1526,7 +1526,7 @@ char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, s64* res
  * @param fn_name function name to look for
  * @param ctx interpreter context
  * @param res pointer to return value of function
- * @return u64 true/false return
+ * @return uint64_t true/false return
  */
 char ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** res) {
 	int i;
@@ -1540,10 +1540,10 @@ char ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** r
 }
 
 
-s64 ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
+int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
-	s64 rv = 0;
+	int64_t rv = 0;
 	if (def != NULL)
 	{
 		ctx->gosub_stack_ptr++;
@@ -1562,7 +1562,7 @@ s64 ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 			tokenizer_error_print(ctx, "End of function without returning value");
 		else
 		{
-			rv = (s64)atomic->fn_return;
+			rv = (int64_t)atomic->fn_return;
 		}
 
 		/* Only free the base struct! */
@@ -1621,9 +1621,9 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 	return "";
 }
 
-s64 ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
+int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 {
-	s64 retv = 0;
+	int64_t retv = 0;
 	if (ubasic_builtin_int_fn(var, ctx, &retv)) {
 		return retv;
 	}
@@ -1642,7 +1642,7 @@ s64 ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
-				s64 v = cur->value;
+				int64_t v = cur->value;
 				/* If ERROR is read, it resets its value */
 				if (!strcmp(var, "ERROR")) {
 					ubasic_set_int_variable("ERROR", 0, ctx, 0);

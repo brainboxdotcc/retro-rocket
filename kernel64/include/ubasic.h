@@ -25,16 +25,16 @@
 
 struct for_state
 {
-        s64 line_after_for;
+        int64_t line_after_for;
         char* for_variable;
-        s64 to;
-        s64 step;
+        int64_t to;
+        int64_t step;
 };
 
 struct ub_var_int
 {
 	char* varname;
-	s64 value;
+	int64_t value;
 	struct ub_var_int* next;
 };
 
@@ -67,7 +67,7 @@ struct ub_proc_fn_def
 {
 	char* name;
 	ub_fn_type type;
-	s64 line;
+	int64_t line;
 	struct ub_param* params;
 	struct ub_proc_fn_def* next;
 };
@@ -76,14 +76,14 @@ struct ub_var_int_array
 {
 	char* varname;
 	struct ub_var_int* values;
-	u64 itemcount;
+	uint64_t itemcount;
 };
 
 struct ub_var_string_array
 {
 	char* varname;
 	struct ub_var_string* values;
-	u64 itemcount;
+	uint64_t itemcount;
 };
 
 struct ubasic_ctx
@@ -91,18 +91,18 @@ struct ubasic_ctx
         char const *ptr;
 	char const* nextptr;
         int current_token;
-	s64 current_linenum;
+	int64_t current_linenum;
 	int errored;
         char *program_ptr;
         char string[MAX_STRINGLEN];
         int gosub_stack[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_int* local_int_variables[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_string* local_string_variables[MAX_GOSUB_STACK_DEPTH];
-        u64 gosub_stack_ptr;
+        uint64_t gosub_stack_ptr;
 	int oldlen;
-	s64 eval_linenum;
+	int64_t eval_linenum;
         struct for_state for_stack[MAX_FOR_STACK_DEPTH];
-        u64 for_stack_ptr;
+        uint64_t for_stack_ptr;
 	struct ub_proc_fn_def* defs;
         struct ub_var_int* int_variables;
 	struct ub_var_string* str_variables;
@@ -118,15 +118,15 @@ struct ubasic_ctx
 };
 
 // Builtin integer functions
-s64 ubasic_abs(struct ubasic_ctx* ctx);
-s64 ubasic_len(struct ubasic_ctx* ctx);
-s64 ubasic_openin(struct ubasic_ctx* ctx);
-s64 ubasic_eof(struct ubasic_ctx* ctx);
-s64 ubasic_read(struct ubasic_ctx* ctx);
-s64 ubasic_instr(struct ubasic_ctx* ctx);
-s64 ubasic_asc(struct ubasic_ctx* ctx);
-s64 ubasic_getnamecount(struct ubasic_ctx* ctx);
-s64 ubasic_getsize(struct ubasic_ctx* ctx);
+int64_t ubasic_abs(struct ubasic_ctx* ctx);
+int64_t ubasic_len(struct ubasic_ctx* ctx);
+int64_t ubasic_openin(struct ubasic_ctx* ctx);
+int64_t ubasic_eof(struct ubasic_ctx* ctx);
+int64_t ubasic_read(struct ubasic_ctx* ctx);
+int64_t ubasic_instr(struct ubasic_ctx* ctx);
+int64_t ubasic_asc(struct ubasic_ctx* ctx);
+int64_t ubasic_getnamecount(struct ubasic_ctx* ctx);
+int64_t ubasic_getsize(struct ubasic_ctx* ctx);
 
 // Builtin string functions
 char* ubasic_left(struct ubasic_ctx* ctx);
@@ -134,7 +134,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx);
 char* ubasic_readstring(struct ubasic_ctx* ctx);
 char* ubasic_getname(struct ubasic_ctx* ctx);
 
-typedef s64 (*builtin_int_fn)(struct ubasic_ctx* ctx);
+typedef int64_t (*builtin_int_fn)(struct ubasic_ctx* ctx);
 typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
 
 struct ubasic_int_fn
@@ -153,10 +153,10 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);
-s64 ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
+int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
-void jump_linenum(s64 linenum, struct ubasic_ctx* ctx);
+void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local);
 void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local);
 void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx, int local);

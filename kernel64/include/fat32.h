@@ -16,14 +16,14 @@ struct FSInfo;
 
 typedef struct
 {
-	u8 bootable;
-	u8 starthead;
-	u16 startcylsect;
-	u8 systemid;
-	u8 endhead;
-	u16 endcylsect;
-	u32 startlba;
-	u32 length;
+	uint8_t bootable;
+	uint8_t starthead;
+	uint16_t startcylsect;
+	uint8_t systemid;
+	uint8_t endhead;
+	uint16_t endcylsect;
+	uint32_t startlba;
+	uint32_t length;
 } __attribute__((packed)) Partition;
 
 typedef struct
@@ -33,29 +33,29 @@ typedef struct
 
 typedef struct
 {
-	u32 signature1;
+	uint32_t signature1;
 	char reserved1[480];
-	u32 structsig;
-	u32 freecount;
-	u32 nextfree;
+	uint32_t structsig;
+	uint32_t freecount;
+	uint32_t nextfree;
 	char reserved2[12];
-	u32 trailsig;
+	uint32_t trailsig;
 } __attribute__((packed)) FSInfo;
 
 typedef struct
 {
-	u32 drivenumber;
-	u8 partitionid;
+	uint32_t drivenumber;
+	uint8_t partitionid;
 	char* volume_name;
-	u32 start;
-	u32 length;
-	u32 rootdircluster;
-	u16 reservedsectors;
-	u32 fsinfocluster;
-	u8 numberoffats;
-	u32 fatsize;
-	u32 clustersize;
-	u32* fat;
+	uint32_t start;
+	uint32_t length;
+	uint32_t rootdircluster;
+	uint16_t reservedsectors;
+	uint32_t fsinfocluster;
+	uint8_t numberoffats;
+	uint32_t fatsize;
+	uint32_t clustersize;
+	uint32_t* fat;
 	FS_DirectoryEntry* root;
 	FSInfo* info;
 } fat32;
@@ -63,58 +63,58 @@ typedef struct
 typedef struct
 {
 	char name[11];
-	u8 attr;
-	u8 nt;
-	u8 create_time_tenths;
-	u16 create_time;
-	u16 create_date;
-	u16 access_date;
-	u16 first_cluster_hi;
-	u16 write_time;
-	u16 write_date;
-	u16 first_cluster_lo;
-	u32 size;
+	uint8_t attr;
+	uint8_t nt;
+	uint8_t create_time_tenths;
+	uint16_t create_time;
+	uint16_t create_date;
+	uint16_t access_date;
+	uint16_t first_cluster_hi;
+	uint16_t write_time;
+	uint16_t write_date;
+	uint16_t first_cluster_lo;
+	uint32_t size;
 } __attribute__((packed)) DirectoryEntry;
 
 typedef struct
 {
-	u8 code1;
-	u8 code2;
-	u8 code3;
+	uint8_t code1;
+	uint8_t code2;
+	uint8_t code3;
 	char oemidentifier[8];
-	u16 bytespersector;
-	u8 sectorspercluster;
-	u16 reservedsectors;
-	u8 numberoffats;
-	u16 numberofdirentries;
-	u16 totalsectors;
-	u8 mediatype;
-	u16 unusedsectorsperfat;
-	u16 sectorspertrack;
-	u16 numberofheads;
-	u32 hiddensectors;
-	u32 sectorsonmedia;
+	uint16_t bytespersector;
+	uint8_t sectorspercluster;
+	uint16_t reservedsectors;
+	uint8_t numberoffats;
+	uint16_t numberofdirentries;
+	uint16_t totalsectors;
+	uint8_t mediatype;
+	uint16_t unusedsectorsperfat;
+	uint16_t sectorspertrack;
+	uint16_t numberofheads;
+	uint32_t hiddensectors;
+	uint32_t sectorsonmedia;
 	// Extended Boot Record	
-	u32 sectorsperfat;
-	u16 flags;
-	u16 fatversion;
-	u32 rootdircluster;
-	u16 fsinfocluster;
-	u16 backupbootsectorcluster;
+	uint32_t sectorsperfat;
+	uint16_t flags;
+	uint16_t fatversion;
+	uint32_t rootdircluster;
+	uint16_t fsinfocluster;
+	uint16_t backupbootsectorcluster;
 	char reserved[12];
-	u8 drivenumber;
-	u8 ntflags;
-	u8 signature; 
-	u32 serialnumber;
+	uint8_t drivenumber;
+	uint8_t ntflags;
+	uint8_t signature; 
+	uint32_t serialnumber;
 	char volumelabel[11];
 	char systemid[9];
 } __attribute__((packed)) ParameterBlock;
 
-fat32* fat32_mount_volume(u32 drivenumber);
-int fat32_read_file(void* file, u32 start, u32 length, unsigned char* buffer);
+fat32* fat32_mount_volume(uint32_t drivenumber);
+int fat32_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
 void* iso_get_directory(void* t);
 void init_fat32();
-void fat32_attach(u32 drivenumber, const char* path);
+void fat32_attach(uint32_t drivenumber, const char* path);
 int find_first_harddisk();
 
 #endif

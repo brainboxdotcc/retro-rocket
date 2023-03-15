@@ -5,8 +5,8 @@ struct process* proc_list[256] = { NULL };
 static struct process* proc_running[256] = { NULL };	/* This is the safe copy of proc_current */
 spinlock locks[256] = { 0 };;
 
-u32 nextid = 1;
-u8 nextcpu = 0;
+uint32_t nextid = 1;
+uint8_t nextcpu = 0;
 spinlock bkl = 0;
 
 struct process* proc_load(const char* fullpath, struct console* cons)
@@ -96,7 +96,7 @@ void proc_run(struct process* proc)
 	//	kprintf("proc_find(%d) == %d\n.\n", proc->waitpid, proc_find(proc->waitpid));
 }
 
-struct process* proc_find(u32 pid)
+struct process* proc_find(uint32_t pid)
 {
 	interrupts_off();
 	bkl = 1;
@@ -115,7 +115,7 @@ struct process* proc_find(u32 pid)
 	return foundproc;
 }
 
-void proc_wait(struct process* proc, u32 otherpid)
+void proc_wait(struct process* proc, uint32_t otherpid)
 {
 	//kprintf("Process waiting for pid %d\n", otherpid);
 	proc->waitpid = otherpid;
@@ -206,10 +206,10 @@ void proc_show_list()
 	interrupts_on();
 }
 
-s64 proc_total()
+int64_t proc_total()
 {
 	interrupts_off();
-	s64 tot = 0;
+	int64_t tot = 0;
 	int cpu = 0;
 	for (; cpu < 256; cpu++)
 	{
@@ -223,10 +223,10 @@ s64 proc_total()
 	interrupts_on();
 }
 
-const char* proc_name(s64 index)
+const char* proc_name(int64_t index)
 {
 	interrupts_off();
-	s64 tot = 0;
+	int64_t tot = 0;
 	int cpu = 0;
 	for (; cpu < 256; cpu++)
 	{
@@ -244,10 +244,10 @@ const char* proc_name(s64 index)
 	return "";
 }
 
-u32 proc_id(s64 index)
+uint32_t proc_id(int64_t index)
 {
 	interrupts_off();
-	s64 tot = 0;
+	int64_t tot = 0;
 	int cpu = 0;
 	for (; cpu < 256; cpu++)
 	{

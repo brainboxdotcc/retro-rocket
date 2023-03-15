@@ -9,8 +9,8 @@
 #define APIC_ID 0x0020
 #define APIC_VERSION 0x0030
 
-u32 apic_read(u64 reg);
-void apic_write(u64 reg, u32 value);
-u8 cpu_id();
+uint32_t apic_read(uint64_t reg);
+void apic_write(uint64_t reg, uint32_t value);
+uint8_t cpu_id();
 
 #endif

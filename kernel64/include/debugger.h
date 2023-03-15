@@ -21,8 +21,8 @@
 typedef struct symbol
 {
 	char* name;
-	u64 address;
-	u8 type;
+	uint64_t address;
+	uint8_t type;
 	struct symbol* next;
 } symbol_t;
 
@@ -33,7 +33,7 @@ typedef struct stack_frame {
 
 // Create a hex dump of a region of ram, displayed in BBC Miro/Archimedes *DUMP style,
 // dumped to current_console.
-void DumpHex(unsigned char* address, u64 length);
+void DumpHex(unsigned char* address, uint64_t length);
 
 // Initialise debugger, read symbols from boot device. These are used for backtraces.
 void init_debug();

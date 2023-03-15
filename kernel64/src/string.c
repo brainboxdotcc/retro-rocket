@@ -52,7 +52,7 @@ int abs(int a)
 		return a;
 }
 
-int labs(s64 a)
+int labs(int64_t a)
 {
 	if (a < 0)
 		return +a;
@@ -60,7 +60,7 @@ int labs(s64 a)
 		return a;
 }
 
-int strncmp(const char* s1, const char* s2, u32 n)
+int strncmp(const char* s1, const char* s2, uint32_t n)
 {
 	if (n == 0)
 		return (0);
@@ -73,10 +73,10 @@ int strncmp(const char* s1, const char* s2, u32 n)
 	return (0);
 }
 
-u64 hextoint(const char* n1)
+uint64_t hextoint(const char* n1)
 {
-	u32 length = strlen(n1);
-	u64 result = 0;
+	uint32_t length = strlen(n1);
+	uint64_t result = 0;
 	int i = 0, fact = 1;
 
 	if (length)
@@ -106,11 +106,11 @@ u64 hextoint(const char* n1)
 	return 0;
 }
 
-u32 strlcat(char *dst, const char *src, u32 siz)
+uint32_t strlcat(char *dst, const char *src, uint32_t siz)
 {
 	char *d = dst;
 	const char *s = src;
-	u32 n = siz, dlen;
+	uint32_t n = siz, dlen;
 
 	while (n-- != 0 && *d != '\0')
 		d++;
@@ -136,11 +136,11 @@ u32 strlcat(char *dst, const char *src, u32 siz)
 	return(dlen + (s - src)); /* count does not include NUL */
 }
 
-u32 strlcpy(char *dst, const char *src, u32 siz)
+uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
 {
 	char *d = dst;
 	const char *s = src;
-	u32 n = siz;
+	uint32_t n = siz;
 
 	/* Copy as many bytes as will fit */
 	if (n != 0 && --n != 0)
@@ -165,7 +165,7 @@ u32 strlcpy(char *dst, const char *src, u32 siz)
 
 char* strdup(const char* string)
 {
-	u32 siz = strlen(string) + 1;
+	uint32_t siz = strlen(string) + 1;
 	char* result = (char*)kmalloc(siz);
 	strlcpy(result, string, siz);
 	*(result+siz) = 0;
@@ -174,7 +174,7 @@ char* strdup(const char* string)
 
 char* gc_strdup(const char* string)
 {
-	u32 siz = strlen(string) + 1;
+	uint32_t siz = strlen(string) + 1;
 	char* result = (char*)kmalloc(siz);
 	strlcpy(result, string, siz);
 	*(result+siz) = 0;
@@ -271,12 +271,12 @@ int atoi(const char *s)
 	return val;
 }
 
-s64 atoll(const char *s, int radix)
+int64_t atoll(const char *s, int radix)
 {
 	static const char ddigits[] = "0123456789";  /* legal digits in order */
 	static const char xdigits[] = "0123456789ABCDEF";  /* legal digits in order */
 	const char* digits = radix == 16 ? xdigits : ddigits;
-	s64 val = 0;	 /* value we're accumulating */
+	int64_t val = 0;	 /* value we're accumulating */
 	char neg = 0;	      /* set to true if we see a minus sign */
 
 	/* skip whitespace */
@@ -297,7 +297,7 @@ s64 atoll(const char *s, int radix)
 	/* process each digit */
 	while (*s) {
 		const char *where;
-		s64 digit;
+		int64_t digit;
 		
 		/* look for the digit in the list of digits */
 		where = strchr(digits, *s);
@@ -329,10 +329,10 @@ s64 atoll(const char *s, int radix)
 	return val;
 }
 
-u64 atoull(const char *s)
+uint64_t atoull(const char *s)
 {
 	static const char digits[] = "0123456789";  /* legal digits in order */
-	u64 val=0;	 /* value we're accumulating */
+	uint64_t val=0;	 /* value we're accumulating */
 
 	/* skip whitespace */
 	while (*s==' ' || *s=='\t') {
@@ -346,7 +346,7 @@ u64 atoull(const char *s)
 	/* process each digit */
 	while (*s) {
 		const char *where;
-		u64 digit;
+		uint64_t digit;
 		
 		/* look for the digit in the list of digits */
 		where = strchr(digits, *s);

@@ -84,7 +84,7 @@ void detect_cores()
 						ioapic_ptr[numioapic] = (uint64_t)*((uint32_t*)(ptr+4));
 						ioapic_ids[numioapic] = ptr[2];
 						ioapic_gsi_base[numioapic] = (uint32_t)*((uint32_t*)(ptr+8));
-						u32 *mmio = (u32*)ioapic_ptr[numioapic];
+						uint32_t *mmio = (uint32_t*)ioapic_ptr[numioapic];
 						mmio[0] = 0x01;
 						uint32_t count = ((mmio[0x10 / 4]) & 0xFF) + 1;
 						ioapic_gsi_count[numioapic] = count;

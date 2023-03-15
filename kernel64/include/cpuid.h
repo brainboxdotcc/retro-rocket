@@ -74,12 +74,12 @@ enum cpuid_requests
 };
 
 
-static inline void cpuid(int code, u32 *a, u32 *d)
+static inline void cpuid(int code, uint32_t *a, uint32_t *d)
 {
 	asm volatile("cpuid":"=a"(*a),"=d"(*d):"0"(code):"ecx","ebx");
 }
 
-static inline int cpuid_string(int code, u32 where[4])
+static inline int cpuid_string(int code, uint32_t where[4])
 {
 	int highest;
 	asm volatile("cpuid":"=a"(*where),"=b"(*(where+1)),

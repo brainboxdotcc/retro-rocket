@@ -21,38 +21,38 @@
 
 typedef struct
 {
-	u32 size;
-	u64 addr;
-	u64 len;
-	u32 type;
+	uint32_t size;
+	uint64_t addr;
+	uint64_t len;
+	uint32_t type;
 } MB_MemMap;
 
 typedef struct
 {
-	u32 flags;
-	u32 mem_lower;
-	u32 mem_upper;
-	u32 boot_device;
+	uint32_t flags;
+	uint32_t mem_lower;
+	uint32_t mem_upper;
+	uint32_t boot_device;
 	const char* commandline;
-	u32 mods_count;
-	u32 mods_addr;
-	u32 elf_headers_num;
-	u32 elf_headers_size;
-	u32 elf_headers_addr;
-	u32 elf_headers_shndx;
-	u32 mmap_len;
+	uint32_t mods_count;
+	uint32_t mods_addr;
+	uint32_t elf_headers_num;
+	uint32_t elf_headers_size;
+	uint32_t elf_headers_addr;
+	uint32_t elf_headers_shndx;
+	uint32_t mmap_len;
 	MB_MemMap* mmap_addr;
-	u32 drives_length;
-	u32 drives_addr;
-	u32 config_table;
+	uint32_t drives_length;
+	uint32_t drives_addr;
+	uint32_t config_table;
 	const char* bootloadername;
-	u32 apm_table;
-	u32 vbe_control_info;
-	u32 vbe_mode_info;
-	u16 vbe_mode;
-	u16 vbe_interface_seg;
-	u16 vbe_interface_off;
-	u16 vbe_interface_len;       
+	uint32_t apm_table;
+	uint32_t vbe_control_info;
+	uint32_t vbe_mode_info;
+	uint16_t vbe_mode;
+	uint16_t vbe_interface_seg;
+	uint16_t vbe_interface_off;
+	uint16_t vbe_interface_len;       
 } MultiBoot; 
 
 #endif

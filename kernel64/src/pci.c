@@ -25,9 +25,9 @@ const char* PCI_DevClass[] = {
 
 typedef struct
 {
-	u8 id;
-	u8 subclass;
-	u8 progif;
+	uint8_t id;
+	uint8_t subclass;
+	uint8_t progif;
 	const char* description;
 } SubClass;
 
@@ -145,7 +145,7 @@ const SubClass PCI_DevSubClass[] =
 
 void scan_pci_bus(int bus);
 
-const char* pci_class_name(u8 class)
+const char* pci_class_name(uint8_t class)
 {
 	if (class > 0x11)
 		class = 0;
@@ -153,7 +153,7 @@ const char* pci_class_name(u8 class)
 	return PCI_DevClass[class];
 }
 
-const char* pci_subclass_name(u8 class, u8 subclass, u8 progif)
+const char* pci_subclass_name(uint8_t class, uint8_t subclass, uint8_t progif)
 {
 	int search = 0;
 	for (; PCI_DevSubClass[search].id != 0xFF; ++search)
@@ -164,46 +164,46 @@ const char* pci_subclass_name(u8 class, u8 subclass, u8 progif)
 	return "Unknown Device Subclass";
 }
 
-void pci_write_config_word(u16 bus, u16 slot, u16 func, u16 offset, u16 value)
+void pci_write_config_word(uint16_t bus, uint16_t slot, uint16_t func, uint16_t offset, uint16_t value)
 {
-	u32 address;
-	u32 lbus = (u32)bus;
-	u32 lslot = (u32)slot;
-	u32 lfunc = (u32)func;
+	uint32_t address;
+	uint32_t lbus = (uint32_t)bus;
+	uint32_t lslot = (uint32_t)slot;
+	uint32_t lfunc = (uint32_t)func;
 
 	/* Enable bit always set here */
-	address = (u32)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((u32)0x80000000));
+	address = (uint32_t)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((uint32_t)0x80000000));
 	outl(0xCF8, address);
 	outw(0xCFC, value);
 }
 
-u32 pci_read_config(u16 bus, u16 slot, u16 func, u16 offset)
+uint32_t pci_read_config(uint16_t bus, uint16_t slot, uint16_t func, uint16_t offset)
 {
-	u32 address;
-	u32 lbus = (u32)bus;
-	u32 lslot = (u32)slot;
-	u32 lfunc = (u32)func;
+	uint32_t address;
+	uint32_t lbus = (uint32_t)bus;
+	uint32_t lslot = (uint32_t)slot;
+	uint32_t lfunc = (uint32_t)func;
 
 	/* create configuration address, enable bit set */
-	address = (u32)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((u32)0x80000000));
+	address = (uint32_t)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((uint32_t)0x80000000));
 
 	outl(0xCF8, address);
 	return inl(0xCFC);
 }
 
-u32 pci_get_vendor_and_device(u16 bus, u16 slot, u16 func)
+uint32_t pci_get_vendor_and_device(uint16_t bus, uint16_t slot, uint16_t func)
 {
 	return pci_read_config(bus, slot, func, PCI_OFS_VENDOR);
 }
 
 void pci_enable_device(PCI_Device* dev)
 {
-	u32 current_setting = pci_read_config(dev->bus, dev->slot, 0, PCI_OFS_STATUS_CMD);
-	u32 cmd = (current_setting & 0xffff) | PCI_CMD_PORTIO_ENABLE | PCI_CMD_MEMIO_ENABLE;
+	uint32_t current_setting = pci_read_config(dev->bus, dev->slot, 0, PCI_OFS_STATUS_CMD);
+	uint32_t cmd = (current_setting & 0xffff) | PCI_CMD_PORTIO_ENABLE | PCI_CMD_MEMIO_ENABLE;
 	pci_write_config_word(dev->bus, dev->slot, 0, PCI_OFS_STATUS_CMD + 2, cmd & 0xffff);
 }
 
-PCI_Device* pci_find(u16 bus, u16 slot)
+PCI_Device* pci_find(uint16_t bus, uint16_t slot)
 {
 	PCI_Device* cur = pci_devices;
 	for (; cur; cur = cur->next)
@@ -214,7 +214,7 @@ PCI_Device* pci_find(u16 bus, u16 slot)
 	return NULL;
 }
 
-void list_pci(u8 showbars)
+void list_pci(uint8_t showbars)
 {
 	PCI_Device* cur = pci_devices;
 	for (; cur; cur = cur->next)
@@ -245,20 +245,20 @@ void init_pci()
 
 void scan_pci_bus(int bus)
 {
-	u16 slot = 0;
+	uint16_t slot = 0;
 	for (; slot < 63; slot++)
 	{
-		u16 func = 0;
-		u8 mf = 0;
+		uint16_t func = 0;
+		uint8_t mf = 0;
 
 		while (func < 64)
 		{
-			u32 id = pci_get_vendor_and_device(bus, slot, func);
+			uint32_t id = pci_get_vendor_and_device(bus, slot, func);
 			if ((id & 0xffff) != 0xffff)
 			{
-				u32 flags = pci_read_config(bus, slot, func, PCI_OFS_FLAGS);
-				u32 class = pci_read_config(bus, slot, func, PCI_OFS_CLASS);
-				u32 headertype = (flags >> 16) & 0x7f;
+				uint32_t flags = pci_read_config(bus, slot, func, PCI_OFS_FLAGS);
+				uint32_t class = pci_read_config(bus, slot, func, PCI_OFS_CLASS);
+				uint32_t headertype = (flags >> 16) & 0x7f;
 				if ((flags >> 16) & 0x80)
 					mf = 1;
 			
@@ -283,14 +283,14 @@ void scan_pci_bus(int bus)
 		
 				if (headertype == 0x00)
 				{
-					u32 irq = pci_read_config(bus, slot, func, PCI_OFS_IRQ);
+					uint32_t irq = pci_read_config(bus, slot, func, PCI_OFS_IRQ);
 					irq &= 0xff;
 					dev->irq = irq;
 				}
 				if (headertype == 0x01)		/* PCI/PCI bus */
 				{
-					u32 secondary_bus = pci_read_config(bus, slot, func, PCI_OFS_SECONDARYBUS);
-					u32 sb = secondary_bus;
+					uint32_t secondary_bus = pci_read_config(bus, slot, func, PCI_OFS_SECONDARYBUS);
+					uint32_t sb = secondary_bus;
 
 					secondary_bus = (secondary_bus >> 8) & 0xFF;
 					if (secondary_bus == 0)
@@ -307,7 +307,7 @@ void scan_pci_bus(int bus)
 	
 				for (bar = 0; bar < maxbars; ++bar)
 				{
-					u32 b = pci_read_config(bus, slot, func, PCI_OFS_BARS + (bar * 4));
+					uint32_t b = pci_read_config(bus, slot, func, PCI_OFS_BARS + (bar * 4));
 					if ((b & 1) == 0)
 					{
 						dev->restype[bar] = PCI_BAR_MEMORY;

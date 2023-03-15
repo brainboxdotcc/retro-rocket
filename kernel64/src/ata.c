@@ -5,14 +5,14 @@
 ide_device ide_devices[4];
 channel channels[2];
 
-unsigned char ide_buf[2048] = {0};
+uint8_t ide_buf[2048] = {0};
 unsigned static volatile char ide_irq_invoked = 0;
 unsigned static char atapi_packet[12] = {0xA8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-unsigned char ide_read(unsigned char channel, unsigned char reg)
+uint8_t ide_read(uint8_t channel, uint8_t reg)
 {
 	//kprintf("channel %d base: %x ctrl: %x base+reg: %x\n", channel, channels[channel].base, channels[channel].ctrl, channels[channel].base + reg);
-	unsigned char result;
+	uint8_t result;
 	if (reg > 0x07 && reg < 0x0C)
 		ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
 	if (reg < 0x08)
@@ -28,7 +28,7 @@ unsigned char ide_read(unsigned char channel, unsigned char reg)
 	return result;
 }
 
-void ide_write(unsigned char channel, unsigned char reg, unsigned char data)
+void ide_write(uint8_t channel, uint8_t reg, uint8_t data)
 {
 	if (reg > 0x07 && reg < 0x0C)
 		ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
@@ -44,7 +44,7 @@ void ide_write(unsigned char channel, unsigned char reg, unsigned char data)
 		ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN);
 }
 
-void ide_read_buffer(unsigned char channel, unsigned char reg, u64 buffer, unsigned int quads)
+void ide_read_buffer(uint8_t channel, uint8_t reg, uint64_t buffer, uint32_t quads)
 {
 	if (reg > 0x07 && reg < 0x0C)
 		ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
@@ -71,7 +71,7 @@ void ide_read_buffer(unsigned char channel, unsigned char reg, u64 buffer, unsig
 }
 
 
-unsigned char ide_polling(unsigned char channel, unsigned int advanced_check)
+uint8_t ide_polling(uint8_t channel, uint32_t advanced_check)
 {
 	// (I) Delay 400 nanosecond for BSY to be set:
 	// -------------------------------------------------
@@ -82,7 +82,7 @@ unsigned char ide_polling(unsigned char channel, unsigned int advanced_check)
 
 	// (II) Wait for BSY to be cleared
 	// -------------------------------------------------
-	u64 timer_start = get_ticks();
+	uint64_t timer_start = get_ticks();
 	while (ide_read(channel, ATA_REG_STATUS) & ATA_SR_BSY && (get_ticks() - timer_start) < 100 && (get_ticks() >= timer_start)); // Wait for BSY to be zero.
 
 	if (get_ticks() - timer_start > 100)
@@ -90,7 +90,7 @@ unsigned char ide_polling(unsigned char channel, unsigned int advanced_check)
 
 	if (advanced_check)
 	{
-		unsigned char state = ide_read(channel, ATA_REG_STATUS); // Read Status Register.
+		uint8_t state = ide_read(channel, ATA_REG_STATUS); // Read Status Register.
 
 		// (III) Check For Errors:
 		// -------------------------------------------------
@@ -112,7 +112,7 @@ unsigned char ide_polling(unsigned char channel, unsigned int advanced_check)
 
 }
 
-unsigned char ide_print_error(unsigned int drive, unsigned char err)
+uint8_t ide_print_error(uint32_t drive, uint8_t err)
 {
 	kprintf("IDE drive %d error: ", drive);
 	if (err == 1)
@@ -122,7 +122,7 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err)
 	}
 	else if (err == 2)
 	{
-		unsigned char st = ide_read(ide_devices[drive].channel, ATA_REG_ERROR);
+		uint8_t st = ide_read(ide_devices[drive].channel, ATA_REG_ERROR);
 		if (st & ATA_ER_AMNF)
 		{
 			kprintf("No Address Mark Found");
@@ -172,7 +172,7 @@ unsigned char ide_print_error(unsigned int drive, unsigned char err)
 	return err;
 }
 
-void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, unsigned int BAR3, unsigned int BAR4)
+void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, uint32_t BAR4)
 {
 	int type, base, masterslave, k, err, count = 0;
 	// 1- Define I/O Ports which interface IDE Controller
@@ -200,7 +200,7 @@ void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
 			// Send ATA IDENTIFY
 			outb(base + 6, masterslave);
 			outb(base + 7, 0xEC);
-			unsigned char x = inb(base + 7);
+			uint8_t x = inb(base + 7);
 			//kprintf("%s %s Status: %d\n", base == 0x1F0 ? "Primary" : "Secondary", masterslave == 0xA0 ? "master" : "slave", x);
 
 			// Nothing at all on this connection
@@ -208,8 +208,8 @@ void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
 				continue;
 
 			// Check status of IDENTIFY command first
-			unsigned char y = inb(base + 4);
-			unsigned char z = inb(base + 5);
+			uint8_t y = inb(base + 4);
+			uint8_t z = inb(base + 5);
 			type = IDE_ATA;
 			if (y == 0x14 && z == 0xEB)
 			{
@@ -218,7 +218,7 @@ void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
 				outb(base + 7, 0xA1);
 				type = IDE_ATAPI;
 			}
-			u64 timer_start = get_ticks();
+			uint64_t timer_start = get_ticks();
 			while (1)
 			{
 				x = inb(base + 7);
@@ -240,7 +240,7 @@ void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
 			if (err == 0)
 			{
 				// We found a drive! Add it to our list of found devices.
-				ide_read_buffer(base == 0x1F0 ? 0 : 1, ATA_REG_DATA, (u64)ide_buf, 128);
+				ide_read_buffer(base == 0x1F0 ? 0 : 1, ATA_REG_DATA, (uint64_t)ide_buf, 128);
 
 				//DumpHex(ide_buf, 128);
 
@@ -248,17 +248,17 @@ void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
 				ide_devices[count].type = type;
 				ide_devices[count].channel = (base == 0x1F0 ? 0 : 1);
 				ide_devices[count].drive = (masterslave == 0xA0 ? 0 : 1);
-				ide_devices[count].sign = ((unsigned short*)(ide_buf + ATA_IDENT_DEVICETYPE))[0];
-				ide_devices[count].capabilities = ((unsigned short*)(ide_buf + ATA_IDENT_CAPABILITIES))[0];
-				ide_devices[count].commandsets = ((unsigned int*)(ide_buf + ATA_IDENT_COMMANDSETS))[0];
+				ide_devices[count].sign = ((uint16_t*)(ide_buf + ATA_IDENT_DEVICETYPE))[0];
+				ide_devices[count].capabilities = ((uint16_t*)(ide_buf + ATA_IDENT_CAPABILITIES))[0];
+				ide_devices[count].commandsets = ((uint32_t*)(ide_buf + ATA_IDENT_COMMANDSETS))[0];
 
 				if (ide_devices[count].commandsets & (1<<26))
 				{
-					ide_devices[count].size	= ((u64*)(ide_buf + ATA_IDENT_MAX_LBA_EXT)) [0] & 0xFFFFFFFFFFFull;
+					ide_devices[count].size	= ((uint64_t*)(ide_buf + ATA_IDENT_MAX_LBA_EXT)) [0] & 0xFFFFFFFFFFFull;
 				}
 				else
 				{
-					ide_devices[count].size	= ((u64*)(ide_buf + ATA_IDENT_MAX_LBA))[0] & (u64)0xFFFFFFFFFFFFull; /* 48 bits */
+					ide_devices[count].size	= ((uint64_t*)(ide_buf + ATA_IDENT_MAX_LBA))[0] & (uint64_t)0xFFFFFFFFFFFFull; /* 48 bits */
 				}
 
 				for(k = ATA_IDENT_MODEL; k < (ATA_IDENT_MODEL+40); k+=2)
@@ -284,15 +284,15 @@ void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, uns
 	register_interrupt_handler(IRQ15, ide_irq);
 }
 
-unsigned char ide_ata_access(unsigned char direction, unsigned char drive, u64 lba, unsigned char numsects, u64 edi)
+uint8_t ide_ata_access(uint8_t direction, uint8_t drive, uint64_t lba, uint8_t numsects, uint64_t edi)
 {
-	unsigned char lba_mode, dma, cmd;
-	unsigned char lba_io[6];
-	unsigned int channel	= ide_devices[drive].channel; // Read the Channel.
-	unsigned int slavebit = ide_devices[drive].drive; // Read the Drive [Master/Slave]
-	unsigned int bus = channels[channel].base; // The Bus Base, like [0x1F0] which is also data port.
-	unsigned int words = 256; // Approx. all ATA-Drives have a sector-size of 512-byte.
-	unsigned short cyl, i; unsigned char head, sect, err;
+	uint8_t lba_mode, dma, cmd;
+	uint8_t lba_io[6];
+	uint32_t channel	= ide_devices[drive].channel; // Read the Channel.
+	uint32_t slavebit = ide_devices[drive].drive; // Read the Drive [Master/Slave]
+	uint32_t bus = channels[channel].base; // The Bus Base, like [0x1F0] which is also data port.
+	uint32_t words = 256; // Approx. all ATA-Drives have a sector-size of 512-byte.
+	uint16_t cyl, i; uint8_t head, sect, err;
 
 	ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN = (ide_irq_invoked = 0x0) + 0x02);
 	// (I) Select one from LBA28, LBA48 or CHS;
@@ -337,7 +337,7 @@ unsigned char ide_ata_access(unsigned char direction, unsigned char drive, u64 l
 	// (II) See if Drive Supports DMA or not;
 	dma = 0; // Supports or doesn't, we don't support !!!
 	// (III) Wait if the drive is busy;
-	u64 timer_start = get_ticks();
+	uint64_t timer_start = get_ticks();
 	while (ide_read(channel, ATA_REG_STATUS) & ATA_SR_BSY && get_ticks() - timer_start < 100); // Wait if Busy.
 	// (IV) Select Drive from the controller;
 	if (lba_mode == 0)
@@ -424,19 +424,19 @@ void ide_wait_irq()
 	ide_irq_invoked = 0;
 }
 
-void ide_irq(u8 isr, u64 error, u64 irq)
+void ide_irq(uint8_t isr, uint64_t error, uint64_t irq)
 {
 	ide_irq_invoked = 1;
 }
 
-unsigned char ide_atapi_read(unsigned char drive, u64 lba, unsigned char numsects, u64 edi)
+uint8_t ide_atapi_read(uint8_t drive, uint64_t lba, uint8_t numsects, uint64_t edi)
 {
 	//kprintf("ide_atapi_read\n");
-	unsigned int channel = ide_devices[drive].channel;
-	unsigned int slavebit = ide_devices[drive].drive;
-	unsigned int bus = channels[channel].base;
-	unsigned int words = 2048 / 2; // Sector Size in Words, Almost All ATAPI Drives has a sector size of 2048 bytes.
-	unsigned char	err; int i;
+	uint32_t channel = ide_devices[drive].channel;
+	uint32_t slavebit = ide_devices[drive].drive;
+	uint32_t bus = channels[channel].base;
+	uint32_t words = 2048 / 2; // Sector Size in Words, Almost All ATAPI Drives has a sector size of 2048 bytes.
+	uint8_t	err; int i;
 	// Enable IRQs:
 	ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN = ide_irq_invoked = 0x0);
 	// (I): Setup SCSI Packet:
@@ -508,7 +508,7 @@ unsigned char ide_atapi_read(unsigned char drive, u64 lba, unsigned char numsect
 
 	// (XI): Waiting for BSY & DRQ to clear:
 	// ------------------------------------------------------------------
-	u64 timer_start = get_ticks();
+	uint64_t timer_start = get_ticks();
 	while (ide_read(channel, ATA_REG_STATUS) & (ATA_SR_BSY | ATA_SR_DRQ) && get_ticks() - timer_start < 100);
 
 	//kprintf("ide_atapi_read  8\n");
@@ -516,7 +516,7 @@ unsigned char ide_atapi_read(unsigned char drive, u64 lba, unsigned char numsect
 	return 0; // Easy, ... Isn't it?
 }
 
-int ide_read_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 edi)
+int ide_read_sectors(uint8_t drive, uint8_t numsects, uint64_t lba, uint64_t edi)
 {
 	int i;
 	// 1: Check if the drive presents:
@@ -537,7 +537,7 @@ int ide_read_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 e
 	// ============================================
 	else
 	{
-		unsigned char err;
+		uint8_t err;
 		if (ide_devices[drive].type == IDE_ATA)
 		{
 			err = ide_ata_access(ATA_READ, drive, lba, numsects, edi);
@@ -556,7 +556,7 @@ int ide_read_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 e
 	return 0;
 }
 
-int ide_write_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 edi)
+int ide_write_sectors(uint8_t drive, uint8_t numsects, uint64_t lba, uint64_t edi)
 {
 	// 1: Check if the drive presents:
 	// ==================================
@@ -576,7 +576,7 @@ int ide_write_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 
 	// ============================================
 	else
 	{
-		unsigned char err;
+		uint8_t err;
 		if (ide_devices[drive].type == IDE_ATA)
 			err = ide_ata_access(ATA_WRITE, drive, lba, numsects, edi);
 		else
@@ -590,12 +590,12 @@ int ide_write_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 
 	return 0;
 }
 
-int ide_atapi_eject(unsigned char drive)
+int ide_atapi_eject(uint8_t drive)
 {
-	unsigned int channel = ide_devices[drive].channel;
-	unsigned int slavebit = ide_devices[drive].drive;
-	unsigned int bus = channels[channel].base;
-	unsigned char err = 0;
+	uint32_t channel = ide_devices[drive].channel;
+	uint32_t slavebit = ide_devices[drive].drive;
+	uint32_t bus = channels[channel].base;
+	uint8_t err = 0;
 	ide_irq_invoked = 0;
 
 	// 1: Check if the drive presents:

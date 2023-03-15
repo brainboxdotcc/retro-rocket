@@ -1,20 +1,20 @@
 #include <kernel.h>
 
-void lapic_timer(u8 isr, u64 errorcode, u64 irq)
+void lapic_timer(uint8_t isr, uint64_t errorcode, uint64_t irq)
 {
 	//put(current_console, cpu_id() + 48);
 	//proc_timer();
 }
 
-void lapic_spurious(u8 isr, u64 errorcode, u64 irq)
+void lapic_spurious(uint8_t isr, uint64_t errorcode, uint64_t irq)
 {
 
 	return;
 }
 
-void init_lapic_timer(u32 quantum)
+void init_lapic_timer(uint32_t quantum)
 {
-	u32 tmp;
+	uint32_t tmp;
 
 	register_interrupt_handler(IRQ7, lapic_spurious);
 	register_interrupt_handler(IRQ16, lapic_timer);

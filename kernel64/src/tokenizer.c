@@ -301,7 +301,7 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 	return;
 }
 /*---------------------------------------------------------------------------*/
-s64 tokenizer_num(struct ubasic_ctx* ctx, int token)
+int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 {
 	return token == TOKENIZER_NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
 }

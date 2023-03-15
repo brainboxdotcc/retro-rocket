@@ -4,13 +4,13 @@ static char keyboard_buffer[1024];
 static int bufwriteptr = 0;
 static int bufreadptr = 0;
 
-void keyboard_handler(u8 isr, u64 errorcode, u64 irq);
+void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq);
 
-static u8 escaped = 0;
-static u8 caps_lock = 0;
-static u8 shift_state = 0;
-static u8 ctrl_state = 0;
-static u8 alt_state = 0;
+static uint8_t escaped = 0;
+static uint8_t caps_lock = 0;
+static uint8_t shift_state = 0;
+static uint8_t ctrl_state = 0;
+static uint8_t alt_state = 0;
 
 /* UK mappings of scan codes to characters, based in part off http://www.ee.bgu.ac.il/~microlab/MicroLab/Labs/ScanCodes.htm */
 
@@ -40,7 +40,7 @@ void init_basic_keyboard()
 
 
 // Map a keyboard scan code to an ASCII value
-unsigned char translate_keycode(unsigned char scancode, u8 escaped, u8 shift_state, u8 ctrl_state, u8 alt_state)
+unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t shift_state, uint8_t ctrl_state, uint8_t alt_state)
 {
 	if (escaped) {
 		switch (scancode) {
@@ -82,7 +82,7 @@ unsigned char translate_keycode(unsigned char scancode, u8 escaped, u8 shift_sta
 
 
 
-void keyboard_handler(u8 isr, u64 errorcode, u64 irq)
+void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq)
 {
 	unsigned char new_scan_code = inb(0x60);
 

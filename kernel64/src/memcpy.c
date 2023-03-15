@@ -1,24 +1,24 @@
 #include <kernel.h>
 
-void _memset(void *dest, char val, u64 len)
+void _memset(void *dest, char val, uint64_t len)
 {
 	char *temp = (char *)dest;
 	for ( ; len != 0; len--) *temp++ = val;
 }
 
 
-void *memcpy(void *dest, const void *src, u64 len)
+void *memcpy(void *dest, const void *src, uint64_t len)
 {
-	u64 i;
+	uint64_t i;
 
 	/* 64-bit copy whatever we can. This works better on aligned memory areas */
-	if ((u64)dest % sizeof(u64) == 0 && (u64)src % sizeof(u64) == 0 && len % sizeof(u64) == 0)
+	if ((uint64_t)dest % sizeof(uint64_t) == 0 && (uint64_t)src % sizeof(uint64_t) == 0 && len % sizeof(uint64_t) == 0)
 	{
 
-		u64 *d = dest;
-		const u64 *s = src;
+		uint64_t *d = dest;
+		const uint64_t *s = src;
 
-		for (i=0; i< len / sizeof(u64); i++)
+		for (i=0; i< len / sizeof(uint64_t); i++)
 		{
 			d[i] = s[i];
 		}
@@ -26,8 +26,8 @@ void *memcpy(void *dest, const void *src, u64 len)
 	else
 	{
 		/* Byte-copy the remainder */
-		u8 *d = dest;
-		const u8 *s = src;
+		uint8_t *d = dest;
+		const uint8_t *s = src;
 
 		for (i=0; i < len; i++)
 		{
@@ -38,16 +38,16 @@ void *memcpy(void *dest, const void *src, u64 len)
 	return dest;
 }
 
-void *memmove(void *dest, const void *src, u64 n) {
+void *memmove(void *dest, const void *src, uint64_t n) {
     uint8_t *pdest = (uint8_t *)dest;
     const uint8_t *psrc = (const uint8_t *)src;
 
     if (src > dest) {
-        for (u64 i = 0; i < n; i++) {
+        for (uint64_t i = 0; i < n; i++) {
             pdest[i] = psrc[i];
         }
     } else if (src < dest) {
-        for (u64 i = n; i > 0; i--) {
+        for (uint64_t i = n; i > 0; i--) {
             pdest[i-1] = psrc[i-1];
         }
     }
@@ -55,11 +55,11 @@ void *memmove(void *dest, const void *src, u64 n) {
     return dest;
 }
 
-int memcmp(const void *s1, const void *s2, u64 n) {
+int memcmp(const void *s1, const void *s2, uint64_t n) {
     const uint8_t *p1 = (const uint8_t *)s1;
     const uint8_t *p2 = (const uint8_t *)s2;
 
-    for (u64 i = 0; i < n; i++) {
+    for (uint64_t i = 0; i < n; i++) {
         if (p1[i] != p2[i]) {
             return p1[i] < p2[i] ? -1 : 1;
         }

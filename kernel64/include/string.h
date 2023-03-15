@@ -13,28 +13,28 @@ unsigned char tolower(unsigned char input);
 
 int strcmp(const char* s1, const char* s2);
 
-int strncmp(const char* s1, const char* s2, u32 n);
+int strncmp(const char* s1, const char* s2, uint32_t n);
 
 char* strchr(const char *s, int c);
 
-u32 strlcat(char *dst, const char *src, u32 siz);
+uint32_t strlcat(char *dst, const char *src, uint32_t siz);
 
-u32 strlcpy(char *dst, const char *src, u32 siz);
+uint32_t strlcpy(char *dst, const char *src, uint32_t siz);
 
 char* strdup(const char* string);
 char* gc_strdup(const char* string);
 int gc();
 
-u64 hextoint(const char* n1);
+uint64_t hextoint(const char* n1);
 
 unsigned char isdigit(const char x);
 unsigned char isxdigit(const char x);
 
 int atoi(const char *s);
-s64 atoll(const char *s, int radix);
-u64 atoull(const char *s);
+int64_t atoll(const char *s, int radix);
+uint64_t atoull(const char *s);
 
 int abs(int a);
-int labs(s64 a);
+int labs(int64_t a);
 
 #endif

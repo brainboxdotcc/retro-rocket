@@ -4,10 +4,10 @@ static FS_FileSystem* fat32_fs = NULL;
 
 extern ide_device ide_devices[4];
 
-u64 ClusLBA(fat32* info, u32 cluster);
-u32 GetFATEntry(fat32* info, u32 cluster);
+uint64_t ClusLBA(fat32* info, uint32_t cluster);
+uint32_t GetFATEntry(fat32* info, uint32_t cluster);
 
-FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32 cluster)
+FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, uint32_t cluster)
 {
 	//kprintf("Cluster at start of fn: %d\n", cluster);
 
@@ -18,7 +18,7 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32 cluster)
 	{
 		int bufferoffset = 0;
 		//kprintf("Cluster at start of loop: %d\n", cluster);
-		if (!ide_read_sectors(info->drivenumber, info->clustersize / 512, ClusLBA(info, cluster), (u64)buffer))
+		if (!ide_read_sectors(info->drivenumber, info->clustersize / 512, ClusLBA(info, cluster), (uint64_t)buffer))
 		{
 			kprintf("Read failure in ParseFAT32Dir cluster=%08x\n", cluster);
 			kfree(buffer);
@@ -83,7 +83,7 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32 cluster)
 	
 						//kprintf("5 '%s'\n", name);
 						file->filename = strdup(name);
-						file->lbapos = (u32)(((u32)entry->first_cluster_hi << 16) | (u32)entry->first_cluster_lo);
+						file->lbapos = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
 						file->directory = tree;
 						file->flags = 0;
 						file->size = entry->size;
@@ -115,7 +115,7 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32 cluster)
 		//kprintf("End dir parse\n");
 
 		// advnce to next cluster in chain until EOF
-		u32 nextcluster = GetFATEntry(info, cluster);
+		uint32_t nextcluster = GetFATEntry(info, cluster);
 		if (nextcluster >= 0x0ffffff0)
 		{
 			//kprintf("Cluster break\n");
@@ -133,7 +133,7 @@ FS_DirectoryEntry* ParseFAT32Dir(FS_Tree* tree, fat32* info, u32 cluster)
 	return list;
 }
 
-int fat32_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
+int fat32_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffer)
 {
 	FS_DirectoryEntry* file = (FS_DirectoryEntry*)f;
 	FS_Tree* tree = (FS_Tree*)file->directory;
@@ -141,9 +141,9 @@ int fat32_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 
 	//kprintf("fat32_read_file start=%d len=%d\n", start, length);
 
-	u32 cluster = file->lbapos;
-	u32 clustercount = 0;
-	u32 first = 1;
+	uint32_t cluster = file->lbapos;
+	uint32_t clustercount = 0;
+	uint32_t first = 1;
 	unsigned char* clbuf = (unsigned char*)kmalloc(info->clustersize);
 
 	//kprintf("First cluster: %08x\n", cluster);
@@ -158,7 +158,7 @@ int fat32_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 	while (1)
 	{
 		//kprintf("Read file clusters cluster=%08x\n", cluster);
-		if (!ide_read_sectors(info->drivenumber, info->clustersize / 512, ClusLBA(info, cluster), (u64)clbuf))
+		if (!ide_read_sectors(info->drivenumber, info->clustersize / 512, ClusLBA(info, cluster), (uint64_t)clbuf))
 		{
 			kprintf("Read failure in fat32_read_file cluster=%08x\n", cluster);
 			kfree(clbuf);
@@ -206,40 +206,40 @@ void* fat32_get_directory(void* t)
 	}
 }
 
-u32 GetFATEntry(fat32* info, u32 cluster)
+uint32_t GetFATEntry(fat32* info, uint32_t cluster)
 {
-	u32* buffer = (u32*)kmalloc(512);
-	//u32 FATOffset = cluster * 4;
-	//u32 ThisFATSecNum = info->start + info->reservedsectors + (FATOffset / 512);
-	//u32 ThisFATEntOffset = FATOffset % 512;
+	uint32_t* buffer = (uint32_t*)kmalloc(512);
+	//uint32_t FATOffset = cluster * 4;
+	//uint32_t ThisFATSecNum = info->start + info->reservedsectors + (FATOffset / 512);
+	//uint32_t ThisFATEntOffset = FATOffset % 512;
 	//
-	u32 FATEntrySector = info->start + info->reservedsectors + ((cluster * 4) / 512);
-	u32 FATEntryOffset = (u32) (cluster % 128);  // 512/4
+	uint32_t FATEntrySector = info->start + info->reservedsectors + ((cluster * 4) / 512);
+	uint32_t FATEntryOffset = (uint32_t) (cluster % 128);  // 512/4
 
 	//kprintf("cluster=%08x fatentrysector=%08x fatentryoffset=%08x\n", cluster, FATEntrySector, FATEntryOffset);
 
-	if (!ide_read_sectors(info->drivenumber, 1, FATEntrySector, (u64)buffer))
+	if (!ide_read_sectors(info->drivenumber, 1, FATEntrySector, (uint64_t)buffer))
 	{
 		kprintf("Read failure in GetFATEntry cluster=%08x\n", cluster);
 		return 0x0fffffff;
 	}
 	//DumpHex(buffer, 16);
 	//kprintf("Sector at LBA %08x offset %08x\n", ThisFATSecNum, ThisFATEntOffset);
-	u32 entry = buffer[FATEntryOffset] & 0x0FFFFFFF;
+	uint32_t entry = buffer[FATEntryOffset] & 0x0FFFFFFF;
 	kfree(buffer);
 	return entry;
 }
 
-u64 ClusLBA(fat32* info, u32 cluster)
+uint64_t ClusLBA(fat32* info, uint32_t cluster)
 {
-	u64 FirstDataSector = info->reservedsectors + (info->numberoffats * info->fatsize);
-	u64 FirstSectorofCluster = ((cluster - 2) * (info->clustersize / 512) ) + FirstDataSector;
+	uint64_t FirstDataSector = info->reservedsectors + (info->numberoffats * info->fatsize);
+	uint64_t FirstSectorofCluster = ((cluster - 2) * (info->clustersize / 512) ) + FirstDataSector;
 	return info->start + FirstSectorofCluster;
 }
 
 int ReadFSInfo(fat32* info)
 {
-	if (!ide_read_sectors(info->drivenumber, 1, info->start + info->fsinfocluster, (u64)info->info))
+	if (!ide_read_sectors(info->drivenumber, 1, info->start + info->fsinfocluster, (uint64_t)info->info))
 	{
 		kprintf("Read failure in ReadFSInfo\n");
 		return 0;
@@ -261,7 +261,7 @@ int ReadFAT(fat32* info)
 
 	unsigned char* buffer = (unsigned char*)kmalloc(512);
 	_memset(buffer, 0, 512);
-	if (!ide_read_sectors(info->drivenumber, 1, info->start, (u64)buffer))
+	if (!ide_read_sectors(info->drivenumber, 1, info->start, (uint64_t)buffer))
 	{
 		kprintf("FAT32: Could not read partition boot sector!\n");
 		kfree(buffer);
@@ -294,7 +294,7 @@ int ReadFAT(fat32* info)
 
 	info->root = ParseFAT32Dir(NULL, info, info->rootdircluster);
 
-	//u32 pos = (u32)(((u32)de->first_cluster_hi << 16) + (u32)de->first_cluster_lo);
+	//uint32_t pos = (uint32_t)(((uint32_t)de->first_cluster_hi << 16) + (uint32_t)de->first_cluster_lo);
 	
 	//int j;
 	//for (j = 0; j < 18; j++)
@@ -305,12 +305,12 @@ int ReadFAT(fat32* info)
 	return 1;
 }
 
-fat32* fat32_mount_volume(u32 drivenumber)
+fat32* fat32_mount_volume(uint32_t drivenumber)
 {
 	unsigned char* buffer = (unsigned char*)kmalloc(512);
 	fat32* info = (fat32*)kmalloc(sizeof(fat32));
 	_memset(buffer, 0, 512);
-	if (!ide_read_sectors(drivenumber, 1, 0, (u64)buffer))
+	if (!ide_read_sectors(drivenumber, 1, 0, (uint64_t)buffer))
 	{
 		kprintf("FAT32: Could not read partition table sector!\n");
 		kfree(info);
@@ -365,7 +365,7 @@ int find_first_harddisk()
 	return -1;
 }
 
-void fat32_attach(u32 drivenumber, const char* path)
+void fat32_attach(uint32_t drivenumber, const char* path)
 {
 	if (drivenumber >= 0)
 	{

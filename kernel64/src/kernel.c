@@ -3,8 +3,8 @@
 console first_console;
 console* current_console = NULL;
 spinlock init_barrier = 0;
-u8 kmain_entered = 0;
-u8 cpunum = 1;
+uint8_t kmain_entered = 0;
+uint8_t cpunum = 1;
 
 volatile struct limine_stack_size_request stack_size_request = {
     .id = LIMINE_STACK_SIZE_REQUEST,

@@ -81,7 +81,7 @@ extern const char* types[];
 void tokenizer_init(const char *program, struct ubasic_ctx* ctx);
 void tokenizer_next(struct ubasic_ctx* ctx);
 int tokenizer_token(struct ubasic_ctx* ctx);
-s64 tokenizer_num(struct ubasic_ctx* ctx, int token);
+int64_t tokenizer_num(struct ubasic_ctx* ctx, int token);
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx);
 void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
 int tokenizer_finished(struct ubasic_ctx* ctx);

@@ -5,7 +5,7 @@
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
 
-FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32 start_lba, u32 lengthbytes);
+FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes);
 
 static FS_FileSystem* iso9660_fs = NULL;
 
@@ -47,21 +47,21 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 	return info->root != 0;
 }
 
-FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, u32 start_lba, u32 lengthbytes)
+FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes)
 {
 	unsigned char* dirbuffer = (unsigned char*)kmalloc(lengthbytes);
 	int j;
 
 	_memset(dirbuffer, 0, lengthbytes);
 
-	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (u64)dirbuffer))
+	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (uint64_t)dirbuffer))
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
 		kfree(dirbuffer);
 		return NULL;
 	}
 
-	u32 dir_items = 0;
+	uint32_t dir_items = 0;
 	FS_DirectoryEntry* list = NULL;
 
 	// Iterate each of the entries in this directory, enumerating files
@@ -184,7 +184,7 @@ void ParseVPD(iso9660* info, unsigned char* buffer)
 {
 }
 
-FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, u32 flags)
+FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, uint32_t flags)
 {
 	FS_DirectoryEntry* currententry = info->root;
 	for(; currententry->next; currententry = currententry->next)
@@ -214,14 +214,14 @@ void* iso_get_directory(void* t)
 	}
 }
 
-int iso_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
+int iso_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffer)
 {
 	FS_DirectoryEntry* file = (FS_DirectoryEntry*)f;
 	FS_Tree* tree = (FS_Tree*)file->directory;
 	iso9660* info = (iso9660*)tree->opaque;
 
-	u32 sectors_size = length / 2048;
-	u32 sectors_start = start / 2048 + file->lbapos;
+	uint32_t sectors_size = length / 2048;
+	uint32_t sectors_start = start / 2048 + file->lbapos;
 
 	// Because its not valid to read 0 sectors, we must make sure we read at least one,
 	// and to make sure we read the remainder because this is an integer division,
@@ -231,7 +231,7 @@ int iso_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 	//kprintf("kmallocing %d bytes\n", sectors_size * 2048);
 	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
 	//kprintf("Got %08x\n", readbuf);
-	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (u64)readbuf))
+	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (uint64_t)readbuf))
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
 		kfree(readbuf);
@@ -244,17 +244,17 @@ int iso_read_file(void* f, u32 start, u32 length, unsigned char* buffer)
 	return 1;
 }
 
-iso9660* iso_mount_volume(u32 drivenumber)
+iso9660* iso_mount_volume(uint32_t drivenumber)
 {
 	//kprintf("Mounting volume on %d\n", drivenumber);
 	unsigned char* buffer = (unsigned char*)kmalloc(2048);
 	iso9660* info = (iso9660*)kmalloc(sizeof(iso9660));
 	_memset(buffer, 0, 2048);
-	u32 VolumeDescriptorPos = PVD_LBA;
+	uint32_t VolumeDescriptorPos = PVD_LBA;
 	info->drivenumber = drivenumber;
 	while (1)
 	{
-		if (!ide_read_sectors(drivenumber, 1, VolumeDescriptorPos++, (u64)buffer))
+		if (!ide_read_sectors(drivenumber, 1, VolumeDescriptorPos++, (uint64_t)buffer))
 		{
 			kprintf("ISO9660: Could not read LBA sector 0x%x!\n", VolumeDescriptorPos);
 			kfree(info);
@@ -324,7 +324,7 @@ int find_first_cdrom()
 	return 0;
 }
 
-void iso9660_attach(u32 drivenumber, const char* path)
+void iso9660_attach(uint32_t drivenumber, const char* path)
 {
 	iso9660* isofs = iso_mount_volume(drivenumber);
 	attach_filesystem(path, iso9660_fs, isofs);

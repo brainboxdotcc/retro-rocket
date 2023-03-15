@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-void error_handler(u8 int_no, u64 errorcode, u64 irq_no);
+void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t irq_no);
 
 void init_error_handler()
 {
@@ -9,7 +9,7 @@ void init_error_handler()
 		register_interrupt_handler(interrupt, error_handler);
 }
 
-void error_handler(u8 int_no, u64 errorcode, u64 irq_no)
+void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t irq_no)
 {
 	static const char* const error_table[] = {
 		"Division by zero exception",

@@ -20,15 +20,15 @@
 #define IRQ15 47        // Secondary IDE
 #define IRQ16 50	// LAPIC timer vector
 
-void Interrupt(u64 isrnumber, u64 errorcode);
-void IRQ(u64 isrnumber, u64 errorcode);
+void Interrupt(uint64_t isrnumber, uint64_t errorcode);
+void IRQ(uint64_t isrnumber, uint64_t errorcode);
 
 // Interrupt handler definition
-typedef void (*isr_t)(u8 isrnumber, u64 errorcode, u64 irqnumber);
+typedef void (*isr_t)(uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber);
 
 void init_interrupts();
 
 // Register a new interrupt handler
-void register_interrupt_handler(u8 n, isr_t handler);
+void register_interrupt_handler(uint8_t n, isr_t handler);
 
 #endif

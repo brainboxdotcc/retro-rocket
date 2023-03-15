@@ -19,24 +19,24 @@
 
 typedef struct PCI_DeviceTag
 {
-	u32	vendordevice;
-	u8	headertype;
-	u8	deviceclass;
-	u8	devicesubclass;
-	u8	deviceif;
-	u8 irq;
-	u32	bar[6];
-	u32	restype[6];
-	u8	bus;
-	u8	slot;
-	u8	func;
+	uint32_t	vendordevice;
+	uint8_t	headertype;
+	uint8_t	deviceclass;
+	uint8_t	devicesubclass;
+	uint8_t	deviceif;
+	uint8_t irq;
+	uint32_t	bar[6];
+	uint32_t	restype[6];
+	uint8_t	bus;
+	uint8_t	slot;
+	uint8_t	func;
 	struct PCI_DeviceTag* next;
 } PCI_Device;
 
 void init_pci();
-void list_pci(u8 showbars);
+void list_pci(uint8_t showbars);
 void pci_enable_device(PCI_Device* dev);
-PCI_Device* pci_find(u16 bus, u16 slot);
+PCI_Device* pci_find(uint16_t bus, uint16_t slot);
 
 #endif
 

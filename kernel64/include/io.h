@@ -39,11 +39,11 @@ static inline void outl(int port, unsigned long value)
 	asm volatile("outl %%eax, %%dx" : : "d" (port), "a" (value));
 }
 
-#define insl(port, buffer, count) { int v = 0; u32* b = (u32*)buffer; for (; v < count; v++) b[v] = inl(port); }
+#define insl(port, buffer, count) { int v = 0; uint32_t* b = (uint32_t*)buffer; for (; v < count; v++) b[v] = inl(port); }
 
-#define insw(port, buffer, count) { int v = 0; u16* b = (u16*)buffer; for (; v < count; v++) b[v] = inw(port); }
+#define insw(port, buffer, count) { int v = 0; uint16_t* b = (uint16_t*)buffer; for (; v < count; v++) b[v] = inw(port); }
 
-#define outsw(port, buffer, count) { int v = 0; u16* b = (u16*)buffer; for (; v < count; v++) outw(port, b[v]); }
+#define outsw(port, buffer, count) { int v = 0; uint16_t* b = (uint16_t*)buffer; for (; v < count; v++) outw(port, b[v]); }
 
 
 static inline void interrupts_on()

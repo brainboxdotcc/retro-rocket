@@ -9,12 +9,12 @@
  */
 typedef struct
 {
-	u32 drivenumber;
+	uint32_t drivenumber;
 	int joliet;
 	char* volume_name;
-	u32 pathtable_lba;
-	u32 rootextent_lba;
-	u32 rootextent_len;
+	uint32_t pathtable_lba;
+	uint32_t rootextent_lba;
+	uint32_t rootextent_len;
 	FS_DirectoryEntry* root;
 } iso9660;
 
@@ -34,30 +34,30 @@ typedef struct
 /* Per-file date entries (they differe from above to save space) */
 typedef struct
 {
-	u8 years_since_1900;
-	u8 month;
-	u8 day;
-	u8 hour;
-	u8 minute;
-	u8 second;
+	uint8_t years_since_1900;
+	uint8_t month;
+	uint8_t day;
+	uint8_t hour;
+	uint8_t minute;
+	uint8_t second;
 	char tz_offset;
 } __attribute__((packed)) DIRECTORY_date;
 
 /* Directory entry (may refer to a file or another directory) */
 typedef struct
 {
-	u8 length;
-	u8 attribute_length;
-	u32 extent_lba_lsb;
-	u32 extent_lba_msb;
-	u32 data_length_lsb;
-	u32 data_length_msb;
+	uint8_t length;
+	uint8_t attribute_length;
+	uint32_t extent_lba_lsb;
+	uint32_t extent_lba_msb;
+	uint32_t data_length_lsb;
+	uint32_t data_length_msb;
 	DIRECTORY_date recording_date;
-	u8 file_flags;
-	u16 interleave_unit_size;
-	u16 sequence_number_lsb;
-	u16 sequence_number_msb;
-	u8 filename_length;
+	uint8_t file_flags;
+	uint16_t interleave_unit_size;
+	uint16_t sequence_number_lsb;
+	uint16_t sequence_number_msb;
+	uint8_t filename_length;
 	/* NOTE: Filenames may be longer than 12 characters,
 	 * up to filename_length in size. This does not trample
 	 * any following structs, because where this happens,
@@ -70,34 +70,34 @@ typedef struct
 // Primary volume descriptor
 typedef struct
 {
-	u8 typecode;
+	uint8_t typecode;
 	char standardidentifier[5];
-	u8 version;
-	u8 unused;
+	uint8_t version;
+	uint8_t unused;
 	char systemidentifier[32];
 	char volumeidentifier[32];
 	char unused2[8];
-	u32 lsb_volumespacesize;
-	u32 msb_volumespacesize;
+	uint32_t lsb_volumespacesize;
+	uint32_t msb_volumespacesize;
 	//char unused3[32];
 	char escape_seq[8];
 	char unused3[32-8];
-	u16 lsb_volumesetsize;
-	u16 msb_volumesetsize;
-	u16 lsb_volumeseqno;
-	u16 msb_volumeseqno;
-	u16 lsb_blocksize;
-	u16 msb_blocksize;
+	uint16_t lsb_volumesetsize;
+	uint16_t msb_volumesetsize;
+	uint16_t lsb_volumeseqno;
+	uint16_t msb_volumeseqno;
+	uint16_t lsb_blocksize;
+	uint16_t msb_blocksize;
 	/* OK, whoever thought it was a good idea to have
 	 * dual-endianness copies of every value larger than
 	 * one byte in the structure needs a kicking.
 	 */
-	u32 lsb_pathtablesize;
-	u32 msb_pathtablesize;
-	u32 lsb_pathtable_L_lba;
-	u32 lsb_optpathtable_L_lba;
-	u32 lsb_pathtable_M_lba;
-	u32 lsb_optpathtable_M_lba;
+	uint32_t lsb_pathtablesize;
+	uint32_t msb_pathtablesize;
+	uint32_t lsb_pathtable_L_lba;
+	uint32_t lsb_optpathtable_L_lba;
+	uint32_t lsb_pathtable_M_lba;
+	uint32_t lsb_optpathtable_M_lba;
 	ISO9660_directory root_directory;
 	char volume_set_id[128];
 	char publisher_id[128];
@@ -110,10 +110,10 @@ typedef struct
 	PVD_date volume_modification_date;
 	PVD_date volume_expire_date;
 	PVD_date volume_effective_date;
-	u8 file_structure_version;
+	uint8_t file_structure_version;
 	char unused4;
-	u8 application_use[512];
-	u8 reserved[653];
+	uint8_t application_use[512];
+	uint8_t reserved[653];
 } __attribute__((packed)) PVD;
 
 typedef struct
@@ -124,12 +124,12 @@ typedef struct
  * Returns either NULL or an iso9660* which references the volume information and initially the
  * root directory of the dis.
  */
-iso9660* iso_mount_volume(u32 drivenumber);
+iso9660* iso_mount_volume(uint32_t drivenumber);
 
-int iso_read_file(void* file, u32 start, u32 length, unsigned char* buffer);
+int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
 void init_iso9660();
-void iso9660_attach(u32 drivenumber, const char* path);
+void iso9660_attach(uint32_t drivenumber, const char* path);
 int find_first_cdrom();
 
 #endif

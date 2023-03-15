@@ -10,7 +10,7 @@ void* devfs_get_directory(void* t)
 	return devfs_entries;
 }
 
-int devfs_read_file(void* file, u32 start, u32 length, unsigned char* buffer)
+int devfs_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
 	return 0;
 }

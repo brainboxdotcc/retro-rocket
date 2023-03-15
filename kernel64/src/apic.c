@@ -1,25 +1,25 @@
  #include <kernel.h>
 
- void get_lapic_address(u64* lapic);
+ void get_lapic_address(uint64_t* lapic);
 
-u32 apic_read(u64 reg)
+uint32_t apic_read(uint64_t reg)
 {
-	u64 lapic = 0;
+	uint64_t lapic = 0;
 	get_lapic_address(&lapic);
-	u32 res = *((volatile u32 *)(lapic + reg));
+	uint32_t res = *((volatile uint32_t *)(lapic + reg));
 	return res;
 }
 
-void apic_write(u64 reg, u32 value)
+void apic_write(uint64_t reg, uint32_t value)
 {
-	u64 lapic = 0;
+	uint64_t lapic = 0;
 	get_lapic_address(&lapic);
-	*((volatile u32 *)(lapic + reg)) = value;
+	*((volatile uint32_t *)(lapic + reg)) = value;
 }
 
-u8 cpu_id()
+uint8_t cpu_id()
 {
-	u32 id = apic_read(APIC_ID);
+	uint32_t id = apic_read(APIC_ID);
 	id = (id >> 24) & 0xff;
 	return id;
 }

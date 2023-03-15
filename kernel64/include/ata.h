@@ -84,31 +84,31 @@
 
 typedef struct
 {
-	unsigned short base;  // I/O Base.
-	unsigned short ctrl;  // Control Base
-	unsigned short bmide; // Bus Master IDE
-	unsigned char  nIEN;  // nIEN (No Interrupt)
+	uint16_t base;  // I/O Base.
+	uint16_t ctrl;  // Control Base
+	uint16_t bmide; // Bus Master IDE
+	uint8_t  nIEN;  // nIEN (No Interrupt)
 } channel;
 
 typedef struct {
-	unsigned char  reserved;     // 0 (Empty) or 1 (This Drive really exists).
-	unsigned char  channel;      // 0 (Primary Channel) or 1 (Secondary Channel).
-	unsigned char  drive;        // 0 (Master Drive) or 1 (Slave Drive).
-	unsigned short type;         // 0: ATA, 1:ATAPI.
-	unsigned short sign;         // Drive Signature
-	unsigned short capabilities; // Features.
-	unsigned int   commandsets;  // Command Sets Supported.
-	u64         size;         // Size in Sectors.
-	unsigned char  model[41];    // Model in string.
+	uint8_t  reserved;     // 0 (Empty) or 1 (This Drive really exists).
+	uint8_t  channel;      // 0 (Primary Channel) or 1 (Secondary Channel).
+	uint8_t  drive;        // 0 (Master Drive) or 1 (Slave Drive).
+	uint16_t type;         // 0: ATA, 1:ATAPI.
+	uint16_t sign;         // Drive Signature
+	uint16_t capabilities; // Features.
+	uint32_t commandsets;  // Command Sets Supported.
+	uint64_t size;         // Size in Sectors.
+	uint8_t  model[41];    // Model in string.
 } ide_device;
 
-unsigned char ide_read(unsigned char channel, unsigned char reg);
-void ide_write(unsigned char channel, unsigned char reg, unsigned char data);
-void ide_initialise(unsigned int BAR0, unsigned int BAR1, unsigned int BAR2, unsigned int BAR3, unsigned int BAR4);
-void ide_irq(u8 isr, u64 error, u64 irq);
-int ide_read_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 edi);
-int ide_write_sectors(unsigned char drive, unsigned char numsects, u64 lba, u64 edi);
-int ide_atapi_eject(unsigned char drive);
+uint8_t ide_read(uint8_t channel, uint8_t reg);
+void ide_write(uint8_t channel, uint8_t reg, uint8_t data);
+void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, uint32_t BAR4);
+void ide_irq(uint8_t isr, uint64_t error, uint64_t irq);
+int ide_read_sectors(uint8_t drive, uint8_t numsects, uint64_t lba, uint64_t edi);
+int ide_write_sectors(uint8_t drive, uint8_t numsects, uint64_t lba, uint64_t edi);
+int ide_atapi_eject(uint8_t drive);
 
 #endif
 

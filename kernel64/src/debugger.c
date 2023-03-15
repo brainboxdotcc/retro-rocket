@@ -7,7 +7,7 @@ symbol_t* get_sym_table()
 	return symbol_table;
 }
 
-void DumpHex(unsigned char* address, u64 length)
+void DumpHex(unsigned char* address, uint64_t length)
 {
 	int index = 0;
 	for(; index < length; index += 16)
@@ -42,7 +42,7 @@ void init_debug()
 		return;
 	}
 	//kprintf("init_debug 2\n");
-	u32 filesize = symfile->size;
+	uint32_t filesize = symfile->size;
 	if (filesize == 0)
 	{
 		symbol_fail();
@@ -67,10 +67,10 @@ void init_debug()
 		char symbol_address[32];
 		char type[2];
 		char symbol[1024];
-		u32 counter = 0;
-		u32 offset = 0;
-		u32 symcount = 0;
-		u32 sizebytes = 0;
+		uint32_t counter = 0;
+		uint32_t offset = 0;
+		uint32_t symcount = 0;
+		uint32_t sizebytes = 0;
 		symbol_table = (symbol_t*)kmalloc(sizeof(symbol_t));
 		symbol_t* thisentry = symbol_table;
 
@@ -108,7 +108,7 @@ void init_debug()
 			ptr++;
 			offset++;
 
-			u32 length = strlen(symbol) + 1;
+			uint32_t length = strlen(symbol) + 1;
 
 			if (*type == 'T')
 			{
@@ -138,14 +138,14 @@ void init_debug()
 	}
 }
 
-const char* findsymbol(u64 address, u64* offset)
+const char* findsymbol(uint64_t address, uint64_t* offset)
 {
 	/* Only the bottom 32 bits of any address is respected here, because the symbol in the
 	 * sym file might be relocated (higher half) from what is the real address.
 	 */
 	address = address & 0xffffffff;
 	symbol_t* walksyms = symbol_table;
-	u64 lastsymaddr = symbol_table->address;
+	uint64_t lastsymaddr = symbol_table->address;
 	symbol_t* lastsym = symbol_table;
 	for (; walksyms->next; walksyms = walksyms->next)
 	{
@@ -170,8 +170,8 @@ void backtrace()
 	stack_frame_t *frame;
 	asm volatile("movq %%rbp,%0" : "=r"(frame));
 	//frame = (stack_frame_t *)regs->ebp;
-	u64 page = (u64) frame & 0xFFFFFFFFFFFFF000ull;
-	u64 offset = 0;
+	uint64_t page = (uint64_t) frame & 0xFFFFFFFFFFFFF000ull;
+	uint64_t offset = 0;
 	const char* name = NULL;
 
 	if (!symbol_table)
@@ -182,9 +182,9 @@ void backtrace()
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
 	setforeground(current_console, COLOUR_LIGHTGREEN);
-	while(frame && ((u64)frame & 0xFFFFFFFFFFFFF000ull) == page)
+	while(frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page)
 	{
-		name = findsymbol((u64)frame->addr, &offset);
+		name = findsymbol((uint64_t)frame->addr, &offset);
 		kprintf("\tat %s()+0%08x [0x%016x]\n",  name ? name : "[???]", offset, frame->addr);
 		frame = frame->next;
 	}

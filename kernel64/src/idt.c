@@ -1,10 +1,10 @@
 #include <kernel.h>
 
-//u16 idt64[5] = {0xffff, 0x0000, 0x0002, 0x0000, 0x0000 };
+//uint16_t idt64[5] = {0xffff, 0x0000, 0x0002, 0x0000, 0x0000 };
 
 /* 64-bit IDT is at &idt */
 //idt_entry_t idt[255] = { 0 };
-idt_ptr_t idt64 = { sizeof(idt_entry_t) * 255, 0x10000 };
+idt_ptr_t idt64 = { sizeof(idt_entry_t) * 255, (idt_entry_t*)0x10000 };
 
 void idt_setup()
 {
