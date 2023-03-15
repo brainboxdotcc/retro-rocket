@@ -18,20 +18,12 @@ bits 64
 section .text
 
 extern kmain
-extern kmain_ap
+extern boot_bsp
 extern exception_handlers
-global boot_bsp
-global hydrogen_config
 
 ; Entry point for the BSP.
 boot_bsp:
 	mov rax, kmain
-	call rax
-	jmp $
-
-; Entry point for the AP.
-boot_ap:
-	mov rax, kmain_ap
 	call rax
 	jmp $
 
