@@ -54,7 +54,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_l
 
 	_memset(dirbuffer, 0, lengthbytes);
 
-	if (!ide_read_sectors(info->drivenumber, lengthbytes / 2048, start_lba, (uint64_t)dirbuffer))
+	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer))
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
 		kfree(dirbuffer);
@@ -118,7 +118,8 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_l
 			thisentry->hour = fentry->recording_date.hour;
 			thisentry->min = fentry->recording_date.minute;
 			thisentry->sec = fentry->recording_date.second;
-			thisentry->device = info->drivenumber;
+			strlcpy(thisentry->device_name, info->device->name, 16);
+			thisentry->device = 0;
 			thisentry->lbapos = fentry->extent_lba_lsb;
 			thisentry->size = fentry->data_length_lsb;
 			thisentry->flags = 0;
@@ -170,7 +171,7 @@ void ParseSVD(iso9660* info, unsigned char* buffer)
 
 	if (joliet)
 	{
-		kprintf("Joliet extensions found on CD drive %d, UCS-2 Level %d\n", info->drivenumber, joliet);
+		kprintf("Joliet extensions found on CD drive %s, UCS-2 Level %d\n", info->device->name, joliet);
 		info->joliet = joliet;
 		info->pathtable_lba = svd->lsb_pathtable_L_lba;
 		info->rootextent_lba = svd->root_directory.extent_lba_lsb;
@@ -217,116 +218,96 @@ void* iso_get_directory(void* t)
 int iso_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffer)
 {
 	FS_DirectoryEntry* file = (FS_DirectoryEntry*)f;
-	FS_Tree* tree = (FS_Tree*)file->directory;
-	iso9660* info = (iso9660*)tree->opaque;
+	//iso9660* info = (iso9660*)treeitem->opaque;
+	FS_StorageDevice* fs = find_storage_device(file->device_name);
 
-	uint32_t sectors_size = length / 2048;
-	uint32_t sectors_start = start / 2048 + file->lbapos;
+	uint32_t sectors_size = length / fs->block_size;
+	uint32_t sectors_start = start / fs->block_size + file->lbapos;
 
 	// Because its not valid to read 0 sectors, we must make sure we read at least one,
 	// and to make sure we read the remainder because this is an integer division,
 	// we must read one more than we asked for for safety.
 	sectors_size++;
 
-	//kprintf("kmallocing %d bytes\n", sectors_size * 2048);
-	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * 2048);
-	//kprintf("Got %08x\n", readbuf);
-	if (!ide_read_sectors(info->drivenumber, sectors_size, sectors_start, (uint64_t)readbuf))
+	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * fs->block_size);
+	if (!read_storage_device(file->device_name, sectors_start, length, readbuf))
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
 		kfree(readbuf);
 		return 0;
 	}
-	memcpy(buffer, readbuf + (start % 2048), length);
+	memcpy(buffer, readbuf + (start % fs->block_size), length);
 
 	//kprintf("Freeing ptr %08x\n", readbuf);
 	kfree(readbuf);
 	return 1;
 }
 
-iso9660* iso_mount_volume(uint32_t drivenumber)
+iso9660* iso_mount_volume(const char* name)
 {
-	//kprintf("Mounting volume on %d\n", drivenumber);
-	unsigned char* buffer = (unsigned char*)kmalloc(2048);
+	FS_StorageDevice* fs = find_storage_device(name);
+	if (!fs) {
+		return NULL;
+	}
+
+	unsigned char* buffer = (unsigned char*)kmalloc(fs->block_size);
 	iso9660* info = (iso9660*)kmalloc(sizeof(iso9660));
 	_memset(buffer, 0, 2048);
 	uint32_t VolumeDescriptorPos = PVD_LBA;
-	info->drivenumber = drivenumber;
+	info->device = fs;
 	while (1)
 	{
-		if (!ide_read_sectors(drivenumber, 1, VolumeDescriptorPos++, (uint64_t)buffer))
-		{
+		if (!read_storage_device(name, VolumeDescriptorPos++, fs->block_size, buffer)) {
 			kprintf("ISO9660: Could not read LBA sector 0x%x!\n", VolumeDescriptorPos);
 			kfree(info);
 			return NULL;
 		}
 		unsigned char VolumeDescriptorID = buffer[0];
-		if (VolumeDescriptorID == 0xFF)
-		{
+		if (VolumeDescriptorID == 0xFF) {
 			// Volume descriptor terminator
 			break;
-		}
-		else if (VolumeDescriptorID == 0x00)
-		{
+		} else if (VolumeDescriptorID == 0x00) {
 			ParseBOOT(info, buffer);
-		}
-		else if (VolumeDescriptorID == 0x01)
-		{
+		} else if (VolumeDescriptorID == 0x01) {
 			// Primary volume descriptor
-			if (!ParsePVD(info, buffer))
-			{
+			if (!ParsePVD(info, buffer)) {
 				kfree(info);
 				kfree(buffer);
 				return NULL;
 			}
-		}
-		else if (VolumeDescriptorID == 0x02)
-		{
+		} else if (VolumeDescriptorID == 0x02) {
 			// Supplementary volume descriptor
 			ParseSVD(info, buffer);
-		}
-		else if (VolumeDescriptorID == 0x03)
-		{
+		} else if (VolumeDescriptorID == 0x03) {
 			// Volume partition descriptor
 			ParseVPD(info, buffer);
-		}
-		else if (VolumeDescriptorID >= 0x04 && VolumeDescriptorID <= 0xFE)
-		{
+		} else if (VolumeDescriptorID >= 0x04 && VolumeDescriptorID <= 0xFE) {
 			// Reserved and unknown ID
 			kprintf("ISO9660: WARNING: Unknown volume descriptor 0x%x at LBA 0x%x!\n", VolumeDescriptorID, VolumeDescriptorPos);
 		}
 	}
 
-	kprintf("iso9660: Mounted volume '%s' on drive %d\n", info->volume_name, drivenumber);
+	kprintf("iso9660: Mounted volume '%s' on drive %s\n", info->volume_name, name);
 	kfree(buffer);
 	return info;
+}
+
+int iso9660_attach(const char* device, const char* path)
+{
+	iso9660* isofs = iso_mount_volume(device);
+	attach_filesystem(path, iso9660_fs, isofs);
+	return 1;
 }
 
 void init_iso9660()
 {
 	iso9660_fs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
 	strlcpy(iso9660_fs->name, "iso9660", 31);
+	iso9660_fs->mount = iso9660_attach;
 	iso9660_fs->getdir = iso_get_directory;
 	iso9660_fs->readfile = iso_read_file;
 	iso9660_fs->writefile = NULL;
 	iso9660_fs->rm = NULL;
 	register_filesystem(iso9660_fs);
-}
-
-int find_first_cdrom()
-{
-	int i;
-	for (i = 0; i < 4; i++)
-		if (ide_devices[i].type == IDE_ATAPI)
-			return i;
-	kprintf("No CDROM devices found on IDE bus, system halted.\n");
-	wait_forever();
-	return 0;
-}
-
-void iso9660_attach(uint32_t drivenumber, const char* path)
-{
-	iso9660* isofs = iso_mount_volume(drivenumber);
-	attach_filesystem(path, iso9660_fs, isofs);
 }
 

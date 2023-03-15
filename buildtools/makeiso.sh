@@ -4,7 +4,7 @@ mkdir "$1/.iso"
 cp "$1/kernel.bin" "$1/.iso/"
 mkdir "$1/.iso/devices"
 mkdir "$1/.iso/harddisk"
-cp limine.cfg limine/limine.sys limine/limine-cd.bin limine/limine-cd-efi.bin $1/.iso/
+cp limine.cfg limine/limine.sys limine/limine-cd.bin limine/limine-cd-efi.bin "$1/.iso/"
 nm -a "$1/kernel.bin" | sort -d > "$1/.iso/kernel.sym"
 rm -rf "$1/.iso/os"
 cp -r os/* "$1/.iso/"

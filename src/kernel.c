@@ -66,7 +66,13 @@ void kmain()
 
 	init_filesystem();
 	init_iso9660();
-	iso9660_attach(find_first_cdrom(), "/");
+
+	FS_FileSystem* first_cdrom = find_filesystem("iso9660");
+	if (first_cdrom == NULL) {
+		preboot_fail("No ATAPI drive found. What did you even boot from?!");
+	}
+	first_cdrom->mount("cd0", "/");
+
 	init_fat32();
 	fat32_attach(find_first_harddisk(), "/harddisk");
 	init_devfs();

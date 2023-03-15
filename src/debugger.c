@@ -94,7 +94,7 @@ void init_debug()
 				type[counter++] = *ptr++;
 				offset++;
 			}
-			type[counter] = 0;
+			type[1] = 0;
 			ptr++;
 			offset++;
 

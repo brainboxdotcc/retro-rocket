@@ -19,6 +19,7 @@ void init_devfs()
 {
 	devfs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
 	strlcpy(devfs->name, "devfs", 31);
+	devfs->mount = NULL;
 	devfs->getdir = devfs_get_directory;
 	devfs->readfile = devfs_read_file;
 	devfs->writefile = NULL;
@@ -32,5 +33,3 @@ void init_devfs()
 	/* NB: The /devices mountpoint must exist in the root fs */
 	attach_filesystem("/devices", devfs, NULL);
 }
-
-

@@ -2,6 +2,7 @@
 #include <filesystem.h>
 
 FS_FileSystem* filesystems, *dummyfs;
+FS_StorageDevice* storagedevices = NULL;
 FS_Tree* fs_tree;
 static uint32_t fd_last = 0;
 static uint32_t fd_alloc = 0;
@@ -14,6 +15,57 @@ int register_filesystem(FS_FileSystem* newfs)
 	newfs->next = filesystems;
 	filesystems = newfs;
 	return 1;
+}
+
+FS_FileSystem* find_filesystem(const char* name)
+{
+	FS_FileSystem* cur = filesystems;
+	for(; cur; cur = cur->next) {
+		if (!strcmp(name, cur->name)) {
+			return cur;
+		}
+	}
+	return NULL;
+}
+
+
+int register_storage_device(FS_StorageDevice* newdev)
+{
+	kprintf("Registering storage device '%s'\n", newdev->name);
+	/* Add the new storage device to the start of the list */
+	newdev->next = storagedevices;
+	storagedevices = newdev;
+	return 1;
+}
+
+FS_StorageDevice* find_storage_device(const char* name)
+{
+	FS_StorageDevice* cur = storagedevices;
+	for(; cur; cur = cur->next) {
+		if (!strcmp(name, cur->name)) {
+			return cur;
+		}
+	}
+	return NULL;
+}
+
+int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, unsigned char* data)
+{
+	FS_StorageDevice* cur = find_storage_device(name);
+	if (!cur || !cur->blockread) {
+		return 0;
+	}
+	return cur->blockread(cur, start_block, bytes, data);
+}
+
+int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes, const unsigned char* data)
+{
+	FS_StorageDevice* cur = find_storage_device(name);
+	if (!cur || !cur->blockwrite) {
+		return 0;
+	}
+
+	return cur->blockwrite(cur, start_block, bytes, data);
 }
 
 /* Allocate a new file descriptor and attach it to 'file' */
@@ -232,7 +284,7 @@ int _read(int fd, void *buffer, unsigned int count)
 			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, rb, filehandles[fd]->inbuf))
 				return -1;
 
-			memcpy(buffer + readbytes, filehandles[fd]->inbuf, rb);
+			memcpy(((unsigned char*)buffer) + readbytes, filehandles[fd]->inbuf, rb);
 
 			filehandles[fd]->seekpos += rb;
 			readbytes += rb;
@@ -329,6 +381,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 			newnode->lbapos = x->lbapos;
 			newnode->size = x->size;
 			newnode->device = x->device;
+			strlcpy(newnode->device_name, x->device_name, 16);
 			newnode->opaque = node->opaque;
 			newnode->dirty = 1;
 			newnode->parent = node;
@@ -348,32 +401,24 @@ typedef struct DirStack_t
 
 FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 {
-	//kprintf("walk to node internal 1 %08x %08x %08x\n", current_node, dir_stack, current_node ? current_node->name : '(null)');
-	if (current_node != NULL && current_node->dirty != 0)
-	{
-		//kprintf("walk to node internal 2 - current node not null, and dirty\n");
+	if (current_node != NULL && current_node->dirty != 0) {
 		retrieve_node_from_driver(current_node);
-		//kprintf("walk to node internal 3 - retrieve from driver ok\n");
 	}
-	//kprintf("walk to node internal 4 - outside dirty check\n");
 	
-	if (current_node != NULL && dir_stack && current_node->name != NULL && dir_stack->name != NULL && !strcmp(current_node->name, dir_stack->name))
-	{
-		//kprintf("found match current node internal %s dirstack name %s\n", current_node->name, dir_stack->name);
-
+	if (current_node != NULL && dir_stack && current_node->name != NULL && dir_stack->name != NULL && !strcmp(current_node->name, dir_stack->name)) {
 		dir_stack = dir_stack->next;
-		if (!dir_stack)
+		if (!dir_stack) {
 			return current_node;
+		}
 	}
 
-//kprintf("walk to node internal 6\n");
-	FS_Tree* dirs = current_node->child_dirs;
-	for (; dirs; dirs = dirs->next)
-	{
-//		kprintf("looking at node name (%s): %08x\n", dirs->name, dirs->responsible_driver);
-		FS_Tree* result = walk_to_node_internal(dirs, dir_stack);
-		if (result != NULL)
-			return result;
+	if (current_node != NULL) {
+		FS_Tree* dirs = current_node->child_dirs;
+		for (; dirs; dirs = dirs->next) {
+			FS_Tree* result = walk_to_node_internal(dirs, dir_stack);
+			if (result != NULL)
+				return result;
+		}
 	}
 
 //kprintf("walk to node internal 8\n");
@@ -546,6 +591,7 @@ void init_filesystem()
 	fs_tree = (FS_Tree*)kmalloc(sizeof(FS_Tree));
 
 	strlcpy(filesystems->name, "DummyFS", 31);
+	filesystems->mount = NULL;
 	filesystems->getdir = NULL;
 	filesystems->readfile = NULL;
 	filesystems->writefile = NULL;

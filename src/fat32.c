@@ -349,6 +349,7 @@ void init_fat32()
 {
 	fat32_fs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
 	strlcpy(fat32_fs->name, "fat32", 31);
+	fat32_fs->mount = NULL;
 	fat32_fs->getdir = fat32_get_directory;
 	fat32_fs->readfile = fat32_read_file;
 	fat32_fs->writefile = NULL;

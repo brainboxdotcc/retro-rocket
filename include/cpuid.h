@@ -1,7 +1,9 @@
 #ifndef __CPUID_H__
 #define __CPUID_H__
 
-enum
+#include <stdint.h>
+
+enum cpuid_flags : uint32_t
 {
 	CPUID_FEAT_ECX_SSE3		= 1 << 0, 
 	CPUID_FEAT_ECX_PCLMUL		= 1 << 1,
@@ -57,10 +59,10 @@ enum
 	CPUID_FEAT_EDX_HTT		= 1 << 28, 
 	CPUID_FEAT_EDX_TM1		= 1 << 29, 
 	CPUID_FEAT_EDX_IA64		= 1 << 30,
-	CPUID_FEAT_EDX_PBE		= 1 << 31
+	CPUID_FEAT_EDX_PBE		= (uint32_t)(1 << 31)
 };
 
-enum cpuid_requests
+enum cpuid_requests : uint32_t
 {
 	CPUID_GETVENDORSTRING=0x00000000,
 	CPUID_GETFEATURES,

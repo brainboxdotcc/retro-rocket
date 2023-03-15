@@ -9,13 +9,13 @@
  */
 typedef struct
 {
-	uint32_t drivenumber;
 	int joliet;
 	char* volume_name;
 	uint32_t pathtable_lba;
 	uint32_t rootextent_lba;
 	uint32_t rootextent_len;
 	FS_DirectoryEntry* root;
+	FS_StorageDevice* device;
 } iso9660;
 
 /* Date structure as defined in the primary volume descriptor */
@@ -124,13 +124,11 @@ typedef struct
  * Returns either NULL or an iso9660* which references the volume information and initially the
  * root directory of the dis.
  */
-iso9660* iso_mount_volume(uint32_t drivenumber);
+iso9660* iso_mount_volume(const char* device);
 
 int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
 void init_iso9660();
-void iso9660_attach(uint32_t drivenumber, const char* path);
-int find_first_cdrom();
 
 #endif
 

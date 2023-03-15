@@ -50,6 +50,7 @@ void kfree(void* addr);
 heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw); /* Create a heap */
 void heap_init();
 void print_heapinfo();
+void preboot_fail(char* msg);
 
 #endif
 

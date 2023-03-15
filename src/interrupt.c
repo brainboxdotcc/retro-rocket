@@ -35,7 +35,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 
 	if (isrnumber < 32)
 	{
-		printf("CPU %d halted with exception %016x, error code %016x.\n", cpu_id(), isrnumber, errorcode);
+		printf("CPU %d halted with exception %016lx, error code %016lx.\n", cpu_id(), isrnumber, errorcode);
 		wait_forever();
 	}
 	*((volatile uint32_t*)(0xFEE00000 + 0xB0)) = 0;
