@@ -17,7 +17,7 @@ clean:
 link:
 	$(LD) $(LDFLAGS) -o kernel.bin src/*.o asm/*.o
 	chmod ugo-x kernel.bin
-	perl build/makeiso.pl
+	sh build/makeiso.sh
 
 source:
 	make -C asm all CC="$(CC)" ASOURCES="$(ASOURCES)" CFLAGS="$(CFLAGS)"
