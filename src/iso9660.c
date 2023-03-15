@@ -294,9 +294,7 @@ iso9660* iso_mount_volume(const char* name)
 
 int iso9660_attach(const char* device, const char* path)
 {
-	iso9660* isofs = iso_mount_volume(device);
-	attach_filesystem(path, iso9660_fs, isofs);
-	return 1;
+	return attach_filesystem(path, iso9660_fs, iso_mount_volume(device));
 }
 
 void init_iso9660()

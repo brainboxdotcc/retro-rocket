@@ -8,6 +8,6 @@ cp limine.cfg limine/limine.sys limine/limine-cd.bin limine/limine-cd-efi.bin "$
 nm -a "$1/kernel.bin" | sort -d > "$1/.iso/kernel.sym"
 rm -rf "$1/.iso/os"
 cp -r os/* "$1/.iso/"
-xorriso -as mkisofs -b limine-cd.bin -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETRO-ROCKET" --protective-msdos-label "$1/.iso" -o "$1/rr.iso" 2>/dev/null
+xorriso -as mkisofs -b limine-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETRO-ROCKET" --protective-msdos-label "$1/.iso" -o "$1/rr.iso" 2>/dev/null
 bzip2 -c "$1/rr.iso" > "$1/rr.iso.bz2"
 
