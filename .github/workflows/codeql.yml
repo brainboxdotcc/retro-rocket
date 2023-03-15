@@ -39,12 +39,14 @@ jobs:
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     steps:
-    - name: Update vcpkg and install other dependencies
+    - name: Install build dependencies
       run: sudo apt-get update &&
            sudo apt-get install nasm xorriso
 
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
