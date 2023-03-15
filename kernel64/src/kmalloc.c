@@ -14,9 +14,6 @@ volatile struct limine_memmap_request memory_map_request = {
 u64 allocated = 0;
 u64 allocations = 0;
 
-extern page_directory_t *kernel_directory;
-extern page_directory_t *current_directory;
-
 spinlock mlock = 0;
 
 /* Two heaps, one for kernel and one for user */
@@ -520,13 +517,7 @@ void* kmalloc_ext(u64 size, u8 align, u64 *phys)
 	allocated += size;
 	void* ret;
 	if (kheap) {
-		ret = alloc(size,align,kheap);
-		if (phys) {	
-			/* Allocate physical address */
-			page_t *page = get_page((u64)ret, 0, current_directory);
-			*phys = (page->frame * 0x1000) + (((u64)ret) & 0xFFF);
-		}
-		return ret;
+		return alloc(size,align,kheap);
 	} else {
 		if (align) {
 			/* Alignn to page boundries */
@@ -560,13 +551,7 @@ void* malloc_ext(u64 size, u8 align, u64 *phys)
 {
 	void* ret;
 	if (uheap) {
-		ret = alloc(size, align, uheap);
-		if (phys) {
-			/* Allocate a physical address */
-			page_t *page = get_page((u64)ret, 0, current_directory);
-			*phys = page->frame*0x1000 + (((u64)ret) & 0xFFF);	/* +offset */
-		}
-		return ret;
+		return alloc(size, align, uheap);
 	}
 	return NULL;
 }

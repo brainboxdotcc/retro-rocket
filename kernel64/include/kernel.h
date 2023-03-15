@@ -1,32 +1,19 @@
 #pragma once
 
-typedef unsigned long long u64;	// 64 bit unsigned
-typedef long long s64;		// 64 bit signed
-typedef unsigned int u32;	// 32 bit unsigned
-typedef int s32;		// 32 bit signed
-typedef unsigned short u16;	// 16 bit unsigned
-typedef short s16;		// 16 bit signed
-typedef unsigned char u8;	// 8 bit unsigned
-typedef char s8;		// 8 bit signed
+#include <stdint.h>
+#include <stdbool.h>
 
-typedef u64 uint64_t;
-typedef u32 uint32_t;
-typedef u16 uint16_t;
-typedef u8 uint8_t;
-
-typedef s64 int64_t;
-typedef s32 int32_t;
-typedef s16 int16_t;
-typedef s8 int8_t;
+typedef uint64_t u64;
+typedef uint32_t u32;
+typedef uint16_t u16;
+typedef uint8_t u8;
+typedef int64_t s64;
+typedef int32_t s32;
+typedef int16_t s16;
+typedef int8_t s8;
 
 #define NULL 0
 #define kprintf printf
-
-enum bool
-{
-	false,
-	true
-};
 
 static inline void memset(void *dest, char val, int len)
 {
@@ -66,7 +53,6 @@ kprintf("This is a fatal system error and your system has been halted.\n\
 #include "memcpy.h"
 #include "apic.h"
 #include "ioapic.h"
-#include "paging.h"
 #include "timer.h"
 #include "kmalloc.h"
 #include "interrupt.h"

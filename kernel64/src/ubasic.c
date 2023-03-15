@@ -1412,7 +1412,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	char res[2] = {(char)intval, 0};
+	char res[2] = {(unsigned char)intval, 0};
 	return gc_strdup(res);
 }
 

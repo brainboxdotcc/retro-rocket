@@ -9,28 +9,24 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 {
 	cons->last = kgetc(cons);
 	
-	if (cons->last == 255)
-	{
+	if (cons->last == 255) {
 		asm volatile("hlt");
 		return 0;
 	}
 
-	if (cons->buffer == NULL)
-	{
+	if (cons->buffer == NULL) {
 		cons->internalbuffer = (char*)kmalloc(maxlen + 1);
 		cons->buffer = cons->internalbuffer;
 		cons->bufcnt = 0;
 		//kprintf("new buf");
 	}
 
-	switch (cons->last)
-	{
+	switch (cons->last) {
 		case '\r':
 			kprintf("\n");
 		break;
 		case 8:
-			if (cons->bufcnt != 0)
-			{
+			if (cons->bufcnt != 0) {
 				cons->buffer--;
 				cons->bufcnt--;
 				/* Advance text cursor back one space, if we are at x=0, move to x=79, y--.
@@ -39,19 +35,14 @@ unsigned int kinput(unsigned int maxlen, console* cons)
 				put(cons, 8);
 				put(cons, ' ');
 				put(cons, 8);
-			}
-			else
-			{
+			} else {
 				beep(1000);
 			}
 		break;
 		default:
-			if (cons->bufcnt == maxlen)
-			{
+			if (cons->bufcnt == maxlen) {
 				beep(1000);
-			}
-			else
-			{
+			} else {
 				*(cons->buffer++) = cons->last;
 				cons->bufcnt++;
 				put(cons, cons->last);
