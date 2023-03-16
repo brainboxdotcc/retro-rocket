@@ -1,6 +1,8 @@
 #ifndef __KMALLOC_H__
 #define __KMALLOC_H__
 
+#include <stddef.h>
+
 /* Unlike JamesM's heap this is not limited to one page (4Mb).
  * In fact, by default the kernel allocates an 8Mb heap.
  */
@@ -51,6 +53,8 @@ heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uin
 void heap_init();
 void print_heapinfo();
 void preboot_fail(char* msg);
+void* kcalloc(size_t num, size_t size);
+void* krealloc(void* ptr, size_t new_size);
 
 #endif
 

@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 typedef uint64_t uint64_t;
 typedef uint32_t uint32_t;
@@ -12,7 +13,6 @@ typedef int32_t int32_t;
 typedef int16_t int16_t;
 typedef int8_t int8_t;
 
-#define NULL 0
 #define kprintf printf
 
 static inline void memset(void *dest, char val, int len)
@@ -71,6 +71,7 @@ kprintf("This is a fatal system error and your system has been halted.\n\
 #include "tokenizer.h"
 #include "taskswitch.h"
 #include "acpi.h"
+#include "hashmap.h"
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

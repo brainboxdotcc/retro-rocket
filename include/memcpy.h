@@ -8,4 +8,6 @@ void *memcpy(void *dest, const void *src, uint64_t len);
 void *memmove(void *dest, const void *src, uint64_t n);
 int memcmp(const void *s1, const void *s2, uint64_t n);
 
+#define memset(dest, val, len) _memset(dest, val, len)
+
 #endif

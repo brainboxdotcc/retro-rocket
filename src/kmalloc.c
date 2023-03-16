@@ -650,3 +650,29 @@ header_t* ord_list_get_last(header_t *list)
 	return tmp;
 }
 
+void* kcalloc(size_t num, size_t size)
+{
+	void* ptr = kmalloc(num * size);
+	_memset(ptr, 0, num * size);
+	return ptr;
+}
+
+void* krealloc(void* ptr, size_t new_size)
+{
+	void* new_ptr = kmalloc(new_size);
+	if (new_ptr) {
+		/* allocate a new memory block of size new_size bytes,
+		 * copy memory area from old to new, and free the old block.
+		 * It is faster to not obtain the old size, and safe to do so, as both addresses
+		 * fall within our heap and are safe to use if the new allocation succeeded.
+		 */
+		if (ptr) {
+			/* If NULL is passed in as the old ptr, this acts just like malloc */
+			memcpy(new_ptr, ptr, new_size);
+			kfree(ptr);
+		}
+		return new_ptr;
+	}
+	/* If there is not enough memory, the old memory block is not freed and null pointer is returned */
+	return NULL;
+}
