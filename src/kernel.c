@@ -60,22 +60,20 @@ void kmain()
 	init_basic_keyboard();
 
 	init_pci();
-	list_pci(0);
 
 	ide_initialise(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
 
 	init_filesystem();
 	init_iso9660();
-
-	FS_FileSystem* first_cdrom = find_filesystem("iso9660");
-	if (first_cdrom == NULL) {
-		preboot_fail("No ATAPI drive found. What did you even boot from?!");
-	}
-	first_cdrom->mount("cd0", "/");
-
-	init_fat32();
-	fat32_attach(find_first_harddisk(), "/harddisk");
 	init_devfs();
+	init_fat32();
+
+	if (!filesystem_mount("/", "cd0", "iso9660")) {
+		preboot_fail("Failed to mount boot drive to VFS!");
+	}
+	filesystem_mount("/devices", NULL, "devfs");
+	filesystem_mount("/harddisk", "hd0", "fat32");
+
 	init_debug();
 
 	kprintf("Loading initial process...\n");

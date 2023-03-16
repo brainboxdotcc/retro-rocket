@@ -5,11 +5,22 @@
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
 
-FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes);
+FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes); 
+
+/**
+ * @brief Mount an ISO 9660 filesystem on a given block device name.
+ *
+ * Returns either NULL or an iso9660* which references the volume information and initially the
+ * root directory of the disk.
+ * 
+ * @param device device name
+ * @return iso9660* detail of root directory, or null on error
+ */
+iso9660* iso_mount_volume(const char* device);
+
+int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
 static FS_FileSystem* iso9660_fs = NULL;
-
-extern ide_device ide_devices[4];
 
 void ParseBOOT(iso9660* info, unsigned char* buffer)
 {
@@ -171,7 +182,7 @@ void ParseSVD(iso9660* info, unsigned char* buffer)
 
 	if (joliet)
 	{
-		kprintf("Joliet extensions found on CD drive %s, UCS-2 Level %d\n", info->device->name, joliet);
+		//kprintf("Joliet extensions found on CD drive %s, UCS-2 Level %d\n", info->device->name, joliet);
 		info->joliet = joliet;
 		info->pathtable_lba = svd->lsb_pathtable_L_lba;
 		info->rootextent_lba = svd->root_directory.extent_lba_lsb;
@@ -287,7 +298,6 @@ iso9660* iso_mount_volume(const char* name)
 		}
 	}
 
-	kprintf("iso9660: Mounted volume '%s' on drive %s\n", info->volume_name, name);
 	kfree(buffer);
 	return info;
 }

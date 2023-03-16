@@ -120,14 +120,6 @@ typedef struct
 {
 } __attribute__((packed)) SVD;
 
-/* Mount an ISO 9660 filesystem on a given drive number (drive number from enumeration in ata.h)
- * Returns either NULL or an iso9660* which references the volume information and initially the
- * root directory of the dis.
- */
-iso9660* iso_mount_volume(const char* device);
-
-int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
-
 void init_iso9660();
 
 #endif

@@ -15,11 +15,16 @@ int devfs_read_file(void* file, uint32_t start, uint32_t length, unsigned char* 
 	return 0;
 }
 
+int devfs_attach(const char* device, const char* path)
+{
+	return attach_filesystem(path, devfs, NULL);
+}
+
 void init_devfs()
 {
 	devfs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
 	strlcpy(devfs->name, "devfs", 31);
-	devfs->mount = NULL;
+	devfs->mount = devfs_attach;
 	devfs->getdir = devfs_get_directory;
 	devfs->readfile = devfs_read_file;
 	devfs->writefile = NULL;
@@ -30,6 +35,4 @@ void init_devfs()
 	devfs_entries->size = 0;
 	devfs_entries->flags = 0;
 	devfs_entries->filename = strdup("core");
-	/* NB: The /devices mountpoint must exist in the root fs */
-	attach_filesystem("/devices", devfs, NULL);
 }

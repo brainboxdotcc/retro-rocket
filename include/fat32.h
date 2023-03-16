@@ -44,7 +44,7 @@ typedef struct
 
 typedef struct
 {
-	uint32_t drivenumber;
+	char device_name[16];
 	uint8_t partitionid;
 	char* volume_name;
 	uint32_t start;
@@ -110,12 +110,7 @@ typedef struct
 	char systemid[9];
 } __attribute__((packed)) ParameterBlock;
 
-fat32* fat32_mount_volume(uint32_t drivenumber);
-int fat32_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
-void* iso_get_directory(void* t);
 void init_fat32();
-void fat32_attach(uint32_t drivenumber, const char* path);
-int find_first_harddisk();
 
 #endif
 

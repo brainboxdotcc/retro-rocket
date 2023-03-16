@@ -163,6 +163,15 @@ uint8_t ide_print_error(uint32_t drive, uint8_t err)
 	return err;
 }
 
+/**
+ * @brief Handler function for block reads from ATA devices from read_storage_device()
+ * 
+ * @param dev block storage device
+ * @param start starting block
+ * @param bytes number of bytes to read (this will always be rounded up in increments of block size)
+ * @param buffer buffer to receive blocks
+ * @return int 1 on successful read, 0 on failure
+ */
 int storage_device_ide_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buffer)
 {
 	FS_StorageDevice* sd = (FS_StorageDevice*)dev;
@@ -176,6 +185,15 @@ int storage_device_ide_block_read(void* dev, uint64_t start, uint32_t bytes, uns
 	return ide_read_sectors((uint8_t)sd->opaque1, divided_length, start, (uint64_t)buffer);
 }
 
+/**
+ * @brief Handler function for block writes to ATA devices from write_storage_device()
+ * 
+ * @param dev block storage device
+ * @param start starting block
+ * @param bytes number of bytes to read (this will always be rounded up in increments of block size)
+ * @param buffer buffer to receive blocks
+ * @return int 1 on successful read, 0 on failure
+ */
 int storage_device_ide_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer)
 {
 	FS_StorageDevice* sd = (FS_StorageDevice*)dev;

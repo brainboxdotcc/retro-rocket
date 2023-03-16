@@ -148,6 +148,16 @@ int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes,
  */
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque);
 
+/**
+ * @brief High level mount function
+ * 
+ * @param pathname VFS path to mount device/driver to
+ * @param device block device name
+ * @param filesystem_driver filesystem driver name
+ * @return int 1 for success, 0 for failure
+ */
+int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver);
+
 /* Initialise the filesystem
  * This loads the DummyFS filesystem which manages the root directory
  * until any other driver is loaded. DummyFS is a dummy and does nothing.

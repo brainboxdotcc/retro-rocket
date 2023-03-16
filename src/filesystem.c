@@ -10,7 +10,6 @@ FS_Handle* filehandles[FD_MAX] = { NULL };
 
 int register_filesystem(FS_FileSystem* newfs)
 {
-	kprintf("Registering filesystem '%s'\n", newfs->name);
 	/* Add the new filesystem to the start of the list */
 	newfs->next = filesystems;
 	filesystems = newfs;
@@ -31,7 +30,6 @@ FS_FileSystem* find_filesystem(const char* name)
 
 int register_storage_device(FS_StorageDevice* newdev)
 {
-	kprintf("Registering storage device '%s'\n", newdev->name);
 	/* Add the new storage device to the start of the list */
 	newdev->next = storagedevices;
 	storagedevices = newdev;
@@ -556,30 +554,16 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 {
-//	kprintf("attach\n");
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
-//	kprintf("attach 2\n");
-	if (item)
-	{
-//		kprintf("attach 3\n");
-		FS_FileSystem* oldfs = (FS_FileSystem*)item->responsible_driver;
+	if (item) {
 		item->responsible_driver = (void*)fs;
 		item->opaque = opaque;
 		item->dirty = 1;
 		item->files = NULL;
 		item->child_dirs = NULL;
 		item->lbapos = 0; // special value always refers to root dir
-//		kprintf("attach 4\n");
 		retrieve_node_from_driver(item);
-//		kprintf("attach 5\n");
-		kprintf("Driver '%s' attached to virtual path '%s' replacing driver '%s'\n", fs->name, virtual_path,
-				oldfs ? oldfs->name : "<none>");
-//		kprintf("attach 6\n");
-	}
-	else
-	{
-		//kprintf("attach 7\n");
-		kprintf("Warning: Could not attach driver '%s' to virtual path '%s'\n", fs->name, virtual_path);
+	} else {
 		return 0;
 	}
 	return 1;
@@ -614,4 +598,20 @@ FS_DirectoryEntry* fs_get_items(const char* pathname)
 {
 	FS_Tree* item = walk_to_node(fs_tree, pathname);
 	return (FS_DirectoryEntry*)(item ? item->files : NULL);
+}
+
+int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver)
+{
+	FS_FileSystem *driver = find_filesystem(filesystem_driver);
+	int success = (driver && driver->mount(device, pathname));
+	kprintf(
+		"%s %s to %s%s%s\n",
+		success ? "Mounted" : "Failed to mount",
+		pathname,
+		device ? device : "",
+		device ? " as " : "",
+		filesystem_driver
+	);
+	return success;
+
 }
