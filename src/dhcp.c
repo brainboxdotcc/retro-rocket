@@ -8,8 +8,8 @@ void dhcp_discover() {
 	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
 	kprintf("Configuring network via DHCP\n");
 	memset(packet, 0, sizeof(dhcp_packet_t));
-	make_dhcp_packet(packet, 1, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
-	udp_send_packet(dst_ip, 68, 67, packet, sizeof(dhcp_packet_t));
+	size_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
+	udp_send_packet(dst_ip, 68, 67, packet, optsize);
 }
 
 void dhcp_request(uint8_t * request_ip, uint32_t xid, uint32_t server_ip) {
@@ -17,35 +17,47 @@ void dhcp_request(uint8_t * request_ip, uint32_t xid, uint32_t server_ip) {
 	memset(dst_ip, 0xff, 4);
 	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
 	memset(packet, 0, sizeof(dhcp_packet_t));
-	make_dhcp_packet(packet, 3, request_ip, xid, server_ip);
-	udp_send_packet(dst_ip, 68, 67, packet, sizeof(dhcp_packet_t));
+	//kprintf("dhcp request with type 3, server_ip %08x\n", server_ip);
+	size_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
+	udp_send_packet(dst_ip, 68, 67, packet, optsize);
 }
 
-void dhcp_handle_packet(dhcp_packet_t * packet, size_t length) {
+void dhcp_handle_packet(dhcp_packet_t* packet, size_t length) {
 	if(packet->op == DHCP_REPLY) {
-		uint8_t * type = get_dhcp_options(packet, 53);
-		if(*type == 2) {
-			dhcp_request((uint8_t*)&packet->your_ip, packet->xid, packet->server_ip);
+		uint8_t* type = get_dhcp_options(packet, OPT_TYPE);
+		if (*type == DHCPOFFER) {
+			uint32_t* server_ip = get_dhcp_options(packet, OPT_SERVER_IP);
+			if (!server_ip) {
+				return;
+			}
+			dhcp_request((uint8_t*)&packet->your_ip, packet->xid, *server_ip);
+			kfree(server_ip);
+		} else if (*type == DHCPACK) {
 			sethostaddr((const unsigned char*)&packet->your_ip);
-		}
-		else if (*type == 5) {
-			sethostaddr((const unsigned char*)&packet->your_ip);
-			uint32_t* dns = get_dhcp_options(packet, 6);
-			uint32_t* gateway = get_dhcp_options(packet, 3);
+			uint32_t* dns = get_dhcp_options(packet, OPT_DNS);
+			uint32_t* gateway = get_dhcp_options(packet, OPT_GATEWAY);
 			if (dns) {
+				//kprintf("DNS: %08x\n", *dns);
 				setdnsaddr(*dns);
+				kfree(dns);
 			}
 			if (gateway) {
+				//kprintf("GW: %08x\n", *gateway);
 				setgatewayaddr(*gateway);
+				kfree(gateway);
 			}
+		} else if (*type == DHCPNAK) {
+			/* Negative ack, to be implemented */
 		}
+		kfree(type);
 	}
 }
 
 void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
 	uint8_t* options = packet->options + 4;
 	uint8_t curr_type = *options;
-	while (curr_type != 0xff && options < (uint8_t*)packet + sizeof(dhcp_packet_t)) {
+	while (curr_type != 0xff && options < (uint64_t)packet + sizeof(dhcp_packet_t)) {
+		curr_type = *options;
 		uint8_t len = *(options + 1);
 		if (curr_type == type) {
 			void* ret = kmalloc(len);
@@ -57,7 +69,7 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
 	return NULL;
 }
 
-void make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * request_ip, uint32_t xid, uint32_t server_ip) {
+size_t make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * request_ip, uint32_t xid, uint32_t server_ip) {
 	packet->op = DHCP_REQUEST;
 	packet->hardware_type = HARDWARE_TYPE_ETHERNET;
 	packet->hardware_addr_len = 6;
@@ -76,36 +88,39 @@ void make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * reques
 	*((uint32_t*)(options)) = htonl(0x63825363);
 	options += 4;
 
-	*(options++) = 53;
+	*(options++) = OPT_TYPE;
 	*(options++) = 1;
 	*(options++) = msg_type;
 
 	if (server_ip) {
 		// Server identifier
-		*(options++) = 54;
+		*(options++) = OPT_SERVER_IP;
 		*(options++) = 4;
-		*(options++) = server_ip;
+		*((uint32_t*)(options)) = server_ip;
+		options += 4;
 	}
 
 	// Client identifier
-	*(options++) = 61;
+	*(options++) = OPT_CLIENT_MAC;
 	*(options++) = 0x07;
 	*(options++) = 0x01;
 	get_mac_addr(options);
 	options += 6;
 
 	// Requested IP address
-	*(options++) = 50;
+	*(options++) = OPT_REQUESTED_IP;
 	*(options++) = 0x04;
 	*((uint32_t*)(options)) = htonl(0x0a00020e);
 	memcpy((uint32_t*)(options), request_ip, 4);
 	options += 4;
 
 	// Host Name
-	*(options++) = 12;
-	*(options++) = strlen("retrorocket") + 1; // len
-	memcpy(options, "retrorocket", strlen("retrorocket"));
-	options += strlen("retrorocket");
+	const char* hostname = "retrorocket";
+	uint8_t len = strlen(hostname);
+	*(options++) = OPT_HOSTNAME;
+	*(options++) = len + 1; // len
+	memcpy(options, hostname, len);
+	options += len;
 	*(options++) = 0x00;
 
 	// Parameter request list
@@ -119,6 +134,10 @@ void make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * reques
 	*(options++) = 0x2e;
 	*(options++) = 0x2f;
 	*(options++) = 0x39;
+
+	// END
 	*(options++) = 0xff;
+
+	return (size_t)options - (size_t)packet;
 
 }

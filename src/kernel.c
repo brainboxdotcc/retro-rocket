@@ -77,6 +77,7 @@ void kmain()
 	init_debug();
 
 	if (rtl8139_init()) {
+		arp_init();
 		dhcp_discover();
 	}
 

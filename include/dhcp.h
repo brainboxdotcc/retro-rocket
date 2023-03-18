@@ -7,6 +7,27 @@ enum dhcp_request_type {
 	DHCP_REPLY  = 2,
 };
 
+enum dhcp_packet_type {
+	DHCPDISCOVER = 1,
+	DHCPOFFER = 2,
+	DHCPREQUEST = 3,
+	DHCPDECLINE = 4,
+	DHCPACK = 5,
+	DHCPNAK = 6,
+	DHCPRELEASE = 7,
+	DHCPINFORM = 8,
+};
+
+enum dhcp_option_type {
+	OPT_GATEWAY = 3,
+	OPT_DNS = 6,
+	OPT_HOSTNAME = 12,
+	OPT_REQUESTED_IP = 50,
+	OPT_TYPE = 53,
+	OPT_SERVER_IP = 54,
+	OPT_CLIENT_MAC = 61,
+};
+
 #define DHCP_TRANSACTION_IDENTIFIER 0x55AA55AA
 
 /**
@@ -27,7 +48,7 @@ typedef struct dhcp_packet {
 	uint8_t client_hardware_addr[16];
 	uint8_t server_name[64];
 	uint8_t boot_file[128];
-	uint8_t options[64];
+	uint8_t options[128];
 } __attribute__ ((packed)) dhcp_packet_t;
 
 /**
@@ -76,4 +97,4 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type);
  * @param xid Our request identifier
  * @param server_ip IP of server that offered the configuration
  */
-void make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip);
+size_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip);

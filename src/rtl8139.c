@@ -26,8 +26,11 @@ void receive_packet() {
 
 	current_packet_ptr = (current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK;
 
-	if(current_packet_ptr > RX_BUF_SIZE)
+	if(current_packet_ptr > RX_BUF_SIZE) {
 		current_packet_ptr -= RX_BUF_SIZE;
+	}
+
+	kfree(packet);
 
 	outw(rtl8139_device.io_base + CAPR, current_packet_ptr - 0x10);
 }
@@ -41,7 +44,15 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 		// Received
 		receive_packet();
 	}
-	outw(rtl8139_device.io_base + 0x3E, 0x5);
+	// OSDev wiki says write 0x05 here, but this is ROK+TOK. We need to CLEAR it to 0 to
+	// continue receiving interrupts!
+	//outw(rtl8139_device.io_base + 0x3E, 0x05);
+
+}
+
+void rtl8139_timer()
+{
+	outw(rtl8139_device.io_base + 0x3E, 0x0);
 }
 
 char* read_mac_addr() {

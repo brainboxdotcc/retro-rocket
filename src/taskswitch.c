@@ -299,7 +299,7 @@ void proc_loop()
 		while (bkl);
 		proc_timer();
 		proc_run_next();
-
+		rtl8139_timer();
 		/* Idle till next timer interrupt */
 		//kprintf(".");
 	}

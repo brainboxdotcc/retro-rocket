@@ -20,13 +20,14 @@ void ethernet_handle_packet(ethernet_frame_t * packet, int len) {
 	int data_len = len - sizeof(ethernet_frame_t);
 
 	// TODO: Make this nicer so that protocols can just register with ethernet driver
-	
+
 	// ARP packet
 	if(ntohs(packet->type) == ETHERNET_TYPE_ARP) {
 		arp_handle_packet(data, data_len);
 	}
 	// IP packet
 	if(ntohs(packet->type) == ETHERNET_TYPE_IP) {
+		//kprintf("Received IP packet\n");
 		ip_handle_packet((ip_packet_t*)data);
 	}
 }

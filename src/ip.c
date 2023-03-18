@@ -89,12 +89,8 @@ void ip_send_packet(uint8_t * dst_ip, void * data, int len) {
 	while (!arp_lookup(dst_hardware_addr, dst_ip)) {
 		if(arp_sent != 0) {
 			arp_sent--;
-			arp_send_packet(zero_hardware_addr, dst_ip);
 		}
-		if (arp_sent == 0) {
-			// XXX Handle this properly
-			break;
-		}
+		arp_send_packet(zero_hardware_addr, dst_ip);
 	}
 	ethernet_send_packet(dst_hardware_addr, (uint8_t*)packet, htons(packet->length), ETHERNET_TYPE_IP);
 }
