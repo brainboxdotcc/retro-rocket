@@ -80,6 +80,7 @@ const char* types[] = {
   "NEW LINE",
   "&",
   "~",
+  "GLOBAL",
 };
 
 struct keyword_token {
@@ -113,7 +114,8 @@ static const struct keyword_token keywords[] = {
 	{"CLOSE", TOKENIZER_CLOSE},
 	{"EOF", TOKENIZER_EOF},
 	{"REM", TOKENIZER_REM},
-	{NULL, TOKENIZER_ERROR}
+	{"GLOBAL", TOKENIZER_GLOBAL},
+	{NULL, TOKENIZER_ERROR},
 };
 
 /*---------------------------------------------------------------------------*/
@@ -328,9 +330,9 @@ void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 {
-	ubasic_set_string_variable("ERROR$", error, ctx, 0);
-	ubasic_set_int_variable("ERROR", 1, ctx, 0);
-	ubasic_set_int_variable("ERRORLINE", ctx->current_linenum, ctx, 0);
+	ubasic_set_string_variable("ERROR$", error, ctx, false, false);
+	ubasic_set_int_variable("ERROR", 1, ctx, false, false);
+	ubasic_set_int_variable("ERRORLINE", ctx->current_linenum, ctx, false, false);
 	if (ctx->eval_linenum == 0) {
 		if (ctx->ended == 0) {
 			setforeground(current_console, COLOUR_LIGHTRED);
@@ -339,9 +341,6 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 			ctx->ended = 1;
 		}
 	} else {
-		if (ctx->errored == 0) {
-			ctx->errored = 1;
-		}
 		jump_linenum(ctx->eval_linenum, ctx);
 	}
 }

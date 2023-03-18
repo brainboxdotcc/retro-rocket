@@ -72,6 +72,13 @@ kprintf("This is a fatal system error and your system has been halted.\n\
 #include "taskswitch.h"
 #include "acpi.h"
 #include "hashmap.h"
+#include "net.h"
+#include "rtl8139.h"
+#include "arp.h"
+#include "ip.h"
+#include "ethernet.h"
+#include "udp.h"
+#include "dhcp.h"
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

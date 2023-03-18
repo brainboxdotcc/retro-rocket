@@ -35,6 +35,7 @@ struct ub_var_int
 {
 	char* varname;
 	int64_t value;
+	bool global;
 	struct ub_var_int* next;
 };
 
@@ -42,6 +43,7 @@ struct ub_var_string
 {
 	char* varname; /* Not including the $ on the end! */
 	char* value;
+	bool global;
 	struct ub_var_string* next;
 };
 
@@ -129,7 +131,9 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx);
 int64_t ubasic_getsize(struct ubasic_ctx* ctx);
 
 // Builtin string functions
+char* ubasic_netinfo(struct ubasic_ctx* ctx);
 char* ubasic_left(struct ubasic_ctx* ctx);
+char* ubasic_mid(struct ubasic_ctx* ctx);
 char* ubasic_chr(struct ubasic_ctx* ctx);
 char* ubasic_readstring(struct ubasic_ctx* ctx);
 char* ubasic_getname(struct ubasic_ctx* ctx);
@@ -157,8 +161,8 @@ int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
 void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local);
-void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local);
+void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local, int global);
+void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local, int global);
 void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx, int local);
 
 #endif /* __UBASIC_H__ */

@@ -16,12 +16,9 @@ void clearscreen(console* c)
  */
 void put(console* c, const char n)
 {
-	if (!c) {
-		return;
-	}
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, &n, 1);
-    	c->dirty = 1;
+	outb(0xE9, n);
 }
 
 /* Write a string to the screen. Most of the internals of this are
@@ -32,6 +29,14 @@ void putstring(console* c, char* message)
 {
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, message, strlen(message));
+	for (; *message; ++message) {
+		outb(0xE9, *message);
+		if (*message == 13) {
+			outb(0xE9, 10);
+		} else if (*message == 10) {
+			outb(0xE9, 13);
+		}
+	}
 }
 
 void initconsole(console* c)

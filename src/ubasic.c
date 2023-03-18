@@ -57,13 +57,53 @@ struct ubasic_int_fn builtin_int[] =
 
 struct ubasic_str_fn builtin_str[] =
 {
+	{ ubasic_netinfo, "NETINFO$" },
 	{ ubasic_left, "LEFT$" },
+	{ ubasic_mid, "MID$" },
 	{ ubasic_chr, "CHR$" },
 	{ ubasic_readstring, "READ$" },
 	{ ubasic_getname, "GETNAME$" },
 	{ ubasic_getprocname, "GETPROCNAME$" },
 	{ NULL, NULL }
 };
+
+char* clean_basic(const char* program, char* output_buffer)
+{
+	bool in_quotes = false;
+	uint16_t bracket_depth = 0;
+	const char* p = program;
+	char *d = output_buffer;
+	while (*p) {
+		while (*p == '\r') {
+			p++;
+		}
+		if (*p == '"') {
+			in_quotes = !in_quotes;
+		} else if (*p == '(' && !in_quotes) {
+			bracket_depth++;
+		} else if (*p == ')' && !in_quotes) {
+			bracket_depth--;
+		}
+		if (!in_quotes && bracket_depth > 0) {
+			if (*p != ' ') {
+				*d++ = *p++;
+			} else {
+				p++;
+			}
+		} else {
+			*d++ = *p++;
+		}
+		// Remove extra newlines
+		if (*(p - 1) == '\n' || *(p - 1) == '\r') {
+			while (*p == '\r' || *p == '\n') {
+				p++;
+			}
+		}
+	}
+	// Terminate output
+	*d = 0;
+	return output_buffer;
+}
 
 /*---------------------------------------------------------------------------*/
 struct ubasic_ctx* ubasic_init(const char *program, console* cons)
@@ -80,12 +120,14 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 		ctx->local_string_variables[i] = NULL;
 	ctx->cons = (struct console*)cons;
 	ctx->oldlen = 0;
-	ctx->errored = 0;
 	ctx->fn_return = NULL;
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the program on lines 9998 and 9999.
 	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
-	strlcpy(ctx->program_ptr, program, strlen(program) + 5000);
+
+	// Clean extra whitespace from the program
+	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
+
 	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
 	ctx->defs = NULL;
 
@@ -113,7 +155,6 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 		ctx->local_string_variables[i] = old->local_string_variables[i];
 
 	ctx->cons = old->cons;
-	ctx->errored = 0;
 	ctx->oldlen = old->oldlen;
 	ctx->fn_return = NULL;
 	ctx->program_ptr = old->program_ptr;
@@ -302,9 +343,10 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 static void accept(int token, struct ubasic_ctx* ctx)
 {
 	char err[200];
-	sprintf(err, "Expected %s got %s\n", types[token], types[tokenizer_token(ctx)]);
+	sprintf(err, "Expected %s got %s", types[token], types[tokenizer_token(ctx)]);
 	if (token != tokenizer_token(ctx)) {
 		tokenizer_error_print(ctx, err);
+		return;
 	}
 	tokenizer_next(ctx);
 }
@@ -519,23 +561,29 @@ static int relation(struct ubasic_ctx* ctx)
 void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 {
 	tokenizer_init(ctx->program_ptr, ctx);
-	
-	while (tokenizer_num(ctx, TOKENIZER_NUMBER) != linenum)
-	{
-		do
-		{
-			do
-			{
+
+	while (tokenizer_num(ctx, TOKENIZER_NUMBER) != linenum && !tokenizer_finished(ctx)) {
+		if (tokenizer_num(ctx, TOKENIZER_NUMBER) > linenum) {
+			/* If the line we just found is greater than the one we are searching for, we can bail early */
+			tokenizer_error_print(ctx, "No such line");
+			return;
+		}
+		do {
+			do {
 				tokenizer_next(ctx);
 			}
-			while (tokenizer_token(ctx) != TOKENIZER_CR && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
+			while (tokenizer_token(ctx) != TOKENIZER_CR && !tokenizer_finished(ctx));
 
-			if (tokenizer_token(ctx) == TOKENIZER_CR)
-			{
+			if (tokenizer_token(ctx) == TOKENIZER_CR) {
 				tokenizer_next(ctx);
 			}
 		}
-		while(tokenizer_token(ctx) != TOKENIZER_NUMBER);
+		while(tokenizer_token(ctx) != TOKENIZER_NUMBER && !tokenizer_finished(ctx));
+
+		if (tokenizer_finished(ctx)) {
+			tokenizer_error_print(ctx, "No such line");
+			return;
+		}
 
 		DEBUG_PRINTF("jump_linenum: Found line %d\n", tokenizer_num(ctx, TOKENIZER_NUMBER));
 	}
@@ -646,6 +694,22 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	const char* pn = str_expr(ctx);
 	//kprintf("Chaining '%s'\n", pn);
 	struct process* p = proc_load(pn, ctx->cons);
+	struct ubasic_ctx* new_proc = p->code;
+	struct ub_var_int* cur_int = ctx->int_variables;
+	struct ub_var_string* cur_str = ctx->str_variables;
+
+	for (; cur_int; cur_int = cur_int->next) {
+		if (cur_int->global) {
+			ubasic_set_int_variable(cur_int->varname, cur_int->value, new_proc, false, true);
+		}
+	}
+	for (; cur_str; cur_str = cur_str->next) {
+		if (cur_str->global) {
+			ubasic_set_string_variable(cur_str->varname, cur_str->value, new_proc, false, true);
+		}
+	}
+
+	/* Inherit global variables into new process */
 	proc_wait(proc_cur(), p->pid);
 	accept(TOKENIZER_CR, ctx);
 }
@@ -656,13 +720,16 @@ static void eval_statement(struct ubasic_ctx* ctx)
 	const char* v = str_expr(ctx);
 	accept(TOKENIZER_CR, ctx);
 
+	char clean_v[MAX_STRINGLEN];
+	clean_basic(v, clean_v);
+
 	if (ctx->oldlen == 0)
 	{
-		ubasic_set_string_variable("ERROR$", "", ctx, 0);
-		ubasic_set_int_variable("ERROR", 0, ctx, 0);
+		ubasic_set_string_variable("ERROR$", "", ctx, false, false);
+		ubasic_set_int_variable("ERROR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
 		strlcat(ctx->program_ptr, "9998 ", ctx->oldlen + 5000);
-		strlcat(ctx->program_ptr, v, ctx->oldlen + 5000);
+		strlcat(ctx->program_ptr, clean_v, ctx->oldlen + 5000);
 		strlcat(ctx->program_ptr, "\n9999 RETURN\n", ctx->oldlen + 5000);
 
 		ctx->eval_linenum = ctx->current_linenum;
@@ -734,10 +801,10 @@ static void input_statement(struct ubasic_ctx* ctx)
 		switch (var[strlen(var) - 1])
 		{
 			case '$':
-				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, 0);
+				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
 			break;
 			default:
-				ubasic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, 0);
+				ubasic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
 			break;
 		}
 
@@ -752,7 +819,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 }
 
 /*---------------------------------------------------------------------------*/
-static void let_statement(struct ubasic_ctx* ctx)
+static void let_statement(struct ubasic_ctx* ctx, bool global)
 {
 	const char* var;
 	const char* _expr;
@@ -768,11 +835,11 @@ static void let_statement(struct ubasic_ctx* ctx)
 		case '$':
 			_expr = str_expr(ctx);
 			//kprintf(var);
-			ubasic_set_string_variable(var, _expr, ctx, 0);
+			ubasic_set_string_variable(var, _expr, ctx, 0, global);
 			//kprintf("'%s'\n", _expr);
 		break;
 		default:
-			ubasic_set_int_variable(var, expr(ctx), ctx, 0);
+			ubasic_set_int_variable(var, expr(ctx), ctx, 0, global);
 			//kprintf("numeric\n");
 		break;
 	}
@@ -818,7 +885,7 @@ static void next_statement(struct ubasic_ctx* ctx)
 	if (ctx->for_stack_ptr > 0) {
 		int incr = ubasic_get_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
 		//kprintf("incr is %d\n", incr);
-		ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, 0);
+		ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
 
 		if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) {
 			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
@@ -843,7 +910,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 	for_variable = strdup(tokenizer_variable_name(ctx));
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
-	ubasic_set_int_variable(for_variable, expr(ctx), ctx, 0);
+	ubasic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
 	accept(TOKENIZER_TO, ctx);
 	to = expr(ctx);
 	accept(TOKENIZER_CR, ctx);
@@ -884,9 +951,7 @@ static void eq_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void statement(struct ubasic_ctx* ctx)
 {
-	int token;
-  
-	token = tokenizer_token(ctx);
+	int token = tokenizer_token(ctx);
 
 	switch (token) {
 		case TOKENIZER_REM:
@@ -950,13 +1015,18 @@ static void statement(struct ubasic_ctx* ctx)
 			accept(TOKENIZER_LET, ctx);
 			/* Fall through. */
 		case TOKENIZER_VARIABLE:
-			let_statement(ctx);
+			let_statement(ctx, false);
+		break;
+		case TOKENIZER_GLOBAL:
+			accept(TOKENIZER_GLOBAL, ctx);
+			let_statement(ctx, true);
 		break;
 		case TOKENIZER_EQ:
 			eq_statement(ctx);
 		break;
 		default:
 			tokenizer_error_print(ctx, "Unknown keyword");
+			kprintf("%s\n ->%d\n", ctx->program_ptr, ctx->current_token);
 			//kprintf("Bad token %d (%c) %c\n", token, token, ctx->current_token);
 		break;
 	}
@@ -964,7 +1034,6 @@ static void statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void line_statement(struct ubasic_ctx* ctx)
 {
-	ctx->errored = 0;
 	ctx->current_linenum = tokenizer_num(ctx, TOKENIZER_NUMBER);
 	accept(TOKENIZER_NUMBER, ctx);
 	//kprintf("%s\n", ctx->ptr);
@@ -996,13 +1065,13 @@ void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* 
 
 	switch (last_letter) {
 		case '$':
-			ubasic_set_string_variable(var, value, ctx, 0);
+			ubasic_set_string_variable(var, value, ctx, 0, false);
 		break;
 		case ')':
 			ubasic_set_array_variable(var, atoll(value, 10), ctx, 0);
 		break;
 		default:
-			ubasic_set_int_variable(var, atoll(value, 10), ctx, 0);
+			ubasic_set_int_variable(var, atoll(value, 10), ctx, 0, false);
 		break;
 	}
 }
@@ -1040,7 +1109,7 @@ int valid_int_var(const char* name)
 	return 1;
 }
 
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local)
+void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local, int global)
 {
 	struct ub_var_string* list[] = {
 		ctx->str_variables,
@@ -1059,11 +1128,13 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 			ctx->local_string_variables[ctx->gosub_stack_ptr]->next = NULL;
 			ctx->local_string_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
 			ctx->local_string_variables[ctx->gosub_stack_ptr]->value = strdup(value);
+			ctx->local_string_variables[ctx->gosub_stack_ptr]->global = global;
 		} else {
 			ctx->str_variables = (struct ub_var_string*)kmalloc(sizeof(struct ub_var_string));
 			ctx->str_variables->next = NULL;
 			ctx->str_variables->varname = strdup(var);
 			ctx->str_variables->value = strdup(value);
+			ctx->str_variables->global = global;
 		}
 		return;
 	} else {
@@ -1075,6 +1146,7 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 			if (!strcmp(var, cur->varname))	{
 				kfree(cur->value);
 				cur->value = strdup(value);
+				cur->global = global;
 				return;
 			}
 		}
@@ -1088,6 +1160,7 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 		newvar->next = ctx->str_variables;
 		newvar->varname = strdup(var);
 		newvar->value = strdup(value);
+		newvar->global = global;
 	
 		if (local) {
 			ctx->local_string_variables[ctx->gosub_stack_ptr] = newvar;
@@ -1101,7 +1174,7 @@ void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ct
 {
 }
 
-void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local)
+void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local, int global)
 {
 	struct ub_var_int* list[] = {
 		ctx->int_variables,
@@ -1110,7 +1183,7 @@ void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx,
 
 	if (!valid_int_var(var))
 	{
-		tokenizer_error_print(ctx, "Malformed variable name\n");
+		tokenizer_error_print(ctx, "Malformed variable name");
 		return;
 	}
 
@@ -1192,9 +1265,9 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 		*oldptr = 0;
 		if (ctx->param) {
 			if (ctx->param->name[strlen(ctx->param->name) - 1] == '$') {
-				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, 1);
+				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
 			} else {
-				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, 1);
+				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
 			}
 
 			ctx->param = ctx->param->next;
@@ -1466,16 +1539,62 @@ int64_t ubasic_read(struct ubasic_ctx* ctx)
 	return res;
 }
 
+char* ubasic_netinfo(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char ip[16] = { 0 };
+	if (!stricmp(strval, "ip")) {
+		unsigned char raw[4];
+		if (gethostaddr(raw)) {
+			get_ip_str(ip, (uint8_t*)&raw);
+			return gc_strdup(ip);
+		}
+		return gc_strdup("0.0.0.0");
+	}
+	if (!stricmp(strval, "gw")) {
+		uint32_t raw = getdnsaddr();
+		get_ip_str(ip, (uint8_t*)&raw);
+		return gc_strdup(ip);
+	}
+	if (!stricmp(strval, "dns")) {
+		uint32_t raw = getgatewayaddr();
+		get_ip_str(ip, (uint8_t*)&raw);
+		return gc_strdup(ip);
+	}
+	return gc_strdup("0.0.0.0");
+}
+
 char* ubasic_left(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	if (intval > strlen(strval))
+	if (intval > strlen(strval) || intval < 0)
 		intval = strlen(strval);
 	char* cut = gc_strdup(strval);
 	*(cut + intval) = 0;
 	return cut;
+}
+
+char* ubasic_mid(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t start = intval;
+	intval = 0;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t end = intval;
+	if (start > strlen(strval) || start < 0) {
+		start = 0;
+	}
+	if (end > strlen(strval) || end < start) {
+		end = start;
+	}
+	char* cut = gc_strdup(strval);
+	*(cut + end) = 0;
+	return cut + start;
 }
 
 int64_t ubasic_len(struct ubasic_ctx* ctx)
@@ -1617,7 +1736,9 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 		}
 	}
 
-	tokenizer_error_print(ctx, "No such variable\n");
+	char err[1024];
+	sprintf(err, "No such variable '%s'", var);
+	tokenizer_error_print(ctx, err);
 	return "";
 }
 
@@ -1645,7 +1766,7 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 				int64_t v = cur->value;
 				/* If ERROR is read, it resets its value */
 				if (!strcmp(var, "ERROR")) {
-					ubasic_set_int_variable("ERROR", 0, ctx, 0);
+					ubasic_set_int_variable("ERROR", 0, ctx, false, false);
 				}
 				return v;
 			}
@@ -1653,7 +1774,9 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	}
 
 
-	tokenizer_error_print(ctx, "No such variable");
+	char err[1024];
+	sprintf(err, "No such variable '%s'", var);
+	tokenizer_error_print(ctx, err);
 	return 0; /* No such variable */
 }
 

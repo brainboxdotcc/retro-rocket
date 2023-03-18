@@ -134,7 +134,7 @@ void init_debug()
 		setforeground(current_console, COLOUR_LIGHTYELLOW);
 		kprintf("/kernel.sym ");
 		setforeground(current_console, COLOUR_WHITE);
-		kprintf("(%d bytes)\n", sizebytes);
+		kprintf("(%d bytes)\n", filesize);
 	}
 }
 

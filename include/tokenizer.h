@@ -74,6 +74,7 @@ enum {
   TOKENIZER_CR,
   TOKENIZER_AMPERSAND,
   TOKENIZER_TILDE,
+  TOKENIZER_GLOBAL,
 };
 
 extern const char* types[];

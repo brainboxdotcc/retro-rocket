@@ -1,8 +1,6 @@
 #include <kernel.h>
 
-PCI_Device* pci_devices = NULL;
-
-const char* PCI_DevClass[] = {
+const char* pci_device_class[] = {
 	"Unknown",
 	"Mass Storage Controller",
 	"Network Controller",
@@ -23,15 +21,7 @@ const char* PCI_DevClass[] = {
 	"Data Acquisition/Signal Processing Controller"
 };
 
-typedef struct
-{
-	uint8_t id;
-	uint8_t subclass;
-	uint8_t progif;
-	const char* description;
-} SubClass;
-
-const SubClass PCI_DevSubClass[] = 
+const pci_subclass pci_device_sub_class[] = 
 {
 	{ 0x00, 0x00, 0x00, "Pre-2.0 PCI Non-VGA"} ,
 	{ 0x00, 0x01, 0x00, "Pre-2.0 PCI VGA Compatible"} ,
@@ -142,202 +132,180 @@ const SubClass PCI_DevSubClass[] =
 	{ 0xFF, 0xFF, 0xFF, "" }
 };
 
+uint32_t pci_size_map[100];
+pci_dev_t dev_zero = {0};
 
-void scan_pci_bus(int bus);
+uint32_t pci_read(pci_dev_t dev, uint32_t field) {
+	// Only most significant 6 bits of the field
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
 
-const char* pci_class_name(uint8_t class)
-{
-	if (class > 0x11)
-		class = 0;
-
-	return PCI_DevClass[class];
-}
-
-const char* pci_subclass_name(uint8_t class, uint8_t subclass, uint8_t progif)
-{
-	int search = 0;
-	for (; PCI_DevSubClass[search].id != 0xFF; ++search)
-	{
-		if (class == PCI_DevSubClass[search].id && subclass == PCI_DevSubClass[search].subclass && progif == PCI_DevSubClass[search].progif)
-			return PCI_DevSubClass[search].description;
+	// What size is this field supposed to be ?
+	uint32_t size = pci_size_map[field];
+	if(size == 1) {
+		// Get the first byte only, since it's in little endian, it's actually the 3rd byte
+		uint8_t t =inb(PCI_CONFIG_DATA + (field & 3));
+		return t;
 	}
-	return "Unknown Device Subclass";
-}
-
-void pci_write_config_word(uint16_t bus, uint16_t slot, uint16_t func, uint16_t offset, uint16_t value)
-{
-	uint32_t address;
-	uint32_t lbus = (uint32_t)bus;
-	uint32_t lslot = (uint32_t)slot;
-	uint32_t lfunc = (uint32_t)func;
-
-	/* Enable bit always set here */
-	address = (uint32_t)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((uint32_t)0x80000000));
-	outl(0xCF8, address);
-	outw(0xCFC, value);
-}
-
-uint32_t pci_read_config(uint16_t bus, uint16_t slot, uint16_t func, uint16_t offset)
-{
-	uint32_t address;
-	uint32_t lbus = (uint32_t)bus;
-	uint32_t lslot = (uint32_t)slot;
-	uint32_t lfunc = (uint32_t)func;
-
-	/* create configuration address, enable bit set */
-	address = (uint32_t)((lbus << 16) | (lslot << 11) | (lfunc << 8) | (offset & 0xfc) | ((uint32_t)0x80000000));
-
-	outl(0xCF8, address);
-	return inl(0xCFC);
-}
-
-uint32_t pci_get_vendor_and_device(uint16_t bus, uint16_t slot, uint16_t func)
-{
-	return pci_read_config(bus, slot, func, PCI_OFS_VENDOR);
-}
-
-void pci_enable_device(PCI_Device* dev)
-{
-	uint32_t current_setting = pci_read_config(dev->bus, dev->slot, 0, PCI_OFS_STATUS_CMD);
-	uint32_t cmd = (current_setting & 0xffff) | PCI_CMD_PORTIO_ENABLE | PCI_CMD_MEMIO_ENABLE;
-	pci_write_config_word(dev->bus, dev->slot, 0, PCI_OFS_STATUS_CMD + 2, cmd & 0xffff);
-}
-
-PCI_Device* pci_find(uint16_t bus, uint16_t slot)
-{
-	PCI_Device* cur = pci_devices;
-	for (; cur; cur = cur->next)
-	{
-		if (cur->bus == bus && cur->slot == slot)
-			return cur;
+	else if(size == 2) {
+		uint16_t t = inw(PCI_CONFIG_DATA + (field & 2));
+		return t;
 	}
-	return NULL;
+	else if(size == 4){
+		// Read entire 4 bytes
+		uint32_t t = inl(PCI_CONFIG_DATA);
+		return t;
+	}
+	return 0xffff;
 }
 
-void list_pci(uint8_t showbars)
-{
-	PCI_Device* cur = pci_devices;
-	for (; cur; cur = cur->next)
-	{
-		kprintf("%04x:%04x - on %d:%d.%d: %s\n",
-				cur->vendordevice & 0xffff,
-				(cur->vendordevice >> 16) & 0xffff,
-				cur->bus, cur->slot, cur->func,
-				pci_subclass_name(cur->deviceclass, cur->devicesubclass, cur->deviceif),
-				cur->deviceclass, cur->devicesubclass, cur->deviceif);
-		if (showbars)
-		{
-			int bar = 0;
-			for (; bar < 6 && cur->bar[bar] != 0; bar++)
-			{
-				kprintf("    BAR%d: %s %08x\n", bar, (cur->restype[bar] == PCI_BAR_IOPORT) ? "I/O port" : "Memory", cur->bar[bar]);
-			}
-			if (cur->irq != 0xff && cur->irq != 0x00)
-				kprintf("    IRQ %d\n", cur->irq);
+/*
+ * Write pci field
+ */
+void pci_write(pci_dev_t dev, uint32_t field, uint32_t value) {
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	// Tell where we want to write
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
+	// Value to write
+	outl(PCI_CONFIG_DATA, value);
+}
+
+/*
+ * Get device type (i.e, is it a bridge, ide controller ? mouse controller? etc)
+ */
+uint32_t get_device_type(pci_dev_t dev) {
+	uint32_t t = pci_read(dev, PCI_CLASS) << 8;
+	return t | pci_read(dev, PCI_SUBCLASS);
+}
+
+/*
+ * Get secondary bus from a PCI bridge device
+ */
+uint32_t get_secondary_bus(pci_dev_t dev) {
+	return pci_read(dev, PCI_SECONDARY_BUS);
+}
+
+/*
+ * Is current device an end point ? PCI_HEADER_TYPE 0 is end point
+ */
+uint32_t pci_reach_end(pci_dev_t dev) {
+	uint32_t t = pci_read(dev, PCI_HEADER_TYPE);
+	return !t;
+}
+
+/*
+ * Recursive Scan function
+ */
+pci_dev_t pci_scan_function(uint16_t vendor_id, uint16_t device_id, uint32_t bus, uint32_t device, uint32_t function, int device_type) {
+	pci_dev_t dev = {0};
+	dev.bus_num = bus;
+	dev.device_num = device;
+	dev.function_num = function;
+	// If it's a PCI Bridge device, get the bus it's connected to and keep searching
+	if(get_device_type(dev) == PCI_TYPE_BRIDGE) {
+		pci_scan_bus(vendor_id, device_id, get_secondary_bus(dev), device_type);
+	}
+	// If type matches, we've found the device, just return it
+	if(device_type == -1 || device_type == get_device_type(dev)) {
+		uint32_t devid  = pci_read(dev, PCI_DEVICE_ID);
+		uint32_t vendid = pci_read(dev, PCI_VENDOR_ID);
+		if(devid == device_id && vendor_id == vendid)
+			return dev;
+	}
+	return dev_zero;
+}
+
+/*
+ * Scan device
+ */
+pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, uint32_t device, int device_type) {
+	pci_dev_t dev = {0};
+	dev.bus_num = bus;
+	dev.device_num = device;
+
+	if(pci_read(dev,PCI_VENDOR_ID) == PCI_NONE)
+		return dev_zero;
+
+	pci_dev_t t = pci_scan_function(vendor_id, device_id, bus, device, 0, device_type);
+	if(t.bits)
+		return t;
+
+	if(pci_reach_end(dev))
+		return dev_zero;
+
+	for(int function = 1; function < FUNCTION_PER_DEVICE; function++) {
+		if(pci_read(dev,PCI_VENDOR_ID) != PCI_NONE) {
+			t = pci_scan_function(vendor_id, device_id, bus, device, function, device_type);
+			if(t.bits)
+				return t;
 		}
 	}
+	return dev_zero;
 }
 
-void init_pci()
-{
-	scan_pci_bus(0);
-}
-
-void scan_pci_bus(int bus)
-{
-	uint16_t slot = 0;
-	for (; slot < 63; slot++)
-	{
-		uint16_t func = 0;
-		uint8_t mf = 0;
-
-		while (func < 64)
-		{
-			uint32_t id = pci_get_vendor_and_device(bus, slot, func);
-			if ((id & 0xffff) != 0xffff)
-			{
-				uint32_t flags = pci_read_config(bus, slot, func, PCI_OFS_FLAGS);
-				uint32_t class = pci_read_config(bus, slot, func, PCI_OFS_CLASS);
-				uint32_t headertype = (flags >> 16) & 0x7f;
-				if ((flags >> 16) & 0x80)
-					mf = 1;
-			
-				int bar;
-
-				PCI_Device* dev = kmalloc(sizeof(PCI_Device));
-				dev->vendordevice = id;
-				dev->headertype = (flags >> 16) & 0xff;
-				dev->devicesubclass = (class >> 16) & 0xFF;
-				dev->deviceif = (class >> 8) & 0xFF;
-				dev->bus = bus;
-				dev->slot = slot;
-				dev->func = func;
-				dev->irq = 0xff;
-				dev->deviceclass = (class >> 24) & 0xFF;
-				dev->next = pci_devices;
-
-				for (bar = 0; bar < 6; ++bar)
-					dev->bar[bar] = 0;
-
-				int maxbars = 6;
-		
-				if (headertype == 0x00)
-				{
-					uint32_t irq = pci_read_config(bus, slot, func, PCI_OFS_IRQ);
-					irq &= 0xff;
-					dev->irq = irq;
-				}
-				if (headertype == 0x01)		/* PCI/PCI bus */
-				{
-					uint32_t secondary_bus = pci_read_config(bus, slot, func, PCI_OFS_SECONDARYBUS);
-					uint32_t sb = secondary_bus;
-
-					secondary_bus = (secondary_bus >> 8) & 0xFF;
-					if (secondary_bus == 0)
-					{
-						pci_write_config_word(bus, slot, func, PCI_OFS_SECONDARYBUS + 2, (sb & 0xFF00) | ((bus + 1) & 0xFF));
-						scan_pci_bus(bus + 1);
-					}
-					else if (secondary_bus != bus)
-					{
-						scan_pci_bus(secondary_bus);
-					}
-					maxbars = 2;
-				}
-	
-				for (bar = 0; bar < maxbars; ++bar)
-				{
-					uint32_t b = pci_read_config(bus, slot, func, PCI_OFS_BARS + (bar * 4));
-					if ((b & 1) == 0)
-					{
-						dev->restype[bar] = PCI_BAR_MEMORY;
-						dev->bar[bar] = b & 0xFFFFFFF0;
-					}
-					else
-					{
-						dev->restype[bar] = PCI_BAR_IOPORT;
-						dev->bar[bar] = b & 0xFFFFFFFC;
-					}
-				}
-
-				pci_devices = dev;
-
-				if (mf)
-				{
-					func++;
-				}
-				else
-				{
-					mf = func = 0;
-					break;
-				}
-			}
-			else
-			{
-				mf = func = 0;
-				break;
-			}
-		}
+/*
+ * Scan bus
+ */
+pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int device_type) {
+	for(int device = 0; device < DEVICE_PER_BUS; device++) {
+		pci_dev_t t = pci_scan_device(vendor_id, device_id, bus, device, device_type);
+		if(t.bits)
+			return t;
 	}
+	return dev_zero;
+}
+
+/*
+ * Device driver use this function to get its device object(given unique vendor id and device id)
+ */
+pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type) {
+
+	pci_dev_t t = pci_scan_bus(vendor_id, device_id, 0, device_type);
+	if(t.bits)
+		return t;
+
+	// Handle multiple pci host controllers
+
+	if(pci_reach_end(dev_zero)) {
+		printf("PCI Get device failed...\n");
+	}
+	for(int function = 1; function < FUNCTION_PER_DEVICE; function++) {
+		pci_dev_t dev = {0};
+		dev.function_num = function;
+
+		if(pci_read(dev, PCI_VENDOR_ID) == PCI_NONE)
+			break;
+		t = pci_scan_bus(vendor_id, device_id, function, device_type);
+		if(t.bits)
+			return t;
+	}
+	return dev_zero;
+}
+
+/*
+ * PCI Init, filling size for each field in config space
+ */
+void init_pci() {
+	// Init size map
+	pci_size_map[PCI_VENDOR_ID] =	2;
+	pci_size_map[PCI_DEVICE_ID] =	2;
+	pci_size_map[PCI_COMMAND]	=	2;
+	pci_size_map[PCI_STATUS]	=	2;
+	pci_size_map[PCI_SUBCLASS]	=	1;
+	pci_size_map[PCI_CLASS]		=	1;
+	pci_size_map[PCI_CACHE_LINE_SIZE]	= 1;
+	pci_size_map[PCI_LATENCY_TIMER]		= 1;
+	pci_size_map[PCI_HEADER_TYPE] = 1;
+	pci_size_map[PCI_BIST] = 1;
+	pci_size_map[PCI_BAR0] = 4;
+	pci_size_map[PCI_BAR1] = 4;
+	pci_size_map[PCI_BAR2] = 4;
+	pci_size_map[PCI_BAR3] = 4;
+	pci_size_map[PCI_BAR4] = 4;
+	pci_size_map[PCI_BAR5] = 4;
+	pci_size_map[PCI_INTERRUPT_LINE]	= 1;
+	pci_size_map[PCI_SECONDARY_BUS]		= 1;
 }
 

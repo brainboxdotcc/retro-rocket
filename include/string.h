@@ -9,11 +9,17 @@ struct gc_str
 
 unsigned int strlen(const char* str);
 
-unsigned char tolower(unsigned char input);
-
 int strcmp(const char* s1, const char* s2);
 
+int stricmp(const char* s1, const char* s2);
+
 int strncmp(const char* s1, const char* s2, uint32_t n);
+
+int strnicmp(const char* s1, const char* s2, uint32_t n);
+
+char toupper(char low);
+
+char tolower(char low);
 
 char* strchr(const char *s, int c);
 

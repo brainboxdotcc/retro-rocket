@@ -28,7 +28,7 @@ add_custom_command(TARGET "kernel.bin" POST_BUILD
 )
 
 add_custom_command(TARGET "kernel.bin" POST_BUILD
-  COMMAND "echo" "qemu-system-x86_64 -smp 8 -usb -usbdevice mouse -m 4096 -drive file=${HARD_DISK_IMAGE},format=raw,index=0,media=disk -no-reboot -no-shutdown -cdrom rr.iso -boot d -vnc 0.0.0.0:2" ">run.sh"
+  COMMAND "echo" "qemu-system-x86_64 -smp 8 -usb -usbdevice mouse -m 4096 -drive file=${HARD_DISK_IMAGE},format=raw,index=0,media=disk -no-reboot -no-shutdown -cdrom rr.iso -boot d -vnc 0.0.0.0:2 -debugcon file:debug.log -nic user,model=rtl8139" ">run.sh"
   COMMENT "Create qemu script"
   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 )

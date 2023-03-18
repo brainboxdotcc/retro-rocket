@@ -76,6 +76,10 @@ void kmain()
 
 	init_debug();
 
+	if (rtl8139_init()) {
+		dhcp_discover();
+	}
+
 	kprintf("Loading initial process...\n");
 
 

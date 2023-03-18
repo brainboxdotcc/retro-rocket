@@ -20,15 +20,17 @@ unsigned char isxdigit(const char x)
 	return (x >= '0' && x <= '9') || (x >= 'A' && x <= 'F');
 }
 
-
-unsigned char tolower(unsigned char input)
-{
-	return (input | 0x20);
-}
-
 int strcmp(const char* s1, const char* s2)
 {
 	while (*s1 == *s2++)
+		if (*s1++ == 0)
+			return 0;
+	return (*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1));
+}
+
+int stricmp(const char* s1, const char* s2)
+{
+	while (toupper(*s1) == toupper(*s2++))
 		if (*s1++ == 0)
 			return 0;
 	return (*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1));
@@ -58,6 +60,27 @@ int labs(int64_t a)
 		return +a;
 	else
 		return a;
+}
+
+char toupper(char low) {
+	return low >= 'a' && low <= 'z' ? low - 32 : low;
+}
+
+char tolower(char low) {
+	return low >= 'A' && low <= 'Z' ? low + 32 : low;
+}
+
+int strnicmp(const char* s1, const char* s2, uint32_t n)
+{
+	if (n == 0)
+		return (0);
+	do {
+		if (toupper(*s1) != toupper(*s2++))
+			return (*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1));
+		if (*s1++ == 0)
+			break;
+	} while (--n != 0);
+	return (0);
 }
 
 int strncmp(const char* s1, const char* s2, uint32_t n)
