@@ -2,32 +2,55 @@
 
 #include "kernel.h"
 
+/**
+ * @brief Direction of DHCP packet, outbound are
+ * REQUES and inbound (from the server to client)
+ * are REPLY.
+ */
 enum dhcp_request_type {
 	DHCP_REQUEST = 1,
 	DHCP_REPLY  = 2,
 };
 
+/**
+ * @brief Packet types inside the options, type 53.
+ */
 enum dhcp_packet_type {
-	DHCPDISCOVER = 1,
-	DHCPOFFER = 2,
-	DHCPREQUEST = 3,
-	DHCPDECLINE = 4,
-	DHCPACK = 5,
-	DHCPNAK = 6,
-	DHCPRELEASE = 7,
-	DHCPINFORM = 8,
+	DHCPDISCOVER = 1,	// Requesting an IP address
+	DHCPOFFER = 2,		// Server has offered an IP
+	DHCPREQUEST = 3,	// We have accepted server offer
+	DHCPDECLINE = 4,	// We have declined server offer
+	DHCPACK = 5,		// Server has acknowledged our acceptance
+	DHCPNAK = 6,		// Server has acknowledged our decline
+	DHCPRELEASE = 7,	// Release our IP lease
+	DHCPINFORM = 8,		// DHCPINFORM
 };
 
+/**
+ * @brief Types of options in the options fields
+ */
 enum dhcp_option_type {
-	OPT_GATEWAY = 3,
-	OPT_DNS = 6,
-	OPT_HOSTNAME = 12,
-	OPT_REQUESTED_IP = 50,
-	OPT_TYPE = 53,
-	OPT_SERVER_IP = 54,
-	OPT_CLIENT_MAC = 61,
+	OPT_SUBNET = 1,				// Subnet
+	OPT_GATEWAY = 3,			// Gateway/router IP address
+	OPT_DNS = 6,				// DNS server address
+	OPT_HOSTNAME = 12,			// Client hostname
+	OPT_DOMAIN = 15,			// Client domain
+	OPT_NBNS = 44,				// NetBios name server
+	OPT_NBDD = 45,				// NetBIOS datagram distribution server
+	OPT_NETBIOS_NODE_TYPE = 46,		// NetBIOS over TCP/IP Node Type Option
+	OPT_REQUESTED_IP = 50,			// Preferred IP address
+	OPT_LEASE_TIME = 51,			// IP Address Lease Time
+	OPT_TYPE = 53,				// Packet type
+	OPT_SERVER_IP = 54,			// Server IP
+	OPT_PARAMETER_REQUEST_LIST = 55,	// Parameter request list
+	OPT_MAX_DHCP_SIZE = 57,			// Max DHCP message size
+	OPT_CLIENT_MAC = 61,			// Client identifier
+	OPT_END = 255,				// End of options marker
 };
 
+/**
+ * @brief Hard coded transaction identifier
+ */
 #define DHCP_TRANSACTION_IDENTIFIER 0x55AA55AA
 
 /**
@@ -96,5 +119,6 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type);
  * @param request_ip IP address we were offered
  * @param xid Our request identifier
  * @param server_ip IP of server that offered the configuration
+ * @return packet size of constructed packet including options
  */
 size_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip);

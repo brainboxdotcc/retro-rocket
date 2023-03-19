@@ -81,6 +81,7 @@ void kmain()
 		dhcp_discover();
 	}
 
+	kprintf("System boot time: %s\n", get_datetime_str());
 	kprintf("Loading initial process...\n");
 
 
@@ -92,7 +93,8 @@ void kmain()
 
 	unlock_spinlock(&init_barrier);
 
-	//init_lapic_timer(50);
+	clock_init();
+	init_lapic_timer(50);
 
 	kprintf("Launching /programs/init...\n");
 

@@ -56,7 +56,7 @@ void dhcp_handle_packet(dhcp_packet_t* packet, size_t length) {
 void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
 	uint8_t* options = packet->options + 4;
 	uint8_t curr_type = *options;
-	while (curr_type != 0xff && options < (uint64_t)packet + sizeof(dhcp_packet_t)) {
+	while (curr_type != OPT_END && (uint64_t)options < (uint64_t)packet + sizeof(dhcp_packet_t)) {
 		curr_type = *options;
 		uint8_t len = *(options + 1);
 		if (curr_type == type) {
@@ -81,9 +81,6 @@ size_t make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * requ
 	packet->your_ip = *((uint32_t*)request_ip);
 	get_mac_addr(packet->client_hardware_addr);
 
-	uint8_t dst_ip[4];
-	memset(dst_ip, 0xff, 4);
-
 	uint8_t * options = packet->options;
 	*((uint32_t*)(options)) = htonl(0x63825363);
 	options += 4;
@@ -102,8 +99,8 @@ size_t make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * requ
 
 	// Client identifier
 	*(options++) = OPT_CLIENT_MAC;
-	*(options++) = 0x07;
-	*(options++) = 0x01;
+	*(options++) = 7;
+	*(options++) = HARDWARE_TYPE_ETHERNET;
 	get_mac_addr(options);
 	options += 6;
 
@@ -124,19 +121,19 @@ size_t make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * requ
 	*(options++) = 0x00;
 
 	// Parameter request list
-	*(options++) = 55;
+	*(options++) = OPT_PARAMETER_REQUEST_LIST;
 	*(options++) = 8;
-	*(options++) = 0x1;
-	*(options++) = 0x3;
-	*(options++) = 0x6;
-	*(options++) = 0xf;
-	*(options++) = 0x2c;
-	*(options++) = 0x2e;
-	*(options++) = 0x2f;
-	*(options++) = 0x39;
+	*(options++) = OPT_SUBNET;
+	*(options++) = OPT_GATEWAY;
+	*(options++) = OPT_DNS;
+	*(options++) = OPT_DOMAIN;
+	*(options++) = OPT_NBNS;
+	*(options++) = OPT_NBDD;
+	*(options++) = OPT_NETBIOS_NODE_TYPE;
+	*(options++) = OPT_MAX_DHCP_SIZE;
 
 	// END
-	*(options++) = 0xff;
+	*(options++) = OPT_END;
 
 	return (size_t)options - (size_t)packet;
 

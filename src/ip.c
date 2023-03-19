@@ -67,9 +67,7 @@ void ip_send_packet(uint8_t * dst_ip, void * data, int len) {
 	packet->length = sizeof(ip_packet_t) + len;
 	packet->id = 0; // Used for ip fragmentation, use later
 	// Tell router to not divide the packet, and this is packet is the last piece of the fragments.
-	packet->flags = 0;
-	packet->fragment_offset_high = 0;
-	packet->fragment_offset_low = 0;
+	packet->frag.bits = 0;
 	packet->ttl = 64;
 	// XXX: This is hard coded until other protocols are supported.
 	packet->protocol = PROTOCOL_UDP;
@@ -105,11 +103,36 @@ void ip_handle_packet(ip_packet_t * packet) {
 		void * data_ptr = (void*)packet + packet->ihl * 4;
 		size_t data_len = ntohs(packet->length) - sizeof(ip_packet_t);
 
-		// XXX TODO: Fragmentation
+		// https://broken-code.medium.com/fragmentation-933e780b98a3
+		/* For fragmented packets, we need to store up the fragments into an ordered list, sorted by frag offset.
+		 * Once we receive the very last fragment, we can deliver it all as one. We need to also check the id of the
+		 * fragmented packet is identical to the id of other fragments, as may receive different packets fragments
+		 * intermixed, and we don't want to accidentally put them into the wrong fragment lists!
+		 */
+		uint16_t frag_offset = ((uint16_t)packet->frag.fragment_offset_low | ((uint16_t)packet->frag.fragment_offset_high << 8));
+		if (packet->frag.more_fragments_follow) {
+			/* Packet is part of a fragmented set */
+			if (frag_offset == 0) {
+				/* First fragment */
+				kprintf("*** WARN *** Fragmented IP (first frag offset 0), and we don't support this yet :(");
+			} else {
+				/* Middle fragments */
+				kprintf("*** WARN *** Fragmented IP (middle frag offset %d), and we don't support this yet :(", frag_offset);
+			}
+			return;
+		} else if (packet->frag.more_fragments_follow == 0 && (frag_offset != 0)) {
+			/* Final fragment of fragmented set.
+			 * Once we get this fragment, we can deliver the reassembled packet.
+			 */
+			kprintf("*** WARN *** Fragmented IP (last frag offset %d), and we don't support this yet :(", frag_offset);
+			return;
+		}
 
-		if(packet->protocol == PROTOCOL_UDP) {
+		if (packet->protocol == PROTOCOL_ICMP) {
+			kprintf("ICMP packet received\n");
+		} else if (packet->protocol == PROTOCOL_UDP) {
 			udp_handle_packet(data_ptr, data_len);
-		} else if(packet->protocol == PROTOCOL_TCP) {
+		} else if (packet->protocol == PROTOCOL_TCP) {
 		}
 	}
 }

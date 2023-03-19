@@ -1026,8 +1026,7 @@ static void statement(struct ubasic_ctx* ctx)
 		break;
 		default:
 			tokenizer_error_print(ctx, "Unknown keyword");
-			kprintf("%s\n ->%d\n", ctx->program_ptr, ctx->current_token);
-			//kprintf("Bad token %d (%c) %c\n", token, token, ctx->current_token);
+			//kprintf("%s\n ->%d\n", ctx->program_ptr, ctx->current_token);
 		break;
 	}
 }

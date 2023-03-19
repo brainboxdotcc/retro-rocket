@@ -10,20 +10,25 @@ enum ip_type_t {
 };
 
 /**
- * @brief Fragmentation state
- */
-enum ip_frag_t {
-	IP_PACKET_NO_FRAGMENT = 2,
-	IP_IS_LAST_FRAGMENT = 4,
-};
-
-/**
  * @brief Sub-protocols, TCP and UDP
  */
 enum ip_proto_t {
+	PROTOCOL_ICMP = 1,
 	PROTOCOL_TCP = 6,
 	PROTOCOL_UDP = 17,
 };
+
+typedef union ip_frag {
+    uint16_t bits;
+    struct {
+	uint8_t reserved_zero		: 1;
+	uint8_t dont_fragment		: 1;
+	uint8_t more_fragments_follow	: 1;
+	uint8_t fragment_offset_high	: 5;
+	uint8_t fragment_offset_low	: 8;
+    };
+} ip_frag_t;
+
 
 /**
  * @brief Structure for an IP packet
@@ -36,9 +41,7 @@ typedef struct ip_packet {
 	uint16_t length;
 	uint16_t id;
 	char flags_fragment_ptr[0];
-	uint8_t flags:3;
-	uint8_t fragment_offset_high:5;
-	uint8_t fragment_offset_low;
+	ip_frag_t frag;
 	uint8_t ttl;
 	uint8_t protocol;
 	uint16_t header_checksum;
