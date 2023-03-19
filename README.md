@@ -7,6 +7,14 @@ This is an alternative operating system inspired by [Acorn MOS 3.20](https://en.
 Its userland is completely written in a dialect of BASIC based heavily on BBC BASIC, with full
 access to hardware (just like the old days), multi-tasking, modern filesystem support (in progress!), and more as well as planned backwards compatibility with Acorn features such as ADFS via disk images.
 
+## 🌟 Features
+
+* Command line shell powered by BASIC
+* A bunch of useful command line tools
+* VFS with support for FAT32 and ISO9660 filesystems
+* Co-operative multitasking of BASIC programs
+* Simple network stack with basic daemons such as DHCP
+
 ## 💻 System Requirements
 
 * An `x86_64` system with CD or DVD drive to boot an ISO image (more options coming soon)
