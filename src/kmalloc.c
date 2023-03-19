@@ -23,6 +23,10 @@ heap_t*	uheap = NULL;	/* User Heap */
 uint64_t heapstart = 0;
 uint64_t heaplen = 0;
 
+const uint32_t low_mem_start = 0x10000;
+const uint32_t low_mem_max = 0x40000;
+uint32_t low_mem_cur = low_mem_start;
+
 /* Our list will be ordered and will construct the internal structures */
 header_t* ord_list_insert(header_t *insert,header_t *list);	/* Insert into ordered list */
 header_t* ord_list_remove(header_t *remove,header_t *list);	/* Remove item from list, return list */
@@ -103,7 +107,7 @@ void heap_init()
 	heaplen = bestlen;
 
 	heap_pos = heapstart;
-	heapstart += 0x10000;
+	heapstart += low_mem_max;
 
 	kheap = create_heap(heapstart, heapstart + heaplen, heapstart + heaplen, min, 0, 1);
 
@@ -676,3 +680,21 @@ void* krealloc(void* ptr, size_t new_size)
 	/* If there is not enough memory, the old memory block is not freed and null pointer is returned */
 	return NULL;
 }
+
+uint32_t kmalloc_low(uint32_t size)
+{
+	if (size == 0) {
+		return 0;
+	}
+
+	if (low_mem_cur + size >= low_mem_max) {
+		return 0;
+	}
+
+	uint32_t allocated = low_mem_cur;
+	low_mem_cur += size;
+
+	return allocated;
+}
+
+

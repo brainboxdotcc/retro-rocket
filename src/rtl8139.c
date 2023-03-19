@@ -10,7 +10,10 @@ uint32_t current_packet_ptr;
 uint8_t TSAD_array[4] = {0x20, 0x24, 0x28, 0x2C};
 uint8_t TSD_array[4] = {0x10, 0x14, 0x18, 0x1C};
 
+// True if the device driver is active
 bool active = false;
+
+// True if interrupt activity needs the IRQ status clearing
 bool activity = false;
 
 void receive_packet() {
@@ -31,9 +34,6 @@ void receive_packet() {
 	kfree(packet);
 
 	current_packet_ptr = ((current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
-	/*if(current_packet_ptr > RX_BUF_SIZE) {
-		current_packet_ptr -= RX_BUF_SIZE;
-	}*/
 	outw(rtl8139_device.io_base + CAPR, current_packet_ptr - 0x10);
 
 	activity = true;
@@ -89,8 +89,8 @@ void rtl8139_send_packet(void * data, uint32_t len) {
 	}
 
 	// Static buffer below 4GB
-	uint32_t transfer_data = 0x14000 + (rtl8139_device.tx_cur * 0x2000);
-	void* transfer_data_p = (void*)((uint64_t)0x14000 + (rtl8139_device.tx_cur * 0x2000));
+	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
+	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
 
 	memcpy(transfer_data_p, data, len);
 	outl(rtl8139_device.io_base + TSAD_array[rtl8139_device.tx_cur], transfer_data);
@@ -123,11 +123,14 @@ bool rtl8139_init() {
 	outb(rtl8139_device.io_base + 0x37, 0x10);
 	while((inb(rtl8139_device.io_base + 0x37) & 0x10) != 0);
 
-	// Allocate receive buffer, below 4GB boundary
-	uint32_t receive_buffer_32 = 0x11000;
-	rtl8139_device.rx_buffer = receive_buffer_32;
+	// Allocate receive buffer and send buffers, below 4GB boundary
+	rtl8139_device.rx_buffer = kmalloc_low(8192 + 16 + 1500);
+	rtl8139_device.tx_buffers = kmalloc_low((8192 + 16 + 1500) * 3);
 	memset((void*)(uint64_t)rtl8139_device.rx_buffer, 0x0, 8192 + 16 + 1500);
 	outl(rtl8139_device.io_base + 0x30, rtl8139_device.rx_buffer);
+	for(int i=0; i < 4; i++) {
+		outl(rtl8139_device.io_base + 0x20 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 1500));
+	}
 
 	outw(rtl8139_device.io_base + 0x3C, 0x0005);
 	outl(rtl8139_device.io_base + 0x44, 0xf | (1 << 7));

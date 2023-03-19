@@ -55,6 +55,7 @@ void print_heapinfo();
 void preboot_fail(char* msg);
 void* kcalloc(size_t num, size_t size);
 void* krealloc(void* ptr, size_t new_size);
+uint32_t kmalloc_low(uint32_t size);
 
 #endif
 
