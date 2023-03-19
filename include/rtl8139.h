@@ -82,6 +82,7 @@ typedef struct rtl8139_dev {
 	uint32_t rx_buffer;
 	uint32_t tx_buffers;
 	int tx_cur;
+	uint32_t current_packet_ptr;
 } rtl8139_dev_t;
 
 /**

@@ -1,12 +1,8 @@
 #include <kernel.h>
 
-pci_dev_t pci_rtl8139_device;
 rtl8139_dev_t rtl8139_device;
 
-uint32_t current_packet_ptr;
-
-// Four TXAD register, you must use a different one to send packet each time
-// (for example, use the first one, second... fourth and back to the first)
+// Rotating round-robin buffer registers
 uint8_t TSAD_array[4] = {0x20, 0x24, 0x28, 0x2C};
 uint8_t TSD_array[4] = {0x10, 0x14, 0x18, 0x1C};
 
@@ -18,7 +14,7 @@ bool activity = false;
 
 void receive_packet() {
 	uint64_t buffer_32 = rtl8139_device.rx_buffer;
-	uint16_t* t = (uint16_t*)((uint64_t)buffer_32 + current_packet_ptr);
+	uint16_t* t = (uint16_t*)((uint64_t)buffer_32 + rtl8139_device.current_packet_ptr);
 	// Skip packet header, get packet length
 	uint16_t packet_length = *(t + 1);
 
@@ -33,8 +29,8 @@ void receive_packet() {
 	
 	kfree(packet);
 
-	current_packet_ptr = ((current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
-	outw(rtl8139_device.io_base + CAPR, current_packet_ptr - 0x10);
+	rtl8139_device.current_packet_ptr = ((rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
+	outw(rtl8139_device.io_base + CAPR, rtl8139_device.current_packet_ptr - 0x10);
 
 	activity = true;
 }
@@ -100,11 +96,11 @@ void rtl8139_send_packet(void * data, uint32_t len) {
 }
 
 bool rtl8139_init() {
-	pci_rtl8139_device = pci_get_device(RTL8139_VENDOR_ID, RTL8139_DEVICE_ID, -1);
-	if (!memcmp(&pci_rtl8139_device, &dev_zero, sizeof(pci_dev_t))) {
+	pci_dev_t pci_device = pci_get_device(RTL8139_VENDOR_ID, RTL8139_DEVICE_ID, -1);
+	if (!memcmp(&pci_device, &dev_zero, sizeof(pci_dev_t))) {
 		return false;
 	}
-	uint32_t ret = pci_read(pci_rtl8139_device, PCI_BAR0);
+	uint32_t ret = pci_read(pci_device, PCI_BAR0);
 	rtl8139_device.bar_type = ret & 0x1;
 	// Get io base or mem base by extracting the high 28/30 bits
 	rtl8139_device.io_base = ret & (~0x3);
@@ -112,10 +108,10 @@ bool rtl8139_init() {
 	rtl8139_device.tx_cur = 0;
 
 	// Enable PCI Bus Mastering
-	uint32_t pci_command_reg = pci_read(pci_rtl8139_device, PCI_COMMAND);
+	uint32_t pci_command_reg = pci_read(pci_device, PCI_COMMAND);
 	if(!(pci_command_reg & (1 << 2))) {
 		pci_command_reg |= (1 << 2);
-		pci_write(pci_rtl8139_device, PCI_COMMAND, pci_command_reg);
+		pci_write(pci_device, PCI_COMMAND, pci_command_reg);
 	}
 
 	// Power on and reset
@@ -136,7 +132,9 @@ bool rtl8139_init() {
 	outl(rtl8139_device.io_base + 0x44, 0xf | (1 << 7));
 	outb(rtl8139_device.io_base + 0x37, 0x0C);
 
-	uint32_t irq_num = pci_read(pci_rtl8139_device, PCI_INTERRUPT_LINE);
+	rtl8139_device.current_packet_ptr = 0;
+
+	uint32_t irq_num = pci_read(pci_device, PCI_INTERRUPT_LINE);
 	register_interrupt_handler(32 + irq_num, rtl8139_handler);
 
 	char* mac_address = read_mac_addr();
