@@ -1,28 +1,7 @@
 #include <kernel.h>
 
-void dhcp_discover() {
-	uint8_t request_ip[4];
-	uint8_t dst_ip[4];
-	memset(request_ip, 0x0, 4);
-	memset(dst_ip, 0xff, 4);
-	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
-	kprintf("Configuring network via DHCP\n");
-	memset(packet, 0, sizeof(dhcp_packet_t));
-	size_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
-	udp_send_packet(dst_ip, 68, 67, packet, optsize);
-}
-
-void dhcp_request(uint8_t * request_ip, uint32_t xid, uint32_t server_ip) {
-	uint8_t dst_ip[4];
-	memset(dst_ip, 0xff, 4);
-	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
-	memset(packet, 0, sizeof(dhcp_packet_t));
-	//kprintf("dhcp request with type 3, server_ip %08x\n", server_ip);
-	size_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
-	udp_send_packet(dst_ip, 68, 67, packet, optsize);
-}
-
-void dhcp_handle_packet(dhcp_packet_t* packet, size_t length) {
+void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t length) {
+	dhcp_packet_t* packet = (dhcp_packet_t*)data;
 	if(packet->op == DHCP_REPLY) {
 		uint8_t* type = get_dhcp_options(packet, OPT_TYPE);
 		if (*type == DHCPOFFER) {
@@ -37,12 +16,10 @@ void dhcp_handle_packet(dhcp_packet_t* packet, size_t length) {
 			uint32_t* dns = get_dhcp_options(packet, OPT_DNS);
 			uint32_t* gateway = get_dhcp_options(packet, OPT_GATEWAY);
 			if (dns) {
-				//kprintf("DNS: %08x\n", *dns);
 				setdnsaddr(*dns);
 				kfree(dns);
 			}
 			if (gateway) {
-				//kprintf("GW: %08x\n", *gateway);
 				setgatewayaddr(*gateway);
 				kfree(gateway);
 			}
@@ -51,6 +28,26 @@ void dhcp_handle_packet(dhcp_packet_t* packet, size_t length) {
 		}
 		kfree(type);
 	}
+}
+
+void dhcp_discover() {
+	uint8_t request_ip[4] = { 0, 0, 0, 0 };
+	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
+	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
+	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet);
+	kprintf("Configuring network via DHCP\n");
+	memset(packet, 0, sizeof(dhcp_packet_t));
+	size_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
+	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
+}
+
+void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
+	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
+	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
+	memset(packet, 0, sizeof(dhcp_packet_t));
+	//kprintf("dhcp request with type 3, server_ip %08x\n", server_ip);
+	size_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
+	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
 }
 
 void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
@@ -69,7 +66,7 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
 	return NULL;
 }
 
-size_t make_dhcp_packet(dhcp_packet_t * packet, uint8_t msg_type, uint8_t * request_ip, uint32_t xid, uint32_t server_ip) {
+size_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	packet->op = DHCP_REQUEST;
 	packet->hardware_type = HARDWARE_TYPE_ETHERNET;
 	packet->hardware_addr_len = 6;

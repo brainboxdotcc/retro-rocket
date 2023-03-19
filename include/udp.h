@@ -2,6 +2,9 @@
 
 #include "kernel.h"
 
+// Interrupt handler definition
+typedef void (*udp_daemon_handler)(uint16_t, void*, uint32_t);
+
 /**
  * @brief Raw structure for UDP
  */
@@ -39,3 +42,11 @@ void udp_send_packet(uint8_t* dst_ip, uint16_t src_port, uint16_t dst_port, void
  * @param length UDP packet length
  */
 void udp_handle_packet(udp_packet_t* packet, size_t length);
+
+/**
+ * @brief Register a daemon function to listen on a udp dest port
+ * 
+ * @param dst_port destination port to listen on
+ * @param handler handler for incoming packets
+ */
+void udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler);

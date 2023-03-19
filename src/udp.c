@@ -1,5 +1,7 @@
 #include <kernel.h>
 
+static udp_daemon_handler daemons[USHRT_MAX] = { 0 };
+
 uint16_t udp_calculate_checksum(udp_packet_t * packet) {
 	// UDP checksum is optional in IPv4
 	return 0;
@@ -29,8 +31,16 @@ void udp_handle_packet(udp_packet_t* packet, size_t len) {
 	uint32_t data_len = length;
 	//DumpHex(packet, length + sizeof(udp_packet_t));
 
-	if(ntohs(packet->dst_port) == 68) {
-		dhcp_handle_packet(data_ptr, data_len);
+	if (daemons[dst_port] != NULL) {
+		daemons[dst_port](dst_port, data_ptr, data_len);
 	}
-	return;
+}
+
+void udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler) {
+	if (daemons[dst_port] != NULL && daemons[dst_port] != handler) {
+		kprintf("*** BUG *** udp_register_daemon(%d) called twice!\n", dst_port);
+		return;
+	}
+	daemons[dst_port] = handler;
+
 }

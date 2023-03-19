@@ -13,6 +13,14 @@ enum dhcp_request_type {
 };
 
 /**
+ * @brief source and destination UDP port numbers
+ */
+enum dhcp_udp_ports {
+	DHCP_DST_PORT = 68,
+	DHCP_SRC_PORT = 67,
+};
+
+/**
  * @brief Packet types inside the options, type 53.
  */
 enum dhcp_packet_type {
@@ -92,14 +100,6 @@ void dhcp_discover();
  * @param server_ip server IP that sent the offer to us
  */
 void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip);
-
-/**
- * @brief Handle DHCP packet from the UDP driver
- * 
- * @param packet Raw DHCP packet
- * @param length DHCP packet length
- */
-void dhcp_handle_packet(dhcp_packet_t* packet, size_t length);
 
 /**
  * @brief Get an option from a DHCP packet

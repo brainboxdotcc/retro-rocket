@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <limits.h>
 
 typedef uint64_t uint64_t;
 typedef uint32_t uint32_t;
