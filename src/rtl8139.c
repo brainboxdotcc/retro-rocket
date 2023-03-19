@@ -2,10 +2,6 @@
 
 rtl8139_dev_t rtl8139_device;
 
-// Rotating round-robin buffer registers
-uint8_t TSAD_array[4] = {0x20, 0x24, 0x28, 0x2C};
-uint8_t TSD_array[4] = {0x10, 0x14, 0x18, 0x1C};
-
 // True if the device driver is active
 bool active = false;
 
@@ -88,11 +84,10 @@ void rtl8139_send_packet(void * data, uint32_t len) {
 	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
 
-	memcpy(transfer_data_p, data, len);
-	outl(rtl8139_device.io_base + TSAD_array[rtl8139_device.tx_cur], transfer_data);
-	outl(rtl8139_device.io_base + TSD_array[rtl8139_device.tx_cur++], len);
-	if(rtl8139_device.tx_cur > 3)
-		rtl8139_device.tx_cur = 0;
+	memcpy(transfer_data_p, data, len > 8192 ? 8192 : len);
+	outl(rtl8139_device.io_base + 0x20 + (rtl8139_device.tx_cur * 4), transfer_data);
+	outl(rtl8139_device.io_base + 0x10 + (rtl8139_device.tx_cur++ * 4), len > 8192 ? 8192 : len);
+	rtl8139_device.tx_cur = rtl8139_device.tx_cur % 4;
 }
 
 bool rtl8139_init() {
