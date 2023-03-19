@@ -5,6 +5,8 @@ static datetime_t current_datetime;
 const char* weekday_map[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 const char* month_map[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
+void rtc_read_datetime();
+
 void get_datetime(datetime_t* dt) {
 	rtc_read_datetime();
 	memcpy(dt, &current_datetime, sizeof(datetime_t));
@@ -45,6 +47,28 @@ void rtc_read_datetime() {
 	}
 }
 
+int is_leap_year(int year, int month) {
+	if (year % 4 == 0 && (month == 1 || month == 2)) {
+		return 1;
+	};
+	return 0;
+}
+
+/*
+ * Given a date, calculate it's weekday, using the algorithm described here:
+ * http://blog.artofmemory.com/how-to-calculate-the-day-of-the-week-4203.html
+ */
+int get_weekday_from_date(datetime_t* dt) {
+	char month_code_array[] = {0x0, 0x3, 0x3, 0x6, 0x1, 0x4, 0x6, 0x2, 0x5, 0x0, 0x3, 0x5};
+	char century_code_array[] = {0x4, 0x2, 0x0, 0x6, 0x4, 0x2, 0x0};	// Starting from 18 century
+	dt->century = 21;
+	int year_code = (dt->year + (dt->year / 4)) % 7;
+	int month_code = month_code_array[dt->month - 1];
+	int century_code = century_code_array[dt->century - 1 - 17];
+	int leap_year_code = is_leap_year(dt->year, dt->month);
+	return (year_code + month_code + century_code + dt->day - leap_year_code) % 7;
+}
+
 const char* datetime_to_str(datetime_t* dt) {
 	const char* weekday = weekday_map[get_weekday_from_date(dt)];
 	const char* monthname = month_map[dt->month];
@@ -67,25 +91,6 @@ const char* datetime_to_str(datetime_t* dt) {
 const char* get_datetime_str() {
 	rtc_read_datetime();
 	return datetime_to_str(&current_datetime);
-}
-
-/*
- * Given a date, calculate it's weekday, using the algorithm described here:
- * http://blog.artofmemory.com/how-to-calculate-the-day-of-the-week-4203.html
- */
-int get_weekday_from_date(datetime_t* dt) {
-	char month_code_array[] = {0x0, 0x3, 0x3, 0x6, 0x1, 0x4, 0x6, 0x2, 0x5, 0x0, 0x3, 0x5};
-	char century_code_array[] = {0x4, 0x2, 0x0, 0x6, 0x4, 0x2, 0x0};	// Starting from 18 century
-	dt->century = 21;
-	int year_code = (dt->year + (dt->year / 4)) % 7;
-	int month_code = month_code_array[dt->month - 1];
-	int century_code = century_code_array[dt->century - 1 - 17];
-	int leap_year_code = is_leap_year(dt->year, dt->month);
-	return (year_code + month_code + century_code + dt->day - leap_year_code) % 7;
-}
-
-bool is_leap_year(int year, int month) {
-	return (year % 4 == 0 && (month == 1 || month == 2));
 }
 
 void clock_init() {

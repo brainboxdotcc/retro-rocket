@@ -10,29 +10,33 @@ uint32_t current_packet_ptr;
 uint8_t TSAD_array[4] = {0x20, 0x24, 0x28, 0x2C};
 uint8_t TSD_array[4] = {0x10, 0x14, 0x18, 0x1C};
 
+bool active = false;
+bool activity = false;
+
 void receive_packet() {
-	uint16_t * t = (uint16_t*)(rtl8139_device.rx_buffer + current_packet_ptr);
+	uint64_t buffer_32 = rtl8139_device.rx_buffer;
+	uint16_t* t = (uint16_t*)((uint64_t)buffer_32 + current_packet_ptr);
 	// Skip packet header, get packet length
 	uint16_t packet_length = *(t + 1);
 
 	// Skip, packet header and packet length, now t points to the packet data
-	t = t + 2;
+	t += 2;
 
 	// Now, ethernet layer starts to handle the packet(be sure to make a copy of the packet, insteading of using the buffer)
 	// and probabbly this should be done in a separate thread...
 	void * packet = kmalloc(packet_length);
 	memcpy(packet, t, packet_length);
 	ethernet_handle_packet(packet, packet_length);
-
-	current_packet_ptr = (current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK;
-
-	if(current_packet_ptr > RX_BUF_SIZE) {
-		current_packet_ptr -= RX_BUF_SIZE;
-	}
-
+	
 	kfree(packet);
 
+	current_packet_ptr = ((current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
+	/*if(current_packet_ptr > RX_BUF_SIZE) {
+		current_packet_ptr -= RX_BUF_SIZE;
+	}*/
 	outw(rtl8139_device.io_base + CAPR, current_packet_ptr - 0x10);
+
+	activity = true;
 }
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
@@ -44,6 +48,7 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 		// Received
 		receive_packet();
 	}
+	activity = true;
 	// OSDev wiki says write 0x05 here, but this is ROK+TOK. We need to CLEAR it to 0 to
 	// continue receiving interrupts!
 	//outw(rtl8139_device.io_base + 0x3E, 0x05);
@@ -52,7 +57,10 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 
 void rtl8139_timer()
 {
-	outw(rtl8139_device.io_base + 0x3E, 0x0);
+	if (active && activity) {
+		outw(rtl8139_device.io_base + 0x3E, 0x0);
+		activity = false;
+	}
 }
 
 char* read_mac_addr() {
@@ -76,23 +84,22 @@ void get_mac_addr(uint8_t * src_mac_addr) {
 }
 
 void rtl8139_send_packet(void * data, uint32_t len) {
-	// First, copy the data to a physically contiguous chunk of memory
-	void * transfer_data = kmalloc(len);
-	memcpy(transfer_data, data, len);
+	if (!active) {
+		return;
+	}
 
-	// Second, fill in physical address of data, and length
-	// XXX: THIS IS A 32 BIT ADDRESS. USE A STATC BUFFER BELOW 4GB
-	outl(rtl8139_device.io_base + TSAD_array[rtl8139_device.tx_cur], (uint32_t)transfer_data);
+	// Static buffer below 4GB
+	uint32_t transfer_data = 0x14000 + (rtl8139_device.tx_cur * 0x2000);
+	void* transfer_data_p = (void*)((uint64_t)0x14000 + (rtl8139_device.tx_cur * 0x2000));
+
+	memcpy(transfer_data_p, data, len);
+	outl(rtl8139_device.io_base + TSAD_array[rtl8139_device.tx_cur], transfer_data);
 	outl(rtl8139_device.io_base + TSD_array[rtl8139_device.tx_cur++], len);
 	if(rtl8139_device.tx_cur > 3)
 		rtl8139_device.tx_cur = 0;
 }
 
-/*
- * Initialize the rtl8139 card driver
- * */
 bool rtl8139_init() {
-	// First get the network device using PCI
 	pci_rtl8139_device = pci_get_device(RTL8139_VENDOR_ID, RTL8139_DEVICE_ID, -1);
 	if (!memcmp(&pci_rtl8139_device, &dev_zero, sizeof(pci_dev_t))) {
 		return false;
@@ -102,8 +109,6 @@ bool rtl8139_init() {
 	// Get io base or mem base by extracting the high 28/30 bits
 	rtl8139_device.io_base = ret & (~0x3);
 	rtl8139_device.mem_base = ret & (~0xf);
-
-	// Set current TSAD
 	rtl8139_device.tx_cur = 0;
 
 	// Enable PCI Bus Mastering
@@ -113,18 +118,16 @@ bool rtl8139_init() {
 		pci_write(pci_rtl8139_device, PCI_COMMAND, pci_command_reg);
 	}
 
-	// Send 0x00 to the CONFIG_1 register (0x52) to set the LWAKE + LWPTN to active high. this should essentially *power on* the device.
+	// Power on and reset
 	outb(rtl8139_device.io_base + 0x52, 0x0);
-
-	// Soft reset
 	outb(rtl8139_device.io_base + 0x37, 0x10);
 	while((inb(rtl8139_device.io_base + 0x37) & 0x10) != 0);
 
-	// Allocate receive buffer
-	rtl8139_device.rx_buffer = kmalloc(8192 + 16 + 1500);
-	memset(rtl8139_device.rx_buffer, 0x0, 8192 + 16 + 1500);
-	// XXX: THIS IS A 32 BIT ADDRESS, ENSURE USE OF STATIC BUFFER BELOW 4GB
-	outl(rtl8139_device.io_base + 0x30, (uint32_t)rtl8139_device.rx_buffer);
+	// Allocate receive buffer, below 4GB boundary
+	uint32_t receive_buffer_32 = 0x11000;
+	rtl8139_device.rx_buffer = receive_buffer_32;
+	memset((void*)(uint64_t)rtl8139_device.rx_buffer, 0x0, 8192 + 16 + 1500);
+	outl(rtl8139_device.io_base + 0x30, rtl8139_device.rx_buffer);
 
 	outw(rtl8139_device.io_base + 0x3C, 0x0005);
 	outl(rtl8139_device.io_base + 0x44, 0xf | (1 << 7));
@@ -136,5 +139,6 @@ bool rtl8139_init() {
 	char* mac_address = read_mac_addr();
 	kprintf("RTL8139: MAC=%s\n", mac_address);
 
+	active = true;
 	return true;
 }

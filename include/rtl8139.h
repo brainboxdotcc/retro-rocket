@@ -79,7 +79,7 @@ typedef struct rtl8139_dev {
 	int eeprom_exist;
 	uint8_t mac_addr[6]; // MAC address in binary form
 	char mac_addr_str[16]; // MAC address in string form
-	char* rx_buffer;
+	uint32_t rx_buffer;
 	int tx_cur;
 } rtl8139_dev_t;
 
