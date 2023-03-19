@@ -52,17 +52,12 @@ void kmain()
 		ioapic_redir_set_precalculated(in, 0, 0x2020 + in);
 	}
 
-	init_error_handler();
 	asm volatile("sti");
 
-	/* These install IRQ handlers and require IOAPIC to have unmasked and mapped them */
-	init_timer(50);
-	init_basic_keyboard();
-
+	init_error_handler();
 	init_pci();
-
+	init_basic_keyboard();
 	ide_initialise(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
-
 	init_filesystem();
 	init_iso9660();
 	init_devfs();

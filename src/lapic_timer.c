@@ -1,14 +1,7 @@
 #include <kernel.h>
 
-void lapic_timer(uint8_t isr, uint64_t errorcode, uint64_t irq)
-{
-	//put(current_console, cpu_id() + 48);
-	//proc_timer();
-}
-
 void lapic_spurious(uint8_t isr, uint64_t errorcode, uint64_t irq)
 {
-
 	return;
 }
 
@@ -19,7 +12,7 @@ void init_lapic_timer(uint32_t quantum)
 	}
 	
 	register_interrupt_handler(IRQ7, lapic_spurious);
-	register_interrupt_handler(IRQ16, lapic_timer);
+	register_interrupt_handler(IRQ16, timer_callback);
 
 	// Divisor = 16
 	apic_write(APIC_TMRDIV, 0x3);
