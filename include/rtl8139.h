@@ -127,8 +127,3 @@ void receive_packet();
  */
 void get_mac_addr();
 
-/**
- * @brief A periodic timer fired by the task scheduler.
- * This is a hack to regulate interrupts to a sane level on qemu.
- */
-void rtl8139_timer();

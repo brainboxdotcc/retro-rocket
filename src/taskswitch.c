@@ -9,16 +9,16 @@ uint32_t nextid = 1;
 uint8_t nextcpu = 0;
 spinlock bkl = 0;
 
+idle_timer_t* idles = NULL;
+
 struct process* proc_load(const char* fullpath, struct console* cons)
 {
 	//DumpHex(locks, 256 * 4);
 	FS_DirectoryEntry* fsi = fs_get_file_info(fullpath);
-	if (fsi != NULL)
-	{
+	if (fsi != NULL) {
 		unsigned char* programtext = (unsigned char*)kmalloc(fsi->size + 1);
 		*(programtext + fsi->size) = 0;
-		if (fs_read_file(fsi, 0, fsi->size, programtext))
-		{
+		if (fs_read_file(fsi, 0, fsi->size, programtext)) {
 			//kprintf("program len = %d size = %d cpu=%d\n", strlen(programtext), fsi->size, nextcpu);
 			struct process* newproc = (struct process*)kmalloc(sizeof(struct process));
 			newproc->code = ubasic_init((const char*)programtext, (console*)cons);
@@ -34,15 +34,12 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			interrupts_off();
 			bkl = 1;
 
-			if (proc_list[nextcpu] == NULL)
-			{
+			if (proc_list[nextcpu] == NULL) {
 				/* First process */
 				proc_list[nextcpu] = newproc;
 				newproc->next = NULL;
 				newproc->prev = NULL;
-			}
-			else
-			{
+			} else {
 				/* Any other process */
 				newproc->next = proc_list[nextcpu];
 				newproc->prev = NULL;
@@ -64,9 +61,7 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			//kprintf("returning\n");
 
 			return newproc;
-		}
-		else
-		{
+		} else {
 			kfree(programtext);
 		}
 
@@ -86,8 +81,7 @@ void proc_run(struct process* proc)
 	proc_running[cpu_id()] = proc;
 	if (proc->waitpid == 0)
 		ubasic_run(proc->code);
-	else if (proc_find(proc->waitpid) == NULL)
-	{
+	else if (proc_find(proc->waitpid) == NULL) {
 		//kprintf("Process %d exited, resuming %d\n", proc->waitpid, proc->pid);
 		proc->waitpid = 0;
 		ubasic_run(proc->code);
@@ -102,8 +96,7 @@ struct process* proc_find(uint32_t pid)
 	bkl = 1;
 	struct process* foundproc = NULL;
 	int cpu = 0;
-	for (; cpu < 1; cpu++)
-	{
+	for (; cpu < 1; cpu++) {
 		struct process* cur = proc_list[cpu];
 		for (; cur; cur = cur->next)
 			if (cur->pid == pid)
@@ -123,42 +116,26 @@ void proc_wait(struct process* proc, uint32_t otherpid)
 
 void proc_kill(struct process* proc)
 {
-	//kprintf("prog: '%s'\n", proc->code->program_ptr);
-	//kprintf("proc_kill %d\n", proc->pid);
-	
 	interrupts_off();
 	bkl = 1;
 
-	//int cpu = proc->cpu;
-	
 	struct process* cur = proc_list[proc->cpu];
 
-	//kprintf("'%s'\n", proc->code->program_ptr);
-	
 	int countprocs = 0;
-	for (; cur; cur = cur->next)
-	{
+	for (; cur; cur = cur->next) {
 		countprocs++;
-		if (cur->pid == proc->pid)
-		{
-			if (proc->next == NULL && proc->prev == NULL)
-			{
+		if (cur->pid == proc->pid) {
+			if (proc->next == NULL && proc->prev == NULL) {
 				// the only process!
 				proc_list[proc->cpu] = NULL;
-			}
-			else if (proc->prev == NULL && proc->next != NULL)
-			{
+			} else if (proc->prev == NULL && proc->next != NULL) {
 				// first item
 				proc_list[proc->cpu] = proc->next;
 				proc_list[proc->cpu]->prev = NULL;
-			}
-			else if (proc->prev != NULL && proc->next == NULL)
-			{
+			} else if (proc->prev != NULL && proc->next == NULL) {
 				// last item
 				proc->prev->next = NULL;
-			}
-			else
-			{
+			} else {
 				// middle item
 				proc->prev->next = proc->next;
 				proc->next->prev = proc->prev;
@@ -180,8 +157,7 @@ void proc_kill(struct process* proc)
 		if (proc_list[cpun] != NULL)
 			proclists++;
 
-	if (proclists == 0)
-	{
+	if (proclists == 0) {
 		setforeground(current_console, COLOUR_LIGHTRED);
 		kprintf("\nSystem halted.");
 		wait_forever();
@@ -195,11 +171,9 @@ void proc_show_list()
 {
 	interrupts_off();
 	int cpu = 0;
-	for (; cpu < 256; cpu++)
-	{
+	for (; cpu < 256; cpu++) {
 		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next)
-		{
+		for (; cur; cur = cur->next) {
 			kprintf("PID %d CPU %d name %s\n", cur->pid, cpu, cur->name);
 		}
 	}
@@ -211,11 +185,9 @@ int64_t proc_total()
 	interrupts_off();
 	int64_t tot = 0;
 	int cpu = 0;
-	for (; cpu < 256; cpu++)
-	{
+	for (; cpu < 256; cpu++) {
 		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next)
-		{
+		for (; cur; cur = cur->next) {
 			tot++;
 		}
 	}
@@ -228,11 +200,9 @@ const char* proc_name(int64_t index)
 	interrupts_off();
 	int64_t tot = 0;
 	int cpu = 0;
-	for (; cpu < 256; cpu++)
-	{
+	for (; cpu < 256; cpu++) {
 		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next)
-		{
+		for (; cur; cur = cur->next) {
 			if (tot == index) {
 				interrupts_on();
 				return cur->name;
@@ -249,11 +219,9 @@ uint32_t proc_id(int64_t index)
 	interrupts_off();
 	int64_t tot = 0;
 	int cpu = 0;
-	for (; cpu < 256; cpu++)
-	{
+	for (; cpu < 256; cpu++) {
 		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next)
-		{
+		for (; cur; cur = cur->next) {
 			if (tot == index) {
 				interrupts_on();
 				return cur->pid;
@@ -274,34 +242,25 @@ void proc_run_next()
 	bkl = 0;
 	interrupts_on();
 
-	//kprintf("*");
-
-	if (current != NULL)
-	{
-		//kprintf("?");
+	if (current != NULL) {
 		proc_run(current);
-		//kprintf("!");
-		if (proc_ended(current))
-		{
-			//kprintf("$");
+		if (proc_ended(current)) {
 			proc_kill(current);
-			//kprintf("@");
 		}
-		//kprintf("~");
 	}
-	//kprintf("%%");
 }
 
 void proc_loop()
 {
-	while (1)
-	{
+	while (true) {
 		while (bkl);
 		proc_timer();
 		proc_run_next();
-		rtl8139_timer();
-		/* Idle till next timer interrupt */
-		//kprintf(".");
+		idle_timer_t* i = idles;
+		for (; i; i = i->next) {
+			i->func();
+		}
+		asm volatile("hlt");
 	}
 }
 
@@ -325,3 +284,11 @@ int proc_ended(struct process* proc)
 	return r;
 }
 
+void proc_register_idle(proc_idle_timer_t handler)
+{
+	/* Add the new filesystem to the start of the list */
+	idle_timer_t* newidle = (idle_timer_t*)kmalloc(sizeof(idle_timer_t));
+	newidle->next = idles;
+	newidle->func = handler;
+	idles = newidle;
+}

@@ -27,8 +27,6 @@ void receive_packet() {
 
 	rtl8139_device.current_packet_ptr = ((rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
 	outw(rtl8139_device.io_base + CAPR, rtl8139_device.current_packet_ptr - 0x10);
-
-	activity = true;
 }
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
@@ -134,6 +132,8 @@ bool rtl8139_init() {
 
 	char* mac_address = read_mac_addr();
 	kprintf("RTL8139: MAC=%s\n", mac_address);
+
+	proc_register_idle(rtl8139_timer);
 
 	active = true;
 	return true;

@@ -5,22 +5,30 @@
 #define PROC_IDLE	1
 #define PROC_DELETE	2
 
+// Timer that drivers may register to be called during the idle time
+typedef void (*proc_idle_timer_t)(void);
+
+typedef struct idle_timer {
+	proc_idle_timer_t func;
+	struct idle_timer* next;
+} idle_timer_t;
+
 struct process {
 	/*Identification */
-	uint32_t			pid;	/*PROCESS ID */
-	uint32_t			ppid;	/*Parent PID */
-	uint32_t			uid;	/*User id - Future use */
-	uint32_t			gid;	/*Group id - Future use */
-	uint32_t			state;	/*Running state */
-	uint32_t			start_time;
+	uint32_t		pid;	/*PROCESS ID */
+	uint32_t		ppid;	/*Parent PID */
+	uint32_t		uid;	/*User id - Future use */
+	uint32_t		gid;	/*Group id - Future use */
+	uint32_t		state;	/*Running state */
+	uint32_t		start_time;
 
-	uint32_t			waitpid;	/* PID we are waiting on compltion of */
+	uint32_t		waitpid;	/* PID we are waiting on compltion of */
 
 	uint8_t			cpu;
 
 	char*			directory;
 	char*			name;
-	uint32_t			size;
+	uint32_t		size;
 	unsigned char*		text;
 
 	struct console*		cons;
@@ -45,5 +53,11 @@ void proc_timer();
 int64_t proc_total();
 const char* proc_name(int64_t index);
 uint32_t proc_id(int64_t index);
+
+
+/**
+ * @brief Register a function to be called periodically during idle time
+ */
+void proc_register_idle(proc_idle_timer_t handler);
 
 #endif
