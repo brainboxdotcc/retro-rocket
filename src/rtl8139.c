@@ -17,12 +17,9 @@ void receive_packet() {
 	// Skip, packet header and packet length, now t points to the packet data
 	t += 2;
 
-	// Now, ethernet layer starts to handle the packet(be sure to make a copy of the packet, insteading of using the buffer)
-	// and probabbly this should be done in a separate thread...
 	void * packet = kmalloc(packet_length);
 	memcpy(packet, t, packet_length);
 	ethernet_handle_packet(packet, packet_length);
-	
 	kfree(packet);
 
 	rtl8139_device.current_packet_ptr = ((rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
@@ -69,11 +66,11 @@ char* read_mac_addr() {
 	return rtl8139_device.mac_addr_str;
 }
 
-void get_mac_addr(uint8_t * src_mac_addr) {
+void get_mac_addr(uint8_t* src_mac_addr) {
 	memcpy(src_mac_addr, rtl8139_device.mac_addr, 6);
 }
 
-void rtl8139_send_packet(void * data, uint32_t len) {
+void rtl8139_send_packet(void* data, uint32_t len) {
 	if (!active) {
 		return;
 	}
