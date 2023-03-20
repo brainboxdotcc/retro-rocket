@@ -266,14 +266,14 @@ void ip_handle_packet(ip_packet_t* packet) {
 					kfree(cur->packet);
 					kfree(cur);
 				}
-				
+
 				hashmap_delete(frag_map, &findpacket);
 				/* Now we have reassembled the data portion, we can fall through and let the packet be handled... */
 			}
 		}
 
 		if (packet->protocol == PROTOCOL_ICMP) {
-			kprintf("ICMP packet received\n");
+			icmp_handle_packet(packet, data_ptr, data_len);
 		} else if (packet->protocol == PROTOCOL_UDP) {
 			udp_handle_packet(packet, data_ptr, data_len);
 		} else if (packet->protocol == PROTOCOL_TCP) {
