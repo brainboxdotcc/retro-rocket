@@ -57,6 +57,7 @@ static inline void memset(void *dest, char val, int len)
 #include "arp.h"
 #include "ip.h"
 #include "ethernet.h"
+#include "icmp.h"
 #include "udp.h"
 #include "dhcp.h"
 

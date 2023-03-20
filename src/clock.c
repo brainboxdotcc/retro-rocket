@@ -6,6 +6,7 @@ const char* weekday_map[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 const char* month_map[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 void rtc_read_datetime();
+int get_weekday_from_date(datetime_t* dt);
 
 void get_datetime(datetime_t* dt) {
 	rtc_read_datetime();
@@ -25,6 +26,30 @@ uint8_t get_rtc_register(int reg_num) {
 void set_rtc_register(uint16_t reg_num, uint8_t val) {
 	outb(CMOS_ADDR, reg_num);
 	outb(CMOS_DATA, val);
+}
+
+uint64_t day_of_year(uint64_t year, uint8_t month, uint8_t day) {
+	return (275 * month / 9) - (((month + 9) / 12) * (1 + (year - 4 * (year / 4) + 2) / 3)) + day - 30;
+}
+
+time_t time(time_t* t) {
+	rtc_read_datetime();
+	get_weekday_from_date(&current_datetime); // to update century
+
+	uint64_t real_year = (((current_datetime.century - 1) * 100) + current_datetime.year);
+	uint64_t tm_year = real_year - 1900;
+
+	time_t  epoch = current_datetime.second + current_datetime.minute * 60 + current_datetime.hour * 3600 +
+		(day_of_year(real_year, current_datetime.month, current_datetime.day) - 1) * 86400 +
+		(tm_year - 70) * 31536000 + ((tm_year - 69) / 4) * 86400 -
+		((tm_year - 1) / 100) * 86400 + ((tm_year + 299) / 400) * 86400;
+
+	if (t) {
+		/* If pointer is valid, fill it */
+		*t = epoch;
+	}
+	/* Always return the value regardless */
+	return epoch;
 }
 
 void rtc_read_datetime() {
@@ -71,7 +96,7 @@ int get_weekday_from_date(datetime_t* dt) {
 
 const char* datetime_to_str(datetime_t* dt) {
 	const char* weekday = weekday_map[get_weekday_from_date(dt)];
-	const char* monthname = month_map[dt->month];
+	const char* monthname = month_map[dt->month - 1];
 	static char buffer[256];
 	sprintf(
 		buffer,

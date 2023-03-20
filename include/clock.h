@@ -3,6 +3,8 @@
 #include <kernel.h>
 #include <stdint.h>
 
+typedef uint64_t time_t;
+
 /**
  * @brief CMOS IO port addresses
  */
@@ -40,3 +42,22 @@ void get_datetime(datetime_t* dt);
  * @brief Initialise the realtime clock
  */
 void clock_init();
+
+/**
+ * @brief POSIX time function returning time_t
+ * 
+ * @param t Pointer to copy time value into if non-null
+ * @return time_t Current time
+ */
+time_t time(time_t* t);
+
+/**
+ * @brief Calculate the day of year given any particular year, month an day
+ * Ported from js: https://stackoverflow.com/a/75032366/3022125
+ * 
+ * @param year year number
+ * @param month month number, 1-12
+ * @param day day number, 1-31
+ * @return uint64_t days
+ */
+uint64_t day_of_year(uint64_t year, uint8_t month, uint8_t day);

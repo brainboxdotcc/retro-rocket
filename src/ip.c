@@ -1,8 +1,12 @@
 #include <kernel.h>
 
-uint8_t my_ip[] = {10, 0, 2, 14};
-uint8_t test_target_ip[] = {10, 0, 2, 15};
-uint8_t zero_hardware_addr[] = {0,0,0,0,0,0};
+/* IP protocol implementation
+ * Reference: https://datatracker.ietf.org/doc/html/rfc791
+ */
+
+uint16_t last_id;
+uint8_t my_ip[4] = {0, 0, 0, 0};
+uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
 
 void get_ip_str(char * ip_str, uint8_t * ip) {
 	sprintf(ip_str, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
@@ -60,16 +64,19 @@ uint16_t ip_calculate_checksum(ip_packet_t * packet) {
 }
 
 void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol) {
-	int arp_sent = 3;
+	int arp_tries_remaining = 3;
 	ip_packet_t * packet = kmalloc(sizeof(ip_packet_t) + len);
 	memset(packet, 0, sizeof(ip_packet_t));
 	packet->version = IP_IPV4;
 	packet->ihl = sizeof(ip_packet_t) / sizeof(uint32_t); // header length is in 32 bit words
 	packet->tos.bits = 0; // Don't care
 	packet->length = sizeof(ip_packet_t) + len;
-	packet->id = 0; // Used for ip fragmentation, use later
-	// Tell router to not divide the packet, and this is packet is the last piece of the fragments.
-	packet->frag.bits = 0;
+	packet->id = last_id++;
+	// No fragmentation on outbound packets please! We'll implement this later.
+	packet->frag.dont_fragment = 1;
+	packet->frag.more_fragments_follow = 0;
+	packet->frag.fragment_offset_high = 0;
+	packet->frag.fragment_offset_low = 0;
 	packet->ttl = 64;
 	// XXX: This is hard coded until other protocols are supported.
 	packet->protocol = protocol;
@@ -77,7 +84,7 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	gethostaddr(my_ip);
 	memcpy(packet->src_ip, my_ip, 4);
 	memcpy(packet->dst_ip, dst_ip, 4);
-	void * packet_data = (void*)packet + packet->ihl * 4;
+	void* packet_data = (void*)packet + packet->ihl * 4;
 	memcpy(packet_data, data, len);
 	*((uint8_t*)(&packet->version_ihl_ptr)) = htonb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = htonb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
@@ -87,28 +94,35 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	uint8_t dst_hardware_addr[6];
 	// Attempt to resolve ARP or find in arp cache table
 	while (!arp_lookup(dst_hardware_addr, dst_ip)) {
-		if(arp_sent != 0) {
-			arp_sent--;
+		if(arp_tries_remaining != 0) {
+			arp_send_packet(zero_hardware_addr, dst_ip);
+			arp_tries_remaining--;
 		}
-		arp_send_packet(zero_hardware_addr, dst_ip);
 	}
 	ethernet_send_packet(dst_hardware_addr, (uint8_t*)packet, htons(packet->length), ETHERNET_TYPE_IP);
 	// Remember to free the packet!
 	kfree(packet);
 }
 
+/**
+ * @brief Insert fragmented packet part into ordered list
+ * 
+ * @param insert fragment to insert (will be sorted by offset)
+ * @param list list to insert into
+ * @return ip_packet_frag_t* pointer to start of list
+ */
 ip_packet_frag_t* frag_list_insert(ip_packet_frag_t *insert, ip_packet_frag_t *list)
 {
 	ip_packet_frag_t *tmp = list, *tmp2;
 	if (!tmp) {
-		insert->prev = 0;
-		insert->next = 0;
+		insert->prev = NULL;
+		insert->next = NULL;
 		return insert;
 	}
 	if (tmp->offset >= insert->offset) {	
 		tmp->prev = insert;
 		insert->next = tmp;
-		insert->prev = 0;
+		insert->prev = NULL;
 		return insert;
 	}
 	tmp2 = tmp;
@@ -124,24 +138,46 @@ ip_packet_frag_t* frag_list_insert(ip_packet_frag_t *insert, ip_packet_frag_t *l
 		tmp2 = tmp;
 		tmp = tmp->next;
 	}
-	insert->next = 0;
+	insert->next = NULL;
 	tmp2->next = insert;
 	insert->prev = tmp2;
 	return list;	
 }
 
+/**
+ * @brief Comparison function for hash table of fragmented packet lists
+ * 
+ * @param a first object to compare
+ * @param b second object to compare
+ * @param udata user data
+ * @return int 0 for equal, -1 for less than, 1 for greater than; like strcmp()
+ */
 int ip_frag_compare(const void *a, const void *b, void *udata) {
     const ip_fragmented_packet_parts_t* fa = a;
     const ip_fragmented_packet_parts_t* fb = b;
     return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);
 }
 
+/**
+ * @brief Hash two lists of IP fragments for storage in hashmap, keyed by packet id
+ * 
+ * @param item item to hash
+ * @param seed0 first seed from hashmap
+ * @param seed1 second seed from hashmap
+ * @return uint64_t hash bucket value
+ */
 uint64_t ip_frag_hash(const void *item, uint64_t seed0, uint64_t seed1) {
     const ip_fragmented_packet_parts_t* frag_parts = item;
-    return hashmap_murmur(&(frag_parts->id), sizeof(frag_parts->id), seed0, seed1);
+    return (uint64_t)frag_parts->id * seed0 * seed1;
 }
 
-void ip_handle_packet(ip_packet_t * packet) {
+/**
+ * @brief Handle inbound IP packet
+ * @note happens in interrupt!
+ * 
+ * @param packet IP packet to parse
+ */
+void ip_handle_packet(ip_packet_t* packet) {
 	char src_ip[20];
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
@@ -155,6 +191,9 @@ void ip_handle_packet(ip_packet_t * packet) {
 		 * Once we receive the very last fragment, we can deliver it all as one. We store each list of packet
 		 * waiting to be reassembled into a hashmap keyed by id, so they can be accessed in O(n) time.
 		 * 
+		 * Lists of fragments are stored in offset order, so that higher offsets overwrite lower ones, if there
+		 * is some kind of bug in the remote system or an intentional exploit pointed at us.
+		 * 
 		 * BUG, FIXME: If we never receive the ending fragment for a fragmented group of packets, the memory
 		 * used stays used! This could be abused, and must be fixed:
 		 * https://en.wikipedia.org/wiki/IP_fragmentation_attack#Exploits
@@ -166,20 +205,18 @@ void ip_handle_packet(ip_packet_t * packet) {
 				if (frag_offset == 0) {
 					/* First fragment */
 					if (frag_map == NULL) {
+						/* First time we see a fragmented packet, make the hashmap to hold them */
 						frag_map = hashmap_new(sizeof(ip_fragmented_packet_parts_t), 0, 0, 0, ip_frag_hash, ip_frag_compare, NULL, NULL);
 					}
-					ip_fragmented_packet_parts_t fragmented;
+					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL };
 					ip_packet_frag_t* fragment = (ip_packet_frag_t*)kmalloc(sizeof(ip_packet_frag_t*));
-					fragmented.id = packet->id;
-					fragmented.ordered_list += data_len;
-					fragmented.size = 0;
-					fragmented.ordered_list = NULL;
 					fragment->offset = frag_offset;
 					fragment->packet = (ip_packet_t*)kmalloc(ntohs(packet->length));
 					memcpy(fragment->packet, packet, ntohs(packet->length));
 					frag_list_insert(fragment, fragmented.ordered_list);
 					hashmap_set(frag_map, &fragmented);
 				} else {
+					/* Middle fragment */
 					ip_packet_t findpacket = { .id = packet->id };
 					ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 					if (fragmented == NULL) {
@@ -196,8 +233,8 @@ void ip_handle_packet(ip_packet_t * packet) {
 				return;
 			} else if (packet->frag.more_fragments_follow == 0 && (frag_offset != 0)) {
 				/* Final fragment of fragmented set.
-				* Once we get this fragment, we can deliver the reassembled packet.
-				*/
+				 * Once we get this fragment, we can deliver the reassembled packet.
+				 */
 				ip_packet_t findpacket = { .id = packet->id };
 				ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 				if (fragmented == NULL) {
@@ -215,7 +252,9 @@ void ip_handle_packet(ip_packet_t * packet) {
 				ip_packet_frag_t* cur = fragmented->ordered_list;
 				data_ptr = kmalloc(fragmented->size);
 				data_len = fragmented->size;
+				/* Set flag to indicate we need to free the data_ptr later */
 				fragment_to_free = true;
+
 				for (; cur; cur = cur->next) {
 					size_t this_packet_size = ntohs(cur->packet->length) - (cur->packet->ihl * 4);
 					if (cur->offset + this_packet_size < data_len) {
@@ -227,8 +266,9 @@ void ip_handle_packet(ip_packet_t * packet) {
 					kfree(cur->packet);
 					kfree(cur);
 				}
+				
 				hashmap_delete(frag_map, &findpacket);
-				// Now we have reassembled the data portion, we can fall through and let the packet be handled...
+				/* Now we have reassembled the data portion, we can fall through and let the packet be handled... */
 			}
 		}
 
