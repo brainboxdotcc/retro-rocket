@@ -37,7 +37,7 @@ void dhcp_discover() {
 	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet);
 	kprintf("Configuring network via DHCP\n");
 	memset(packet, 0, sizeof(dhcp_packet_t));
-	size_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
+	uint16_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
 }
 
@@ -46,7 +46,7 @@ void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
 	memset(packet, 0, sizeof(dhcp_packet_t));
 	//kprintf("dhcp request with type 3, server_ip %08x\n", server_ip);
-	size_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
+	uint16_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
 }
 
@@ -66,7 +66,7 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
 	return NULL;
 }
 
-size_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
+uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	packet->op = DHCP_REQUEST;
 	packet->hardware_type = HARDWARE_TYPE_ETHERNET;
 	packet->hardware_addr_len = 6;
@@ -132,6 +132,5 @@ size_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* reques
 	// END
 	*(options++) = OPT_END;
 
-	return (size_t)options - (size_t)packet;
-
+	return (uint16_t)((size_t)options - (size_t)packet);
 }

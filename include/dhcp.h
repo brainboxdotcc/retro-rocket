@@ -121,4 +121,4 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type);
  * @param server_ip IP of server that offered the configuration
  * @return packet size of constructed packet including options
  */
-size_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip);
+uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* request_ip, uint32_t xid, uint32_t server_ip);
