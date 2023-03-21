@@ -260,7 +260,7 @@ void proc_loop()
 		for (; i; i = i->next) {
 			i->func();
 		}
-		asm volatile("hlt");
+		//asm volatile("hlt");
 	}
 }
 
