@@ -276,7 +276,7 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 				// We found a drive! Add it to our list of found devices.
 				ide_read_buffer(base == 0x1F0 ? 0 : 1, ATA_REG_DATA, (uint64_t)ide_buf, 128);
 
-				//DumpHex(ide_buf, 128);
+				//dump_hex(ide_buf, 128);
 
 				ide_devices[count].reserved = 1;
 				ide_devices[count].type = type;

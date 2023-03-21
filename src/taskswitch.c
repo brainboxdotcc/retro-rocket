@@ -13,7 +13,7 @@ idle_timer_t* idles = NULL;
 
 struct process* proc_load(const char* fullpath, struct console* cons)
 {
-	//DumpHex(locks, 256 * 4);
+	//dump_hex(locks, 256 * 4);
 	FS_DirectoryEntry* fsi = fs_get_file_info(fullpath);
 	if (fsi != NULL) {
 		unsigned char* programtext = (unsigned char*)kmalloc(fsi->size + 1);

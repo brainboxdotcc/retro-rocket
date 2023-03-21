@@ -19,7 +19,7 @@ void udp_send_packet(uint8_t * dst_ip, uint16_t src_port, uint16_t dst_port, voi
 	// Copy data over
 	memcpy((void*)packet + sizeof(udp_packet_t), data, len);
 	ip_send_packet(dst_ip, packet, length, PROTOCOL_UDP);
-	//DumpHex((unsigned char*)packet, sizeof(udp_packet_t) + len);
+	//dump_hex((unsigned char*)packet, sizeof(udp_packet_t) + len);
 }
 
 void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t* packet, size_t len) {
@@ -29,7 +29,7 @@ void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t*
 
 	void * data_ptr = (void*)packet + sizeof(udp_packet_t);
 	uint32_t data_len = length;
-	//DumpHex(packet, length + sizeof(udp_packet_t));
+	//dump_hex(packet, length + sizeof(udp_packet_t));
 
 	if (daemons[dst_port] != NULL) {
 		daemons[dst_port](dst_port, data_ptr, data_len);

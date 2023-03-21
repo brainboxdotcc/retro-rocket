@@ -5,7 +5,7 @@
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
 
-FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes); 
+FS_DirectoryEntry* parse_directory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes); 
 
 /**
  * @brief Mount an ISO 9660 filesystem on a given block device name.
@@ -22,11 +22,11 @@ int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* bu
 
 static FS_FileSystem* iso9660_fs = NULL;
 
-void ParseBOOT(iso9660* info, unsigned char* buffer)
+void parse_boot(iso9660* info, unsigned char* buffer)
 {
 }
 
-int ParsePVD(iso9660* info, unsigned char* buffer)
+int parse_pvd(iso9660* info, unsigned char* buffer)
 {
 	PVD* pvd = (PVD*)buffer;
 	if (!VERIFY_ISO9660(pvd))
@@ -53,12 +53,12 @@ int ParsePVD(iso9660* info, unsigned char* buffer)
 	info->pathtable_lba = pvd->lsb_pathtable_L_lba;
 	info->rootextent_lba = pvd->root_directory.extent_lba_lsb;
 	info->rootextent_len = pvd->root_directory.data_length_lsb;
-	info->root = ParseDirectory(NULL, info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
+	info->root = parse_directory(NULL, info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
 
 	return info->root != 0;
 }
 
-FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes)
+FS_DirectoryEntry* parse_directory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes)
 {
 	unsigned char* dirbuffer = (unsigned char*)kmalloc(lengthbytes);
 	int j;
@@ -154,7 +154,7 @@ FS_DirectoryEntry* ParseDirectory(FS_Tree* node, iso9660* info, uint32_t start_l
 	return list;
 }
 
-void ParseSVD(iso9660* info, unsigned char* buffer)
+void parse_svd(iso9660* info, unsigned char* buffer)
 {
 	PVD* svd = (PVD*)buffer;
         if (!VERIFY_ISO9660(svd))
@@ -187,16 +187,16 @@ void ParseSVD(iso9660* info, unsigned char* buffer)
 		info->pathtable_lba = svd->lsb_pathtable_L_lba;
 		info->rootextent_lba = svd->root_directory.extent_lba_lsb;
 		info->rootextent_len = svd->root_directory.data_length_lsb;
-		info->root = ParseDirectory(NULL, info, svd->root_directory.extent_lba_lsb, svd->root_directory.data_length_lsb);
+		info->root = parse_directory(NULL, info, svd->root_directory.extent_lba_lsb, svd->root_directory.data_length_lsb);
 	}
 	return;
 }
 
-void ParseVPD(iso9660* info, unsigned char* buffer)
+void parse_VPD(iso9660* info, unsigned char* buffer)
 {
 }
 
-FS_DirectoryEntry* HuntEntry(iso9660* info, const char* filename, uint32_t flags)
+FS_DirectoryEntry* hunt_entry(iso9660* info, const char* filename, uint32_t flags)
 {
 	FS_DirectoryEntry* currententry = info->root;
 	for(; currententry->next; currententry = currententry->next)
@@ -217,7 +217,7 @@ void* iso_get_directory(void* t)
 	if (treeitem)
 	{
 		iso9660* info = (iso9660*)treeitem->opaque;
-		return (void*)ParseDirectory(treeitem, (iso9660*)treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, treeitem->size ? treeitem->size : info->rootextent_len);
+		return (void*)parse_directory(treeitem, (iso9660*)treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, treeitem->size ? treeitem->size : info->rootextent_len);
 	}
 	else
 	{
@@ -278,20 +278,20 @@ iso9660* iso_mount_volume(const char* name)
 			// Volume descriptor terminator
 			break;
 		} else if (VolumeDescriptorID == 0x00) {
-			ParseBOOT(info, buffer);
+			parse_boot(info, buffer);
 		} else if (VolumeDescriptorID == 0x01) {
 			// Primary volume descriptor
-			if (!ParsePVD(info, buffer)) {
+			if (!parse_pvd(info, buffer)) {
 				kfree(info);
 				kfree(buffer);
 				return NULL;
 			}
 		} else if (VolumeDescriptorID == 0x02) {
 			// Supplementary volume descriptor
-			ParseSVD(info, buffer);
+			parse_svd(info, buffer);
 		} else if (VolumeDescriptorID == 0x03) {
 			// Volume partition descriptor
-			ParseVPD(info, buffer);
+			parse_VPD(info, buffer);
 		} else if (VolumeDescriptorID >= 0x04 && VolumeDescriptorID <= 0xFE) {
 			// Reserved and unknown ID
 			kprintf("ISO9660: WARNING: Unknown volume descriptor 0x%x at LBA 0x%x!\n", VolumeDescriptorID, VolumeDescriptorPos);
