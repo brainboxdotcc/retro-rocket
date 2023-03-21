@@ -23,7 +23,6 @@ void arp_handle_packet(arp_packet_t* arp_packet, int len) {
 	memcpy(dst_hardware_addr, arp_packet->src_hardware_addr, 6);
 	memcpy(dst_protocol_addr, arp_packet->src_protocol_addr, 4);
 	if (ntohs(arp_packet->opcode) == ARP_REQUEST) {
-		//kprintf("arp inbound request\n");
 		unsigned char addr[4];
 		uint32_t my_ip = 0;
 		if (gethostaddr(addr)) {
@@ -52,26 +51,37 @@ void arp_handle_packet(arp_packet_t* arp_packet, int len) {
 	else if(ntohs(arp_packet->opcode) == ARP_REPLY) {
 	}
 
-	memcpy(&arp_table[arp_table_curr].ip_addr, dst_protocol_addr, 4);
-	memcpy(&arp_table[arp_table_curr].mac_addr, dst_hardware_addr, 6);
-	if(arp_table_size < 512) {
-		arp_table_size++;
-	}
-	if(arp_table_curr >= 512) {
-		arp_table_curr = 0;
+	uint8_t dummy[6];
+	if (!arp_lookup(dummy, dst_protocol_addr)) {
+		/*kprintf(
+			"ARP discovered %08x mac %02X:%02X:%02X:%02X:%02X:%02X\n", (uint32_t)&dst_protocol_addr,
+			dst_hardware_addr[0],
+			dst_hardware_addr[1],
+			dst_hardware_addr[2],
+			dst_hardware_addr[3],
+			dst_hardware_addr[4],
+			dst_hardware_addr[5]
+		);*/
+		memcpy(&arp_table[arp_table_curr].ip_addr, dst_protocol_addr, 4);
+		memcpy(&arp_table[arp_table_curr++].mac_addr, dst_hardware_addr, 6);
+		if(arp_table_size < 512) {
+			arp_table_size++;
+		}
+		if(arp_table_curr >= 512) {
+			arp_table_curr = 0;
+		}
 	}
 
 }
 
 void arp_send_packet(uint8_t* dst_hardware_addr, uint8_t* dst_protocol_addr) {
 	arp_packet_t * arp_packet = kmalloc(sizeof(arp_packet_t));
+	static const char broadcast_ip_address[4] = { 255, 255, 255, 255 };
 
 	get_mac_addr(arp_packet->src_hardware_addr);
-	arp_packet->src_protocol_addr[0] = 10;
-	arp_packet->src_protocol_addr[1] = 0;
-	arp_packet->src_protocol_addr[2] = 2;
-	arp_packet->src_protocol_addr[3] = 14;
-
+	if (!gethostaddr(arp_packet->src_protocol_addr)) {
+		memcpy(&arp_packet->src_protocol_addr, &broadcast_ip_address, 4);
+	}
 	memcpy(arp_packet->dst_hardware_addr, dst_hardware_addr, 6);
 	memcpy(arp_packet->dst_protocol_addr, dst_protocol_addr, 4);
 	arp_packet->opcode = htons(ARP_REQUEST);

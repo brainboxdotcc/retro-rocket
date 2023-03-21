@@ -22,7 +22,11 @@ void receive_packet() {
 	ethernet_handle_packet(packet, packet_length);
 	kfree(packet);
 
-	rtl8139_device.current_packet_ptr = ((rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
+	rtl8139_device.current_packet_ptr = (rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK;
+
+	if (rtl8139_device.current_packet_ptr > RX_BUF_SIZE)
+		rtl8139_device.current_packet_ptr -= RX_BUF_SIZE;
+
 	outw(rtl8139_device.io_base + CAPR, rtl8139_device.current_packet_ptr - 0x10);
 }
 
@@ -35,18 +39,15 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 		// Received
 		receive_packet();
 	}
-	activity = true;
 	// OSDev wiki says write 0x05 here, but this is ROK+TOK. We need to CLEAR it to 0 to
 	// continue receiving interrupts!
-	//outw(rtl8139_device.io_base + 0x3E, 0x05);
 
 }
 
 void rtl8139_timer()
 {
-	if (active && activity) {
+	if (active) {
 		outw(rtl8139_device.io_base + 0x3E, 0x0);
-		activity = false;
 	}
 }
 
@@ -79,9 +80,9 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
 
-	memcpy(transfer_data_p, data, len > 8192 ? 8192 : len);
+	memcpy(transfer_data_p, data, len);
 	outl(rtl8139_device.io_base + 0x20 + (rtl8139_device.tx_cur * 4), transfer_data);
-	outl(rtl8139_device.io_base + 0x10 + (rtl8139_device.tx_cur++ * 4), len > 8192 ? 8192 : len);
+	outl(rtl8139_device.io_base + 0x10 + (rtl8139_device.tx_cur++ * 4), len);
 	rtl8139_device.tx_cur = rtl8139_device.tx_cur % 4;
 }
 

@@ -73,6 +73,7 @@ void kmain()
 
 	if (rtl8139_init()) {
 		arp_init();
+		ip_init();
 		dhcp_discover();
 	}
 

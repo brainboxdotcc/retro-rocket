@@ -8,22 +8,22 @@ uint16_t last_id;
 uint8_t my_ip[4] = {0, 0, 0, 0};
 uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
 
+packet_queue_item_t* packet_queue = NULL;
+packet_queue_item_t* packet_queue_end = NULL;
+
 void get_ip_str(char * ip_str, uint8_t * ip) {
 	sprintf(ip_str, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
 }
 
-char ip_addr[4];
+char ip_addr[4] = { 0, 0, 0, 0 };
 int is_ip_allocated = 0;
 uint32_t dns_addr = 0, gateway_addr = 0;
 
 struct hashmap *frag_map = NULL;
 
 int gethostaddr(unsigned char *addr) {
-	if(!is_ip_allocated) {
-		return 0;
-	}
 	memcpy(addr, ip_addr, 4);
-	return 1;
+	return is_ip_allocated;
 }
 
 void sethostaddr(const unsigned char* addr) {
@@ -63,8 +63,83 @@ uint16_t ip_calculate_checksum(ip_packet_t * packet) {
 	return ret;
 }
 
+void dequeue_packet(packet_queue_item_t* cur, packet_queue_item_t* last) {
+	kfree(cur->packet);
+	/* Remove queue entry */
+	if (cur == packet_queue) {
+		packet_queue = cur->next;
+		if (packet_queue == NULL) {
+			packet_queue_end = NULL;
+		}
+	} else if (cur == packet_queue_end) {
+		packet_queue_end = last;
+		last->next = NULL;
+		if (last == packet_queue) {
+			packet_queue_end = packet_queue;
+		}
+	} else {
+		last->next = cur->next;
+	}
+	kfree(cur);
+}
+
+static bool ping_sent = 0;
+
+void ip_idle() {
+
+	// PING TEST
+	if (!ping_sent && is_ip_allocated) {
+		kprintf("Now sending ping test...\n");
+		icmp_send_echo(0x0202000a);
+		ping_sent = true;
+	}
+
+	if (packet_queue) {
+		time_t current_time = time(NULL);
+		packet_queue_item_t* cur = packet_queue;
+		packet_queue_item_t* last = NULL;
+		for (; cur; cur = cur->next) {
+			uint8_t dst_hardware_addr[6] = { 0 };
+			if (arp_lookup(dst_hardware_addr, cur->packet->dst_ip)) {
+				/* The ARP for this MAC has come back now, we can send the packet! */
+				ethernet_send_packet(dst_hardware_addr, (uint8_t*)cur->packet, htons(cur->packet->length), ETHERNET_TYPE_IP);
+				dequeue_packet(cur, last);
+			} else if (cur->arp_tries < 3 && current_time - cur->last_arp > 1) {
+				/* After one second, ARP didn't come back, try it again up to 3 times */
+				cur->arp_tries++;
+				cur->last_arp = current_time;
+				arp_send_packet(zero_hardware_addr, cur->packet->dst_ip);
+			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 10) {
+				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
+				 * Packet still didnt get an ARP reply. Dequeue it as a lost packet.
+				 */
+				kprintf("Failed ARP resolution after 3 tries to %08x at %d\n", cur->packet->dst_ip, current_time);
+				dequeue_packet(cur, last);
+			}
+			last = cur;
+		}
+	}
+}
+
+void queue_packet(uint8_t* dst_ip, void* data, uint16_t len) {
+	if (packet_queue == NULL) {
+		packet_queue = kmalloc(sizeof(packet_queue_item_t));
+		packet_queue_end = packet_queue;
+		packet_queue_end->packet = (ip_packet_t*)data;
+		packet_queue_end->next = NULL;
+		packet_queue_end->last_arp = time(NULL);
+		packet_queue_end->arp_tries = 0;
+	} else {
+		packet_queue_end->next = kmalloc(sizeof(packet_queue_item_t));
+		packet_queue_end->next->packet = (ip_packet_t*)data;
+		packet_queue_end->next->next = NULL;
+		packet_queue_end->next->arp_tries = 0;
+		packet_queue_end->next->last_arp = time(NULL);
+		packet_queue_end = packet_queue_end->next;
+	}
+}
+
 void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol) {
-	int arp_tries_remaining = 3;
 	ip_packet_t * packet = kmalloc(sizeof(ip_packet_t) + len);
 	memset(packet, 0, sizeof(ip_packet_t));
 	packet->version = IP_IPV4;
@@ -93,11 +168,11 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	packet->header_checksum = htons(ip_calculate_checksum(packet));
 	uint8_t dst_hardware_addr[6];
 	// Attempt to resolve ARP or find in arp cache table
-	while (!arp_lookup(dst_hardware_addr, dst_ip)) {
-		if(arp_tries_remaining != 0) {
-			arp_send_packet(zero_hardware_addr, dst_ip);
-			arp_tries_remaining--;
-		}
+	if (!arp_lookup(dst_hardware_addr, dst_ip)) {
+		/* Send ARP packet, and add to queue for this mac address */
+		queue_packet(dst_ip, packet, packet->length);
+		arp_send_packet(zero_hardware_addr, dst_ip);
+		return;
 	}
 	ethernet_send_packet(dst_hardware_addr, (uint8_t*)packet, htons(packet->length), ETHERNET_TYPE_IP);
 	// Remember to free the packet!
@@ -283,4 +358,8 @@ void ip_handle_packet(ip_packet_t* packet) {
 			kfree(data_ptr);
 		}
 	}
+}
+
+void ip_init() {
+	proc_register_idle(ip_idle);
 }

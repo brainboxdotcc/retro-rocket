@@ -75,6 +75,13 @@ typedef struct ip_fragmented_packet_parts {
 	ip_packet_frag_t* ordered_list;
 } ip_fragmented_packet_parts_t;
 
+typedef struct packet_queue_item {
+	ip_packet_t* packet;
+	uint8_t arp_tries;
+	time_t last_arp;
+	struct packet_queue_item* next;
+} packet_queue_item_t;
+
 /**
  * @brief Convert network byte order IP to a string form for display
  * 
@@ -155,3 +162,5 @@ uint32_t getdnsaddr();
  * @return uint32_t gateway address
  */
 uint32_t getgatewayaddr();
+
+void ip_init();
