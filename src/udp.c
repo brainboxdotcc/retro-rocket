@@ -36,11 +36,24 @@ void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t*
 	}
 }
 
-void udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler) {
+uint16_t udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler) {
+
+	if (dst_port == 0) {
+		/* Let the OS allocate a port
+		 * Walk up the port table, looking for one that doesn't have
+		 * any daemon bound to it. If we wrap back around to 0, then
+		 * there are no free ports remaining to bind to.
+		 */
+		for(dst_port = 1024; daemons[dst_port] != NULL && dst_port != 0; ++dst_port);
+		if (dst_port == 0) {
+			return 0;
+		}
+	}
+
 	if (daemons[dst_port] != NULL && daemons[dst_port] != handler) {
 		kprintf("*** BUG *** udp_register_daemon(%d) called twice!\n", dst_port);
-		return;
+		return 0;
 	}
 	daemons[dst_port] = handler;
-
+	return dst_port;
 }

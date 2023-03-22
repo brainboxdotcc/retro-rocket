@@ -1,10 +1,11 @@
 #include <kernel.h>
 
 static uint16_t id = 1;
-
+uint16_t dns_query_port = 0;
 static struct hashmap* dns_replies = NULL;
 
 void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned length, char* error, char* res, uint8_t* outlength);
+uint8_t dns_collect_request(uint16_t id, char* result, size_t max);
 
 /**
  * @brief Comparison function for hash table of DNS requests
@@ -33,22 +34,16 @@ static uint64_t dns_request_hash(const void *item, uint64_t seed0, uint64_t seed
     return (uint64_t)header->id * seed0 * seed1;
 }
 
-static void buffer_to_packet(dns_header_t *header, const unsigned char *input, const int length)
-{
-	header->id = (input[0] << 8) + input[1];
-	header->flags1 = input[2];
-	header->flags2 = input[3];
-	header->qdcount = (input[4] << 8) + input[5];
-	header->ancount = (input[6] << 8) + input[7];
-	header->nscount = (input[8] << 8) + input[9];
-	header->arcount = (input[10] << 8) + input[11];
-	memcpy(header->payload,&input[12],length);
-}
-
+/**
+ * @brief Convert a packet to a buffer
+ * 
+ * @param output output buffer
+ * @param header header to convert
+ * @param length length of converted packet
+ */
 static void packet_to_buffer(unsigned char *output, const dns_header_t *header, const int length)
 {
 	*((uint16_t*)(&output[0])) = htons(header->id);
-	//kprintf("packet_to_buffer id %d -> %08x %08x (%d)\n", header->id, output[0], output[1], *((uint16_t*)(&output[0])));
 	output[2] = header->flags1;
 	output[3] = header->flags2;
 	output[4] = header->qdcount >> 8;
@@ -62,9 +57,25 @@ static void packet_to_buffer(unsigned char *output, const dns_header_t *header, 
 	memcpy(&output[12],header->payload,length);
 }
 
+/**
+ * @brief Send a DNS request, and increment the next request ID
+ * 
+ * @param name A string representation of the address or hostname being resolved.
+ * This is purely for reference purposes.
+ * @param resolver_ip IP address of the resolver
+ * @param request Request information, contains details of the request and any callbacks
+ * @param header Header for the DNS packet
+ * @param length length of request packet
+ * @param query_type Query type to send, e.g. A, AAAA, PTR, CNAME
+ * @return int zero if request could not be sent, e.g. due to network stack not up
+ */
 static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_request_t* request, dns_header_t *header, const int length, uint8_t query_type)
 {
 	unsigned char payload[length + 12];
+
+	if (dns_query_port == 0 || resolver_ip == 0) {
+		return 0;
+	}
 
 	request->rr_class = 1;
 	request->orig = (unsigned char*)strdup(name);
@@ -74,14 +85,28 @@ static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_r
 	*(request->result) = 0;
 	request->result_length = 0;
 
+	/* ID 0 has special significance for errors */
+	if (id == 0) {
+		id = 1;
+	}
+
 	packet_to_buffer(payload, header, length);
 	hashmap_set(dns_replies, request);
 
-	udp_send_packet((uint8_t*)&resolver_ip, DNS_SRC_PORT, DNS_DST_PORT, payload, length + 12);
+	udp_send_packet((uint8_t*)&resolver_ip, dns_query_port, DNS_DST_PORT, payload, length + 12);
 
 	return 1;
 }
 
+/**
+ * @brief Build a binary payload for a request for a specific type of DNS entry
+ * 
+ * @param name name to resolve. Even reverse DNS uses these label-separated names
+ * @param rr Resource record - identifies the type of record, e.g. A, AAAA, PTR, CNAME
+ * @param rr_class Resource record class
+ * @param payload Packet payload buffer to fill with data
+ * @return int length of filled buffer
+ */
 static int dns_make_payload(const char * const name, const uint8_t rr, const unsigned short rr_class, unsigned char * const payload)
 {
 	short payloadpos = 0;
@@ -118,6 +143,13 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
 	return payloadpos + 4;
 }
 
+/**
+ * @brief Handle inbound packet from the IP stack
+ * 
+ * @param dst_port destination UDP port
+ * @param data raw packet data
+ * @param length length of packet
+ */
 void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t length) {
 	dns_header_t* packet = (dns_header_t*)data;
 	uint16_t inbound_id = ntohs(packet->id);
@@ -128,6 +160,22 @@ void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t 
 			char* error = NULL;
 			dns_result_ready(packet, request, length, error, request->result, &request->result_length);
 			//kprintf("DNS reply id=%d for %s has arrived! result is: '%08x' size %d, error is '%s'\n", inbound_id, request->orig, *((uint32_t*)&request->result), request->result_length, error ? error : "NONE");
+			if (request->callback_a && request->type == DNS_QUERY_A) {
+				uint32_t result = 0;
+				if (dns_collect_request(inbound_id, (char*)&result, sizeof(uint32_t))) {
+					request->callback_a(result, (const char*)request->orig, inbound_id);
+				}
+			}  else if (request->callback_aaaa && request->type == DNS_QUERY_AAAA) {
+				uint8_t result[16];
+				if (dns_collect_request(inbound_id, (char*)&result, 16)) {
+					request->callback_aaaa(result, (const char*)request->orig, inbound_id);
+				}
+			} else if (request->callback_ptr && request->type == DNS_QUERY_PTR4) {
+				char result[256];
+				if (dns_collect_request(inbound_id, (char*)&result, sizeof(result))) {
+					request->callback_ptr(result, 0, inbound_id);
+				}
+			}
 		}
 		return;
 	}
@@ -364,6 +412,34 @@ void dns_delete_request(uint16_t id)
 	}
 }
 
+uint16_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint32_t timeout, dns_reply_callback_a callback)
+{
+	dns_request_t request;
+	dns_header_t h;
+	int length;
+
+	if (timeout == 0) {
+		timeout = 5;
+	}
+
+	if ((length = dns_make_payload(hostname, DNS_QUERY_A, 1, (unsigned char*)&h.payload)) == -1) {
+		return 0;
+	}
+
+	h.flags1 = FLAGS_MASK_RD;
+	h.flags2 = 0;
+	h.qdcount = 1;
+	h.ancount = h.nscount = h.arcount = 0;
+	request.callback_a = callback;
+	request.callback_aaaa = NULL;
+	request.callback_ptr = NULL;
+
+	dns_send_request(hostname, resolver_ip, &request, &h, length, DNS_QUERY_A);
+
+	return ntohs(h.id);
+
+}
+
 uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t timeout)
 {
 	dns_request_t request;
@@ -375,13 +451,17 @@ uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t ti
 		timeout = 5;
 	}
 
-	if ((length = dns_make_payload(hostname, DNS_QUERY_A, 1, (unsigned char*)&h.payload)) == -1)
+	if ((length = dns_make_payload(hostname, DNS_QUERY_A, 1, (unsigned char*)&h.payload)) == -1) {
 		return 0;
+	}
 
 	h.flags1 = FLAGS_MASK_RD;
 	h.flags2 = 0;
 	h.qdcount = 1;
 	h.ancount = h.nscount = h.arcount = 0;
+	request.callback_a = NULL;
+	request.callback_aaaa = NULL;
+	request.callback_ptr = NULL;
 
 	dns_send_request(hostname, resolver_ip, &request, &h, length, DNS_QUERY_A);
 	time_t now = time(NULL);
@@ -404,5 +484,9 @@ uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t ti
 void init_dns()
 {
 	dns_replies = hashmap_new(sizeof(dns_request_t), 0, 6453563734, 7645356235, dns_request_hash, dns_request_compare, NULL, NULL);
-	udp_register_daemon(DNS_SRC_PORT, &dns_handle_packet);
+	/* Let the IP stack decide on the port number to use */
+	dns_query_port = udp_register_daemon(0, &dns_handle_packet);
+	if (dns_query_port == 0) {
+		kprintf("Could not bind DNS port! DNS queries will not resolve.\n");
+	}
 }

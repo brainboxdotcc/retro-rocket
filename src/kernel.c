@@ -84,20 +84,6 @@ void kmain()
 	kprintf("System boot time: %s\n", get_datetime_str());
 	kprintf("Loading initial process...\n");
 
-	kprintf("Sleeping to acquire ip\n");
-	sleep(100);
-	char ip[16] = { 0 };
-	uint32_t addr = getdnsaddr();
-	get_ip_str(ip, (uint8_t*)&addr);
-	kprintf("Test dns request to %s for www.google.com\n", ip);
-	addr = dns_lookup_host(getdnsaddr(), "www.google.com", 3);
-	get_ip_str(ip, (uint8_t*)&addr);
-	kprintf("Got IP! It is %s\n", ip);
-	kprintf("Test dns request to %s for www.yahoo.com\n", ip);
-	addr = dns_lookup_host(getdnsaddr(), "www.yahoo.com", 3);
-	get_ip_str(ip, (uint8_t*)&addr);
-	kprintf("Got IP! It is %s\n", ip);
-
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);
 	if (!init)
 	{

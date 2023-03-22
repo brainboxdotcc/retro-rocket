@@ -274,7 +274,7 @@ void ip_handle_packet(ip_packet_t* packet) {
 					/* First fragment */
 					if (frag_map == NULL) {
 						/* First time we see a fragmented packet, make the hashmap to hold them */
-						frag_map = hashmap_new(sizeof(ip_fragmented_packet_parts_t), 0, 0, 0, ip_frag_hash, ip_frag_compare, NULL, NULL);
+						frag_map = hashmap_new(sizeof(ip_fragmented_packet_parts_t), 0, 564364368549036, 67545346834, ip_frag_hash, ip_frag_compare, NULL, NULL);
 					}
 					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL };
 					ip_packet_frag_t* fragment = (ip_packet_frag_t*)kmalloc(sizeof(ip_packet_frag_t*));
@@ -353,6 +353,6 @@ void ip_handle_packet(ip_packet_t* packet) {
 	}
 }
 
-void ip_init() {
-	//proc_register_idle(ip_idle);
+void ip_init()
+{
 }

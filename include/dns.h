@@ -58,6 +58,10 @@ typedef struct dns_header {
 	uint8_t payload[512];	/* Packet payload */
 } __attribute__((packed)) dns_header_t;
 
+typedef void (*dns_reply_callback_a)(uint32_t result, const char* hostname, uint16_t reply_id);
+typedef void (*dns_reply_callback_aaaa)(uint8_t* result, const char* hostname, uint16_t reply_id);
+typedef void (*dns_reply_callback_ptr)(const char* const result, const uint32_t ip, uint16_t reply_id);
+
 typedef struct dns_request {
 	uint16_t id; /* Request id */
 	uint32_t rr_class; /* Request class */
@@ -66,7 +70,9 @@ typedef struct dns_request {
 	unsigned char* orig; /* Original requested name/ip */
 	char result[256];
 	uint8_t result_length;
-	void* callback; /* For later */
+	dns_reply_callback_a callback_a; /* For later */
+	dns_reply_callback_aaaa callback_aaaa; /* For later */
+	dns_reply_callback_ptr callback_ptr; /* For later */
 } dns_request_t;
 
 typedef struct resource_record {
@@ -81,9 +87,6 @@ struct dns_result_t {
 };
 
 #define DNS_DST_PORT 53
-// XXX TODO: TCP stack should allocate this, we should be able to pass 0 to the
-// daemon bind function
-#define DNS_SRC_PORT 7921
 
 /**
  * @brief Look up an IPV4 hostname to IP address, with timeout
@@ -97,6 +100,21 @@ struct dns_result_t {
  * which translates to 0.0.0.0.
  */
 uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t timeout);
+
+/**
+ * @brief Look up an IPV4 hostname to IP address, with timeout
+ * @note This function is asynchronous. It will return the ID of the request,
+ * and will call the callback once the request has completed.
+ * 
+ * @param resolver_ip The IP of the resolver to use, in network byte order
+ * @param hostname Host address to resolve
+ * @param timeout Timeout in seconds
+ * @param dns_reply_callback_a Callback to receive the resolved IP address.
+ * If an error occured during resolution, the received IP address will be 0,
+ * which is a representation of 0.0.0.0.
+ * @return uint16_t Request ID that was submitted, or 0 on error
+ */
+uint16_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint32_t timeout, dns_reply_callback_a callback);
 
 /**
  * @brief Initialise DNS protocol.

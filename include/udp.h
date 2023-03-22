@@ -47,7 +47,9 @@ void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t*
 /**
  * @brief Register a daemon function to listen on a udp dest port
  * 
- * @param dst_port destination port to listen on
+ * @param dst_port destination port to listen on. If 0 is passed, a random port above or equal to 1024
+ * is allocated for use and will be returned as the return value.
  * @param handler handler for incoming packets
+ * @return port number that was allocated
  */
-void udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler);
+uint16_t udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler);
