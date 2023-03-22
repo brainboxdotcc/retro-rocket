@@ -75,3 +75,4 @@ bool pci_bus_master(pci_dev_t device);
 uint8_t pci_bar_type(uint32_t field);
 uint16_t pci_io_base(uint32_t field);
 uint32_t pci_mem_base(uint32_t field);
+bool pci_not_found(pci_dev_t device);

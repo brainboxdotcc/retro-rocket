@@ -145,6 +145,10 @@ bool pci_bus_master(pci_dev_t device) {
 	return false;
 }
 
+bool pci_not_found(pci_dev_t device) {
+	return device.bits == dev_zero.bits;
+}
+
 uint8_t pci_bar_type(uint32_t field) {
 	return field & 0x1;
 }

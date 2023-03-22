@@ -73,7 +73,7 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 	// It is VERY important this write happens BEFORE attempting to receive packets,
 	// or interrupts break. The datasheet and online forums/wikis DO NOT (or did not,
 	// i fixed this) document this...
-	rtl_outw(IntrStatus, 0x05);
+	rtl_outw(IntrStatus, INT_DEFAULT);
 	
 	if(status & TOK) {
 		// Sent
@@ -96,12 +96,9 @@ char* read_mac_addr() {
 	rtl8139_device.mac_addr[1] = mac_part1 >> 8;
 	rtl8139_device.mac_addr[2] = mac_part1 >> 16;
 	rtl8139_device.mac_addr[3] = mac_part1 >> 24;
-
 	rtl8139_device.mac_addr[4] = mac_part2 >> 0;
 	rtl8139_device.mac_addr[5] = mac_part2 >> 8;
-
 	sprintf(rtl8139_device.mac_addr_str, "%02X:%02X:%02X:%02X:%02X:%02X", rtl8139_device.mac_addr[0], rtl8139_device.mac_addr[1], rtl8139_device.mac_addr[2], rtl8139_device.mac_addr[3], rtl8139_device.mac_addr[4], rtl8139_device.mac_addr[5]);
-
 	return rtl8139_device.mac_addr_str;
 }
 
@@ -126,14 +123,14 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 
 bool rtl8139_init() {
 	pci_dev_t pci_device = pci_get_device(RTL8139_VENDOR_ID, RTL8139_DEVICE_ID, -1);
-	if (!memcmp(&pci_device, &dev_zero, sizeof(pci_dev_t))) {
+	if (pci_not_found(pci_device)) {
 		return false;
 	}
+
 	uint32_t ret = pci_read(pci_device, PCI_BAR0);
-	rtl8139_device.bar_type = pci_bar_type(ret); //ret & 0x1;
-	// Get io base or mem base by extracting the high 28/30 bits
-	rtl8139_device.io_base = pci_io_base(ret); //ret & (~0x3);
-	rtl8139_device.mem_base = pci_mem_base(pci_read(pci_device, PCI_BAR1)); //ret & (~0xf);
+	rtl8139_device.bar_type = pci_bar_type(ret);
+	rtl8139_device.io_base = pci_io_base(ret);
+	rtl8139_device.mem_base = pci_mem_base(pci_read(pci_device, PCI_BAR1));
 	rtl8139_device.tx_cur = 0;
 
 	// Enable PCI Bus Mastering
@@ -141,8 +138,8 @@ bool rtl8139_init() {
 
 	// Power on and reset
 	rtl_outb(Config1, 0x0);
-	rtl_outb(ChipCmd, 0x10);
-	while((rtl_inb(ChipCmd) & 0x10) != 0);
+	rtl_outb(ChipCmd, CMDRESET);
+	while((rtl_inb(ChipCmd) & CMDRESET) != 0);
 
 	// Allocate receive buffer and send buffers, below 4GB boundary
 	rtl8139_device.rx_buffer = kmalloc_low(8192 + 16 + 1500);
@@ -153,7 +150,8 @@ bool rtl8139_init() {
 		rtl_outl(TxAddr0 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 1500));
 	}
 
-	rtl_outw(IntrMask, 0x0005);
+	rtl_outw(IntrMask, INT_DEFAULT);
+	//rtl_outl(RxConfig, 0xf | (1 << 7));
 	rtl_outl(RxConfig, 0xf | (1 << 7));
 	rtl_outb(ChipCmd, 0x0C);
 

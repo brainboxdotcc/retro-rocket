@@ -17,6 +17,27 @@
 #define TER			(1<<3)
 #define TX_TOK			(1<<15)
 
+enum RTL8139_interrupt_reg_bits {
+	RX_OK 			= 0x01,
+	RX_ERR 			= 0x02,
+	TX_OK 			= 0x04,
+	TX_ERR 			= 0x08,
+	RX_OVERFLOW 		= 0x10,
+	RX_UNDERRUN 		= 0x20,
+	RX_FIFO_OVERFLOW 	= 0x40,
+	CABLE_LENGTH_CHANGE 	= 0x2000,
+	PCS_TIMEOUT 		= 0x4000,
+	PCI_ERR 		= 0x8000,
+	INT_DEFAULT 		= TX_OK | RX_OK,
+};
+
+enum RTL8139_chip_cmd_bits {
+	RXBUFEMPTY = 0x01,
+	CMDRXENB   = 0x08,
+	CMDTXENB   = 0x04,
+	CMDRESET   = 0x10,
+};
+
 /**
  * @brief Port registers for RTL8139
  * https://datasheetspdf.com/pdf-file/1092361/RealtekMicroelectronics/RTL8139B/1
