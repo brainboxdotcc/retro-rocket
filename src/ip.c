@@ -98,28 +98,34 @@ void ip_idle()
 		packet_queue_item_t* cur = packet_queue;
 		packet_queue_item_t* last = NULL;
 		for (; cur; cur = cur->next) {
-			uint8_t dst_hardware_addr[6] = { 0 };
+
+			/* Here we determine if the packet is desined for the local net or the
+			 * internet at large. The calculation is actually very easy, we just AND
+			 * the source ip against our network mask, and then do the same to the
+			 * destination ip address and if both values match, then this packet is for
+			 * the local network. If the values are different, we must redirect the
+			 * packet to the gateway router. We don't change the IP in the packet, just
+			 * the mac address that it is sent to via ethernet. We set a local variable
+			 * called arp_dest for this below, which if the packet is for the local net,
+			 * is the IP address of the target machine otherwise is the IP of the
+			 * router. This is then used in arp_lookup() to decide which mac address
+			 * we send the packet to.
+			 * 
+			 * Note that if we have no gateway address everything is considered local.
+			 */
+			/* These are all in network byte order - it doesn't matter, so long as the
+			 * netmask is too!
+			 */
 			uint32_t dest_ip = *((uint32_t*)&cur->packet->dst_ip);
 			uint32_t source_ip = *((uint32_t*)&cur->packet->src_ip);
 			uint32_t gw = getgatewayaddr();
-			uint8_t arp_dest[4];
+			uint8_t arp_dest[4] = { 0 };
+			uint8_t dst_hardware_addr[6] = { 0 };
 			bool is_local = (gw == 0 || ((dest_ip & netmask) == (source_ip & netmask)));
 
-			//kprintf("local=%d gw=%08x dmask=%08x smask=%08x mask=%08x\n", is_local, gw, (dest_ip & netmask), (source_ip & netmask), netmask);
-			//dump_hex((unsigned char*)&cur->packet->src_ip, 8);
-
-			if (is_local) {
-				memcpy(arp_dest, cur->packet->dst_ip, 4);
-				//get_ip_str(ip, arp_dest);
-				//kprintf("Deliver packet locally (%s) for %s\n", ip, dstip);
-			} else {
-				memcpy(arp_dest, &gw, 4);
-				//get_ip_str(ip, arp_dest);
-				//kprintf("Remote packet punted to gw (%s) for %s\n", ip, dstip);
-			}
+			*((uint32_t*)&arp_dest) = is_local ? *((uint32_t*)&cur->packet->dst_ip) : gw;
 
 			if (arp_lookup(dst_hardware_addr, arp_dest)) {
-
 				/* The ARP for this MAC has come back now, we can send the packet! */
 				ethernet_send_packet(dst_hardware_addr, (uint8_t*)cur->packet, htons(cur->packet->length), ETHERNET_TYPE_IP);
 				dequeue_packet(cur, last);
@@ -127,7 +133,6 @@ void ip_idle()
 				/* After one second, ARP didn't come back, try it again up to 3 times */
 				cur->arp_tries++;
 				cur->last_arp = current_time;
-				//kprintf("Performing arp to send packet\n");
 				arp_send_packet(zero_hardware_addr, arp_dest);
 			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 10) {
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
