@@ -34,8 +34,8 @@ void receive_packet() {
 }
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
-	uint16_t status = inw(rtl8139_device.io_base + 0x3e);
-	outw(rtl8139_device.io_base + 0x3E, 0x05);
+	uint16_t status = inw(rtl8139_device.io_base + IntrStatus);
+	outw(rtl8139_device.io_base + IntrStatus, 0x05);
 	if(status & TOK) {
 		// Sent
 	}
@@ -47,14 +47,12 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 
 void rtl8139_timer()
 {
-	if (active) {
-		//outw(rtl8139_device.io_base + 0x3E, 0x0);
-	}
+	/* For packet timeouts, unused at present */
 }
 
 char* read_mac_addr() {
-	uint32_t mac_part1 = inl(rtl8139_device.io_base + 0x00);
-	uint16_t mac_part2 = inw(rtl8139_device.io_base + 0x04);
+	uint32_t mac_part1 = inl(rtl8139_device.io_base + MAC0);
+	uint16_t mac_part2 = inw(rtl8139_device.io_base + MAC1);
 	rtl8139_device.mac_addr[0] = mac_part1 >> 0;
 	rtl8139_device.mac_addr[1] = mac_part1 >> 8;
 	rtl8139_device.mac_addr[2] = mac_part1 >> 16;
@@ -82,8 +80,8 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
 
 	memcpy(transfer_data_p, data, len);
-	outl(rtl8139_device.io_base + 0x20 + (rtl8139_device.tx_cur * 4), transfer_data);
-	outl(rtl8139_device.io_base + 0x10 + (rtl8139_device.tx_cur++ * 4), len);
+	outl(rtl8139_device.io_base + TxAddr0 + (rtl8139_device.tx_cur * 4), transfer_data);
+	outl(rtl8139_device.io_base + TxStatus0 + (rtl8139_device.tx_cur++ * 4), len);
 	rtl8139_device.tx_cur = rtl8139_device.tx_cur % 4;
 }
 
@@ -107,22 +105,22 @@ bool rtl8139_init() {
 	}
 
 	// Power on and reset
-	outb(rtl8139_device.io_base + 0x52, 0x0);
-	outb(rtl8139_device.io_base + 0x37, 0x10);
-	while((inb(rtl8139_device.io_base + 0x37) & 0x10) != 0);
+	outb(rtl8139_device.io_base + Config1, 0x0);
+	outb(rtl8139_device.io_base + ChipCmd, 0x10);
+	while((inb(rtl8139_device.io_base + ChipCmd) & 0x10) != 0);
 
 	// Allocate receive buffer and send buffers, below 4GB boundary
 	rtl8139_device.rx_buffer = kmalloc_low(8192 + 16 + 1500);
 	rtl8139_device.tx_buffers = kmalloc_low((8192 + 16 + 1500) * 3);
 	memset((void*)(uint64_t)rtl8139_device.rx_buffer, 0x0, 8192 + 16 + 1500);
-	outl(rtl8139_device.io_base + 0x30, rtl8139_device.rx_buffer);
+	outl(rtl8139_device.io_base + RxBuf, rtl8139_device.rx_buffer);
 	for(int i=0; i < 4; i++) {
-		outl(rtl8139_device.io_base + 0x20 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 1500));
+		outl(rtl8139_device.io_base + TxAddr0 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 1500));
 	}
 
-	outw(rtl8139_device.io_base + 0x3C, 0x0005);
-	outl(rtl8139_device.io_base + 0x44, 0xf | (1 << 7));
-	outb(rtl8139_device.io_base + 0x37, 0x0C);
+	outw(rtl8139_device.io_base + IntrMask, 0x0005);
+	outl(rtl8139_device.io_base + RxConfig, 0xf | (1 << 7));
+	outb(rtl8139_device.io_base + ChipCmd, 0x0C);
 
 	rtl8139_device.current_packet_ptr = 0;
 

@@ -23,7 +23,8 @@
  * 5. Register Descriptions
  */
 enum RTL8139_registers {
-	MAG0			= 0x00, // Ethernet hardware address
+	MAC0			= 0x00, // Ethernet hardware address
+	MAC1			= 0x04,
 	MAR0			= 0x08, // Multicast filter
 	TxStatus0		= 0x10, // Transmit status (Four 32bit registers)
 	TxAddr0		  	= 0x20, // Tx descriptors (also four 32bit)
