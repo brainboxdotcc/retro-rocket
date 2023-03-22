@@ -2,12 +2,6 @@
 
 rtl8139_dev_t rtl8139_device;
 
-// True if the device driver is active
-bool active = false;
-
-// True if interrupt activity needs the IRQ status clearing
-bool activity = false;
-
 // IO Helper Functions
 
 static void rtl_outb(uint32_t io, uint8_t v) {
@@ -59,12 +53,8 @@ void receive_packet() {
 		memset(t, 0, packet_length);
 	}
 
-
 	rtl8139_device.current_packet_ptr = ((rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
-
 	rtl_outw(CAPR, rtl8139_device.current_packet_ptr - 0x10);
-
-	//rtl8139_device.current_packet_ptr %= RX_BUF_SIZE;
 }
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
@@ -107,7 +97,7 @@ void rtl8139_get_mac_addr(uint8_t* src_mac_addr) {
 }
 
 void rtl8139_send_packet(void* data, uint32_t len) {
-	if (!active) {
+	if (!rtl8139_device.active) {
 		return;
 	}
 
@@ -151,9 +141,8 @@ bool rtl8139_init() {
 	}
 
 	rtl_outw(IntrMask, INT_DEFAULT);
-	//rtl_outl(RxConfig, 0xf | (1 << 7));
-	rtl_outl(RxConfig, 0xf | (1 << 7));
-	rtl_outb(ChipCmd, 0x0C);
+	rtl_outl(RxConfig, RX_ACCEPTALLPHYS | RX_ACCEPTMYPHYS | RX_ACCEPTMULTICAST | RX_ACCEPTBROADCAST | RX_CFGWRAP);
+	rtl_outb(ChipCmd, CMDRXENB | CMDTXENB);
 
 	rtl8139_device.current_packet_ptr = 0;
 
@@ -161,10 +150,10 @@ bool rtl8139_init() {
 	register_interrupt_handler(32 + irq_num, rtl8139_handler);
 
 	char* mac_address = read_mac_addr();
-	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base);
+	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x IRQ=%d\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base, irq_num);
 
 	proc_register_idle(rtl8139_timer);
 
-	active = true;
+	rtl8139_device.active = true;
 	return true;
 }

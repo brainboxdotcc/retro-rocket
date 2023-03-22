@@ -38,6 +38,16 @@ enum RTL8139_chip_cmd_bits {
 	CMDRESET   = 0x10,
 };
 
+enum RTL8139_rxconfig_bits {
+	RX_ACCEPTALLPHYS	= 0x01,
+	RX_ACCEPTMYPHYS		= 0x02,
+	RX_ACCEPTMULTICAST	= 0x04,
+	RX_ACCEPTBROADCAST	= 0x08,
+	RX_ACCEPTRUNT		= 0x10,
+	RX_ACCEPTERR		= 0x20,
+	RX_CFGWRAP		= 0x80,
+};
+
 /**
  * @brief Port registers for RTL8139
  * https://datasheetspdf.com/pdf-file/1092361/RealtekMicroelectronics/RTL8139B/1
@@ -95,6 +105,7 @@ typedef struct tx_desc {
  * @brief PCI device configuration
  */
 typedef struct rtl8139_dev {
+	bool active;
 	uint8_t bar_type;
 	uint16_t io_base;
 	uint32_t mem_base;
