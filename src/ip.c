@@ -112,9 +112,9 @@ void ip_idle()
 			 * we send the packet to.
 			 * 
 			 * Note that if we have no gateway address everything is considered local.
-			 */
-			/* These are all in network byte order - it doesn't matter, so long as the
-			 * netmask is too!
+			 *
+			 * These addresses are all in network byte order - it doesn't matter, so
+			 * long as the netmask is too!
 			 */
 			uint32_t dest_ip = *((uint32_t*)&cur->packet->dst_ip);
 			uint32_t source_ip = *((uint32_t*)&cur->packet->src_ip);
