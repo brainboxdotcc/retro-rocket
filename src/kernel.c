@@ -71,10 +71,14 @@ void kmain()
 
 	init_debug();
 
+	clock_init();
+	init_lapic_timer(50);
+
 	if (rtl8139_init()) {
 		arp_init();
 		ip_init();
 		dhcp_discover();
+		init_dns();
 	}
 
 	kprintf("System boot time: %s\n", get_datetime_str());
@@ -88,9 +92,6 @@ void kmain()
 	}
 
 	unlock_spinlock(&init_barrier);
-
-	clock_init();
-	init_lapic_timer(50);
 
 	kprintf("Launching /programs/init...\n");
 

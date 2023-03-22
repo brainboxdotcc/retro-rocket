@@ -54,12 +54,14 @@ static inline void memset(void *dest, char val, int len)
 #include "hashmap.h"
 #include "net.h"
 #include "rtl8139.h"
+#include "e1000.h"
 #include "arp.h"
 #include "ip.h"
 #include "ethernet.h"
 #include "icmp.h"
 #include "udp.h"
 #include "dhcp.h"
+#include "dns.h"
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

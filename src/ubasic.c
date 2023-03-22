@@ -1552,12 +1552,12 @@ char* ubasic_netinfo(struct ubasic_ctx* ctx)
 		return gc_strdup("0.0.0.0");
 	}
 	if (!stricmp(strval, "gw")) {
-		uint32_t raw = getdnsaddr();
+		uint32_t raw = getgatewayaddr();
 		get_ip_str(ip, (uint8_t*)&raw);
 		return gc_strdup(ip);
 	}
 	if (!stricmp(strval, "dns")) {
-		uint32_t raw = getgatewayaddr();
+		uint32_t raw = getdnsaddr();
 		get_ip_str(ip, (uint8_t*)&raw);
 		return gc_strdup(ip);
 	}

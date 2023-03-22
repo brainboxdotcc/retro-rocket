@@ -125,5 +125,6 @@ void receive_packet();
 /**
  * @brief Get the mac address from the IO ports
  */
-void get_mac_addr();
+void rtl8139_get_mac_addr();
 
+#define get_mac_addr(x) rtl8139_get_mac_addr(x)

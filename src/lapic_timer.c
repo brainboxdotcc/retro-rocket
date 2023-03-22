@@ -22,10 +22,16 @@ void init_lapic_timer(uint32_t quantum)
 	uint8_t secs = t.second;
 
 	// Busy-loop to calculate number of APIC timer ticks per second
+	kprintf("APIC timer calibration... ");
+	while (t.second == secs) {
+		get_datetime(&t);
+	}
+	secs = t.second;
 	apic_write(APIC_TMRINITCNT, 0xFFFFFFFF);
 	while (t.second == secs) {
 		get_datetime(&t);
 	}
+	kprintf("Done!\n");
 	uint32_t ticks_per_second = 0xFFFFFFFF - apic_read(APIC_TMRCURRCNT);
 	uint32_t ticks_per_quantum = ticks_per_second / quantum;
 

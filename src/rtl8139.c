@@ -17,21 +17,25 @@ void receive_packet() {
 	// Skip, packet header and packet length, now t points to the packet data
 	t += 2;
 
-	void * packet = kmalloc(packet_length);
-	memcpy(packet, t, packet_length);
-	ethernet_handle_packet(packet, packet_length);
-	kfree(packet);
+	if (packet_length) {
+		void* packet = kmalloc(packet_length);
+		memcpy(packet, t, packet_length);
+		ethernet_handle_packet(packet, packet_length);
+		kfree(packet);
+		memset(t, 0, packet_length);
+	}
 
-	rtl8139_device.current_packet_ptr = (rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK;
 
-	if (rtl8139_device.current_packet_ptr > RX_BUF_SIZE)
-		rtl8139_device.current_packet_ptr -= RX_BUF_SIZE;
+	rtl8139_device.current_packet_ptr = ((rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
 
 	outw(rtl8139_device.io_base + CAPR, rtl8139_device.current_packet_ptr - 0x10);
+
+	//rtl8139_device.current_packet_ptr %= RX_BUF_SIZE;
 }
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 	uint16_t status = inw(rtl8139_device.io_base + 0x3e);
+	outw(rtl8139_device.io_base + 0x3E, 0x05);
 	if(status & TOK) {
 		// Sent
 	}
@@ -39,15 +43,12 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 		// Received
 		receive_packet();
 	}
-	// OSDev wiki says write 0x05 here, but this is ROK+TOK. We need to CLEAR it to 0 to
-	// continue receiving interrupts!
-
 }
 
 void rtl8139_timer()
 {
 	if (active) {
-		outw(rtl8139_device.io_base + 0x3E, 0x0);
+		//outw(rtl8139_device.io_base + 0x3E, 0x0);
 	}
 }
 
@@ -67,7 +68,7 @@ char* read_mac_addr() {
 	return rtl8139_device.mac_addr_str;
 }
 
-void get_mac_addr(uint8_t* src_mac_addr) {
+void rtl8139_get_mac_addr(uint8_t* src_mac_addr) {
 	memcpy(src_mac_addr, rtl8139_device.mac_addr, 6);
 }
 

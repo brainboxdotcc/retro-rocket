@@ -20,9 +20,9 @@ void icmp_send(uint32_t destination, void* icmp, uint16_t size)
 	ip_send_packet((uint8_t*)&destination, icmp, size, PROTOCOL_ICMP);
 }
 
-void icmp_send_echo(uint32_t destination)
+void icmp_send_echo(uint32_t destination, uint16_t id, uint16_t seq)
 {
-	icmp_echo_packet_t echo = { .type = ICMP_ECHO, .code = 0, .checksum = 0, .id = 0, .seq = 0 };
+	icmp_echo_packet_t echo = { .type = ICMP_ECHO, .code = 0, .checksum = 0, .id = htons(id), .seq = htons(seq) };
 	echo.checksum = icmp_calculate_checksum(&echo, (uint16_t)sizeof(icmp_echo_packet_t));
 	icmp_send(destination, &echo, (uint16_t)sizeof(icmp_echo_packet_t));
 }
@@ -36,7 +36,9 @@ void icmp_handle_echo_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, i
 {
 	char ip[14];
 	get_ip_str(ip, encap_packet->src_ip);
-	kprintf("ECHO echo ECHO! Got ICMP reply FROM %s\n", ip);
+	kprintf("ECHO echo ECHO! Got ICMP reply FROM %s, seq=%d id=%d\n", ip, ntohs(packet->seq), ntohs(packet->id));
+	//icmp_send_echo(0x0202000a);
+
 }
 
 void icmp_handle_destination_unreachable_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)
