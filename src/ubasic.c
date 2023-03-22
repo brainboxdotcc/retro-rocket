@@ -38,6 +38,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx);
 int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
 int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
 char* ubasic_getprocname(struct ubasic_ctx* ctx);
+char* ubasic_dns(struct ubasic_ctx* ctx);
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -58,6 +59,7 @@ struct ubasic_int_fn builtin_int[] =
 struct ubasic_str_fn builtin_str[] =
 {
 	{ ubasic_netinfo, "NETINFO$" },
+	{ ubasic_dns, "DNS$" },
 	{ ubasic_left, "LEFT$" },
 	{ ubasic_mid, "MID$" },
 	{ ubasic_chr, "CHR$" },
@@ -1562,6 +1564,16 @@ char* ubasic_netinfo(struct ubasic_ctx* ctx)
 		return gc_strdup(ip);
 	}
 	return gc_strdup("0.0.0.0");
+}
+
+char* ubasic_dns(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char ip[16] = { 0 };
+	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2);
+	get_ip_str(ip, (uint8_t*)&addr);
+	return gc_strdup(ip);
 }
 
 char* ubasic_left(struct ubasic_ctx* ctx)

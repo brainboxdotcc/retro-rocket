@@ -135,6 +135,28 @@ const pci_subclass pci_device_sub_class[] =
 uint32_t pci_size_map[100];
 pci_dev_t dev_zero = {0};
 
+bool pci_bus_master(pci_dev_t device) {
+	uint32_t pci_command_reg = pci_read(device, PCI_COMMAND);
+	if(!(pci_command_reg & (1 << 2))) {
+		pci_command_reg |= (1 << 2);
+		pci_write(device, PCI_COMMAND, pci_command_reg);
+		return true;
+	}
+	return false;
+}
+
+uint8_t pci_bar_type(uint32_t field) {
+	return field & 0x1;
+}
+
+uint16_t pci_io_base(uint32_t field) {
+	return field & (~0x3);
+}
+
+uint32_t pci_mem_base(uint32_t field) {
+	return field & (~0xf);
+}	
+
 uint32_t pci_read(pci_dev_t dev, uint32_t field) {
 	// Only most significant 6 bits of the field
 	dev.field_num = (field & 0xFC) >> 2;

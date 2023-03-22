@@ -83,25 +83,8 @@ void dequeue_packet(packet_queue_item_t* cur, packet_queue_item_t* last) {
 	kfree(cur);
 }
 
-/*static bool ping_sent = 0;
-uint16_t incr = 1;
-uint64_t foo = 0;*/
-static bool test_sent = false;
-
-void ip_idle() {
-
-	// PING TEST
-	/*if (is_ip_allocated && (foo++ % 10) == 0) {
-		kprintf("Now sending ping test...\n");
-		icmp_send_echo(0x0202000a, incr++, 1);
-		ping_sent = true;
-	}*/
-
-	if (is_ip_allocated && !test_sent) {
-		test_sent = true;
-		dns_lookup_host(0x0302000a, "www.google.co.uk");
-	}
-
+void ip_idle()
+{
 	if (packet_queue) {
 		time_t current_time = time(NULL);
 		packet_queue_item_t* cur = packet_queue;
@@ -110,12 +93,14 @@ void ip_idle() {
 			uint8_t dst_hardware_addr[6] = { 0 };
 			if (arp_lookup(dst_hardware_addr, cur->packet->dst_ip)) {
 				/* The ARP for this MAC has come back now, we can send the packet! */
+				//kprintf("Got arp lookup, sending packet\n");
 				ethernet_send_packet(dst_hardware_addr, (uint8_t*)cur->packet, htons(cur->packet->length), ETHERNET_TYPE_IP);
 				dequeue_packet(cur, last);
 			} else if (cur->arp_tries < 2 && current_time - cur->last_arp > 0) {
 				/* After one second, ARP didn't come back, try it again up to 3 times */
 				cur->arp_tries++;
 				cur->last_arp = current_time;
+				//kprintf("Performing arp to send packet\n");
 				arp_send_packet(zero_hardware_addr, cur->packet->dst_ip);
 			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 10) {
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
@@ -369,5 +354,5 @@ void ip_handle_packet(ip_packet_t* packet) {
 }
 
 void ip_init() {
-	proc_register_idle(ip_idle);
+	//proc_register_idle(ip_idle);
 }

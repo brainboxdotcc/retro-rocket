@@ -164,3 +164,5 @@ uint32_t getdnsaddr();
 uint32_t getgatewayaddr();
 
 void ip_init();
+
+void ip_idle();

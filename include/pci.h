@@ -23,8 +23,8 @@ typedef union pci_dev {
 
 extern pci_dev_t dev_zero;
 
-#define PCI_CONFIG_ADDRESS  0xCF8
-#define PCI_CONFIG_DATA     0xCFC
+#define PCI_CONFIG_ADDRESS       0xCF8
+#define PCI_CONFIG_DATA          0xCFC
 
 #define PCI_VENDOR_ID            0x00
 #define PCI_DEVICE_ID            0x02
@@ -47,6 +47,9 @@ extern pci_dev_t dev_zero;
 #define PCI_INTERRUPT_LINE       0x3C
 #define PCI_SECONDARY_BUS        0x09
 
+#define PCI_BAR_TYPE_MEMORY      0x00
+#define PCI_BAR_TYPE_IOPORT      0x01
+
 #define PCI_HEADER_TYPE_DEVICE  0
 #define PCI_HEADER_TYPE_BRIDGE  1
 #define PCI_HEADER_TYPE_CARDBUS 2
@@ -68,4 +71,7 @@ pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, 
 pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int device_type);
 pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type);
 void init_pci();
-
+bool pci_bus_master(pci_dev_t device);
+uint8_t pci_bar_type(uint32_t field);
+uint16_t pci_io_base(uint32_t field);
+uint32_t pci_mem_base(uint32_t field);

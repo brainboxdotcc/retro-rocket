@@ -37,8 +37,6 @@ void icmp_handle_echo_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, i
 	char ip[14];
 	get_ip_str(ip, encap_packet->src_ip);
 	kprintf("ECHO echo ECHO! Got ICMP reply FROM %s, seq=%d id=%d\n", ip, ntohs(packet->seq), ntohs(packet->id));
-	//icmp_send_echo(0x0202000a);
-
 }
 
 void icmp_handle_destination_unreachable_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)

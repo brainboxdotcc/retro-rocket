@@ -8,6 +8,40 @@ bool active = false;
 // True if interrupt activity needs the IRQ status clearing
 bool activity = false;
 
+// IO Helper Functions
+
+static void rtl_outb(uint32_t io, uint8_t v) {
+	outb(rtl8139_device.io_base + io, v);
+	//*((uint8_t*)((uint64_t)rtl8139_device.io_base + io)) = v;
+}
+
+static void rtl_outw(uint32_t io, uint16_t v) {
+	outw(rtl8139_device.io_base + io, v);
+	//*((uint16_t*)((uint64_t)rtl8139_device.io_base + io)) = v;
+}
+
+static void rtl_outl(uint32_t io, uint32_t v) {
+	outl(rtl8139_device.io_base + io, v);
+	//*((uint32_t*)((uint64_t)rtl8139_device.io_base + io)) = v;
+}
+
+static uint8_t rtl_inb(uint32_t io) {
+	return inb(rtl8139_device.io_base + io);
+	//return *((uint8_t*)((uint64_t)rtl8139_device.io_base + io));
+}
+
+static uint16_t rtl_inw(uint32_t io) {
+	return inw(rtl8139_device.io_base + io);
+	//return *((uint16_t*)((uint64_t)rtl8139_device.io_base + io));
+}
+
+static uint32_t rtl_inl(uint32_t io) {
+	return inl(rtl8139_device.io_base + io);
+	//return *((uint32_t*)((uint64_t)rtl8139_device.io_base + io));
+}
+
+
+
 void receive_packet() {
 	uint64_t buffer_32 = rtl8139_device.rx_buffer;
 	uint16_t* t = (uint16_t*)((uint64_t)buffer_32 + rtl8139_device.current_packet_ptr);
@@ -28,18 +62,18 @@ void receive_packet() {
 
 	rtl8139_device.current_packet_ptr = ((rtl8139_device.current_packet_ptr + packet_length + 4 + 3) & RX_READ_POINTER_MASK) % RX_BUF_SIZE;
 
-	outw(rtl8139_device.io_base + CAPR, rtl8139_device.current_packet_ptr - 0x10);
+	rtl_outw(CAPR, rtl8139_device.current_packet_ptr - 0x10);
 
 	//rtl8139_device.current_packet_ptr %= RX_BUF_SIZE;
 }
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
-	uint16_t status = inw(rtl8139_device.io_base + IntrStatus);
+	uint16_t status = rtl_inw(IntrStatus);
 
 	// It is VERY important this write happens BEFORE attempting to receive packets,
 	// or interrupts break. The datasheet and online forums/wikis DO NOT (or did not,
 	// i fixed this) document this...
-	outw(rtl8139_device.io_base + IntrStatus, 0x05);
+	rtl_outw(IntrStatus, 0x05);
 	
 	if(status & TOK) {
 		// Sent
@@ -56,8 +90,8 @@ void rtl8139_timer()
 }
 
 char* read_mac_addr() {
-	uint32_t mac_part1 = inl(rtl8139_device.io_base + MAC0);
-	uint16_t mac_part2 = inw(rtl8139_device.io_base + MAC1);
+	uint32_t mac_part1 = rtl_inl(MAC0);
+	uint16_t mac_part2 = rtl_inw(MAC1);
 	rtl8139_device.mac_addr[0] = mac_part1 >> 0;
 	rtl8139_device.mac_addr[1] = mac_part1 >> 8;
 	rtl8139_device.mac_addr[2] = mac_part1 >> 16;
@@ -85,8 +119,8 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
 
 	memcpy(transfer_data_p, data, len);
-	outl(rtl8139_device.io_base + TxAddr0 + (rtl8139_device.tx_cur * 4), transfer_data);
-	outl(rtl8139_device.io_base + TxStatus0 + (rtl8139_device.tx_cur++ * 4), len);
+	rtl_outl(TxAddr0 + (rtl8139_device.tx_cur * 4), transfer_data);
+	rtl_outl(TxStatus0 + (rtl8139_device.tx_cur++ * 4), len);
 	rtl8139_device.tx_cur = rtl8139_device.tx_cur % 4;
 }
 
@@ -96,36 +130,32 @@ bool rtl8139_init() {
 		return false;
 	}
 	uint32_t ret = pci_read(pci_device, PCI_BAR0);
-	rtl8139_device.bar_type = ret & 0x1;
+	rtl8139_device.bar_type = pci_bar_type(ret); //ret & 0x1;
 	// Get io base or mem base by extracting the high 28/30 bits
-	rtl8139_device.io_base = ret & (~0x3);
-	rtl8139_device.mem_base = ret & (~0xf);
+	rtl8139_device.io_base = pci_io_base(ret); //ret & (~0x3);
+	rtl8139_device.mem_base = pci_mem_base(pci_read(pci_device, PCI_BAR1)); //ret & (~0xf);
 	rtl8139_device.tx_cur = 0;
 
 	// Enable PCI Bus Mastering
-	uint32_t pci_command_reg = pci_read(pci_device, PCI_COMMAND);
-	if(!(pci_command_reg & (1 << 2))) {
-		pci_command_reg |= (1 << 2);
-		pci_write(pci_device, PCI_COMMAND, pci_command_reg);
-	}
+	pci_bus_master(pci_device);
 
 	// Power on and reset
-	outb(rtl8139_device.io_base + Config1, 0x0);
-	outb(rtl8139_device.io_base + ChipCmd, 0x10);
-	while((inb(rtl8139_device.io_base + ChipCmd) & 0x10) != 0);
+	rtl_outb(Config1, 0x0);
+	rtl_outb(ChipCmd, 0x10);
+	while((rtl_inb(ChipCmd) & 0x10) != 0);
 
 	// Allocate receive buffer and send buffers, below 4GB boundary
 	rtl8139_device.rx_buffer = kmalloc_low(8192 + 16 + 1500);
 	rtl8139_device.tx_buffers = kmalloc_low((8192 + 16 + 1500) * 3);
 	memset((void*)(uint64_t)rtl8139_device.rx_buffer, 0x0, 8192 + 16 + 1500);
-	outl(rtl8139_device.io_base + RxBuf, rtl8139_device.rx_buffer);
+	rtl_outl(RxBuf, rtl8139_device.rx_buffer);
 	for(int i=0; i < 4; i++) {
-		outl(rtl8139_device.io_base + TxAddr0 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 1500));
+		rtl_outl(TxAddr0 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 1500));
 	}
 
-	outw(rtl8139_device.io_base + IntrMask, 0x0005);
-	outl(rtl8139_device.io_base + RxConfig, 0xf | (1 << 7));
-	outb(rtl8139_device.io_base + ChipCmd, 0x0C);
+	rtl_outw(IntrMask, 0x0005);
+	rtl_outl(RxConfig, 0xf | (1 << 7));
+	rtl_outb(ChipCmd, 0x0C);
 
 	rtl8139_device.current_packet_ptr = 0;
 
@@ -133,7 +163,7 @@ bool rtl8139_init() {
 	register_interrupt_handler(32 + irq_num, rtl8139_handler);
 
 	char* mac_address = read_mac_addr();
-	kprintf("RTL8139: MAC=%s\n", mac_address);
+	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base);
 
 	proc_register_idle(rtl8139_timer);
 
