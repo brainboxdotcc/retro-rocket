@@ -163,6 +163,29 @@ uint32_t getdnsaddr();
  */
 uint32_t getgatewayaddr();
 
+/**
+ * @brief Set network mask
+ * 
+ * @param nm network mask
+ */
+void setnetmask(uint32_t nm);
+
+/**
+ * @brief Get network mask
+ * 
+ * @return uint32_t network mask
+ */
+uint32_t getnetmask();
+
+/**
+ * @brief Initialise IP protocol
+ */
 void ip_init();
 
+/**
+ * @brief Called from the local APIC timer interrupt 50 times a second.
+ * Attempts to resolve ARP requests for queued packets that we don't have
+ * ARP for yet, and retries ARP requests up to 3 times before dropping
+ * packets we cannot route.
+ */
 void ip_idle();

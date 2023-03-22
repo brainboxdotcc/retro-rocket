@@ -1558,6 +1558,11 @@ char* ubasic_netinfo(struct ubasic_ctx* ctx)
 		get_ip_str(ip, (uint8_t*)&raw);
 		return gc_strdup(ip);
 	}
+	if (!stricmp(strval, "mask")) {
+		uint32_t raw = getnetmask();
+		get_ip_str(ip, (uint8_t*)&raw);
+		return gc_strdup(ip);
+	}
 	if (!stricmp(strval, "dns")) {
 		uint32_t raw = getdnsaddr();
 		get_ip_str(ip, (uint8_t*)&raw);

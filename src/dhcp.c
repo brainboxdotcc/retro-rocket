@@ -15,12 +15,19 @@ void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t
 			sethostaddr((const unsigned char*)&packet->your_ip);
 			uint32_t* dns = get_dhcp_options(packet, OPT_DNS);
 			uint32_t* gateway = get_dhcp_options(packet, OPT_GATEWAY);
+			uint32_t* subnet = get_dhcp_options(packet, OPT_SUBNET);
+			if (subnet) {
+				setnetmask(*subnet);
+				kfree(subnet);
+			}
 			if (dns) {
 				setdnsaddr(*dns);
+				//arp_prediscover((uint8_t*)dns);
 				kfree(dns);
 			}
 			if (gateway) {
 				setgatewayaddr(*gateway);
+				//arp_prediscover((uint8_t*)gateway);
 				kfree(gateway);
 			}
 		} else if (*type == DHCPNAK) {

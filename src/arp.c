@@ -1,6 +1,7 @@
 #include <kernel.h>
 
 arp_table_entry_t arp_table[512];
+static uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
 int arp_table_size = 0;
 int arp_table_curr = 0;
 
@@ -53,8 +54,10 @@ void arp_handle_packet(arp_packet_t* arp_packet, int len) {
 
 	uint8_t dummy[6];
 	if (!arp_lookup(dummy, dst_protocol_addr)) {
-		/*kprintf(
-			"ARP discovered %08x mac %02X:%02X:%02X:%02X:%02X:%02X\n", (uint32_t)&dst_protocol_addr,
+		/*char ip[15] = { 0 };
+		get_ip_str(ip, dst_protocol_addr);
+		kprintf(
+			"ARP discovered for %s mac %02X:%02X:%02X:%02X:%02X:%02X\n", ip,
 			dst_hardware_addr[0],
 			dst_hardware_addr[1],
 			dst_hardware_addr[2],
@@ -95,6 +98,10 @@ void arp_send_packet(uint8_t* dst_hardware_addr, uint8_t* dst_protocol_addr) {
 	ethernet_send_packet(broadcast_mac_address, (uint8_t*)arp_packet, sizeof(arp_packet_t), ETHERNET_TYPE_ARP);
 }
 
+void arp_prediscover(uint8_t* protocol_addr) {
+	arp_send_packet(zero_hardware_addr, protocol_addr);
+}
+
 void arp_lookup_add(uint8_t* ret_hardware_addr, uint8_t* ip_addr) {
 	memcpy(&arp_table[arp_table_curr].ip_addr, ip_addr, 4);
 	memcpy(&arp_table[arp_table_curr].mac_addr, ret_hardware_addr, 6);
@@ -110,6 +117,8 @@ void arp_lookup_add(uint8_t* ret_hardware_addr, uint8_t* ip_addr) {
 
 int arp_lookup(uint8_t * ret_hardware_addr, uint8_t * ip_addr) {
 
+	/* Special case for broadcast address. Always automatically resolves to 255.255.255.255.
+	 */
 	if (*((uint32_t*)ip_addr) == 0xffffffff) {
 		memcpy(ret_hardware_addr, broadcast_mac_address, 6);
 		return 1;

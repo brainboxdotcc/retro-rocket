@@ -17,7 +17,7 @@ void get_ip_str(char * ip_str, uint8_t * ip) {
 
 char ip_addr[4] = { 0, 0, 0, 0 };
 int is_ip_allocated = 0;
-uint32_t dns_addr = 0, gateway_addr = 0;
+uint32_t dns_addr = 0, gateway_addr = 0, netmask = 0;
 
 struct hashmap *frag_map = NULL;
 
@@ -45,6 +45,14 @@ uint32_t getdnsaddr() {
 
 uint32_t getgatewayaddr() {
 	return gateway_addr;
+}
+
+void setnetmask(uint32_t nm) {
+	netmask = nm;
+}
+
+uint32_t getnetmask() {
+	return netmask;
 }
 
 uint16_t ip_calculate_checksum(ip_packet_t * packet) {
@@ -91,22 +99,41 @@ void ip_idle()
 		packet_queue_item_t* last = NULL;
 		for (; cur; cur = cur->next) {
 			uint8_t dst_hardware_addr[6] = { 0 };
-			if (arp_lookup(dst_hardware_addr, cur->packet->dst_ip)) {
+			uint32_t dest_ip = *((uint32_t*)&cur->packet->dst_ip);
+			uint32_t source_ip = *((uint32_t*)&cur->packet->src_ip);
+			uint32_t gw = getgatewayaddr();
+			uint8_t arp_dest[4];
+			bool is_local = (gw == 0 || ((dest_ip & netmask) == (source_ip & netmask)));
+
+			//kprintf("local=%d gw=%08x dmask=%08x smask=%08x mask=%08x\n", is_local, gw, (dest_ip & netmask), (source_ip & netmask), netmask);
+			//dump_hex((unsigned char*)&cur->packet->src_ip, 8);
+
+			if (is_local) {
+				memcpy(arp_dest, cur->packet->dst_ip, 4);
+				//get_ip_str(ip, arp_dest);
+				//kprintf("Deliver packet locally (%s) for %s\n", ip, dstip);
+			} else {
+				memcpy(arp_dest, &gw, 4);
+				//get_ip_str(ip, arp_dest);
+				//kprintf("Remote packet punted to gw (%s) for %s\n", ip, dstip);
+			}
+
+			if (arp_lookup(dst_hardware_addr, arp_dest)) {
+
 				/* The ARP for this MAC has come back now, we can send the packet! */
-				//kprintf("Got arp lookup, sending packet\n");
 				ethernet_send_packet(dst_hardware_addr, (uint8_t*)cur->packet, htons(cur->packet->length), ETHERNET_TYPE_IP);
 				dequeue_packet(cur, last);
-			} else if (cur->arp_tries < 2 && current_time - cur->last_arp > 0) {
+			} else if (is_local && cur->arp_tries < 2 && current_time - cur->last_arp > 0) {
 				/* After one second, ARP didn't come back, try it again up to 3 times */
 				cur->arp_tries++;
 				cur->last_arp = current_time;
 				//kprintf("Performing arp to send packet\n");
-				arp_send_packet(zero_hardware_addr, cur->packet->dst_ip);
+				arp_send_packet(zero_hardware_addr, arp_dest);
 			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 10) {
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
 				 * Packet still didnt get an ARP reply. Dequeue it as a lost packet.
 				 */
-				kprintf("Failed ARP resolution after 3 tries to %08x at %d\n", cur->packet->dst_ip, current_time);
+				kprintf("Failed ARP resolution after 3 tries to %08x at %d\n", arp_dest, current_time);
 				dequeue_packet(cur, last);
 			}
 			last = cur;
@@ -133,6 +160,7 @@ void queue_packet(uint8_t* dst_ip, void* data, uint16_t len) {
 }
 
 void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol) {
+	uint8_t dst_hardware_addr[6] = { 0, 0, 0, 0, 0, 0 };
 	ip_packet_t * packet = kmalloc(sizeof(ip_packet_t) + len);
 	memset(packet, 0, sizeof(ip_packet_t));
 	packet->version = IP_IPV4;
@@ -150,6 +178,12 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	packet->protocol = protocol;
 
 	gethostaddr(my_ip);
+	uint32_t netmask = getnetmask();
+	uint32_t our_gateway = getgatewayaddr();
+	uint32_t our_ip = *((uint32_t*)&my_ip);
+	uint32_t target_ip = *((uint32_t*)dst_ip);
+	bool redirected = false;
+
 	memcpy(packet->src_ip, my_ip, 4);
 	memcpy(packet->dst_ip, dst_ip, 4);
 	void* packet_data = (void*)packet + packet->ihl * 4;
@@ -159,9 +193,21 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	packet->length = htons(sizeof(ip_packet_t) + len);
 	packet->header_checksum = 0;
 	packet->header_checksum = htons(ip_calculate_checksum(packet));
-	uint8_t dst_hardware_addr[6];
 	// Attempt to resolve ARP or find in arp cache table
-	if (!arp_lookup(dst_hardware_addr, dst_ip)) {
+
+	if (netmask != 0 && our_ip != 0 && target_ip != 0 && ((our_ip & netmask) != (target_ip & netmask))) {
+		/* We need to redirect this packet to the router's MAC address */
+		//kprintf("Packet must be redirected to our gateway (%08x) at %02X:%02X:%02X:%02X:%02X:%02X\n", our_gateway, dst_hardware_addr[0], dst_hardware_addr[1], dst_hardware_addr[2], dst_hardware_addr[3], dst_hardware_addr[4], dst_hardware_addr[5]);
+		if (!arp_lookup(dst_hardware_addr, (uint8_t*)&our_gateway)) {
+			//kprintf("Remote queued\n");
+			queue_packet(dst_ip, packet, packet->length);
+			arp_send_packet(zero_hardware_addr, (uint8_t*)&our_gateway);
+			return;
+		}
+		redirected = true;
+	}
+
+	if (!redirected && !arp_lookup(dst_hardware_addr, dst_ip)) {
 		/* Send ARP packet, and add to queue for this mac address */
 		queue_packet(dst_ip, packet, packet->length);
 		arp_send_packet(zero_hardware_addr, dst_ip);
@@ -249,7 +295,7 @@ void ip_handle_packet(ip_packet_t* packet) {
 	char src_ip[20];
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
-	if(packet->version == IP_IPV4) {
+	if (packet->version == IP_IPV4) {
 		get_ip_str(src_ip, packet->src_ip);
 		void * data_ptr = (void*)packet + packet->ihl * 4;
 		size_t data_len = ntohs(packet->length) - (packet->ihl * 4);

@@ -76,3 +76,10 @@ arp_table_entry_t* get_arp_entry(size_t index);
  * @return size_t the highest index in the ARP cache plus one
  */
 size_t get_arp_table_size();
+
+/**
+ * @brief Precache a local network IP address, to save on doing an
+ * ARP lookup later when the user wants to access the resource.
+ * Used for the DNS server and gateway addresses.
+ */
+void arp_prediscover(uint8_t* protocol_addr);
