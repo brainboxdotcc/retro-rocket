@@ -35,7 +35,12 @@ void receive_packet() {
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 	uint16_t status = inw(rtl8139_device.io_base + IntrStatus);
+
+	// It is VERY important this write happens BEFORE attempting to receive packets,
+	// or interrupts break. The datasheet and online forums/wikis DO NOT (or did not,
+	// i fixed this) document this...
 	outw(rtl8139_device.io_base + IntrStatus, 0x05);
+	
 	if(status & TOK) {
 		// Sent
 	}
