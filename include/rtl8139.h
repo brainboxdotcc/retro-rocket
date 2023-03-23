@@ -3,21 +3,24 @@
 #include <kernel.h>
 
 // PCI vendor/device ID for RTL8139
-#define RTL8139_VENDOR_ID	0x10EC
-#define RTL8139_DEVICE_ID	0x8139
+#define RTL8139_VENDOR_ID	0x10EC // Realtek
+#define RTL8139_DEVICE_ID	0x8139 // 8139
 
 // Receive buffer size
-#define RX_BUF_SIZE 8192
+#define RX_BUF_SIZE		8192
 
 #define CAPR			0x38
 #define RX_READ_POINTER_MASK	(~3)
-#define ROK			(1<<0)
-#define RER			(1<<1)
-#define TOK	 		(1<<2)
-#define TER			(1<<3)
-#define TX_TOK			(1<<15)
 
-enum RTL8139_interrupt_reg_bits {
+enum rtl8139_recv_status {
+	ROK			= 0x01,		// Received OK
+	RER			= 0x02,		// Receive Error
+	TOK	 		= 0x04,		// Transmit OK
+	TER			= 0x08,		// Transmit Error
+	X_TOK			= 0x8000,
+};
+
+enum rtl8139_interrupt_reg_bits {
 	RX_OK 			= 0x01,
 	RX_ERR 			= 0x02,
 	TX_OK 			= 0x04,
@@ -31,14 +34,14 @@ enum RTL8139_interrupt_reg_bits {
 	INT_DEFAULT 		= TX_OK | RX_OK,
 };
 
-enum RTL8139_chip_cmd_bits {
-	RXBUFEMPTY = 0x01,
-	CMDRXENB   = 0x08,
-	CMDTXENB   = 0x04,
-	CMDRESET   = 0x10,
+enum rtl8139_chip_cmd_bits {
+	RXBUFEMPTY		= 0x01,
+	CMDTXENB		= 0x04,
+	MDRXENB			= 0x08,
+	CMDRESET		= 0x10,
 };
 
-enum RTL8139_rxconfig_bits {
+enum rtl8139_rxconfig_bits {
 	RX_ACCEPTALLPHYS	= 0x01,
 	RX_ACCEPTMYPHYS		= 0x02,
 	RX_ACCEPTMULTICAST	= 0x04,
@@ -53,7 +56,7 @@ enum RTL8139_rxconfig_bits {
  * https://datasheetspdf.com/pdf-file/1092361/RealtekMicroelectronics/RTL8139B/1
  * 5. Register Descriptions
  */
-enum RTL8139_registers {
+enum rtl8139_registers {
 	MAC0			= 0x00, // Ethernet hardware address
 	MAC1			= 0x04,
 	MAR0			= 0x08, // Multicast filter
@@ -99,7 +102,7 @@ enum RTL8139_registers {
 typedef struct tx_desc {
 	uint32_t phys_addr;
 	uint32_t packet_size;
-}tx_desc_t;
+} tx_desc_t;
 
 /**
  * @brief PCI device configuration

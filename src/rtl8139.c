@@ -129,7 +129,13 @@ bool rtl8139_init() {
 	// Power on and reset
 	rtl_outb(Config1, 0x0);
 	rtl_outb(ChipCmd, CMDRESET);
-	while((rtl_inb(ChipCmd) & CMDRESET) != 0);
+	time_t reset_start = time(NULL);
+	while((rtl_inb(ChipCmd) & CMDRESET) != 0) {
+		if (time(NULL) - reset_start >= 3) {
+			kprintf("RTL8139: Device would not reset within 3 seconds. Faulty hardware? Not enabled.\n");
+			return false;
+		}
+	}
 
 	// Allocate receive buffer and send buffers, below 4GB boundary
 	rtl8139_device.rx_buffer = kmalloc_low(8192 + 16 + 1500);
