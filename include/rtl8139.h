@@ -37,7 +37,7 @@ enum rtl8139_interrupt_reg_bits {
 enum rtl8139_chip_cmd_bits {
 	RXBUFEMPTY		= 0x01,
 	CMDTXENB		= 0x04,
-	MDRXENB			= 0x08,
+	CMDRXENB		= 0x08,
 	CMDRESET		= 0x10,
 };
 
