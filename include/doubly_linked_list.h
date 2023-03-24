@@ -1,6 +1,8 @@
 #pragma once
 
-#include "stdlib/types.h"
+#include "kernel.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 // ------------------------------------------------------------------------------------------------
 typedef struct linked_list_t {

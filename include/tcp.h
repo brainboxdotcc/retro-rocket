@@ -5,14 +5,23 @@
 #include "kernel.h"
 
 #define TCP_WINDOW_SIZE		8192
-#define TCP_MSL			120000		// Maximum Segment Lifetime (ms)
+#define TCP_MSL			12		// Maximum Segment Lifetime (secs)
 
 #define SEQ_LT(x,y) ((int)((x)-(y)) < 0)
 #define SEQ_LE(x,y) ((int)((x)-(y)) <= 0)
 #define SEQ_GT(x,y) ((int)((x)-(y)) > 0)
 #define SEQ_GE(x,y) ((int)((x)-(y)) >= 0)
 
-struct tcp_header {
+typedef struct tcp_checksummed_t
+{
+    uint32_t src;
+    uint32_t dst;
+    uint8_t reserved;
+    uint8_t protocol;
+    uint16_t len;
+} __attribute__((packed)) tcp_checksummed_t;
+
+typedef struct tcp_header {
 	uint16_t src_port;
 	uint16_t dst_port;
 	uint32_t seq;
@@ -61,16 +70,18 @@ enum tcp_error_t {
 };
 
 typedef struct tcp_options {
-    u16 mss;
+    uint16_t mss;
 } tcp_options_t;
 
-void (*on_error_t)(struct tcp_conn_t *conn, uint error);
-void (*on_state_t)(struct tcp_conn_t *conn, uint oldState, uint newState);
-void (*on_data_t)(struct tcp_conn_t *conn, const u8 *data, uint len);
+struct tcp_conn_t;
+
+typedef void (*on_error_t)(struct tcp_conn_t*, uint32_t);
+typedef void (*on_state_t)(struct tcp_conn_t*, uint32_t, uint32_t);
+typedef void (*on_data_t)(struct tcp_conn_t*, const uint8_t*, uint32_t);
 
 typedef struct tcp_conn_t
 {
-	//Link link; // doubly linked list
+	linked_list_t link;
 	uint8_t state;
 
 	uint32_t local_addr;
@@ -94,7 +105,7 @@ typedef struct tcp_conn_t
 	uint32_t irs;		// initial receive sequence number
 
 	// queues
-	//Link resequence; // doubly linked list
+	linked_list_t resequence;
 
 	// timers
 	uint32_t msl_wait;	// when does the 2MSL time wait expire?
