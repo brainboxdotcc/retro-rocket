@@ -4,7 +4,7 @@
 
 #define TCP_WINDOW_SIZE		8192
 
-// checksummed part of ip packet
+// checksummed part of ip segment
 typedef struct tcp_checksummed_t
 {
 	uint32_t src;
@@ -14,7 +14,7 @@ typedef struct tcp_checksummed_t
 	uint16_t len;
 } __attribute__((packed)) tcp_checksummed_t;
 
-typedef struct tcp_packet {
+typedef struct tcp_segment {
 	uint16_t src_port;
 	uint16_t dst_port;
 	uint32_t seq;
@@ -26,7 +26,7 @@ typedef struct tcp_packet {
 	uint16_t urgent;
 	uint8_t options[0];
 	uint8_t payload[];
-} __attribute__((packed)) tcp_packet_t;
+} __attribute__((packed)) tcp_segment_t;
 
 
 enum tcp_flags_t {

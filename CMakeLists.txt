@@ -41,7 +41,7 @@ add_custom_command(TARGET "kernel.bin" POST_BUILD
 		-boot d \
 		-vnc 0.0.0.0:2 \
 		-debugcon file:debug.log \
-		-netdev user,id=netuser \
+		-netdev user,id=netuser,hostfwd=tcp::2000-:2000 \
 		-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
 		-device rtl8139,netdev=netuser" ">run.sh"
   COMMENT "Create qemu script"
