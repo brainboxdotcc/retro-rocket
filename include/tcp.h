@@ -1,27 +1,20 @@
 #pragma once
 
-// based on https://github.com/pdoane/osdev/blob/master/net/tcp.h
-
 #include "kernel.h"
 
 #define TCP_WINDOW_SIZE		8192
-#define TCP_MSL			12		// Maximum Segment Lifetime (secs)
 
-#define SEQ_LT(x,y) ((int)((x)-(y)) < 0)
-#define SEQ_LE(x,y) ((int)((x)-(y)) <= 0)
-#define SEQ_GT(x,y) ((int)((x)-(y)) > 0)
-#define SEQ_GE(x,y) ((int)((x)-(y)) >= 0)
-
+// checksummed part of ip packet
 typedef struct tcp_checksummed_t
 {
-    uint32_t src;
-    uint32_t dst;
-    uint8_t reserved;
-    uint8_t protocol;
-    uint16_t len;
+	uint32_t src;
+	uint32_t dst;
+	uint8_t reserved;
+	uint8_t protocol;
+	uint16_t len;
 } __attribute__((packed)) tcp_checksummed_t;
 
-typedef struct tcp_header {
+typedef struct tcp_packet {
 	uint16_t src_port;
 	uint16_t dst_port;
 	uint32_t seq;
@@ -31,7 +24,9 @@ typedef struct tcp_header {
 	uint16_t window_size;
 	uint16_t checksum;
 	uint16_t urgent;
-} __attribute__((packed)) tcp_header_t;
+	uint8_t options[0];
+	uint8_t payload[];
+} __attribute__((packed)) tcp_packet_t;
 
 
 enum tcp_flags_t {
@@ -69,19 +64,8 @@ enum tcp_error_t {
 	TCP_CONN_CLOSING	= 3,
 };
 
-typedef struct tcp_options {
-    uint16_t mss;
-} tcp_options_t;
-
-struct tcp_conn_t;
-
-typedef void (*on_error_t)(struct tcp_conn_t*, uint32_t);
-typedef void (*on_state_t)(struct tcp_conn_t*, uint32_t, uint32_t);
-typedef void (*on_data_t)(struct tcp_conn_t*, const uint8_t*, uint32_t);
-
 typedef struct tcp_conn_t
 {
-	linked_list_t link;
 	uint8_t state;
 
 	uint32_t local_addr;
@@ -103,17 +87,5 @@ typedef struct tcp_conn_t
 	uint32_t rcv_wnd;	// receive window
 	uint32_t rcv_up;	// receive urgent pointer
 	uint32_t irs;		// initial receive sequence number
-
-	// queues
-	linked_list_t resequence;
-
-	// timers
-	uint32_t msl_wait;	// when does the 2MSL time wait expire?
-
-	// callbacks
-	void *ctx;
-	on_error_t on_error;
-	on_state_t on_state;
-	on_data_t on_data;
 } tcp_conn_t;
 
