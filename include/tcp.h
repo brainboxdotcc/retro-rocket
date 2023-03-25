@@ -67,7 +67,7 @@ typedef struct tcp_options_t {
 	uint16_t mss;
 } tcp_options_t;
 
-typedef enum {
+typedef enum tcp_state_t {
 	TCP_CLOSED		= 0,
 	TCP_LISTEN		= 1,
 	TCP_SYN_SENT		= 2,

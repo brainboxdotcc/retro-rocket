@@ -36,10 +36,10 @@ bool seq_gte(uint32_t x, uint32_t y)
  * @return int 0 for equal, 1 for not equal
  */
 int tcp_conn_compare(const void *a, const void *b, void *udata) {
-    const tcp_conn_t* fa = a;
-    const tcp_conn_t* fb = b;
-    return fa->local_addr == fb->local_addr && fa->remote_addr && fb->remote_addr
-    && fa->local_port == fb->local_port && fa->remote_port == fb->remote_port ? 0 : 1;
+	const tcp_conn_t* fa = a;
+	const tcp_conn_t* fb = b;
+	return fa->local_addr == fb->local_addr && fa->remote_addr && fb->remote_addr
+		&& fa->local_port == fb->local_port && fa->remote_port == fb->remote_port ? 0 : 1;
 }
 
 /**
@@ -51,7 +51,8 @@ int tcp_conn_compare(const void *a, const void *b, void *udata) {
  * @return uint64_t hash bucket value
  */
 uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1) {
-    return hashmap_murmur(item, sizeof(tcp_conn_t), seed0, seed1);
+	const tcp_conn_t* fa = item;
+	return ((uint64_t)fa->local_addr << 32) + ((uint64_t)fa->remote_addr);
 }
 
 
@@ -59,6 +60,7 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 {
 	int array_size = len + sizeof(tcp_ip_pseudo_header_t);
 	tcp_ip_pseudo_header_t* pseudo = kmalloc(array_size * 2);
+	array_size += (array_size % 2); // Ensure buffer is even-aligned
 	memset(pseudo, 0, array_size * 2);
 	pseudo->dst = *((uint32_t*)&packet->dst_ip);
 	pseudo->src = *((uint32_t*)&packet->src_ip);
@@ -70,6 +72,8 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	memcpy(pseudo->body, segment, len);
 	segment->checksum = checksum;
 
+	//dump_hex((unsigned char*)pseudo, array_size);
+
 	// Treat the packet header as a 2-byte-integer array
 	// Sum all integers switch to network byte order
 	uint16_t * array = (uint16_t*)pseudo;
@@ -77,6 +81,7 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	for(int i = 0; i < array_size / 2; i++) {
 		sum += htons(array[i]);
 	}
+	kprintf("\n");
 	sum = (sum & 0xffff) + (sum >> 16);
 	sum += (sum >> 16);
 
@@ -128,6 +133,7 @@ window_size=%d,checksum=0x%04x (ours=0x%04x), urgent=%d options[mss=%d (%04x)]\n
 		options->mss
 	);
 	setforeground(current_console, COLOUR_WHITE);
+	//dump_hex((unsigned char*)segment, len);
 }
 
 /**
@@ -206,6 +212,7 @@ tcp_conn_t* tcp_set_state(tcp_conn_t* conn, tcp_state_t new_state)
 	if (conn == NULL) {
 		return NULL;
 	}
+	kprintf("tcp_set_state(%d)\n", new_state);
 	conn->state = new_state;
 	return conn;
 }
@@ -336,18 +343,30 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 	return true;
 }
 
+bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
+{
+	// insert packet into ordered list
+	// check ordered list is complete, if it is deliver queued data to client
+	// acknowlege receipt
+	dump_hex(segment->payload, len - sizeof(tcp_segment_t));
+	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+}
+
 bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
 
 bool tcp_state_fin_wait_1(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
 
 bool tcp_state_fin_wait_2(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
 
@@ -375,6 +394,7 @@ bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_
 
 bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	kprintf("state machine, state=%d\n", conn->state);
 	switch (conn->state) {
 		case TCP_LISTEN:
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
@@ -412,46 +432,43 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 		tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
 		if (conn) {
 			tcp_state_machine(encap_packet, segment, conn, &options, len);
-		} else {
-			kprintf("conn not found\n");
 		}
 	}
 }
 
 void tcp_init()
 {
-	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 0, 0, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
+	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
 }
 
 tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port)
 {
-	tcp_conn_t* conn = kmalloc(sizeof(tcp_conn_t));
+	tcp_conn_t conn;
 	uint32_t isn = get_isn();
 	unsigned char ip[4] = { 0 };
 
 	gethostaddr(ip);
 
-	conn->remote_addr = target_addr;
-	conn->remote_port = target_port;
-	conn->local_addr = *((uint32_t*)&ip);
-	conn->local_port = 1025; // XXX FIXME
-	conn->snd_una = isn;
-	conn->snd_nxt = isn;
-	conn->iss = isn;
-	conn->snd_wnd = TCP_WINDOW_SIZE;
-	conn->snd_up = 0;
-	conn->snd_wl1 = 0;
-	conn->snd_wl2 = 0;
-	conn->rcv_nxt = 0;
-	conn->rcv_wnd = TCP_WINDOW_SIZE;
-	conn->rcv_up = 0;
-	conn->irs = 0;
+	conn.remote_addr = target_addr;
+	conn.remote_port = target_port;
+	conn.local_addr = *((uint32_t*)&ip);
+	conn.local_port = 1025; // XXX FIXME
+	conn.snd_una = isn;
+	conn.snd_nxt = isn;
+	conn.iss = isn;
+	conn.snd_wnd = TCP_WINDOW_SIZE;
+	conn.snd_up = 0;
+	conn.snd_wl1 = 0;
+	conn.snd_wl2 = 0;
+	conn.rcv_nxt = 0;
+	conn.rcv_wnd = TCP_WINDOW_SIZE;
+	conn.rcv_up = 0;
+	conn.irs = 0;
 
-	kprintf("hashmap_set(%08x, %08x, %d, %d)\n", conn->local_addr, conn->remote_addr, conn->local_port, conn->remote_port);
-	hashmap_set(tcb, conn);
+	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
+	tcp_set_state(&conn, TCP_SYN_SENT);
 
-	tcp_send_segment(conn, conn->snd_nxt, TCP_SYN, NULL, 0);
-	tcp_set_state(conn, TCP_SYN_SENT);
+	hashmap_set(tcb, &conn);
 
-	return conn;
+	return tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
 }

@@ -1,5 +1,7 @@
 #include <kernel.h>
 
+uint8_t video_lock = 0;
+
 static volatile struct limine_terminal_request terminal_request = {
     .id = LIMINE_TERMINAL_REQUEST,
     .revision = 0
@@ -16,9 +18,12 @@ void clearscreen(console* c)
  */
 void put(console* c, const char n)
 {
+	while (video_lock);
+	video_lock = 1;
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, &n, 1);
 	outb(0xE9, n);
+	video_lock = 0;
 }
 
 /* Write a string to the screen. Most of the internals of this are
@@ -27,6 +32,8 @@ void put(console* c, const char n)
  */
 void putstring(console* c, char* message)
 {
+	while (video_lock);
+	video_lock = 1;
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, message, strlen(message));
 	for (; *message; ++message) {
@@ -37,6 +44,7 @@ void putstring(console* c, char* message)
 			outb(0xE9, 13);
 		}
 	}
+	video_lock = 0;
 }
 
 void initconsole(console* c)
