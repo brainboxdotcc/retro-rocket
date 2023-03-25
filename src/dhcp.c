@@ -30,6 +30,7 @@ void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t
 				//arp_prediscover((uint8_t*)gateway);
 				kfree(gateway);
 			}
+			tcp_connect(0x01010101, 80);
 		} else if (*type == DHCPNAK) {
 			/* Negative ack, to be implemented */
 		}

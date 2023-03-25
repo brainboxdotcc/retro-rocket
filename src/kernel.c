@@ -77,6 +77,7 @@ void kmain()
 	if (rtl8139_init()) {
 		arp_init();
 		ip_init();
+		tcp_init();
 		dhcp_discover();
 		init_dns();
 	}

@@ -32,6 +32,17 @@ typedef union tcp_segment_flags_t {
 	};
 } __attribute__((packed)) tcp_segment_flags_t;
 
+typedef enum {
+	TCP_FIN = 1,
+	TCP_SYN = 2,
+	TCP_RST = 4,
+	TCP_PSH = 8,
+	TCP_ACK = 16,
+	TCP_URG = 32,
+	TCP_ECE = 64,
+	TCP_CWR = 128,
+} tcp_state_flags_t;
+
 typedef struct tcp_segment {
 	uint16_t src_port;
 	uint16_t dst_port;
@@ -56,7 +67,7 @@ typedef struct tcp_options_t {
 	uint16_t mss;
 } tcp_options_t;
 
-enum tcp_state_t {
+typedef enum {
 	TCP_CLOSED		= 0,
 	TCP_LISTEN		= 1,
 	TCP_SYN_SENT		= 2,
@@ -68,17 +79,17 @@ enum tcp_state_t {
 	TCP_CLOSING		= 8,
 	TCP_LAST_ACK		= 9,
 	TCP_TIME_WAIT		= 10,
-};
+} tcp_state_t;
 
-enum tcp_error_t {
+typedef enum tcp_error_t {
 	TCP_CONN_RESET		= 1,
 	TCP_CONN_REFUSED	= 2,
 	TCP_CONN_CLOSING	= 3,
-};
+} tcp_error_t;
 
 typedef struct tcp_conn_t
 {
-	uint8_t state;
+	tcp_state_t state;
 
 	uint32_t local_addr;
 	uint32_t remote_addr;
@@ -102,3 +113,7 @@ typedef struct tcp_conn_t
 } tcp_conn_t;
 
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len);
+
+void tcp_init();
+
+tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port);
