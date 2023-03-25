@@ -5,22 +5,39 @@
 #define TCP_WINDOW_SIZE		8192
 
 // checksummed part of ip segment
-typedef struct tcp_checksummed_t
+typedef struct tcp_ip_pseudo_header_t
 {
 	uint32_t src;
 	uint32_t dst;
 	uint8_t reserved;
 	uint8_t protocol;
 	uint16_t len;
-} __attribute__((packed)) tcp_checksummed_t;
+	uint8_t body[];
+} __attribute__((packed)) tcp_ip_pseudo_header_t;
+
+typedef union tcp_segment_flags_t {
+	uint8_t bits1;
+	uint8_t bits2;
+	struct {
+		uint8_t reserved:4;
+		uint8_t off:4;
+		uint8_t fin:1;
+		uint8_t syn:1;
+		uint8_t rst:1;
+		uint8_t psh:1;
+		uint8_t ack:1;
+		uint8_t urg:1;
+		uint8_t ece:1;
+		uint8_t cwr:1;
+	};
+} __attribute__((packed)) tcp_segment_flags_t;
 
 typedef struct tcp_segment {
 	uint16_t src_port;
 	uint16_t dst_port;
 	uint32_t seq;
 	uint32_t ack;
-	uint8_t off;
-	uint8_t flags;
+	tcp_segment_flags_t flags;
 	uint16_t window_size;
 	uint16_t checksum;
 	uint16_t urgent;
@@ -29,20 +46,15 @@ typedef struct tcp_segment {
 } __attribute__((packed)) tcp_segment_t;
 
 
-enum tcp_flags_t {
-	TCP_FIN		= (1 << 0),
-	TCP_SYN		= (1 << 1),
-	TCP_RST		= (1 << 2),
-	TCP_PSH		= (1 << 3),
-	TCP_ACK		= (1 << 4),
-	TCP_URG		= (1 << 5),
+enum tcp_opt_t {
+	TCP_OPT_END = 0,
+	TCP_OPT_NOP = 1,
+	TCP_OPT_MSS = 2,
 };
 
-enum tcp_opt_t {
-	TCP_OPT_END,
-	TCP_OPT_NOP,
-	TCP_OPT_MSS,
-};
+typedef struct tcp_options_t {
+	uint16_t mss;
+} tcp_options_t;
 
 enum tcp_state_t {
 	TCP_CLOSED		= 0,
@@ -89,3 +101,4 @@ typedef struct tcp_conn_t
 	uint32_t irs;		// initial receive sequence number
 } tcp_conn_t;
 
+void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len);

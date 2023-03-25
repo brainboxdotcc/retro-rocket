@@ -396,6 +396,7 @@ void ip_handle_packet(ip_packet_t* packet) {
 		} else if (packet->protocol == PROTOCOL_UDP) {
 			udp_handle_packet(packet, data_ptr, data_len);
 		} else if (packet->protocol == PROTOCOL_TCP) {
+			tcp_handle_packet(packet, data_ptr, data_len);
 		}
 
 		if (fragment_to_free) {
