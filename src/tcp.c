@@ -217,10 +217,11 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 		packet->options[2] = 0x05; // 1460 in NBO, MSB
 		packet->options[3] = 0xB4; // 1460 in NBO, LSB
 	}
-	packet->checksum = htons(tcp_calculate_checksum(&encap, packet, length));
 
 	// Copy data over
 	memcpy((void*)packet->payload + (flags & TCP_SYN ? 4 : 0), data, count);
+
+	packet->checksum = htons(tcp_calculate_checksum(&encap, packet, length));
 	ip_send_packet(encap.dst_ip, packet, length, PROTOCOL_TCP);
 
 	conn->snd_nxt += count;
@@ -228,6 +229,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 		++conn->snd_nxt;
 	}
 
+	tcp_byte_order_in(packet);
 	tcp_dump_segment(&encap, packet, &options, length, packet->checksum);
 
 	return conn;
