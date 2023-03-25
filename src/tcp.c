@@ -2,8 +2,29 @@
 
 struct hashmap* tcb = NULL;
 
-uint32_t get_isn() {
+uint32_t get_isn()
+{
 	return (time(NULL) * 1000) - (get_ticks() % 1000);
+}
+
+bool seq_lt(uint32_t x, uint32_t y) 
+{
+	return ((int)(x - y) < 0);
+}
+
+bool seq_lte(uint32_t x, uint32_t y)
+{
+	return ((int)(x - y) <= 0);
+}
+
+bool seq_gt(uint32_t x, uint32_t y)
+{
+	return ((int)(x - y) > 0);
+}
+
+bool seq_gte(uint32_t x, uint32_t y)
+{
+	return ((int)(x - y) >= 0);
 }
 
 /**
@@ -72,17 +93,22 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
  * @param len TCP length
  * @param our_checksum calculated checksum
  */
-void tcp_dump_segment(const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum)
+void tcp_dump_segment(bool in, const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum)
 {
+	char source_ip[15] = { 0 }, dest_ip[15] = { 0 };
 	setforeground(current_console, our_checksum == segment->checksum ? COLOUR_LIGHTGREEN : COLOUR_LIGHTRED);
+	get_ip_str(source_ip, encap_packet->src_ip);
+	get_ip_str(dest_ip, encap_packet->dst_ip);
 	kprintf(
-		"TCP@%llu: len=%ld src_port=%d dst_port=%d seq=%d ack=%d off=%d\n\
+		"TCP %s: %s:%d->%s:%d len=%ld seq=%d ack=%d off=%d\n\
 flags[fin=%d,syn=%d,rst=%d,psh=%d,ack=%d,urg=%d,ece=%d,cwr=%d]\n\
 window_size=%d,checksum=0x%04x (ours=0x%04x), urgent=%d options[mss=%d (%04x)]\n\n",
-		get_isn(),
-		len,
+		in ? "IN" : "OUT",
+		source_ip,
 		segment->src_port,
+		dest_ip,
 		segment->dst_port,
+		len,
 		segment->seq,
 		segment->ack,
 		segment->flags.off,
@@ -170,6 +196,7 @@ tcp_conn_t* tcp_find(uint32_t source_addr, uint32_t dest_addr, uint16_t source_p
 	if (tcb == NULL) {
 		return NULL;
 	}
+	kprintf("tcp_find(%08x, %08x, %d, %d)\n", source_addr, dest_addr, source_port, dest_port);
 	tcp_conn_t find_conn = { .local_addr = source_addr, .remote_addr = dest_addr, .local_port = source_port, .remote_port = dest_port };
 	return (tcp_conn_t*)hashmap_get(tcb, &find_conn);
 }
@@ -181,6 +208,18 @@ tcp_conn_t* tcp_set_state(tcp_conn_t* conn, tcp_state_t new_state)
 	}
 	conn->state = new_state;
 	return conn;
+}
+
+uint8_t tcp_build_options(uint8_t* options, const tcp_options_t* opt)
+{
+	uint8_t index = 0;
+	if (opt->mss) {
+		options[index++] = TCP_OPT_MSS;
+		options[index++] = 4;
+		options[index++] = opt->mss / 0xFF; // network order, MSB
+		options[index++] = opt->mss % 0xFF; // network order, LSB
+	}
+	return index;
 }
 
 tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, const void *data, size_t count)
@@ -201,22 +240,25 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	packet->ack = (flags & TCP_ACK) ? conn->rcv_nxt : 0;
 	packet->flags.bits2 = 0;
 	packet->flags.bits1 = 0;
-	packet->flags.off = flags & TCP_SYN ? 6 : 5;
-	if (flags & TCP_SYN) {
-		packet->flags.syn = 1;
-	}
+	// Account for options sent with SYN
+	packet->flags.off = (flags & TCP_SYN) ? 6 : 5;
+	// Set flags
+	packet->flags.syn = (flags & TCP_SYN) ? 1 : 0;
+	packet->flags.fin = (flags & TCP_FIN) ? 1 : 0;
+	packet->flags.ack = (flags & TCP_ACK) ? 1 : 0;
+	packet->flags.rst = (flags & TCP_RST) ? 1 : 0;
+	packet->flags.psh = (flags & TCP_PSH) ? 1 : 0;
+	packet->flags.urg = (flags & TCP_URG) ? 1 : 0;
+	packet->flags.ece = (flags & TCP_ECE) ? 1 : 0;
+	packet->flags.cwr = (flags & TCP_CWR) ? 1 : 0;
+
 	packet->window_size = TCP_WINDOW_SIZE;
 	packet->checksum = 0;
 	packet->urgent = 0;
 	memcpy(&encap.src_ip, &conn->local_addr, 4);
 	memcpy(&encap.dst_ip, &conn->remote_addr, 4);
 	tcp_byte_order_out(packet);
-	if (flags & TCP_SYN) {
-		packet->options[0] = TCP_OPT_MSS;
-		packet->options[1] = 4;
-		packet->options[2] = 0x05; // 1460 in NBO, MSB
-		packet->options[3] = 0xB4; // 1460 in NBO, LSB
-	}
+	tcp_build_options(packet->options, &options);
 
 	// Copy data over
 	memcpy((void*)packet->payload + (flags & TCP_SYN ? 4 : 0), data, count);
@@ -230,7 +272,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	}
 
 	tcp_byte_order_in(packet);
-	tcp_dump_segment(&encap, packet, &options, length, packet->checksum);
+	tcp_dump_segment(false, &encap, packet, &options, length, packet->checksum);
 
 	return conn;
 }
@@ -244,6 +286,48 @@ bool tcp_state_listen(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_con
 
 bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	kprintf("SYN_SENT state\n");
+
+	if (segment->flags.ack) {
+		if (seq_lte(segment->ack, conn->iss) || seq_gt(segment->ack, conn->snd_nxt)) {
+			if (!segment->flags.rst) {
+				tcp_send_segment(conn, segment->ack, TCP_RST, NULL, 0);
+			}
+		}
+	}
+
+	if (segment->flags.rst) {
+		if (segment->flags.ack) {
+			// Connection reset
+		}
+
+		return true;
+	}
+
+	if (segment->flags.syn) {
+		conn->irs = segment->seq;
+		conn->rcv_nxt = segment->seq + 1;
+
+		if (segment->flags.ack) {
+			conn->snd_una = segment->ack;
+			conn->snd_wnd = segment->window_size;
+			conn->snd_wl1 = segment->seq;
+			conn->snd_wl2 = segment->ack;
+
+			// TODO - Segments on the retransmission queue which are ack'd should be removed
+
+			tcp_set_state(conn, TCP_ESTABLISHED);
+			tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+
+			// TODO - Data queued for transmission may be included with the ACK.
+			// TODO - If there is data in the segment, continue processing at the URG phase.
+		} else {
+			tcp_set_state(conn, TCP_SYN_RECEIVED);
+
+			--conn->snd_nxt;
+			tcp_send_segment(conn, conn->snd_nxt, TCP_SYN | TCP_ACK, NULL, 0);
+		}
+	}
 	return true;
 }
 
@@ -323,11 +407,13 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
 	tcp_byte_order_in(segment);
 	tcp_parse_options(segment, &options);
-	tcp_dump_segment(encap_packet, segment, &options, len, our_checksum);
+	tcp_dump_segment(true, encap_packet, segment, &options, len, our_checksum);
 	if (our_checksum == segment->checksum) {
-		tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->src_ip)), *((uint32_t*)(&encap_packet->dst_ip)), segment->src_port, segment->dst_port);
+		tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
 		if (conn) {
 			tcp_state_machine(encap_packet, segment, conn, &options, len);
+		} else {
+			kprintf("conn not found\n");
 		}
 	}
 }
@@ -361,6 +447,7 @@ tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port)
 	conn->rcv_up = 0;
 	conn->irs = 0;
 
+	kprintf("hashmap_set(%08x, %08x, %d, %d)\n", conn->local_addr, conn->remote_addr, conn->local_port, conn->remote_port);
 	hashmap_set(tcb, conn);
 
 	tcp_send_segment(conn, conn->snd_nxt, TCP_SYN, NULL, 0);

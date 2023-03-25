@@ -11,7 +11,7 @@ uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
 packet_queue_item_t* packet_queue = NULL;
 packet_queue_item_t* packet_queue_end = NULL;
 
-void get_ip_str(char * ip_str, uint8_t * ip) {
+void get_ip_str(char * ip_str, const uint8_t * ip) {
 	sprintf(ip_str, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
 }
 

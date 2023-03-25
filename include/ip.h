@@ -88,7 +88,7 @@ typedef struct packet_queue_item {
  * @param ip_str character buffer to fill, should be at least 13 bytes
  * @param ip raw 4 byte IP
  */
-void get_ip_str(char* ip_str, uint8_t* ip);
+void get_ip_str(char* ip_str, const uint8_t* ip);
 
 /**
  * @brief Calculate checksum for IP packet
