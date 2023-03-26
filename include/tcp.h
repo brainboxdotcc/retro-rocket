@@ -128,6 +128,14 @@ typedef enum tcp_port_type_t {
 	TCP_PORT_REMOTE,
 } tcp_port_type_t;
 
+typedef enum tcp_error_code_t {
+	TCP_ERROR_ALREADY_CLOSING = -1,
+	TCP_ERROR_PORT_IN_USE = -2,
+	TCP_ERROR_NETWORK_DOWN = -3,
+	TCP_ERROR_INVALID_CONNECTION = -4,
+	TCP_ERROR_WRITE_TOO_LARGE = -5,
+} tcp_error_code_t;
+
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len);
 
 /**
@@ -141,8 +149,27 @@ void tcp_init();
  * @param target_addr Target address to connect to
  * @param target_port Target port to connect to
  * @param source_port Our source port to use, or 0 to choose automatically
- * @return tcp_conn_t* Allocated tcp_conn_t or NULL on failure 
+ * @return Zero on success, error code on error
  */
-tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);
+int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);
+
+/**
+ * @brief Close a TCP connection
+ * 
+ * @param conn 
+ * @return zero on success, error code on error
+ */
+int tcp_close(tcp_conn_t* conn);
+
+/**
+ * @brief Write to TCP connection.
+ * This function will only accept data up to TCP_WINDOW_SIZE.
+ * 
+ * @param conn Existing established connection
+ * @param data Data to write
+ * @param count Size of data to send
+ * @return int Zero on success, error code on error
+ */
+int tcp_write(tcp_conn_t* conn, const void* data, size_t count);
 
 void tcp_idle();

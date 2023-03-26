@@ -300,9 +300,15 @@ size_t tcp_header_size(tcp_segment_t* s)
 	return (s->flags.off * 4);
 }
 
-void tcp_send_data(tcp_conn_t* conn, const void* data, size_t count)
+int tcp_write(tcp_conn_t* conn, const void* data, size_t count)
 {
-    tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_PSH, data, count);
+	if (conn == NULL) {
+		return TCP_ERROR_INVALID_CONNECTION;
+	} else if (count > TCP_WINDOW_SIZE) {
+		return TCP_ERROR_WRITE_TOO_LARGE;
+	}
+	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_PSH, data, count);
+	return 0;
 }
 
 /**
@@ -574,7 +580,7 @@ void tcp_set_conn_msl_time(tcp_conn_t* conn)
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	conn->rcv_nxt = segment->seq + 1;
-	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_FIN, NULL, 0);
+	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
 
 	switch (conn->state) {
 		case TCP_SYN_RECEIVED:
@@ -654,7 +660,6 @@ bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_
 
 bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-
 	switch (conn->state) {
 		case TCP_LISTEN:
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
@@ -754,7 +759,7 @@ uint16_t tcp_alloc_port(uint32_t source_addr, uint16_t port, tcp_port_type_t typ
 	return port;
 }
 
-tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port)
+int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port)
 {
 	tcp_conn_t conn;
 	uint32_t isn = get_isn();
@@ -768,12 +773,12 @@ tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t sou
 
 	if (tcp_port_in_use(conn.local_addr, target_port, TCP_PORT_REMOTE) || tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
 		kprintf("*** TCP port %d:%d in use ***\n", source_port, target_port);
-		return NULL;
+		return TCP_ERROR_PORT_IN_USE;
 	}
 
 	if (conn.local_addr == 0) {
 		kprintf("*** TCP connect called, but no local IP address ***\n", source_port, target_port);
-		return NULL;
+		return TCP_ERROR_NETWORK_DOWN;
 	}
 
 	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
@@ -795,5 +800,37 @@ tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t sou
 
 	hashmap_set(tcb, &conn);
 
-	return tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
+	return 0;
+}
+
+int tcp_close(tcp_conn_t* conn)
+{
+	if (conn == NULL) {
+		return TCP_ERROR_INVALID_CONNECTION;
+	}
+	switch (conn->state) {
+		case TCP_LISTEN:
+		case TCP_SYN_SENT:
+			tcp_free(conn);
+			return 0;
+		case TCP_SYN_RECEIVED:
+			// TODO - if segments have been queued, wait for ESTABLISHED
+			// before entering FIN-WAIT-1
+			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
+			tcp_set_state(conn, TCP_FIN_WAIT_1);
+			return 0;
+		case TCP_ESTABLISHED:
+			// TODO - queue FIN after any outstanding segments
+			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
+			tcp_set_state(conn, TCP_FIN_WAIT_1);
+			return 0;
+		case TCP_CLOSE_WAIT:
+			// queue FIN and state transition after sends
+			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
+			tcp_set_state(conn, TCP_LAST_ACK);
+			return 0;
+		default:
+			// connection error, already closing
+			return TCP_ERROR_ALREADY_CLOSING;
+	}
 }
