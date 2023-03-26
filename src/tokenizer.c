@@ -308,24 +308,32 @@ int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 	return token == TOKENIZER_NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
 }
 /*---------------------------------------------------------------------------*/
-void tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
+bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 {
 	char *string_end;
 	int string_len;
 	
 	if(tokenizer_token(ctx) != TOKENIZER_STRING) {
-		return;
+		return true;
 	}
 	string_end = strchr(ctx->ptr + 1, '"');
 	if(string_end == NULL) {
-		return;
+		tokenizer_error_print(ctx, "Unterminated \"");
+		*dest = 0;
+		return false;
 	}
 	string_len = string_end - ctx->ptr - 1;
 	if(len < string_len) {
 		string_len = len;
 	}
+	if (ctx->ptr == ctx->program_ptr) {
+		tokenizer_error_print(ctx, "Unterminated \"");
+		*dest = 0;
+		return false;
+	}
 	memcpy(dest, ctx->ptr + 1, string_len);
 	dest[string_len] = 0;
+	return true;
 }
 /*---------------------------------------------------------------------------*/
 void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)

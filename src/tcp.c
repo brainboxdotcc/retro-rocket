@@ -201,7 +201,6 @@ tcp_conn_t* tcp_find(uint32_t source_addr, uint32_t dest_addr, uint16_t source_p
 	if (tcb == NULL) {
 		return NULL;
 	}
-	kprintf("tcp_find(%08x, %08x, %d, %d)\n", source_addr, dest_addr, source_port, dest_port);
 	tcp_conn_t find_conn = { .local_addr = source_addr, .remote_addr = dest_addr, .local_port = source_port, .remote_port = dest_port };
 	return (tcp_conn_t*)hashmap_get(tcb, &find_conn);
 }
@@ -211,7 +210,6 @@ tcp_conn_t* tcp_set_state(tcp_conn_t* conn, tcp_state_t new_state)
 	if (conn == NULL) {
 		return NULL;
 	}
-	kprintf("tcp_set_state(%d)\n", new_state);
 	conn->state = new_state;
 	return conn;
 }
@@ -397,7 +395,6 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 
 void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 {
-	kprintf("A conn->segment_list = %016x first seg %016x\n", conn->segment_list, conn->segment_list ? conn->segment_list->segment : 0);
 	tcp_ordered_list_t* cur;
 	for (cur = conn->segment_list; cur; cur = cur->next) {
 		if (conn->rcv_nxt != cur->segment->seq) {
@@ -494,15 +491,13 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	kprintf("handle_data_in\n");
+	size_t payload_len = len - tcp_header_size(segment);
 	// insert packet into ordered list
-	tcp_ord_list_insert(conn, segment, len - tcp_header_size(segment));
+	tcp_ord_list_insert(conn, segment, payload_len);
 	// check ordered list is complete (no seq gaps), if it is deliver queued data to client
-	tcp_process_queue(conn, segment, len - tcp_header_size(segment));
+	tcp_process_queue(conn, segment, payload_len);
 	// acknowlege receipt
-	kprintf("snd_nxt = %d\n",conn->snd_nxt);
 	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
-	//wait_forever();
 	return true;
 }
 

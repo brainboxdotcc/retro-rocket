@@ -374,7 +374,9 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 	const char* r;
 	if (*ctx->ptr == '"')
 	{
-		tokenizer_string(ctx->string, sizeof(ctx->string), ctx);
+		if (!tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
+			return "";
+		}
 		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
 			accept(TOKENIZER_RIGHTPAREN, ctx);
 		else
@@ -617,8 +619,12 @@ static void print_statement(struct ubasic_ctx* ctx)
 		no_newline = 0;
 		DEBUG_PRINTF("Print loop\n");
 		if (tokenizer_token(ctx) == TOKENIZER_STRING) {
-			tokenizer_string(ctx->string, sizeof(ctx->string), ctx);
-			kprintf("%s", ctx->string);
+			if (tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
+				kprintf("%s", ctx->string);
+			} else {
+				tokenizer_error_print(ctx, "Unterminated \"");
+				return;
+			}
 			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == TOKENIZER_COMMA) {
 			kprintf(" ");
