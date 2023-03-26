@@ -69,17 +69,16 @@ typedef struct tcp_options_t {
 } tcp_options_t;
 
 typedef enum tcp_state_t {
-	TCP_CLOSED		= 0,
-	TCP_LISTEN		= 1,
-	TCP_SYN_SENT		= 2,
-	TCP_SYN_RECEIVED	= 3,
-	TCP_ESTABLISHED		= 4,
-	TCP_FIN_WAIT_1		= 5,
-	TCP_FIN_WAIT_2		= 6,
-	TCP_CLOSE_WAIT		= 7,
-	TCP_CLOSING		= 8,
-	TCP_LAST_ACK		= 9,
-	TCP_TIME_WAIT		= 10,
+	TCP_LISTEN		= 0,
+	TCP_SYN_SENT		= 1,
+	TCP_SYN_RECEIVED	= 2,
+	TCP_ESTABLISHED		= 3,
+	TCP_FIN_WAIT_1		= 4,
+	TCP_FIN_WAIT_2		= 5,
+	TCP_CLOSE_WAIT		= 6,
+	TCP_CLOSING		= 7,
+	TCP_LAST_ACK		= 8,
+	TCP_TIME_WAIT		= 9,
 } tcp_state_t;
 
 typedef enum tcp_error_t {

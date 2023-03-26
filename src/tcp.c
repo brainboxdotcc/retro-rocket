@@ -97,17 +97,17 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
  * @param len TCP length
  * @param our_checksum calculated checksum
  */
-void tcp_dump_segment(bool in, const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum)
+void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum)
 {
+	const char *states[] = { "LISTEN","SYN-SENT","SYN-RECEIVED","ESTABLISHED","FIN-WAIT-1","FIN-WAIT-2","CLOSE-WAIT","CLOSING","LAST-ACK","TIME-WAIT" };
 	char source_ip[15] = { 0 }, dest_ip[15] = { 0 };
 	setforeground(current_console, our_checksum == segment->checksum ? COLOUR_LIGHTGREEN : COLOUR_LIGHTRED);
 	get_ip_str(source_ip, encap_packet->src_ip);
 	get_ip_str(dest_ip, encap_packet->dst_ip);
 	kprintf(
-		"TCP %s: %s:%d->%s:%d len=%ld seq=%d ack=%d off=%d\n\
-flags[fin=%d,syn=%d,rst=%d,psh=%d,ack=%d,urg=%d,ece=%d,cwr=%d]\n\
-window_size=%d,checksum=0x%04x (ours=0x%04x), urgent=%d options[mss=%d (%04x)]\n\n",
+		"TCP %s: %s %s:%d->%s:%d len=%ld seq=%d ack=%d off=%d flags[%c%c%c%c%c%c%c%c] win=%d, sum=%04x/%04x, urg=%d",
 		in ? "IN" : "OUT",
+		conn ? states[conn->state] : "CLOSED",
 		source_ip,
 		segment->src_port,
 		dest_ip,
@@ -116,21 +116,23 @@ window_size=%d,checksum=0x%04x (ours=0x%04x), urgent=%d options[mss=%d (%04x)]\n
 		segment->seq,
 		segment->ack,
 		segment->flags.off,
-		segment->flags.fin,
-		segment->flags.syn,
-		segment->flags.rst,
-		segment->flags.psh,
-		segment->flags.ack,
-		segment->flags.urg,
-		segment->flags.ece,
-		segment->flags.cwr,
+		segment->flags.fin ? 'F' : '-',
+		segment->flags.syn ? 'S' : '-',
+		segment->flags.rst ? 'R' : '-',
+		segment->flags.psh ? 'P' : '-',
+		segment->flags.ack ? 'A' : '-',
+		segment->flags.urg ? 'U' : '-',
+		segment->flags.ece ? 'E' : '-',
+		segment->flags.cwr ? 'C' : '-',
 		segment->window_size,
 		segment->checksum,
 		our_checksum,
-		segment->urgent,
-		options->mss,
-		options->mss
+		segment->urgent
 	);
+	if (options && options->mss) {
+		kprintf(" [opt.mss=%d]", options->mss);
+	}
+	kprintf("\n");
 	setforeground(current_console, COLOUR_WHITE);
 	//dump_hex((unsigned char*)segment, len);
 }
@@ -276,7 +278,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	}
 
 	tcp_byte_order_in(packet);
-	tcp_dump_segment(false, &encap, packet, &options, length, packet->checksum);
+	tcp_dump_segment(false, conn, &encap, packet, &options, length, packet->checksum);
 
 	return conn;
 }
@@ -543,7 +545,6 @@ bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_
 
 bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	kprintf("state machine, state=%d\n", conn->state);
 	switch (conn->state) {
 		case TCP_LISTEN:
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
@@ -576,12 +577,14 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
 	tcp_byte_order_in(segment);
 	tcp_parse_options(segment, &options);
-	tcp_dump_segment(true, encap_packet, segment, &options, len, our_checksum);
 	if (our_checksum == segment->checksum) {
 		tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
 		if (conn) {
+			tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
 			tcp_state_machine(encap_packet, segment, conn, &options, len);
 		}
+	} else {
+		tcp_dump_segment(true, NULL, encap_packet, segment, &options, len, our_checksum);
 	}
 }
 
@@ -660,8 +663,8 @@ tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t sou
 	conn.irs = 0;
 	conn.segment_list = NULL;
 
-	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
 	tcp_set_state(&conn, TCP_SYN_SENT);
+	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
 
 	hashmap_set(tcb, &conn);
 
