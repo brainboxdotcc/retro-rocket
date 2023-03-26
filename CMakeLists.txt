@@ -13,7 +13,7 @@ set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
 file(GLOB SOURCES "src/*.c")
 file(GLOB ASSEMBLY "asm/*")
 
-set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -Wall -nostdlib -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -mno-red-zone -Wno-address-of-packed-member")
+set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -Wall -nostdlib -mno-80387 -mno-mmx -mno-3dnow -mno-sse -mno-sse2 -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=large -mno-red-zone -Wno-address-of-packed-member")
 
 include_directories("include")
 

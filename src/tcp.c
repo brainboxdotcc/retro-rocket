@@ -346,10 +346,12 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	// insert packet into ordered list
-	// check ordered list is complete, if it is deliver queued data to client
+	// check ordered list is complete (no seq gaps), if it is deliver queued data to client
+	// conn->rcv_nxt += len; <- when list is complete
 	// acknowlege receipt
 	dump_hex(segment->payload, len - sizeof(tcp_segment_t));
 	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+	return true;
 }
 
 bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
