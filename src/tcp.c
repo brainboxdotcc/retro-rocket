@@ -300,6 +300,11 @@ size_t tcp_header_size(tcp_segment_t* s)
 	return (s->flags.off * 4);
 }
 
+void tcp_send_data(tcp_conn_t* conn, const void* data, size_t count)
+{
+    tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_PSH, data, count);
+}
+
 /**
  * @brief Insert segment into list of segments ordered by sequence number.
  * If this segment partially overlaps a segment in the list, that segment will be
@@ -569,7 +574,7 @@ void tcp_set_conn_msl_time(tcp_conn_t* conn)
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	conn->rcv_nxt = segment->seq + 1;
-	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_FIN, NULL, 0);
 
 	switch (conn->state) {
 		case TCP_SYN_RECEIVED:
