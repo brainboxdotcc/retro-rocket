@@ -81,7 +81,6 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	for(int i = 0; i < array_size / 2; i++) {
 		sum += htons(array[i]);
 	}
-	kprintf("\n");
 	sum = (sum & 0xffff) + (sum >> 16);
 	sum += (sum >> 16);
 
@@ -248,7 +247,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	packet->flags.bits2 = 0;
 	packet->flags.bits1 = 0;
 	// Account for options sent with SYN
-	packet->flags.off = (flags & TCP_SYN) ? 6 : 5;
+	packet->flags.off = (flags & TCP_SYN) ? TCP_PACKET_SIZE_OFF + 1 : TCP_PACKET_SIZE_OFF;
 	// Set flags
 	packet->flags.syn = (flags & TCP_SYN) ? 1 : 0;
 	packet->flags.fin = (flags & TCP_FIN) ? 1 : 0;
@@ -284,7 +283,159 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	return conn;
 }
 
+size_t tcp_header_size(tcp_segment_t* s)
+{
+	return (s->flags.off * 4);
+}
 
+/**
+ * @brief Insert segment into list of segments ordered by sequence number.
+ * If this segment partially overlaps a segment in the list, that segment will be
+ * adjusted in size and this segment will overwrite it. If however the current
+ * segment's sequence number exists exactly in the list this is a duplicate
+ * segment and will be dropped.
+ * 
+ * @param conn tcp connection
+ * @param segment tcp segment
+ * @param len length of tcp segment payload
+ * @return tcp_segment_t* newly inserted copy of segment on success, or NULL
+ */
+tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
+{
+	tcp_ordered_list_t* cur = NULL, *next_ord = NULL;
+	tcp_segment_t *prev = NULL;
+
+	for (cur = conn->segment_list; cur; cur = cur->next) {
+		if (seq_lte(segment->seq, cur->segment->seq)) {
+			break;
+		}
+	}
+
+	if (cur != NULL && cur->prev != NULL) {
+		prev = cur->prev->segment;
+		size_t prev_end = prev->seq + cur->prev->len;
+		if (seq_gte(prev_end, segment->seq + len)) {
+			// Packet overlaps this packet, drop this packet
+			return NULL;
+		} else if (seq_gt(prev_end, segment->seq)) {
+			// cut off end to fit segments together, this partially overwrites the other
+			cur->prev->len -= prev_end + segment->seq;
+		}
+	}
+
+	// If we receive a FIN, clear the list of any packets after this one and free memory
+	if (segment->flags.fin && cur != NULL) {
+		while (cur) {
+			next_ord = cur->next;
+			kfree(cur->segment);
+			kfree(cur);
+			cur = next_ord;
+		}
+	}
+
+	while (cur) {
+		size_t seg_end = segment->seq + len;
+		size_t cur_end = cur->segment->seq + cur->len;
+
+		if (seq_lt(seg_end, cur->segment->seq)) {
+			// No overlap
+			break;
+		}
+
+		if (seq_lt(seg_end, cur_end)) {
+			len -= seg_end - cur->segment->seq;
+		}
+
+		/* Remove element */
+		next_ord = cur->next;
+		if (cur->prev != NULL) {
+			cur->prev->next = cur->next;
+		}
+		if (cur->next != NULL) {
+			cur->next->prev = cur->prev;
+		}
+		if (cur->next == NULL && cur->prev == NULL) {
+			conn->segment_list = NULL;
+		} else if (cur != NULL && cur == conn->segment_list) {
+			conn->segment_list = cur->next;
+		}
+		kfree(cur->segment);
+		kfree(cur);
+
+		cur = next_ord;
+	}
+
+	tcp_ordered_list_t* new = kmalloc(sizeof(tcp_ordered_list_t));
+	new->segment = kmalloc(len + tcp_header_size(segment));
+	memcpy(new->segment, segment, len + tcp_header_size(segment));
+	new->len = len;
+	new->next = NULL;
+	new->prev = NULL;
+
+	if (cur) {
+		if (cur->prev != NULL) {
+			// Not first item
+			cur->prev->next = new;
+			new->prev = cur->prev;
+		}
+		if (cur->next != NULL) {
+			// Not last item
+			cur->next->prev = new;
+			new->next = cur->next;
+		}
+		if (new->prev == NULL) {
+			// First item, replace list ptr
+			conn->segment_list = new;
+		}
+	} else {
+		// Only item
+		conn->segment_list = new;
+	}
+
+	return new->segment;
+}
+
+void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
+{
+	kprintf("A conn->segment_list = %016x first seg %016x\n", conn->segment_list, conn->segment_list ? conn->segment_list->segment : 0);
+	tcp_ordered_list_t* cur;
+	for (cur = conn->segment_list; cur; cur = cur->next) {
+		if (conn->rcv_nxt != cur->segment->seq) {
+			break;
+		}
+		// This is now received data, accounting for options
+		uint8_t* payload = cur->segment->payload;
+		size_t payload_len = cur->len;
+		if (cur->segment->flags.off > TCP_PACKET_SIZE_OFF) {
+			size_t options_len = ((cur->segment->flags.off - TCP_PACKET_SIZE_OFF) * 4);
+			payload += options_len;
+			payload_len -= options_len;
+		}
+
+		// increment what we have received in our connection state
+		conn->rcv_nxt += payload_len;
+
+		kprintf("Data received (%d):\n", payload_len);
+		dump_hex(payload, payload_len);
+		kprintf("\n");
+
+		if (cur->prev != NULL) {
+			cur->prev->next = cur->next;
+		}
+		if (cur->next != NULL) {
+			cur->next->prev = cur->prev;
+		}
+		if (cur->next == NULL && cur->prev == NULL) {
+			conn->segment_list = NULL;
+		} else if (cur != NULL && cur == conn->segment_list) {
+			conn->segment_list = cur->next;
+		}
+		kfree(cur->segment);
+		kfree(cur);
+
+		/* Delete element */
+	}
+}
 
 bool tcp_state_listen(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
@@ -293,8 +444,6 @@ bool tcp_state_listen(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_con
 
 bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	kprintf("SYN_SENT state\n");
-
 	if (segment->flags.ack) {
 		if (seq_lte(segment->ack, conn->iss) || seq_gt(segment->ack, conn->snd_nxt)) {
 			if (!segment->flags.rst) {
@@ -345,12 +494,15 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	kprintf("handle_data_in\n");
 	// insert packet into ordered list
+	tcp_ord_list_insert(conn, segment, len - tcp_header_size(segment));
 	// check ordered list is complete (no seq gaps), if it is deliver queued data to client
-	// conn->rcv_nxt += len; <- when list is complete
+	tcp_process_queue(conn, segment, len - tcp_header_size(segment));
 	// acknowlege receipt
-	dump_hex(segment->payload, len - sizeof(tcp_segment_t));
+	kprintf("snd_nxt = %d\n",conn->snd_nxt);
 	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+	//wait_forever();
 	return true;
 }
 
@@ -443,7 +595,41 @@ void tcp_init()
 	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
 }
 
-tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port)
+bool tcp_port_in_use(uint32_t addr, uint16_t port, tcp_port_type_t type)
+{
+	void *item;
+	size_t iter = 0;
+	while (hashmap_iter(tcb, &iter, &item)) {
+		const tcp_conn_t *conn = item;
+		if (conn->local_addr == addr && ((type == TCP_PORT_LOCAL && conn->local_port == port) || (type == TCP_PORT_REMOTE && conn->remote_port == port))) {
+			return true;
+		}
+	}
+	return false;
+}
+
+uint16_t tcp_alloc_port(uint32_t source_addr, uint16_t port, tcp_port_type_t type)
+{
+	if (port == 0) {
+		/* Let the OS allocate a port
+		 * Walk up the port table, looking for one that doesn't have
+		 * any TCB bound to it. If we wrap back around to 0, then
+		 * there are no free ports remaining to bind to.
+		 */
+		for(port = 1024; port != 0; ++port) {
+			if (!tcp_port_in_use(source_addr, port, type)) {
+				break;
+			}
+
+		}
+		if (port == 0) {
+			return 0;
+		}
+	}
+	return port;
+}
+
+tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port)
 {
 	tcp_conn_t conn;
 	uint32_t isn = get_isn();
@@ -454,7 +640,18 @@ tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port)
 	conn.remote_addr = target_addr;
 	conn.remote_port = target_port;
 	conn.local_addr = *((uint32_t*)&ip);
-	conn.local_port = 1025; // XXX FIXME
+
+	if (tcp_port_in_use(conn.local_addr, target_port, TCP_PORT_REMOTE) || tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
+		kprintf("*** TCP port %d:%d in use ***\n", source_port, target_port);
+		return NULL;
+	}
+
+	if (conn.local_addr == 0) {
+		kprintf("*** TCP connect called, but no local IP address ***\n", source_port, target_port);
+		return NULL;
+	}
+
+	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
 	conn.snd_una = isn;
 	conn.snd_nxt = isn;
 	conn.iss = isn;
@@ -466,6 +663,7 @@ tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port)
 	conn.rcv_wnd = TCP_WINDOW_SIZE;
 	conn.rcv_up = 0;
 	conn.irs = 0;
+	conn.segment_list = NULL;
 
 	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
 	tcp_set_state(&conn, TCP_SYN_SENT);

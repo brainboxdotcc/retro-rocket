@@ -722,11 +722,16 @@ static void eval_statement(struct ubasic_ctx* ctx)
 	const char* v = str_expr(ctx);
 	accept(TOKENIZER_CR, ctx);
 
+	if (ctx->current_linenum == 9998) {
+		ctx->eval_linenum = 0;
+		tokenizer_error_print(ctx, "Recursive EVAL");
+		return;
+	}
+
 	char clean_v[MAX_STRINGLEN];
 	clean_basic(v, clean_v);
 
-	if (ctx->oldlen == 0)
-	{
+	if (ctx->oldlen == 0) {
 		ubasic_set_string_variable("ERROR$", "", ctx, false, false);
 		ubasic_set_int_variable("ERROR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
@@ -739,9 +744,7 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		ctx->gosub_stack[ctx->gosub_stack_ptr++] = ctx->current_linenum;
 
 		jump_linenum(9998, ctx);
-	}
-	else
-	{
+	} else {
 		ctx->program_ptr[ctx->oldlen] = 0;
 		ctx->oldlen = 0;
 		ctx->eval_linenum = 0;

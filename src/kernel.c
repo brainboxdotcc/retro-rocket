@@ -82,8 +82,8 @@ void kmain()
 		init_dns();
 	}
 
-	kprintf("System boot time: %s\n", get_datetime_str());
-	kprintf("Loading initial process...\n");
+	//kprintf("System boot time: %s\n", get_datetime_str());
+	//kprintf("Loading initial process...\n");
 
 	/*kprintf("Sleeping to acquire ip\n");
 	sleep(10000);

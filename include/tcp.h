@@ -3,6 +3,7 @@
 #include "kernel.h"
 
 #define TCP_WINDOW_SIZE		8192
+#define TCP_PACKET_SIZE_OFF	5
 
 // checksummed part of ip segment
 typedef struct tcp_ip_pseudo_header_t
@@ -87,6 +88,13 @@ typedef enum tcp_error_t {
 	TCP_CONN_CLOSING	= 3,
 } tcp_error_t;
 
+typedef struct tcp_ordered_list_t {
+	tcp_segment_t* segment;
+	size_t len;
+	struct tcp_ordered_list_t* prev;
+	struct tcp_ordered_list_t* next;
+} tcp_ordered_list_t;
+
 typedef struct tcp_conn_t
 {
 	tcp_state_t state;
@@ -110,10 +118,28 @@ typedef struct tcp_conn_t
 	uint32_t rcv_wnd;	// receive window
 	uint32_t rcv_up;	// receive urgent pointer
 	uint32_t irs;		// initial receive sequence number
+
+	tcp_ordered_list_t* segment_list;
 } tcp_conn_t;
+
+typedef enum tcp_port_type_t {
+	TCP_PORT_LOCAL,
+	TCP_PORT_REMOTE,
+} tcp_port_type_t;
 
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len);
 
+/**
+ * @brief Initialise TCP protocol, must happen after IP
+ */
 void tcp_init();
 
-tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port);
+/**
+ * @brief Connect to a TCP port at a given IPv4 address.
+ * 
+ * @param target_addr Target address to connect to
+ * @param target_port Target port to connect to
+ * @param source_port Our source port to use, or 0 to choose automatically
+ * @return tcp_conn_t* Allocated tcp_conn_t or NULL on failure 
+ */
+tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);

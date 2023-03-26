@@ -227,10 +227,7 @@ int gc()
 	{
 		n++;
 		kfree((char*)cur->ptr);
-	}
-
-	for (cur = gc_list; cur; cur = cur->next)
-	{
+		cur->ptr = NULL;
 		kfree(cur);
 	}
 
