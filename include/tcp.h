@@ -118,6 +118,8 @@ typedef struct tcp_conn_t
 	uint32_t rcv_up;	// receive urgent pointer
 	uint32_t irs;		// initial receive sequence number
 
+	uint32_t msl_time;	// Maximum socket lifetime timeout or 0
+
 	tcp_ordered_list_t* segment_list;
 } tcp_conn_t;
 
@@ -142,3 +144,5 @@ void tcp_init();
  * @return tcp_conn_t* Allocated tcp_conn_t or NULL on failure 
  */
 tcp_conn_t* tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);
+
+void tcp_idle();

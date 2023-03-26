@@ -50,11 +50,23 @@ int tcp_conn_compare(const void *a, const void *b, void *udata) {
  * @param seed1 second seed from hashmap
  * @return uint64_t hash bucket value
  */
-uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1)
+{
 	const tcp_conn_t* fa = item;
 	return ((uint64_t)fa->local_addr << 32) + ((uint64_t)fa->remote_addr);
 }
 
+void tcp_free(tcp_conn_t* conn)
+{
+	// Delete any outstanding segments
+	for (tcp_ordered_list_t* t = conn->segment_list; t; t = t->next) {
+		kfree(t->segment);
+		kfree(t);
+	}
+	conn->segment_list = NULL;
+	// Remove the TCB
+	hashmap_delete(tcb, conn);
+}
 
 uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, size_t len)
 {
@@ -414,9 +426,10 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 		// increment what we have received in our connection state
 		conn->rcv_nxt += payload_len;
 
-		kprintf("Data received (%d):\n", payload_len);
-		dump_hex(payload, payload_len);
-		kprintf("\n");
+		if (payload_len > 0) {
+			kprintf("Data received (%d):\n", payload_len);
+			dump_hex(payload, payload_len);
+		}
 
 		if (cur->prev != NULL) {
 			cur->prev->next = cur->next;
@@ -454,6 +467,7 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	if (segment->flags.rst) {
 		if (segment->flags.ack) {
 			// Connection reset
+
 		}
 
 		return true;
@@ -491,9 +505,53 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 	return true;
 }
 
+bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
+{
+	switch (conn->state) {
+		case TCP_SYN_RECEIVED:
+			// Connection refused
+			kprintf("*** TCP *** Connection refused\n");
+			tcp_free(conn);
+			break;
+		case TCP_ESTABLISHED:
+		case TCP_FIN_WAIT_1:
+		case TCP_FIN_WAIT_2:
+		case TCP_CLOSE_WAIT:
+			// Connection reset by peer
+			kprintf("*** TCP *** Connection reset by peer\n");
+			tcp_free(conn);
+			break;
+		case TCP_CLOSING:
+		case TCP_LAST_ACK:
+		case TCP_TIME_WAIT:
+			// Connection closed
+			kprintf("*** TCP *** Connection gracefully closed\n");
+			tcp_free(conn);
+			break;
+		default:
+			break;
+	}
+	return false;
+}
+
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	size_t payload_len = len - tcp_header_size(segment);
+
+	if (!(seq_lte(conn->rcv_nxt, segment->seq) && seq_lte(segment->seq + payload_len, conn->rcv_nxt + conn->rcv_wnd))) {
+		// Unacceptable segment
+		if (segment->flags.rst == 0) {
+			kprintf("*** TCP *** Unacceptable\n");
+			return tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+		}
+		return false;
+	}
+
+	// Check RST bit
+	if (segment->flags.rst) {
+		return tcp_state_receive_rst(encap_packet, segment, conn, options, len);
+	}
+
 	// insert packet into ordered list
 	tcp_ord_list_insert(conn, segment, payload_len);
 	// check ordered list is complete (no seq gaps), if it is deliver queued data to client
@@ -503,9 +561,55 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	return true;
 }
 
+void tcp_set_conn_msl_time(tcp_conn_t* conn)
+{
+	conn->msl_time = time(NULL) + 12000;
+}
+
+bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
+{
+	conn->rcv_nxt = segment->seq + 1;
+	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+
+	switch (conn->state) {
+		case TCP_SYN_RECEIVED:
+		case TCP_ESTABLISHED:
+			kprintf("Established TCP closed\n");
+			tcp_set_state(conn, TCP_CLOSE_WAIT);
+			break;
+		case TCP_FIN_WAIT_1:
+			if (seq_gte(segment->ack, conn->snd_nxt)) {
+				tcp_set_state(conn, TCP_TIME_WAIT);
+				tcp_set_conn_msl_time(conn);
+			} else {
+				tcp_set_state(conn, TCP_CLOSING);
+			}
+			break;
+		case TCP_FIN_WAIT_2:
+			tcp_set_state(conn, TCP_TIME_WAIT);
+			tcp_set_conn_msl_time(conn);
+			break;
+		case TCP_CLOSE_WAIT:
+		case TCP_CLOSING:
+		case TCP_LAST_ACK:
+			break;
+		case TCP_TIME_WAIT:
+			tcp_set_conn_msl_time(conn);
+			break;
+		default:
+			break;
+	}
+	return true;
+}
+
 bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	tcp_handle_data_in(encap_packet, segment, conn, options, len);
+	if (len - tcp_header_size(segment) > 0) {
+		tcp_handle_data_in(encap_packet, segment, conn, options, len);
+	}
+ 	if (segment->flags.fin) {
+		tcp_state_receive_fin(encap_packet, segment, conn, options, len);
+	}
 	return true;
 }
 
@@ -545,6 +649,7 @@ bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_
 
 bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+
 	switch (conn->state) {
 		case TCP_LISTEN:
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
@@ -585,6 +690,23 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 		}
 	} else {
 		tcp_dump_segment(true, NULL, encap_packet, segment, &options, len, our_checksum);
+	}
+}
+
+void tcp_idle()
+{
+	if (tcb == NULL) {
+		return;
+	}
+
+	void *item;
+	size_t iter = 0;
+	while (hashmap_iter(tcb, &iter, &item)) {
+		tcp_conn_t *conn = item;
+		if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
+			tcp_free(conn);
+			break;
+		}
 	}
 }
 

@@ -54,6 +54,7 @@ void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq)
 	ticks++;
 
 	ip_idle();
+	tcp_idle();
 
 	if (beep_end != 0 && ticks > beep_end) {
 		stopbeep();

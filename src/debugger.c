@@ -9,16 +9,26 @@ symbol_t* get_sym_table()
 
 void dump_hex(unsigned char* address, uint64_t length)
 {
-	int index = 0;
+	uint64_t index = 0;
 	for(; index < length; index += 16)
 	{
 		kprintf("%04x: ", index);
-		int hex = 0;
-		for (; hex < 16; ++hex)
-			kprintf("%02x ", address[index + hex]);
+		size_t hex = 0;
+		for (; hex < 16; ++hex) {
+			if (index + hex < length) {
+				kprintf("%02x ", address[index + hex]);
+			} else {
+				kprintf("   ");
+			}
+		}
 		putstring(current_console, " | ");
-		for (hex = 0; hex < 16; ++hex)
-			put(current_console, (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+		for (hex = 0; hex < 16; ++hex) {
+			if (index + hex < length) {
+				put(current_console, (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+			} else {
+				kprintf(" ");
+			}
+		}
 
 		put(current_console, '\n');
 	}
