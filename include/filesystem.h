@@ -23,14 +23,11 @@ typedef int (*delete_file)(void*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
 
-struct fs_tree_t;
-
 /* A VFS directory entry. Files AND directories have these,
  * but internally there is also a tree of fs_tree_t* which is used
  * for faster access and caching the structure to RAM
  */
-typedef struct fs_directory_entry_t
-{
+typedef struct fs_directory_entry_t {
 	char* filename;		/* Entry name */
 	uint16_t year;		/* Creation year */
 	uint8_t month;		/* Creation month */
@@ -38,7 +35,7 @@ typedef struct fs_directory_entry_t
 	uint8_t hour;		/* Creation hour */
 	uint8_t min;		/* Creation minute */
 	uint8_t sec;		/* Creation second */
-	uint32_t lbapos;		/* On-device position of file (driver specific, e.g. for iso9660
+	uint32_t lbapos;	/* On-device position of file (driver specific, e.g. for iso9660
 				   it is a raw sector, but for fat32 it is a cluster number) */
 	char device_name[16];	/* Device name */				   
 	uint32_t device;	/* Device ID (driver specific, for ide devices it is the index) XXX DEPRECATED */
@@ -46,7 +43,6 @@ typedef struct fs_directory_entry_t
 	uint32_t flags;		/* File flags (FS_*) */
 	struct fs_tree_t* directory;	/* Containing directory */
 	struct fs_directory_entry_t* next;	/* Next entry */
-
 } fs_directory_entry_t;
 
 /* Defines a filesystem driver. A driver does not need to implement
@@ -54,8 +50,7 @@ typedef struct fs_directory_entry_t
  * NULL, e.g. for a readonly filesystem there is no need to implement
  * delete_file or write_file.
  */
-typedef struct filesystem_t
-{
+typedef struct filesystem_t {
 	char name[32];		/* Filesystem name */
 	mount_volume mount;	/* mount() entrypoint */
 	get_directory getdir;	/* getdir() entrypoint */
@@ -68,8 +63,7 @@ typedef struct filesystem_t
 /* Represents a block storage device
  * e.g. a hard disk, DVD-ROM drive, etc.
  */
-typedef struct storage_device_t
-{
+typedef struct storage_device_t {
 	char name[16];
 	block_read blockread;
 	block_write blockwrite;
@@ -85,8 +79,7 @@ typedef struct storage_device_t
  * mountpoint unix style. fs_tree_t structs are usually not
  * usable or visible to non-filesystem drivers.
  */
-typedef struct fs_tree_t
-{
+typedef struct fs_tree_t {
 	uint8_t dirty;		/* If this is set, the directory needs to be (re-)fetched from the filesystem driver */
 	char* name;		/* Directory name */
 	struct fs_tree_t* parent;	/* Parent directory name */
@@ -101,8 +94,7 @@ typedef struct fs_tree_t
 	struct fs_tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
 } fs_tree_t;
 
-typedef enum
-{
+typedef enum {
 	file_input,
 	file_output,
 	file_random
@@ -112,8 +104,7 @@ typedef enum
  * The FD table is an array of pointers to these
  * structs, any closed FD is NULL.
  */
-typedef struct fs_handle_t
-{
+typedef struct fs_handle_t {
 	fs_handle_type_t type;		/* Filehandle type */
 	unsigned char* inbuf;		/* Input buffer */
 	unsigned char* outbuf;		/* Output buffer */

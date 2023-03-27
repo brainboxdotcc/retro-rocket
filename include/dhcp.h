@@ -7,23 +7,23 @@
  * REQUES and inbound (from the server to client)
  * are REPLY.
  */
-enum dhcp_request_type {
+typedef enum {
 	DHCP_REQUEST = 1,
 	DHCP_REPLY  = 2,
-};
+} dhcp_request_type_t;
 
 /**
  * @brief source and destination UDP port numbers
  */
-enum dhcp_udp_ports {
+typedef enum {
 	DHCP_DST_PORT = 68,
 	DHCP_SRC_PORT = 67,
-};
+} dhcp_udp_ports_t;
 
 /**
  * @brief Packet types inside the options, type 53.
  */
-enum dhcp_packet_type {
+typedef enum {
 	DHCPDISCOVER = 1,	// Requesting an IP address
 	DHCPOFFER = 2,		// Server has offered an IP
 	DHCPREQUEST = 3,	// We have accepted server offer
@@ -32,12 +32,12 @@ enum dhcp_packet_type {
 	DHCPNAK = 6,		// Server has acknowledged our decline
 	DHCPRELEASE = 7,	// Release our IP lease
 	DHCPINFORM = 8,		// DHCPINFORM
-};
+} dhcp_packet_type_t;
 
 /**
  * @brief Types of options in the options fields
  */
-enum dhcp_option_type {
+typedef enum {
 	OPT_SUBNET = 1,				// Subnet
 	OPT_GATEWAY = 3,			// Gateway/router IP address
 	OPT_DNS = 6,				// DNS server address
@@ -54,7 +54,7 @@ enum dhcp_option_type {
 	OPT_MAX_DHCP_SIZE = 57,			// Max DHCP message size
 	OPT_CLIENT_MAC = 61,			// Client identifier
 	OPT_END = 255,				// End of options marker
-};
+} dhcp_option_type_t;
 
 /**
  * @brief Hard coded transaction identifier
@@ -64,7 +64,7 @@ enum dhcp_option_type {
 /**
  * @brief Definition of a DHCP packet
  */
-typedef struct dhcp_packet {
+typedef struct dhcp_packet_t {
 	uint8_t op;
 	uint8_t hardware_type;
 	uint8_t hardware_addr_len;
