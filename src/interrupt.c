@@ -25,7 +25,6 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 {
 	// For exceptions, for now we just halt.
 	// Most of these are fatal for the moment until we get userland up.
-	kprintf("Interrupt %d\n", isrnumber);
 
 	if (interrupt_handlers[isrnumber] != NULL)
 	{

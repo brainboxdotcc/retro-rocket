@@ -30,4 +30,13 @@ int vprintf(const char *fmt, va_list args);
 
 int printf(const char *fmt, ...);
 
+/**
+ * @brief Debug only to int 0xE9
+ * 
+ * @param fmt format specifier
+ * @param ... format args
+ * @return int number of printed characters
+ */
+int dprintf(const char *fmt, ...);
+
 #endif

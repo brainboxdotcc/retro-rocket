@@ -1,0 +1,12 @@
+10 REM Socket test
+12 HOST$ = "neuron.brainbox.cc"
+15 PRINT "Connecting to "; HOST$; " ";
+16 IP$ = DNS$(HOST$)
+17 PRINT " (IP: "; IP$; ")... ";
+20 CONNECT FD, IP$, 80
+25 PRINT "Connected! Socket descriptor="; FD
+30 SOCKWRITE FD, "GET /test.txt HTTP/1.1"; CHR$(13); CHR$(10); "Host: "; IP$; CHR$(13); CHR$(10); CHR$(13); CHR$(10);
+40 SOCKREAD FD, TEST$
+50 PRINT TEST$
+60 SOCKCLOSE FD
+70 END

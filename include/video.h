@@ -50,12 +50,14 @@ void setcursor(console* c);
  * cursor coordinates to the end of the string, scrolling the screen if needed.
  */
 void putstring(console* c, char* message);
+void dputstring(char* message);
 
 /* Output a character to the screen at the given cursor coordinates then update the
  * cursor coordinates to the cell after the character, scrolling the screen if needed.
  * This is called internally by putstring().
  */
 void put(console* c, const char n);
+void dput(const char n);
 
 void initconsole(console* c);
 

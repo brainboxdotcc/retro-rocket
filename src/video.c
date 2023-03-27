@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-uint8_t video_lock = 0;
+extern spinlock init_barrier;
 
 static volatile struct limine_terminal_request terminal_request = {
     .id = LIMINE_TERMINAL_REQUEST,
@@ -13,29 +13,27 @@ void clearscreen(console* c)
 	putstring(c, "\033[2J");
 }
 
+void dput(const char n)
+{
+	outb(0xE9, n);
+}
+
 /* Write one character to the screen. As this calls setcursor() it may
  * trigger scrolling if the character would be off-screen.
  */
 void put(console* c, const char n)
 {
-	while (video_lock);
-	video_lock = 1;
+	dput(n);
+	if (init_barrier == 0) asm volatile("cli");
+
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, &n, 1);
-	outb(0xE9, n);
-	video_lock = 0;
+
+	if (init_barrier == 0) asm volatile("sti");
 }
 
-/* Write a string to the screen. Most of the internals of this are
- * handled by put() and setcursor(), and the internal functions it
- * calls.
- */
-void putstring(console* c, char* message)
+void dputstring(char* message)
 {
-	while (video_lock);
-	video_lock = 1;
-	struct limine_terminal *terminal = terminal_request.response->terminals[0];
-	terminal_request.response->write(terminal, message, strlen(message));
 	for (; *message; ++message) {
 		outb(0xE9, *message);
 		if (*message == 13) {
@@ -44,7 +42,22 @@ void putstring(console* c, char* message)
 			outb(0xE9, 13);
 		}
 	}
-	video_lock = 0;
+}
+
+/* Write a string to the screen. Most of the internals of this are
+ * handled by put() and setcursor(), and the internal functions it
+ * calls.
+ */
+void putstring(console* c, char* message)
+{
+	dputstring(message);
+	if (init_barrier == 0) asm volatile("cli");
+
+	//return;
+	struct limine_terminal *terminal = terminal_request.response->terminals[0];
+	terminal_request.response->write(terminal, message, strlen(message));
+
+	if (init_barrier == 0) asm volatile("sti");
 }
 
 void initconsole(console* c)

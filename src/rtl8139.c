@@ -98,6 +98,7 @@ void rtl8139_get_mac_addr(uint8_t* src_mac_addr) {
 
 void rtl8139_send_packet(void* data, uint32_t len) {
 	if (!rtl8139_device.active) {
+		dprintf("rtl8139: send packet on inactive device\n");
 		return;
 	}
 

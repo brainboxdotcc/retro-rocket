@@ -77,6 +77,8 @@ static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_r
 		return 0;
 	}
 
+	dprintf("dns_send_request(%s, %08x, %d)\n", name, resolver_ip, query_type);
+
 	request->rr_class = 1;
 	request->orig = (unsigned char*)strdup(name);
 	request->type = query_type;
@@ -155,6 +157,7 @@ void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t 
 	uint16_t inbound_id = ntohs(packet->id);
 	dns_request_t findrequest = { .id = inbound_id };
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
+	dprintf("dns inbound packet of size %d\n", length);
 	if (request) {
 		if (request->result_length == 0) {
 			char* error = NULL;
@@ -162,23 +165,26 @@ void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t 
 			if (request->callback_a && request->type == DNS_QUERY_A) {
 				uint32_t result = 0;
 				if (dns_collect_request(inbound_id, (char*)&result, sizeof(uint32_t))) {
+					dprintf("dns A result collected: %08x\n", result);
 					request->callback_a(result, (const char*)request->orig, inbound_id);
 				}
 			}  else if (request->callback_aaaa && request->type == DNS_QUERY_AAAA) {
 				uint8_t result[16];
 				if (dns_collect_request(inbound_id, (char*)&result, 16)) {
+					dprintf("dns AAAA result collected\n");
 					request->callback_aaaa(result, (const char*)request->orig, inbound_id);
 				}
 			} else if (request->callback_ptr && request->type == DNS_QUERY_PTR4) {
 				char result[256];
 				if (dns_collect_request(inbound_id, (char*)&result, sizeof(result))) {
+					dprintf("dns PTR4 result collected: %s\n", result);
 					request->callback_ptr(result, 0, inbound_id);
 				}
 			}
 		}
 		return;
 	}
-	//kprintf("DNS reply id=%d, but we don't have a pending request with this id!\n", inbound_id);
+	dprintf("DNS reply id=%d, but we don't have a pending request with this id!\n", inbound_id);
 }
 
 static void fill_resource_record(resource_record_t* rr, const unsigned char *input)

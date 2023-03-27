@@ -17,10 +17,10 @@
  *
  */
 
-#define DEBUG 0
+#define DEBUG 1
 
 #if DEBUG
-#define DEBUG_PRINTF(...)  kprintf(__VA_ARGS__)
+#define DEBUG_PRINTF(...)  dprintf(__VA_ARGS__)
 #else
 #define DEBUG_PRINTF(...)
 #endif
@@ -344,7 +344,7 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void accept(int token, struct ubasic_ctx* ctx)
 {
-	char err[200];
+	char err[MAX_STRINGLEN];
 	sprintf(err, "Expected %s got %s", types[token], types[tokenizer_token(ctx)]);
 	if (token != tokenizer_token(ctx)) {
 		tokenizer_error_print(ctx, err);
@@ -588,8 +588,6 @@ void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 			tokenizer_error_print(ctx, "No such line");
 			return;
 		}
-
-		DEBUG_PRINTF("jump_linenum: Found line %d\n", tokenizer_num(ctx, TOKENIZER_NUMBER));
 	}
 }
 /*---------------------------------------------------------------------------*/
@@ -606,28 +604,29 @@ static void colour_statement(struct ubasic_ctx* ctx, int tok)
 	accept(TOKENIZER_CR, ctx);
 }
 
-/*---------------------------------------------------------------------------*/
-static void print_statement(struct ubasic_ctx* ctx)
+static char* printable_syntax(struct ubasic_ctx* ctx)
 {
 	int numprints = 0;
 	int no_newline = 0;
 	int next_hex = 0;
-
-	accept(TOKENIZER_PRINT, ctx);
+	char buffer[MAX_STRINGLEN], out[MAX_STRINGLEN];
+	
+	*out = 0;
 
 	do {
 		no_newline = 0;
-		DEBUG_PRINTF("Print loop\n");
+		*buffer = 0;
 		if (tokenizer_token(ctx) == TOKENIZER_STRING) {
 			if (tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
-				kprintf("%s", ctx->string);
+				sprintf(buffer, "%s", ctx->string);
+				strlcat(out, buffer, MAX_STRINGLEN);
 			} else {
 				tokenizer_error_print(ctx, "Unterminated \"");
-				return;
+				return NULL;
 			}
 			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == TOKENIZER_COMMA) {
-			kprintf(" ");
+			strlcat(out, " ", MAX_STRINGLEN);
 			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == TOKENIZER_SEMICOLON) {
 			no_newline = 1;
@@ -642,10 +641,12 @@ static void print_statement(struct ubasic_ctx* ctx)
 			const char* oldctx = ctx->ptr;
 			if (tokenizer_token(ctx) != TOKENIZER_NUMBER && tokenizer_token(ctx) != TOKENIZER_HEXNUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))) {
 				ctx->ptr = oldctx;
-				kprintf("%s", str_expr(ctx));
+				sprintf(buffer, "%s", str_expr(ctx));
+				strlcat(out, buffer, MAX_STRINGLEN);
 			} else {
 				ctx->ptr = oldctx;
-				kprintf(next_hex ? "%lX" : "%ld", expr(ctx));
+				sprintf(buffer, next_hex ? "%lX" : "%ld", expr(ctx));
+				strlcat(out, buffer, MAX_STRINGLEN);
 				next_hex = 0;
 			}
 		} else {
@@ -655,12 +656,38 @@ static void print_statement(struct ubasic_ctx* ctx)
 	}
   	while(tokenizer_token(ctx) != TOKENIZER_CR && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && numprints < 255);
   
-	if (!no_newline)
-		kprintf("\n");
+	if (!no_newline) {
+		strlcat(out, "\n", MAX_STRINGLEN);
+	}
 
-	DEBUG_PRINTF("End of print\n");
 	tokenizer_next(ctx);
+	return gc_strdup(out);
 }
+
+/*---------------------------------------------------------------------------*/
+static void print_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_PRINT, ctx);
+	const char* out = printable_syntax(ctx);
+	if (out) {
+		kprintf(out);
+	}
+}
+
+static void sockwrite_statement(struct ubasic_ctx* ctx)
+{
+	int fd = -1;
+
+	accept(TOKENIZER_SOCKWRITE, ctx);
+	fd = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
+	accept(TOKENIZER_VARIABLE, ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	const char* out = printable_syntax(ctx);
+	if (out) {
+		send(fd, out, strlen(out));
+	}
+}
+
 /*---------------------------------------------------------------------------*/
 static void if_statement(struct ubasic_ctx* ctx)
 {
@@ -826,6 +853,91 @@ static void input_statement(struct ubasic_ctx* ctx)
 	else
 	{
 		jump_linenum(ctx->current_linenum, ctx);
+	}
+}
+
+static void sockread_statement(struct ubasic_ctx* ctx)
+{
+	char input[MAX_STRINGLEN];
+	const char* var = NULL;
+	int fd = -1;
+
+	accept(TOKENIZER_SOCKREAD, ctx);
+	fd = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
+	accept(TOKENIZER_VARIABLE, ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	var = tokenizer_variable_name(ctx);
+	accept(TOKENIZER_VARIABLE, ctx);
+
+	int rv = recv(fd, input, MAX_STRINGLEN, false);
+
+	if (rv > 0) {
+		*(input + rv) = 0;
+		switch (var[strlen(var) - 1]) {
+			case '$':
+				ubasic_set_string_variable(var, input, ctx, false, false);
+			break;
+			default:
+				ubasic_set_int_variable(var, atoll(input, 10), ctx, false, false);
+			break;
+		}
+
+		accept(TOKENIZER_CR, ctx);
+	} else if (rv < 0) {
+		tokenizer_error_print(ctx, socket_error(rv));
+	} else {
+		jump_linenum(ctx->current_linenum, ctx);
+	}
+}
+
+static void connect_statement(struct ubasic_ctx* ctx)
+{
+	char input[MAX_STRINGLEN];
+	const char* fd_var = NULL, *ip = NULL;
+	int64_t port = 0;
+
+	accept(TOKENIZER_CONNECT, ctx);
+	fd_var = tokenizer_variable_name(ctx);
+	accept(TOKENIZER_VARIABLE, ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	ip = str_expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	port = expr(ctx);
+
+	int rv = connect(str_to_ip(ip), port, 0, true);
+
+	if (rv >= 0) {
+		*(input + rv) = 0;
+		switch (fd_var[strlen(fd_var) - 1]) {
+			case '$':
+				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
+			break;
+			default:
+				ubasic_set_int_variable(fd_var, rv, ctx, false, false);
+			break;
+		}
+
+		accept(TOKENIZER_CR, ctx);
+	} else {
+		tokenizer_error_print(ctx, socket_error(rv));
+	}
+}
+
+static void sockclose_statement(struct ubasic_ctx* ctx)
+{
+	const char* fd_var = NULL;
+
+	accept(TOKENIZER_SOCKCLOSE, ctx);
+	fd_var = tokenizer_variable_name(ctx);
+	accept(TOKENIZER_VARIABLE, ctx);
+
+	int rv = closesocket(ubasic_get_int_variable(fd_var, ctx));
+	if (rv == 0) {
+		// Clear variable to -1
+		ubasic_set_int_variable(fd_var, -1, ctx, false, false);
+		accept(TOKENIZER_CR, ctx);
+	} else {
+		tokenizer_error_print(ctx, socket_error(rv));
 	}
 }
 
@@ -1021,6 +1133,18 @@ static void statement(struct ubasic_ctx* ctx)
 		break;
 		case TOKENIZER_INPUT:
 			input_statement(ctx);
+		break;
+		case TOKENIZER_SOCKREAD:
+			sockread_statement(ctx);
+		break;
+		case TOKENIZER_SOCKWRITE:
+			sockwrite_statement(ctx);
+		break;
+		case TOKENIZER_CONNECT:
+			connect_statement(ctx);
+		break;
+		case TOKENIZER_SOCKCLOSE:
+			sockclose_statement(ctx);
 		break;
 		case TOKENIZER_LET:
 			accept(TOKENIZER_LET, ctx);

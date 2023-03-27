@@ -277,12 +277,23 @@ int sprintf(char *buf, const char *fmt, ...)
 int vprintf_help(unsigned c, void **ptr)
 {
 	put(current_console, c);
-	return 0 ;
+	return 0;
+}
+
+int dvprintf_help(unsigned c, void **ptr)
+{
+	dput(c);
+	return 0;
 }
 
 int vprintf(const char *fmt, va_list args)
 {
 	return do_printf(fmt, args, vprintf_help, NULL);
+}
+
+int dvprintf(const char *fmt, va_list args)
+{
+	return do_printf(fmt, args, dvprintf_help, NULL);
 }
 
 int printf(const char *fmt, ...)
@@ -292,6 +303,17 @@ int printf(const char *fmt, ...)
 
 	va_start(args, fmt);
 	rv = vprintf(fmt, args);
+	va_end(args);
+	return rv;
+}
+
+int dprintf(const char *fmt, ...)
+{
+	va_list args;
+	int rv;
+
+	va_start(args, fmt);
+	rv = dvprintf(fmt, args);
 	va_end(args);
 	return rv;
 }

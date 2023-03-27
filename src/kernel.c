@@ -58,8 +58,7 @@ void kmain()
 	detect_cores();
 	idt_setup();
 
-	int in;
-	for (in = 0; in < 16; in++)
+	for (int in = 0; in < 16; in++)
 	{
 		ioapic_redir_unmask(in);
 		ioapic_redir_set_precalculated(in, 0, 0x2020 + in);
@@ -93,7 +92,7 @@ void kmain()
 	kprintf("Loading initial process...\n");
 
 	// TCP connect() unit test
-	sleep(100000);
+	/*sleep(100000);
 	int fd = connect(dns_lookup_host(getdnsaddr(), "neuron.brainbox.cc", 3), 80, 0, true);
 	const char* test = "GET /test.txt HTTP/1.1\r\nHost: 10.0.0.1\r\n\r\n";			
 	char buffer[1024];
@@ -114,7 +113,7 @@ void kmain()
 	} while (n_got > 0);
 	kprintf("Ending status: %s\n", socket_error(n_got));
 	int n_close = closesocket(fd);
-	kprintf("Close status: %s\n", socket_error(n_close));
+	kprintf("Close status: %s\n", socket_error(n_close));*/
 
 
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);

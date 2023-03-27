@@ -12,25 +12,25 @@ void dump_hex(unsigned char* address, uint64_t length)
 	uint64_t index = 0;
 	for(; index < length; index += 16)
 	{
-		kprintf("%04x: ", index);
+		dprintf("%04x: ", index);
 		size_t hex = 0;
 		for (; hex < 16; ++hex) {
 			if (index + hex < length) {
-				kprintf("%02X ", address[index + hex]);
+				dprintf("%02X ", address[index + hex]);
 			} else {
-				putstring(current_console, "   ");
+				dputstring("   ");
 			}
 		}
-		putstring(current_console, " | ");
+		dputstring(" | ");
 		for (hex = 0; hex < 16; ++hex) {
 			if (index + hex < length) {
-				put(current_console, (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
+				dput((address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
 			} else {
-				put(current_console, ' ');
+				dput(' ');
 			}
 		}
 
-		put(current_console, '\n');
+		dput('\n');
 	}
 }
 

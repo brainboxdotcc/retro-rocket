@@ -18,7 +18,7 @@ static const char* error_messages[] = {
 };
 
 /* Set this to output or record a trace of the TCP I/O. This is very noisy! */
-#define TCP_TRACE 0
+#define TCP_TRACE 1
 
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 
@@ -119,7 +119,6 @@ void tcp_free(tcp_conn_t* conn)
 		kfree(t);
 	}
 	conn->segment_list = NULL;
-	tcp_free_fd(conn->fd);
 	// Remove the TCB
 	hashmap_delete(tcb, conn);
 }
@@ -173,7 +172,7 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 	setforeground(current_console, our_checksum == segment->checksum ? COLOUR_LIGHTGREEN : COLOUR_LIGHTRED);
 	get_ip_str(source_ip, encap_packet->src_ip);
 	get_ip_str(dest_ip, encap_packet->dst_ip);
-	kprintf(
+	dprintf(
 		"TCP %s: %s %s:%d->%s:%d len=%ld seq=%d ack=%d off=%d flags[%c%c%c%c%c%c%c%c] win=%d, sum=%04x/%04x, urg=%d",
 		in ? "IN" : "OUT",
 		conn ? states[conn->state] : "CLOSED",
@@ -199,9 +198,9 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 		segment->urgent
 	);
 	if (options && options->mss) {
-		kprintf(" [opt.mss=%d]", options->mss);
+		dprintf(" [opt.mss=%d]", options->mss);
 	}
-	kprintf("\n");
+	dprintf("\n");
 	setforeground(current_console, COLOUR_WHITE);
 }
 
@@ -687,7 +686,7 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 	switch (conn->state) {
 		case TCP_SYN_RECEIVED:
 			// Connection refused
-			kprintf("*** TCP *** Connection refused\n");
+			dprintf("*** TCP *** Connection refused\n");
 			tcp_free(conn);
 			break;
 		case TCP_ESTABLISHED:
@@ -695,14 +694,14 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_FIN_WAIT_2:
 		case TCP_CLOSE_WAIT:
 			// Connection reset by peer
-			kprintf("*** TCP *** Connection reset by peer\n");
+			dprintf("*** TCP *** Connection reset by peer\n");
 			tcp_free(conn);
 			break;
 		case TCP_CLOSING:
 		case TCP_LAST_ACK:
 		case TCP_TIME_WAIT:
 			// Connection closed
-			kprintf("*** TCP *** Connection gracefully closed\n");
+			dprintf("*** TCP *** Connection gracefully closed\n");
 			tcp_free(conn);
 			break;
 		default:
@@ -1027,7 +1026,7 @@ void tcp_idle()
 void tcp_init()
 {
 	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
-	proc_register_idle(tcp_idle, IDLE_BACKGROUND);
+	proc_register_idle(tcp_idle, IDLE_FOREGROUND);
 }
 
 /**
@@ -1086,17 +1085,21 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	uint32_t isn = get_isn();
 	unsigned char ip[4] = { 0 };
 
+	dprintf("tcp_connect() with isn=%d\n", isn);
+
 	gethostaddr(ip);
 
 	conn.remote_addr = target_addr;
 	conn.remote_port = target_port;
 	conn.local_addr = *((uint32_t*)&ip);
 
-	if (tcp_port_in_use(conn.local_addr, target_port, TCP_PORT_REMOTE) || tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
+	if (tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
+		dprintf("tcp_connect() port in use\n");
 		return TCP_ERROR_PORT_IN_USE;
 	}
 
 	if (conn.local_addr == 0) {
+		dprintf("tcp_connect() net down\n");
 		return TCP_ERROR_NETWORK_DOWN;
 	}
 
@@ -1124,15 +1127,24 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.recv_buffer_spinlock = 0;
 	conn.send_buffer_spinlock = 0;
 
+	dprintf("tcp_connect() local port=%d\n", conn.local_port);
+
 	tcp_set_state(&conn, TCP_SYN_SENT);
+
+	dprintf("tcp_connect() sending segment\n");
+
 	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
+
+	dprintf("tcp_connect() setting hashmap\n");
 
 	hashmap_set(tcb, &conn);
 
 	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
 	if (new_conn) {
+		dprintf("tcp_connect() setting conn fd\n");
 		new_conn->fd = tcp_allocate_fd(new_conn);
 		if (new_conn->fd == -1) {
+			dprintf("tcp_connect() allocation of fd failed\n");
 			tcp_free(new_conn);
 			return TCP_ERROR_OUT_OF_DESCRIPTORS;
 		}
@@ -1196,10 +1208,20 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 {
 	int result = tcp_connect(target_addr, target_port, source_port);
 	if (!blocking || result < 0) {
+		if (result < 0) {
+			dprintf("connect(): tcp_connect() returned error: %s\n", socket_error(result));
+		}
 		return result;
 	}
+	dprintf("connect(): tcp_connect() gave us fd %d\n", result);
 	tcp_conn_t* conn = tcp_find_by_fd(result);
-	while (conn && conn->state < TCP_ESTABLISHED);
+	time_t start = time(NULL);
+	while (conn && conn->state < TCP_ESTABLISHED) {
+		if (time(NULL) - start > 10) {
+			return TCP_ERROR_CONNECTION_FAILED;
+		}
+	};
+	dprintf("connect(): socket state ESTABLISHED\n");
 	return conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
 }
 
@@ -1209,7 +1231,7 @@ int closesocket(int socket)
 	if (conn == NULL) {
 		return TCP_ERROR_INVALID_SOCKET;
 	}
-
+	tcp_free_fd(socket);
 	return tcp_close(conn);
 }
 

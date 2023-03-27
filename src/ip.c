@@ -157,7 +157,7 @@ void ip_idle()
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
 				 * Packet still didnt get an ARP reply. Dequeue it as a lost packet.
 				 */
-				kprintf("Failed ARP resolution after 3 tries to %08x at %d\n", arp_dest, current_time);
+				dprintf("Failed ARP resolution after 3 tries to %08x at %d\n", arp_dest, current_time);
 				dequeue_packet(cur, last);
 			}
 			last = cur;
@@ -221,9 +221,7 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 
 	if (netmask != 0 && our_ip != 0 && target_ip != 0 && ((our_ip & netmask) != (target_ip & netmask))) {
 		/* We need to redirect this packet to the router's MAC address */
-		//kprintf("Packet must be redirected to our gateway (%08x) at %02X:%02X:%02X:%02X:%02X:%02X\n", our_gateway, dst_hardware_addr[0], dst_hardware_addr[1], dst_hardware_addr[2], dst_hardware_addr[3], dst_hardware_addr[4], dst_hardware_addr[5]);
 		if (!arp_lookup(dst_hardware_addr, (uint8_t*)&our_gateway)) {
-			//kprintf("Remote queued\n");
 			queue_packet(dst_ip, packet, packet->length);
 			arp_send_packet(zero_hardware_addr, (uint8_t*)&our_gateway);
 			return;
@@ -358,7 +356,7 @@ void ip_handle_packet(ip_packet_t* packet) {
 					ip_packet_t findpacket = { .id = packet->id };
 					ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 					if (fragmented == NULL) {
-						kprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
+						dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
 						return;
 					}
 					ip_packet_frag_t* fragment = (ip_packet_frag_t*)kmalloc(sizeof(ip_packet_frag_t*));
@@ -376,7 +374,7 @@ void ip_handle_packet(ip_packet_t* packet) {
 				ip_packet_t findpacket = { .id = packet->id };
 				ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 				if (fragmented == NULL) {
-					kprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
+					dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
 					return;
 				}
 				ip_packet_frag_t* fragment = (ip_packet_frag_t*)kmalloc(sizeof(ip_packet_frag_t*));
@@ -399,7 +397,7 @@ void ip_handle_packet(ip_packet_t* packet) {
 						void * copy_from = (void*)cur->packet + cur->packet->ihl * 4;
 						memcpy(data_ptr + cur->offset, copy_from, this_packet_size);
 					} else {
-						//kprintf("*** WARN *** Fragmented packet id %d has fragment with offset %08x and length %08d >= data length of %08x", fragmented->id, cur->offset, this_packet_size, data_len);
+						dprintf("*** WARN *** Fragmented packet id %d has fragment with offset %08x and length %08d >= data length of %08x", fragmented->id, cur->offset, this_packet_size, data_len);
 					}
 					kfree(cur->packet);
 					kfree(cur);
