@@ -158,7 +158,7 @@ bool rtl8139_init() {
 	char* mac_address = read_mac_addr();
 	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x IRQ=%d\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base, irq_num);
 
-	proc_register_idle(rtl8139_timer);
+	proc_register_idle(rtl8139_timer, IDLE_BACKGROUND);
 
 	rtl8139_device.active = true;
 	return true;

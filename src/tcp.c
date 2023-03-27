@@ -3,7 +3,33 @@
 static struct hashmap* tcb = NULL;
 static tcp_conn_t* fd[FD_MAX] = { 0 };
 
+/* Must match up with order and amount of error messages in tcp_error_code_t */
+static const char* error_messages[] = {
+	"Socket is already closing",
+	"Port in use",
+	"Network is down",
+	"Invalid connection",
+	"Write too large",
+	"Socket not connected",
+	"Out of socket descriptors",
+	"Out of memory",
+	"Invalid socket descriptor",
+	"Connection failed",
+};
+
+/* Set this to output or record a trace of the TCP I/O. This is very noisy! */
 #define TCP_TRACE 0
+
+bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
+
+const char* socket_error(int error_code)
+{
+	if (error_code <= TCP_LAST_ERROR || error_code >= 0) {
+		return "No error";
+	}
+	error_code = abs(error_code) - 1;
+	return error_messages[error_code];
+}
 
 uint32_t get_isn()
 {
@@ -567,6 +593,9 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 
 bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+ 	if (segment->flags.fin) {
+		tcp_state_receive_fin(encap_packet, segment, conn, options, len);
+	}
 	return true;
 }
 
@@ -639,7 +668,7 @@ bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 		case TCP_SYN_RECEIVED:
 		case TCP_ESTABLISHED:
 			conn->recv_eof_pos = conn->recv_buffer_len;
-			dump_hex(conn->recv_buffer, conn->recv_buffer_len);
+			//dump_hex(conn->recv_buffer, conn->recv_buffer_len);
 			tcp_set_state(conn, TCP_CLOSE_WAIT);
 			break;
 		case TCP_FIN_WAIT_1:
@@ -709,6 +738,9 @@ bool tcp_state_last_ack(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 
 bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+ 	if (segment->flags.fin) {
+		tcp_state_receive_fin(encap_packet, segment, conn, options, len);
+	}
 	return true;
 }
 
@@ -781,6 +813,7 @@ void tcp_idle()
 				} else {
 					conn->send_buffer = krealloc(conn->send_buffer + amount_to_send, conn->send_buffer_len - amount_to_send);
 				}
+				conn->send_buffer_len -= amount_to_send;
 				conn->send_buffer_spinlock--;
 			}
 		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
@@ -793,6 +826,7 @@ void tcp_idle()
 void tcp_init()
 {
 	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
+	proc_register_idle(tcp_idle, IDLE_BACKGROUND);
 }
 
 bool tcp_port_in_use(uint32_t addr, uint16_t port, tcp_port_type_t type)
@@ -928,6 +962,8 @@ int send(int socket, const void* buffer, uint32_t length)
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
 	if (conn == NULL) {
 		return TCP_ERROR_INVALID_SOCKET;
+	} else if (conn->state != TCP_ESTABLISHED) {
+		return TCP_ERROR_NOT_CONNECTED;
 	}
 
 	while (conn->send_buffer_spinlock);
@@ -939,9 +975,15 @@ int send(int socket, const void* buffer, uint32_t length)
 	return (int)length;
 }
 
-int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port)
+int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bool blocking)
 {
-	return tcp_connect(target_addr, target_port, source_port);
+	int result = tcp_connect(target_addr, target_port, source_port);
+	if (!blocking || result < 0) {
+		return result;
+	}
+	tcp_conn_t* conn = tcp_find_by_fd(result);
+	while (conn && conn->state < TCP_ESTABLISHED);
+	return conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
 }
 
 int closesocket(int socket)
@@ -952,4 +994,40 @@ int closesocket(int socket)
 	}
 
 	return tcp_close(conn);
+}
+
+int recv(int socket, void* buffer, uint32_t maxlen, bool blocking)
+{
+	tcp_conn_t* conn = tcp_find_by_fd(socket);
+	if (conn == NULL) {
+		return TCP_ERROR_INVALID_SOCKET;
+	} else if (conn->state != TCP_ESTABLISHED) {
+		return TCP_ERROR_NOT_CONNECTED;
+	}
+
+	if (blocking) {
+		while (conn->recv_buffer_len == 0 || conn->recv_buffer == NULL) {
+			if (conn->state != TCP_ESTABLISHED) {
+				return TCP_ERROR_CONNECTION_FAILED;
+			}
+		}
+	}
+	if (conn->recv_buffer_len > 0 && conn->recv_buffer != NULL) {
+		while (conn->recv_buffer_spinlock);
+		conn->recv_buffer_spinlock++;
+		/* There is buffered data to receive  */
+		size_t amount_to_recv = conn->recv_buffer_len > maxlen ? maxlen : conn->recv_buffer_len;
+		memcpy(buffer, conn->recv_buffer, amount_to_recv);
+		/* Resize recv buffer down */
+		if (conn->recv_buffer_len - amount_to_recv <= 0) {
+			kfree(conn->recv_buffer);
+			conn->recv_buffer = NULL;
+		} else {
+			conn->recv_buffer = krealloc(conn->recv_buffer + amount_to_recv, conn->recv_buffer_len - amount_to_recv);
+		}
+		conn->recv_buffer_len -= amount_to_recv;
+		conn->recv_buffer_spinlock--;
+		return amount_to_recv;
+	}
+	return 0;
 }

@@ -4,6 +4,8 @@ volatile uint64_t ticks = 0;
 volatile uint32_t timer_freq = 0;
 volatile uint64_t beep_end = 0;
 
+extern idle_timer_t* timer_idles;
+
 void beep(uint32_t pitch)
 {
 	uint32_t Div;
@@ -53,8 +55,9 @@ void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq)
 {
 	ticks++;
 
-	ip_idle();
-	tcp_idle();
+	for (idle_timer_t* i = timer_idles; i; i = i->next) {
+		i->func();
+	}
 
 	if (beep_end != 0 && ticks > beep_end) {
 		stopbeep();

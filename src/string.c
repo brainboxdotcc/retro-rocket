@@ -48,18 +48,14 @@ char* strchr(const char *s, int c)
 
 int abs(int a)
 {
-	if (a < 0)
-		return +a;
-	else
-		return a;
+	uint32_t mask = ~((a >> 31) & 1) + 1;
+	return (a ^ mask) - mask;
 }
 
-int labs(int64_t a)
+int64_t labs(int64_t a)
 {
-	if (a < 0)
-		return +a;
-	else
-		return a;
+	uint64_t mask = ~((a >> 63) & 1) + 1;
+	return (a ^ mask) - mask;
 }
 
 char toupper(char low) {

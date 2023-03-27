@@ -82,11 +82,12 @@ void kmain()
 		init_dns();
 	}
 
-	//kprintf("System boot time: %s\n", get_datetime_str());
-	//kprintf("Loading initial process...\n");
+	kprintf("System boot time: %s\n", get_datetime_str());
+	kprintf("Loading initial process...\n");
 
-	/*kprintf("Sleeping to acquire ip\n");
-	sleep(10000);
+	/*
+	// DNS unit test	
+	sleep(100000);
 
 	char ip[16] = { 0 };
 
@@ -103,6 +104,30 @@ void kmain()
 	addr = dns_lookup_host(r_addr, "www.google.com", 3);
 	get_ip_str(ip, (uint8_t*)&addr);
 	kprintf("Got IP! It is %s\n\n\n", ip);*/
+
+	// TCP connect() unit test
+	sleep(100000);
+	int fd = connect(str_to_ip("10.0.0.1"), 80, 0, true);
+	const char* test = "GET /test.txt HTTP/1.1\r\nHost: 10.0.0.1\r\n\r\n";			
+	char buffer[1024];
+
+	kprintf("Result of connect(): %d\n", fd);
+	int n_sent = send(fd, test, strlen(test));
+	kprintf("Result of send(): %d\n", n_sent);
+	int n_got = 0;
+	do {
+		n_got = recv(fd, buffer, 1024, true);
+		kprintf("Result of recv(): %d with buffer:\n", n_got);
+		if (n_got >= 0) {
+			*(buffer + n_got) = 0;
+			kprintf("%s\n", (const char*)buffer);
+		} else {
+			kprintf("(buffer empty)\n");
+		}
+	} while (n_got > 0);
+	kprintf("Ending status: %s\n", socket_error(n_got));
+	int n_close = closesocket(fd);
+	kprintf("Close status: %s\n", socket_error(n_close));
 
 
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);

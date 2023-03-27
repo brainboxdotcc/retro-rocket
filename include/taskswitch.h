@@ -5,14 +5,6 @@
 #define PROC_IDLE	1
 #define PROC_DELETE	2
 
-// Timer that drivers may register to be called during the idle time
-typedef void (*proc_idle_timer_t)(void);
-
-typedef struct idle_timer {
-	proc_idle_timer_t func;
-	struct idle_timer* next;
-} idle_timer_t;
-
 struct process {
 	/*Identification */
 	uint32_t		pid;	/*PROCESS ID */
@@ -40,6 +32,22 @@ struct process {
 	struct process*		next;	/* Next Process */
 };
 
+/**
+ * @brief Types of idle task
+ */
+typedef enum idle_type_t {
+	IDLE_FOREGROUND, //!< A foreground idle task that runs in the task switch loop between context switches
+	IDLE_BACKGROUND, //!< A background idle task that runs via the LAPIC timer ISR
+} idle_type_t;
+
+// Timer that drivers may register to be called during the idle time
+typedef void (*proc_idle_timer_t)(void);
+
+typedef struct idle_timer {
+	proc_idle_timer_t func;
+	struct idle_timer* next;
+} idle_timer_t;
+
 struct process* proc_load(const char* fullpath, struct console* cons);
 struct process* proc_find(uint32_t pid);
 struct process* proc_cur();
@@ -54,10 +62,12 @@ int64_t proc_total();
 const char* proc_name(int64_t index);
 uint32_t proc_id(int64_t index);
 
-
 /**
  * @brief Register a function to be called periodically during idle time
+ * 
+ * @param handler handler function, void(void)
+ * @param type type of idle to register
  */
-void proc_register_idle(proc_idle_timer_t handler);
+void proc_register_idle(proc_idle_timer_t handler, idle_type_t type);
 
 #endif

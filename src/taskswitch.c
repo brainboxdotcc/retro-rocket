@@ -3,13 +3,13 @@
 struct process* proc_current[256] = { NULL };	/* This can be changed by an interrupt, MAKE A COPY */
 struct process* proc_list[256] = { NULL };
 static struct process* proc_running[256] = { NULL };	/* This is the safe copy of proc_current */
-spinlock locks[256] = { 0 };;
+spinlock locks[256] = { 0 };
 
 uint32_t nextid = 1;
 uint8_t nextcpu = 0;
 spinlock bkl = 0;
 
-idle_timer_t* idles = NULL;
+idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 
 struct process* proc_load(const char* fullpath, struct console* cons)
 {
@@ -256,11 +256,10 @@ void proc_loop()
 		while (bkl);
 		proc_timer();
 		proc_run_next();
-		idle_timer_t* i = idles;
+		idle_timer_t* i = task_idles;
 		for (; i; i = i->next) {
 			i->func();
 		}
-		//asm volatile("hlt");
 	}
 }
 
@@ -284,11 +283,16 @@ int proc_ended(struct process* proc)
 	return r;
 }
 
-void proc_register_idle(proc_idle_timer_t handler)
+void proc_register_idle(proc_idle_timer_t handler, idle_type_t type)
 {
 	/* Add the new filesystem to the start of the list */
-	idle_timer_t* newidle = (idle_timer_t*)kmalloc(sizeof(idle_timer_t));
-	newidle->next = idles;
+	idle_timer_t* newidle = kmalloc(sizeof(idle_timer_t));
 	newidle->func = handler;
-	idles = newidle;
+	if (type == IDLE_FOREGROUND) {	
+		newidle->next = task_idles;
+		task_idles = newidle;
+	} else {
+		newidle->next = timer_idles;
+		timer_idles = newidle;
+	}
 }

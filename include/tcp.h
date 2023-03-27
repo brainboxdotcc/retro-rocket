@@ -159,6 +159,8 @@ typedef enum tcp_error_code_t {
 	TCP_ERROR_OUT_OF_DESCRIPTORS = -7,
 	TCP_ERROR_OUT_OF_MEMORY = -8,
 	TCP_ERROR_INVALID_SOCKET = -9,
+	TCP_ERROR_CONNECTION_FAILED = -10,
+	TCP_LAST_ERROR = -11,
 } tcp_error_code_t;
 
 /**
@@ -181,9 +183,10 @@ void tcp_init();
  * @param target_addr Target address to connect to
  * @param target_port Target port to connect to
  * @param source_port Our source port to use, or 0 to choose automatically
+ * @param blocking Set to true if this call is to block until the connection is established or errors
  * @return Zero or positive file descriptor number on success, negative for error
  */
-int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);
+int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bool blocking);
 
 /**
  * @brief Close a TCP connection
@@ -202,6 +205,29 @@ int closesocket(int socket);
  * @return int number of bytes written
  */
 int send(int socket, const void* buffer, uint32_t length);
+
+/**
+ * @brief Receive data from an open socket.
+ * The data is buffered, and this function will fill the buffer
+ * when there is data in the buffer to read.
+ * 
+ * @param socket socket descriptor from connect()
+ * @param buffer buffer to receive data to
+ * @param maxlen maximum size of data to receive to buffer
+ * @param blocking true if this call should block until the buffer has data
+ * @return int number of bytes received
+ */
+int recv(int socket, void* buffer, uint32_t maxlen, bool blocking);
+
+/**
+ * @brief Return the error description associated with an error code
+ * @note Invalid error codes return the constant "No error".
+ * 
+ * @param error_code error code
+ * @return const char* description
+ */
+const char* socket_error(int error_code);
+
 
 /**
  * @brief Idle loop ran from timer ISR

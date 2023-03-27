@@ -426,4 +426,5 @@ void ip_handle_packet(ip_packet_t* packet) {
 
 void ip_init()
 {
+	proc_register_idle(ip_idle, IDLE_BACKGROUND);
 }

@@ -41,6 +41,6 @@ int64_t atoll(const char *s, int radix);
 uint64_t atoull(const char *s);
 
 int abs(int a);
-int labs(int64_t a);
+int64_t labs(int64_t a);
 
 #endif
