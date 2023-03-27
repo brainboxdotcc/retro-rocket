@@ -1,10 +1,39 @@
 #include <kernel.h>
 
-struct hashmap* tcb = NULL;
+static struct hashmap* tcb = NULL;
+static tcp_conn_t* fd[FD_MAX] = { 0 };
+
+#define TCP_TRACE 0
 
 uint32_t get_isn()
 {
 	return (time(NULL) * 1000) - (get_ticks() % 1000);
+}
+
+int tcp_allocate_fd(tcp_conn_t* conn)
+{
+	for (size_t x = 0; x < FD_MAX; ++x) {
+		if (fd[x] == NULL) {
+			fd[x] = conn;
+			return x;
+		}
+	}
+	return -1;
+}
+
+void tcp_free_fd(int x)
+{
+	if (x >= 0 && x < FD_MAX) {
+		fd[x] = NULL;
+	}
+}
+
+tcp_conn_t* tcp_find_by_fd(int x)
+{
+	if (x >= 0 && x < FD_MAX) {
+		return fd[x];
+	}
+	return NULL;
 }
 
 bool seq_lt(uint32_t x, uint32_t y) 
@@ -64,6 +93,7 @@ void tcp_free(tcp_conn_t* conn)
 		kfree(t);
 	}
 	conn->segment_list = NULL;
+	tcp_free_fd(conn->fd);
 	// Remove the TCB
 	hashmap_delete(tcb, conn);
 }
@@ -83,8 +113,6 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	segment->checksum = 0;
 	memcpy(pseudo->body, segment, len);
 	segment->checksum = checksum;
-
-	//dump_hex((unsigned char*)pseudo, array_size);
 
 	// Treat the packet header as a 2-byte-integer array
 	// Sum all integers switch to network byte order
@@ -111,6 +139,9 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
  */
 void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum)
 {
+#if (TCP_TRACE != 1)
+	return;
+#endif
 	const char *states[] = { "LISTEN","SYN-SENT","SYN-RECEIVED","ESTABLISHED","FIN-WAIT-1","FIN-WAIT-2","CLOSE-WAIT","CLOSING","LAST-ACK","TIME-WAIT" };
 	char source_ip[15] = { 0 }, dest_ip[15] = { 0 };
 	setforeground(current_console, our_checksum == segment->checksum ? COLOUR_LIGHTGREEN : COLOUR_LIGHTRED);
@@ -146,7 +177,6 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 	}
 	kprintf("\n");
 	setforeground(current_console, COLOUR_WHITE);
-	//dump_hex((unsigned char*)segment, len);
 }
 
 /**
@@ -306,6 +336,8 @@ int tcp_write(tcp_conn_t* conn, const void* data, size_t count)
 		return TCP_ERROR_INVALID_CONNECTION;
 	} else if (count > TCP_WINDOW_SIZE) {
 		return TCP_ERROR_WRITE_TOO_LARGE;
+	} else if (conn->state != TCP_ESTABLISHED) {
+		return TCP_ERROR_NOT_CONNECTED;
 	}
 	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_PSH, data, count);
 	return 0;
@@ -438,8 +470,13 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 		conn->rcv_nxt += payload_len;
 
 		if (payload_len > 0) {
-			kprintf("Data received (%d):\n", payload_len);
-			dump_hex(payload, payload_len);
+			// Add received data to the high level receive buffer
+			while (conn->recv_buffer_spinlock);
+			conn->recv_buffer_spinlock++;
+			conn->recv_buffer = krealloc(conn->recv_buffer, payload_len + conn->recv_buffer_len);
+			memcpy(conn->recv_buffer + conn->recv_buffer_len, payload, payload_len);
+			conn->recv_buffer_len += payload_len;
+			conn->recv_buffer_spinlock--;
 		}
 
 		if (cur->prev != NULL) {
@@ -463,6 +500,18 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 bool tcp_state_listen(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	return true;
+}
+
+/**
+ * @brief Send an ACK for the segments we have received so far
+ * 
+ * @param conn 
+ * @return true on successfully queueing the segment
+ */
+bool tcp_send_ack(tcp_conn_t* conn)
+{
+	/* TODO: Cneck for duplicate ACKs (same snd_nxt and rcv_nxt) and drop them */
+	return tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
 }
 
 bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
@@ -497,7 +546,7 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 			// TODO - Segments on the retransmission queue which are ack'd should be removed
 
 			tcp_set_state(conn, TCP_ESTABLISHED);
-			tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+			tcp_send_ack(conn);
 
 			// TODO - Data queued for transmission may be included with the ACK.
 			// TODO - If there is data in the segment, continue processing at the URG phase.
@@ -552,8 +601,7 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	if (!(seq_lte(conn->rcv_nxt, segment->seq) && seq_lte(segment->seq + payload_len, conn->rcv_nxt + conn->rcv_wnd))) {
 		// Unacceptable segment
 		if (segment->flags.rst == 0) {
-			kprintf("*** TCP *** Unacceptable\n");
-			return tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+			return tcp_send_ack(conn);
 		}
 		return false;
 	}
@@ -568,7 +616,7 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	// check ordered list is complete (no seq gaps), if it is deliver queued data to client
 	tcp_process_queue(conn, segment, payload_len);
 	// acknowlege receipt
-	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+	tcp_send_ack(conn);
 	return true;
 }
 
@@ -580,12 +628,13 @@ void tcp_set_conn_msl_time(tcp_conn_t* conn)
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	conn->rcv_nxt = segment->seq + 1;
-	tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
+	tcp_send_ack(conn);
 
 	switch (conn->state) {
 		case TCP_SYN_RECEIVED:
 		case TCP_ESTABLISHED:
-			kprintf("Established TCP closed\n");
+			conn->recv_eof_pos = conn->recv_buffer_len;
+			dump_hex(conn->recv_buffer, conn->recv_buffer_len);
 			tcp_set_state(conn, TCP_CLOSE_WAIT);
 			break;
 		case TCP_FIN_WAIT_1:
@@ -713,7 +762,23 @@ void tcp_idle()
 	size_t iter = 0;
 	while (hashmap_iter(tcb, &iter, &item)) {
 		tcp_conn_t *conn = item;
-		if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
+		if (conn->state == TCP_ESTABLISHED) {
+			if (conn->send_buffer_len > 0 && conn->send_buffer != NULL) {
+				while (conn->send_buffer_spinlock);
+				conn->send_buffer_spinlock++;
+				/* There is buffered data to send from high level functions */
+				size_t amount_to_send = conn->send_buffer_len > 1460 ? 1460 : conn->send_buffer_len;
+				tcp_write(conn, conn->send_buffer, amount_to_send);
+				/* Resize send buffer down */
+				if (conn->send_buffer_len - amount_to_send <= 0) {
+					kfree(conn->send_buffer);
+					conn->send_buffer = NULL;
+				} else {
+					conn->send_buffer = krealloc(conn->send_buffer + amount_to_send, conn->send_buffer_len - amount_to_send);
+				}
+				conn->send_buffer_spinlock--;
+			}
+		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
 			tcp_free(conn);
 			break;
 		}
@@ -772,12 +837,10 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.local_addr = *((uint32_t*)&ip);
 
 	if (tcp_port_in_use(conn.local_addr, target_port, TCP_PORT_REMOTE) || tcp_port_in_use(conn.local_addr, source_port, TCP_PORT_LOCAL)) {
-		kprintf("*** TCP port %d:%d in use ***\n", source_port, target_port);
 		return TCP_ERROR_PORT_IN_USE;
 	}
 
 	if (conn.local_addr == 0) {
-		kprintf("*** TCP connect called, but no local IP address ***\n", source_port, target_port);
 		return TCP_ERROR_NETWORK_DOWN;
 	}
 
@@ -793,14 +856,33 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.rcv_wnd = TCP_WINDOW_SIZE;
 	conn.rcv_up = 0;
 	conn.irs = 0;
+	conn.fd = -1;
 	conn.segment_list = NULL;
+	conn.recv_eof_pos = -1;
+	conn.send_eof_pos = -1;
+	conn.recv_buffer = NULL;
+	conn.send_buffer = NULL;
+	conn.recv_buffer_len = 0;
+	conn.send_buffer_len = 0;
+	conn.recv_buffer_spinlock = 0;
+	conn.send_buffer_spinlock = 0;
 
 	tcp_set_state(&conn, TCP_SYN_SENT);
 	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
 
 	hashmap_set(tcb, &conn);
 
-	return 0;
+	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
+	if (new_conn) {
+		new_conn->fd = tcp_allocate_fd(new_conn);
+		if (new_conn->fd == -1) {
+			tcp_free(new_conn);
+			return TCP_ERROR_OUT_OF_DESCRIPTORS;
+		}
+		return new_conn->fd;
+	} else {
+		return TCP_ERROR_OUT_OF_MEMORY;
+	}
 }
 
 int tcp_close(tcp_conn_t* conn)
@@ -833,4 +915,35 @@ int tcp_close(tcp_conn_t* conn)
 			// connection error, already closing
 			return TCP_ERROR_ALREADY_CLOSING;
 	}
+}
+
+int send(int socket, const void* buffer, uint32_t length)
+{
+	tcp_conn_t* conn = tcp_find_by_fd(socket);
+	if (conn == NULL) {
+		return TCP_ERROR_INVALID_SOCKET;
+	}
+
+	while (conn->send_buffer_spinlock);
+	conn->send_buffer_spinlock++;
+	conn->send_buffer = krealloc(conn->send_buffer, length + conn->send_buffer_len);
+	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
+	conn->send_buffer_len += length;
+	conn->send_buffer_spinlock--;
+	return (int)length;
+}
+
+int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port)
+{
+	return tcp_connect(target_addr, target_port, source_port);
+}
+
+int closesocket(int socket)
+{
+	tcp_conn_t* conn = tcp_find_by_fd(socket);
+	if (conn == NULL) {
+		return TCP_ERROR_INVALID_SOCKET;
+	}
+
+	return tcp_close(conn);
 }

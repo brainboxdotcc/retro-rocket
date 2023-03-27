@@ -7,19 +7,38 @@
 uint16_t last_id;
 uint8_t my_ip[4] = {0, 0, 0, 0};
 uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
-
 packet_queue_item_t* packet_queue = NULL;
 packet_queue_item_t* packet_queue_end = NULL;
-
-void get_ip_str(char * ip_str, const uint8_t * ip) {
-	sprintf(ip_str, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
-}
-
 char ip_addr[4] = { 0, 0, 0, 0 };
 int is_ip_allocated = 0;
 uint32_t dns_addr = 0, gateway_addr = 0, netmask = 0;
-
 struct hashmap *frag_map = NULL;
+
+
+void get_ip_str(char* ip_str, const uint8_t* ip)
+{
+	sprintf(ip_str, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
+}
+
+uint32_t str_to_ip(const char* ip_str)
+{
+	char ip[15];
+	char* dot = NULL, *last_dot = ip;
+	uint32_t shift = 0, out = 0, dot_count = 0;
+	strlcpy(ip, ip_str, 14);
+	while ((dot = strchr(last_dot, '.')) != NULL) {
+		*dot = 0;
+		out |= (atoi(last_dot) << shift);
+		shift += 8;
+		last_dot = dot + 1;
+		dot_count++;
+	}
+	if (dot_count != 3) {
+		return 0;
+	}
+	out |= (atoi(last_dot) << shift);
+	return out;
+}
 
 int gethostaddr(unsigned char *addr) {
 	memcpy(addr, ip_addr, 4);

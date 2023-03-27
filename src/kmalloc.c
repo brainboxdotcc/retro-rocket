@@ -14,8 +14,6 @@ volatile struct limine_memmap_request memory_map_request = {
 uint64_t allocated = 0;
 uint64_t allocations = 0;
 
-spinlock mlock = 0;
-
 /* Two heaps, one for kernel and one for user */
 heap_t*	kheap = NULL;	/* Kernel Heap */
 heap_t*	uheap = NULL;	/* User Heap */
@@ -178,10 +176,7 @@ static void *alloc(uint64_t size,uint8_t palign, heap_t *heap)
 	header_t *th = NULL;	/* pointer to block header */
 	footer_t *tf = NULL;	/* pointer to block footer */
 
-	lock_spinlock(&mlock);
-
 	if (!heap) {
-		unlock_spinlock(&mlock);
 		return NULL;	/* null heap */
 	}
 
@@ -200,7 +195,6 @@ static void *alloc(uint64_t size,uint8_t palign, heap_t *heap)
 
 	if (!th) {
 		/* We could not find space */
-		unlock_spinlock(&mlock);
 		return NULL;
 	}		
 
@@ -208,11 +202,9 @@ static void *alloc(uint64_t size,uint8_t palign, heap_t *heap)
 	tf = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);
 
 	if (th->magic != HEAP_MAGIC) {
-		unlock_spinlock(&mlock);
 		return NULL;	/* Check if header */
 	}
 	if (tf->magic != HEAP_MAGIC) {
-		unlock_spinlock(&mlock);
 		return NULL;	/* Check if footer */
 	}
 
@@ -248,7 +240,6 @@ static void *alloc(uint64_t size,uint8_t palign, heap_t *heap)
 		ret = ((void*)((uint64_t)th+sizeof(header_t)));
 	}
 	/* Finally, return the address in the header we created */
-	unlock_spinlock(&mlock);
 	return ret;
 }
 
@@ -259,14 +250,10 @@ static void free_int(void *addr, heap_t *heap)
 	/* will use the prev and next to merge the list on deletion */
 	footer_t *tf = NULL, *tf_left = NULL, *tf_right = NULL;	
 
-	lock_spinlock(&mlock);
-
 	if (!heap) {
-		unlock_spinlock(&mlock);
 		return;	/* null heap */
 	}
 	if (addr < (void*)heap->heap_addr || addr > (void*)heap->end_addr) {
-		unlock_spinlock(&mlock);
 		return; /* addr not in heap */
 	}
 
@@ -274,11 +261,9 @@ static void free_int(void *addr, heap_t *heap)
 	tf = (footer_t*)((uint64_t)th + sizeof(header_t) + th->size);	/* and the footer */
 
 	if (th->magic != HEAP_MAGIC) {
-		unlock_spinlock(&mlock);
 		return;	/* Check if header */
 	}
 	if (tf->magic != HEAP_MAGIC) {
-		unlock_spinlock(&mlock);
 		return;	/* Check if footer */
 	}
 	/* Find associated free blocks */
@@ -331,8 +316,6 @@ static void free_int(void *addr, heap_t *heap)
 	}
 
 	allocated -= th->size;
-
-	unlock_spinlock(&mlock);
 }
 
 void expand_heap(uint64_t size, heap_t *heap)

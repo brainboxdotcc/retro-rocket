@@ -2,7 +2,7 @@
 
 #include "kernel.h"
 
-#define TCP_WINDOW_SIZE		8192
+#define TCP_WINDOW_SIZE		65535
 #define TCP_PACKET_SIZE_OFF	5
 
 // checksummed part of ip segment
@@ -118,6 +118,18 @@ typedef struct tcp_conn_t
 	uint32_t rcv_up;	// receive urgent pointer
 	uint32_t irs;		// initial receive sequence number
 
+	// high level wrappers for POSIX style interface
+	int fd;			// File descriptor
+	int recv_eof_pos;	// High level position of EOF in buffer, or -1
+	int send_eof_pos;	// High level position of EOF in buffer, or -1
+	uint8_t* recv_buffer;	// High level receive buffer
+	size_t recv_buffer_len;	// High level receive buffer length
+	uint8_t* send_buffer;	// High level send buffer
+	size_t send_buffer_len;	// High level send buffer length
+
+	spinlock recv_buffer_spinlock;
+	spinlock send_buffer_spinlock;
+
 	uint32_t msl_time;	// Maximum socket lifetime timeout or 0
 
 	tcp_ordered_list_t* segment_list;
@@ -134,8 +146,19 @@ typedef enum tcp_error_code_t {
 	TCP_ERROR_NETWORK_DOWN = -3,
 	TCP_ERROR_INVALID_CONNECTION = -4,
 	TCP_ERROR_WRITE_TOO_LARGE = -5,
+	TCP_ERROR_NOT_CONNECTED = -6,
+	TCP_ERROR_OUT_OF_DESCRIPTORS = -7,
+	TCP_ERROR_OUT_OF_MEMORY = -8,
+	TCP_ERROR_INVALID_SOCKET = -9,
 } tcp_error_code_t;
 
+/**
+ * @brief TCP handler called by the IP layer
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param len length of TCP segment including header
+ */
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len);
 
 /**
@@ -149,27 +172,29 @@ void tcp_init();
  * @param target_addr Target address to connect to
  * @param target_port Target port to connect to
  * @param source_port Our source port to use, or 0 to choose automatically
- * @return Zero on success, error code on error
+ * @return Zero or positive file descriptor number on success, negative for error
  */
-int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);
+int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);
 
 /**
  * @brief Close a TCP connection
  * 
- * @param conn 
+ * @param socket socket descriptor to close 
  * @return zero on success, error code on error
  */
-int tcp_close(tcp_conn_t* conn);
+int closesocket(int socket);
 
 /**
- * @brief Write to TCP connection.
- * This function will only accept data up to TCP_WINDOW_SIZE.
+ * @brief Send data to an open socket
  * 
- * @param conn Existing established connection
- * @param data Data to write
- * @param count Size of data to send
- * @return int Zero on success, error code on error
+ * @param socket socket descriptor from connect()
+ * @param buffer buffer to send
+ * @param length number of bytes to send
+ * @return int number of bytes written
  */
-int tcp_write(tcp_conn_t* conn, const void* data, size_t count);
+int send(int socket, const void* buffer, uint32_t length);
 
+/**
+ * @brief Idle loop ran from timer ISR
+ */
 void tcp_idle();

@@ -91,6 +91,14 @@ typedef struct packet_queue_item {
 void get_ip_str(char* ip_str, const uint8_t* ip);
 
 /**
+ * @brief Convert a string IP to host byte order IP address
+ * 
+ * @param ip_str ip as string e.g. "127.0.0.1"
+ * @return uint32_t IP in host byte order
+ */
+uint32_t str_to_ip(const char* ip_str);
+
+/**
  * @brief Calculate checksum for IP packet
  * 
  * @param packet IP packet structure

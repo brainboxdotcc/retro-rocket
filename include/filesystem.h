@@ -1,7 +1,7 @@
 #ifndef __FILESYSTEM_H__
 #define __FILESYSTEM_H__
 
-#define FD_MAX 128
+#define FD_MAX 1024
 #define IOBUFSZ 8192
 
 #define _O_APPEND   0x00000001

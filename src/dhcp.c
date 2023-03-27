@@ -30,7 +30,11 @@ void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t
 				//arp_prediscover((uint8_t*)gateway);
 				kfree(gateway);
 			}
-			tcp_connect(0x0100000a, 22, 0);
+
+			int fd = connect(str_to_ip("10.0.0.1"), 80, 0);
+			const char* test = "GET /test.txt HTTP/1.1\r\nHost: 10.0.0.1\r\n\r\n";			
+			send(fd, test, strlen(test));
+
 		} else if (*type == DHCPNAK) {
 			/* Negative ack, to be implemented */
 		}
