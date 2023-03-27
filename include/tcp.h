@@ -112,6 +112,9 @@ typedef struct tcp_conn_t
 	uint32_t snd_wl2;	// segment acknowledgment number used for last window update
 	uint32_t iss;		// initial send sequence number
 
+	uint32_t snd_lst;	// last send ACKed - used to prevent duplicates
+	uint32_t rcv_lst;	// last receive ACKed - used to prevent duplicates
+
 	// receive state
 	uint32_t rcv_nxt;	// receive next
 	uint32_t rcv_wnd;	// receive window
@@ -135,11 +138,17 @@ typedef struct tcp_conn_t
 	tcp_ordered_list_t* segment_list;
 } tcp_conn_t;
 
+/**
+ * @brief Port types, either a local or remote port
+ */
 typedef enum tcp_port_type_t {
 	TCP_PORT_LOCAL,
 	TCP_PORT_REMOTE,
 } tcp_port_type_t;
 
+/**
+ * @brief Error codes which can be returned by socket functions
+ */
 typedef enum tcp_error_code_t {
 	TCP_ERROR_ALREADY_CLOSING = -1,
 	TCP_ERROR_PORT_IN_USE = -2,

@@ -510,7 +510,12 @@ bool tcp_state_listen(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_con
  */
 bool tcp_send_ack(tcp_conn_t* conn)
 {
-	/* TODO: Cneck for duplicate ACKs (same snd_nxt and rcv_nxt) and drop them */
+	/* Check for duplicate ACKs (same rcv_nxt as the previous) and drop them */
+	if (conn->rcv_nxt == conn->rcv_lst) {
+		return true;
+	}
+	conn->snd_lst = conn->snd_nxt;
+	conn->rcv_lst = conn->rcv_nxt;
 	return tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
 }
 
@@ -847,6 +852,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
 	conn.snd_una = isn;
 	conn.snd_nxt = isn;
+	conn.snd_lst = conn.rcv_lst = 0;
 	conn.iss = isn;
 	conn.snd_wnd = TCP_WINDOW_SIZE;
 	conn.snd_up = 0;
