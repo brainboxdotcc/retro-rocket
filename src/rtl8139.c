@@ -2,6 +2,8 @@
 
 rtl8139_dev_t rtl8139_device;
 
+static bool in_interrupt = false;
+
 // IO Helper Functions
 
 static void rtl_outb(uint32_t io, uint8_t v) {
@@ -58,6 +60,7 @@ void receive_packet() {
 }
 
 void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
+	in_interrupt = true;
 	uint16_t status = rtl_inw(IntrStatus);
 
 	// It is VERY important this write happens BEFORE attempting to receive packets,
@@ -67,16 +70,19 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
 	
 	if(status & TOK) {
 		// Sent
+		dprintf("RTL8139: Packet sent\n");
 	}
 	if (status & ROK) {
 		// Received
 		receive_packet();
 	}
+	in_interrupt = false;
 }
 
 void rtl8139_timer()
 {
 	/* For packet timeouts, unused at present */
+	//rtl_outw(IntrStatus, INT_DEFAULT);
 }
 
 char* read_mac_addr() {
@@ -102,14 +108,27 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 		return;
 	}
 
+	dprintf("RTL8139 send packet (%s)\n", in_interrupt ? "in int" : "outside int");
+
+	if (!in_interrupt) asm volatile("cli");
+
 	// Static buffer below 4GB
 	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
 
 	memcpy(transfer_data_p, data, len);
-	rtl_outl(TxAddr0 + (rtl8139_device.tx_cur * 4), transfer_data);
-	rtl_outl(TxStatus0 + (rtl8139_device.tx_cur++ * 4), len);
-	rtl8139_device.tx_cur = rtl8139_device.tx_cur % 4;
+	int old_cur = rtl8139_device.tx_cur * 4;
+	rtl8139_device.tx_cur++;
+	rtl8139_device.tx_cur %= 4;
+
+	// These must be the last instructions, otherwise there is a race condition where
+	// we have not yet updated tx_cur, but have sent the new tx_cur to the io port,
+	// if we send a packet (e.g. from an interrupt!) in that timeframe, this can cause
+	// the system to stop sending packets!
+	rtl_outl(TxAddr0 + old_cur, transfer_data);
+	rtl_outl(TxStatus0 + old_cur, len);
+
+	if (!in_interrupt) asm volatile("sti");
 }
 
 bool rtl8139_init() {

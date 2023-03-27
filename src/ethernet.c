@@ -10,6 +10,7 @@ int ethernet_send_packet(uint8_t * dst_mac_addr, uint8_t * data, int len, uint16
     memcpy(frame->dst_mac_addr, dst_mac_addr, 6);
     memcpy(frame_data, data, len);
     frame->type = htons(protocol);
+    dprintf("ethernet: net driver send packet\n");
     rtl8139_send_packet(frame, sizeof(ethernet_frame_t) + len);
     kfree(frame);
     return len;

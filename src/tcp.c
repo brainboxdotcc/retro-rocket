@@ -331,6 +331,7 @@ uint8_t tcp_build_options(uint8_t* options, const tcp_options_t* opt)
 tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, const void *data, size_t count)
 {
 	if (conn == NULL) {
+		kprintf("TCP: Refusing to send segment on null conn\n");
 		return NULL;
 	}
 
@@ -1216,12 +1217,15 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 	dprintf("connect(): tcp_connect() gave us fd %d\n", result);
 	tcp_conn_t* conn = tcp_find_by_fd(result);
 	time_t start = time(NULL);
+	dprintf("Connect waiting: ");
 	while (conn && conn->state < TCP_ESTABLISHED) {
+		dprintf(".");
+		asm volatile("hlt");
 		if (time(NULL) - start > 10) {
 			return TCP_ERROR_CONNECTION_FAILED;
 		}
 	};
-	dprintf("connect(): socket state ESTABLISHED\n");
+	dprintf("\nconnect(): socket state ESTABLISHED\n");
 	return conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
 }
 

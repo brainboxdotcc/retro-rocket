@@ -235,6 +235,7 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 		arp_send_packet(zero_hardware_addr, dst_ip);
 		return;
 	}
+	dprintf("IP: Ethernet send\n");
 	ethernet_send_packet(dst_hardware_addr, (uint8_t*)packet, htons(packet->length), ETHERNET_TYPE_IP);
 	// Remember to free the packet!
 	kfree(packet);
