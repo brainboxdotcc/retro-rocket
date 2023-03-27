@@ -16,9 +16,9 @@ void dump_hex(unsigned char* address, uint64_t length)
 		size_t hex = 0;
 		for (; hex < 16; ++hex) {
 			if (index + hex < length) {
-				kprintf("%02x ", address[index + hex]);
+				kprintf("%02X ", address[index + hex]);
 			} else {
-				kprintf("   ");
+				putstring(current_console, "   ");
 			}
 		}
 		putstring(current_console, " | ");
@@ -26,7 +26,7 @@ void dump_hex(unsigned char* address, uint64_t length)
 			if (index + hex < length) {
 				put(current_console, (address[index + hex] < 32 || address[index + hex] > 126) ? '.' : address[index + hex]);
 			} else {
-				kprintf(" ");
+				put(current_console, ' ');
 			}
 		}
 
@@ -37,34 +37,25 @@ void dump_hex(unsigned char* address, uint64_t length)
 void symbol_fail()
 {
 	setforeground(current_console, COLOUR_DARKRED);
-	kprintf("Warning: Could not load /kernel.sym from boot device.\n");
-	kprintf("Debug symbols will be unavailable if there is a kernel panic.\n");
+	putstring(current_console, "Warning: Could not load /kernel.sym from boot device.\n");
+	putstring(current_console, "Debug symbols will be unavailable if there is a kernel panic.\n");
 	setforeground(current_console, COLOUR_WHITE);
 }
 
 void init_debug()
 {
-	//kprintf("init_debug\n");
 	FS_DirectoryEntry* symfile = fs_get_file_info("/kernel.sym");
-	if (!symfile)
-	{
+	if (!symfile) {
 		symbol_fail();
 		return;
 	}
-	//kprintf("init_debug 2\n");
 	uint32_t filesize = symfile->size;
-	if (filesize == 0)
-	{
+	if (filesize == 0) {
 		symbol_fail();
 		return;
-	}
-	else
-	{
-		//kprintf("init_debug 3\n");
+	} else {
 		unsigned char* filecontent = (unsigned char*)kmalloc(filesize);
-		if (!fs_read_file(symfile, 0, filesize, filecontent))
-		{
-			//kprintf("init_debug 4\n");
+		if (!fs_read_file(symfile, 0, filesize, filecontent)) {
 			symbol_fail();
 			kfree(filecontent);
 			return;
@@ -72,7 +63,6 @@ void init_debug()
 		/* We now have the symbols in the filecontent buffer. Parse them to linked list,
 		 * and free the buffer.
 		 */
-		//kprintf("init_debug 5\n");
 		unsigned char* ptr = filecontent;
 		char symbol_address[32];
 		char type[2];
@@ -84,13 +74,9 @@ void init_debug()
 		symbol_table = (symbol_t*)kmalloc(sizeof(symbol_t));
 		symbol_t* thisentry = symbol_table;
 
-		//kprintf("init_debug 6\n");
-
-		while (offset < filesize)
-		{
+		while (offset < filesize) {
 			counter = 0;
-			while (offset < filesize && *ptr != ' ' && counter < sizeof(symbol_address) - 1)
-			{
+			while (offset < filesize && *ptr != ' ' && counter < sizeof(symbol_address) - 1) {
 				symbol_address[counter++] = *ptr++;
 				offset++;
 			}
@@ -99,8 +85,7 @@ void init_debug()
 			offset++;
 
 			counter = 0;
-			while (offset < filesize && *ptr != ' ' && counter < 2)
-			{
+			while (offset < filesize && *ptr != ' ' && counter < 2) {
 				type[counter++] = *ptr++;
 				offset++;
 			}
@@ -109,8 +94,7 @@ void init_debug()
 			offset++;
 
 			counter = 0;
-			while (offset < filesize && *ptr != 0x0A && counter < sizeof(symbol) - 1)
-			{
+			while (offset < filesize && *ptr != 0x0A && counter < sizeof(symbol) - 1) {
 				symbol[counter++] = *ptr++;
 				offset++;
 			}
@@ -120,8 +104,7 @@ void init_debug()
 
 			uint32_t length = strlen(symbol) + 1;
 
-			if (*type == 'T')
-			{
+			if (*type == 'T') {
 				thisentry->name = (char*)kmalloc(length);
 				memcpy(thisentry->name, symbol, length);
 				thisentry->address = hextoint(symbol_address);
@@ -157,15 +140,13 @@ const char* findsymbol(uint64_t address, uint64_t* offset)
 	symbol_t* walksyms = symbol_table;
 	uint64_t lastsymaddr = symbol_table->address;
 	symbol_t* lastsym = symbol_table;
-	for (; walksyms->next; walksyms = walksyms->next)
-	{
+	for (; walksyms->next; walksyms = walksyms->next) {
 		/* This check between the last address and this address works because the
 		 * symbol list in /kernel.sym is sorted by address, lowest first. This makes
 		 * it simpler to load and process the list at runtime by doing the donkey-
 		 * work at compile-time.
 		 */
-		if (address >= lastsymaddr && address <= (walksyms->address & 0xffffffff))
-		{
+		if (address >= lastsymaddr && address <= (walksyms->address & 0xffffffff)) {
 			*offset = address - lastsymaddr;
 			return lastsym->name;
 		}
@@ -184,16 +165,14 @@ void backtrace()
 	uint64_t offset = 0;
 	const char* name = NULL;
 
-	if (!symbol_table)
-	{
+	if (!symbol_table) {
 		kprintf("No symbols available for backtrace\n");
 		return;
 	}
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
 	setforeground(current_console, COLOUR_LIGHTGREEN);
-	while(frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page)
-	{
+	while (frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page) {
 		name = findsymbol((uint64_t)frame->addr, &offset);
 		kprintf("\tat %s()+0%08x [0x%016x]\n",  name ? name : "[???]", offset, frame->addr);
 		frame = frame->next;

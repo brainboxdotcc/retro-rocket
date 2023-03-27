@@ -159,7 +159,6 @@ void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t 
 		if (request->result_length == 0) {
 			char* error = NULL;
 			dns_result_ready(packet, request, length, error, request->result, &request->result_length);
-			//kprintf("DNS reply id=%d for %s has arrived! result is: '%08x' size %d, error is '%s'\n", inbound_id, request->orig, *((uint32_t*)&request->result), request->result_length, error ? error : "NONE");
 			if (request->callback_a && request->type == DNS_QUERY_A) {
 				uint32_t result = 0;
 				if (dns_collect_request(inbound_id, (char*)&result, sizeof(uint32_t))) {
@@ -179,7 +178,7 @@ void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t 
 		}
 		return;
 	}
-	kprintf("DNS reply id=%d, but we don't have a pending request with this id!\n", inbound_id);
+	//kprintf("DNS reply id=%d, but we don't have a pending request with this id!\n", inbound_id);
 }
 
 static void fill_resource_record(resource_record_t* rr, const unsigned char *input)
@@ -385,7 +384,6 @@ uint8_t dns_collect_request(uint16_t id, char* result, size_t max)
 	dns_request_t findrequest = { .id = id };
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
 	if (request && request->result_length != 0 && request->result) {
-		//kprintf("DNS reply id=%d was collected!\n", id);
 		uint8_t len = request->result_length;
 		memcpy(result, request->result, max > request->result_length ? max : request->result_length);
 		kfree(request->orig);

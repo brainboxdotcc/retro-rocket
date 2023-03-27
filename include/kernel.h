@@ -69,3 +69,5 @@ static inline void memset(void *dest, char val, int len)
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \
 	wait_forever(); }
 
+void network_up();
+void network_down();

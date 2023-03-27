@@ -11,7 +11,6 @@ unsigned static char atapi_packet[12] = {0xA8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 uint8_t ide_read(uint8_t channel, uint8_t reg)
 {
-	//kprintf("channel %d base: %x ctrl: %x base+reg: %x\n", channel, channels[channel].base, channels[channel].ctrl, channels[channel].base + reg);
 	uint8_t result;
 	if (reg > 0x07 && reg < 0x0C) {
 		ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
@@ -236,7 +235,6 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 			outb(base + 6, masterslave);
 			outb(base + 7, 0xEC);
 			uint8_t x = inb(base + 7);
-			//kprintf("%s %s Status: %d\n", base == 0x1F0 ? "Primary" : "Secondary", masterslave == 0xA0 ? "master" : "slave", x);
 
 			// Nothing at all on this connection
 			if (x == 0) {
@@ -304,11 +302,9 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 
 				FS_StorageDevice* sd = (FS_StorageDevice*)kmalloc(sizeof(FS_StorageDevice));
 				if (type == IDE_ATAPI) {
-					//kprintf("%s: ATAPI CDROM\n", ide_devices[count].model);
 					sprintf(sd->name, "cd%d", cdromcount++);
 					sd->block_size = 2048;
 				} else {
-					//kprintf("%s: %d GB IDE HARD DISK\n", ide_devices[count].model, ide_devices[count].size / 1024 / 1024 / 2);
 					sprintf(sd->name, "hd%d", hddcount++);
 					sd->block_size = 512;
 				}

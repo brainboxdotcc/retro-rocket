@@ -161,5 +161,8 @@ bool rtl8139_init() {
 	proc_register_idle(rtl8139_timer, IDLE_BACKGROUND);
 
 	rtl8139_device.active = true;
+
+	network_up();
+	
 	return true;
 }

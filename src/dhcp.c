@@ -52,7 +52,6 @@ void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
 	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
 	memset(packet, 0, sizeof(dhcp_packet_t));
-	//kprintf("dhcp request with type 3, server_ip %08x\n", server_ip);
 	uint16_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
 }

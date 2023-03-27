@@ -200,87 +200,68 @@ int _close(uint32_t descriptor)
 
 long _lseek(int fd, long offset, int origin)
 {
-	//kprintf("LSEEK ");
-	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
-	{
-		//kprintf("Bad FD %d\n", fd);
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
 		return -1;
-	}
-	else
-	{
-		//kprintf("1 ");
-		if (offset + origin > filehandles[fd]->file->size)
-		{
-			//kprintf("offset + origin > %d\n", filehandles[fd]->file->size);
+	} else {
+		if (offset + origin > filehandles[fd]->file->size) {
 			return -1;
-		}
-		else
-		{
-			//kprintf("2 ");
+		} else {
 			filehandles[fd]->seekpos = offset + origin;
 			/* Flush output before seeking */
 			flush_filehandle(fd);
 			/* Refresh input buffer */
-			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, filehandles[fd]->inbufsize, filehandles[fd]->inbuf))
-			{
-				//kprintf("Read buffer failure");
+			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, filehandles[fd]->inbufsize, filehandles[fd]->inbuf)) {
 				return -1;
-			}
-			else
-			{
-				//kprintf("3 %d ", filehandles[fd]->seekpos);
+			} else {
 				return filehandles[fd]->seekpos;
 			}
 		}
 	}
-	//kprintf("E ");
 	return -1;
 }
 
 long _tell(int fd)
 {
-	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
-		return -1;
-	else
-		return filehandles[fd]->seekpos;
+	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? -1 : filehandles[fd]->seekpos; 
 }
 
 /* Read bytes from an open file */
 int _read(int fd, void *buffer, unsigned int count)
 {
 	/* Sanity checks */
-	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
 		return -1;
+	}
 
-	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size)
+	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size) {
 		return 0;
+	}
 
 	/* Check that the size of the request and current position
 	 * don't place any part of the buffer past the bounds of the file
 	 */
-	if ((filehandles[fd]->seekpos + count) > filehandles[fd]->file->size)
-	{
+	if ((filehandles[fd]->seekpos + count) > filehandles[fd]->file->size) {
 		/* Request too large, truncate it to EOF */
 		count = filehandles[fd]->file->size - filehandles[fd]->seekpos;
 	}
 
-	if (((filehandles[fd]->seekpos % filehandles[fd]->inbufsize) + count) > filehandles[fd]->inbufsize)
-	{
+	if (((filehandles[fd]->seekpos % filehandles[fd]->inbufsize) + count) > filehandles[fd]->inbufsize) {
 		/* The requested buffer size is too large to read in one operation.
 		 * Continually read into the input buffer in filehandles[fd]->inbufsize
 		 * chunks maximum until all data is read.
 		 */
 		int readbytes = 0;
-		while (count > 0)
-		{
+		while (count > 0) {
 			int rb;
-			if (count > filehandles[fd]->inbufsize)
+			if (count > filehandles[fd]->inbufsize) {
 				rb = filehandles[fd]->inbufsize;
-			else
+			} else {
 				rb = count;
+			}
 
-			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, rb, filehandles[fd]->inbuf))
+			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, rb, filehandles[fd]->inbuf)) {
 				return -1;
+			}
 
 			memcpy(((unsigned char*)buffer) + readbytes, filehandles[fd]->inbuf, rb);
 
@@ -291,20 +272,16 @@ int _read(int fd, void *buffer, unsigned int count)
 		count = readbytes;
 
 
-	}
-	else
-	{
+	} else {
 		/* we can do the entire read from only the current IO buffer */
 
 		/* Read the entire lot in one go */
-		if (filehandles[fd]->cached == 0)
-		{
-			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf))
+		if (filehandles[fd]->cached == 0) {
+			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf)) {
 				return -1;
+			}
 			memcpy(buffer, filehandles[fd]->inbuf, count);
-		}
-		else
-		{
+		} else {
 			memcpy(buffer, filehandles[fd]->inbuf + filehandles[fd]->seekpos, count);
 		}
 
@@ -316,10 +293,7 @@ int _read(int fd, void *buffer, unsigned int count)
 
 int _eof(int fd)
 {
-	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL)
-		return -1;
-
-	return (filehandles[fd]->seekpos >= filehandles[fd]->file->size);
+	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? -1 : (filehandles[fd]->seekpos >= filehandles[fd]->file->size);
 }
 
 void retrieve_node_from_driver(FS_Tree* node)
@@ -329,17 +303,18 @@ void retrieve_node_from_driver(FS_Tree* node)
 	 */
 
 	//kprintf("retrieve_node_from_driver\n");
-	if (node == NULL)
+	if (node == NULL) {
 		return;
+	}
 
 	FS_FileSystem* driver = (FS_FileSystem*)node->responsible_driver;
 
-	if (driver == dummyfs)
+	if (driver == dummyfs) {
 		return;
+	}
 
 	//kprintf("drv=%08x getdir=%08x\n", driver, driver->getdir);
-	if (driver == NULL || driver->getdir == NULL)
-	{
+	if (driver == NULL || driver->getdir == NULL) {
 		/* Driver does not implement getdir() */
 		kprintf("*** BUG *** Driver %08x on node '%s' is null or does not support getdir()! (getdir=%08x)\n", driver, node->name, driver->getdir);
 		return;
@@ -351,8 +326,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 	node->dirty = 0;
 	node->child_dirs = NULL;
 
-	if (node->files == NULL)
-	{
+	if (node->files == NULL) {
 		node->parent = node;
 		return;
 	}
@@ -364,11 +338,9 @@ void retrieve_node_from_driver(FS_Tree* node)
 	 * ownership of another filesystems mountpoint!
 	 */
 	FS_DirectoryEntry* x = (FS_DirectoryEntry*)node->files;
-	for (; x; x = x->next)
-	{
+	for (; x; x = x->next) {
 		//kprintf("Parse entry '%s'@%08x\n", x->filename, x);
-		if (x->flags & FS_DIRECTORY)
-		{
+		if (x->flags & FS_DIRECTORY) {
 			/* Insert a new child directory into node->child_dirs,
 			 * Make each dir empty and 'dirty' and get its opaque
 			 * from the parent dir
@@ -419,7 +391,6 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 		}
 	}
 
-//kprintf("walk to node internal 8\n");
 	return NULL;
 }
 
@@ -436,13 +407,10 @@ uint8_t verify_path(const char* path)
 
 FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 {
-//kprintf("walk to node 0\n");
 	if (!verify_path(path))
 		return NULL;
-//kprintf("walk to node 01\n");
 	if (!strcmp(path, "/"))
 		return fs_tree;
-//kprintf("walk to node 012\n");
 	/* First build the dir stack */
 	DirStack* ds = (DirStack*)kmalloc(sizeof(DirStack));
 	DirStack* walk = ds;
@@ -450,10 +418,8 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 	char* parse;
 	char* last = copy + 1;
 
-	for (parse = copy + 1; *parse; ++parse)
-	{
-		if (*parse == '/')
-		{
+	for (parse = copy + 1; *parse; ++parse) {
+		if (*parse == '/') {
 			*parse = 0;
 			walk->name = strdup(last);
 			last = parse + 1;
@@ -467,10 +433,8 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 	}
 	walk->next = NULL;
 	walk->name = strdup(last);
-//kprintf("walk to node 199\n");
 	FS_Tree* result = walk_to_node_internal(current_node, ds);
-	for(; ds; ds = ds->next)
-	{
+	for(; ds; ds = ds->next) {
 		kfree(ds->name);
 		kfree(ds);
 	}
@@ -479,14 +443,12 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 
 FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 {
-	if (!directory)
+	if (!directory) {
 		return NULL;
-
-	//kprintf("find_file_in_dir %s %d", directory->name, directory->lbapos);
+	}
 
 	FS_DirectoryEntry* entry = (FS_DirectoryEntry*)directory->files;
-	for (; entry; entry = entry->next)
-	{
+	for (; entry; entry = entry->next) {
 		/* Don't find directories, only files */
 		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcmp(filename, entry->filename)))
 			return entry;
@@ -497,16 +459,14 @@ FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 int fs_read_file(FS_DirectoryEntry* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
 	FS_FileSystem* fs = (FS_FileSystem*)file->directory->responsible_driver;
-	if (fs)
-		return fs->readfile(file, start, length, buffer);
-	else
-		return 0;
+	return fs ? fs->readfile(file, start, length, buffer) : 0;
 }
 
 FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 {
-	if (!verify_path(pathandfile))
+	if (!verify_path(pathandfile)) {
 		return NULL;
+	}
 
 	/* First, split the path and file components */
 	uint32_t namelen = strlen(pathandfile);
@@ -514,10 +474,8 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 	char* filename = NULL;
 	char* pathname = NULL;
 	char* ptr;
-	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr)
-	{
-		if (*ptr == '/')
-		{
+	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr) {
+		if (*ptr == '/') {
 			*ptr = 0;
 			filename = strdup(ptr + 1);
 			pathname = strdup(pathinfo);
@@ -526,27 +484,20 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 	}
 	kfree(pathinfo);
 
-	if (!filename || !pathname || !*filename)
-	{
-//		kprintf("fs_get_file_info: Malformed pathname '%s'\n", pathandfile);
+	if (!filename || !pathname || !*filename) {
 		return NULL;
 	}
-	if (*pathname == 0)
-	{
+	if (*pathname == 0) {
 		/* A file located on the root directory -- special case */
 		kfree(pathname);
 		pathname = strdup("/");
 	}
 	FS_Tree* directory = walk_to_node(fs_tree, pathname);
-	if (!directory)
-	{
-//		kprintf("fs_get_file_info: No such path '%s'\n", pathname);
+	if (!directory) {
 		return NULL;
 	}
 	FS_DirectoryEntry* fileinfo = find_file_in_dir(directory, filename);
-	if (!fileinfo)
-	{
-//		kprintf("fs_get_file_info: No such file '%s' in dir '%s'\n", filename, pathname);
+	if (!fileinfo) {
 		return NULL;
 	}
 	return fileinfo;
@@ -555,17 +506,16 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 {
 	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
-	if (item) {
-		item->responsible_driver = (void*)fs;
-		item->opaque = opaque;
-		item->dirty = 1;
-		item->files = NULL;
-		item->child_dirs = NULL;
-		item->lbapos = 0; // special value always refers to root dir
-		retrieve_node_from_driver(item);
-	} else {
+	if (item == NULL) {
 		return 0;
 	}
+	item->responsible_driver = (void*)fs;
+	item->opaque = opaque;
+	item->dirty = 1;
+	item->files = NULL;
+	item->child_dirs = NULL;
+	item->lbapos = 0; // special value always refers to root dir
+	retrieve_node_from_driver(item);
 	return 1;
 }
 

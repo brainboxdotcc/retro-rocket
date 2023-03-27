@@ -54,17 +54,6 @@ void arp_handle_packet(arp_packet_t* arp_packet, int len) {
 
 	uint8_t dummy[6];
 	if (!arp_lookup(dummy, dst_protocol_addr)) {
-		/*char ip[15] = { 0 };
-		get_ip_str(ip, dst_protocol_addr);
-		kprintf(
-			"ARP discovered for %s mac %02X:%02X:%02X:%02X:%02X:%02X\n", ip,
-			dst_hardware_addr[0],
-			dst_hardware_addr[1],
-			dst_hardware_addr[2],
-			dst_hardware_addr[3],
-			dst_hardware_addr[4],
-			dst_hardware_addr[5]
-		);*/
 		memcpy(&arp_table[arp_table_curr].ip_addr, dst_protocol_addr, 4);
 		memcpy(&arp_table[arp_table_curr++].mac_addr, dst_hardware_addr, 6);
 		if(arp_table_size < 512) {
@@ -93,8 +82,6 @@ void arp_send_packet(uint8_t* dst_hardware_addr, uint8_t* dst_protocol_addr) {
 	arp_packet->hardware_type = htons(HARDWARE_TYPE_ETHERNET);
 	arp_packet->protocol = htons(ETHERNET_TYPE_IP);
 
-	//kprintf("arp outbound request\n");
-
 	ethernet_send_packet(broadcast_mac_address, (uint8_t*)arp_packet, sizeof(arp_packet_t), ETHERNET_TYPE_ARP);
 }
 
@@ -105,8 +92,6 @@ void arp_prediscover(uint8_t* protocol_addr) {
 void arp_lookup_add(uint8_t* ret_hardware_addr, uint8_t* ip_addr) {
 	memcpy(&arp_table[arp_table_curr].ip_addr, ip_addr, 4);
 	memcpy(&arp_table[arp_table_curr].mac_addr, ret_hardware_addr, 6);
-	/*kprintf("arp lookup add: %d.%d.%d.%d -> %02X:%02X:%02X:%02X:%02X:%02X", ip_addr[0], ip_addr[1], ip_addr[2], ip_addr[3],
-		ret_hardware_addr[0], ret_hardware_addr[1], ret_hardware_addr[2], ret_hardware_addr[3], ret_hardware_addr[4], ret_hardware_addr[5]);*/
 	if (arp_table_size < 512) {
 		arp_table_size++;
 	}

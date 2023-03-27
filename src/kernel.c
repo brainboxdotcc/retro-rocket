@@ -22,6 +22,19 @@ void kmain_ap()
 	while (1) asm volatile("hlt");
 }
 
+void network_up()
+{
+	arp_init();
+	ip_init();
+	tcp_init();
+	dhcp_discover();
+	init_dns();
+}
+
+void network_down()
+{
+}
+
 void kmain()
 {
 	init_spinlock(&init_barrier);
@@ -74,13 +87,7 @@ void kmain()
 	clock_init();
 	init_lapic_timer(50);
 
-	if (rtl8139_init()) {
-		arp_init();
-		ip_init();
-		tcp_init();
-		dhcp_discover();
-		init_dns();
-	}
+	rtl8139_init();
 
 	kprintf("System boot time: %s\n", get_datetime_str());
 	kprintf("Loading initial process...\n");

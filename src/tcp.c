@@ -266,6 +266,15 @@ uint8_t tcp_parse_options(tcp_segment_t* const segment, tcp_options_t* options)
 	return n_opts;
 }
 
+/**
+ * @brief Find a TCP TCB by source and destination address/port pairs
+ * 
+ * @param source_addr source address
+ * @param dest_addr destination addres
+ * @param source_port source port
+ * @param dest_port destination port
+ * @return tcp_conn_t* TCB
+ */
 tcp_conn_t* tcp_find(uint32_t source_addr, uint32_t dest_addr, uint16_t source_port, uint16_t dest_port)
 {
 	if (tcb == NULL) {
@@ -275,6 +284,13 @@ tcp_conn_t* tcp_find(uint32_t source_addr, uint32_t dest_addr, uint16_t source_p
 	return (tcp_conn_t*)hashmap_get(tcb, &find_conn);
 }
 
+/**
+ * @brief Set the state for a TCB
+ * 
+ * @param conn TCB
+ * @param new_state new state to set
+ * @return tcp_conn_t* modified TCB
+ */
 tcp_conn_t* tcp_set_state(tcp_conn_t* conn, tcp_state_t new_state)
 {
 	if (conn == NULL) {
@@ -284,6 +300,13 @@ tcp_conn_t* tcp_set_state(tcp_conn_t* conn, tcp_state_t new_state)
 	return conn;
 }
 
+/**
+ * @brief Build the options for a segment before sending
+ * 
+ * @param options options pointer to fill
+ * @param opt options values to set
+ * @return uint8_t number of bytes filled
+ */
 uint8_t tcp_build_options(uint8_t* options, const tcp_options_t* opt)
 {
 	uint8_t index = 0;
@@ -296,6 +319,16 @@ uint8_t tcp_build_options(uint8_t* options, const tcp_options_t* opt)
 	return index;
 }
 
+/**
+ * @brief Send a segment to the peer
+ * 
+ * @param conn TCB
+ * @param seq send sequence number
+ * @param flags header flags
+ * @param data data to send
+ * @param count number of octets of data to send
+ * @return tcp_conn_t* modified TCB
+ */
 tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, const void *data, size_t count)
 {
 	if (conn == NULL) {
@@ -351,11 +384,25 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	return conn;
 }
 
+/**
+ * @brief Calculate size of header for a segment using the payload offset
+ * 
+ * @param s TCP segment
+ * @return size_t size of header
+ */
 size_t tcp_header_size(tcp_segment_t* s)
 {
 	return (s->flags.off * 4);
 }
 
+/**
+ * @brief Write data to an open connection
+ * 
+ * @param conn TCB
+ * @param data data to send
+ * @param count number of octets to send
+ * @return int zero on success, negative value on failure
+ */
 int tcp_write(tcp_conn_t* conn, const void* data, size_t count)
 {
 	if (conn == NULL) {
@@ -476,6 +523,13 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 	return new->segment;
 }
 
+/**
+ * @brief Send completed sequences of segments to the recv buffer
+ * 
+ * @param conn TCB
+ * @param segment TCP segment
+ * @param len length of segment
+ */
 void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 {
 	tcp_ordered_list_t* cur;
@@ -505,6 +559,7 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 			conn->recv_buffer_spinlock--;
 		}
 
+		// Remove from doubly linked list
 		if (cur->prev != NULL) {
 			cur->prev->next = cur->next;
 		}
@@ -518,13 +573,12 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 		}
 		kfree(cur->segment);
 		kfree(cur);
-
-		/* Delete element */
 	}
 }
 
 bool tcp_state_listen(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	// TODO - implement this
 	return true;
 }
 
@@ -545,6 +599,16 @@ bool tcp_send_ack(tcp_conn_t* conn)
 	return tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
 }
 
+/**
+ * @brief Called when state is SYN-SENT
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	if (segment->flags.ack) {
@@ -557,8 +621,7 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 
 	if (segment->flags.rst) {
 		if (segment->flags.ack) {
-			// Connection reset
-
+			// TOD: Connection reset
 		}
 
 		return true;
@@ -591,6 +654,16 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	return true;
 }
 
+/**
+ * @brief Called when state is SYN-RECEIVED
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
  	if (segment->flags.fin) {
@@ -599,6 +672,16 @@ bool tcp_state_syn_received(ip_packet_t* encap_packet, tcp_segment_t* segment, t
 	return true;
 }
 
+/**
+ * @brief Called when we receive RST
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	switch (conn->state) {
@@ -628,6 +711,16 @@ bool tcp_state_receive_rst(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 	return false;
 }
 
+/**
+ * @brief Called for general data IN that we need to ACK
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	size_t payload_len = len - tcp_header_size(segment);
@@ -654,11 +747,26 @@ bool tcp_handle_data_in(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 	return true;
 }
 
+/**
+ * @brief Set connection timeout (12 seconds)
+ * 
+ * @param conn TCB
+ */
 void tcp_set_conn_msl_time(tcp_conn_t* conn)
 {
 	conn->msl_time = time(NULL) + 12000;
 }
 
+/**
+ * @brief Called when we receive FIN
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	conn->rcv_nxt = segment->seq + 1;
@@ -696,6 +804,16 @@ bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 	return true;
 }
 
+/**
+ * @brief Called when state is ESTABLISHED
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	if (len - tcp_header_size(segment) > 0) {
@@ -707,18 +825,48 @@ bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 	return true;
 }
 
+/**
+ * @brief Called when state is FIN-WAIT-1
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_fin_wait_1(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
 
+/**
+ * @brief Called when state is FIN-WAIT-2
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_fin_wait_2(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	tcp_handle_data_in(encap_packet, segment, conn, options, len);
 	return true;
 }
 
+/**
+ * @brief Called when state is CLOSE-WAIT
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_close_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, 0, 0);
@@ -726,16 +874,46 @@ bool tcp_state_close_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp
 	return true;
 }
 
+/**
+ * @brief Called when state is CLOSING
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_closing(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	return true;
 }
 
+/**
+ * @brief Called when state is LAST-ACK
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_last_ack(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	return true;
 }
 
+/**
+ * @brief Called when state is TIME-WAIT
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
  	if (segment->flags.fin) {
@@ -744,6 +922,16 @@ bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_
 	return true;
 }
 
+/**
+ * @brief Finite state machine to route segments based on current state
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param conn TCB
+ * @param options options, e.g. MSS
+ * @param len length of segment
+ * @return true if we are to continue processing
+ */
 bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	switch (conn->state) {
@@ -772,6 +960,13 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
 	}
 }
 
+/**
+ * @brief Handle inbound packet from IP layer
+ * 
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param len length of segment
+ */
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len)
 {
 	tcp_options_t options;
@@ -789,6 +984,9 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 	}
 }
 
+/**
+ * @brief ISR idle task
+ */
 void tcp_idle()
 {
 	if (tcb == NULL) {
@@ -823,12 +1021,23 @@ void tcp_idle()
 	}
 }
 
+/**
+ * @brief Initialise TCP
+ */
 void tcp_init()
 {
 	tcb = hashmap_new(sizeof(tcp_conn_t), 0, 6, 28, tcp_conn_hash, tcp_conn_compare, NULL, NULL);
 	proc_register_idle(tcp_idle, IDLE_BACKGROUND);
 }
 
+/**
+ * @brief Return true if port is in use on this local address
+ * 
+ * @param addr local address
+ * @param port port number
+ * @param type port type, local or remote
+ * @return true if port is in use
+ */
 bool tcp_port_in_use(uint32_t addr, uint16_t port, tcp_port_type_t type)
 {
 	void *item;
@@ -842,6 +1051,14 @@ bool tcp_port_in_use(uint32_t addr, uint16_t port, tcp_port_type_t type)
 	return false;
 }
 
+/**
+ * @brief Allocate a free port >= 1024
+ * 
+ * @param source_addr source address
+ * @param port port, 0 to let the system choose
+ * @param type type of port, local or remote
+ * @return uint16_t selected port, or 0 if none available
+ */
 uint16_t tcp_alloc_port(uint32_t source_addr, uint16_t port, tcp_port_type_t type)
 {
 	if (port == 0) {

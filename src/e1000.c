@@ -207,12 +207,12 @@ void e1000_txinit()
 	e1000_writeCommand( REG_TXDESCHEAD, 0);
 	e1000_writeCommand( REG_TXDESCTAIL, E1000_NUM_TX_DESC - 1);
 	tx_cur = 0;
-	/*e1000_writeCommand(REG_TCTRL,  TCTL_EN
+	e1000_writeCommand(REG_TCTRL,  TCTL_EN
 		| TCTL_PSP
 		| (15 << TCTL_CT_SHIFT)
 		| (64 << TCTL_COLD_SHIFT)
 		| TCTL_RTLC);
- */
+ 
 	e1000_writeCommand(REG_TCTRL, (1 << 1) | (1 << 3));
 	// This line of code overrides the one before it but I left both to highlight that the previous one works with e1000 cards,
 	// but for the e1000e cards 
@@ -229,21 +229,19 @@ void e1000_handleReceive()
 
 	kprintf("Handle recv\n");
   
-	while ((rx_descs[rx_cur]->status & 0x1))
-	{
-	kprintf("Packet\n");
-			uint8_t *buf = (uint8_t *)rx_descs[rx_cur]->addr;
-			uint16_t len = rx_descs[rx_cur]->length;
+	while ((rx_descs[rx_cur]->status & 0x1)) {
+		uint8_t *buf = (uint8_t *)rx_descs[rx_cur]->addr;
+		uint16_t len = rx_descs[rx_cur]->length;
 
 		dump_hex(buf, len);
  
-			// Here you should inject the received packet into your network stack
+		// Here you should inject the received packet into your network stack
 		ethernet_handle_packet((ethernet_frame_t*)buf, len);
  
-			rx_descs[rx_cur]->status = 0;
-			old_cur = rx_cur;
-			rx_cur = (rx_cur + 1) % E1000_NUM_RX_DESC;
-			e1000_writeCommand(REG_RXDESCTAIL, old_cur );
+		rx_descs[rx_cur]->status = 0;
+		old_cur = rx_cur;
+		rx_cur = (rx_cur + 1) % E1000_NUM_RX_DESC;
+		e1000_writeCommand(REG_RXDESCTAIL, old_cur );
 	}	
 }
 
@@ -281,15 +279,15 @@ void e1000_up()
 
 void e1000_handler(uint8_t isr, uint64_t error, uint64_t irq)
 {
-		/* This might be needed here if your handler doesn't clear interrupts from each device and must be done before EOI if using the PIC.
-		 * Without this, the card will spam interrupts as the int-line will stay high.
+	/* This might be needed here if your handler doesn't clear interrupts from each device and must be done before EOI if using the PIC.
+	 * Without this, the card will spam interrupts as the int-line will stay high.
 	 */
-		e1000_writeCommand(REG_IMASK, 0x1);
-		//e1000_writeCommand(REG_IMASK ,0x1F6DC);
-		//e1000_writeCommand(REG_IMASK ,0xff & ~4);
+	e1000_writeCommand(REG_IMASK, 0x1);
+	//e1000_writeCommand(REG_IMASK ,0x1F6DC);
+	//e1000_writeCommand(REG_IMASK ,0xff & ~4);
 
 
-		uint32_t status = e1000_readCommand(0xc0);
+	uint32_t status = e1000_readCommand(0xc0);
 	kprintf("e1000 int status %d\n", status);
 	if(status & 0x02)
 	{
@@ -299,19 +297,19 @@ void e1000_handler(uint8_t isr, uint64_t error, uint64_t irq)
 	{
 		kprintf("Recv sequence error\n");
 	}
-		if(status & 0x04)
-		{
-			e1000_up();
-		}
-		else if(status & 0x10)
-		{
-		   // good threshold
-		}
-		else if(status & 0x80)
-		{
+	if(status & 0x04)
+	{
+		e1000_up();
+	}
+	else if(status & 0x10)
+	{
+		// good threshold
+	}
+	else if(status & 0x80)
+	{
 		kprintf("status 80\n");
-			e1000_handleReceive();
-		}
+		e1000_handleReceive();
+	}
 }
 
 void e1000_enableInterrupt()
@@ -342,6 +340,8 @@ bool e1000_start (pci_dev_t* pci_device)
 	e1000_writeCommand(REG_CTRL, 0x20 | ECTRL_SLU); //set link up, activate auto-speed detection
 
 	e1000_check_link();
+
+	network_up();
 	return true;
 }
 
@@ -362,7 +362,7 @@ bool init_e1000()
 	// Enable bus mastering
 	pci_bus_master(pci_device);
 
-   eerprom_exists = false;
+	eerprom_exists = false;
 
-   return e1000_start(&pci_device);
+	return e1000_start(&pci_device);
 }
