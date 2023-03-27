@@ -1,11 +1,11 @@
 #include <kernel.h>
 
-FS_FileSystem* devfs = NULL;
-FS_DirectoryEntry* devfs_entries = NULL;
+filesystem_t* devfs = NULL;
+fs_directory_entry_t* devfs_entries = NULL;
 
 void* devfs_get_directory(void* t)
 {
-	FS_Tree* treeitem = (FS_Tree*)t;
+	fs_tree_t* treeitem = (fs_tree_t*)t;
 	devfs_entries->directory = treeitem;
 	return devfs_entries;
 }
@@ -22,7 +22,7 @@ int devfs_attach(const char* device, const char* path)
 
 void init_devfs()
 {
-	devfs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
+	devfs = (filesystem_t*)kmalloc(sizeof(filesystem_t));
 	strlcpy(devfs->name, "devfs", 31);
 	devfs->mount = devfs_attach;
 	devfs->getdir = devfs_get_directory;
@@ -30,7 +30,7 @@ void init_devfs()
 	devfs->writefile = NULL;
 	devfs->rm = NULL;
 	register_filesystem(devfs);
-	devfs_entries = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+	devfs_entries = (fs_directory_entry_t*)kmalloc(sizeof(fs_directory_entry_t));
 	devfs_entries->next = NULL;
 	devfs_entries->size = 0;
 	devfs_entries->flags = 0;

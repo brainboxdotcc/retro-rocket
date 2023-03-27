@@ -56,7 +56,7 @@ typedef struct
 	uint32_t fatsize;
 	uint32_t clustersize;
 	uint32_t* fat;
-	FS_DirectoryEntry* root;
+	fs_directory_entry_t* root;
 	FSInfo* info;
 } fat32;
 

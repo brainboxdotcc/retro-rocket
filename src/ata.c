@@ -173,7 +173,7 @@ uint8_t ide_print_error(uint32_t drive, uint8_t err)
  */
 int storage_device_ide_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buffer)
 {
-	FS_StorageDevice* sd = (FS_StorageDevice*)dev;
+	storage_device_t* sd = (storage_device_t*)dev;
 	if (!sd) {
 		return 0;
 	}
@@ -195,7 +195,7 @@ int storage_device_ide_block_read(void* dev, uint64_t start, uint32_t bytes, uns
  */
 int storage_device_ide_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer)
 {
-	FS_StorageDevice* sd = (FS_StorageDevice*)dev;
+	storage_device_t* sd = (storage_device_t*)dev;
 	if (!sd) {
 		return 0;
 	}
@@ -300,7 +300,7 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 					ide_devices[count].model[k--] = 0;
 				}
 
-				FS_StorageDevice* sd = (FS_StorageDevice*)kmalloc(sizeof(FS_StorageDevice));
+				storage_device_t* sd = (storage_device_t*)kmalloc(sizeof(storage_device_t));
 				if (type == IDE_ATAPI) {
 					sprintf(sd->name, "cd%d", cdromcount++);
 					sd->block_size = 2048;

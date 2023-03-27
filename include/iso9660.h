@@ -14,8 +14,8 @@ typedef struct
 	uint32_t pathtable_lba;
 	uint32_t rootextent_lba;
 	uint32_t rootextent_len;
-	FS_DirectoryEntry* root;
-	FS_StorageDevice* device;
+	fs_directory_entry_t* root;
+	storage_device_t* device;
 } iso9660;
 
 /* Date structure as defined in the primary volume descriptor */

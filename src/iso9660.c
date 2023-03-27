@@ -5,7 +5,7 @@
 #define VERIFY_ISO9660(n) (n->standardidentifier[0] == 'C' && n->standardidentifier[1] == 'D' \
 				&& n->standardidentifier[2] == '0' && n->standardidentifier[3] == '0' && n->standardidentifier[4] == '1')
 
-FS_DirectoryEntry* parse_directory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes); 
+fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes); 
 
 /**
  * @brief Mount an ISO 9660 filesystem on a given block device name.
@@ -20,7 +20,7 @@ iso9660* iso_mount_volume(const char* device);
 
 int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
-static FS_FileSystem* iso9660_fs = NULL;
+static filesystem_t* iso9660_fs = NULL;
 
 void parse_boot(iso9660* info, unsigned char* buffer)
 {
@@ -58,7 +58,7 @@ int parse_pvd(iso9660* info, unsigned char* buffer)
 	return info->root != 0;
 }
 
-FS_DirectoryEntry* parse_directory(FS_Tree* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes)
+fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes)
 {
 	unsigned char* dirbuffer = (unsigned char*)kmalloc(lengthbytes);
 	int j;
@@ -73,7 +73,7 @@ FS_DirectoryEntry* parse_directory(FS_Tree* node, iso9660* info, uint32_t start_
 	}
 
 	uint32_t dir_items = 0;
-	FS_DirectoryEntry* list = NULL;
+	fs_directory_entry_t* list = NULL;
 
 	// Iterate each of the entries in this directory, enumerating files
 	unsigned char* walkbuffer = dirbuffer;
@@ -89,7 +89,7 @@ FS_DirectoryEntry* parse_directory(FS_Tree* node, iso9660* info, uint32_t start_
 		// Skip the first two entries, '.' and '..'
 		if (entrycount > 2)
 		{
-			FS_DirectoryEntry* thisentry = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+			fs_directory_entry_t* thisentry = (fs_directory_entry_t*)kmalloc(sizeof(fs_directory_entry_t));
 
 			if (info->joliet == 0)
 			{
@@ -196,9 +196,9 @@ void parse_VPD(iso9660* info, unsigned char* buffer)
 {
 }
 
-FS_DirectoryEntry* hunt_entry(iso9660* info, const char* filename, uint32_t flags)
+fs_directory_entry_t* hunt_entry(iso9660* info, const char* filename, uint32_t flags)
 {
-	FS_DirectoryEntry* currententry = info->root;
+	fs_directory_entry_t* currententry = info->root;
 	for(; currententry->next; currententry = currententry->next)
 	{
 		if ((flags != 0) && !(currententry->flags & flags))
@@ -213,7 +213,7 @@ FS_DirectoryEntry* hunt_entry(iso9660* info, const char* filename, uint32_t flag
 
 void* iso_get_directory(void* t)
 {
-	FS_Tree* treeitem = (FS_Tree*)t;
+	fs_tree_t* treeitem = (fs_tree_t*)t;
 	if (treeitem)
 	{
 		iso9660* info = (iso9660*)treeitem->opaque;
@@ -221,16 +221,16 @@ void* iso_get_directory(void* t)
 	}
 	else
 	{
-		kprintf("*** BUG *** iso_get_directory: null FS_Tree*!\n");
+		kprintf("*** BUG *** iso_get_directory: null fs_tree_t*!\n");
 		return NULL;
 	}
 }
 
 int iso_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	FS_DirectoryEntry* file = (FS_DirectoryEntry*)f;
+	fs_directory_entry_t* file = (fs_directory_entry_t*)f;
 	//iso9660* info = (iso9660*)treeitem->opaque;
-	FS_StorageDevice* fs = find_storage_device(file->device_name);
+	storage_device_t* fs = find_storage_device(file->device_name);
 
 	uint32_t sectors_size = length / fs->block_size;
 	uint32_t sectors_start = start / fs->block_size + file->lbapos;
@@ -256,7 +256,7 @@ int iso_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffe
 
 iso9660* iso_mount_volume(const char* name)
 {
-	FS_StorageDevice* fs = find_storage_device(name);
+	storage_device_t* fs = find_storage_device(name);
 	if (!fs) {
 		return NULL;
 	}
@@ -309,7 +309,7 @@ int iso9660_attach(const char* device, const char* path)
 
 void init_iso9660()
 {
-	iso9660_fs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
+	iso9660_fs = (filesystem_t*)kmalloc(sizeof(filesystem_t));
 	strlcpy(iso9660_fs->name, "iso9660", 31);
 	iso9660_fs->mount = iso9660_attach;
 	iso9660_fs->getdir = iso_get_directory;

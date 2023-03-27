@@ -10,11 +10,11 @@
 #define _O_WRONLY   0x00000008
 #define _O_RDWR     (_O_WRONLY|_O_RDONLY)
 
-/* File flags for FS_DirectoryEntry */
+/* File flags for fs_directory_entry_t */
 #define FS_DIRECTORY	0x00000001	/* Entry is a directory */
 #define FS_MOUNTPOINT	0x00000002	/* Entry is a mountpoint */
 
-/* Prototypes for filesystem drivers (see FS_FileSystem) */
+/* Prototypes for filesystem drivers (see filesystem_t) */
 typedef void* (*get_directory)(void*);
 typedef int (*mount_volume)(const char*, const char*);
 typedef int (*read_file)(void*, uint32_t, uint32_t, unsigned char*);
@@ -23,13 +23,13 @@ typedef int (*delete_file)(void*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
 
-struct FS_Tree_t;
+struct fs_tree_t;
 
 /* A VFS directory entry. Files AND directories have these,
- * but internally there is also a tree of FS_Tree* which is used
+ * but internally there is also a tree of fs_tree_t* which is used
  * for faster access and caching the structure to RAM
  */
-typedef struct FS_DirectoryEntryTag
+typedef struct fs_directory_entry_t
 {
 	char* filename;		/* Entry name */
 	uint16_t year;		/* Creation year */
@@ -44,17 +44,17 @@ typedef struct FS_DirectoryEntryTag
 	uint32_t device;	/* Device ID (driver specific, for ide devices it is the index) XXX DEPRECATED */
 	uint32_t size;		/* File size in bytes */
 	uint32_t flags;		/* File flags (FS_*) */
-	struct FS_Tree_t* directory;	/* Containing directory */
-	struct FS_DirectoryEntryTag* next;	/* Next entry */
+	struct fs_tree_t* directory;	/* Containing directory */
+	struct fs_directory_entry_t* next;	/* Next entry */
 
-} FS_DirectoryEntry;
+} fs_directory_entry_t;
 
 /* Defines a filesystem driver. A driver does not need to implement
  * all functions listed here. An unimplemented function should be
  * NULL, e.g. for a readonly filesystem there is no need to implement
  * delete_file or write_file.
  */
-typedef struct FileSystem_t
+typedef struct filesystem_t
 {
 	char name[32];		/* Filesystem name */
 	mount_volume mount;	/* mount() entrypoint */
@@ -62,80 +62,80 @@ typedef struct FileSystem_t
 	read_file readfile;	/* readfile() entrypoint */
 	write_file writefile;	/* writefile() entrypoint */
 	delete_file rm;		/* rm() entrypoint */
-	struct FileSystem_t* next;	/* Next entry */
-} FS_FileSystem;
+	struct filesystem_t* next;	/* Next entry */
+} filesystem_t;
 
 /* Represents a block storage device
  * e.g. a hard disk, DVD-ROM drive, etc.
  */
-typedef struct StorageDevice_t
+typedef struct storage_device_t
 {
 	char name[16];
 	block_read blockread;
 	block_write blockwrite;
-	struct StorageDevice_t* next;
+	struct storage_device_t* next;
 	uint32_t block_size;
 	uint64_t opaque1; /* For device driver use */
 	void* opaque2; /* For device driver use */
-} FS_StorageDevice;
+} storage_device_t;
 
 /* Used internally by filesystem.c to cache directories to RAM,
  * and to route requests for that directory through to their
  * driver. Also used to attach a driver initially to its
- * mountpoint unix style. FS_Tree structs are usually not
+ * mountpoint unix style. fs_tree_t structs are usually not
  * usable or visible to non-filesystem drivers.
  */
-typedef struct FS_Tree_t
+typedef struct fs_tree_t
 {
 	uint8_t dirty;		/* If this is set, the directory needs to be (re-)fetched from the filesystem driver */
 	char* name;		/* Directory name */
-	struct FS_Tree_t* parent;	/* Parent directory name */
-	struct FS_Tree_t* child_dirs;	/* Linked list of child directories */
-	struct FS_DirectoryEntry* files;	/* List of files (this also includes directories with FS_DIRECTORY bit set) */
-	struct FS_FileSystem* responsible_driver;	/* The driver responsible for handling this directory */
+	struct fs_tree_t* parent;	/* Parent directory name */
+	struct fs_tree_t* child_dirs;	/* Linked list of child directories */
+	struct fs_directory_entry_t* files;	/* List of files (this also includes directories with FS_DIRECTORY bit set) */
+	struct filesystem_t* responsible_driver;	/* The driver responsible for handling this directory */
 	uint32_t lbapos;			/* Directory LBA position (driver specific) */
 	char device_name[16];	/* Device name */	
 	uint32_t device;			/* Directory device ID (driver specific) */
 	uint32_t size;			/* Directory size (usually meaningless except to drivers) */
 	void* opaque;			/* Opaque data (driver specific data) */
-	struct FS_Tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
-} FS_Tree;
+	struct fs_tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
+} fs_tree_t;
 
 typedef enum
 {
 	file_input,
 	file_output,
 	file_random
-} FS_HandleType;
+} fs_handle_type_t;
 
 /* The data for an open file descriptor.
  * The FD table is an array of pointers to these
  * structs, any closed FD is NULL.
  */
-typedef struct FS_Handle_t
+typedef struct fs_handle_t
 {
-	FS_HandleType type;		/* Filehandle type */
+	fs_handle_type_t type;		/* Filehandle type */
 	unsigned char* inbuf;		/* Input buffer */
 	unsigned char* outbuf;		/* Output buffer */
 	uint32_t outbufsize;		/* Output buffer size */
 	uint32_t inbufsize;		/* Input buffer size */
-	FS_DirectoryEntry* file;	/* File which is open */
+	fs_directory_entry_t* file;	/* File which is open */
 	uint32_t seekpos;			/* Seek position within file */
 	uint8_t cached;			/* Entire file is cached to ram */
-} FS_Handle;
+} fs_handle_t;
 
 
 /* Register a new filesystem */
-int register_filesystem(FS_FileSystem* newfs);
+int register_filesystem(filesystem_t* newfs);
 
 /* Find a filesystem by name */
-FS_FileSystem* find_filesystem(const char* name);
+filesystem_t* find_filesystem(const char* name);
 
 /* Register a new storage device */
-int register_storage_device(FS_StorageDevice* newdev);
+int register_storage_device(storage_device_t* newdev);
 
 /* Find a storage device by name */
-FS_StorageDevice* find_storage_device(const char* name);
+storage_device_t* find_storage_device(const char* name);
 
 /* Read blocks from storage device by name */
 int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, unsigned char* data);
@@ -146,7 +146,7 @@ int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes,
 /* Attach a filesystem to a vfs directory. The opaque data is optional
  * and if included is driver-specific.
  */
-int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque);
+int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque);
 
 /**
  * @brief High level mount function
@@ -167,15 +167,15 @@ void init_filesystem();
 /* Get a list of files in a directory. The directory path must be fully
  * qualified from the root directory and must contain no trailing slash.
  */
-FS_DirectoryEntry* fs_get_items(const char* pathname);
+fs_directory_entry_t* fs_get_items(const char* pathname);
 
 /* Retrieve file information on any arbitrary filename.
  */
-FS_DirectoryEntry* fs_get_file_info(const char* pathandfile);
+fs_directory_entry_t* fs_get_file_info(const char* pathandfile);
 
 /* Read raw bytes from any arbitrary file.
  */
-int fs_read_file(FS_DirectoryEntry* file, uint32_t start, uint32_t length, unsigned char* buffer);
+int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
 /* POSIX _open function, opens a file for read or write access,
  * or creates a new file.

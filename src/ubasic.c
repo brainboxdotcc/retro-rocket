@@ -1412,7 +1412,7 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	FS_DirectoryEntry* fsl = fs_get_items(strval);
+	fs_directory_entry_t* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
 	{
@@ -1446,7 +1446,7 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	FS_DirectoryEntry* fsl = fs_get_items(strval);
+	fs_directory_entry_t* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
 	{
@@ -1464,7 +1464,7 @@ int64_t ubasic_getsize(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	FS_DirectoryEntry* fsl = fs_get_items(strval);
+	fs_directory_entry_t* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
 	{

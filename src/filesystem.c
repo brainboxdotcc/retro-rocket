@@ -1,14 +1,14 @@
 #include <kernel.h>
 #include <filesystem.h>
 
-FS_FileSystem* filesystems, *dummyfs;
-FS_StorageDevice* storagedevices = NULL;
-FS_Tree* fs_tree;
+filesystem_t* filesystems, *dummyfs;
+storage_device_t* storagedevices = NULL;
+fs_tree_t* fs_tree;
 static uint32_t fd_last = 0;
 static uint32_t fd_alloc = 0;
-FS_Handle* filehandles[FD_MAX] = { NULL };
+fs_handle_t* filehandles[FD_MAX] = { NULL };
 
-int register_filesystem(FS_FileSystem* newfs)
+int register_filesystem(filesystem_t* newfs)
 {
 	/* Add the new filesystem to the start of the list */
 	newfs->next = filesystems;
@@ -16,9 +16,9 @@ int register_filesystem(FS_FileSystem* newfs)
 	return 1;
 }
 
-FS_FileSystem* find_filesystem(const char* name)
+filesystem_t* find_filesystem(const char* name)
 {
-	FS_FileSystem* cur = filesystems;
+	filesystem_t* cur = filesystems;
 	for(; cur; cur = cur->next) {
 		if (!strcmp(name, cur->name)) {
 			return cur;
@@ -28,7 +28,7 @@ FS_FileSystem* find_filesystem(const char* name)
 }
 
 
-int register_storage_device(FS_StorageDevice* newdev)
+int register_storage_device(storage_device_t* newdev)
 {
 	/* Add the new storage device to the start of the list */
 	newdev->next = storagedevices;
@@ -36,9 +36,9 @@ int register_storage_device(FS_StorageDevice* newdev)
 	return 1;
 }
 
-FS_StorageDevice* find_storage_device(const char* name)
+storage_device_t* find_storage_device(const char* name)
 {
-	FS_StorageDevice* cur = storagedevices;
+	storage_device_t* cur = storagedevices;
 	for(; cur; cur = cur->next) {
 		if (!strcmp(name, cur->name)) {
 			return cur;
@@ -49,7 +49,7 @@ FS_StorageDevice* find_storage_device(const char* name)
 
 int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, unsigned char* data)
 {
-	FS_StorageDevice* cur = find_storage_device(name);
+	storage_device_t* cur = find_storage_device(name);
 	if (!cur || !cur->blockread) {
 		return 0;
 	}
@@ -58,7 +58,7 @@ int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, 
 
 int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes, const unsigned char* data)
 {
-	FS_StorageDevice* cur = find_storage_device(name);
+	storage_device_t* cur = find_storage_device(name);
 	if (!cur || !cur->blockwrite) {
 		return 0;
 	}
@@ -67,7 +67,7 @@ int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes,
 }
 
 /* Allocate a new file descriptor and attach it to 'file' */
-int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file, uint32_t ibufsz, uint32_t obufsz)
+int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t ibufsz, uint32_t obufsz)
 {
 	/* Check we havent used up all available fds */
 	if (fd_alloc >= FD_MAX)
@@ -79,8 +79,8 @@ int alloc_filehandle(FS_HandleType type, FS_DirectoryEntry* file, uint32_t ibufs
 		/* Found an empty slot */
 		if (filehandles[fd_last] == NULL)
 		{
-			/* Initialise FS_Handle struct */
-			filehandles[fd_last] = (FS_Handle*)kmalloc(sizeof(FS_Handle));
+			/* Initialise fs_handle_t struct */
+			filehandles[fd_last] = (fs_handle_t*)kmalloc(sizeof(fs_handle_t));
 			filehandles[fd_last]->type = type;
 			filehandles[fd_last]->file = file;
 			filehandles[fd_last]->seekpos = 0;
@@ -143,7 +143,7 @@ uint32_t destroy_filehandle(uint32_t descriptor)
 int _open(const char* filename, int oflag)
 {
 	/* First check if we can find the file in the filesystem */
-	FS_DirectoryEntry* file = fs_get_file_info(filename);
+	fs_directory_entry_t* file = fs_get_file_info(filename);
 	if (file == NULL)
 		return -1;
 
@@ -296,7 +296,7 @@ int _eof(int fd)
 	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? -1 : (filehandles[fd]->seekpos >= filehandles[fd]->file->size);
 }
 
-void retrieve_node_from_driver(FS_Tree* node)
+void retrieve_node_from_driver(fs_tree_t* node)
 {
 	/* XXX: Check there isnt already content in node->files, if there is,
 	 * delete the old content first to avoid a memleak.
@@ -307,7 +307,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 		return;
 	}
 
-	FS_FileSystem* driver = (FS_FileSystem*)node->responsible_driver;
+	filesystem_t* driver = (filesystem_t*)node->responsible_driver;
 
 	if (driver == dummyfs) {
 		return;
@@ -337,7 +337,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 	 * crop up again. If we don't do this, then we will claim
 	 * ownership of another filesystems mountpoint!
 	 */
-	FS_DirectoryEntry* x = (FS_DirectoryEntry*)node->files;
+	fs_directory_entry_t* x = (fs_directory_entry_t*)node->files;
 	for (; x; x = x->next) {
 		//kprintf("Parse entry '%s'@%08x\n", x->filename, x);
 		if (x->flags & FS_DIRECTORY) {
@@ -345,7 +345,7 @@ void retrieve_node_from_driver(FS_Tree* node)
 			 * Make each dir empty and 'dirty' and get its opaque
 			 * from the parent dir
 			 */
-			FS_Tree* newnode = (FS_Tree*)kmalloc(sizeof(FS_Tree));
+			fs_tree_t* newnode = (fs_tree_t*)kmalloc(sizeof(fs_tree_t));
 
 			newnode->name = x->filename;
 			newnode->lbapos = x->lbapos;
@@ -363,13 +363,13 @@ void retrieve_node_from_driver(FS_Tree* node)
 	}
 }
 
-typedef struct DirStack_t
+typedef struct dirstack_t
 {
 	char* name;
-	struct DirStack_t* next;
-} DirStack;
+	struct dirstack_t* next;
+} dirstack_t;
 
-FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
+fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 {
 	if (current_node != NULL && current_node->dirty != 0) {
 		retrieve_node_from_driver(current_node);
@@ -383,9 +383,9 @@ FS_Tree* walk_to_node_internal(FS_Tree* current_node, DirStack* dir_stack)
 	}
 
 	if (current_node != NULL) {
-		FS_Tree* dirs = current_node->child_dirs;
+		fs_tree_t* dirs = current_node->child_dirs;
 		for (; dirs; dirs = dirs->next) {
-			FS_Tree* result = walk_to_node_internal(dirs, dir_stack);
+			fs_tree_t* result = walk_to_node_internal(dirs, dir_stack);
 			if (result != NULL)
 				return result;
 		}
@@ -405,15 +405,15 @@ uint8_t verify_path(const char* path)
 	return ((*path == '/' && *(path + pathlen - 1) != '/') || !strcmp(path, "/"));
 }
 
-FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
+fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 {
 	if (!verify_path(path))
 		return NULL;
 	if (!strcmp(path, "/"))
 		return fs_tree;
 	/* First build the dir stack */
-	DirStack* ds = (DirStack*)kmalloc(sizeof(DirStack));
-	DirStack* walk = ds;
+	dirstack_t* ds = (dirstack_t*)kmalloc(sizeof(dirstack_t));
+	dirstack_t* walk = ds;
 	char* copy = strdup(path);
 	char* parse;
 	char* last = copy + 1;
@@ -424,7 +424,7 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 			walk->name = strdup(last);
 			last = parse + 1;
 
-                        DirStack* next = (DirStack*)kmalloc(sizeof(DirStack));
+                        dirstack_t* next = (dirstack_t*)kmalloc(sizeof(dirstack_t));
 			walk->next = next;
 			next->next = 0;
 			next->name = NULL;
@@ -433,7 +433,7 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 	}
 	walk->next = NULL;
 	walk->name = strdup(last);
-	FS_Tree* result = walk_to_node_internal(current_node, ds);
+	fs_tree_t* result = walk_to_node_internal(current_node, ds);
 	for(; ds; ds = ds->next) {
 		kfree(ds->name);
 		kfree(ds);
@@ -441,13 +441,13 @@ FS_Tree* walk_to_node(FS_Tree* current_node, const char* path)
 	return result;
 }
 
-FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
+fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename)
 {
 	if (!directory) {
 		return NULL;
 	}
 
-	FS_DirectoryEntry* entry = (FS_DirectoryEntry*)directory->files;
+	fs_directory_entry_t* entry = (fs_directory_entry_t*)directory->files;
 	for (; entry; entry = entry->next) {
 		/* Don't find directories, only files */
 		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcmp(filename, entry->filename)))
@@ -456,13 +456,13 @@ FS_DirectoryEntry* find_file_in_dir(FS_Tree* directory, const char* filename)
 	return NULL;
 }
 
-int fs_read_file(FS_DirectoryEntry* file, uint32_t start, uint32_t length, unsigned char* buffer)
+int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	FS_FileSystem* fs = (FS_FileSystem*)file->directory->responsible_driver;
+	filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
 	return fs ? fs->readfile(file, start, length, buffer) : 0;
 }
 
-FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
+fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 {
 	if (!verify_path(pathandfile)) {
 		return NULL;
@@ -492,20 +492,20 @@ FS_DirectoryEntry* fs_get_file_info(const char* pathandfile)
 		kfree(pathname);
 		pathname = strdup("/");
 	}
-	FS_Tree* directory = walk_to_node(fs_tree, pathname);
+	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		return NULL;
 	}
-	FS_DirectoryEntry* fileinfo = find_file_in_dir(directory, filename);
+	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
 	if (!fileinfo) {
 		return NULL;
 	}
 	return fileinfo;
 }
 
-int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
+int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 {
-	FS_Tree* item = walk_to_node(fs_tree, virtual_path);
+	fs_tree_t* item = walk_to_node(fs_tree, virtual_path);
 	if (item == NULL) {
 		return 0;
 	}
@@ -521,8 +521,8 @@ int attach_filesystem(const char* virtual_path, FS_FileSystem* fs, void* opaque)
 
 void init_filesystem()
 {
-	filesystems = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
-	fs_tree = (FS_Tree*)kmalloc(sizeof(FS_Tree));
+	filesystems = (filesystem_t*)kmalloc(sizeof(filesystem_t));
+	fs_tree = (fs_tree_t*)kmalloc(sizeof(fs_tree_t));
 
 	strlcpy(filesystems->name, "DummyFS", 31);
 	filesystems->mount = NULL;
@@ -544,15 +544,15 @@ void init_filesystem()
 	attach_filesystem("/", filesystems, NULL);
 }
 
-FS_DirectoryEntry* fs_get_items(const char* pathname)
+fs_directory_entry_t* fs_get_items(const char* pathname)
 {
-	FS_Tree* item = walk_to_node(fs_tree, pathname);
-	return (FS_DirectoryEntry*)(item ? item->files : NULL);
+	fs_tree_t* item = walk_to_node(fs_tree, pathname);
+	return (fs_directory_entry_t*)(item ? item->files : NULL);
 }
 
 int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver)
 {
-	FS_FileSystem *driver = find_filesystem(filesystem_driver);
+	filesystem_t *driver = find_filesystem(filesystem_driver);
 	int success = (driver && driver->mount(device, pathname));
 	kprintf(
 		"%s %s to %s%s%s\n",

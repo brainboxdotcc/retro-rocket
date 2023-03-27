@@ -1,18 +1,18 @@
 #include <kernel.h>
 
-static FS_FileSystem* fat32_fs = NULL;
+static filesystem_t* fat32_fs = NULL;
 
 uint64_t cluster_to_lba(fat32* info, uint32_t cluster);
 uint32_t get_fat_entry(fat32* info, uint32_t cluster);
 int fat32_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
 int fat32_attach(const char* device_name, const char* path);
 
-FS_DirectoryEntry* parse_fat32_directory(FS_Tree* tree, fat32* info, uint32_t cluster)
+fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32* info, uint32_t cluster)
 {
 	//kprintf("Cluster at start of fn: %d\n", cluster);
 
 	unsigned char* buffer = (unsigned char*)kmalloc(info->clustersize);
-	FS_DirectoryEntry* list = NULL;
+	fs_directory_entry_t* list = NULL;
 
 	while (1)
 	{
@@ -79,7 +79,7 @@ FS_DirectoryEntry* parse_fat32_directory(FS_Tree* tree, fat32* info, uint32_t cl
 					else
 					{
 	
-						FS_DirectoryEntry* file = (FS_DirectoryEntry*)kmalloc(sizeof(FS_DirectoryEntry));
+						fs_directory_entry_t* file = (fs_directory_entry_t*)kmalloc(sizeof(fs_directory_entry_t));
 	
 						//kprintf("5 '%s'\n", name);
 						file->filename = strdup(name);
@@ -135,8 +135,8 @@ FS_DirectoryEntry* parse_fat32_directory(FS_Tree* tree, fat32* info, uint32_t cl
 
 int fat32_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	FS_DirectoryEntry* file = (FS_DirectoryEntry*)f;
-	FS_Tree* tree = (FS_Tree*)file->directory;
+	fs_directory_entry_t* file = (fs_directory_entry_t*)f;
+	fs_tree_t* tree = (fs_tree_t*)file->directory;
 	fat32* info = (fat32*)tree->opaque;
 
 	//kprintf("fat32_read_file start=%d len=%d\n", start, length);
@@ -192,7 +192,7 @@ int fat32_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buf
 
 void* fat32_get_directory(void* t)
 {
-	FS_Tree* treeitem = (FS_Tree*)t;
+	fs_tree_t* treeitem = (fs_tree_t*)t;
 	if (treeitem)
 	{
 		fat32* info = (fat32*)treeitem->opaque;
@@ -201,14 +201,14 @@ void* fat32_get_directory(void* t)
 	}
 	else
 	{
-		kprintf("*** BUG *** fat32_get_directory: null FS_Tree*!\n");
+		kprintf("*** BUG *** fat32_get_directory: null fs_tree_t*!\n");
 		return NULL;
 	}
 }
 
 uint32_t get_fat_entry(fat32* info, uint32_t cluster)
 {
-	FS_StorageDevice* sd = find_storage_device(info->device_name);
+	storage_device_t* sd = find_storage_device(info->device_name);
 	uint32_t* buffer = (uint32_t*)kmalloc(sd->block_size);
 	uint32_t FATEntrySector = info->start + info->reservedsectors + ((cluster * 4) / sd->block_size);
 	uint32_t FATEntryOffset = (uint32_t) (cluster % (sd->block_size / 4));  // 512/4=128
@@ -229,7 +229,7 @@ uint32_t get_fat_entry(fat32* info, uint32_t cluster)
 
 uint64_t cluster_to_lba(fat32* info, uint32_t cluster)
 {
-	FS_StorageDevice* sd = find_storage_device(info->device_name);
+	storage_device_t* sd = find_storage_device(info->device_name);
 	uint64_t FirstDataSector = info->reservedsectors + (info->numberoffats * info->fatsize);
 	uint64_t FirstSectorofCluster = ((cluster - 2) * (info->clustersize / sd->block_size) ) + FirstDataSector;
 	return info->start + FirstSectorofCluster;
@@ -237,7 +237,7 @@ uint64_t cluster_to_lba(fat32* info, uint32_t cluster)
 
 int read_fs_info(fat32* info)
 {
-	FS_StorageDevice* sd = find_storage_device(info->device_name);
+	storage_device_t* sd = find_storage_device(info->device_name);
 	if (!read_storage_device(info->device_name, info->start + info->fsinfocluster, sd->block_size, (unsigned char*)info->info))
 	{
 		kprintf("Read failure in read_fs_info\n");
@@ -256,7 +256,7 @@ int read_fs_info(fat32* info)
 
 int read_fat(fat32* info)
 {
-	FS_StorageDevice* sd = find_storage_device(info->device_name);
+	storage_device_t* sd = find_storage_device(info->device_name);
 	unsigned char* buffer = (unsigned char*)kmalloc(sd->block_size);
 	_memset(buffer, 0, sd->block_size);
 	if (!read_storage_device(info->device_name, info->start, sd->block_size, buffer))
@@ -305,7 +305,7 @@ int read_fat(fat32* info)
 
 fat32* fat32_mount_volume(const char* device_name)
 {
-	FS_StorageDevice* sd = find_storage_device(device_name);
+	storage_device_t* sd = find_storage_device(device_name);
 	if (!sd) {
 		return NULL;
 	}
@@ -357,7 +357,7 @@ int fat32_attach(const char* device_name, const char* path)
 
 void init_fat32()
 {
-	fat32_fs = (FS_FileSystem*)kmalloc(sizeof(FS_FileSystem));
+	fat32_fs = (filesystem_t*)kmalloc(sizeof(filesystem_t));
 	strlcpy(fat32_fs->name, "fat32", 31);
 	fat32_fs->mount = fat32_attach;
 	fat32_fs->getdir = fat32_get_directory;

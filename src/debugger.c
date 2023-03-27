@@ -44,7 +44,7 @@ void symbol_fail()
 
 void init_debug()
 {
-	FS_DirectoryEntry* symfile = fs_get_file_info("/kernel.sym");
+	fs_directory_entry_t* symfile = fs_get_file_info("/kernel.sym");
 	if (!symfile) {
 		symbol_fail();
 		return;
