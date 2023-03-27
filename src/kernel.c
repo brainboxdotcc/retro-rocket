@@ -85,29 +85,9 @@ void kmain()
 	kprintf("System boot time: %s\n", get_datetime_str());
 	kprintf("Loading initial process...\n");
 
-	/*
-	// DNS unit test	
-	sleep(100000);
-
-	char ip[16] = { 0 };
-
-	uint32_t r_addr = getdnsaddr();
-	get_ip_str(ip, (uint8_t*)&r_addr);
-	kprintf("\n\n\nTest dns request to %s for www.google.com (routed locally)\n", ip);
-	uint32_t addr = dns_lookup_host(r_addr, "www.google.com", 3);
-	get_ip_str(ip, (uint8_t*)&addr);
-	kprintf("Got IP! It is %s\n", ip);
-
-	r_addr = 0x08080808, addr = 0;
-	get_ip_str(ip, (uint8_t*)&r_addr);
-	kprintf("\n\n\nTest dns request to %s for www.google.com (routed remotely)\n", ip);
-	addr = dns_lookup_host(r_addr, "www.google.com", 3);
-	get_ip_str(ip, (uint8_t*)&addr);
-	kprintf("Got IP! It is %s\n\n\n", ip);*/
-
 	// TCP connect() unit test
 	sleep(100000);
-	int fd = connect(str_to_ip("10.0.0.1"), 80, 0, true);
+	int fd = connect(dns_lookup_host(getdnsaddr(), "neuron.brainbox.cc", 3), 80, 0, true);
 	const char* test = "GET /test.txt HTTP/1.1\r\nHost: 10.0.0.1\r\n\r\n";			
 	char buffer[1024];
 
