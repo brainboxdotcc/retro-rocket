@@ -331,9 +331,11 @@ uint8_t tcp_build_options(uint8_t* options, const tcp_options_t* opt)
 tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, const void *data, size_t count)
 {
 	if (conn == NULL) {
-		kprintf("TCP: Refusing to send segment on null conn\n");
+		dprintf("TCP: Refusing to send segment on null conn\n");
 		return NULL;
 	}
+
+	dprintf("TCP send segment\n");
 
 	ip_packet_t encap;
 	tcp_options_t options = { .mss = flags & TCP_SYN ? 1460 : 0 };
@@ -371,7 +373,9 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	memcpy((void*)packet->payload + (flags & TCP_SYN ? 4 : 0), data, count);
 
 	packet->checksum = htons(tcp_calculate_checksum(&encap, packet, length));
+	dprintf("TCP -> IP send packet\n");
 	ip_send_packet(encap.dst_ip, packet, length, PROTOCOL_TCP);
+	dprintf("TCP -> IP send packet DONE\n");
 
 	conn->snd_nxt += count;
 	if (flags & (TCP_SYN | TCP_FIN)) {
@@ -380,6 +384,8 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 
 	tcp_byte_order_in(packet);
 	tcp_dump_segment(false, conn, &encap, packet, &options, length, packet->checksum);
+
+	kfree(packet);
 
 	return conn;
 }
@@ -999,11 +1005,15 @@ void tcp_idle()
 		tcp_conn_t *conn = item;
 		if (conn->state == TCP_ESTABLISHED) {
 			if (conn->send_buffer_len > 0 && conn->send_buffer != NULL) {
+				dprintf("send buffer process wait spin\n");
 				while (conn->send_buffer_spinlock);
 				conn->send_buffer_spinlock++;
+				dprintf("send buffer process done spin\n");
 				/* There is buffered data to send from high level functions */
 				size_t amount_to_send = conn->send_buffer_len > 1460 ? 1460 : conn->send_buffer_len;
+				dprintf("begin tcp write\n");
 				tcp_write(conn, conn->send_buffer, amount_to_send);
+				dprintf("done tcp write\n");
 				/* Resize send buffer down */
 				if (conn->send_buffer_len - amount_to_send <= 0) {
 					kfree(conn->send_buffer);
@@ -1013,6 +1023,7 @@ void tcp_idle()
 				}
 				conn->send_buffer_len -= amount_to_send;
 				conn->send_buffer_spinlock--;
+				dprintf("done send buffer resize down\n");
 			}
 		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
 			tcp_free(conn);
@@ -1189,19 +1200,24 @@ int tcp_close(tcp_conn_t* conn)
 
 int send(int socket, const void* buffer, uint32_t length)
 {
+	dprintf("send(): %d\n", length);
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
 	if (conn == NULL) {
+		dprintf("send(): invalid socket %d\n", socket);
 		return TCP_ERROR_INVALID_SOCKET;
 	} else if (conn->state != TCP_ESTABLISHED) {
+		dprintf("send(): not connected %d\n", socket);
 		return TCP_ERROR_NOT_CONNECTED;
 	}
-
+	dprintf("send(): wait spinlock\n");
 	while (conn->send_buffer_spinlock);
 	conn->send_buffer_spinlock++;
+	dprintf("send(): buffer resize up\n");
 	conn->send_buffer = krealloc(conn->send_buffer, length + conn->send_buffer_len);
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
 	conn->send_buffer_len += length;
 	conn->send_buffer_spinlock--;
+	dprintf("send(): done\n");
 	return (int)length;
 }
 
@@ -1239,26 +1255,33 @@ int closesocket(int socket)
 	return tcp_close(conn);
 }
 
-int recv(int socket, void* buffer, uint32_t maxlen, bool blocking)
+int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t timeout)
 {
+	dprintf("recv(): socket=%d blocking=%d\n", socket, blocking);
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
 	if (conn == NULL) {
+		dprintf("recv(): invalid socket\n");
 		return TCP_ERROR_INVALID_SOCKET;
 	} else if (conn->state != TCP_ESTABLISHED) {
+		dprintf("recv(): not connected\n");
 		return TCP_ERROR_NOT_CONNECTED;
 	}
 
 	if (blocking) {
+		dprintf("recv(): start blocking wait\n");
+		time_t now = time(NULL);
 		while (conn->recv_buffer_len == 0 || conn->recv_buffer == NULL) {
-			if (conn->state != TCP_ESTABLISHED) {
+			if (time(NULL) - now > timeout || conn->state != TCP_ESTABLISHED) {
 				return TCP_ERROR_CONNECTION_FAILED;
 			}
 		}
 	}
 	if (conn->recv_buffer_len > 0 && conn->recv_buffer != NULL) {
+		dprintf("recv buffer spinlock\n");
 		while (conn->recv_buffer_spinlock);
 		conn->recv_buffer_spinlock++;
 		/* There is buffered data to receive  */
+		dprintf("recv buffer resize down\n");
 		size_t amount_to_recv = conn->recv_buffer_len > maxlen ? maxlen : conn->recv_buffer_len;
 		memcpy(buffer, conn->recv_buffer, amount_to_recv);
 		/* Resize recv buffer down */

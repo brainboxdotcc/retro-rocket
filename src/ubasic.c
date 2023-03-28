@@ -862,6 +862,8 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 	const char* var = NULL;
 	int fd = -1;
 
+	dprintf("S");
+
 	accept(TOKENIZER_SOCKREAD, ctx);
 	fd = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
@@ -869,7 +871,7 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 	var = tokenizer_variable_name(ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 
-	int rv = recv(fd, input, MAX_STRINGLEN, false);
+	int rv = recv(fd, input, MAX_STRINGLEN, false, 10);
 
 	if (rv > 0) {
 		*(input + rv) = 0;

@@ -108,9 +108,11 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 		return;
 	}
 
-	dprintf("RTL8139 send packet (%s)\n", in_interrupt ? "in int" : "outside int");
+	dprintf("RTL8139 send packet (%s): ", in_interrupt ? "in int" : "outside int");
 
-	if (!in_interrupt) asm volatile("cli");
+	asm volatile("cli");
+
+	dput('.');
 
 	// Static buffer below 4GB
 	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
@@ -121,6 +123,8 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	rtl8139_device.tx_cur++;
 	rtl8139_device.tx_cur %= 4;
 
+	dput('.');
+
 	// These must be the last instructions, otherwise there is a race condition where
 	// we have not yet updated tx_cur, but have sent the new tx_cur to the io port,
 	// if we send a packet (e.g. from an interrupt!) in that timeframe, this can cause
@@ -128,7 +132,12 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	rtl_outl(TxAddr0 + old_cur, transfer_data);
 	rtl_outl(TxStatus0 + old_cur, len);
 
-	if (!in_interrupt) asm volatile("sti");
+	dput('.');
+
+	asm volatile("sti");
+
+	dprintf("\nRTL8139 send packet done\n");
+
 }
 
 bool rtl8139_init() {

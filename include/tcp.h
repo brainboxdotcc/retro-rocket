@@ -215,9 +215,10 @@ int send(int socket, const void* buffer, uint32_t length);
  * @param buffer buffer to receive data to
  * @param maxlen maximum size of data to receive to buffer
  * @param blocking true if this call should block until the buffer has data
+ * @param timeout read timeout when blocking (seconds)
  * @return int number of bytes received
  */
-int recv(int socket, void* buffer, uint32_t maxlen, bool blocking);
+int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t timeout);
 
 /**
  * @brief Return the error description associated with an error code
