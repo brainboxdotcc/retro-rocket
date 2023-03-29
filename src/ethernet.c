@@ -33,7 +33,7 @@ void ethernet_handle_packet(ethernet_frame_t * packet, int len) {
 	ethernet_protocol_t handler = protocol_handlers[packet_type];
 	if (handler != NULL) {
 		dprintf("Passing to handler for protocol %04x\n", packet_type);
-		handler(packet, data_len);
+		handler(data, data_len);
 		return;
 	}
 	dprintf("Unknown packet type %d\n", packet->type);

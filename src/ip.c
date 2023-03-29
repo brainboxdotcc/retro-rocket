@@ -435,7 +435,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 			kfree(data_ptr);
 		}
 	} else {
-		dprintf("Unknown IP packet type\n");
+		dprintf("Unknown IP packet type %04X\n", packet->version);
 	}
 }
 

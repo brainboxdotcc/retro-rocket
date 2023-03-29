@@ -65,6 +65,16 @@ void setbackground(console* c, unsigned char background);
 
 void setforeground(console* c, unsigned char foreground);
 
+int16_t screen_get_height();
+
+int16_t screen_get_width();
+
+void putpixel(int64_t x, int64_t y, int32_t rgb);
+
+uint64_t framebuffer_address();
+
+uint64_t pixel_address(int64_t x, int64_t y);
+
 extern console* current_console;
 
 #endif

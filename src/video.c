@@ -2,29 +2,37 @@
 
 extern spinlock init_barrier;
 
+static int64_t screen_x = 0, screen_y = 0;
+
 static volatile struct limine_terminal_request terminal_request = {
     .id = LIMINE_TERMINAL_REQUEST,
+    .revision = 0
+};
+
+static volatile struct limine_framebuffer_request framebuffer_request = {
+    .id = LIMINE_FRAMEBUFFER_REQUEST,
     .revision = 0
 };
 
 uint64_t framebuffer_address()
 {
 	struct limine_framebuffer *fb = terminal_request.response->terminals[0]->framebuffer;
-	dprintf("Framebuffer address: %016x\n", fb->address);
 	return (uint64_t)fb->address;
 }
 
 uint64_t pixel_address(int64_t x, int64_t y)
 {
-	if (x > 0 && y > 0 && x < 1024 && y < 768) {
-		return y * 768 * 4 + x * 4;
+	uint64_t pitch = terminal_request.response->terminals[0]->framebuffer->pitch;
+	uint64_t bytes_per_pixel = terminal_request.response->terminals[0]->framebuffer->bpp >> 3;
+	if (x > 0 && y > 0 && x < screen_x && y < screen_y) {
+		return (y * pitch) + (x * bytes_per_pixel);
 	}
 	return 0;
 }
 
 void putpixel(int64_t x, int64_t y, int32_t rgb)
 {
-	uint32_t* addr = (uint32_t*)framebuffer_address() + pixel_address(x, y);
+	uint32_t* addr = (uint32_t*)(framebuffer_address() + pixel_address(x, y));
 	*addr = rgb;
 }
 
@@ -82,7 +90,19 @@ void initconsole(console* c)
 	}
 	clearscreen(c);
 	dprintf("limine terminal write address=%016X\n", terminal_request.response->write);
-	dprintf("Framebuffer@%016x x=%d y=%d\n", framebuffer_address(), terminal_request.response->terminals[0]->framebuffer->width, terminal_request.response->terminals[0]->framebuffer->height);
+	screen_x = terminal_request.response->terminals[0]->framebuffer->width;
+	screen_y = terminal_request.response->terminals[0]->framebuffer->height;
+	dprintf("Framebuffer address: %llx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
+}
+
+int16_t screen_get_width()
+{
+	return screen_x;
+}
+
+int16_t screen_get_height()
+{
+	return screen_y;
 }
 
 /*

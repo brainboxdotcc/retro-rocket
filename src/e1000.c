@@ -357,7 +357,7 @@ bool init_e1000()
 	io_base = pci_io_base(ret);
 	mem_base = pci_mem_base(ret);
 
-	kprintf("e1000: bar %d io base %04x mem base %016x\n", bar_type, io_base, mem_base);
+	kprintf("e1000: bar %d io base %04x mem base %llx\n", bar_type, io_base, mem_base);
  
 	// Enable bus mastering
 	pci_bus_master(pci_device);

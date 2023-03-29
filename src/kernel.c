@@ -91,30 +91,10 @@ void kmain()
 	kprintf("System boot time: %s\n", get_datetime_str());
 	kprintf("Loading initial process...\n");
 
-	// TCP connect() unit test
-	/*sleep(100000);
-	int fd = connect(dns_lookup_host(getdnsaddr(), "neuron.brainbox.cc", 3), 80, 0, true);
-	const char* test = "GET /test.txt HTTP/1.1\r\nHost: 10.0.0.1\r\n\r\n";			
-	char buffer[1024];
-
-	kprintf("Result of connect(): %d\n", fd);
-	int n_sent = send(fd, test, strlen(test));
-	kprintf("Result of send(): %d\n", n_sent);
-	int n_got = 0;
-	do {
-		n_got = recv(fd, buffer, 1024, true);
-		kprintf("Result of recv(): %d with buffer:\n", n_got);
-		if (n_got >= 0) {
-			*(buffer + n_got) = 0;
-			kprintf("%s\n", (const char*)buffer);
-		} else {
-			kprintf("(buffer empty)\n");
-		}
-	} while (n_got > 0);
-	kprintf("Ending status: %s\n", socket_error(n_got));
-	int n_close = closesocket(fd);
-	kprintf("Close status: %s\n", socket_error(n_close));*/
-
+	/* Drawing test cases */
+	draw_line(0, 0, screen_get_width() - 1, screen_get_height() / 2, 0xFF0000);
+	draw_line(screen_get_width() - 1, screen_get_height() / 2, 0, screen_get_height() - 1, 0x0000FF);
+	draw_line(0, screen_get_height() / 2, screen_get_width() - 1, screen_get_height() / 2, 0x00FF00);
 
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);
 	if (!init)
