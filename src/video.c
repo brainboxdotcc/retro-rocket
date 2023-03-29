@@ -7,6 +7,27 @@ static volatile struct limine_terminal_request terminal_request = {
     .revision = 0
 };
 
+uint64_t framebuffer_address()
+{
+	struct limine_framebuffer *fb = terminal_request.response->terminals[0]->framebuffer;
+	dprintf("Framebuffer address: %016x\n", fb->address);
+	return (uint64_t)fb->address;
+}
+
+uint64_t pixel_address(int64_t x, int64_t y)
+{
+	if (x > 0 && y > 0 && x < 1024 && y < 768) {
+		return y * 768 * 4 + x * 4;
+	}
+	return 0;
+}
+
+void putpixel(int64_t x, int64_t y, int32_t rgb)
+{
+	uint32_t* addr = (uint32_t*)framebuffer_address() + pixel_address(x, y);
+	*addr = rgb;
+}
+
 /* Clear the screen */
 void clearscreen(console* c)
 {
@@ -56,10 +77,12 @@ void initconsole(console* c)
 {
 	c->internalbuffer = NULL;
 	if (terminal_request.response == NULL || terminal_request.response->terminal_count < 1) {
+		dprintf("No limine terminal offered\n");
 		wait_forever();
 	}
 	clearscreen(c);
 	dprintf("limine terminal write address=%016X\n", terminal_request.response->write);
+	dprintf("Framebuffer@%016x x=%d y=%d\n", framebuffer_address(), terminal_request.response->terminals[0]->framebuffer->width, terminal_request.response->terminals[0]->framebuffer->height);
 }
 
 /*
