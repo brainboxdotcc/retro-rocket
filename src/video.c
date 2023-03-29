@@ -1,7 +1,5 @@
 #include <kernel.h>
 
-extern spinlock init_barrier;
-
 static int64_t screen_x = 0, screen_y = 0;
 
 static volatile struct limine_terminal_request terminal_request = {
@@ -24,16 +22,21 @@ uint64_t pixel_address(int64_t x, int64_t y)
 {
 	uint64_t pitch = terminal_request.response->terminals[0]->framebuffer->pitch;
 	uint64_t bytes_per_pixel = terminal_request.response->terminals[0]->framebuffer->bpp >> 3;
-	if (x > 0 && y > 0 && x < screen_x && y < screen_y) {
+	if (x >= 0 && y >= 0 && x < screen_x && y < screen_y) {
 		return (y * pitch) + (x * bytes_per_pixel);
 	}
 	return 0;
 }
 
-void putpixel(int64_t x, int64_t y, int32_t rgb)
+void putpixel(int64_t x, int64_t y, uint32_t rgb)
 {
-	uint32_t* addr = (uint32_t*)(framebuffer_address() + pixel_address(x, y));
+	volatile uint32_t* addr = (volatile uint32_t*)(framebuffer_address() + pixel_address(x, y));
 	*addr = rgb;
+}
+
+uint32_t getpixel(int64_t x, int64_t y)
+{
+	return *((volatile uint32_t*)(framebuffer_address() + pixel_address(x, y)));
 }
 
 /* Clear the screen */
@@ -93,6 +96,12 @@ void initconsole(console* c)
 	screen_x = terminal_request.response->terminals[0]->framebuffer->width;
 	screen_y = terminal_request.response->terminals[0]->framebuffer->height;
 	dprintf("Framebuffer address: %llx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
+
+	setforeground(current_console, COLOUR_LIGHTYELLOW);
+	printf("Retro-Rocket ");
+	setforeground(current_console, COLOUR_WHITE);
+	printf("64-bit SMP kernel booting\n");
+
 }
 
 int16_t screen_get_width()

@@ -3,10 +3,6 @@
 
 isr_t interrupt_handlers[256] = { 0 };
 
-void init_interrupts()
-{
-}
-
 void register_interrupt_handler(uint8_t n, isr_t handler)
 {
 	if (interrupt_handlers[n] != 0 && interrupt_handlers[n] != handler)

@@ -69,7 +69,9 @@ int16_t screen_get_height();
 
 int16_t screen_get_width();
 
-void putpixel(int64_t x, int64_t y, int32_t rgb);
+void putpixel(int64_t x, int64_t y, uint32_t rgb);
+
+uint32_t getpixel(int64_t x, int64_t y);
 
 uint64_t framebuffer_address();
 

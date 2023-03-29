@@ -20,8 +20,7 @@ struct idt_entry {
 };
 typedef struct idt_entry idt_entry_t;
 
-extern idt_ptr_t idt64;
-//extern uint16_t idt64[5];
+extern volatile idt_ptr_t idt64;
 
 void idt_setup();
 

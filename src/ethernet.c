@@ -2,7 +2,7 @@
 
 ethernet_protocol_t* protocol_handlers = NULL;
 
-int ethernet_send_packet(uint8_t * dst_mac_addr, uint8_t * data, int len, uint16_t protocol) {
+int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t protocol) {
     uint8_t src_mac_addr[6];
     ethernet_frame_t * frame = kmalloc(sizeof(ethernet_frame_t) + len);
     void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
@@ -18,7 +18,7 @@ int ethernet_send_packet(uint8_t * dst_mac_addr, uint8_t * data, int len, uint16
     return len;
 }
 
-void ethernet_handle_packet(ethernet_frame_t * packet, int len) {
+void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 	void * data = (void*) packet + sizeof(ethernet_frame_t);
 	int data_len = len - sizeof(ethernet_frame_t);
 

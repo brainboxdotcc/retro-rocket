@@ -26,8 +26,6 @@ void IRQ(uint64_t isrnumber, uint64_t errorcode);
 // Interrupt handler definition
 typedef void (*isr_t)(uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber);
 
-void init_interrupts();
-
 // Register a new interrupt handler
 void register_interrupt_handler(uint8_t n, isr_t handler);
 
