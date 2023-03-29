@@ -34,7 +34,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 
 	if (isrnumber < 32)
 	{
-		printf("CPU %d halted with exception %016lx, error code %016lx.\n", cpu_id(), isrnumber, errorcode);
+		dprintf("CPU %d halted with exception %016lx, error code %016lx.\n", cpu_id(), isrnumber, errorcode);
 		wait_forever();
 	}
 	*((volatile uint32_t*)(0xFEE00000 + 0xB0)) = 0;
@@ -43,7 +43,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 void IRQ(uint64_t isrnumber, uint64_t irqnum)
 {
 	if (irqnum > 0)
-		kprintf("IRQ %d\n", irqnum);
+		dprintf("IRQ %d\n", irqnum);
 	if (interrupt_handlers[isrnumber] != NULL)
 	{
 		isr_t handler = interrupt_handlers[isrnumber];

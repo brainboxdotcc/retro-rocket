@@ -34,10 +34,7 @@ void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t irq_no)
 		"Machine check exception",
 	};
 	asm volatile("cli");
-	PANIC_BANNER;
-	setforeground(current_console, COLOUR_LIGHTRED);
-	kprintf("Fatal exception %02X: %s\n", int_no, error_table[int_no]);
-	setforeground(current_console, COLOUR_WHITE);
+	dprintf("Fatal exception %02X: %s\n", int_no, error_table[int_no]);
 	backtrace();
 	wait_forever();
 }

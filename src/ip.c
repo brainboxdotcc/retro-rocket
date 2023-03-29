@@ -315,10 +315,12 @@ uint64_t ip_frag_hash(const void *item, uint64_t seed0, uint64_t seed1) {
  * @param packet IP packet to parse
  */
 void ip_handle_packet(ip_packet_t* packet) {
+	dprintf("ip_handle_packet\n");
 	char src_ip[20];
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
 	if (packet->version == IP_IPV4) {
+		dprintf("IPv4 packet\n");
 		get_ip_str(src_ip, packet->src_ip);
 		void * data_ptr = (void*)packet + packet->ihl * 4;
 		size_t data_len = ntohs(packet->length) - (packet->ihl * 4);
@@ -337,9 +339,12 @@ void ip_handle_packet(ip_packet_t* packet) {
 		 */
 		uint16_t frag_offset = ((uint16_t)packet->frag.fragment_offset_low | ((uint16_t)packet->frag.fragment_offset_high << 8));
 		if (!packet->frag.dont_fragment) {
+			dprintf("Packet can be fragmented\n");
 			if (packet->frag.more_fragments_follow) {
+				dprintf("Fragment is one of set (MF)\n");
 				/* Packet is part of a fragmented set */
 				if (frag_offset == 0) {
+					dprintf("First fragment\n");
 					/* First fragment */
 					if (frag_map == NULL) {
 						/* First time we see a fragmented packet, make the hashmap to hold them */
@@ -353,6 +358,7 @@ void ip_handle_packet(ip_packet_t* packet) {
 					frag_list_insert(fragment, fragmented.ordered_list);
 					hashmap_set(frag_map, &fragmented);
 				} else {
+					dprintf("Middle fragment\n");
 					/* Middle fragment */
 					ip_packet_t findpacket = { .id = packet->id };
 					ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
@@ -367,11 +373,13 @@ void ip_handle_packet(ip_packet_t* packet) {
 					memcpy(fragment->packet, packet, ntohs(packet->length));
 					frag_list_insert(fragment, fragmented->ordered_list);
 				}
+				dprintf("Returning, fragmented packet incomplete!\n");
 				return;
 			} else if (packet->frag.more_fragments_follow == 0 && (frag_offset != 0)) {
 				/* Final fragment of fragmented set.
 				 * Once we get this fragment, we can deliver the reassembled packet.
 				 */
+				dprintf("Final fragment\n");
 				ip_packet_t findpacket = { .id = packet->id };
 				ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 				if (fragmented == NULL) {
@@ -404,22 +412,29 @@ void ip_handle_packet(ip_packet_t* packet) {
 					kfree(cur);
 				}
 
+				dprintf("Removing list from frag_map\n");
 				hashmap_delete(frag_map, &findpacket);
 				/* Now we have reassembled the data portion, we can fall through and let the packet be handled... */
 			}
 		}
 
 		if (packet->protocol == PROTOCOL_ICMP) {
+			dprintf("Passing to ICMP handler\n");
 			icmp_handle_packet(packet, data_ptr, data_len);
 		} else if (packet->protocol == PROTOCOL_UDP) {
+			dprintf("Passing to UDP handler\n");
 			udp_handle_packet(packet, data_ptr, data_len);
 		} else if (packet->protocol == PROTOCOL_TCP) {
+			dprintf("Passing to TCP handler\n");
 			tcp_handle_packet(packet, data_ptr, data_len);
 		}
 
 		if (fragment_to_free) {
+			dprintf("Freeing fragment\n");
 			kfree(data_ptr);
 		}
+	} else {
+		dprintf("Unknown IP packet type\n");
 	}
 }
 

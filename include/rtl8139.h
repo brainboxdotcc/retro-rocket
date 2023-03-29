@@ -20,6 +20,33 @@ enum rtl8139_recv_status {
 	X_TOK			= 0x8000,
 };
 
+enum rtl8139_tx_status_bits {
+	TX_SIZE			= 0b00000000000000000001111111111111, // Size of packet mas
+	TX_OWN			= 0b00000000000000000010000000000000, // Set to 1 by card when DMA is completed
+	TX_TUN			= 0b00000000000000000100000000000000, // Set to 1 by card if transmit buffer overran
+	TX_TOK			= 0b00000000000000001000000000000000, // Set to 1 by card if packet was tramitted on wite OK
+	TX_EARLY_THRESHOLD	= 0b00000000001111110000000000000000, // TX early threshold level before transmission, 000000 = 8 bytes
+	TX_RESERVED		= 0b00000000110000000000000000000000, // Reserved
+	TX_NCC			= 0b00001111000000000000000000000000, // Number of collisions count
+	TX_CDH			= 0b00010000000000000000000000000000, // Carrier detect heartbeat, 0 in 100mbit mode
+	TX_OWC			= 0b00100000000000000000000000000000, // Out of window collision (readonly)
+	TX_TABT			= 0b01000000000000000000000000000000, // Transmit aborted (readonly)
+	TX_CRS			= 0b10000000000000000000000000000000, // Carrier sense lost (readonly)
+};
+
+enum rtl8139_rx_status_bits {
+	RX_ROK			= 0b00000000000000000000000000000001, // receive ok
+	RX_FAE			= 0b00000000000000000000000000000010, // Frame alignment error
+	RX_CRC			= 0b00000000000000000000000000000100, // CRC error
+	RX_LONG			= 0b00000000000000000000000000001000, // Long packet received (>4k)
+	RX_RUNT			= 0b00000000000000000000000000010000, // Runt packet received (<64 bytes)
+	RX_ISE			= 0b00000000000000000000000000100000, // Invalid symbol error
+	RX_RESERVED		= 0b00000000000000000000111111000000, // Reserved
+	RX_BAR			= 0b00000000000000000001000000000000, // Broadcast address received
+	RX_PAM			= 0b00000000000000000010000000000000, // Physical address matched
+	RX_MAR			= 0b00000000000000000100000000000000, // Multicast address received
+};
+
 enum rtl8139_interrupt_reg_bits {
 	RX_OK 			= 0x01,
 	RX_ERR 			= 0x02,
@@ -95,6 +122,11 @@ enum rtl8139_registers {
 	PARA78		   	= 0x78,
 	PARA7c		   	= 0x7C,	// Magic transceiver parameter register
 };
+
+#define CR_RST		0x10	// Reset, set to 1 to invoke S/W reset, held to 1 while resetting
+#define CR_RE		0x08	// Reciever Enable, enables receiving
+#define CR_TE		0x04	// Transmitter Enable, enables transmitting
+#define CR_BUFE		0x01	// Rx buffer is empty
 
 /**
  * @brief Transfer description

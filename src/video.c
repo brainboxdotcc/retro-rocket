@@ -24,12 +24,8 @@ void dput(const char n)
 void put(console* c, const char n)
 {
 	dput(n);
-	if (init_barrier == 0) asm volatile("cli");
-
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, &n, 1);
-
-	if (init_barrier == 0) asm volatile("sti");
 }
 
 void dputstring(char* message)
@@ -51,13 +47,9 @@ void dputstring(char* message)
 void putstring(console* c, char* message)
 {
 	dputstring(message);
-	if (init_barrier == 0) asm volatile("cli");
-
 	//return;
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, message, strlen(message));
-
-	if (init_barrier == 0) asm volatile("sti");
 }
 
 void initconsole(console* c)
@@ -67,6 +59,7 @@ void initconsole(console* c)
 		wait_forever();
 	}
 	clearscreen(c);
+	dprintf("limine terminal write address=%016X\n", terminal_request.response->write);
 }
 
 /*

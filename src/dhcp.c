@@ -16,19 +16,24 @@ void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t
 			uint32_t* dns = get_dhcp_options(packet, OPT_DNS);
 			uint32_t* gateway = get_dhcp_options(packet, OPT_GATEWAY);
 			uint32_t* subnet = get_dhcp_options(packet, OPT_SUBNET);
+			char ip[16];
 			if (subnet) {
 				setnetmask(*subnet);
+				get_ip_str(ip, (uint8_t*)subnet);
 				kfree(subnet);
+				dprintf("DHCP: Received subnet mask: %s\n", ip);
 			}
 			if (dns) {
 				setdnsaddr(*dns);
-				//arp_prediscover((uint8_t*)dns);
+				get_ip_str(ip, (uint8_t*)dns);
 				kfree(dns);
+				dprintf("DHCP: Received DNS address: %s\n", ip);
 			}
 			if (gateway) {
 				setgatewayaddr(*gateway);
-				//arp_prediscover((uint8_t*)gateway);
+				get_ip_str(ip, (uint8_t*)gateway);
 				kfree(gateway);
+				dprintf("DHCP: Received gateway address: %s\n", ip);
 			}
 		} else if (*type == DHCPNAK) {
 			/* Negative ack, to be implemented */

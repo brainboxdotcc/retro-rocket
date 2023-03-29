@@ -21,8 +21,8 @@ heap_t*	uheap = NULL;	/* User Heap */
 uint64_t heapstart = 0;
 uint64_t heaplen = 0;
 
-const uint32_t low_mem_start = 0x10000;
-const uint32_t low_mem_max = 0x40000;
+const uint32_t low_mem_start = 0x800000;
+const uint32_t low_mem_max = 0x1400000;
 uint32_t low_mem_cur = low_mem_start;
 
 /* Our list will be ordered and will construct the internal structures */

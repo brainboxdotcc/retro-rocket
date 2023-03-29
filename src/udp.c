@@ -51,7 +51,7 @@ uint16_t udp_register_daemon(uint16_t dst_port, udp_daemon_handler handler) {
 	}
 
 	if (daemons[dst_port] != NULL && daemons[dst_port] != handler) {
-		kprintf("*** BUG *** udp_register_daemon(%d) called twice!\n", dst_port);
+		dprintf("*** BUG *** udp_register_daemon(%d) called twice!\n", dst_port);
 		return 0;
 	}
 	daemons[dst_port] = handler;

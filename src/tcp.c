@@ -169,7 +169,6 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 #endif
 	const char *states[] = { "LISTEN","SYN-SENT","SYN-RECEIVED","ESTABLISHED","FIN-WAIT-1","FIN-WAIT-2","CLOSE-WAIT","CLOSING","LAST-ACK","TIME-WAIT" };
 	char source_ip[15] = { 0 }, dest_ip[15] = { 0 };
-	setforeground(current_console, our_checksum == segment->checksum ? COLOUR_LIGHTGREEN : COLOUR_LIGHTRED);
 	get_ip_str(source_ip, encap_packet->src_ip);
 	get_ip_str(dest_ip, encap_packet->dst_ip);
 	dprintf(
@@ -201,7 +200,6 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 		dprintf(" [opt.mss=%d]", options->mss);
 	}
 	dprintf("\n");
-	setforeground(current_console, COLOUR_WHITE);
 }
 
 /**
@@ -940,6 +938,7 @@ bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_
  */
 bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	dprintf("tcp_state_machine");
 	switch (conn->state) {
 		case TCP_LISTEN:
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
@@ -975,19 +974,25 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
  */
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len)
 {
+	dprintf("tcp_handle_packet\n");
 	tcp_options_t options;
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
 	tcp_byte_order_in(segment);
 	tcp_parse_options(segment, &options);
 	if (our_checksum == segment->checksum) {
+		dprintf("tcp with valid checksum\n");
 		tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
 		if (conn) {
-			tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
+			//tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
 			tcp_state_machine(encap_packet, segment, conn, &options, len);
+		} else {
+			dprintf("tcp packet with no TCB\n");
 		}
 	} else {
-		tcp_dump_segment(true, NULL, encap_packet, segment, &options, len, our_checksum);
+		dprintf("tcp packet with invalid checksum\n");
+		//tcp_dump_segment(true, NULL, encap_packet, segment, &options, len, our_checksum);
 	}
+	dprintf("tcp_handle_packet done\n");
 }
 
 /**
