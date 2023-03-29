@@ -160,20 +160,23 @@ void backtrace()
 {
 	stack_frame_t *frame;
 	asm volatile("movq %%rbp,%0" : "=r"(frame));
+	//frame = (stack_frame_t *)regs->ebp;
 	uint64_t page = (uint64_t) frame & 0xFFFFFFFFFFFFF000ull;
 	uint64_t offset = 0;
 	const char* name = NULL;
 
 	if (!symbol_table) {
-		dprintf("No symbols available for backtrace\n");
+		kprintf("No symbols available for backtrace\n");
 		return;
 	}
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
+	setforeground(current_console, COLOUR_LIGHTGREEN);
 	while (frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page) {
 		name = findsymbol((uint64_t)frame->addr, &offset);
-		dprintf("\tat %s()+0%08x [0x%016x]\n",  name ? name : "[???]", offset, frame->addr);
+		kprintf("\tat %s()+0%08x [0x%016x]\n",  name ? name : "[???]", offset, frame->addr);
 		frame = frame->next;
 	}
+	setforeground(current_console, COLOUR_WHITE);
 }
 
