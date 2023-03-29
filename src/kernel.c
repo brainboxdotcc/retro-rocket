@@ -70,13 +70,6 @@ void kmain()
 	kprintf("System boot time: %s\n", get_datetime_str());
 	kprintf("Loading initial process...\n");
 
-	/* Drawing test cases */
-	draw_line(0, 0, screen_get_width() - 1, screen_get_height() / 2, 0xFF0000);
-	draw_line(screen_get_width() - 1, screen_get_height() / 2, 0, screen_get_height() - 1, 0x0000FF);
-	draw_horizontal_line(0, screen_get_width() - 1, screen_get_height() / 2, 0x00FF00);
-	draw_horizontal_rectangle(400, 400, 500, 500, 0xFFFF00);
-	draw_triangle(0, 0, 100, 100, 50, 200, 0xFF00FF);
-
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);
 	if (!init) {
 		kprintf("/programs/init missing!\n");

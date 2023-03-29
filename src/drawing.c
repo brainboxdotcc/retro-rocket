@@ -76,22 +76,58 @@ void draw_horizontal_rectangle(int64_t from_x, int64_t from_y, int64_t to_x, int
 	}
 }
 
-bool in_viewport(int64_t x, int64_t y)
+/**
+ * @brief Returns true if a coordinate is within the viewport
+ * 
+ * @param x point X coordinate
+ * @param y point Y coordinate
+ * @return true if point is within the viewport
+ */
+static bool in_viewport(int64_t x, int64_t y)
 {
 	return (x >= 0 && y >= 0 && x < screen_get_width() && y < screen_get_height());
 }
 
-int64_t min3(int64_t x, int64_t y, int64_t z)
+/**
+ * @brief Return the minimum of three integers
+ * 
+ * @param x first integer
+ * @param y second integer
+ * @param z third intefer
+ * @return int64_t smallest value
+ */
+static int64_t min3(int64_t x, int64_t y, int64_t z)
 {
 	return (x < ((y < z) ? y : z) ) ? x : ((y < z) ? y : z);
 }
 
-int64_t max3(int64_t x, int64_t y, int64_t z)
+/**
+ * @brief Return the maximum of three integers
+ * 
+ * @param x first integer
+ * @param y second integer
+ * @param z third integer
+ * @return int64_t largest value
+ */
+static int64_t max3(int64_t x, int64_t y, int64_t z)
 {
 	return (x > ((y > z) ? y : z) ) ? x : ((y > z) ? y : z);
 }
 
-bool triangle_contains(int64_t ax, int64_t ay, int64_t bx, int64_t by, int64_t cx, int64_t cy, int64_t x, int64_t y)
+/**
+ * @brief Line intersection algorithm to determine if a point is within a polygon
+ * 
+ * @param ax polygon first coordinate x
+ * @param ay polygon first coordinate y
+ * @param bx polygon second coordinate x
+ * @param by polygon second coordinate y
+ * @param cx polygon third coordinate x
+ * @param cy polygon third coordinate y
+ * @param x point x
+ * @param y point y
+ * @return true if point is within the three sided polygon
+ */
+static bool triangle_contains(int64_t ax, int64_t ay, int64_t bx, int64_t by, int64_t cx, int64_t cy, int64_t x, int64_t y)
 {
 	int64_t det = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
 	return  det * ((bx - ax) * (y - ay) - (by - ay) * (x - ax)) >= 0 &&

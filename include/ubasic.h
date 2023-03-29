@@ -117,6 +117,7 @@ struct ubasic_ctx
 	int bracket_depth;
 	char const* item_begin;
 	struct ub_param* param;
+	int32_t graphics_colour;
 };
 
 // Builtin integer functions

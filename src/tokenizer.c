@@ -85,6 +85,11 @@ const char* types[] = {
 	"SOCKWRITE",
 	"CONNECT",
 	"SOCKCLOSE",
+	"CLS",
+	"GCOL",
+	"LINE",
+	"TRIANGLE",
+	"RECTANGLE",
 };
 
 struct keyword_token {
@@ -123,6 +128,11 @@ static const struct keyword_token keywords[] = {
 	{"SOCKWRITE", TOKENIZER_SOCKWRITE},
 	{"CONNECT", TOKENIZER_CONNECT},
 	{"SOCKCLOSE", TOKENIZER_SOCKCLOSE},
+	{"CLS", TOKENIZER_CLS},
+	{"GCOL", TOKENIZER_GCOL},
+	{"LINE", TOKENIZER_LINE},
+	{"TRIANGLE", TOKENIZER_TRIANGLE},
+	{"RECTANGLE", TOKENIZER_RECTANGLE},
 	{NULL, TOKENIZER_ERROR},
 };
 

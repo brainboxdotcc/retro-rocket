@@ -42,7 +42,8 @@ uint32_t getpixel(int64_t x, int64_t y)
 /* Clear the screen */
 void clearscreen(console* c)
 {
-	putstring(c, "\033[2J");
+	draw_horizontal_rectangle(0, 0, screen_get_width() - 1, screen_get_height() - 1, 0x000000);
+	putstring(c, "\033[2J\033[0;0H");
 }
 
 void dput(const char n)

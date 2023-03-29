@@ -39,6 +39,8 @@ int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
 int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
 char* ubasic_getprocname(struct ubasic_ctx* ctx);
 char* ubasic_dns(struct ubasic_ctx* ctx);
+int64_t ubasic_rgb(struct ubasic_ctx* ctx);
+
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -53,6 +55,7 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_getsize, "GETSIZE" },
 	{ ubasic_getproccount, "GETPROCCOUNT" },
 	{ ubasic_getprocid, "GETPROCID" },
+	{ ubasic_rgb, "RGB" },
 	{ NULL, NULL }
 };
 
@@ -132,6 +135,8 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 
 	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
 	ctx->defs = NULL;
+
+	ctx->graphics_colour = 0xFFFFFF;
 
 	// Scan the program for functions and procedures
 
@@ -970,6 +975,68 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 	}
 	accept(TOKENIZER_CR, ctx);
 }
+
+static void cls_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_CLS, ctx);
+	clearscreen(current_console);
+	accept(TOKENIZER_CR, ctx);
+}
+
+static void gcol_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_GCOL, ctx);
+	ctx->graphics_colour = expr(ctx);
+	dprintf("New graphics color: %08X\n", ctx->graphics_colour);
+	accept(TOKENIZER_CR, ctx);
+}
+
+static void draw_line_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_LINE, ctx);
+	int64_t x1 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y1 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t x2 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y2 = expr(ctx);
+	accept(TOKENIZER_CR, ctx);
+	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
+}
+
+static void triangle_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_TRIANGLE, ctx);
+	int64_t x1 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y1 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t x2 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y2 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t x3 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y3 = expr(ctx);
+	accept(TOKENIZER_CR, ctx);
+	draw_triangle(x1, y1, x2, y2, x3, y3, ctx->graphics_colour);
+}
+
+static void rectangle_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_RECTANGLE, ctx);
+	int64_t x1 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y1 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t x2 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y2 = expr(ctx);
+	accept(TOKENIZER_CR, ctx);
+	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
+}
+
 /*---------------------------------------------------------------------------*/
 static void gosub_statement(struct ubasic_ctx* ctx)
 {
@@ -1147,6 +1214,21 @@ static void statement(struct ubasic_ctx* ctx)
 		break;
 		case TOKENIZER_SOCKCLOSE:
 			sockclose_statement(ctx);
+		break;
+		case TOKENIZER_CLS:
+			cls_statement(ctx);
+		break;
+		case TOKENIZER_GCOL:
+			gcol_statement(ctx);
+		break;
+		case TOKENIZER_LINE:
+			draw_line_statement(ctx);
+		break;
+		case TOKENIZER_TRIANGLE:
+			triangle_statement(ctx);
+		break;
+		case TOKENIZER_RECTANGLE:
+			rectangle_statement(ctx);
 		break;
 		case TOKENIZER_LET:
 			accept(TOKENIZER_LET, ctx);
@@ -1558,6 +1640,19 @@ int64_t ubasic_getprocid(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	return proc_id(intval);
+}
+
+int64_t ubasic_rgb(struct ubasic_ctx* ctx)
+{
+	int64_t r, g, b;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	r = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	g = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	b = intval;
+	return (uint32_t)(r << 16 | g << 8 | b);
 }
 
 char* ubasic_getprocname(struct ubasic_ctx* ctx)
