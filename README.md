@@ -1,4 +1,4 @@
-# 🚀 Retro Rocket Toy Operating System
+# 🚀 Retro Rocket BASIC-Powered Operating System
 
 Imagine an alterate present time, where the [BBC Micro](https://en.wikipedia.org/wiki/BBC_Micro) had continued to thrive and develop to the present day. In this alternate present this operating system exists alongside Windows and Linux but stands apart.
 
