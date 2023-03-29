@@ -3,13 +3,7 @@
 #include "kernel.h"
 #include <stdint.h>
 
-/**
- * @brief Low level ethernet packet types
- */
-enum ethernet_type {
-	ETHERNET_TYPE_ARP = 0x0806,
-	ETHERNET_TYPE_IP  = 0x0800,
-};
+typedef void (*ethernet_protocol_t)(void*, int);
 
 /**
  * @brief Ethernet hardware type
@@ -47,3 +41,13 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t
  */
 void ethernet_handle_packet(ethernet_frame_t * packet, int len);
 
+/**
+ * @brief Register a protocol with the ethernet layer
+ * See https://www.iana.org/assignments/ieee-802-numbers/ieee-802-numbers.xhtml
+ * for a list of protocol numbers
+ * 
+ * @param protocol_number IEE802 protocol number to register
+ * @param handler protocol handler
+ * @return true if registered, false if there was an error
+ */
+bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol_t handler);

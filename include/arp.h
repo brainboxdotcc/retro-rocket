@@ -2,6 +2,8 @@
 
 #include "kernel.h"
 
+#define ETHERNET_TYPE_ARP 0x0806
+
 enum arp_packet_type_t {
 	ARP_REQUEST = 1,
 	ARP_REPLY = 2,
@@ -23,14 +25,6 @@ typedef struct arp_table_entry {
 	uint32_t ip_addr;
 	uint64_t mac_addr;
 } arp_table_entry_t;
-
-/**
- * @brief Handle an ARP packet, passed from the ethernet driver
- * 
- * @param arp_packet raw ARP packat
- * @param len ARP packet length
- */
-void arp_handle_packet(arp_packet_t * arp_packet, int len);
 
 /**
  * @brief Send an ARP packet to the ethernet driver

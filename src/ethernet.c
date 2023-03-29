@@ -1,5 +1,7 @@
 #include <kernel.h>
 
+ethernet_protocol_t* protocol_handlers = NULL;
+
 int ethernet_send_packet(uint8_t * dst_mac_addr, uint8_t * data, int len, uint16_t protocol) {
     uint8_t src_mac_addr[6];
     ethernet_frame_t * frame = kmalloc(sizeof(ethernet_frame_t) + len);
@@ -27,17 +29,27 @@ void ethernet_handle_packet(ethernet_frame_t * packet, int len) {
 		return;
 	}
 
-	if (ntohs(packet->type) == ETHERNET_TYPE_ARP) {
-		// ARP packet
-		dprintf("Passing to ARP\n");
-		arp_handle_packet((arp_packet_t*)data, data_len);
-	} else if (ntohs(packet->type) == ETHERNET_TYPE_IP) {
-		// IP packet
-		dprintf("Passing to IP\n");
-		ip_handle_packet((ip_packet_t*)data);
-	} else {
-		dprintf("Unknown packet type %d\n", packet->type);
-		dump_hex(data, data_len);
+	uint16_t packet_type = ntohs(packet->type);
+	ethernet_protocol_t handler = protocol_handlers[packet_type];
+	if (handler != NULL) {
+		dprintf("Passing to handler for protocol %04x\n", packet_type);
+		handler(packet, data_len);
+		return;
 	}
+	dprintf("Unknown packet type %d\n", packet->type);
+	dump_hex(data, data_len);
 }
 
+bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol_t handler)
+{
+	if (protocol_handlers == NULL) {
+		protocol_handlers = kmalloc(sizeof(void*) * UINT16_MAX);
+	}
+	if (protocol_handlers[protocol_number] == NULL) {
+		protocol_handlers[protocol_number] = handler;
+		dprintf("Protocol %04X registered\n", protocol_number);
+		return true;
+	}
+	dprintf("Protocol %04X already registered!\n", protocol_number);
+	return false;
+}

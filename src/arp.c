@@ -18,6 +18,12 @@ size_t get_arp_table_size() {
 
 uint8_t broadcast_mac_address[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 
+/**
+ * @brief Handle an ARP packet, passed from the ethernet driver
+ * 
+ * @param arp_packet raw ARP packat
+ * @param len ARP packet length
+ */
 void arp_handle_packet(arp_packet_t* arp_packet, int len) {
 	unsigned char dst_hardware_addr[6];
 	unsigned char dst_protocol_addr[4];
@@ -126,4 +132,5 @@ void arp_init() {
 	memset(broadcast_ip, 0xff, 4);
 	memset(broadcast_mac, 0xff, 6);
 	arp_lookup_add(broadcast_mac, broadcast_ip);
+	ethernet_register_iee802_number(ETHERNET_TYPE_ARP, (ethernet_protocol_t)arp_handle_packet);
 }

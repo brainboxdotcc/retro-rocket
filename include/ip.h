@@ -2,6 +2,9 @@
 
 #include "kernel.h"
 
+#define ETHERNET_TYPE_IP 0x0800
+#define ETHERNET_TYPE_IP6 0x86DD
+
 /**
  * @brief IP protocol types
  */
@@ -115,13 +118,6 @@ uint16_t ip_calculate_checksum(ip_packet_t* packet);
  * @param protocol Sub-protocol encapsulated inside the packet, e.g. UDP, TCP
  */
 void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol);
-
-/**
- * @brief Handle incoming IP packet from the ethernet driver
- * 
- * @param packet IP packet
- */
-void ip_handle_packet(ip_packet_t* packet);
 
 /**
  * @brief Get the current IP address.

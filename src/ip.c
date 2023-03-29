@@ -313,8 +313,9 @@ uint64_t ip_frag_hash(const void *item, uint64_t seed0, uint64_t seed1) {
  * @note happens in interrupt!
  * 
  * @param packet IP packet to parse
+ * @param n_len Packet length
  */
-void ip_handle_packet(ip_packet_t* packet) {
+void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 	dprintf("ip_handle_packet\n");
 	char src_ip[20];
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
@@ -438,7 +439,14 @@ void ip_handle_packet(ip_packet_t* packet) {
 	}
 }
 
+void ip6_handle_packet([[maybe_unused]] void* packet, [[maybe_unused]] int n_len)
+{
+	dprintf("IP6 packet - not implemented\n");
+}
+
 void ip_init()
 {
+	ethernet_register_iee802_number(ETHERNET_TYPE_IP, (ethernet_protocol_t)ip_handle_packet);
+	ethernet_register_iee802_number(ETHERNET_TYPE_IP6, (ethernet_protocol_t)ip6_handle_packet);
 	proc_register_idle(ip_idle, IDLE_BACKGROUND);
 }
