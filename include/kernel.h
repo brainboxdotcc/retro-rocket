@@ -36,6 +36,7 @@ static inline void memset(void *dest, char val, int len)
 #include "timer.h"
 #include "kmalloc.h"
 #include "interrupt.h"
+#include "ahci.h"
 #include "ata.h"
 #include "filesystem.h"
 #include "iso9660.h"
