@@ -25,7 +25,6 @@ static inline void memset(void *dest, char val, int len)
 #include "limine.h"
 #include "idt.h"
 #include "spinlock.h"
-#include "doubly_linked_list.h"
 #include "printf.h"
 #include "video.h"
 #include "string.h"
