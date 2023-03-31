@@ -221,9 +221,6 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 	ide_write(ATA_PRIMARY, ATA_REG_CONTROL, 2);
 	ide_write(ATA_SECONDARY, ATA_REG_CONTROL, 2);
 
-	uint8_t cdromcount = 0;
-	uint8_t hddcount = 0;
-
 	// 3- Detect ATA-ATAPI Devices
 	// Refactored 9th Nov 2009. Did not properly detect ATAPI devices,
 	// due to not testing for ATAPI IDENTIFY ABORT soon enough before
@@ -302,10 +299,10 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 
 				storage_device_t* sd = (storage_device_t*)kmalloc(sizeof(storage_device_t));
 				if (type == IDE_ATAPI) {
-					sprintf(sd->name, "cd%d", cdromcount++);
+					make_unique_device_name("cd", sd->name);
 					sd->block_size = 2048;
 				} else {
-					sprintf(sd->name, "hd%d", hddcount++);
+					make_unique_device_name("hd", sd->name);
 					sd->block_size = 512;
 				}
 				sd->blockread = storage_device_ide_block_read;

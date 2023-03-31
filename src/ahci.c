@@ -128,8 +128,6 @@ int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, c
 	return ahci_write(port, start, divided_length, (char*)buffer, abar);
 }
 
-int hddcount = 0, cdromcount = 0;
-
 void probe_port(ahci_hba_mem_t *abar)
 {
 	// Search disk in implemented ports
@@ -151,14 +149,14 @@ void probe_port(ahci_hba_mem_t *abar)
 			if (dt == AHCI_DEV_SATA && sd) {
 				dprintf("SATA drive found at port %d\n", i);
 				port_rebase(&abar->ports[i], i);
-				sprintf(sd->name, "hd%d", hddcount++);
+				make_unique_device_name("hd", sd->name);
 				sd->block_size = 512;
 				register_storage_device(sd);
 				dprintf("Registered\n");
 			} else if (dt == AHCI_DEV_SATAPI && sd) {
 				dprintf("SATAPI drive found at port %d\n", i);
 				port_rebase(&abar->ports[i], i);
-				sprintf(sd->name, "cd%d", cdromcount++);
+				make_unique_device_name("cd", sd->name);
 				sd->block_size = 2048;
 				register_storage_device(sd);
 				dprintf("Registered\n");

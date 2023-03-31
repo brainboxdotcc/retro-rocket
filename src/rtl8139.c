@@ -292,6 +292,8 @@ bool rtl8139_init() {
 
 	rtl8139_device.active = true;
 
+	make_unique_device_name("net", rtl8139_device.name);
+
 	network_up();
 	
 	return true;

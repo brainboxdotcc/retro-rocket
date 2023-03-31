@@ -42,11 +42,12 @@ void kmain()
 	 * This depends upon paging.
 	 */
 	heap_init();
-	
 	detect_cores();
 	idt_setup();
 	init_error_handler();
 	init_pci();
+
+	init_devicenames();
 	init_basic_keyboard();
 	ide_initialise(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
 	init_ahci();

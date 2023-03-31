@@ -33,8 +33,10 @@ static const char keyboard_scan_map_upper[] = {0, 27, '!', '@', '?', '$', '%', '
 
 void init_basic_keyboard()
 {
+	char devname[16];
 	bufwriteptr = 0;
 	bufreadptr = 0;
+	make_unique_device_name("kb", devname);
 	register_interrupt_handler(IRQ1, keyboard_handler);
 }
 

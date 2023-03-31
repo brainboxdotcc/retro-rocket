@@ -141,6 +141,7 @@ typedef struct tx_desc {
  */
 typedef struct rtl8139_dev {
 	bool active;
+	char name[16];
 	uint8_t bar_type;
 	uint16_t io_base;
 	uint32_t mem_base;
