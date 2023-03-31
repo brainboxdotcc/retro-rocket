@@ -97,6 +97,39 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 	start_cmd(port);	// Start command engine
 }
 
+int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buffer)
+{
+	storage_device_t* sd = (storage_device_t*)dev;
+	if (!sd) {
+		return 0;
+	}
+	uint32_t divided_length = bytes / sd->block_size;
+	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
+	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
+	if (divided_length == 0) {
+		divided_length = 1;
+	}
+	return check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
+}
+
+int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer)
+{
+
+	storage_device_t* sd = (storage_device_t*)dev;
+	if (!sd) {
+		return 0;
+	}
+	uint32_t divided_length = bytes / sd->block_size;
+	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
+	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
+	if (divided_length == 0) {
+		divided_length = 1;
+	}
+	return ahci_write(port, start, divided_length, (char*)buffer, abar);
+}
+
+int hddcount = 0, cdromcount = 0;
+
 void probe_port(ahci_hba_mem_t *abar)
 {
 	// Search disk in implemented ports
@@ -107,26 +140,28 @@ void probe_port(ahci_hba_mem_t *abar)
 		if (pi & 1)
 		{
 			int dt = check_type(&abar->ports[i]);
-			if (dt == AHCI_DEV_SATA) {
+			storage_device_t* sd = NULL;
+			if (dt == AHCI_DEV_SATA || dt == AHCI_DEV_SATAPI) {
+				sd = (storage_device_t*)kmalloc(sizeof(storage_device_t));
+				sd->opaque1 = i;
+				sd->opaque2 = (void*)abar;
+				sd->blockread = storage_device_ahci_block_read;
+				sd->blockwrite = storage_device_ahci_block_write;
+			}
+			if (dt == AHCI_DEV_SATA && sd) {
 				dprintf("SATA drive found at port %d\n", i);
 				port_rebase(&abar->ports[i], i);
-				char* buffer = kmalloc(65536);
-				memset(buffer, 0, 65536);
-				bool r = ahci_read(&abar->ports[i], 0, 1, (uint16_t*)buffer, abar);
-				kprintf("ahci_read returned %d\n", r);
-				if (r) {
-					dump_hex((unsigned char*)buffer, 512);
-				}
-			} else if (dt == AHCI_DEV_SATAPI) {
+				sprintf(sd->name, "hd%d", hddcount++);
+				sd->block_size = 512;
+				register_storage_device(sd);
+				dprintf("Registered\n");
+			} else if (dt == AHCI_DEV_SATAPI && sd) {
 				dprintf("SATAPI drive found at port %d\n", i);
 				port_rebase(&abar->ports[i], i);
-				char* buffer = kmalloc(65536);
-				memset(buffer, 0, 65536);
-				bool r = ahci_atapi_read(&abar->ports[i], 16, 32, (uint16_t*)buffer, abar);
-				kprintf("ahci_atapi_read returned %d\n", r);
-				if (r) {
-					dump_hex((unsigned char*)buffer, 2048 * 32);
-				}
+				sprintf(sd->name, "cd%d", cdromcount++);
+				sd->block_size = 2048;
+				register_storage_device(sd);
+				dprintf("Registered\n");
 			} else if (dt == AHCI_DEV_SEMB) {
 				dprintf("SEMB drive found at port %d\n", i);
 			} else if (dt == AHCI_DEV_PM) {
