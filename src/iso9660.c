@@ -258,6 +258,7 @@ iso9660* iso_mount_volume(const char* name)
 {
 	storage_device_t* fs = find_storage_device(name);
 	if (!fs) {
+		dprintf("Can't find storage device %s\n", name);
 		return NULL;
 	}
 
@@ -269,7 +270,7 @@ iso9660* iso_mount_volume(const char* name)
 	while (1)
 	{
 		if (!read_storage_device(name, VolumeDescriptorPos++, fs->block_size, buffer)) {
-			kprintf("ISO9660: Could not read LBA sector 0x%x!\n", VolumeDescriptorPos);
+			kprintf("ISO9660: Could not read LBA sector 0x%x from %s!\n", VolumeDescriptorPos, name);
 			kfree(info);
 			return NULL;
 		}

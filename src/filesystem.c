@@ -386,8 +386,9 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 		fs_tree_t* dirs = current_node->child_dirs;
 		for (; dirs; dirs = dirs->next) {
 			fs_tree_t* result = walk_to_node_internal(dirs, dir_stack);
-			if (result != NULL)
+			if (result != NULL) {
 				return result;
+			}
 		}
 	}
 
@@ -552,6 +553,7 @@ fs_directory_entry_t* fs_get_items(const char* pathname)
 
 int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver)
 {
+	dprintf("filesystem_mount(%s, %s, %s)\n", pathname, device ? device : "(null)", filesystem_driver);
 	filesystem_t *driver = find_filesystem(filesystem_driver);
 	int success = (driver && driver->mount(device, pathname));
 	kprintf(

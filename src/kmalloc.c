@@ -74,10 +74,24 @@ void heap_init()
 	uint64_t bestlen = 0;
 	uint64_t bestaddr = 0;
 
+	dprintf("heap_init()\nMEMORY MAP:\n");
+
 	heapstart = 0;
+
+	const char* map_diag_names[] = {
+		"LIMINE_MEMMAP_USABLE",
+		"LIMINE_MEMMAP_RESERVED",
+		"LIMINE_MEMMAP_ACPI_RECLAIMABLE",
+		"LIMINE_MEMMAP_ACPI_NVS",
+		"LIMINE_MEMMAP_BAD_MEMORY",
+		"LIMINE_MEMMAP_BOOTLOADER_RECLAIMABLE",
+		"LIMINE_MEMMAP_KERNEL_AND_MODULES",
+		"LIMINE_MEMMAP_FRAMEBUFFER",
+	};
 
 	int memcnt = 0;
 	while (memcnt < memory_map_request.response->entry_count) {
+		dprintf("addr=%llx len=%llx type=%s\n", memory_map_request.response->entries[memcnt]->base, memory_map_request.response->entries[memcnt]->length, map_diag_names[memory_map_request.response->entries[memcnt]->type]);
 		if (memory_map_request.response->entries[memcnt]->length > bestlen && memory_map_request.response->entries[memcnt]->type == LIMINE_MEMMAP_USABLE) {
 			bestaddr = memory_map_request.response->entries[memcnt]->base;
 			bestlen = memory_map_request.response->entries[memcnt]->length;
@@ -106,8 +120,13 @@ void heap_init()
 
 	heap_pos = heapstart;
 	heapstart += low_mem_max;
+	heaplen -= low_mem_max;
+
+	dprintf("heaplen=%llx heap_pos=%llx heapstart=%llx low_mem_max=%llx\n", heaplen, heap_pos, heapstart, low_mem_max);
 
 	kheap = create_heap(heapstart, heapstart + heaplen, heapstart + heaplen, min, 0, 1);
+
+	dprintf("Heap created\n");
 
 	print_heapinfo();
 }
@@ -117,12 +136,13 @@ void print_heapinfo()
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	kprintf("HEAP: ");
 	setforeground(current_console, COLOUR_WHITE);
-	kprintf("Best fit; start=0x%llx max=0x%llx length=%ldMB\n", heapstart, heaplen, (heaplen - heapstart) / 1048576);
+	kprintf("Best fit; start=0x%llx length=%ldMB\n", heapstart, heaplen / 1048576);
 }
 
 
 heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw)
 {
+	dprintf("create_heap() addr=%llx end=%llx max=%llx\n", addr, end, max);
 	heap_t* heap = kmalloc(sizeof(heap_t));
 	header_t* header;
 	footer_t* footer;
@@ -139,6 +159,8 @@ heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uin
 		preboot_fail("End of heap is beyond maximum heap");
 	}
 
+	dprintf("create_heap() sanity checks PASS\n");
+
 	uint64_t i = addr;
 	for (; i < end; i += 0x1000) {
 		if (invalid_frame(i))
@@ -146,6 +168,9 @@ heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uin
 	}
 
 	_memset((char*)heap, 0, sizeof(heap_t));	/* Nullify */
+
+	dprintf("Initial heap cleared addr=%llx end=%llx\n", addr, end);
+
  	heap->list_free = (header_t*)addr;	/* In the first (unique) header */
 	heap->heap_addr = addr;			/* Define heap base address */
 	heap->end_addr = end;			/* Heap end */
@@ -154,17 +179,28 @@ heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uin
 	heap->user = user;			/* User or kernel heap */
 	heap->rw = rw;				/* R/W */
 
+	dprintf("First unique header defined (used) end-addr=%llx\n", end - addr);
+
 	/* Define new */
 	header = (header_t*)addr;		/* Header at the beginning of the heap */
 	header->magic = HEAP_MAGIC;		/* ID byte */
-	header->size = (end-addr - sizeof(header_t) - sizeof(footer_t));	/* size of the heap */
+	header->size = ((uint64_t)(end - addr) - sizeof(header_t) - sizeof(footer_t));	/* size of the heap */
 	header->free = 1;			/* Available */
 	header->prev = 0;			/* Previous entry (prev==0)  */
 	header->next = 0;			/* Next entry (next==0) */
+
+	dprintf("First unique free defined, header->size = %llx header=%llx sizeof(header_t)=%llx\n", header->size, header, sizeof(header_t));
+
 	/* Define footer */
-	footer = (footer_t*)((uint64_t)header + sizeof(header_t) + header->size);	/* seek */
+	size_t footer_pos = end - sizeof(footer_t);
+	footer = (footer_t*)footer_pos;	/* seek */
+
+	dprintf("Placing footer at %llx (%llx - %llx)\n", footer, end, sizeof(footer_t));
+
 	footer->magic = HEAP_MAGIC;		/* ID byte */
 	footer->header = header;		/* point to header */
+
+	dprintf("create_heap() done\n");
 
 	return heap;
 }
@@ -506,8 +542,9 @@ void* kmalloc_ext(uint64_t size, uint8_t align, uint64_t *phys)
 	if (kheap) {
 		return alloc(size,align,kheap);
 	} else {
+		dprintf("Allocate initial heap\n");
 		if (align) {
-			/* Alignn to page boundries */
+			/* Align to page boundries */
 			heap_pos &= 0xFFFFFFFFFFFFF000;
 			heap_pos += 0x1000;	/* Next page */
 		}
@@ -517,6 +554,7 @@ void* kmalloc_ext(uint64_t size, uint8_t align, uint64_t *phys)
 		}
 		ret = (void*)heap_pos;
 		heap_pos += size;
+		dprintf("new heap_pos=%llx\n", heap_pos);
 		//wait_forever();
 		return ret;
 	}
