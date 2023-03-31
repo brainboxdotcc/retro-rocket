@@ -16,13 +16,7 @@ typedef int8_t int8_t;
 
 #define kprintf printf
 
-static inline void memset(void *dest, char val, int len)
-{
-	char *temp = (char *)dest;
-		for ( ; len != 0; len--) *temp++ = val;
-}
-
-#include "limine.h"
+#include <limine.h>
 #include "idt.h"
 #include "spinlock.h"
 #include "printf.h"

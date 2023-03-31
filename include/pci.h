@@ -44,6 +44,7 @@ extern pci_dev_t dev_zero;
 #define PCI_BAR3                 0x1C
 #define PCI_BAR4                 0x20
 #define PCI_BAR5                 0x24
+#define PCI_CAPABILITIES         0x34
 #define PCI_INTERRUPT_LINE       0x3C
 #define PCI_SECONDARY_BUS        0x09
 

@@ -41,6 +41,8 @@ const pci_subclass pci_device_sub_class[] =
 	{ 0x01, 0x05, 0x20, "ATA controller (single DMA)" } , 
 	{ 0x01, 0x05, 0x30, "ATA controller (chained DMA)" } ,
 
+	{ 0x01, 0x06, 0x00, "AHCI controller" } , 
+
 	{ 0x03, 0x00, 0x00, "VGA Compatible Display Controller" } ,
 	{ 0x03, 0x00, 0x01, "8514 Compatible Display Controller" } ,
 	{ 0x03, 0x01, 0x00, "XGA Display Controller" } ,
@@ -182,6 +184,9 @@ uint32_t pci_read(pci_dev_t dev, uint32_t field) {
 		// Read entire 4 bytes
 		uint32_t t = inl(PCI_CONFIG_DATA);
 		return t;
+	} else {
+		uint32_t t = inl(PCI_CONFIG_DATA);
+		return t;
 	}
 	return 0xffff;
 }
@@ -251,6 +256,12 @@ pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, 
 	dev.bus_num = bus;
 	dev.device_num = device;
 
+	//dprintf("%d:%d class=%04x subclass=%04x type=%08x\n", bus, device, pci_read(dev,PCI_CLASS), pci_read(dev,PCI_SUBCLASS), get_device_type(dev));
+
+	if (get_device_type(dev) == device_type && device_type > 0) {
+		return dev;
+	}
+
 	if(pci_read(dev,PCI_VENDOR_ID) == PCI_NONE)
 		return dev_zero;
 
@@ -295,7 +306,7 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
 	// Handle multiple pci host controllers
 
 	if(pci_reach_end(dev_zero)) {
-		printf("PCI Get device failed...\n");
+		dprintf("PCI Get device failed\n");
 	}
 	for(int function = 1; function < FUNCTION_PER_DEVICE; function++) {
 		pci_dev_t dev = {0};
@@ -315,22 +326,23 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
  */
 void init_pci() {
 	// Init size map
-	pci_size_map[PCI_VENDOR_ID] =	2;
-	pci_size_map[PCI_DEVICE_ID] =	2;
-	pci_size_map[PCI_COMMAND]	=	2;
-	pci_size_map[PCI_STATUS]	=	2;
-	pci_size_map[PCI_SUBCLASS]	=	1;
-	pci_size_map[PCI_CLASS]		=	1;
+	pci_size_map[PCI_VENDOR_ID] 		= 2;
+	pci_size_map[PCI_DEVICE_ID] 		= 2;
+	pci_size_map[PCI_COMMAND]		= 2;
+	pci_size_map[PCI_STATUS]		= 2;
+	pci_size_map[PCI_SUBCLASS]		= 1;
+	pci_size_map[PCI_CLASS]			= 1;
 	pci_size_map[PCI_CACHE_LINE_SIZE]	= 1;
 	pci_size_map[PCI_LATENCY_TIMER]		= 1;
-	pci_size_map[PCI_HEADER_TYPE] = 1;
-	pci_size_map[PCI_BIST] = 1;
-	pci_size_map[PCI_BAR0] = 4;
-	pci_size_map[PCI_BAR1] = 4;
-	pci_size_map[PCI_BAR2] = 4;
-	pci_size_map[PCI_BAR3] = 4;
-	pci_size_map[PCI_BAR4] = 4;
-	pci_size_map[PCI_BAR5] = 4;
+	pci_size_map[PCI_HEADER_TYPE] 		= 1;
+	pci_size_map[PCI_BIST] 			= 1;
+	pci_size_map[PCI_BAR0] 			= 4;
+	pci_size_map[PCI_BAR1] 			= 4;
+	pci_size_map[PCI_BAR2] 			= 4;
+	pci_size_map[PCI_BAR3] 			= 4;
+	pci_size_map[PCI_BAR4] 			= 4;
+	pci_size_map[PCI_BAR5]			= 4;
+	pci_size_map[PCI_CAPABILITIES] 		= 4;
 	pci_size_map[PCI_INTERRUPT_LINE]	= 1;
 	pci_size_map[PCI_SECONDARY_BUS]		= 1;
 }

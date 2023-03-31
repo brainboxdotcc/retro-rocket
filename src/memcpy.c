@@ -6,6 +6,11 @@ void _memset(void *dest, char val, uint64_t len)
 	for ( ; len != 0; len--) *temp++ = val;
 }
 
+void memset(void* dest, char val, uint64_t len)
+{
+	 _memset(dest, val, len);
+}
+
 
 void *memcpy(void *dest, const void *src, uint64_t len)
 {
