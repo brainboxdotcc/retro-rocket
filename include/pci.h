@@ -48,6 +48,12 @@ extern pci_dev_t dev_zero;
 #define PCI_INTERRUPT_LINE       0x3C
 #define PCI_SECONDARY_BUS        0x09
 
+#define PCI_CAPABILITY_MSI	 0x05
+#define PCI_MSI_64BIT		 (1 << 7)
+#define PCI_MSI_DEASSERT	 (1 << 14)
+#define PCI_MSI_EDGETRIGGER	 (1 << 15)
+#define PCI_MSI_ENABLE		 (1 << 16)
+
 #define PCI_BAR_TYPE_MEMORY      0x00
 #define PCI_BAR_TYPE_IOPORT      0x01
 
@@ -77,3 +83,5 @@ uint8_t pci_bar_type(uint32_t field);
 uint16_t pci_io_base(uint32_t field);
 uint32_t pci_mem_base(uint32_t field);
 bool pci_not_found(pci_dev_t device);
+
+bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert);

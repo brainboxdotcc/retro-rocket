@@ -42,7 +42,6 @@ add_custom_command(TARGET "kernel.bin" POST_BUILD
 		-device ide-cd,drive=sata-cdrom,bus=ahci.1 \
 		-no-reboot \
 		-no-shutdown \
-		-cdrom rr.iso \
 		-boot d \
 		-vnc 0.0.0.0:2 \
 		-debugcon file:debug.log \

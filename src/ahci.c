@@ -1,6 +1,13 @@
 #include <kernel.h>
 
-/* 8086:2922 - 82801IR/IO/IH (ICH9R/DO/DH) 6 port SATA Controller [AHCI mode] */
+/* Tested:
+ * 8086:2922 - 82801IR/IO/IH (ICH9R/DO/DH) 6 port SATA Controller [AHCI mode]
+ */
+
+bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
+bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+
 
 void ahci_handler(uint8_t isr, uint64_t error, uint64_t irq)
 {
@@ -19,16 +26,15 @@ static int check_type(ahci_hba_port_t* port)
 	if (ipm != HBA_PORT_IPM_ACTIVE)
 		return AHCI_DEV_NULL;
  
-	switch (port->sig)
-	{
-	case SATA_SIG_ATAPI:
-		return AHCI_DEV_SATAPI;
-	case SATA_SIG_SEMB:
-		return AHCI_DEV_SEMB;
-	case SATA_SIG_PM:
-		return AHCI_DEV_PM;
-	default:
-		return AHCI_DEV_SATA;
+	switch (port->sig) {
+		case SATA_SIG_ATAPI:
+			return AHCI_DEV_SATAPI;
+		case SATA_SIG_SEMB:
+			return AHCI_DEV_SEMB;
+		case SATA_SIG_PM:
+			return AHCI_DEV_PM;
+		default:
+			return AHCI_DEV_SATA;
 	}
 }
 
@@ -37,7 +43,6 @@ void start_cmd(ahci_hba_port_t *port)
 {
 	// Wait until CR (bit15) is cleared
 	while (port->cmd & HBA_PxCMD_CR);
- 
 	// Set FRE (bit4) and ST (bit0)
 	port->cmd |= HBA_PxCMD_FRE;
 	port->cmd |= HBA_PxCMD_ST; 
@@ -48,7 +53,6 @@ void stop_cmd(ahci_hba_port_t *port)
 {
 	// Clear ST (bit0)
 	port->cmd &= ~HBA_PxCMD_ST;
- 
 	// Clear FRE (bit4)
 	port->cmd &= ~HBA_PxCMD_FRE;
  
@@ -84,8 +88,7 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 	// Command table offset: 40K + 8K*portno
 	// Command table size = 256*32 = 8K per port
 	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)((uint64_t)port->clb);
-	for (int i=0; i<32; i++)
-	{
+	for (int i = 0; i < 32; i++) {
 		cmdheader[i].prdtl = 8;	// 8 prdt entries per command table
 					// 256 bytes per command table, 64+16+48+16*8
 		// Command table offset: 40K + 8K*portno + cmdheader_index*256
@@ -128,44 +131,31 @@ int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, c
 	return ahci_write(port, start, divided_length, (char*)buffer, abar);
 }
 
-void probe_port(ahci_hba_mem_t *abar)
+void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 {
 	// Search disk in implemented ports
 	uint32_t pi = abar->pi;
 	int i = 0;
-	while (i<32)
-	{
-		if (pi & 1)
-		{
+	while (i < 32) {
+		// iterate all 32 bits of the active ports field
+		if (pi & 1) {
 			int dt = check_type(&abar->ports[i]);
-			storage_device_t* sd = NULL;
 			if (dt == AHCI_DEV_SATA || dt == AHCI_DEV_SATAPI) {
+				kprintf(
+					"AHCI@%04x:%04x: %s storage, Port #%d\n",
+					pci_read(dev, PCI_VENDOR_ID), pci_read(dev, PCI_DEVICE_ID),
+					dt == AHCI_DEV_SATA ? "SATA" : "ATAPI", i
+				);
+				port_rebase(&abar->ports[i], i);
+				storage_device_t* sd = NULL;
 				sd = (storage_device_t*)kmalloc(sizeof(storage_device_t));
 				sd->opaque1 = i;
 				sd->opaque2 = (void*)abar;
 				sd->blockread = storage_device_ahci_block_read;
 				sd->blockwrite = storage_device_ahci_block_write;
-			}
-			if (dt == AHCI_DEV_SATA && sd) {
-				dprintf("SATA drive found at port %d\n", i);
-				port_rebase(&abar->ports[i], i);
-				make_unique_device_name("hd", sd->name);
-				sd->block_size = 512;
+				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name);
+				sd->block_size = dt == AHCI_DEV_SATA ? 512 : 2048;
 				register_storage_device(sd);
-				dprintf("Registered\n");
-			} else if (dt == AHCI_DEV_SATAPI && sd) {
-				dprintf("SATAPI drive found at port %d\n", i);
-				port_rebase(&abar->ports[i], i);
-				make_unique_device_name("cd", sd->name);
-				sd->block_size = 2048;
-				register_storage_device(sd);
-				dprintf("Registered\n");
-			} else if (dt == AHCI_DEV_SEMB) {
-				dprintf("SEMB drive found at port %d\n", i);
-			} else if (dt == AHCI_DEV_PM) {
-				dprintf("PM drive found at port %d\n", i);
-			} else {
-				dprintf("No drive found at port %d\n", i);
 			}
 		}
  
@@ -276,14 +266,14 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	return true;
 }
 
-uint8_t ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar)
+bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar)
 {
 	port->is = (uint32_t)-1;
 	int spin = 0;
-	int slot = (int)find_cmdslot(port, abar);
+	int slot = find_cmdslot(port, abar);
 	if (slot == -1) {
-		printf("No free command slots\n");
-		return 0;
+		dprintf("No free command slots\n");
+		return false;
 	}
 
 	ahci_hba_cmd_header_t* cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)(port->clb);
@@ -342,24 +332,24 @@ uint8_t ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, u
 		spin++;
 	};
 	if (spin == 1000000) {
-		printf("Port is hung\n");
-		return 0;
+		dprintf("Port is hung\n");
+		return false;
 	}
 
 	port->ci = (1 << slot);
 
-	while(1) {
+	while(true) {
 		if ((port->ci & (1<<slot)) == 0) break;
 		if (port->is & HBA_PxIS_TFES) {
-			return 0;
+			return false;
 		}
 	}
 
 	if (port->is & HBA_PxIS_TFES) {
-		return 0;
+		return false;
 	}
 
-	return 1;
+	return true;
 }
 
 bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar)
@@ -386,7 +376,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 		cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
 		cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
 		cmdtbl->prdt_entry[i].dbc = 8*1024-1; // 8K bytes
-		//cmdtbl->prdt_entry[i].i = 1;
+		cmdtbl->prdt_entry[i].i = 1;
 		buf += 8*1024;  // 4K words
 		count -= 16;	// 16 sectors
 	}
@@ -394,6 +384,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
 	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
 	cmdtbl->prdt_entry[i].dbc = (count<<9)-1;   // 512 bytes per sector
+	cmdtbl->prdt_entry[i].i = 1;
 
 	// Setup command
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
@@ -461,40 +452,14 @@ void init_ahci()
 	}
 
 	ahci_base = pci_mem_base(ahci_base);
-	uint32_t ahci_status = pci_read(ahci_device, PCI_STATUS);
 
-	dprintf("AHCI base MMIO: %08x status: %08x\n", ahci_base, ahci_status);
+	dprintf("AHCI base MMIO: %08x\n", ahci_base);
 
-	/* Check for MSI capability */
-	if (!(ahci_status & 0x10)) {
-		dprintf("No MSI support on AHCI device\n");
-		return;
+	uint32_t vector = 20 + 32;
+	if (pci_enable_msi(ahci_device, vector, true, true)) {
+		register_interrupt_handler(vector, ahci_handler);
+		dprintf("AHCI: MSI enabled\n");
 	}
 
-	uint32_t capabilities_ptr = pci_read(ahci_device, PCI_CAPABILITIES);
-	dprintf("Capabilities ptr=%02x\n", capabilities_ptr);
-
-	uint32_t current = capabilities_ptr, config_space;
-	while ((config_space = pci_read(ahci_device, current))) {
-		uint8_t id = config_space & 0xFF;
-		uint32_t next_capability = (config_space & 0xFF00) >> 8;
-		dprintf("id=%02x next=%02x v=%08x\n", id, next_capability, config_space);
-		if (id == 0x05) {
-			/* MSI capability */
-			uint32_t vector = 20 + 32;
-			uint32_t new_message_data = (vector & 0xFF);
-			uint32_t new_message_address = get_local_apic();
-			pci_write(ahci_device, current + 0x04, new_message_address);
-			pci_write(ahci_device, current + 0x08, 0);
-			pci_write(ahci_device, current + 0x0C, new_message_data);
-
-			register_interrupt_handler(vector, ahci_handler);
-		}
-		current = next_capability;
-		if (next_capability == 0) {
-			break;
-		}
-	}
-
-	probe_port((ahci_hba_mem_t*)ahci_base);
+	probe_port((ahci_hba_mem_t*)ahci_base, ahci_device);
 }

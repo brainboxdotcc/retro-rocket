@@ -39,7 +39,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 void IRQ(uint64_t isrnumber, uint64_t irqnum)
 {
 	if (irqnum > 0)
-		dprintf("IRQ %d\n", irqnum);
+		dprintf("IRQ %d ISR %d\n", irqnum, isrnumber);
 	if (interrupt_handlers[isrnumber] != NULL)
 	{
 		isr_t handler = interrupt_handlers[isrnumber];

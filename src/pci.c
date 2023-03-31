@@ -347,3 +347,43 @@ void init_pci() {
 	pci_size_map[PCI_SECONDARY_BUS]		= 1;
 }
 
+bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert)
+{
+	uint32_t status = pci_read(device, PCI_STATUS);
+
+	/* Check for MSI capability */
+	if (!(status & 0x10)) {
+		return false;
+	}
+
+	uint32_t capabilities_ptr = pci_read(device, PCI_CAPABILITIES);
+
+	uint32_t current = capabilities_ptr, config_space;
+	while ((config_space = pci_read(device, current))) {
+		uint8_t id = config_space & 0xFF;
+		uint32_t next_capability = (config_space & 0xFF00) >> 8;
+		if (id == PCI_CAPABILITY_MSI) {
+			/* MSI capability */
+			asm volatile("cli");
+			uint32_t new_message_data = (vector & 0xFF) | (edgetrigger ? 0 : PCI_MSI_EDGETRIGGER) | (deassert ? 0 : PCI_MSI_DEASSERT);
+			uint32_t new_message_address = (0xFEE00000 | (cpu_id() << 12));
+			bool bits64cap = (config_space & PCI_MSI_64BIT);
+			dprintf("Enable MSI with data=%08x address=%08x vector %d\n",new_message_data, new_message_address, vector);
+			pci_write(device, current + 0x04, new_message_address);
+			if (bits64cap) {
+				pci_write(device, current + 0x08, 0);
+				pci_write(device, current + 0x0C, new_message_data);
+			} else {
+				pci_write(device, current + 0x08, new_message_data);	
+			}
+			pci_write(device, current + 0x00, config_space | PCI_MSI_ENABLE); // Mask in enable bit
+			asm volatile("sti");
+			return true;
+		}
+		current = next_capability;
+		if (next_capability == 0) {
+			break;
+		}
+	}
+	return false;
+}

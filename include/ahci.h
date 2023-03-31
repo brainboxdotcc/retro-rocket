@@ -325,9 +325,3 @@ typedef struct achi_hba_cmd_tbl_t
 #define ATA_DEV_DRQ 0x08
 
 void init_ahci();
-
-bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
-
-bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
-
-uint8_t ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
