@@ -98,3 +98,5 @@ uint32_t pci_mem_base(uint32_t field);
 bool pci_not_found(pci_dev_t device);
 
 bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert);
+void pci_display_device_list();
+size_t pci_get_device_list(pci_dev_t** list);
