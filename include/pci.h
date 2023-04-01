@@ -48,6 +48,19 @@ extern pci_dev_t dev_zero;
 #define PCI_INTERRUPT_LINE       0x3C
 #define PCI_SECONDARY_BUS        0x09
 
+#define PCI_COMMAND_IOSPACE			(1 << 0)
+#define PCI_COMMAND_MEMSPACE			(1 << 1)
+#define PCI_COMMAND_BUS_MASTER			(1 << 2)
+#define PCI_COMMAND_SPECIAL_CYCLES		(1 << 3)
+#define PCI_COMMAND_MEMORY_WRITE_INVALIDATE	(1 << 4)
+#define PCI_COMMAND_VGA_PALLETE_SNOOP		(1 << 5)
+#define PCI_COMMAND_PARITY_ERROR_RESPONSE	(1 << 6)
+#define PCI_COMMAND_RESERVED_0			(1 << 7)
+#define PCI_COMMAND_SERR_ENABLE			(1 << 8)
+#define PCI_COMMAND_FAST_BACK_TO_BACK_ENABLE	(1 << 9)
+#define PCI_COMMAND_INTERRUPT_DISABLE		(1 << 10)
+#define PCI_COMMAND_RESERVED_1			(1 << 11)
+
 #define PCI_CAPABILITY_MSI	 0x05
 #define PCI_MSI_64BIT		 (1 << 7)
 #define PCI_MSI_DEASSERT	 (1 << 14)

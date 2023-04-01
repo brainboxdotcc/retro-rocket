@@ -139,8 +139,8 @@ pci_dev_t dev_zero = {0};
 
 bool pci_bus_master(pci_dev_t device) {
 	uint32_t pci_command_reg = pci_read(device, PCI_COMMAND);
-	if(!(pci_command_reg & (1 << 2))) {
-		pci_command_reg |= (1 << 2);
+	if(!(pci_command_reg & PCI_COMMAND_BUS_MASTER)) {
+		pci_command_reg |= PCI_COMMAND_BUS_MASTER;
 		pci_write(device, PCI_COMMAND, pci_command_reg);
 		return true;
 	}
@@ -361,6 +361,8 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool de
 	uint32_t current = capabilities_ptr, config_space;
 	while ((config_space = pci_read(device, current))) {
 		uint8_t id = config_space & 0xFF;
+		uint16_t device_id = pci_read(device, PCI_DEVICE_ID);
+		uint16_t vendor_id = pci_read(device, PCI_VENDOR_ID);
 		uint32_t next_capability = (config_space & 0xFF00) >> 8;
 		if (id == PCI_CAPABILITY_MSI) {
 			/* MSI capability */
@@ -368,8 +370,13 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool de
 			uint32_t new_message_data = (vector & 0xFF) | (edgetrigger ? 0 : PCI_MSI_EDGETRIGGER) | (deassert ? 0 : PCI_MSI_DEASSERT);
 			uint32_t new_message_address = (0xFEE00000 | (cpu_id() << 12));
 			bool bits64cap = (config_space & PCI_MSI_64BIT);
-			dprintf("Enable MSI with data=%08x address=%08x vector %d\n",new_message_data, new_message_address, vector);
+			dprintf("Enable MSI for %04x:%04x with data=%08x address=%08x vector %d\n", vendor_id, device_id, new_message_data, new_message_address, vector);
 			pci_write(device, current + 0x04, new_message_address);
+			uint16_t device_command_flags = pci_read(device, PCI_COMMAND);
+			if (!(device_command_flags & PCI_COMMAND_INTERRUPT_DISABLE)) {
+				dprintf("MSI: Legacy interrupts for %04x:%04x disabled\n", vendor_id, device_id);
+				pci_write(device, PCI_COMMAND, device_command_flags | PCI_COMMAND_INTERRUPT_DISABLE);
+			}
 			if (bits64cap) {
 				pci_write(device, current + 0x08, 0);
 				pci_write(device, current + 0x0C, new_message_data);
