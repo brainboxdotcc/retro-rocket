@@ -234,6 +234,7 @@ pci_dev_t pci_scan_function(uint16_t vendor_id, uint16_t device_id, uint32_t bus
 	dev.bus_num = bus;
 	dev.device_num = device;
 	dev.function_num = function;
+
 	// If it's a PCI Bridge device, get the bus it's connected to and keep searching
 	if(get_device_type(dev) == PCI_TYPE_BRIDGE) {
 		pci_scan_bus(vendor_id, device_id, get_secondary_bus(dev), device_type);
@@ -242,7 +243,7 @@ pci_dev_t pci_scan_function(uint16_t vendor_id, uint16_t device_id, uint32_t bus
 	if(device_type == -1 || device_type == get_device_type(dev)) {
 		uint32_t devid  = pci_read(dev, PCI_DEVICE_ID);
 		uint32_t vendid = pci_read(dev, PCI_VENDOR_ID);
-		if(devid == device_id && vendor_id == vendid)
+		if (device_type != -1 || (devid == device_id && vendor_id == vendid))
 			return dev;
 	}
 	return dev_zero;
@@ -255,8 +256,6 @@ pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, 
 	pci_dev_t dev = {0};
 	dev.bus_num = bus;
 	dev.device_num = device;
-
-	//dprintf("%d:%d class=%04x subclass=%04x type=%08x\n", bus, device, pci_read(dev,PCI_CLASS), pci_read(dev,PCI_SUBCLASS), get_device_type(dev));
 
 	if (get_device_type(dev) == device_type && device_type > 0) {
 		return dev;

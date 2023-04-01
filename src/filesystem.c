@@ -31,6 +31,7 @@ filesystem_t* find_filesystem(const char* name)
 int register_storage_device(storage_device_t* newdev)
 {
 	/* Add the new storage device to the start of the list */
+	dprintf("Registered block storage device '%s'\n", newdev->name);
 	newdev->next = storagedevices;
 	storagedevices = newdev;
 	return 1;
