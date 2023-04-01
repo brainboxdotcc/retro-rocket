@@ -57,8 +57,8 @@ void draw_triangle(int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, i
 
 /**
  * @brief Draw a filled or solid circle.
- * @note Filled circles are rendered using repeated calls
- * to draw_triangle()
+ * @note Filled circles are rendered using horizontal lines via the
+ * draw_horizontal_line() function
  * 
  * @param x_centre Centre X coordinate
  * @param y_centre Centre Y coordinate
