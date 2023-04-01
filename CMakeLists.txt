@@ -32,6 +32,7 @@ add_custom_command(TARGET "kernel.bin" POST_BUILD
   COMMAND "echo" "qemu-system-x86_64 \
   		-s \
 		-cpu host \
+		-trace *msi* \
 		--enable-kvm \
 		-monitor stdio \
 		-smp 8 \

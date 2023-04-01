@@ -455,7 +455,7 @@ void init_ahci()
 
 	dprintf("AHCI base MMIO: %08x\n", ahci_base);
 
-	uint32_t vector = 20 + 32;
+	uint32_t vector = IRQ8;
 	if (pci_enable_msi(ahci_device, vector, true, true)) {
 		register_interrupt_handler(vector, ahci_handler);
 		dprintf("AHCI: MSI enabled\n");
