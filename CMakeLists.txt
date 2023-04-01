@@ -31,6 +31,7 @@ add_custom_command(TARGET "kernel.bin" POST_BUILD
 add_custom_command(TARGET "kernel.bin" POST_BUILD
   COMMAND "echo" "qemu-system-x86_64 \
   		-s \
+		-cpu host \
 		--enable-kvm \
 		-smp 8 \
 		-usb \

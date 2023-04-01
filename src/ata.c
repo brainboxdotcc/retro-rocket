@@ -248,7 +248,7 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 				outb(base + 7, 0xA1);
 				type = IDE_ATAPI;
 			}
-			uint64_t timer_start = get_ticks();
+			time_t timer_start = time(NULL);
 			while (1) {
 				x = inb(base + 7);
 				// Wait for BSY (busy) bit to clear
@@ -262,17 +262,15 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 					break;
 				}
 
-				if (get_ticks() - timer_start > 100) {
-					break;	// Timeout! - Added March 2012
+				if (time(NULL) - timer_start > 0) {
+					// Timeout! - Added March 2012 - Fixed Apr 2023
+					err = 1;
+					break;
 				}
 			}
 	
 			if (err == 0) {
-				// We found a drive! Add it to our list of found devices.
 				ide_read_buffer(base == 0x1F0 ? 0 : 1, ATA_REG_DATA, (uint64_t)ide_buf, 128);
-
-				//dump_hex(ide_buf, 128);
-
 				ide_devices[count].reserved = 1;
 				ide_devices[count].type = type;
 				ide_devices[count].channel = (base == 0x1F0 ? 0 : 1);
@@ -298,13 +296,8 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 				}
 
 				storage_device_t* sd = (storage_device_t*)kmalloc(sizeof(storage_device_t));
-				if (type == IDE_ATAPI) {
-					make_unique_device_name("cd", sd->name);
-					sd->block_size = 2048;
-				} else {
-					make_unique_device_name("hd", sd->name);
-					sd->block_size = 512;
-				}
+				make_unique_device_name(type == IDE_ATAPI ? "cd" : "hd", sd->name);
+				sd->block_size = type == IDE_ATAPI ? 2048 : 512;
 				sd->blockread = storage_device_ide_block_read;
 				sd->blockwrite = storage_device_ide_block_write;
 				sd->opaque1 = count;
@@ -330,7 +323,6 @@ uint8_t ide_ata_access(uint8_t direction, uint8_t drive, uint64_t lba, uint16_t 
 	uint16_t cyl, i; uint8_t head, sect, err;
 
 	ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN = (ide_irq_invoked = 0x0) + 0x02);
-	// (I) Select one from LBA28, LBA48 or CHS;
 	if (lba >= 0x10000000) {
 		// LBA48:
 		lba_mode = 2;
@@ -363,20 +355,16 @@ uint8_t ide_ata_access(uint8_t direction, uint8_t drive, uint64_t lba, uint16_t 
 		lba_io[3] = 0;
 		lba_io[4] = 0;
 		lba_io[5] = 0;
-		head = (lba + 1 - sect) % (16 * 63) / (63); // Head number is written to HDDEVSEL lower 4-bits.
+		head = (lba + 1 - sect) % (16 * 63) / (63);
 	}
-	// (II) See if Drive Supports DMA or not;
-	dma = 0; // Supports or doesn't, we don't support !!!
-	// (III) Wait if the drive is busy;
+	dma = 0; // DMA isn't supported by the ATA driver
 	uint64_t timer_start = get_ticks();
 	while (ide_read(channel, ATA_REG_STATUS) & ATA_SR_BSY && get_ticks() - timer_start < 100); // Wait if Busy.
-	// (IV) Select Drive from the controller;
 	if (lba_mode == 0) {
 		ide_write(channel, ATA_REG_HDDEVSEL, 0xA0 | (slavebit << 4) | head);	// Select Drive CHS.
 	} else {
 		ide_write(channel, ATA_REG_HDDEVSEL, 0xE0 | (slavebit << 4) | head);	// Select Drive LBA.
 	}
-	// (V) Write Parameters;
 	if (lba_mode == 2) {
 		ide_write(channel, ATA_REG_SECCOUNT1, ((numsects >> 8) & 0xFF));
 		ide_write(channel, ATA_REG_LBA3, lba_io[3]);
@@ -454,7 +442,7 @@ uint8_t ide_ata_access(uint8_t direction, uint8_t drive, uint64_t lba, uint16_t 
 		}
 	}
 
-	return 0; // Easy, ... Isn't it?
+	return 0;
 }
 
 void ide_wait_irq()
@@ -475,9 +463,7 @@ uint8_t ide_atapi_read(uint8_t drive, uint64_t lba, uint8_t numsects, uint64_t b
 	uint32_t bus = channels[channel].base;
 	uint32_t words = 2048 / 2; // Sector Size in Words, Almost All ATAPI Drives has a sector size of 2048 bytes.
 	uint8_t	err; int i;
-	// Enable IRQs:
 	ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN = ide_irq_invoked = 0x0);
-	// (I): Setup SCSI Packet:
 	atapi_packet[ 0] = ATAPI_CMD_READ;
 	atapi_packet[ 1] = 0x0;
 	atapi_packet[ 2] = (lba>>24) & 0xFF;
@@ -490,27 +476,19 @@ uint8_t ide_atapi_read(uint8_t drive, uint64_t lba, uint8_t numsects, uint64_t b
 	atapi_packet[ 9] = numsects;
 	atapi_packet[10] = 0x0;
 	atapi_packet[11] = 0x0;
-	// (II): Select the Drive:
 	ide_write(channel, ATA_REG_HDDEVSEL, slavebit<<4);
-	// (III): Delay 400 nanosecond for select to complete:
 	ide_read(channel, ATA_REG_ALTSTATUS);
 	ide_read(channel, ATA_REG_ALTSTATUS);
 	ide_read(channel, ATA_REG_ALTSTATUS);
 	ide_read(channel, ATA_REG_ALTSTATUS);
-	// (IV): Inform the Controller that we use PIO mode:
 	ide_write(channel, ATA_REG_FEATURES, 0);		 // PIO mode.
-	// (V): Tell the Controller the size of buffer:
 	ide_write(channel, ATA_REG_LBA1, (words * 2) & 0xFF);	// Lower Byte of Sector Size.
 	ide_write(channel, ATA_REG_LBA2, (words * 2)>>8);	// Upper Byte of Sector Size.
-	// (VI): Send the Packet Command:
 	ide_write(channel, ATA_REG_COMMAND, ATA_CMD_PACKET);		// Send the Command.
-	// (VII): Waiting for the driver to finish or invoke an error:
 	if ((err = ide_polling(channel, 1))) {
 		return err;		// Polling and return if error.
 	}
-	// (VIII): Sending the packet data:
 	outsw(bus, &atapi_packet, 6);
-	// (IX): Recieving Data:
 	for (i = 0; i < numsects; i++) {
 		ide_wait_irq();				// Wait for an IRQ.
 		if ((err = ide_polling(channel, 1))) {
@@ -519,12 +497,10 @@ uint8_t ide_atapi_read(uint8_t drive, uint64_t lba, uint8_t numsects, uint64_t b
 		insw(bus, buffer_address, words);
 		buffer_address += (words*2);
 	}
-	// (X): Waiting for an IRQ:
 	ide_wait_irq();
-	// (XI): Waiting for BSY & DRQ to clear:
 	uint64_t timer_start = get_ticks();
 	while (ide_read(channel, ATA_REG_STATUS) & (ATA_SR_BSY | ATA_SR_DRQ) && get_ticks() - timer_start < 100);
-	return 0; // Easy, ... Isn't it?
+	return 0;
 }
 
 int ide_read_sectors(uint8_t drive, uint16_t numsects, uint64_t lba, uint64_t buffer_address)
@@ -532,11 +508,11 @@ int ide_read_sectors(uint8_t drive, uint16_t numsects, uint64_t lba, uint64_t bu
 	int i;
 	if (drive > 3 || ide_devices[drive].reserved == 0) {
 		// 1: Check if the drive present
-		kprintf("Drive %d not found\n", drive);		// Drive Not Found!
+		dprintf("Drive %d not found\n", drive);		// Drive Not Found!
 		return 0;
 	} else if (((lba + numsects) > ide_devices[drive].size) && (ide_devices[drive].type == IDE_ATA)) {
 		// 2: Check if inputs are valid:
-		kprintf("Seek to invalid position LBA=0x%08x\n", lba+numsects);					 // Seeking to invalid position.
+		dprintf("Seek to invalid position LBA=0x%08x\n", lba+numsects);					 // Seeking to invalid position.
 		return 0;
 	} else {
 		// 3: Read in PIO Mode through Polling & IRQs:
@@ -560,11 +536,11 @@ int ide_write_sectors(uint8_t drive, uint16_t numsects, uint64_t lba, uint64_t b
 {
 	if (drive > 3 || ide_devices[drive].reserved == 0) {
 		// 1: Check if the drive is present
-		kprintf("Drive %d not found\n", drive);		// Drive Not Found!
+		dprintf("Drive %d not found\n", drive);		// Drive Not Found!
 		return 0;
 	} else if (((lba + numsects) > ide_devices[drive].size) && (ide_devices[drive].type == IDE_ATA)) {
 		// 2: Check if inputs are valid
-		kprintf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
+		dprintf("Seek to invalid position %d\n", lba+numsects);					 // Seeking to invalid position.
 		return 0;
 	} else {
 		// 3: Write in PIO Mode through Polling & IRQs:
@@ -595,27 +571,14 @@ int ide_atapi_eject(uint8_t drive)
 
 	// 1: Check if the drive presents:
 	// ==================================
-	if (drive > 3 || ide_devices[drive].reserved == 0)
-	{
-		kprintf("Drive %d not found\n", drive);
+	if (drive > 3 || ide_devices[drive].reserved == 0) {
+		dprintf("Drive %d not found\n", drive);
 		return 0;
-	}
-	// 2: Check if drive isn't ATAPI:
-	// ==================================
-	else if (ide_devices[drive].type == IDE_ATA)
-	{
-		kprintf("Command aborted on drive %d\n", drive);		 // Command Aborted.
+	} else if (ide_devices[drive].type == IDE_ATA) {
+		dprintf("Command aborted on drive %d\n", drive);		 // Command Aborted.
 		return 0;
-	}
-	// 3: Eject ATAPI Driver:
-	// ============================================
-	else
-	{
-		// Enable IRQs:
+	} else {
 		ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN = ide_irq_invoked = 0x0);
-
-		// (I): Setup SCSI Packet:
-		// ------------------------------------------------------------------
 		atapi_packet[ 0] = ATAPI_CMD_EJECT;
 		atapi_packet[ 1] = 0x00;
 		atapi_packet[ 2] = 0x00;
@@ -628,34 +591,22 @@ int ide_atapi_eject(uint8_t drive)
 		atapi_packet[ 9] = 0x00;
 		atapi_packet[10] = 0x00;
 		atapi_packet[11] = 0x00;
-
-		// (II): Select the Drive:
-		// ------------------------------------------------------------------
 		ide_write(channel, ATA_REG_HDDEVSEL, slavebit<<4);
-
-		// (III): Delay 400 nanosecond for select to complete:
-		// ------------------------------------------------------------------
 		ide_read(channel, ATA_REG_ALTSTATUS); // Reading Alternate Status Port wastes 100ns.
 		ide_read(channel, ATA_REG_ALTSTATUS); // Reading Alternate Status Port wastes 100ns.
 		ide_read(channel, ATA_REG_ALTSTATUS); // Reading Alternate Status Port wastes 100ns.
 		ide_read(channel, ATA_REG_ALTSTATUS); // Reading Alternate Status Port wastes 100ns.
-
-		// (IV): Send the Packet Command:
-		// ------------------------------------------------------------------
 		ide_write(channel, ATA_REG_COMMAND, ATA_CMD_PACKET);		// Send the Command.
-
-		// (V): Waiting for the driver to finish or invoke an error:
-		// ------------------------------------------------------------------
-		if (!(err = ide_polling(channel, 1)))
-		{
+		if (!(err = ide_polling(channel, 1))) {
 			asm("rep outsw"::"c"(6), "d"(bus), "S"(atapi_packet));// Send Packet Data
 			ide_wait_irq();					// Wait for an IRQ.
 			err = ide_polling(channel, 1);			// Polling and get error code.
 			if (err == 3)
 				err = 0; // DRQ is not needed here.
 		}
-		if (err)
+		if (err) {
 			ide_print_error(drive, err);
+		}
 		return !err;
 	}
 	return 0;
