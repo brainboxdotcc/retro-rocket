@@ -110,10 +110,17 @@ char* clean_basic(const char* program, char* output_buffer)
 	return output_buffer;
 }
 
-/*---------------------------------------------------------------------------*/
-struct ubasic_ctx* ubasic_init(const char *program, console* cons)
+void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
 {
-	struct ubasic_ctx* ctx = (struct ubasic_ctx*)kmalloc(sizeof(struct ubasic_ctx));
+	ubasic_set_int_variable("TRUE", 1, ctx, false, false);
+	ubasic_set_int_variable("FALSE", 0, ctx, false, false);
+	ubasic_set_int_variable("PID", pid, ctx, false, false);
+}
+
+/*---------------------------------------------------------------------------*/
+struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid)
+{
+	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
 	int i;
 
 	ctx->current_token = TOKENIZER_ERROR;	
@@ -141,8 +148,9 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons)
 	// Scan the program for functions and procedures
 
         tokenizer_init(ctx->program_ptr, ctx);
-
 	ubasic_parse_fn(ctx);
+
+	set_system_variables(ctx, pid);
 
 	return ctx;
 }
@@ -1084,6 +1092,20 @@ static void rectangle_statement(struct ubasic_ctx* ctx)
 	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
+static void circle_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_CIRCLE, ctx);
+	int64_t x = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t radius = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t filled = expr(ctx);
+	accept(TOKENIZER_CR, ctx);
+	draw_circle(x, y, radius, filled, ctx->graphics_colour);
+}
+
 /*---------------------------------------------------------------------------*/
 static void gosub_statement(struct ubasic_ctx* ctx)
 {
@@ -1277,6 +1299,9 @@ static void statement(struct ubasic_ctx* ctx)
 		case TOKENIZER_RECTANGLE:
 			rectangle_statement(ctx);
 		break;
+		case TOKENIZER_CIRCLE:
+			circle_statement(ctx);
+		break;
 		case TOKENIZER_LET:
 			accept(TOKENIZER_LET, ctx);
 			/* Fall through. */
@@ -1374,7 +1399,7 @@ int valid_int_var(const char* name)
 	return 1;
 }
 
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local, int global)
+void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global)
 {
 	struct ub_var_string* list[] = {
 		ctx->str_variables,
@@ -1435,55 +1460,50 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 	}
 }
 
-void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx, int local)
+void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local)
 {
 }
 
-void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local, int global)
+void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global)
 {
 	struct ub_var_int* list[] = {
 		ctx->int_variables,
 		ctx->local_int_variables[ctx->gosub_stack_ptr]
 	};
 
-	if (!valid_int_var(var))
-	{
+	if (!valid_int_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return;
 	}
 
-	if (list[local] == NULL)
-	{
-		if (local)
-		{
-			ctx->local_int_variables[ctx->gosub_stack_ptr] = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
+	if (list[local] == NULL) {
+		if (local) {
+			dprintf("Set int variable '%s' to '%d' (gosub local)\n", var, value);
+			ctx->local_int_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_int));
 			ctx->local_int_variables[ctx->gosub_stack_ptr]->next = NULL;
 			ctx->local_int_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
 			ctx->local_int_variables[ctx->gosub_stack_ptr]->value = value;
-		}
-		else
-		{
-			ctx->int_variables = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
+		} else {
+			dprintf("Set int variable '%s' to '%d' (default)\n", var, value);
+			ctx->int_variables = kmalloc(sizeof(struct ub_var_int));
 			ctx->int_variables->next = NULL;
 			ctx->int_variables->varname = strdup(var);
 			ctx->int_variables->value = value;
 		}
 		return;
-	}
-	else
-	{
+	} else {
 		struct ub_var_int* cur = ctx->int_variables;
 		if (local)
 			cur = ctx->local_int_variables[ctx->gosub_stack_ptr];
-		for (; cur; cur = cur->next)
-		{
-			if (!strcmp(var, cur->varname))
-			{
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname)) {
+				dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
 				cur->value = value;
 				return;
 			}
 		}
-		struct ub_var_int* newvar = (struct ub_var_int*)kmalloc(sizeof(struct ub_var_int));
+		dprintf("Set int variable '%s' to '%d'\n", var, value);
+		struct ub_var_int* newvar = kmalloc(sizeof(struct ub_var_int));
 		newvar->next = (local ? ctx->local_int_variables[ctx->gosub_stack_ptr] : ctx->int_variables);
 		newvar->varname = strdup(var);
 		newvar->value = value;

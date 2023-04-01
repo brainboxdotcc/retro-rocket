@@ -16,8 +16,7 @@
  * SUCH DAMAGE.
  *
  */
-#ifndef __UBASIC_H__
-#define __UBASIC_H__
+#pragma once 
 
 #define MAX_STRINGLEN 1024
 #define MAX_GOSUB_STACK_DEPTH 255
@@ -154,7 +153,7 @@ struct ubasic_str_fn
 	const char* name;
 };
 
-struct ubasic_ctx* ubasic_init(const char *program, console* cons);
+struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);
@@ -162,8 +161,7 @@ int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
 void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, int local, int global);
-void ubasic_set_int_variable(const char* var, int value, struct ubasic_ctx* ctx, int local, int global);
-void ubasic_set_array_variable(const char* var, int value, struct ubasic_ctx* ctx, int local);
+void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global);
+void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);
+void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local);
 
-#endif /* __UBASIC_H__ */

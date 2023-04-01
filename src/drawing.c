@@ -147,3 +147,55 @@ void draw_triangle(int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, i
 		}
 	}
 }
+
+
+/**
+ * @brief Draw part of a chord, 1/8th of a circle, and duplicate it eight times
+ * 
+ * @param xc X centre coordinate
+ * @param yc Y centre coordinate
+ * @param x X position of edge
+ * @param y Y position of edge
+ * @param prev_x X position of previous edge plot
+ * @param prev_y Y position of previous edge plot
+ * @param fill True to fill, render using triangles
+ * @param colour Colour of chord
+ */
+void draw_chord(int64_t xc, int64_t yc, int64_t x, int64_t y, int64_t prev_x, int64_t prev_y, bool fill, uint32_t colour)
+{
+	if (fill) {
+		draw_horizontal_line(xc - x, xc + x, yc + y, colour);
+		draw_horizontal_line(xc - x, xc + x, yc - y, colour);
+		draw_horizontal_line(xc - y, xc + y, yc + x, colour);
+		draw_horizontal_line(xc - y, xc + y, yc - x, colour);
+		return;
+	}
+	putpixel(xc + x, yc + y, colour);
+	putpixel(xc - x, yc + y, colour);
+	putpixel(xc + x, yc - y, colour);
+	putpixel(xc - x, yc - y, colour);
+	putpixel(xc + y, yc + x, colour);
+	putpixel(xc - y, yc + x, colour);
+	putpixel(xc + y, yc - x, colour);
+	putpixel(xc - y, yc - x, colour);
+}
+
+void draw_circle(int64_t x_centre, int64_t y_centre, int64_t radius, bool fill, uint32_t colour)
+{
+	int64_t x = 0, y = radius;
+	int64_t delta = 3 - 2 * radius;
+	int64_t prev_x = x, prev_y = y;
+	draw_chord(x_centre, y_centre, x, y, prev_x, prev_y, fill, colour);
+	while (y >= x) {
+		prev_x = x;
+		prev_y = y;
+		x++;
+		if (delta > 0) {
+			y--; 
+			delta += 4 * (x - y) + 10;
+		} else {
+			delta += 4 * x + 6;
+		}
+		draw_chord(x_centre, y_centre, x, y, prev_x, prev_y, fill, colour);
+	}
+}
