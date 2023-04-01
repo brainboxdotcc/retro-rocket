@@ -15,6 +15,7 @@
 130 COLOR 7
 140 PRINT "> ";
 150 INPUT inp$
+160 IF inp$ = "" THEN GOTO 110
 
 190 spaceidx = INSTR(inp$, " ")
 200 IF spaceidx = 0 THEN GOTO 230
@@ -30,7 +31,8 @@
 290 GOTO 110
 
 300 GLOBAL ARGS$ = inp$
-310 CHAIN PATH$ + "/eval"
-320 GOTO 110
+310 IF inp$ = "END" THEN GOTO 400
+320 CHAIN PATH$ + "/eval"
+330 GOTO 110
 
 400 END

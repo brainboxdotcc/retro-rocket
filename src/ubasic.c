@@ -537,7 +537,7 @@ static int relation(struct ubasic_ctx* ctx)
 {
 	int r1, r2;
 	int op;
-  
+
 	r1 = expr(ctx);
 	op = tokenizer_token(ctx);
 
@@ -563,6 +563,37 @@ static int relation(struct ubasic_ctx* ctx)
 	}
 
 	return r1;
+}
+
+static int str_relation(struct ubasic_ctx* ctx)
+{
+	int op, r;
+
+	const char* r1 = str_expr(ctx);
+	op = tokenizer_token(ctx);
+
+	while (op == TOKENIZER_LT || op == TOKENIZER_GT || op == TOKENIZER_EQ)
+	{
+		tokenizer_next(ctx);
+		const char* r2 = str_expr(ctx);
+
+		switch (op)
+		{
+			case TOKENIZER_LT:
+				r = (strcmp(r1, r2) < 0);
+			break;
+			case TOKENIZER_GT:
+				r = (strcmp(r1, r2) > 0);
+			break;
+			case TOKENIZER_EQ:
+				r = (strcmp(r1, r2) == 0);
+			break;
+		}
+
+		op = tokenizer_token(ctx);
+	}
+
+	return r;
 }
 
 
@@ -700,7 +731,23 @@ static void if_statement(struct ubasic_ctx* ctx)
   
 	accept(TOKENIZER_IF, ctx);
 
-	r = relation(ctx);
+	char current_line[MAX_STRINGLEN];
+	char* pos = strchr(ctx->ptr, '\n');
+	char* end = strchr(ctx->ptr, 0);
+	bool stringlike = false;
+	strlcpy(current_line, ctx->ptr, pos ? pos - ctx->ptr + 1 : end - ctx->ptr + 1);
+	if (strlen(current_line) > 10) { // "IF 1 THEN ..."
+		for (char* n = current_line; *n; ++n) {
+			if (*n == '$') {
+				stringlike = true;
+				break;
+			} else if (*n == ' ' && *(n+1) == 'T' && *(n+2) == 'H' && *(n+3) == 'E' && *(n+4) == 'N') {
+				break;
+			}
+		}
+	}
+
+	r = stringlike ? str_relation(ctx) : relation(ctx);
 	accept(TOKENIZER_THEN, ctx);
 	if (r)
 	{
