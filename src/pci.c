@@ -385,10 +385,6 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
 		return t;
 
 	// Handle multiple pci host controllers
-
-	if(pci_reach_end(dev_zero)) {
-		dprintf("PCI Get device failed\n");
-	}
 	for(int function = 1; function < FUNCTION_PER_DEVICE; function++) {
 		pci_dev_t dev = {0};
 		dev.function_num = function;
