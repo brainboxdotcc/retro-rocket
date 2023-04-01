@@ -372,7 +372,7 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool de
 			bool bits64cap = (config_space & PCI_MSI_64BIT);
 			dprintf("Enable MSI for %04x:%04x with data=%08x address=%08x vector %d\n", vendor_id, device_id, new_message_data, new_message_address, vector);
 			pci_write(device, current + 0x04, new_message_address);
-			uint16_t device_command_flags = pci_read(device, PCI_COMMAND);
+			uint32_t device_command_flags = pci_read(device, PCI_COMMAND);
 			if (!(device_command_flags & PCI_COMMAND_INTERRUPT_DISABLE)) {
 				dprintf("MSI: Legacy interrupts for %04x:%04x disabled\n", vendor_id, device_id);
 				pci_write(device, PCI_COMMAND, device_command_flags | PCI_COMMAND_INTERRUPT_DISABLE);

@@ -33,6 +33,7 @@ add_custom_command(TARGET "kernel.bin" POST_BUILD
   		-s \
 		-cpu host \
 		--enable-kvm \
+		-monitor stdio \
 		-smp 8 \
 		-usb \
 		-usbdevice mouse \

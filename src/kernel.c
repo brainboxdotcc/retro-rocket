@@ -49,7 +49,7 @@ void kmain()
 
 	init_devicenames();
 	init_basic_keyboard();
-	ide_initialise(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
+	ide_initialise();
 	init_ahci();
 	init_filesystem();
 	init_iso9660();

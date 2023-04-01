@@ -206,18 +206,37 @@ int storage_device_ide_block_write(void* dev, uint64_t start, uint32_t bytes, co
 	return ide_write_sectors((uint8_t)sd->opaque1, divided_length, start, (uint64_t)buffer);
 }
 
-void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, uint32_t BAR4)
+void ide_initialise()
 {
 	int type, base, masterslave, k, err, count = 0;
-	// 1- Define I/O Ports which interface IDE Controller
-	channels[ATA_PRIMARY].base = BAR0;
-	channels[ATA_PRIMARY].ctrl = BAR1;
-	channels[ATA_SECONDARY].base = BAR2;
-	channels[ATA_SECONDARY].ctrl = BAR3;
-	channels[ATA_PRIMARY].bmide = 0; // Bus Master IDE
-	channels[ATA_SECONDARY].bmide = 8; // Bus Master IDE
 
-	// 2- Disable IRQs temporarily
+	pci_dev_t ata_device = pci_get_device(0, 0, 0x0101);
+	if (!ata_device.bits) {
+		dprintf("No ATA devices found\n");
+		return;
+	}
+
+	uint32_t progif = pci_read(ata_device, PCI_PROG_IF);
+	if (!(progif & 1)) {
+		/* Device in compatibility mode */
+		dprintf("ATA: Compatibility mode; Primary: 1f0 Secondary: 170\n");
+		channels[ATA_PRIMARY].base = 0x1F0;
+		channels[ATA_PRIMARY].ctrl = 0x3F4;
+		channels[ATA_SECONDARY].base = 0x170;
+		channels[ATA_SECONDARY].ctrl = 0x374;
+		channels[ATA_PRIMARY].bmide = 0; // Bus Master IDE
+		channels[ATA_SECONDARY].bmide = 8; // Bus Master IDE
+	} else {
+		/* Device in native mode */
+		channels[ATA_PRIMARY].base = pci_read(ata_device, PCI_BAR0);
+		channels[ATA_PRIMARY].ctrl = pci_read(ata_device, PCI_BAR1);
+		channels[ATA_SECONDARY].base = pci_read(ata_device, PCI_BAR2);
+		channels[ATA_SECONDARY].ctrl = pci_read(ata_device, PCI_BAR3);
+		channels[ATA_PRIMARY].bmide = (pci_read(ata_device, PCI_BAR4) && 0xFF00) >> 8;
+		channels[ATA_SECONDARY].bmide = pci_read(ata_device, PCI_BAR4) && 0xFF;
+		dprintf("ATA: Native mode; Primary: %04x Secondary: %04x\n", pci_read(ata_device, PCI_BAR0), pci_read(ata_device, PCI_BAR2));
+	}
+
 	ide_write(ATA_PRIMARY, ATA_REG_CONTROL, 2);
 	ide_write(ATA_SECONDARY, ATA_REG_CONTROL, 2);
 
@@ -225,7 +244,7 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 	// Refactored 9th Nov 2009. Did not properly detect ATAPI devices,
 	// due to not testing for ATAPI IDENTIFY ABORT soon enough before
 	// trying to wait on the command.
-	for (base = BAR0; base >= BAR2; base -= 0x80) {
+	for (base = channels[ATA_PRIMARY].base; base >= channels[ATA_SECONDARY].base; base -= 0x80) {
 		for (masterslave = 0xA0; masterslave <= 0xB0; masterslave += 0x10) {
 			err = 0;
 			// Send ATA IDENTIFY
@@ -270,10 +289,10 @@ void ide_initialise(uint32_t BAR0, uint32_t BAR1, uint32_t BAR2, uint32_t BAR3, 
 			}
 	
 			if (err == 0) {
-				ide_read_buffer(base == 0x1F0 ? 0 : 1, ATA_REG_DATA, (uint64_t)ide_buf, 128);
+				ide_read_buffer(base == channels[ATA_PRIMARY].base ? 0 : 1, ATA_REG_DATA, (uint64_t)ide_buf, 128);
 				ide_devices[count].reserved = 1;
 				ide_devices[count].type = type;
-				ide_devices[count].channel = (base == 0x1F0 ? 0 : 1);
+				ide_devices[count].channel = (base == channels[ATA_PRIMARY].base ? 0 : 1);
 				ide_devices[count].drive = (masterslave == 0xA0 ? 0 : 1);
 				ide_devices[count].sign = ((uint16_t*)(ide_buf + ATA_IDENT_DEVICETYPE))[0];
 				ide_devices[count].capabilities = ((uint16_t*)(ide_buf + ATA_IDENT_CAPABILITIES))[0];
