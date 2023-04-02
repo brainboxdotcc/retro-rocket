@@ -7,6 +7,30 @@ uint32_t get_fat_entry(fat32_t* info, uint32_t cluster);
 int fat32_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
 int fat32_attach(const char* device_name, const char* path);
 
+/**
+ * @brief Reads a chunk of a long filename from a directory entry.
+ * 
+ * WHY THE HELL DID MICROSOFT MAKE THIS IN SUCH A WEIRD WAY?!
+ * Who in their right mind thought it sensible to split up a name
+ * across multiple different tiny arrays, and why is it 16 bit unicode
+ * instead of UTF-8 and WHY is 0xffff considered an invalid character?!
+ * Does NOT compute!!!
+ * 
+ * @param nameptr pointer to name we are appending to
+ * @param wide_chars wide characters to append
+ * @param n_wide_chars number of wide characters to append
+ * @return char* new name pointer
+ */
+char* parse_shitty_lfn_entry(char* nameptr, uint16_t* wide_chars, uint8_t n_wide_chars)
+{
+	for (int x = 0; x < n_wide_chars; ++x) {
+		if (wide_chars[x] && wide_chars[x] != 0xffff) {
+			*nameptr++ = (char)wide_chars[x];
+		}
+	}
+	return nameptr;
+}
+
 fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint32_t cluster)
 {
 	//kprintf("Cluster at start of fn: %d\n", cluster);
@@ -81,21 +105,9 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 								for (int i = 0; i <= highest_lfn_order; ++i) {
 									if (lfns[i].first[0] == 0 || lfns[i].first[0] == 0xffff)
 										continue;
-									for (int x = 0; x < 5; ++x) {
-										if (lfns[i].first[x] && lfns[i].first[x] != 0xffff) {
-											*nameptr++ = (char)lfns[i].first[x];
-										}
-									}
-									for (int x = 0; x < 6; ++x) {
-										if (lfns[i].second[x] && lfns[i].second[x] != 0xffff) {
-											*nameptr++ = (char)lfns[i].second[x];
-										}
-									}
-									for (int x = 0; x < 2; ++x) {
-										if (lfns[i].third[x] && lfns[i].third[x] != 0xffff) {
-											*nameptr++ = (char)lfns[i].third[x];
-										}
-									}
+									nameptr = parse_shitty_lfn_entry(nameptr, lfns[i].first, 5);
+									nameptr = parse_shitty_lfn_entry(nameptr, lfns[i].second, 6);
+									nameptr = parse_shitty_lfn_entry(nameptr, lfns[i].third, 2);
 								}
 								*nameptr++ = 0;
 								file->filename = strdup(longname);
