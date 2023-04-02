@@ -60,6 +60,7 @@ typedef int8_t int8_t;
 #include "dhcp.h"
 #include "dns.h"
 #include "drawing.h"
+#include "fpu.h"
 
 #define assert(expr, line) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \

@@ -45,6 +45,7 @@ void kmain()
 	detect_cores();
 	idt_setup();
 	init_error_handler();
+	fninit();
 	init_pci();
 
 	init_devicenames();
