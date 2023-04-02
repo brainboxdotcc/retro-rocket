@@ -298,6 +298,19 @@ typedef struct achi_hba_cmd_tbl_t
 	ahci_hba_prdt_entry_t	prdt_entry[1];	// Physical region descriptor table entries, 0 ~ 65535
 } __attribute__((packed)) achi_hba_cmd_tbl_t;
 
+
+#define ATA_IDENT_DEVICETYPE		0
+#define ATA_IDENT_CYLINDERS		2
+#define ATA_IDENT_HEADS			6
+#define ATA_IDENT_SECTORS		12
+#define ATA_IDENT_SERIAL		20
+#define ATA_IDENT_MODEL			54
+#define ATA_IDENT_CAPABILITIES		98
+#define ATA_IDENT_FIELDVALID		106
+#define ATA_IDENT_MAX_LBA		120
+#define ATA_IDENT_COMMANDSETS		164
+#define ATA_IDENT_MAX_LBA_EXT		200
+
 #define	SATA_SIG_ATA	0x00000101	// SATA drive
 #define	SATA_SIG_ATAPI	0xEB140101	// SATAPI drive
 #define	SATA_SIG_SEMB	0xC33C0101	// Enclosure management bridge

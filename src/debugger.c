@@ -7,8 +7,9 @@ symbol_t* get_sym_table()
 	return symbol_table;
 }
 
-void dump_hex(unsigned char* address, uint64_t length)
+void dump_hex(void* addr, uint64_t length)
 {
+	unsigned char* address = addr;
 	uint64_t index = 0;
 	for(; index < length; index += 16)
 	{

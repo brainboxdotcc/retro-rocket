@@ -64,13 +64,14 @@ typedef struct filesystem_t {
  * e.g. a hard disk, DVD-ROM drive, etc.
  */
 typedef struct storage_device_t {
-	char name[16];
-	block_read blockread;
-	block_write blockwrite;
+	char name[16];		/* Storage device name */
+	uint64_t size;		/* Size in bytes */
+	block_read blockread;	/* Function pointer for block read routine */
+	block_write blockwrite; /* Function pointer for block write routine */
+	uint32_t block_size;	/* Size of one block */
+	uint64_t opaque1;	/* For device driver use */
+	void* opaque2;		/* For device driver use */
 	struct storage_device_t* next;
-	uint32_t block_size;
-	uint64_t opaque1; /* For device driver use */
-	void* opaque2; /* For device driver use */
 } storage_device_t;
 
 /* Used internally by filesystem.c to cache directories to RAM,

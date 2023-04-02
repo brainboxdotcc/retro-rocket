@@ -314,11 +314,12 @@ void ide_initialise()
 					ide_devices[count].model[k--] = 0;
 				}
 
-				storage_device_t* sd = (storage_device_t*)kmalloc(sizeof(storage_device_t));
+				storage_device_t* sd = kmalloc(sizeof(storage_device_t));
 				make_unique_device_name(type == IDE_ATAPI ? "cd" : "hd", sd->name);
 				sd->block_size = type == IDE_ATAPI ? 2048 : 512;
 				sd->blockread = storage_device_ide_block_read;
 				sd->blockwrite = storage_device_ide_block_write;
+				sd->size = ide_devices[count].size;
 				sd->opaque1 = count;
 				sd->opaque2 = NULL;
 				register_storage_device(sd);

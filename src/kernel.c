@@ -28,7 +28,6 @@ void kmain()
 	filesystem_mount("/harddisk", "hd0", "fat32");
 
 	init_debug();
-
 	rtl8139_init();
 
 	proc_init();

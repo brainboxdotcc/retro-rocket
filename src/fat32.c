@@ -278,15 +278,16 @@ fat32_t* fat32_mount_volume(const char* device_name)
 	strlcpy(info->device_name, device_name, 16);
 
 	if (
-		!find_partition_of_type(device_name, 0x0B, &info->partitionid, &info->start, &info->length) &&
-		!find_partition_of_type(device_name, 0x0C, &info->partitionid, &info->start, &info->length)
+		!find_partition_of_type(device_name, 0x0B, "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7", &info->partitionid, &info->start, &info->length) &&
+		!find_partition_of_type(device_name, 0x0C, "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7", &info->partitionid, &info->start, &info->length)
 	) {
-		kprintf("No FAT32 partitions found on device '%s'\n", device_name);
-		kfree(info);
-		return NULL;
+		/* No partition found, attempt to mount the volume as whole disk */
+		info->start = 0;
+		info->partitionid = 0;
+		info->length = sd->size * sd->block_size;
+	} else {
+		kprintf("Found FAT32 partition, device %s, partition %d\n", device_name, info->partitionid + 1);
 	}
-
-	kprintf("Found FAT32 partition, device %s, partition %d\n", device_name, info->partitionid + 1);
 	int success = read_fat(info);
 	return success ? info : NULL;
 }

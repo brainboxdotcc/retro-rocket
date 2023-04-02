@@ -7,7 +7,7 @@
 bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
 bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
 bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
-
+uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
 
 void ahci_handler(uint8_t isr, uint64_t error, uint64_t irq)
 {
@@ -148,11 +148,12 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				);
 				port_rebase(&abar->ports[i], i);
 				storage_device_t* sd = NULL;
-				sd = (storage_device_t*)kmalloc(sizeof(storage_device_t));
+				sd = kmalloc(sizeof(storage_device_t));
 				sd->opaque1 = i;
 				sd->opaque2 = (void*)abar;
 				sd->blockread = storage_device_ahci_block_read;
 				sd->blockwrite = storage_device_ahci_block_write;
+				sd->size = ahci_read_size(&abar->ports[i], abar);
 				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name);
 				sd->block_size = dt == AHCI_DEV_SATA ? 512 : 2048;
 				register_storage_device(sd);
@@ -266,6 +267,77 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	return true;
 }
 
+uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
+{
+	port->is = (uint32_t) -1;		// Clear pending interrupt bits
+	int spin = 0; // Spin lock timeout counter
+	int slot = find_cmdslot(port, abar);
+	if (slot == -1)
+		return 0;
+ 
+	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
+	cmdheader += slot;
+	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t)/sizeof(uint32_t);	// Command FIS size
+	cmdheader->w = 0;		// Read from device
+	cmdheader->prdtl = 1;	// PRDT entries count
+ 
+	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
+	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
+ 
+	uint8_t* buf = kmalloc(512);
+
+	// 8K bytes (16 sectors) per PRDT
+	// Last entry
+	cmdtbl->prdt_entry[0].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
+	cmdtbl->prdt_entry[0].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
+	cmdtbl->prdt_entry[0].dbc = 511;
+	cmdtbl->prdt_entry[0].i = 1;
+
+	// Setup command
+	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
+	memset(cmdfis, 0, sizeof(ahci_fis_reg_h2d_t)); 
+	cmdfis->fis_type = FIS_TYPE_REG_H2D;
+	cmdfis->c = 1;	// Command
+	cmdfis->command = ATA_CMD_IDENTIFY; // ATA_CMD_READ_DMA_EX;
+ 
+ 	// The below loop waits until the port is no longer busy before issuing a new command
+	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
+		spin++;
+	}
+	if (spin == 1000000) {
+		dprintf("Port is hung\n");
+		return 0;
+	}
+ 
+	port->ci = 1<<slot;	// Issue command
+ 
+	// Wait for completion
+	while (true) {
+		// In some longer duration reads, it may be helpful to spin on the DPS bit 
+		// in the PxIS port field as well (1 << 5)
+		if ((port->ci & (1<<slot)) == 0) 
+			break;
+		if (port->is & HBA_PxIS_TFES) { // Task file error
+			dprintf("Read disk error\n");
+			return 0;
+		}
+	}
+ 
+	// Check again
+	if (port->is & HBA_PxIS_TFES) {
+		dprintf("Read disk error\n");
+		return 0;
+	}
+
+	uint64_t size = ((uint64_t*)(buf + ATA_IDENT_MAX_LBA_EXT)) [0] & 0xFFFFFFFFFFFull;
+	if (size == 0) {
+		size = ((uint64_t*)(buf + ATA_IDENT_MAX_LBA))[0] & (uint64_t)0xFFFFFFFFFFFFull;
+	}
+
+	kfree(buf);
+	return size;
+}
+
 bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar)
 {
 	port->is = (uint32_t)-1;
@@ -351,6 +423,7 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 
 	return true;
 }
+
 
 bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar)
 {

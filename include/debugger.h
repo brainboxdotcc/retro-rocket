@@ -33,7 +33,7 @@ typedef struct stack_frame {
 
 // Create a hex dump of a region of ram, displayed in BBC Miro/Archimedes *DUMP style,
 // dumped to current_console.
-void dump_hex(unsigned char* address, uint64_t length);
+void dump_hex(void* address, uint64_t length);
 
 // Initialise debugger, read symbols from boot device. These are used for backtraces.
 void init_debug();
