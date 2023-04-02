@@ -48,6 +48,10 @@ void kmain()
 	fninit();
 	init_pci();
 
+	clock_init();
+	init_lapic_timer(50);
+
+
 	init_devicenames();
 	init_basic_keyboard();
 	ide_initialise();
@@ -65,8 +69,7 @@ void kmain()
 
 	init_debug();
 
-	clock_init();
-	init_lapic_timer(50);
+	//////
 
 	rtl8139_init();
 
