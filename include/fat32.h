@@ -1,8 +1,7 @@
 #ifndef __FAT32_H__
 #define __FAT32_H__
 
-// Offset of partition table in MBR
-#define PARTITION_TABLE_OFFSET	0x1BE
+#define FAT32_SIGNATURE		0x41615252
 
 #define ATTR_READ_ONLY		0x01
 #define ATTR_HIDDEN		0x02
@@ -12,27 +11,7 @@
 #define ATTR_ARCHIVE		0x20
 #define ATTR_LONG_NAME		0x0F
 
-struct FSInfo;
-
-typedef struct
-{
-	uint8_t bootable;
-	uint8_t starthead;
-	uint16_t startcylsect;
-	uint8_t systemid;
-	uint8_t endhead;
-	uint16_t endcylsect;
-	uint32_t startlba;
-	uint32_t length;
-} __attribute__((packed)) Partition;
-
-typedef struct
-{
-	Partition p_entry[4];
-} __attribute__((packed)) PartitionTable;
-
-typedef struct
-{
+typedef struct fat32_fs_info_t {
 	uint32_t signature1;
 	char reserved1[480];
 	uint32_t structsig;
@@ -40,10 +19,9 @@ typedef struct
 	uint32_t nextfree;
 	char reserved2[12];
 	uint32_t trailsig;
-} __attribute__((packed)) FSInfo;
+} __attribute__((packed)) fat32_fs_info_t;
 
-typedef struct
-{
+typedef struct fat32_t {
 	char device_name[16];
 	uint8_t partitionid;
 	char* volume_name;
@@ -57,11 +35,10 @@ typedef struct
 	uint32_t clustersize;
 	uint32_t* fat;
 	fs_directory_entry_t* root;
-	FSInfo* info;
-} fat32;
+	fat32_fs_info_t* info;
+} fat32_t;
 
-typedef struct
-{
+typedef struct directory_entry_t {
 	char name[11];
 	uint8_t attr;
 	uint8_t nt;
@@ -74,10 +51,9 @@ typedef struct
 	uint16_t write_date;
 	uint16_t first_cluster_lo;
 	uint32_t size;
-} __attribute__((packed)) DirectoryEntry;
+} __attribute__((packed)) directory_entry_t;
 
-typedef struct
-{
+typedef struct parameter_block_t {
 	uint8_t code1;
 	uint8_t code2;
 	uint8_t code3;
@@ -108,7 +84,7 @@ typedef struct
 	uint32_t serialnumber;
 	char volumelabel[11];
 	char systemid[9];
-} __attribute__((packed)) ParameterBlock;
+} __attribute__((packed)) parameter_block_t;
 
 void init_fat32();
 

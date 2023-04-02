@@ -34,6 +34,7 @@ typedef int8_t int8_t;
 #include "ahci.h"
 #include "ata.h"
 #include "filesystem.h"
+#include "partition.h"
 #include "iso9660.h"
 #include "devfs.h"
 #include "fat32.h"
