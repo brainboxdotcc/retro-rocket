@@ -120,4 +120,5 @@ const char* get_datetime_str() {
 
 void clock_init() {
 	rtc_read_datetime();
+	kprintf("System boot time: %s\n", get_datetime_str());
 }

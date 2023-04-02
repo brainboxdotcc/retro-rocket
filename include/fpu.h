@@ -5,10 +5,7 @@
 /**
  * @brief Enable floating point operations
  */
-static inline void fninit()
-{
-	asm volatile("fninit");
-}
+extern void enable_fpu();
 
 /**
  * @brief Enable SSE

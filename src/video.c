@@ -1,6 +1,8 @@
 #include <kernel.h>
 
 static int64_t screen_x = 0, screen_y = 0;
+static console first_console;
+console* current_console = NULL;
 
 static volatile struct limine_terminal_request terminal_request = {
     .id = LIMINE_TERMINAL_REQUEST,
@@ -85,8 +87,10 @@ void putstring(console* c, char* message)
 	terminal_request.response->write(terminal, message, strlen(message));
 }
 
-void initconsole(console* c)
+void initconsole()
 {
+	console* c = &first_console;
+	current_console = c;
 	c->internalbuffer = NULL;
 	if (terminal_request.response == NULL || terminal_request.response->terminal_count < 1) {
 		dprintf("No limine terminal offered\n");
@@ -102,7 +106,6 @@ void initconsole(console* c)
 	printf("Retro-Rocket ");
 	setforeground(current_console, COLOUR_WHITE);
 	printf("64-bit SMP kernel booting\n");
-
 }
 
 int16_t screen_get_width()

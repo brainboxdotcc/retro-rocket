@@ -445,7 +445,7 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool de
 		uint32_t next_capability = (config_space & 0xFF00) >> 8;
 		if (id == PCI_CAPABILITY_MSI) {
 			/* MSI capability */
-			asm volatile("cli");
+			interrupts_off();
 			uint32_t new_message_data = (vector & 0xFF) | (edgetrigger ? 0 : PCI_MSI_EDGETRIGGER) | (deassert ? 0 : PCI_MSI_DEASSERT);
 			uint32_t new_message_address = (0xFEE00000 | (cpu_id() << 12));
 			bool bits64cap = (config_space & PCI_MSI_64BIT);
@@ -463,7 +463,7 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool de
 				pci_write(device, current + 0x08, new_message_data);	
 			}
 			pci_write(device, current + 0x00, config_space | PCI_MSI_ENABLE); // Mask in enable bit
-			asm volatile("sti");
+			interrupts_on();
 			return true;
 		}
 		current = next_capability;

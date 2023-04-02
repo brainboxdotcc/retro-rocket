@@ -90,3 +90,16 @@ uint32_t ntohl(uint32_t netlong) {
 }
 
 #endif
+
+void network_up()
+{
+	arp_init();
+	ip_init();
+	tcp_init();
+	dhcp_discover();
+	init_dns();
+}
+
+void network_down()
+{
+}

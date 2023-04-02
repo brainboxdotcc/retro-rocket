@@ -180,7 +180,7 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 		return;
 	}
 
-	asm volatile("cli");
+	interrupts_off();
 
 	dprintf("RTL8139 send packet (%s): ", in_interrupt ? "in int" : "outside int");
 
@@ -238,7 +238,7 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 
 	dprintf("RTL8139 send packet done\n");
 
-	asm volatile("sti");
+	interrupts_on();
 }
 
 bool rtl8139_init() {

@@ -46,7 +46,7 @@ exception_gate_loop:
 	dec %rcx
 	jnz exception_gate_loop
 
-	mov $(51-32), %rcx
+	mov $(64-32), %rcx
 interrupt_gate_loop:
 	mov (%r10), %rax		// Get the gate jump-table address in r10 again
 	add $8, %r10
@@ -139,58 +139,71 @@ interrupt_gate_loop:
 	pop %r15
 .endm
 
-
-ISR_NOERR 0
-ISR_NOERR 1
-ISR_NOERR 2
-ISR_NOERR 3
-ISR_NOERR 4
-ISR_NOERR 5
-ISR_NOERR 6
-ISR_NOERR 7
-ISR_ERR 8
-ISR_NOERR 9
-ISR_ERR 10 
-ISR_ERR 11
-ISR_ERR 12
-ISR_ERR 13
-ISR_ERR 14
-ISR_NOERR 15
-ISR_NOERR 16
-ISR_NOERR 17
-ISR_NOERR 18
-ISR_NOERR 19
-ISR_NOERR 20
-ISR_NOERR 21
-ISR_NOERR 22
-ISR_NOERR 23
-ISR_NOERR 24
-ISR_NOERR 25
-ISR_NOERR 26
-ISR_NOERR 27
-ISR_NOERR 28
-ISR_NOERR 29
-ISR_NOERR 30
-ISR_NOERR 31
-IRQ 0, 32
-IRQ 1, 33
-IRQ 2, 34
-IRQ 3, 35
-IRQ 4, 36
-IRQ 5, 37
-IRQ 6, 38
-IRQ 7, 39
-IRQ 8, 40
-IRQ 9, 41
-IRQ 10, 42
-IRQ 11, 43
-IRQ 12, 44
-IRQ 13, 45
-IRQ 14, 46
-IRQ 15, 47
-ISR_NOERR 48
-ISR_NOERR 49
-IRQ 16, 50
+isrs:
+	ISR_NOERR 0
+	ISR_NOERR 1
+	ISR_NOERR 2
+	ISR_NOERR 3
+	ISR_NOERR 4
+	ISR_NOERR 5
+	ISR_NOERR 6
+	ISR_NOERR 7
+	ISR_ERR 8
+	ISR_NOERR 9
+	ISR_ERR 10 
+	ISR_ERR 11
+	ISR_ERR 12
+	ISR_ERR 13
+	ISR_ERR 14
+	ISR_NOERR 15
+	ISR_NOERR 16
+	ISR_NOERR 17
+	ISR_NOERR 18
+	ISR_NOERR 19
+	ISR_NOERR 20
+	ISR_NOERR 21
+	ISR_NOERR 22
+	ISR_NOERR 23
+	ISR_NOERR 24
+	ISR_NOERR 25
+	ISR_NOERR 26
+	ISR_NOERR 27
+	ISR_NOERR 28
+	ISR_NOERR 29
+	ISR_NOERR 30
+	ISR_NOERR 31
+	IRQ 0, 32
+	IRQ 1, 33
+	IRQ 2, 34
+	IRQ 3, 35
+	IRQ 4, 36
+	IRQ 5, 37
+	IRQ 6, 38
+	IRQ 7, 39
+	IRQ 8, 40
+	IRQ 9, 41
+	IRQ 10, 42
+	IRQ 11, 43
+	IRQ 12, 44
+	IRQ 13, 45
+	IRQ 14, 46
+	IRQ 15, 47
+	ISR_NOERR 48
+	ISR_NOERR 49
+	IRQ 16, 50
+	IRQ 17, 51
+	IRQ 18, 52
+	IRQ 19, 53
+	IRQ 20, 54
+	IRQ 21, 55
+	IRQ 22, 56
+	IRQ 23, 57
+	IRQ 24, 58
+	IRQ 25, 59
+	IRQ 26, 60
+	IRQ 27, 61
+	IRQ 28, 62
+	IRQ 29, 63
 
 irq_stub:
 	call IRQ
@@ -254,7 +267,19 @@ exception_handlers:
         .quad isr48
         .quad isr49
         .quad irq16
-
+	.quad irq17
+	.quad irq18
+	.quad irq19
+	.quad irq20
+	.quad irq21
+	.quad irq22
+	.quad irq23
+	.quad irq24
+	.quad irq25
+	.quad irq26
+	.quad irq27
+	.quad irq28
+	.quad irq29
 
 .data
 

@@ -33,7 +33,7 @@ void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t irq_no)
 		"Alignment check exception",
 		"Machine check exception",
 	};
-	asm volatile("cli");
+	interrupts_off();
 	PANIC_BANNER;
 	setforeground(current_console, COLOUR_LIGHTRED);
 	kprintf("Fatal exception %02X: %s\n", int_no, error_table[int_no]);

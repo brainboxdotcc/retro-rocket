@@ -1,5 +1,4 @@
-#ifndef __TASKSWITCH_H__
-#define __TASKSWITCH_H__
+#pragma once
 
 #define PROC_RUNNING	0
 #define PROC_IDLE	1
@@ -70,4 +69,5 @@ uint32_t proc_id(int64_t index);
  */
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type);
 
-#endif
+void proc_init();
+

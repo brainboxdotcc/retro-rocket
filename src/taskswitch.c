@@ -250,6 +250,15 @@ void proc_run_next()
 	}
 }
 
+void proc_init()
+{
+	struct process* init = proc_load("/programs/init", (struct console*)current_console);
+	if (!init) {
+		preboot_fail("/programs/init missing!\n");
+	}
+	proc_loop();
+}
+
 void proc_loop()
 {
 	while (true) {

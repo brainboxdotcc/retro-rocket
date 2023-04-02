@@ -106,3 +106,7 @@ uint16_t ntohs(uint16_t netshort);
  * @return uint32_t host order
  */
 uint32_t ntohl(uint32_t netlong);
+
+void network_up();
+
+void network_down();

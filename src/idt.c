@@ -22,5 +22,5 @@ void idt_setup()
 	}
 
 	/* Now we are safe to enable interrupts */
-	asm volatile("sti");
+	interrupts_on();
 }
