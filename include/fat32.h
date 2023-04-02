@@ -86,6 +86,17 @@ typedef struct parameter_block_t {
 	char systemid[9];
 } __attribute__((packed)) parameter_block_t;
 
+typedef struct lfn_t {
+	uint8_t order;
+	uint16_t first[5];
+	uint8_t attributes; // Always 0x0f
+	uint8_t entry_type; // always zero for name entries
+	uint8_t checksum;
+	uint16_t second[6];
+	uint16_t reserved;  // always 0
+	uint16_t third[2];
+} __attribute__((packed)) lfn_t;
+
 void init_fat32();
 
 #endif

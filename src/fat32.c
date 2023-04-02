@@ -13,6 +13,8 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 
 	unsigned char* buffer = kmalloc(info->clustersize);
 	fs_directory_entry_t* list = NULL;
+	lfn_t lfns[256] = { 0 };
+	int16_t highest_lfn_order = -1;
 
 	while (true) {
 		int bufferoffset = 0;
@@ -25,35 +27,30 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 		
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
 
-		//dump_hex(entry, 32);
-
 		int entries = 0; // max of 128 file entries per cluster
 
 		while (entry->name[0] != 0 && entries++ < 128)
 		{
-			if (entry->name[0] != 0xE5 && entry->name[0] != 0)
+			if (!(entry->name[0] & 0x80) && entry->name[0] != 0)
 			{
 				char name[13];
 				char dotless[13];
 
 				strlcpy(name, entry->name, 9);
-				//kprintf("1 '%s'\n", name);
 				char* trans;
 				for (trans = name; *trans; ++trans)
 					if (*trans == ' ')
 						*trans = 0;
-				//kprintf("2 '%s'\n", name);
 				strlcat(name, ".", 10);
-				//kprintf("3 '%s'\n", name);
 				strlcat(name, &(entry->name[8]), 13);
-				//kprintf("4 '%s'\n", name);
 				for (trans = name; *trans; ++trans)
 					if (*trans == ' ')
 						*trans = 0;
-				
-				// remove trailing oot on dir names
-				if (name[strlen(name) - 1] == '.')
-					name[strlen(name) - 1] = 0;
+
+				size_t namelen = strlen(name);		
+				// remove trailing dot on dir names
+				if (name[namelen - 1] == '.')
+					name[namelen - 1] = 0;
 
 				strlcpy(dotless, entry->name, 12);
 				for (trans = dotless + 11; trans >= dotless; --trans)
@@ -65,46 +62,70 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 				if (name[0] == 0)
 					break;
 
-				if (name[0] != '.')
-				{
-
-
-					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && tree == NULL && info->volume_name == NULL)
-					{
+				if (name[0] != '.') {
+					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && info->volume_name == NULL) {
 						info->volume_name = strdup(dotless);
-						//kprintf("FAT32 volume label: '%s'\n", info->volume_name);
-					}
-					else
-					{
-	
-						fs_directory_entry_t* file = kmalloc(sizeof(fs_directory_entry_t));
-	
-						//kprintf("5 '%s'\n", name);
-						file->filename = strdup(name);
-						file->lbapos = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
-						file->directory = tree;
-						file->flags = 0;
-						file->size = entry->size;
-	
-						//kprintf("%04x %04x\n", entry->create_time, entry->create_date);
-	
-						if (entry->attr & ATTR_DIRECTORY)
-							file->flags |= FS_DIRECTORY;
-	
-	
-						// XXX
-						//kprintf("%d. '%s' flags=%02x size=%d clus=%08x\n", entries, file->filename, file->flags, file->size, file->lbapos);
-	
-						//if (file->size > 10000000)
-						//	for(;;);
-	
-						file->next = list;
-						list = file;
+					} else {
+
+						if (entry->attr == ATTR_LONG_NAME) {
+							lfn_t* lfn = (lfn_t*)entry;
+							memcpy(&lfns[lfn->order], (lfn_t*)entry, sizeof(lfn_t));
+							if (lfn->order > highest_lfn_order) {
+								highest_lfn_order = lfn->order;
+							}
+						} else {
+							fs_directory_entry_t* file = kmalloc(sizeof(fs_directory_entry_t));
+							if (highest_lfn_order > -1) {
+								char longname[14 * (highest_lfn_order + 1)];
+								char* nameptr = longname;
+								for (int i = 0; i <= highest_lfn_order; ++i) {
+									if (lfns[i].first[0] == 0 || lfns[i].first[0] == 0xffff)
+										continue;
+									for (int x = 0; x < 5; ++x) {
+										if (lfns[i].first[x] && lfns[i].first[x] != 0xffff) {
+											*nameptr++ = (char)lfns[i].first[x];
+										}
+									}
+									for (int x = 0; x < 6; ++x) {
+										if (lfns[i].second[x] && lfns[i].second[x] != 0xffff) {
+											*nameptr++ = (char)lfns[i].second[x];
+										}
+									}
+									for (int x = 0; x < 2; ++x) {
+										if (lfns[i].third[x] && lfns[i].third[x] != 0xffff) {
+											*nameptr++ = (char)lfns[i].third[x];
+										}
+									}
+								}
+								*nameptr++ = 0;
+								file->filename = strdup(longname);
+								highest_lfn_order = -1;
+								memset(&lfns, 0, sizeof(lfn_t) * 256);
+							} else {
+								file->filename = strdup(name);
+							}
+							file->lbapos = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
+							file->directory = tree;
+							file->flags = 0;
+							file->size = entry->size;
+
+							if (entry->attr & ATTR_DIRECTORY)
+								file->flags |= FS_DIRECTORY;
+		
+							// XXX
+							// dprintf("%d. '%s' flags=%02x size=%d clus=%08x\n", entries, file->filename, file->flags, file->size, file->lbapos);
+
+							file->next = list;
+							list = file;
+						}
 					}
 				}
 			}
 			bufferoffset += 32;
 			entry = (directory_entry_t*)(buffer + bufferoffset);
+		}
+		if (highest_lfn_order > -1) {
+			dprintf("Cluster ended without sfn\n");
 		}
 
 		if (entry->name[0] == 0)
