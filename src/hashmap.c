@@ -13,7 +13,7 @@ static void (*_free)(void *) = NULL;
 // hashmap_set_allocator allows for configuring a custom allocator for
 // all hashmap library operations. This function, if needed, should be called
 // only once at startup and a prior to calling hashmap_new().
-void hashmap_set_allocator(void *(*malloc)(size_t), void (*free)(void*)) 
+void hashmap_set_allocator([[maybe_unused]] void *(*malloc)(size_t), [[maybe_unused]] void (*free)(void*)) 
 {
     _malloc = kmalloc;
     _free = kfree;
@@ -79,7 +79,7 @@ struct hashmap *hashmap_new_with_allocator(
     _malloc = _malloc ? _malloc : kmalloc;
     _realloc = _realloc ? _realloc : krealloc;
     _free = _free ? _free : kfree;
-    int ncap = 16;
+    size_t ncap = 16;
     if (cap < ncap) {
         cap = ncap;
     } else {
@@ -496,12 +496,12 @@ static uint64_t SIP64(const uint8_t *in, const size_t inlen,
     const int left = inlen & 7;
     uint64_t b = ((uint64_t)inlen) << 56;
     switch (left) {
-    case 7: b |= ((uint64_t)in[6]) << 48;
-    case 6: b |= ((uint64_t)in[5]) << 40;
-    case 5: b |= ((uint64_t)in[4]) << 32;
-    case 4: b |= ((uint64_t)in[3]) << 24;
-    case 3: b |= ((uint64_t)in[2]) << 16;
-    case 2: b |= ((uint64_t)in[1]) << 8;
+    case 7: b |= ((uint64_t)in[6]) << 48; __attribute__((fallthrough));
+    case 6: b |= ((uint64_t)in[5]) << 40; __attribute__((fallthrough));
+    case 5: b |= ((uint64_t)in[4]) << 32; __attribute__((fallthrough));
+    case 4: b |= ((uint64_t)in[3]) << 24; __attribute__((fallthrough));
+    case 3: b |= ((uint64_t)in[2]) << 16; __attribute__((fallthrough));
+    case 2: b |= ((uint64_t)in[1]) << 8; __attribute__((fallthrough));
     case 1: b |= ((uint64_t)in[0]); break;
     case 0: break;
     }
@@ -556,25 +556,25 @@ static void MM86128(const void *key, const int len, uint32_t seed, void *out) {
     uint32_t k3 = 0;
     uint32_t k4 = 0;
     switch(len & 15) {
-    case 15: k4 ^= tail[14] << 16;
-    case 14: k4 ^= tail[13] << 8;
-    case 13: k4 ^= tail[12] << 0;
-             k4 *= c4; k4  = ROTL32(k4,18); k4 *= c1; h4 ^= k4;
-    case 12: k3 ^= tail[11] << 24;
-    case 11: k3 ^= tail[10] << 16;
-    case 10: k3 ^= tail[ 9] << 8;
-    case  9: k3 ^= tail[ 8] << 0;
-             k3 *= c3; k3  = ROTL32(k3,17); k3 *= c4; h3 ^= k3;
-    case  8: k2 ^= tail[ 7] << 24;
-    case  7: k2 ^= tail[ 6] << 16;
-    case  6: k2 ^= tail[ 5] << 8;
-    case  5: k2 ^= tail[ 4] << 0;
-             k2 *= c2; k2  = ROTL32(k2,16); k2 *= c3; h2 ^= k2;
-    case  4: k1 ^= tail[ 3] << 24;
-    case  3: k1 ^= tail[ 2] << 16;
-    case  2: k1 ^= tail[ 1] << 8;
-    case  1: k1 ^= tail[ 0] << 0;
-             k1 *= c1; k1  = ROTL32(k1,15); k1 *= c2; h1 ^= k1;
+	case 15: k4 ^= tail[14] << 16; __attribute__((fallthrough));
+	case 14: k4 ^= tail[13] << 8; __attribute__((fallthrough));
+	case 13: k4 ^= tail[12] << 0;
+		k4 *= c4; k4  = ROTL32(k4,18); k4 *= c1; h4 ^= k4; __attribute__((fallthrough));
+	case 12: k3 ^= tail[11] << 24; __attribute__((fallthrough));
+	case 11: k3 ^= tail[10] << 16; __attribute__((fallthrough));
+	case 10: k3 ^= tail[ 9] << 8; __attribute__((fallthrough));
+	case  9: k3 ^= tail[ 8] << 0;
+		k3 *= c3; k3  = ROTL32(k3,17); k3 *= c4; h3 ^= k3; __attribute__((fallthrough));
+	case  8: k2 ^= tail[ 7] << 24; __attribute__((fallthrough));
+	case  7: k2 ^= tail[ 6] << 16; __attribute__((fallthrough));
+	case  6: k2 ^= tail[ 5] << 8; __attribute__((fallthrough));
+	case  5: k2 ^= tail[ 4] << 0;
+		k2 *= c2; k2  = ROTL32(k2,16); k2 *= c3; h2 ^= k2; __attribute__((fallthrough));
+	case  4: k1 ^= tail[ 3] << 24; __attribute__((fallthrough));
+	case  3: k1 ^= tail[ 2] << 16; __attribute__((fallthrough));
+	case  2: k1 ^= tail[ 1] << 8; __attribute__((fallthrough));
+	case  1: k1 ^= tail[ 0] << 0;
+		k1 *= c1; k1  = ROTL32(k1,15); k1 *= c2; h1 ^= k1;
     };
     h1 ^= len; h2 ^= len; h3 ^= len; h4 ^= len;
     h1 += h2; h1 += h3; h1 += h4;
@@ -597,7 +597,7 @@ uint64_t hashmap_sip(const void *data, size_t len,
 
 // hashmap_murmur returns a hash value for `data` using Murmur3_86_128.
 uint64_t hashmap_murmur(const void *data, size_t len, 
-                        uint64_t seed0, uint64_t seed1)
+                        uint64_t seed0, [[maybe_unused]] uint64_t seed1)
 {
     char out[16];
     MM86128(data, len, seed0, &out);

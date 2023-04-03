@@ -165,7 +165,7 @@ void ip_idle()
 	}
 }
 
-void queue_packet(uint8_t* dst_ip, void* data, uint16_t len) {
+void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]] uint16_t len) {
 	if (packet_queue == NULL) {
 		packet_queue = kmalloc(sizeof(packet_queue_item_t));
 		packet_queue_end = packet_queue;
@@ -289,7 +289,7 @@ ip_packet_frag_t* frag_list_insert(ip_packet_frag_t *insert, ip_packet_frag_t *l
  * @param udata user data
  * @return int 0 for equal, -1 for less than, 1 for greater than; like strcmp()
  */
-int ip_frag_compare(const void *a, const void *b, void *udata) {
+int ip_frag_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
     const ip_fragmented_packet_parts_t* fa = a;
     const ip_fragmented_packet_parts_t* fb = b;
     return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);

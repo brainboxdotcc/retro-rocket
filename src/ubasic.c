@@ -1789,7 +1789,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 
 int64_t ubasic_instr(struct ubasic_ctx* ctx)
 {
-	int i;
+	uint32_t i;
 	char* haystack;
 	char* needle;
 	PARAMS_START;

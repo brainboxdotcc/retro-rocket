@@ -42,7 +42,7 @@ void init_basic_keyboard()
 
 
 // Map a keyboard scan code to an ASCII value
-unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t shift_state, uint8_t ctrl_state, uint8_t alt_state)
+unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t shift_state, [[maybe_unused]] uint8_t ctrl_state, [[maybe_unused]] uint8_t alt_state)
 {
 	if (escaped) {
 		switch (scancode) {
@@ -84,7 +84,7 @@ unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t
 
 
 
-void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq)
+void keyboard_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq)
 {
 	unsigned char new_scan_code = inb(0x60);
 
@@ -146,7 +146,7 @@ void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq)
 }
 
 
-unsigned char kgetc(console* cons)
+unsigned char kgetc([[maybe_unused]] console* cons)
 {
 	if (bufreadptr >= bufwriteptr) {
 		return 255;

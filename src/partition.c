@@ -16,7 +16,7 @@ bool guid_to_binary(const char* guid, void* binary)
 	return true;
 }
 
-bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uint8_t* partition_id, uint32_t* start, uint32_t* length)
+bool scan_gpt_entries(storage_device_t* sd, [[maybe_unused]] const char* partition_type_guid, [[maybe_unused]] uint8_t* partition_id, [[maybe_unused]] uint32_t* start, [[maybe_unused]] uint32_t* length)
 {
 	unsigned char* buffer = kmalloc(sd->block_size);
 	kfree(buffer);

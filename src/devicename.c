@@ -3,7 +3,7 @@
 
 struct hashmap* prefix_hash;
 
-int string_compare(const void *a, const void *b, void *udata) {
+int string_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
 	const devname_prefix_t* ua = a;
 	const devname_prefix_t* ub = b;
 	return strcmp(ua->prefix, ub->prefix);

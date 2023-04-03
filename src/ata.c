@@ -6,8 +6,8 @@ ide_device ide_devices[4];
 channel channels[2];
 
 uint8_t ide_buf[2048] = {0};
-unsigned static volatile char ide_irq_invoked = 0;
-unsigned static char atapi_packet[12] = {0xA8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static unsigned volatile char ide_irq_invoked = 0;
+static unsigned char atapi_packet[12] = {0xA8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 uint8_t ide_read(uint8_t channel, uint8_t reg)
 {
@@ -55,13 +55,13 @@ void ide_read_buffer(uint8_t channel, uint8_t reg, uint64_t buffer, uint32_t qua
 		ide_write(channel, ATA_REG_CONTROL, 0x80 | channels[channel].nIEN);
 	}
 	if (reg < 0x08) {
-		insl(channels[channel].base + reg - 0x00, buffer, quads);
+		insl(channels[channel].base + reg - 0x00, (void*)buffer, quads);
 	} else if (reg < 0x0C) {
-		insl(channels[channel].base + reg - 0x06, buffer, quads);
+		insl(channels[channel].base + reg - 0x06, (void*)buffer, quads);
 	} else if (reg < 0x0E) {
-		insl(channels[channel].ctrl + reg - 0x0A, buffer, quads);
+		insl(channels[channel].ctrl + reg - 0x0A, (void*)buffer, quads);
 	} else if (reg < 0x16) {
-		insl(channels[channel].bmide + reg - 0x0E, buffer, quads);
+		insl(channels[channel].bmide + reg - 0x0E, (void*)buffer, quads);
 	}
 	if (reg > 0x07 && reg < 0x0C) {
 		ide_write(channel, ATA_REG_CONTROL, channels[channel].nIEN);
@@ -444,7 +444,7 @@ uint8_t ide_ata_access(uint8_t direction, uint8_t drive, uint64_t lba, uint16_t 
 			if ((err = ide_polling(channel, 1))) {
 				return err; // Polling, then set error and exit if there is.
 			}
-			insw(bus, buffer_address, words);
+			insw(bus, (void*)buffer_address, words);
 			buffer_address += (words*2);
 		}
 	} else {
@@ -453,7 +453,7 @@ uint8_t ide_ata_access(uint8_t direction, uint8_t drive, uint64_t lba, uint16_t 
 			if ((err = ide_polling(channel, 0))) { // Polling.
 				return err;
 			}
-			outsw(bus, buffer_address, words);
+			outsw(bus, (void*)buffer_address, words);
 			buffer_address += (words*2);
 		}
 		ide_write(channel, ATA_REG_COMMAND, (char []) {	ATA_CMD_CACHE_FLUSH, ATA_CMD_CACHE_FLUSH, ATA_CMD_CACHE_FLUSH_EXT }[lba_mode]);
@@ -471,7 +471,7 @@ void ide_wait_irq()
 	ide_irq_invoked = 0;
 }
 
-void ide_irq(uint8_t isr, uint64_t error, uint64_t irq)
+void ide_irq([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq)
 {
 	ide_irq_invoked = 1;
 }
@@ -514,7 +514,7 @@ uint8_t ide_atapi_read(uint8_t drive, uint64_t lba, uint8_t numsects, uint64_t b
 		if ((err = ide_polling(channel, 1))) {
 			return err;		// Polling and return if error.
 		}
-		insw(bus, buffer_address, words);
+		insw(bus, (void*)buffer_address, words);
 		buffer_address += (words*2);
 	}
 	ide_wait_irq();

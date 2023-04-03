@@ -20,7 +20,7 @@ echo "qemu-system-x86_64 \
 	-usb \
 	-usbdevice mouse \
 	-m 4096 \
-	-drive id=disk,file=${HARD_DISK_IMAGE},format=raw,if=none \
+	-drive id=disk,file=$2,format=raw,if=none \
 	-device ahci,id=ahci \
 	-device ide-hd,drive=disk,bus=ahci.0 \
 	-drive file=rr.iso,media=cdrom,if=none,id=sata-cdrom \

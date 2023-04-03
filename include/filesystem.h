@@ -35,11 +35,11 @@ typedef struct fs_directory_entry_t {
 	uint8_t hour;		/* Creation hour */
 	uint8_t min;		/* Creation minute */
 	uint8_t sec;		/* Creation second */
-	uint32_t lbapos;	/* On-device position of file (driver specific, e.g. for iso9660
+	uint64_t lbapos;	/* On-device position of file (driver specific, e.g. for iso9660
 				   it is a raw sector, but for fat32 it is a cluster number) */
 	char device_name[16];	/* Device name */				   
 	uint32_t device;	/* Device ID (driver specific, for ide devices it is the index) XXX DEPRECATED */
-	uint32_t size;		/* File size in bytes */
+	uint64_t size;		/* File size in bytes */
 	uint32_t flags;		/* File flags (FS_*) */
 	struct fs_tree_t* directory;	/* Containing directory */
 	struct fs_directory_entry_t* next;	/* Next entry */
@@ -90,7 +90,7 @@ typedef struct fs_tree_t {
 	uint32_t lbapos;			/* Directory LBA position (driver specific) */
 	char device_name[16];	/* Device name */	
 	uint32_t device;			/* Directory device ID (driver specific) */
-	uint32_t size;			/* Directory size (usually meaningless except to drivers) */
+	uint64_t size;			/* Directory size (usually meaningless except to drivers) */
 	void* opaque;			/* Opaque data (driver specific data) */
 	struct fs_tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
 } fs_tree_t;
@@ -109,11 +109,11 @@ typedef struct fs_handle_t {
 	fs_handle_type_t type;		/* Filehandle type */
 	unsigned char* inbuf;		/* Input buffer */
 	unsigned char* outbuf;		/* Output buffer */
-	uint32_t outbufsize;		/* Output buffer size */
-	uint32_t inbufsize;		/* Input buffer size */
+	uint64_t outbufsize;		/* Output buffer size */
+	uint64_t inbufsize;		/* Input buffer size */
 	fs_directory_entry_t* file;	/* File which is open */
-	uint32_t seekpos;			/* Seek position within file */
-	uint8_t cached;			/* Entire file is cached to ram */
+	uint64_t seekpos;		/* Seek position within file */
+	bool cached;			/* Entire file is cached to ram */
 } fs_handle_t;
 
 
@@ -187,9 +187,9 @@ int _close(uint32_t fd);
  */
 int _eof(int fd);
 
-long _lseek(int fd, long offset, int origin);
+int64_t _lseek(int fd, uint64_t offset, uint64_t origin);
 
-long _tell(int fd);
+int64_t _tell(int fd);
 
 #endif
 

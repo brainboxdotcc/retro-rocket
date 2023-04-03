@@ -1,7 +1,7 @@
 #ifndef __INPUT_H__
 #define __INPUT_H__
 
-unsigned int kinput(unsigned int maxlen, console* cons);
+size_t kinput(size_t maxlen, console* cons);
 void kfreeinput(console* cons);
 char* kgetinput(console* cons);
 

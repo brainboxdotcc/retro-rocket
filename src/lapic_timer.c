@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-void lapic_spurious(uint8_t isr, uint64_t errorcode, uint64_t irq)
+void lapic_spurious([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq)
 {
 	return;
 }

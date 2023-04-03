@@ -89,8 +89,8 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			}
 			/* not modifier: advance state to check if it's a conversion char */
 			state++;
-			/* FALL THROUGH */
 			/* STATE 4: AWAITING CONVERSION CHARS (Xxpndiuocs) */
+			__attribute__((fallthrough));
 		case 4:
 			where = buf + PR_BUFLEN - 1;
 			*where = '\0';
@@ -98,8 +98,8 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			{
 			case 'X':
 				flags |= PR_CA;
-				/* FALL THROUGH */
 				/* xxx - far pointers (%Fp, %Fn) not yet supported */
+				__attribute__((fallthrough));
 			case 'x':
 			case 'p':
 			case 'n':
@@ -108,7 +108,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			case 'd':
 			case 'i':
 				flags |= PR_SG;
-				/* FALL THROUGH */
+				__attribute__((fallthrough));
 			case 'u':
 				radix = 10;
 				goto DO_NUM;
@@ -234,6 +234,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 			default:
 				break;
 			}
+			__attribute__((fallthrough));
 		default:
 			state = flags = given_wd = 0;
 			break;
@@ -274,13 +275,13 @@ int sprintf(char *buf, const char *fmt, ...)
 	return rv;
 }
 
-int vprintf_help(unsigned c, void **ptr)
+int vprintf_help(unsigned c, [[maybe_unused]] void **ptr)
 {
 	put(current_console, c);
 	return 0;
 }
 
-int dvprintf_help(unsigned c, void **ptr)
+int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr)
 {
 	dput(c);
 	return 0;

@@ -47,7 +47,7 @@ header_t* palign_block(uint64_t size, heap_t *heap);	/* Page align block */
 char invalid_frame(uint64_t physaddr)
 {
 	return 0;
-	int memcnt = 0;
+	uint64_t memcnt = 0;
 	while (memcnt < memory_map_request.response->entry_count) {
 		uint64_t base = memory_map_request.response->entries[memcnt]->base;
 		uint64_t len = memory_map_request.response->entries[memcnt]->length;
@@ -89,7 +89,7 @@ void heap_init()
 		"LIMINE_MEMMAP_FRAMEBUFFER",
 	};
 
-	int memcnt = 0;
+	uint64_t memcnt = 0;
 	while (memcnt < memory_map_request.response->entry_count) {
 		dprintf("addr=%llx len=%llx type=%s\n", memory_map_request.response->entries[memcnt]->base, memory_map_request.response->entries[memcnt]->length, map_diag_names[memory_map_request.response->entries[memcnt]->type]);
 		if (memory_map_request.response->entries[memcnt]->length > bestlen && memory_map_request.response->entries[memcnt]->type == LIMINE_MEMMAP_USABLE) {

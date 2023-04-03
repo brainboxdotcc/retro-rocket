@@ -10,12 +10,12 @@ void* devfs_get_directory(void* t)
 	return devfs_entries;
 }
 
-int devfs_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer)
+int devfs_read_file([[maybe_unused]] void* file, [[maybe_unused]] uint32_t start, [[maybe_unused]] uint32_t length, [[maybe_unused]] unsigned char* buffer)
 {
 	return 0;
 }
 
-int devfs_attach(const char* device, const char* path)
+int devfs_attach([[maybe_unused]] const char* device, const char* path)
 {
 	return attach_filesystem(path, devfs, NULL);
 }

@@ -9,7 +9,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
 uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
 
-void ahci_handler(uint8_t isr, uint64_t error, uint64_t irq)
+void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq)
 {
 	dprintf("AHCI interrupt 18\n");
 }

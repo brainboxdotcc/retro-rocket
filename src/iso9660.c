@@ -22,7 +22,7 @@ int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* bu
 
 static filesystem_t* iso9660_fs = NULL;
 
-void parse_boot(iso9660* info, unsigned char* buffer)
+void parse_boot([[maybe_unused]] iso9660* info, [[maybe_unused]] unsigned char* buffer)
 {
 }
 
@@ -192,7 +192,7 @@ void parse_svd(iso9660* info, unsigned char* buffer)
 	return;
 }
 
-void parse_VPD(iso9660* info, unsigned char* buffer)
+void parse_VPD([[maybe_unused]] iso9660* info, [[maybe_unused]] unsigned char* buffer)
 {
 }
 

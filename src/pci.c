@@ -285,7 +285,7 @@ pci_dev_t pci_scan_function(uint16_t vendor_id, uint16_t device_id, uint32_t bus
 		pci_scan_bus(vendor_id, device_id, get_secondary_bus(dev), device_type);
 	}
 	// If type matches, we've found the device, just return it
-	if(device_type == -1 || device_type == get_device_type(dev)) {
+	if(device_type == -1 || device_type == (int)get_device_type(dev)) {
 		uint32_t devid  = pci_read(dev, PCI_DEVICE_ID);
 		uint32_t vendid = pci_read(dev, PCI_VENDOR_ID);
 		if (device_type != -1 || (devid == device_id && vendor_id == vendid))
@@ -310,7 +310,7 @@ void pci_display_device_list()
 	char* device_description = NULL;
 	size_t count = pci_get_device_list(&list);
 	dprintf("PCI device enumeration:\n");
-	for (int n = 0; n < count; ++n) {
+	for (size_t n = 0; n < count; ++n) {
 		uint32_t class = pci_read(list[n], PCI_CLASS);
 		uint32_t subclass = pci_read(list[n], PCI_SUBCLASS);
 		uint32_t progif = pci_read(list[n], PCI_PROG_IF);
@@ -338,7 +338,7 @@ pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, 
 	dev.bus_num = bus;
 	dev.device_num = device;
 
-	if (get_device_type(dev) == device_type && device_type > 0) {
+	if ((int)get_device_type(dev) == device_type && device_type > 0) {
 		return dev;
 	}
 

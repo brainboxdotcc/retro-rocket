@@ -2,48 +2,63 @@
 #define __IO_H__
 
 /* Output one byte to an I/O port. Privileged operation. */
-static inline void outb(int port, unsigned char value)
+static inline void outb(uint16_t port, uint8_t value)
 {
 	asm volatile("outb %b0, %w1" : : "a"(value), "Nd"(port));
 }
 
 /* Read a byte from an I/O port. Privileged operation. */
-static inline unsigned char inb(int port)
+static inline uint8_t inb(uint16_t port)
 {
-	unsigned char value;
+	uint8_t value;
 	asm volatile("inb %w1, %b0" : "=a"(value) : "Nd"(port));
 	return value;
 }
 
-static inline unsigned short inw(int port)
+static inline uint16_t inw(uint16_t port)
 {                                                  
-	unsigned short value;
+	uint16_t value;
 	asm volatile("inw %w1, %w0" : "=a"(value) : "Nd"(port));
 	return value;
 }                               
 
-static inline void outw(int port, unsigned short value)
+static inline void outw(uint16_t port, unsigned short value)
 {
 	asm volatile("outw %w0, %w1" : : "a"(value), "Nd"(port));
 }
 
-static inline unsigned long inl(int port)
+static inline uint32_t inl(uint16_t port)
 {
-	unsigned long value;
+	uint32_t value;
 	asm volatile("inl %%dx, %%eax" : "=a" (value) : "d" (port));
 	return value;
 }
 
-static inline void outl(int port, unsigned long value)
+static inline void outl(uint16_t port, unsigned long value)
 {
 	asm volatile("outl %%eax, %%dx" : : "d" (port), "a" (value));
 }
 
-#define insl(port, buffer, count) { int v = 0; uint32_t* b = (uint32_t*)buffer; for (; v < count; v++) b[v] = inl(port); }
+static inline void insl(uint16_t port, void* buffer, uint32_t count)
+{
+	uint32_t* b = (uint32_t*)buffer;
+	for (uint32_t v = 0; v < count; v++)
+		b[v] = inl(port);
+}
 
-#define insw(port, buffer, count) { int v = 0; uint16_t* b = (uint16_t*)buffer; for (; v < count; v++) b[v] = inw(port); }
+static inline void insw(uint16_t port, void* buffer, uint32_t count)
+{
+	uint16_t* b = (uint16_t*)buffer;
+	for (uint32_t v = 0; v < count; v++)
+		b[v] = inw(port);
+}
 
-#define outsw(port, buffer, count) { int v = 0; uint16_t* b = (uint16_t*)buffer; for (; v < count; v++) outw(port, b[v]); }
+static inline void outsw(uint16_t port, void* buffer, uint32_t count)
+{
+	uint16_t* b = (uint16_t*)buffer;
+	for (uint32_t v = 0; v < count; v++)
+		outw(port, b[v]);
+}
 
 
 static inline void interrupts_on()

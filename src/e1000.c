@@ -277,7 +277,7 @@ void e1000_up()
 	kprintf("e1000: UP\n");
 }
 
-void e1000_handler(uint8_t isr, uint64_t error, uint64_t irq)
+void e1000_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq)
 {
 	/* This might be needed here if your handler doesn't clear interrupts from each device and must be done before EOI if using the PIC.
 	 * Without this, the card will spam interrupts as the int-line will stay high.

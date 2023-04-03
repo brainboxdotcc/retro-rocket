@@ -15,7 +15,7 @@ uint8_t dns_collect_request(uint16_t id, char* result, size_t max);
  * @param udata user data
  * @return int 0 for equal, -1 for less than, 1 for greater than; like strcmp()
  */
-static int dns_request_compare(const void *a, const void *b, void *udata) {
+static int dns_request_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
     const dns_request_t* fa = a;
     const dns_request_t* fb = b;
     return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);
@@ -203,7 +203,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
  	unsigned short ptr;
 	resource_record_t rr;
 
-	error = NULL;
+	*error = 0;
 	*res = 0;
 	*outlength = 0;
 

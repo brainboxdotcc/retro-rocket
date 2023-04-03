@@ -24,7 +24,7 @@ uint8_t broadcast_mac_address[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
  * @param arp_packet raw ARP packat
  * @param len ARP packet length
  */
-void arp_handle_packet(arp_packet_t* arp_packet, int len) {
+void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 	unsigned char dst_hardware_addr[6];
 	unsigned char dst_protocol_addr[4];
 	memcpy(dst_hardware_addr, arp_packet->src_hardware_addr, 6);

@@ -113,7 +113,7 @@ void receive_packet() {
  * 4. CMD(BufferEmpty) and ISR(TOK) set.
  * 5. ISR routine called and then driver clear ISR(TOK) and update CAPR.
  */
-void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq) {
+void rtl8139_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq) {
 	in_interrupt = true;
 	uint16_t status = rtl_inw(IntrStatus);
 

@@ -29,13 +29,13 @@
 typedef struct
 {
 	char dirty;
-	unsigned int x;
-	unsigned int y;
-	unsigned char attributes;
-	unsigned char last;
+	uint8_t x;
+	uint8_t y;
+	uint8_t attributes;
+	uint8_t last;
 	char* internalbuffer;
 	char* buffer;
-	int bufcnt;
+	size_t bufcnt;
 } console;
 
 /* Prototypes for simple console functions */

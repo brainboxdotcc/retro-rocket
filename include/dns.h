@@ -66,7 +66,7 @@ typedef struct dns_request {
 	uint16_t id; /* Request id */
 	uint32_t rr_class; /* Request class */
 	uint32_t ttl;
-	uint8_t type; /* Request type */
+	uint16_t type; /* Request type */
 	unsigned char* orig; /* Original requested name/ip */
 	char result[256];
 	uint8_t result_length;

@@ -27,51 +27,51 @@ void icmp_send_echo(uint32_t destination, uint16_t id, uint16_t seq)
 	icmp_send(destination, &echo, (uint16_t)sizeof(icmp_echo_packet_t));
 }
 
-void icmp_handle_echo_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_echo_packet_t* packet, size_t len)
+void icmp_handle_echo_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_echo_packet_t* packet, [[maybe_unused]] size_t len)
 {
 	/* TODO: Send reply here */
 }
 
-void icmp_handle_echo_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_echo_packet_t* packet, size_t len)
+void icmp_handle_echo_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_echo_packet_t* packet, [[maybe_unused]] size_t len)
 {
 	char ip[14];
 	get_ip_str(ip, encap_packet->src_ip);
 	dprintf("ECHO echo ECHO! Got ICMP reply FROM %s, seq=%d id=%d\n", ip, ntohs(packet->seq), ntohs(packet->id));
 }
 
-void icmp_handle_destination_unreachable_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)
+void icmp_handle_destination_unreachable_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_source_quench_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)
+void icmp_handle_source_quench_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_redirect_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_redirect_packet_t* packet, size_t len)
+void icmp_handle_redirect_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_time_exceeded_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)
+void icmp_handle_time_exceeded_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_parameter_problem_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_parameter_problem_packet_t* packet, size_t len)
+void icmp_handle_parameter_problem_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_timestamp_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_timestamp_packet_t* packet, size_t len)
+void icmp_handle_timestamp_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_timestamp_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_timestamp_packet_t* packet, size_t len)
+void icmp_handle_timestamp_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_information_request_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_information_t* packet, size_t len)
+void icmp_handle_information_request_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 
-void icmp_handle_information_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_information_t* packet, size_t len)
+void icmp_handle_information_reply_packet([[maybe_unused]] ip_packet_t* encap_packet, [[maybe_unused]] icmp_packet_t* packet, [[maybe_unused]] size_t len)
 {
 }
 

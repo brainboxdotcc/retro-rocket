@@ -141,7 +141,7 @@ uint32_t destroy_filehandle(uint32_t descriptor)
 }
 
 /* Open a file for access */
-int _open(const char* filename, int oflag)
+int _open(const char* filename, [[maybe_unused]] int oflag)
 {
 	/* First check if we can find the file in the filesystem */
 	fs_directory_entry_t* file = fs_get_file_info(filename);
@@ -180,7 +180,7 @@ int _open(const char* filename, int oflag)
 }
 
 /* Write out buffered data to a file open for writing */
-void flush_filehandle(uint32_t descriptor)
+void flush_filehandle([[maybe_unused]] uint32_t descriptor)
 {
 	/* Until we have writeable filesystems this is a stub */
 }
@@ -199,7 +199,7 @@ int _close(uint32_t descriptor)
 	return destroy_filehandle(descriptor) ? 0 : -1;
 }
 
-long _lseek(int fd, long offset, int origin)
+long _lseek(int fd, uint64_t offset, uint64_t origin)
 {
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
 		return -1;
@@ -221,9 +221,9 @@ long _lseek(int fd, long offset, int origin)
 	return -1;
 }
 
-long _tell(int fd)
+int64_t _tell(int fd)
 {
-	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? -1 : filehandles[fd]->seekpos; 
+	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? (int64_t)-1 : (int64_t)filehandles[fd]->seekpos; 
 }
 
 /* Read bytes from an open file */
