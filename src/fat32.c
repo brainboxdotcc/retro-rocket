@@ -25,7 +25,11 @@ char* parse_shitty_lfn_entry(char* nameptr, uint16_t* wide_chars, uint8_t n_wide
 {
 	for (int x = 0; x < n_wide_chars; ++x) {
 		if (wide_chars[x] && wide_chars[x] != 0xffff) {
-			*nameptr++ = (char)wide_chars[x];
+			if (wide_chars[x] < 0x80) {
+				*nameptr++ = (char)wide_chars[x];
+			} else {
+				*nameptr++ = '?';
+			}
 		}
 	}
 	return nameptr;
@@ -53,10 +57,8 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 
 		int entries = 0; // max of 128 file entries per cluster
 
-		while (entry->name[0] != 0 && entries++ < 128)
-		{
-			if (!(entry->name[0] & 0x80) && entry->name[0] != 0)
-			{
+		while (entry->name[0] != 0 && entries++ < 128) {
+			if (!(entry->name[0] & 0x80) && entry->name[0] != 0) {
 				char name[13];
 				char dotless[13];
 
@@ -143,19 +145,12 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 		if (entry->name[0] == 0)
 			break;
 
-		//kprintf("End dir parse\n");
-
-		// advnce to next cluster in chain until EOF
+		// advance to next cluster in chain until EOF
 		uint32_t nextcluster = get_fat_entry(info, cluster);
 		if (nextcluster >= 0x0ffffff0) {
-			//kprintf("Cluster break\n");
 			break;
-		}
-		else
-		{
-			//kprintf("Old cluster=%d\n", cluster);
+		} else {
 			cluster = nextcluster;
-			//kprintf("Next cluster=%d\n", cluster);
 		}
 	}
 	kfree(buffer);
