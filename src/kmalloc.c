@@ -91,7 +91,8 @@ void heap_init()
 
 	uint64_t memcnt = 0;
 	while (memcnt < memory_map_request.response->entry_count) {
-		dprintf("addr=%llx len=%llx type=%s\n", memory_map_request.response->entries[memcnt]->base, memory_map_request.response->entries[memcnt]->length, map_diag_names[memory_map_request.response->entries[memcnt]->type]);
+		dprintf("addr=%llx len=%llx type=%s\n", memory_map_request.response->entries[memcnt]->base,
+		memory_map_request.response->entries[memcnt]->length,map_diag_names[memory_map_request.response->entries[memcnt]->type]);
 		if (memory_map_request.response->entries[memcnt]->length > bestlen && memory_map_request.response->entries[memcnt]->type == LIMINE_MEMMAP_USABLE) {
 			bestaddr = memory_map_request.response->entries[memcnt]->base;
 			bestlen = memory_map_request.response->entries[memcnt]->length;

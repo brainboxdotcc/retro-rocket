@@ -9,6 +9,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 	unsigned char *where, buf[PR_BUFLEN];
 	unsigned char state, radix;
 	long long num;
+	double fnum;
 
 	//while (printlock);
 	//lock_spinlock(&printlock);
@@ -120,7 +121,11 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 				radix = 8;
 				/* load the value to be printed. l=long=32 bits: */
 			DO_NUM:
-				if(flags & PR_32)
+				if(floating)
+				{
+					fnum = va_arg(args, double);
+				}
+				else if(flags & PR_32)
 				{
 					if(flags & PR_SG) {
 						num = va_arg(args, long long);
@@ -162,7 +167,12 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 					}
 				}
 				/* convert binary to octal/decimal/hex ASCII */
-				do
+				if (floating) {
+					char buffer[32];
+					const char* n = float_to_string(fnum, buffer, 32, float_determine_decimal_places(fnum));
+					memcpy(where, n, strlen(n));
+					actual_wd = strlen(n);
+				} else do
 				{
 					unsigned long temp;
 

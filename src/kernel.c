@@ -29,5 +29,14 @@ void kmain()
 	init_debug();
 	rtl8139_init();
 
+	/*char test[64];
+	kprintf("1: 50 %s\n", float_to_string(50, test, 64, 4));
+	kprintf("2: 123.456 %s\n", float_to_string(123.456, test, 64, 4));
+	kprintf("3: 5050.05431556 %s\n", float_to_string(5050.05431556, test, 64, 4));
+	kprintf("4: 12343254343.75 %s\n", float_to_string(12343254343.75, test, 64, 4));
+	kprintf("5: 0.0043 %s\n", float_to_string(0.0043, test, 64, 4));
+	kprintf("7: 0.52 %s\n", float_to_string(0.52, test, 64, 4));
+	kprintf("5: 0.623 %s\n", float_to_string(0.623, test, 64, 4));*/
+
 	proc_init();
 }

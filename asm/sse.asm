@@ -23,10 +23,18 @@ enable_sse:
 	cpuid
 	test edx, 1<<25
 	jz no_sse
+	test edx, 1<<26
+	jz no_sse
 	;SSE is available
 	mov rax, cr4
 	bts rax, 9
 	bts rax, 10
 	mov cr4, rax
+	ret
 no_sse:
+	mov al, 'O'
+	out 0xE9, al
+	out 0xE9, al
+	mov al, 'F'
+	out 0xE9, al
 	ret

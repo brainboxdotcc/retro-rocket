@@ -836,7 +836,8 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 					char float_buffer[32];
 					ctx->ptr = oldctx;
 					float_expr(ctx, &f);
-					strlcat(out, float_to_string(f, float_buffer, 32, float_determine_decimal_places(f)), MAX_STRINGLEN);
+					//sprintf(buffer, "%f", f);
+					strlcat(buffer, float_to_string(f, float_buffer, 32, float_determine_decimal_places(f)), MAX_STRINGLEN);
 				} else {
 					ctx->ptr = oldctx;
 					sprintf(buffer, next_hex ? "%lX" : "%ld", expr(ctx));
