@@ -35,8 +35,8 @@ void kmain()
 	kprintf("3: 5050.05431556 %s\n", float_to_string(5050.05431556, test, 64, 4));
 	kprintf("4: 12343254343.75 %s\n", float_to_string(12343254343.75, test, 64, 4));
 	kprintf("5: 0.0043 %s\n", float_to_string(0.0043, test, 64, 4));
-	kprintf("7: 0.52 %s\n", float_to_string(0.52, test, 64, 4));
-	kprintf("5: 0.623 %s\n", float_to_string(0.623, test, 64, 4));*/
+	kprintf("6: 0.52 %s\n", float_to_string(0.52, test, 64, 4));
+	kprintf("7: 0.623 %s\n", float_to_string(0.623, test, 64, 4));*/
 
 	proc_init();
 }

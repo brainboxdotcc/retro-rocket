@@ -50,7 +50,8 @@ static inline uint8_t float_determine_decimal_places(double f)
  * @param x Float to convert
  * @param p Output buffer
  * @param len Size of output buffer
- * @param precision Precision of decimal part
+ * @param precision Precision of decimal part. Set to 0 to
+ * display full precision of the value
  * @return char* pointer to value in buffer 
  */
 static inline char * float_to_string(double x, char *p, int64_t len, uint8_t precision) {
