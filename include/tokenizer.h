@@ -93,7 +93,7 @@ void tokenizer_init(const char *program, struct ubasic_ctx* ctx);
 void tokenizer_next(struct ubasic_ctx* ctx);
 int tokenizer_token(struct ubasic_ctx* ctx);
 int64_t tokenizer_num(struct ubasic_ctx* ctx, int token);
-void tokenizer_fnum(struct ubasic_ctx* ctx, int token, float* f);
+void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f);
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx);
 bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
 int tokenizer_finished(struct ubasic_ctx* ctx);

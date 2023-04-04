@@ -169,7 +169,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 				/* convert binary to octal/decimal/hex ASCII */
 				if (floating) {
 					char buffer[32];
-					const char* n = float_to_string(fnum, buffer, 32, float_determine_decimal_places(fnum));
+					const char* n = double_to_string(fnum, buffer, 32, 0);
 					memcpy(where, n, strlen(n));
 					actual_wd = strlen(n);
 				} else do

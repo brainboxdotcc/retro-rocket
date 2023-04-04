@@ -329,7 +329,7 @@ int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 	return token == TOKENIZER_NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
 }
 
-void tokenizer_fnum(struct ubasic_ctx* ctx, int token, float* f)
+void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f)
 {
 	atof(ctx->ptr, f);
 	return;

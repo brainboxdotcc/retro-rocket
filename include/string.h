@@ -39,7 +39,7 @@ unsigned char isxdigit(const char x);
 int atoi(const char *s);
 int64_t atoll(const char *s, int radix);
 uint64_t atoull(const char *s);
-bool atof(const char* s, float* a);
+bool atof(const char* s, double* a);
 
 int abs(int a);
 int64_t labs(int64_t a);

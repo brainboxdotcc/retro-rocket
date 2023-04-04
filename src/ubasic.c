@@ -30,7 +30,7 @@
 #include <kernel.h>
 
 static int64_t expr(struct ubasic_ctx* ctx);
-static void float_expr(struct ubasic_ctx* ctx, float* res);
+static void double_expr(struct ubasic_ctx* ctx, double* res);
 static void line_statement(struct ubasic_ctx* ctx);
 static void statement(struct ubasic_ctx* ctx);
 static const char* str_expr(struct ubasic_ctx* ctx);
@@ -41,7 +41,7 @@ int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
 char* ubasic_getprocname(struct ubasic_ctx* ctx);
 char* ubasic_dns(struct ubasic_ctx* ctx);
 int64_t ubasic_rgb(struct ubasic_ctx* ctx);
-void ubasic_eval_float_fn(const char* fn_name, struct ubasic_ctx* ctx, float* res);
+void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res);
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -60,7 +60,7 @@ struct ubasic_int_fn builtin_int[] =
 	{ NULL, NULL }
 };
 
-struct ubasic_float_fn builtin_float[] = {
+struct ubasic_double_fn builtin_double[] = {
 	{ NULL, NULL },
 };
 
@@ -120,7 +120,7 @@ void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
 	ubasic_set_int_variable("TRUE", 1, ctx, false, false);
 	ubasic_set_int_variable("FALSE", 0, ctx, false, false);
 	ubasic_set_int_variable("PID", pid, ctx, false, false);
-	ubasic_set_float_variable("PI#", 3.141592653589793238f, ctx, false, false);
+	ubasic_set_double_variable("PI#", 3.141592653589793238, ctx, false, false);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -132,13 +132,13 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ctx->current_token = TOKENIZER_ERROR;	
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
-	ctx->float_variables = NULL;
+	ctx->double_variables = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_string_variables[i] = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
-		ctx->local_float_variables[i] = NULL;
+		ctx->local_double_variables[i] = NULL;
 	ctx->cons = (struct console*)cons;
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
@@ -173,14 +173,14 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->current_token = TOKENIZER_ERROR;
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
-	ctx->float_variables = old->float_variables;
+	ctx->double_variables = old->double_variables;
 
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = old->local_int_variables[i];
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_string_variables[i] = old->local_string_variables[i];
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
-		ctx->local_float_variables[i] = old->local_float_variables[i];
+		ctx->local_double_variables[i] = old->local_double_variables[i];
 
 	ctx->cons = old->cons;
 	ctx->oldlen = old->oldlen;
@@ -395,13 +395,13 @@ static int64_t varfactor(struct ubasic_ctx* ctx)
 	return r;
 }
 
-static void float_varfactor(struct ubasic_ctx* ctx, float* res)
+static void double_varfactor(struct ubasic_ctx* ctx, double* res)
 {
-	float r;
+	double r;
 
-	ubasic_get_float_variable(tokenizer_variable_name(ctx), ctx, &r);
+	ubasic_get_double_variable(tokenizer_variable_name(ctx), ctx, &r);
 
-	dprintf("float_varfactor\n");
+	dprintf("double_varfactor\n");
 
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
@@ -465,32 +465,32 @@ static int64_t factor(struct ubasic_ctx* ctx)
 	return r;
 }
 
-static void float_factor(struct ubasic_ctx* ctx, float* res)
+static void double_factor(struct ubasic_ctx* ctx, double* res)
 {
 	char buffer[50];
 
 	int tok = tokenizer_token(ctx);
 	switch (tok) {
 		case TOKENIZER_NUMBER:
-			dprintf("float_factor TOKENIZER_NUMBER\n");
+			dprintf("double_factor TOKENIZER_NUMBER\n");
 			tokenizer_fnum(ctx, tok, res);
-			dprintf("float_factor fnum->r=%s\n", float_to_string(*res, buffer, 50, 6));
+			dprintf("double_factor fnum->r=%s\n", double_to_string(*res, buffer, 50, 0));
 			accept(tok, ctx);
 		break;
 		case TOKENIZER_LEFTPAREN:
-			dprintf("float_factor TOKENIZER_LEFTPAREN\n");
+			dprintf("double_factor TOKENIZER_LEFTPAREN\n");
 			accept(TOKENIZER_LEFTPAREN, ctx);
-			float_expr(ctx, res);
-			dprintf("float_factor expr->r=%s\n", float_to_string(*res, buffer, 50, 6));
+			double_expr(ctx, res);
+			dprintf("double_factor expr->r=%s\n", double_to_string(*res, buffer, 50, 0));
 			accept(TOKENIZER_RIGHTPAREN, ctx);
 		break;
 		default:
-			dprintf("float_factor default\n");
-			float_varfactor(ctx, res);
-			dprintf("float_factor varfactor->r=%s\n", float_to_string(*res, buffer, 50, 6));
+			dprintf("double_factor default\n");
+			double_varfactor(ctx, res);
+			dprintf("double_factor varfactor->r=%s\n", double_to_string(*res, buffer, 50, 0));
 		break;
 	}
-	dprintf("float_factor end, r=%s\n", float_to_string(*res, buffer, 50, 6));
+	dprintf("double_factor end, r=%s\n", double_to_string(*res, buffer, 50, 0));
 }
 
 static const char* str_factor(struct ubasic_ctx* ctx)
@@ -542,24 +542,24 @@ static int64_t term(struct ubasic_ctx* ctx)
 	return f1;
 }
 
-static void float_term(struct ubasic_ctx* ctx, float* res)
+static void double_term(struct ubasic_ctx* ctx, double* res)
 {
-	float f1, f2;
+	double f1, f2;
 	int op;
 	char buffer[50];
 
-	dprintf("float_term first float_factor call\n");
-	float_factor(ctx, &f1);
-	dprintf("float_term f1=%s\n", float_to_string(f1, buffer, 50, 6));
+	dprintf("double_term first double_factor call\n");
+	double_factor(ctx, &f1);
+	dprintf("double_term f1=%s\n", double_to_string(f1, buffer, 50, 0));
 
 	op = tokenizer_token(ctx);
 	dprintf("first op=%d %s\n", op, types[op]);
 	while (op == TOKENIZER_ASTR || op == TOKENIZER_SLASH || op == TOKENIZER_MOD)
 	{
 		tokenizer_next(ctx);
-		dprintf("float_term second float_factor call\n");
-		float_factor(ctx, &f2);
-		dprintf("float_term f2=%s\n", float_to_string(f2, buffer, 50, 6));
+		dprintf("double_term second double_factor call\n");
+		double_factor(ctx, &f2);
+		dprintf("double_term f2=%s\n", double_to_string(f2, buffer, 50, 0));
 		switch (op)
 		{
 			case TOKENIZER_ASTR:
@@ -575,7 +575,7 @@ static void float_term(struct ubasic_ctx* ctx, float* res)
 		op = tokenizer_token(ctx);
 	}
 	dprintf("final op=%d %s\n", op, types[op]);
-	dprintf("float_term returning %s\n", float_to_string(f1, buffer, 50, 6));
+	dprintf("double_term returning %s\n", double_to_string(f1, buffer, 50, 0));
 	*res = f1;
 }
 
@@ -612,22 +612,22 @@ static int64_t expr(struct ubasic_ctx* ctx)
 	return t1;
 }
 
-static void float_expr(struct ubasic_ctx* ctx, float* res)
+static void double_expr(struct ubasic_ctx* ctx, double* res)
 {
-	float t1, t2;
+	double t1, t2;
 	int op;
 
-	dprintf("float_expr()\n");
+	dprintf("double_expr()\n");
 
-	float_term(ctx, &t1);
+	double_term(ctx, &t1);
 	op = tokenizer_token(ctx);
-	dprintf("float_expr before type, type is %d %s\n", op, types[op]);
+	dprintf("double_expr before type, type is %d %s\n", op, types[op]);
 
 	while (op == TOKENIZER_PLUS || op == TOKENIZER_MINUS || op == TOKENIZER_AND || op == TOKENIZER_OR) {
-		dprintf("float_expr after type, type is %d %s\n", op, types[op]);
+		dprintf("double_expr after type, type is %d %s\n", op, types[op]);
 		tokenizer_next(ctx);
-		dprintf("float_expr call 2nd float_term\n");
-		float_term(ctx, &t2);
+		dprintf("double_expr call 2nd double_term\n");
+		double_term(ctx, &t2);
 		switch (op) {
 			case TOKENIZER_PLUS:
 				dprintf("tokenizer plus\n");
@@ -648,7 +648,7 @@ static void float_expr(struct ubasic_ctx* ctx, float* res)
 		}
 		op = tokenizer_token(ctx);
 	}
-	dprintf("float_expr done\n");
+	dprintf("double_expr done\n");
 	*res = t1;
 }
 
@@ -830,14 +830,14 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 				ctx->ptr = oldctx;
 				const char* var_name = tokenizer_variable_name(ctx);
 				ctx->ptr = oldctx;
-				bool printable_float = (strchr(var_name, '#') || tokenizer_decimal_number(ctx));
-				if (printable_float) {
-					float f = 0.0;
-					char float_buffer[32];
+				bool printable_double = (strchr(var_name, '#') || tokenizer_decimal_number(ctx));
+				if (printable_double) {
+					double f = 0.0;
+					char double_buffer[32];
 					ctx->ptr = oldctx;
-					float_expr(ctx, &f);
+					double_expr(ctx, &f);
 					//sprintf(buffer, "%f", f);
-					strlcat(buffer, float_to_string(f, float_buffer, 32, float_determine_decimal_places(f)), MAX_STRINGLEN);
+					strlcat(buffer, double_to_string(f, double_buffer, 32, 0), MAX_STRINGLEN);
 				} else {
 					ctx->ptr = oldctx;
 					sprintf(buffer, next_hex ? "%lX" : "%ld", expr(ctx));
@@ -944,7 +944,7 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	struct ubasic_ctx* new_proc = p->code;
 	struct ub_var_int* cur_int = ctx->int_variables;
 	struct ub_var_string* cur_str = ctx->str_variables;
-	struct ub_var_float* cur_float = ctx->float_variables;
+	struct ub_var_double* cur_double = ctx->double_variables;
 
 	for (; cur_int; cur_int = cur_int->next) {
 		if (cur_int->global) {
@@ -956,9 +956,9 @@ static void chain_statement(struct ubasic_ctx* ctx)
 			ubasic_set_string_variable(cur_str->varname, cur_str->value, new_proc, false, true);
 		}
 	}
-	for (; cur_float; cur_float = cur_float->next) {
-		if (cur_float->global) {
-			ubasic_set_float_variable(cur_float->varname, cur_float->value, new_proc, false, true);
+	for (; cur_double; cur_double = cur_double->next) {
+		if (cur_double->global) {
+			ubasic_set_double_variable(cur_double->varname, cur_double->value, new_proc, false, true);
 		}
 	}
 
@@ -1060,9 +1060,9 @@ static void input_statement(struct ubasic_ctx* ctx)
 				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
 			break;
 			case '#':
-				float f = 0;
+				double f = 0;
 				atof(kgetinput((console*)ctx->cons), &f);
-				ubasic_set_float_variable(var, f, ctx, false, false);
+				ubasic_set_double_variable(var, f, ctx, false, false);
 			break;
 			default:
 				ubasic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
@@ -1103,9 +1103,9 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 				ubasic_set_string_variable(var, input, ctx, false, false);
 			break;
 			case '#':
-				float f = 0;
+				double f = 0;
 				atof(input, &f);
-				ubasic_set_float_variable(var, f, ctx, false, false);
+				ubasic_set_double_variable(var, f, ctx, false, false);
 			break;
 			default:
 				ubasic_set_int_variable(var, atoll(input, 10), ctx, false, false);
@@ -1179,7 +1179,7 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 {
 	const char* var;
 	const char* _expr;
-	float f_expr = 0;
+	double f_expr = 0;
 
 	var = tokenizer_variable_name(ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
@@ -1194,9 +1194,9 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 			ubasic_set_string_variable(var, _expr, ctx, false, global);
 		break;
 		case '#':
-			dprintf("float: ctx before call: %s\n", ctx->ptr);
-			float_expr(ctx, &f_expr);
-			ubasic_set_float_variable(var, f_expr, ctx, false, global);
+			dprintf("double: ctx before call: %s\n", ctx->ptr);
+			double_expr(ctx, &f_expr);
+			ubasic_set_double_variable(var, f_expr, ctx, false, global);
 		break;
 		default:
 			dprintf("int: ctx before call: %s\n", ctx->ptr);
@@ -1532,12 +1532,9 @@ void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* 
 			ubasic_set_string_variable(var, value, ctx, 0, false);
 		break;
 		case '#':
-			dprintf("Float: '%s'\n", value);
-			float f = 0.0;
+			double f = 0.0;
 			atof(value, &f);
-			char buffer[50];
-			dprintf("Converted: '%s'\n", float_to_string(f, buffer, 50, 6));
-			ubasic_set_float_variable(var, f, ctx, 0, false);
+			ubasic_set_double_variable(var, f, ctx, 0, false);
 		break;
 		case ')':
 			ubasic_set_array_variable(var, atoll(value, 10), ctx, 0);
@@ -1566,7 +1563,7 @@ int valid_string_var(const char* name)
 	return 1;
 }
 
-int valid_float_var(const char* name)
+int valid_double_var(const char* name)
 {
 	const char* i;
 	unsigned int varLength = strlen(name);
@@ -1715,54 +1712,54 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 	}
 }
 
-void ubasic_set_float_variable(const char* var, float value, struct ubasic_ctx* ctx, bool local, bool global)
+void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx* ctx, bool local, bool global)
 {
-	struct ub_var_float* list[] = {
-		ctx->float_variables,
-		ctx->local_float_variables[ctx->gosub_stack_ptr]
+	struct ub_var_double* list[] = {
+		ctx->double_variables,
+		ctx->local_double_variables[ctx->gosub_stack_ptr]
 	};
 	char buffer[MAX_STRINGLEN];
 
-	if (!valid_float_var(var)) {
+	if (!valid_double_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return;
 	}
 
 	if (list[local] == NULL) {
 		if (local) {
-			dprintf("Set float variable '%s' to '%s' (gosub local)\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
-			ctx->local_float_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_float));
-			ctx->local_float_variables[ctx->gosub_stack_ptr]->next = NULL;
-			ctx->local_float_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
-			ctx->local_float_variables[ctx->gosub_stack_ptr]->value = value;
+			dprintf("Set double variable '%s' to '%s' (gosub local)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+			ctx->local_double_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_double));
+			ctx->local_double_variables[ctx->gosub_stack_ptr]->next = NULL;
+			ctx->local_double_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
+			ctx->local_double_variables[ctx->gosub_stack_ptr]->value = value;
 		} else {
-			dprintf("Set float variable '%s' to '%s' (default)\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
-			ctx->float_variables = kmalloc(sizeof(struct ub_var_float));
-			ctx->float_variables->next = NULL;
-			ctx->float_variables->varname = strdup(var);
-			ctx->float_variables->value = value;
+			dprintf("Set double variable '%s' to '%s' (default)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+			ctx->double_variables = kmalloc(sizeof(struct ub_var_double));
+			ctx->double_variables->next = NULL;
+			ctx->double_variables->varname = strdup(var);
+			ctx->double_variables->value = value;
 		}
 		return;
 	} else {
-		struct ub_var_float* cur = ctx->float_variables;
+		struct ub_var_double* cur = ctx->double_variables;
 		if (local)
-			cur = ctx->local_float_variables[ctx->gosub_stack_ptr];
+			cur = ctx->local_double_variables[ctx->gosub_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
-				dprintf("Set float variable '%s' to '%s' (updating)\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
+				dprintf("Set double variable '%s' to '%s' (updating)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 				cur->value = value;
 				return;
 			}
 		}
-		dprintf("Set float variable '%s' to '%s'\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
-		struct ub_var_float* newvar = kmalloc(sizeof(struct ub_var_float));
-		newvar->next = (local ? ctx->local_float_variables[ctx->gosub_stack_ptr] : ctx->float_variables);
+		dprintf("Set double variable '%s' to '%s'\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+		struct ub_var_double* newvar = kmalloc(sizeof(struct ub_var_double));
+		newvar->next = (local ? ctx->local_double_variables[ctx->gosub_stack_ptr] : ctx->double_variables);
 		newvar->varname = strdup(var);
 		newvar->value = value;
 		if (local) {
-			ctx->local_float_variables[ctx->gosub_stack_ptr] = newvar;
+			ctx->local_double_variables[ctx->gosub_stack_ptr] = newvar;
 		} else {
-			ctx->float_variables = newvar;
+			ctx->double_variables = newvar;
 		}
 	}
 }
@@ -1805,9 +1802,9 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 			if (ctx->param->name[len - 1] == '$') {
 				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
 			} else if (ctx->param->name[len - 1] == '#') {
-				float f = 0.0;
-				float_expr(ctx, &f);
-				ubasic_set_float_variable(ctx->param->name, f, ctx, true, false);
+				double f = 0.0;
+				double_expr(ctx, &f);
+				ubasic_set_double_variable(ctx->param->name, f, ctx, true, false);
 			} else {
 				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
 			}
@@ -2207,11 +2204,11 @@ char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int64_t*
 	return 0;
 }
 
-char ubasic_builtin_float_fn(const char* fn_name, struct ubasic_ctx* ctx, float* res) {
+char ubasic_builtin_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res) {
 	int i;
-	for (i = 0; builtin_float[i].name; ++i) {
-		if (!strcmp(fn_name, builtin_float[i].name)) {
-			builtin_float[i].handler(ctx, res);
+	for (i = 0; builtin_double[i].name; ++i) {
+		if (!strcmp(fn_name, builtin_double[i].name)) {
+			builtin_double[i].handler(ctx, res);
 			return 1;
 		}
 	}
@@ -2275,7 +2272,7 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	return 0;
 }
 
-void ubasic_eval_float_fn(const char* fn_name, struct ubasic_ctx* ctx, float* res)
+void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	if (def != NULL)
@@ -2296,7 +2293,7 @@ void ubasic_eval_float_fn(const char* fn_name, struct ubasic_ctx* ctx, float* re
 			tokenizer_error_print(ctx, "End of function without returning value");
 		else
 		{
-			*res = *((float*)atomic->fn_return);
+			*res = *((double*)atomic->fn_return);
 		}
 
 		/* Only free the base struct! */
@@ -2396,25 +2393,25 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	return 0; /* No such variable */
 }
 
-void ubasic_get_float_variable(const char* var, struct ubasic_ctx* ctx, float* res)
+void ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res)
 {
-	if (ubasic_builtin_float_fn(var, ctx, res)) {
+	if (ubasic_builtin_double_fn(var, ctx, res)) {
 		return;
 	}
 		
 	if (varname_is_function(var)) {
-		ubasic_eval_float_fn(var, ctx, res);
+		ubasic_eval_double_fn(var, ctx, res);
 		return;
 	}
 
-	struct ub_var_float* list[] = { 
-		ctx->local_float_variables[ctx->gosub_stack_ptr],
-		ctx->float_variables
+	struct ub_var_double* list[] = { 
+		ctx->local_double_variables[ctx->gosub_stack_ptr],
+		ctx->double_variables
 	};
 	int j;
 
 	for (j = 0; j < 2; j++)	{
-		struct ub_var_float* cur = list[j];
+		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
 				*res = cur->value;

@@ -232,7 +232,7 @@ int gc()
 	return n;
 }
 
-bool atof(const char* s, float* a)
+bool atof(const char* s, double* a)
 {
 	dprintf("atof(\"%s\")\n", s);
 	*a = 0.0f;
@@ -272,7 +272,7 @@ bool atof(const char* s, float* a)
 		e++;
 	}
 	char buffer[50];
-	dprintf("atof returned %s\n", float_to_string(*a, buffer, 50, 6));
+	dprintf("atof returned %s\n", double_to_string(*a, buffer, 50, 0));
 	return true;
 }
 

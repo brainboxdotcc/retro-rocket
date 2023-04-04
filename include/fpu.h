@@ -27,7 +27,7 @@ static int64_t mul[] = {
         10000000000,    // 10 decimals
 };
 
-static inline uint8_t float_determine_decimal_places(double f)
+static inline uint8_t double_determine_decimal_places(double f)
 {
         int prec = 0;
         while ((f-(int64_t)f) != 0.0 || f < 1) {
@@ -38,7 +38,7 @@ static inline uint8_t float_determine_decimal_places(double f)
 }
 
 /**
- * @brief Convert a floating point number to char* string,
+ * @brief Convert a doubleing point number to char* string,
  * with a specified decimal precision.
  *
  * This function retains accuraccy by converting to 64 bit
@@ -54,12 +54,12 @@ static inline uint8_t float_determine_decimal_places(double f)
  * display full precision of the value
  * @return char* pointer to value in buffer 
  */
-static inline char * float_to_string(double x, char *p, int64_t len, uint8_t precision) {
+static inline char * double_to_string(double x, char *p, int64_t len, uint8_t precision) {
 
 	bool neg = x < 0.0;
 	char buffer[64], buffer_part[64];
 	char* index = buffer, *start = p, *decimal_pos = NULL;
-	uint8_t decimals = float_determine_decimal_places(x);
+	uint8_t decimals = double_determine_decimal_places(x);
 	// 10 digits precision is the most this function supports
 	decimals = decimals > 10 ? 10 : decimals;
 	precision = precision > 10 ? 10 : precision;
