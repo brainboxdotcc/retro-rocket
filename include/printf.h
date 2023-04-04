@@ -1,5 +1,6 @@
-#ifndef __PRINTF__H__
-#define __PRINTF__H__
+#pragma once
+
+#include "kernel.h"
 
 typedef __builtin_va_list va_list;
 #define va_start(ap, X) __builtin_va_start(ap, X)
@@ -20,11 +21,15 @@ typedef __builtin_va_list va_list;
 2^64-1 in base 8 has 21 digits (add 5 for trailing NUL and for slop) */
 #define PR_BUFLEN       26
 
-typedef int (*fnptr_t)(unsigned c, void **helper);
+typedef int (*fnptr_t)(unsigned c, void **helper, const void* end);
 
 int vsprintf(char *buf, const char *fmt, va_list args);
 
+int vsnprintf(char *buf, size_t max, const char *fmt, va_list args);
+
 int sprintf(char *buf, const char *fmt, ...);
+
+int snprintf(char *buf, size_t max, const char *fmt, ...);
 
 int vprintf(const char *fmt, va_list args);
 
@@ -38,5 +43,3 @@ int printf(const char *fmt, ...);
  * @return int number of printed characters
  */
 int dprintf(const char *fmt, ...);
-
-#endif

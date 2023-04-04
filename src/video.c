@@ -190,14 +190,14 @@ unsigned char map_vga_to_ansi(unsigned char colour)
 void setbackground(console* c, unsigned char background)
 {
 	char code[100];
-	sprintf(code, "%c[%dm", 27, background + 40);
+	snprintf(code, 100, "%c[%dm", 27, background + 40);
 	putstring(c, code);
 }
 
 void setforeground(console* c, unsigned char foreground)
 {
 	char code[100];
-	sprintf(code, "%c[%dm", 27, map_vga_to_ansi(foreground));
+	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi(foreground));
 	putstring(c, code);
 }
 

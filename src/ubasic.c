@@ -801,7 +801,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 		*buffer = 0;
 		if (tokenizer_token(ctx) == TOKENIZER_STRING) {
 			if (tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
-				sprintf(buffer, "%s", ctx->string);
+				snprintf(buffer, MAX_STRINGLEN, "%s", ctx->string);
 				strlcat(out, buffer, MAX_STRINGLEN);
 			} else {
 				tokenizer_error_print(ctx, "Unterminated \"");
@@ -836,11 +836,10 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 					char double_buffer[32];
 					ctx->ptr = oldctx;
 					double_expr(ctx, &f);
-					//sprintf(buffer, "%f", f);
 					strlcat(buffer, double_to_string(f, double_buffer, 32, 0), MAX_STRINGLEN);
 				} else {
 					ctx->ptr = oldctx;
-					sprintf(buffer, next_hex ? "%lX" : "%ld", expr(ctx));
+					snprintf(buffer, MAX_STRINGLEN, next_hex ? "%lX" : "%ld", expr(ctx));
 				}
 				strlcat(out, buffer, MAX_STRINGLEN);
 				next_hex = 0;
@@ -1185,8 +1184,6 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
 
-	dprintf("let '%s' = ...\n", var);
-
 	switch (var[strlen(var) - 1])
 	{
 		case '$':
@@ -1194,12 +1191,10 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 			ubasic_set_string_variable(var, _expr, ctx, false, global);
 		break;
 		case '#':
-			dprintf("double: ctx before call: %s\n", ctx->ptr);
 			double_expr(ctx, &f_expr);
 			ubasic_set_double_variable(var, f_expr, ctx, false, global);
 		break;
 		default:
-			dprintf("int: ctx before call: %s\n", ctx->ptr);
 			ubasic_set_int_variable(var, expr(ctx), ctx, false, global);
 		break;
 	}
@@ -1675,13 +1670,13 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 
 	if (list[local] == NULL) {
 		if (local) {
-			dprintf("Set int variable '%s' to '%d' (gosub local)\n", var, value);
+			//dprintf("Set int variable '%s' to '%d' (gosub local)\n", var, value);
 			ctx->local_int_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_int));
 			ctx->local_int_variables[ctx->gosub_stack_ptr]->next = NULL;
 			ctx->local_int_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
 			ctx->local_int_variables[ctx->gosub_stack_ptr]->value = value;
 		} else {
-			dprintf("Set int variable '%s' to '%d' (default)\n", var, value);
+			//dprintf("Set int variable '%s' to '%d' (default)\n", var, value);
 			ctx->int_variables = kmalloc(sizeof(struct ub_var_int));
 			ctx->int_variables->next = NULL;
 			ctx->int_variables->varname = strdup(var);
@@ -1694,12 +1689,12 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 			cur = ctx->local_int_variables[ctx->gosub_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
-				dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
+				//dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
 				cur->value = value;
 				return;
 			}
 		}
-		dprintf("Set int variable '%s' to '%d'\n", var, value);
+		//dprintf("Set int variable '%s' to '%d'\n", var, value);
 		struct ub_var_int* newvar = kmalloc(sizeof(struct ub_var_int));
 		newvar->next = (local ? ctx->local_int_variables[ctx->gosub_stack_ptr] : ctx->int_variables);
 		newvar->varname = strdup(var);
@@ -1718,7 +1713,7 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 		ctx->double_variables,
 		ctx->local_double_variables[ctx->gosub_stack_ptr]
 	};
-	char buffer[MAX_STRINGLEN];
+	//char buffer[MAX_STRINGLEN];
 
 	if (!valid_double_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -1727,13 +1722,13 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 
 	if (list[local] == NULL) {
 		if (local) {
-			dprintf("Set double variable '%s' to '%s' (gosub local)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+			//dprintf("Set double variable '%s' to '%s' (gosub local)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 			ctx->local_double_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_double));
 			ctx->local_double_variables[ctx->gosub_stack_ptr]->next = NULL;
 			ctx->local_double_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
 			ctx->local_double_variables[ctx->gosub_stack_ptr]->value = value;
 		} else {
-			dprintf("Set double variable '%s' to '%s' (default)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+			//dprintf("Set double variable '%s' to '%s' (default)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 			ctx->double_variables = kmalloc(sizeof(struct ub_var_double));
 			ctx->double_variables->next = NULL;
 			ctx->double_variables->varname = strdup(var);
@@ -1746,12 +1741,12 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 			cur = ctx->local_double_variables[ctx->gosub_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
-				dprintf("Set double variable '%s' to '%s' (updating)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+				//dprintf("Set double variable '%s' to '%s' (updating)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 				cur->value = value;
 				return;
 			}
 		}
-		dprintf("Set double variable '%s' to '%s'\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+		//dprintf("Set double variable '%s' to '%s'\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 		struct ub_var_double* newvar = kmalloc(sizeof(struct ub_var_double));
 		newvar->next = (local ? ctx->local_double_variables[ctx->gosub_stack_ptr] : ctx->double_variables);
 		newvar->varname = strdup(var);
@@ -2387,8 +2382,8 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	}
 
 
-	char err[1024];
-	sprintf(err, "No such variable '%s'", var);
+	char err[MAX_STRINGLEN];
+	snprintf(err, MAX_STRINGLEN, "No such variable '%s'", var);
 	tokenizer_error_print(ctx, err);
 	return 0; /* No such variable */
 }

@@ -98,8 +98,9 @@ const char* datetime_to_str(datetime_t* dt) {
 	const char* weekday = weekday_map[get_weekday_from_date(dt)];
 	const char* monthname = month_map[dt->month - 1];
 	static char buffer[256];
-	sprintf(
+	snprintf(
 		buffer,
+		256,
 		"%s, %02d %s %02d%02d %02d:%02d:%02d",
 		weekday,
 		dt->day,

@@ -234,7 +234,6 @@ int gc()
 
 bool atof(const char* s, double* a)
 {
-	dprintf("atof(\"%s\")\n", s);
 	*a = 0.0f;
 	int e = 0;
 	int c;
@@ -271,8 +270,6 @@ bool atof(const char* s, double* a)
 		(*a) *= 0.1;
 		e++;
 	}
-	char buffer[50];
-	dprintf("atof returned %s\n", double_to_string(*a, buffer, 50, 0));
 	return true;
 }
 

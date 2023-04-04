@@ -147,7 +147,7 @@ char* read_mac_addr() {
 	rtl8139_device.mac_addr[3] = mac_part1 >> 24;
 	rtl8139_device.mac_addr[4] = mac_part2 >> 0;
 	rtl8139_device.mac_addr[5] = mac_part2 >> 8;
-	sprintf(rtl8139_device.mac_addr_str, "%02X:%02X:%02X:%02X:%02X:%02X", rtl8139_device.mac_addr[0], rtl8139_device.mac_addr[1], rtl8139_device.mac_addr[2], rtl8139_device.mac_addr[3], rtl8139_device.mac_addr[4], rtl8139_device.mac_addr[5]);
+	snprintf(rtl8139_device.mac_addr_str, 18, "%02X:%02X:%02X:%02X:%02X:%02X", rtl8139_device.mac_addr[0], rtl8139_device.mac_addr[1], rtl8139_device.mac_addr[2], rtl8139_device.mac_addr[3], rtl8139_device.mac_addr[4], rtl8139_device.mac_addr[5]);
 	return rtl8139_device.mac_addr_str;
 }
 
