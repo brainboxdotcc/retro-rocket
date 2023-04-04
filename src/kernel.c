@@ -3,7 +3,6 @@
 
 void kmain()
 {
-	enable_fpu();
 	initconsole();
 	heap_init();
 	detect_cores();

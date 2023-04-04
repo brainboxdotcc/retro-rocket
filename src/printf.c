@@ -17,6 +17,7 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 	/* begin scanning format specifier list */
 	for(; *fmt; fmt++)
 	{
+		bool floating = false;
 		switch(state)
 		{
 		/* STATE 0: AWAITING % */
@@ -111,6 +112,9 @@ static int do_printf(const char *fmt, va_list args, fnptr_t fn, void *ptr)
 				__attribute__((fallthrough));
 			case 'u':
 				radix = 10;
+				goto DO_NUM;
+			case 'f':
+				floating = true;
 				goto DO_NUM;
 			case 'o':
 				radix = 8;
