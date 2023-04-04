@@ -30,6 +30,7 @@
 #include <kernel.h>
 
 static int64_t expr(struct ubasic_ctx* ctx);
+static void float_expr(struct ubasic_ctx* ctx, float* res);
 static void line_statement(struct ubasic_ctx* ctx);
 static void statement(struct ubasic_ctx* ctx);
 static const char* str_expr(struct ubasic_ctx* ctx);
@@ -40,7 +41,7 @@ int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
 char* ubasic_getprocname(struct ubasic_ctx* ctx);
 char* ubasic_dns(struct ubasic_ctx* ctx);
 int64_t ubasic_rgb(struct ubasic_ctx* ctx);
-
+void ubasic_eval_float_fn(const char* fn_name, struct ubasic_ctx* ctx, float* res);
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -57,6 +58,10 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_getprocid, "GETPROCID" },
 	{ ubasic_rgb, "RGB" },
 	{ NULL, NULL }
+};
+
+struct ubasic_float_fn builtin_float[] = {
+	{ NULL, NULL },
 };
 
 struct ubasic_str_fn builtin_str[] =
@@ -115,10 +120,11 @@ void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
 	ubasic_set_int_variable("TRUE", 1, ctx, false, false);
 	ubasic_set_int_variable("FALSE", 0, ctx, false, false);
 	ubasic_set_int_variable("PID", pid, ctx, false, false);
+	ubasic_set_float_variable("PI#", 3.141592653589793238f, ctx, false, false);
 }
 
 /*---------------------------------------------------------------------------*/
-struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid)
+struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file)
 {
 	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
 	int i;
@@ -126,10 +132,13 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid)
 	ctx->current_token = TOKENIZER_ERROR;	
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
+	ctx->float_variables = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_string_variables[i] = NULL;
+	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+		ctx->local_float_variables[i] = NULL;
 	ctx->cons = (struct console*)cons;
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
@@ -151,6 +160,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid)
 	ubasic_parse_fn(ctx);
 
 	set_system_variables(ctx, pid);
+	ubasic_set_string_variable("PROGRAM$", file, ctx, false, false);
 
 	return ctx;
 }
@@ -163,11 +173,14 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->current_token = TOKENIZER_ERROR;
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
+	ctx->float_variables = old->float_variables;
 
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = old->local_int_variables[i];
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_string_variables[i] = old->local_string_variables[i];
+	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+		ctx->local_float_variables[i] = old->local_float_variables[i];
 
 	ctx->cons = old->cons;
 	ctx->oldlen = old->oldlen;
@@ -382,6 +395,27 @@ static int64_t varfactor(struct ubasic_ctx* ctx)
 	return r;
 }
 
+static void float_varfactor(struct ubasic_ctx* ctx, float* res)
+{
+	float r;
+
+	ubasic_get_float_variable(tokenizer_variable_name(ctx), ctx, &r);
+
+	dprintf("float_varfactor\n");
+
+	// Special case for builin functions
+	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
+		tokenizer_error_print(ctx, "Too many parameters for builtin function");
+	else
+	{
+		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
+			accept(TOKENIZER_RIGHTPAREN, ctx);
+		else
+			accept(TOKENIZER_VARIABLE, ctx);
+	}
+	*res = r;
+}
+
 const char* str_varfactor(struct ubasic_ctx* ctx)
 {
 	const char* r;
@@ -429,6 +463,34 @@ static int64_t factor(struct ubasic_ctx* ctx)
 		break;
 	}
 	return r;
+}
+
+static void float_factor(struct ubasic_ctx* ctx, float* res)
+{
+	char buffer[50];
+
+	int tok = tokenizer_token(ctx);
+	switch (tok) {
+		case TOKENIZER_NUMBER:
+			dprintf("float_factor TOKENIZER_NUMBER\n");
+			tokenizer_fnum(ctx, tok, res);
+			dprintf("float_factor fnum->r=%s\n", float_to_string(*res, buffer, 50, 6));
+			accept(tok, ctx);
+		break;
+		case TOKENIZER_LEFTPAREN:
+			dprintf("float_factor TOKENIZER_LEFTPAREN\n");
+			accept(TOKENIZER_LEFTPAREN, ctx);
+			float_expr(ctx, res);
+			dprintf("float_factor expr->r=%s\n", float_to_string(*res, buffer, 50, 6));
+			accept(TOKENIZER_RIGHTPAREN, ctx);
+		break;
+		default:
+			dprintf("float_factor default\n");
+			float_varfactor(ctx, res);
+			dprintf("float_factor varfactor->r=%s\n", float_to_string(*res, buffer, 50, 6));
+		break;
+	}
+	dprintf("float_factor end, r=%s\n", float_to_string(*res, buffer, 50, 6));
 }
 
 static const char* str_factor(struct ubasic_ctx* ctx)
@@ -479,6 +541,44 @@ static int64_t term(struct ubasic_ctx* ctx)
 	}
 	return f1;
 }
+
+static void float_term(struct ubasic_ctx* ctx, float* res)
+{
+	float f1, f2;
+	int op;
+	char buffer[50];
+
+	dprintf("float_term first float_factor call\n");
+	float_factor(ctx, &f1);
+	dprintf("float_term f1=%s\n", float_to_string(f1, buffer, 50, 6));
+
+	op = tokenizer_token(ctx);
+	dprintf("first op=%d %s\n", op, types[op]);
+	while (op == TOKENIZER_ASTR || op == TOKENIZER_SLASH || op == TOKENIZER_MOD)
+	{
+		tokenizer_next(ctx);
+		dprintf("float_term second float_factor call\n");
+		float_factor(ctx, &f2);
+		dprintf("float_term f2=%s\n", float_to_string(f2, buffer, 50, 6));
+		switch (op)
+		{
+			case TOKENIZER_ASTR:
+				f1 = f1 * f2;
+			break;
+			case TOKENIZER_SLASH:
+				f1 = f1 / f2;
+			break;
+			case TOKENIZER_MOD:
+				f1 = (int64_t)f1 % (int64_t)f2;
+			break;
+		}
+		op = tokenizer_token(ctx);
+	}
+	dprintf("final op=%d %s\n", op, types[op]);
+	dprintf("float_term returning %s\n", float_to_string(f1, buffer, 50, 6));
+	*res = f1;
+}
+
 /*---------------------------------------------------------------------------*/
 static int64_t expr(struct ubasic_ctx* ctx)
 {
@@ -512,6 +612,45 @@ static int64_t expr(struct ubasic_ctx* ctx)
 	return t1;
 }
 
+static void float_expr(struct ubasic_ctx* ctx, float* res)
+{
+	float t1, t2;
+	int op;
+
+	dprintf("float_expr()\n");
+
+	float_term(ctx, &t1);
+	op = tokenizer_token(ctx);
+	dprintf("float_expr before type, type is %d %s\n", op, types[op]);
+
+	while (op == TOKENIZER_PLUS || op == TOKENIZER_MINUS || op == TOKENIZER_AND || op == TOKENIZER_OR) {
+		dprintf("float_expr after type, type is %d %s\n", op, types[op]);
+		tokenizer_next(ctx);
+		dprintf("float_expr call 2nd float_term\n");
+		float_term(ctx, &t2);
+		switch (op) {
+			case TOKENIZER_PLUS:
+				dprintf("tokenizer plus\n");
+				t1 = t1 + t2;
+			break;
+			case TOKENIZER_MINUS:
+				dprintf("tokenizer minus\n");
+				t1 = t1 - t2;
+			break;
+			case TOKENIZER_AND:
+				dprintf("tokenizer and\n");
+				t1 = (int64_t)t1 & (int64_t)t2;
+			break;
+			case TOKENIZER_OR:
+				dprintf("tokenizer or\n");
+				t1 = (int64_t)t1 | (int64_t)t2;
+			break;
+		}
+		op = tokenizer_token(ctx);
+	}
+	dprintf("float_expr done\n");
+	*res = t1;
+}
 
 
 static const char* str_expr(struct ubasic_ctx* ctx)
@@ -670,7 +809,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 			}
 			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == TOKENIZER_COMMA) {
-			strlcat(out, " ", MAX_STRINGLEN);
+			strlcat(out, "\t", MAX_STRINGLEN);
 			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == TOKENIZER_SEMICOLON) {
 			no_newline = 1;
@@ -689,7 +828,19 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 				strlcat(out, buffer, MAX_STRINGLEN);
 			} else {
 				ctx->ptr = oldctx;
-				sprintf(buffer, next_hex ? "%lX" : "%ld", expr(ctx));
+				const char* var_name = tokenizer_variable_name(ctx);
+				ctx->ptr = oldctx;
+				bool printable_float = (strchr(var_name, '#') || tokenizer_decimal_number(ctx));
+				if (printable_float) {
+					float f = 0.0;
+					char float_buffer[32];
+					ctx->ptr = oldctx;
+					float_expr(ctx, &f);
+					strlcat(out, float_to_string(f, float_buffer, 32, float_determine_decimal_places(f)), MAX_STRINGLEN);
+				} else {
+					ctx->ptr = oldctx;
+					sprintf(buffer, next_hex ? "%lX" : "%ld", expr(ctx));
+				}
 				strlcat(out, buffer, MAX_STRINGLEN);
 				next_hex = 0;
 			}
@@ -792,6 +943,7 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	struct ubasic_ctx* new_proc = p->code;
 	struct ub_var_int* cur_int = ctx->int_variables;
 	struct ub_var_string* cur_str = ctx->str_variables;
+	struct ub_var_float* cur_float = ctx->float_variables;
 
 	for (; cur_int; cur_int = cur_int->next) {
 		if (cur_int->global) {
@@ -801,6 +953,11 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	for (; cur_str; cur_str = cur_str->next) {
 		if (cur_str->global) {
 			ubasic_set_string_variable(cur_str->varname, cur_str->value, new_proc, false, true);
+		}
+	}
+	for (; cur_float; cur_float = cur_float->next) {
+		if (cur_float->global) {
+			ubasic_set_float_variable(cur_float->varname, cur_float->value, new_proc, false, true);
 		}
 	}
 
@@ -901,6 +1058,11 @@ static void input_statement(struct ubasic_ctx* ctx)
 			case '$':
 				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
 			break;
+			case '#':
+				float f = 0;
+				atof(kgetinput((console*)ctx->cons), &f);
+				ubasic_set_float_variable(var, f, ctx, false, false);
+			break;
 			default:
 				ubasic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
 			break;
@@ -939,6 +1101,11 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 			case '$':
 				ubasic_set_string_variable(var, input, ctx, false, false);
 			break;
+			case '#':
+				float f = 0;
+				atof(input, &f);
+				ubasic_set_float_variable(var, f, ctx, false, false);
+			break;
 			default:
 				ubasic_set_int_variable(var, atoll(input, 10), ctx, false, false);
 			break;
@@ -974,6 +1141,9 @@ static void connect_statement(struct ubasic_ctx* ctx)
 			case '$':
 				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
 			break;
+			case '#':
+				tokenizer_error_print(ctx, "Cannot store socket descriptor in REAL");
+			break;
 			default:
 				ubasic_set_int_variable(fd_var, rv, ctx, false, false);
 			break;
@@ -1008,24 +1178,28 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 {
 	const char* var;
 	const char* _expr;
+	float f_expr = 0;
 
 	var = tokenizer_variable_name(ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
 
-	//kprintf("let '%s' = ", var);
+	dprintf("let '%s' = ...\n", var);
 
 	switch (var[strlen(var) - 1])
 	{
 		case '$':
 			_expr = str_expr(ctx);
-			//kprintf(var);
-			ubasic_set_string_variable(var, _expr, ctx, 0, global);
-			//kprintf("'%s'\n", _expr);
+			ubasic_set_string_variable(var, _expr, ctx, false, global);
+		break;
+		case '#':
+			dprintf("float: ctx before call: %s\n", ctx->ptr);
+			float_expr(ctx, &f_expr);
+			ubasic_set_float_variable(var, f_expr, ctx, false, global);
 		break;
 		default:
-			ubasic_set_int_variable(var, expr(ctx), ctx, 0, global);
-			//kprintf("numeric\n");
+			dprintf("int: ctx before call: %s\n", ctx->ptr);
+			ubasic_set_int_variable(var, expr(ctx), ctx, false, global);
 		break;
 	}
 	accept(TOKENIZER_CR, ctx);
@@ -1326,7 +1500,6 @@ static void line_statement(struct ubasic_ctx* ctx)
 {
 	ctx->current_linenum = tokenizer_num(ctx, TOKENIZER_NUMBER);
 	accept(TOKENIZER_NUMBER, ctx);
-	//kprintf("%s\n", ctx->ptr);
 	statement(ctx);
 	return;
 }
@@ -1357,6 +1530,14 @@ void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* 
 		case '$':
 			ubasic_set_string_variable(var, value, ctx, 0, false);
 		break;
+		case '#':
+			dprintf("Float: '%s'\n", value);
+			float f = 0.0;
+			atof(value, &f);
+			char buffer[50];
+			dprintf("Converted: '%s'\n", float_to_string(f, buffer, 50, 6));
+			ubasic_set_float_variable(var, f, ctx, 0, false);
+		break;
 		case ')':
 			ubasic_set_array_variable(var, atoll(value, 10), ctx, 0);
 		break;
@@ -1375,6 +1556,24 @@ int valid_string_var(const char* name)
 	}
 	for (i = name; *i != '$'; i++) {
 		if (*i == '$' && *(i + 1) != 0) {
+		       return 0;
+		}
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int valid_float_var(const char* name)
+{
+	const char* i;
+	unsigned int varLength = strlen(name);
+	if (varLength < 2 || name[varLength - 1] != '#') {
+		return 0;
+	}
+	for (i = name; *i != '#'; i++) {
+		if (*i == '#' && *(i + 1) != 0) {
 		       return 0;
 		}
 		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
@@ -1515,6 +1714,58 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 	}
 }
 
+void ubasic_set_float_variable(const char* var, float value, struct ubasic_ctx* ctx, bool local, bool global)
+{
+	struct ub_var_float* list[] = {
+		ctx->float_variables,
+		ctx->local_float_variables[ctx->gosub_stack_ptr]
+	};
+	char buffer[MAX_STRINGLEN];
+
+	if (!valid_float_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return;
+	}
+
+	if (list[local] == NULL) {
+		if (local) {
+			dprintf("Set float variable '%s' to '%s' (gosub local)\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
+			ctx->local_float_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_float));
+			ctx->local_float_variables[ctx->gosub_stack_ptr]->next = NULL;
+			ctx->local_float_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
+			ctx->local_float_variables[ctx->gosub_stack_ptr]->value = value;
+		} else {
+			dprintf("Set float variable '%s' to '%s' (default)\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
+			ctx->float_variables = kmalloc(sizeof(struct ub_var_float));
+			ctx->float_variables->next = NULL;
+			ctx->float_variables->varname = strdup(var);
+			ctx->float_variables->value = value;
+		}
+		return;
+	} else {
+		struct ub_var_float* cur = ctx->float_variables;
+		if (local)
+			cur = ctx->local_float_variables[ctx->gosub_stack_ptr];
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname)) {
+				dprintf("Set float variable '%s' to '%s' (updating)\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
+				cur->value = value;
+				return;
+			}
+		}
+		dprintf("Set float variable '%s' to '%s'\n", var, float_to_string(value, buffer, MAX_STRINGLEN, 6));
+		struct ub_var_float* newvar = kmalloc(sizeof(struct ub_var_float));
+		newvar->next = (local ? ctx->local_float_variables[ctx->gosub_stack_ptr] : ctx->float_variables);
+		newvar->varname = strdup(var);
+		newvar->value = value;
+		if (local) {
+			ctx->local_float_variables[ctx->gosub_stack_ptr] = newvar;
+		} else {
+			ctx->float_variables = newvar;
+		}
+	}
+}
+
 void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 	ctx->bracket_depth = 0;
 	ctx->param = def->params;
@@ -1549,8 +1800,13 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 		ctx->current_token = get_next_token(ctx);
 		*oldptr = 0;
 		if (ctx->param) {
-			if (ctx->param->name[strlen(ctx->param->name) - 1] == '$') {
+			size_t len = strlen(ctx->param->name);
+			if (ctx->param->name[len - 1] == '$') {
 				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
+			} else if (ctx->param->name[len - 1] == '#') {
+				float f = 0.0;
+				float_expr(ctx, &f);
+				ubasic_set_float_variable(ctx->param->name, f, ctx, true, false);
 			} else {
 				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
 			}
@@ -1612,12 +1868,12 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 
 #define PARAMS_START \
 	[[maybe_unused]] int itemtype = BIP_INT; \
-	[[maybe_unused]] int64_t intval; \
-	[[maybe_unused]] char* strval; \
-	[[maybe_unused]] char oldval; \
-	[[maybe_unused]] char oldct; \
-	[[maybe_unused]] char* oldptr; \
-	[[maybe_unused]] char const* oldnextptr; \
+	[[maybe_unused]] int64_t intval = 0; \
+	[[maybe_unused]] char* strval = NULL; \
+	[[maybe_unused]] char oldval = 0; \
+	[[maybe_unused]] char oldct = 0; \
+	[[maybe_unused]] char* oldptr = 0; \
+	[[maybe_unused]] char const* oldnextptr = NULL; \
 	[[maybe_unused]] int gotone = 0; \
 	[[maybe_unused]] int bracket_depth = 0; \
 	[[maybe_unused]] char const* item_begin = ctx->ptr;
@@ -1950,6 +2206,16 @@ char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int64_t*
 	return 0;
 }
 
+char ubasic_builtin_float_fn(const char* fn_name, struct ubasic_ctx* ctx, float* res) {
+	int i;
+	for (i = 0; builtin_float[i].name; ++i) {
+		if (!strcmp(fn_name, builtin_float[i].name)) {
+			builtin_float[i].handler(ctx, res);
+			return 1;
+		}
+	}
+	return 0;
+}
 
 /**
  * @brief Check if a function name is a builtin function returning a string,
@@ -2006,6 +2272,42 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	}
 	tokenizer_error_print(ctx, "No such integer FN");
 	return 0;
+}
+
+void ubasic_eval_float_fn(const char* fn_name, struct ubasic_ctx* ctx, float* res)
+{
+	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
+	if (def != NULL)
+	{
+		ctx->gosub_stack_ptr++;
+
+		begin_comma_list(def, ctx);
+		while (extract_comma_list(def, ctx));
+		struct ubasic_ctx* atomic = ubasic_clone(ctx);
+		atomic->fn_type = RT_FLOAT;
+		jump_linenum(def->line, atomic);
+
+		while (!ubasic_finished(atomic))
+		{
+			line_statement(atomic);
+		}
+		if (atomic->fn_return == NULL)
+			tokenizer_error_print(ctx, "End of function without returning value");
+		else
+		{
+			*res = *((float*)atomic->fn_return);
+		}
+
+		/* Only free the base struct! */
+		kfree(atomic);
+
+		ctx->gosub_stack_ptr--;
+
+		return;
+	}
+	tokenizer_error_print(ctx, "No such real FN");
+	*res = 0.0;
+	return;
 }
 
 /**
@@ -2091,5 +2393,39 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	sprintf(err, "No such variable '%s'", var);
 	tokenizer_error_print(ctx, err);
 	return 0; /* No such variable */
+}
+
+void ubasic_get_float_variable(const char* var, struct ubasic_ctx* ctx, float* res)
+{
+	if (ubasic_builtin_float_fn(var, ctx, res)) {
+		return;
+	}
+		
+	if (varname_is_function(var)) {
+		ubasic_eval_float_fn(var, ctx, res);
+		return;
+	}
+
+	struct ub_var_float* list[] = { 
+		ctx->local_float_variables[ctx->gosub_stack_ptr],
+		ctx->float_variables
+	};
+	int j;
+
+	for (j = 0; j < 2; j++)	{
+		struct ub_var_float* cur = list[j];
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
+				*res = cur->value;
+				return;
+			}
+		}
+	}
+
+
+	char err[1024];
+	sprintf(err, "No such variable '%s'", var);
+	tokenizer_error_print(ctx, err);
+	*res = 0.0; /* No such variable */
 }
 

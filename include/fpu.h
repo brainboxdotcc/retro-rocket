@@ -26,15 +26,20 @@ extern void enable_sse();
  * it will not point to the start of the buffer!
  */
 static inline char * float_to_string(float x, char *p, size_t len, uint8_t precision) {
+	if (x == 0.0) {
+		*p = '0';
+		*(p + 1) = 0;
+		return p;
+	}
 	char *s = p + len - 1; // go to end of buffer
-	precision = precision > 7 ? 7 : precision;
+	precision = precision > 11 ? 11 : precision;
 	uint64_t decimals;  // variable to store the decimals
 	int64_t units;  // variable to store the units (part to left of decimal place)
 	if (x < 0) { // take care of negative numbers
-		decimals = (int64_t)(x * -100000000) % 100000000; // number of decimal places
+		decimals = (int64_t)(x * -10000000.0) % 10000000; // number of decimal places
 		units = (int64_t)(-1 * x);
 	} else { // positive numbers
-		decimals = (int64_t)(x * 100000000) % 100000000;
+		decimals = (int64_t)(x * 10000000.0) % 10000000;
 		units = (int64_t)x;
 	}
 	*--s = 0; // Null terminate the string
@@ -58,4 +63,14 @@ static inline char * float_to_string(float x, char *p, size_t len, uint8_t preci
 		 *--s = '-'; // unary minus sign for negative numbers
 	}
 	return s;
+}
+
+static inline uint8_t float_determine_decimal_places(float f)
+{
+	int prec = 0;
+	while ((f-(int64_t)f) != 0.0f && prec <= 11) {
+		f *= 10.0f;
+		prec++;
+	}
+	return prec + 1;
 }

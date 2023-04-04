@@ -38,6 +38,14 @@ struct ub_var_int
 	struct ub_var_int* next;
 };
 
+struct ub_var_float
+{
+	char* varname;
+	float value;
+	bool global;
+	struct ub_var_float* next;
+};
+
 struct ub_var_string
 {
 	char* varname; /* Not including the $ on the end! */
@@ -55,7 +63,8 @@ typedef enum
 typedef enum
 {
 	RT_STRING,
-	RT_INT
+	RT_INT,
+	RT_FLOAT,
 } ub_return_type;
 
 struct ub_param
@@ -99,6 +108,7 @@ struct ubasic_ctx
         int gosub_stack[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_int* local_int_variables[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_string* local_string_variables[MAX_GOSUB_STACK_DEPTH];
+	struct ub_var_float* local_float_variables[MAX_GOSUB_STACK_DEPTH];
         uint64_t gosub_stack_ptr;
 	int oldlen;
 	int64_t eval_linenum;
@@ -107,6 +117,7 @@ struct ubasic_ctx
 	struct ub_proc_fn_def* defs;
         struct ub_var_int* int_variables;
 	struct ub_var_string* str_variables;
+	struct ub_var_float* float_variables;
 	struct ub_var_int_array* int_array_variables;
 	struct ub_var_string_array* string_array_variables;
 	struct console* cons;
@@ -140,10 +151,17 @@ char* ubasic_getname(struct ubasic_ctx* ctx);
 
 typedef int64_t (*builtin_int_fn)(struct ubasic_ctx* ctx);
 typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
+typedef void (*builtin_float_fn)(struct ubasic_ctx* ctx, float* res);
 
 struct ubasic_int_fn
 {
 	builtin_int_fn handler;
+	const char* name;
+};
+
+struct ubasic_float_fn
+{
+	builtin_float_fn handler;
 	const char* name;
 };
 
@@ -153,15 +171,17 @@ struct ubasic_str_fn
 	const char* name;
 };
 
-struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid);
+struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);
 int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
+void ubasic_get_float_variable(const char* var, struct ubasic_ctx* ctx, float* res);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
 void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global);
+void ubasic_set_float_variable(const char* var, const float value, struct ubasic_ctx* ctx, bool local, bool global);
 void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);
 void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local);
 

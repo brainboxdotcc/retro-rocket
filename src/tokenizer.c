@@ -27,7 +27,7 @@
 
 #include <kernel.h>
 
-#define MAX_NUMLEN 20
+#define MAX_NUMLEN 32
 
 const char* types[] = {
 	"ERROR",
@@ -191,9 +191,8 @@ int get_next_token(struct ubasic_ctx* ctx)
 		return TOKENIZER_ENDOFINPUT;
 	}
 	
-	if (isdigit(*ctx->ptr) || *ctx->ptr == '&') {
+	if (isdigit(*ctx->ptr) || *ctx->ptr == '&'|| *ctx->ptr == '.') {
 		hex = (*ctx->ptr == '&') ? 1 : 0;
-		//kprintf("Hex=%d\n", hex);
 		if (hex) {
 			ctx->ptr++;
 			for (i = 0; i < MAX_NUMLEN; ++i) {
@@ -212,8 +211,10 @@ int get_next_token(struct ubasic_ctx* ctx)
 				}
 			}
 		} else {
+			/* Scan forwards up to MAX_NUMLEN characters */
 			for (i = 0; i < MAX_NUMLEN; ++i) {
-				if (!isdigit(ctx->ptr[i])) {
+				/* Until we find a character that isnt part of a number */
+				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
 					if (i > 0) {
 						ctx->nextptr = ctx->ptr + i;
 						return TOKENIZER_NUMBER;
@@ -222,7 +223,7 @@ int get_next_token(struct ubasic_ctx* ctx)
 						return TOKENIZER_ERROR;
 					}
 				}
-				if (!isdigit(ctx->ptr[i])) {
+				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
 					tokenizer_error_print(ctx, "Malformed number");
 					return TOKENIZER_ERROR;
 				}
@@ -255,10 +256,10 @@ int get_next_token(struct ubasic_ctx* ctx)
 		}
 	}
 
-	if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) {
+	if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$') || (*ctx->ptr == '#')) {
 		ctx->nextptr = ctx->ptr;
 		int varl = 0;
-		while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->nextptr == '$') || (*ctx->nextptr == '(')
+		while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->nextptr == '$') || (*ctx->nextptr == '#') || (*ctx->nextptr == '(')
 				|| (varl > 0 && isdigit(*ctx->nextptr)))
 		{
 			//kprintf("%c", *ctx->nextptr);
@@ -284,7 +285,7 @@ int get_next_token(struct ubasic_ctx* ctx)
 				break;
 			}
 		}
-		if (*ctx->nextptr == '$')
+		if (*ctx->nextptr == '$' || *ctx->nextptr == '#')
 			ctx->nextptr++;
 		//kprintf("Variable. nextptr = %08x ptr = %08x\n", ctx->nextptr, ctx->ptr);
 		return TOKENIZER_VARIABLE;
@@ -326,6 +327,12 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 {
 	return token == TOKENIZER_NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
+}
+
+void tokenizer_fnum(struct ubasic_ctx* ctx, int token, float* f)
+{
+	atof(ctx->ptr, f);
+	return;
 }
 /*---------------------------------------------------------------------------*/
 bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
@@ -383,7 +390,7 @@ const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 {
 	char varname[MAX_VARNAME];
 	int count = 0;
-	while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$')) && count < MAX_VARNAME)
+	while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$') || (*ctx->ptr == '#')) && count < MAX_VARNAME)
 	{
 		varname[count++] = *(ctx->ptr++);
 	}
@@ -392,3 +399,32 @@ const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 	return gc_strdup(varname);
 }
 /*---------------------------------------------------------------------------*/
+
+bool tokenizer_decimal_number(struct ubasic_ctx* ctx)
+{
+	const char* ptr = ctx->ptr;
+	int whole_part_count = 0, decimal_part_count = 0;
+	while (isdigit(*ptr)) {
+		whole_part_count++;
+		ptr++;
+		dprintf("decimal check part 1, ok %c count=%d\n", *(ptr - 1), whole_part_count);
+	}
+	dprintf("Ended at whole part=%d\n", whole_part_count);
+	if (whole_part_count && *ptr == '.') {
+		ptr++;
+		dprintf("decimal check part 2, ok %c\n", *(ptr - 1));
+		while (isdigit(*ptr)) {
+			ptr++;
+			dprintf("decimal check part 3, ok %c\n", *(ptr - 1));
+			decimal_part_count++;
+		}
+		if (decimal_part_count) {
+			dprintf("decimal part check ok\n");
+			return true;
+		}
+	} else {
+		dprintf("wasnt '.', was %c count=%d\n", *(ptr - 1), whole_part_count);
+	}
+	dprintf("decimal part check fail\n");
+	return false;
+}

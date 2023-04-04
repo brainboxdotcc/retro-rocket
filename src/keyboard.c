@@ -22,7 +22,7 @@ static const char keyboard_scan_map_lower[] = {0, 27, '1', '2', '3', '4', '5', '
 					 0 /* F10 */, 0 /* NUMLOCK */, 0 /* SCROLL LOCK */, 0 /* HOME */, 0 /* UP */, 0 /* PGUP */,
 					'-', '4', '5', '6', '+', '1', '2', '3', '0', '.'};
 
-static const char keyboard_scan_map_upper[] = {0, 27, '!', '@', '?', '$', '%', '^', '&', '*', '(', ')', '_', '+', 8, 9, 'Q', 'W', 'E',
+static const char keyboard_scan_map_upper[] = {0, 27, '!', '@', '~', '$', '%', '^', '&', '*', '(', ')', '_', '+', 8, 9, 'Q', 'W', 'E',
 					'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 13, 0 /* CTRL */, 'A', 'S', 'D', 'F', 'G', 'H',
 					'J', 'K', 'L', ':', '"', '~', 0 /* LEFT SHIFT*/, '|', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<',
 					'>', '?', 0 /* RIGHT SHIFT */, 0 /* PRT SCR */, 0 /* ALT */, ' ', 0 /* CAPS LOCK */, 0 /* F1 */,
@@ -46,27 +46,30 @@ unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t
 {
 	if (escaped) {
 		switch (scancode) {
+			/* Alt+# or Alt+3 for # symbol, a kludge for vnc/qemu */
 			case 0x48:
-				kprintf("UP");
+				dprintf("UP");
 			break;
 			case 0x50:
-				kprintf("DOWN");
+				dprintf("DOWN");
 			break;
 			case 0x4B:
-				kprintf("LEFT");
+				dprintf("LEFT");
 			break;
 			case 0x4D:
-				kprintf("RIGHT");
+				dprintf("RIGHT");
 			break;
 			default:
-				kprintf("Unknown escape seq: %02x", scancode);
+				dprintf("Unknown escape seq: %02x", scancode);
 			break;
 		}
 		return 0;
 	} else {
+		/* Kludge for stupid vnc/qemu keymapping, alt+# for # symbol */
+		if (scancode == 0x04 && alt_state) return '#';
 		if (scancode > 0x53 || keyboard_scan_map_lower[scancode] == 0) {
 			/* Special key */
-			kprintf("Keyboard: Special key %08x not implemented yet\n", scancode);
+			dprintf("Keyboard: Special key %08x not implemented yet\n", scancode);
 			return 0;
 		} else {
 			if (caps_lock) {

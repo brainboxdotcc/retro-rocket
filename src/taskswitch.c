@@ -21,7 +21,7 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 		if (fs_read_file(fsi, 0, fsi->size, programtext)) {
 			//kprintf("program len = %d size = %d cpu=%d\n", strlen(programtext), fsi->size, nextcpu);
 			struct process* newproc = (struct process*)kmalloc(sizeof(struct process));
-			newproc->code = ubasic_init((const char*)programtext, (console*)cons, nextid);
+			newproc->code = ubasic_init((const char*)programtext, (console*)cons, nextid, fullpath);
 			newproc->waitpid = 0;
 			newproc->name = strdup(fsi->filename);
 			newproc->pid = nextid++;
