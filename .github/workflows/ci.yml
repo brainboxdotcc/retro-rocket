@@ -1,0 +1,37 @@
+name: Retro Rocket CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  iso:
+    name: Build and package ISO
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install apt packages
+        run: sudo apt-get update &&
+             sudo apt-get install nasm xorriso
+
+      - name: Generate CMake
+        run: mkdir build && cd build && cmake ..
+
+      - name: Build Project
+        run: cd build && make -j4
+
+      - name: Upload Binary (iso)
+        uses: actions/upload-artifact@v3
+        with:
+          name: "retro-rocket-image"
+          path: '${{github.workspace}}/build/*.iso'
+
+      - name: Upload Binary (bzip2)
+        uses: actions/upload-artifact@v3
+        with:
+          name: "retro-rocket-with-launchers"
+          path: '${{github.workspace}}/build/*.bz2'
