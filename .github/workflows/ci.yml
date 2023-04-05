@@ -26,8 +26,11 @@ jobs:
       - name: Build Project
         run: cd build && make -j4
 
+      - name: Prepare for packaging
+        run: cd build && mkdir package && cp -rv *.sh *.iso package/
+
       - name: Upload Binary (iso)
         uses: actions/upload-artifact@v3
         with:
           name: "retro-rocket"
-          path: '${{github.workspace}}/build/*.{sh,iso}'
+          path: '${{github.workspace}}/build/package/*'
