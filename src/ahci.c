@@ -153,7 +153,7 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				sd->opaque2 = (void*)abar;
 				sd->blockread = storage_device_ahci_block_read;
 				sd->blockwrite = storage_device_ahci_block_write;
-				sd->size = ahci_read_size(&abar->ports[i], abar);
+				sd->size = dt == AHCI_DEV_SATA ? ahci_read_size(&abar->ports[i], abar) : SIZE_MAX;
 				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name);
 				sd->block_size = dt == AHCI_DEV_SATA ? 512 : 2048;
 				register_storage_device(sd);
@@ -240,7 +240,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 		spin++;
 	}
 	if (spin == 1000000) {
-		dprintf("Port is hung\n");
+		dprintf("Port hung (start %llx count %llx)\n", start, count);
 		return false;
 	}
  
@@ -253,14 +253,14 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 		if ((port->ci & (1<<slot)) == 0) 
 			break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
-			dprintf("Read disk error\n");
+			dprintf("Read disk error (start %llx count %llx)\n", start, count);
 			return false;
 		}
 	}
  
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Read disk error\n");
+		dprintf("Read disk error (start %llx count %llx)\n", start, count);
 		return false;
 	}
  
@@ -305,7 +305,7 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 		spin++;
 	}
 	if (spin == 1000000) {
-		dprintf("Port is hung\n");
+		dprintf("Port hung [read size]\n");
 		return 0;
 	}
  
@@ -318,14 +318,14 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 		if ((port->ci & (1<<slot)) == 0) 
 			break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
-			dprintf("Read disk error\n");
+			dprintf("Read disk error [read size]\n");
 			return 0;
 		}
 	}
  
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Read disk error\n");
+		dprintf("Read disk error [read size]\n");
 		return 0;
 	}
 
@@ -404,7 +404,7 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 		spin++;
 	};
 	if (spin == 1000000) {
-		dprintf("Port is hung\n");
+		dprintf("Port hung [atapi] (start %llx count %llx)\n", start, count);
 		return false;
 	}
 
@@ -413,11 +413,13 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	while(true) {
 		if ((port->ci & (1<<slot)) == 0) break;
 		if (port->is & HBA_PxIS_TFES) {
+			dprintf("Read disk error [atapi] (start %llx count %llx)\n", start, count);
 			return false;
 		}
 	}
 
 	if (port->is & HBA_PxIS_TFES) {
+		dprintf("Read disk error [atapi] (start %llx count %llx)\n", start, count);
 		return false;
 	}
 
@@ -483,7 +485,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 		spin++;
 	}
 	if (spin == 1000000) {
-		dprintf("Port is hung\n");
+		dprintf("Port hung [write] (start %llx count %llx)\n", start, count);
 		return false;
 	}
 
@@ -494,14 +496,14 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 		if ((port->ci & (1<<slot)) == 0)
 		break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
-			dprintf("Write disk error\n");
+			dprintf("Write disk error (start %llx count %llx)\n", start, count);
 			return false;
 		}
 	}
 
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Write disk error\n");
+		dprintf("Write disk error (start %llx count %llx)\n", start, count);
 		return false;
 	}
 
@@ -511,7 +513,6 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 
 void init_ahci()
 {
-	dprintf("*** INIT AHCI ***\n");
 	pci_dev_t ahci_device = pci_get_device(0, 0, 0x0106);
 	if (!ahci_device.bits) {
 		dprintf("No AHCI devices found\n");
