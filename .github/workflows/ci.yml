@@ -30,11 +30,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "retro-rocket"
-          path: '${{github.workspace}}/build/*.iso'
-          path: '${{github.workspace}}/build/*.sh'
-
-      - name: Upload Binary (bzip2)
-        uses: actions/upload-artifact@v3
-        with:
-          name: "retro-rocket-with-launchers"
-          path: '${{github.workspace}}/build/*.bz2'
+          path: '${{github.workspace}}/build/*.{sh,iso}'
