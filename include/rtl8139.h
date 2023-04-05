@@ -168,8 +168,9 @@ void rtl8139_send_packet(void* data, uint32_t len);
  * @param isr ISR number (32 + ISR)
  * @param error error code
  * @param irq Actual IRQ number
+ * @param opaque Pointer to device details
  */
-void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq);
+void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq, void* opaque);
 
 /**
  * @brief Initialise RTL8139

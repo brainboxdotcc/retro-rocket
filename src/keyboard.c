@@ -4,7 +4,7 @@ static char keyboard_buffer[1024];
 static int bufwriteptr = 0;
 static int bufreadptr = 0;
 
-void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq);
+void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque);
 
 static uint8_t escaped = 0;
 static uint8_t caps_lock = 0;
@@ -31,13 +31,13 @@ static const char keyboard_scan_map_upper[] = {0, 27, '!', '@', '~', '$', '%', '
 					'-', '4', '5', '6', '+', '1', '2', '3', '0', '.'};
 
 
-void init_basic_keyboard()
+void init_keyboard()
 {
 	char devname[16];
 	bufwriteptr = 0;
 	bufreadptr = 0;
 	make_unique_device_name("kb", devname);
-	register_interrupt_handler(IRQ1, keyboard_handler);
+	register_interrupt_handler(IRQ1, keyboard_handler, dev_zero, NULL);
 }
 
 
@@ -87,7 +87,7 @@ unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t
 
 
 
-void keyboard_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq)
+void keyboard_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
 {
 	unsigned char new_scan_code = inb(0x60);
 

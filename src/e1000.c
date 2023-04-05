@@ -277,7 +277,7 @@ void e1000_up()
 	kprintf("e1000: UP\n");
 }
 
-void e1000_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq)
+void e1000_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque)
 {
 	/* This might be needed here if your handler doesn't clear interrupts from each device and must be done before EOI if using the PIC.
 	 * Without this, the card will spam interrupts as the int-line will stay high.
@@ -330,7 +330,7 @@ bool e1000_start (pci_dev_t* pci_device)
 		e1000_writeCommand(0x5200 + i*4, 0);
 
 	uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
-	register_interrupt_handler(32 + irq_num, e1000_handler);
+	register_interrupt_handler(32 + irq_num, e1000_handler, *pci_device, NULL);
 
 	e1000_enableInterrupt();
 	e1000_rxinit();

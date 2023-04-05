@@ -421,6 +421,9 @@ void init_pci() {
 	pci_size_map[PCI_BAR5]			= 4;
 	pci_size_map[PCI_CAPABILITIES] 		= 4;
 	pci_size_map[PCI_INTERRUPT_LINE]	= 1;
+	pci_size_map[PCI_INTERRUPT_PIN]		= 1;
+	pci_size_map[PCI_MIN_GNT]		= 1;
+	pci_size_map[PCI_MAX_LAT]		= 1;
 	pci_size_map[PCI_SECONDARY_BUS]		= 1;
 
 	pci_display_device_list();
@@ -430,8 +433,8 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool de
 {
 	uint32_t status = pci_read(device, PCI_STATUS);
 
-	/* Check for MSI capability */
-	if (!(status & 0x10)) {
+	/* Check for capabilities list */
+	if (!(status & PCI_STATUS_CAPABAILITIES_LIST)) {
 		return false;
 	}
 

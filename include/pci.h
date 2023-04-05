@@ -46,7 +46,22 @@ extern pci_dev_t dev_zero;
 #define PCI_BAR5                 0x24
 #define PCI_CAPABILITIES         0x34
 #define PCI_INTERRUPT_LINE       0x3C
+#define PCI_INTERRUPT_PIN        0x3D
+#define PCI_MIN_GNT              0x3E
+#define PCI_MAX_LAT              0x3F
 #define PCI_SECONDARY_BUS        0x09
+
+#define PCI_STATUS_INTERRUPT			(1 << 3)
+#define PCI_STATUS_CAPABAILITIES_LIST		(1 << 4)
+#define PCI_STATUS_66MHZ_CAPABLE		(1 << 5)
+#define PCI_STATUS_FAST_BACK_TO_BACK_CAPABLE	(1 << 7)
+#define PCI_STATUS_MASTER_DATA_PARITY_ERROR	(1 << 8)
+#define PCI_STATUS_DEVSEL_TIMING		(1 << 9) & (1 << 10)
+#define PCI_STATUS_SIGNALLED_TARGET_ABORT	(1 << 11)
+#define PCI_STATUS_RECEIVED_TARGET_ABORT	(1 << 12)
+#define PCI_STATUS_RECEIVED_MASTER_ABORT	(1 << 13)
+#define PCI_STATUS_SIGNALLED_SYSTEM_ERROR	(1 << 14)
+#define PCI_STATUS_DETECTED_PARITY_ERROR	(1 << 15)
 
 #define PCI_COMMAND_IOSPACE			(1 << 0)
 #define PCI_COMMAND_MEMSPACE			(1 << 1)

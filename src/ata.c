@@ -328,8 +328,8 @@ void ide_initialise()
 
 		}
 	}
-	register_interrupt_handler(IRQ14, ide_irq);
-	register_interrupt_handler(IRQ15, ide_irq);
+	register_interrupt_handler(IRQ14, ide_irq, dev_zero, NULL);
+	register_interrupt_handler(IRQ15, ide_irq, dev_zero, NULL);
 }
 
 uint8_t ide_ata_access(uint8_t direction, uint8_t drive, uint64_t lba, uint16_t numsects, uint64_t buffer_address)
@@ -471,7 +471,7 @@ void ide_wait_irq()
 	ide_irq_invoked = 0;
 }
 
-void ide_irq([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq)
+void ide_irq([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
 {
 	ide_irq_invoked = 1;
 }

@@ -116,7 +116,7 @@ typedef struct {
 uint8_t ide_read(uint8_t channel, uint8_t reg);
 void ide_write(uint8_t channel, uint8_t reg, uint8_t data);
 void ide_initialise();
-void ide_irq(uint8_t isr, uint64_t error, uint64_t irq);
+void ide_irq(uint8_t isr, uint64_t error, uint64_t irq, void* opaque);
 int ide_read_sectors(uint8_t drive, uint16_t numsects, uint64_t lba, uint64_t buffer_address);
 int ide_write_sectors(uint8_t drive, uint16_t numsects, uint64_t lba, uint64_t buffer_address);
 int ide_atapi_eject(uint8_t drive);

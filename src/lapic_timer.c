@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-void lapic_spurious([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq)
+void lapic_spurious([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, void* opaque)
 {
 	return;
 }
@@ -11,8 +11,8 @@ void init_lapic_timer(uint32_t quantum)
 		return;
 	}
 	
-	register_interrupt_handler(IRQ7, lapic_spurious);
-	register_interrupt_handler(IRQ16, timer_callback);
+	register_interrupt_handler(IRQ7, lapic_spurious, dev_zero, NULL);
+	register_interrupt_handler(IRQ16, timer_callback, dev_zero, NULL);
 
 	// Divisor = 16
 	apic_write(APIC_TMRDIV, 0x3);

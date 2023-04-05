@@ -51,7 +51,7 @@ uint64_t get_ticks()
 	return ticks;
 }
 
-void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq)
+void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque)
 {
 	ticks++;
 

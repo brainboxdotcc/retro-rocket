@@ -9,7 +9,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
 uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
 
-void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq)
+void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
 {
 	dprintf("AHCI interrupt 18\n");
 }
@@ -526,13 +526,11 @@ void init_ahci()
 
 	ahci_base = pci_mem_base(ahci_base);
 
-	dprintf("AHCI base MMIO: %08x\n", ahci_base);
+	uint32_t irq_num = pci_read(ahci_device, PCI_INTERRUPT_LINE);
+	register_interrupt_handler(32 + irq_num, ahci_handler, ahci_device, (void*)ahci_base);
 
-	uint32_t vector = IRQ8;
-	if (pci_enable_msi(ahci_device, vector, true, true)) {
-		register_interrupt_handler(vector, ahci_handler);
-		dprintf("AHCI: MSI enabled\n");
-	}
+	dprintf("AHCI base MMIO: %08x INT %08x\n", ahci_base, irq_num);
+
 
 	probe_port((ahci_hba_mem_t*)ahci_base, ahci_device);
 }

@@ -113,7 +113,7 @@ void receive_packet() {
  * 4. CMD(BufferEmpty) and ISR(TOK) set.
  * 5. ISR routine called and then driver clear ISR(TOK) and update CAPR.
  */
-void rtl8139_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq) {
+void rtl8139_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque) {
 	in_interrupt = true;
 	uint16_t status = rtl_inw(IntrStatus);
 
@@ -283,10 +283,11 @@ bool rtl8139_init() {
 	rtl8139_device.current_packet_ptr = 0;
 
 	uint32_t irq_num = pci_read(pci_device, PCI_INTERRUPT_LINE);
-	register_interrupt_handler(32 + irq_num, rtl8139_handler);
+	uint32_t irq_pin = pci_read(pci_device, PCI_INTERRUPT_PIN);
+	register_interrupt_handler(32 + irq_num, rtl8139_handler, pci_device, &rtl8139_device);
 
 	char* mac_address = read_mac_addr();
-	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x IRQ=%d\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base, irq_num);
+	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x IRQ=%d (PIN#%c)\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base, irq_num, irq_pin + 'A' - 1);
 
 	proc_register_idle(rtl8139_timer, IDLE_BACKGROUND);
 

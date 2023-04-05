@@ -1,16 +1,16 @@
 #include <kernel.h>
 #include <homer.h>
 
-void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t irq_no);
+void error_handler(uint8_t int_no, uint64_t errorcode, uint64_t irq_no, void* opaque);
 
 void init_error_handler()
 {
 	int interrupt = 0;
 	for (; interrupt < 19; ++interrupt)
-		register_interrupt_handler(interrupt, error_handler);
+		register_interrupt_handler(interrupt, error_handler, dev_zero, NULL);
 }
 
-void error_handler(uint8_t int_no, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq_no)
+void error_handler(uint8_t int_no, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq_no, void* opaque)
 {
 	static const char* const error_table[] = {
 		"Division by zero exception",
