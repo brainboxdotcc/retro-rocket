@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Install apt packages
         run: sudo apt-get update &&
