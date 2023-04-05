@@ -1,0 +1,474 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="kmalloc_8h" kind="file" language="C++">
+    <compoundname>kmalloc.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>stddef.h</label>
+      </node>
+      <node id="1">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structheader" prot="public">header</innerclass>
+    <innerclass refid="structfooter" prot="public">footer</innerclass>
+    <innerclass refid="structheap" prot="public">heap</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="kmalloc_8h_1a604474f5c0892ea2c6c16b5e45c59f59" prot="public" static="no">
+        <name>HEAP_MAGIC</name>
+        <initializer>0xDEADDEADDEADDEADull</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="10" column="9" bodyfile="include/kmalloc.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="kmalloc_8h_1aa4c4605d601a9cd704fbb0374568fb04" prot="public" static="no">
+        <type>struct <ref refid="structheader" kindref="compound">header</ref></type>
+        <definition>typedef struct header header_t</definition>
+        <argsstring></argsstring>
+        <name>header_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="22" column="9"/>
+      </memberdef>
+      <memberdef kind="typedef" id="kmalloc_8h_1a05c7a0ad0cc791358ad862376b626154" prot="public" static="no">
+        <type>struct <ref refid="structfooter" kindref="compound">footer</ref></type>
+        <definition>typedef struct footer footer_t</definition>
+        <argsstring></argsstring>
+        <name>footer_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="27" column="9"/>
+      </memberdef>
+      <memberdef kind="typedef" id="kmalloc_8h_1ad3bb09826584eab4757c6cd2f988e7d6" prot="public" static="no">
+        <type>struct <ref refid="structheap" kindref="compound">heap</ref></type>
+        <definition>typedef struct heap heap_t</definition>
+        <argsstring></argsstring>
+        <name>heap_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="45" column="8"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="kmalloc_8h_1aa6bcd5af56ca7ffbc761b010cbd70e39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* kmalloc</definition>
+        <argsstring>(uint64_t size)</argsstring>
+        <name>kmalloc</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="49" column="6" declfile="include/kmalloc.h" declline="49" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1adc6f21bbda2c71015c428920cf785abd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* kmalloc_ext</definition>
+        <argsstring>(uint64_t size, uint8_t align, uint64_t *phys)</argsstring>
+        <name>kmalloc_ext</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>align</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>phys</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="50" column="6" declfile="include/kmalloc.h" declline="50" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1aa3ff6401026972fc396bda649a01c994" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void kfree</definition>
+        <argsstring>(void *addr)</argsstring>
+        <name>kfree</name>
+        <param>
+          <type>void *</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="51" column="6" declfile="include/kmalloc.h" declline="51" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1aba7ce08189c188afd939c2228c320421" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structheap" kindref="compound">heap_t</ref> *</type>
+        <definition>heap_t* create_heap</definition>
+        <argsstring>(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw)</argsstring>
+        <name>create_heap</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>user</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>rw</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="52" column="7" declfile="include/kmalloc.h" declline="52" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a4b5e2a8ec0b6ac33e17ab8fe3820894e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void heap_init</definition>
+        <argsstring>()</argsstring>
+        <name>heap_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="53" column="6" declfile="include/kmalloc.h" declline="53" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a56ae8e632dd1a93d76e4a9b9f265f3a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_heapinfo</definition>
+        <argsstring>()</argsstring>
+        <name>print_heapinfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="54" column="6" declfile="include/kmalloc.h" declline="54" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a82a73c7addea8ea1a143be9663efc5e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void preboot_fail</definition>
+        <argsstring>(char *msg)</argsstring>
+        <name>preboot_fail</name>
+        <param>
+          <type>char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="55" column="6" declfile="include/kmalloc.h" declline="55" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a4af91afe377146f47af63dac6fb93fb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* kcalloc</definition>
+        <argsstring>(size_t num, size_t size)</argsstring>
+        <name>kcalloc</name>
+        <param>
+          <type>size_t</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="56" column="6" declfile="include/kmalloc.h" declline="56" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1aece282b3071af855886669942d53537a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* krealloc</definition>
+        <argsstring>(void *ptr, size_t new_size)</argsstring>
+        <name>krealloc</name>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>new_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="57" column="6" declfile="include/kmalloc.h" declline="57" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a2ae41a466ab6ea275ca1ebae81b56945" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t kmalloc_low</definition>
+        <argsstring>(uint32_t size)</argsstring>
+        <name>kmalloc_low</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="58" column="10" declfile="include/kmalloc.h" declline="58" declcolumn="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/kmalloc.h"/>
+  </compounddef>
+</doxygen>

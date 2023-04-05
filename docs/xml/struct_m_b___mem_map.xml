@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_m_b___mem_map" kind="struct" language="C++" prot="public">
+    <compoundname>MB_MemMap</compoundname>
+    <includes local="no">multiboot.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_b___mem_map_1a2c9ad2d784659bad4bbf242976816c53" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MB_MemMap::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/multiboot.h" line="24" column="10" bodyfile="include/multiboot.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_b___mem_map_1ad603b7a24214373b364176481da62ec7" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t MB_MemMap::addr</definition>
+        <argsstring></argsstring>
+        <name>addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/multiboot.h" line="25" column="10" bodyfile="include/multiboot.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_b___mem_map_1a1f39114b8672c4975ee5db66fc6c89dc" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t MB_MemMap::len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/multiboot.h" line="26" column="10" bodyfile="include/multiboot.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_b___mem_map_1a9e95d3b74bd6404923296ad655623f9d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MB_MemMap::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/multiboot.h" line="27" column="10" bodyfile="include/multiboot.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>MB_MemMap</label>
+        <link refid="struct_m_b___mem_map"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>addr</edgelabel>
+          <edgelabel>len</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>size</edgelabel>
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/multiboot.h" line="22" column="1" bodyfile="include/multiboot.h" bodystart="23" bodyend="28"/>
+    <listofallmembers>
+      <member refid="struct_m_b___mem_map_1ad603b7a24214373b364176481da62ec7" prot="public" virt="non-virtual"><scope>MB_MemMap</scope><name>addr</name></member>
+      <member refid="struct_m_b___mem_map_1a1f39114b8672c4975ee5db66fc6c89dc" prot="public" virt="non-virtual"><scope>MB_MemMap</scope><name>len</name></member>
+      <member refid="struct_m_b___mem_map_1a2c9ad2d784659bad4bbf242976816c53" prot="public" virt="non-virtual"><scope>MB_MemMap</scope><name>size</name></member>
+      <member refid="struct_m_b___mem_map_1a9e95d3b74bd6404923296ad655623f9d" prot="public" virt="non-virtual"><scope>MB_MemMap</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

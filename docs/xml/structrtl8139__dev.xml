@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrtl8139__dev" kind="struct" language="C++" prot="public">
+    <compoundname>rtl8139_dev</compoundname>
+    <includes local="no">rtl8139.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrtl8139__dev_1a2be81538d67ae19d0bd534447bdb5156" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool rtl8139_dev::active</definition>
+        <argsstring></argsstring>
+        <name>active</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="143" column="6" bodyfile="include/rtl8139.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a3ed0076bec8f827a3757a6f77b34f249" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rtl8139_dev::name[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="144" column="6" bodyfile="include/rtl8139.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a19ae0b0886fa8472f6458ed58824043d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rtl8139_dev::bar_type</definition>
+        <argsstring></argsstring>
+        <name>bar_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="145" column="9" bodyfile="include/rtl8139.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1aae5786c116d9569ff709765a49d5970d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t rtl8139_dev::io_base</definition>
+        <argsstring></argsstring>
+        <name>io_base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="146" column="10" bodyfile="include/rtl8139.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a1ae7cab031235292ddefd1bd5c1ae30e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rtl8139_dev::mem_base</definition>
+        <argsstring></argsstring>
+        <name>mem_base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="147" column="10" bodyfile="include/rtl8139.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a7daaf74c5c75fb6251569d812b3f62af" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtl8139_dev::eeprom_exist</definition>
+        <argsstring></argsstring>
+        <name>eeprom_exist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="148" column="5" bodyfile="include/rtl8139.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a46e05b7fb2906d280b60fe420fc83a7a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rtl8139_dev::mac_addr[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>mac_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="149" column="9" bodyfile="include/rtl8139.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1adb5a054847fc440a6a8bc3a766d919ed" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rtl8139_dev::mac_addr_str[19]</definition>
+        <argsstring>[19]</argsstring>
+        <name>mac_addr_str</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="150" column="6" bodyfile="include/rtl8139.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a1f96b9b5345a1fa6d044b6fb88178212" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rtl8139_dev::rx_buffer</definition>
+        <argsstring></argsstring>
+        <name>rx_buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="151" column="10" bodyfile="include/rtl8139.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a186dc5c86e87002b58989fcc82e15817" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rtl8139_dev::tx_buffers</definition>
+        <argsstring></argsstring>
+        <name>tx_buffers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="152" column="10" bodyfile="include/rtl8139.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1ae9915848656b4c91008143cd6b51c60c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtl8139_dev::tx_cur</definition>
+        <argsstring></argsstring>
+        <name>tx_cur</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="153" column="5" bodyfile="include/rtl8139.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtl8139__dev_1a154c6891ed23c5a591ec2ea4640071b5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rtl8139_dev::current_packet_ptr</definition>
+        <argsstring></argsstring>
+        <name>current_packet_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="154" column="10" bodyfile="include/rtl8139.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PCI device configuration. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>rtl8139_dev</label>
+        <link refid="structrtl8139__dev"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>io_base</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mac_addr_str</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>current_packet_ptr</edgelabel>
+          <edgelabel>mem_base</edgelabel>
+          <edgelabel>rx_buffer</edgelabel>
+          <edgelabel>tx_buffers</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>eeprom_exist</edgelabel>
+          <edgelabel>tx_cur</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>bar_type</edgelabel>
+          <edgelabel>mac_addr</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>active</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="5">
+        <label>int</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="6">
+        <label>uint8_t</label>
+      </node>
+      <node id="7">
+        <label>bool</label>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/rtl8139.h" line="142" column="1" bodyfile="include/rtl8139.h" bodystart="142" bodyend="155"/>
+    <listofallmembers>
+      <member refid="structrtl8139__dev_1a2be81538d67ae19d0bd534447bdb5156" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>active</name></member>
+      <member refid="structrtl8139__dev_1a19ae0b0886fa8472f6458ed58824043d" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>bar_type</name></member>
+      <member refid="structrtl8139__dev_1a154c6891ed23c5a591ec2ea4640071b5" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>current_packet_ptr</name></member>
+      <member refid="structrtl8139__dev_1a7daaf74c5c75fb6251569d812b3f62af" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>eeprom_exist</name></member>
+      <member refid="structrtl8139__dev_1aae5786c116d9569ff709765a49d5970d" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>io_base</name></member>
+      <member refid="structrtl8139__dev_1a46e05b7fb2906d280b60fe420fc83a7a" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>mac_addr</name></member>
+      <member refid="structrtl8139__dev_1adb5a054847fc440a6a8bc3a766d919ed" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>mac_addr_str</name></member>
+      <member refid="structrtl8139__dev_1a1ae7cab031235292ddefd1bd5c1ae30e" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>mem_base</name></member>
+      <member refid="structrtl8139__dev_1a3ed0076bec8f827a3757a6f77b34f249" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>name</name></member>
+      <member refid="structrtl8139__dev_1a1f96b9b5345a1fa6d044b6fb88178212" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>rx_buffer</name></member>
+      <member refid="structrtl8139__dev_1a186dc5c86e87002b58989fcc82e15817" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>tx_buffers</name></member>
+      <member refid="structrtl8139__dev_1ae9915848656b4c91008143cd6b51c60c" prot="public" virt="non-virtual"><scope>rtl8139_dev</scope><name>tx_cur</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

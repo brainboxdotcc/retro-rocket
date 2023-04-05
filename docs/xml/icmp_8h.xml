@@ -1,0 +1,1041 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="icmp_8h" kind="file" language="C++">
+    <compoundname>icmp.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="39">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="46">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="37">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="32">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="33">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="1">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="28">
+        <label>devfs.h</label>
+      </node>
+      <node id="31">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="36">
+        <label>ubasic.h</label>
+      </node>
+      <node id="45">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structicmp__packet" prot="public">icmp_packet</innerclass>
+    <innerclass refid="structicmp__redirect__packet" prot="public">icmp_redirect_packet</innerclass>
+    <innerclass refid="structicmp__information" prot="public">icmp_information</innerclass>
+    <innerclass refid="structicmp__parameter__problem__packet" prot="public">icmp_parameter_problem_packet</innerclass>
+    <innerclass refid="structicmp__echo__packet" prot="public">icmp_echo_packet</innerclass>
+    <innerclass refid="structicmp__timestamp__packet" prot="public">icmp_timestamp_packet</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3" prot="public" static="no" strong="no">
+        <type></type>
+        <name>icmp_type_t</name>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a040ff029e5746bdc1b9fd08db66b3b47" prot="public">
+          <name>ICMP_ECHO_REPLY</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a3fdf41118f21173da27f0001f4c37535" prot="public">
+          <name>ICMP_DESTINATION_UNREACHABLE</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a9482e19785a9717d473cc2226756d4d3" prot="public">
+          <name>ICMP_SOURCE_QUENCH</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a5956db2beb3fbfef02b0b50fed21ec0b" prot="public">
+          <name>ICMP_REDIRECT</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a1524e68e5a9202b5e98cfc804f6e9677" prot="public">
+          <name>ICMP_ECHO</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a828813505e7f882556a4400c9edae078" prot="public">
+          <name>ICMP_TIME_EXCEEDED</name>
+          <initializer>= 11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a13ad83d4a67286f80bde1708bcf9ff5a" prot="public">
+          <name>ICMP_PARAMETER_PROBLEM</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a0c0dd0df7850c1aea810fc03951b5e0d" prot="public">
+          <name>ICMP_TIMESTAMP</name>
+          <initializer>= 13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3ad882d3d3fdbb9b12371ba3d066bdc6a5" prot="public">
+          <name>ICMP_TIMESTAMP_REPLY</name>
+          <initializer>= 14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a86f4c0dc01486959de81be7d3584b13a" prot="public">
+          <name>ICMP_INFORMATION_REQUEST</name>
+          <initializer>= 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1ae2040117230bb1e026f1d73560c471e3a9f2932f855ebaa09b83b17a3be012264" prot="public">
+          <name>ICMP_INFORMATION_REPLY</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="5" column="1" bodyfile="include/icmp.h" bodystart="5" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="enum" id="icmp_8h_1a5a7198400ea81fcece1c8a588d963b22" prot="public" static="no" strong="no">
+        <type></type>
+        <name>icmp_unreachable_code_t</name>
+        <enumvalue id="icmp_8h_1a5a7198400ea81fcece1c8a588d963b22a2cf167456308da9629ecb3521471422c" prot="public">
+          <name>ICMP_NET_UNREACHABLE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1a5a7198400ea81fcece1c8a588d963b22a5d850d4562080c5dd5eec278daeacf39" prot="public">
+          <name>ICMP_HOST_UNREACHABLE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1a5a7198400ea81fcece1c8a588d963b22a71d231ca7f0f3f80155920dd5b558ce5" prot="public">
+          <name>ICMP_PROTOCOL_UNREACHABLE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1a5a7198400ea81fcece1c8a588d963b22abec7358ba8316159b49f124728bfcbfa" prot="public">
+          <name>ICMP_PORT_UNREACHABLE</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1a5a7198400ea81fcece1c8a588d963b22a28795d07e81acea310f4d94f4801e7d5" prot="public">
+          <name>ICMP_FRAGMENTATION_NEEDED</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1a5a7198400ea81fcece1c8a588d963b22afd406a152aeb9b971398ae5d2a13529a" prot="public">
+          <name>ICMP_SOURCE_ROUTE_FAILED</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="19" column="1" bodyfile="include/icmp.h" bodystart="19" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="enum" id="icmp_8h_1a127c3347a1a91e4cad2a84ccf94f2a6b" prot="public" static="no" strong="no">
+        <type></type>
+        <name>icmp_time_exceeded_code_t</name>
+        <enumvalue id="icmp_8h_1a127c3347a1a91e4cad2a84ccf94f2a6bae685c0c52dbe3a26dfd52e9e50db05bd" prot="public">
+          <name>ICMP_TTL_EXCEEDED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1a127c3347a1a91e4cad2a84ccf94f2a6ba12040393dd34154b144ab464ce8e6491" prot="public">
+          <name>ICMP_FRAGMENT_REASSEMBLY_TIME_EXCEEDED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="28" column="1" bodyfile="include/icmp.h" bodystart="28" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="enum" id="icmp_8h_1adc205b18eb097cd005b12767b92d1d06" prot="public" static="no" strong="no">
+        <type></type>
+        <name>icmp_redirect_code_t</name>
+        <enumvalue id="icmp_8h_1adc205b18eb097cd005b12767b92d1d06a5e0088562ef1c9b98aa7ab585b485837" prot="public">
+          <name>ICMP_REDIRECT_NETWORK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1adc205b18eb097cd005b12767b92d1d06a3f1c94d7c36b9fd8b74334dd8b190561" prot="public">
+          <name>ICMP_REDIRECT_HOST</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1adc205b18eb097cd005b12767b92d1d06af3e2ddbebdb8cb02e00593d3a4ca966e" prot="public">
+          <name>ICMP_REDIRECT_TOS_NETWORK</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="icmp_8h_1adc205b18eb097cd005b12767b92d1d06aab1eb19a562698bc4dbe6fe1293f4243" prot="public">
+          <name>ICMP_REDIRECT_TOS_HOST</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="33" column="1" bodyfile="include/icmp.h" bodystart="33" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="icmp_8h_1a1d127017fb298b889f4ba24752d08b8e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="0" column="9" bodyfile="include/icmp.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a966576744a473fafb7687f8e5649941f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="1" column="9" bodyfile="include/icmp.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a6796c847bbd16253ce2538754c250bd6" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t checksum</definition>
+        <argsstring></argsstring>
+        <name>checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="2" column="10" bodyfile="include/icmp.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1aa2c870ac0d3f33ae5aa413e2416e4ceb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t unused</definition>
+        <argsstring></argsstring>
+        <name>unused</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="3" column="10" bodyfile="include/icmp.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a2e40bd654f91daa7b66c1a7e31cf3df4" prot="public" static="no" mutable="no">
+        <type>ip_packet_t</type>
+        <definition>ip_packet_t original_datagram</definition>
+        <argsstring></argsstring>
+        <name>original_datagram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="4" column="13" bodyfile="include/icmp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a47a692ddd3db0240374af41d508619ff" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gateway</definition>
+        <argsstring></argsstring>
+        <name>gateway</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="3" column="10" bodyfile="include/icmp.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a4fc3a0c58dfbd1e68224521185cb9384" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="3" column="10" bodyfile="include/icmp.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a0a97914b75ed3ab7d0e13d8b200d758a" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t seq</definition>
+        <argsstring></argsstring>
+        <name>seq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="4" column="10" bodyfile="include/icmp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a0978f7814c3396f9cbc83c829daaff37" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t problem_ptr</definition>
+        <argsstring></argsstring>
+        <name>problem_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="3" column="9" bodyfile="include/icmp.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a96f31f9e805bcb543f76ad3fad752798" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t unused1</definition>
+        <argsstring></argsstring>
+        <name>unused1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="4" column="10" bodyfile="include/icmp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a75e355da67ac9fd98beb6290d4bb69a1" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t unused2</definition>
+        <argsstring></argsstring>
+        <name>unused2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="5" column="10" bodyfile="include/icmp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a0a156546d5383c8cf6c4e1cd46aeda83" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t originate_timestamp</definition>
+        <argsstring></argsstring>
+        <name>originate_timestamp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="5" column="10" bodyfile="include/icmp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a0fc168136ad71f038f4b5d68f48fee9f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t receive_timestamp</definition>
+        <argsstring></argsstring>
+        <name>receive_timestamp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="6" column="10" bodyfile="include/icmp.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="icmp_8h_1a857541f63480cfb4fda4e941bbac12a0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t transmit_timestamp</definition>
+        <argsstring></argsstring>
+        <name>transmit_timestamp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="7" column="10" bodyfile="include/icmp.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="icmp_8h_1acfa58a246fcaaad03a0775959898ca27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structicmp__packet" kindref="compound">icmp_packet</ref></type>
+        <definition>struct icmp_packet __attribute__</definition>
+        <argsstring>((packed)) icmp_packet_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="1" column="0" declfile="include/icmp.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="icmp_8h_1a4afc474a5b445a43bca5a76dd13d18dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void icmp_handle_packet</definition>
+        <argsstring>([[maybe_unused]] ip_packet_t *encap_packet, icmp_packet_t *packet, size_t len)</argsstring>
+        <name>icmp_handle_packet</name>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] ip_packet_t *</type>
+          <declname>encap_packet</declname>
+        </param>
+        <param>
+          <type>icmp_packet_t *</type>
+          <declname>packet</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>Handle ICMP packet from the IP driver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Encapsulating IP packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw ICMP packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ICMP packet length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="100" column="6" declfile="include/icmp.h" declline="100" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="icmp_8h_1a09fa01a48262e99d0bab6d3591999ded" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void icmp_send_echo</definition>
+        <argsstring>(uint32_t destination, uint16_t id, uint16_t seq)</argsstring>
+        <name>icmp_send_echo</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>destination</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>seq</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="102" column="6" declfile="include/icmp.h" declline="102" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/icmp.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="unionip__frag" kind="union" language="C++" prot="public">
+    <compoundname>ip_frag</compoundname>
+    <includes local="no">ip.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="unionip__frag_1a5d7d35814e17cc5a8bdcda52d1fe9744" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t ip_frag::bits</definition>
+        <argsstring></argsstring>
+        <name>bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="29" column="14" bodyfile="include/ip.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionip__frag_1a547ee43b7a3f7864cb0ce5f28df682f7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ip_frag::reserved_zero</definition>
+        <argsstring></argsstring>
+        <name>reserved_zero</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="31" column="9" bodyfile="include/ip.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionip__frag_1a12b89a05fbe2cb0f374961ff88391785" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ip_frag::dont_fragment</definition>
+        <argsstring></argsstring>
+        <name>dont_fragment</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="32" column="9" bodyfile="include/ip.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionip__frag_1a1158f72dcffffef978c0d59f5b777f26" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ip_frag::more_fragments_follow</definition>
+        <argsstring></argsstring>
+        <name>more_fragments_follow</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="33" column="9" bodyfile="include/ip.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionip__frag_1a95e3221505ee7f071367ab88075caa13" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ip_frag::fragment_offset_high</definition>
+        <argsstring></argsstring>
+        <name>fragment_offset_high</name>
+        <bitfield> 5</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="34" column="9" bodyfile="include/ip.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionip__frag_1a126f005453611922f0e7538606855f01" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ip_frag::fragment_offset_low</definition>
+        <argsstring></argsstring>
+        <name>fragment_offset_low</name>
+        <bitfield> 8</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="35" column="9" bodyfile="include/ip.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionip__frag_1a31c59d9aa135e6e4b80f1b9c4677d80c" prot="public" static="no" mutable="no">
+        <type>struct ip_frag::@0</type>
+        <definition>struct ip_frag::@0 ip_frag::@1</definition>
+        <argsstring></argsstring>
+        <name>@1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="36" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>anonymous:@1</label>
+      </node>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>ip_frag</label>
+        <link refid="unionip__frag"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>bits</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>dont_fragment</edgelabel>
+          <edgelabel>fragment_offset_high</edgelabel>
+          <edgelabel>fragment_offset_low</edgelabel>
+          <edgelabel>more_fragments_follow</edgelabel>
+          <edgelabel>reserved_zero</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>@1</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/ip.h" line="28" column="1" bodyfile="include/ip.h" bodystart="28" bodyend="37"/>
+    <listofallmembers>
+      <member refid="unionip__frag_1a5d7d35814e17cc5a8bdcda52d1fe9744" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>bits</name></member>
+      <member refid="unionip__frag_1a12b89a05fbe2cb0f374961ff88391785" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>dont_fragment</name></member>
+      <member refid="unionip__frag_1a95e3221505ee7f071367ab88075caa13" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>fragment_offset_high</name></member>
+      <member refid="unionip__frag_1a126f005453611922f0e7538606855f01" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>fragment_offset_low</name></member>
+      <member refid="unionip__frag_1a1158f72dcffffef978c0d59f5b777f26" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>more_fragments_follow</name></member>
+      <member refid="unionip__frag_1a547ee43b7a3f7864cb0ce5f28df682f7" prot="public" virt="non-virtual"><scope>ip_frag</scope><name>reserved_zero</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

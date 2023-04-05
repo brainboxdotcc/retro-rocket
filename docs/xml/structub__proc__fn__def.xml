@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structub__proc__fn__def" kind="struct" language="C++" prot="public">
+    <compoundname>ub_proc_fn_def</compoundname>
+    <includes local="no">ubasic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structub__proc__fn__def_1ae571d469a347ef7373d1b43050ad53c5" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ub_proc_fn_def::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="78" column="6" bodyfile="include/ubasic.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__proc__fn__def_1aaf1a001204ca6a291414325774eda5bc" prot="public" static="no" mutable="no">
+        <type>ub_fn_type</type>
+        <definition>ub_fn_type ub_proc_fn_def::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="79" column="12" bodyfile="include/ubasic.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__proc__fn__def_1ab3410b24ce2ff1bcbd0b8c77316380be" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t ub_proc_fn_def::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="80" column="9" bodyfile="include/ubasic.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__proc__fn__def_1aaaea6658f10a987ecd19fc991c84cbc7" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref> *</type>
+        <definition>struct ub_param* ub_proc_fn_def::params</definition>
+        <argsstring></argsstring>
+        <name>params</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="81" column="16" bodyfile="include/ubasic.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__proc__fn__def_1a8fd77b8a20b660a5167e10095833853c" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref> *</type>
+        <definition>struct ub_proc_fn_def* ub_proc_fn_def::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="82" column="22" bodyfile="include/ubasic.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>ub_param</label>
+        <link refid="structub__param"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ub_proc_fn_def</label>
+        <link refid="structub__proc__fn__def"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>line</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>int64_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+      <node id="2">
+        <label>enum ub_fn_type</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ubasic.h" line="76" column="1" bodyfile="include/ubasic.h" bodystart="77" bodyend="83"/>
+    <listofallmembers>
+      <member refid="structub__proc__fn__def_1ab3410b24ce2ff1bcbd0b8c77316380be" prot="public" virt="non-virtual"><scope>ub_proc_fn_def</scope><name>line</name></member>
+      <member refid="structub__proc__fn__def_1ae571d469a347ef7373d1b43050ad53c5" prot="public" virt="non-virtual"><scope>ub_proc_fn_def</scope><name>name</name></member>
+      <member refid="structub__proc__fn__def_1a8fd77b8a20b660a5167e10095833853c" prot="public" virt="non-virtual"><scope>ub_proc_fn_def</scope><name>next</name></member>
+      <member refid="structub__proc__fn__def_1aaaea6658f10a987ecd19fc991c84cbc7" prot="public" virt="non-virtual"><scope>ub_proc_fn_def</scope><name>params</name></member>
+      <member refid="structub__proc__fn__def_1aaf1a001204ca6a291414325774eda5bc" prot="public" virt="non-virtual"><scope>ub_proc_fn_def</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

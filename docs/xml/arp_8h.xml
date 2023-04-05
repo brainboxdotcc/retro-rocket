@@ -1,0 +1,922 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="arp_8h" kind="file" language="C++">
+    <compoundname>arp.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="39">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="37">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="32">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="33">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="28">
+        <label>devfs.h</label>
+      </node>
+      <node id="31">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="36">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structarp__packet" prot="public">arp_packet</innerclass>
+    <innerclass refid="structarp__table__entry" prot="public">arp_table_entry</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="arp_8h_1a4c4f153799e067ed950a33e35590cf48" prot="public" static="no">
+        <name>ETHERNET_TYPE_ARP</name>
+        <initializer>0x0806</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="5" column="9" bodyfile="include/arp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="arp_8h_1a54b168c1808c891a5f770f8e8f31277e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>arp_packet_type_t</name>
+        <enumvalue id="arp_8h_1a54b168c1808c891a5f770f8e8f31277eafb58ccf8b7b11505ff2117a10bf6ff61" prot="public">
+          <name>ARP_REQUEST</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="arp_8h_1a54b168c1808c891a5f770f8e8f31277ea8bb24a026264a5b22435864179f874d9" prot="public">
+          <name>ARP_REPLY</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="7" column="1" bodyfile="include/arp.h" bodystart="7" bodyend="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="arp_8h_1a276a932bf657bb621392ef3fc52bf96d" prot="public" static="no">
+        <type>struct <ref refid="structarp__table__entry" kindref="compound">arp_table_entry</ref></type>
+        <definition>typedef struct arp_table_entry arp_table_entry_t</definition>
+        <argsstring></argsstring>
+        <name>arp_table_entry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="27" column="19"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="arp_8h_1a735a525959a7de8d59c0d9d58e453762" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t hardware_type</definition>
+        <argsstring></argsstring>
+        <name>hardware_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="0" column="10" bodyfile="include/arp.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1ab551400c74271f35d0c79f81d29cffbb" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t protocol</definition>
+        <argsstring></argsstring>
+        <name>protocol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="1" column="10" bodyfile="include/arp.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1a2b6b06607261b860332af4cbe9316bdd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t hardware_addr_len</definition>
+        <argsstring></argsstring>
+        <name>hardware_addr_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="2" column="9" bodyfile="include/arp.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1a21d549e10ff2415bad7ec221deec07fa" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t protocol_addr_len</definition>
+        <argsstring></argsstring>
+        <name>protocol_addr_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="3" column="9" bodyfile="include/arp.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1aeb39438c0aa5ad494c96060b00351545" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t opcode</definition>
+        <argsstring></argsstring>
+        <name>opcode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="4" column="10" bodyfile="include/arp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1a8dc0dc76aad4a5ef13801998c8dcde3a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t src_hardware_addr[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>src_hardware_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="5" column="9" bodyfile="include/arp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1a34cf72f5fe7b4928d49a606236581207" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t src_protocol_addr[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>src_protocol_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="6" column="9" bodyfile="include/arp.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1a36c49b5abd4965e6c47e530d859d0042" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dst_hardware_addr[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>dst_hardware_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="7" column="9" bodyfile="include/arp.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="arp_8h_1a18c92b51c04c4d12d5f3f7574a99d26a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dst_protocol_addr[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>dst_protocol_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="8" column="9" bodyfile="include/arp.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="arp_8h_1a61ae48c115f16fa51d6c4284aacb78d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structarp__packet" kindref="compound">arp_packet</ref></type>
+        <definition>struct arp_packet __attribute__</definition>
+        <argsstring>((packed)) arp_packet_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="1" column="0" declfile="include/arp.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8h_1a83c069ec5b715eb350264e6d71e27386" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void arp_send_packet</definition>
+        <argsstring>(uint8_t *dst_hardware_addr, uint8_t *dst_protocol_addr)</argsstring>
+        <name>arp_send_packet</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>dst_hardware_addr</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>dst_protocol_addr</declname>
+        </param>
+        <briefdescription>
+<para>Send an ARP packet to the ethernet driver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dst_hardware_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>destination MAC address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_protocol_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>destination IP address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="35" column="6" declfile="include/arp.h" declline="35" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8h_1a4c42cd0cf3334e17dba31d79df346b68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int arp_lookup</definition>
+        <argsstring>(uint8_t *ret_hardware_addr, uint8_t *ip_addr)</argsstring>
+        <name>arp_lookup</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>ret_hardware_addr</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>ip_addr</declname>
+        </param>
+        <briefdescription>
+<para>Lookup a MAC address for an IP address via a blocking ARP request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ret_hardware_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MAC address (filled on return) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ip_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address to request </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero if ARP request succeeded </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="44" column="5" declfile="include/arp.h" declline="44" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8h_1adfb058efa1f5ac734b350159676020a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void arp_lookup_add</definition>
+        <argsstring>(uint8_t *ret_hardware_addr, uint8_t *ip_addr)</argsstring>
+        <name>arp_lookup_add</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>ret_hardware_addr</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>ip_addr</declname>
+        </param>
+        <briefdescription>
+<para>Cache and ARP entry in the ARP cache. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ret_hardware_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MAC address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ip_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="52" column="6" declfile="include/arp.h" declline="52" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8h_1aa528ddf0081d9d95ec593c63fafacb31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void arp_init</definition>
+        <argsstring>()</argsstring>
+        <name>arp_init</name>
+        <briefdescription>
+<para>Initialise the ARP protocol. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="57" column="6" declfile="include/arp.h" declline="57" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8h_1a9b24f831029cf547ec81280840ce22fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structarp__table__entry" kindref="compound">arp_table_entry_t</ref> *</type>
+        <definition>arp_table_entry_t* get_arp_entry</definition>
+        <argsstring>(size_t index)</argsstring>
+        <name>get_arp_entry</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Get an arp entry object, used by the BASIC interpreter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index to find </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>arp_table_entry_t* ARP entry </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="65" column="19" declfile="include/arp.h" declline="65" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8h_1a7dfc38da779cee71b7afacd4cca46eae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t get_arp_table_size</definition>
+        <argsstring>()</argsstring>
+        <name>get_arp_table_size</name>
+        <briefdescription>
+<para>Get the arp table size, used by the BASIC interpreter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>size_t the highest index in the ARP cache plus one </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="72" column="8" declfile="include/arp.h" declline="72" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="arp_8h_1a78fd40ebcc17873ff998879a3ca3ee3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void arp_prediscover</definition>
+        <argsstring>(uint8_t *protocol_addr)</argsstring>
+        <name>arp_prediscover</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>protocol_addr</declname>
+        </param>
+        <briefdescription>
+<para>Precache a local network IP address, to save on doing an ARP lookup later when the user wants to access the resource. Used for the DNS server and gateway addresses. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="79" column="6" declfile="include/arp.h" declline="79" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/arp.h"/>
+  </compounddef>
+</doxygen>

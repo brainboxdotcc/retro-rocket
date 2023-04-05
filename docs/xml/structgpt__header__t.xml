@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structgpt__header__t" kind="struct" language="C++" prot="public">
+    <compoundname>gpt_header_t</compoundname>
+    <includes local="no">partition.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structgpt__header__t_1a6068cb2a223959b8ba48756174df4c4a" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char gpt_header_t::signature[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="40" column="6" bodyfile="include/partition.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a2fafdbba3d58c482bc05764b675fa9da" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_header_t::gpt_revision</definition>
+        <argsstring></argsstring>
+        <name>gpt_revision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="41" column="10" bodyfile="include/partition.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a93f13eaade92102060ef1e1f3647ae34" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_header_t::header_size</definition>
+        <argsstring></argsstring>
+        <name>header_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="42" column="10" bodyfile="include/partition.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a93911710223d932c2cf8b13a446ad2ee" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_header_t::crc_checksum</definition>
+        <argsstring></argsstring>
+        <name>crc_checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="43" column="10" bodyfile="include/partition.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a9c3d23fdfae446b6279948a531823563" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_header_t::reserved0</definition>
+        <argsstring></argsstring>
+        <name>reserved0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="44" column="10" bodyfile="include/partition.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a31ab348171b597b5286d41dfeb536601" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t gpt_header_t::lba_of_this_header</definition>
+        <argsstring></argsstring>
+        <name>lba_of_this_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="45" column="10" bodyfile="include/partition.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a10bb3ec26bd2ece9e999998ce1a2a775" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t gpt_header_t::lba_of_alternative_header</definition>
+        <argsstring></argsstring>
+        <name>lba_of_alternative_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="46" column="10" bodyfile="include/partition.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a709210fecd013c9b8be9845a3b327ea4" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t gpt_header_t::first_usable_block</definition>
+        <argsstring></argsstring>
+        <name>first_usable_block</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="47" column="10" bodyfile="include/partition.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1abb93ed937a0d07dff3a6f2efd14d47be" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t gpt_header_t::last_usable_block</definition>
+        <argsstring></argsstring>
+        <name>last_usable_block</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="48" column="10" bodyfile="include/partition.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a1aa91bd44f89e32a4ad630bcbbd2acac" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char gpt_header_t::disk_guid[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>disk_guid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="49" column="6" bodyfile="include/partition.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1afcfc685bd90fe623008e90be7dfd7308" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t gpt_header_t::lba_of_partition_entries</definition>
+        <argsstring></argsstring>
+        <name>lba_of_partition_entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="50" column="10" bodyfile="include/partition.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a9d7bc9c7b484aa08d13839a12c25fc41" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_header_t::number_partition_entries</definition>
+        <argsstring></argsstring>
+        <name>number_partition_entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="51" column="10" bodyfile="include/partition.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a7b3f4a73cf3544ab6ae31ad15f984d05" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_header_t::size_of_each_entry</definition>
+        <argsstring></argsstring>
+        <name>size_of_each_entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="52" column="10" bodyfile="include/partition.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1ac8f8ae51701b9683ff0bc3e04efda0f2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_header_t::crc_32_of_entries</definition>
+        <argsstring></argsstring>
+        <name>crc_32_of_entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="53" column="10" bodyfile="include/partition.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgpt__header__t_1a6f036a7d24e25521e33a1bfabb38cbac" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t gpt_header_t::reserved1[]</definition>
+        <argsstring>[]</argsstring>
+        <name>reserved1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="54" column="9" bodyfile="include/partition.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>gpt_header_t</label>
+        <link refid="structgpt__header__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>first_usable_block</edgelabel>
+          <edgelabel>last_usable_block</edgelabel>
+          <edgelabel>lba_of_alternative_header</edgelabel>
+          <edgelabel>lba_of_partition_entries</edgelabel>
+          <edgelabel>lba_of_this_header</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>disk_guid</edgelabel>
+          <edgelabel>signature</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>crc_32_of_entries</edgelabel>
+          <edgelabel>crc_checksum</edgelabel>
+          <edgelabel>gpt_revision</edgelabel>
+          <edgelabel>header_size</edgelabel>
+          <edgelabel>number_partition_entries</edgelabel>
+          <edgelabel>reserved0</edgelabel>
+          <edgelabel>size_of_each_entry</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>reserved1</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/partition.h" line="39" column="1" bodyfile="include/partition.h" bodystart="39" bodyend="55"/>
+    <listofallmembers>
+      <member refid="structgpt__header__t_1ac8f8ae51701b9683ff0bc3e04efda0f2" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>crc_32_of_entries</name></member>
+      <member refid="structgpt__header__t_1a93911710223d932c2cf8b13a446ad2ee" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>crc_checksum</name></member>
+      <member refid="structgpt__header__t_1a1aa91bd44f89e32a4ad630bcbbd2acac" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>disk_guid</name></member>
+      <member refid="structgpt__header__t_1a709210fecd013c9b8be9845a3b327ea4" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>first_usable_block</name></member>
+      <member refid="structgpt__header__t_1a2fafdbba3d58c482bc05764b675fa9da" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>gpt_revision</name></member>
+      <member refid="structgpt__header__t_1a93f13eaade92102060ef1e1f3647ae34" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>header_size</name></member>
+      <member refid="structgpt__header__t_1abb93ed937a0d07dff3a6f2efd14d47be" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>last_usable_block</name></member>
+      <member refid="structgpt__header__t_1a10bb3ec26bd2ece9e999998ce1a2a775" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>lba_of_alternative_header</name></member>
+      <member refid="structgpt__header__t_1afcfc685bd90fe623008e90be7dfd7308" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>lba_of_partition_entries</name></member>
+      <member refid="structgpt__header__t_1a31ab348171b597b5286d41dfeb536601" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>lba_of_this_header</name></member>
+      <member refid="structgpt__header__t_1a9d7bc9c7b484aa08d13839a12c25fc41" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>number_partition_entries</name></member>
+      <member refid="structgpt__header__t_1a9c3d23fdfae446b6279948a531823563" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>reserved0</name></member>
+      <member refid="structgpt__header__t_1a6f036a7d24e25521e33a1bfabb38cbac" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>reserved1</name></member>
+      <member refid="structgpt__header__t_1a6068cb2a223959b8ba48756174df4c4a" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>signature</name></member>
+      <member refid="structgpt__header__t_1a7b3f4a73cf3544ab6ae31ad15f984d05" prot="public" virt="non-virtual"><scope>gpt_header_t</scope><name>size_of_each_entry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

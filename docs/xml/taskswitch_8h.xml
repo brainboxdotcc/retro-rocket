@@ -1,0 +1,578 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="taskswitch_8h" kind="file" language="C++">
+    <compoundname>taskswitch.h</compoundname>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structprocess" prot="public">process</innerclass>
+    <innerclass refid="structidle__timer" prot="public">idle_timer</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="taskswitch_8h_1a26975b50f0f5914f501689709f08147a" prot="public" static="no">
+        <name>PROC_RUNNING</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="3" column="9" bodyfile="include/taskswitch.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="taskswitch_8h_1ae7215d0fcd3af15ded53baf19247fcbd" prot="public" static="no">
+        <name>PROC_IDLE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="4" column="9" bodyfile="include/taskswitch.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="taskswitch_8h_1a9066801bca0864b3acdde08438ec1380" prot="public" static="no">
+        <name>PROC_DELETE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="5" column="9" bodyfile="include/taskswitch.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4" prot="public" static="no" strong="no">
+        <type></type>
+        <name>idle_type_t</name>
+        <enumvalue id="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a170f38abe527a71ef15f1d6fd1ba9677" prot="public">
+          <name>IDLE_FOREGROUND</name>
+          <briefdescription>
+<para>A foreground idle task that runs in the task switch loop between context switches. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a875e3a3a86598eb910bc4405a16e8a99" prot="public">
+          <name>IDLE_BACKGROUND</name>
+          <briefdescription>
+<para>A background idle task that runs via the LAPIC timer ISR. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Types of idle task. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="37" column="1" bodyfile="include/taskswitch.h" bodystart="37" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="taskswitch_8h_1a73eaa2b328f8a7c189807afe312133d8" prot="public" static="no">
+        <type>enum idle_type_t</type>
+        <definition>typedef enum idle_type_t idle_type_t</definition>
+        <argsstring></argsstring>
+        <name>idle_type_t</name>
+        <briefdescription>
+<para>Types of idle task. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="40" column="13"/>
+      </memberdef>
+      <memberdef kind="typedef" id="taskswitch_8h_1a82c77e5c902b86503a57e02bb4314bad" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* proc_idle_timer_t) (void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>proc_idle_timer_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="43" column="9" bodyfile="include/taskswitch.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="taskswitch_8h_1a32b0736904bdbb3bc63f6912b804ad91" prot="public" static="no">
+        <type>struct <ref refid="structidle__timer" kindref="compound">idle_timer</ref></type>
+        <definition>typedef struct idle_timer idle_timer_t</definition>
+        <argsstring></argsstring>
+        <name>idle_timer_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="48" column="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="taskswitch_8h_1a1d93354a9a1cd28edc0ff1f2b117aaa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+        <definition>struct process* proc_load</definition>
+        <argsstring>(const char *fullpath, struct console *cons)</argsstring>
+        <name>proc_load</name>
+        <param>
+          <type>const char *</type>
+          <declname>fullpath</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>cons</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="50" column="15" declfile="include/taskswitch.h" declline="50" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1ad7437b5486e6d717fff0d680c0e85933" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+        <definition>struct process* proc_find</definition>
+        <argsstring>(uint32_t pid)</argsstring>
+        <name>proc_find</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>pid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="51" column="15" declfile="include/taskswitch.h" declline="51" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a2f81e671670c3c195e49086794de8563" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+        <definition>struct process* proc_cur</definition>
+        <argsstring>()</argsstring>
+        <name>proc_cur</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="52" column="15" declfile="include/taskswitch.h" declline="52" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1ad3fb36451746ed5c2268f42161b864c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_wait</definition>
+        <argsstring>(struct process *proc, uint32_t otherpid)</argsstring>
+        <name>proc_wait</name>
+        <param>
+          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <declname>proc</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>otherpid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="53" column="6" declfile="include/taskswitch.h" declline="53" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1ad3caa985bd0716e0226c8b95dff1880a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_run</definition>
+        <argsstring>(struct process *proc)</argsstring>
+        <name>proc_run</name>
+        <param>
+          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <declname>proc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="54" column="6" declfile="include/taskswitch.h" declline="54" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a71841b5135909ec6b19a3e9201a8ec72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int proc_ended</definition>
+        <argsstring>(struct process *proc)</argsstring>
+        <name>proc_ended</name>
+        <param>
+          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <declname>proc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="55" column="5" declfile="include/taskswitch.h" declline="55" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a54250e95131397ad26e7f9c655b4d8e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_kill</definition>
+        <argsstring>(struct process *proc)</argsstring>
+        <name>proc_kill</name>
+        <param>
+          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <declname>proc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="56" column="6" declfile="include/taskswitch.h" declline="56" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1aae5fc9e36c6eef167c4207ed63cf17be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_show_list</definition>
+        <argsstring>()</argsstring>
+        <name>proc_show_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="57" column="6" declfile="include/taskswitch.h" declline="57" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1af57a1ba1649626d231502d6c23bbac49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_loop</definition>
+        <argsstring>()</argsstring>
+        <name>proc_loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="58" column="6" declfile="include/taskswitch.h" declline="58" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a1ec64ff3e1bbf088a6611d7304cf72e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_timer</definition>
+        <argsstring>()</argsstring>
+        <name>proc_timer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="59" column="6" declfile="include/taskswitch.h" declline="59" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a01a99ff8bacb9f2f0509b21f45fc7217" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t proc_total</definition>
+        <argsstring>()</argsstring>
+        <name>proc_total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="60" column="9" declfile="include/taskswitch.h" declline="60" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a91750275a2fc6e56c8fb9dcf0e5e0edd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* proc_name</definition>
+        <argsstring>(int64_t index)</argsstring>
+        <name>proc_name</name>
+        <param>
+          <type>int64_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="61" column="12" declfile="include/taskswitch.h" declline="61" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a4a7ef165aa328422b223f2b4e80a05d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t proc_id</definition>
+        <argsstring>(int64_t index)</argsstring>
+        <name>proc_id</name>
+        <param>
+          <type>int64_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="62" column="10" declfile="include/taskswitch.h" declline="62" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1ad2dd4ffab2aaabd37998ec3b3216af48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_register_idle</definition>
+        <argsstring>(proc_idle_timer_t handler, idle_type_t type)</argsstring>
+        <name>proc_register_idle</name>
+        <param>
+          <type>proc_idle_timer_t</type>
+          <declname>handler</declname>
+        </param>
+        <param>
+          <type>idle_type_t</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Register a function to be called periodically during idle time. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>handler function, void(void) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of idle to register </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="70" column="6" declfile="include/taskswitch.h" declline="70" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a17d1aae356cbff8c71be7a05a1ec480e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_init</definition>
+        <argsstring>()</argsstring>
+        <name>proc_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="72" column="6" declfile="include/taskswitch.h" declline="72" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/taskswitch.h"/>
+  </compounddef>
+</doxygen>

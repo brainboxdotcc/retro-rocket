@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structfs__directory__entry__t" kind="struct" language="C++" prot="public">
+    <compoundname>fs_directory_entry_t</compoundname>
+    <includes local="no">filesystem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a29106c594aa22787b5604461f7686a08" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* fs_directory_entry_t::filename</definition>
+        <argsstring></argsstring>
+        <name>filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="31" column="6" bodyfile="include/filesystem.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a189d674effd3a783f2a0fec76eb4dc3a" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t fs_directory_entry_t::year</definition>
+        <argsstring></argsstring>
+        <name>year</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="32" column="10" bodyfile="include/filesystem.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1ad7b145a5ee090c6be6c377d1355e44b7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fs_directory_entry_t::month</definition>
+        <argsstring></argsstring>
+        <name>month</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="33" column="9" bodyfile="include/filesystem.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1ae62851bd478ee4d1fb4076e92fd4e587" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fs_directory_entry_t::day</definition>
+        <argsstring></argsstring>
+        <name>day</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="34" column="9" bodyfile="include/filesystem.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a90224dedbda35285c3be73942a5dc3dd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fs_directory_entry_t::hour</definition>
+        <argsstring></argsstring>
+        <name>hour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="35" column="9" bodyfile="include/filesystem.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1af6d9c2517f4f36b429a37a89d3aae2e8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fs_directory_entry_t::min</definition>
+        <argsstring></argsstring>
+        <name>min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="36" column="9" bodyfile="include/filesystem.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a82f8976a339e9affbdda781265f43c36" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fs_directory_entry_t::sec</definition>
+        <argsstring></argsstring>
+        <name>sec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="37" column="9" bodyfile="include/filesystem.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a2a90d9a00651c659de4f3bf0a82638e1" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t fs_directory_entry_t::lbapos</definition>
+        <argsstring></argsstring>
+        <name>lbapos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="38" column="10" bodyfile="include/filesystem.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1af04462319ea287de5aac137e96f0937d" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char fs_directory_entry_t::device_name[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>device_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="40" column="6" bodyfile="include/filesystem.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a60e76960bcf1ad45e482f60dcb2ee7c6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fs_directory_entry_t::device</definition>
+        <argsstring></argsstring>
+        <name>device</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="41" column="10" bodyfile="include/filesystem.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a83d678e389ae8f74d95567e1f7c67a38" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t fs_directory_entry_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="42" column="10" bodyfile="include/filesystem.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a627a136b918ac5d612d3ee7f30a69aea" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fs_directory_entry_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="43" column="10" bodyfile="include/filesystem.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1a9a22051b8feaa0ceffda10742771d5d0" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+        <definition>struct fs_tree_t* fs_directory_entry_t::directory</definition>
+        <argsstring></argsstring>
+        <name>directory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="44" column="17" bodyfile="include/filesystem.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__directory__entry__t_1af3e8d129ab686c7dfdd6c0cfc8d2ea66" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>struct fs_directory_entry_t* fs_directory_entry_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="45" column="28" bodyfile="include/filesystem.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="10">
+        <label>void *</label>
+      </node>
+      <node id="4">
+        <label>filesystem_t</label>
+        <link refid="structfilesystem__t"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>rm</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>mount</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="6">
+        <label>int(*)(void *)</label>
+      </node>
+      <node id="11">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>fs_tree_t</label>
+        <link refid="structfs__tree__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>files</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>child_dirs</edgelabel>
+          <edgelabel>next</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>responsible_driver</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>dirty</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>uint32_t</label>
+      </node>
+      <node id="9">
+        <label>uint8_t</label>
+      </node>
+      <node id="5">
+        <label>void *(*)(void *)</label>
+      </node>
+      <node id="1">
+        <label>fs_directory_entry_t</label>
+        <link refid="structfs__directory__entry__t"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>directory</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>year</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>filename</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>flags</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>day</edgelabel>
+          <edgelabel>hour</edgelabel>
+          <edgelabel>min</edgelabel>
+          <edgelabel>month</edgelabel>
+          <edgelabel>sec</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/filesystem.h" line="30" column="1" bodyfile="include/filesystem.h" bodystart="30" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structfs__directory__entry__t_1ae62851bd478ee4d1fb4076e92fd4e587" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>day</name></member>
+      <member refid="structfs__directory__entry__t_1a60e76960bcf1ad45e482f60dcb2ee7c6" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>device</name></member>
+      <member refid="structfs__directory__entry__t_1af04462319ea287de5aac137e96f0937d" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>device_name</name></member>
+      <member refid="structfs__directory__entry__t_1a9a22051b8feaa0ceffda10742771d5d0" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>directory</name></member>
+      <member refid="structfs__directory__entry__t_1a29106c594aa22787b5604461f7686a08" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>filename</name></member>
+      <member refid="structfs__directory__entry__t_1a627a136b918ac5d612d3ee7f30a69aea" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>flags</name></member>
+      <member refid="structfs__directory__entry__t_1a90224dedbda35285c3be73942a5dc3dd" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>hour</name></member>
+      <member refid="structfs__directory__entry__t_1a2a90d9a00651c659de4f3bf0a82638e1" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>lbapos</name></member>
+      <member refid="structfs__directory__entry__t_1af6d9c2517f4f36b429a37a89d3aae2e8" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>min</name></member>
+      <member refid="structfs__directory__entry__t_1ad7b145a5ee090c6be6c377d1355e44b7" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>month</name></member>
+      <member refid="structfs__directory__entry__t_1af3e8d129ab686c7dfdd6c0cfc8d2ea66" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>next</name></member>
+      <member refid="structfs__directory__entry__t_1a82f8976a339e9affbdda781265f43c36" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>sec</name></member>
+      <member refid="structfs__directory__entry__t_1a83d678e389ae8f74d95567e1f7c67a38" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>size</name></member>
+      <member refid="structfs__directory__entry__t_1a189d674effd3a783f2a0fec76eb4dc3a" prot="public" virt="non-virtual"><scope>fs_directory_entry_t</scope><name>year</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

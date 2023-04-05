@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structstorage__device__t" kind="struct" language="C++" prot="public">
+    <compoundname>storage_device_t</compoundname>
+    <includes local="no">filesystem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstorage__device__t_1afed2809e3332d40efe7645b76dcb7501" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char storage_device_t::name[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="67" column="6" bodyfile="include/filesystem.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a4b7e3635e869e1e8b2245665ee988547" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t storage_device_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="68" column="10" bodyfile="include/filesystem.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" prot="public" static="no" mutable="no">
+        <type>block_read</type>
+        <definition>block_read storage_device_t::blockread</definition>
+        <argsstring></argsstring>
+        <name>blockread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="69" column="12" bodyfile="include/filesystem.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" prot="public" static="no" mutable="no">
+        <type>block_write</type>
+        <definition>block_write storage_device_t::blockwrite</definition>
+        <argsstring></argsstring>
+        <name>blockwrite</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="70" column="13" bodyfile="include/filesystem.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a62fabd3b49e19f188297d179ffbcd090" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t storage_device_t::block_size</definition>
+        <argsstring></argsstring>
+        <name>block_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="71" column="10" bodyfile="include/filesystem.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1add44ca2ee801c94a53fe71db46e39dbd" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t storage_device_t::opaque1</definition>
+        <argsstring></argsstring>
+        <name>opaque1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="72" column="10" bodyfile="include/filesystem.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1a66eebca62325df9d8c0a0286c92ffa0c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* storage_device_t::opaque2</definition>
+        <argsstring></argsstring>
+        <name>opaque2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="73" column="6" bodyfile="include/filesystem.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__device__t_1ad1b4bda1ebedc6cf141f8f157a663d14" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+        <definition>struct storage_device_t* storage_device_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="74" column="24" bodyfile="include/filesystem.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>void *</label>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="1">
+        <label>storage_device_t</label>
+        <link refid="structstorage__device__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>opaque1</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>block_size</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>blockread</edgelabel>
+          <edgelabel>blockwrite</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>opaque2</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>int</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/filesystem.h" line="66" column="1" bodyfile="include/filesystem.h" bodystart="66" bodyend="75"/>
+    <listofallmembers>
+      <member refid="structstorage__device__t_1a62fabd3b49e19f188297d179ffbcd090" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>block_size</name></member>
+      <member refid="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>blockread</name></member>
+      <member refid="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>blockwrite</name></member>
+      <member refid="structstorage__device__t_1afed2809e3332d40efe7645b76dcb7501" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>name</name></member>
+      <member refid="structstorage__device__t_1ad1b4bda1ebedc6cf141f8f157a663d14" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>next</name></member>
+      <member refid="structstorage__device__t_1add44ca2ee801c94a53fe71db46e39dbd" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>opaque1</name></member>
+      <member refid="structstorage__device__t_1a66eebca62325df9d8c0a0286c92ffa0c" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>opaque2</name></member>
+      <member refid="structstorage__device__t_1a4b7e3635e869e1e8b2245665ee988547" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

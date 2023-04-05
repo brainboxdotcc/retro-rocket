@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structahci__fis__reg__h2d__t" kind="struct" language="C++" prot="public">
+    <compoundname>ahci_fis_reg_h2d_t</compoundname>
+    <includes local="no">ahci.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1ab8eb69b10ab4141b257d3d4c55515ca2" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::fis_type</definition>
+        <argsstring></argsstring>
+        <name>fis_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="18" column="10" bodyfile="include/ahci.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a092e8776264284c71e830fc3df090bf4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::pmport</definition>
+        <argsstring></argsstring>
+        <name>pmport</name>
+        <bitfield>4</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="20" column="10" bodyfile="include/ahci.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a9e97133cdddcd80f92b73c554ed04073" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::rsv0</definition>
+        <argsstring></argsstring>
+        <name>rsv0</name>
+        <bitfield>3</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="21" column="10" bodyfile="include/ahci.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a4eb4942aff8816b983c8ee2d8e817244" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::c</definition>
+        <argsstring></argsstring>
+        <name>c</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="22" column="10" bodyfile="include/ahci.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a4721186df542dfa550f87b9f27a8e196" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::command</definition>
+        <argsstring></argsstring>
+        <name>command</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="24" column="10" bodyfile="include/ahci.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a7f8088d29963faac4e4874b731ed717d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::featurel</definition>
+        <argsstring></argsstring>
+        <name>featurel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="25" column="10" bodyfile="include/ahci.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a61ae67b965eb6746108a1148f9e1c167" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::lba0</definition>
+        <argsstring></argsstring>
+        <name>lba0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="28" column="10" bodyfile="include/ahci.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a57718bbe4a8d3c9540930e019df3fa08" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::lba1</definition>
+        <argsstring></argsstring>
+        <name>lba1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="29" column="10" bodyfile="include/ahci.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a1ec4612cdeb4353172be0cf70c008617" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::lba2</definition>
+        <argsstring></argsstring>
+        <name>lba2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="30" column="10" bodyfile="include/ahci.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a2b9be9a90fc71c4a20c793e9e7c13d2e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::device</definition>
+        <argsstring></argsstring>
+        <name>device</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="31" column="10" bodyfile="include/ahci.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a14a618160102a67f3ae8213f855d4a3b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::lba3</definition>
+        <argsstring></argsstring>
+        <name>lba3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="34" column="10" bodyfile="include/ahci.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a70989fe339a09017ad25d21674f036aa" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::lba4</definition>
+        <argsstring></argsstring>
+        <name>lba4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="35" column="10" bodyfile="include/ahci.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1aabfeb6708a2007618fccd3f244907a6f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::lba5</definition>
+        <argsstring></argsstring>
+        <name>lba5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="36" column="10" bodyfile="include/ahci.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a348683c4d0c023814cab56c7e4c119ba" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::featureh</definition>
+        <argsstring></argsstring>
+        <name>featureh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="37" column="10" bodyfile="include/ahci.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1a53309d9cb2bd8a08bc84b392dd822e6f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::countl</definition>
+        <argsstring></argsstring>
+        <name>countl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="40" column="10" bodyfile="include/ahci.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1ac2268c1c114a4493a22c048cdd79f3dd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::counth</definition>
+        <argsstring></argsstring>
+        <name>counth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="41" column="10" bodyfile="include/ahci.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1ada590dc1ff50385f29cc964767056389" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::icc</definition>
+        <argsstring></argsstring>
+        <name>icc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="42" column="10" bodyfile="include/ahci.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1aa5940e7504da9d5a4b4f6d2f1f92ad1e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::control</definition>
+        <argsstring></argsstring>
+        <name>control</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="43" column="10" bodyfile="include/ahci.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__reg__h2d__t_1ae3ff1ef41dde8401ee49da789033a552" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_reg_h2d_t::rsv1[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>rsv1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="46" column="10" bodyfile="include/ahci.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>ahci_fis_reg_h2d_t</label>
+        <link refid="structahci__fis__reg__h2d__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>c</edgelabel>
+          <edgelabel>command</edgelabel>
+          <edgelabel>control</edgelabel>
+          <edgelabel>counth</edgelabel>
+          <edgelabel>countl</edgelabel>
+          <edgelabel>device</edgelabel>
+          <edgelabel>featureh</edgelabel>
+          <edgelabel>featurel</edgelabel>
+          <edgelabel>fis_type</edgelabel>
+          <edgelabel>icc</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/ahci.h" line="16" column="1" bodyfile="include/ahci.h" bodystart="16" bodyend="47"/>
+    <listofallmembers>
+      <member refid="structahci__fis__reg__h2d__t_1a4eb4942aff8816b983c8ee2d8e817244" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>c</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a4721186df542dfa550f87b9f27a8e196" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>command</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1aa5940e7504da9d5a4b4f6d2f1f92ad1e" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>control</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1ac2268c1c114a4493a22c048cdd79f3dd" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>counth</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a53309d9cb2bd8a08bc84b392dd822e6f" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>countl</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a2b9be9a90fc71c4a20c793e9e7c13d2e" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>device</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a348683c4d0c023814cab56c7e4c119ba" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>featureh</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a7f8088d29963faac4e4874b731ed717d" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>featurel</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1ab8eb69b10ab4141b257d3d4c55515ca2" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>fis_type</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1ada590dc1ff50385f29cc964767056389" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>icc</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a61ae67b965eb6746108a1148f9e1c167" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>lba0</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a57718bbe4a8d3c9540930e019df3fa08" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>lba1</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a1ec4612cdeb4353172be0cf70c008617" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>lba2</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a14a618160102a67f3ae8213f855d4a3b" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>lba3</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a70989fe339a09017ad25d21674f036aa" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>lba4</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1aabfeb6708a2007618fccd3f244907a6f" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>lba5</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a092e8776264284c71e830fc3df090bf4" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>pmport</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1a9e97133cdddcd80f92b73c554ed04073" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>rsv0</name></member>
+      <member refid="structahci__fis__reg__h2d__t_1ae3ff1ef41dde8401ee49da789033a552" prot="public" virt="non-virtual"><scope>ahci_fis_reg_h2d_t</scope><name>rsv1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

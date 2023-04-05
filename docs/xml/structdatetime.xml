@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structdatetime" kind="struct" language="C++" prot="public">
+    <compoundname>datetime</compoundname>
+    <includes local="no">clock.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdatetime_1a58508b8f0563e4412ad8822a626e7cc1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t datetime::century</definition>
+        <argsstring></argsstring>
+        <name>century</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/clock.h" line="20" column="9" bodyfile="include/clock.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdatetime_1afff708acf42d452c7676bb7f3e98c3f5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t datetime::year</definition>
+        <argsstring></argsstring>
+        <name>year</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/clock.h" line="21" column="9" bodyfile="include/clock.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdatetime_1aee54dcab1c86e3079f655c65401d02e7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t datetime::month</definition>
+        <argsstring></argsstring>
+        <name>month</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/clock.h" line="22" column="9" bodyfile="include/clock.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdatetime_1a61aa3f43954e36bfd20eaf73a74e2788" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t datetime::day</definition>
+        <argsstring></argsstring>
+        <name>day</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/clock.h" line="23" column="9" bodyfile="include/clock.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdatetime_1a6523b722773c5c61908b8577111454d7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t datetime::hour</definition>
+        <argsstring></argsstring>
+        <name>hour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/clock.h" line="24" column="9" bodyfile="include/clock.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdatetime_1adffb9d751833989b7eae93a0314496c1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t datetime::minute</definition>
+        <argsstring></argsstring>
+        <name>minute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/clock.h" line="25" column="9" bodyfile="include/clock.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdatetime_1a6026ae22bb35c0c16166ca178369f179" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t datetime::second</definition>
+        <argsstring></argsstring>
+        <name>second</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/clock.h" line="26" column="9" bodyfile="include/clock.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A representation of date and time. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>datetime</label>
+        <link refid="structdatetime"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>century</edgelabel>
+          <edgelabel>day</edgelabel>
+          <edgelabel>hour</edgelabel>
+          <edgelabel>minute</edgelabel>
+          <edgelabel>month</edgelabel>
+          <edgelabel>second</edgelabel>
+          <edgelabel>year</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint8_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/clock.h" line="19" column="1" bodyfile="include/clock.h" bodystart="19" bodyend="27"/>
+    <listofallmembers>
+      <member refid="structdatetime_1a58508b8f0563e4412ad8822a626e7cc1" prot="public" virt="non-virtual"><scope>datetime</scope><name>century</name></member>
+      <member refid="structdatetime_1a61aa3f43954e36bfd20eaf73a74e2788" prot="public" virt="non-virtual"><scope>datetime</scope><name>day</name></member>
+      <member refid="structdatetime_1a6523b722773c5c61908b8577111454d7" prot="public" virt="non-virtual"><scope>datetime</scope><name>hour</name></member>
+      <member refid="structdatetime_1adffb9d751833989b7eae93a0314496c1" prot="public" virt="non-virtual"><scope>datetime</scope><name>minute</name></member>
+      <member refid="structdatetime_1aee54dcab1c86e3079f655c65401d02e7" prot="public" virt="non-virtual"><scope>datetime</scope><name>month</name></member>
+      <member refid="structdatetime_1a6026ae22bb35c0c16166ca178369f179" prot="public" virt="non-virtual"><scope>datetime</scope><name>second</name></member>
+      <member refid="structdatetime_1afff708acf42d452c7676bb7f3e98c3f5" prot="public" virt="non-virtual"><scope>datetime</scope><name>year</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

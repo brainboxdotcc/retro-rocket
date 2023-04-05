@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structpartition__table__t" kind="struct" language="C++" prot="public">
+    <compoundname>partition_table_t</compoundname>
+    <includes local="no">partition.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpartition__table__t_1a390bf115198bf0cecf5da4391ad4bc0a" prot="public" static="no" mutable="no">
+        <type><ref refid="structpartition__t" kindref="compound">partition_t</ref></type>
+        <definition>partition_t partition_table_t::p_entry[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>p_entry</name>
+        <briefdescription>
+<para>Partition entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="36" column="13" bodyfile="include/partition.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A disk partition table consisiting of four <ref refid="structpartition__t" kindref="compound">partition_t</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>partition_table_t</label>
+        <link refid="structpartition__table__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>p_entry</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>partition_t</label>
+        <link refid="structpartition__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>endcylsect</edgelabel>
+          <edgelabel>startcylsect</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>length</edgelabel>
+          <edgelabel>startlba</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>bootable</edgelabel>
+          <edgelabel>endhead</edgelabel>
+          <edgelabel>starthead</edgelabel>
+          <edgelabel>systemid</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint16_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/partition.h" line="34" column="1" bodyfile="include/partition.h" bodystart="34" bodyend="37"/>
+    <listofallmembers>
+      <member refid="structpartition__table__t_1a390bf115198bf0cecf5da4391ad4bc0a" prot="public" virt="non-virtual"><scope>partition_table_t</scope><name>p_entry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

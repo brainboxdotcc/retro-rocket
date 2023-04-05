@@ -31,8 +31,16 @@ typedef struct stack_frame {
 	void *addr;
 } stack_frame_t;
 
-// Create a hex dump of a region of ram, displayed in BBC Miro/Archimedes *DUMP style,
-// dumped to current_console.
+/**
+ * @brief print the contents of the specified memory address in hexadecimal
+ * format along with the corresponding ASCII characters. The function achieves
+ * this by iterating through the memory in chunks of 16 bytes and printing
+ * each chunk on a separate line.
+ * 
+ * @param address a pointer to some memory address
+ * @param length represents the number of bytes of memory that should be dumped.
+ */
+
 void dump_hex(void* address, uint64_t length);
 
 // Initialise debugger, read symbols from boot device. These are used for backtraces.

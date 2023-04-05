@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structconsole" kind="struct" language="C++" prot="public">
+    <compoundname>console</compoundname>
+    <includes local="no">video.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structconsole_1a1a6f8fce495830c77efb0937c0f651bf" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char console::dirty</definition>
+        <argsstring></argsstring>
+        <name>dirty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="31" column="6" bodyfile="include/video.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconsole_1acdabb6d09ff37db3aa529a457b51dc51" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t console::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="32" column="9" bodyfile="include/video.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconsole_1a1e4d9fbe95f48cfbcca68b597f0952f4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t console::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="33" column="9" bodyfile="include/video.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconsole_1a51ddcfb73f1f549d1ef15bee3c97a50b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t console::attributes</definition>
+        <argsstring></argsstring>
+        <name>attributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="34" column="9" bodyfile="include/video.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconsole_1aa6fec9b1069d77d705298d419cfbc5f1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t console::last</definition>
+        <argsstring></argsstring>
+        <name>last</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="35" column="9" bodyfile="include/video.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconsole_1a91d1627e8cdd4e8cd99dbe49b9240d4e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* console::internalbuffer</definition>
+        <argsstring></argsstring>
+        <name>internalbuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="36" column="6" bodyfile="include/video.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconsole_1aa45e29de771517b78d3637bb503f21ec" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* console::buffer</definition>
+        <argsstring></argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="37" column="6" bodyfile="include/video.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconsole_1a3792de1a10e5002f78b3d3c7b8a9decb" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t console::bufcnt</definition>
+        <argsstring></argsstring>
+        <name>bufcnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="38" column="8" bodyfile="include/video.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>size_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+      <node id="1">
+        <label>console</label>
+        <link refid="structconsole"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>buffer</edgelabel>
+          <edgelabel>dirty</edgelabel>
+          <edgelabel>internalbuffer</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>bufcnt</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>attributes</edgelabel>
+          <edgelabel>last</edgelabel>
+          <edgelabel>x</edgelabel>
+          <edgelabel>y</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/video.h" line="29" column="1" bodyfile="include/video.h" bodystart="30" bodyend="39"/>
+    <listofallmembers>
+      <member refid="structconsole_1a51ddcfb73f1f549d1ef15bee3c97a50b" prot="public" virt="non-virtual"><scope>console</scope><name>attributes</name></member>
+      <member refid="structconsole_1a3792de1a10e5002f78b3d3c7b8a9decb" prot="public" virt="non-virtual"><scope>console</scope><name>bufcnt</name></member>
+      <member refid="structconsole_1aa45e29de771517b78d3637bb503f21ec" prot="public" virt="non-virtual"><scope>console</scope><name>buffer</name></member>
+      <member refid="structconsole_1a1a6f8fce495830c77efb0937c0f651bf" prot="public" virt="non-virtual"><scope>console</scope><name>dirty</name></member>
+      <member refid="structconsole_1a91d1627e8cdd4e8cd99dbe49b9240d4e" prot="public" virt="non-virtual"><scope>console</scope><name>internalbuffer</name></member>
+      <member refid="structconsole_1aa6fec9b1069d77d705298d419cfbc5f1" prot="public" virt="non-virtual"><scope>console</scope><name>last</name></member>
+      <member refid="structconsole_1acdabb6d09ff37db3aa529a457b51dc51" prot="public" virt="non-virtual"><scope>console</scope><name>x</name></member>
+      <member refid="structconsole_1a1e4d9fbe95f48cfbcca68b597f0952f4" prot="public" virt="non-virtual"><scope>console</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

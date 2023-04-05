@@ -1,0 +1,1596 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="rtl8139_8h" kind="file" language="C++">
+    <compoundname>rtl8139.h</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="39">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="37">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="32">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="33">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="28">
+        <label>devfs.h</label>
+      </node>
+      <node id="31">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="36">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structtx__desc" prot="public">tx_desc</innerclass>
+    <innerclass refid="structrtl8139__dev" prot="public">rtl8139_dev</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="rtl8139_8h_1a3f195356e45805ccf74184a3616ba53a" prot="public" static="no">
+        <name>RTL8139_VENDOR_ID</name>
+        <initializer>0x10EC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="6" column="9" bodyfile="include/rtl8139.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1a832875eaec4756d1ba1309eb5b18d77c" prot="public" static="no">
+        <name>RTL8139_DEVICE_ID</name>
+        <initializer>0x8139</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="7" column="9" bodyfile="include/rtl8139.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1a690f985c933da2ce6fe62b6c61dfa662" prot="public" static="no">
+        <name>RX_BUF_SIZE</name>
+        <initializer>8192</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="10" column="9" bodyfile="include/rtl8139.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1ae43401c03f18a61b4ad2eae5523b860e" prot="public" static="no">
+        <name>CAPR</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="12" column="9" bodyfile="include/rtl8139.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1a84add76286c7a0da4b5bc6cb0545c7ff" prot="public" static="no">
+        <name>RX_READ_POINTER_MASK</name>
+        <initializer>(~3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="13" column="9" bodyfile="include/rtl8139.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1a31f84f2a2d4e6e7de18add4f8db8e585" prot="public" static="no">
+        <name>CR_RST</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="126" column="9" bodyfile="include/rtl8139.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1ad1295667f0a3de4bdcc7ad87c474c73e" prot="public" static="no">
+        <name>CR_RE</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="127" column="9" bodyfile="include/rtl8139.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1ae101fdaac1072c6ed0899e0c30511d81" prot="public" static="no">
+        <name>CR_TE</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="128" column="9" bodyfile="include/rtl8139.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1adcee5d75af1b65e3d8066a8357842a6a" prot="public" static="no">
+        <name>CR_BUFE</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="129" column="9" bodyfile="include/rtl8139.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtl8139_8h_1a0e3fafea6c03ce458e3c1d35387042bd" prot="public" static="no">
+        <name>get_mac_addr</name>
+        <param><defname>x</defname></param>
+        <initializer>rtl8139_get_mac_addr(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="200" column="9" bodyfile="include/rtl8139.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="rtl8139_8h_1a613b3385f0fb6c1b12fbdd2c35ae5f59" prot="public" static="no" strong="no">
+        <type></type>
+        <name>rtl8139_recv_status</name>
+        <enumvalue id="rtl8139_8h_1a613b3385f0fb6c1b12fbdd2c35ae5f59a0b2785333af29a1ddfadaa6ff0e5bdc5" prot="public">
+          <name>ROK</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a613b3385f0fb6c1b12fbdd2c35ae5f59ad3a9b31f5a33ea056510c0f817b25154" prot="public">
+          <name>RER</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a613b3385f0fb6c1b12fbdd2c35ae5f59ae3c57e703ce78eb8aa677e7d57e5210c" prot="public">
+          <name>TOK</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a613b3385f0fb6c1b12fbdd2c35ae5f59a07089895cdf5ab53c542bc9064d88828" prot="public">
+          <name>TER</name>
+          <initializer>= 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a613b3385f0fb6c1b12fbdd2c35ae5f59ae03379f25d0ae74a416f9329b5dd448b" prot="public">
+          <name>X_TOK</name>
+          <initializer>= 0x8000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="15" column="1" bodyfile="include/rtl8139.h" bodystart="15" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="enum" id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015" prot="public" static="no" strong="no">
+        <type></type>
+        <name>rtl8139_tx_status_bits</name>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015a246f45f122620b75c155d30c4b1d0273" prot="public">
+          <name>TX_SIZE</name>
+          <initializer>= 0b00000000000000000001111111111111</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015a7ca5bef8a5883b68be60667e34ea5802" prot="public">
+          <name>TX_OWN</name>
+          <initializer>= 0b00000000000000000010000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015a8a8df3dfd83c87bd6cf7e9464ffdbf7e" prot="public">
+          <name>TX_TUN</name>
+          <initializer>= 0b00000000000000000100000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015ab8ac56b6e3bab7a9acc48f6f7be7a989" prot="public">
+          <name>TX_TOK</name>
+          <initializer>= 0b00000000000000001000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015ae735af72dde90ab2eb37e56a47acfb65" prot="public">
+          <name>TX_EARLY_THRESHOLD</name>
+          <initializer>= 0b00000000001111110000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015ab65455c8b1be515f4c4009a657611142" prot="public">
+          <name>TX_RESERVED</name>
+          <initializer>= 0b00000000110000000000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015a604f942b4b482c553e81165781b01089" prot="public">
+          <name>TX_NCC</name>
+          <initializer>= 0b00001111000000000000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015ab0beefd8c76e17bf29ac602f07c71300" prot="public">
+          <name>TX_CDH</name>
+          <initializer>= 0b00010000000000000000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015ab27beca291b1baa199a132db651c7025" prot="public">
+          <name>TX_OWC</name>
+          <initializer>= 0b00100000000000000000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015a5d35f650798d5b2ceaba9bc081784ec9" prot="public">
+          <name>TX_TABT</name>
+          <initializer>= 0b01000000000000000000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a2e53add6ee3b8f979db8707505e29015aacfae4836cc3918914bb2cc828254d37" prot="public">
+          <name>TX_CRS</name>
+          <initializer>= 0b10000000000000000000000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="23" column="1" bodyfile="include/rtl8139.h" bodystart="23" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="enum" id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56" prot="public" static="no" strong="no">
+        <type></type>
+        <name>rtl8139_rx_status_bits</name>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56a132d89f020e36f4f5b2c1229a43b84bc" prot="public">
+          <name>RX_ROK</name>
+          <initializer>= 0b00000000000000000000000000000001</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56a4a536486f1222027987e055f35c27b87" prot="public">
+          <name>RX_FAE</name>
+          <initializer>= 0b00000000000000000000000000000010</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56ac8310f36cb51e2ed5f1d39072e3db5e1" prot="public">
+          <name>RX_CRC</name>
+          <initializer>= 0b00000000000000000000000000000100</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56a84ff138d1d45c0d3fb6ee56a702fc759" prot="public">
+          <name>RX_LONG</name>
+          <initializer>= 0b00000000000000000000000000001000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56ab544921458501ff7665cba0ce1980178" prot="public">
+          <name>RX_RUNT</name>
+          <initializer>= 0b00000000000000000000000000010000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56abdb350743622fb7e4727ccfa2b0cbb42" prot="public">
+          <name>RX_ISE</name>
+          <initializer>= 0b00000000000000000000000000100000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56acf7640e62afd53e080d4a54cc5b80750" prot="public">
+          <name>RX_RESERVED</name>
+          <initializer>= 0b00000000000000000000111111000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56a0529c4933276d1052d0d7529fbd74128" prot="public">
+          <name>RX_BAR</name>
+          <initializer>= 0b00000000000000000001000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56acade285c9a96fce45db663465af0d1ea" prot="public">
+          <name>RX_PAM</name>
+          <initializer>= 0b00000000000000000010000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a67504abfbdb64607f32c6f4b76676f56a96005ab648fe35c724fa863b87297c66" prot="public">
+          <name>RX_MAR</name>
+          <initializer>= 0b00000000000000000100000000000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="37" column="1" bodyfile="include/rtl8139.h" bodystart="37" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="enum" id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858" prot="public" static="no" strong="no">
+        <type></type>
+        <name>rtl8139_interrupt_reg_bits</name>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858a890ffb10ef8ac471a0760107c0b60015" prot="public">
+          <name>RX_OK</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858a66d6534ad5dae02c04ec603c27f86617" prot="public">
+          <name>RX_ERR</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858aa1fe7d7c29c291172003a37ec297b2a6" prot="public">
+          <name>TX_OK</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858a6433eb71db79fae1a7b4c96cd9bda7a1" prot="public">
+          <name>TX_ERR</name>
+          <initializer>= 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858a1130da69ed0d801c2d473d1729412919" prot="public">
+          <name>RX_OVERFLOW</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858aaf8ceea9df23540464076cbfcbfed8f8" prot="public">
+          <name>RX_UNDERRUN</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858a9f2643070d02453ad020b4b32984979e" prot="public">
+          <name>RX_FIFO_OVERFLOW</name>
+          <initializer>= 0x40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858abe9847b681e8e157dafdc4ccbf46e381" prot="public">
+          <name>CABLE_LENGTH_CHANGE</name>
+          <initializer>= 0x2000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858af9c06e8489f606620f1f576fbd2497ad" prot="public">
+          <name>PCS_TIMEOUT</name>
+          <initializer>= 0x4000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858a161ed2bbdd565bde019fc514c9a0bbc2" prot="public">
+          <name>PCI_ERR</name>
+          <initializer>= 0x8000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ada929328d49add8af7fd13b6133c7858a2101a1cfd909a4522d809e8adda926e5" prot="public">
+          <name>INT_DEFAULT</name>
+          <initializer>= TX_OK | RX_OK</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="50" column="1" bodyfile="include/rtl8139.h" bodystart="50" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="enum" id="rtl8139_8h_1a412e6bcd2e1e6d6dfe27bd764a71a711" prot="public" static="no" strong="no">
+        <type></type>
+        <name>rtl8139_chip_cmd_bits</name>
+        <enumvalue id="rtl8139_8h_1a412e6bcd2e1e6d6dfe27bd764a71a711a95cc75f6e519c87179ee3ca83d0e5529" prot="public">
+          <name>RXBUFEMPTY</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a412e6bcd2e1e6d6dfe27bd764a71a711aca2c06554567ee854ce61e7f3cd0b75c" prot="public">
+          <name>CMDTXENB</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a412e6bcd2e1e6d6dfe27bd764a71a711a97b54969fde8c1c6441701ef065bf4f9" prot="public">
+          <name>CMDRXENB</name>
+          <initializer>= 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1a412e6bcd2e1e6d6dfe27bd764a71a711a540af2a0fab3761580a49148d98fbd3a" prot="public">
+          <name>CMDRESET</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="64" column="1" bodyfile="include/rtl8139.h" bodystart="64" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="enum" id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45f" prot="public" static="no" strong="no">
+        <type></type>
+        <name>rtl8139_rxconfig_bits</name>
+        <enumvalue id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45fa207e4e421bf9ad30335a0be9e6a23124" prot="public">
+          <name>RX_ACCEPTALLPHYS</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45faea4bbda6bb0dd76b98ac217fbd774c18" prot="public">
+          <name>RX_ACCEPTMYPHYS</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45fa40e2cdd0ad661a744d2d67c3cf7f98fe" prot="public">
+          <name>RX_ACCEPTMULTICAST</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45fa67096ba6ecdcb0fe2c2a68e8a4d847ea" prot="public">
+          <name>RX_ACCEPTBROADCAST</name>
+          <initializer>= 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45fa24bcf295804ab04a7d7c10ff42cce928" prot="public">
+          <name>RX_ACCEPTRUNT</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45faf81fafa386b2458a71cecf7a7bc217f0" prot="public">
+          <name>RX_ACCEPTERR</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1ae57a730b4dcadc839bad89c51b8db45fa266f0046f6831665935e02ec881c1870" prot="public">
+          <name>RX_CFGWRAP</name>
+          <initializer>= 0x80</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="71" column="1" bodyfile="include/rtl8139.h" bodystart="71" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="enum" id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611" prot="public" static="no" strong="no">
+        <type></type>
+        <name>rtl8139_registers</name>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a19e2ac504280f73843c0345bbe939cb1" prot="public">
+          <name>MAC0</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ac3a30d011149f0043ed7fd7956c2a2e8" prot="public">
+          <name>MAC1</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ad8428b22b67b14ec7dfff2434ea625ec" prot="public">
+          <name>MAR0</name>
+          <initializer>= 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ae6cd4b42ba2c423b6ecb9853ab9641ed" prot="public">
+          <name>TxStatus0</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a495d2ed54d32bdf8f9e8b578a98e4e07" prot="public">
+          <name>TxAddr0</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a0be07ec23a98554b95d4ba9cc92ec2a8" prot="public">
+          <name>RxBuf</name>
+          <initializer>= 0x30</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a9d728eb75ff3b48dc0d8135b1610c29c" prot="public">
+          <name>RxEarlyCnt</name>
+          <initializer>= 0x34</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611abd923d0a1521b5626aed2b9eed795e5f" prot="public">
+          <name>RxEarlyStatus</name>
+          <initializer>= 0x36</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611acf3254da3836141f05a2859422ce6b0a" prot="public">
+          <name>ChipCmd</name>
+          <initializer>= 0x37</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a597712e2790e406ce4833ea7d25c3349" prot="public">
+          <name>RxBufPtr</name>
+          <initializer>= 0x38</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a0eb04f67e30084ac9e7d83e28b46778c" prot="public">
+          <name>RxBufAddr</name>
+          <initializer>= 0x3A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a14336485406a8fb54bb61c9bae9d4b69" prot="public">
+          <name>IntrMask</name>
+          <initializer>= 0x3C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a297921d217fc433cfc0b915295dfe807" prot="public">
+          <name>IntrStatus</name>
+          <initializer>= 0x3E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a965d8877674299b84cf060b34bd53201" prot="public">
+          <name>TxConfig</name>
+          <initializer>= 0x40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ab648c90dba9362fb92f76122e41fa859" prot="public">
+          <name>RxConfig</name>
+          <initializer>= 0x44</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a3b83fbd6b78e3a551d1d7577bbee233f" prot="public">
+          <name>Timer</name>
+          <initializer>= 0x48</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611aaeea66f514b360b0a3f82aaf9bbb12e2" prot="public">
+          <name>RxMissed</name>
+          <initializer>= 0x4C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a1f9c82d2da887f8a99f2855c8954e247" prot="public">
+          <name>Cfg9346</name>
+          <initializer>= 0x50</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a120bbeb0b133fa0d6632cabd97fdfe73" prot="public">
+          <name>Config0</name>
+          <initializer>= 0x51</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a953f69b5afea07f22018fc57dfda45c3" prot="public">
+          <name>Config1</name>
+          <initializer>= 0x52</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a2d93db55f854bb0cf9ccd212b44bad5b" prot="public">
+          <name>FlashReg</name>
+          <initializer>= 0x54</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a5e69d62882708bcfb7c3a5d5e4552dfc" prot="public">
+          <name>GPPinData</name>
+          <initializer>= 0x58</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611aa0cc4e517b5036e1c87674dbc8492abb" prot="public">
+          <name>GPPinDir</name>
+          <initializer>= 0x59</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ac3570ee8268464d36cb3de6b015b2fd7" prot="public">
+          <name>MII_SMI</name>
+          <initializer>= 0x5A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a89dccff61e5568e54abca0e5e7e0cece" prot="public">
+          <name>HltClk</name>
+          <initializer>= 0x5B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611adbf09c70a11bdb3b4d407b033e0b4592" prot="public">
+          <name>MultiIntr</name>
+          <initializer>= 0x5C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ac70c98d08aad6dd53e4df023a7fd3e79" prot="public">
+          <name>TxSummary</name>
+          <initializer>= 0x60</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a5c33ef409b61e22d6528ffc8b683c527" prot="public">
+          <name>MII_BMCR</name>
+          <initializer>= 0x62</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ac1838aa723a739807638ea424d5de585" prot="public">
+          <name>MII_BMSR</name>
+          <initializer>= 0x64</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a488719b0f54e10c05eb4b2fdea2e4e40" prot="public">
+          <name>NWayAdvert</name>
+          <initializer>= 0x66</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611abe30e4c5b9bfc6d620529f80d8c64443" prot="public">
+          <name>NWayLPAR</name>
+          <initializer>= 0x68</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611ae8d69a99bf1ddd00ce301d20fbbbe763" prot="public">
+          <name>NWayExpansion</name>
+          <initializer>= 0x6A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a747e4a3ecb8924f0b56e65104cecb0c4" prot="public">
+          <name>FIFOTMS</name>
+          <initializer>= 0x70</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a5e33309348beaa903376dcd2889b18da" prot="public">
+          <name>CSCR</name>
+          <initializer>= 0x74</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611afd37b443dd70246c9d89d96e884d0576" prot="public">
+          <name>PARA78</name>
+          <initializer>= 0x78</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a1997d8f3f5bb1408474bb6f90de0b502" prot="public">
+          <name>PARA7c</name>
+          <initializer>= 0x7C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Port registers for RTL8139 <ulink url="https://datasheetspdf.com/pdf-file/1092361/RealtekMicroelectronics/RTL8139B/1">https://datasheetspdf.com/pdf-file/1092361/RealtekMicroelectronics/RTL8139B/1</ulink>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><orderedlist>
+<listitem><para>Register Descriptions </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="86" column="1" bodyfile="include/rtl8139.h" bodystart="86" bodyend="124"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="rtl8139_8h_1a722f4b0a23c7772ae64cb76be87b11c7" prot="public" static="no">
+        <type>struct <ref refid="structtx__desc" kindref="compound">tx_desc</ref></type>
+        <definition>typedef struct tx_desc tx_desc_t</definition>
+        <argsstring></argsstring>
+        <name>tx_desc_t</name>
+        <briefdescription>
+<para>Transfer description. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="137" column="11"/>
+      </memberdef>
+      <memberdef kind="typedef" id="rtl8139_8h_1a6371211774726c3dc4efa1400f458594" prot="public" static="no">
+        <type>struct <ref refid="structrtl8139__dev" kindref="compound">rtl8139_dev</ref></type>
+        <definition>typedef struct rtl8139_dev rtl8139_dev_t</definition>
+        <argsstring></argsstring>
+        <name>rtl8139_dev_t</name>
+        <briefdescription>
+<para>PCI device configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="155" column="15"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="rtl8139_8h_1aa8376ab52bb984dc5977fde84cc6ac20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rtl8139_send_packet</definition>
+        <argsstring>(void *data, uint32_t len)</argsstring>
+        <name>rtl8139_send_packet</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>Send a raw packet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>packet data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>packet length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="163" column="6" declfile="include/rtl8139.h" declline="163" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="rtl8139_8h_1afcf1f3ad1e43a154cdee3c48beae8a93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rtl8139_handler</definition>
+        <argsstring>(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)</argsstring>
+        <name>rtl8139_handler</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>isr</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>irq</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+        </param>
+        <briefdescription>
+<para>Handle RTL8139 interrupt. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>isr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ISR number (32 + ISR) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>error</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error code </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>irq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Actual IRQ number </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opaque</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to device details </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="173" column="6" declfile="include/rtl8139.h" declline="173" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="rtl8139_8h_1a486c9404282d4940385e382b9fed9f5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rtl8139_init</definition>
+        <argsstring>()</argsstring>
+        <name>rtl8139_init</name>
+        <briefdescription>
+<para>Initialise RTL8139. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true card detected and initialised </para>
+</simplesect>
+<simplesect kind="return"><para>false card not detected, or would not reset </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="181" column="6" declfile="include/rtl8139.h" declline="181" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="rtl8139_8h_1a6ffee74a1d59b89074475e3f63b90467" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* read_mac_addr</definition>
+        <argsstring>()</argsstring>
+        <name>read_mac_addr</name>
+        <briefdescription>
+<para>Get the MAC address of the card in display format. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>char* MAC address </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="188" column="6" declfile="include/rtl8139.h" declline="188" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="rtl8139_8h_1a2e3eda51e49f15540e2bff7ea40f05db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void receive_packet</definition>
+        <argsstring>()</argsstring>
+        <name>receive_packet</name>
+        <briefdescription>
+<para>Handle receipt of packet from ISR. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="193" column="6" declfile="include/rtl8139.h" declline="193" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="rtl8139_8h_1a6afdb8e39171181fcfd0e49f28b10e3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rtl8139_get_mac_addr</definition>
+        <argsstring>()</argsstring>
+        <name>rtl8139_get_mac_addr</name>
+        <briefdescription>
+<para>Get the mac address from the IO ports. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rtl8139.h" line="198" column="6" declfile="include/rtl8139.h" declline="198" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/rtl8139.h"/>
+  </compounddef>
+</doxygen>

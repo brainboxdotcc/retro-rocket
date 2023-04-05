@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structahci__fis__dev__bits__t" kind="struct" language="C++" prot="public">
+    <compoundname>ahci_fis_dev_bits_t</compoundname>
+    <includes local="no">ahci.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1aacac7f256a878c872ef1161c9b1e12ae" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::fis_type</definition>
+        <argsstring></argsstring>
+        <name>fis_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="210" column="11" bodyfile="include/ahci.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1aedac9583b37601addf5320d9a48a7a38" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::pmport</definition>
+        <argsstring></argsstring>
+        <name>pmport</name>
+        <bitfield>4</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="211" column="11" bodyfile="include/ahci.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a22c0c1e6fbe4f8b5520030b672905f52" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::rsvd</definition>
+        <argsstring></argsstring>
+        <name>rsvd</name>
+        <bitfield>2</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="212" column="11" bodyfile="include/ahci.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a020ccee3be8424ec1341567efc800740" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="213" column="11" bodyfile="include/ahci.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1ae7576eabaf3b33001a1c5743975c4834" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::n</definition>
+        <argsstring></argsstring>
+        <name>n</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="214" column="11" bodyfile="include/ahci.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1ab7c605b298ef67f3b049320440fc9564" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::statusl</definition>
+        <argsstring></argsstring>
+        <name>statusl</name>
+        <bitfield>3</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="215" column="11" bodyfile="include/ahci.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a27e9339c5e3fbc9ca80f8e56047bba0f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::rsvd2</definition>
+        <argsstring></argsstring>
+        <name>rsvd2</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="216" column="11" bodyfile="include/ahci.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a819605e953d223f335a94a294d06f72b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::statush</definition>
+        <argsstring></argsstring>
+        <name>statush</name>
+        <bitfield>3</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="217" column="11" bodyfile="include/ahci.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1ae3dcd209a8e96818d7c713cf0dc4d9bb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::rsvd3</definition>
+        <argsstring></argsstring>
+        <name>rsvd3</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="218" column="11" bodyfile="include/ahci.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dev__bits__t_1a6d262c8d475c5711df8a673e47bf0022" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dev_bits_t::error</definition>
+        <argsstring></argsstring>
+        <name>error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="219" column="11" bodyfile="include/ahci.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>ahci_fis_dev_bits_t</label>
+        <link refid="structahci__fis__dev__bits__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>error</edgelabel>
+          <edgelabel>fis_type</edgelabel>
+          <edgelabel>i</edgelabel>
+          <edgelabel>n</edgelabel>
+          <edgelabel>pmport</edgelabel>
+          <edgelabel>rsvd</edgelabel>
+          <edgelabel>rsvd2</edgelabel>
+          <edgelabel>rsvd3</edgelabel>
+          <edgelabel>statush</edgelabel>
+          <edgelabel>statusl</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/ahci.h" line="209" column="1" bodyfile="include/ahci.h" bodystart="209" bodyend="220"/>
+    <listofallmembers>
+      <member refid="structahci__fis__dev__bits__t_1a6d262c8d475c5711df8a673e47bf0022" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>error</name></member>
+      <member refid="structahci__fis__dev__bits__t_1aacac7f256a878c872ef1161c9b1e12ae" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>fis_type</name></member>
+      <member refid="structahci__fis__dev__bits__t_1a020ccee3be8424ec1341567efc800740" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>i</name></member>
+      <member refid="structahci__fis__dev__bits__t_1ae7576eabaf3b33001a1c5743975c4834" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>n</name></member>
+      <member refid="structahci__fis__dev__bits__t_1aedac9583b37601addf5320d9a48a7a38" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>pmport</name></member>
+      <member refid="structahci__fis__dev__bits__t_1a22c0c1e6fbe4f8b5520030b672905f52" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>rsvd</name></member>
+      <member refid="structahci__fis__dev__bits__t_1a27e9339c5e3fbc9ca80f8e56047bba0f" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>rsvd2</name></member>
+      <member refid="structahci__fis__dev__bits__t_1ae3dcd209a8e96818d7c713cf0dc4d9bb" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>rsvd3</name></member>
+      <member refid="structahci__fis__dev__bits__t_1a819605e953d223f335a94a294d06f72b" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>statush</name></member>
+      <member refid="structahci__fis__dev__bits__t_1ab7c605b298ef67f3b049320440fc9564" prot="public" virt="non-virtual"><scope>ahci_fis_dev_bits_t</scope><name>statusl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

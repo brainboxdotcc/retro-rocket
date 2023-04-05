@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structahci__fis__data__t" kind="struct" language="C++" prot="public">
+    <compoundname>ahci_fis_data_t</compoundname>
+    <includes local="no">ahci.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structahci__fis__data__t_1a047de9ac09c3763982c9a5fadd517600" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_data_t::fis_type</definition>
+        <argsstring></argsstring>
+        <name>fis_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="85" column="10" bodyfile="include/ahci.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__data__t_1a130cf89b79fc38dffc38acf1326afd10" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_data_t::pmport</definition>
+        <argsstring></argsstring>
+        <name>pmport</name>
+        <bitfield>4</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="87" column="10" bodyfile="include/ahci.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__data__t_1aebf3e430a2fc7ed1f7728af0df0d9b9b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_data_t::rsv0</definition>
+        <argsstring></argsstring>
+        <name>rsv0</name>
+        <bitfield>4</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="88" column="10" bodyfile="include/ahci.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__data__t_1a18eb5892ae6471d6b14c7e3cb238dd31" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_data_t::rsv1[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>rsv1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="90" column="10" bodyfile="include/ahci.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__data__t_1a2e011d0b59a0a3076cb67cd264e65ebb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_fis_data_t::data[]</definition>
+        <argsstring>[]</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="93" column="10" bodyfile="include/ahci.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint32_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>ahci_fis_data_t</label>
+        <link refid="structahci__fis__data__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>data</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>fis_type</edgelabel>
+          <edgelabel>pmport</edgelabel>
+          <edgelabel>rsv0</edgelabel>
+          <edgelabel>rsv1</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/ahci.h" line="83" column="1" bodyfile="include/ahci.h" bodystart="83" bodyend="94"/>
+    <listofallmembers>
+      <member refid="structahci__fis__data__t_1a2e011d0b59a0a3076cb67cd264e65ebb" prot="public" virt="non-virtual"><scope>ahci_fis_data_t</scope><name>data</name></member>
+      <member refid="structahci__fis__data__t_1a047de9ac09c3763982c9a5fadd517600" prot="public" virt="non-virtual"><scope>ahci_fis_data_t</scope><name>fis_type</name></member>
+      <member refid="structahci__fis__data__t_1a130cf89b79fc38dffc38acf1326afd10" prot="public" virt="non-virtual"><scope>ahci_fis_data_t</scope><name>pmport</name></member>
+      <member refid="structahci__fis__data__t_1aebf3e430a2fc7ed1f7728af0df0d9b9b" prot="public" virt="non-virtual"><scope>ahci_fis_data_t</scope><name>rsv0</name></member>
+      <member refid="structahci__fis__data__t_1a18eb5892ae6471d6b14c7e3cb238dd31" prot="public" virt="non-virtual"><scope>ahci_fis_data_t</scope><name>rsv1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

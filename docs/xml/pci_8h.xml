@@ -1,0 +1,1664 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="pci_8h" kind="file" language="C++">
+    <compoundname>pci.h</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="38">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="36">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="31">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="32">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>filesystem.h</label>
+      </node>
+      <node id="27">
+        <label>devfs.h</label>
+      </node>
+      <node id="30">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="35">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>debugger.h</label>
+      </node>
+      <node id="21">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="1">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="22">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structpci__subclass" prot="public">pci_subclass</innerclass>
+    <innerclass refid="unionpci__dev" prot="public">pci_dev</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="pci_8h_1aaa58db8af2d00af66c78624104e1016b" prot="public" static="no">
+        <name>PCI_CONFIG_ADDRESS</name>
+        <initializer>0xCF8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="26" column="9" bodyfile="include/pci.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ad1fedcf5fe37518ccc1ddfcb880d1b01" prot="public" static="no">
+        <name>PCI_CONFIG_DATA</name>
+        <initializer>0xCFC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="27" column="9" bodyfile="include/pci.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ae01a383ed97f2fef624e91dadb388637" prot="public" static="no">
+        <name>PCI_VENDOR_ID</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="29" column="9" bodyfile="include/pci.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ad26cd5a9786b77d9fb9ae23cd2d7eae5" prot="public" static="no">
+        <name>PCI_DEVICE_ID</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="30" column="9" bodyfile="include/pci.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ace199ecb77d8e32d759ac065c22304b3" prot="public" static="no">
+        <name>PCI_COMMAND</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="31" column="9" bodyfile="include/pci.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a250f9aa7637e1c67edc266e2d36adf49" prot="public" static="no">
+        <name>PCI_STATUS</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="32" column="9" bodyfile="include/pci.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ad929de128f7af09f5859000ee3cff800" prot="public" static="no">
+        <name>PCI_REVISION_ID</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="33" column="9" bodyfile="include/pci.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ad5db735214607cd17d8430346faa7728" prot="public" static="no">
+        <name>PCI_PROG_IF</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="34" column="9" bodyfile="include/pci.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a85484470d77ed1db1d1201f4a6a7cae5" prot="public" static="no">
+        <name>PCI_SUBCLASS</name>
+        <initializer>0x0a</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="35" column="9" bodyfile="include/pci.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ac14335441eedc270b16a9a47d1eab372" prot="public" static="no">
+        <name>PCI_CLASS</name>
+        <initializer>0x0b</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="36" column="9" bodyfile="include/pci.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ab0714901b1972ad6700d98d11d683f04" prot="public" static="no">
+        <name>PCI_CACHE_LINE_SIZE</name>
+        <initializer>0x0c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="37" column="9" bodyfile="include/pci.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ae2cade69be1011c19d4918689e988e2d" prot="public" static="no">
+        <name>PCI_LATENCY_TIMER</name>
+        <initializer>0x0d</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="38" column="9" bodyfile="include/pci.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a19e39e2931bb71460a3b5e1e30206d7b" prot="public" static="no">
+        <name>PCI_HEADER_TYPE</name>
+        <initializer>0x0e</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="39" column="9" bodyfile="include/pci.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a7e90cb70f5d4911a8126fe93cdac2147" prot="public" static="no">
+        <name>PCI_BIST</name>
+        <initializer>0x0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="40" column="9" bodyfile="include/pci.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a178d44cd6a809bca6a3e73c331390983" prot="public" static="no">
+        <name>PCI_BAR0</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="41" column="9" bodyfile="include/pci.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ae298b06cba997596cedec711e0836b0e" prot="public" static="no">
+        <name>PCI_BAR1</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="42" column="9" bodyfile="include/pci.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a866210f8f707527a62e3280e8fc84a34" prot="public" static="no">
+        <name>PCI_BAR2</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="43" column="9" bodyfile="include/pci.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a444e88eba503daded2bf995b1a35b104" prot="public" static="no">
+        <name>PCI_BAR3</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="44" column="9" bodyfile="include/pci.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ac92507fba4c7755722bbe9b45f3536f2" prot="public" static="no">
+        <name>PCI_BAR4</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="45" column="9" bodyfile="include/pci.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a8beff8dcd21e35c86d181c0acaac92c4" prot="public" static="no">
+        <name>PCI_BAR5</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="46" column="9" bodyfile="include/pci.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a888b0de3c4aebe2c98b66a2aa0fd3ddd" prot="public" static="no">
+        <name>PCI_CAPABILITIES</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="47" column="9" bodyfile="include/pci.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a8116525040b6cde4a11b3aaaf5e40ec7" prot="public" static="no">
+        <name>PCI_INTERRUPT_LINE</name>
+        <initializer>0x3C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="48" column="9" bodyfile="include/pci.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a5fd66cd39d51eb4c24f40749a45c103c" prot="public" static="no">
+        <name>PCI_INTERRUPT_PIN</name>
+        <initializer>0x3D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="49" column="9" bodyfile="include/pci.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a8e52567b75b9fd1bc3f1d686c4ccbbfe" prot="public" static="no">
+        <name>PCI_MIN_GNT</name>
+        <initializer>0x3E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="50" column="9" bodyfile="include/pci.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a73fc7cf5abe463df3bd5ec4a83b59648" prot="public" static="no">
+        <name>PCI_MAX_LAT</name>
+        <initializer>0x3F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="51" column="9" bodyfile="include/pci.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a542c19851ef72dbe90bf3aa8cc275fd3" prot="public" static="no">
+        <name>PCI_SECONDARY_BUS</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="52" column="9" bodyfile="include/pci.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a38e438de2cc1dff651461c4ee80dd117" prot="public" static="no">
+        <name>PCI_STATUS_INTERRUPT</name>
+        <initializer>(1 &lt;&lt; 3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="54" column="9" bodyfile="include/pci.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a0b2f01589632fdeb18108c8a8f1d0a0d" prot="public" static="no">
+        <name>PCI_STATUS_CAPABAILITIES_LIST</name>
+        <initializer>(1 &lt;&lt; 4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="55" column="9" bodyfile="include/pci.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a732880a7e90d5bcf5cb24bcf95fbc081" prot="public" static="no">
+        <name>PCI_STATUS_66MHZ_CAPABLE</name>
+        <initializer>(1 &lt;&lt; 5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="56" column="9" bodyfile="include/pci.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a31a257467fe5f91ca44a449d11f46f14" prot="public" static="no">
+        <name>PCI_STATUS_FAST_BACK_TO_BACK_CAPABLE</name>
+        <initializer>(1 &lt;&lt; 7)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="57" column="9" bodyfile="include/pci.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a7d7859a1e80d12d795402fd4fd91aefa" prot="public" static="no">
+        <name>PCI_STATUS_MASTER_DATA_PARITY_ERROR</name>
+        <initializer>(1 &lt;&lt; 8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="58" column="9" bodyfile="include/pci.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ac56ef56d0617833d3d3584e8129d86b4" prot="public" static="no">
+        <name>PCI_STATUS_DEVSEL_TIMING</name>
+        <initializer>(1 &lt;&lt; 9) &amp; (1 &lt;&lt; 10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="59" column="9" bodyfile="include/pci.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1aa240a325fa914c63f04d1ee3f229000c" prot="public" static="no">
+        <name>PCI_STATUS_SIGNALLED_TARGET_ABORT</name>
+        <initializer>(1 &lt;&lt; 11)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="60" column="9" bodyfile="include/pci.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a6272ed975dab08f492a882badd28c151" prot="public" static="no">
+        <name>PCI_STATUS_RECEIVED_TARGET_ABORT</name>
+        <initializer>(1 &lt;&lt; 12)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="61" column="9" bodyfile="include/pci.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a9ffd7f57c1d61869e2408b9b73b0acce" prot="public" static="no">
+        <name>PCI_STATUS_RECEIVED_MASTER_ABORT</name>
+        <initializer>(1 &lt;&lt; 13)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="62" column="9" bodyfile="include/pci.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a755177525ab3d78b02a47cf2964fe0b5" prot="public" static="no">
+        <name>PCI_STATUS_SIGNALLED_SYSTEM_ERROR</name>
+        <initializer>(1 &lt;&lt; 14)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="63" column="9" bodyfile="include/pci.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1aa3e2e3727696f2fcd9e1990aac27ceab" prot="public" static="no">
+        <name>PCI_STATUS_DETECTED_PARITY_ERROR</name>
+        <initializer>(1 &lt;&lt; 15)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="64" column="9" bodyfile="include/pci.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1aa577c828b808ce3e44cd62cf8f8c33b5" prot="public" static="no">
+        <name>PCI_COMMAND_IOSPACE</name>
+        <initializer>(1 &lt;&lt; 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="66" column="9" bodyfile="include/pci.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ac84ac4a4242d97e0e8f55c1e647478c7" prot="public" static="no">
+        <name>PCI_COMMAND_MEMSPACE</name>
+        <initializer>(1 &lt;&lt; 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="67" column="9" bodyfile="include/pci.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a060fa0ce84f18350877eb3bd0aab6488" prot="public" static="no">
+        <name>PCI_COMMAND_BUS_MASTER</name>
+        <initializer>(1 &lt;&lt; 2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="68" column="9" bodyfile="include/pci.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a2ddfe5aa713b387965dfcaba112acda8" prot="public" static="no">
+        <name>PCI_COMMAND_SPECIAL_CYCLES</name>
+        <initializer>(1 &lt;&lt; 3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="69" column="9" bodyfile="include/pci.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a717d6a61baad281ba773dd5d47b0bea0" prot="public" static="no">
+        <name>PCI_COMMAND_MEMORY_WRITE_INVALIDATE</name>
+        <initializer>(1 &lt;&lt; 4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="70" column="9" bodyfile="include/pci.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a72e82af52fe6cf8c3ff8f2972e42b577" prot="public" static="no">
+        <name>PCI_COMMAND_VGA_PALLETE_SNOOP</name>
+        <initializer>(1 &lt;&lt; 5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="71" column="9" bodyfile="include/pci.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a2b216630a6f8875a0c5ffe15e2ef71ca" prot="public" static="no">
+        <name>PCI_COMMAND_PARITY_ERROR_RESPONSE</name>
+        <initializer>(1 &lt;&lt; 6)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="72" column="9" bodyfile="include/pci.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a3f6266178a0be31cfba7a8a3034b4d58" prot="public" static="no">
+        <name>PCI_COMMAND_RESERVED_0</name>
+        <initializer>(1 &lt;&lt; 7)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="73" column="9" bodyfile="include/pci.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a8225e98bdfb32802cd52f3934e22c0bd" prot="public" static="no">
+        <name>PCI_COMMAND_SERR_ENABLE</name>
+        <initializer>(1 &lt;&lt; 8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="74" column="9" bodyfile="include/pci.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1aa143455af2cf1f99847f31470d1971c3" prot="public" static="no">
+        <name>PCI_COMMAND_FAST_BACK_TO_BACK_ENABLE</name>
+        <initializer>(1 &lt;&lt; 9)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="75" column="9" bodyfile="include/pci.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a97ea8df7cb0b49af1f4564cb4c1ac2a3" prot="public" static="no">
+        <name>PCI_COMMAND_INTERRUPT_DISABLE</name>
+        <initializer>(1 &lt;&lt; 10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="76" column="9" bodyfile="include/pci.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a35f68b31fa7c8742021846e801833ac2" prot="public" static="no">
+        <name>PCI_COMMAND_RESERVED_1</name>
+        <initializer>(1 &lt;&lt; 11)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="77" column="9" bodyfile="include/pci.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ada978bb00a43851015de923e0af1ec02" prot="public" static="no">
+        <name>PCI_CAPABILITY_MSI</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="79" column="9" bodyfile="include/pci.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ab59013c8ba400d767ac553778bfc37be" prot="public" static="no">
+        <name>PCI_MSI_64BIT</name>
+        <initializer>(1 &lt;&lt; 7)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="80" column="9" bodyfile="include/pci.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a77dc2272a429c70457185b000b0a5dcf" prot="public" static="no">
+        <name>PCI_MSI_DEASSERT</name>
+        <initializer>(1 &lt;&lt; 14)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="81" column="9" bodyfile="include/pci.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a0264dfbcdc7b2c18891eadcec4717670" prot="public" static="no">
+        <name>PCI_MSI_EDGETRIGGER</name>
+        <initializer>(1 &lt;&lt; 15)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="82" column="9" bodyfile="include/pci.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1af0f4adb484694e2f8e32c34772cccdcf" prot="public" static="no">
+        <name>PCI_MSI_ENABLE</name>
+        <initializer>(1 &lt;&lt; 16)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="83" column="9" bodyfile="include/pci.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a91d98d5078b9c0b784e68dcbbca8cb2d" prot="public" static="no">
+        <name>PCI_BAR_TYPE_MEMORY</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="85" column="9" bodyfile="include/pci.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1af851c079188594b6a0c4d271545676d1" prot="public" static="no">
+        <name>PCI_BAR_TYPE_IOPORT</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="86" column="9" bodyfile="include/pci.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1aa22a6d0a85a157316b6528864bf8bd86" prot="public" static="no">
+        <name>PCI_HEADER_TYPE_DEVICE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="88" column="9" bodyfile="include/pci.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ad8e741ca14aec81566cefb1936f16510" prot="public" static="no">
+        <name>PCI_HEADER_TYPE_BRIDGE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="89" column="9" bodyfile="include/pci.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a31cd01509b5097e0fb1257b5b701b4eb" prot="public" static="no">
+        <name>PCI_HEADER_TYPE_CARDBUS</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="90" column="9" bodyfile="include/pci.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a36f8e61ddafeaa474bf6d95ad5d4b6d3" prot="public" static="no">
+        <name>PCI_TYPE_BRIDGE</name>
+        <initializer>0x0604</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="91" column="9" bodyfile="include/pci.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a10bf7d300fb36b56e999a704fec54b28" prot="public" static="no">
+        <name>PCI_TYPE_SATA</name>
+        <initializer>0x0106</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="92" column="9" bodyfile="include/pci.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a6e719bea36ac98073329ee789f7a8f67" prot="public" static="no">
+        <name>PCI_NONE</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="93" column="9" bodyfile="include/pci.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a616b1485f3933c23fee5d1c039286517" prot="public" static="no">
+        <name>DEVICE_PER_BUS</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="96" column="9" bodyfile="include/pci.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1ab0d2b8cb6cd3a8b0f09661af854727d4" prot="public" static="no">
+        <name>FUNCTION_PER_DEVICE</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="97" column="9" bodyfile="include/pci.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="pci_8h_1a68c913ada2b8e5a5956b5b1632304851" prot="public" static="no">
+        <type>union <ref refid="unionpci__dev" kindref="compound">pci_dev</ref></type>
+        <definition>typedef union pci_dev pci_dev_t</definition>
+        <argsstring></argsstring>
+        <name>pci_dev_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="22" column="11"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="pci_8h_1a20f742d67da8197d67e0f679982f0328" prot="public" static="no" mutable="no">
+        <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+        <definition>pci_dev_t dev_zero</definition>
+        <argsstring></argsstring>
+        <name>dev_zero</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="24" column="18" declfile="include/pci.h" declline="24" declcolumn="18"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pci_8h_1a1b3ead5a8fcb9b7c6a20c61df6e4a56e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t pci_read</definition>
+        <argsstring>(pci_dev_t dev, uint32_t field)</argsstring>
+        <name>pci_read</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="99" column="10" declfile="include/pci.h" declline="99" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a0f62b415645f8773747ea15af6177ead" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pci_write</definition>
+        <argsstring>(pci_dev_t dev, uint32_t field, uint32_t value)</argsstring>
+        <name>pci_write</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>field</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="100" column="6" declfile="include/pci.h" declline="100" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a2958aa8618c13dcac19b96c6749e8ca9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t get_device_type</definition>
+        <argsstring>(pci_dev_t dev)</argsstring>
+        <name>get_device_type</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="101" column="10" declfile="include/pci.h" declline="101" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a2b914ecc0d51fc49d191e1cab5a42035" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t get_secondary_bus</definition>
+        <argsstring>(pci_dev_t dev)</argsstring>
+        <name>get_secondary_bus</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="102" column="10" declfile="include/pci.h" declline="102" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1aa31df8f900c2306e32d389ff2ddc7144" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t pci_reach_end</definition>
+        <argsstring>(pci_dev_t dev)</argsstring>
+        <name>pci_reach_end</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="103" column="10" declfile="include/pci.h" declline="103" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a6314b13112829af868417a59b03c7a3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+        <definition>pci_dev_t pci_scan_function</definition>
+        <argsstring>(uint16_t vendor_id, uint16_t device_id, uint32_t bus, uint32_t device, uint32_t function, int device_type)</argsstring>
+        <name>pci_scan_function</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>vendor_id</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>device_id</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bus</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>device_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="104" column="11" declfile="include/pci.h" declline="104" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1aa1505d7a496707c68f2e39c3208ab519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+        <definition>pci_dev_t pci_scan_device</definition>
+        <argsstring>(uint16_t vendor_id, uint16_t device_id, uint32_t bus, uint32_t device, int device_type)</argsstring>
+        <name>pci_scan_device</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>vendor_id</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>device_id</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bus</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>device_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="105" column="11" declfile="include/pci.h" declline="105" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a4f76d3aca55ca73e8e130b3d05ce337c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+        <definition>pci_dev_t pci_scan_bus</definition>
+        <argsstring>(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int device_type)</argsstring>
+        <name>pci_scan_bus</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>vendor_id</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>device_id</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bus</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>device_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="106" column="11" declfile="include/pci.h" declline="106" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a23395c1f682d006bba59e854b41b975f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+        <definition>pci_dev_t pci_get_device</definition>
+        <argsstring>(uint16_t vendor_id, uint16_t device_id, int device_type)</argsstring>
+        <name>pci_get_device</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>vendor_id</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>device_id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>device_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="107" column="11" declfile="include/pci.h" declline="107" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1ac1163b8d93711c6fa01dfbffd2b4f0bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_pci</definition>
+        <argsstring>()</argsstring>
+        <name>init_pci</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="108" column="6" declfile="include/pci.h" declline="108" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1acfcfa5ee1f172b02ed5ded3f9a48c14f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pci_bus_master</definition>
+        <argsstring>(pci_dev_t device)</argsstring>
+        <name>pci_bus_master</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>device</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="109" column="6" declfile="include/pci.h" declline="109" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a99c835f2d27af0e6335617180be46775" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t pci_bar_type</definition>
+        <argsstring>(uint32_t field)</argsstring>
+        <name>pci_bar_type</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="110" column="9" declfile="include/pci.h" declline="110" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1ae173ef988f04776521bbb441754b632f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t pci_io_base</definition>
+        <argsstring>(uint32_t field)</argsstring>
+        <name>pci_io_base</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="111" column="10" declfile="include/pci.h" declline="111" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1aabf8de69d779907c7a09bd5f274b8d94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t pci_mem_base</definition>
+        <argsstring>(uint32_t field)</argsstring>
+        <name>pci_mem_base</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="112" column="10" declfile="include/pci.h" declline="112" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1abbdb3592d2988357e39ecb89edf42803" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pci_not_found</definition>
+        <argsstring>(pci_dev_t device)</argsstring>
+        <name>pci_not_found</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>device</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="113" column="6" declfile="include/pci.h" declline="113" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a23a74014c6c0f6b9e5baeec2ab71f857" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pci_enable_msi</definition>
+        <argsstring>(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert)</argsstring>
+        <name>pci_enable_msi</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>edgetrigger</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>deassert</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="115" column="6" declfile="include/pci.h" declline="115" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1aea7e8359de57f6fe2ba661fb2cbe0841" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pci_display_device_list</definition>
+        <argsstring>()</argsstring>
+        <name>pci_display_device_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="116" column="6" declfile="include/pci.h" declline="116" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1ae7f216cacb07fed85ffc9a988f7559b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t pci_get_device_list</definition>
+        <argsstring>(pci_dev_t **list)</argsstring>
+        <name>pci_get_device_list</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref> **</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="117" column="8" declfile="include/pci.h" declline="117" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a16049e7066a54bf300d2900c01ad3795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pci_interrupt_enable</definition>
+        <argsstring>(pci_dev_t device, bool enable)</argsstring>
+        <name>pci_interrupt_enable</name>
+        <param>
+          <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="118" column="6" declfile="include/pci.h" declline="118" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/pci.h"/>
+  </compounddef>
+</doxygen>

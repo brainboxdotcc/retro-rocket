@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structubasic__int__fn" kind="struct" language="C++" prot="public">
+    <compoundname>ubasic_int_fn</compoundname>
+    <includes local="no">ubasic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structubasic__int__fn_1a4cec051f0e4c2cd12ca29b5a639a78c7" prot="public" static="no" mutable="no">
+        <type>builtin_int_fn</type>
+        <definition>builtin_int_fn ubasic_int_fn::handler</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="147" column="16" bodyfile="include/ubasic.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structubasic__int__fn_1a0cbb9551a9e8a71e340b9e849533d427" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ubasic_int_fn::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="148" column="12" bodyfile="include/ubasic.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ubasic_int_fn</label>
+        <link refid="structubasic__int__fn"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>handler</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>int64_t</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ubasic.h" line="145" column="1" bodyfile="include/ubasic.h" bodystart="146" bodyend="149"/>
+    <listofallmembers>
+      <member refid="structubasic__int__fn_1a4cec051f0e4c2cd12ca29b5a639a78c7" prot="public" virt="non-virtual"><scope>ubasic_int_fn</scope><name>handler</name></member>
+      <member refid="structubasic__int__fn_1a0cbb9551a9e8a71e340b9e849533d427" prot="public" virt="non-virtual"><scope>ubasic_int_fn</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structtcp__ordered__list__t" kind="struct" language="C++" prot="public">
+    <compoundname>tcp_ordered_list_t</compoundname>
+    <includes local="no">tcp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtcp__ordered__list__t_1a188fe16513a20a2ff3f05bfdd908a61d" prot="public" static="no" mutable="no">
+        <type>tcp_segment_t *</type>
+        <definition>tcp_segment_t* tcp_ordered_list_t::segment</definition>
+        <argsstring></argsstring>
+        <name>segment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="91" column="15" bodyfile="include/tcp.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtcp__ordered__list__t_1ac950bfac37c1ef4c0994e84120c2c69b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t tcp_ordered_list_t::len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="92" column="8" bodyfile="include/tcp.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtcp__ordered__list__t_1ae5bfd22e0de51e1977b37493f4c8992d" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structtcp__ordered__list__t" kindref="compound">tcp_ordered_list_t</ref> *</type>
+        <definition>struct tcp_ordered_list_t* tcp_ordered_list_t::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="93" column="26" bodyfile="include/tcp.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtcp__ordered__list__t_1aa732fc30cc2b467bcc1df6ec972d879b" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structtcp__ordered__list__t" kindref="compound">tcp_ordered_list_t</ref> *</type>
+        <definition>struct tcp_ordered_list_t* tcp_ordered_list_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="94" column="26" bodyfile="include/tcp.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>size_t</label>
+      </node>
+      <node id="3">
+        <label>tcp_segment_t *</label>
+      </node>
+      <node id="1">
+        <label>tcp_ordered_list_t</label>
+        <link refid="structtcp__ordered__list__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>len</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>segment</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/tcp.h" line="90" column="1" bodyfile="include/tcp.h" bodystart="90" bodyend="95"/>
+    <listofallmembers>
+      <member refid="structtcp__ordered__list__t_1ac950bfac37c1ef4c0994e84120c2c69b" prot="public" virt="non-virtual"><scope>tcp_ordered_list_t</scope><name>len</name></member>
+      <member refid="structtcp__ordered__list__t_1aa732fc30cc2b467bcc1df6ec972d879b" prot="public" virt="non-virtual"><scope>tcp_ordered_list_t</scope><name>next</name></member>
+      <member refid="structtcp__ordered__list__t_1ae5bfd22e0de51e1977b37493f4c8992d" prot="public" virt="non-virtual"><scope>tcp_ordered_list_t</scope><name>prev</name></member>
+      <member refid="structtcp__ordered__list__t_1a188fe16513a20a2ff3f05bfdd908a61d" prot="public" virt="non-virtual"><scope>tcp_ordered_list_t</scope><name>segment</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

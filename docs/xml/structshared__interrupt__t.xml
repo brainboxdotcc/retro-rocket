@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structshared__interrupt__t" kind="struct" language="C++" prot="public">
+    <compoundname>shared_interrupt_t</compoundname>
+    <includes local="no">interrupt.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structshared__interrupt__t_1ac6fced04f32e114bbf9d69582b5d1156" prot="public" static="no" mutable="no">
+        <type>isr_t</type>
+        <definition>isr_t shared_interrupt_t::interrupt_handler</definition>
+        <argsstring></argsstring>
+        <name>interrupt_handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interrupt.h" line="35" column="7" bodyfile="include/interrupt.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshared__interrupt__t_1af7e76fc930c7cbd3be9d0caf9f4eeeca" prot="public" static="no" mutable="no">
+        <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+        <definition>pci_dev_t shared_interrupt_t::device</definition>
+        <argsstring></argsstring>
+        <name>device</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interrupt.h" line="36" column="11" bodyfile="include/interrupt.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshared__interrupt__t_1adc6ce3f7ffccf94e1f5f34e7f647d959" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* shared_interrupt_t::opaque</definition>
+        <argsstring></argsstring>
+        <name>opaque</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interrupt.h" line="37" column="6" bodyfile="include/interrupt.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshared__interrupt__t_1a65c2b0190a13c775cc010245c95db9d9" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structshared__interrupt__t" kindref="compound">shared_interrupt_t</ref> *</type>
+        <definition>struct shared_interrupt_t* shared_interrupt_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/interrupt.h" line="38" column="26" bodyfile="include/interrupt.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An entry in a linked list of handlers attached to an ISR. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>void *</label>
+      </node>
+      <node id="4">
+        <label>anonymous:@9</label>
+      </node>
+      <node id="1">
+        <label>shared_interrupt_t</label>
+        <link refid="structshared__interrupt__t"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>interrupt_handler</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>device</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>uint32_t</label>
+      </node>
+      <node id="2">
+        <label>uint8_t</label>
+      </node>
+      <node id="3">
+        <label>pci_dev</label>
+        <link refid="unionpci__dev"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>@9</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>always_zero</edgelabel>
+          <edgelabel>bits</edgelabel>
+          <edgelabel>bus_num</edgelabel>
+          <edgelabel>device_num</edgelabel>
+          <edgelabel>enable</edgelabel>
+          <edgelabel>field_num</edgelabel>
+          <edgelabel>function_num</edgelabel>
+          <edgelabel>reserved</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/interrupt.h" line="34" column="1" bodyfile="include/interrupt.h" bodystart="34" bodyend="39"/>
+    <listofallmembers>
+      <member refid="structshared__interrupt__t_1af7e76fc930c7cbd3be9d0caf9f4eeeca" prot="public" virt="non-virtual"><scope>shared_interrupt_t</scope><name>device</name></member>
+      <member refid="structshared__interrupt__t_1ac6fced04f32e114bbf9d69582b5d1156" prot="public" virt="non-virtual"><scope>shared_interrupt_t</scope><name>interrupt_handler</name></member>
+      <member refid="structshared__interrupt__t_1a65c2b0190a13c775cc010245c95db9d9" prot="public" virt="non-virtual"><scope>shared_interrupt_t</scope><name>next</name></member>
+      <member refid="structshared__interrupt__t_1adc6ce3f7ffccf94e1f5f34e7f647d959" prot="public" virt="non-virtual"><scope>shared_interrupt_t</scope><name>opaque</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

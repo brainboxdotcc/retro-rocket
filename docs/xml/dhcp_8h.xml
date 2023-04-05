@@ -1,0 +1,1216 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dhcp_8h" kind="file" language="C++">
+    <compoundname>dhcp.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="39">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="46">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="37">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="32">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="33">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="47">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="28">
+        <label>devfs.h</label>
+      </node>
+      <node id="31">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="36">
+        <label>ubasic.h</label>
+      </node>
+      <node id="45">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structdhcp__packet__t" prot="public">dhcp_packet_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="dhcp_8h_1a7d226f4bf1debfefe743b2aa4b567fda" prot="public" static="no">
+        <name>DHCP_TRANSACTION_IDENTIFIER</name>
+        <initializer>0x55AA55AA</initializer>
+        <briefdescription>
+<para>Hard coded transaction identifier. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="62" column="9" bodyfile="include/dhcp.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="dhcp_8h_1af21fcea36912e23acf2968b740b6197e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>dhcp_request_type_t</name>
+        <enumvalue id="dhcp_8h_1af21fcea36912e23acf2968b740b6197ea6c0f8bb1e5fe44f7e672176cfa0d1750" prot="public">
+          <name>DHCP_REQUEST</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1af21fcea36912e23acf2968b740b6197eaa3e0653065fc40f3e0ceaaee8b553d26" prot="public">
+          <name>DHCP_REPLY</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Direction of DHCP packet, outbound are REQUES and inbound (from the server to client) are REPLY. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="10" column="1" bodyfile="include/dhcp.h" bodystart="10" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="enum" id="dhcp_8h_1a5722e63a895c68cae7eea50041f00741" prot="public" static="no" strong="no">
+        <type></type>
+        <name>dhcp_udp_ports_t</name>
+        <enumvalue id="dhcp_8h_1a5722e63a895c68cae7eea50041f00741ae0e5da918fc8f18da3eeddacc0d6b976" prot="public">
+          <name>DHCP_DST_PORT</name>
+          <initializer>= 68</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a5722e63a895c68cae7eea50041f00741a7849170d6bb970fb7771ca14387bbb5b" prot="public">
+          <name>DHCP_SRC_PORT</name>
+          <initializer>= 67</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>source and destination UDP port numbers </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="18" column="1" bodyfile="include/dhcp.h" bodystart="18" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="enum" id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6c" prot="public" static="no" strong="no">
+        <type></type>
+        <name>dhcp_packet_type_t</name>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6caedb343e2fe9088a1addb01070779caf6" prot="public">
+          <name>DHCPDISCOVER</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6ca30560de14ec3e74fcb53c3fd2c212ac5" prot="public">
+          <name>DHCPOFFER</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6cac2f3ca18196b6c26fd50894ea3f9a522" prot="public">
+          <name>DHCPREQUEST</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6ca8fa59ccee03361115b11f9afa2b0d8a4" prot="public">
+          <name>DHCPDECLINE</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6ca0c98ecbe1cdac180439bc423eaea9365" prot="public">
+          <name>DHCPACK</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6ca985043e23916d1dbc71e52b59d07bf9b" prot="public">
+          <name>DHCPNAK</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6ca8753d38adab731b346a264c428d200c5" prot="public">
+          <name>DHCPRELEASE</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a956d60c774ba42add7d32d8819cebe6cad244b976cdb420108b6b7c445d7ef90a" prot="public">
+          <name>DHCPINFORM</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Packet types inside the options, type 53. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="26" column="1" bodyfile="include/dhcp.h" bodystart="26" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="enum" id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5" prot="public" static="no" strong="no">
+        <type></type>
+        <name>dhcp_option_type_t</name>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5adfaa628517d0d8e3e4218f00e0135619" prot="public">
+          <name>OPT_SUBNET</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a57bf7d25ef777550c5c764c256d78c86" prot="public">
+          <name>OPT_GATEWAY</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a8e00c937854676185aa11146cdd86311" prot="public">
+          <name>OPT_DNS</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a662dd1597ac41a1c9ddb010d9678bfa4" prot="public">
+          <name>OPT_HOSTNAME</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a3d9311d60a27a5961819966598726335" prot="public">
+          <name>OPT_DOMAIN</name>
+          <initializer>= 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5ae3a2b3d47ac7b1e3c40123d0ff7d90f5" prot="public">
+          <name>OPT_NBNS</name>
+          <initializer>= 44</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a07aa6a04314d9142bed437260c10bcb0" prot="public">
+          <name>OPT_NBDD</name>
+          <initializer>= 45</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a7431d6fd3cf549f86a7f52747a2e865e" prot="public">
+          <name>OPT_NETBIOS_NODE_TYPE</name>
+          <initializer>= 46</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5ac68e839deaf67840197d11287d18025f" prot="public">
+          <name>OPT_REQUESTED_IP</name>
+          <initializer>= 50</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5af32cc6d9ff79ca104793b60205d18a5a" prot="public">
+          <name>OPT_LEASE_TIME</name>
+          <initializer>= 51</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a073b9aa49852d1c6e2b6ef6944668fd1" prot="public">
+          <name>OPT_TYPE</name>
+          <initializer>= 53</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a05b6a2f01bfbd29f2690505d6a0c6983" prot="public">
+          <name>OPT_SERVER_IP</name>
+          <initializer>= 54</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5aa40d2ce2d3fe8ac1b488c04bc87df7ea" prot="public">
+          <name>OPT_PARAMETER_REQUEST_LIST</name>
+          <initializer>= 55</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5af8116ca13483aff034712b4f870503c9" prot="public">
+          <name>OPT_MAX_DHCP_SIZE</name>
+          <initializer>= 57</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a7615fdf02d9f318b7fb1e23c9e78aff6" prot="public">
+          <name>OPT_CLIENT_MAC</name>
+          <initializer>= 61</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dhcp_8h_1a1c096d2e146242f8ce873babfd5b0af5a458aab68d7fa71dab5b3486773d1a3c9" prot="public">
+          <name>OPT_END</name>
+          <initializer>= 255</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Types of options in the options fields. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="40" column="1" bodyfile="include/dhcp.h" bodystart="40" bodyend="57"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="dhcp_8h_1a3fe410a28ee11b520d9dd574d2139f4b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t op</definition>
+        <argsstring></argsstring>
+        <name>op</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="0" column="9" bodyfile="include/dhcp.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1ac69dc2d63f0ca8d2fd3c7bdebf5d7180" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t hardware_type</definition>
+        <argsstring></argsstring>
+        <name>hardware_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="1" column="9" bodyfile="include/dhcp.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a2b6b06607261b860332af4cbe9316bdd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t hardware_addr_len</definition>
+        <argsstring></argsstring>
+        <name>hardware_addr_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="2" column="9" bodyfile="include/dhcp.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a2719bad26c6e7de2bc08439cea7111ce" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t hops</definition>
+        <argsstring></argsstring>
+        <name>hops</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="3" column="9" bodyfile="include/dhcp.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1ad031a042dfee0c8192ef5e606c7a1354" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t xid</definition>
+        <argsstring></argsstring>
+        <name>xid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="4" column="10" bodyfile="include/dhcp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1ab5a4e8eeae4104a43619ebf1950a81f7" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t seconds</definition>
+        <argsstring></argsstring>
+        <name>seconds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="5" column="10" bodyfile="include/dhcp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a1e87af3c18a2fd36c61faf89949bdc3f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="6" column="10" bodyfile="include/dhcp.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a6ad36fdf5e7ffa340dd06acddff4365b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t client_ip</definition>
+        <argsstring></argsstring>
+        <name>client_ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="7" column="10" bodyfile="include/dhcp.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a19bc64fdcff8744c5cb34f4f69e9a832" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t your_ip</definition>
+        <argsstring></argsstring>
+        <name>your_ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="8" column="10" bodyfile="include/dhcp.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a382f5128cf0f541f75a6e4f29da82293" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t server_ip</definition>
+        <argsstring></argsstring>
+        <name>server_ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="9" column="10" bodyfile="include/dhcp.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a3ea16e63e1bf89c41ca43271feb6f926" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t relay_agent_ip</definition>
+        <argsstring></argsstring>
+        <name>relay_agent_ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="10" column="10" bodyfile="include/dhcp.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a668cf3710953f506bc14fad30c1141c4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t client_hardware_addr[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>client_hardware_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="11" column="9" bodyfile="include/dhcp.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1ae180add4160baa06b340a59a6895e1ab" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t server_name[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>server_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="12" column="9" bodyfile="include/dhcp.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a78ed9edda7b542ef10c7d09dbbde1eeb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t boot_file[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>boot_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="13" column="9" bodyfile="include/dhcp.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dhcp_8h_1a19c4de459e9e054d1e041aaa9b1241b4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t options[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>options</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="14" column="9" bodyfile="include/dhcp.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="dhcp_8h_1af609d957a70f8b6388a2a1081cbabd4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structdhcp__packet__t" kindref="compound">dhcp_packet_t</ref></type>
+        <definition>struct dhcp_packet_t __attribute__</definition>
+        <argsstring>((packed)) dhcp_packet_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed)</type>
+        </param>
+        <briefdescription>
+<para>Definition of a DHCP packet. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="1" column="0" declfile="include/dhcp.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="dhcp_8h_1a6028f8888ed57058a2980fc21c62f42d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dhcp_discover</definition>
+        <argsstring>()</argsstring>
+        <name>dhcp_discover</name>
+        <briefdescription>
+<para>Initiate DHCP discovery Non-blocking, establishes IP address in the background. Network and IP stack card must be initialised first. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="90" column="6" declfile="include/dhcp.h" declline="90" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="dhcp_8h_1a109d6076d8a1bd76c747e255c695e811" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dhcp_request</definition>
+        <argsstring>(uint8_t *request_ip, uint32_t xid, uint32_t server_ip)</argsstring>
+        <name>dhcp_request</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>request_ip</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>xid</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>server_ip</declname>
+        </param>
+        <briefdescription>
+<para>send DHCPREQUEST packet. We send one on dhcp_discover() as DHCPDISCOVER then a second one as DHCPREQUEST once we are offered an IP address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>request_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address we have been offered, if we have been offered an IP yet. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>xid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>request ID as set by us when we did DHCPDISCOVER </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>server_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>server IP that sent the offer to us </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="102" column="6" declfile="include/dhcp.h" declline="102" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="dhcp_8h_1a9668f2ab1536deb20757b3863bc72592" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* get_dhcp_options</definition>
+        <argsstring>(dhcp_packet_t *packet, uint8_t type)</argsstring>
+        <name>get_dhcp_options</name>
+        <param>
+          <type><ref refid="structdhcp__packet__t" kindref="compound">dhcp_packet_t</ref> *</type>
+          <declname>packet</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Get an option from a DHCP packet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type to search for </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* raw option, size must be known to the caller! </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="111" column="6" declfile="include/dhcp.h" declline="111" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="dhcp_8h_1aecfb3a139afb70e5e481a6b79dd4e6cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t make_dhcp_packet</definition>
+        <argsstring>(dhcp_packet_t *packet, uint8_t msg_type, uint8_t *request_ip, uint32_t xid, uint32_t server_ip)</argsstring>
+        <name>make_dhcp_packet</name>
+        <param>
+          <type><ref refid="structdhcp__packet__t" kindref="compound">dhcp_packet_t</ref> *</type>
+          <declname>packet</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>msg_type</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>request_ip</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>xid</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>server_ip</declname>
+        </param>
+        <briefdescription>
+<para>Build a DHCP packet. The contents of the options are built dynamically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Packet structure to fill </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message type to build </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>request_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address we were offered </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>xid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Our request identifier </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>server_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP of server that offered the configuration </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>packet size of constructed packet including options </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/dhcp.h" line="124" column="10" declfile="include/dhcp.h" declline="124" declcolumn="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/dhcp.h"/>
+  </compounddef>
+</doxygen>

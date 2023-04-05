@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structub__param" kind="struct" language="C++" prot="public">
+    <compoundname>ub_param</compoundname>
+    <includes local="no">ubasic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structub__param_1a5ed01b68c0d5b7918fdf8279ede2c4fb" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ub_param::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="72" column="6" bodyfile="include/ubasic.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__param_1a9264c1613cd1a6d11991d170f5fbcced" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref> *</type>
+        <definition>struct ub_param* ub_param::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="73" column="16" bodyfile="include/ubasic.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ub_param</label>
+        <link refid="structub__param"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ubasic.h" line="70" column="1" bodyfile="include/ubasic.h" bodystart="71" bodyend="74"/>
+    <listofallmembers>
+      <member refid="structub__param_1a5ed01b68c0d5b7918fdf8279ede2c4fb" prot="public" virt="non-virtual"><scope>ub_param</scope><name>name</name></member>
+      <member refid="structub__param_1a9264c1613cd1a6d11991d170f5fbcced" prot="public" virt="non-virtual"><scope>ub_param</scope><name>next</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

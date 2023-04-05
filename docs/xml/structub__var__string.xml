@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structub__var__string" kind="struct" language="C++" prot="public">
+    <compoundname>ub_var_string</compoundname>
+    <includes local="no">ubasic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structub__var__string_1a19e17db1435bcf756f7f67357f4cb8d8" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ub_var_string::varname</definition>
+        <argsstring></argsstring>
+        <name>varname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="51" column="6" bodyfile="include/ubasic.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__var__string_1a517112dbc50ed6d63c5f3329268dd1cd" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ub_var_string::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="52" column="6" bodyfile="include/ubasic.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__var__string_1ade8e78c672af1108b32c95dd3999ea8c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ub_var_string::global</definition>
+        <argsstring></argsstring>
+        <name>global</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="53" column="6" bodyfile="include/ubasic.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__var__string_1a34110f560c0720684e32e58c08fa85bc" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
+        <definition>struct ub_var_string* ub_var_string::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="54" column="21" bodyfile="include/ubasic.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ub_var_string</label>
+        <link refid="structub__var__string"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>value</edgelabel>
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>bool</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ubasic.h" line="49" column="1" bodyfile="include/ubasic.h" bodystart="50" bodyend="55"/>
+    <listofallmembers>
+      <member refid="structub__var__string_1ade8e78c672af1108b32c95dd3999ea8c" prot="public" virt="non-virtual"><scope>ub_var_string</scope><name>global</name></member>
+      <member refid="structub__var__string_1a34110f560c0720684e32e58c08fa85bc" prot="public" virt="non-virtual"><scope>ub_var_string</scope><name>next</name></member>
+      <member refid="structub__var__string_1a517112dbc50ed6d63c5f3329268dd1cd" prot="public" virt="non-virtual"><scope>ub_var_string</scope><name>value</name></member>
+      <member refid="structub__var__string_1a19e17db1435bcf756f7f67357f4cb8d8" prot="public" virt="non-virtual"><scope>ub_var_string</scope><name>varname</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

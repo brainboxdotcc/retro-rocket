@@ -1,0 +1,683 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="video_8h" kind="file" language="C++">
+    <compoundname>video.h</compoundname>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structconsole" prot="public">console</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="video_8h_1aa4e78168e129717e6a02803114183e90" prot="public" static="no">
+        <name>COLOUR_BLACK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="5" column="9" bodyfile="include/video.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1aaf25cc0a5a335e60ad4db61afe95e2fa" prot="public" static="no">
+        <name>COLOUR_DARKBLUE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="6" column="9" bodyfile="include/video.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1adf3b706f5e35da9904ff1c9ae432aaec" prot="public" static="no">
+        <name>COLOUR_DARKGREEN</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="7" column="9" bodyfile="include/video.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a19c73ada10017cd7d86ea478583914fe" prot="public" static="no">
+        <name>COLOUR_DARKCYAN</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="8" column="9" bodyfile="include/video.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a15d35943c2049d0034786f5fe9169076" prot="public" static="no">
+        <name>COLOUR_DARKRED</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="9" column="9" bodyfile="include/video.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a67670a4680d2b4e062f7db504da9c7fa" prot="public" static="no">
+        <name>COLOUR_DARKMAGENTA</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="10" column="9" bodyfile="include/video.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a2ab7b6ef42c3a5203ef49879a8198e72" prot="public" static="no">
+        <name>COLOUR_ORANGE</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="11" column="9" bodyfile="include/video.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a97c0133f41b76073396bbd4a26bb377c" prot="public" static="no">
+        <name>COLOUR_WHITE</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="12" column="9" bodyfile="include/video.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1afd91aefd7d56b4de6b7c45f75f15c3c3" prot="public" static="no">
+        <name>COLOUR_GREY</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="13" column="9" bodyfile="include/video.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a9bfd7fa2d32691904da8a8fd3424cbd1" prot="public" static="no">
+        <name>COLOUR_LIGHTBLUE</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="14" column="9" bodyfile="include/video.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ab6c9e06484c4a213587a718180906a38" prot="public" static="no">
+        <name>COLOUR_LIGHTGREEN</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="15" column="9" bodyfile="include/video.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a47a454e71cb0b73078c29ff8017f8e88" prot="public" static="no">
+        <name>COLOUR_LIGHTCYAN</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="16" column="9" bodyfile="include/video.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a9a5956770d980f07b7b6bbd77741d872" prot="public" static="no">
+        <name>COLOUR_LIGHTRED</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="17" column="9" bodyfile="include/video.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a2ef5a7546ea7331f677bb48beb4c206a" prot="public" static="no">
+        <name>COLOUR_LIGHTMAGENTA</name>
+        <initializer>13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="18" column="9" bodyfile="include/video.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ae4bed0367e7a42e2db0ecf1f18e12585" prot="public" static="no">
+        <name>COLOUR_LIGHTYELLOW</name>
+        <initializer>14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="19" column="9" bodyfile="include/video.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1ab27909818cd91c3572fdd8e3d37fe8d3" prot="public" static="no">
+        <name>COLOUR_LIGHTWHITE</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="20" column="9" bodyfile="include/video.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="video_8h_1a2f54719dcdf8932e3141388b38dee848" prot="public" static="no">
+        <name>DEFAULT_COLOUR</name>
+        <initializer>COLOUR_WHITE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="23" column="9" bodyfile="include/video.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="video_8h_1a43d9b652336a0df72765cc74cb497381" prot="public" static="no" mutable="no">
+        <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+        <definition>console* current_console</definition>
+        <argsstring></argsstring>
+        <name>current_console</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="80" column="16" declfile="include/video.h" declline="80" declcolumn="16"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="video_8h_1a89b876ad8ed8fcb7e9ce6f6dd7518512" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void clearscreen</definition>
+        <argsstring>(console *c)</argsstring>
+        <name>clearscreen</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="44" column="6" declfile="include/video.h" declline="44" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1ae71c2439af390bbb8d7ea3f59226983d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setcursor</definition>
+        <argsstring>(console *c)</argsstring>
+        <name>setcursor</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="47" column="6" declfile="include/video.h" declline="47" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a884ecfe4f55a1ba8fc677d423fc99ba0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void putstring</definition>
+        <argsstring>(console *c, char *message)</argsstring>
+        <name>putstring</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="52" column="6" declfile="include/video.h" declline="52" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a68614b45a1f07d2b7dfd189061c1cf83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dputstring</definition>
+        <argsstring>(char *message)</argsstring>
+        <name>dputstring</name>
+        <param>
+          <type>char *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="53" column="6" declfile="include/video.h" declline="53" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a6aa3e180e6074ca3376aae3fe2521967" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void put</definition>
+        <argsstring>(console *c, const char n)</argsstring>
+        <name>put</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const char</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="59" column="6" declfile="include/video.h" declline="59" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a10de4e9cb74656845ee2808d17f3e9b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dput</definition>
+        <argsstring>(const char n)</argsstring>
+        <name>dput</name>
+        <param>
+          <type>const char</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="60" column="6" declfile="include/video.h" declline="60" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a30bd9f5feb66b20d37ddbddc69556dc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void initconsole</definition>
+        <argsstring>()</argsstring>
+        <name>initconsole</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="62" column="6" declfile="include/video.h" declline="62" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a3a4f10379412dfac7b7326c608b0ba1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setbackground</definition>
+        <argsstring>(console *c, unsigned char background)</argsstring>
+        <name>setbackground</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>background</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="64" column="6" declfile="include/video.h" declline="64" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a9eb30d97afe44a6d0a2063f701c13ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setforeground</definition>
+        <argsstring>(console *c, unsigned char foreground)</argsstring>
+        <name>setforeground</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>foreground</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="66" column="6" declfile="include/video.h" declline="66" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1aead8dda978d0b4180262e4091be3d4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t screen_get_height</definition>
+        <argsstring>()</argsstring>
+        <name>screen_get_height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="68" column="9" declfile="include/video.h" declline="68" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a2df69cac6f9d6324e3c872532ee4088d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t screen_get_width</definition>
+        <argsstring>()</argsstring>
+        <name>screen_get_width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="70" column="9" declfile="include/video.h" declline="70" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1aa8c0a74e65d6a428468b771eda6f4ddf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void putpixel</definition>
+        <argsstring>(int64_t x, int64_t y, uint32_t rgb)</argsstring>
+        <name>putpixel</name>
+        <param>
+          <type>int64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>rgb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="72" column="6" declfile="include/video.h" declline="72" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1aa5401ca0e1f952a097a2976b8f652ec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getpixel</definition>
+        <argsstring>(int64_t x, int64_t y)</argsstring>
+        <name>getpixel</name>
+        <param>
+          <type>int64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="74" column="10" declfile="include/video.h" declline="74" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1aa712e88bef297396764bb1a9b810d072" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t framebuffer_address</definition>
+        <argsstring>()</argsstring>
+        <name>framebuffer_address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="76" column="10" declfile="include/video.h" declline="76" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8h_1a50db84ae45ebaba89b42e155676a8bcb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t pixel_address</definition>
+        <argsstring>(int64_t x, int64_t y)</argsstring>
+        <name>pixel_address</name>
+        <param>
+          <type>int64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/video.h" line="78" column="10" declfile="include/video.h" declline="78" declcolumn="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/video.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2227 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ahci_8h" kind="file" language="C++">
+    <compoundname>ahci.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="38">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="36">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="31">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="32">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>filesystem.h</label>
+      </node>
+      <node id="27">
+        <label>devfs.h</label>
+      </node>
+      <node id="30">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="35">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="1">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structahci__fis__reg__h2d__t" prot="public">ahci_fis_reg_h2d_t</innerclass>
+    <innerclass refid="structahci__fis__reg__d2h__t" prot="public">ahci_fis_reg_d2h_t</innerclass>
+    <innerclass refid="structahci__fis__data__t" prot="public">ahci_fis_data_t</innerclass>
+    <innerclass refid="structahci__fis__pio__setup__t" prot="public">ahci_fis_pio_setup_t</innerclass>
+    <innerclass refid="structahci__fis__dma__setup__t" prot="public">ahci_fis_dma_setup_t</innerclass>
+    <innerclass refid="structahci__hba__port__t" prot="public">ahci_hba_port_t</innerclass>
+    <innerclass refid="structahci__hba__mem__t" prot="public">ahci_hba_mem_t</innerclass>
+    <innerclass refid="structahci__fis__dev__bits__t" prot="public">ahci_fis_dev_bits_t</innerclass>
+    <innerclass refid="structachi__hba__fis__t" prot="public">achi_hba_fis_t</innerclass>
+    <innerclass refid="structahci__hba__cmd__header__t" prot="public">ahci_hba_cmd_header_t</innerclass>
+    <innerclass refid="structahci__hba__prdt__entry__t" prot="public">ahci_hba_prdt_entry_t</innerclass>
+    <innerclass refid="structachi__hba__cmd__tbl__t" prot="public">achi_hba_cmd_tbl_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ahci_8h_1a4224d2160f2f2718d8a67a09bfb8f4a5" prot="public" static="no">
+        <name>ATA_IDENT_DEVICETYPE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="302" column="9" bodyfile="include/ahci.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a692fbddd7825db7edba694d647a69aa7" prot="public" static="no">
+        <name>ATA_IDENT_CYLINDERS</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="303" column="9" bodyfile="include/ahci.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a1dcc2ec4b54df2f3cb011bbf6dc3795c" prot="public" static="no">
+        <name>ATA_IDENT_HEADS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="304" column="9" bodyfile="include/ahci.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1ae9be2cb739432bf835c6e5492cf92ba7" prot="public" static="no">
+        <name>ATA_IDENT_SECTORS</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="305" column="9" bodyfile="include/ahci.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a60e929ababaf71de94d96c079f9028d0" prot="public" static="no">
+        <name>ATA_IDENT_SERIAL</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="306" column="9" bodyfile="include/ahci.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a9fd52e892928c016a4a66f59a46241e4" prot="public" static="no">
+        <name>ATA_IDENT_MODEL</name>
+        <initializer>54</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="307" column="9" bodyfile="include/ahci.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a4efaa1ae14eb268a085d1824eb2a1f08" prot="public" static="no">
+        <name>ATA_IDENT_CAPABILITIES</name>
+        <initializer>98</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="308" column="9" bodyfile="include/ahci.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a4515f6ed07cf67add34766e02bd8d133" prot="public" static="no">
+        <name>ATA_IDENT_FIELDVALID</name>
+        <initializer>106</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="309" column="9" bodyfile="include/ahci.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1ae0d046a29ce70e07d868961cf17b54c7" prot="public" static="no">
+        <name>ATA_IDENT_MAX_LBA</name>
+        <initializer>120</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="310" column="9" bodyfile="include/ahci.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a8536e132f24aa36e826f753b6061e8ea" prot="public" static="no">
+        <name>ATA_IDENT_COMMANDSETS</name>
+        <initializer>164</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="311" column="9" bodyfile="include/ahci.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1aa1926c13a31f512c9ec07ed3bdba8893" prot="public" static="no">
+        <name>ATA_IDENT_MAX_LBA_EXT</name>
+        <initializer>200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="312" column="9" bodyfile="include/ahci.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1ab97be318da4cd3f956b53f3d3c162d22" prot="public" static="no">
+        <name>SATA_SIG_ATA</name>
+        <initializer>0x00000101</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="314" column="9" bodyfile="include/ahci.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1aa52680525d3698b9c2206cedbf2b3c82" prot="public" static="no">
+        <name>SATA_SIG_ATAPI</name>
+        <initializer>0xEB140101</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="315" column="9" bodyfile="include/ahci.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a74a4ae0fdaf517fb886dfe8fc53218db" prot="public" static="no">
+        <name>SATA_SIG_SEMB</name>
+        <initializer>0xC33C0101</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="316" column="9" bodyfile="include/ahci.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a5824e44ad5e394c0026dad1f997d26d3" prot="public" static="no">
+        <name>SATA_SIG_PM</name>
+        <initializer>0x96690101</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="317" column="9" bodyfile="include/ahci.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a70cb9cf6f5592304658efff34c009d0f" prot="public" static="no">
+        <name>AHCI_DEV_NULL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="319" column="9" bodyfile="include/ahci.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a528bf8cf48a25cbb5faf1b47aa41469c" prot="public" static="no">
+        <name>AHCI_DEV_SATA</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="320" column="9" bodyfile="include/ahci.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a252890fb3343fb24494794f3f2c33a92" prot="public" static="no">
+        <name>AHCI_DEV_SEMB</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="321" column="9" bodyfile="include/ahci.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a388f0e67c6bf032307b8e8192bf07c47" prot="public" static="no">
+        <name>AHCI_DEV_PM</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="322" column="9" bodyfile="include/ahci.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1af14cd62b8394e7284ed7880e9a6cd379" prot="public" static="no">
+        <name>AHCI_DEV_SATAPI</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="323" column="9" bodyfile="include/ahci.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a7799cbde4e99b339a61cb79ba018ed78" prot="public" static="no">
+        <name>HBA_PORT_IPM_ACTIVE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="325" column="9" bodyfile="include/ahci.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1ad35e9d10e89ce48bf4f0e94929664102" prot="public" static="no">
+        <name>HBA_PORT_DET_PRESENT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="326" column="9" bodyfile="include/ahci.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a469ab8af9bf8f1f89a5c8f79b2305e34" prot="public" static="no">
+        <name>HBA_PxCMD_ST</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="328" column="9" bodyfile="include/ahci.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a27978dd2aac599cbd0330c923652c6e4" prot="public" static="no">
+        <name>HBA_PxCMD_FRE</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="329" column="9" bodyfile="include/ahci.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a93f2b1904299d4d1920e65039ff7ce5c" prot="public" static="no">
+        <name>HBA_PxCMD_FR</name>
+        <initializer>0x4000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="330" column="9" bodyfile="include/ahci.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1ad2550f8f63fa32140f93da1b95354cf6" prot="public" static="no">
+        <name>HBA_PxCMD_CR</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="331" column="9" bodyfile="include/ahci.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a11add414188662b170c68ead95a786d8" prot="public" static="no">
+        <name>HBA_PxIS_TFES</name>
+        <initializer>(1 &lt;&lt; 30)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="333" column="9" bodyfile="include/ahci.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a38dd4451240fdf39ed56148f148e9ffd" prot="public" static="no">
+        <name>ATA_CMD_READ_DMA_EX</name>
+        <initializer>0x25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="334" column="9" bodyfile="include/ahci.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1aad07fe181bd03623b039bca75664ec29" prot="public" static="no">
+        <name>ATA_CMD_WRITE_DMA_EX</name>
+        <initializer>0x35</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="335" column="9" bodyfile="include/ahci.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1a32b0d71691c7e21ded44e462fe3de8db" prot="public" static="no">
+        <name>ATA_DEV_BUSY</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="337" column="9" bodyfile="include/ahci.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ahci_8h_1af12bdbc024458d3a760650e93bc32cb3" prot="public" static="no">
+        <name>ATA_DEV_DRQ</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="338" column="9" bodyfile="include/ahci.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ahci_fis_type_t</name>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2a6bf1b47f446739ef43faae8f336c3926" prot="public">
+          <name>FIS_TYPE_REG_H2D</name>
+          <initializer>= 0x27</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2ae1d5eaa1f1a908043927530044b4394d" prot="public">
+          <name>FIS_TYPE_REG_D2H</name>
+          <initializer>= 0x34</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2a1a3d1978859cdf6c6001c13177dbd386" prot="public">
+          <name>FIS_TYPE_DMA_ACT</name>
+          <initializer>= 0x39</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2adb343aab8b5d14af51decdcc24629af8" prot="public">
+          <name>FIS_TYPE_DMA_SETUP</name>
+          <initializer>= 0x41</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2ac2c749b258ea247c739772b70ee8fe96" prot="public">
+          <name>FIS_TYPE_DATA</name>
+          <initializer>= 0x46</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2a6d51bc47354d35b144fa146cbcb0d5cd" prot="public">
+          <name>FIS_TYPE_BIST</name>
+          <initializer>= 0x58</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2a2af968dcd3c14953622d44e9e90c6336" prot="public">
+          <name>FIS_TYPE_PIO_SETUP</name>
+          <initializer>= 0x5F</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ahci_8h_1a3965c5db290baca217198a0da9de0ee2ab4aa404255097815f1e4a1dd372a151a" prot="public">
+          <name>FIS_TYPE_DEV_BITS</name>
+          <initializer>= 0xA1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="1" bodyfile="include/ahci.h" bodystart="5" bodyend="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ahci_8h_1a214e4dbbe058ae58a62fce719b74ed19" prot="public" static="no">
+        <type>enum ahci_fis_type_t</type>
+        <definition>typedef enum ahci_fis_type_t ahci_fis_type_t</definition>
+        <argsstring></argsstring>
+        <name>ahci_fis_type_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="14" column="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="ahci_8h_1aa682c9430d53cab300ee8940356ef8ec" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fis_type</definition>
+        <argsstring></argsstring>
+        <name>fis_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="10" bodyfile="include/ahci.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a992e274c1d71ede460beb0d8af125622" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t pmport</definition>
+        <argsstring></argsstring>
+        <name>pmport</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="3" column="10" bodyfile="include/ahci.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ae09be11ca919ba207e66f2dc574125eb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint32_t rsv0</definition>
+        <argsstring></argsstring>
+        <name>rsv0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="4" column="10" bodyfile="include/ahci.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a2e5a04327b5658199f0f7bda2acceee1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t c</definition>
+        <argsstring></argsstring>
+        <name>c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="10" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a1a5aaa930940857f68f245eeb89506b5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t command</definition>
+        <argsstring></argsstring>
+        <name>command</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="7" column="10" bodyfile="include/ahci.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ac8a01620bea3f0b5d7c4df374e1c8747" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t featurel</definition>
+        <argsstring></argsstring>
+        <name>featurel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="8" column="10" bodyfile="include/ahci.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a4d37bb385b2335b413564d27fd70b540" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t lba0</definition>
+        <argsstring></argsstring>
+        <name>lba0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="11" column="10" bodyfile="include/ahci.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ac304bc04b42911d40f4f2c72c9874a86" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t lba1</definition>
+        <argsstring></argsstring>
+        <name>lba1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="12" column="10" bodyfile="include/ahci.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a2a83e1f9d697fda069699cac7ada6aa9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t lba2</definition>
+        <argsstring></argsstring>
+        <name>lba2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="13" column="10" bodyfile="include/ahci.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a2376f17d1e7367401184b2a3978bcd3a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t device</definition>
+        <argsstring></argsstring>
+        <name>device</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="14" column="10" bodyfile="include/ahci.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a88941bc1671b5fe35dc2a56fab1b06c9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t lba3</definition>
+        <argsstring></argsstring>
+        <name>lba3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="17" column="10" bodyfile="include/ahci.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a35586c129650892e7d4a6c9873f3d0b7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t lba4</definition>
+        <argsstring></argsstring>
+        <name>lba4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="18" column="10" bodyfile="include/ahci.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a7fe42d2d7b97b74048b192a186ddd18a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t lba5</definition>
+        <argsstring></argsstring>
+        <name>lba5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="19" column="10" bodyfile="include/ahci.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a69928a1c46cc71c43aefcdf268b12ee8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t featureh</definition>
+        <argsstring></argsstring>
+        <name>featureh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="20" column="10" bodyfile="include/ahci.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aba2096703359318cdd1e89c73ca1ab41" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t countl</definition>
+        <argsstring></argsstring>
+        <name>countl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="23" column="10" bodyfile="include/ahci.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a504a9fe5ed439d47db5fe53f2a749fd3" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t counth</definition>
+        <argsstring></argsstring>
+        <name>counth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="24" column="10" bodyfile="include/ahci.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a8617e0fef3725e58934abede60a1c969" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t icc</definition>
+        <argsstring></argsstring>
+        <name>icc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="25" column="10" bodyfile="include/ahci.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ae11ecbd546ec0301d5462df23b139816" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t control</definition>
+        <argsstring></argsstring>
+        <name>control</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="26" column="10" bodyfile="include/ahci.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a81fef0fb460b6e929abedd18ad48c68d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint32_t rsv1</definition>
+        <argsstring>[4]</argsstring>
+        <name>rsv1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="29" column="10" bodyfile="include/ahci.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a752abcfe7ce5874cd9e8012a0346a37b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint32_t i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="10" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1afea475b453c81c5b3f5a31abb861edfb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>volatile uint8_t status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="8" column="10" bodyfile="include/ahci.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1adc64ccb7538429fe78e3fe0139267370" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t error</definition>
+        <argsstring></argsstring>
+        <name>error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="9" column="10" bodyfile="include/ahci.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ada04bac69c987a631b5fb01d1619925a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsv2</definition>
+        <argsstring></argsstring>
+        <name>rsv2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="21" column="10" bodyfile="include/ahci.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ab04f732f78798f4cc1ce0bed9a3aa792" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsv3</definition>
+        <argsstring>[2]</argsstring>
+        <name>rsv3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="26" column="10" bodyfile="include/ahci.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ad0cc498dc8714f1605be7a653b1cf6fc" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsv4</definition>
+        <argsstring>[4]</argsstring>
+        <name>rsv4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="29" column="10" bodyfile="include/ahci.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a75a257f81d6b64479c0da8d516360bd0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t data[]</definition>
+        <argsstring>[]</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="9" column="10" bodyfile="include/ahci.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a4cd140aecf7c77a91e1b41afb65cdf4f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t d</definition>
+        <argsstring></argsstring>
+        <name>d</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="10" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a6114889460e0e9b1c9684351d5248239" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t e_status</definition>
+        <argsstring></argsstring>
+        <name>e_status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="28" column="10" bodyfile="include/ahci.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a3dbe362279aee5fe3f0012b7f99fc8d2" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t tc</definition>
+        <argsstring></argsstring>
+        <name>tc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="31" column="10" bodyfile="include/ahci.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t a</definition>
+        <argsstring></argsstring>
+        <name>a</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="7" column="10" bodyfile="include/ahci.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1afe31ba51100f985e69bc6b1a39adf505" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsved[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>rsved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="9" column="18" bodyfile="include/ahci.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a7ba6457c114537f81c9d473db8c06f18" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t DMAbufferID</definition>
+        <argsstring></argsstring>
+        <name>DMAbufferID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="13" column="18" bodyfile="include/ahci.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a12144a8b7d28e438d97bd2606d534990" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint8_t rsvd</definition>
+        <argsstring></argsstring>
+        <name>rsvd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="17" column="18" bodyfile="include/ahci.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a639f033edbabf2b75e326a581f16dc19" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t DMAbufOffset</definition>
+        <argsstring></argsstring>
+        <name>DMAbufOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="20" column="18" bodyfile="include/ahci.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a736bd3271832871036b0e8339f1f1178" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t TransferCount</definition>
+        <argsstring></argsstring>
+        <name>TransferCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="23" column="18" bodyfile="include/ahci.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aadbe85d15d901f6cff0102084cac5386" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t resvd</definition>
+        <argsstring></argsstring>
+        <name>resvd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="26" column="18" bodyfile="include/ahci.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a2fd95d5d04d61114c60b2c16fc908e41" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t clb</definition>
+        <argsstring></argsstring>
+        <name>clb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="0" column="10" bodyfile="include/ahci.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a846391766b0bde62d390c6514ee575d2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t clbu</definition>
+        <argsstring></argsstring>
+        <name>clbu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="10" bodyfile="include/ahci.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a38a54fe370e6c01108abfb4fdaf693e6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fb</definition>
+        <argsstring></argsstring>
+        <name>fb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="2" column="10" bodyfile="include/ahci.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a496af14f1d8470a17f862aa1e43cd3b2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fbu</definition>
+        <argsstring></argsstring>
+        <name>fbu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="3" column="10" bodyfile="include/ahci.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ab21fab504791fdabfb4441c735452afb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t is</definition>
+        <argsstring></argsstring>
+        <name>is</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="4" column="10" bodyfile="include/ahci.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aa2ad0e2146ed3f9071c68fe04b064d51" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ie</definition>
+        <argsstring></argsstring>
+        <name>ie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="10" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a5e9712b08d7cbf6091f9e5334ff97b5d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cmd</definition>
+        <argsstring></argsstring>
+        <name>cmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="6" column="10" bodyfile="include/ahci.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a357b46f1c8107383ad47b9b65b532f5f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t tfd</definition>
+        <argsstring></argsstring>
+        <name>tfd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="8" column="10" bodyfile="include/ahci.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aeaeca6d0dd8e21e049c9a456195deeed" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sig</definition>
+        <argsstring></argsstring>
+        <name>sig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="9" column="10" bodyfile="include/ahci.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a20e79ef71adff15c5481b97a2b8fb546" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ssts</definition>
+        <argsstring></argsstring>
+        <name>ssts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="10" column="10" bodyfile="include/ahci.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ae53b0cf43d87938d92cdc2f72b865160" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sctl</definition>
+        <argsstring></argsstring>
+        <name>sctl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="11" column="10" bodyfile="include/ahci.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aac086c44fba913e33d5d4480166f486f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t serr</definition>
+        <argsstring></argsstring>
+        <name>serr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="12" column="10" bodyfile="include/ahci.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ab2bfc30a5716fe626f8e44dab6fdf425" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sact</definition>
+        <argsstring></argsstring>
+        <name>sact</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="13" column="10" bodyfile="include/ahci.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a5a98143e0639fd7e110a78a7d77231e0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ci</definition>
+        <argsstring></argsstring>
+        <name>ci</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="14" column="10" bodyfile="include/ahci.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a5e216bb3cff4d0ee3ea5ee6f7cae3344" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sntf</definition>
+        <argsstring></argsstring>
+        <name>sntf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="15" column="10" bodyfile="include/ahci.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1af3588ae1f57cb27febe2f6eee1463e8e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fbs</definition>
+        <argsstring></argsstring>
+        <name>fbs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="16" column="10" bodyfile="include/ahci.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1adea7e7ade5cd02d3f97ac87b3032a648" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint8_t vendor</definition>
+        <argsstring>[4]</argsstring>
+        <name>vendor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="18" column="10" bodyfile="include/ahci.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a8de1478f7db47c6c3a1f9587ef382579" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cap</definition>
+        <argsstring></argsstring>
+        <name>cap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="10" bodyfile="include/ahci.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a9c577f3e92ff99afff718fe42c3fb06a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ghc</definition>
+        <argsstring></argsstring>
+        <name>ghc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="2" column="10" bodyfile="include/ahci.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a758f6c558cc8d68e2a25f13e046eae6f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t pi</definition>
+        <argsstring></argsstring>
+        <name>pi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="4" column="10" bodyfile="include/ahci.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aa28ef6d3e35ddb7e7c464496e2789fee" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vs</definition>
+        <argsstring></argsstring>
+        <name>vs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="10" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a57208d1b8521334df7c5e9e5103af185" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ccc_ctl</definition>
+        <argsstring></argsstring>
+        <name>ccc_ctl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="6" column="10" bodyfile="include/ahci.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a78eeaafb4be125bcf73f5c77d91737e8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ccc_pts</definition>
+        <argsstring></argsstring>
+        <name>ccc_pts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="7" column="10" bodyfile="include/ahci.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a83914548fdfabd05de7e2ebd4df20537" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t em_loc</definition>
+        <argsstring></argsstring>
+        <name>em_loc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="8" column="10" bodyfile="include/ahci.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a35498bdea06b81b36992e6589c6e5d31" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t em_ctl</definition>
+        <argsstring></argsstring>
+        <name>em_ctl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="9" column="10" bodyfile="include/ahci.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a4fa9bca1f39d15977dd6998d1fc41782" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cap2</definition>
+        <argsstring></argsstring>
+        <name>cap2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="10" column="10" bodyfile="include/ahci.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a057fe5fa63bf28c6a35ba8baa0865556" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t bohc</definition>
+        <argsstring></argsstring>
+        <name>bohc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="11" column="10" bodyfile="include/ahci.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a793fd337c7301176ce7fcd42541f21af" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsv</definition>
+        <argsstring>[0xA0-0x2C]</argsstring>
+        <name>rsv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="14" column="10" bodyfile="include/ahci.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a87f6269ce061589b5bebe742b6e61d3a" prot="public" static="no" mutable="no">
+        <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref></type>
+        <definition>ahci_hba_port_t ports[1]</definition>
+        <argsstring>[1]</argsstring>
+        <name>ports</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="20" column="16" bodyfile="include/ahci.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a5a648f5ec00c526b0dfa2df7a272c6c0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t n</definition>
+        <argsstring></argsstring>
+        <name>n</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="4" column="11" bodyfile="include/ahci.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a0a9e316a1bf8e06225c9f64bf39c9e11" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t statusl</definition>
+        <argsstring></argsstring>
+        <name>statusl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="11" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a245f1b9e33575d765f74219a01dbb2c6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsvd2</definition>
+        <argsstring></argsstring>
+        <name>rsvd2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="6" column="11" bodyfile="include/ahci.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a5cc7f6e4653932b51c85315cc1d55dd6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t statush</definition>
+        <argsstring></argsstring>
+        <name>statush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="7" column="11" bodyfile="include/ahci.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ac67adda688fe24bd9870d837c52793d1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsvd3</definition>
+        <argsstring></argsstring>
+        <name>rsvd3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="8" column="11" bodyfile="include/ahci.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a71308c90fa4bbf1be2a7893007e6c300" prot="public" static="no" mutable="no">
+        <type><ref refid="structahci__fis__dma__setup__t" kindref="compound">ahci_fis_dma_setup_t</ref></type>
+        <definition>ahci_fis_dma_setup_t dsfis</definition>
+        <argsstring></argsstring>
+        <name>dsfis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="21" bodyfile="include/ahci.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a87cee13f0709f20b417dc80bdfc5f1fd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t pad0[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>pad0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="2" column="17" bodyfile="include/ahci.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aa8e971bf194d04be60c75169ccc8f61a" prot="public" static="no" mutable="no">
+        <type><ref refid="structahci__fis__pio__setup__t" kindref="compound">ahci_fis_pio_setup_t</ref></type>
+        <definition>ahci_fis_pio_setup_t psfis</definition>
+        <argsstring></argsstring>
+        <name>psfis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="21" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a289fe28fad49aef9085c84a01e508642" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t pad1[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>pad1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="6" column="17" bodyfile="include/ahci.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a5b80efb0fbb6921aeb30f573ff1a73fc" prot="public" static="no" mutable="no">
+        <type><ref refid="structahci__fis__reg__d2h__t" kindref="compound">ahci_fis_reg_d2h_t</ref></type>
+        <definition>ahci_fis_reg_d2h_t rfis</definition>
+        <argsstring></argsstring>
+        <name>rfis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="9" column="20" bodyfile="include/ahci.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a782095999a45daafbc11ab173275430b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t pad2[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>pad2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="10" column="17" bodyfile="include/ahci.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a1243d64bfa6bf4f89035f281c639fe78" prot="public" static="no" mutable="no">
+        <type><ref refid="structahci__fis__dev__bits__t" kindref="compound">ahci_fis_dev_bits_t</ref></type>
+        <definition>ahci_fis_dev_bits_t sdbfis</definition>
+        <argsstring></argsstring>
+        <name>sdbfis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="13" column="21" bodyfile="include/ahci.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a3d1a6866cd54c83d027f4362457e43da" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ufis[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>ufis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="16" column="17" bodyfile="include/ahci.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a5180968603d9c100fde71bdefc69fd7f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cfl</definition>
+        <argsstring></argsstring>
+        <name>cfl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="10" bodyfile="include/ahci.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aba9ed0487b0aa23eba534648df8384c0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t w</definition>
+        <argsstring></argsstring>
+        <name>w</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="3" column="10" bodyfile="include/ahci.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t p</definition>
+        <argsstring></argsstring>
+        <name>p</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="4" column="10" bodyfile="include/ahci.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a4c5c6ceb8ed33456261fa907136e0c3a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t r</definition>
+        <argsstring></argsstring>
+        <name>r</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="6" column="10" bodyfile="include/ahci.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a4313c9563516f94387762ab05763456b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t b</definition>
+        <argsstring></argsstring>
+        <name>b</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="7" column="10" bodyfile="include/ahci.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aa6e468acbc4b19ae7e019c417f00d00a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t pmp</definition>
+        <argsstring></argsstring>
+        <name>pmp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="10" column="10" bodyfile="include/ahci.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aef2da437ff6b7a93f6b302a955338c0f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t prdtl</definition>
+        <argsstring></argsstring>
+        <name>prdtl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="12" column="10" bodyfile="include/ahci.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ac8d39c461915c7810aba1d549a0309aa" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>volatile uint32_t prdbc</definition>
+        <argsstring></argsstring>
+        <name>prdbc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="16" column="10" bodyfile="include/ahci.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a7b9e83f2a21a5acc68d70b04b012d6d2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ctba</definition>
+        <argsstring></argsstring>
+        <name>ctba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="19" column="10" bodyfile="include/ahci.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a0fb060abb54a57da672c1fd9603e0c12" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ctbau</definition>
+        <argsstring></argsstring>
+        <name>ctbau</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="20" column="10" bodyfile="include/ahci.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a3d44ae193b9ea434ad6a7487abc2f82e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dba</definition>
+        <argsstring></argsstring>
+        <name>dba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="0" column="10" bodyfile="include/ahci.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a0e1f5c6f210d66855938dffc753d156b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dbau</definition>
+        <argsstring></argsstring>
+        <name>dbau</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="10" bodyfile="include/ahci.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a017ed0d59352e94362de2a11c289a5ef" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dbc</definition>
+        <argsstring></argsstring>
+        <name>dbc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="5" column="10" bodyfile="include/ahci.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1a9ca6c851fa9b7745bf24b2104d25ed88" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cfis[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>cfis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="10" bodyfile="include/ahci.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1ac9357952ae6c057602ffafb0e7bf943a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t acmd[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>acmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="4" column="10" bodyfile="include/ahci.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8h_1aab699e89e2d277835a68abc61a481565" prot="public" static="no" mutable="no">
+        <type><ref refid="structahci__hba__prdt__entry__t" kindref="compound">ahci_hba_prdt_entry_t</ref></type>
+        <definition>ahci_hba_prdt_entry_t prdt_entry[1]</definition>
+        <argsstring>[1]</argsstring>
+        <name>prdt_entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="10" column="22" bodyfile="include/ahci.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ahci_8h_1a5dcd32d6ef59787d3ee7710511d69b42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structahci__fis__reg__h2d__t" kindref="compound">ahci_fis_reg_h2d_t</ref></type>
+        <definition>struct ahci_fis_reg_h2d_t __attribute__</definition>
+        <argsstring>((packed)) ahci_fis_reg_h2d_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="1" column="0" declfile="include/ahci.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8h_1aee21823366d10636044f5358d4c6e527" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_ahci</definition>
+        <argsstring>()</argsstring>
+        <name>init_ahci</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="340" column="6" declfile="include/ahci.h" declline="340" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/ahci.h"/>
+  </compounddef>
+</doxygen>

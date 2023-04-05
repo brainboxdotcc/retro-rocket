@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structidle__timer" kind="struct" language="C++" prot="public">
+    <compoundname>idle_timer</compoundname>
+    <includes local="no">taskswitch.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structidle__timer_1a66783c0392a4df624b95fdce6c2d8af4" prot="public" static="no" mutable="no">
+        <type>proc_idle_timer_t</type>
+        <definition>proc_idle_timer_t idle_timer::func</definition>
+        <argsstring></argsstring>
+        <name>func</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="46" column="19" bodyfile="include/taskswitch.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structidle__timer_1a463cb69d79fd90fd94de59fceba325c8" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structidle__timer" kindref="compound">idle_timer</ref> *</type>
+        <definition>struct idle_timer* idle_timer::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="47" column="18" bodyfile="include/taskswitch.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>void(*)(void)</label>
+      </node>
+      <node id="1">
+        <label>idle_timer</label>
+        <link refid="structidle__timer"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>func</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/taskswitch.h" line="45" column="1" bodyfile="include/taskswitch.h" bodystart="45" bodyend="48"/>
+    <listofallmembers>
+      <member refid="structidle__timer_1a66783c0392a4df624b95fdce6c2d8af4" prot="public" virt="non-virtual"><scope>idle_timer</scope><name>func</name></member>
+      <member refid="structidle__timer_1a463cb69d79fd90fd94de59fceba325c8" prot="public" virt="non-virtual"><scope>idle_timer</scope><name>next</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

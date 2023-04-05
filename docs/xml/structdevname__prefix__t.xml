@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structdevname__prefix__t" kind="struct" language="C++" prot="public">
+    <compoundname>devname_prefix_t</compoundname>
+    <includes local="no">devicename.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdevname__prefix__t_1a86ffb4bc1c86c654c1e56691694c2f12" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char devname_prefix_t::prefix[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>prefix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/devicename.h" line="6" column="6" bodyfile="include/devicename.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevname__prefix__t_1aa0ae9cbb085cc9f72cc4873e44f1e118" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t devname_prefix_t::increment</definition>
+        <argsstring></argsstring>
+        <name>increment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/devicename.h" line="7" column="9" bodyfile="include/devicename.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>devname_prefix_t</label>
+        <link refid="structdevname__prefix__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>prefix</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>increment</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/devicename.h" line="5" column="1" bodyfile="include/devicename.h" bodystart="5" bodyend="8"/>
+    <listofallmembers>
+      <member refid="structdevname__prefix__t_1aa0ae9cbb085cc9f72cc4873e44f1e118" prot="public" virt="non-virtual"><scope>devname_prefix_t</scope><name>increment</name></member>
+      <member refid="structdevname__prefix__t_1a86ffb4bc1c86c654c1e56691694c2f12" prot="public" virt="non-virtual"><scope>devname_prefix_t</scope><name>prefix</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

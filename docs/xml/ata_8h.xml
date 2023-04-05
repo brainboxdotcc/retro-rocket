@@ -1,0 +1,1176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ata_8h" kind="file" language="C++">
+    <compoundname>ata.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structchannel" prot="public">channel</innerclass>
+    <innerclass refid="structide__device" prot="public">ide_device</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ata_8h_1aed1929007f388cab23229c908be5bbaf" prot="public" static="no">
+        <name>ATA_SR_BSY</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="6" column="12" bodyfile="include/ata.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a51b4023132fbdc98d4498bd8e21d064d" prot="public" static="no">
+        <name>ATA_SR_DRDY</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="7" column="12" bodyfile="include/ata.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1aca73201ed93e5c9d9d9fbf51270fde0b" prot="public" static="no">
+        <name>ATA_SR_DF</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="8" column="12" bodyfile="include/ata.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a2317ad830d33431eb1222a4079d6dab2" prot="public" static="no">
+        <name>ATA_SR_DSC</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="9" column="12" bodyfile="include/ata.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a27e6aaa78aaaa205a7dadf56b48d0bf6" prot="public" static="no">
+        <name>ATA_SR_DRQ</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="10" column="12" bodyfile="include/ata.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a7cb0243beb875711e6b46cda0be7c53a" prot="public" static="no">
+        <name>ATA_SR_CORR</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="11" column="12" bodyfile="include/ata.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ad74934afc699945311360be6e3700ef5" prot="public" static="no">
+        <name>ATA_SR_IDX</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="12" column="12" bodyfile="include/ata.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a8a2cf843df1ae63d4d16748dfe72a592" prot="public" static="no">
+        <name>ATA_SR_ERR</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="13" column="12" bodyfile="include/ata.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a97e6940186e5f1cfe5c501e56312de45" prot="public" static="no">
+        <name>ATA_ER_BBK</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="15" column="12" bodyfile="include/ata.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ab1e1938e0fc8f511102b778956aa3bd4" prot="public" static="no">
+        <name>ATA_ER_UNC</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="16" column="12" bodyfile="include/ata.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1aaed40c458ad34dae2d82381e71e372ac" prot="public" static="no">
+        <name>ATA_ER_MC</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="17" column="12" bodyfile="include/ata.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a6bed47f17f64ab98da1dd946ca123198" prot="public" static="no">
+        <name>ATA_ER_IDNF</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="18" column="12" bodyfile="include/ata.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1af5f476aa2920211197aa8ff81f0dfdbd" prot="public" static="no">
+        <name>ATA_ER_MCR</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="19" column="12" bodyfile="include/ata.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a415987608bff240636a785bb48970e94" prot="public" static="no">
+        <name>ATA_ER_ABRT</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="20" column="12" bodyfile="include/ata.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1aaffca74832da09d4cf0ea68624546c91" prot="public" static="no">
+        <name>ATA_ER_TK0NF</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="21" column="12" bodyfile="include/ata.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ac4f0c06f285d99068cbad7b6d4641d1f" prot="public" static="no">
+        <name>ATA_ER_AMNF</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="22" column="12" bodyfile="include/ata.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a91a96db8427a8caa254a218f05dcb3f4" prot="public" static="no">
+        <name>ATA_CMD_READ_PIO</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="25" column="14" bodyfile="include/ata.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a3165497b4d8eb30297a4d62e39846b01" prot="public" static="no">
+        <name>ATA_CMD_READ_PIO_EXT</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="26" column="14" bodyfile="include/ata.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1aefab351e75e10b6dbfa0b7828031cda4" prot="public" static="no">
+        <name>ATA_CMD_READ_DMA</name>
+        <initializer>0xC8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="27" column="14" bodyfile="include/ata.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a42247550c708b2b7852927180c7dde78" prot="public" static="no">
+        <name>ATA_CMD_READ_DMA_EXT</name>
+        <initializer>0x25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="28" column="14" bodyfile="include/ata.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a64f2c50b916f1f67018c36f75f811cc7" prot="public" static="no">
+        <name>ATA_CMD_WRITE_PIO</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="29" column="14" bodyfile="include/ata.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ac8e433782c7125e6929673907eca6f17" prot="public" static="no">
+        <name>ATA_CMD_WRITE_PIO_EXT</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="30" column="14" bodyfile="include/ata.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a41dc931ac3c2c6733a2a67d03eaf1674" prot="public" static="no">
+        <name>ATA_CMD_WRITE_DMA</name>
+        <initializer>0xCA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="31" column="14" bodyfile="include/ata.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a3a75d9e39518e704f3a4b39e6a3d998c" prot="public" static="no">
+        <name>ATA_CMD_WRITE_DMA_EXT</name>
+        <initializer>0x35</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="32" column="14" bodyfile="include/ata.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a23e8deb17b95336898b52cc76d5206af" prot="public" static="no">
+        <name>ATA_CMD_CACHE_FLUSH</name>
+        <initializer>0xE7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="33" column="14" bodyfile="include/ata.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a3c624c2041a51a473bd6e77b7753d475" prot="public" static="no">
+        <name>ATA_CMD_CACHE_FLUSH_EXT</name>
+        <initializer>0xEA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="34" column="14" bodyfile="include/ata.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1afaaead63f9b69425b9f6514b03f0bbb2" prot="public" static="no">
+        <name>ATA_CMD_PACKET</name>
+        <initializer>0xA0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="35" column="14" bodyfile="include/ata.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1acba68da9027d95b9bae53901a8ea009b" prot="public" static="no">
+        <name>ATA_CMD_IDENTIFY_PACKET</name>
+        <initializer>0xA1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="36" column="14" bodyfile="include/ata.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a572958103bba5d355c7fe135ae7526bd" prot="public" static="no">
+        <name>ATA_CMD_IDENTIFY</name>
+        <initializer>0xEC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="37" column="14" bodyfile="include/ata.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a46c7100054351e7afa8762a5dd165ff5" prot="public" static="no">
+        <name>ATAPI_CMD_READ</name>
+        <initializer>0xA8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="39" column="14" bodyfile="include/ata.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a94bf36a7e0a52f4dd421eca62e80631e" prot="public" static="no">
+        <name>ATAPI_CMD_EJECT</name>
+        <initializer>0x1B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="40" column="14" bodyfile="include/ata.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a4224d2160f2f2718d8a67a09bfb8f4a5" prot="public" static="no">
+        <name>ATA_IDENT_DEVICETYPE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="42" column="12" bodyfile="include/ata.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a692fbddd7825db7edba694d647a69aa7" prot="public" static="no">
+        <name>ATA_IDENT_CYLINDERS</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="43" column="12" bodyfile="include/ata.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a1dcc2ec4b54df2f3cb011bbf6dc3795c" prot="public" static="no">
+        <name>ATA_IDENT_HEADS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="44" column="12" bodyfile="include/ata.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ae9be2cb739432bf835c6e5492cf92ba7" prot="public" static="no">
+        <name>ATA_IDENT_SECTORS</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="45" column="12" bodyfile="include/ata.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a60e929ababaf71de94d96c079f9028d0" prot="public" static="no">
+        <name>ATA_IDENT_SERIAL</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="46" column="12" bodyfile="include/ata.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a9fd52e892928c016a4a66f59a46241e4" prot="public" static="no">
+        <name>ATA_IDENT_MODEL</name>
+        <initializer>54</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="47" column="12" bodyfile="include/ata.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a4efaa1ae14eb268a085d1824eb2a1f08" prot="public" static="no">
+        <name>ATA_IDENT_CAPABILITIES</name>
+        <initializer>98</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="48" column="12" bodyfile="include/ata.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a4515f6ed07cf67add34766e02bd8d133" prot="public" static="no">
+        <name>ATA_IDENT_FIELDVALID</name>
+        <initializer>106</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="49" column="12" bodyfile="include/ata.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ae0d046a29ce70e07d868961cf17b54c7" prot="public" static="no">
+        <name>ATA_IDENT_MAX_LBA</name>
+        <initializer>120</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="50" column="12" bodyfile="include/ata.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a8536e132f24aa36e826f753b6061e8ea" prot="public" static="no">
+        <name>ATA_IDENT_COMMANDSETS</name>
+        <initializer>164</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="51" column="12" bodyfile="include/ata.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1aa1926c13a31f512c9ec07ed3bdba8893" prot="public" static="no">
+        <name>ATA_IDENT_MAX_LBA_EXT</name>
+        <initializer>200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="52" column="12" bodyfile="include/ata.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1acb5691a26e836afc6972577bd71b0d97" prot="public" static="no">
+        <name>ATA_MASTER</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="54" column="14" bodyfile="include/ata.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1abe2ab9064f7100c5915bc694386a3e40" prot="public" static="no">
+        <name>ATA_SLAVE</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="55" column="14" bodyfile="include/ata.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a3046279f2a25227c121b69f4cf855bf8" prot="public" static="no">
+        <name>IDE_ATA</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="57" column="14" bodyfile="include/ata.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a6513ee2a4da2c6aaa691b9d4c639a53e" prot="public" static="no">
+        <name>IDE_ATAPI</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="58" column="14" bodyfile="include/ata.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a359c566cefff5e671eb3bae72e0d0948" prot="public" static="no">
+        <name>ATA_REG_DATA</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="61" column="14" bodyfile="include/ata.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ad2f2744a08145beb17b7ed6ca0465d85" prot="public" static="no">
+        <name>ATA_REG_ERROR</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="62" column="14" bodyfile="include/ata.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1aa2dc5ed9bf4786f687e4000243f6a21d" prot="public" static="no">
+        <name>ATA_REG_FEATURES</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="63" column="14" bodyfile="include/ata.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ad995693d31857a8e514b5f96c5fc4cdb" prot="public" static="no">
+        <name>ATA_REG_SECCOUNT0</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="64" column="14" bodyfile="include/ata.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a9818e533e211e2ddadf650dab77f55fd" prot="public" static="no">
+        <name>ATA_REG_LBA0</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="65" column="14" bodyfile="include/ata.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a4ca55ad2c56ea915f9dcde1aba57433d" prot="public" static="no">
+        <name>ATA_REG_LBA1</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="66" column="14" bodyfile="include/ata.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1afaf134917cbfc81c86b4e1d67930757a" prot="public" static="no">
+        <name>ATA_REG_LBA2</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="67" column="14" bodyfile="include/ata.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1af80b9f0d852148eda227b433f72ca8bb" prot="public" static="no">
+        <name>ATA_REG_HDDEVSEL</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="68" column="14" bodyfile="include/ata.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a1a54069e05845badff84e1490ca4681e" prot="public" static="no">
+        <name>ATA_REG_COMMAND</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="69" column="14" bodyfile="include/ata.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a3b532ef33b38be16a240f8f2e21bc5db" prot="public" static="no">
+        <name>ATA_REG_STATUS</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="70" column="14" bodyfile="include/ata.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a8a9a19e403cdc08cdb52ac4a77d44b1d" prot="public" static="no">
+        <name>ATA_REG_SECCOUNT1</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="71" column="14" bodyfile="include/ata.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1af95cf3177ed01e63c3e2783f71e3bfb8" prot="public" static="no">
+        <name>ATA_REG_LBA3</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="72" column="14" bodyfile="include/ata.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a39c9e21fd98a8933142af12c472ffb80" prot="public" static="no">
+        <name>ATA_REG_LBA4</name>
+        <initializer>0x0A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="73" column="14" bodyfile="include/ata.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a24546e89863608bb2850a6ab39a24693" prot="public" static="no">
+        <name>ATA_REG_LBA5</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="74" column="14" bodyfile="include/ata.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1acd25672516342decdb4acb14b13dfa03" prot="public" static="no">
+        <name>ATA_REG_CONTROL</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="75" column="14" bodyfile="include/ata.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a051769d4520d201d24bbb06758a5c1de" prot="public" static="no">
+        <name>ATA_REG_ALTSTATUS</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="76" column="14" bodyfile="include/ata.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1adf8b096ca00ce8ce58af3dd79240b2e5" prot="public" static="no">
+        <name>ATA_REG_DEVADDRESS</name>
+        <initializer>0x0D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="77" column="14" bodyfile="include/ata.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1aa18f254fa4afcfdb5fcf897eeaf38564" prot="public" static="no">
+        <name>ATA_PRIMARY</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="80" column="14" bodyfile="include/ata.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1ad514d776b09e8b873aa7087ef0091fe6" prot="public" static="no">
+        <name>ATA_SECONDARY</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="81" column="14" bodyfile="include/ata.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a061cf4fd71859d6355aea5be3bae767a" prot="public" static="no">
+        <name>ATA_READ</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="84" column="14" bodyfile="include/ata.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ata_8h_1a9a19b84aa7a02ac7e07528795816ffb2" prot="public" static="no">
+        <name>ATA_WRITE</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="85" column="14" bodyfile="include/ata.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="ata_8h_1a18fddc6e232e1300b3647b7c4417043a" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ata_poll_error_code</name>
+        <enumvalue id="ata_8h_1a18fddc6e232e1300b3647b7c4417043aa83c7f144e9ae192e77dd33487d1282e6" prot="public">
+          <name>ATA_POLL_NO_ERROR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ata_8h_1a18fddc6e232e1300b3647b7c4417043aa94f95229c929e2aba9df558cf3acf012" prot="public">
+          <name>ATA_POLL_DEVICE_FAULT</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ata_8h_1a18fddc6e232e1300b3647b7c4417043aa772cec1919b88fd004f8f133606046c2" prot="public">
+          <name>ATA_POLL_GENRAL_ERROR</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ata_8h_1a18fddc6e232e1300b3647b7c4417043aa4c28cb55f9bf42533261f07f3a42d11f" prot="public">
+          <name>ATA_POLL_DRQ_NOT_SET</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ata_8h_1a18fddc6e232e1300b3647b7c4417043aa3f083117b8c4238af9319d14680b428a" prot="public">
+          <name>ATA_POLL_TIMEOUT</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="87" column="1" bodyfile="include/ata.h" bodystart="88" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ata_8h_1acb52766b0d624203211cbfcf4a05edb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t ide_read</definition>
+        <argsstring>(uint8_t channel, uint8_t reg)</argsstring>
+        <name>ide_read</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>channel</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>reg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="116" column="9" declfile="include/ata.h" declline="116" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ata_8h_1a7994497eba58387a8f165604a3db2e7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ide_write</definition>
+        <argsstring>(uint8_t channel, uint8_t reg, uint8_t data)</argsstring>
+        <name>ide_write</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>channel</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="117" column="6" declfile="include/ata.h" declline="117" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ata_8h_1a28ff591a4ea2513423b51bf8b527973a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ide_initialise</definition>
+        <argsstring>()</argsstring>
+        <name>ide_initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="118" column="6" declfile="include/ata.h" declline="118" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ata_8h_1a291be4904771fb4b45334dafdbbbc7df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ide_irq</definition>
+        <argsstring>(uint8_t isr, uint64_t error, uint64_t irq, void *opaque)</argsstring>
+        <name>ide_irq</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>isr</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>irq</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="119" column="6" declfile="include/ata.h" declline="119" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ata_8h_1a0df21c6405226c938e2c18033c2f41e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ide_read_sectors</definition>
+        <argsstring>(uint8_t drive, uint16_t numsects, uint64_t lba, uint64_t buffer_address)</argsstring>
+        <name>ide_read_sectors</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>drive</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>numsects</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>lba</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>buffer_address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="120" column="5" declfile="include/ata.h" declline="120" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="ata_8h_1a3e00ee2429dfceccd1e2595efeaef63f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ide_write_sectors</definition>
+        <argsstring>(uint8_t drive, uint16_t numsects, uint64_t lba, uint64_t buffer_address)</argsstring>
+        <name>ide_write_sectors</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>drive</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>numsects</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>lba</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>buffer_address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="121" column="5" declfile="include/ata.h" declline="121" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="ata_8h_1a88616d7522277d13b1b3fe09dfd06664" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ide_atapi_eject</definition>
+        <argsstring>(uint8_t drive)</argsstring>
+        <name>ide_atapi_eject</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>drive</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="122" column="5" declfile="include/ata.h" declline="122" declcolumn="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/ata.h"/>
+  </compounddef>
+</doxygen>

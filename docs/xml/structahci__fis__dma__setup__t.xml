@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structahci__fis__dma__setup__t" kind="struct" language="C++" prot="public">
+    <compoundname>ahci_fis_dma_setup_t</compoundname>
+    <includes local="no">ahci.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a8160a4cfa5453d539a3f21c5cbd8e809" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dma_setup_t::fis_type</definition>
+        <argsstring></argsstring>
+        <name>fis_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="134" column="10" bodyfile="include/ahci.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1abad07e2a16752fea19dd3fe4a9f2211a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dma_setup_t::pmport</definition>
+        <argsstring></argsstring>
+        <name>pmport</name>
+        <bitfield>4</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="136" column="10" bodyfile="include/ahci.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a9388e1cadae8bbd1e89a7995077e6ff7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dma_setup_t::rsv0</definition>
+        <argsstring></argsstring>
+        <name>rsv0</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="137" column="10" bodyfile="include/ahci.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a3aaf538a96702a7ea6efbe012823479b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dma_setup_t::d</definition>
+        <argsstring></argsstring>
+        <name>d</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="138" column="10" bodyfile="include/ahci.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a27b26e0c6778d675fa07b39457fc9aba" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dma_setup_t::i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="139" column="10" bodyfile="include/ahci.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1af6e9ab7f0f389227a3b585db085648ac" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dma_setup_t::a</definition>
+        <argsstring></argsstring>
+        <name>a</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="140" column="10" bodyfile="include/ahci.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a737c385f1fd664415932690d9e8e2d7c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ahci_fis_dma_setup_t::rsved[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>rsved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="142" column="18" bodyfile="include/ahci.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a330906bb0ea078b76e0c5eee7faa578e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ahci_fis_dma_setup_t::DMAbufferID</definition>
+        <argsstring></argsstring>
+        <name>DMAbufferID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="146" column="18" bodyfile="include/ahci.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a5b2d6f2f31aebfeda35a2f20f3eece4e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_fis_dma_setup_t::rsvd</definition>
+        <argsstring></argsstring>
+        <name>rsvd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="150" column="18" bodyfile="include/ahci.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a09229ef7873a3bcf24f96c83ad916a47" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_fis_dma_setup_t::DMAbufOffset</definition>
+        <argsstring></argsstring>
+        <name>DMAbufOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="153" column="18" bodyfile="include/ahci.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a6e2e4bbb47fa7c62e481648de1fafbdc" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_fis_dma_setup_t::TransferCount</definition>
+        <argsstring></argsstring>
+        <name>TransferCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="156" column="18" bodyfile="include/ahci.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__fis__dma__setup__t_1a862ad0f96dd18cb4fc43ac522851ce80" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_fis_dma_setup_t::resvd</definition>
+        <argsstring></argsstring>
+        <name>resvd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="159" column="18" bodyfile="include/ahci.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ahci_fis_dma_setup_t</label>
+        <link refid="structahci__fis__dma__setup__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>DMAbufferID</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>DMAbufOffset</edgelabel>
+          <edgelabel>TransferCount</edgelabel>
+          <edgelabel>resvd</edgelabel>
+          <edgelabel>rsvd</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>a</edgelabel>
+          <edgelabel>d</edgelabel>
+          <edgelabel>fis_type</edgelabel>
+          <edgelabel>i</edgelabel>
+          <edgelabel>pmport</edgelabel>
+          <edgelabel>rsv0</edgelabel>
+          <edgelabel>rsved</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ahci.h" line="132" column="1" bodyfile="include/ahci.h" bodystart="132" bodyend="161"/>
+    <listofallmembers>
+      <member refid="structahci__fis__dma__setup__t_1af6e9ab7f0f389227a3b585db085648ac" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>a</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a3aaf538a96702a7ea6efbe012823479b" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>d</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a330906bb0ea078b76e0c5eee7faa578e" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>DMAbufferID</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a09229ef7873a3bcf24f96c83ad916a47" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>DMAbufOffset</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a8160a4cfa5453d539a3f21c5cbd8e809" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>fis_type</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a27b26e0c6778d675fa07b39457fc9aba" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>i</name></member>
+      <member refid="structahci__fis__dma__setup__t_1abad07e2a16752fea19dd3fe4a9f2211a" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>pmport</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a862ad0f96dd18cb4fc43ac522851ce80" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>resvd</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a9388e1cadae8bbd1e89a7995077e6ff7" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>rsv0</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a5b2d6f2f31aebfeda35a2f20f3eece4e" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>rsvd</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a737c385f1fd664415932690d9e8e2d7c" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>rsved</name></member>
+      <member refid="structahci__fis__dma__setup__t_1a6e2e4bbb47fa7c62e481648de1fafbdc" prot="public" virt="non-virtual"><scope>ahci_fis_dma_setup_t</scope><name>TransferCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

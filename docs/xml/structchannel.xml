@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structchannel" kind="struct" language="C++" prot="public">
+    <compoundname>channel</compoundname>
+    <includes local="no">ata.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structchannel_1ae56da23e4f0275b6ae2f73f94a578dd2" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t channel::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="98" column="10" bodyfile="include/ata.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structchannel_1ac1972bc8a7c4dd21234e8c4ec265e315" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t channel::ctrl</definition>
+        <argsstring></argsstring>
+        <name>ctrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="99" column="10" bodyfile="include/ata.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structchannel_1ab4e87a5d01a5eb1056e3605d94b18b6f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t channel::bmide</definition>
+        <argsstring></argsstring>
+        <name>bmide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="100" column="10" bodyfile="include/ata.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structchannel_1ad16a1cabfbcf362f78c3f77968233bbb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t channel::nIEN</definition>
+        <argsstring></argsstring>
+        <name>nIEN</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ata.h" line="101" column="10" bodyfile="include/ata.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>channel</label>
+        <link refid="structchannel"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>base</edgelabel>
+          <edgelabel>bmide</edgelabel>
+          <edgelabel>ctrl</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>nIEN</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ata.h" line="96" column="1" bodyfile="include/ata.h" bodystart="97" bodyend="102"/>
+    <listofallmembers>
+      <member refid="structchannel_1ae56da23e4f0275b6ae2f73f94a578dd2" prot="public" virt="non-virtual"><scope>channel</scope><name>base</name></member>
+      <member refid="structchannel_1ab4e87a5d01a5eb1056e3605d94b18b6f" prot="public" virt="non-virtual"><scope>channel</scope><name>bmide</name></member>
+      <member refid="structchannel_1ac1972bc8a7c4dd21234e8c4ec265e315" prot="public" virt="non-virtual"><scope>channel</scope><name>ctrl</name></member>
+      <member refid="structchannel_1ad16a1cabfbcf362f78c3f77968233bbb" prot="public" virt="non-virtual"><scope>channel</scope><name>nIEN</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

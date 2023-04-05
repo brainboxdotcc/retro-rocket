@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structfilesystem__t" kind="struct" language="C++" prot="public">
+    <compoundname>filesystem_t</compoundname>
+    <includes local="no">filesystem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfilesystem__t_1ad9e95445e543de2e595f4da41e1b9ff4" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char filesystem_t::name[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="54" column="6" bodyfile="include/filesystem.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfilesystem__t_1a77609a9147050917f0fff5604dd14c36" prot="public" static="no" mutable="no">
+        <type>mount_volume</type>
+        <definition>mount_volume filesystem_t::mount</definition>
+        <argsstring></argsstring>
+        <name>mount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="55" column="14" bodyfile="include/filesystem.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfilesystem__t_1a99ad863d03be29cf4ddbf592405f12a9" prot="public" static="no" mutable="no">
+        <type>get_directory</type>
+        <definition>get_directory filesystem_t::getdir</definition>
+        <argsstring></argsstring>
+        <name>getdir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="56" column="15" bodyfile="include/filesystem.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfilesystem__t_1ab20175c68487833f4f3f351aaf724326" prot="public" static="no" mutable="no">
+        <type>read_file</type>
+        <definition>read_file filesystem_t::readfile</definition>
+        <argsstring></argsstring>
+        <name>readfile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="57" column="11" bodyfile="include/filesystem.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" prot="public" static="no" mutable="no">
+        <type>write_file</type>
+        <definition>write_file filesystem_t::writefile</definition>
+        <argsstring></argsstring>
+        <name>writefile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="58" column="12" bodyfile="include/filesystem.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfilesystem__t_1a5a53b5c090ad502a59b6f382f6a64111" prot="public" static="no" mutable="no">
+        <type>delete_file</type>
+        <definition>delete_file filesystem_t::rm</definition>
+        <argsstring></argsstring>
+        <name>rm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="59" column="13" bodyfile="include/filesystem.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfilesystem__t_1a3de5608a3632092ae909303a1ba96fe5" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
+        <definition>struct filesystem_t* filesystem_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="60" column="20" bodyfile="include/filesystem.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>filesystem_t</label>
+        <link refid="structfilesystem__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>rm</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>mount</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>int(*)(void *)</label>
+      </node>
+      <node id="5">
+        <label>uint32_t</label>
+      </node>
+      <node id="2">
+        <label>void *(*)(void *)</label>
+      </node>
+      <node id="4">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/filesystem.h" line="53" column="1" bodyfile="include/filesystem.h" bodystart="53" bodyend="61"/>
+    <listofallmembers>
+      <member refid="structfilesystem__t_1a99ad863d03be29cf4ddbf592405f12a9" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>getdir</name></member>
+      <member refid="structfilesystem__t_1a77609a9147050917f0fff5604dd14c36" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>mount</name></member>
+      <member refid="structfilesystem__t_1ad9e95445e543de2e595f4da41e1b9ff4" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>name</name></member>
+      <member refid="structfilesystem__t_1a3de5608a3632092ae909303a1ba96fe5" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>next</name></member>
+      <member refid="structfilesystem__t_1ab20175c68487833f4f3f351aaf724326" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>readfile</name></member>
+      <member refid="structfilesystem__t_1a5a53b5c090ad502a59b6f382f6a64111" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>rm</name></member>
+      <member refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>writefile</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

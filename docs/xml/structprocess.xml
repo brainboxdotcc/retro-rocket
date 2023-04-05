@@ -1,0 +1,510 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structprocess" kind="struct" language="C++" prot="public">
+    <compoundname>process</compoundname>
+    <includes local="no">taskswitch.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structprocess_1acd8f5b769761291060bb235c89145236" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::pid</definition>
+        <argsstring></argsstring>
+        <name>pid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="9" column="9" bodyfile="include/taskswitch.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1aeacf31d26e3986013274cc576514a664" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::ppid</definition>
+        <argsstring></argsstring>
+        <name>ppid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="10" column="9" bodyfile="include/taskswitch.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a210dfedfbc72c1519a0b50ef02946e96" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::uid</definition>
+        <argsstring></argsstring>
+        <name>uid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="11" column="9" bodyfile="include/taskswitch.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a73d1472943f39a6c5941fa636cae4a9a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::gid</definition>
+        <argsstring></argsstring>
+        <name>gid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="12" column="9" bodyfile="include/taskswitch.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a4ff2ac1afd6369b0876fa8baef822413" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="13" column="9" bodyfile="include/taskswitch.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1ae2ffe3de19599abccaf0d3abddb24094" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::start_time</definition>
+        <argsstring></argsstring>
+        <name>start_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="14" column="9" bodyfile="include/taskswitch.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1abef94160cdd9c34d160149a0f158c298" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::waitpid</definition>
+        <argsstring></argsstring>
+        <name>waitpid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="16" column="9" bodyfile="include/taskswitch.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1aa987de379c42207c8871c9afcc51beea" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t process::cpu</definition>
+        <argsstring></argsstring>
+        <name>cpu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="18" column="8" bodyfile="include/taskswitch.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a84a88e05d3fbfde0adaa7299ce44e747" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* process::directory</definition>
+        <argsstring></argsstring>
+        <name>directory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="20" column="5" bodyfile="include/taskswitch.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1ab00affa63607d02095f147da6f1c0983" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* process::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="21" column="5" bodyfile="include/taskswitch.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a112132a3f2554d57b9c87e3373adb15b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t process::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="22" column="9" bodyfile="include/taskswitch.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a82a666ec8f112a67717089585ff03519" prot="public" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* process::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="23" column="14" bodyfile="include/taskswitch.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a2ee944c8bcaa77d0f0bf56a82fa712c3" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structconsole" kindref="compound">console</ref> *</type>
+        <definition>struct console* process::cons</definition>
+        <argsstring></argsstring>
+        <name>cons</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="25" column="14" bodyfile="include/taskswitch.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1a5809be20d9ce9d32d792fce2eda54d48" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+        <definition>struct ubasic_ctx* process::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="27" column="17" bodyfile="include/taskswitch.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1ade1995538398f7994808dd957952ff42" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+        <definition>struct process* process::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="30" column="14" bodyfile="include/taskswitch.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structprocess_1aa714b70ab9ca99fc489de2f70a091b0b" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+        <definition>struct process* process::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="31" column="14" bodyfile="include/taskswitch.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="11">
+        <label>size_t</label>
+      </node>
+      <node id="21">
+        <label>ub_param</label>
+        <link refid="structub__param"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ubasic_ctx</label>
+        <link refid="structubasic__ctx"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>string_array_variables</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>int_variables</edgelabel>
+          <edgelabel>local_int_variables</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>for_stack_ptr</edgelabel>
+          <edgelabel>gosub_stack_ptr</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>item_begin</edgelabel>
+          <edgelabel>nextptr</edgelabel>
+          <edgelabel>program_ptr</edgelabel>
+          <edgelabel>ptr</edgelabel>
+          <edgelabel>string</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>cons</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>current_linenum</edgelabel>
+          <edgelabel>eval_linenum</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>graphics_colour</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>double_variables</edgelabel>
+          <edgelabel>local_double_variables</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>bracket_depth</edgelabel>
+          <edgelabel>current_token</edgelabel>
+          <edgelabel>ended</edgelabel>
+          <edgelabel>errored</edgelabel>
+          <edgelabel>gosub_stack</edgelabel>
+          <edgelabel>oldlen</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>fn_type</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>int_array_variables</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>defs</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>local_string_variables</edgelabel>
+          <edgelabel>str_variables</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>fn_return</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>for_stack</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>param</edgelabel>
+        </childnode>
+      </node>
+      <node id="22">
+        <label>void *</label>
+      </node>
+      <node id="13">
+        <label>int32_t</label>
+      </node>
+      <node id="4">
+        <label>uint64_t</label>
+      </node>
+      <node id="14">
+        <label>ub_var_double</label>
+        <link refid="structub__var__double"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ub_var_string_array</label>
+        <link refid="structub__var__string__array"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>itemcount</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>ub_var_int</label>
+        <link refid="structub__var__int"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ub_var_int_array</label>
+        <link refid="structub__var__int__array"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>itemcount</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>int</label>
+      </node>
+      <node id="17">
+        <label>enum ub_return_type</label>
+      </node>
+      <node id="1">
+        <label>process</label>
+        <link refid="structprocess"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>code</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>directory</edgelabel>
+          <edgelabel>name</edgelabel>
+          <edgelabel>text</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>cons</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>gid</edgelabel>
+          <edgelabel>pid</edgelabel>
+          <edgelabel>ppid</edgelabel>
+          <edgelabel>size</edgelabel>
+          <edgelabel>start_time</edgelabel>
+          <edgelabel>state</edgelabel>
+          <edgelabel>uid</edgelabel>
+          <edgelabel>waitpid</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>cpu</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>double</label>
+      </node>
+      <node id="24">
+        <label>uint32_t</label>
+      </node>
+      <node id="6">
+        <label>ub_var_string</label>
+        <link refid="structub__var__string"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>value</edgelabel>
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>uint8_t</label>
+      </node>
+      <node id="23">
+        <label>for_state</label>
+        <link refid="structfor__state"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>for_variable</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>line_after_for</edgelabel>
+          <edgelabel>step</edgelabel>
+          <edgelabel>to</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ub_proc_fn_def</label>
+        <link refid="structub__proc__fn__def"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>line</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>bool</label>
+      </node>
+      <node id="9">
+        <label>int64_t</label>
+      </node>
+      <node id="5">
+        <label>char</label>
+      </node>
+      <node id="20">
+        <label>enum ub_fn_type</label>
+      </node>
+      <node id="10">
+        <label>console</label>
+        <link refid="structconsole"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>buffer</edgelabel>
+          <edgelabel>dirty</edgelabel>
+          <edgelabel>internalbuffer</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>bufcnt</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>attributes</edgelabel>
+          <edgelabel>last</edgelabel>
+          <edgelabel>x</edgelabel>
+          <edgelabel>y</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/taskswitch.h" line="7" column="1" bodyfile="include/taskswitch.h" bodystart="7" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structprocess_1a5809be20d9ce9d32d792fce2eda54d48" prot="public" virt="non-virtual"><scope>process</scope><name>code</name></member>
+      <member refid="structprocess_1a2ee944c8bcaa77d0f0bf56a82fa712c3" prot="public" virt="non-virtual"><scope>process</scope><name>cons</name></member>
+      <member refid="structprocess_1aa987de379c42207c8871c9afcc51beea" prot="public" virt="non-virtual"><scope>process</scope><name>cpu</name></member>
+      <member refid="structprocess_1a84a88e05d3fbfde0adaa7299ce44e747" prot="public" virt="non-virtual"><scope>process</scope><name>directory</name></member>
+      <member refid="structprocess_1a73d1472943f39a6c5941fa636cae4a9a" prot="public" virt="non-virtual"><scope>process</scope><name>gid</name></member>
+      <member refid="structprocess_1ab00affa63607d02095f147da6f1c0983" prot="public" virt="non-virtual"><scope>process</scope><name>name</name></member>
+      <member refid="structprocess_1aa714b70ab9ca99fc489de2f70a091b0b" prot="public" virt="non-virtual"><scope>process</scope><name>next</name></member>
+      <member refid="structprocess_1acd8f5b769761291060bb235c89145236" prot="public" virt="non-virtual"><scope>process</scope><name>pid</name></member>
+      <member refid="structprocess_1aeacf31d26e3986013274cc576514a664" prot="public" virt="non-virtual"><scope>process</scope><name>ppid</name></member>
+      <member refid="structprocess_1ade1995538398f7994808dd957952ff42" prot="public" virt="non-virtual"><scope>process</scope><name>prev</name></member>
+      <member refid="structprocess_1a112132a3f2554d57b9c87e3373adb15b" prot="public" virt="non-virtual"><scope>process</scope><name>size</name></member>
+      <member refid="structprocess_1ae2ffe3de19599abccaf0d3abddb24094" prot="public" virt="non-virtual"><scope>process</scope><name>start_time</name></member>
+      <member refid="structprocess_1a4ff2ac1afd6369b0876fa8baef822413" prot="public" virt="non-virtual"><scope>process</scope><name>state</name></member>
+      <member refid="structprocess_1a82a666ec8f112a67717089585ff03519" prot="public" virt="non-virtual"><scope>process</scope><name>text</name></member>
+      <member refid="structprocess_1a210dfedfbc72c1519a0b50ef02946e96" prot="public" virt="non-virtual"><scope>process</scope><name>uid</name></member>
+      <member refid="structprocess_1abef94160cdd9c34d160149a0f158c298" prot="public" virt="non-virtual"><scope>process</scope><name>waitpid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1386 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ip_8h" kind="file" language="C++">
+    <compoundname>ip.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="39">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="37">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="32">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="33">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="28">
+        <label>devfs.h</label>
+      </node>
+      <node id="31">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="36">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="unionip__frag" prot="public">ip_frag</innerclass>
+    <innerclass refid="uniontos__flags" prot="public">tos_flags</innerclass>
+    <innerclass refid="structip__packet" prot="public">ip_packet</innerclass>
+    <innerclass refid="structip__packet__frag" prot="public">ip_packet_frag</innerclass>
+    <innerclass refid="structip__fragmented__packet__parts" prot="public">ip_fragmented_packet_parts</innerclass>
+    <innerclass refid="structpacket__queue__item" prot="public">packet_queue_item</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ip_8h_1a44ade6ec22bb8ca7dd31a313bbaa458b" prot="public" static="no">
+        <name>ETHERNET_TYPE_IP</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="5" column="9" bodyfile="include/ip.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ip_8h_1ad86447cb2614688c35c6658af52db4cd" prot="public" static="no">
+        <name>ETHERNET_TYPE_IP6</name>
+        <initializer>0x86DD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="6" column="9" bodyfile="include/ip.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="ip_8h_1a71c6a62eb0101db3e9200f27f7f3e2ed" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ip_type_t</name>
+        <enumvalue id="ip_8h_1a71c6a62eb0101db3e9200f27f7f3e2edaffc020ad6f364104ca45849b467ea84f" prot="public">
+          <name>IP_IPV4</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IP protocol types. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="11" column="1" bodyfile="include/ip.h" bodystart="11" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="enum" id="ip_8h_1a23a343a8c6f8daa0adbcf7d7bac9a478" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ip_proto_t</name>
+        <enumvalue id="ip_8h_1a23a343a8c6f8daa0adbcf7d7bac9a478a92d2ba8746d548d7f29fdcdb4572ec37" prot="public">
+          <name>PROTOCOL_ICMP</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ip_8h_1a23a343a8c6f8daa0adbcf7d7bac9a478ae991c7cad918269624b3c28147e18a93" prot="public">
+          <name>PROTOCOL_TCP</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ip_8h_1a23a343a8c6f8daa0adbcf7d7bac9a478a3c79df624160aa6dbeeb4e2c13ca3dc7" prot="public">
+          <name>PROTOCOL_UDP</name>
+          <initializer>= 17</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Sub-protocols, TCP and UDP. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="18" column="1" bodyfile="include/ip.h" bodystart="18" bodyend="22"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ip_8h_1af05bd7c2edecc7b857ffe7dfeb4f9ec5" prot="public" static="no">
+        <type>struct <ref refid="structip__packet__frag" kindref="compound">ip_packet_frag</ref></type>
+        <definition>typedef struct ip_packet_frag ip_packet_frag_t</definition>
+        <argsstring></argsstring>
+        <name>ip_packet_frag_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="73" column="18"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ip_8h_1a3f5903d87cf3c581e9e1d83cd114c28e" prot="public" static="no">
+        <type>struct <ref refid="structip__fragmented__packet__parts" kindref="compound">ip_fragmented_packet_parts</ref></type>
+        <definition>typedef struct ip_fragmented_packet_parts ip_fragmented_packet_parts_t</definition>
+        <argsstring></argsstring>
+        <name>ip_fragmented_packet_parts_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="79" column="30"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ip_8h_1a52a31051ee4cbb63cf3d6d4ab2006b8c" prot="public" static="no">
+        <type>struct <ref refid="structpacket__queue__item" kindref="compound">packet_queue_item</ref></type>
+        <definition>typedef struct packet_queue_item packet_queue_item_t</definition>
+        <argsstring></argsstring>
+        <name>packet_queue_item_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="86" column="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="ip_8h_1a46a6da6b1936191571fd30b2a749f38c" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint8_t bits</definition>
+        <argsstring></argsstring>
+        <name>bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="0" column="14" bodyfile="include/ip.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a3b1222ec79882abb51fb3c4743e69980" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t reserved_zero</definition>
+        <argsstring></argsstring>
+        <name>reserved_zero</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="2" column="9" bodyfile="include/ip.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a900391174cfa12e45c33b91dfb51567a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dont_fragment</definition>
+        <argsstring></argsstring>
+        <name>dont_fragment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="3" column="9" bodyfile="include/ip.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1aa2fad107028e67bb93ff81d0a448c34a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t more_fragments_follow</definition>
+        <argsstring></argsstring>
+        <name>more_fragments_follow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="4" column="9" bodyfile="include/ip.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a0c347fcf27daf16ed4801b3688f71399" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fragment_offset_high</definition>
+        <argsstring></argsstring>
+        <name>fragment_offset_high</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="5" column="9" bodyfile="include/ip.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a4dfb0bddcac7c0acfb64614e3fb6d6ec" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fragment_offset_low</definition>
+        <argsstring></argsstring>
+        <name>fragment_offset_low</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="6" column="9" bodyfile="include/ip.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a3e0cdbf19fded14dbfdc289079471218" prot="public" static="no" mutable="no">
+        <type>struct @2</type>
+        <definition>struct @2</definition>
+        <argsstring></argsstring>
+        <name>@3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="7" column="5"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1af6c1c78d408e91d2916add663a491623" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dscp</definition>
+        <argsstring></argsstring>
+        <name>dscp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="2" column="9" bodyfile="include/ip.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1afaf0e7ded50820ba5d7d11464707ce4c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ecn</definition>
+        <argsstring></argsstring>
+        <name>ecn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="3" column="9" bodyfile="include/ip.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a3991341493667f1c047008512739a934" prot="public" static="no" mutable="no">
+        <type>struct @6</type>
+        <definition>struct @6</definition>
+        <argsstring></argsstring>
+        <name>@7</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="4" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a8423311c91b40fe5616a2ab8afa080f0" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char version_ihl_ptr[0]</definition>
+        <argsstring>[0]</argsstring>
+        <name>version_ihl_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="0" column="6" bodyfile="include/ip.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1ab22abc2906422da61885ac6c8e6a1a59" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="1" column="9" bodyfile="include/ip.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a40d51e3f9b609f60f860859a0cc300a5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ihl</definition>
+        <argsstring></argsstring>
+        <name>ihl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="2" column="9" bodyfile="include/ip.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a568fed57ff3a9f8b14f040c35f062cf5" prot="public" static="no" mutable="no">
+        <type>tos_flags_t</type>
+        <definition>tos_flags_t tos</definition>
+        <argsstring></argsstring>
+        <name>tos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="3" column="13" bodyfile="include/ip.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a1892eba2086d12ac2b09005aeb09ea3b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="4" column="10" bodyfile="include/ip.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a4fc3a0c58dfbd1e68224521185cb9384" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="5" column="10" bodyfile="include/ip.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a5405c7812cff4b98459ed0d1dadf7774" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char flags_fragment_ptr[0]</definition>
+        <argsstring>[0]</argsstring>
+        <name>flags_fragment_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="6" column="6" bodyfile="include/ip.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a3957d5553e3a4fc78b80d4078a0a382e" prot="public" static="no" mutable="no">
+        <type>ip_frag_t</type>
+        <definition>ip_frag_t frag</definition>
+        <argsstring></argsstring>
+        <name>frag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="7" column="11" bodyfile="include/ip.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a4d402503271315376ddf4e47674d4965" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ttl</definition>
+        <argsstring></argsstring>
+        <name>ttl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="8" column="9" bodyfile="include/ip.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1ad124d3d2e02c729afa303c775295278e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t protocol</definition>
+        <argsstring></argsstring>
+        <name>protocol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="9" column="9" bodyfile="include/ip.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1ad81d057e030cab80cd57f9675a453918" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t header_checksum</definition>
+        <argsstring></argsstring>
+        <name>header_checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="10" column="10" bodyfile="include/ip.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a468dda4615d8c0d9e631e02372619dc1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t src_ip[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>src_ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="11" column="9" bodyfile="include/ip.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a07bf19836204bcde2b4f843aff82783e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t dst_ip[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>dst_ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="12" column="9" bodyfile="include/ip.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a15d570669f1585f18a87d277f1753027" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t options[0]</definition>
+        <argsstring>[0]</argsstring>
+        <name>options</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="13" column="9" bodyfile="include/ip.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8h_1a5c239a1bb87b52b0f1d6d68c4749cd2a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t data[]</definition>
+        <argsstring>[]</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="14" column="9" bodyfile="include/ip.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ip_8h_1a47b76f092ce5f72142241f65e9bdc4fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>union <ref refid="unionip__frag" kindref="compound">ip_frag</ref></type>
+        <definition>union ip_frag __attribute__</definition>
+        <argsstring>((packed)) ip_frag_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed)</type>
+        </param>
+        <briefdescription>
+<para>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Structure for an IP packet. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="1" column="0" declfile="include/ip.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1aea6d2bc78e199d2c6630cd4440708a4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_ip_str</definition>
+        <argsstring>(char *ip_str, const uint8_t *ip)</argsstring>
+        <name>get_ip_str</name>
+        <param>
+          <type>char *</type>
+          <declname>ip_str</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+<para>Convert network byte order IP to a string form for display. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip_str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>character buffer to fill, should be at least 13 bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw 4 byte IP </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="94" column="6" declfile="include/ip.h" declline="94" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a2a0164f6cce7e790fe3402e17e2f4597" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t str_to_ip</definition>
+        <argsstring>(const char *ip_str)</argsstring>
+        <name>str_to_ip</name>
+        <param>
+          <type>const char *</type>
+          <declname>ip_str</declname>
+        </param>
+        <briefdescription>
+<para>Convert a string IP to host byte order IP address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip_str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ip as string e.g. &quot;127.0.0.1&quot; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint32_t IP in host byte order </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="102" column="10" declfile="include/ip.h" declline="102" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a0c6727c035a1b0fb8d80502c051d0ef3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t ip_calculate_checksum</definition>
+        <argsstring>(ip_packet_t *packet)</argsstring>
+        <name>ip_calculate_checksum</name>
+        <param>
+          <type>ip_packet_t *</type>
+          <declname>packet</declname>
+        </param>
+        <briefdescription>
+<para>Calculate checksum for IP packet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP packet structure </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint16_t Checksum </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="110" column="10" declfile="include/ip.h" declline="110" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a5c4e2905c23bb53cf128a3912f8ddaea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_send_packet</definition>
+        <argsstring>(uint8_t *dst_ip, void *data, uint16_t len, uint8_t protocol)</argsstring>
+        <name>ip_send_packet</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>dst_ip</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>protocol</declname>
+        </param>
+        <briefdescription>
+<para>Send IP packet to the ethernet driver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dst_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP to send the packet to (255.255.255.255 for broadcast) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw IP packet to send </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data length </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>protocol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sub-protocol encapsulated inside the packet, e.g. UDP, TCP </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="120" column="6" declfile="include/ip.h" declline="120" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a5f3edab64f1804a7ea5781ba55d81db6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gethostaddr</definition>
+        <argsstring>(unsigned char *ip)</argsstring>
+        <name>gethostaddr</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+<para>Get the current IP address. This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address buffer, should be at least 4 bytes </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero if an IP address is available for use </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="129" column="5" declfile="include/ip.h" declline="129" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1aa72c56e7b9b8a88f84ec637f48c7f895" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sethostaddr</definition>
+        <argsstring>(const unsigned char *ip)</argsstring>
+        <name>sethostaddr</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+<para>Set the current IP address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>4 byte buffer for IP address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="136" column="6" declfile="include/ip.h" declline="136" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a41abea862f6e845e6f6df11b4d1d4aee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setdnsaddr</definition>
+        <argsstring>(uint32_t dns)</argsstring>
+        <name>setdnsaddr</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>dns</declname>
+        </param>
+        <briefdescription>
+<para>Set DNS address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DNS address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="144" column="6" declfile="include/ip.h" declline="144" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a4e01d123dc960d1c3e7afc199866b394" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setgatewayaddr</definition>
+        <argsstring>(uint32_t gateway)</argsstring>
+        <name>setgatewayaddr</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>gateway</declname>
+        </param>
+        <briefdescription>
+<para>Set gateway address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gateway address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="152" column="6" declfile="include/ip.h" declline="152" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a04ebf6ef42a22c69b10eb794d233ceec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getdnsaddr</definition>
+        <argsstring>()</argsstring>
+        <name>getdnsaddr</name>
+        <briefdescription>
+<para>Get DNS address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint32_t DNS address </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="160" column="10" declfile="include/ip.h" declline="160" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a8066de476dc28033b24d07a4bd52f718" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getgatewayaddr</definition>
+        <argsstring>()</argsstring>
+        <name>getgatewayaddr</name>
+        <briefdescription>
+<para>Get gateway address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint32_t gateway address </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="168" column="10" declfile="include/ip.h" declline="168" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a621c408b11c5b2ba33c9ad1a7bac93ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setnetmask</definition>
+        <argsstring>(uint32_t nm)</argsstring>
+        <name>setnetmask</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>nm</declname>
+        </param>
+        <briefdescription>
+<para>Set network mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>network mask </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="175" column="6" declfile="include/ip.h" declline="175" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1af36348a26ea667e87f3427e57ed23bed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getnetmask</definition>
+        <argsstring>()</argsstring>
+        <name>getnetmask</name>
+        <briefdescription>
+<para>Get network mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint32_t network mask </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="182" column="10" declfile="include/ip.h" declline="182" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1a7cf4dd66490d6812fcbba8acbb2533bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_init</definition>
+        <argsstring>()</argsstring>
+        <name>ip_init</name>
+        <briefdescription>
+<para>Initialise IP protocol. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="187" column="6" declfile="include/ip.h" declline="187" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8h_1ac14f37ff566957e2932615943bd6578a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_idle</definition>
+        <argsstring>()</argsstring>
+        <name>ip_idle</name>
+        <briefdescription>
+<para>Called from the local APIC timer interrupt 50 times a second. Attempts to resolve ARP requests for queued packets that we don&apos;t have ARP for yet, and retries ARP requests up to 3 times before dropping packets we cannot route. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="195" column="6" declfile="include/ip.h" declline="195" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/ip.h"/>
+  </compounddef>
+</doxygen>

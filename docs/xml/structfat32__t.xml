@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structfat32__t" kind="struct" language="C++" prot="public">
+    <compoundname>fat32_t</compoundname>
+    <includes local="no">fat32.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfat32__t_1ad02a7e8ec99f17b3b9bfbd6f0bebdf75" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char fat32_t::device_name[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>device_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="33" column="6" bodyfile="include/fat32.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a20111768e31f7853f87be1c2993cbf11" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fat32_t::partitionid</definition>
+        <argsstring></argsstring>
+        <name>partitionid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="34" column="9" bodyfile="include/fat32.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a83f8a38f977565edf3bb80f2dc663def" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* fat32_t::volume_name</definition>
+        <argsstring></argsstring>
+        <name>volume_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="35" column="6" bodyfile="include/fat32.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1aa1394de1d1f07e4464ba3f7a4f2799cb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fat32_t::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="36" column="10" bodyfile="include/fat32.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a36fa0fcc5599eb023dca4e6132427a8b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fat32_t::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="37" column="10" bodyfile="include/fat32.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a4df6263fe68d22e1a0d542ffb99b4059" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fat32_t::rootdircluster</definition>
+        <argsstring></argsstring>
+        <name>rootdircluster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="38" column="10" bodyfile="include/fat32.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a0d10e0b10d4ba23960d22d41f8650b3d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t fat32_t::reservedsectors</definition>
+        <argsstring></argsstring>
+        <name>reservedsectors</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="39" column="10" bodyfile="include/fat32.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1acfe249d34f339169fff9146f167c5680" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fat32_t::fsinfocluster</definition>
+        <argsstring></argsstring>
+        <name>fsinfocluster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="40" column="10" bodyfile="include/fat32.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a5c50fc597c9b2a0c810de42b5ae64d08" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fat32_t::numberoffats</definition>
+        <argsstring></argsstring>
+        <name>numberoffats</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="41" column="9" bodyfile="include/fat32.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1acd48d7a68ecf130f97195b8412c72d7d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fat32_t::fatsize</definition>
+        <argsstring></argsstring>
+        <name>fatsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="42" column="10" bodyfile="include/fat32.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a4503b6005e5d33262bb2fb5f5c5f6c1f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fat32_t::clustersize</definition>
+        <argsstring></argsstring>
+        <name>clustersize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="43" column="10" bodyfile="include/fat32.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1a26660ceb95edda410eafa7eb59f3fe27" prot="public" static="no" mutable="no">
+        <type>uint32_t *</type>
+        <definition>uint32_t* fat32_t::fat</definition>
+        <argsstring></argsstring>
+        <name>fat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="44" column="10" bodyfile="include/fat32.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1ae8343bb5b8ef19f74fa5ce739490f76d" prot="public" static="no" mutable="no">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t* fat32_t::root</definition>
+        <argsstring></argsstring>
+        <name>root</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="45" column="22" bodyfile="include/fat32.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfat32__t_1afece959794dca642d78bfc942b5234af" prot="public" static="no" mutable="no">
+        <type><ref refid="structfat32__fs__info__t" kindref="compound">fat32_fs_info_t</ref> *</type>
+        <definition>fat32_fs_info_t* fat32_t::info</definition>
+        <argsstring></argsstring>
+        <name>info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="46" column="17" bodyfile="include/fat32.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>FAT32 filesystem information, used internally by the driver. This is a higher level version of FSINFO. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="11">
+        <label>void *</label>
+      </node>
+      <node id="5">
+        <label>filesystem_t</label>
+        <link refid="structfilesystem__t"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>rm</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>mount</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint64_t</label>
+      </node>
+      <node id="7">
+        <label>int(*)(void *)</label>
+      </node>
+      <node id="13">
+        <label>fat32_fs_info_t</label>
+        <link refid="structfat32__fs__info__t"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>reserved1</edgelabel>
+          <edgelabel>reserved2</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>freecount</edgelabel>
+          <edgelabel>nextfree</edgelabel>
+          <edgelabel>signature1</edgelabel>
+          <edgelabel>structsig</edgelabel>
+          <edgelabel>trailsig</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>uint16_t</label>
+      </node>
+      <node id="4">
+        <label>fs_tree_t</label>
+        <link refid="structfs__tree__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>files</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>child_dirs</edgelabel>
+          <edgelabel>next</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>responsible_driver</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>dirty</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>uint32_t</label>
+      </node>
+      <node id="10">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>fat32_t</label>
+        <link refid="structfat32__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>root</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>reservedsectors</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>volume_name</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>info</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>clustersize</edgelabel>
+          <edgelabel>fat</edgelabel>
+          <edgelabel>fatsize</edgelabel>
+          <edgelabel>fsinfocluster</edgelabel>
+          <edgelabel>length</edgelabel>
+          <edgelabel>rootdircluster</edgelabel>
+          <edgelabel>start</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>numberoffats</edgelabel>
+          <edgelabel>partitionid</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>void *(*)(void *)</label>
+      </node>
+      <node id="2">
+        <label>fs_directory_entry_t</label>
+        <link refid="structfs__directory__entry__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>directory</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>year</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>filename</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>flags</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>day</edgelabel>
+          <edgelabel>hour</edgelabel>
+          <edgelabel>min</edgelabel>
+          <edgelabel>month</edgelabel>
+          <edgelabel>sec</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/fat32.h" line="32" column="1" bodyfile="include/fat32.h" bodystart="32" bodyend="47"/>
+    <listofallmembers>
+      <member refid="structfat32__t_1a4503b6005e5d33262bb2fb5f5c5f6c1f" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>clustersize</name></member>
+      <member refid="structfat32__t_1ad02a7e8ec99f17b3b9bfbd6f0bebdf75" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>device_name</name></member>
+      <member refid="structfat32__t_1a26660ceb95edda410eafa7eb59f3fe27" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>fat</name></member>
+      <member refid="structfat32__t_1acd48d7a68ecf130f97195b8412c72d7d" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>fatsize</name></member>
+      <member refid="structfat32__t_1acfe249d34f339169fff9146f167c5680" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>fsinfocluster</name></member>
+      <member refid="structfat32__t_1afece959794dca642d78bfc942b5234af" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>info</name></member>
+      <member refid="structfat32__t_1a36fa0fcc5599eb023dca4e6132427a8b" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>length</name></member>
+      <member refid="structfat32__t_1a5c50fc597c9b2a0c810de42b5ae64d08" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>numberoffats</name></member>
+      <member refid="structfat32__t_1a20111768e31f7853f87be1c2993cbf11" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>partitionid</name></member>
+      <member refid="structfat32__t_1a0d10e0b10d4ba23960d22d41f8650b3d" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>reservedsectors</name></member>
+      <member refid="structfat32__t_1ae8343bb5b8ef19f74fa5ce739490f76d" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>root</name></member>
+      <member refid="structfat32__t_1a4df6263fe68d22e1a0d542ffb99b4059" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>rootdircluster</name></member>
+      <member refid="structfat32__t_1aa1394de1d1f07e4464ba3f7a4f2799cb" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>start</name></member>
+      <member refid="structfat32__t_1a83f8a38f977565edf3bb80f2dc663def" prot="public" virt="non-virtual"><scope>fat32_t</scope><name>volume_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

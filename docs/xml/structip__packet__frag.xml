@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structip__packet__frag" kind="struct" language="C++" prot="public">
+    <compoundname>ip_packet_frag</compoundname>
+    <includes local="no">ip.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structip__packet__frag_1af78c854d78acdd971445eb67261b11f9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ip_packet_frag::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="69" column="10" bodyfile="include/ip.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structip__packet__frag_1ad9c512b1c1cf184c83b09a0ba16d4f80" prot="public" static="no" mutable="no">
+        <type>ip_packet_t *</type>
+        <definition>ip_packet_t* ip_packet_frag::packet</definition>
+        <argsstring></argsstring>
+        <name>packet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="70" column="13" bodyfile="include/ip.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structip__packet__frag_1a3c4ce4a94336c9d7e86ad831b0fd03ba" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structip__packet__frag" kindref="compound">ip_packet_frag</ref> *</type>
+        <definition>struct ip_packet_frag* ip_packet_frag::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="71" column="22" bodyfile="include/ip.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structip__packet__frag_1aacbec8186bf36d50cd027629d8ba3f9c" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structip__packet__frag" kindref="compound">ip_packet_frag</ref> *</type>
+        <definition>struct ip_packet_frag* ip_packet_frag::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="72" column="22" bodyfile="include/ip.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+      <node id="1">
+        <label>ip_packet_frag</label>
+        <link refid="structip__packet__frag"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>packet</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>offset</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ip_packet_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ip.h" line="68" column="1" bodyfile="include/ip.h" bodystart="68" bodyend="73"/>
+    <listofallmembers>
+      <member refid="structip__packet__frag_1a3c4ce4a94336c9d7e86ad831b0fd03ba" prot="public" virt="non-virtual"><scope>ip_packet_frag</scope><name>next</name></member>
+      <member refid="structip__packet__frag_1af78c854d78acdd971445eb67261b11f9" prot="public" virt="non-virtual"><scope>ip_packet_frag</scope><name>offset</name></member>
+      <member refid="structip__packet__frag_1ad9c512b1c1cf184c83b09a0ba16d4f80" prot="public" virt="non-virtual"><scope>ip_packet_frag</scope><name>packet</name></member>
+      <member refid="structip__packet__frag_1aacbec8186bf36d50cd027629d8ba3f9c" prot="public" virt="non-virtual"><scope>ip_packet_frag</scope><name>prev</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structahci__hba__prdt__entry__t" kind="struct" language="C++" prot="public">
+    <compoundname>ahci_hba_prdt_entry_t</compoundname>
+    <includes local="no">ahci.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a66e3bcde78ddb8d71480788c18e21d6e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_hba_prdt_entry_t::dba</definition>
+        <argsstring></argsstring>
+        <name>dba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="276" column="10" bodyfile="include/ahci.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a7c1fbeeaa46eb5af8658e7b54a50c913" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_hba_prdt_entry_t::dbau</definition>
+        <argsstring></argsstring>
+        <name>dbau</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="277" column="10" bodyfile="include/ahci.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a50d7eae089f4b6db0916b5ff69f04094" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_hba_prdt_entry_t::rsv0</definition>
+        <argsstring></argsstring>
+        <name>rsv0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="278" column="10" bodyfile="include/ahci.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1ad18fa77ebbc24061b03ca271af4d41d6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_hba_prdt_entry_t::dbc</definition>
+        <argsstring></argsstring>
+        <name>dbc</name>
+        <bitfield>22</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="281" column="10" bodyfile="include/ahci.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a217e5595f7940d52851ec218eb9cd0d3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_hba_prdt_entry_t::rsv1</definition>
+        <argsstring></argsstring>
+        <name>rsv1</name>
+        <bitfield>9</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="282" column="10" bodyfile="include/ahci.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structahci__hba__prdt__entry__t_1a01062a616fc5f949054077da9b8076b4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ahci_hba_prdt_entry_t::i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ahci.h" line="283" column="10" bodyfile="include/ahci.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint32_t</label>
+      </node>
+      <node id="1">
+        <label>ahci_hba_prdt_entry_t</label>
+        <link refid="structahci__hba__prdt__entry__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>dba</edgelabel>
+          <edgelabel>dbau</edgelabel>
+          <edgelabel>dbc</edgelabel>
+          <edgelabel>i</edgelabel>
+          <edgelabel>rsv0</edgelabel>
+          <edgelabel>rsv1</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/ahci.h" line="274" column="1" bodyfile="include/ahci.h" bodystart="275" bodyend="284"/>
+    <listofallmembers>
+      <member refid="structahci__hba__prdt__entry__t_1a66e3bcde78ddb8d71480788c18e21d6e" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>dba</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1a7c1fbeeaa46eb5af8658e7b54a50c913" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>dbau</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1ad18fa77ebbc24061b03ca271af4d41d6" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>dbc</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1a01062a616fc5f949054077da9b8076b4" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>i</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1a50d7eae089f4b6db0916b5ff69f04094" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>rsv0</name></member>
+      <member refid="structahci__hba__prdt__entry__t_1a217e5595f7940d52851ec218eb9cd0d3" prot="public" virt="non-virtual"><scope>ahci_hba_prdt_entry_t</scope><name>rsv1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

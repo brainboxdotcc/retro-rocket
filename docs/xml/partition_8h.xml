@@ -1,0 +1,1079 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="partition_8h" kind="file" language="C++">
+    <compoundname>partition.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="38">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="36">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="31">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="32">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="27">
+        <label>devfs.h</label>
+      </node>
+      <node id="30">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="35">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structpartition__t" prot="public">partition_t</innerclass>
+    <innerclass refid="structpartition__table__t" prot="public">partition_table_t</innerclass>
+    <innerclass refid="structgpt__header__t" prot="public">gpt_header_t</innerclass>
+    <innerclass refid="structgpt__entry__t" prot="public">gpt_entry_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="partition_8h_1a18bdcefc7008fc3d9e21f70f6ad0cc2f" prot="public" static="no">
+        <name>PARTITION_TABLE_OFFSET</name>
+        <initializer>0x1BE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="5" column="9" bodyfile="include/partition.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="partition_8h_1ab5cc28c1d5f52c3a7e1eefefa1a123d6" prot="public" static="no">
+        <name>PARTITON_GPT_PROTECTIVE</name>
+        <initializer>0xEE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="7" column="9" bodyfile="include/partition.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="partition_8h_1a473a1483ecee72b5fb823dd28190cef8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bootable</definition>
+        <argsstring></argsstring>
+        <name>bootable</name>
+        <briefdescription>
+<para>Partition is bootable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="1" column="9" bodyfile="include/partition.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a5cdb5260eb161d003ce2974a9b640ed0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t starthead</definition>
+        <argsstring></argsstring>
+        <name>starthead</name>
+        <briefdescription>
+<para>Starting head. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="3" column="9" bodyfile="include/partition.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1ad2790b60a9dc7a559a168e41d3007ed0" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t startcylsect</definition>
+        <argsstring></argsstring>
+        <name>startcylsect</name>
+        <briefdescription>
+<para>Starting cylinder and sector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="5" column="10" bodyfile="include/partition.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a8890279a93a70c5488f262967b45665e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t systemid</definition>
+        <argsstring></argsstring>
+        <name>systemid</name>
+        <briefdescription>
+<para>partition type id </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="7" column="9" bodyfile="include/partition.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a03172afffeef76e5e22fdecb0e454988" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t endhead</definition>
+        <argsstring></argsstring>
+        <name>endhead</name>
+        <briefdescription>
+<para>End head. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="9" column="9" bodyfile="include/partition.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a0bdaaaf2bf933b1e06f23191f8f9265d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t endcylsect</definition>
+        <argsstring></argsstring>
+        <name>endcylsect</name>
+        <briefdescription>
+<para>End cylinder and sector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="11" column="10" bodyfile="include/partition.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a425e545755bed66a7dee3f0644ce3fa0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t startlba</definition>
+        <argsstring></argsstring>
+        <name>startlba</name>
+        <briefdescription>
+<para>Starting LBA. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="13" column="10" bodyfile="include/partition.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1aebb70c2aab3407a9f05334c47131a43b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+<para>LBA length. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="15" column="10" bodyfile="include/partition.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1acbc7f7a079bfdfcb4f87f46d9b062fc6" prot="public" static="no" mutable="no">
+        <type><ref refid="structpartition__t" kindref="compound">partition_t</ref></type>
+        <definition>partition_t p_entry[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>p_entry</name>
+        <briefdescription>
+<para>Partition entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="1" column="13" bodyfile="include/partition.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a409860617743ad808a1ef99e3766a904" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char signature[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="0" column="6" bodyfile="include/partition.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a1e06912314636e4ff50fd8e3da458dd2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gpt_revision</definition>
+        <argsstring></argsstring>
+        <name>gpt_revision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="1" column="10" bodyfile="include/partition.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a841923a20e6dda97c59351c8e97c9be6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t header_size</definition>
+        <argsstring></argsstring>
+        <name>header_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="2" column="10" bodyfile="include/partition.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1accce3e3321fb0fcd1202856a0e0d056e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t crc_checksum</definition>
+        <argsstring></argsstring>
+        <name>crc_checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="3" column="10" bodyfile="include/partition.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1aed93283265f941dc1d2bf8d634164493" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t reserved0</definition>
+        <argsstring></argsstring>
+        <name>reserved0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="4" column="10" bodyfile="include/partition.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a35792aa8137d652e0e802cfdcda74a8a" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t lba_of_this_header</definition>
+        <argsstring></argsstring>
+        <name>lba_of_this_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="5" column="10" bodyfile="include/partition.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1adb3035921f4b9390ac9e17340508e41e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t lba_of_alternative_header</definition>
+        <argsstring></argsstring>
+        <name>lba_of_alternative_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="6" column="10" bodyfile="include/partition.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a44705ae441023dea5e7d060865a028aa" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t first_usable_block</definition>
+        <argsstring></argsstring>
+        <name>first_usable_block</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="7" column="10" bodyfile="include/partition.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a6d5ebdae78a94d8ec0b4ba190d2fba8c" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t last_usable_block</definition>
+        <argsstring></argsstring>
+        <name>last_usable_block</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="8" column="10" bodyfile="include/partition.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1afe26aae5295ae74776526a314b660c53" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char disk_guid[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>disk_guid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="9" column="6" bodyfile="include/partition.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a57f44e195aed45152e201d8d644abc1b" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t lba_of_partition_entries</definition>
+        <argsstring></argsstring>
+        <name>lba_of_partition_entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="10" column="10" bodyfile="include/partition.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1ae26f01f15d548e277f4deea7b2450f14" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t number_partition_entries</definition>
+        <argsstring></argsstring>
+        <name>number_partition_entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="11" column="10" bodyfile="include/partition.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a29a1c9bc88ae80b8118c23b89403da47" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t size_of_each_entry</definition>
+        <argsstring></argsstring>
+        <name>size_of_each_entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="12" column="10" bodyfile="include/partition.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a98bd70a6f58a0ab95d188bbc46660d4d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t crc_32_of_entries</definition>
+        <argsstring></argsstring>
+        <name>crc_32_of_entries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="13" column="10" bodyfile="include/partition.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a4b144b4e44dff41a4cc5a393fd4e5c00" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t reserved1[]</definition>
+        <argsstring>[]</argsstring>
+        <name>reserved1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="14" column="9" bodyfile="include/partition.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a43cc28a8dde018ca80c160a908c25f65" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char type_guid[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>type_guid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="0" column="6" bodyfile="include/partition.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1af1a60b067fa3aa6817acf29dc9e96c83" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char unique_id[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>unique_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="1" column="6" bodyfile="include/partition.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a1fad24c3f957bb760204fa4f93ade61c" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t start_lba</definition>
+        <argsstring></argsstring>
+        <name>start_lba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="2" column="10" bodyfile="include/partition.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1adc12d24bf34ead2a6acec10c07c41216" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t end_lba</definition>
+        <argsstring></argsstring>
+        <name>end_lba</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="3" column="10" bodyfile="include/partition.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1af2477a97f3d64421167ca09818993a8d" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t attributes</definition>
+        <argsstring></argsstring>
+        <name>attributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="4" column="10" bodyfile="include/partition.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a01407fb88d72f1334e349771e1a3a44d" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char name[72]</definition>
+        <argsstring>[72]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="5" column="6" bodyfile="include/partition.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="partition_8h_1aa0cf2023d79beae7b86b452e250987ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structpartition__t" kindref="compound">partition_t</ref></type>
+        <definition>struct partition_t __attribute__</definition>
+        <argsstring>((packed)) partition_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed)</type>
+        </param>
+        <briefdescription>
+<para>A disk partition on a storage device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A disk partition table consisiting of four <ref refid="structpartition__t" kindref="compound">partition_t</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="1" column="0" declfile="include/partition.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="partition_8h_1aca3fbf7bc1de234de11ab0aeac4fc3d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool find_partition_of_type</definition>
+        <argsstring>(const char *device_name, uint8_t partition_type, const char *partition_type_guid, uint8_t *partition_id, uint32_t *start, uint32_t *length)</argsstring>
+        <name>find_partition_of_type</name>
+        <param>
+          <type>const char *</type>
+          <declname>device_name</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>partition_type</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>partition_type_guid</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>partition_id</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Given a device name and partition type ID, find the start and length of that partition on the device. Returns false if the partition could not be found. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device name </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>partition_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Partition type ID to find </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>partition_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Partition ID of found partition, filled if found </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start of found partition, filled if found </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of found partition, filled if found </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if partition found, partition_id, start and length will be set </para>
+</simplesect>
+<simplesect kind="return"><para>false if partition not found, partition_id, start and length will be unchanged </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="78" column="6" declfile="include/partition.h" declline="78" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="partition_8h_1aad1cdc38bf44771f80d27453aacca2f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool guid_to_binary</definition>
+        <argsstring>(const char *guid, void *binary)</argsstring>
+        <name>guid_to_binary</name>
+        <param>
+          <type>const char *</type>
+          <declname>guid</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>binary</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="80" column="6" declfile="include/partition.h" declline="80" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/partition.h"/>
+  </compounddef>
+</doxygen>

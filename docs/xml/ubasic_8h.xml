@@ -1,0 +1,1172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ubasic_8h" kind="file" language="C++">
+    <compoundname>ubasic.h</compoundname>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ubasic.h</label>
+        <link refid="ubasic_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structfor__state" prot="public">for_state</innerclass>
+    <innerclass refid="structub__var__int" prot="public">ub_var_int</innerclass>
+    <innerclass refid="structub__var__double" prot="public">ub_var_double</innerclass>
+    <innerclass refid="structub__var__string" prot="public">ub_var_string</innerclass>
+    <innerclass refid="structub__param" prot="public">ub_param</innerclass>
+    <innerclass refid="structub__proc__fn__def" prot="public">ub_proc_fn_def</innerclass>
+    <innerclass refid="structub__var__int__array" prot="public">ub_var_int_array</innerclass>
+    <innerclass refid="structub__var__string__array" prot="public">ub_var_string_array</innerclass>
+    <innerclass refid="structub__var__double__array" prot="public">ub_var_double_array</innerclass>
+    <innerclass refid="structubasic__ctx" prot="public">ubasic_ctx</innerclass>
+    <innerclass refid="structubasic__int__fn" prot="public">ubasic_int_fn</innerclass>
+    <innerclass refid="structubasic__double__fn" prot="public">ubasic_double_fn</innerclass>
+    <innerclass refid="structubasic__str__fn" prot="public">ubasic_str_fn</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ubasic_8h_1a90bf9480b781825abfeb3f500d75531c" prot="public" static="no">
+        <name>MAX_STRINGLEN</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="21" column="9" bodyfile="include/ubasic.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ubasic_8h_1aab086f9d28e5039a26d7fa99afa82fac" prot="public" static="no">
+        <name>MAX_GOSUB_STACK_DEPTH</name>
+        <initializer>255</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="22" column="9" bodyfile="include/ubasic.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ubasic_8h_1afd61ad878c267312a7dfe05d09a67850" prot="public" static="no">
+        <name>MAX_FOR_STACK_DEPTH</name>
+        <initializer>50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="23" column="9" bodyfile="include/ubasic.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="ubasic_8h_1a65231902c1f22532519da8a1c01ba53e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ub_fn_type</name>
+        <enumvalue id="ubasic_8h_1a65231902c1f22532519da8a1c01ba53eac71ea04245e41b2d6b8e533fcc74c659" prot="public">
+          <name>FT_FN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ubasic_8h_1a65231902c1f22532519da8a1c01ba53ead53af2599d572a45176f7076ae759bd6" prot="public">
+          <name>FT_PROC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="57" column="1" bodyfile="include/ubasic.h" bodystart="58" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="enum" id="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ub_return_type</name>
+        <enumvalue id="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268" prot="public">
+          <name>RT_STRING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966a8748e4019711d7c401d6ed2b1568717d" prot="public">
+          <name>RT_INT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966af84eb2d6bedef8785a996abbec035e87" prot="public">
+          <name>RT_FLOAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="63" column="1" bodyfile="include/ubasic.h" bodystart="64" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ubasic_8h_1a1a277b6d298b8440ed9b87d11fd0024a" prot="public" static="no">
+        <type>struct <ref refid="structfor__state" kindref="compound">for_state</ref></type>
+        <definition>typedef struct for_state for_state</definition>
+        <argsstring></argsstring>
+        <name>for_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="31" column="11"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a29fd087722abca20020ed378bcfa48a7" prot="public" static="no">
+        <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref></type>
+        <definition>typedef struct ub_var_int ub_var_int</definition>
+        <argsstring></argsstring>
+        <name>ub_var_int</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="39" column="12"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1aa90b2bd981fef2f71f7407bb26e48f69" prot="public" static="no">
+        <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref></type>
+        <definition>typedef struct ub_var_double ub_var_double</definition>
+        <argsstring></argsstring>
+        <name>ub_var_double</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="47" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a4fee12d7983d6ebbb14be65e26d00cc2" prot="public" static="no">
+        <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref></type>
+        <definition>typedef struct ub_var_string ub_var_string</definition>
+        <argsstring></argsstring>
+        <name>ub_var_string</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="55" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a796c2111fa2b30ee697116f1e1d8d900" prot="public" static="no">
+        <type>enum ub_fn_type</type>
+        <definition>typedef enum ub_fn_type ub_fn_type</definition>
+        <argsstring></argsstring>
+        <name>ub_fn_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="61" column="12"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a0de4e0f73c35d1581263b58586e1bb81" prot="public" static="no">
+        <type>enum ub_return_type</type>
+        <definition>typedef enum ub_return_type ub_return_type</definition>
+        <argsstring></argsstring>
+        <name>ub_return_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="68" column="16"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a023d2039d3700b54e4c0bc99a7703798" prot="public" static="no">
+        <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref></type>
+        <definition>typedef struct ub_param ub_param</definition>
+        <argsstring></argsstring>
+        <name>ub_param</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="74" column="10"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a2791aeb6247beed9936f8f5acfd9238a" prot="public" static="no">
+        <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref></type>
+        <definition>typedef struct ub_proc_fn_def ub_proc_fn_def</definition>
+        <argsstring></argsstring>
+        <name>ub_proc_fn_def</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="83" column="16"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1acc3e263c5498088a9576b3d0dc36fa12" prot="public" static="no">
+        <type>struct <ref refid="structub__var__int__array" kindref="compound">ub_var_int_array</ref></type>
+        <definition>typedef struct ub_var_int_array ub_var_int_array</definition>
+        <argsstring></argsstring>
+        <name>ub_var_int_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="90" column="18"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a203216ed240cc2d72d769f34b5f44f3a" prot="public" static="no">
+        <type>struct <ref refid="structub__var__string__array" kindref="compound">ub_var_string_array</ref></type>
+        <definition>typedef struct ub_var_string_array ub_var_string_array</definition>
+        <argsstring></argsstring>
+        <name>ub_var_string_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="97" column="21"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a8227d1ca913e77608aae30a1dae2e105" prot="public" static="no">
+        <type>struct <ref refid="structub__var__double__array" kindref="compound">ub_var_double_array</ref></type>
+        <definition>typedef struct ub_var_double_array ub_var_double_array</definition>
+        <argsstring></argsstring>
+        <name>ub_var_double_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="104" column="21"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1afa74f8445aef0692f8a1cedf0bf72851" prot="public" static="no">
+        <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref></type>
+        <definition>typedef struct ubasic_ctx ubasic_ctx</definition>
+        <argsstring></argsstring>
+        <name>ubasic_ctx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="138" column="12"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a59c9cd726acfbe69d8df60ab2b2d0607" prot="public" static="no">
+        <type>int64_t(*</type>
+        <definition>typedef int64_t(* builtin_int_fn) (struct ubasic_ctx *ctx)</definition>
+        <argsstring>)(struct ubasic_ctx *ctx)</argsstring>
+        <name>builtin_int_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="141" column="9" bodyfile="include/ubasic.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a32fb15d1935e217117fd02b2f319bb93" prot="public" static="no">
+        <type>char *(*</type>
+        <definition>typedef char*(* builtin_str_fn) (struct ubasic_ctx *ctx)</definition>
+        <argsstring>)(struct ubasic_ctx *ctx)</argsstring>
+        <name>builtin_str_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="142" column="9" bodyfile="include/ubasic.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1adccc7c01a1bb1d7cca42e285830ce6a6" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* builtin_double_fn) (struct ubasic_ctx *ctx, double *res)</definition>
+        <argsstring>)(struct ubasic_ctx *ctx, double *res)</argsstring>
+        <name>builtin_double_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="143" column="9" bodyfile="include/ubasic.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a643c7d6370c88d71dc44db6187aa34f2" prot="public" static="no">
+        <type>struct <ref refid="structubasic__int__fn" kindref="compound">ubasic_int_fn</ref></type>
+        <definition>typedef struct ubasic_int_fn ubasic_int_fn</definition>
+        <argsstring></argsstring>
+        <name>ubasic_int_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="149" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1aab7a95dc6222d0f715e168afc561e336" prot="public" static="no">
+        <type>struct <ref refid="structubasic__double__fn" kindref="compound">ubasic_double_fn</ref></type>
+        <definition>typedef struct ubasic_double_fn ubasic_double_fn</definition>
+        <argsstring></argsstring>
+        <name>ubasic_double_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="155" column="18"/>
+      </memberdef>
+      <memberdef kind="typedef" id="ubasic_8h_1a377ee25d70ce9afcb15c8eabb00fdf3c" prot="public" static="no">
+        <type>struct <ref refid="structubasic__str__fn" kindref="compound">ubasic_str_fn</ref></type>
+        <definition>typedef struct ubasic_str_fn ubasic_str_fn</definition>
+        <argsstring></argsstring>
+        <name>ubasic_str_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="161" column="15"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ubasic_8h_1a94cc5f368eb6a4a51959aa9af71c2727" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_abs</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_abs</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="164" column="9" declfile="include/ubasic.h" declline="164" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1adcce1bf8e1bb7d43f778c2a3b178c38f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_len</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_len</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="165" column="9" declfile="include/ubasic.h" declline="165" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1af6254c6c76a5252860e6de07c78eb39b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_openin</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_openin</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="166" column="9" declfile="include/ubasic.h" declline="166" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a431f36e09e8d38111a31f197e1105ada" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_eof</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_eof</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="167" column="9" declfile="include/ubasic.h" declline="167" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a9cc258913671c12ba9b33bf48e4671e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_read</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_read</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="168" column="9" declfile="include/ubasic.h" declline="168" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1ab8b600ea28480e317f45f1bf713a41b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_instr</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_instr</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="169" column="9" declfile="include/ubasic.h" declline="169" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1aab9b383fbcaccd9f3197620b11097ad0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_asc</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_asc</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="170" column="9" declfile="include/ubasic.h" declline="170" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1ad2d0c46d49cf770b5468e1cb3e7137a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_getnamecount</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_getnamecount</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="171" column="9" declfile="include/ubasic.h" declline="171" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a42187ca69dc53ce2869e7df6960dc7ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_getsize</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_getsize</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="172" column="9" declfile="include/ubasic.h" declline="172" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a660422bd3c0e07831ab9a20bfd94db7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_netinfo</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_netinfo</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="175" column="6" declfile="include/ubasic.h" declline="175" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a5559407d22fff10ff141837c7b094fb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_left</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_left</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="176" column="6" declfile="include/ubasic.h" declline="176" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a2ddbbc00e77a2b3575da968d1c719aa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_mid</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_mid</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="177" column="6" declfile="include/ubasic.h" declline="177" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a778c0201919e608abd2646c9b9cb0b60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_chr</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_chr</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="178" column="6" declfile="include/ubasic.h" declline="178" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a5fad97e282aa0b13b8776eeeb505315c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_readstring</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_readstring</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="179" column="6" declfile="include/ubasic.h" declline="179" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a628557296864cfb7a5a9a8ab38cce2b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_getname</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_getname</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="180" column="6" declfile="include/ubasic.h" declline="180" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1ab7af277a89e6e82220ef7c70e4f14f91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+        <definition>struct ubasic_ctx* ubasic_init</definition>
+        <argsstring>(const char *program, console *cons, uint32_t pid, const char *file)</argsstring>
+        <name>ubasic_init</name>
+        <param>
+          <type>const char *</type>
+          <declname>program</declname>
+        </param>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>cons</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>pid</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="182" column="18" declfile="include/ubasic.h" declline="182" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ubasic_destroy</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_destroy</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="183" column="6" declfile="include/ubasic.h" declline="183" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a00ac2759ea41ff03f3e994f35f6bc03a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ubasic_run</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_run</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="184" column="6" declfile="include/ubasic.h" declline="184" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1ae2dfc2340f033d44a00993bfe4bf9c80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ubasic_finished</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_finished</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="185" column="5" declfile="include/ubasic.h" declline="185" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1adb8eb6e0aa9c7606623fc241b99760be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_get_int_variable</definition>
+        <argsstring>(const char *varname, struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_get_int_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>varname</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="186" column="9" declfile="include/ubasic.h" declline="186" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a2fea34db30fac3281466a93c55078c06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ubasic_get_double_variable</definition>
+        <argsstring>(const char *var, struct ubasic_ctx *ctx, double *res)</argsstring>
+        <name>ubasic_get_double_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="187" column="6" declfile="include/ubasic.h" declline="187" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a9ac55179aa9a0176f342a67638608cf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* ubasic_get_string_variable</definition>
+        <argsstring>(const char *var, struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_get_string_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="188" column="12" declfile="include/ubasic.h" declline="188" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a5dab8199fb7b2e99f20e8d8432b69b81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ubasic_set_variable</definition>
+        <argsstring>(const char *varname, const char *value, struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_set_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>varname</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="189" column="6" declfile="include/ubasic.h" declline="189" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1aa9a4be605fcbe914d2a98c5e1a348f73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void jump_linenum</definition>
+        <argsstring>(int64_t linenum, struct ubasic_ctx *ctx)</argsstring>
+        <name>jump_linenum</name>
+        <param>
+          <type>int64_t</type>
+          <declname>linenum</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="190" column="6" declfile="include/ubasic.h" declline="190" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a7913e05cee9dd3d85bc859e06af69f60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ubasic_set_string_variable</definition>
+        <argsstring>(const char *var, const char *value, struct ubasic_ctx *ctx, bool local, bool global)</argsstring>
+        <name>ubasic_set_string_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>local</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>global</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="191" column="6" declfile="include/ubasic.h" declline="191" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a387c29c224dd166b6bea4add9897522e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ubasic_set_double_variable</definition>
+        <argsstring>(const char *var, const double value, struct ubasic_ctx *ctx, bool local, bool global)</argsstring>
+        <name>ubasic_set_double_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>local</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>global</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="192" column="6" declfile="include/ubasic.h" declline="192" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a6d554a1fcd609a257c2f842a08ac05ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ubasic_set_int_variable</definition>
+        <argsstring>(const char *var, int64_t value, struct ubasic_ctx *ctx, bool local, bool global)</argsstring>
+        <name>ubasic_set_int_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>local</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>global</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="193" column="6" declfile="include/ubasic.h" declline="193" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1aeba4a7a47c9691fe982cfb3bcd98534b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ubasic_set_array_variable</definition>
+        <argsstring>(const char *var, int64_t value, struct ubasic_ctx *ctx, bool local)</argsstring>
+        <name>ubasic_set_array_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>local</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="194" column="6" declfile="include/ubasic.h" declline="194" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1af3c28214a6d26d3373d8ed9f1d5276a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ub_return_type</type>
+        <definition>ub_return_type ubasic_get_numeric_variable</definition>
+        <argsstring>(const char *var, struct ubasic_ctx *ctx, double *res)</argsstring>
+        <name>ubasic_get_numeric_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="196" column="16" declfile="include/ubasic.h" declline="196" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a384d812b87f1117d47fe61d413b6763b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ubasic_get_numeric_int_variable</definition>
+        <argsstring>(const char *var, struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_get_numeric_int_variable</name>
+        <param>
+          <type>const char *</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="197" column="5" declfile="include/ubasic.h" declline="197" declcolumn="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/ubasic.h"/>
+  </compounddef>
+</doxygen>

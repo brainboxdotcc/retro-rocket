@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="lapic__timer_8h" kind="file" language="C++">
+    <compoundname>lapic_timer.h</compoundname>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="lapic__timer_8h_1af0dcf61cef039a03256058a024e729c5" prot="public" static="no">
+        <name>APIC_TASKPRIOR</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="4" column="9" bodyfile="include/lapic_timer.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a32114b4d0dc42bb6666d90759bd04a6b" prot="public" static="no">
+        <name>APIC_EOI</name>
+        <initializer>0x0B0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="5" column="9" bodyfile="include/lapic_timer.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1ac8f56182740b8d01128911994d19ebc2" prot="public" static="no">
+        <name>APIC_LDR</name>
+        <initializer>0x0D0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="6" column="9" bodyfile="include/lapic_timer.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a45325027aeab8817ebda9fcd827bc8be" prot="public" static="no">
+        <name>APIC_DFR</name>
+        <initializer>0x0E0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="7" column="9" bodyfile="include/lapic_timer.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a0fcfd9182fca82fede8f5963d372b123" prot="public" static="no">
+        <name>APIC_SPURIOUS</name>
+        <initializer>0x0F0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="8" column="9" bodyfile="include/lapic_timer.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a68abb431a1b072843dc6daad39922fac" prot="public" static="no">
+        <name>APIC_ESR</name>
+        <initializer>0x280</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="9" column="9" bodyfile="include/lapic_timer.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a1ba3d6f6cfc4450b6abce94a6b7174f1" prot="public" static="no">
+        <name>APIC_ICRL</name>
+        <initializer>0x300</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="10" column="9" bodyfile="include/lapic_timer.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1ad95ea380bcfffede962f3bac787e79b4" prot="public" static="no">
+        <name>APIC_ICRH</name>
+        <initializer>0x310</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="11" column="9" bodyfile="include/lapic_timer.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1ab86953be12b1ea69915d46e95e850f35" prot="public" static="no">
+        <name>APIC_LVT_TMR</name>
+        <initializer>0x320</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="12" column="9" bodyfile="include/lapic_timer.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a76f305e2a5e770ecebaebdd1a8f02139" prot="public" static="no">
+        <name>APIC_LVT_PERF</name>
+        <initializer>0x340</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="13" column="9" bodyfile="include/lapic_timer.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a0f0a70948aaed0305ff77df040cd36c8" prot="public" static="no">
+        <name>APIC_LVT_LINT0</name>
+        <initializer>0x350</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="14" column="9" bodyfile="include/lapic_timer.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a122e2c7089e6f9a1c50f39d0cc7f7685" prot="public" static="no">
+        <name>APIC_LVT_LINT1</name>
+        <initializer>0x360</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="15" column="9" bodyfile="include/lapic_timer.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1aa15eccd677cadede33cd335c756bd8d5" prot="public" static="no">
+        <name>APIC_LVT_ERR</name>
+        <initializer>0x370</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="16" column="9" bodyfile="include/lapic_timer.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a773813e0ad5c99819787d753239ef8ef" prot="public" static="no">
+        <name>APIC_TMRINITCNT</name>
+        <initializer>0x380</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="17" column="9" bodyfile="include/lapic_timer.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1aa35d02412fb9c738a0409249a0c4e3e9" prot="public" static="no">
+        <name>APIC_TMRCURRCNT</name>
+        <initializer>0x390</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="18" column="9" bodyfile="include/lapic_timer.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a0724c255ca369f1be0348ba183ab1aa8" prot="public" static="no">
+        <name>APIC_TMRDIV</name>
+        <initializer>0x3E0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="19" column="9" bodyfile="include/lapic_timer.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1aee9007621eb6f2bce7b9823f4a8b096f" prot="public" static="no">
+        <name>APIC_LAST</name>
+        <initializer>0x38F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="20" column="9" bodyfile="include/lapic_timer.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1aacba913b14ff2c1e14fbce91f2c7c5c8" prot="public" static="no">
+        <name>APIC_DISABLE</name>
+        <initializer>0x10000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="21" column="9" bodyfile="include/lapic_timer.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a0107bf356679a45e14b0ba63cc66d62f" prot="public" static="no">
+        <name>APIC_SW_ENABLE</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="22" column="9" bodyfile="include/lapic_timer.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1acc8875cf135441068aaf2f9586a8d833" prot="public" static="no">
+        <name>APIC_CPUFOCUS</name>
+        <initializer>0x200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="23" column="9" bodyfile="include/lapic_timer.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a03f37028071acfb2ff897aa0cb4431e0" prot="public" static="no">
+        <name>APIC_NMI</name>
+        <initializer>(4&lt;&lt;8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="24" column="9" bodyfile="include/lapic_timer.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a4e5c411ab9319b34198f65045fc831a7" prot="public" static="no">
+        <name>TMR_PERIODIC</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="25" column="9" bodyfile="include/lapic_timer.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="lapic__timer_8h_1a06288a57cca2484097a813e9b645ff62" prot="public" static="no">
+        <name>TMR_BASEDIV</name>
+        <initializer>(1&lt;&lt;20)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="26" column="9" bodyfile="include/lapic_timer.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="lapic__timer_8h_1a876931bcbebbfdac399a04007d9698d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_lapic_timer</definition>
+        <argsstring>(uint32_t quantum)</argsstring>
+        <name>init_lapic_timer</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>quantum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lapic_timer.h" line="28" column="6" declfile="include/lapic_timer.h" declline="28" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/lapic_timer.h"/>
+  </compounddef>
+</doxygen>

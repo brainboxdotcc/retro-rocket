@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structarp__packet" kind="struct" language="C++" prot="public">
+    <compoundname>arp_packet</compoundname>
+    <includes local="no">arp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structarp__packet_1a8c349e9f75149c0327d22326bb3f8171" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t arp_packet::hardware_type</definition>
+        <argsstring></argsstring>
+        <name>hardware_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="13" column="10" bodyfile="include/arp.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1a428cf3879bd55fde6519f0e954e6654d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t arp_packet::protocol</definition>
+        <argsstring></argsstring>
+        <name>protocol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="14" column="10" bodyfile="include/arp.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1a49ea35230c81ebe373d429ffd77f9237" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t arp_packet::hardware_addr_len</definition>
+        <argsstring></argsstring>
+        <name>hardware_addr_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="15" column="9" bodyfile="include/arp.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1afa40e1082a2dee5ccf6e82ee9d610e82" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t arp_packet::protocol_addr_len</definition>
+        <argsstring></argsstring>
+        <name>protocol_addr_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="16" column="9" bodyfile="include/arp.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1aa952f2a3fe8ea79fa44ea9e6acbe2d65" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t arp_packet::opcode</definition>
+        <argsstring></argsstring>
+        <name>opcode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="17" column="10" bodyfile="include/arp.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1a9ba7afca48a41b957dd159cad3aa600b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t arp_packet::src_hardware_addr[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>src_hardware_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="18" column="9" bodyfile="include/arp.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1aeeec2669963dc9e85cf4b76cdf680615" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t arp_packet::src_protocol_addr[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>src_protocol_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="19" column="9" bodyfile="include/arp.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1a8d97a18f11bf7098ebe1d42ed0bcf878" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t arp_packet::dst_hardware_addr[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>dst_hardware_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="20" column="9" bodyfile="include/arp.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structarp__packet_1aa95c7e1b07c268657df62f46924ffff3" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t arp_packet::dst_protocol_addr[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>dst_protocol_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/arp.h" line="21" column="9" bodyfile="include/arp.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>arp_packet</label>
+        <link refid="structarp__packet"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>hardware_type</edgelabel>
+          <edgelabel>opcode</edgelabel>
+          <edgelabel>protocol</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>dst_hardware_addr</edgelabel>
+          <edgelabel>dst_protocol_addr</edgelabel>
+          <edgelabel>hardware_addr_len</edgelabel>
+          <edgelabel>protocol_addr_len</edgelabel>
+          <edgelabel>src_hardware_addr</edgelabel>
+          <edgelabel>src_protocol_addr</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/arp.h" line="12" column="1" bodyfile="include/arp.h" bodystart="12" bodyend="22"/>
+    <listofallmembers>
+      <member refid="structarp__packet_1a8d97a18f11bf7098ebe1d42ed0bcf878" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>dst_hardware_addr</name></member>
+      <member refid="structarp__packet_1aa95c7e1b07c268657df62f46924ffff3" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>dst_protocol_addr</name></member>
+      <member refid="structarp__packet_1a49ea35230c81ebe373d429ffd77f9237" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>hardware_addr_len</name></member>
+      <member refid="structarp__packet_1a8c349e9f75149c0327d22326bb3f8171" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>hardware_type</name></member>
+      <member refid="structarp__packet_1aa952f2a3fe8ea79fa44ea9e6acbe2d65" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>opcode</name></member>
+      <member refid="structarp__packet_1a428cf3879bd55fde6519f0e954e6654d" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>protocol</name></member>
+      <member refid="structarp__packet_1afa40e1082a2dee5ccf6e82ee9d610e82" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>protocol_addr_len</name></member>
+      <member refid="structarp__packet_1a9ba7afca48a41b957dd159cad3aa600b" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>src_hardware_addr</name></member>
+      <member refid="structarp__packet_1aeeec2669963dc9e85cf4b76cdf680615" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>src_protocol_addr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

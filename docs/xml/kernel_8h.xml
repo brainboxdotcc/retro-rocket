@@ -1,0 +1,655 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="kernel_8h" kind="file" language="C++">
+    <compoundname>kernel.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">limits.h</includes>
+    <includes local="no">limine.h</includes>
+    <includes refid="idt_8h" local="yes">idt.h</includes>
+    <includes refid="spinlock_8h" local="yes">spinlock.h</includes>
+    <includes refid="printf_8h" local="yes">printf.h</includes>
+    <includes refid="hashmap_8h" local="yes">hashmap.h</includes>
+    <includes refid="video_8h" local="yes">video.h</includes>
+    <includes refid="string_8h" local="yes">string.h</includes>
+    <includes refid="io_8h" local="yes">io.h</includes>
+    <includes refid="memcpy_8h" local="yes">memcpy.h</includes>
+    <includes refid="apic_8h" local="yes">apic.h</includes>
+    <includes refid="ioapic_8h" local="yes">ioapic.h</includes>
+    <includes refid="timer_8h" local="yes">timer.h</includes>
+    <includes refid="kmalloc_8h" local="yes">kmalloc.h</includes>
+    <includes refid="pci_8h" local="yes">pci.h</includes>
+    <includes refid="devicename_8h" local="yes">devicename.h</includes>
+    <includes refid="interrupt_8h" local="yes">interrupt.h</includes>
+    <includes refid="ahci_8h" local="yes">ahci.h</includes>
+    <includes refid="ata_8h" local="yes">ata.h</includes>
+    <includes refid="filesystem_8h" local="yes">filesystem.h</includes>
+    <includes refid="partition_8h" local="yes">partition.h</includes>
+    <includes refid="iso9660_8h" local="yes">iso9660.h</includes>
+    <includes refid="devfs_8h" local="yes">devfs.h</includes>
+    <includes refid="fat32_8h" local="yes">fat32.h</includes>
+    <includes refid="debugger_8h" local="yes">debugger.h</includes>
+    <includes refid="errorhandler_8h" local="yes">errorhandler.h</includes>
+    <includes refid="keyboard_8h" local="yes">keyboard.h</includes>
+    <includes refid="input_8h" local="yes">input.h</includes>
+    <includes refid="clock_8h" local="yes">clock.h</includes>
+    <includes refid="lapic__timer_8h" local="yes">lapic_timer.h</includes>
+    <includes refid="ubasic_8h" local="yes">ubasic.h</includes>
+    <includes refid="tokenizer_8h" local="yes">tokenizer.h</includes>
+    <includes refid="taskswitch_8h" local="yes">taskswitch.h</includes>
+    <includes refid="acpi_8h" local="yes">acpi.h</includes>
+    <includes refid="net_8h" local="yes">net.h</includes>
+    <includes refid="rtl8139_8h" local="yes">rtl8139.h</includes>
+    <includes refid="e1000_8h" local="yes">e1000.h</includes>
+    <includes refid="arp_8h" local="yes">arp.h</includes>
+    <includes refid="ip_8h" local="yes">ip.h</includes>
+    <includes refid="ethernet_8h" local="yes">ethernet.h</includes>
+    <includes refid="tcp_8h" local="yes">tcp.h</includes>
+    <includes refid="icmp_8h" local="yes">icmp.h</includes>
+    <includes refid="udp_8h" local="yes">udp.h</includes>
+    <includes refid="dhcp_8h" local="yes">dhcp.h</includes>
+    <includes refid="dns_8h" local="yes">dns.h</includes>
+    <includes refid="drawing_8h" local="yes">drawing.h</includes>
+    <includes refid="fpu_8h" local="yes">fpu.h</includes>
+    <includedby refid="acpi_8h" local="no">acpi.h</includedby>
+    <includedby refid="ahci_8h" local="yes">ahci.h</includedby>
+    <includedby refid="arp_8h" local="yes">arp.h</includedby>
+    <includedby refid="clock_8h" local="no">clock.h</includedby>
+    <includedby refid="devicename_8h" local="yes">devicename.h</includedby>
+    <includedby refid="dhcp_8h" local="yes">dhcp.h</includedby>
+    <includedby refid="dns_8h" local="yes">dns.h</includedby>
+    <includedby refid="drawing_8h" local="yes">drawing.h</includedby>
+    <includedby refid="e1000_8h" local="yes">e1000.h</includedby>
+    <includedby refid="ethernet_8h" local="yes">ethernet.h</includedby>
+    <includedby refid="fat32_8h" local="yes">fat32.h</includedby>
+    <includedby refid="fpu_8h" local="yes">fpu.h</includedby>
+    <includedby refid="hashmap_8h" local="yes">hashmap.h</includedby>
+    <includedby refid="icmp_8h" local="yes">icmp.h</includedby>
+    <includedby refid="idt_8h" local="no">idt.h</includedby>
+    <includedby refid="interrupt_8h" local="yes">interrupt.h</includedby>
+    <includedby refid="ip_8h" local="yes">ip.h</includedby>
+    <includedby refid="memcpy_8h" local="yes">memcpy.h</includedby>
+    <includedby refid="net_8h" local="yes">net.h</includedby>
+    <includedby refid="partition_8h" local="yes">partition.h</includedby>
+    <includedby refid="pci_8h" local="no">pci.h</includedby>
+    <includedby refid="printf_8h" local="yes">printf.h</includedby>
+    <includedby refid="rtl8139_8h" local="no">rtl8139.h</includedby>
+    <includedby refid="tcp_8h" local="yes">tcp.h</includedby>
+    <includedby refid="tokenizer_8h" local="no">tokenizer.h</includedby>
+    <includedby refid="udp_8h" local="yes">udp.h</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>ata.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdbool.h</label>
+      </node>
+      <node id="38">
+        <label>acpi.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>arp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>fat32.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>iso9660.h</label>
+      </node>
+      <node id="8">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>devicename.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>idt.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>rtl8139.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>ioapic.h</label>
+      </node>
+      <node id="4">
+        <label>stddef.h</label>
+      </node>
+      <node id="36">
+        <label>tokenizer.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>limits.h</label>
+      </node>
+      <node id="31">
+        <label>keyboard.h</label>
+      </node>
+      <node id="13">
+        <label>io.h</label>
+      </node>
+      <node id="9">
+        <label>printf.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>e1000.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="6">
+        <label>limine.h</label>
+      </node>
+      <node id="32">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>ip.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>filesystem.h</label>
+      </node>
+      <node id="27">
+        <label>devfs.h</label>
+      </node>
+      <node id="30">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="35">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>memcpy.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>partition.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="10">
+        <label>hashmap.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>net.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>timer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>debugger.h</label>
+      </node>
+      <node id="21">
+        <label>interrupt.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>kmalloc.h</label>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>pci.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>apic.h</label>
+      </node>
+      <node id="12">
+        <label>string.h</label>
+      </node>
+      <node id="22">
+        <label>ahci.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>clock.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>acpi.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>arp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dns.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>fat32.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>tcp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>devicename.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>idt.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>drawing.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>rtl8139.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>printf.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>e1000.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fpu.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>icmp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ip.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>ethernet.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>memcpy.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>partition.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>hashmap.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>net.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>interrupt.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>pci.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ahci.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>dhcp.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>clock.h</label>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="kernel_8h_1a5ada4cbc64c5890562caafafffb06d12" prot="public" static="no">
+        <name>kprintf</name>
+        <initializer>printf</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kernel.h" line="8" column="9" bodyfile="include/kernel.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kernel_8h_1a6ad19f4f2f86297010d02eab09960cbd" prot="public" static="no">
+        <name>assert</name>
+        <param><defname>expr</defname></param>
+        <param><defname>line</defname></param>
+        <initializer>	if (!(expr)) { \
+	kprintf(&quot;Assertion failure at %s:%s: %s&quot;, line, __FILE__,__LINE__); \
+	wait_forever(); }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kernel.h" line="57" column="9" bodyfile="include/kernel.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="kernel_8h_1a14896c0faf293bb030b48d13a1edb050" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void network_up</definition>
+        <argsstring>()</argsstring>
+        <name>network_up</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kernel.h" line="61" column="6" declfile="include/kernel.h" declline="61" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kernel_8h_1a5223ee9f88fe7e81690f051742972f40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void network_down</definition>
+        <argsstring>()</argsstring>
+        <name>network_down</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kernel.h" line="62" column="6" declfile="include/kernel.h" declline="62" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/kernel.h"/>
+  </compounddef>
+</doxygen>

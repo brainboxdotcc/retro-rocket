@@ -1,0 +1,1744 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="tcp_8h" kind="file" language="C++">
+    <compoundname>tcp.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="39">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="1">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="37">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="32">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="33">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="28">
+        <label>devfs.h</label>
+      </node>
+      <node id="31">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="36">
+        <label>ubasic.h</label>
+      </node>
+      <node id="45">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structtcp__ip__pseudo__header__t" prot="public">tcp_ip_pseudo_header_t</innerclass>
+    <innerclass refid="uniontcp__segment__flags__t" prot="public">tcp_segment_flags_t</innerclass>
+    <innerclass refid="structtcp__segment" prot="public">tcp_segment</innerclass>
+    <innerclass refid="structtcp__options__t" prot="public">tcp_options_t</innerclass>
+    <innerclass refid="structtcp__ordered__list__t" prot="public">tcp_ordered_list_t</innerclass>
+    <innerclass refid="structtcp__conn__t" prot="public">tcp_conn_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="tcp_8h_1a01dac0d554ac51ae8e96c00baa5b21be" prot="public" static="no">
+        <name>TCP_WINDOW_SIZE</name>
+        <initializer>65535</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="5" column="9" bodyfile="include/tcp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="tcp_8h_1a8dbfcfddb84ac6b6fef8ad6c0323f11e" prot="public" static="no">
+        <name>TCP_PACKET_SIZE_OFF</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="6" column="9" bodyfile="include/tcp.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ff" prot="public" static="no" strong="no">
+        <type></type>
+        <name>tcp_state_flags_t</name>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffa141036a606e6268cb2f3fd8e6e5a1efb" prot="public">
+          <name>TCP_FIN</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffa0f6163bad1a8062c0a24226f9d2a4dfb" prot="public">
+          <name>TCP_SYN</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffa48c46359239656107862c2e71640860d" prot="public">
+          <name>TCP_RST</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffa425820ce230e55d9ef5ef6efba1c884c" prot="public">
+          <name>TCP_PSH</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffa790ae97092ed8e95aac0b8363f703807" prot="public">
+          <name>TCP_ACK</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffaba61bd3fe95fa2c8b675e65524cef28a" prot="public">
+          <name>TCP_URG</name>
+          <initializer>= 32</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffad0a5107cf860d426a4d59af0cab9cbd0" prot="public">
+          <name>TCP_ECE</name>
+          <initializer>= 64</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1ab68d796822bee7cef7004d5928dff8ffa77f28a0379f630069ee23775328b4e40" prot="public">
+          <name>TCP_CWR</name>
+          <initializer>= 128</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="36" column="1" bodyfile="include/tcp.h" bodystart="36" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="enum" id="tcp_8h_1a60a5a207acb5e708bf37736360c3001f" prot="public" static="no" strong="no">
+        <type></type>
+        <name>tcp_opt_t</name>
+        <enumvalue id="tcp_8h_1a60a5a207acb5e708bf37736360c3001fa2f99bf9f1f26dd3430e456d464ad68ca" prot="public">
+          <name>TCP_OPT_END</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a60a5a207acb5e708bf37736360c3001facd4ca190b31e6792ee1edf2517f37426" prot="public">
+          <name>TCP_OPT_NOP</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a60a5a207acb5e708bf37736360c3001fa40737b44b618f068e785898d59163da3" prot="public">
+          <name>TCP_OPT_MSS</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="61" column="1" bodyfile="include/tcp.h" bodystart="61" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="enum" id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83f" prot="public" static="no" strong="no">
+        <type></type>
+        <name>tcp_state_t</name>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa1d5749e83dc48175394d862a245f9b9b" prot="public">
+          <name>TCP_LISTEN</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa8d61cf0dd6dacc41f87a1ed05766365c" prot="public">
+          <name>TCP_SYN_SENT</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa933278d61163fd5e5ec2060a1384ef95" prot="public">
+          <name>TCP_SYN_RECEIVED</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa0e0f72fc96e26fce4543fa99b7235ab4" prot="public">
+          <name>TCP_ESTABLISHED</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa5b698e85611a8d3ace1499765a7d2cd7" prot="public">
+          <name>TCP_FIN_WAIT_1</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa6ca0e6c4fdbfc3d7027ca6b56aaf671c" prot="public">
+          <name>TCP_FIN_WAIT_2</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa5bbf321fdef3abedd34fc24ddb21a91c" prot="public">
+          <name>TCP_CLOSE_WAIT</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa62d0ebf32025a28195c2d8e87e68f3af" prot="public">
+          <name>TCP_CLOSING</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa3a6ad6b8f47a63d155c55de2b8588759" prot="public">
+          <name>TCP_LAST_ACK</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83fa818b4dbb00c24a101cde418f7ba02710" prot="public">
+          <name>TCP_TIME_WAIT</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="71" column="1" bodyfile="include/tcp.h" bodystart="71" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="enum" id="tcp_8h_1aaf511b41b755c1d7f9222a29a88a11a7" prot="public" static="no" strong="no">
+        <type></type>
+        <name>tcp_error_t</name>
+        <enumvalue id="tcp_8h_1aaf511b41b755c1d7f9222a29a88a11a7a57b90a81822980a117793065bdbd1d91" prot="public">
+          <name>TCP_CONN_RESET</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1aaf511b41b755c1d7f9222a29a88a11a7a25e7752f71abc4ef5e480f3e42fa3e7c" prot="public">
+          <name>TCP_CONN_REFUSED</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1aaf511b41b755c1d7f9222a29a88a11a7abe2382c409cf07e41ba4c4bf4fb0cd9c" prot="public">
+          <name>TCP_CONN_CLOSING</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="84" column="1" bodyfile="include/tcp.h" bodystart="84" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="enum" id="tcp_8h_1aee0c1c2ac9ad5818e178340cf8812c8e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>tcp_port_type_t</name>
+        <enumvalue id="tcp_8h_1aee0c1c2ac9ad5818e178340cf8812c8eab40c96413a9a18656ffb50871d824af3" prot="public">
+          <name>TCP_PORT_LOCAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1aee0c1c2ac9ad5818e178340cf8812c8ea4a3b77dd90af5e571c085154939289a1" prot="public">
+          <name>TCP_PORT_REMOTE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Port types, either a local or remote port. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="144" column="1" bodyfile="include/tcp.h" bodystart="144" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="enum" id="tcp_8h_1a0e8857463897e2e9a825c6702298cebe" prot="public" static="no" strong="no">
+        <type></type>
+        <name>tcp_error_code_t</name>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebeaf149b5e5e6bdb96d48b62b96028289c1" prot="public">
+          <name>TCP_ERROR_ALREADY_CLOSING</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea2e708d4bc8af1566bfcf5b64610de293" prot="public">
+          <name>TCP_ERROR_PORT_IN_USE</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea9c4eecbaf19fa88513e4b4e187b65886" prot="public">
+          <name>TCP_ERROR_NETWORK_DOWN</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea295cd8bec778c2161898639714ba9b7e" prot="public">
+          <name>TCP_ERROR_INVALID_CONNECTION</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea88d60c65797d4da77b79f5333c1ea14a" prot="public">
+          <name>TCP_ERROR_WRITE_TOO_LARGE</name>
+          <initializer>= -5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea4ea80d834ff4e94b26c6eb38cce1e9df" prot="public">
+          <name>TCP_ERROR_NOT_CONNECTED</name>
+          <initializer>= -6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea25efcbbef886acd250d118132f6efa4a" prot="public">
+          <name>TCP_ERROR_OUT_OF_DESCRIPTORS</name>
+          <initializer>= -7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea2e2741424ad64c46531ac4bc073b37e7" prot="public">
+          <name>TCP_ERROR_OUT_OF_MEMORY</name>
+          <initializer>= -8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebeab1d56d3fa027373ca46a0d30b1613da5" prot="public">
+          <name>TCP_ERROR_INVALID_SOCKET</name>
+          <initializer>= -9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebeabaef579be40183314ff45883eb3812cc" prot="public">
+          <name>TCP_ERROR_CONNECTION_FAILED</name>
+          <initializer>= -10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea8725e7020b4927eb9233b5358d62b56e" prot="public">
+          <name>TCP_LAST_ERROR</name>
+          <initializer>= -11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Error codes which can be returned by socket functions. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="152" column="1" bodyfile="include/tcp.h" bodystart="152" bodyend="164"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="tcp_8h_1a0b51a7a10cbdd813247a0febf4b89d6d" prot="public" static="no" mutable="no">
+        <type>typedef</type>
+        <definition>enum tcp_opt_t __attribute__</definition>
+        <argsstring></argsstring>
+        <name>__attribute__</name>
+        <briefdescription>
+<para>A directory entry, e.g. file, volume label, directory, long filename entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A disk partition table consisiting of four <ref refid="structpartition__t" kindref="compound">partition_t</ref>.</para>
+<para>Structure for an IP packet.</para>
+<para>Long filename entry, overlays a <ref refid="structdirectory__entry__t" kindref="compound">directory_entry_t</ref>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the &apos;order&apos; attribute indicates which order they go in.</para>
+<para>FAT32 BIOS parameter block (BPB), stored in the boot sector of the drive. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="45" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a0d6d2cdb1162c6355e40ab772fa5debc" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t src</definition>
+        <argsstring></argsstring>
+        <name>src</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="0" column="10" bodyfile="include/tcp.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1aa8b6a0c5900928c04c0cb42248821ce5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dst</definition>
+        <argsstring></argsstring>
+        <name>dst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="1" column="10" bodyfile="include/tcp.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1acb7bc06bed6f6408d719334fc41698c7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t reserved</definition>
+        <argsstring></argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="2" column="9" bodyfile="include/tcp.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1ad124d3d2e02c729afa303c775295278e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t protocol</definition>
+        <argsstring></argsstring>
+        <name>protocol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="3" column="9" bodyfile="include/tcp.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a8aed22e2c7b283705ec82e0120515618" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="4" column="10" bodyfile="include/tcp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a9226e72dca9e53bba21b0f7027705f10" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t body[]</definition>
+        <argsstring>[]</argsstring>
+        <name>body</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="5" column="9" bodyfile="include/tcp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a930b8af71e65676a79c0305e85f6afb7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bits1</definition>
+        <argsstring></argsstring>
+        <name>bits1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="0" column="9" bodyfile="include/tcp.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a25a251c7c0f741bd8f0e75df6b508554" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bits2</definition>
+        <argsstring></argsstring>
+        <name>bits2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="1" column="9" bodyfile="include/tcp.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a2765e58b2af2f95eff3a9cc58d3457cd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t off</definition>
+        <argsstring></argsstring>
+        <name>off</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="4" column="9" bodyfile="include/tcp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a48dcf0f2005f7f1028d2cbbc2c6cde85" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fin</definition>
+        <argsstring></argsstring>
+        <name>fin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="5" column="9" bodyfile="include/tcp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a6d4faeeef4a9d0ef93ef5f82d55c81c4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t syn</definition>
+        <argsstring></argsstring>
+        <name>syn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="6" column="9" bodyfile="include/tcp.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1ae3c5671ace344f0a71df58053220460c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rst</definition>
+        <argsstring></argsstring>
+        <name>rst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="7" column="9" bodyfile="include/tcp.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1aa57f85f2cd7e7dfaf63771983d255949" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t psh</definition>
+        <argsstring></argsstring>
+        <name>psh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="8" column="9" bodyfile="include/tcp.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1aa533772dce834aeb2548cfc69927771a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint32_t ack</definition>
+        <argsstring></argsstring>
+        <name>ack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="9" column="9" bodyfile="include/tcp.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a56ba4bc84a66f0341227909ace888133" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t urg</definition>
+        <argsstring></argsstring>
+        <name>urg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="10" column="9" bodyfile="include/tcp.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1aa04063153ef1fa465f5ac9ef8fd310b8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ece</definition>
+        <argsstring></argsstring>
+        <name>ece</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="11" column="9" bodyfile="include/tcp.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1abfb13dc43f3ea474fa8e87816e50e34d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cwr</definition>
+        <argsstring></argsstring>
+        <name>cwr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="12" column="9" bodyfile="include/tcp.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a00a4007d7c5663b3ad74afbcd47ddcc8" prot="public" static="no" mutable="no">
+        <type>struct @12</type>
+        <definition>struct @12</definition>
+        <argsstring></argsstring>
+        <name>@13</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="13" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1ab98974981cf4c143fcee028643f313e6" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t src_port</definition>
+        <argsstring></argsstring>
+        <name>src_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="0" column="10" bodyfile="include/tcp.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1ae18defed4756b8c15e34718f51e86e55" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t dst_port</definition>
+        <argsstring></argsstring>
+        <name>dst_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="1" column="10" bodyfile="include/tcp.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1aaf1b939170b82732448a965a5b33ad4e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t seq</definition>
+        <argsstring></argsstring>
+        <name>seq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="2" column="10" bodyfile="include/tcp.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a24acab6663ca0c43fab3a6b82602362c" prot="public" static="no" mutable="no">
+        <type><ref refid="uniontcp__segment__flags__t" kindref="compound">tcp_segment_flags_t</ref></type>
+        <definition>tcp_segment_flags_t flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="4" column="21" bodyfile="include/tcp.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1aabdd1af7616febac1cc54b01b2e9ef21" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t window_size</definition>
+        <argsstring></argsstring>
+        <name>window_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="5" column="10" bodyfile="include/tcp.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a6796c847bbd16253ce2538754c250bd6" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t checksum</definition>
+        <argsstring></argsstring>
+        <name>checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="6" column="10" bodyfile="include/tcp.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a532d23cd8e2186da3eabde8110cd24c6" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t urgent</definition>
+        <argsstring></argsstring>
+        <name>urgent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="7" column="10" bodyfile="include/tcp.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a15d570669f1585f18a87d277f1753027" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t options[0]</definition>
+        <argsstring>[0]</argsstring>
+        <name>options</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="8" column="9" bodyfile="include/tcp.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcp_8h_1a6f6c2642db097f0b28399640e13dd102" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t payload[]</definition>
+        <argsstring>[]</argsstring>
+        <name>payload</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="9" column="9" bodyfile="include/tcp.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="tcp_8h_1a4fd0b16695699fcb386d2e12194d6678" prot="public" static="no">
+        <type>struct <ref refid="structtcp__options__t" kindref="compound">tcp_options_t</ref></type>
+        <definition>typedef struct tcp_options_t tcp_options_t</definition>
+        <argsstring></argsstring>
+        <name>tcp_options_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="69" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tcp_8h_1aaa72cf5f0ce661ed99a589124f6ef342" prot="public" static="no">
+        <type>enum tcp_state_t</type>
+        <definition>typedef enum tcp_state_t tcp_state_t</definition>
+        <argsstring></argsstring>
+        <name>tcp_state_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="82" column="13"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tcp_8h_1a88d7593264502a2f5ce60e8dc55b407f" prot="public" static="no">
+        <type>enum tcp_error_t</type>
+        <definition>typedef enum tcp_error_t tcp_error_t</definition>
+        <argsstring></argsstring>
+        <name>tcp_error_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="88" column="13"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tcp_8h_1a7d56d9ac3309d820bf3f9fb89855be5e" prot="public" static="no">
+        <type>struct <ref refid="structtcp__ordered__list__t" kindref="compound">tcp_ordered_list_t</ref></type>
+        <definition>typedef struct tcp_ordered_list_t tcp_ordered_list_t</definition>
+        <argsstring></argsstring>
+        <name>tcp_ordered_list_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="95" column="20"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tcp_8h_1a95ca4b1139cfe6df36f064cd54936839" prot="public" static="no">
+        <type>struct <ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref></type>
+        <definition>typedef struct tcp_conn_t tcp_conn_t</definition>
+        <argsstring></argsstring>
+        <name>tcp_conn_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="139" column="12"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tcp_8h_1ae5b125652cf84af6008e97edce6f6e83" prot="public" static="no">
+        <type>enum tcp_port_type_t</type>
+        <definition>typedef enum tcp_port_type_t tcp_port_type_t</definition>
+        <argsstring></argsstring>
+        <name>tcp_port_type_t</name>
+        <briefdescription>
+<para>Port types, either a local or remote port. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="147" column="17"/>
+      </memberdef>
+      <memberdef kind="typedef" id="tcp_8h_1a7efb0484f28602cf493c2582538b735c" prot="public" static="no">
+        <type>enum tcp_error_code_t</type>
+        <definition>typedef enum tcp_error_code_t tcp_error_code_t</definition>
+        <argsstring></argsstring>
+        <name>tcp_error_code_t</name>
+        <briefdescription>
+<para>Error codes which can be returned by socket functions. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="164" column="18"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="tcp_8h_1a877d84e89e013415707bad5e9d8b99ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structtcp__ip__pseudo__header__t" kindref="compound">tcp_ip_pseudo_header_t</ref></type>
+        <definition>struct tcp_ip_pseudo_header_t __attribute__</definition>
+        <argsstring>((packed)) tcp_ip_pseudo_header_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="1" column="0" declfile="include/tcp.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a8d4611b68b5ca398ee9bc373573afab6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tcp_handle_packet</definition>
+        <argsstring>([[maybe_unused]] ip_packet_t *encap_packet, tcp_segment_t *segment, size_t len)</argsstring>
+        <name>tcp_handle_packet</name>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] ip_packet_t *</type>
+          <declname>encap_packet</declname>
+        </param>
+        <param>
+          <type>tcp_segment_t *</type>
+          <declname>segment</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>TCP handler called by the IP layer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>encap_packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>encapsulating IP packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>segment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TCP segment </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of TCP segment including header </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="173" column="6" declfile="include/tcp.h" declline="173" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a0e048a052cd5ec7a0bfe8734751990f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tcp_init</definition>
+        <argsstring>()</argsstring>
+        <name>tcp_init</name>
+        <briefdescription>
+<para>Initialise TCP protocol, must happen after IP. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="178" column="6" declfile="include/tcp.h" declline="178" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a4a95723a63184d3eb69a619853f560da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int connect</definition>
+        <argsstring>(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bool blocking)</argsstring>
+        <name>connect</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>target_addr</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>target_port</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>source_port</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>blocking</declname>
+        </param>
+        <briefdescription>
+<para>Connect to a TCP port at a given IPv4 address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>target_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target address to connect to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target_port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target port to connect to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>source_port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Our source port to use, or 0 to choose automatically </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Set to true if this call is to block until the connection is established or errors </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Zero or positive file descriptor number on success, negative for error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="189" column="5" declfile="include/tcp.h" declline="189" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1ad4725afcb96cfe437fd7a748129b1f33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int closesocket</definition>
+        <argsstring>(int socket)</argsstring>
+        <name>closesocket</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <briefdescription>
+<para>Close a TCP connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>socket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>socket descriptor to close </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>zero on success, error code on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="197" column="5" declfile="include/tcp.h" declline="197" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a5787e23039c4a2243cbc968a48431d2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int send</definition>
+        <argsstring>(int socket, const void *buffer, uint32_t length)</argsstring>
+        <name>send</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Send data to an open socket. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>socket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>socket descriptor from connect() </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer to send </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of bytes to send </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int number of bytes written </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="207" column="5" declfile="include/tcp.h" declline="207" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a6df7b901b1a9f3ec7046f958f9e7cf36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int recv</definition>
+        <argsstring>(int socket, void *buffer, uint32_t maxlen, bool blocking, uint32_t timeout)</argsstring>
+        <name>recv</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>maxlen</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>blocking</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+<para>Receive data from an open socket. The data is buffered, and this function will fill the buffer when there is data in the buffer to read. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>socket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>socket descriptor from connect() </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer to receive data to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>maxlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>maximum size of data to receive to buffer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true if this call should block until the buffer has data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>read timeout when blocking (seconds) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int number of bytes received </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="221" column="5" declfile="include/tcp.h" declline="221" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a0a5ac590e0a9088bc8ddf519e8e0967d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* socket_error</definition>
+        <argsstring>(int error_code)</argsstring>
+        <name>socket_error</name>
+        <param>
+          <type>int</type>
+          <declname>error_code</declname>
+        </param>
+        <briefdescription>
+<para>Return the error description associated with an error code. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Invalid error codes return the constant &quot;No error&quot;.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>error_code</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error code </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>const char* description </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="230" column="12" declfile="include/tcp.h" declline="230" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a5505c46ddfafecad526d12d4d1666050" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tcp_idle</definition>
+        <argsstring>()</argsstring>
+        <name>tcp_idle</name>
+        <briefdescription>
+<para>Idle loop ran from timer ISR. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="236" column="6" declfile="include/tcp.h" declline="236" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/tcp.h"/>
+  </compounddef>
+</doxygen>

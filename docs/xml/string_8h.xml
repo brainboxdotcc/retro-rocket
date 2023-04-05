@@ -1,0 +1,630 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="string_8h" kind="file" language="C++">
+    <compoundname>string.h</compoundname>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>tokenizer.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structgc__str" prot="public">gc_str</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="string_8h_1ab6d82ea1bcf2827a207a17fd090c5921" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int strlen</definition>
+        <argsstring>(const char *str)</argsstring>
+        <name>strlen</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="10" column="14" declfile="include/string.h" declline="10" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a11bd144d7d44914099a3aeddf1c8567d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int strcmp</definition>
+        <argsstring>(const char *s1, const char *s2)</argsstring>
+        <name>strcmp</name>
+        <param>
+          <type>const char *</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>s2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="12" column="5" declfile="include/string.h" declline="12" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a7f886f6fb9d16724acb21dca4110ec29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int stricmp</definition>
+        <argsstring>(const char *s1, const char *s2)</argsstring>
+        <name>stricmp</name>
+        <param>
+          <type>const char *</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>s2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="14" column="5" declfile="include/string.h" declline="14" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a519d57d33362a8ed067cf5fe6937324e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int strncmp</definition>
+        <argsstring>(const char *s1, const char *s2, uint32_t n)</argsstring>
+        <name>strncmp</name>
+        <param>
+          <type>const char *</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>s2</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="16" column="5" declfile="include/string.h" declline="16" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1abfcaa2fc7116e670ae5e1041998efae4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int strnicmp</definition>
+        <argsstring>(const char *s1, const char *s2, uint32_t n)</argsstring>
+        <name>strnicmp</name>
+        <param>
+          <type>const char *</type>
+          <declname>s1</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>s2</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="18" column="5" declfile="include/string.h" declline="18" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a5e77664365c4f7bd9f260f8ccb89a438" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char toupper</definition>
+        <argsstring>(char low)</argsstring>
+        <name>toupper</name>
+        <param>
+          <type>char</type>
+          <declname>low</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="20" column="6" declfile="include/string.h" declline="20" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a7c7bfb267464615bfa3b86aa79f42a82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char tolower</definition>
+        <argsstring>(char low)</argsstring>
+        <name>tolower</name>
+        <param>
+          <type>char</type>
+          <declname>low</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="22" column="6" declfile="include/string.h" declline="22" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a12871ed234858ef0e363d2b8aa572fc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* strchr</definition>
+        <argsstring>(const char *s, int c)</argsstring>
+        <name>strchr</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="24" column="6" declfile="include/string.h" declline="24" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a0e2ceb2e6b2122bc57c9a1ab47b15266" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t strlcat</definition>
+        <argsstring>(char *dst, const char *src, uint32_t siz)</argsstring>
+        <name>strlcat</name>
+        <param>
+          <type>char *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>siz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="26" column="10" declfile="include/string.h" declline="26" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a21cdde3b342cc302afb0e4f4dd705c9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t strlcpy</definition>
+        <argsstring>(char *dst, const char *src, uint32_t siz)</argsstring>
+        <name>strlcpy</name>
+        <param>
+          <type>char *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>siz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="28" column="10" declfile="include/string.h" declline="28" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a86e0df1bf9e434074f958434e0af7581" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* strdup</definition>
+        <argsstring>(const char *string)</argsstring>
+        <name>strdup</name>
+        <param>
+          <type>const char *</type>
+          <declname>string</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="30" column="6" declfile="include/string.h" declline="30" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a2df8d3ced4363406be5bf4ba57dee02a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* gc_strdup</definition>
+        <argsstring>(const char *string)</argsstring>
+        <name>gc_strdup</name>
+        <param>
+          <type>const char *</type>
+          <declname>string</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="31" column="6" declfile="include/string.h" declline="31" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1ac1a709dd8deca73c3568bd8adfb3ef29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gc</definition>
+        <argsstring>()</argsstring>
+        <name>gc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="32" column="5" declfile="include/string.h" declline="32" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a4c5eabfb109348ff270448b4ab2d0431" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t hextoint</definition>
+        <argsstring>(const char *n1)</argsstring>
+        <name>hextoint</name>
+        <param>
+          <type>const char *</type>
+          <declname>n1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="34" column="10" declfile="include/string.h" declline="34" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1ab4f1fe6803e1a252aecb6341aac12b1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char isdigit</definition>
+        <argsstring>(const char x)</argsstring>
+        <name>isdigit</name>
+        <param>
+          <type>const char</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="36" column="15" declfile="include/string.h" declline="36" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a9ea6fd19878abf6f8919e901b7db5c74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char isxdigit</definition>
+        <argsstring>(const char x)</argsstring>
+        <name>isxdigit</name>
+        <param>
+          <type>const char</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="37" column="15" declfile="include/string.h" declline="37" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a30670a60464f77af17dfb353353d6df8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int atoi</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>atoi</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="39" column="5" declfile="include/string.h" declline="39" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1acb52cfc5946dd6c1be448fb25aa3cdb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t atoll</definition>
+        <argsstring>(const char *s, int radix)</argsstring>
+        <name>atoll</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>radix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="40" column="9" declfile="include/string.h" declline="40" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1ae962141cec555c1952c6869a06a3b633" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t atoull</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>atoull</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="41" column="10" declfile="include/string.h" declline="41" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1a0afa881f98f6ddd2bf7e2b469dd176a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool atof</definition>
+        <argsstring>(const char *s, double *a)</argsstring>
+        <name>atof</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="42" column="6" declfile="include/string.h" declline="42" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1aa80441bd92270f050b0796561243f410" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int abs</definition>
+        <argsstring>(int a)</argsstring>
+        <name>abs</name>
+        <param>
+          <type>int</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="44" column="5" declfile="include/string.h" declline="44" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="string_8h_1ac2504e01693d9eac955a61ea1e2403b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t labs</definition>
+        <argsstring>(int64_t a)</argsstring>
+        <name>labs</name>
+        <param>
+          <type>int64_t</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="45" column="9" declfile="include/string.h" declline="45" declcolumn="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/string.h"/>
+  </compounddef>
+</doxygen>

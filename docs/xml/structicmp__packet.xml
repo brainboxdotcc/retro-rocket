@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structicmp__packet" kind="struct" language="C++" prot="public">
+    <compoundname>icmp_packet</compoundname>
+    <includes local="no">icmp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structicmp__packet_1a7f07e206cc589cd9d5209d3d5b28889b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t icmp_packet::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="41" column="9" bodyfile="include/icmp.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structicmp__packet_1a18c265ac7692d798c133703e48fe125d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t icmp_packet::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="42" column="9" bodyfile="include/icmp.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structicmp__packet_1a49f0202d4132b2a0c3c80fa12a382e33" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t icmp_packet::checksum</definition>
+        <argsstring></argsstring>
+        <name>checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="43" column="10" bodyfile="include/icmp.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structicmp__packet_1a98c4249e0ae55b1861614b006a227ffd" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t icmp_packet::unused</definition>
+        <argsstring></argsstring>
+        <name>unused</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="44" column="10" bodyfile="include/icmp.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structicmp__packet_1a64f2befbcd322e4d879a2c661c3e1bf7" prot="public" static="no" mutable="no">
+        <type>ip_packet_t</type>
+        <definition>ip_packet_t icmp_packet::original_datagram</definition>
+        <argsstring></argsstring>
+        <name>original_datagram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/icmp.h" line="45" column="13" bodyfile="include/icmp.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>uint16_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>icmp_packet</label>
+        <link refid="structicmp__packet"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>original_datagram</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>checksum</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>unused</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>code</edgelabel>
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ip_packet_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/icmp.h" line="40" column="1" bodyfile="include/icmp.h" bodystart="40" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structicmp__packet_1a49f0202d4132b2a0c3c80fa12a382e33" prot="public" virt="non-virtual"><scope>icmp_packet</scope><name>checksum</name></member>
+      <member refid="structicmp__packet_1a18c265ac7692d798c133703e48fe125d" prot="public" virt="non-virtual"><scope>icmp_packet</scope><name>code</name></member>
+      <member refid="structicmp__packet_1a64f2befbcd322e4d879a2c661c3e1bf7" prot="public" virt="non-virtual"><scope>icmp_packet</scope><name>original_datagram</name></member>
+      <member refid="structicmp__packet_1a7f07e206cc589cd9d5209d3d5b28889b" prot="public" virt="non-virtual"><scope>icmp_packet</scope><name>type</name></member>
+      <member refid="structicmp__packet_1a98c4249e0ae55b1861614b006a227ffd" prot="public" virt="non-virtual"><scope>icmp_packet</scope><name>unused</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

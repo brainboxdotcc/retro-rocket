@@ -1,0 +1,1210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="tokenizer_8h" kind="file" language="C++">
+    <compoundname>tokenizer.h</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>ata.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="38">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+      </node>
+      <node id="45">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="50">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="1">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="32">
+        <label>keyboard.h</label>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>lapic_timer.h</label>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="33">
+        <label>input.h</label>
+      </node>
+      <node id="51">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+      </node>
+      <node id="46">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>filesystem.h</label>
+      </node>
+      <node id="28">
+        <label>devfs.h</label>
+      </node>
+      <node id="31">
+        <label>errorhandler.h</label>
+      </node>
+      <node id="36">
+        <label>ubasic.h</label>
+      </node>
+      <node id="44">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>taskswitch.h</label>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>debugger.h</label>
+      </node>
+      <node id="22">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+      </node>
+      <node id="23">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>acpi.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>udp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>tcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>rtl8139.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>printf.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>memcpy.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>partition.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>net.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>interrupt.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>pci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="tokenizer_8h_1ad004bd52426bd91bc9d41b6efb6ea35d" prot="public" static="no">
+        <name>MAX_VARNAME</name>
+        <initializer>50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="24" column="9" bodyfile="include/tokenizer.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4d" prot="public" static="no" strong="no">
+        <type></type>
+        <name>@14</name>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da8c703027d2d9fdf356c987536db628c8" prot="public">
+          <name>TOKENIZER_ERROR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da170b8bba44a39d5008dbf9192901519a" prot="public">
+          <name>TOKENIZER_ENDOFINPUT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da7a18777807e014f8825153bf14bf1e88" prot="public">
+          <name>TOKENIZER_NUMBER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab24e012af22a7f666701c53c6c22708d" prot="public">
+          <name>TOKENIZER_HEXNUMBER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac1b8e803f5e2cf08f07ebf39ea572d58" prot="public">
+          <name>TOKENIZER_STRING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daeb144fe61367c996057c4acca513d31d" prot="public">
+          <name>TOKENIZER_VARIABLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da9971e801020bc1123565aab25e83a0ac" prot="public">
+          <name>TOKENIZER_LET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dadebdfbb3f16fd7b44f88a40854a15a71" prot="public">
+          <name>TOKENIZER_PRINT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dacc83e57e0fdfda7221224d90a3ca9aaa" prot="public">
+          <name>TOKENIZER_IF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da27ce04e1a96d97525bdbafa250aaada8" prot="public">
+          <name>TOKENIZER_THEN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daf009fe5a8687261e5364f9b8223c8cf1" prot="public">
+          <name>TOKENIZER_ELSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daedf36b3dd00ebb7c3fd59c82d74d99d1" prot="public">
+          <name>TOKENIZER_CHAIN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daff69099ed05d49fcbea5e2feb659b087" prot="public">
+          <name>TOKENIZER_FOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da56842fb1cfc257dbcd3f5987f9bd9b70" prot="public">
+          <name>TOKENIZER_TO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da1f2e0aedf6f69ab627a41ddf8589753d" prot="public">
+          <name>TOKENIZER_STEP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da811981e8c1c0a4dcaa433632bd7a07c6" prot="public">
+          <name>TOKENIZER_NEXT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa2e018e9509b340d974959dd9b35547e" prot="public">
+          <name>TOKENIZER_GOTO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dad073084b8a763cb7749e9b3cd74b09a5" prot="public">
+          <name>TOKENIZER_GOSUB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac233e78cc8fc79998affa972181d770b" prot="public">
+          <name>TOKENIZER_RETURN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2108da58e0c0c4dc858e221ed7779de7" prot="public">
+          <name>TOKENIZER_CALL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab825ed387571840f380fddc462d7da2d" prot="public">
+          <name>TOKENIZER_INPUT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dacfac4ccd2fc8e448b33894b5777d847e" prot="public">
+          <name>TOKENIZER_COLOUR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da056d07fb96a6a34f3e9aa1b757f754ef" prot="public">
+          <name>TOKENIZER_COLOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da31a07c09237f72e64ae937758a791c73" prot="public">
+          <name>TOKENIZER_EVAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daf06bddfcf509b33cadc5feb88e075fdd" prot="public">
+          <name>TOKENIZER_OPENIN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da392a3cb8e8eb1cd2a3541ad941561ded" prot="public">
+          <name>TOKENIZER_READ</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da05480642625913269b1571a8118fc5e0" prot="public">
+          <name>TOKENIZER_CLOSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da1ab4951087ffab1c4b6bcbbcf473eed8" prot="public">
+          <name>TOKENIZER_EOF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da9dd55d24b3a171af3dea1e4b93e68757" prot="public">
+          <name>TOKENIZER_DEF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da1a8299aa79df3195cf64c5796e973d44" prot="public">
+          <name>TOKENIZER_PROC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab1a13a741f482f698d02a8b8af964db8" prot="public">
+          <name>TOKENIZER_FN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2620cf5648565e05dba9ea2acd3248f5" prot="public">
+          <name>TOKENIZER_END</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dabbdad093a11f5e0ad5cbc6019d4d84cf" prot="public">
+          <name>TOKENIZER_REM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da56c795c8d210d3c1e5130ee6130ae81e" prot="public">
+          <name>TOKENIZER_COMMA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dafab6dcb60a9c6fbcd903cb7c013bbc74" prot="public">
+          <name>TOKENIZER_SEMICOLON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa6fca8f7f6f5222747c45a45f75a48b9" prot="public">
+          <name>TOKENIZER_PLUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daecddd119344517b93a9a260c3746a41b" prot="public">
+          <name>TOKENIZER_MINUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa2e33452a0a5c91dc002a568c032ebc0" prot="public">
+          <name>TOKENIZER_AND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da6f98ff031e50100d6cca205f5bd14929" prot="public">
+          <name>TOKENIZER_OR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dabcb0201bdd748ad0a518a5f4f52a59df" prot="public">
+          <name>TOKENIZER_ASTR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da54210a51a05309abc2700e568f03968c" prot="public">
+          <name>TOKENIZER_SLASH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da3264c33d54798ea0a16e40b061952e35" prot="public">
+          <name>TOKENIZER_MOD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac0a95f64ec9ff436c5a523d550bd8412" prot="public">
+          <name>TOKENIZER_LEFTPAREN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da367a0b4b117abff742799bcbb21c5f7c" prot="public">
+          <name>TOKENIZER_RIGHTPAREN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab0ff1b31006a8c456edc34bd58b2e22d" prot="public">
+          <name>TOKENIZER_LT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daf491c21dfe18c2de75ec1eabcfb1b5ac" prot="public">
+          <name>TOKENIZER_GT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da45eab4a13908edb8064a16e648fae9b0" prot="public">
+          <name>TOKENIZER_EQ</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da61c099f4c9983afd87ab361ea7210c16" prot="public">
+          <name>TOKENIZER_CR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da4cb5122e3b2d6a6e2c77cd42e829ac03" prot="public">
+          <name>TOKENIZER_AMPERSAND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dafd81caa6e05a7605464876b6f0f1af07" prot="public">
+          <name>TOKENIZER_TILDE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da186b50b9aa24baac2b32b4ad51effb7a" prot="public">
+          <name>TOKENIZER_GLOBAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa4250a33d8898c3b74a77c29289f3621" prot="public">
+          <name>TOKENIZER_SOCKREAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da88241b38234f619a65ab960ccd41a103" prot="public">
+          <name>TOKENIZER_SOCKWRITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da022cb2137e73524e3d135bbcc78f098c" prot="public">
+          <name>TOKENIZER_CONNECT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dad2cb7519b17c3ab9043ace8f268a9532" prot="public">
+          <name>TOKENIZER_SOCKCLOSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dae7a58b891ff2c92d2c7979561dd8e27f" prot="public">
+          <name>TOKENIZER_CLS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da7f56edae209f10072ede0c9070cf2a46" prot="public">
+          <name>TOKENIZER_GCOL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da646b12d88d8cff9218766e106d7910fd" prot="public">
+          <name>TOKENIZER_LINE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da6046694213910c4b01001132e75d9c8c" prot="public">
+          <name>TOKENIZER_TRIANGLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dafaa2e963459fc8f3e8cf7a7a98d6b65c" prot="public">
+          <name>TOKENIZER_RECTANGLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dabc6f44027e586590f12df8dc47ad4cb4" prot="public">
+          <name>TOKENIZER_CIRCLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="26" column="1" bodyfile="include/tokenizer.h" bodystart="26" bodyend="88"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="tokenizer_8h_1adf89e2fd313b31dbf65c1eba51c4a8bd" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* types[]</definition>
+        <argsstring>[]</argsstring>
+        <name>types</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="90" column="19" declfile="include/tokenizer.h" declline="90" declcolumn="19"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="tokenizer_8h_1adf4bd7daf580e0bbeb38158d05346bf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tokenizer_init</definition>
+        <argsstring>(const char *program, struct ubasic_ctx *ctx)</argsstring>
+        <name>tokenizer_init</name>
+        <param>
+          <type>const char *</type>
+          <declname>program</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="92" column="6" declfile="include/tokenizer.h" declline="92" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1ab95d257fd507afd722006b98f701aac4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tokenizer_next</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>tokenizer_next</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="93" column="6" declfile="include/tokenizer.h" declline="93" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1a79ca032550e6866dee021d3da651dbad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int tokenizer_token</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>tokenizer_token</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="94" column="5" declfile="include/tokenizer.h" declline="94" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1a269601b38635279d07cffaa53be980d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t tokenizer_num</definition>
+        <argsstring>(struct ubasic_ctx *ctx, int token)</argsstring>
+        <name>tokenizer_num</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>token</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="95" column="9" declfile="include/tokenizer.h" declline="95" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1a30b4e02b1252eb4688912a965c8a458f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tokenizer_fnum</definition>
+        <argsstring>(struct ubasic_ctx *ctx, int token, double *f)</argsstring>
+        <name>tokenizer_fnum</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>token</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="96" column="6" declfile="include/tokenizer.h" declline="96" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1af8052b7a25debd60b06bd873b4a7f430" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* tokenizer_variable_name</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>tokenizer_variable_name</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="97" column="12" declfile="include/tokenizer.h" declline="97" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1aea837c7f0165fca0472bc82305e2779c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool tokenizer_string</definition>
+        <argsstring>(char *dest, int len, struct ubasic_ctx *ctx)</argsstring>
+        <name>tokenizer_string</name>
+        <param>
+          <type>char *</type>
+          <declname>dest</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="98" column="6" declfile="include/tokenizer.h" declline="98" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1a4e09edb731e8ff60d65cc1296b17f5c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int tokenizer_finished</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>tokenizer_finished</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="99" column="5" declfile="include/tokenizer.h" declline="99" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1aaddfae9451e992d402cbaab9550329a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tokenizer_error_print</definition>
+        <argsstring>(struct ubasic_ctx *ctx, const char *error)</argsstring>
+        <name>tokenizer_error_print</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>error</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="100" column="6" declfile="include/tokenizer.h" declline="100" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1abadcb4f19d80e60be45f20bbad01e779" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_next_token</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>get_next_token</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="101" column="5" declfile="include/tokenizer.h" declline="101" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tokenizer_8h_1adce229f0f08dc3e9a6b0035b30e6ad3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool tokenizer_decimal_number</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>tokenizer_decimal_number</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tokenizer.h" line="102" column="6" declfile="include/tokenizer.h" declline="102" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/tokenizer.h"/>
+  </compounddef>
+</doxygen>
