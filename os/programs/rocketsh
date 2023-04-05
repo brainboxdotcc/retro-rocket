@@ -32,7 +32,7 @@
 
 300 GLOBAL ARGS$ = inp$
 310 IF inp$ = "END" THEN GOTO 400
-320 CHAIN PATH$ + "/eval"
+320 EVAL inp$
 330 GOTO 110
 
 400 END

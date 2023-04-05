@@ -377,11 +377,14 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 			setforeground(current_console, COLOUR_WHITE);
 			ctx->ended = 1;
 		}
-	} else if (!ctx->errored) {
-		ctx->errored = true;
-		setforeground(current_console, COLOUR_LIGHTRED);
-		kprintf("%s\n", error);
-		setforeground(current_console, COLOUR_WHITE);
+	} else {
+		if (!ctx->errored) {
+			ctx->errored = true;
+			setforeground(current_console, COLOUR_LIGHTRED);
+			kprintf("%s\n", error);
+			setforeground(current_console, COLOUR_WHITE);
+			jump_linenum(ctx->eval_linenum, ctx);
+		}
 	}
 }
 /*---------------------------------------------------------------------------*/

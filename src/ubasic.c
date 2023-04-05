@@ -868,8 +868,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 
 	tokenizer_next(ctx);
 
-	const char* check_errors = ubasic_test_string_variable("ERROR$", ctx);
-	if (check_errors && *check_errors) {
+	if (ctx->errored) {
 		return NULL;
 	}
 	return gc_strdup(out);
@@ -1001,6 +1000,11 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		ubasic_set_string_variable("ERROR$", "", ctx, false, false);
 		ubasic_set_int_variable("ERROR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
+		/* If program doesn't end in newline, add one */
+		char last = ctx->program_ptr[strlen(ctx->program_ptr) - 1];
+		if (last > 13) {
+			strlcat(ctx->program_ptr, "\n", ctx->oldlen + 5000);
+		}
 		strlcat(ctx->program_ptr, "9998 ", ctx->oldlen + 5000);
 		strlcat(ctx->program_ptr, clean_v, ctx->oldlen + 5000);
 		strlcat(ctx->program_ptr, "\n9999 RETURN\n", ctx->oldlen + 5000);
@@ -1010,6 +1014,7 @@ static void eval_statement(struct ubasic_ctx* ctx)
 
 		jump_linenum(9998, ctx);
 	} else {
+		dprintf("Back to eval line %d\n", ctx->current_linenum);
 		ctx->program_ptr[ctx->oldlen] = 0;
 		ctx->oldlen = 0;
 		ctx->eval_linenum = 0;
@@ -1518,19 +1523,16 @@ static void line_statement(struct ubasic_ctx* ctx)
 void ubasic_run(struct ubasic_ctx* ctx)
 {
 	if (ubasic_finished(ctx)) {
+		dprintf("Instance finished\n");
 		return;
 	}
 	line_statement(ctx);
 	if (ctx->errored) {
 		ctx->errored = false;
-		dprintf("Picked up error in EVAL, routing back\n");
 		if (ctx->gosub_stack_ptr > 0) {
 			ctx->gosub_stack_ptr--;
-			dprintf("WITH stack: %d\n", ctx->gosub_stack[ctx->gosub_stack_ptr]);
 			jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
-		} else {
-			dprintf("NO stack: %d\n", ctx->eval_linenum);
-			jump_linenum(ctx->eval_linenum, ctx);
+			line_statement(ctx);
 		}
 	}
 	gc();
