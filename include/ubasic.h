@@ -22,81 +22,88 @@
 #define MAX_GOSUB_STACK_DEPTH 255
 #define MAX_FOR_STACK_DEPTH 50
 
-struct for_state
+typedef struct for_state
 {
         int64_t line_after_for;
         char* for_variable;
         int64_t to;
         int64_t step;
-};
+} for_state;
 
-struct ub_var_int
+typedef struct ub_var_int
 {
 	char* varname;
 	int64_t value;
 	bool global;
 	struct ub_var_int* next;
-};
+} ub_var_int;
 
-struct ub_var_double
+typedef struct ub_var_double
 {
 	char* varname;
 	double value;
 	bool global;
 	struct ub_var_double* next;
-};
+} ub_var_double;
 
-struct ub_var_string
+typedef struct ub_var_string
 {
 	char* varname; /* Not including the $ on the end! */
 	char* value;
 	bool global;
 	struct ub_var_string* next;
-};
+} ub_var_string;
 
-typedef enum
+typedef enum ub_fn_type
 {
 	FT_FN,
 	FT_PROC
 } ub_fn_type;
 
-typedef enum
+typedef enum ub_return_type
 {
 	RT_STRING,
 	RT_INT,
 	RT_FLOAT,
 } ub_return_type;
 
-struct ub_param
+typedef struct ub_param
 {
 	char* name;
 	struct ub_param* next;
-};
+} ub_param;
 
-struct ub_proc_fn_def
+typedef struct ub_proc_fn_def
 {
 	char* name;
 	ub_fn_type type;
 	int64_t line;
 	struct ub_param* params;
 	struct ub_proc_fn_def* next;
-};
+} ub_proc_fn_def;
 
-struct ub_var_int_array
+typedef struct ub_var_int_array
 {
 	char* varname;
 	struct ub_var_int* values;
 	uint64_t itemcount;
-};
+} ub_var_int_array;
 
-struct ub_var_string_array
+typedef struct ub_var_string_array
 {
 	char* varname;
 	struct ub_var_string* values;
 	uint64_t itemcount;
-};
+} ub_var_string_array;
 
-struct ubasic_ctx
+typedef struct ub_var_double_array
+{
+	char* varname;
+	struct ub_var_double* values;
+	uint64_t itemcount;
+} ub_var_double_array;
+
+typedef struct ubasic_ctx
 {
         char const *ptr;
 	char const* nextptr;
@@ -128,7 +135,30 @@ struct ubasic_ctx
 	char const* item_begin;
 	struct ub_param* param;
 	int32_t graphics_colour;
-};
+} ubasic_ctx;
+
+
+typedef int64_t (*builtin_int_fn)(struct ubasic_ctx* ctx);
+typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
+typedef void (*builtin_double_fn)(struct ubasic_ctx* ctx, double* res);
+
+typedef struct ubasic_int_fn
+{
+	builtin_int_fn handler;
+	const char* name;
+} ubasic_int_fn;
+
+typedef struct ubasic_double_fn
+{
+	builtin_double_fn handler;
+	const char* name;
+} ubasic_double_fn;
+
+typedef struct ubasic_str_fn
+{
+	builtin_str_fn handler;
+	const char* name;
+} ubasic_str_fn;
 
 // Builtin integer functions
 int64_t ubasic_abs(struct ubasic_ctx* ctx);
@@ -149,34 +179,12 @@ char* ubasic_chr(struct ubasic_ctx* ctx);
 char* ubasic_readstring(struct ubasic_ctx* ctx);
 char* ubasic_getname(struct ubasic_ctx* ctx);
 
-typedef int64_t (*builtin_int_fn)(struct ubasic_ctx* ctx);
-typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
-typedef void (*builtin_double_fn)(struct ubasic_ctx* ctx, double* res);
-
-struct ubasic_int_fn
-{
-	builtin_int_fn handler;
-	const char* name;
-};
-
-struct ubasic_double_fn
-{
-	builtin_double_fn handler;
-	const char* name;
-};
-
-struct ubasic_str_fn
-{
-	builtin_str_fn handler;
-	const char* name;
-};
-
 struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);
 int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
-void ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
+bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
 void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
@@ -185,3 +193,5 @@ void ubasic_set_double_variable(const char* var, const double value, struct ubas
 void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);
 void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local);
 
+ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res);
+int ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);

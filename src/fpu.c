@@ -37,54 +37,59 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 	bool neg = x < 0.0;
 	char buffer[64], buffer_part[64];
 	char* index = buffer, *start = p, *decimal_pos = NULL;
-	uint8_t decimals = double_determine_decimal_places(x);
-	// 10 digits precision is the most this function supports
-	decimals = decimals > 10 ? 10 : decimals;
-	precision = precision > 10 ? 10 : precision;
-	// Convert the double into an int64 copy of the whole part,
-	// And a copy of the entire number multiplied up to a whole number.
-	int64_t whole = labs((int64_t)x);
-	// We use the mul[] array rather than repeated multiplication,
-	// because it is faster and does not cause a loss of accuracy.
-	int64_t integer_part = labs((int64_t)(x * (double)mul[decimals]));
-	snprintf(buffer, 64, "%llu", whole);
-	snprintf(buffer_part, 64, "%llu", integer_part);
-	int64_t whole_len = strlen(buffer);
-	int64_t integer_len = strlen(buffer_part);
-	bool move_decimal = false;
-	if (whole == 0) {
-                move_decimal = true;
-        }
-	index = buffer_part;
-	if (neg) *(p++) = '-';
-	if (move_decimal) {
+	if (x == 0) {
 		*(p++) = '0';
-		decimal_pos = p;
-		*(p++) = '.';
-		for (int64_t n = 0; n < (decimals - integer_len > 0 ? decimals - integer_len : 0); ++n) {
-			*(p++) = '0';
-		}
-		for (int64_t n = 0; *index && n < len - 1; ++index, ++n) {
-			*(p++) = *index;
-		}
+		*p = 0;
 	} else {
-		for (int64_t n = 0; n < integer_len && n < len - 1; ++index, ++n) {
-			*(p++) = *index;
-			if (n == whole_len - 1) {
-				decimal_pos = p;
-				*(p++) = '.';
+		uint8_t decimals = double_determine_decimal_places(x);
+		// 10 digits precision is the most this function supports
+		decimals = decimals > 10 ? 10 : decimals;
+		precision = precision > 10 ? 10 : precision;
+		// Convert the double into an int64 copy of the whole part,
+		// And a copy of the entire number multiplied up to a whole number.
+		int64_t whole = labs((int64_t)x);
+		// We use the mul[] array rather than repeated multiplication,
+		// because it is faster and does not cause a loss of accuracy.
+		int64_t integer_part = labs((int64_t)(x * (double)mul[decimals]));
+		snprintf(buffer, 64, "%llu", whole);
+		snprintf(buffer_part, 64, "%llu", integer_part);
+		int64_t whole_len = strlen(buffer);
+		int64_t integer_len = strlen(buffer_part);
+		bool move_decimal = false;
+		if (whole == 0) {
+			move_decimal = true;
+		}
+		index = buffer_part;
+		if (neg) *(p++) = '-';
+		if (move_decimal) {
+			*(p++) = '0';
+			decimal_pos = p;
+			*(p++) = '.';
+			for (int64_t n = 0; n < (decimals - integer_len > 0 ? decimals - integer_len : 0); ++n) {
+				*(p++) = '0';
+			}
+			for (int64_t n = 0; *index && n < len - 1; ++index, ++n) {
+				*(p++) = *index;
+			}
+		} else {
+			for (int64_t n = 0; n < integer_len && n < len - 1; ++index, ++n) {
+				*(p++) = *index;
+				if (n == whole_len - 1) {
+					decimal_pos = p;
+					*(p++) = '.';
+				}
 			}
 		}
-	}
-	*p = 0;
-	// Remove any trailing 0's
-	while (p != start && *(--p) == '0') {
 		*p = 0;
-	}
-	// Remove trailing "."
-	if (p != start && *p == '.') {
-		decimal_pos = NULL;
-		*p = 0;
+		// Remove any trailing 0's
+		while (p != start && *(--p) == '0') {
+			*p = 0;
+		}
+		// Remove trailing "."
+		if (p != start && *p == '.') {
+			decimal_pos = NULL;
+			*p = 0;
+		}
 	}
 	// Now we can set precision by chopping it from the '.' or appending zeroes as neccessary
 	// Precision display operates purely on the string representation.

@@ -42,6 +42,7 @@ char* ubasic_getprocname(struct ubasic_ctx* ctx);
 char* ubasic_dns(struct ubasic_ctx* ctx);
 int64_t ubasic_rgb(struct ubasic_ctx* ctx);
 void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res);
+const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx);
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -129,6 +130,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
 	int i;
 
+	ctx->errored = false;
 	ctx->current_token = TOKENIZER_ERROR;	
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
@@ -381,7 +383,7 @@ static void accept(int token, struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static int64_t varfactor(struct ubasic_ctx* ctx)
 {
-	int64_t r = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
+	int64_t r = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
@@ -399,7 +401,7 @@ static void double_varfactor(struct ubasic_ctx* ctx, double* res)
 {
 	double r;
 
-	ubasic_get_double_variable(tokenizer_variable_name(ctx), ctx, &r);
+	ubasic_get_numeric_variable(tokenizer_variable_name(ctx), ctx, &r);
 
 	dprintf("double_varfactor\n");
 
@@ -531,7 +533,11 @@ static int64_t term(struct ubasic_ctx* ctx)
 				f1 = f1 * f2;
 			break;
 			case TOKENIZER_SLASH:
-				f1 = f1 / f2;
+				if (f2 == 0) {
+					tokenizer_error_print(ctx, "Division by zero");
+				} else {
+					f1 = f1 / f2;
+				}
 			break;
 			case TOKENIZER_MOD:
 				f1 = f1 % f2;
@@ -566,7 +572,12 @@ static void double_term(struct ubasic_ctx* ctx, double* res)
 				f1 = f1 * f2;
 			break;
 			case TOKENIZER_SLASH:
-				f1 = f1 / f2;
+				if (f2 == 0.0) {
+					tokenizer_error_print(ctx, "Division by zero");
+					*res = 0.0;
+				} else {
+					f1 = f1 / f2;
+				}
 			break;
 			case TOKENIZER_MOD:
 				f1 = (int64_t)f1 % (int64_t)f2;
@@ -856,6 +867,11 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 	}
 
 	tokenizer_next(ctx);
+
+	const char* check_errors = ubasic_test_string_variable("ERROR$", ctx);
+	if (check_errors && *check_errors) {
+		return NULL;
+	}
 	return gc_strdup(out);
 }
 
@@ -874,7 +890,7 @@ static void sockwrite_statement(struct ubasic_ctx* ctx)
 	int fd = -1;
 
 	accept(TOKENIZER_SOCKWRITE, ctx);
-	fd = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
+	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_COMMA, ctx);
 	const char* out = printable_syntax(ctx);
@@ -990,7 +1006,6 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		strlcat(ctx->program_ptr, "\n9999 RETURN\n", ctx->oldlen + 5000);
 
 		ctx->eval_linenum = ctx->current_linenum;
-
 		ctx->gosub_stack[ctx->gosub_stack_ptr++] = ctx->current_linenum;
 
 		jump_linenum(9998, ctx);
@@ -1087,7 +1102,7 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 	dprintf("S");
 
 	accept(TOKENIZER_SOCKREAD, ctx);
-	fd = ubasic_get_int_variable(tokenizer_variable_name(ctx), ctx);
+	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_COMMA, ctx);
 	var = tokenizer_variable_name(ctx);
@@ -1163,7 +1178,7 @@ static void sockclose_statement(struct ubasic_ctx* ctx)
 	fd_var = tokenizer_variable_name(ctx);
 	accept(TOKENIZER_VARIABLE, ctx);
 
-	int rv = closesocket(ubasic_get_int_variable(fd_var, ctx));
+	int rv = closesocket(ubasic_get_numeric_int_variable(fd_var, ctx));
 	if (rv == 0) {
 		// Clear variable to -1
 		ubasic_set_int_variable(fd_var, -1, ctx, false, false);
@@ -1314,7 +1329,7 @@ static void next_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
-		int incr = ubasic_get_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
+		int incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
 		//kprintf("incr is %d\n", incr);
 		ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
 
@@ -1506,6 +1521,18 @@ void ubasic_run(struct ubasic_ctx* ctx)
 		return;
 	}
 	line_statement(ctx);
+	if (ctx->errored) {
+		ctx->errored = false;
+		dprintf("Picked up error in EVAL, routing back\n");
+		if (ctx->gosub_stack_ptr > 0) {
+			ctx->gosub_stack_ptr--;
+			dprintf("WITH stack: %d\n", ctx->gosub_stack[ctx->gosub_stack_ptr]);
+			jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
+		} else {
+			dprintf("NO stack: %d\n", ctx->eval_linenum);
+			jump_linenum(ctx->eval_linenum, ctx);
+		}
+	}
 	gc();
 }
 /*---------------------------------------------------------------------------*/
@@ -1593,10 +1620,15 @@ int valid_int_var(const char* name)
 
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global)
 {
+	bool error_set = false;
 	struct ub_var_string* list[] = {
 		ctx->str_variables,
 		ctx->local_string_variables[ctx->gosub_stack_ptr]
 	};
+
+	if (*value && !strcmp(var, "ERROR$")) {
+		error_set = true;
+	}
 
 	//kprintf("set string '%s' to '%s' %d\n", var, value, local);
 
@@ -1626,6 +1658,12 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 		}
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
+				if (error_set && *cur->value) {
+					/* If ERROR$ is set, can't change it except to empty */
+					return;
+				} else if (error_set) {
+					dprintf("Set ERROR$ to: '%s'\n", value);
+				}
 				kfree(cur->value);
 				cur->value = strdup(value);
 				cur->global = global;
@@ -2311,7 +2349,33 @@ void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* 
  * @return char 1 if variable name is a function call, 0 if it is not
  */
 char varname_is_function(const char* varname) {
-	return (*varname == 'F' && *(varname + 1) == 'N');
+	return (*varname == 'F' && *(varname + 1) == 'N' && !strchr(varname, '#') && !strchr(varname, '$'));
+}
+
+char varname_is_string_function(const char* varname) {
+	return (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '$') && !strchr(varname, '#'));
+}
+
+char varname_is_double_function(const char* varname) {
+	return (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '#') && !strchr(varname, '$'));
+}
+
+const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx)
+{
+	struct ub_var_string* list[] = {
+		ctx->local_string_variables[ctx->gosub_stack_ptr],
+		ctx->str_variables
+	};
+	for (int j = 0; j < 2; j++)
+	{
+		struct ub_var_string* cur = list[j];
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
+				return cur->value;
+			}
+		}
+	}
+	return NULL;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -2322,7 +2386,7 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 	if (t)
 		return retv;
 
-	if (varname_is_function(var)) {
+	if (varname_is_string_function(var)) {
 		const char* res = ubasic_eval_str_fn(var, ctx);
 		return res;
 	}
@@ -2356,7 +2420,7 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	if (ubasic_builtin_int_fn(var, ctx, &retv)) {
 		return retv;
 	}
-		
+	
 	if (varname_is_function(var)) {
 		return ubasic_eval_int_fn(var, ctx);
 	}
@@ -2388,15 +2452,15 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	return 0; /* No such variable */
 }
 
-void ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res)
+bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res)
 {
 	if (ubasic_builtin_double_fn(var, ctx, res)) {
-		return;
+		return true;
 	}
 		
-	if (varname_is_function(var)) {
+	if (varname_is_double_function(var)) {
 		ubasic_eval_double_fn(var, ctx, res);
-		return;
+		return true;
 	}
 
 	struct ub_var_double* list[] = { 
@@ -2410,15 +2474,35 @@ void ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double*
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
 				*res = cur->value;
-				return;
+				return true;
 			}
 		}
 	}
 
 
 	char err[1024];
-	sprintf(err, "No such variable '%s'", var);
-	tokenizer_error_print(ctx, err);
+	if (var[strlen(var) - 1] == '#') {
+		sprintf(err, "No such REAL variable '%s'", var);
+		tokenizer_error_print(ctx, err);
+	}
 	*res = 0.0; /* No such variable */
+	return false;
 }
 
+ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res)
+{
+	if (ubasic_get_double_variable(var, ctx, res)) {
+		return RT_INT;
+	}
+	*res = (double)(ubasic_get_int_variable(var, ctx));
+	return RT_FLOAT;
+}
+
+int ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx)
+{
+	double res;
+	if (ubasic_get_double_variable(var, ctx, &res)) {
+		return (int64_t)res;
+	}
+	return ubasic_get_int_variable(var, ctx);
+}

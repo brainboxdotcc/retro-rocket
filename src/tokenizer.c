@@ -331,7 +331,9 @@ int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 
 void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f)
 {
+	dprintf("tokenizer_fnum\n");
 	atof(ctx->ptr, f);
+	dprintf("tokenizer_fnum complete\n");
 	return;
 }
 /*---------------------------------------------------------------------------*/
@@ -375,8 +377,11 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 			setforeground(current_console, COLOUR_WHITE);
 			ctx->ended = 1;
 		}
-	} else {
-		jump_linenum(ctx->eval_linenum, ctx);
+	} else if (!ctx->errored) {
+		ctx->errored = true;
+		setforeground(current_console, COLOUR_LIGHTRED);
+		kprintf("%s\n", error);
+		setforeground(current_console, COLOUR_WHITE);
 	}
 }
 /*---------------------------------------------------------------------------*/
@@ -407,24 +412,16 @@ bool tokenizer_decimal_number(struct ubasic_ctx* ctx)
 	while (isdigit(*ptr)) {
 		whole_part_count++;
 		ptr++;
-		dprintf("decimal check part 1, ok %c count=%d\n", *(ptr - 1), whole_part_count);
 	}
-	dprintf("Ended at whole part=%d\n", whole_part_count);
 	if (whole_part_count && *ptr == '.') {
 		ptr++;
-		dprintf("decimal check part 2, ok %c\n", *(ptr - 1));
 		while (isdigit(*ptr)) {
 			ptr++;
-			dprintf("decimal check part 3, ok %c\n", *(ptr - 1));
 			decimal_part_count++;
 		}
 		if (decimal_part_count) {
-			dprintf("decimal part check ok\n");
 			return true;
 		}
-	} else {
-		dprintf("wasnt '.', was %c count=%d\n", *(ptr - 1), whole_part_count);
 	}
-	dprintf("decimal part check fail\n");
 	return false;
 }
