@@ -20,7 +20,7 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
 * An `x86_64` system with CD or DVD drive to boot an ISO image (more options coming soon)
 * Or run under emulation via [QEMU](https://www.qemu.org/)
 * Optionally: RTL8139 network card (as supported by QEMU)
-* IDE compatible optical drive (as supported by QEMU)
+* SATA or IDE compatible optical drive (as supported by QEMU)
 
 ## 🔨 Technical Details
 
