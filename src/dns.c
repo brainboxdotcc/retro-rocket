@@ -4,7 +4,7 @@ static uint16_t id = 1;
 uint16_t dns_query_port = 0;
 static struct hashmap* dns_replies = NULL;
 
-void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned length, char* error, char* res, uint8_t* outlength);
+void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned length, char** error, char* res, uint8_t* outlength);
 uint8_t dns_collect_request(uint16_t id, char* result, size_t max);
 
 /**
@@ -160,21 +160,26 @@ void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t 
 	dprintf("dns inbound packet of size %d\n", length);
 	if (request) {
 		if (request->result_length == 0) {
+			dprintf("No processed result yet\n");
 			char* error = NULL;
-			dns_result_ready(packet, request, length, error, request->result, &request->result_length);
+			dns_result_ready(packet, request, length, &error, request->result, &request->result_length);
+			dprintf("DNS result ready done\n");
 			if (request->callback_a && request->type == DNS_QUERY_A) {
+				dprintf("Query result A\n");
 				uint32_t result = 0;
 				if (dns_collect_request(inbound_id, (char*)&result, sizeof(uint32_t))) {
 					dprintf("dns A result collected: %08x\n", result);
 					request->callback_a(result, (const char*)request->orig, inbound_id);
 				}
 			}  else if (request->callback_aaaa && request->type == DNS_QUERY_AAAA) {
+				dprintf("Query result AAAA\n");
 				uint8_t result[16];
 				if (dns_collect_request(inbound_id, (char*)&result, 16)) {
 					dprintf("dns AAAA result collected\n");
 					request->callback_aaaa(result, (const char*)request->orig, inbound_id);
 				}
 			} else if (request->callback_ptr && request->type == DNS_QUERY_PTR4) {
+				dprintf("Query result PTR4\n");
 				char result[256];
 				if (dns_collect_request(inbound_id, (char*)&result, sizeof(result))) {
 					dprintf("dns PTR4 result collected: %s\n", result);
@@ -195,7 +200,7 @@ static void fill_resource_record(resource_record_t* rr, const unsigned char *inp
 	rr->rdlength = (input[8] << 8) + input[9];
 }
 
-void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned length, char* error, char* res, uint8_t* outlength)
+void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned length, char** error, char* res, uint8_t* outlength)
 {
 	unsigned i = 0, o;
 	int q = 0;
@@ -203,7 +208,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
  	unsigned short ptr;
 	resource_record_t rr;
 
-	*error = 0;
+	error = NULL;
 	*res = 0;
 	*outlength = 0;
 
@@ -216,16 +221,16 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 	header->qdcount = ntohs(header->qdcount);
 
 	if (!(header->flags1 & FLAGS_MASK_QR)) {
-		error = "Not a query result";
+		*error = "Not a query result";
 		return;
 	} else if (header->flags1 & FLAGS_MASK_OPCODE) {
-		error = "Unexpected value in DNS reply packet";
+		*error = "Unexpected value in DNS reply packet";
 		return;
 	} else if (header->flags2 & FLAGS_MASK_RCODE) {
-		error = "Domain name not found";
+		*error = "Domain name not found";
 		return;
 	} else if (header->ancount < 1) {
-		error = "No resource records returned";
+		*error = "No resource records returned";
 		return;
 	}
 
@@ -245,6 +250,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 			}
 		}
 	}
+
 	curanswer = 0;
 	while ((unsigned)curanswer < header->ancount) {
 		q = 0;
@@ -263,7 +269,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 			}
 		}
 		if ((int)(length - i) < 10) {
-			error = "Incorrectly sized DNS reply";
+			*error = "Incorrectly sized DNS reply";
 			return;
 		}
 
@@ -282,18 +288,19 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 		}
 		break;
 	}
+
 	if ((unsigned int)curanswer == header->ancount) {
-		error = "No A, AAAA or PTR type answers";
+		*error = "No A, AAAA or PTR type answers";
 		return;
 	}
 
 	if (i + rr.rdlength > (unsigned int)length) {
-		error = "Resource record larger than stated";
+		*error = "Resource record larger than stated";
 		return;
 	}
 
 	if (rr.rdlength > 1023) {
-		error = "Resource record too large";
+		*error = "Resource record too large";
 		return;
 	}
 
@@ -317,7 +324,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 
 					/* check that highest two bits are set. if not, we've been had */
 					if ((i & DN_COMP_BITMASK) != DN_COMP_BITMASK) {
-						error = "DN label decompression header is bogus";
+						*error = "DN label decompression header is bogus";
 						return;
 					}
 
@@ -328,7 +335,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 					i -= 12;
 
 					if (i >= lowest_pos) {
-						error = "Invalid decompression pointer";
+						*error = "Invalid decompression pointer";
 						return;
 					}
 					lowest_pos = i;
@@ -342,7 +349,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 						}
 
 						if (o + header->payload[i] > sizeof(dns_header_t)) {
-							error = "DN label decompression is impossible -- malformed/hostile packet?";
+							*error = "DN label decompression is impossible -- malformed/hostile packet?";
 							return;
 						}
 
@@ -357,7 +364,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 		break;
 		case DNS_QUERY_AAAA:
 			if (rr.rdlength != 16) {
-				error = "rr.rdlength is larger than 16 bytes for an ipv6 entry -- malformed/hostile packet?";
+				*error = "rr.rdlength is larger than 16 bytes for an ipv6 entry -- malformed/hostile packet?";
 				return;
 			}
 
@@ -367,7 +374,7 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 		break;
 		case DNS_QUERY_A:
 			if (rr.rdlength != 4) {
-				error = "rr.rdlength is larger than 4 bytes for an ipv4 entry -- malformed/hostile packet?";
+				*error = "rr.rdlength is larger than 4 bytes for an ipv4 entry -- malformed/hostile packet?";
 				return;
 			}
 
@@ -376,11 +383,10 @@ void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned len
 			o = rr.rdlength;
 		break;
 		default:
-			error = "don't know how to handle undefined type -- rejecting";
+			*error = "don't know how to handle undefined type -- rejecting";
 			return;
 		break;
 	}
-	error = NULL;
 	*outlength = o;
 	return;
 }
