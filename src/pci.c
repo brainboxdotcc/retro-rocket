@@ -429,6 +429,16 @@ void init_pci() {
 	pci_display_device_list();
 }
 
+void pci_interrupt_enable(pci_dev_t device, bool enable)
+{
+	uint32_t device_command_flags = pci_read(device, PCI_COMMAND);
+	if (!enable && !(device_command_flags & PCI_COMMAND_INTERRUPT_DISABLE)) {
+		pci_write(device, PCI_COMMAND, device_command_flags | PCI_COMMAND_INTERRUPT_DISABLE);
+	} else if (enable && device_command_flags & PCI_COMMAND_INTERRUPT_DISABLE) {
+		pci_write(device, PCI_COMMAND, device_command_flags & ~PCI_COMMAND_INTERRUPT_DISABLE);
+	}
+}
+
 bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert)
 {
 	uint32_t status = pci_read(device, PCI_STATUS);
@@ -454,11 +464,7 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool de
 			bool bits64cap = (config_space & PCI_MSI_64BIT);
 			dprintf("Enable MSI for %04x:%04x with data=%08x address=%08x vector %d\n", vendor_id, device_id, new_message_data, new_message_address, vector);
 			pci_write(device, current + 0x04, new_message_address);
-			uint32_t device_command_flags = pci_read(device, PCI_COMMAND);
-			if (!(device_command_flags & PCI_COMMAND_INTERRUPT_DISABLE)) {
-				dprintf("MSI: Legacy interrupts for %04x:%04x disabled\n", vendor_id, device_id);
-				pci_write(device, PCI_COMMAND, device_command_flags | PCI_COMMAND_INTERRUPT_DISABLE);
-			}
+			pci_interrupt_enable(device, false);
 			if (bits64cap) {
 				pci_write(device, current + 0x08, 0);
 				pci_write(device, current + 0x0C, new_message_data);

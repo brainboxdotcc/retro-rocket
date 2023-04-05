@@ -528,10 +528,10 @@ void init_ahci()
 	ahci_base = pci_mem_base(ahci_base);
 
 	uint32_t irq_num = pci_read(ahci_device, PCI_INTERRUPT_LINE);
+	uint32_t irq_pin = pci_read(ahci_device, PCI_INTERRUPT_PIN);
 	register_interrupt_handler(32 + irq_num, ahci_handler, ahci_device, (void*)ahci_base);
-
-	dprintf("AHCI base MMIO: %08x INT %08x\n", ahci_base, irq_num);
-
+	pci_interrupt_enable(ahci_device, true);
+	dprintf("AHCI base MMIO: %08x INT %d PIN#%c\n", ahci_base, irq_num, irq_pin + 'A' - 1);
 
 	probe_port((ahci_hba_mem_t*)ahci_base, ahci_device);
 }
