@@ -29,8 +29,9 @@ jobs:
       - name: Upload Binary (iso)
         uses: actions/upload-artifact@v3
         with:
-          name: "retro-rocket-image"
+          name: "retro-rocket"
           path: '${{github.workspace}}/build/*.iso'
+          path: '${{github.workspace}}/build/*.sh'
 
       - name: Upload Binary (bzip2)
         uses: actions/upload-artifact@v3
