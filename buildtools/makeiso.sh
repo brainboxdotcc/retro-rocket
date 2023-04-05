@@ -33,6 +33,6 @@ echo "qemu-system-x86_64 \
 	-netdev user,id=netuser,hostfwd=tcp::2000-:2000 \
 	-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
 	-device rtl8139,netdev=netuser" >run.sh
-echo "gdb kernel.bin -ix ${CMAKE_CURRENT_SOURCE_DIR}/.gdbargs" >debug.sh
+echo "gdb kernel.bin -ix $1/../.gdbargs" >debug.sh
 chmod ugo+x *.sh
 tar cj "rr.iso" "run.sh" > "rr.iso.bz2"
