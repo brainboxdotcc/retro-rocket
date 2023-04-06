@@ -35,4 +35,4 @@ echo "qemu-system-x86_64 \
 	-device rtl8139,netdev=netuser" >run.sh
 echo "gdb kernel.bin -ix $1/../.gdbargs" >debug.sh
 chmod ugo+x *.sh
-tar cj "rr.iso" "run.sh" > "rr.iso.bz2"
+#tar cj "rr.iso" "run.sh" > "rr.iso.bz2"
