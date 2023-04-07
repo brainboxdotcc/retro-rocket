@@ -85,6 +85,7 @@ enum {
   TOKENIZER_TRIANGLE,
   TOKENIZER_RECTANGLE,
   TOKENIZER_CIRCLE,
+  TOKENIZER_POINT,
 };
 
 extern const char* types[];

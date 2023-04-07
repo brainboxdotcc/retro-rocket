@@ -1267,6 +1267,16 @@ static void draw_line_statement(struct ubasic_ctx* ctx)
 	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
+static void point_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_POINT, ctx);
+	int64_t x1 = expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	int64_t y1 = expr(ctx);
+	accept(TOKENIZER_CR, ctx);
+	putpixel(x1, y1, ctx->graphics_colour);
+}
+
 static void triangle_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_TRIANGLE, ctx);
@@ -1509,6 +1519,9 @@ static void statement(struct ubasic_ctx* ctx)
 		break;
 		case TOKENIZER_SOCKCLOSE:
 			sockclose_statement(ctx);
+		break;
+		case TOKENIZER_POINT:
+			point_statement(ctx);
 		break;
 		case TOKENIZER_CLS:
 			cls_statement(ctx);

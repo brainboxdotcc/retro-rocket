@@ -91,6 +91,7 @@ const char* types[] = {
 	"TRIANGLE",
 	"RECTANGLE",
 	"CIRCLE",
+	"POINT",
 };
 
 struct keyword_token {
@@ -135,6 +136,7 @@ static const struct keyword_token keywords[] = {
 	{"TRIANGLE", TOKENIZER_TRIANGLE},
 	{"RECTANGLE", TOKENIZER_RECTANGLE},
 	{"CIRCLE", TOKENIZER_CIRCLE},
+	{"POINT", TOKENIZER_POINT},
 	{NULL, TOKENIZER_ERROR},
 };
 
