@@ -5,6 +5,7 @@ void kmain()
 {
 	initconsole();
 	heap_init();
+	init_maths();
 	detect_cores();
 	idt_setup();
 	init_error_handler();

@@ -43,6 +43,10 @@ char* ubasic_dns(struct ubasic_ctx* ctx);
 int64_t ubasic_rgb(struct ubasic_ctx* ctx);
 void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res);
 const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx);
+void ubasic_sin(struct ubasic_ctx* ctx, double* res);
+void ubasic_cos(struct ubasic_ctx* ctx, double* res);
+void ubasic_tan(struct ubasic_ctx* ctx, double* res);
+void ubasic_pow(struct ubasic_ctx* ctx, double* res);
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -62,6 +66,10 @@ struct ubasic_int_fn builtin_int[] =
 };
 
 struct ubasic_double_fn builtin_double[] = {
+	{ ubasic_sin, "SIN" },
+	{ ubasic_cos, "COS" },
+	{ ubasic_tan, "TAN" },
+	{ ubasic_pow, "POW" },
 	{ NULL, NULL },
 };
 
@@ -798,6 +806,15 @@ static void colour_statement(struct ubasic_ctx* ctx, int tok)
 	accept(TOKENIZER_CR, ctx);
 }
 
+bool is_builtin_double_fn(const char* fn_name) {
+	for (int i = 0; builtin_double[i].name; ++i) {
+		if (!strcmp(fn_name, builtin_double[i].name)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 static char* printable_syntax(struct ubasic_ctx* ctx)
 {
 	int numprints = 0;
@@ -841,7 +858,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 				ctx->ptr = oldctx;
 				const char* var_name = tokenizer_variable_name(ctx);
 				ctx->ptr = oldctx;
-				bool printable_double = (strchr(var_name, '#') || tokenizer_decimal_number(ctx));
+				bool printable_double = (strchr(var_name, '#') != NULL || is_builtin_double_fn(var_name) || tokenizer_decimal_number(ctx));
 				if (printable_double) {
 					double f = 0.0;
 					char double_buffer[32];
@@ -1898,10 +1915,12 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 
 #define BIP_STRING 0
 #define BIP_INT 1
+#define BIP_DOUBLE 2
 
 #define PARAMS_START \
 	[[maybe_unused]] int itemtype = BIP_INT; \
 	[[maybe_unused]] int64_t intval = 0; \
+	[[maybe_unused]] double doubleval = 0; \
 	[[maybe_unused]] char* strval = NULL; \
 	[[maybe_unused]] char oldval = 0; \
 	[[maybe_unused]] char oldct = 0; \
@@ -1921,8 +1940,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		} \
        		else if (*ctx->ptr == ')') \
 			bracket_depth--; \
-		if ((*ctx->ptr == ',' && bracket_depth == 1) || (*ctx->ptr == ')' && bracket_depth == 0)) \
-		{ \
+		if ((*ctx->ptr == ',' && bracket_depth == 1) || (*ctx->ptr == ')' && bracket_depth == 0)) { \
 			gotone = 1; \
 			oldval = *ctx->ptr; \
 			oldct = ctx->current_token; \
@@ -1933,12 +1951,11 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 			ctx->current_token = get_next_token(ctx); \
 			*oldptr = 0; \
 			itemtype = type; \
-			if (itemtype == BIP_STRING) \
-			{ \
+			if (itemtype == BIP_STRING) { \
 				strval = (char*)str_expr(ctx); \
-			} \
-			else \
-			{ \
+			} else if (itemtype == BIP_DOUBLE) { \
+				double_expr(ctx, &doubleval); \
+			} else { \
 				intval = expr(ctx); \
 			} \
 			*oldptr = oldval; \
@@ -1948,8 +1965,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 			item_begin = ctx->ptr + 1; \
 			gotone = 1; \
 		} \
-		if (bracket_depth == 0 || *ctx->ptr == 0) \
-		{ \
+		if (bracket_depth == 0 || *ctx->ptr == 0) { \
 			ctx->nextptr = ctx->ptr; \
 			ctx->current_token = get_next_token(ctx); \
 			gotone = 1; \
@@ -2209,14 +2225,38 @@ int64_t ubasic_len(struct ubasic_ctx* ctx)
 int64_t ubasic_abs(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
-
 	PARAMS_GET_ITEM(BIP_INT);
-	int v = intval;
+	return labs(intval);
+}
 
-	if (v < 0)
-		return 0 + -v;
-	else
-		return v;
+void ubasic_sin(struct ubasic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	*res = sin(doubleval);
+}
+
+void ubasic_cos(struct ubasic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	*res = cos(doubleval);
+}
+
+void ubasic_tan(struct ubasic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	*res = tan(doubleval);
+}
+
+void ubasic_pow(struct ubasic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double base = doubleval;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	*res = pow(base, doubleval);
 }
 
 /**

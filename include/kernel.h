@@ -21,6 +21,7 @@
 #include "timer.h"
 #include "kmalloc.h"
 #include "pci.h"
+#include "maths.h"
 #include "devicename.h"
 #include "interrupt.h"
 #include "ahci.h"
