@@ -411,7 +411,7 @@ static void double_varfactor(struct ubasic_ctx* ctx, double* res)
 
 	ubasic_get_numeric_variable(tokenizer_variable_name(ctx), ctx, &r);
 
-	dprintf("double_varfactor\n");
+	//dprintf("double_varfactor\n");
 
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
@@ -477,30 +477,30 @@ static int64_t factor(struct ubasic_ctx* ctx)
 
 static void double_factor(struct ubasic_ctx* ctx, double* res)
 {
-	char buffer[50];
+	//char buffer[50];
 
 	int tok = tokenizer_token(ctx);
 	switch (tok) {
 		case TOKENIZER_NUMBER:
-			dprintf("double_factor TOKENIZER_NUMBER\n");
+			//dprintf("double_factor TOKENIZER_NUMBER\n");
 			tokenizer_fnum(ctx, tok, res);
-			dprintf("double_factor fnum->r=%s\n", double_to_string(*res, buffer, 50, 0));
+			//dprintf("double_factor fnum->r=%s\n", double_to_string(*res, buffer, 50, 0));
 			accept(tok, ctx);
 		break;
 		case TOKENIZER_LEFTPAREN:
-			dprintf("double_factor TOKENIZER_LEFTPAREN\n");
+			//dprintf("double_factor TOKENIZER_LEFTPAREN\n");
 			accept(TOKENIZER_LEFTPAREN, ctx);
 			double_expr(ctx, res);
-			dprintf("double_factor expr->r=%s\n", double_to_string(*res, buffer, 50, 0));
+			//dprintf("double_factor expr->r=%s\n", double_to_string(*res, buffer, 50, 0));
 			accept(TOKENIZER_RIGHTPAREN, ctx);
 		break;
 		default:
-			dprintf("double_factor default\n");
+			//dprintf("double_factor default\n");
 			double_varfactor(ctx, res);
-			dprintf("double_factor varfactor->r=%s\n", double_to_string(*res, buffer, 50, 0));
+			//dprintf("double_factor varfactor->r=%s\n", double_to_string(*res, buffer, 50, 0));
 		break;
 	}
-	dprintf("double_factor end, r=%s\n", double_to_string(*res, buffer, 50, 0));
+	//dprintf("double_factor end, r=%s\n", double_to_string(*res, buffer, 50, 0));
 }
 
 static const char* str_factor(struct ubasic_ctx* ctx)
@@ -560,20 +560,20 @@ static void double_term(struct ubasic_ctx* ctx, double* res)
 {
 	double f1, f2;
 	int op;
-	char buffer[50];
+	//char buffer[50];
 
-	dprintf("double_term first double_factor call\n");
+	//dprintf("double_term first double_factor call\n");
 	double_factor(ctx, &f1);
-	dprintf("double_term f1=%s\n", double_to_string(f1, buffer, 50, 0));
+	//dprintf("double_term f1=%s\n", double_to_string(f1, buffer, 50, 0));
 
 	op = tokenizer_token(ctx);
-	dprintf("first op=%d %s\n", op, types[op]);
+	//dprintf("first op=%d %s\n", op, types[op]);
 	while (op == TOKENIZER_ASTR || op == TOKENIZER_SLASH || op == TOKENIZER_MOD)
 	{
 		tokenizer_next(ctx);
-		dprintf("double_term second double_factor call\n");
+		//dprintf("double_term second double_factor call\n");
 		double_factor(ctx, &f2);
-		dprintf("double_term f2=%s\n", double_to_string(f2, buffer, 50, 0));
+		//dprintf("double_term f2=%s\n", double_to_string(f2, buffer, 50, 0));
 		switch (op)
 		{
 			case TOKENIZER_ASTR:
@@ -593,8 +593,8 @@ static void double_term(struct ubasic_ctx* ctx, double* res)
 		}
 		op = tokenizer_token(ctx);
 	}
-	dprintf("final op=%d %s\n", op, types[op]);
-	dprintf("double_term returning %s\n", double_to_string(f1, buffer, 50, 0));
+	//dprintf("final op=%d %s\n", op, types[op]);
+	//dprintf("double_term returning %s\n", double_to_string(f1, buffer, 50, 0));
 	*res = f1;
 }
 
@@ -636,38 +636,38 @@ static void double_expr(struct ubasic_ctx* ctx, double* res)
 	double t1, t2;
 	int op;
 
-	dprintf("double_expr()\n");
+	//dprintf("double_expr()\n");
 
 	double_term(ctx, &t1);
 	op = tokenizer_token(ctx);
-	dprintf("double_expr before type, type is %d %s\n", op, types[op]);
+	//dprintf("double_expr before type, type is %d %s\n", op, types[op]);
 
 	while (op == TOKENIZER_PLUS || op == TOKENIZER_MINUS || op == TOKENIZER_AND || op == TOKENIZER_OR) {
-		dprintf("double_expr after type, type is %d %s\n", op, types[op]);
+		//dprintf("double_expr after type, type is %d %s\n", op, types[op]);
 		tokenizer_next(ctx);
-		dprintf("double_expr call 2nd double_term\n");
+		//dprintf("double_expr call 2nd double_term\n");
 		double_term(ctx, &t2);
 		switch (op) {
 			case TOKENIZER_PLUS:
-				dprintf("tokenizer plus\n");
+				//dprintf("tokenizer plus\n");
 				t1 = t1 + t2;
 			break;
 			case TOKENIZER_MINUS:
-				dprintf("tokenizer minus\n");
+				//dprintf("tokenizer minus\n");
 				t1 = t1 - t2;
 			break;
 			case TOKENIZER_AND:
-				dprintf("tokenizer and\n");
+				//dprintf("tokenizer and\n");
 				t1 = (int64_t)t1 & (int64_t)t2;
 			break;
 			case TOKENIZER_OR:
-				dprintf("tokenizer or\n");
+				//dprintf("tokenizer or\n");
 				t1 = (int64_t)t1 | (int64_t)t2;
 			break;
 		}
 		op = tokenizer_token(ctx);
 	}
-	dprintf("double_expr done\n");
+	//dprintf("double_expr done\n");
 	*res = t1;
 }
 
@@ -1031,7 +1031,7 @@ static void eval_statement(struct ubasic_ctx* ctx)
 
 		jump_linenum(9998, ctx);
 	} else {
-		dprintf("Back to eval line %d\n", ctx->current_linenum);
+		//dprintf("Back to eval line %d\n", ctx->current_linenum);
 		ctx->program_ptr[ctx->oldlen] = 0;
 		ctx->oldlen = 0;
 		ctx->eval_linenum = 0;
@@ -1121,7 +1121,7 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 	const char* var = NULL;
 	int fd = -1;
 
-	dprintf("S");
+	//dprintf("S");
 
 	accept(TOKENIZER_SOCKREAD, ctx);
 	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
@@ -1249,7 +1249,7 @@ static void gcol_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_GCOL, ctx);
 	ctx->graphics_colour = expr(ctx);
-	dprintf("New graphics color: %08X\n", ctx->graphics_colour);
+	//dprintf("New graphics color: %08X\n", ctx->graphics_colour);
 	accept(TOKENIZER_CR, ctx);
 }
 
@@ -1351,16 +1351,31 @@ static void next_statement(struct ubasic_ctx* ctx)
 {
 	accept(TOKENIZER_NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
-		int incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
-		//kprintf("incr is %d\n", incr);
-		ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
+		if (strchr(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, '#')) {
+			double incr;
+			ubasic_get_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx, &incr);
+			//kprintf("incr is %d\n", incr);
+			ubasic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
 
-		if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) {
-			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
+			if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) {
+				jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
+			} else {
+				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
+				ctx->for_stack_ptr--;
+				accept(TOKENIZER_CR, ctx);
+			}
 		} else {
-			kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
-			ctx->for_stack_ptr--;
-			accept(TOKENIZER_CR, ctx);
+			int incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
+			//kprintf("incr is %d\n", incr);
+			ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
+
+			if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) {
+				jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
+			} else {
+				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
+				ctx->for_stack_ptr--;
+				accept(TOKENIZER_CR, ctx);
+			}
 		}
 	} else {
 		tokenizer_error_print(ctx, "next_statement: non-matching next");
@@ -1378,7 +1393,11 @@ static void for_statement(struct ubasic_ctx* ctx)
 	for_variable = strdup(tokenizer_variable_name(ctx));
 	accept(TOKENIZER_VARIABLE, ctx);
 	accept(TOKENIZER_EQ, ctx);
-	ubasic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
+	if (strchr(for_variable, '#')) {
+		ubasic_set_double_variable(for_variable, expr(ctx), ctx, false, false);
+	} else {
+		ubasic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
+	}
 	accept(TOKENIZER_TO, ctx);
 	to = expr(ctx);
 	accept(TOKENIZER_CR, ctx);
@@ -1540,7 +1559,7 @@ static void line_statement(struct ubasic_ctx* ctx)
 void ubasic_run(struct ubasic_ctx* ctx)
 {
 	if (ubasic_finished(ctx)) {
-		dprintf("Instance finished\n");
+		//dprintf("Instance finished\n");
 		return;
 	}
 	line_statement(ctx);

@@ -1,0 +1,9 @@
+10 CLS
+20 LASTY# = 300
+110 FOR X# = 0 TO 799
+120 Y# = 300 * SIN(X# / 48) + 300
+130 C = Y# / 3
+140 GCOL RGB(C, 255 - C, 30)
+150 LINE X#, LASTY#, X# + 1, Y#
+160 LASTY# = Y#
+170 NEXT 

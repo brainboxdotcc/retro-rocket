@@ -331,9 +331,7 @@ int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 
 void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f)
 {
-	dprintf("tokenizer_fnum\n");
 	atof(ctx->ptr, f);
-	dprintf("tokenizer_fnum complete\n");
 	return;
 }
 /*---------------------------------------------------------------------------*/

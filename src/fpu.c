@@ -25,7 +25,7 @@ static int64_t mul[] = {
 uint8_t double_determine_decimal_places(double f)
 {
         int prec = 0;
-        while ((f-(int64_t)f) != 0.0 || f < 1) {
+        while (prec < 10 && ((f-(int64_t)f) != 0.0 || f < 1)) {
                 f *= 10.0;
                 prec++;
         }
