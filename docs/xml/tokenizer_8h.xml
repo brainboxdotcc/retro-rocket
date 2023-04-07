@@ -5,7 +5,7 @@
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <incdepgraph>
-      <node id="24">
+      <node id="25">
         <label>ata.h</label>
         <childnode refid="3" relation="include">
         </childnode>
@@ -13,43 +13,43 @@
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="38">
+      <node id="39">
         <label>acpi.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="43">
         <label>arp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="50">
         <label>dns.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="30">
         <label>fat32.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="47">
+      <node id="48">
         <label>udp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>iso9660.h</label>
       </node>
       <node id="9">
         <label>spinlock.h</label>
       </node>
-      <node id="45">
+      <node id="46">
         <label>tcp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>devicename.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -62,12 +62,12 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="50">
+      <node id="51">
         <label>drawing.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="41">
         <label>rtl8139.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -87,7 +87,7 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="32">
+      <node id="33">
         <label>keyboard.h</label>
       </node>
       <node id="14">
@@ -98,21 +98,21 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="41">
+      <node id="42">
         <label>e1000.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="36">
         <label>lapic_timer.h</label>
       </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="33">
+      <node id="34">
         <label>input.h</label>
       </node>
-      <node id="51">
+      <node id="52">
         <label>fpu.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -120,29 +120,34 @@
       <node id="12">
         <label>video.h</label>
       </node>
-      <node id="46">
+      <node id="47">
         <label>icmp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="44">
         <label>ip.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>filesystem.h</label>
       </node>
-      <node id="28">
+      <node id="21">
+        <label>maths.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
         <label>devfs.h</label>
       </node>
-      <node id="31">
+      <node id="32">
         <label>errorhandler.h</label>
       </node>
-      <node id="36">
+      <node id="37">
         <label>ubasic.h</label>
       </node>
-      <node id="44">
+      <node id="45">
         <label>ethernet.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -219,9 +224,9 @@
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
         <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
@@ -251,18 +256,20 @@
         </childnode>
         <childnode refid="51" relation="include">
         </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
       </node>
       <node id="15">
         <label>memcpy.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="27">
         <label>partition.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="38">
         <label>taskswitch.h</label>
       </node>
       <node id="11">
@@ -276,7 +283,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="40">
         <label>net.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -286,10 +293,10 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="31">
         <label>debugger.h</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>interrupt.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -310,17 +317,17 @@
       <node id="13">
         <label>string.h</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>ahci.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="49">
         <label>dhcp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="35">
         <label>clock.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -349,12 +356,12 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>udp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="27">
         <label>tcp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -374,7 +381,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>rtl8139.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -385,7 +392,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>printf.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -407,6 +414,11 @@
       </node>
       <node id="19">
         <label>ip.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>maths.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -465,17 +477,19 @@
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
         <childnode refid="27" relation="include">
         </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>memcpy.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="23">
         <label>partition.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -485,7 +499,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>net.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -495,7 +509,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="24">
         <label>pci.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -960,13 +974,20 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da5e11b4b30ceb04c4b820fc47d0013495" prot="public">
+          <name>TOKENIZER_POINT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="26" column="1" bodyfile="include/tokenizer.h" bodystart="26" bodyend="88"/>
+        <location file="include/tokenizer.h" line="26" column="1" bodyfile="include/tokenizer.h" bodystart="26" bodyend="89"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -981,7 +1002,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="90" column="19" declfile="include/tokenizer.h" declline="90" declcolumn="19"/>
+        <location file="include/tokenizer.h" line="91" column="19" declfile="include/tokenizer.h" declline="91" declcolumn="19"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1004,7 +1025,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="92" column="6" declfile="include/tokenizer.h" declline="92" declcolumn="6"/>
+        <location file="include/tokenizer.h" line="93" column="6" declfile="include/tokenizer.h" declline="93" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1ab95d257fd507afd722006b98f701aac4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1021,7 +1042,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="93" column="6" declfile="include/tokenizer.h" declline="93" declcolumn="6"/>
+        <location file="include/tokenizer.h" line="94" column="6" declfile="include/tokenizer.h" declline="94" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1a79ca032550e6866dee021d3da651dbad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1038,7 +1059,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="94" column="5" declfile="include/tokenizer.h" declline="94" declcolumn="5"/>
+        <location file="include/tokenizer.h" line="95" column="5" declfile="include/tokenizer.h" declline="95" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1a269601b38635279d07cffaa53be980d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1059,7 +1080,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="95" column="9" declfile="include/tokenizer.h" declline="95" declcolumn="9"/>
+        <location file="include/tokenizer.h" line="96" column="9" declfile="include/tokenizer.h" declline="96" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1a30b4e02b1252eb4688912a965c8a458f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1084,7 +1105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="96" column="6" declfile="include/tokenizer.h" declline="96" declcolumn="6"/>
+        <location file="include/tokenizer.h" line="97" column="6" declfile="include/tokenizer.h" declline="97" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1af8052b7a25debd60b06bd873b4a7f430" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -1101,7 +1122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="97" column="12" declfile="include/tokenizer.h" declline="97" declcolumn="12"/>
+        <location file="include/tokenizer.h" line="98" column="12" declfile="include/tokenizer.h" declline="98" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1aea837c7f0165fca0472bc82305e2779c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1126,7 +1147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="98" column="6" declfile="include/tokenizer.h" declline="98" declcolumn="6"/>
+        <location file="include/tokenizer.h" line="99" column="6" declfile="include/tokenizer.h" declline="99" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1a4e09edb731e8ff60d65cc1296b17f5c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1143,7 +1164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="99" column="5" declfile="include/tokenizer.h" declline="99" declcolumn="5"/>
+        <location file="include/tokenizer.h" line="100" column="5" declfile="include/tokenizer.h" declline="100" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1aaddfae9451e992d402cbaab9550329a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1164,7 +1185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="100" column="6" declfile="include/tokenizer.h" declline="100" declcolumn="6"/>
+        <location file="include/tokenizer.h" line="101" column="6" declfile="include/tokenizer.h" declline="101" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1abadcb4f19d80e60be45f20bbad01e779" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1181,7 +1202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="101" column="5" declfile="include/tokenizer.h" declline="101" declcolumn="5"/>
+        <location file="include/tokenizer.h" line="102" column="5" declfile="include/tokenizer.h" declline="102" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tokenizer_8h_1adce229f0f08dc3e9a6b0035b30e6ad3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1198,7 +1219,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tokenizer.h" line="102" column="6" declfile="include/tokenizer.h" declline="102" declcolumn="6"/>
+        <location file="include/tokenizer.h" line="103" column="6" declfile="include/tokenizer.h" declline="103" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

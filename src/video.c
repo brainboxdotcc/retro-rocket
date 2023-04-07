@@ -14,13 +14,13 @@ static volatile struct limine_framebuffer_request framebuffer_request = {
     .revision = 0
 };
 
-uint64_t framebuffer_address()
+inline uint64_t framebuffer_address()
 {
 	struct limine_framebuffer *fb = terminal_request.response->terminals[0]->framebuffer;
 	return (uint64_t)fb->address;
 }
 
-uint64_t pixel_address(int64_t x, int64_t y)
+inline uint64_t pixel_address(int64_t x, int64_t y)
 {
 	uint64_t pitch = terminal_request.response->terminals[0]->framebuffer->pitch;
 	uint64_t bytes_per_pixel = terminal_request.response->terminals[0]->framebuffer->bpp >> 3;
