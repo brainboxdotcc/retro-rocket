@@ -112,7 +112,19 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	if (divided_length == 0) {
 		divided_length = 1;
 	}
-	return check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
+	if (divided_length < 16) {
+		return check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
+	}
+	while (divided_length > 0) {
+		bool r = check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
+		start += divided_length > 16 ? 16 : divided_length;
+		buffer += divided_length > 16 ? 16 * sd->block_size : divided_length * sd->block_size;
+		divided_length -= divided_length > 16 ? 16 : divided_length;
+		if (!r) {
+			return false;
+		}
+	}
+	return true;
 }
 
 int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer)
@@ -128,7 +140,19 @@ int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, c
 	if (divided_length == 0) {
 		divided_length = 1;
 	}
-	return ahci_write(port, start, divided_length, (char*)buffer, abar);
+	if (divided_length < 16) {
+		return ahci_write(port, start, divided_length, (char*)buffer, abar);
+	}
+	while (divided_length > 0) {
+		bool r = ahci_write(port, start, divided_length, (char*)buffer, abar);
+		start += divided_length > 16 ? 16 : divided_length;
+		buffer += divided_length > 16 ? 16 * sd->block_size : divided_length * sd->block_size;
+		divided_length -= divided_length > 16 ? 16 : divided_length;
+		if (!r) {
+			return false;
+		}
+	}
+	return true;
 }
 
 void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
@@ -205,7 +229,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	for (i=0; i<cmdheader->prdtl-1; i++) {
 		cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
 		cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
-		cmdtbl->prdt_entry[i].dbc = 8*1024-1;	// 8K bytes (this value should always be set to 1 less than the actual value)
+		cmdtbl->prdt_entry[i].dbc = 8 * 1024 - 1;	// 8K bytes (this value should always be set to 1 less than the actual value)
 		cmdtbl->prdt_entry[i].i = 1;
 		buf += 4*1024;	// 4K words
 		count -= 16;	// 16 sectors
@@ -213,8 +237,10 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	// Last entry
 	cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
 	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbc = (count<<9)-1;	// 512 bytes per sector
+	cmdtbl->prdt_entry[i].dbc = count * 512 - 1;	// 512 bytes per sector
 	cmdtbl->prdt_entry[i].i = 1;
+
+	//dprintf("cmdheader->prdtl = %d i = %d\n", cmdheader->prdtl, i);
 
 	// Setup command
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
