@@ -205,6 +205,10 @@ int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar)
 	return -1;
 }
  
+/*
+ * FIXME: ahci_read can't cope with more than 16 sectors at a time right now. Something is up with the prdtl. or prdt entries.
+ * For now there is a workaround for this in the block read/write driver functions, but we need to fix this as it slows things down.
+ */
 bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar)
 {
 	uint32_t startl = (start & 0xFFFFFFFF);
