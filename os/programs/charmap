@@ -1,4 +1,4 @@
-10 FOR C = &21 TO &7F
+10 FOR C = &21 TO &7E
 20 PRINT ~C; ": "; CHR$(C); " ";
 30 IF C % 8 = 0 THEN PRINT ""
 40 NEXT

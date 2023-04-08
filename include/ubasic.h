@@ -22,59 +22,51 @@
 #define MAX_GOSUB_STACK_DEPTH 255
 #define MAX_FOR_STACK_DEPTH 50
 
-typedef struct for_state
-{
+typedef struct for_state {
         int64_t line_after_for;
         char* for_variable;
         int64_t to;
         int64_t step;
 } for_state;
 
-typedef struct ub_var_int
-{
+typedef struct ub_var_int {
 	char* varname;
 	int64_t value;
 	bool global;
 	struct ub_var_int* next;
 } ub_var_int;
 
-typedef struct ub_var_double
-{
+typedef struct ub_var_double {
 	char* varname;
 	double value;
 	bool global;
 	struct ub_var_double* next;
 } ub_var_double;
 
-typedef struct ub_var_string
-{
+typedef struct ub_var_string {
 	char* varname; /* Not including the $ on the end! */
 	char* value;
 	bool global;
 	struct ub_var_string* next;
 } ub_var_string;
 
-typedef enum ub_fn_type
-{
+typedef enum ub_fn_type {
 	FT_FN,
 	FT_PROC
 } ub_fn_type;
 
-typedef enum ub_return_type
-{
+typedef enum ub_return_type {
 	RT_STRING,
 	RT_INT,
 	RT_FLOAT,
 } ub_return_type;
 
-typedef struct ub_param
-{
+typedef struct ub_param {
 	char* name;
 	struct ub_param* next;
 } ub_param;
 
-typedef struct ub_proc_fn_def
-{
+typedef struct ub_proc_fn_def {
 	char* name;
 	ub_fn_type type;
 	int64_t line;
@@ -82,26 +74,30 @@ typedef struct ub_proc_fn_def
 	struct ub_proc_fn_def* next;
 } ub_proc_fn_def;
 
-typedef struct ub_var_int_array
-{
+typedef struct ub_var_int_array {
 	char* varname;
 	struct ub_var_int* values;
 	uint64_t itemcount;
 } ub_var_int_array;
 
-typedef struct ub_var_string_array
-{
+typedef struct ub_var_string_array {
 	char* varname;
 	struct ub_var_string* values;
 	uint64_t itemcount;
 } ub_var_string_array;
 
-typedef struct ub_var_double_array
-{
+typedef struct ub_var_double_array {
 	char* varname;
 	struct ub_var_double* values;
 	uint64_t itemcount;
 } ub_var_double_array;
+
+typedef struct ub_line_ref {
+	uint32_t line_number;
+	const char* ptr;
+	struct ub_line_ref* prev;
+	struct ub_line_ref* next;
+} ub_line_ref;
 
 typedef struct ubasic_ctx
 {
@@ -112,7 +108,7 @@ typedef struct ubasic_ctx
 	int errored;
         char *program_ptr;
         char string[MAX_STRINGLEN];
-        int gosub_stack[MAX_GOSUB_STACK_DEPTH];
+        uint64_t gosub_stack[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_int* local_int_variables[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_string* local_string_variables[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_double* local_double_variables[MAX_GOSUB_STACK_DEPTH];
@@ -134,7 +130,9 @@ typedef struct ubasic_ctx
 	int bracket_depth;
 	char const* item_begin;
 	struct ub_param* param;
-	int32_t graphics_colour;
+	int32_t graphics_colour;	// Current GCOL
+	ub_line_ref* lines;		// Doubly linked list of line numbers to char pointers
+	ub_line_ref* line_tail;		// Pointer to last element of line list
 } ubasic_ctx;
 
 
@@ -195,3 +193,30 @@ void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx
 
 ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res);
 int ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);
+
+int64_t expr(struct ubasic_ctx* ctx);
+void double_expr(struct ubasic_ctx* ctx, double* res);
+void line_statement(struct ubasic_ctx* ctx);
+void statement(struct ubasic_ctx* ctx);
+const char* str_expr(struct ubasic_ctx* ctx);
+const char* str_varfactor(struct ubasic_ctx* ctx);
+void ubasic_parse_fn(struct ubasic_ctx* ctx);
+int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
+int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
+char* ubasic_getprocname(struct ubasic_ctx* ctx);
+char* ubasic_dns(struct ubasic_ctx* ctx);
+int64_t ubasic_rgb(struct ubasic_ctx* ctx);
+void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res);
+const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx);
+void ubasic_sin(struct ubasic_ctx* ctx, double* res);
+void ubasic_cos(struct ubasic_ctx* ctx, double* res);
+void ubasic_tan(struct ubasic_ctx* ctx, double* res);
+void ubasic_pow(struct ubasic_ctx* ctx, double* res);
+
+int str_relation(struct ubasic_ctx* ctx);
+int relation(struct ubasic_ctx* ctx);
+int64_t expr(struct ubasic_ctx* ctx);
+const char* str_expr(struct ubasic_ctx* ctx);
+void double_expr(struct ubasic_ctx* ctx, double* res);
+
+void accept(int token, struct ubasic_ctx* ctx);

@@ -16,12 +16,18 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 	//dump_hex(locks, 256 * 4);
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
 	if (fsi != NULL) {
-		unsigned char* programtext = (unsigned char*)kmalloc(fsi->size + 1);
+		unsigned char* programtext = kmalloc(fsi->size + 1);
 		*(programtext + fsi->size) = 0;
 		if (fs_read_file(fsi, 0, fsi->size, programtext)) {
 			//kprintf("program len = %d size = %d cpu=%d\n", strlen(programtext), fsi->size, nextcpu);
-			struct process* newproc = (struct process*)kmalloc(sizeof(struct process));
+			struct process* newproc = kmalloc(sizeof(struct process));
 			newproc->code = ubasic_init((const char*)programtext, (console*)cons, nextid, fullpath);
+			if (!newproc->code) {
+				kfree(newproc);
+				kfree(programtext);
+				kprintf("Fatal error parsing BASIC program\n");
+				return NULL;
+			}
 			newproc->waitpid = 0;
 			newproc->name = strdup(fsi->filename);
 			newproc->pid = nextid++;
@@ -254,7 +260,7 @@ void proc_init()
 {
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);
 	if (!init) {
-		preboot_fail("/programs/init missing!\n");
+		preboot_fail("/programs/init missing or invalid!\n");
 	}
 	proc_loop();
 }

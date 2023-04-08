@@ -29,25 +29,6 @@
 
 #include <kernel.h>
 
-static int64_t expr(struct ubasic_ctx* ctx);
-static void double_expr(struct ubasic_ctx* ctx, double* res);
-static void line_statement(struct ubasic_ctx* ctx);
-static void statement(struct ubasic_ctx* ctx);
-static const char* str_expr(struct ubasic_ctx* ctx);
-const char* str_varfactor(struct ubasic_ctx* ctx);
-void ubasic_parse_fn(struct ubasic_ctx* ctx);
-int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
-int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
-char* ubasic_getprocname(struct ubasic_ctx* ctx);
-char* ubasic_dns(struct ubasic_ctx* ctx);
-int64_t ubasic_rgb(struct ubasic_ctx* ctx);
-void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res);
-const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx);
-void ubasic_sin(struct ubasic_ctx* ctx, double* res);
-void ubasic_cos(struct ubasic_ctx* ctx, double* res);
-void ubasic_tan(struct ubasic_ctx* ctx, double* res);
-void ubasic_pow(struct ubasic_ctx* ctx, double* res);
-
 struct ubasic_int_fn builtin_int[] =
 {
 	{ ubasic_abs, "ABS" },
@@ -171,6 +152,42 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 
 	set_system_variables(ctx, pid);
 	ubasic_set_string_variable("PROGRAM$", file, ctx, false, false);
+
+	/* Build doubly linked list of line number references */
+	ctx->lines = NULL;
+	ctx->line_tail = NULL;
+	uint32_t last_line = 0xFFFFFFFF;
+	while (!tokenizer_finished(ctx)) {
+		uint32_t line = tokenizer_num(ctx, TOKENIZER_NUMBER);
+		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
+			dprintf("Misordered lines in BASIC program, %d <= %d\n", line, last_line);
+			ubasic_destroy(ctx);
+			return NULL;
+		}
+		last_line = line;
+		ub_line_ref* lr = kmalloc(sizeof(ub_line_ref));
+		lr->line_number = line;
+		lr->ptr = ctx->ptr;
+		lr->prev = ctx->line_tail;
+		lr->next = NULL;
+		if (ctx->lines == NULL) {
+			ctx->lines = lr;
+		} else {
+			ctx->line_tail->next = lr;
+		}
+		ctx->line_tail = lr;
+		do {
+			do {
+				tokenizer_next(ctx);
+			}
+			while (tokenizer_token(ctx) != TOKENIZER_CR && !tokenizer_finished(ctx));
+			if (tokenizer_token(ctx) == TOKENIZER_CR) {
+				tokenizer_next(ctx);
+			}
+		}
+		while(tokenizer_token(ctx) != TOKENIZER_NUMBER && !tokenizer_finished(ctx));
+	}
+	tokenizer_init(ctx->program_ptr, ctx);
 
 	return ctx;
 }
@@ -362,23 +379,49 @@ struct ub_proc_fn_def* ubasic_find_fn(const char* name, struct ubasic_ctx* ctx)
 
 void ubasic_destroy(struct ubasic_ctx* ctx)
 {
-	for (; ctx->int_variables; ctx->int_variables = ctx->int_variables->next)
-	{
+	for (; ctx->int_variables; ctx->int_variables = ctx->int_variables->next) {
 		kfree(ctx->int_variables->varname);
 		kfree(ctx->int_variables);
 	}
-	for (; ctx->str_variables; ctx->str_variables = ctx->str_variables->next)
-	{
+	for (; ctx->double_variables; ctx->double_variables = ctx->double_variables->next) {
+		kfree(ctx->double_variables->varname);
+		kfree(ctx->double_variables);
+	}
+	for (; ctx->str_variables; ctx->str_variables = ctx->str_variables->next) {
 		kfree(ctx->str_variables->varname);
 		kfree(ctx->str_variables->value);
 		kfree(ctx->str_variables);
+	}
+	for (size_t x = 0; x < ctx->gosub_stack_ptr; x++) {
+		for (; ctx->local_int_variables[x]; ctx->local_int_variables[x] = ctx->local_int_variables[x]->next) {
+			kfree(ctx->local_int_variables[x]->varname);
+			kfree(ctx->local_int_variables[x]);
+		}
+		for (; ctx->local_double_variables[x]; ctx->local_double_variables[x] = ctx->local_double_variables[x]->next) {
+			kfree(ctx->local_double_variables[x]->varname);
+			kfree(ctx->local_double_variables[x]);
+		}
+		for (; ctx->local_string_variables[x]; ctx->local_string_variables[x] = ctx->local_string_variables[x]->next) {
+			kfree(ctx->local_string_variables[x]->varname);
+			kfree(ctx->local_string_variables[x]->value);
+			kfree(ctx->local_string_variables[x]);
+		}
+	}
+	for (; ctx->lines; ctx->lines = ctx->lines->next) {
+		kfree(ctx->lines);
+	}
+	for (; ctx->defs; ctx->defs = ctx->defs->next) {
+		kfree(ctx->defs->name);
+		for (; ctx->defs->params; ctx->defs->params = ctx->defs->params->next) {
+			kfree(ctx->defs->params->name);
+			kfree(ctx->defs->params);
+		}
 	}
 	kfree((char*)ctx->program_ptr);
 	kfree(ctx);
 }
 
-/*---------------------------------------------------------------------------*/
-static void accept(int token, struct ubasic_ctx* ctx)
+void accept(int token, struct ubasic_ctx* ctx)
 {
 	char err[MAX_STRINGLEN];
 	sprintf(err, "Expected %s got %s", types[token], types[tokenizer_token(ctx)]);
@@ -388,405 +431,15 @@ static void accept(int token, struct ubasic_ctx* ctx)
 	}
 	tokenizer_next(ctx);
 }
-/*---------------------------------------------------------------------------*/
-static int64_t varfactor(struct ubasic_ctx* ctx)
-{
-	int64_t r = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	// Special case for builin functions
-	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
-		tokenizer_error_print(ctx, "Too many parameters for builtin function");
-	else
-	{
-		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
-			accept(TOKENIZER_RIGHTPAREN, ctx);
-		else
-			accept(TOKENIZER_VARIABLE, ctx);
-	}
-	return r;
-}
 
-static void double_varfactor(struct ubasic_ctx* ctx, double* res)
-{
-	double r;
-
-	ubasic_get_numeric_variable(tokenizer_variable_name(ctx), ctx, &r);
-
-	//dprintf("double_varfactor\n");
-
-	// Special case for builin functions
-	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
-		tokenizer_error_print(ctx, "Too many parameters for builtin function");
-	else
-	{
-		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
-			accept(TOKENIZER_RIGHTPAREN, ctx);
-		else
-			accept(TOKENIZER_VARIABLE, ctx);
-	}
-	*res = r;
-}
-
-const char* str_varfactor(struct ubasic_ctx* ctx)
-{
-	const char* r;
-	if (*ctx->ptr == '"')
-	{
-		if (!tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
-			return "";
-		}
-		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
-			accept(TOKENIZER_RIGHTPAREN, ctx);
-		else
-			accept(TOKENIZER_STRING, ctx);
-		return ctx->string;
-	}
-	else
-	{
-		r = ubasic_get_string_variable(tokenizer_variable_name(ctx), ctx);
-		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
-			accept(TOKENIZER_RIGHTPAREN, ctx);
-		else
-			accept(TOKENIZER_VARIABLE, ctx);
-	}
-	return r;
-}
-
-/*---------------------------------------------------------------------------*/
-static int64_t factor(struct ubasic_ctx* ctx)
-{
-	int64_t r = 0;
-
-	int tok = tokenizer_token(ctx);
-	switch (tok) {
-		case TOKENIZER_NUMBER:
-		case TOKENIZER_HEXNUMBER:
-			r = tokenizer_num(ctx, tok);
-			accept(tok, ctx);
-		break;
-		case TOKENIZER_LEFTPAREN:
-			accept(TOKENIZER_LEFTPAREN, ctx);
-			r = expr(ctx);
-			accept(TOKENIZER_RIGHTPAREN, ctx);
-		break;
-		default:
-			r = varfactor(ctx);
-		break;
-	}
-	return r;
-}
-
-static void double_factor(struct ubasic_ctx* ctx, double* res)
-{
-	//char buffer[50];
-
-	int tok = tokenizer_token(ctx);
-	switch (tok) {
-		case TOKENIZER_NUMBER:
-			//dprintf("double_factor TOKENIZER_NUMBER\n");
-			tokenizer_fnum(ctx, tok, res);
-			//dprintf("double_factor fnum->r=%s\n", double_to_string(*res, buffer, 50, 0));
-			accept(tok, ctx);
-		break;
-		case TOKENIZER_LEFTPAREN:
-			//dprintf("double_factor TOKENIZER_LEFTPAREN\n");
-			accept(TOKENIZER_LEFTPAREN, ctx);
-			double_expr(ctx, res);
-			//dprintf("double_factor expr->r=%s\n", double_to_string(*res, buffer, 50, 0));
-			accept(TOKENIZER_RIGHTPAREN, ctx);
-		break;
-		default:
-			//dprintf("double_factor default\n");
-			double_varfactor(ctx, res);
-			//dprintf("double_factor varfactor->r=%s\n", double_to_string(*res, buffer, 50, 0));
-		break;
-	}
-	//dprintf("double_factor end, r=%s\n", double_to_string(*res, buffer, 50, 0));
-}
-
-static const char* str_factor(struct ubasic_ctx* ctx)
-{
-	const char* r;
-
-	switch(tokenizer_token(ctx))
-	{
-		case TOKENIZER_LEFTPAREN:
-			accept(TOKENIZER_LEFTPAREN, ctx);
-			r = str_expr(ctx);
-			accept(TOKENIZER_RIGHTPAREN, ctx);
-		break;
-		default:
-			r = str_varfactor(ctx);
-		break;
-	}
-
-	return r;
-}
-
-/*---------------------------------------------------------------------------*/
-static int64_t term(struct ubasic_ctx* ctx)
-{
-	int64_t f1, f2;
-	int op;
-
-	f1 = factor(ctx);
-	//kprintf("Factor is %d\n", f1);
-	op = tokenizer_token(ctx);
-	while (op == TOKENIZER_ASTR || op == TOKENIZER_SLASH || op == TOKENIZER_MOD)
-	{
-		tokenizer_next(ctx);
-		f2 = factor(ctx);
-		switch (op)
-		{
-			case TOKENIZER_ASTR:
-				f1 = f1 * f2;
-			break;
-			case TOKENIZER_SLASH:
-				if (f2 == 0) {
-					tokenizer_error_print(ctx, "Division by zero");
-				} else {
-					f1 = f1 / f2;
-				}
-			break;
-			case TOKENIZER_MOD:
-				f1 = f1 % f2;
-			break;
-		}
-		op = tokenizer_token(ctx);
-	}
-	return f1;
-}
-
-static void double_term(struct ubasic_ctx* ctx, double* res)
-{
-	double f1, f2;
-	int op;
-	//char buffer[50];
-
-	//dprintf("double_term first double_factor call\n");
-	double_factor(ctx, &f1);
-	//dprintf("double_term f1=%s\n", double_to_string(f1, buffer, 50, 0));
-
-	op = tokenizer_token(ctx);
-	//dprintf("first op=%d %s\n", op, types[op]);
-	while (op == TOKENIZER_ASTR || op == TOKENIZER_SLASH || op == TOKENIZER_MOD)
-	{
-		tokenizer_next(ctx);
-		//dprintf("double_term second double_factor call\n");
-		double_factor(ctx, &f2);
-		//dprintf("double_term f2=%s\n", double_to_string(f2, buffer, 50, 0));
-		switch (op)
-		{
-			case TOKENIZER_ASTR:
-				f1 = f1 * f2;
-			break;
-			case TOKENIZER_SLASH:
-				if (f2 == 0.0) {
-					tokenizer_error_print(ctx, "Division by zero");
-					*res = 0.0;
-				} else {
-					f1 = f1 / f2;
-				}
-			break;
-			case TOKENIZER_MOD:
-				f1 = (int64_t)f1 % (int64_t)f2;
-			break;
-		}
-		op = tokenizer_token(ctx);
-	}
-	//dprintf("final op=%d %s\n", op, types[op]);
-	//dprintf("double_term returning %s\n", double_to_string(f1, buffer, 50, 0));
-	*res = f1;
-}
-
-/*---------------------------------------------------------------------------*/
-static int64_t expr(struct ubasic_ctx* ctx)
-{
-	int64_t t1, t2;
-	int op;
-
-	t1 = term(ctx);
-	op = tokenizer_token(ctx);
-
-	while (op == TOKENIZER_PLUS || op == TOKENIZER_MINUS || op == TOKENIZER_AND || op == TOKENIZER_OR)
-	{
-		tokenizer_next(ctx);
-		t2 = term(ctx);
-		switch (op)
-		{
-			case TOKENIZER_PLUS:
-				t1 = t1 + t2;
-			break;
-			case TOKENIZER_MINUS:
-				t1 = t1 - t2;
-			break;
-			case TOKENIZER_AND:
-				t1 = t1 & t2;
-			break;
-			case TOKENIZER_OR:
-				t1 = t1 | t2;
-			break;
-		}
-		op = tokenizer_token(ctx);
-	}
-	return t1;
-}
-
-static void double_expr(struct ubasic_ctx* ctx, double* res)
-{
-	double t1, t2;
-	int op;
-
-	//dprintf("double_expr()\n");
-
-	double_term(ctx, &t1);
-	op = tokenizer_token(ctx);
-	//dprintf("double_expr before type, type is %d %s\n", op, types[op]);
-
-	while (op == TOKENIZER_PLUS || op == TOKENIZER_MINUS || op == TOKENIZER_AND || op == TOKENIZER_OR) {
-		//dprintf("double_expr after type, type is %d %s\n", op, types[op]);
-		tokenizer_next(ctx);
-		//dprintf("double_expr call 2nd double_term\n");
-		double_term(ctx, &t2);
-		switch (op) {
-			case TOKENIZER_PLUS:
-				//dprintf("tokenizer plus\n");
-				t1 = t1 + t2;
-			break;
-			case TOKENIZER_MINUS:
-				//dprintf("tokenizer minus\n");
-				t1 = t1 - t2;
-			break;
-			case TOKENIZER_AND:
-				//dprintf("tokenizer and\n");
-				t1 = (int64_t)t1 & (int64_t)t2;
-			break;
-			case TOKENIZER_OR:
-				//dprintf("tokenizer or\n");
-				t1 = (int64_t)t1 | (int64_t)t2;
-			break;
-		}
-		op = tokenizer_token(ctx);
-	}
-	//dprintf("double_expr done\n");
-	*res = t1;
-}
-
-
-static const char* str_expr(struct ubasic_ctx* ctx)
-{
-	char* t1;
-	char* t2;
-	char tmp[1024];
-	int op;
-
-	t1 = (char*)str_factor(ctx);
-	op = tokenizer_token(ctx);
-
-	strlcpy(tmp, t1, 1024);
-	
-	while (op == TOKENIZER_PLUS)
-	{
-		tokenizer_next(ctx);
-		t2 = (char*)str_factor(ctx);
-		switch (op)
-		{
-			case TOKENIZER_PLUS:
-				strlcat(tmp, t2, 1024);
-			break;
-		}
-		op = tokenizer_token(ctx);
-	}
-	return gc_strdup(tmp);
-}
-/*---------------------------------------------------------------------------*/
-static int relation(struct ubasic_ctx* ctx)
-{
-	int r1, r2;
-	int op;
-
-	r1 = expr(ctx);
-	op = tokenizer_token(ctx);
-
-	while (op == TOKENIZER_LT || op == TOKENIZER_GT || op == TOKENIZER_EQ)
-	{
-		tokenizer_next(ctx);
-		r2 = expr(ctx);
-
-		switch (op)
-		{
-			case TOKENIZER_LT:
-				r1 = r1 < r2;
-			break;
-			case TOKENIZER_GT:
-				r1 = r1 > r2;
-			break;
-			case TOKENIZER_EQ:
-				r1 = r1 == r2;
-			break;
-		}
-
-		op = tokenizer_token(ctx);
-	}
-
-	return r1;
-}
-
-static int str_relation(struct ubasic_ctx* ctx)
-{
-	int op, r;
-
-	const char* r1 = str_expr(ctx);
-	op = tokenizer_token(ctx);
-
-	while (op == TOKENIZER_LT || op == TOKENIZER_GT || op == TOKENIZER_EQ)
-	{
-		tokenizer_next(ctx);
-		const char* r2 = str_expr(ctx);
-
-		switch (op)
-		{
-			case TOKENIZER_LT:
-				r = (strcmp(r1, r2) < 0);
-			break;
-			case TOKENIZER_GT:
-				r = (strcmp(r1, r2) > 0);
-			break;
-			case TOKENIZER_EQ:
-				r = (strcmp(r1, r2) == 0);
-			break;
-		}
-
-		op = tokenizer_token(ctx);
-	}
-
-	return r;
-}
-
-
-/*---------------------------------------------------------------------------*/
 void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 {
-	tokenizer_init(ctx->program_ptr, ctx);
-
-	while (tokenizer_num(ctx, TOKENIZER_NUMBER) != linenum && !tokenizer_finished(ctx)) {
-		if (tokenizer_num(ctx, TOKENIZER_NUMBER) > linenum) {
-			/* If the line we just found is greater than the one we are searching for, we can bail early */
-			tokenizer_error_print(ctx, "No such line");
+	for(ub_line_ref* lr = ctx->lines; lr; lr = lr->next) {
+		if (lr->line_number == linenum) {
+			ctx->ptr = lr->ptr;
+			ctx->current_token = get_next_token(ctx);
 			return;
-		}
-		do {
-			do {
-				tokenizer_next(ctx);
-			}
-			while (tokenizer_token(ctx) != TOKENIZER_CR && !tokenizer_finished(ctx));
-
-			if (tokenizer_token(ctx) == TOKENIZER_CR) {
-				tokenizer_next(ctx);
-			}
-		}
-		while(tokenizer_token(ctx) != TOKENIZER_NUMBER && !tokenizer_finished(ctx));
-
-		if (tokenizer_finished(ctx)) {
+		} else if (lr->line_number > linenum) {
 			tokenizer_error_print(ctx, "No such line");
 			return;
 		}
@@ -972,6 +625,10 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	const char* pn = str_expr(ctx);
 	//kprintf("Chaining '%s'\n", pn);
 	struct process* p = proc_load(pn, ctx->cons);
+	if (p == NULL) {
+		accept(TOKENIZER_CR, ctx);
+		return;
+	}
 	struct ubasic_ctx* new_proc = p->code;
 	struct ub_var_int* cur_int = ctx->int_variables;
 	struct ub_var_string* cur_str = ctx->str_variables;
@@ -1022,19 +679,46 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		if (last > 13) {
 			strlcat(ctx->program_ptr, "\n", ctx->oldlen + 5000);
 		}
+		const char* line_9998 = (ctx->program_ptr + strlen(ctx->program_ptr));
 		strlcat(ctx->program_ptr, "9998 ", ctx->oldlen + 5000);
 		strlcat(ctx->program_ptr, clean_v, ctx->oldlen + 5000);
+		const char* line_9999 = (ctx->program_ptr + strlen(ctx->program_ptr) + 1);
 		strlcat(ctx->program_ptr, "\n9999 RETURN\n", ctx->oldlen + 5000);
+
+		ub_line_ref* lr = kmalloc(sizeof(ub_line_ref));
+		lr->line_number = 9998;
+		lr->ptr = line_9998;
+		lr->prev = ctx->line_tail;
+		lr->next = NULL;
+		ctx->line_tail->next = lr;
+		ctx->line_tail = lr;
+		lr = kmalloc(sizeof(ub_line_ref));
+		lr->line_number = 9999;
+		lr->ptr = line_9999;
+		lr->prev = ctx->line_tail;
+		lr->next = NULL;
+		ctx->line_tail->next = lr;
+		ctx->line_tail = lr;
 
 		ctx->eval_linenum = ctx->current_linenum;
 		ctx->gosub_stack[ctx->gosub_stack_ptr++] = ctx->current_linenum;
 
 		jump_linenum(9998, ctx);
 	} else {
-		//dprintf("Back to eval line %d\n", ctx->current_linenum);
 		ctx->program_ptr[ctx->oldlen] = 0;
 		ctx->oldlen = 0;
 		ctx->eval_linenum = 0;
+		/* Delete references to the eval lines */
+		for (int64_t line = 9999; line >= 9998; --line) {
+			ub_line_ref* lr = ctx->line_tail;
+			if (lr->line_number != line) {
+				ctx->eval_linenum = 0;
+				tokenizer_error_print(ctx, "Unable to unwind EVAL");
+				return;
+			}
+			ctx->line_tail = lr->prev;
+			kfree(lr);
+		}
 	}
 }
 
@@ -1367,7 +1051,7 @@ static void next_statement(struct ubasic_ctx* ctx)
 			//kprintf("incr is %d\n", incr);
 			ubasic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
 
-			if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) {
+			if (incr <= ctx->for_stack[ctx->for_stack_ptr - 1].to) {
 				jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
 			} else {
 				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
@@ -1446,7 +1130,7 @@ static void eq_statement(struct ubasic_ctx* ctx)
 }
 
 /*---------------------------------------------------------------------------*/
-static void statement(struct ubasic_ctx* ctx)
+void statement(struct ubasic_ctx* ctx)
 {
 	int token = tokenizer_token(ctx);
 
@@ -1561,7 +1245,7 @@ static void statement(struct ubasic_ctx* ctx)
 	}
 }
 /*---------------------------------------------------------------------------*/
-static void line_statement(struct ubasic_ctx* ctx)
+void line_statement(struct ubasic_ctx* ctx)
 {
 	ctx->current_linenum = tokenizer_num(ctx, TOKENIZER_NUMBER);
 	accept(TOKENIZER_NUMBER, ctx);
