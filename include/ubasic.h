@@ -185,7 +185,7 @@ int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
 void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
-void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
+bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global);
 void ubasic_set_double_variable(const char* var, const double value, struct ubasic_ctx* ctx, bool local, bool global);
 void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);

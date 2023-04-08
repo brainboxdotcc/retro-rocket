@@ -441,18 +441,20 @@ void accept(int token, struct ubasic_ctx* ctx)
 	tokenizer_next(ctx);
 }
 
-void jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
+bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 {
 	for(ub_line_ref* lr = ctx->lines; lr; lr = lr->next) {
 		if (lr->line_number == linenum) {
 			ctx->ptr = lr->ptr;
 			ctx->current_token = get_next_token(ctx);
-			return;
+			return true;
 		} else if (lr->line_number > linenum) {
 			tokenizer_error_print(ctx, "No such line");
-			return;
+			return false;
 		}
 	}
+	tokenizer_error_print(ctx, "No such line");
+	return false;
 }
 /*---------------------------------------------------------------------------*/
 static void goto_statement(struct ubasic_ctx* ctx)
@@ -801,9 +803,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 		kfreeinput((console*)ctx->cons);
 
 		accept(TOKENIZER_CR, ctx);
-	}
-	else
-	{
+	} else {
 		jump_linenum(ctx->current_linenum, ctx);
 	}
 }
@@ -1026,14 +1026,11 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	accept(TOKENIZER_NUMBER, ctx);
 	accept(TOKENIZER_CR, ctx);
 
-	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH)
-	{
+	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
 		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, TOKENIZER_NUMBER);
 		ctx->gosub_stack_ptr++;
 		jump_linenum(linenum, ctx);
-	}
-	else
-	{
+	} else {
 		tokenizer_error_print(ctx, "gosub_statement: gosub stack exhausted");
 	}
 }
@@ -1273,8 +1270,9 @@ void ubasic_run(struct ubasic_ctx* ctx)
 		ctx->errored = false;
 		if (ctx->gosub_stack_ptr > 0) {
 			ctx->gosub_stack_ptr--;
-			jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
-			line_statement(ctx);
+			if (jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx)) {
+				line_statement(ctx);
+			}
 		}
 	}
 	gc();
