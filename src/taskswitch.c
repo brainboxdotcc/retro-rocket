@@ -26,7 +26,7 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			if (!newproc->code) {
 				kfree(newproc);
 				kfree(programtext);
-				kprintf("Fatal error parsing BASIC program: %s\n", error);
+				kprintf("Fatal error parsing program: %s\n", error);
 				return NULL;
 			}
 			newproc->waitpid = 0;
