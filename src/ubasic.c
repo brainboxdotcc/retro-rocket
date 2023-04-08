@@ -1717,8 +1717,7 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	fs_directory_entry_t* fsl = fs_get_items(strval);
 	int count = 0;
-	while (fsl)
-	{
+	while (fsl) {
 		fsl = fsl->next;
 		count++;
 	}

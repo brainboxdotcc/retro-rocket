@@ -103,7 +103,7 @@ const char* init_ramdisk_from_storage(const char* storage)
 	if (!sd_src || !sd_dst) {
 		return NULL;
 	}
-	uint32_t blocks = 8;
+	uint32_t blocks = 16;
 	uint32_t buffer_size = sd_src->block_size * blocks;
 	uint8_t* buffer = kmalloc(buffer_size);
 	uint32_t blocks_left = sd_src->size;

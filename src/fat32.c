@@ -89,17 +89,22 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 					break;
 
 				if (name[0] != '.') {
+
+					dprintf("Entry: %s\n", name);
+
 					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && info->volume_name == NULL) {
 						info->volume_name = strdup(dotless);
 					} else {
 
 						if (entry->attr == ATTR_LONG_NAME) {
+							dprintf("Long name\n");
 							lfn_t* lfn = (lfn_t*)entry;
 							memcpy(&lfns[lfn->order], (lfn_t*)entry, sizeof(lfn_t));
 							if (lfn->order > highest_lfn_order) {
 								highest_lfn_order = lfn->order;
 							}
 						} else {
+							dprintf("Short name\n");
 							fs_directory_entry_t* file = kmalloc(sizeof(fs_directory_entry_t));
 							if (highest_lfn_order > -1) {
 								char longname[14 * (highest_lfn_order + 1)];

@@ -28,7 +28,7 @@ void kmain()
 	if (rd) {
 		filesystem_mount("/harddisk", rd, "fat32");
 	}
-	filesystem_mount("/harddisk2", "hd0", "fat32");
+	//filesystem_mount("/harddisk2", "hd0", "fat32");
 
 	init_debug();
 	rtl8139_init();
