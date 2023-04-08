@@ -114,9 +114,13 @@ void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
 }
 
 /*---------------------------------------------------------------------------*/
-struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file)
+struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
 {
 	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
+	if (ctx == NULL) {
+		*error = "Out of memory";
+		return NULL;
+	}
 	int i;
 
 	ctx->errored = false;
@@ -136,6 +140,11 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the program on lines 9998 and 9999.
 	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
+	if (ctx->program_ptr == NULL) {
+		kfree(ctx);
+		*error = "Out of memory";
+		return NULL;
+	}
 
 	// Clean extra whitespace from the program
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
@@ -160,7 +169,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	while (!tokenizer_finished(ctx)) {
 		uint32_t line = tokenizer_num(ctx, TOKENIZER_NUMBER);
 		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
-			dprintf("Misordered lines in BASIC program, %d <= %d\n", line, last_line);
+			*error = "Misordered lines in BASIC program";
 			ubasic_destroy(ctx);
 			return NULL;
 		}

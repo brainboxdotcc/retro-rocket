@@ -9,9 +9,9 @@
 90 PRINT "script!"
 100 PRINT "Variables test: ";
 110 PRINT foobar + bazqux - 1, 89, mystring$ + " extra"
-115 ZVAR = FNfoo(90)
-116 PRINT "ZVAR contains ", ZVAR
-160 END
-170 DEF FN foo(A)
-180 PRINT "function called with ", A
-190 =69
+120 ZVAR = FNfoo(90)
+130 PRINT "ZVAR contains ", ZVAR
+140 END
+150 DEF FN foo(A)
+160 PRINT "function called with ", A
+170 =69

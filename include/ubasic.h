@@ -177,7 +177,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx);
 char* ubasic_readstring(struct ubasic_ctx* ctx);
 char* ubasic_getname(struct ubasic_ctx* ctx);
 
-struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file);
+struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
 int ubasic_finished(struct ubasic_ctx* ctx);

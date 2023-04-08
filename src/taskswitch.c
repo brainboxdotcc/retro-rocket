@@ -21,11 +21,12 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 		if (fs_read_file(fsi, 0, fsi->size, programtext)) {
 			//kprintf("program len = %d size = %d cpu=%d\n", strlen(programtext), fsi->size, nextcpu);
 			struct process* newproc = kmalloc(sizeof(struct process));
-			newproc->code = ubasic_init((const char*)programtext, (console*)cons, nextid, fullpath);
+			char* error = "Unknown error";
+			newproc->code = ubasic_init((const char*)programtext, (console*)cons, nextid, fullpath, &error);
 			if (!newproc->code) {
 				kfree(newproc);
 				kfree(programtext);
-				kprintf("Fatal error parsing BASIC program\n");
+				kprintf("Fatal error parsing BASIC program: %s\n", error);
 				return NULL;
 			}
 			newproc->waitpid = 0;
