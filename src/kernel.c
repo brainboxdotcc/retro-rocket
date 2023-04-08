@@ -24,7 +24,11 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 	filesystem_mount("/devices", NULL, "devfs");
-	filesystem_mount("/harddisk", "hd0", "fat32");
+	const char* rd = init_ramdisk_from_storage("hd0");
+	if (rd) {
+		filesystem_mount("/harddisk", rd, "fat32");
+	}
+	filesystem_mount("/harddisk2", "hd0", "fat32");
 
 	init_debug();
 	rtl8139_init();

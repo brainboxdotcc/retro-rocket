@@ -290,9 +290,9 @@ ip_packet_frag_t* frag_list_insert(ip_packet_frag_t *insert, ip_packet_frag_t *l
  * @return int 0 for equal, -1 for less than, 1 for greater than; like strcmp()
  */
 int ip_frag_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
-    const ip_fragmented_packet_parts_t* fa = a;
-    const ip_fragmented_packet_parts_t* fb = b;
-    return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);
+	const ip_fragmented_packet_parts_t* fa = a;
+	const ip_fragmented_packet_parts_t* fb = b;
+	return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);
 }
 
 /**
@@ -304,8 +304,8 @@ int ip_frag_compare(const void *a, const void *b, [[maybe_unused]] void *udata) 
  * @return uint64_t hash bucket value
  */
 uint64_t ip_frag_hash(const void *item, uint64_t seed0, uint64_t seed1) {
-    const ip_fragmented_packet_parts_t* frag_parts = item;
-    return (uint64_t)frag_parts->id * seed0 * seed1;
+	const ip_fragmented_packet_parts_t* frag_parts = item;
+	return (uint64_t)frag_parts->id * seed0 * seed1;
 }
 
 /**

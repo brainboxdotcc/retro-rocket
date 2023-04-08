@@ -28,6 +28,7 @@
 #include "ata.h"
 #include "filesystem.h"
 #include "partition.h"
+#include "ramdisk.h"
 #include "iso9660.h"
 #include "devfs.h"
 #include "fat32.h"
