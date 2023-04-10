@@ -1,19 +1,11 @@
 #include <kernel.h>
 #include <limine-requests.h>
-
-init_func_t init[] = {
-	init_console, init_heap, init_cores, init_idt, init_error_handler, init_pci,
-	init_realtime_clock, init_lapic_timer, init_devicenames, init_keyboard, init_ide,
-	init_ahci, init_filesystem, init_iso9660, init_devfs, init_fat32,
-	NULL,
-};
+#include <initialisation-functions.h>
 
 void kmain()
 {
-	for (init_func_t* func = init; *func; ++func) {
-		(*func)();
-	}
-
+	init();
+	
 	if (!filesystem_mount("/", "cd0", "iso9660")) {
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
