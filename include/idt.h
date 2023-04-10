@@ -22,7 +22,7 @@ typedef struct idt_entry idt_entry_t;
 
 extern volatile idt_ptr_t idt64;
 
-void idt_setup();
+void init_idt();
 
 /* Function body defined in asm/loader.S */
 void idt_init(void* idt);

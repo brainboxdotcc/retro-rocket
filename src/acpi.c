@@ -56,7 +56,7 @@ ioapic_t get_ioapic(uint16_t index)
 	return ioapic;
 }
 
-void detect_cores()
+void init_cores()
 {
 	uint8_t *ptr, *ptr2;
 	uint32_t len;

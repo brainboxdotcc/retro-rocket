@@ -241,7 +241,7 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	interrupts_on();
 }
 
-bool rtl8139_init() {
+bool init_rtl8139() {
 	pci_dev_t pci_device = pci_get_device(RTL8139_VENDOR_ID, RTL8139_DEVICE_ID, -1);
 	if (pci_not_found(pci_device)) {
 		return false;

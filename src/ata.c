@@ -206,7 +206,7 @@ int storage_device_ide_block_write(void* dev, uint64_t start, uint32_t bytes, co
 	return ide_write_sectors((uint8_t)sd->opaque1, divided_length, start, (uint64_t)buffer);
 }
 
-void ide_initialise()
+void init_ide()
 {
 	int type, base, masterslave, k, err, count = 0;
 

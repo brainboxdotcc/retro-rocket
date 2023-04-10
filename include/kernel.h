@@ -60,5 +60,7 @@
 	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \
 	wait_forever(); }
 
+typedef void (*init_func_t)(void);
+
 void network_up();
 void network_down();

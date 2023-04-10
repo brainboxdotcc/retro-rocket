@@ -44,7 +44,7 @@ struct ioapic {
 };
 typedef struct ioapic ioapic_t;
 
-void detect_cores();
+void init_cores();
 uint8_t* get_lapic_ids();
 uint16_t get_cpu_count();
 uint64_t get_local_apic();

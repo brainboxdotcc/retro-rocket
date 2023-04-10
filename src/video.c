@@ -87,7 +87,7 @@ void putstring(console* c, char* message)
 	terminal_request.response->write(terminal, message, strlen(message));
 }
 
-void initconsole()
+void init_console()
 {
 	console* c = &first_console;
 	current_console = c;

@@ -50,7 +50,7 @@ void* kmalloc(uint64_t size);					/* Kernel heap malloc */
 void* kmalloc_ext(uint64_t size, uint8_t align, uint64_t *phys);	/* Extended version */
 void kfree(void* addr);
 heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw); /* Create a heap */
-void heap_init();
+void init_heap();
 void print_heapinfo();
 void preboot_fail(char* msg);
 void* kcalloc(size_t num, size_t size);

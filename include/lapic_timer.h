@@ -25,6 +25,6 @@
 #define TMR_PERIODIC	 0x20000
 #define TMR_BASEDIV	 (1<<20)
 
-void init_lapic_timer(uint32_t quantum);
+void init_lapic_timer();
 
 #endif

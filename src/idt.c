@@ -2,7 +2,7 @@
 
 volatile idt_ptr_t idt64 = { sizeof(idt_entry_t) * 255, NULL };
 
-void idt_setup()
+void init_idt()
 {
 	/* Allocate memory for IDT */
 	uint32_t base_32 = kmalloc_low(sizeof(idt_entry_t) * 255);

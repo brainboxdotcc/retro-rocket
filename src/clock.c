@@ -119,7 +119,7 @@ const char* get_datetime_str() {
 	return datetime_to_str(&current_datetime);
 }
 
-void clock_init() {
+void init_realtime_clock() {
 	rtc_read_datetime();
 	kprintf("System boot time: %s\n", get_datetime_str());
 }

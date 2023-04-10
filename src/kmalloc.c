@@ -69,12 +69,12 @@ void preboot_fail(char* msg)
 	wait_forever();
 }
 
-void heap_init()
+void init_heap()
 {
 	uint64_t bestlen = 0;
 	uint64_t bestaddr = 0;
 
-	dprintf("heap_init()\nMEMORY MAP:\n");
+	dprintf("init_heap()\nMEMORY MAP:\n");
 
 	heapstart = 0;
 

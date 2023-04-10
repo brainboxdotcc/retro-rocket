@@ -257,7 +257,7 @@ void proc_run_next()
 	}
 }
 
-void proc_init()
+void init_process()
 {
 	struct process* init = proc_load("/programs/init", (struct console*)current_console);
 	if (!init) {

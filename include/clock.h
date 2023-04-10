@@ -41,7 +41,7 @@ void get_datetime(datetime_t* dt);
 /**
  * @brief Initialise the realtime clock
  */
-void clock_init();
+void init_realtime_clock();
 
 /**
  * @brief POSIX time function returning time_t

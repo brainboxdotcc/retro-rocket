@@ -69,5 +69,5 @@ uint32_t proc_id(int64_t index);
  */
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type);
 
-void proc_init();
+void init_process();
 

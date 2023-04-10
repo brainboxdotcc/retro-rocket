@@ -59,7 +59,7 @@ void dputstring(char* message);
 void put(console* c, const char n);
 void dput(const char n);
 
-void initconsole();
+void init_console();
 
 void setbackground(console* c, unsigned char background);
 

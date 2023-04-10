@@ -1,11 +1,13 @@
 #include <kernel.h>
 
+static const uint32_t quantum = 50;
+
 void lapic_spurious([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, void* opaque)
 {
 	return;
 }
 
-void init_lapic_timer(uint32_t quantum)
+void init_lapic_timer()
 {
 	if (quantum == 0) {
 		return;
