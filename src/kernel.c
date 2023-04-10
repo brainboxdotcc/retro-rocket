@@ -33,5 +33,9 @@ void kmain()
 	init_debug();
 	rtl8139_init();
 
+	if (fs_delete_file("/harddisk/test2.txt")) {
+		dprintf("It worked!\n");
+	}
+
 	proc_init();
 }

@@ -464,6 +464,78 @@ int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, un
 	return fs ? fs->readfile(file, start, length, buffer) : 0;
 }
 
+void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
+{
+	fs_directory_entry_t *temp = *head_ref, *prev;
+
+	if (temp != NULL && !strcmp(temp->filename, name)) {
+		*head_ref = temp->next;
+		kfree(temp);
+		return;
+	}
+
+	while (temp != NULL && !strcmp(temp->filename, name)) {
+		prev = temp;
+		temp = temp->next;
+	}
+
+	if (temp == NULL) {
+		return;
+	}
+
+	prev->next = temp->next;
+	kfree(temp);
+}
+
+bool fs_delete_file(const char* pathandfile)
+{
+	if (!verify_path(pathandfile)) {
+		return NULL;
+	}
+
+	/* First, split the path and file components */
+	uint32_t namelen = strlen(pathandfile);
+	char* pathinfo = strdup(pathandfile);
+	char* filename = NULL;
+	char* pathname = NULL;
+	char* ptr;
+	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr) {
+		if (*ptr == '/') {
+			*ptr = 0;
+			filename = strdup(ptr + 1);
+			pathname = strdup(pathinfo);
+			break;
+		}
+	}
+	kfree(pathinfo);
+
+	if (!filename || !pathname || !*filename) {
+		return NULL;
+	}
+	if (*pathname == 0) {
+		/* A file located on the root directory -- special case */
+		kfree(pathname);
+		pathname = strdup("/");
+	}
+	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
+	if (!directory) {
+		kfree(pathname);
+		return NULL;
+	}
+	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
+	
+	bool rv = false;
+	if (!(fileinfo->flags & FS_DIRECTORY) && directory->responsible_driver && directory->responsible_driver->rm) {
+		rv = directory->responsible_driver->rm(directory, filename);
+		/* Remove the deleted file from the fs_tree_t */
+		if (rv) {
+			delete_file_node(&(directory->files), filename);
+		}
+	}
+	kfree(pathname);
+	return rv;
+}
+
 fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 {
 	if (!verify_path(pathandfile)) {
@@ -496,12 +568,15 @@ fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
+		kfree(pathname);
 		return NULL;
 	}
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
 	if (!fileinfo) {
+		kfree(pathname);
 		return NULL;
 	}
+	kfree(pathname);
 	return fileinfo;
 }
 

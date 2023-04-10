@@ -19,7 +19,7 @@ typedef void* (*get_directory)(void*);
 typedef int (*mount_volume)(const char*, const char*);
 typedef bool (*read_file)(void*, uint64_t, uint32_t, unsigned char*);
 typedef bool (*write_file)(void*, uint64_t, uint32_t, unsigned char*);
-typedef bool (*delete_file)(void*);
+typedef bool (*delete_file)(void*, const char*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
 
@@ -190,6 +190,14 @@ int _eof(int fd);
 int64_t _lseek(int fd, uint64_t offset, uint64_t origin);
 
 int64_t _tell(int fd);
+
+/**
+ * @brief Low level delete file
+ * 
+ * @param pathandfile path and filename
+ * @return true if file was deleted
+ */
+bool fs_delete_file(const char* pathandfile);
 
 #endif
 
