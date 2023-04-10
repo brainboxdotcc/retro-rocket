@@ -12,6 +12,10 @@
 #define ATTR_ARCHIVE		0x20
 #define ATTR_LONG_NAME		0x0F
 
+#define CLUSTER_END		0x0FFFFFF8
+#define CLUSTER_BAD		0x0FFFFFF7
+#define CLUSTER_FREE		0x00000000
+
 /**
  * @brief FAT32 FSINFO structure
  */

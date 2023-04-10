@@ -17,9 +17,9 @@
 /* Prototypes for filesystem drivers (see filesystem_t) */
 typedef void* (*get_directory)(void*);
 typedef int (*mount_volume)(const char*, const char*);
-typedef int (*read_file)(void*, uint32_t, uint32_t, unsigned char*);
-typedef int (*write_file)(void*, uint32_t, uint32_t, unsigned char*);
-typedef int (*delete_file)(void*);
+typedef bool (*read_file)(void*, uint64_t, uint32_t, unsigned char*);
+typedef bool (*write_file)(void*, uint64_t, uint32_t, unsigned char*);
+typedef bool (*delete_file)(void*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
 
@@ -87,9 +87,9 @@ typedef struct fs_tree_t {
 	struct fs_tree_t* child_dirs;	/* Linked list of child directories */
 	struct fs_directory_entry_t* files;	/* List of files (this also includes directories with FS_DIRECTORY bit set) */
 	struct filesystem_t* responsible_driver;	/* The driver responsible for handling this directory */
-	uint32_t lbapos;			/* Directory LBA position (driver specific) */
+	uint64_t lbapos;			/* Directory LBA position (driver specific) */
 	char device_name[16];	/* Device name */	
-	uint32_t device;			/* Directory device ID (driver specific) */
+	uint64_t device;			/* Directory device ID (driver specific) */
 	uint64_t size;			/* Directory size (usually meaningless except to drivers) */
 	void* opaque;			/* Opaque data (driver specific data) */
 	struct fs_tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */

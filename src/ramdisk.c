@@ -33,6 +33,10 @@ int rd_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buff
 		if (divided_length == 0) {
 			divided_length = 1;
 		}
+		if (start + divided_length >= disk->blocks) {
+			dprintf("Requested sector %llx is greater than ramdisk size of %llx sectors\n", start, disk->blocks);
+			return 0;
+		}
 		divided_length *= sd->block_size;
 		memcpy(buffer, disk->data + (start * sd->block_size), divided_length);
 		return 1;
@@ -52,6 +56,10 @@ int rd_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned cha
 		uint32_t divided_length = bytes / sd->block_size;
 		if (divided_length == 0) {
 			divided_length = 1;
+		}
+		if (start + divided_length >= disk->blocks) {
+			dprintf("Requested sector %llx is greater than ramdisk size of %llx sectors\n", start, disk->blocks);
+			return 0;
 		}
 		divided_length *= sd->block_size;
 		memcpy(disk->data + (start * sd->block_size), buffer, divided_length);

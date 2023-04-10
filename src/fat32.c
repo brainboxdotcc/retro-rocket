@@ -4,7 +4,7 @@ static filesystem_t* fat32_fs = NULL;
 
 uint64_t cluster_to_lba(fat32_t* info, uint32_t cluster);
 uint32_t get_fat_entry(fat32_t* info, uint32_t cluster);
-int fat32_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
+bool fat32_read_file(void* file, uint64_t start, uint32_t length, unsigned char* buffer);
 int fat32_attach(const char* device_name, const char* path);
 
 /**
@@ -123,7 +123,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 							} else {
 								file->filename = strdup(name);
 							}
-							file->lbapos = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
+							file->lbapos = (uint64_t)(((uint64_t)entry->first_cluster_hi << 16) | (uint64_t)entry->first_cluster_lo);
 							file->directory = tree;
 							file->flags = 0;
 							file->size = entry->size;
@@ -152,7 +152,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 
 		// advance to next cluster in chain until EOF
 		uint32_t nextcluster = get_fat_entry(info, cluster);
-		if (nextcluster >= 0x0ffffff0) {
+		if (nextcluster >= CLUSTER_BAD) {
 			break;
 		} else {
 			cluster = nextcluster;
@@ -163,56 +163,52 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 	return list;
 }
 
-int fat32_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffer)
+bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer)
 {
 	fs_directory_entry_t* file = (fs_directory_entry_t*)f;
 	fs_tree_t* tree = (fs_tree_t*)file->directory;
 	fat32_t* info = (fat32_t*)tree->opaque;
-
-	//kprintf("fat32_read_file start=%d len=%d\n", start, length);
 
 	uint32_t cluster = file->lbapos;
 	uint32_t clustercount = 0;
 	uint32_t first = 1;
 	unsigned char* clbuf = kmalloc(info->clustersize);
 
-	//kprintf("First cluster: %08x\n", cluster);
-
-	// vAdvance until we are at the correct location
-	while ((clustercount++ < start / info->clustersize) && (cluster < 0x0ffffff0)) {
+	// Advance until we are at the correct location
+	while ((clustercount++ < start / info->clustersize) && cluster >= CLUSTER_BAD) {
 		cluster = get_fat_entry(info, cluster);
-		//kprintf("Advance to next cluster %08x\n", cluster);
 	}
 
 	while (true) {
-		//kprintf("Read file clusters cluster=%08x\n", cluster);
 		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, clbuf)) {
 			kprintf("Read failure in fat32_read_file cluster=%08x\n", cluster);
 			kfree(clbuf);
-			return 0;
+			return false;
 		}
 
 		int to_read = length - start;
 		if (length > info->clustersize)
 			to_read = info->clustersize;
-		if (first == 1)
+		if (first == 1) {
 			memcpy(buffer, clbuf + (start % info->clustersize), to_read - (start % info->clustersize));
-		else
+		} else {
 			memcpy(buffer, clbuf, to_read);
+		}
 
 		buffer += to_read;
 		first = 0;
 
 		cluster = get_fat_entry(info, cluster);
 
-		if (cluster >= 0x0ffffff0)
+		if (cluster >= CLUSTER_BAD) {
 			break;
+		}
 	}
 
 
 	kfree(clbuf);
 
-	return 1;
+	return true;
 }
 
 void* fat32_get_directory(void* t)

@@ -18,7 +18,7 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
  */
 iso9660* iso_mount_volume(const char* device);
 
-int iso_read_file(void* file, uint32_t start, uint32_t length, unsigned char* buffer);
+bool iso_read_file(void* file, uint64_t start, uint32_t length, unsigned char* buffer);
 
 static filesystem_t* iso9660_fs = NULL;
 
@@ -226,14 +226,13 @@ void* iso_get_directory(void* t)
 	}
 }
 
-int iso_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffer)
+bool iso_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer)
 {
 	fs_directory_entry_t* file = (fs_directory_entry_t*)f;
-	//iso9660* info = (iso9660*)treeitem->opaque;
 	storage_device_t* fs = find_storage_device(file->device_name);
 
-	uint32_t sectors_size = length / fs->block_size;
-	uint32_t sectors_start = start / fs->block_size + file->lbapos;
+	uint64_t sectors_size = length / fs->block_size;
+	uint64_t sectors_start = start / fs->block_size + file->lbapos;
 
 	// Because its not valid to read 0 sectors, we must make sure we read at least one,
 	// and to make sure we read the remainder because this is an integer division,
@@ -245,13 +244,13 @@ int iso_read_file(void* f, uint32_t start, uint32_t length, unsigned char* buffe
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
 		kfree(readbuf);
-		return 0;
+		return false;
 	}
 	memcpy(buffer, readbuf + (start % fs->block_size), length);
 
 	//kprintf("Freeing ptr %08x\n", readbuf);
 	kfree(readbuf);
-	return 1;
+	return true;
 }
 
 iso9660* iso_mount_volume(const char* name)
