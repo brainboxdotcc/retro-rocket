@@ -65,7 +65,7 @@ void parse_short_name(directory_entry_t* entry, char* name, char* dotless)
 
 fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint32_t cluster)
 {
-	//kprintf("Cluster at start of fn: %d\n", cluster);
+	dprintf("parse_fat32_directory at cluster %d\n", cluster);
 
 	unsigned char* buffer = kmalloc(info->clustersize);
 	fs_directory_entry_t* list = NULL;
@@ -76,7 +76,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 		int bufferoffset = 0;
 		//kprintf("Cluster at start of loop: %d\n", cluster);
 		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
-			kprintf("Read failure in parse_fat32_directory cluster=%08x\n", cluster);
+			dprintf("Read failure in parse_fat32_directory cluster=%08x\n", cluster);
 			kfree(buffer);
 			return NULL;
 		}
@@ -243,7 +243,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 
 	iter = parse_fat32_directory(treeitem, info, dir_cluster);
 	for (; iter; iter = iter->next) {
-		if (strcmp(iter->filename, name)) {
+		if (!strcmp(iter->filename, name)) {
 			file_start = cluster = iter->lbapos;
 			kprintf("Found cluster of file to unlink: %llx\n", cluster);
 			break;
@@ -305,8 +305,9 @@ bool fat32_unlink_file(void* dir, const char* name)
 							entry_lfn_start = entry;
 						}
 					} else {
-						if (file_start == (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo)) {
-							dprintf("Found entry file cluster start: %llx\n", file_start);
+						uint32_t this_start = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
+						if (file_start == this_start) {
+							dprintf("Found entry file cluster start: %llx this: %llx -> %s\n", file_start, this_start, entry->name);
 							/* Found the directory entry we are removing, mark its entry as deleted */
 							*(entry->name) = 0xE5;
 							/* Mark related lfn entries as deleted */

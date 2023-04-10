@@ -490,7 +490,7 @@ void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 bool fs_delete_file(const char* pathandfile)
 {
 	if (!verify_path(pathandfile)) {
-		return NULL;
+		return false;
 	}
 
 	/* First, split the path and file components */
@@ -510,7 +510,7 @@ bool fs_delete_file(const char* pathandfile)
 	kfree(pathinfo);
 
 	if (!filename || !pathname || !*filename) {
-		return NULL;
+		return false;
 	}
 	if (*pathname == 0) {
 		/* A file located on the root directory -- special case */
@@ -519,10 +519,19 @@ bool fs_delete_file(const char* pathandfile)
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
+		dprintf("vfs unlink: no such path: %s\n", pathname);
 		kfree(pathname);
-		return NULL;
+		kfree(filename);
+		return false;
 	}
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
+
+	if (!fileinfo) {
+		dprintf("vfs unlink: no file in %s: %s\n", pathname, filename);
+		kfree(pathname);
+		kfree(filename);
+		return false;
+	}
 	
 	bool rv = false;
 	if (!(fileinfo->flags & FS_DIRECTORY) && directory->responsible_driver && directory->responsible_driver->rm) {
@@ -533,6 +542,7 @@ bool fs_delete_file(const char* pathandfile)
 		}
 	}
 	kfree(pathname);
+	kfree(filename);
 	return rv;
 }
 
