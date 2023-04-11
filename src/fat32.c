@@ -514,7 +514,7 @@ uint32_t find_next_free_fat_entry(fat32_t* info)
 	uint32_t count = 0;
 	uint32_t fat_entry_sector = info->start + info->reservedsectors;
 
-	while (offset < info->length) {
+	while (offset < info->fatsize) {
 		if (!read_storage_device(info->device_name, fat_entry_sector + offset, sd->block_size, (uint8_t*)buffer)) {
 			kfree(buffer);
 			return CLUSTER_END;
