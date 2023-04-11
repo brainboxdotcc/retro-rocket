@@ -30,6 +30,7 @@ typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
  */
 typedef struct fs_directory_entry_t {
 	char* filename;		/* Entry name */
+	char* alt_filename;	/* Alternative filename (e.g. short filename on fat32) */
 	uint16_t year;		/* Creation year */
 	uint8_t month;		/* Creation month */
 	uint8_t day;		/* Creation day */

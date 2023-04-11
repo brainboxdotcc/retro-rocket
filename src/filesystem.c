@@ -11,6 +11,7 @@ fs_handle_t* filehandles[FD_MAX] = { NULL };
 uint8_t verify_path(const char* path);
 fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path);
 fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename);
+int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
 int register_filesystem(filesystem_t* newfs)
 {
@@ -205,6 +206,7 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 			strlcpy(new_entry->device_name, directory->responsible_driver->name, 15);
 			new_entry->directory = directory;
 			new_entry->filename = filename;
+			new_entry->alt_filename = strdup(filename);
 			new_entry->flags = 0;
 			new_entry->lbapos = lbapos;
 			new_entry->day = dt.day;
@@ -214,6 +216,7 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 			new_entry->min = dt.minute;
 			new_entry->sec = dt.second;
 			new_entry->next = directory->files;
+			new_entry->size = bytes;
 			directory->files = new_entry;
 		}
 	}

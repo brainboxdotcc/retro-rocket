@@ -182,6 +182,11 @@ uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
 	return(s - src - 1); /* count does not include NUL */
 }
 
+int isalnum(const char x)
+{
+	return ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z') || (x >= '0' && x <= '9'));
+}
+
 char* strdup(const char* string)
 {
 	uint32_t siz = strlen(string) + 1;

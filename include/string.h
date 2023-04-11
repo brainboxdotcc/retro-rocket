@@ -21,6 +21,8 @@ char toupper(char low);
 
 char tolower(char low);
 
+int isalnum(const char x);
+
 char* strchr(const char *s, int c);
 
 uint32_t strlcat(char *dst, const char *src, uint32_t siz);

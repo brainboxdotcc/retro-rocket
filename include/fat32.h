@@ -136,3 +136,5 @@ typedef struct lfn_t {
  * @brief Register fat32 as a filesystem type
  */
 void init_fat32();
+
+void build_lfn_chain(const char* filename, fs_directory_entry_t* current, directory_entry_t* short_entry, directory_entry_t** entries, size_t* entry_count);
