@@ -319,6 +319,7 @@ void init_iso9660()
 	iso9660_fs->getdir = iso_get_directory;
 	iso9660_fs->readfile = iso_read_file;
 	iso9660_fs->writefile = NULL;
+	iso9660_fs->createfile = NULL;
 	iso9660_fs->rm = NULL;
 	register_filesystem(iso9660_fs);
 }

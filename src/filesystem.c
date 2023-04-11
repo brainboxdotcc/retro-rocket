@@ -8,6 +8,10 @@ static uint32_t fd_last = 0;
 static uint32_t fd_alloc = 0;
 fs_handle_t* filehandles[FD_MAX] = { NULL };
 
+uint8_t verify_path(const char* path);
+fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path);
+fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename);
+
 int register_filesystem(filesystem_t* newfs)
 {
 	/* Add the new filesystem to the start of the list */
@@ -140,40 +144,141 @@ uint32_t destroy_filehandle(uint32_t descriptor)
 	return 1;
 }
 
-/* Open a file for access */
-int _open(const char* filename, [[maybe_unused]] int oflag)
+fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 {
-	/* First check if we can find the file in the filesystem */
-	fs_directory_entry_t* file = fs_get_file_info(filename);
-	if (file == NULL)
-		return -1;
+	fs_directory_entry_t* new_entry = NULL;
 
-	/* Allocate a file handle. NOTE, currently restricted to
-	 * read-only file access by hard-coding the param here.
-	 */
-	int fd = alloc_filehandle(file_input, file, IOBUFSZ, 0);
-	if (fd == -1)
+	if (!verify_path(pathandfile)) {
+		return false;
+	}
+
+	/* First, split the path and file components */
+	uint32_t namelen = strlen(pathandfile);
+	char* pathinfo = strdup(pathandfile);
+	char* filename = NULL;
+	char* pathname = NULL;
+	char* ptr;
+	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr) {
+		if (*ptr == '/') {
+			*ptr = 0;
+			filename = strdup(ptr + 1);
+			pathname = strdup(pathinfo);
+			break;
+		}
+	}
+	kfree(pathinfo);
+
+	if (!filename || !pathname || !*filename) {
+		return false;
+	}
+	if (*pathname == 0) {
+		/* A file located on the root directory -- special case */
+		kfree(pathname);
+		pathname = strdup("/");
+	}
+	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
+	if (!directory) {
+		dprintf("vfs create: no such path: %s\n", pathname);
+		kfree(pathname);
+		kfree(filename);
+		return false;
+	}
+
+	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
+
+	if (fileinfo) {
+		dprintf("vfs create: file in %s already exists: %s\n", pathname, filename);
+		kfree(pathname);
+		kfree(filename);
+		return false;
+	}
+	
+	if (directory->responsible_driver && directory->responsible_driver->createfile) {
+		uint64_t lbapos = directory->responsible_driver->createfile(directory, filename, bytes);
+		/* Remove the deleted file from the fs_tree_t */
+		if (lbapos) {
+			new_entry = kmalloc(sizeof(fs_directory_entry_t));
+			datetime_t dt;
+			get_datetime(&dt);
+			get_weekday_from_date(&dt);
+			new_entry->device = 0;
+			strlcpy(new_entry->device_name, directory->responsible_driver->name, 15);
+			new_entry->directory = directory;
+			new_entry->filename = filename;
+			new_entry->flags = 0;
+			new_entry->lbapos = lbapos;
+			new_entry->day = dt.day;
+			new_entry->month = dt.month;
+			new_entry->year = (dt.century - 1) * 100 + dt.year;
+			new_entry->hour = dt.hour;
+			new_entry->min = dt.minute;
+			new_entry->sec = dt.second;
+			new_entry->next = directory->files;
+			directory->files = new_entry;
+		}
+	}
+	kfree(pathname);
+	kfree(filename);
+	return new_entry;
+}
+
+/* Open a file for access */
+int _open(const char* filename, int oflag)
+{
+	fs_handle_type_t type = file_input;
+	fs_directory_entry_t* file = NULL;
+	/* First check if we can find the file in the filesystem */
+
+
+	if (oflag & _O_APPEND) {
+		type = file_random;
+	} else if (oflag & _O_CREAT) {
+		type = file_output;
+	} else if (oflag & _O_RDWR) {
+		type = file_random;
+	} else if (oflag & _O_WRONLY) {
+		type = file_output;
+	} else {
+		type = file_input;
+	}
+
+
+	file = fs_get_file_info(filename);
+	if (file == NULL && type == file_input) {
 		return -1;
+	} else if (file == NULL && type != file_input) {
+		file = fs_create_file(filename, 0);
+	}
+	if (file == NULL) {
+		return -1;
+	}
+
+	/* Allocate a file handle.
+	 */
+	int fd = alloc_filehandle(type, file, IOBUFSZ, 0);
+	if (fd == -1) {
+		return -1;
+	}
 
 	filehandles[fd]->cached = 0;
-	/* Read an initial buffer into the structure up to fd->inbufsize in size */
-	if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
-			file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
-			filehandles[fd]->inbuf))
-	{
-		/* If we couldnt get the initial buffer, there is something wrong.
-		 * Give up the filehandle and return error.
-		 */
-		destroy_filehandle(fd);
-		return -1;
+	if (type == file_random || type == file_input) {
+		/* Read an initial buffer into the structure up to fd->inbufsize in size */
+		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
+				file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
+				filehandles[fd]->inbuf))
+		{
+			/* If we couldnt get the initial buffer, there is something wrong.
+			* Give up the filehandle and return error.
+			*/
+			destroy_filehandle(fd);
+			return -1;
+		}
+		else
+		{
+			if (file->size <= filehandles[fd]->inbufsize)
+				filehandles[fd]->cached = 1;
+		}
 	}
-	else
-	{
-		if (file->size <= filehandles[fd]->inbufsize)
-			filehandles[fd]->cached = 1;
-	}
-
-	//kprintf("cached=%d\n", filehandles[fd]->cached);
 
 	/* Return the allocated file descriptor */
 	return fd;
@@ -234,6 +339,11 @@ int _read(int fd, void *buffer, unsigned int count)
 		return -1;
 	}
 
+	/* can't read from a write-only handle */
+	if (filehandles[fd]->type == file_output) {
+		return -1;
+	}
+
 	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size) {
 		return 0;
 	}
@@ -289,6 +399,31 @@ int _read(int fd, void *buffer, unsigned int count)
 		filehandles[fd]->seekpos += count;
 	}
 
+	return count;
+}
+
+/* Write bytes to an open file */
+int _write(int fd, void *buffer, unsigned int count)
+{
+	/* Sanity checks */
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
+		return -1;
+	}
+
+	/* can't write to a read-only handle */
+	if (filehandles[fd]->type == file_input) {
+		return -1;
+	}
+
+	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size) {
+		return 0;
+	}
+
+	if (!fs_write_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, buffer)) {
+		return -1;
+	}
+
+	filehandles[fd]->seekpos += count;
 	return count;
 }
 
@@ -464,6 +599,12 @@ int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, un
 	return fs ? fs->readfile(file, start, length, buffer) : 0;
 }
 
+int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
+{
+	filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
+	return fs && fs->writefile ? fs->writefile(file, start, length, buffer) : 0;
+}
+
 void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 {
 	fs_directory_entry_t *temp = *head_ref, *prev;
@@ -546,6 +687,11 @@ bool fs_delete_file(const char* pathandfile)
 	return rv;
 }
 
+int unlink(const char *pathname)
+{
+	return (fs_delete_file(pathname) ? 0 : 1);
+}
+
 fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 {
 	if (!verify_path(pathandfile)) {
@@ -617,6 +763,7 @@ void init_filesystem()
 	filesystems->readfile = NULL;
 	filesystems->writefile = NULL;
 	filesystems->rm = NULL;
+	filesystems->createfile = NULL;
 	filesystems->next = NULL;
 
 	dummyfs = filesystems;

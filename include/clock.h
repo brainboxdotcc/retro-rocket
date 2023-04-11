@@ -61,3 +61,5 @@ time_t time(time_t* t);
  * @return uint64_t days
  */
 uint64_t day_of_year(uint64_t year, uint8_t month, uint8_t day);
+
+int get_weekday_from_date(datetime_t* dt);

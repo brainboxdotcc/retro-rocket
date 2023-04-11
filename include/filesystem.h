@@ -19,6 +19,7 @@ typedef void* (*get_directory)(void*);
 typedef int (*mount_volume)(const char*, const char*);
 typedef bool (*read_file)(void*, uint64_t, uint32_t, unsigned char*);
 typedef bool (*write_file)(void*, uint64_t, uint32_t, unsigned char*);
+typedef uint64_t (*create_file)(void*, const char*, size_t);
 typedef bool (*delete_file)(void*, const char*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
@@ -56,6 +57,7 @@ typedef struct filesystem_t {
 	get_directory getdir;	/* getdir() entrypoint */
 	read_file readfile;	/* readfile() entrypoint */
 	write_file writefile;	/* writefile() entrypoint */
+	create_file createfile;	/* createfile() entrypoint */
 	delete_file rm;		/* rm() entrypoint */
 	struct filesystem_t* next;	/* Next entry */
 } filesystem_t;
@@ -95,7 +97,7 @@ typedef struct fs_tree_t {
 	struct fs_tree_t* next;		/* Next entry for iterating as a linked list (enumerating child directories) */
 } fs_tree_t;
 
-typedef enum {
+typedef enum fs_handle_type_t {
 	file_input,
 	file_output,
 	file_random
@@ -165,6 +167,8 @@ fs_directory_entry_t* fs_get_items(const char* pathname);
  */
 fs_directory_entry_t* fs_get_file_info(const char* pathandfile);
 
+fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes);
+
 /* Read raw bytes from any arbitrary file.
  */
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
@@ -178,6 +182,10 @@ int _open(const char *filename, int oflag);
  */
 int _read(int fd, void *buffer, unsigned int count);
 
+/* POSIX _write function, writes bytes to an open file.
+ */
+int _write(int fd, void *buffer, unsigned int count);
+
 /* POSIX _close function, closes an open file.
  */
 int _close(uint32_t fd);
@@ -190,6 +198,8 @@ int _eof(int fd);
 int64_t _lseek(int fd, uint64_t offset, uint64_t origin);
 
 int64_t _tell(int fd);
+
+int unlink(const char *pathname);
 
 /**
  * @brief Low level delete file
