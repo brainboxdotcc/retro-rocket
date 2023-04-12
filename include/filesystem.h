@@ -112,6 +112,8 @@ typedef struct fs_handle_t {
 	fs_handle_type_t type;		/* Filehandle type */
 	unsigned char* inbuf;		/* Input buffer */
 	unsigned char* outbuf;		/* Output buffer */
+	uint64_t inbufpos;		/* Input buffer position */
+	uint64_t outbufpos;		/* Input buffer position */
 	uint64_t outbufsize;		/* Output buffer size */
 	uint64_t inbufsize;		/* Input buffer size */
 	fs_directory_entry_t* file;	/* File which is open */

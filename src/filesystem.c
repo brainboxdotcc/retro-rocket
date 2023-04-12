@@ -93,6 +93,8 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 
 			filehandles[fd_last]->inbufsize = ibufsz;
 			filehandles[fd_last]->outbufsize = obufsz;
+			filehandles[fd_last]->inbufpos = 0;
+			filehandles[fd_last]->outbufpos = 0;
 			if (ibufsz)
 				filehandles[fd_last]->inbuf = (unsigned char*)kmalloc(ibufsz);
 			else
@@ -232,19 +234,19 @@ int _open(const char* filename, int oflag)
 	fs_directory_entry_t* file = NULL;
 	/* First check if we can find the file in the filesystem */
 
-
-	if (oflag & _O_APPEND) {
+	if ((oflag & _O_APPEND) == _O_APPEND) {
 		type = file_random;
-	} else if (oflag & _O_CREAT) {
+	} else if ((oflag & _O_CREAT) == _O_CREAT) {
 		type = file_output;
-	} else if (oflag & _O_RDWR) {
+	} else if ((oflag & _O_RDWR) == _O_RDWR) {
 		type = file_random;
-	} else if (oflag & _O_WRONLY) {
+	} else if ((oflag & _O_WRONLY) == _O_WRONLY) {
 		type = file_output;
 	} else {
 		type = file_input;
 	}
 
+	dprintf("_open type: %d\n", type);
 
 	file = fs_get_file_info(filename);
 	if (file == NULL && type == file_input) {
@@ -256,6 +258,8 @@ int _open(const char* filename, int oflag)
 		return -1;
 	}
 
+	dprintf("_open file info obtained\n");
+
 	/* Allocate a file handle.
 	 */
 	int fd = alloc_filehandle(type, file, IOBUFSZ, 0);
@@ -263,8 +267,11 @@ int _open(const char* filename, int oflag)
 		return -1;
 	}
 
+	dprintf("_open alloc filehandle %d\n", fd);
+
 	filehandles[fd]->cached = 0;
 	if (type == file_random || type == file_input) {
+		dprintf("read into buffer pos=%d sz=%d buf=%llx\n", filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, filehandles[fd]->inbuf);
 		/* Read an initial buffer into the structure up to fd->inbufsize in size */
 		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
 				file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
@@ -282,6 +289,8 @@ int _open(const char* filename, int oflag)
 				filehandles[fd]->cached = 1;
 		}
 	}
+
+	dprintf("_open done\n");
 
 	/* Return the allocated file descriptor */
 	return fd;
@@ -313,18 +322,20 @@ long _lseek(int fd, uint64_t offset, uint64_t origin)
 		return -1;
 	} else {
 		if (offset + origin > filehandles[fd]->file->size) {
+			/* Do not allow seeking past end */
 			return -1;
 		} else {
 			filehandles[fd]->seekpos = offset + origin;
 			/* Flush output before seeking */
 			flush_filehandle(fd);
 			/* Refresh input buffer */
-			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, filehandles[fd]->inbufsize, filehandles[fd]->inbuf)) {
-				return -1;
-			} else {
-				return filehandles[fd]->seekpos;
+			if (filehandles[fd]->type != file_output && filehandles[fd]->seekpos < filehandles[fd]->file->size) {
+				if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, filehandles[fd]->inbufsize, filehandles[fd]->inbuf)) {
+					return -1;
+				}
 			}
-		}
+			return filehandles[fd]->seekpos;
+	}
 	}
 	return -1;
 }
@@ -364,6 +375,7 @@ int _read(int fd, void *buffer, unsigned int count)
 		 * Continually read into the input buffer in filehandles[fd]->inbufsize
 		 * chunks maximum until all data is read.
 		 */
+		dprintf("Doesnt fit buffer\n");
 		int readbytes = 0;
 		while (count > 0) {
 			int rb;
@@ -372,8 +384,10 @@ int _read(int fd, void *buffer, unsigned int count)
 			} else {
 				rb = count;
 			}
+			dprintf("Will read %d into inbuf\n", rb);
 
 			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, rb, filehandles[fd]->inbuf)) {
+				dprintf("fs_read_file failed in _read()\n");
 				return -1;
 			}
 
@@ -392,6 +406,7 @@ int _read(int fd, void *buffer, unsigned int count)
 		/* Read the entire lot in one go */
 		if (filehandles[fd]->cached == 0) {
 			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf)) {
+				dprintf("fs_read_file failed in _read() [cached]\n");
 				return -1;
 			}
 			memcpy(buffer, filehandles[fd]->inbuf, count);
@@ -408,6 +423,7 @@ int _read(int fd, void *buffer, unsigned int count)
 /* Write bytes to an open file */
 int _write(int fd, void *buffer, unsigned int count)
 {
+	dprintf("_write()\n");
 	/* Sanity checks */
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
 		return -1;
@@ -418,12 +434,15 @@ int _write(int fd, void *buffer, unsigned int count)
 		return -1;
 	}
 
-	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size) {
-		return 0;
-	}
-
+	dprintf("_write() fs_write_file %d\n", count);
 	if (!fs_write_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, buffer)) {
 		return -1;
+	}
+
+	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size) {
+		/* Underlying driver will extend file too */
+		dprintf("_write growing file from %d to %d\n", filehandles[fd]->file->size, filehandles[fd]->seekpos + count);
+		filehandles[fd]->file->size = filehandles[fd]->seekpos + count;
 	}
 
 	filehandles[fd]->seekpos += count;
@@ -598,14 +617,22 @@ fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filenam
 
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
-	return fs ? fs->readfile(file, start, length, buffer) : 0;
+	if (file && file->directory && file->directory->responsible_driver) {
+		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
+		return fs ? fs->readfile(file, start, length, buffer) : 0;
+	}
+	dprintf("fs_read_file with invalid file information\n");
+	return 0;
 }
 
 int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
-	return fs && fs->writefile ? fs->writefile(file, start, length, buffer) : 0;
+	if (file && file->directory && file->directory->responsible_driver) {
+		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
+		return fs && fs->writefile ? fs->writefile(file, start, length, buffer) : 0;
+	}
+	dprintf("fs_write_file with invalid file information\n");
+	return 0;
 }
 
 void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
