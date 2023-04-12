@@ -22,6 +22,11 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="27">
+        <label>ramdisk.h</label>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="3">
         <label>acpi.h</label>
         <childnode refid="2" relation="include">
@@ -42,12 +47,12 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="31">
         <label>udp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="29">
         <label>tcp.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -67,17 +72,17 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="28">
         <label>rtl8139.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="30">
         <label>tokenizer.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="26">
         <label>printf.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -86,6 +91,9 @@
         <label>e1000.h</label>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="18">
+        <label>initialisation-functions.h</label>
       </node>
       <node id="14">
         <label>fpu.h</label>
@@ -97,12 +105,12 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="20">
         <label>ip.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>maths.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -168,13 +176,17 @@
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
       </node>
-      <node id="21">
+      <node id="22">
         <label>memcpy.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="24">
         <label>partition.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -184,17 +196,17 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="23">
         <label>net.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="19">
         <label>interrupt.h</label>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>pci.h</label>
         <childnode refid="2" relation="include">
         </childnode>
@@ -1056,11 +1068,11 @@
         </inbodydescription>
         <location file="include/ata.h" line="117" column="6" declfile="include/ata.h" declline="117" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="ata_8h_1a28ff591a4ea2513423b51bf8b527973a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="ata_8h_1abc751c8edfc3a3daf8243d8837f89bc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void ide_initialise</definition>
+        <definition>void init_ide</definition>
         <argsstring>()</argsstring>
-        <name>ide_initialise</name>
+        <name>init_ide</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>

@@ -87,6 +87,7 @@ var annotated_dup =
     [ "tcp_segment_flags_t", "uniontcp__segment__flags__t.html", "uniontcp__segment__flags__t" ],
     [ "tos_flags", "uniontos__flags.html", "uniontos__flags" ],
     [ "tx_desc", "structtx__desc.html", "structtx__desc" ],
+    [ "ub_line_ref", "structub__line__ref.html", "structub__line__ref" ],
     [ "ub_param", "structub__param.html", "structub__param" ],
     [ "ub_proc_fn_def", "structub__proc__fn__def.html", "structub__proc__fn__def" ],
     [ "ub_var_double", "structub__var__double.html", "structub__var__double" ],

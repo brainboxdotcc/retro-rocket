@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="84" column="9" bodyfile="include/filesystem.h" bodystart="84" bodyend="-1"/>
+        <location file="include/filesystem.h" line="246" column="9" bodyfile="include/filesystem.h" bodystart="246" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1a95e22f149aef579b1771d64687a472f8" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="85" column="6" bodyfile="include/filesystem.h" bodystart="85" bodyend="-1"/>
+        <location file="include/filesystem.h" line="247" column="6" bodyfile="include/filesystem.h" bodystart="247" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1a509ad0d67202c9e6e8c58059e0efc7af" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="86" column="17" bodyfile="include/filesystem.h" bodystart="86" bodyend="-1"/>
+        <location file="include/filesystem.h" line="248" column="17" bodyfile="include/filesystem.h" bodystart="248" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1ad61c3a6c1f4e77d7efcca380ba6b6d65" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="87" column="17" bodyfile="include/filesystem.h" bodystart="87" bodyend="-1"/>
+        <location file="include/filesystem.h" line="249" column="17" bodyfile="include/filesystem.h" bodystart="249" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1a3e98b356a36d9bad9b78ae88c7990971" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="88" column="28" bodyfile="include/filesystem.h" bodystart="88" bodyend="-1"/>
+        <location file="include/filesystem.h" line="250" column="28" bodyfile="include/filesystem.h" bodystart="250" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1accc0b6240ae6cf114387ec945c02258e" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
@@ -80,11 +80,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="89" column="20" bodyfile="include/filesystem.h" bodystart="89" bodyend="-1"/>
+        <location file="include/filesystem.h" line="251" column="20" bodyfile="include/filesystem.h" bodystart="251" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structfs__tree__t_1a42d1a9cfc0e9395fb4f47277d81e5095" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t fs_tree_t::lbapos</definition>
+      <memberdef kind="variable" id="structfs__tree__t_1ac913ea2aa83166a1651931713b42dccc" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t fs_tree_t::lbapos</definition>
         <argsstring></argsstring>
         <name>lbapos</name>
         <briefdescription>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="90" column="10" bodyfile="include/filesystem.h" bodystart="90" bodyend="-1"/>
+        <location file="include/filesystem.h" line="252" column="10" bodyfile="include/filesystem.h" bodystart="252" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1a486350e7695dbfd0fe750d4bf0572823" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -106,11 +106,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="91" column="6" bodyfile="include/filesystem.h" bodystart="91" bodyend="-1"/>
+        <location file="include/filesystem.h" line="253" column="6" bodyfile="include/filesystem.h" bodystart="253" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structfs__tree__t_1a69573c79e38b8167a1cc7b258491bb88" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t fs_tree_t::device</definition>
+      <memberdef kind="variable" id="structfs__tree__t_1a2f28644810b605d065c6f622fad4a777" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t fs_tree_t::device</definition>
         <argsstring></argsstring>
         <name>device</name>
         <briefdescription>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="92" column="10" bodyfile="include/filesystem.h" bodystart="92" bodyend="-1"/>
+        <location file="include/filesystem.h" line="254" column="10" bodyfile="include/filesystem.h" bodystart="254" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1a42e0d21fa2ff2c542748ac1fa723e8ed" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="93" column="10" bodyfile="include/filesystem.h" bodystart="93" bodyend="-1"/>
+        <location file="include/filesystem.h" line="255" column="10" bodyfile="include/filesystem.h" bodystart="255" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1abc7e1541c66633d56c04ee5ab1f637c2" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="94" column="6" bodyfile="include/filesystem.h" bodystart="94" bodyend="-1"/>
+        <location file="include/filesystem.h" line="256" column="6" bodyfile="include/filesystem.h" bodystart="256" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__tree__t_1a211b1093f69dbaa0c693930256b0f1cb" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
@@ -158,43 +158,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="95" column="17" bodyfile="include/filesystem.h" bodystart="95" bodyend="-1"/>
+        <location file="include/filesystem.h" line="257" column="17" bodyfile="include/filesystem.h" bodystart="257" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Used internally by filesystem.c to cache directories to RAM. </para>
     </briefdescription>
     <detaileddescription>
+<para>Also used to route requests for that directory through to their driver. Also used to attach a driver initially to its mountpoint UNIX-style. <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> structs are usually not usable or visible to non-filesystem drivers. </para>
     </detaileddescription>
     <collaborationgraph>
+      <node id="10">
+        <label>size_t</label>
+      </node>
       <node id="11">
         <label>void *</label>
       </node>
       <node id="8">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>getdir</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>rm</edgelabel>
-        </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
+        <childnode refid="10" relation="usage">
+          <edgelabel>truncatefile</edgelabel>
         </childnode>
       </node>
       <node id="2">
         <label>uint64_t</label>
-      </node>
-      <node id="10">
-        <label>int(*)(void *)</label>
       </node>
       <node id="4">
         <label>uint16_t</label>
@@ -203,6 +209,8 @@
         <label>fs_tree_t</label>
         <link refid="structfs__tree__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
           <edgelabel>size</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
@@ -219,10 +227,6 @@
         <childnode refid="5" relation="usage">
           <edgelabel>device_name</edgelabel>
           <edgelabel>name</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>lbapos</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
           <edgelabel>dirty</edgelabel>
@@ -257,6 +261,7 @@
           <edgelabel>year</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
+          <edgelabel>alt_filename</edgelabel>
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
@@ -276,14 +281,14 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/filesystem.h" line="83" column="1" bodyfile="include/filesystem.h" bodystart="83" bodyend="96"/>
+    <location file="include/filesystem.h" line="245" column="1" bodyfile="include/filesystem.h" bodystart="245" bodyend="258"/>
     <listofallmembers>
       <member refid="structfs__tree__t_1ad61c3a6c1f4e77d7efcca380ba6b6d65" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>child_dirs</name></member>
-      <member refid="structfs__tree__t_1a69573c79e38b8167a1cc7b258491bb88" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>device</name></member>
+      <member refid="structfs__tree__t_1a2f28644810b605d065c6f622fad4a777" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>device</name></member>
       <member refid="structfs__tree__t_1a486350e7695dbfd0fe750d4bf0572823" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>device_name</name></member>
       <member refid="structfs__tree__t_1a56b32ed59aa93487d3623c2dcec849ba" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>dirty</name></member>
       <member refid="structfs__tree__t_1a3e98b356a36d9bad9b78ae88c7990971" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>files</name></member>
-      <member refid="structfs__tree__t_1a42d1a9cfc0e9395fb4f47277d81e5095" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>lbapos</name></member>
+      <member refid="structfs__tree__t_1ac913ea2aa83166a1651931713b42dccc" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>lbapos</name></member>
       <member refid="structfs__tree__t_1a95e22f149aef579b1771d64687a472f8" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>name</name></member>
       <member refid="structfs__tree__t_1a211b1093f69dbaa0c693930256b0f1cb" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>next</name></member>
       <member refid="structfs__tree__t_1abc7e1541c66633d56c04ee5ab1f637c2" prot="public" virt="non-virtual"><scope>fs_tree_t</scope><name>opaque</name></member>

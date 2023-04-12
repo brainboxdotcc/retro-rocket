@@ -91,12 +91,16 @@ $(document).ready(function(){initNavTree('structfs__handle__t.html',''); initRes
 <div class="title">fs_handle_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The data for an open file descriptor.  
+ <a href="structfs__handle__t.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for fs_handle_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structfs__handle__t__coll__graph.svg" width="100%" height="532"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structfs__handle__t__coll__graph.svg" width="100%" height="554"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -107,6 +111,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a3767e0c964460f9d114529b25815bb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ed98466d85226244177da2a0207e05"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__handle__t.html#ad2ed98466d85226244177da2a0207e05">outbuf</a></td></tr>
 <tr class="separator:ad2ed98466d85226244177da2a0207e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac58f73bbde3a9f4fde2ba01e55b26577"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__handle__t.html#ac58f73bbde3a9f4fde2ba01e55b26577">inbufpos</a></td></tr>
+<tr class="separator:ac58f73bbde3a9f4fde2ba01e55b26577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c83459bba23c33e390db430dcafc36e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__handle__t.html#a5c83459bba23c33e390db430dcafc36e">outbufpos</a></td></tr>
+<tr class="separator:a5c83459bba23c33e390db430dcafc36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f828766185b1c35103786929fd6673b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__handle__t.html#a8f828766185b1c35103786929fd6673b">outbufsize</a></td></tr>
 <tr class="separator:a8f828766185b1c35103786929fd6673b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f7595e558110ebb1edc736ee74d214d"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__handle__t.html#a9f7595e558110ebb1edc736ee74d214d">inbufsize</a></td></tr>
@@ -118,7 +126,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:acf904278cf871b15b0f66d874ed84a69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__handle__t.html#acf904278cf871b15b0f66d874ed84a69">cached</a></td></tr>
 <tr class="separator:acf904278cf871b15b0f66d874ed84a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The data for an open file descriptor. </p>
+<p>The FD table is an array of pointers to these structs, any closed FD is NULL. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="acf904278cf871b15b0f66d874ed84a69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf904278cf871b15b0f66d874ed84a69">&#9670;&nbsp;</a></span>cached</h2>
 
@@ -161,6 +172,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ac58f73bbde3a9f4fde2ba01e55b26577"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac58f73bbde3a9f4fde2ba01e55b26577">&#9670;&nbsp;</a></span>inbufpos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t fs_handle_t::inbufpos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9f7595e558110ebb1edc736ee74d214d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f7595e558110ebb1edc736ee74d214d">&#9670;&nbsp;</a></span>inbufsize</h2>
 
@@ -183,6 +208,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">unsigned char* fs_handle_t::outbuf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c83459bba23c33e390db430dcafc36e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c83459bba23c33e390db430dcafc36e">&#9670;&nbsp;</a></span>outbufpos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t fs_handle_t::outbufpos</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -237,7 +276,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structfs__handle__t.html">fs_handle_t</a></li>
-    <li class="footer">Generated on Fri Apr 7 2023 20:43:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 12 2023 16:51:11 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

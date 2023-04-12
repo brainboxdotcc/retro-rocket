@@ -22,12 +22,13 @@ int devfs_attach([[maybe_unused]] const char* device, const char* path)
 
 void init_devfs()
 {
-	devfs = (filesystem_t*)kmalloc(sizeof(filesystem_t));
+	devfs = kmalloc(sizeof(filesystem_t));
 	strlcpy(devfs->name, "devfs", 31);
 	devfs->mount = devfs_attach;
 	devfs->getdir = devfs_get_directory;
 	devfs->readfile = devfs_read_file;
 	devfs->writefile = NULL;
+	devfs->truncatefile = NULL;
 	devfs->createfile = NULL;
 	devfs->createdir = NULL;
 	devfs->rmdir = NULL;

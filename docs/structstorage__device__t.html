@@ -91,34 +91,50 @@ $(document).ready(function(){initNavTree('structstorage__device__t.html',''); in
 <div class="title">storage_device_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc.  
+ <a href="structstorage__device__t.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for storage_device_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structstorage__device__t__coll__graph.svg" width="468" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structstorage__device__t__coll__graph.svg" width="468" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:afed2809e3332d40efe7645b76dcb7501"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#afed2809e3332d40efe7645b76dcb7501">name</a> [16]</td></tr>
+<tr class="memdesc:afed2809e3332d40efe7645b76dcb7501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage device name, e.g. 'hd0'. You should use make_unique_device_name() to fill this field.  <a href="structstorage__device__t.html#afed2809e3332d40efe7645b76dcb7501">More...</a><br /></td></tr>
 <tr class="separator:afed2809e3332d40efe7645b76dcb7501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b7e3635e869e1e8b2245665ee988547"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a4b7e3635e869e1e8b2245665ee988547">size</a></td></tr>
+<tr class="memdesc:a4b7e3635e869e1e8b2245665ee988547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total extent of storage device if known, otherwise this value should be SIZE_MAX.  <a href="structstorage__device__t.html#a4b7e3635e869e1e8b2245665ee988547">More...</a><br /></td></tr>
 <tr class="separator:a4b7e3635e869e1e8b2245665ee988547"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a918ae65b2e583bef5384dc4c596977b2"><td class="memItemLeft" align="right" valign="top">block_read&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2">blockread</a></td></tr>
+<tr class="memdesc:a918ae65b2e583bef5384dc4c596977b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2" title="Function pointer for blockread() Block reads are always expected to be in increments of block_size.">blockread()</a> Block reads are always expected to be in increments of block_size.  <a href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2">More...</a><br /></td></tr>
 <tr class="separator:a918ae65b2e583bef5384dc4c596977b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ba455dae844ff9aae01e950f8271495"><td class="memItemLeft" align="right" valign="top">block_write&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495">blockwrite</a></td></tr>
+<tr class="memdesc:a5ba455dae844ff9aae01e950f8271495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495" title="Function pointer for blockwrite() Block writes are always expected to be in increments of block_size.">blockwrite()</a> Block writes are always expected to be in increments of block_size.  <a href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495">More...</a><br /></td></tr>
 <tr class="separator:a5ba455dae844ff9aae01e950f8271495"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62fabd3b49e19f188297d179ffbcd090"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a62fabd3b49e19f188297d179ffbcd090">block_size</a></td></tr>
+<tr class="memdesc:a62fabd3b49e19f188297d179ffbcd090"><td class="mdescLeft">&#160;</td><td class="mdescRight">The block size read and write operations. This is usually a sector size on disk drives.  <a href="structstorage__device__t.html#a62fabd3b49e19f188297d179ffbcd090">More...</a><br /></td></tr>
 <tr class="separator:a62fabd3b49e19f188297d179ffbcd090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add44ca2ee801c94a53fe71db46e39dbd"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#add44ca2ee801c94a53fe71db46e39dbd">opaque1</a></td></tr>
+<tr class="memdesc:add44ca2ee801c94a53fe71db46e39dbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">An opaque integer value which can be given meaning by the storage device driver.  <a href="structstorage__device__t.html#add44ca2ee801c94a53fe71db46e39dbd">More...</a><br /></td></tr>
 <tr class="separator:add44ca2ee801c94a53fe71db46e39dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66eebca62325df9d8c0a0286c92ffa0c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a66eebca62325df9d8c0a0286c92ffa0c">opaque2</a></td></tr>
+<tr class="memdesc:a66eebca62325df9d8c0a0286c92ffa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An opaque pointer value which can be given meaning by the storage device driver.  <a href="structstorage__device__t.html#a66eebca62325df9d8c0a0286c92ffa0c">More...</a><br /></td></tr>
 <tr class="separator:a66eebca62325df9d8c0a0286c92ffa0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b4bda1ebedc6cf141f8f157a663d14"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structstorage__device__t.html">storage_device_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#ad1b4bda1ebedc6cf141f8f157a663d14">next</a></td></tr>
+<tr class="memdesc:ad1b4bda1ebedc6cf141f8f157a663d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to next storage device, or NULL.  <a href="structstorage__device__t.html#ad1b4bda1ebedc6cf141f8f157a663d14">More...</a><br /></td></tr>
 <tr class="separator:ad1b4bda1ebedc6cf141f8f157a663d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc. </p>
+<p>A block storage device is expected to provide at least one endpoint for a readonly storage device like a ROM or CD, which is <a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2" title="Function pointer for blockread() Block reads are always expected to be in increments of block_size.">blockread()</a>. Reads and writes are always performed in block_size chunks, and any buffers used for requests are expected to be a clean modulus of this block size.</p>
+<p>Writeable filesystems should also implement <a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495" title="Function pointer for blockwrite() Block writes are always expected to be in increments of block_size.">blockwrite()</a>. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a62fabd3b49e19f188297d179ffbcd090"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62fabd3b49e19f188297d179ffbcd090">&#9670;&nbsp;</a></span>block_size</h2>
 
@@ -130,6 +146,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The block size read and write operations. This is usually a sector size on disk drives. </p>
 
 </div>
 </div>
@@ -145,6 +163,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Function pointer for <a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2" title="Function pointer for blockread() Block reads are always expected to be in increments of block_size.">blockread()</a> Block reads are always expected to be in increments of block_size. </p>
+
 </div>
 </div>
 <a id="a5ba455dae844ff9aae01e950f8271495"></a>
@@ -158,6 +178,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Function pointer for <a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495" title="Function pointer for blockwrite() Block writes are always expected to be in increments of block_size.">blockwrite()</a> Block writes are always expected to be in increments of block_size. </p>
 
 </div>
 </div>
@@ -173,6 +195,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Storage device name, e.g. 'hd0'. You should use make_unique_device_name() to fill this field. </p>
+
 </div>
 </div>
 <a id="ad1b4bda1ebedc6cf141f8f157a663d14"></a>
@@ -186,6 +210,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Pointer to next storage device, or NULL. </p>
 
 </div>
 </div>
@@ -201,6 +227,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>An opaque integer value which can be given meaning by the storage device driver. </p>
+
 </div>
 </div>
 <a id="a66eebca62325df9d8c0a0286c92ffa0c"></a>
@@ -214,6 +242,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>An opaque pointer value which can be given meaning by the storage device driver. </p>
 
 </div>
 </div>
@@ -229,6 +259,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Total extent of storage device if known, otherwise this value should be SIZE_MAX. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -237,7 +269,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structstorage__device__t.html">storage_device_t</a></li>
-    <li class="footer">Generated on Fri Apr 7 2023 20:43:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 12 2023 16:51:11 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

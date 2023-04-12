@@ -91,32 +91,94 @@ $(document).ready(function(){initNavTree('structfilesystem__t.html',''); initRes
 <div class="title">filesystem_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Defines a filesystem driver.  
+ <a href="structfilesystem__t.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for filesystem_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structfilesystem__t__coll__graph.svg" width="442" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structfilesystem__t__coll__graph.svg" width="438" height="171"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ad9e95445e543de2e595f4da41e1b9ff4"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#ad9e95445e543de2e595f4da41e1b9ff4">name</a> [32]</td></tr>
+<tr class="memdesc:ad9e95445e543de2e595f4da41e1b9ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of filesystem driver, e.g. 'fat32'.  <a href="structfilesystem__t.html#ad9e95445e543de2e595f4da41e1b9ff4">More...</a><br /></td></tr>
 <tr class="separator:ad9e95445e543de2e595f4da41e1b9ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77609a9147050917f0fff5604dd14c36"><td class="memItemLeft" align="right" valign="top">mount_volume&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a77609a9147050917f0fff5604dd14c36">mount</a></td></tr>
+<tr class="memdesc:a77609a9147050917f0fff5604dd14c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#a77609a9147050917f0fff5604dd14c36" title="Function pointer for mount() Mounts the filesystem to a storage device.">mount()</a> Mounts the filesystem to a storage device.  <a href="structfilesystem__t.html#a77609a9147050917f0fff5604dd14c36">More...</a><br /></td></tr>
 <tr class="separator:a77609a9147050917f0fff5604dd14c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99ad863d03be29cf4ddbf592405f12a9"><td class="memItemLeft" align="right" valign="top">get_directory&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a99ad863d03be29cf4ddbf592405f12a9">getdir</a></td></tr>
+<tr class="memdesc:a99ad863d03be29cf4ddbf592405f12a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#a99ad863d03be29cf4ddbf592405f12a9" title="Function pointer for getdir() Retrieves a list of files in a directory.">getdir()</a> Retrieves a list of files in a directory.  <a href="structfilesystem__t.html#a99ad863d03be29cf4ddbf592405f12a9">More...</a><br /></td></tr>
 <tr class="separator:a99ad863d03be29cf4ddbf592405f12a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab20175c68487833f4f3f351aaf724326"><td class="memItemLeft" align="right" valign="top">read_file&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#ab20175c68487833f4f3f351aaf724326">readfile</a></td></tr>
+<tr class="memdesc:ab20175c68487833f4f3f351aaf724326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#ab20175c68487833f4f3f351aaf724326" title="Function pointer for readfile() Retrieves file contents from an arbitrary location in a file on the f...">readfile()</a> Retrieves file contents from an arbitrary location in a file on the filesystem. Attempts to read any content outside of the files extent should be handled by returning only what is available.  <a href="structfilesystem__t.html#ab20175c68487833f4f3f351aaf724326">More...</a><br /></td></tr>
 <tr class="separator:ab20175c68487833f4f3f351aaf724326"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba266bd5449616e92bb1706f8c408d9f"><td class="memItemLeft" align="right" valign="top">write_file&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f">writefile</a></td></tr>
+<tr class="memdesc:aba266bd5449616e92bb1706f8c408d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f" title="Function pointer for writefile() Writes data to arbitrary location in a file on the filesystem....">writefile()</a> Writes data to arbitrary location in a file on the filesystem. The file must exist, and <a class="el" href="structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f" title="Function pointer for writefile() Writes data to arbitrary location in a file on the filesystem....">writefile()</a> should not create new files, this is the reponsibility of the <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8" title="Function pointer for createfile() Creates a new file filled with null bytes, of the requested size....">createfile()</a> endpoint.  <a href="structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f">More...</a><br /></td></tr>
 <tr class="separator:aba266bd5449616e92bb1706f8c408d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d2e44b34d97365125949fe2ca300e8"><td class="memItemLeft" align="right" valign="top">create_file&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8">createfile</a></td></tr>
+<tr class="memdesc:ab7d2e44b34d97365125949fe2ca300e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8" title="Function pointer for createfile() Creates a new file filled with null bytes, of the requested size....">createfile()</a> Creates a new file filled with null bytes, of the requested size. The file size on the media may be larger, to account for slack, but the reported size must be that provided.  <a href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8">More...</a><br /></td></tr>
+<tr class="separator:ab7d2e44b34d97365125949fe2ca300e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe1dabfc1a3f49cfb4d52980c5ff5a0c"><td class="memItemLeft" align="right" valign="top">truncate_file&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#abe1dabfc1a3f49cfb4d52980c5ff5a0c">truncatefile</a></td></tr>
+<tr class="memdesc:abe1dabfc1a3f49cfb4d52980c5ff5a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#abe1dabfc1a3f49cfb4d52980c5ff5a0c" title="Function pointer for truncatefile() Truncates an existing file to a new length, discarding any data p...">truncatefile()</a> Truncates an existing file to a new length, discarding any data past the new size and freeing it for re-use.  <a href="structfilesystem__t.html#abe1dabfc1a3f49cfb4d52980c5ff5a0c">More...</a><br /></td></tr>
+<tr class="separator:abe1dabfc1a3f49cfb4d52980c5ff5a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac33d6d5bdd65541a546fab20594ab7bf"><td class="memItemLeft" align="right" valign="top">create_dir&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#ac33d6d5bdd65541a546fab20594ab7bf">createdir</a></td></tr>
+<tr class="memdesc:ac33d6d5bdd65541a546fab20594ab7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for cretedir() Create a new empty directory. The directory should not already exist within the given parent directory.  <a href="structfilesystem__t.html#ac33d6d5bdd65541a546fab20594ab7bf">More...</a><br /></td></tr>
+<tr class="separator:ac33d6d5bdd65541a546fab20594ab7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a53b5c090ad502a59b6f382f6a64111"><td class="memItemLeft" align="right" valign="top">delete_file&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a5a53b5c090ad502a59b6f382f6a64111">rm</a></td></tr>
+<tr class="memdesc:a5a53b5c090ad502a59b6f382f6a64111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#a5a53b5c090ad502a59b6f382f6a64111" title="Function pointer for rm() Remove an existing file. The file should already exist in the parent direct...">rm()</a> Remove an existing file. The file should already exist in the parent directory, and should not itself be a directory.  <a href="structfilesystem__t.html#a5a53b5c090ad502a59b6f382f6a64111">More...</a><br /></td></tr>
 <tr class="separator:a5a53b5c090ad502a59b6f382f6a64111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85128ed0d4bda3d5431f4d44c7a4ccd5"><td class="memItemLeft" align="right" valign="top">delete_dir&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a85128ed0d4bda3d5431f4d44c7a4ccd5">rmdir</a></td></tr>
+<tr class="memdesc:a85128ed0d4bda3d5431f4d44c7a4ccd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#a85128ed0d4bda3d5431f4d44c7a4ccd5" title="Function pointer for rmdir() Remove an existing directory. The directory should already exist in the ...">rmdir()</a> Remove an existing directory. The directory should already exist in the parent directory, and should be empty of all non-special entries (e.g. '.' and '..' are permitted to still exist)  <a href="structfilesystem__t.html#a85128ed0d4bda3d5431f4d44c7a4ccd5">More...</a><br /></td></tr>
+<tr class="separator:a85128ed0d4bda3d5431f4d44c7a4ccd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3de5608a3632092ae909303a1ba96fe5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfilesystem__t.html">filesystem_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a3de5608a3632092ae909303a1ba96fe5">next</a></td></tr>
+<tr class="memdesc:a3de5608a3632092ae909303a1ba96fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to next filesystem driver or NULL.  <a href="structfilesystem__t.html#a3de5608a3632092ae909303a1ba96fe5">More...</a><br /></td></tr>
 <tr class="separator:a3de5608a3632092ae909303a1ba96fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Defines a filesystem driver. </p>
+<p>A driver does not need to implement all functions listed here. An unimplemented function should be NULL.</p>
+<p>At a bare minimum a filesystem should support: mount, getdir, readfile</p>
+<p>For full read/write support, all endpoints should be defined.</p>
+<dl class="section note"><dt>Note</dt><dd>The VFS maintains a separate cache of the directory structure which is adjusted to match any requests made to the underlying filesystem driver. The filesystem driver does not have to concern itself with keeping this cache up to date. </dd></dl>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac33d6d5bdd65541a546fab20594ab7bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac33d6d5bdd65541a546fab20594ab7bf">&#9670;&nbsp;</a></span>createdir</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">create_dir filesystem_t::createdir</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer for cretedir() Create a new empty directory. The directory should not already exist within the given parent directory. </p>
+
+</div>
+</div>
+<a id="ab7d2e44b34d97365125949fe2ca300e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d2e44b34d97365125949fe2ca300e8">&#9670;&nbsp;</a></span>createfile</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">create_file filesystem_t::createfile</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8" title="Function pointer for createfile() Creates a new file filled with null bytes, of the requested size....">createfile()</a> Creates a new file filled with null bytes, of the requested size. The file size on the media may be larger, to account for slack, but the reported size must be that provided. </p>
+<p>The file must not already exist, <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8" title="Function pointer for createfile() Creates a new file filled with null bytes, of the requested size....">createfile()</a> should not overwrite existing data. </p>
+
+</div>
+</div>
 <a id="a99ad863d03be29cf4ddbf592405f12a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99ad863d03be29cf4ddbf592405f12a9">&#9670;&nbsp;</a></span>getdir</h2>
 
@@ -128,6 +190,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#a99ad863d03be29cf4ddbf592405f12a9" title="Function pointer for getdir() Retrieves a list of files in a directory.">getdir()</a> Retrieves a list of files in a directory. </p>
 
 </div>
 </div>
@@ -143,6 +207,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#a77609a9147050917f0fff5604dd14c36" title="Function pointer for mount() Mounts the filesystem to a storage device.">mount()</a> Mounts the filesystem to a storage device. </p>
+
 </div>
 </div>
 <a id="ad9e95445e543de2e595f4da41e1b9ff4"></a>
@@ -156,6 +222,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Name of filesystem driver, e.g. 'fat32'. </p>
 
 </div>
 </div>
@@ -171,6 +239,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to next filesystem driver or NULL. </p>
+
 </div>
 </div>
 <a id="ab20175c68487833f4f3f351aaf724326"></a>
@@ -184,6 +254,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#ab20175c68487833f4f3f351aaf724326" title="Function pointer for readfile() Retrieves file contents from an arbitrary location in a file on the f...">readfile()</a> Retrieves file contents from an arbitrary location in a file on the filesystem. Attempts to read any content outside of the files extent should be handled by returning only what is available. </p>
 
 </div>
 </div>
@@ -199,6 +271,41 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#a5a53b5c090ad502a59b6f382f6a64111" title="Function pointer for rm() Remove an existing file. The file should already exist in the parent direct...">rm()</a> Remove an existing file. The file should already exist in the parent directory, and should not itself be a directory. </p>
+
+</div>
+</div>
+<a id="a85128ed0d4bda3d5431f4d44c7a4ccd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85128ed0d4bda3d5431f4d44c7a4ccd5">&#9670;&nbsp;</a></span>rmdir</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">delete_dir filesystem_t::rmdir</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#a85128ed0d4bda3d5431f4d44c7a4ccd5" title="Function pointer for rmdir() Remove an existing directory. The directory should already exist in the ...">rmdir()</a> Remove an existing directory. The directory should already exist in the parent directory, and should be empty of all non-special entries (e.g. '.' and '..' are permitted to still exist) </p>
+
+</div>
+</div>
+<a id="abe1dabfc1a3f49cfb4d52980c5ff5a0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe1dabfc1a3f49cfb4d52980c5ff5a0c">&#9670;&nbsp;</a></span>truncatefile</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">truncate_file filesystem_t::truncatefile</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#abe1dabfc1a3f49cfb4d52980c5ff5a0c" title="Function pointer for truncatefile() Truncates an existing file to a new length, discarding any data p...">truncatefile()</a> Truncates an existing file to a new length, discarding any data past the new size and freeing it for re-use. </p>
+<p>The file must exist. To create a new file of a given length, the creatfile() endpoint should be used instead. </p>
+
 </div>
 </div>
 <a id="aba266bd5449616e92bb1706f8c408d9f"></a>
@@ -213,6 +320,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Function pointer for <a class="el" href="structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f" title="Function pointer for writefile() Writes data to arbitrary location in a file on the filesystem....">writefile()</a> Writes data to arbitrary location in a file on the filesystem. The file must exist, and <a class="el" href="structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f" title="Function pointer for writefile() Writes data to arbitrary location in a file on the filesystem....">writefile()</a> should not create new files, this is the reponsibility of the <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8" title="Function pointer for createfile() Creates a new file filled with null bytes, of the requested size....">createfile()</a> endpoint. </p>
+<p>The <a class="el" href="structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f" title="Function pointer for writefile() Writes data to arbitrary location in a file on the filesystem....">writefile()</a> endpoint should extend the length of existing files where required however, without error and without any special requirements having to be met, hardware permitting. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -221,7 +331,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structfilesystem__t.html">filesystem_t</a></li>
-    <li class="footer">Generated on Fri Apr 7 2023 20:43:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 12 2023 16:51:11 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

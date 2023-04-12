@@ -399,7 +399,11 @@
     <member refid="structfilesystem__t_1a99ad863d03be29cf4ddbf592405f12a9" kind="variable"><name>getdir</name></member>
     <member refid="structfilesystem__t_1ab20175c68487833f4f3f351aaf724326" kind="variable"><name>readfile</name></member>
     <member refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kind="variable"><name>writefile</name></member>
+    <member refid="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" kind="variable"><name>createfile</name></member>
+    <member refid="structfilesystem__t_1abe1dabfc1a3f49cfb4d52980c5ff5a0c" kind="variable"><name>truncatefile</name></member>
+    <member refid="structfilesystem__t_1ac33d6d5bdd65541a546fab20594ab7bf" kind="variable"><name>createdir</name></member>
     <member refid="structfilesystem__t_1a5a53b5c090ad502a59b6f382f6a64111" kind="variable"><name>rm</name></member>
+    <member refid="structfilesystem__t_1a85128ed0d4bda3d5431f4d44c7a4ccd5" kind="variable"><name>rmdir</name></member>
     <member refid="structfilesystem__t_1a3de5608a3632092ae909303a1ba96fe5" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structfooter" kind="struct"><name>footer</name>
@@ -414,6 +418,7 @@
   </compound>
   <compound refid="structfs__directory__entry__t" kind="struct"><name>fs_directory_entry_t</name>
     <member refid="structfs__directory__entry__t_1a29106c594aa22787b5604461f7686a08" kind="variable"><name>filename</name></member>
+    <member refid="structfs__directory__entry__t_1acc3f45df9707c27355a3efc2ce3052b6" kind="variable"><name>alt_filename</name></member>
     <member refid="structfs__directory__entry__t_1a189d674effd3a783f2a0fec76eb4dc3a" kind="variable"><name>year</name></member>
     <member refid="structfs__directory__entry__t_1ad7b145a5ee090c6be6c377d1355e44b7" kind="variable"><name>month</name></member>
     <member refid="structfs__directory__entry__t_1ae62851bd478ee4d1fb4076e92fd4e587" kind="variable"><name>day</name></member>
@@ -432,6 +437,8 @@
     <member refid="structfs__handle__t_1ad7a4b108d79edee95a52f6a98115f6da" kind="variable"><name>type</name></member>
     <member refid="structfs__handle__t_1a3767e0c964460f9d114529b25815bb7e" kind="variable"><name>inbuf</name></member>
     <member refid="structfs__handle__t_1ad2ed98466d85226244177da2a0207e05" kind="variable"><name>outbuf</name></member>
+    <member refid="structfs__handle__t_1ac58f73bbde3a9f4fde2ba01e55b26577" kind="variable"><name>inbufpos</name></member>
+    <member refid="structfs__handle__t_1a5c83459bba23c33e390db430dcafc36e" kind="variable"><name>outbufpos</name></member>
     <member refid="structfs__handle__t_1a8f828766185b1c35103786929fd6673b" kind="variable"><name>outbufsize</name></member>
     <member refid="structfs__handle__t_1a9f7595e558110ebb1edc736ee74d214d" kind="variable"><name>inbufsize</name></member>
     <member refid="structfs__handle__t_1a3a661853cb8cbcdbccd7655c480c97e2" kind="variable"><name>file</name></member>
@@ -445,9 +452,9 @@
     <member refid="structfs__tree__t_1ad61c3a6c1f4e77d7efcca380ba6b6d65" kind="variable"><name>child_dirs</name></member>
     <member refid="structfs__tree__t_1a3e98b356a36d9bad9b78ae88c7990971" kind="variable"><name>files</name></member>
     <member refid="structfs__tree__t_1accc0b6240ae6cf114387ec945c02258e" kind="variable"><name>responsible_driver</name></member>
-    <member refid="structfs__tree__t_1a42d1a9cfc0e9395fb4f47277d81e5095" kind="variable"><name>lbapos</name></member>
+    <member refid="structfs__tree__t_1ac913ea2aa83166a1651931713b42dccc" kind="variable"><name>lbapos</name></member>
     <member refid="structfs__tree__t_1a486350e7695dbfd0fe750d4bf0572823" kind="variable"><name>device_name</name></member>
-    <member refid="structfs__tree__t_1a69573c79e38b8167a1cc7b258491bb88" kind="variable"><name>device</name></member>
+    <member refid="structfs__tree__t_1a2f28644810b605d065c6f622fad4a777" kind="variable"><name>device</name></member>
     <member refid="structfs__tree__t_1a42e0d21fa2ff2c542748ac1fa723e8ed" kind="variable"><name>size</name></member>
     <member refid="structfs__tree__t_1abc7e1541c66633d56c04ee5ab1f637c2" kind="variable"><name>opaque</name></member>
     <member refid="structfs__tree__t_1a211b1093f69dbaa0c693930256b0f1cb" kind="variable"><name>next</name></member>
@@ -934,6 +941,12 @@
     <member refid="structtx__desc_1a586d3b5e66e9cbbc0ff268d7271d6386" kind="variable"><name>phys_addr</name></member>
     <member refid="structtx__desc_1a9858f376a8e33d0ed0f28ed33d3d0142" kind="variable"><name>packet_size</name></member>
   </compound>
+  <compound refid="structub__line__ref" kind="struct"><name>ub_line_ref</name>
+    <member refid="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" kind="variable"><name>line_number</name></member>
+    <member refid="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" kind="variable"><name>ptr</name></member>
+    <member refid="structub__line__ref_1aff354abc3d12b0064deaa6adc6a954a9" kind="variable"><name>prev</name></member>
+    <member refid="structub__line__ref_1a1ed83cf1c8a2692780e039fef5bacd87" kind="variable"><name>next</name></member>
+  </compound>
   <compound refid="structub__param" kind="struct"><name>ub_param</name>
     <member refid="structub__param_1a5ed01b68c0d5b7918fdf8279ede2c4fb" kind="variable"><name>name</name></member>
     <member refid="structub__param_1a9264c1613cd1a6d11991d170f5fbcced" kind="variable"><name>next</name></member>
@@ -986,7 +999,7 @@
     <member refid="structubasic__ctx_1afee0876c34d4d12787aa3833e64fb5c8" kind="variable"><name>errored</name></member>
     <member refid="structubasic__ctx_1ad228067b994f862ff64d9ea07927e3e7" kind="variable"><name>program_ptr</name></member>
     <member refid="structubasic__ctx_1ad4f82e6f89c9b88bd7a946d78479df38" kind="variable"><name>string</name></member>
-    <member refid="structubasic__ctx_1a335393bdf5ac7f0398bb98b40a27dbd3" kind="variable"><name>gosub_stack</name></member>
+    <member refid="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" kind="variable"><name>gosub_stack</name></member>
     <member refid="structubasic__ctx_1a29c2fb098e7e87179a80c78957352ca0" kind="variable"><name>local_int_variables</name></member>
     <member refid="structubasic__ctx_1ac174583082681c819beac71bf6c856e2" kind="variable"><name>local_string_variables</name></member>
     <member refid="structubasic__ctx_1addf1b80ca1ad690c7375230adeb8b2a6" kind="variable"><name>local_double_variables</name></member>
@@ -1009,6 +1022,8 @@
     <member refid="structubasic__ctx_1ac52c5cd3f325dc10408ea4eecee6fac7" kind="variable"><name>item_begin</name></member>
     <member refid="structubasic__ctx_1a75fe7e0c62284b7f96d3badafc81df07" kind="variable"><name>param</name></member>
     <member refid="structubasic__ctx_1aa068f02eec061e35fabab244735c0fff" kind="variable"><name>graphics_colour</name></member>
+    <member refid="structubasic__ctx_1a6e25762f518edf1bf964fba6e4ff3091" kind="variable"><name>lines</name></member>
+    <member refid="structubasic__ctx_1acb52eee7ccee41778382fd7a2da8ccce" kind="variable"><name>line_tail</name></member>
   </compound>
   <compound refid="structubasic__double__fn" kind="struct"><name>ubasic_double_fn</name>
     <member refid="structubasic__double__fn_1a09662270d292dc1a4a41cd4bfe8a30d5" kind="variable"><name>handler</name></member>
@@ -1053,7 +1068,7 @@
     <member refid="acpi_8h_1ab0b5c2612ca3de9e099f4f8652f5a6e7" kind="variable"><name>pointer_to_other_sdt</name></member>
     <member refid="acpi_8h_1aafbf64bca4eea0ce21790146ad03e6f8" kind="variable"><name>__attribute__</name></member>
     <member refid="acpi_8h_1a879788731194c66cc02bf0de311d1def" kind="function"><name>__attribute__</name></member>
-    <member refid="acpi_8h_1aedc05d36c46ed45d344d365a3f999215" kind="function"><name>detect_cores</name></member>
+    <member refid="acpi_8h_1a1994da1e5a421570132607aaad5afec9" kind="function"><name>init_cores</name></member>
     <member refid="acpi_8h_1ae7164bbaa4c4e814bdeaf05f386103ba" kind="function"><name>get_lapic_ids</name></member>
     <member refid="acpi_8h_1a1a6dfa32a21e7522a6094874a4c36e0c" kind="function"><name>get_cpu_count</name></member>
     <member refid="acpi_8h_1a9a09b0320ee05b488156e6a7f4be862b" kind="function"><name>get_local_apic</name></member>
@@ -1309,7 +1324,7 @@
     <member refid="ata_8h_1a18fddc6e232e1300b3647b7c4417043aa3f083117b8c4238af9319d14680b428a" kind="enumvalue"><name>ATA_POLL_TIMEOUT</name></member>
     <member refid="ata_8h_1acb52766b0d624203211cbfcf4a05edb2" kind="function"><name>ide_read</name></member>
     <member refid="ata_8h_1a7994497eba58387a8f165604a3db2e7e" kind="function"><name>ide_write</name></member>
-    <member refid="ata_8h_1a28ff591a4ea2513423b51bf8b527973a" kind="function"><name>ide_initialise</name></member>
+    <member refid="ata_8h_1abc751c8edfc3a3daf8243d8837f89bc1" kind="function"><name>init_ide</name></member>
     <member refid="ata_8h_1a291be4904771fb4b45334dafdbbbc7df" kind="function"><name>ide_irq</name></member>
     <member refid="ata_8h_1a0df21c6405226c938e2c18033c2f41e6" kind="function"><name>ide_read_sectors</name></member>
     <member refid="ata_8h_1a3e00ee2429dfceccd1e2595efeaef63f" kind="function"><name>ide_write_sectors</name></member>
@@ -1323,9 +1338,10 @@
     <member refid="clock_8h_1a7fd5014583884e4e7e8145819337ac37" kind="typedef"><name>datetime_t</name></member>
     <member refid="clock_8h_1acaac299510c8ace6baf3848cf616de85" kind="function"><name>get_datetime_str</name></member>
     <member refid="clock_8h_1a5422fc453dd6b462d4bc1fc0df9e4bd8" kind="function"><name>get_datetime</name></member>
-    <member refid="clock_8h_1ae9cc0a879e88eea28e4e8b57318ef8e5" kind="function"><name>clock_init</name></member>
+    <member refid="clock_8h_1aff93106d7e8609959f1bd8185a822def" kind="function"><name>init_realtime_clock</name></member>
     <member refid="clock_8h_1ae7841e681c8c9d59818568d39553642c" kind="function"><name>time</name></member>
     <member refid="clock_8h_1a0ed0af74b6ab22d8c7a1b7ba9733e12d" kind="function"><name>day_of_year</name></member>
+    <member refid="clock_8h_1a8224f7fa51de1642e6634e72f2f06be2" kind="function"><name>get_weekday_from_date</name></member>
   </compound>
   <compound refid="cpuid_8h" kind="file"><name>cpuid.h</name>
     <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377" kind="enum"><name>cpuid_flags</name></member>
@@ -1651,6 +1667,11 @@
     <member refid="fat32_8h_1afa13d3c1c60925f7b1e639233a799860" kind="define"><name>ATTR_DIRECTORY</name></member>
     <member refid="fat32_8h_1a1b257aa7e0fdd8b11372edf885302176" kind="define"><name>ATTR_ARCHIVE</name></member>
     <member refid="fat32_8h_1a4530dded7bddf70573cbc1fc4515367e" kind="define"><name>ATTR_LONG_NAME</name></member>
+    <member refid="fat32_8h_1a731cf87da8157bd11a7a6d10102d168c" kind="define"><name>ATTR_LFN_DELETED</name></member>
+    <member refid="fat32_8h_1ac25c831549b59dc4db5cf7002dcd4d0f" kind="define"><name>ATTR_LFN_LAST_ENTRY</name></member>
+    <member refid="fat32_8h_1a50b3c7ff77f4ac57d61c3b611bbcf63d" kind="define"><name>CLUSTER_END</name></member>
+    <member refid="fat32_8h_1aca71ac2df704b07a4c5a6df78f06bae4" kind="define"><name>CLUSTER_BAD</name></member>
+    <member refid="fat32_8h_1a1b9d773a3987b01fdca3c1013fab4f10" kind="define"><name>CLUSTER_FREE</name></member>
     <member refid="fat32_8h_1a04a70f98f04de4f886662a9781e8d04b" kind="typedef"><name>fat32_t</name></member>
     <member refid="fat32_8h_1a2bbb3a97ada9d67ddd5b3991ac1a92c9" kind="variable"><name>signature1</name></member>
     <member refid="fat32_8h_1a40abd2fc31137d322f7aefae01dc0907" kind="variable"><name>reserved1</name></member>
@@ -1724,17 +1745,23 @@
     <member refid="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3a9287f360250a7c0e5085c332fdb7e195" kind="enumvalue"><name>file_input</name></member>
     <member refid="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3a81266c2a12fd55cac32299093ea2804c" kind="enumvalue"><name>file_output</name></member>
     <member refid="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3a5472096f60abca1be816da90d4062c3f" kind="enumvalue"><name>file_random</name></member>
+    <member refid="filesystem_8h_1af456ddc19314d0bde5426f9027e96b05" kind="typedef"><name>mode_t</name></member>
     <member refid="filesystem_8h_1ab18ebf0ec55a45b557b2d6e1bdb2ef4d" kind="typedef"><name>get_directory</name></member>
     <member refid="filesystem_8h_1ad7b51a2acb80e5467b0e6fb6f0896f04" kind="typedef"><name>mount_volume</name></member>
-    <member refid="filesystem_8h_1a74d591ac1fbd23c14b9402d7513b2d73" kind="typedef"><name>read_file</name></member>
-    <member refid="filesystem_8h_1a3bce970cc95c88826b168379f6f94ce1" kind="typedef"><name>write_file</name></member>
-    <member refid="filesystem_8h_1a019a07fb6edddc5b777759230eff1622" kind="typedef"><name>delete_file</name></member>
+    <member refid="filesystem_8h_1a36870a32a443e38c76e0b99c80cfca28" kind="typedef"><name>read_file</name></member>
+    <member refid="filesystem_8h_1ad7fbb498b70c179339cf8354d37dce02" kind="typedef"><name>write_file</name></member>
+    <member refid="filesystem_8h_1ab8604c3a391dc804445cac78b86510b2" kind="typedef"><name>create_file</name></member>
+    <member refid="filesystem_8h_1afad152e2e2ae6fd9c67f6297507c1f17" kind="typedef"><name>truncate_file</name></member>
+    <member refid="filesystem_8h_1a9676f2719a89837cd7ad99e3671cda52" kind="typedef"><name>create_dir</name></member>
+    <member refid="filesystem_8h_1a7beb244ba61211f68a03fdd32bb7ac43" kind="typedef"><name>delete_file</name></member>
+    <member refid="filesystem_8h_1a8ec1bba1ee1bc3fe7b46f30eff181e3e" kind="typedef"><name>delete_dir</name></member>
     <member refid="filesystem_8h_1aedade13300b3b7656d01691660c3d275" kind="typedef"><name>block_read</name></member>
     <member refid="filesystem_8h_1afbf0a8246b98b1f4ddca666aeb3fae3d" kind="typedef"><name>block_write</name></member>
     <member refid="filesystem_8h_1ae9a4b52a5409ef2a849e512355c884b4" kind="typedef"><name>fs_directory_entry_t</name></member>
     <member refid="filesystem_8h_1a23ba991855f6f34d96c5fbbf84052f64" kind="typedef"><name>filesystem_t</name></member>
     <member refid="filesystem_8h_1adfeeeae57c0257d8f48f3afbb4af1b28" kind="typedef"><name>storage_device_t</name></member>
     <member refid="filesystem_8h_1a53c0e32c77874cf0a70265517c51bad5" kind="typedef"><name>fs_tree_t</name></member>
+    <member refid="filesystem_8h_1add5a5a98536831657dd83ba5b4653aaa" kind="typedef"><name>fs_handle_type_t</name></member>
     <member refid="filesystem_8h_1ad8fac494541962836f886e76051a33c7" kind="typedef"><name>fs_handle_t</name></member>
     <member refid="filesystem_8h_1a90ae435cc1f4e6cccba5cc179c2bd81c" kind="function"><name>register_filesystem</name></member>
     <member refid="filesystem_8h_1a86db0085cc6c14e76ac68e70b79b3a32" kind="function"><name>find_filesystem</name></member>
@@ -1746,14 +1773,25 @@
     <member refid="filesystem_8h_1a7277c11237470183b5d22fc977185169" kind="function"><name>filesystem_mount</name></member>
     <member refid="filesystem_8h_1a47cfa7087b707560af1b5a669dfc69b3" kind="function"><name>init_filesystem</name></member>
     <member refid="filesystem_8h_1aeea14dbba6f8453923e288ece85cf6df" kind="function"><name>fs_get_items</name></member>
+    <member refid="filesystem_8h_1aba196fffbbe3a92cf3d5d4c7372539ab" kind="function"><name>fs_is_directory</name></member>
     <member refid="filesystem_8h_1a93b69bf53951ce16a8e648f238631696" kind="function"><name>fs_get_file_info</name></member>
+    <member refid="filesystem_8h_1af29b0affdc800f4d78ab5e9c60a1726a" kind="function"><name>fs_create_file</name></member>
+    <member refid="filesystem_8h_1ade4787d5728ce138b4f86eae5efe000b" kind="function"><name>fs_create_directory</name></member>
+    <member refid="filesystem_8h_1a3692a5983409c6e8f74cbe0c5c3435f4" kind="function"><name>fs_truncate_file</name></member>
     <member refid="filesystem_8h_1ab6174ea1e5338a32b45778cb26b7ebc4" kind="function"><name>fs_read_file</name></member>
     <member refid="filesystem_8h_1ab58b880337bae46decb3c6dd1ad1b285" kind="function"><name>_open</name></member>
     <member refid="filesystem_8h_1a0fd47ee5cad0fcaf36712977a860833f" kind="function"><name>_read</name></member>
+    <member refid="filesystem_8h_1af53712a23d902e214c27f686f016e8c9" kind="function"><name>_write</name></member>
     <member refid="filesystem_8h_1a72e233ba0f8c1bbcae1d64cd59fa659e" kind="function"><name>_close</name></member>
     <member refid="filesystem_8h_1af06efedfd44e65f4272f81cfce654e0b" kind="function"><name>_eof</name></member>
     <member refid="filesystem_8h_1a5c84815714d467e6850288b4581b4070" kind="function"><name>_lseek</name></member>
     <member refid="filesystem_8h_1a38ca3552bb9bdb4c6069381307431fc0" kind="function"><name>_tell</name></member>
+    <member refid="filesystem_8h_1af3cee068f32a919cdd638e0578c1e5f8" kind="function"><name>unlink</name></member>
+    <member refid="filesystem_8h_1aee98bbe743c2d14dbaa67f01c3fb9ed5" kind="function"><name>mkdir</name></member>
+    <member refid="filesystem_8h_1a570282ae7ba596263ec812b368d99b34" kind="function"><name>rmdir</name></member>
+    <member refid="filesystem_8h_1ab7aad6d7661082e4aa5ec28badba8ca5" kind="function"><name>ftruncate</name></member>
+    <member refid="filesystem_8h_1af54d35de43947f1e7e1a86eed9270a6d" kind="function"><name>fs_delete_file</name></member>
+    <member refid="filesystem_8h_1ae475207338a0787caf15949e45badfe8" kind="function"><name>fs_delete_directory</name></member>
   </compound>
   <compound refid="fpu_8h" kind="file"><name>fpu.h</name>
     <member refid="fpu_8h_1ab9204093192759b009ac545acb116b0c" kind="function"><name>enable_fpu</name></member>
@@ -1835,8 +1873,11 @@
     <member refid="idt_8h_1a9523167633082272d9b1ee3d88034de0" kind="variable"><name>__attribute__</name></member>
     <member refid="idt_8h_1a7fea997d947588217b4eff20c7b8dce3" kind="variable"><name>idt64</name></member>
     <member refid="idt_8h_1a280c0c4d1ccde2fd517a7951ca937f5b" kind="function"><name>__attribute__</name></member>
-    <member refid="idt_8h_1a559dc3a4f73d1813f12a104840e68550" kind="function"><name>idt_setup</name></member>
+    <member refid="idt_8h_1a35fe413107af682030ab7a4b6dff19b8" kind="function"><name>init_idt</name></member>
     <member refid="idt_8h_1a1d46d7c4e33f7136bc518c26c24bf8f9" kind="function"><name>idt_init</name></member>
+  </compound>
+  <compound refid="initialisation-functions_8h" kind="file"><name>initialisation-functions.h</name>
+    <member refid="initialisation-functions_8h_1a02fd73d861ef2e4aabb38c0c9ff82947" kind="function"><name>init</name></member>
   </compound>
   <compound refid="input_8h" kind="file"><name>input.h</name>
     <member refid="input_8h_1ad1207d022962151b2b0d89c803dd5ae2" kind="function"><name>kinput</name></member>
@@ -1964,7 +2005,7 @@
     <member refid="kmalloc_8h_1adc6f21bbda2c71015c428920cf785abd" kind="function"><name>kmalloc_ext</name></member>
     <member refid="kmalloc_8h_1aa3ff6401026972fc396bda649a01c994" kind="function"><name>kfree</name></member>
     <member refid="kmalloc_8h_1aba7ce08189c188afd939c2228c320421" kind="function"><name>create_heap</name></member>
-    <member refid="kmalloc_8h_1a4b5e2a8ec0b6ac33e17ab8fe3820894e" kind="function"><name>heap_init</name></member>
+    <member refid="kmalloc_8h_1a632fb5550678e7d65db823fb1adc2dd9" kind="function"><name>init_heap</name></member>
     <member refid="kmalloc_8h_1a56ae8e632dd1a93d76e4a9b9f265f3a2" kind="function"><name>print_heapinfo</name></member>
     <member refid="kmalloc_8h_1a82a73c7addea8ea1a143be9663efc5e0" kind="function"><name>preboot_fail</name></member>
     <member refid="kmalloc_8h_1a4af91afe377146f47af63dac6fb93fb9" kind="function"><name>kcalloc</name></member>
@@ -1995,7 +2036,7 @@
     <member refid="lapic__timer_8h_1a03f37028071acfb2ff897aa0cb4431e0" kind="define"><name>APIC_NMI</name></member>
     <member refid="lapic__timer_8h_1a4e5c411ab9319b34198f65045fc831a7" kind="define"><name>TMR_PERIODIC</name></member>
     <member refid="lapic__timer_8h_1a06288a57cca2484097a813e9b645ff62" kind="define"><name>TMR_BASEDIV</name></member>
-    <member refid="lapic__timer_8h_1a876931bcbebbfdac399a04007d9698d1" kind="function"><name>init_lapic_timer</name></member>
+    <member refid="lapic__timer_8h_1a59ea126de3ba6eca010bb13579d59901" kind="function"><name>init_lapic_timer</name></member>
   </compound>
   <compound refid="limine-requests_8h" kind="file"><name>limine-requests.h</name>
     <member refid="limine-requests_8h_1a4624470a935909a7014569fd8582e2e3" kind="variable"><name>stack_size_request</name></member>
@@ -2197,6 +2238,10 @@
     <member refid="printf_8h_1a55f3d956bb2ba20b5059e9e25484a47f" kind="function"><name>printf</name></member>
     <member refid="printf_8h_1a571270f690c35549229075bb963eabe7" kind="function"><name>dprintf</name></member>
   </compound>
+  <compound refid="ramdisk_8h" kind="file"><name>ramdisk.h</name>
+    <member refid="ramdisk_8h_1af84c012f7363b70081ad1db8212a3e24" kind="function"><name>init_ramdisk</name></member>
+    <member refid="ramdisk_8h_1acd0ea3e208dd91c4a5352db5f152a502" kind="function"><name>init_ramdisk_from_storage</name></member>
+  </compound>
   <compound refid="rtl8139_8h" kind="file"><name>rtl8139.h</name>
     <member refid="rtl8139_8h_1a3f195356e45805ccf74184a3616ba53a" kind="define"><name>RTL8139_VENDOR_ID</name></member>
     <member refid="rtl8139_8h_1a832875eaec4756d1ba1309eb5b18d77c" kind="define"><name>RTL8139_DEVICE_ID</name></member>
@@ -2303,7 +2348,7 @@
     <member refid="rtl8139_8h_1a6371211774726c3dc4efa1400f458594" kind="typedef"><name>rtl8139_dev_t</name></member>
     <member refid="rtl8139_8h_1aa8376ab52bb984dc5977fde84cc6ac20" kind="function"><name>rtl8139_send_packet</name></member>
     <member refid="rtl8139_8h_1afcf1f3ad1e43a154cdee3c48beae8a93" kind="function"><name>rtl8139_handler</name></member>
-    <member refid="rtl8139_8h_1a486c9404282d4940385e382b9fed9f5d" kind="function"><name>rtl8139_init</name></member>
+    <member refid="rtl8139_8h_1aaeab8345c9dcf11708bfa095299f408a" kind="function"><name>init_rtl8139</name></member>
     <member refid="rtl8139_8h_1a6ffee74a1d59b89074475e3f63b90467" kind="function"><name>read_mac_addr</name></member>
     <member refid="rtl8139_8h_1a2e3eda51e49f15540e2bff7ea40f05db" kind="function"><name>receive_packet</name></member>
     <member refid="rtl8139_8h_1a6afdb8e39171181fcfd0e49f28b10e3e" kind="function"><name>rtl8139_get_mac_addr</name></member>
@@ -2323,6 +2368,7 @@
     <member refid="string_8h_1abfcaa2fc7116e670ae5e1041998efae4" kind="function"><name>strnicmp</name></member>
     <member refid="string_8h_1a5e77664365c4f7bd9f260f8ccb89a438" kind="function"><name>toupper</name></member>
     <member refid="string_8h_1a7c7bfb267464615bfa3b86aa79f42a82" kind="function"><name>tolower</name></member>
+    <member refid="string_8h_1a14a3b4483efde6e89ca889074842573b" kind="function"><name>isalnum</name></member>
     <member refid="string_8h_1a12871ed234858ef0e363d2b8aa572fc1" kind="function"><name>strchr</name></member>
     <member refid="string_8h_1a0e2ceb2e6b2122bc57c9a1ab47b15266" kind="function"><name>strlcat</name></member>
     <member refid="string_8h_1a21cdde3b342cc302afb0e4f4dd705c9d" kind="function"><name>strlcpy</name></member>
@@ -2363,7 +2409,7 @@
     <member refid="taskswitch_8h_1a91750275a2fc6e56c8fb9dcf0e5e0edd" kind="function"><name>proc_name</name></member>
     <member refid="taskswitch_8h_1a4a7ef165aa328422b223f2b4e80a05d3" kind="function"><name>proc_id</name></member>
     <member refid="taskswitch_8h_1ad2dd4ffab2aaabd37998ec3b3216af48" kind="function"><name>proc_register_idle</name></member>
-    <member refid="taskswitch_8h_1a17d1aae356cbff8c71be7a05a1ec480e" kind="function"><name>proc_init</name></member>
+    <member refid="taskswitch_8h_1ab25d44702b6e10e723714c368c4a7520" kind="function"><name>init_process</name></member>
   </compound>
   <compound refid="tcp_8h" kind="file"><name>tcp.h</name>
     <member refid="tcp_8h_1a01dac0d554ac51ae8e96c00baa5b21be" kind="define"><name>TCP_WINDOW_SIZE</name></member>
@@ -2565,6 +2611,7 @@
     <member refid="ubasic_8h_1acc3e263c5498088a9576b3d0dc36fa12" kind="typedef"><name>ub_var_int_array</name></member>
     <member refid="ubasic_8h_1a203216ed240cc2d72d769f34b5f44f3a" kind="typedef"><name>ub_var_string_array</name></member>
     <member refid="ubasic_8h_1a8227d1ca913e77608aae30a1dae2e105" kind="typedef"><name>ub_var_double_array</name></member>
+    <member refid="ubasic_8h_1a6ae8f7d3de6bc65ab2ebd6527f1ae833" kind="typedef"><name>ub_line_ref</name></member>
     <member refid="ubasic_8h_1afa74f8445aef0692f8a1cedf0bf72851" kind="typedef"><name>ubasic_ctx</name></member>
     <member refid="ubasic_8h_1a59c9cd726acfbe69d8df60ab2b2d0607" kind="typedef"><name>builtin_int_fn</name></member>
     <member refid="ubasic_8h_1a32fb15d1935e217117fd02b2f319bb93" kind="typedef"><name>builtin_str_fn</name></member>
@@ -2587,7 +2634,7 @@
     <member refid="ubasic_8h_1a778c0201919e608abd2646c9b9cb0b60" kind="function"><name>ubasic_chr</name></member>
     <member refid="ubasic_8h_1a5fad97e282aa0b13b8776eeeb505315c" kind="function"><name>ubasic_readstring</name></member>
     <member refid="ubasic_8h_1a628557296864cfb7a5a9a8ab38cce2b5" kind="function"><name>ubasic_getname</name></member>
-    <member refid="ubasic_8h_1ab7af277a89e6e82220ef7c70e4f14f91" kind="function"><name>ubasic_init</name></member>
+    <member refid="ubasic_8h_1a35b7dedd50cfc30346ac4881430b531b" kind="function"><name>ubasic_init</name></member>
     <member refid="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" kind="function"><name>ubasic_destroy</name></member>
     <member refid="ubasic_8h_1a00ac2759ea41ff03f3e994f35f6bc03a" kind="function"><name>ubasic_run</name></member>
     <member refid="ubasic_8h_1ae2dfc2340f033d44a00993bfe4bf9c80" kind="function"><name>ubasic_finished</name></member>
@@ -2595,13 +2642,34 @@
     <member refid="ubasic_8h_1a2fea34db30fac3281466a93c55078c06" kind="function"><name>ubasic_get_double_variable</name></member>
     <member refid="ubasic_8h_1a9ac55179aa9a0176f342a67638608cf6" kind="function"><name>ubasic_get_string_variable</name></member>
     <member refid="ubasic_8h_1a5dab8199fb7b2e99f20e8d8432b69b81" kind="function"><name>ubasic_set_variable</name></member>
-    <member refid="ubasic_8h_1aa9a4be605fcbe914d2a98c5e1a348f73" kind="function"><name>jump_linenum</name></member>
+    <member refid="ubasic_8h_1afcb910d7d9652ff94b305c3a8c398882" kind="function"><name>jump_linenum</name></member>
     <member refid="ubasic_8h_1a7913e05cee9dd3d85bc859e06af69f60" kind="function"><name>ubasic_set_string_variable</name></member>
     <member refid="ubasic_8h_1a387c29c224dd166b6bea4add9897522e" kind="function"><name>ubasic_set_double_variable</name></member>
     <member refid="ubasic_8h_1a6d554a1fcd609a257c2f842a08ac05ea" kind="function"><name>ubasic_set_int_variable</name></member>
     <member refid="ubasic_8h_1aeba4a7a47c9691fe982cfb3bcd98534b" kind="function"><name>ubasic_set_array_variable</name></member>
     <member refid="ubasic_8h_1af3c28214a6d26d3373d8ed9f1d5276a8" kind="function"><name>ubasic_get_numeric_variable</name></member>
     <member refid="ubasic_8h_1a384d812b87f1117d47fe61d413b6763b" kind="function"><name>ubasic_get_numeric_int_variable</name></member>
+    <member refid="ubasic_8h_1a934280027312e986008618e74b82782e" kind="function"><name>expr</name></member>
+    <member refid="ubasic_8h_1a1e46aaf021f5d93d251df94cbe164e91" kind="function"><name>double_expr</name></member>
+    <member refid="ubasic_8h_1a84e680982e0290ec61df8b84dca64588" kind="function"><name>line_statement</name></member>
+    <member refid="ubasic_8h_1a2034463854d3258a38238de07f3049fb" kind="function"><name>statement</name></member>
+    <member refid="ubasic_8h_1a5f32d6049526ddd7e979e741ba73053e" kind="function"><name>str_expr</name></member>
+    <member refid="ubasic_8h_1af865ac3ed5536e2dc99cfbb4d902ae4a" kind="function"><name>str_varfactor</name></member>
+    <member refid="ubasic_8h_1a6ce4459f3701be5c97c7f9908bf0c259" kind="function"><name>ubasic_parse_fn</name></member>
+    <member refid="ubasic_8h_1a3b993cc07b1f0d7deb322edc1578fdf5" kind="function"><name>ubasic_getproccount</name></member>
+    <member refid="ubasic_8h_1a28b9bd6cdb5c5e3cb2d94830df2354c0" kind="function"><name>ubasic_getprocid</name></member>
+    <member refid="ubasic_8h_1ad6905e50078318caf5db72a91748c697" kind="function"><name>ubasic_getprocname</name></member>
+    <member refid="ubasic_8h_1a63d3193d934771514392dcd19b13fe32" kind="function"><name>ubasic_dns</name></member>
+    <member refid="ubasic_8h_1a773791be71cc0db044c07e3d39290e0f" kind="function"><name>ubasic_rgb</name></member>
+    <member refid="ubasic_8h_1a5ce0ab5acfae5031b62200a2f6bf97f5" kind="function"><name>ubasic_eval_double_fn</name></member>
+    <member refid="ubasic_8h_1a4865c0eb38ab199e7adca32b4c777385" kind="function"><name>ubasic_test_string_variable</name></member>
+    <member refid="ubasic_8h_1a05da1e347cfc8fbe0098c51316ed2640" kind="function"><name>ubasic_sin</name></member>
+    <member refid="ubasic_8h_1a8146f852198c2a7936d9e6088ac0dfd3" kind="function"><name>ubasic_cos</name></member>
+    <member refid="ubasic_8h_1a7b786c07e1ca434cd8e5942bc74e4497" kind="function"><name>ubasic_tan</name></member>
+    <member refid="ubasic_8h_1ad79849ce5ab570769fddacecced88c70" kind="function"><name>ubasic_pow</name></member>
+    <member refid="ubasic_8h_1ac569cb0c5dcad1f65f0eb87849978161" kind="function"><name>str_relation</name></member>
+    <member refid="ubasic_8h_1a5da3876b5bfc761a6407ac2020521e0f" kind="function"><name>relation</name></member>
+    <member refid="ubasic_8h_1a39ca76350b51eb1ac4f85f7813030be3" kind="function"><name>accept</name></member>
   </compound>
   <compound refid="udp_8h" kind="file"><name>udp.h</name>
     <member refid="udp_8h_1a23105885384ca2f747d9c906c521fe2e" kind="typedef"><name>udp_daemon_handler</name></member>
@@ -2641,7 +2709,7 @@
     <member refid="video_8h_1a68614b45a1f07d2b7dfd189061c1cf83" kind="function"><name>dputstring</name></member>
     <member refid="video_8h_1a6aa3e180e6074ca3376aae3fe2521967" kind="function"><name>put</name></member>
     <member refid="video_8h_1a10de4e9cb74656845ee2808d17f3e9b7" kind="function"><name>dput</name></member>
-    <member refid="video_8h_1a30bd9f5feb66b20d37ddbddc69556dc2" kind="function"><name>initconsole</name></member>
+    <member refid="video_8h_1ab9c32270380ee4550fa848647b745f39" kind="function"><name>init_console</name></member>
     <member refid="video_8h_1a3a4f10379412dfac7b7326c608b0ba1c" kind="function"><name>setbackground</name></member>
     <member refid="video_8h_1a9eb30d97afe44a6d0a2063f701c13ca6" kind="function"><name>setforeground</name></member>
     <member refid="video_8h_1aead8dda978d0b4180262e4091be3d4d6" kind="function"><name>screen_get_height</name></member>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="153" column="19" bodyfile="include/ubasic.h" bodystart="153" bodyend="-1"/>
+        <location file="include/ubasic.h" line="151" column="19" bodyfile="include/ubasic.h" bodystart="151" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__double__fn_1ac0f70823fd1a5d049e7fad012fe8a955" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="154" column="12" bodyfile="include/ubasic.h" bodystart="154" bodyend="-1"/>
+        <location file="include/ubasic.h" line="152" column="12" bodyfile="include/ubasic.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,6 +61,7 @@
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>for_stack_ptr</edgelabel>
+          <edgelabel>gosub_stack</edgelabel>
           <edgelabel>gosub_stack_ptr</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
@@ -89,7 +90,6 @@
           <edgelabel>current_token</edgelabel>
           <edgelabel>ended</edgelabel>
           <edgelabel>errored</edgelabel>
-          <edgelabel>gosub_stack</edgelabel>
           <edgelabel>oldlen</edgelabel>
         </childnode>
         <childnode refid="17" relation="usage">
@@ -106,17 +106,35 @@
           <edgelabel>str_variables</edgelabel>
         </childnode>
         <childnode refid="22" relation="usage">
+          <edgelabel>line_tail</edgelabel>
+          <edgelabel>lines</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
           <edgelabel>fn_return</edgelabel>
         </childnode>
-        <childnode refid="23" relation="usage">
+        <childnode refid="25" relation="usage">
           <edgelabel>for_stack</edgelabel>
         </childnode>
         <childnode refid="21" relation="usage">
           <edgelabel>param</edgelabel>
         </childnode>
       </node>
-      <node id="22">
+      <node id="24">
         <label>void *</label>
+      </node>
+      <node id="22">
+        <label>ub_line_ref</label>
+        <link refid="structub__line__ref"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>line_number</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
       </node>
       <node id="13">
         <label>int32_t</label>
@@ -201,6 +219,9 @@
       <node id="15">
         <label>double</label>
       </node>
+      <node id="23">
+        <label>uint32_t</label>
+      </node>
       <node id="6">
         <label>ub_var_string</label>
         <link refid="structub__var__string"/>
@@ -218,7 +239,7 @@
       <node id="12">
         <label>uint8_t</label>
       </node>
-      <node id="23">
+      <node id="25">
         <label>for_state</label>
         <link refid="structfor__state"/>
         <childnode refid="5" relation="usage">
@@ -280,7 +301,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="151" column="1" bodyfile="include/ubasic.h" bodystart="152" bodyend="155"/>
+    <location file="include/ubasic.h" line="149" column="1" bodyfile="include/ubasic.h" bodystart="150" bodyend="153"/>
     <listofallmembers>
       <member refid="structubasic__double__fn_1a09662270d292dc1a4a41cd4bfe8a30d5" prot="public" virt="non-virtual"><scope>ubasic_double_fn</scope><name>handler</name></member>
       <member refid="structubasic__double__fn_1ac0f70823fd1a5d049e7fad012fe8a955" prot="public" virt="non-virtual"><scope>ubasic_double_fn</scope><name>name</name></member>

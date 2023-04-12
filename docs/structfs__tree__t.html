@@ -91,12 +91,16 @@ $(document).ready(function(){initNavTree('structfs__tree__t.html',''); initResiz
 <div class="title">fs_tree_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Used internally by filesystem.c to cache directories to RAM.  
+ <a href="structfs__tree__t.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for fs_tree_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structfs__tree__t__coll__graph.svg" width="100%" height="588"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structfs__tree__t__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -113,12 +117,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a3e98b356a36d9bad9b78ae88c7990971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accc0b6240ae6cf114387ec945c02258e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfilesystem__t.html">filesystem_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#accc0b6240ae6cf114387ec945c02258e">responsible_driver</a></td></tr>
 <tr class="separator:accc0b6240ae6cf114387ec945c02258e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42d1a9cfc0e9395fb4f47277d81e5095"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#a42d1a9cfc0e9395fb4f47277d81e5095">lbapos</a></td></tr>
-<tr class="separator:a42d1a9cfc0e9395fb4f47277d81e5095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac913ea2aa83166a1651931713b42dccc"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#ac913ea2aa83166a1651931713b42dccc">lbapos</a></td></tr>
+<tr class="separator:ac913ea2aa83166a1651931713b42dccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a486350e7695dbfd0fe750d4bf0572823"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#a486350e7695dbfd0fe750d4bf0572823">device_name</a> [16]</td></tr>
 <tr class="separator:a486350e7695dbfd0fe750d4bf0572823"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69573c79e38b8167a1cc7b258491bb88"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#a69573c79e38b8167a1cc7b258491bb88">device</a></td></tr>
-<tr class="separator:a69573c79e38b8167a1cc7b258491bb88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f28644810b605d065c6f622fad4a777"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#a2f28644810b605d065c6f622fad4a777">device</a></td></tr>
+<tr class="separator:a2f28644810b605d065c6f622fad4a777"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42e0d21fa2ff2c542748ac1fa723e8ed"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#a42e0d21fa2ff2c542748ac1fa723e8ed">size</a></td></tr>
 <tr class="separator:a42e0d21fa2ff2c542748ac1fa723e8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc7e1541c66633d56c04ee5ab1f637c2"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#abc7e1541c66633d56c04ee5ab1f637c2">opaque</a></td></tr>
@@ -126,7 +130,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a211b1093f69dbaa0c693930256b0f1cb"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfs__tree__t.html">fs_tree_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__tree__t.html#a211b1093f69dbaa0c693930256b0f1cb">next</a></td></tr>
 <tr class="separator:a211b1093f69dbaa0c693930256b0f1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Used internally by filesystem.c to cache directories to RAM. </p>
+<p>Also used to route requests for that directory through to their driver. Also used to attach a driver initially to its mountpoint UNIX-style. <a class="el" href="structfs__tree__t.html" title="Used internally by filesystem.c to cache directories to RAM.">fs_tree_t</a> structs are usually not usable or visible to non-filesystem drivers. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="ad61c3a6c1f4e77d7efcca380ba6b6d65"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad61c3a6c1f4e77d7efcca380ba6b6d65">&#9670;&nbsp;</a></span>child_dirs</h2>
 
@@ -141,14 +148,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a69573c79e38b8167a1cc7b258491bb88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69573c79e38b8167a1cc7b258491bb88">&#9670;&nbsp;</a></span>device</h2>
+<a id="a2f28644810b605d065c6f622fad4a777"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f28644810b605d065c6f622fad4a777">&#9670;&nbsp;</a></span>device</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t fs_tree_t::device</td>
+          <td class="memname">uint64_t fs_tree_t::device</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,14 +204,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a42d1a9cfc0e9395fb4f47277d81e5095"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42d1a9cfc0e9395fb4f47277d81e5095">&#9670;&nbsp;</a></span>lbapos</h2>
+<a id="ac913ea2aa83166a1651931713b42dccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac913ea2aa83166a1651931713b42dccc">&#9670;&nbsp;</a></span>lbapos</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t fs_tree_t::lbapos</td>
+          <td class="memname">uint64_t fs_tree_t::lbapos</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -301,7 +308,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structfs__tree__t.html">fs_tree_t</a></li>
-    <li class="footer">Generated on Fri Apr 7 2023 20:43:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 12 2023 16:51:11 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

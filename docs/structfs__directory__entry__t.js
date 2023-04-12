@@ -1,5 +1,6 @@
 var structfs__directory__entry__t =
 [
+    [ "alt_filename", "structfs__directory__entry__t.html#acc3f45df9707c27355a3efc2ce3052b6", null ],
     [ "day", "structfs__directory__entry__t.html#ae62851bd478ee4d1fb4076e92fd4e587", null ],
     [ "device", "structfs__directory__entry__t.html#a60e76960bcf1ad45e482f60dcb2ee7c6", null ],
     [ "device_name", "structfs__directory__entry__t.html#af04462319ea287de5aac137e96f0937d", null ],

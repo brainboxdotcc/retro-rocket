@@ -101,12 +101,21 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="11">
+      <node id="8">
+        <label>size_t</label>
+      </node>
+      <node id="10">
         <label>void *</label>
       </node>
       <node id="5">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>getdir</edgelabel>
         </childnode>
@@ -114,22 +123,17 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>rm</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
           <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
+        <childnode refid="8" relation="usage">
+          <edgelabel>truncatefile</edgelabel>
         </childnode>
       </node>
       <node id="3">
         <label>uint64_t</label>
-      </node>
-      <node id="7">
-        <label>int(*)(void *)</label>
       </node>
       <node id="1">
         <label>iso9660</label>
@@ -137,13 +141,13 @@
         <childnode refid="2" relation="usage">
           <edgelabel>root</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>volume_name</edgelabel>
         </childnode>
         <childnode refid="13" relation="usage">
           <edgelabel>device</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>pathtable_lba</edgelabel>
           <edgelabel>rootextent_lba</edgelabel>
           <edgelabel>rootextent_len</edgelabel>
@@ -159,24 +163,24 @@
           <edgelabel>opaque1</edgelabel>
           <edgelabel>size</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="13" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>block_size</edgelabel>
         </childnode>
         <childnode refid="14" relation="usage">
           <edgelabel>blockread</edgelabel>
           <edgelabel>blockwrite</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>opaque2</edgelabel>
         </childnode>
       </node>
-      <node id="12">
+      <node id="11">
         <label>uint16_t</label>
       </node>
       <node id="14">
@@ -186,6 +190,8 @@
         <label>fs_tree_t</label>
         <link refid="structfs__tree__t"/>
         <childnode refid="3" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
           <edgelabel>size</edgelabel>
         </childnode>
         <childnode refid="2" relation="usage">
@@ -199,25 +205,21 @@
         <childnode refid="5" relation="usage">
           <edgelabel>responsible_driver</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>device_name</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>lbapos</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
           <edgelabel>dirty</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="9">
+      <node id="12">
         <label>uint32_t</label>
       </node>
-      <node id="10">
+      <node id="9">
         <label>uint8_t</label>
       </node>
       <node id="6">
@@ -236,18 +238,19 @@
         <childnode refid="4" relation="usage">
           <edgelabel>directory</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>year</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
+          <edgelabel>alt_filename</edgelabel>
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>device</edgelabel>
           <edgelabel>flags</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>day</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>min</edgelabel>
@@ -255,7 +258,7 @@
           <edgelabel>sec</edgelabel>
         </childnode>
       </node>
-      <node id="8">
+      <node id="7">
         <label>char</label>
       </node>
     </collaborationgraph>

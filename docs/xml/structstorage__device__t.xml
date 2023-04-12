@@ -10,12 +10,13 @@
         <argsstring>[16]</argsstring>
         <name>name</name>
         <briefdescription>
+<para>Storage device name, e.g. &apos;hd0&apos;. You should use make_unique_device_name() to fill this field. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="67" column="6" bodyfile="include/filesystem.h" bodystart="67" bodyend="-1"/>
+        <location file="include/filesystem.h" line="191" column="6" bodyfile="include/filesystem.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a4b7e3635e869e1e8b2245665ee988547" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>size</name>
         <briefdescription>
+<para>Total extent of storage device if known, otherwise this value should be SIZE_MAX. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="68" column="10" bodyfile="include/filesystem.h" bodystart="68" bodyend="-1"/>
+        <location file="include/filesystem.h" line="197" column="10" bodyfile="include/filesystem.h" bodystart="197" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" prot="public" static="no" mutable="no">
         <type>block_read</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>blockread</name>
         <briefdescription>
+<para>Function pointer for <ref refid="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" kindref="member">blockread()</ref> Block reads are always expected to be in increments of block_size. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="69" column="12" bodyfile="include/filesystem.h" bodystart="69" bodyend="-1"/>
+        <location file="include/filesystem.h" line="203" column="12" bodyfile="include/filesystem.h" bodystart="203" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" prot="public" static="no" mutable="no">
         <type>block_write</type>
@@ -49,12 +52,13 @@
         <argsstring></argsstring>
         <name>blockwrite</name>
         <briefdescription>
+<para>Function pointer for <ref refid="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" kindref="member">blockwrite()</ref> Block writes are always expected to be in increments of block_size. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="70" column="13" bodyfile="include/filesystem.h" bodystart="70" bodyend="-1"/>
+        <location file="include/filesystem.h" line="209" column="13" bodyfile="include/filesystem.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a62fabd3b49e19f188297d179ffbcd090" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -62,12 +66,13 @@
         <argsstring></argsstring>
         <name>block_size</name>
         <briefdescription>
+<para>The block size read and write operations. This is usually a sector size on disk drives. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="71" column="10" bodyfile="include/filesystem.h" bodystart="71" bodyend="-1"/>
+        <location file="include/filesystem.h" line="215" column="10" bodyfile="include/filesystem.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1add44ca2ee801c94a53fe71db46e39dbd" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -75,12 +80,13 @@
         <argsstring></argsstring>
         <name>opaque1</name>
         <briefdescription>
+<para>An opaque integer value which can be given meaning by the storage device driver. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="72" column="10" bodyfile="include/filesystem.h" bodystart="72" bodyend="-1"/>
+        <location file="include/filesystem.h" line="221" column="10" bodyfile="include/filesystem.h" bodystart="221" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a66eebca62325df9d8c0a0286c92ffa0c" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -88,12 +94,13 @@
         <argsstring></argsstring>
         <name>opaque2</name>
         <briefdescription>
+<para>An opaque pointer value which can be given meaning by the storage device driver. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="73" column="6" bodyfile="include/filesystem.h" bodystart="73" bodyend="-1"/>
+        <location file="include/filesystem.h" line="228" column="6" bodyfile="include/filesystem.h" bodystart="228" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1ad1b4bda1ebedc6cf141f8f157a663d14" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
@@ -101,17 +108,21 @@
         <argsstring></argsstring>
         <name>next</name>
         <briefdescription>
+<para>Pointer to next storage device, or NULL. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="74" column="24" bodyfile="include/filesystem.h" bodystart="74" bodyend="-1"/>
+        <location file="include/filesystem.h" line="233" column="24" bodyfile="include/filesystem.h" bodystart="233" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc. </para>
     </briefdescription>
     <detaileddescription>
+<para>A block storage device is expected to provide at least one endpoint for a readonly storage device like a ROM or CD, which is <ref refid="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" kindref="member">blockread()</ref>. Reads and writes are always performed in block_size chunks, and any buffers used for requests are expected to be a clean modulus of this block size.</para>
+<para>Writeable filesystems should also implement <ref refid="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" kindref="member">blockwrite()</ref>. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="6">
@@ -154,7 +165,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/filesystem.h" line="66" column="1" bodyfile="include/filesystem.h" bodystart="66" bodyend="75"/>
+    <location file="include/filesystem.h" line="185" column="1" bodyfile="include/filesystem.h" bodystart="185" bodyend="234"/>
     <listofallmembers>
       <member refid="structstorage__device__t_1a62fabd3b49e19f188297d179ffbcd090" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>block_size</name></member>
       <member refid="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" prot="public" virt="non-virtual"><scope>storage_device_t</scope><name>blockread</name></member>

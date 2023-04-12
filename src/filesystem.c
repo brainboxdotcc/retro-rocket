@@ -521,6 +521,37 @@ int _read(int fd, void *buffer, unsigned int count)
 	return count;
 }
 
+int ftruncate(int fd, uint32_t length)
+{
+	/* Sanity checks */
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
+		return -1;
+	}
+
+	/* can't truncate a read-only handle */
+	if (filehandles[fd]->type == file_input) {
+		return -1;
+	}
+
+	if (length > filehandles[fd]->file->size) {
+		return -1;
+	}
+
+	dprintf("truncate() fs_truncate_file %d\n", length);
+	if (!fs_truncate_file(filehandles[fd]->file, length)) {
+		return -1;
+	}
+
+	filehandles[fd]->file->size = length;
+
+	if (filehandles[fd]->seekpos > filehandles[fd]->file->size) {
+		filehandles[fd]->seekpos = filehandles[fd]->file->size;
+	}
+
+	return 0;
+}
+
+
 /* Write bytes to an open file */
 int _write(int fd, void *buffer, unsigned int count)
 {
@@ -750,6 +781,16 @@ int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, u
 		return fs && fs->writefile ? fs->writefile(file, start, length, buffer) : 0;
 	}
 	dprintf("fs_write_file with invalid file information\n");
+	return 0;
+}
+
+int fs_truncate_file(fs_directory_entry_t* file, uint32_t length)
+{
+	if (file && file->directory && file->directory->responsible_driver) {
+		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
+		return fs && fs->truncatefile ? fs->truncatefile(file, length) : 0;
+	}
+	dprintf("fs_truncate_file with invalid file information\n");
 	return 0;
 }
 
@@ -1004,8 +1045,8 @@ int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 
 void init_filesystem()
 {
-	filesystems = (filesystem_t*)kmalloc(sizeof(filesystem_t));
-	fs_tree = (fs_tree_t*)kmalloc(sizeof(fs_tree_t));
+	filesystems = kmalloc(sizeof(filesystem_t));
+	fs_tree = kmalloc(sizeof(fs_tree_t));
 
 	strlcpy(filesystems->name, "DummyFS", 31);
 	filesystems->mount = NULL;
@@ -1015,6 +1056,7 @@ void init_filesystem()
 	filesystems->rm = NULL;
 	filesystems->createfile = NULL;
 	filesystems->createdir = NULL;
+	filesystems->truncatefile = NULL;
 	filesystems->rmdir = NULL;
 	filesystems->next = NULL;
 

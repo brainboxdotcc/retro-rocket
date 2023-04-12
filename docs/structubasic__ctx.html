@@ -96,7 +96,8 @@ $(document).ready(function(){initNavTree('structubasic__ctx.html',''); initResiz
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structubasic__ctx__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structubasic__ctx__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -115,8 +116,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ad228067b994f862ff64d9ea07927e3e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4f82e6f89c9b88bd7a946d78479df38"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#ad4f82e6f89c9b88bd7a946d78479df38">string</a> [1024]</td></tr>
 <tr class="separator:ad4f82e6f89c9b88bd7a946d78479df38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a335393bdf5ac7f0398bb98b40a27dbd3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#a335393bdf5ac7f0398bb98b40a27dbd3">gosub_stack</a> [255]</td></tr>
-<tr class="separator:a335393bdf5ac7f0398bb98b40a27dbd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf23ab6f8de88ce893d6f2385845cc57"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#acf23ab6f8de88ce893d6f2385845cc57">gosub_stack</a> [255]</td></tr>
+<tr class="separator:acf23ab6f8de88ce893d6f2385845cc57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29c2fb098e7e87179a80c78957352ca0"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int.html">ub_var_int</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#a29c2fb098e7e87179a80c78957352ca0">local_int_variables</a> [255]</td></tr>
 <tr class="separator:a29c2fb098e7e87179a80c78957352ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac174583082681c819beac71bf6c856e2"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__string.html">ub_var_string</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#ac174583082681c819beac71bf6c856e2">local_string_variables</a> [255]</td></tr>
@@ -161,6 +162,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a75fe7e0c62284b7f96d3badafc81df07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa068f02eec061e35fabab244735c0fff"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#aa068f02eec061e35fabab244735c0fff">graphics_colour</a></td></tr>
 <tr class="separator:aa068f02eec061e35fabab244735c0fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e25762f518edf1bf964fba6e4ff3091"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structub__line__ref.html">ub_line_ref</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#a6e25762f518edf1bf964fba6e4ff3091">lines</a></td></tr>
+<tr class="separator:a6e25762f518edf1bf964fba6e4ff3091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb52eee7ccee41778382fd7a2da8ccce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structub__line__ref.html">ub_line_ref</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html#acb52eee7ccee41778382fd7a2da8ccce">line_tail</a></td></tr>
+<tr class="separator:acb52eee7ccee41778382fd7a2da8ccce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="ab9835b70d64e17519499bf1d32a9c59b"></a>
@@ -345,14 +350,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a335393bdf5ac7f0398bb98b40a27dbd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a335393bdf5ac7f0398bb98b40a27dbd3">&#9670;&nbsp;</a></span>gosub_stack</h2>
+<a id="acf23ab6f8de88ce893d6f2385845cc57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf23ab6f8de88ce893d6f2385845cc57">&#9670;&nbsp;</a></span>gosub_stack</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int ubasic_ctx::gosub_stack[255]</td>
+          <td class="memname">uint64_t ubasic_ctx::gosub_stack[255]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -423,6 +428,34 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">char const* ubasic_ctx::item_begin</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acb52eee7ccee41778382fd7a2da8ccce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb52eee7ccee41778382fd7a2da8ccce">&#9670;&nbsp;</a></span>line_tail</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structub__line__ref.html">ub_line_ref</a>* ubasic_ctx::line_tail</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e25762f518edf1bf964fba6e4ff3091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e25762f518edf1bf964fba6e4ff3091">&#9670;&nbsp;</a></span>lines</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structub__line__ref.html">ub_line_ref</a>* ubasic_ctx::lines</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -589,7 +622,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structubasic__ctx.html">ubasic_ctx</a></li>
-    <li class="footer">Generated on Fri Apr 7 2023 20:43:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 12 2023 16:51:11 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

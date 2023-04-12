@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structub__line__ref" kind="struct" language="C++" prot="public">
+    <compoundname>ub_line_ref</compoundname>
+    <includes local="no">ubasic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ub_line_ref::line_number</definition>
+        <argsstring></argsstring>
+        <name>line_number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="96" column="10" bodyfile="include/ubasic.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ub_line_ref::ptr</definition>
+        <argsstring></argsstring>
+        <name>ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="97" column="12" bodyfile="include/ubasic.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__line__ref_1aff354abc3d12b0064deaa6adc6a954a9" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__line__ref" kindref="compound">ub_line_ref</ref> *</type>
+        <definition>struct ub_line_ref* ub_line_ref::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="98" column="19" bodyfile="include/ubasic.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__line__ref_1a1ed83cf1c8a2692780e039fef5bacd87" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__line__ref" kindref="compound">ub_line_ref</ref> *</type>
+        <definition>struct ub_line_ref* ub_line_ref::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="99" column="19" bodyfile="include/ubasic.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ub_line_ref</label>
+        <link refid="structub__line__ref"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>line_number</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ubasic.h" line="95" column="1" bodyfile="include/ubasic.h" bodystart="95" bodyend="100"/>
+    <listofallmembers>
+      <member refid="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>line_number</name></member>
+      <member refid="structub__line__ref_1a1ed83cf1c8a2692780e039fef5bacd87" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>next</name></member>
+      <member refid="structub__line__ref_1aff354abc3d12b0064deaa6adc6a954a9" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>prev</name></member>
+      <member refid="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>ptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

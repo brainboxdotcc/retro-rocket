@@ -91,18 +91,24 @@ $(document).ready(function(){initNavTree('structfs__directory__entry__t.html',''
 <div class="title">fs_directory_entry_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A VFS directory entry. Files AND directories have these, but internally there is also a tree of fs_tree_t* which is used for faster access and caching the structure to RAM.  
+ <a href="structfs__directory__entry__t.html#details">More...</a></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for fs_directory_entry_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structfs__directory__entry__t__coll__graph.svg" width="100%" height="521"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structfs__directory__entry__t__coll__graph.svg" width="100%" height="532"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a29106c594aa22787b5604461f7686a08"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__directory__entry__t.html#a29106c594aa22787b5604461f7686a08">filename</a></td></tr>
 <tr class="separator:a29106c594aa22787b5604461f7686a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc3f45df9707c27355a3efc2ce3052b6"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__directory__entry__t.html#acc3f45df9707c27355a3efc2ce3052b6">alt_filename</a></td></tr>
+<tr class="separator:acc3f45df9707c27355a3efc2ce3052b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a189d674effd3a783f2a0fec76eb4dc3a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__directory__entry__t.html#a189d674effd3a783f2a0fec76eb4dc3a">year</a></td></tr>
 <tr class="separator:a189d674effd3a783f2a0fec76eb4dc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7b145a5ee090c6be6c377d1355e44b7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__directory__entry__t.html#ad7b145a5ee090c6be6c377d1355e44b7">month</a></td></tr>
@@ -130,7 +136,23 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af3e8d129ab686c7dfdd6c0cfc8d2ea66"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfs__directory__entry__t.html#af3e8d129ab686c7dfdd6c0cfc8d2ea66">next</a></td></tr>
 <tr class="separator:af3e8d129ab686c7dfdd6c0cfc8d2ea66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A VFS directory entry. Files AND directories have these, but internally there is also a tree of fs_tree_t* which is used for faster access and caching the structure to RAM. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="acc3f45df9707c27355a3efc2ce3052b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc3f45df9707c27355a3efc2ce3052b6">&#9670;&nbsp;</a></span>alt_filename</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* fs_directory_entry_t::alt_filename</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae62851bd478ee4d1fb4076e92fd4e587"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae62851bd478ee4d1fb4076e92fd4e587">&#9670;&nbsp;</a></span>day</h2>
 
@@ -333,7 +355,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a></li>
-    <li class="footer">Generated on Fri Apr 7 2023 20:43:58 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 12 2023 16:51:11 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

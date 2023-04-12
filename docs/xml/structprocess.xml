@@ -243,6 +243,7 @@
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>for_stack_ptr</edgelabel>
+          <edgelabel>gosub_stack</edgelabel>
           <edgelabel>gosub_stack_ptr</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
@@ -271,7 +272,6 @@
           <edgelabel>current_token</edgelabel>
           <edgelabel>ended</edgelabel>
           <edgelabel>errored</edgelabel>
-          <edgelabel>gosub_stack</edgelabel>
           <edgelabel>oldlen</edgelabel>
         </childnode>
         <childnode refid="17" relation="usage">
@@ -288,17 +288,35 @@
           <edgelabel>str_variables</edgelabel>
         </childnode>
         <childnode refid="22" relation="usage">
+          <edgelabel>line_tail</edgelabel>
+          <edgelabel>lines</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
           <edgelabel>fn_return</edgelabel>
         </childnode>
-        <childnode refid="23" relation="usage">
+        <childnode refid="25" relation="usage">
           <edgelabel>for_stack</edgelabel>
         </childnode>
         <childnode refid="21" relation="usage">
           <edgelabel>param</edgelabel>
         </childnode>
       </node>
-      <node id="22">
+      <node id="24">
         <label>void *</label>
+      </node>
+      <node id="22">
+        <label>ub_line_ref</label>
+        <link refid="structub__line__ref"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>line_number</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
       </node>
       <node id="13">
         <label>int32_t</label>
@@ -384,7 +402,7 @@
         <childnode refid="10" relation="usage">
           <edgelabel>cons</edgelabel>
         </childnode>
-        <childnode refid="24" relation="usage">
+        <childnode refid="23" relation="usage">
           <edgelabel>gid</edgelabel>
           <edgelabel>pid</edgelabel>
           <edgelabel>ppid</edgelabel>
@@ -405,7 +423,7 @@
       <node id="15">
         <label>double</label>
       </node>
-      <node id="24">
+      <node id="23">
         <label>uint32_t</label>
       </node>
       <node id="6">
@@ -425,7 +443,7 @@
       <node id="12">
         <label>uint8_t</label>
       </node>
-      <node id="23">
+      <node id="25">
         <label>for_state</label>
         <link refid="structfor__state"/>
         <childnode refid="5" relation="usage">

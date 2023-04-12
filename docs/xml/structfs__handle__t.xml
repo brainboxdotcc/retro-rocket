@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="109" column="18" bodyfile="include/filesystem.h" bodystart="109" bodyend="-1"/>
+        <location file="include/filesystem.h" line="288" column="18" bodyfile="include/filesystem.h" bodystart="288" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a3767e0c964460f9d114529b25815bb7e" prot="public" static="no" mutable="no">
         <type>unsigned char *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="110" column="15" bodyfile="include/filesystem.h" bodystart="110" bodyend="-1"/>
+        <location file="include/filesystem.h" line="289" column="15" bodyfile="include/filesystem.h" bodystart="289" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1ad2ed98466d85226244177da2a0207e05" prot="public" static="no" mutable="no">
         <type>unsigned char *</type>
@@ -41,7 +41,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="111" column="15" bodyfile="include/filesystem.h" bodystart="111" bodyend="-1"/>
+        <location file="include/filesystem.h" line="290" column="15" bodyfile="include/filesystem.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__handle__t_1ac58f73bbde3a9f4fde2ba01e55b26577" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t fs_handle_t::inbufpos</definition>
+        <argsstring></argsstring>
+        <name>inbufpos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="291" column="10" bodyfile="include/filesystem.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfs__handle__t_1a5c83459bba23c33e390db430dcafc36e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t fs_handle_t::outbufpos</definition>
+        <argsstring></argsstring>
+        <name>outbufpos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="292" column="10" bodyfile="include/filesystem.h" bodystart="292" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a8f828766185b1c35103786929fd6673b" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -54,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="112" column="10" bodyfile="include/filesystem.h" bodystart="112" bodyend="-1"/>
+        <location file="include/filesystem.h" line="293" column="10" bodyfile="include/filesystem.h" bodystart="293" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a9f7595e558110ebb1edc736ee74d214d" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -67,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="113" column="10" bodyfile="include/filesystem.h" bodystart="113" bodyend="-1"/>
+        <location file="include/filesystem.h" line="294" column="10" bodyfile="include/filesystem.h" bodystart="294" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a3a661853cb8cbcdbccd7655c480c97e2" prot="public" static="no" mutable="no">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -80,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="114" column="22" bodyfile="include/filesystem.h" bodystart="114" bodyend="-1"/>
+        <location file="include/filesystem.h" line="295" column="22" bodyfile="include/filesystem.h" bodystart="295" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a4c433ff47f739e72d13e76d684dff8c4" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -93,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="115" column="10" bodyfile="include/filesystem.h" bodystart="115" bodyend="-1"/>
+        <location file="include/filesystem.h" line="296" column="10" bodyfile="include/filesystem.h" bodystart="296" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1acf904278cf871b15b0f66d874ed84a69" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -106,23 +132,31 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="116" column="6" bodyfile="include/filesystem.h" bodystart="116" bodyend="-1"/>
+        <location file="include/filesystem.h" line="297" column="6" bodyfile="include/filesystem.h" bodystart="297" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>The data for an open file descriptor. </para>
     </briefdescription>
     <detaileddescription>
+<para>The FD table is an array of pointers to these structs, any closed FD is NULL. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="14">
-        <label>fs_handle_type_t</label>
+      <node id="8">
+        <label>size_t</label>
       </node>
-      <node id="11">
+      <node id="10">
         <label>void *</label>
       </node>
       <node id="5">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>writefile</edgelabel>
+        </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>getdir</edgelabel>
         </childnode>
@@ -130,22 +164,20 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>rm</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
           <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
+        <childnode refid="8" relation="usage">
+          <edgelabel>truncatefile</edgelabel>
         </childnode>
+      </node>
+      <node id="13">
+        <label>enum fs_handle_type_t</label>
       </node>
       <node id="3">
         <label>uint64_t</label>
-      </node>
-      <node id="7">
-        <label>int(*)(void *)</label>
       </node>
       <node id="1">
         <label>fs_handle_t</label>
@@ -154,28 +186,32 @@
           <edgelabel>file</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
+          <edgelabel>inbufpos</edgelabel>
           <edgelabel>inbufsize</edgelabel>
+          <edgelabel>outbufpos</edgelabel>
           <edgelabel>outbufsize</edgelabel>
           <edgelabel>seekpos</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="13" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
           <edgelabel>inbuf</edgelabel>
           <edgelabel>outbuf</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>cached</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
-          <edgelabel>type</edgelabel>
-        </childnode>
       </node>
-      <node id="12">
+      <node id="11">
         <label>uint16_t</label>
       </node>
       <node id="4">
         <label>fs_tree_t</label>
         <link refid="structfs__tree__t"/>
         <childnode refid="3" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
           <edgelabel>size</edgelabel>
         </childnode>
         <childnode refid="2" relation="usage">
@@ -189,31 +225,27 @@
         <childnode refid="5" relation="usage">
           <edgelabel>responsible_driver</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>device_name</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>lbapos</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
           <edgelabel>dirty</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="9">
+      <node id="12">
         <label>uint32_t</label>
       </node>
-      <node id="10">
+      <node id="9">
         <label>uint8_t</label>
       </node>
       <node id="6">
         <label>void *(*)(void *)</label>
       </node>
-      <node id="13">
+      <node id="14">
         <label>bool</label>
       </node>
       <node id="2">
@@ -229,18 +261,19 @@
         <childnode refid="4" relation="usage">
           <edgelabel>directory</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>year</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
+          <edgelabel>alt_filename</edgelabel>
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>device</edgelabel>
           <edgelabel>flags</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>day</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>min</edgelabel>
@@ -248,17 +281,19 @@
           <edgelabel>sec</edgelabel>
         </childnode>
       </node>
-      <node id="8">
+      <node id="7">
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/filesystem.h" line="108" column="1" bodyfile="include/filesystem.h" bodystart="108" bodyend="117"/>
+    <location file="include/filesystem.h" line="287" column="1" bodyfile="include/filesystem.h" bodystart="287" bodyend="298"/>
     <listofallmembers>
       <member refid="structfs__handle__t_1acf904278cf871b15b0f66d874ed84a69" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>cached</name></member>
       <member refid="structfs__handle__t_1a3a661853cb8cbcdbccd7655c480c97e2" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>file</name></member>
       <member refid="structfs__handle__t_1a3767e0c964460f9d114529b25815bb7e" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>inbuf</name></member>
+      <member refid="structfs__handle__t_1ac58f73bbde3a9f4fde2ba01e55b26577" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>inbufpos</name></member>
       <member refid="structfs__handle__t_1a9f7595e558110ebb1edc736ee74d214d" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>inbufsize</name></member>
       <member refid="structfs__handle__t_1ad2ed98466d85226244177da2a0207e05" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>outbuf</name></member>
+      <member refid="structfs__handle__t_1a5c83459bba23c33e390db430dcafc36e" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>outbufpos</name></member>
       <member refid="structfs__handle__t_1a8f828766185b1c35103786929fd6673b" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>outbufsize</name></member>
       <member refid="structfs__handle__t_1a4c433ff47f739e72d13e76d684dff8c4" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>seekpos</name></member>
       <member refid="structfs__handle__t_1ad7a4b108d79edee95a52f6a98115f6da" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>type</name></member>
