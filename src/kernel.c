@@ -19,9 +19,5 @@ void kmain()
 	init_debug();
 	init_rtl8139();
 
-	if (fs_create_file("/harddisk/longname-test3.txt", 8192)) {
-		dprintf("It worked!\n");
-	}
-
 	init_process();
 }
