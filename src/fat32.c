@@ -261,8 +261,17 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 							file->flags = 0;
 							file->size = entry->size;
 
-							if (entry->attr & ATTR_DIRECTORY)
+							if (entry->attr & ATTR_DIRECTORY) {
+								dprintf("DIRECTORY INFO %02x:\n", file->lbapos);
+								dump_hex(entry, 32);
 								file->flags |= FS_DIRECTORY;
+								unsigned char* b = kmalloc(info->clustersize);
+								read_storage_device(info->device_name, cluster_to_lba(info, file->lbapos), info->clustersize, b);
+								dprintf("DIR CLUSTER CONTENT:\n");
+								dump_hex(b, info->clustersize);
+								dprintf("END\n");
+								kfree(b);
+							}
 		
 							// XXX
 							// dprintf("%d. '%s' flags=%02x size=%d clus=%08x\n", entries, file->filename, file->flags, file->size, file->lbapos);
@@ -448,10 +457,8 @@ bool fat32_extend_file(void* f, uint32_t size)
 
 		dprintf("Size in clusters to extend: %d (size: %d cluster size: %d)\n", size_in_clusters, size, info->clustersize);
 
-		/* XXX: This is temporary, we should initialise the clusters to zeroes, but to test allocation is working
-		* we currently fill with ascii B
-		*/
-		memset(blank_cluster, 'B', info->clustersize);
+		/* Newly allocated clusters will be filled with nulls */
+		memset(blank_cluster, 0, info->clustersize);
 		amend_free_count(info, -size_in_clusters);
 		while (size_in_clusters > 0) {
 			uint32_t cluster = find_next_free_fat_entry(info);
@@ -534,6 +541,7 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 		dprintf("Clear buffer size %d at %llx\n", info->clustersize, buffer);
 		memset(buffer, 0, info->clustersize);
 		bufferoffset = 0;
+		entries = 0;
 	}
 
 
@@ -589,7 +597,7 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 	kfree(new_entries);
 }
 
-uint64_t fat32_create_file(void* dir, const char* name, size_t size)
+uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, uint8_t attributes)
 {
 	fs_tree_t* treeitem = (fs_tree_t*)dir;
 	fs_directory_entry_t* iter = NULL, *parsed_dir = NULL;
@@ -619,10 +627,8 @@ uint64_t fat32_create_file(void* dir, const char* name, size_t size)
 	uint32_t last_cluster = CLUSTER_END;
 	uint32_t first_allocated_cluster = CLUSTER_END;
 	uint8_t* blank_cluster = kmalloc(info->clustersize);
-	/* XXX: This is temporary, we should initialise the clusters to zeroes, but to test allocation is working
-	 * we currently fill with ascii A
-	 */
-	memset(blank_cluster, 'A', info->clustersize);
+	/* Initialise the clusters to full of nulls */
+	memset(blank_cluster, 0, info->clustersize);
 	amend_free_count(info, -size_in_clusters);
 	while (size_in_clusters > 0) {
 		uint32_t cluster = find_next_free_fat_entry(info);
@@ -664,7 +670,7 @@ uint64_t fat32_create_file(void* dir, const char* name, size_t size)
 	}
 	short_entry.size = size;
 	short_entry.nt = 0;
-	short_entry.attr = 0;
+	short_entry.attr = attributes;
 	short_entry.first_cluster_hi = (first_allocated_cluster >> 16) & 0xffff;
 	short_entry.first_cluster_lo = first_allocated_cluster & 0xffff;
 	/* TODO: Set dates here */
@@ -697,14 +703,12 @@ uint64_t fat32_create_file(void* dir, const char* name, size_t size)
 					dprintf("Start of potential blank: %d\n", entries - 1);
 				}
 				space_size++;
-				dprintf("Blank entry %d\n", entries - 1);
 				dump_hex(entry, 32);
 				if (space_size > entry_count + 1) {
 					insert_entries_at(false, info, entries - 1, start_of_space_cluster, buffer, start_of_space_bufferoffset, &short_entry, new_entries, entry_count);
 					return first_allocated_cluster;
 				}
 			} else {
-				dprintf("Non-empty entry\n");
 				start_of_space_bufferoffset = -1;
 				start_of_space_cluster = 0;
 				space_size = 0;
@@ -726,6 +730,53 @@ uint64_t fat32_create_file(void* dir, const char* name, size_t size)
 	return 0;	
 }
 
+uint64_t fat32_create_file(void* dir, const char* name, size_t size)
+{
+	return fat32_internal_create_file(dir, name, size, 0);
+}
+
+uint64_t fat32_create_directory(void* dir, const char* name)
+{
+	fs_tree_t* treeitem = (fs_tree_t*)dir;
+	fat32_t* info = (fat32_t*)treeitem->opaque;
+	uint32_t parent_dir_cluster = treeitem->lbapos ? treeitem->lbapos : info->rootdircluster;
+	uint8_t* buffer = kmalloc(info->clustersize);
+	int bufferoffset = 0;
+	directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
+
+	uint64_t cluster = fat32_internal_create_file(dir, name, 0, ATTR_DIRECTORY);
+	if (cluster == 0) {
+		return 0;
+	}
+
+	if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+		kfree(buffer);
+		return 0;
+	}
+
+	/* Create special '.' and '..' entries in the directory, required for directory to be considered valid.
+	 * '.' entry points to own cluster, and '..' entry points to cluster of parent.
+	 */
+	strlcpy(entry->name, ".          ", 11);
+	entry->attr = ATTR_DIRECTORY;
+	entry->size = 0;
+	entry->first_cluster_hi = (cluster >> 16) & 0xffff;
+	entry->first_cluster_lo = cluster & 0xffff;
+	bufferoffset += 32;
+	entry = (directory_entry_t*)(buffer + bufferoffset);
+	strlcpy(entry->name, "..         ", 11);
+	entry->attr = ATTR_DIRECTORY;
+	entry->size = 0;
+	entry->first_cluster_hi = (parent_dir_cluster >> 16) & 0xffff;
+	entry->first_cluster_lo = parent_dir_cluster & 0xffff;
+	if (!write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+		kfree(buffer);
+		return 0;
+	}
+
+	kfree(buffer);
+	return cluster;
+}
 
 void* fat32_get_directory(void* t)
 {
@@ -1024,6 +1075,7 @@ void init_fat32()
 	fat32_fs->getdir = fat32_get_directory;
 	fat32_fs->readfile = fat32_read_file;
 	fat32_fs->createfile = fat32_create_file;
+	fat32_fs->createdir = fat32_create_directory;
 	fat32_fs->writefile = fat32_write_file;
 	fat32_fs->rm = fat32_unlink_file;
 	register_filesystem(fat32_fs);

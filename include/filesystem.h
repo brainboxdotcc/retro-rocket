@@ -14,12 +14,15 @@
 #define FS_DIRECTORY	0x00000001	/* Entry is a directory */
 #define FS_MOUNTPOINT	0x00000002	/* Entry is a mountpoint */
 
+typedef uint16_t mode_t;
+
 /* Prototypes for filesystem drivers (see filesystem_t) */
 typedef void* (*get_directory)(void*);
 typedef int (*mount_volume)(const char*, const char*);
 typedef bool (*read_file)(void*, uint64_t, uint32_t, unsigned char*);
 typedef bool (*write_file)(void*, uint64_t, uint32_t, unsigned char*);
 typedef uint64_t (*create_file)(void*, const char*, size_t);
+typedef uint64_t (*create_dir)(void*, const char*);
 typedef bool (*delete_file)(void*, const char*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
@@ -59,6 +62,7 @@ typedef struct filesystem_t {
 	read_file readfile;	/* readfile() entrypoint */
 	write_file writefile;	/* writefile() entrypoint */
 	create_file createfile;	/* createfile() entrypoint */
+	create_dir createdir;	/* createdir() entrypoint */
 	delete_file rm;		/* rm() entrypoint */
 	struct filesystem_t* next;	/* Next entry */
 } filesystem_t;
@@ -166,11 +170,22 @@ void init_filesystem();
  */
 fs_directory_entry_t* fs_get_items(const char* pathname);
 
+/**
+ * @brief Returns true if the given path is a directory, false if it is a file
+ * 
+ * @param pathname full qualified vfs path
+ * @return true is a directory
+ * @return false is a file
+ */
+bool fs_is_directory(const char* pathname);
+
 /* Retrieve file information on any arbitrary filename.
  */
 fs_directory_entry_t* fs_get_file_info(const char* pathandfile);
 
 fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes);
+
+fs_directory_entry_t* fs_create_directory(const char* pathandfile);
 
 /* Read raw bytes from any arbitrary file.
  */
@@ -203,6 +218,8 @@ int64_t _lseek(int fd, uint64_t offset, uint64_t origin);
 int64_t _tell(int fd);
 
 int unlink(const char *pathname);
+
+int mkdir(const char *pathname, mode_t mode);
 
 /**
  * @brief Low level delete file

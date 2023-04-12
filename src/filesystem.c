@@ -227,6 +227,107 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 	return new_entry;
 }
 
+fs_directory_entry_t* fs_create_directory(const char* pathandfile)
+{
+	fs_directory_entry_t* new_entry = NULL;
+
+	if (!verify_path(pathandfile)) {
+		return false;
+	}
+
+	/* First, split the path and file components */
+	uint32_t namelen = strlen(pathandfile);
+	char* pathinfo = strdup(pathandfile);
+	char* filename = NULL;
+	char* pathname = NULL;
+	char* ptr;
+	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr) {
+		if (*ptr == '/') {
+			*ptr = 0;
+			filename = strdup(ptr + 1);
+			pathname = strdup(pathinfo);
+			break;
+		}
+	}
+	kfree(pathinfo);
+
+	if (!filename || !pathname || !*filename) {
+		return false;
+	}
+	if (*pathname == 0) {
+		/* A file located on the root directory -- special case */
+		kfree(pathname);
+		pathname = strdup("/");
+	}
+	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
+	if (!directory) {
+		dprintf("vfs create dir: no such path: %s\n", pathname);
+		kfree(pathname);
+		kfree(filename);
+		return false;
+	}
+
+	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
+
+	if (fileinfo) {
+		dprintf("vfs create dir: file in %s already exists: %s\n", pathname, filename);
+		kfree(pathname);
+		kfree(filename);
+		return false;
+	}
+	
+	if (directory->responsible_driver && directory->responsible_driver->createdir) {
+		uint64_t lbapos = directory->responsible_driver->createdir(directory, filename);
+		/* Remove the deleted file from the fs_tree_t */
+		if (lbapos) {
+			new_entry = kmalloc(sizeof(fs_directory_entry_t));
+			datetime_t dt;
+			get_datetime(&dt);
+			get_weekday_from_date(&dt);
+			new_entry->device = 0;
+			strlcpy(new_entry->device_name, directory->responsible_driver->name, 15);
+			new_entry->directory = directory;
+			new_entry->filename = filename;
+			new_entry->alt_filename = strdup(filename);
+			new_entry->lbapos = lbapos;
+			new_entry->day = dt.day;
+			new_entry->month = dt.month;
+			new_entry->year = (dt.century - 1) * 100 + dt.year;
+			new_entry->hour = dt.hour;
+			new_entry->min = dt.minute;
+			new_entry->sec = dt.second;
+			new_entry->next = directory->files;
+			new_entry->size = 0;
+			new_entry->flags = FS_DIRECTORY;
+			directory->files = new_entry;
+			/* TODO add to FS tree, dont forget responsible_driver ptr! */
+			fs_tree_t* new_dir  = kmalloc(sizeof(fs_tree_t));
+			new_dir->next = directory->child_dirs;
+			new_dir->device = directory->device;
+			strlcpy(new_dir->device_name, directory->device_name, 16);
+			new_dir->dirty = 1;
+			new_dir->files = NULL;
+			new_dir->lbapos = lbapos;
+			new_dir->name = strdup(filename);
+			new_dir->child_dirs = NULL;
+			new_dir->parent = directory;
+			new_dir->opaque = directory->opaque;
+			new_dir->responsible_driver = directory->responsible_driver;
+			new_dir->size = 0;
+			directory->child_dirs = new_dir;
+		}
+	}
+	kfree(pathname);
+	kfree(filename);
+	return new_entry;
+}
+
+int mkdir(const char *pathname, [[maybe_unused]] mode_t mode)
+{
+	return fs_create_directory(pathname) ? 0 : -1;
+}
+
+
 /* Open a file for access */
 int _open(const char* filename, int oflag)
 {
@@ -794,6 +895,7 @@ void init_filesystem()
 	filesystems->writefile = NULL;
 	filesystems->rm = NULL;
 	filesystems->createfile = NULL;
+	filesystems->createdir = NULL;
 	filesystems->next = NULL;
 
 	dummyfs = filesystems;
@@ -812,6 +914,12 @@ fs_directory_entry_t* fs_get_items(const char* pathname)
 {
 	fs_tree_t* item = walk_to_node(fs_tree, pathname);
 	return (fs_directory_entry_t*)(item ? item->files : NULL);
+}
+
+bool fs_is_directory(const char* pathname)
+{
+	fs_tree_t* item = walk_to_node(fs_tree, pathname);
+	return item != NULL;
 }
 
 int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver)

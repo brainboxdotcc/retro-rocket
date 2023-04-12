@@ -1707,6 +1707,10 @@ int64_t ubasic_openin(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	if (fs_is_directory(strval)) {
+		tokenizer_error_print(ctx, "Not a file");
+		return 0;
+	}
 	int fd = _open(strval, _O_RDONLY);
 	return fd;
 }
@@ -1715,6 +1719,10 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	if (!fs_is_directory(strval)) {
+		tokenizer_error_print(ctx, "Not a directory");
+		return 0;
+	}
 	fs_directory_entry_t* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl) {
@@ -1761,6 +1769,10 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
+	if (!fs_is_directory(strval)) {
+		tokenizer_error_print(ctx, "Not a directory");
+		return 0;
+	}
 	fs_directory_entry_t* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
