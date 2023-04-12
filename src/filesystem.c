@@ -716,6 +716,23 @@ fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filenam
 	return NULL;
 }
 
+fs_directory_entry_t* find_dir_in_dir(fs_tree_t* directory, const char* filename)
+{
+	if (!directory) {
+		return NULL;
+	}
+
+	fs_directory_entry_t* entry = (fs_directory_entry_t*)directory->files;
+	for (; entry; entry = entry->next) {
+		/* Don't find directories, only files */
+		if ((entry->flags & FS_DIRECTORY) && (!strcmp(filename, entry->filename)))
+			return entry;
+	}
+	return NULL;
+}
+
+
+
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
 	if (file && file->directory && file->directory->responsible_driver) {
@@ -736,9 +753,40 @@ int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, u
 	return 0;
 }
 
+void delete_tree_node(fs_tree_t** head_ref, const char* name)
+{
+	fs_tree_t *temp = *head_ref, *prev = NULL;
+
+	if (head_ref == NULL) {
+		return;
+	}
+
+	if (temp != NULL && !strcmp(temp->name, name)) {
+		*head_ref = temp->next;
+		kfree(temp);
+		return;
+	}
+
+	while (temp != NULL && strcmp(temp->name, name)) {
+		prev = temp;
+		temp = temp->next;
+	}
+
+	if (temp == NULL) {
+		return;
+	}
+
+	prev->next = temp->next;
+	kfree(temp);
+}
+
 void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 {
-	fs_directory_entry_t *temp = *head_ref, *prev;
+	fs_directory_entry_t *temp = *head_ref, *prev = NULL;
+
+	if (head_ref == NULL) {
+		return;
+	}
 
 	if (temp != NULL && !strcmp(temp->filename, name)) {
 		*head_ref = temp->next;
@@ -746,7 +794,7 @@ void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 		return;
 	}
 
-	while (temp != NULL && !strcmp(temp->filename, name)) {
+	while (temp != NULL && strcmp(temp->filename, name)) {
 		prev = temp;
 		temp = temp->next;
 	}
@@ -818,9 +866,80 @@ bool fs_delete_file(const char* pathandfile)
 	return rv;
 }
 
+bool fs_delete_directory(const char* pathandfile)
+{
+	if (!verify_path(pathandfile)) {
+		return false;
+	}
+
+	/* First, split the path and file components */
+	uint32_t namelen = strlen(pathandfile);
+	char* pathinfo = strdup(pathandfile);
+	char* filename = NULL;
+	char* pathname = NULL;
+	char* ptr;
+	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr) {
+		if (*ptr == '/') {
+			*ptr = 0;
+			filename = strdup(ptr + 1);
+			pathname = strdup(pathinfo);
+			break;
+		}
+	}
+	kfree(pathinfo);
+
+	if (!filename || !pathname || !*filename) {
+		return false;
+	}
+	if (*pathname == 0) {
+		/* A file located on the root directory -- special case */
+		kfree(pathname);
+		pathname = strdup("/");
+	}
+	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
+	if (!directory) {
+		dprintf("vfs rmdir: no such path: %s\n", pathname);
+		kfree(pathname);
+		kfree(filename);
+		return false;
+	}
+	fs_directory_entry_t* fileinfo = find_dir_in_dir(directory, filename);
+	if (!fileinfo) {
+		dprintf("vfs rmdir: no such dir in %s: %s\n", pathname, filename);
+		kfree(pathname);
+		kfree(filename);
+		return false;
+	}
+	
+	bool rv = false;
+	if ((fileinfo->flags & FS_DIRECTORY) && directory->responsible_driver && directory->responsible_driver->rmdir) {
+		rv = directory->responsible_driver->rmdir(directory, filename);
+		/* Remove the deleted file from the fs_tree_t */
+		if (rv) {
+			dprintf("Deleting from directory files %llx %llx\n", directory, directory->files);
+			for (fs_directory_entry_t* f = directory->files; f; f = f->next) {
+				dprintf("File: %s\n", f->filename);
+			}
+			delete_file_node(&(directory->files), filename);
+			dprintf("Deleting from directory child dirs %llx %llx\n", directory, directory->child_dirs);
+			delete_tree_node(&(directory->child_dirs), filename);
+			dprintf("Deletion done\n");
+		}
+	}
+	kfree(pathname);
+	kfree(filename);
+	return rv;
+}
+
+
 int unlink(const char *pathname)
 {
-	return (fs_delete_file(pathname) ? 0 : 1);
+	return (fs_delete_file(pathname) ? 0 : -1);
+}
+
+int rmdir(const char *pathname)
+{
+	return (fs_delete_directory(pathname) ? 0 : -1);
 }
 
 fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
@@ -896,6 +1015,7 @@ void init_filesystem()
 	filesystems->rm = NULL;
 	filesystems->createfile = NULL;
 	filesystems->createdir = NULL;
+	filesystems->rmdir = NULL;
 	filesystems->next = NULL;
 
 	dummyfs = filesystems;

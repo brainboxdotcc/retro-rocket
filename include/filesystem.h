@@ -24,6 +24,7 @@ typedef bool (*write_file)(void*, uint64_t, uint32_t, unsigned char*);
 typedef uint64_t (*create_file)(void*, const char*, size_t);
 typedef uint64_t (*create_dir)(void*, const char*);
 typedef bool (*delete_file)(void*, const char*);
+typedef bool (*delete_dir)(void*, const char*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
 
@@ -56,14 +57,15 @@ typedef struct fs_directory_entry_t {
  * delete_file or write_file.
  */
 typedef struct filesystem_t {
-	char name[32];		/* Filesystem name */
-	mount_volume mount;	/* mount() entrypoint */
-	get_directory getdir;	/* getdir() entrypoint */
-	read_file readfile;	/* readfile() entrypoint */
-	write_file writefile;	/* writefile() entrypoint */
-	create_file createfile;	/* createfile() entrypoint */
-	create_dir createdir;	/* createdir() entrypoint */
-	delete_file rm;		/* rm() entrypoint */
+	char name[32];			/* Filesystem name */
+	mount_volume mount;		/* mount() entrypoint */
+	get_directory getdir;		/* getdir() entrypoint */
+	read_file readfile;		/* readfile() entrypoint */
+	write_file writefile;		/* writefile() entrypoint */
+	create_file createfile;		/* createfile() entrypoint */
+	create_dir createdir;		/* createdir() entrypoint */
+	delete_file rm;			/* rm() entrypoint */
+	delete_dir rmdir;		/* rmdir() entrypoint */
 	struct filesystem_t* next;	/* Next entry */
 } filesystem_t;
 
@@ -221,6 +223,8 @@ int unlink(const char *pathname);
 
 int mkdir(const char *pathname, mode_t mode);
 
+int rmdir(const char *pathname);
+
 /**
  * @brief Low level delete file
  * 
@@ -228,6 +232,8 @@ int mkdir(const char *pathname, mode_t mode);
  * @return true if file was deleted
  */
 bool fs_delete_file(const char* pathandfile);
+
+bool fs_delete_directory(const char* pathandfile);
 
 #endif
 

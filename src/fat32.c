@@ -873,6 +873,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 								entry_lfn_start += sizeof(directory_entry_t);					
 							}
 							write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer);
+							dprintf("Changes written\n");
 							kfree(buffer);
 							return true;
 						}
@@ -895,6 +896,22 @@ bool fat32_unlink_file(void* dir, const char* name)
 	kfree(buffer);
 	kprintf("fat32 unlink done\n");
 	return true;
+}
+
+bool fat32_unlink_dir(void* dir, const char* name)
+{
+	fs_tree_t* treeitem = (fs_tree_t*)dir;
+	fs_directory_entry_t* iter = NULL;
+	fat32_t* info = (fat32_t*)treeitem->opaque;
+	uint32_t dir_cluster = treeitem->lbapos;
+
+	iter = parse_fat32_directory(treeitem, info, dir_cluster);
+	if (iter) {
+		/* Directory not empty */
+		dprintf("fat32_unlink_dir: Directory not empty\n");
+		return false;
+	}
+	return fat32_unlink_file(dir, name);
 }
 
 bool set_fat_entry(fat32_t* info, uint32_t cluster, uint32_t value)
@@ -1078,6 +1095,7 @@ void init_fat32()
 	fat32_fs->createdir = fat32_create_directory;
 	fat32_fs->writefile = fat32_write_file;
 	fat32_fs->rm = fat32_unlink_file;
+	fat32_fs->rmdir = fat32_unlink_dir;
 	register_filesystem(fat32_fs);
 }
 
