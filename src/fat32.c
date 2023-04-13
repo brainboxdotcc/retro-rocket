@@ -12,6 +12,16 @@ uint32_t find_next_free_fat_entry(fat32_t* info);
 void amend_free_count(fat32_t* info, int adjustment);
 bool fat32_extend_file(void* f, uint32_t size);
 
+bool read_cluster(fat32_t* info, uint32_t cluster, void* buffer)
+{
+	return read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer);
+}
+
+bool write_cluster(fat32_t* info, uint32_t cluster, void* buffer)
+{
+	return write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer);
+}
+
 /**
  * @brief Reads a chunk of a long filename from a directory entry.
  * 
@@ -194,7 +204,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 	while (true) {
 		int bufferoffset = 0;
 		//kprintf("Cluster at start of loop: %d\n", cluster);
-		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+		if (!read_cluster(info, cluster, buffer)) {
 			dprintf("Read failure in parse_fat32_directory cluster=%08x\n", cluster);
 			kfree(buffer);
 			return NULL;
@@ -266,7 +276,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 								dump_hex(entry, 32);
 								file->flags |= FS_DIRECTORY;
 								unsigned char* b = kmalloc(info->clustersize);
-								read_storage_device(info->device_name, cluster_to_lba(info, file->lbapos), info->clustersize, b);
+								read_cluster(info, file->lbapos, b);
 								dprintf("DIR CLUSTER CONTENT:\n");
 								dump_hex(b, info->clustersize);
 								dprintf("END\n");
@@ -321,7 +331,7 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 	}
 
 	while (true) {
-		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, (uint8_t*)clbuf)) {
+		if (!read_cluster(info, cluster, clbuf)) {
 			kprintf("Read failure in fat32_read_file cluster=%08x\n", cluster);
 			kfree(clbuf);
 			return false;
@@ -379,7 +389,7 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 	}
 
 	while (cluster < CLUSTER_BAD && current_pos <= start + length) {
-		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, (uint8_t*)clbuf)) {
+		if (!read_cluster(info, cluster, clbuf)) {
 			dprintf("fat32_write_file() read failure\n");
 			kfree(clbuf);
 			return false;
@@ -399,7 +409,7 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 				memcpy(clbuf, buffer, to_write);
 			}
 			dprintf("fat32_write_file() write storage\n");
-			if (!write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, (uint8_t*)clbuf)) {
+			if (!write_cluster(info, cluster, clbuf)) {
 				kprintf("Write failure in fat32_write_file cluster=%08x\n", cluster);
 				kfree(clbuf);
 				return false;
@@ -449,7 +459,7 @@ bool fat32_truncate_file(void* f, size_t length)
 
 	while (true) {
 		int bufferoffset = 0;
-		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+		if (!read_cluster(info, cluster, buffer)) {
 			dprintf("couldnt read directory cluster %d in fat32_truncate_file\n", cluster_to_lba(info, cluster));
 			kfree(buffer);
 			return false;
@@ -464,7 +474,7 @@ bool fat32_truncate_file(void* f, size_t length)
 				dprintf("cl %d Amend file size entry from %d to %d\n", this_file_cluster, entry->size, length);
 				entry->size = length;
 				dump_hex(entry, 32);
-				write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer);
+				write_cluster(info, cluster, buffer);
 				dprintf("Amend done\n");
 				kfree(buffer);
 				return true;
@@ -537,7 +547,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 			if (cluster < CLUSTER_BAD) {
 				set_fat_entry(info, cluster, CLUSTER_END);
 				/* Zero the clusters as we allocate them to the file */
-				if (!write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, blank_cluster)) {
+				if (!write_cluster(info, cluster, blank_cluster)) {
 					kfree(blank_cluster);
 					return false;
 				}
@@ -560,7 +570,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 
 	while (true) {
 		int bufferoffset = 0;
-		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+		if (!read_cluster(info, cluster, buffer)) {
 			dprintf("couldnt read directory cluster %d in fat32_extend_file\n", cluster_to_lba(info, cluster));
 			kfree(buffer);
 			return false;
@@ -575,7 +585,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 				dprintf("cl %d Amend file size entry from %d to %d\n", this_file_cluster, entry->size, entry->size + size);
 				entry->size += size;
 				dump_hex(entry, 32);
-				write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer);
+				write_cluster(info, cluster, buffer);
 				dprintf("Amend done\n");
 				kfree(buffer);
 				return true;
@@ -617,7 +627,7 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 	}
 
 
-	if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+	if (!read_cluster(info, cluster, buffer)) {
 		dprintf("Read storage failed when extending directory\n");
 	}
 
@@ -662,7 +672,7 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 	dump_hex(buffer, info->clustersize);
 	dprintf("END\n");
 
-	if (!write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+	if (!write_cluster(info, cluster, buffer)) {
 		dprintf("Write storage failed when extending directory\n");
 	}
 
@@ -711,7 +721,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 				dprintf("First cluster of file: %d\n", first_allocated_cluster);
 			}
 			/* Zero the clusters as we allocate them to the new file */
-			if (!write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, blank_cluster)) {
+			if (!write_cluster(info, cluster, blank_cluster)) {
 				kfree(blank_cluster);
 				return 0;
 			}
@@ -756,7 +766,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 
 	while (true) {
 		int bufferoffset = 0;
-		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+		if (!read_cluster(info, cluster, buffer)) {
 			kfree(buffer);
 			return 0;
 		}
@@ -821,7 +831,7 @@ uint64_t fat32_create_directory(void* dir, const char* name)
 		return 0;
 	}
 
-	if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+	if (!read_cluster(info, cluster, buffer)) {
 		kfree(buffer);
 		return 0;
 	}
@@ -841,7 +851,7 @@ uint64_t fat32_create_directory(void* dir, const char* name)
 	entry->size = 0;
 	entry->first_cluster_hi = (parent_dir_cluster >> 16) & 0xffff;
 	entry->first_cluster_lo = parent_dir_cluster & 0xffff;
-	if (!write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+	if (!write_cluster(info, cluster, buffer)) {
 		kfree(buffer);
 		return 0;
 	}
@@ -910,7 +920,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 	cluster = dir_cluster;
 	while (true) {
 		int bufferoffset = 0;
-		if (!read_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer)) {
+		if (!read_cluster(info, cluster, buffer)) {
 			kprintf("Read failure in fat32_unlink_file cluster=%08x\n", cluster);
 			kfree(buffer);
 			return NULL;
@@ -944,7 +954,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 								*(entry_lfn_start->name) = 0xE5;
 								entry_lfn_start += sizeof(directory_entry_t);					
 							}
-							write_storage_device(info->device_name, cluster_to_lba(info, cluster), info->clustersize, buffer);
+							write_cluster(info, cluster, buffer);
 							dprintf("Changes written\n");
 							kfree(buffer);
 							return true;
