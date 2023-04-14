@@ -10,7 +10,7 @@ size_t kinput(size_t maxlen, console* cons)
 	cons->last = kgetc(cons);
 	
 	if (cons->last == 255) {
-		asm volatile("hlt");
+		__asm__ volatile("hlt");
 		return 0;
 	}
 

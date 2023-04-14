@@ -4,39 +4,39 @@
 /* Output one byte to an I/O port. Privileged operation. */
 static inline void outb(uint16_t port, uint8_t value)
 {
-	asm volatile("outb %b0, %w1" : : "a"(value), "Nd"(port));
+	__asm__ volatile("outb %b0, %w1" : : "a"(value), "Nd"(port));
 }
 
 /* Read a byte from an I/O port. Privileged operation. */
 static inline uint8_t inb(uint16_t port)
 {
 	uint8_t value;
-	asm volatile("inb %w1, %b0" : "=a"(value) : "Nd"(port));
+	__asm__ volatile("inb %w1, %b0" : "=a"(value) : "Nd"(port));
 	return value;
 }
 
 static inline uint16_t inw(uint16_t port)
 {                                                  
 	uint16_t value;
-	asm volatile("inw %w1, %w0" : "=a"(value) : "Nd"(port));
+	__asm__ volatile("inw %w1, %w0" : "=a"(value) : "Nd"(port));
 	return value;
 }                               
 
 static inline void outw(uint16_t port, unsigned short value)
 {
-	asm volatile("outw %w0, %w1" : : "a"(value), "Nd"(port));
+	__asm__ volatile("outw %w0, %w1" : : "a"(value), "Nd"(port));
 }
 
 static inline uint32_t inl(uint16_t port)
 {
 	uint32_t value;
-	asm volatile("inl %%dx, %%eax" : "=a" (value) : "d" (port));
+	__asm__ volatile("inl %%dx, %%eax" : "=a" (value) : "d" (port));
 	return value;
 }
 
 static inline void outl(uint16_t port, unsigned long value)
 {
-	asm volatile("outl %%eax, %%dx" : : "d" (port), "a" (value));
+	__asm__ volatile("outl %%eax, %%dx" : : "d" (port), "a" (value));
 }
 
 static inline void insl(uint16_t port, void* buffer, uint32_t count)
@@ -63,17 +63,17 @@ static inline void outsw(uint16_t port, void* buffer, uint32_t count)
 
 static inline void interrupts_on()
 {
-	asm volatile("sti");
+	__asm__ volatile("sti");
 }
 
 static inline void interrupts_off()
 {
-	asm volatile("cli");
+	__asm__ volatile("cli");
 }
 
 static inline void wait_forever()
 {
-	for (;;) asm volatile("hlt");
+	for (;;) __asm__ volatile("hlt");
 }
 
 #endif

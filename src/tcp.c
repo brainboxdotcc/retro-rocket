@@ -1241,7 +1241,7 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 	dprintf("Connect waiting: ");
 	while (conn && conn->state < TCP_ESTABLISHED) {
 		dprintf(".");
-		asm volatile("hlt");
+		__asm__ volatile("hlt");
 		if (time(NULL) - start > 10) {
 			return TCP_ERROR_CONNECTION_FAILED;
 		}

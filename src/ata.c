@@ -618,7 +618,7 @@ int ide_atapi_eject(uint8_t drive)
 		ide_read(channel, ATA_REG_ALTSTATUS); // Reading Alternate Status Port wastes 100ns.
 		ide_write(channel, ATA_REG_COMMAND, ATA_CMD_PACKET);		// Send the Command.
 		if (!(err = ide_polling(channel, 1))) {
-			asm("rep outsw"::"c"(6), "d"(bus), "S"(atapi_packet));// Send Packet Data
+			__asm__("rep outsw"::"c"(6), "d"(bus), "S"(atapi_packet));// Send Packet Data
 			ide_wait_irq();					// Wait for an IRQ.
 			err = ide_polling(channel, 1);			// Polling and get error code.
 			if (err == 3)

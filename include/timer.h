@@ -5,7 +5,7 @@
 static inline uint64_t rdtsc()
 {
     uint64_t ret;
-    asm volatile ("rdtsc":"=A"(ret));
+    __asm__ volatile ("rdtsc":"=A"(ret));
     return ret;
 }
 

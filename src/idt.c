@@ -13,7 +13,7 @@ void init_idt()
 	idt_init((idt_entry_t*)idt64.base);
 
 	/* load IDT pointer */
-	asm volatile("lidtq (%0)\n"::"r"(&idt64));
+	__asm__ volatile("lidtq (%0)\n"::"r"(&idt64));
 
 	/* Unmask and configure each interrupt on the IOAPIC */
 	for (int in = 0; in < 16; in++) {

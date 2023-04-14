@@ -477,7 +477,7 @@ uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t ti
 	time_t now = time(NULL);
 
 	while (!dns_request_is_completed(h.id)) {
-		asm volatile("hlt");
+		__asm__ volatile("hlt");
 		if (time(NULL) - now > timeout) {
 			/* Request timed out */
 			dns_delete_request(h.id);

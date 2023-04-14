@@ -160,7 +160,7 @@ const char* findsymbol(uint64_t address, uint64_t* offset)
 void backtrace()
 {
 	stack_frame_t *frame;
-	asm volatile("movq %%rbp,%0" : "=r"(frame));
+	__asm__ volatile("movq %%rbp,%0" : "=r"(frame));
 	uint64_t page = (uint64_t) frame & 0xFFFFFFFFFFFFF000ull;
 	uint64_t offset = 0;
 	const char* name = NULL;

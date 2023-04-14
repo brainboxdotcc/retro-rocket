@@ -43,7 +43,7 @@ void sleep(uint64_t secs)
 	uint64_t start = ticks;
 	uint64_t end = start + (secs * timer_freq);
 	while (ticks < end)
-		asm volatile("hlt");
+		__asm__ volatile("hlt");
 }
 
 uint64_t get_ticks()
