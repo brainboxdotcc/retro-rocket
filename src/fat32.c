@@ -41,7 +41,6 @@ char* parse_shitty_lfn_entry(char* nameptr, uint16_t* wide_chars, uint8_t n_wide
 	for (int x = 0; x < n_wide_chars; ++x) {
 		if (wide_chars[x] && wide_chars[x] != 0xffff) {
 			if (wide_chars[x] < 0x80) {
-				//dprintf("Add lfn char: %c\n", (char)wide_chars[x]);
 				*nameptr++ = (char)wide_chars[x];
 			} else {
 				*nameptr++ = '?';
@@ -62,7 +61,6 @@ uint8_t lfn_checksum(unsigned char* short_name)
 
 void make_short(directory_entry_t* entry, const char* long_name, fs_directory_entry_t* current)
 {
-	dprintf("make_short\n");
 	memset(entry->name, ' ', 11);
 	size_t end_number = 1;
 	size_t x = 0;
@@ -73,7 +71,6 @@ void make_short(directory_entry_t* entry, const char* long_name, fs_directory_en
 			entry->name[n] = toupper(long_name[x++]);
 		}
 	}
-	dprintf("make_short after build name alnum part\n");
 	entry->name[n++] = '~';
 	/* Temporarily null terminate */
 	entry->name[n + 2] = 0;
@@ -89,30 +86,34 @@ void make_short(directory_entry_t* entry, const char* long_name, fs_directory_en
 			}
 		}
 		if (end_number > 99) {
-			dprintf("fat32: make_short() name overflow, short name for '%s'\n", long_name);
 			return;
 		}
 	} while (found);
 	entry->name[n + 2] = ' ';
 }
 
+#define FILL_UCS2(remain, number_chars, offset, member) \
+	if (remain > offset) { \
+		for (size_t n = 0; n < number_chars; ++n) { \
+			lfn[*entry_count].member[n] = 0; \
+			if (n + offset < remaining) { \
+				lfn[*entry_count].member[n] = filename[n + offset]; \
+			} \
+		} \
+	}
+
 void build_lfn_chain(const char* filename, fs_directory_entry_t* current, directory_entry_t* short_entry, directory_entry_t** entries, size_t* entry_count)
 {
 	if (entry_count == NULL) {
 		return;
 	}
-	dprintf("build lfn chain\n");
 	*entry_count = 0;
 	size_t increment = 1;
 	make_short(short_entry, filename, current);
-	dprintf("prep alloc array\n");
 	*entries = kmalloc(sizeof(lfn_t) * 65);
-	dprintf("LFN array allocated\n");
 	lfn_t* lfn = (lfn_t*)*entries;
 	memset(lfn, 0, sizeof(lfn_t) * 65);
-	dprintf("LFN array cleared\n");
 	uint8_t checksum = lfn_checksum((unsigned char*)short_entry->name);
-	dprintf("lfn checksum %d\n", checksum);
 	for (; *filename;) {
 		lfn[*entry_count].attributes = ATTR_LONG_NAME;
 		lfn[*entry_count].order = increment++;
@@ -120,49 +121,18 @@ void build_lfn_chain(const char* filename, fs_directory_entry_t* current, direct
 		lfn[*entry_count].reserved = 0;
 		lfn[*entry_count].checksum = checksum;
 		size_t remaining = strlen(filename);
-		dprintf("Remaining = %d entries = %d\n", remaining, *entry_count);
-		if (remaining > 0) {
-			/* Entry 0-4 (5 chars) */
-			dprintf("Fill first\n");
-			for (size_t n = 0; n < 5; ++n) {
-				lfn[*entry_count].first[n] = 0;
-				if (n < remaining) {
-					lfn[*entry_count].first[n] = filename[n];
-				}
-			}
-		}
-		if (remaining > 5) {
-			/* entry 5-10 (6 chars) */
-			dprintf("Fill second\n");
-			for (size_t n = 0; n < 6; ++n) {
-				lfn[*entry_count].second[n] = 0;
-				if (n + 5 < remaining) {
-					lfn[*entry_count].second[n] = filename[n + 5];
-				}
-			}
-		}
-		if (remaining > 11) {
-			/* Entry 11-12 (2 chars)*/
-			dprintf("Fill third\n");
-			for (size_t n = 0; n < 2; ++n) {
-				lfn[*entry_count].third[n] = 0;
-				if (n + 11 < remaining) {
-					lfn[*entry_count].third[n] = filename[n + 11];
-				}
-			}
-		}
+		FILL_UCS2(remaining, 5, 0, first); /* Entry 0-4 (5 chars) */
+		FILL_UCS2(remaining, 6, 5, second); /* entry 5-10 (6 chars) */
+		FILL_UCS2(remaining, 2, 11, third); /* Entry 11-12 (2 chars)*/
 		filename += (remaining > 13 ? 13 : remaining);
 		lfn[*entry_count].order &= ~ATTR_LFN_LAST_ENTRY;
 		if (!*filename) {
 			lfn[*entry_count].order |= ATTR_LFN_LAST_ENTRY;
-			dprintf("End of filename\n");
 		}
 		(*entry_count)++;
 		if (*entry_count == 64) {
-			dprintf("Out of lfn entries\n");
 			return;
 		}
-		dprintf("Incrment to next lfn\n");
 	}
 }
 
@@ -194,8 +164,6 @@ void parse_short_name(directory_entry_t* entry, char* name, char* dotless)
 
 fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint32_t cluster)
 {
-	//dprintf("parse_fat32_directory at cluster %d\n", cluster);
-
 	unsigned char* buffer = kmalloc(info->clustersize);
 	fs_directory_entry_t* list = NULL;
 	lfn_t lfns[256] = { 0 };
@@ -203,7 +171,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 
 	while (true) {
 		int bufferoffset = 0;
-		//kprintf("Cluster at start of loop: %d\n", cluster);
 		if (!read_cluster(info, cluster, buffer)) {
 			dprintf("Read failure in parse_fat32_directory cluster=%08x\n", cluster);
 			kfree(buffer);
@@ -225,27 +192,19 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 
 				if (name[0] != '.') {
 
-					//dprintf("Entry: %s\n", name);
-
 					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && info->volume_name == NULL) {
 						info->volume_name = strdup(dotless);
 					} else {
 
 						if (entry->attr == ATTR_LONG_NAME) {
-							//dprintf("Long name\n");
 							lfn_t* lfn = (lfn_t*)entry;
-							//dump_hex(lfn, 32);
 							memcpy(&lfns[lfn->order], (lfn_t*)entry, sizeof(lfn_t));
 							if (lfn->order > highest_lfn_order) {
 								highest_lfn_order = lfn->order;
-								//dprintf("new highest lfn order: %d\n", lfn->order);
 							}
 						} else {
-							//dprintf("Short name\n");
 							fs_directory_entry_t* file = kmalloc(sizeof(fs_directory_entry_t));
-							//dump_hex(entry, 32);
 							if (highest_lfn_order > -1) {
-								//dprintf("Parse buffered lfn\n");
 								char longname[14 * (highest_lfn_order + 1)];
 								char* nameptr = longname;
 								for (int i = 0; i <= highest_lfn_order; ++i) {
@@ -255,10 +214,8 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 									nameptr = parse_shitty_lfn_entry(nameptr, lfns[i].first, 5);
 									nameptr = parse_shitty_lfn_entry(nameptr, lfns[i].second, 6);
 									nameptr = parse_shitty_lfn_entry(nameptr, lfns[i].third, 2);
-									//dprintf("Parse part lfn\n");
 								}
 								*nameptr++ = 0;
-								//dprintf("Complete lfn: %s\n", nameptr);
 								file->filename = strdup(longname);
 								highest_lfn_order = -1;
 								memset(&lfns, 0, sizeof(lfn_t) * 256);
@@ -272,27 +229,15 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 							file->size = entry->size;
 
 							if (entry->attr & ATTR_DIRECTORY) {
-								dprintf("DIRECTORY INFO %02x:\n", file->lbapos);
-								dump_hex(entry, 32);
 								file->flags |= FS_DIRECTORY;
-								unsigned char* b = kmalloc(info->clustersize);
-								read_cluster(info, file->lbapos, b);
-								dprintf("DIR CLUSTER CONTENT:\n");
-								dump_hex(b, info->clustersize);
-								dprintf("END\n");
-								kfree(b);
 							}
 		
-							// XXX
-							// dprintf("%d. '%s' flags=%02x size=%d clus=%08x\n", entries, file->filename, file->flags, file->size, file->lbapos);
-
 							file->next = list;
 							list = file;
 						}
 					}
 				}
 			}
-			//dprintf("Advance to next\n");
 			bufferoffset += 32;
 			entry = (directory_entry_t*)(buffer + bufferoffset);
 		}
@@ -377,20 +322,15 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 	unsigned char* clbuf = kmalloc(info->clustersize);
 	//memset(clbuf, 0, info->clustersize);
 
-	dprintf("fat32_write_file start=%d length=%d cur size=%d\n", start, length, file->size);
-
 	if (start + length > file->size) {
 		// File size must be extended to meet this requirement
-		dprintf("fat32_write_file must extend\n");
 		if (!fat32_extend_file(f, start + length - file->size)) {
-			dprintf("Couldn't extend\n");
 			return false;
 		}
 	}
 
 	while (cluster < CLUSTER_BAD && current_pos <= start + length) {
 		if (!read_cluster(info, cluster, clbuf)) {
-			dprintf("fat32_write_file() read failure\n");
 			kfree(clbuf);
 			return false;
 		}
@@ -399,29 +339,23 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 			if (length > info->clustersize) {
 				to_write = info->clustersize;
 			}
-			dprintf("fat32_write_file() prep memcpy\n");
 			if (first == 1) {
 				/* Special case where start != 0 */
-				dprintf("Special case, writing to %llx where buf = %llx size %llx to_write=%d\n",clbuf + (start % info->clustersize), clbuf, to_write - (start % info->clustersize), to_write);
 				memcpy(clbuf + (start % info->clustersize), buffer, to_write - (start % info->clustersize));
 			} else {
-				dprintf("Straight memcpy of %d\n", to_write);
 				memcpy(clbuf, buffer, to_write);
 			}
-			dprintf("fat32_write_file() write storage\n");
 			if (!write_cluster(info, cluster, clbuf)) {
-				kprintf("Write failure in fat32_write_file cluster=%08x\n", cluster);
+				dprintf("Write failure in fat32_write_file cluster=%08x\n", cluster);
 				kfree(clbuf);
 				return false;
 			}
-			dprintf("Done write storage");
 			buffer += to_write;
 			first = 0;
 		}
 		cluster = get_fat_entry(info, cluster);
 		current_pos += info->clustersize;
 	}
-	dprintf("Write finish\n");
 	kfree(clbuf);
 	return true;
 }
@@ -438,8 +372,6 @@ bool fat32_truncate_file(void* f, size_t length)
 	unsigned char* clbuf = kmalloc(info->clustersize);
 	//memset(clbuf, 0, info->clustersize);
 
-	dprintf("fat32_truncate_file new length=%d cur size=%d\n", length, file->size);
-
 	/* Walk cluster chain until we find the last one we want to keep */
 	while (cluster < CLUSTER_BAD && current_pos <= length) {
 		cluster = get_fat_entry(info, cluster);
@@ -455,7 +387,6 @@ bool fat32_truncate_file(void* f, size_t length)
 	/* Amend size in directory */
 	uint8_t* buffer = kmalloc(info->clustersize); 
 	cluster = file->directory->lbapos ? file->directory->lbapos : info->rootdircluster;
-	dprintf("Directory lbapos=%d\n", cluster);
 
 	while (true) {
 		int bufferoffset = 0;
@@ -464,18 +395,15 @@ bool fat32_truncate_file(void* f, size_t length)
 			kfree(buffer);
 			return false;
 		}
-		dprintf("Scanning...\n");
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
 		uint32_t entries = 0; // max of info->clustersize / 32 file entries per cluster
 
 		while (entries++ < info->clustersize / 32) {
 			uint32_t this_file_cluster = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
 			if (this_file_cluster == file->lbapos && entry->name[0] != 0 && !(entry->name[0] & 0x80) && entry->attr != ATTR_LONG_NAME) {
-				dprintf("cl %d Amend file size entry from %d to %d\n", this_file_cluster, entry->size, length);
 				entry->size = length;
 				dump_hex(entry, 32);
 				write_cluster(info, cluster, buffer);
-				dprintf("Amend done\n");
 				kfree(buffer);
 				return true;
 			}
@@ -515,7 +443,6 @@ bool fat32_extend_file(void* f, uint32_t size)
 		cluster = get_fat_entry(info, cluster);
 	}
 	if (size_cl >= file->size + size) {
-		dprintf("No need to extend file, file size on disk is %d which can contain %d", size_cl, file->size + size);
 		alloc_more = false;
 	}
 	cluster = file->lbapos;
@@ -530,14 +457,11 @@ bool fat32_extend_file(void* f, uint32_t size)
 	}
 
 	if (alloc_more) {
-		dprintf("fat32 extend file: Walk cluster chain\n");
 		while (cluster < CLUSTER_BAD) {
 			last_cluster = cluster;
 			cluster = get_fat_entry(info, cluster);
 		}
 		/* last_cluster now points at last cluster of file */
-
-		dprintf("Size in clusters to extend: %d (size: %d cluster size: %d)\n", size_in_clusters, size, info->clustersize);
 
 		/* Newly allocated clusters will be filled with nulls */
 		memset(blank_cluster, 0, info->clustersize);
@@ -559,14 +483,11 @@ bool fat32_extend_file(void* f, uint32_t size)
 			size_in_clusters--;
 		}
 		kfree(blank_cluster);
-
-		dprintf("Additional space reserved\n");
 	}
 
 	/* Amend the file's size in its directory entry */
 	uint8_t* buffer = kmalloc(info->clustersize); 
 	cluster = file->directory->lbapos ? file->directory->lbapos : info->rootdircluster;
-	dprintf("Directory lbapos=%d\n", cluster);
 
 	while (true) {
 		int bufferoffset = 0;
@@ -575,18 +496,15 @@ bool fat32_extend_file(void* f, uint32_t size)
 			kfree(buffer);
 			return false;
 		}
-		dprintf("Scanning...\n");
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
 		uint32_t entries = 0; // max of info->clustersize / 32 file entries per cluster
 
 		while (entries++ < info->clustersize / 32) {
 			uint32_t this_file_cluster = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
 			if (this_file_cluster == file->lbapos && entry->name[0] != 0 && !(entry->name[0] & 0x80) && entry->attr != ATTR_LONG_NAME) {
-				dprintf("cl %d Amend file size entry from %d to %d\n", this_file_cluster, entry->size, entry->size + size);
 				entry->size += size;
 				dump_hex(entry, 32);
 				write_cluster(info, cluster, buffer);
-				dprintf("Amend done\n");
 				kfree(buffer);
 				return true;
 			}
@@ -611,16 +529,13 @@ bool fat32_extend_file(void* f, uint32_t size)
 void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t cluster, uint8_t* buffer, int bufferoffset, directory_entry_t* short_entry, directory_entry_t* new_entries, int entry_count)
 {
 	if (grow) {
-		dprintf("Grow directory\n");
 		/* Insert new cluster into directory and point at it */
 		uint32_t next_free = find_next_free_fat_entry(info);
 		set_fat_entry(info, cluster, next_free);
 		set_fat_entry(info, next_free, CLUSTER_END);
-		dprintf("Amend free\n");
 		amend_free_count(info, -1);
 		cluster = next_free;
 		/* Zero the memory copy of the cluster */
-		dprintf("Clear buffer size %d at %llx\n", info->clustersize, buffer);
 		memset(buffer, 0, info->clustersize);
 		bufferoffset = 0;
 		entries = 0;
@@ -629,6 +544,8 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 
 	if (!read_cluster(info, cluster, buffer)) {
 		dprintf("Read storage failed when extending directory\n");
+		kfree(new_entries);
+		return;
 	}
 
 	directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
@@ -645,32 +562,22 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 		 * traditionally by windows.
 		 */
 		for (; entries < info->clustersize / 32 && entry_count > -1; ++entries) {
-			dprintf("Overwriting:\n");
-			dump_hex(entry, 32);
 			memcpy(entry, &new_entries[entry_count--], sizeof(directory_entry_t));
-			dprintf("New value:\n");
-			dump_hex(entry, 32);
 			bufferoffset += sizeof(directory_entry_t);
 			entry = (directory_entry_t*)(buffer + bufferoffset);
 		}
 
 		if (entries == info->clustersize / 32) {
 			dprintf("fat32: insert_entries_at() overlaps cluster edge, should not happen - LFN too long?\n");
+			kfree(new_entries);
 			return;
 		}
 
 	} while (entry_count > -1 && entries != info->clustersize / 32);
 
 	if (entries < info->clustersize / 32) {
-		dprintf("Add short entry\n");
-		dump_hex(short_entry, 32);
-		dprintf("END\n");
 		memcpy(entry, short_entry, sizeof(directory_entry_t));
 	}
-
-	dprintf("DIRECTORY AFTER AMEND\n");
-	dump_hex(buffer, info->clustersize);
-	dprintf("END\n");
 
 	if (!write_cluster(info, cluster, buffer)) {
 		dprintf("Write storage failed when extending directory\n");
@@ -695,15 +602,11 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 		}
 	}
 
-	dprintf("File does not already exist\n");
-
 	/* Calculate how many clusters are needed for this size of file */
 	uint32_t size_in_clusters = size / info->clustersize;
 	if (size_in_clusters == 0) {
 		size_in_clusters = 1;
 	}
-
-	dprintf("Size in clusters to reserve: %d (size: %d cluster size: %d)\n", size_in_clusters, size, info->clustersize);
 
 	/* Allocate cluster chain to cover file length */
 	uint32_t last_cluster = CLUSTER_END;
@@ -718,7 +621,6 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 			set_fat_entry(info, cluster, CLUSTER_END);
 			if (first_allocated_cluster == CLUSTER_END) {
 				first_allocated_cluster = cluster;
-				dprintf("First cluster of file: %d\n", first_allocated_cluster);
 			}
 			/* Zero the clusters as we allocate them to the new file */
 			if (!write_cluster(info, cluster, blank_cluster)) {
@@ -734,22 +636,14 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	}
 	kfree(blank_cluster);
 
-	dprintf("Space reserved\n");
-
 	/* Add directory entry (including lfn) */
 	uint8_t* buffer = kmalloc(info->clustersize);
 	uint32_t cluster = dir_cluster;
-
 	size_t entry_count = 0;
 	directory_entry_t* new_entries = NULL;
 	directory_entry_t short_entry = { 0 };
-	build_lfn_chain(name, parsed_dir, &short_entry, &new_entries, &entry_count);
 
-	dprintf("Number of entries made: %d\n", entry_count);
-	for (size_t n = 0; n < entry_count; ++n) {
-		dprintf("LFN entry %d:\n",n);
-		dump_hex(&new_entries[n], sizeof(directory_entry_t));
-	}
+	build_lfn_chain(name, parsed_dir, &short_entry, &new_entries, &entry_count);
 	short_entry.size = size;
 	short_entry.nt = 0;
 	short_entry.attr = attributes;
@@ -761,31 +655,24 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	uint32_t start_of_space_cluster = 0;
 	uint32_t space_size = -1;
 
-	dprintf("SFN entry (file size %d):\n", short_entry.size);
-	dump_hex(&short_entry, sizeof(directory_entry_t));
-
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
 			kfree(buffer);
 			return 0;
 		}
-		dprintf("Scanning...\n");
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
 		uint32_t entries = 0; // max of info->clustersize / 32 file entries per cluster
 
 		while (entries++ < info->clustersize / 32) {
 			/* Hunt for a space with entry_count+1 contiguous empty dir entries */
-			dprintf("Scan entry\n");
 			if ((entry->name[0] & 0x80) || entry->name[0] == 0) {
 				if (start_of_space_bufferoffset == -1) {
 					start_of_space_bufferoffset = bufferoffset;
 					start_of_space_cluster = cluster;
 					space_size = 0;
-					dprintf("Start of potential blank: %d\n", entries - 1);
 				}
 				space_size++;
-				dump_hex(entry, 32);
 				if (space_size > entry_count + 1) {
 					insert_entries_at(false, info, entries - 1, start_of_space_cluster, buffer, start_of_space_bufferoffset, &short_entry, new_entries, entry_count);
 					return first_allocated_cluster;
@@ -886,7 +773,6 @@ bool fat32_unlink_file(void* dir, const char* name)
 	for (; iter; iter = iter->next) {
 		if (!strcmp(iter->filename, name)) {
 			file_start = cluster = iter->lbapos;
-			kprintf("Found cluster of file to unlink: %llx\n", cluster);
 			break;
 		}
 	}
@@ -900,19 +786,15 @@ bool fat32_unlink_file(void* dir, const char* name)
 	do {
 		uint32_t cur = cluster;
 		cluster = get_fat_entry(info, cluster);
-		kprintf("Unlink: free cluster %llx\n", cur);
 		freed++;
 		if (cur < CLUSTER_BAD) {
 			if (!set_fat_entry(info, cur, CLUSTER_FREE)) {
-				dprintf("Invalid FAT to clear (1) in fat32_unlink_file(): %llx\n", cur);
 				return false;
 			}
 		}
 	} while (cluster < CLUSTER_BAD);
 
 	amend_free_count(info, freed);
-
-	dprintf("Remove directory entry for %s\n", name);
 
 	/* Remove related entries from directory */
 	uint8_t* buffer = kmalloc(info->clustersize);
@@ -933,7 +815,6 @@ bool fat32_unlink_file(void* dir, const char* name)
 				char name[13];
 				char dotless[13];
 				parse_short_name(entry, name, dotless);
-				dprintf("Parse short name %s %s\n", name, dotless);
 
 				if (name[0] == 0)
 					break;
@@ -945,17 +826,14 @@ bool fat32_unlink_file(void* dir, const char* name)
 					} else {
 						uint32_t this_start = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
 						if (file_start == this_start) {
-							dprintf("Found entry file cluster start: %llx this: %llx -> %s\n", file_start, this_start, entry->name);
 							/* Found the directory entry we are removing, mark its entry as deleted */
-							*(entry->name) = 0xE5;
+							*(entry->name) = DELETED_ENTRY;
 							/* Mark related lfn entries as deleted */
 							while (entry_lfn_start < entry) {
-								dprintf("Erasing lfn entry: %s\n",entry_lfn_start->name);
-								*(entry_lfn_start->name) = 0xE5;
+								*(entry_lfn_start->name) = DELETED_ENTRY;
 								entry_lfn_start += sizeof(directory_entry_t);					
 							}
 							write_cluster(info, cluster, buffer);
-							dprintf("Changes written\n");
 							kfree(buffer);
 							return true;
 						}
@@ -1003,16 +881,14 @@ bool set_fat_entry(fat32_t* info, uint32_t cluster, uint32_t value)
 	uint32_t fat_entry_sector = info->start + info->reservedsectors + ((cluster * 4) / sd->block_size);
 	uint32_t fat_entry_offset = (uint32_t) (cluster % (sd->block_size / 4));
 
-	dprintf("set_fat_entry cluster %llx, sector = %llx + offset %llx\n", cluster, fat_entry_sector, fat_entry_offset);
-
 	if (!read_storage_device(info->device_name, fat_entry_sector, sd->block_size, (uint8_t*)buffer)) {
-		kprintf("Read failure in set_fat_entry cluster=%08x\n", cluster);
+		dprintf("Read failure in set_fat_entry cluster=%08x\n", cluster);
 		kfree(buffer);
 		return false;
 	}
 	buffer[fat_entry_offset] = value & 0x0FFFFFFF;
 	if (!write_storage_device(info->device_name, fat_entry_sector, sd->block_size, (uint8_t*)buffer)) {
-		kprintf("Write failure in set_fat_entry cluster=%08x to %08x\n", cluster, value);
+		dprintf("Write failure in set_fat_entry cluster=%08x to %08x\n", cluster, value);
 		kfree(buffer);
 		return false;
 	}
@@ -1026,7 +902,6 @@ void amend_free_count(fat32_t* info, int adjustment)
 	storage_device_t* sd = find_storage_device(info->device_name);
 	info->info->freecount += adjustment;
 	if (info->info->freecount > info->length / info->clustersize) {
-		dprintf("fat32: free count adjusted DOWN from %d to %d\n", info->info->freecount, info->length / info->clustersize);
 		info->info->freecount = info->length / info->clustersize;
 	}
 	write_storage_device(info->device_name, info->start + info->fsinfocluster, sd->block_size, (unsigned char*)info->info);
