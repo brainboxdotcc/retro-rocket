@@ -4,7 +4,16 @@
 // Offset of partition table in MBR
 #define PARTITION_TABLE_OFFSET	0x1BE
 
+// ID of a GPT protective partition entry
 #define PARTITON_GPT_PROTECTIVE 0xEE
+
+// Length of a GUID in ASCII including -, without null terminator
+#define GUID_ASCII_LEN	36
+
+// Length of a GUID in binary
+#define GUID_BINARY_LEN 16
+
+
 
 /**
  * @brief A disk partition on a storage device
@@ -46,7 +55,7 @@ typedef struct gpt_header_t {
 	uint64_t lba_of_alternative_header;
 	uint64_t first_usable_block;
 	uint64_t last_usable_block;
-	char disk_guid[16];
+	uint8_t disk_guid[GUID_BINARY_LEN];
 	uint64_t lba_of_partition_entries;
 	uint32_t number_partition_entries;
 	uint32_t size_of_each_entry;
@@ -55,8 +64,8 @@ typedef struct gpt_header_t {
 } __attribute__((packed)) gpt_header_t;
 
 typedef struct gpt_entry_t {
-	char type_guid[16];
-	char unique_id[16];
+	uint8_t type_guid[GUID_BINARY_LEN];
+	uint8_t unique_id[GUID_BINARY_LEN];
 	uint64_t start_lba;
 	uint64_t end_lba;
 	uint64_t attributes;
@@ -69,12 +78,15 @@ typedef struct gpt_entry_t {
  * 
  * @param device_name Device name
  * @param partition_type Partition type ID to find
- * @param partition_id Partition ID of found partition, filled if found
+ * @param found_guid filled with the guid of the found partition, if found on a GPT partition
+ * @param partition_id Partition ID of found partition, filled if found, or 0xFF if found on a GPT partition
  * @param start Start of found partition, filled if found
  * @param length Length of found partition, filled if found
  * @return true if partition found, partition_id, start and length will be set
  * @return false if partition not found, partition_id, start and length will be unchanged
  */
-bool find_partition_of_type(const char* device_name, uint8_t partition_type, const char* partition_type_guid, uint8_t* partition_id, uint32_t* start, uint32_t* length);
+bool find_partition_of_type(const char* device_name, uint8_t partition_type, char* found_guid, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length);
 
 bool guid_to_binary(const char* guid, void* binary);
+
+bool binary_to_guid(const void* binary, char* guid);

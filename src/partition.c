@@ -16,14 +16,76 @@ bool guid_to_binary(const char* guid, void* binary)
 	return true;
 }
 
-bool scan_gpt_entries(storage_device_t* sd, [[maybe_unused]] const char* partition_type_guid, [[maybe_unused]] uint8_t* partition_id, [[maybe_unused]] uint32_t* start, [[maybe_unused]] uint32_t* length)
+bool binary_to_guid(const void* binary, char* guid)
 {
-	unsigned char* buffer = kmalloc(sd->block_size);
+	const uint8_t* unique_id = binary;
+	snprintf(
+		guid, GUID_ASCII_LEN + 1, "%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+		unique_id[0], unique_id[1], unique_id[2], unique_id[3],
+		unique_id[4], unique_id[5],
+		unique_id[6], unique_id[7],
+		unique_id[8], unique_id[9],
+		unique_id[10], unique_id[11], unique_id[12], unique_id[13], unique_id[14], unique_id[15]
+	);
+	return true;
+}
+
+bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length, char* found_guid)
+{
+	dprintf("*** scanning gpt entries ***\n");
+	uint8_t* buffer = kmalloc(sd->block_size);
+	uint32_t entry_number = 0;
+	uint8_t partition_type[16];
+	guid_to_binary(partition_type_guid, partition_type);
+	if (!read_storage_device(sd->name, 1, sd->block_size, buffer)) {
+		dprintf("GPT: Couldn't read second sector\n");
+		kfree(buffer);
+		return false;
+	}
+	gpt_header_t* header = (gpt_header_t*)buffer;
+	if (memcmp(header->signature, "EFI PART", 8)) {
+		dprintf("GPT: No GPT signature found\n");
+		kfree(buffer);
+		return false;
+	}
+	dprintf(
+		"GPT: Revision: %d, size: %d, number of entries: %d starting at: %d\n",
+		header->gpt_revision, header->header_size,
+		header->number_partition_entries,
+		header->lba_of_partition_entries
+	);
+	uint8_t* gptbuf = kmalloc(sd->block_size);
+	do {
+		if (!read_storage_device(sd->name, header->lba_of_partition_entries + entry_number, sd->block_size, gptbuf)) {
+			*found_guid = 0;
+			kfree(gptbuf);
+			kfree(buffer);
+			return false;
+		}
+		gpt_entry_t* gpt = (gpt_entry_t*)gptbuf;
+		dump_hex(gpt->type_guid, 16);
+		dump_hex(partition_type, 16);
+		dprintf("\n");
+		if (!memcmp(gpt->type_guid, partition_type, 16)) {
+			/* Found matching partition */
+			dprintf("Found GPT entry at %d, start: %d end: %d\n", entry_number, gpt->start_lba, gpt->end_lba);
+			*start = gpt->start_lba;
+			*length = gpt->end_lba - gpt->start_lba;
+			*partition_id = 0xFF;
+			binary_to_guid(gpt->unique_id, found_guid);
+			kfree(gptbuf);
+			kfree(buffer);
+			return true;
+		}
+		entry_number++;
+	} while (entry_number < header->number_partition_entries);
+	*found_guid = 0;
+	kfree(gptbuf);
 	kfree(buffer);
 	return false;
 }
 
-bool find_partition_of_type(const char* device_name, uint8_t partition_type, const char* partition_type_guid, uint8_t* partition_id, uint32_t* start, uint32_t* length)
+bool find_partition_of_type(const char* device_name, uint8_t partition_type, char* found_guid, const char* partition_type_guid, uint8_t* partition_id, uint64_t* start, uint64_t* length)
 {
 	if (partition_id == NULL || start == NULL || length == NULL) {
 		return false;
@@ -44,7 +106,7 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, con
 
 	if (ptab->p_entry[0].bootable == 0 && ptab->p_entry[0].systemid == PARTITON_GPT_PROTECTIVE && ptab->p_entry[0].startlba == 1) {
 		kfree(buffer);
-		return scan_gpt_entries(sd, partition_type_guid, partition_id, start, length);
+		return scan_gpt_entries(sd, partition_type_guid, partition_id, start, length, found_guid);
 	}
 
 	for (int i = 0; i < 4; i++) {
@@ -53,6 +115,7 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, con
 			*partition_id = i;
 			*start = p->startlba;
 			*length = p->length;
+			*found_guid = 0;
 			kfree(buffer);
 			return true;
 		}

@@ -2,31 +2,45 @@
 
 #include "kernel.h"
 
+/**
+ * @brief FAT32 FSINFO sector signature
+ */
 #define FAT32_SIGNATURE		0x41615252
+#define FAT32_SIGNATURE2	0x61417272
+#define FAT32_SIGNATURE3	0xAA550000
 
-#define ATTR_READ_ONLY		0x01
-#define ATTR_HIDDEN		0x02
-#define ATTR_SYSTEM		0x04
-#define ATTR_VOLUME_ID		0x08
-#define ATTR_DIRECTORY		0x10
-#define ATTR_ARCHIVE		0x20
-#define ATTR_LONG_NAME		0x0F
+#define ATTR_READ_ONLY		0x01	// Read-only file
+#define ATTR_HIDDEN		0x02	// Hidden file
+#define ATTR_SYSTEM		0x04	// System file
+#define ATTR_VOLUME_ID		0x08	// Volume ID (only applicable in root directory)
+#define ATTR_DIRECTORY		0x10	// Directory
+#define ATTR_ARCHIVE		0x20	// File ready for archiving
+#define ATTR_LONG_NAME		0x0F	// Long name (RO+Hidden+Sys+VID)
 
-#define ATTR_LFN_DELETED	0x80
-#define ATTR_LFN_LAST_ENTRY	0x40
+#define ATTR_LFN_DELETED	0x80	// Deleted long filename bit flag
+#define ATTR_LFN_LAST_ENTRY	0x40	// Long filename last entry bit flag
 
-#define DELETED_ENTRY		0xE5
+#define DELETED_ENTRY		0xE5	// Deleted entry if first char of short filename
 
-#define CLUSTER_END		0x0FFFFFF8
-#define CLUSTER_BAD		0x0FFFFFF7
-#define CLUSTER_FREE		0x00000000
+#define CLUSTER_END		0x0FFFFFF8	// Ending cluster of chain (warning: May also find 0x0FFFFF0 as this value!)
+#define CLUSTER_BAD		0x0FFFFFF7	// Bad cluster marker (we treat this as end of chain like CLUSTER_END)
+#define CLUSTER_FREE		0x00000000	// Free cluster
+
+/**
+ * @brief EFI system partition GUID
+ */
+#define GPT_EFI_SYSTEM			"28732AC1-1FF8-D211-BA4B-00A0C93EC93B"
+/**
+ * @brief Microsoft basic data partition GUID
+ */
+#define GPT_MICROSOFT_BASIC_DATA	"EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"
 
 /**
  * @brief FAT32 FSINFO structure
  */
 typedef struct fat32_fs_info_t {
-	uint32_t signature1;
-	char reserved1[480];
+	uint32_t signature1;		// Must contain FAT32_SIGNATURE
+	char reserved1[480];		// Should be zeroed
 	uint32_t structsig;
 	uint32_t freecount;
 	uint32_t nextfree;

@@ -966,7 +966,7 @@ int read_fs_info(fat32_t* info)
 		return 0;
 	}
 
-	if (info->info->signature1 != FAT32_SIGNATURE) {
+	if (info->info->signature1 != FAT32_SIGNATURE || info->info->structsig != FAT32_SIGNATURE2 || info->info->trailsig != FAT32_SIGNATURE3) {
 		kprintf("Malformed FAT32 info sector!\n");
 		return 0;
 	}
@@ -1010,6 +1010,7 @@ int read_fat(fat32_t* info)
 
 fat32_t* fat32_mount_volume(const char* device_name)
 {
+	char found_guid[64];
 	storage_device_t* sd = find_storage_device(device_name);
 	if (!sd) {
 		return NULL;
@@ -1017,19 +1018,38 @@ fat32_t* fat32_mount_volume(const char* device_name)
 	fat32_t* info = kmalloc(sizeof(fat32_t));
 	strlcpy(info->device_name, device_name, 16);
 
+	uint64_t start = 0, length = 0;
+
+	int success = 0;
 	if (
-		!find_partition_of_type(device_name, 0x0B, "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7", &info->partitionid, &info->start, &info->length) &&
-		!find_partition_of_type(device_name, 0x0C, "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7", &info->partitionid, &info->start, &info->length)
+		/* EFI system partition */
+		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length) &&
+		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_EFI_SYSTEM, &info->partitionid, &start, &length) &&
+		/* Microsoft basic data partition */
+		!find_partition_of_type(device_name, 0x0B, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length) &&
+		!find_partition_of_type(device_name, 0x0C, found_guid, GPT_MICROSOFT_BASIC_DATA, &info->partitionid, &start, &length)
 	) {
 		/* No partition found, attempt to mount the volume as whole disk */
 		info->start = 0;
 		info->partitionid = 0;
 		info->length = sd->size * sd->block_size;
+		success = read_fat(info);
+		kprintf("Found FAT32 volume, device %s\n", device_name);
 	} else {
-		kprintf("Found FAT32 partition, device %s, partition %d\n", device_name, info->partitionid + 1);
+		info->start = start;
+		info->length = length * sd->block_size;
+		if (info->partitionid != 0xFF) {
+			kprintf("Found FAT32 partition, device %s, MBR partition %d\n", device_name, info->partitionid + 1);
+		} else {
+			kprintf("Found FAT32 partition, device %s, GPT partition %s\n", device_name, found_guid);
+		}
+		success = read_fat(info);
 	}
-	int success = read_fat(info);
-	return success ? info : NULL;
+	if (!success) {
+		kfree(info);
+		return NULL;
+	}
+	return info;
 }
 
 int fat32_attach(const char* device_name, const char* path)
