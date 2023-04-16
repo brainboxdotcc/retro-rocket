@@ -2,20 +2,25 @@
 
 #include <kernel.h>
 
-struct rsdp {
-	char signature[8];
+/**
+ * @brief ACPI Root System Description Pointer (RSDP)
+ */
+typedef struct rsdp_t {
+	char signature[8];		// "RSD PTR "
 	uint8_t checksum;
-	char oem_id[6];
-	uint8_t revision;
-	uint32_t rsdt_address;
-	uint32_t length;
-	uint64_t xsdt_address;
-	uint8_t extended_checksum;
-	uint8_t reserved[3];
-} __attribute__ ((packed));
-typedef struct rsdp rsdp_t;
+	char oem_id[6];			// OEM identifier string
+	uint8_t revision;		// 0 for ACPI 1.0, >0 for ACPI 2.0 or later
+	uint32_t rsdt_address;		// Root System Description Table Address
+	uint32_t length;		// Length of Root System Description Table
+	uint64_t xsdt_address;		// Extended System Description Table Address
+	uint8_t extended_checksum;	// Extended System Description Table Checksum
+	uint8_t reserved[3];		// Reserved
+} __attribute__((packed)) rsdp_t;
 
-struct sdt_header {
+/**
+ * @brief System Description Table Header
+ */
+typedef struct sdt_header_t {
 	char signature[4];
 	uint32_t length;
 	uint8_t revision;
@@ -25,28 +30,64 @@ struct sdt_header {
 	uint32_t oem_revision;
 	uint32_t creator_id;
 	uint32_t creator_revision;
-} __attribute__ ((packed));
-typedef struct sdt_header sdt_header_t;
+} __attribute__((packed)) sdt_header_t;
 
+/**
+ * @brief Root System Description Table
+ */
+typedef struct rsdt_t {
+	sdt_header_t header;			// System Description Table header
+	uint32_t pointer_to_other_sdt[];	// 32-Bit Pointer to other table
 
-struct rsdt {
-	sdt_header_t header;
-	uint32_t pointer_to_other_sdt[];
+} __attribute__((packed)) rsdt_t;
 
-} __attribute__ ((packed));
-typedef struct rsdt rsdt_t;
+/**
+ * @brief Definition of an IOAPIC
+ */
+typedef struct ioapic_t {
+	uint8_t id;		// The IO APIC id.
+	uint64_t paddr;		// The physical address of the MMIO region.
+	uint32_t gsi_base;	// The GSI base.
+	uint8_t gsi_count;	// The interrupt count.
+} ioapic_t;
 
-struct ioapic {
-	uint8_t id;				 // The IO APIC's id.
-	uint64_t paddr;			 // The physical address of the MMIO region.
-	uint32_t gsi_base;		  // The GSI base.
-	uint8_t gsi_count;		  // The interrupt count.
-};
-typedef struct ioapic ioapic_t;
-
+/**
+ * @brief Detect SMP cores, IOAPICs, Local APICs
+ */
 void init_cores();
+
+/**
+ * @brief Get the local apic ids
+ * 
+ * @return uint8_t* 
+ */
 uint8_t* get_lapic_ids();
+
+/**
+ * @brief Get the cpu count
+ * 
+ * @return uint16_t 
+ */
 uint16_t get_cpu_count();
+
+/**
+ * @brief Get the local apic
+ * 
+ * @return uint64_t 
+ */
 uint64_t get_local_apic();
+
+/**
+ * @brief Get the ioapic
+ * 
+ * @param index IOAPIC index
+ * @return ioapic_t 
+ */
 ioapic_t get_ioapic(uint16_t index);
+
+/**
+ * @brief Get the ioapic count
+ * 
+ * @return uint16_t total number of IOAPICs
+ */
 uint16_t get_ioapic_count();

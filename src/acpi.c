@@ -5,14 +5,14 @@ volatile struct limine_rsdp_request rsdp_request = {
     .revision = 0,
 };
 
-uint8_t lapic_ids[256] = { 0 }; // CPU core Local APIC IDs
-uint8_t ioapic_ids[256] = { 0 }; // CPU core Local APIC IDs
-uint16_t numcore = 0;         // number of cores detected
-uint16_t numioapic = 0;
-uint64_t lapic_ptr = 0;       // pointer to the Local APIC MMIO registers
-uint64_t ioapic_ptr[256] = { 0 };      // pointer to the IO APIC MMIO registers
-uint32_t ioapic_gsi_base[256] = { 0 };
-uint8_t ioapic_gsi_count[256] = { 0 };
+static uint8_t lapic_ids[256] = { 0 }; // CPU core Local APIC IDs
+static uint8_t ioapic_ids[256] = { 0 }; // CPU core Local APIC IDs
+static uint16_t numcore = 0;         // number of cores detected
+static uint16_t numioapic = 0;
+static uint64_t lapic_ptr = 0;       // pointer to the Local APIC MMIO registers
+static uint64_t ioapic_ptr[256] = { 0 };      // pointer to the IO APIC MMIO registers
+static uint32_t ioapic_gsi_base[256] = { 0 };
+static uint8_t ioapic_gsi_count[256] = { 0 };
 
 rsdp_t* get_rsdp() {
 	return (rsdp_t*)rsdp_request.response->address;
@@ -69,7 +69,7 @@ void init_cores()
 		ptr = (uint8_t*)(uint64_t)(rsdt[0]=='X' ? *((uint64_t*)ptr2) : *((uint32_t*)ptr2));
 		if(*ptr == 'A' && *(ptr + 1) == 'P' && *(ptr + 2) == 'I' && *(ptr + 3) == 'C') {
 			// found MADT
-			lapic_ptr = (uint64_t)(*((uint32_t*)(ptr+0x24)));
+			lapic_ptr = (uint64_t)(*((uint32_t*)(ptr + 0x24)));
 			kprintf("Detected: 32-Bit Local APIC [base: %llx]\n", lapic_ptr);
 			ptr2 = ptr + *((uint32_t*)(ptr + 4));
 			// iterate on variable length records
@@ -81,9 +81,9 @@ void init_cores()
 						}
 					break; // found Processor Local APIC
 					case 1:
-						ioapic_ptr[numioapic] = (uint64_t)*((uint32_t*)(ptr+4));
+						ioapic_ptr[numioapic] = (uint64_t)*((uint32_t*)(ptr + 4));
 						ioapic_ids[numioapic] = ptr[2];
-						ioapic_gsi_base[numioapic] = (uint32_t)*((uint32_t*)(ptr+8));
+						ioapic_gsi_base[numioapic] = (uint32_t)*((uint32_t*)(ptr + 8));
 						uint32_t *mmio = (uint32_t*)ioapic_ptr[numioapic];
 						mmio[0] = 0x01;
 						uint32_t count = ((mmio[0x10 / 4]) & 0xFF) + 1;
@@ -92,7 +92,7 @@ void init_cores()
 						numioapic++;
 					break;  // found IOAPIC
 					case 5:
-						lapic_ptr = *((uint64_t*)(ptr+4));
+						lapic_ptr = *((uint64_t*)(ptr + 4));
 						kprintf("Detected: 64-Bit Local APIC [base: %llx]\n", lapic_ptr);
 					break;             // found 64 bit LAPIC
 				}

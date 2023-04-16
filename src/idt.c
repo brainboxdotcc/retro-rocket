@@ -16,9 +16,10 @@ void init_idt()
 	__asm__ volatile("lidtq (%0)\n"::"r"(&idt64));
 
 	/* Unmask and configure each interrupt on the IOAPIC */
-	for (int in = 0; in < 16; in++) {
+	for (int in = 0; in < 24; in++) {
 		ioapic_redir_unmask(in);
-		ioapic_redir_set_precalculated(in, 0, 0x2020 + in);
+		/* Active low, level triggered, interrupt mapped to irq + 32 */
+		ioapic_redir_set(in, in + 32, 0, 0, 1, 1, 0);
 	}
 
 	/* Now we are safe to enable interrupts */

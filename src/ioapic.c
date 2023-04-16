@@ -27,6 +27,10 @@ ioapic_t* ioapic_find(uint32_t gsi)
 {
 	static ioapic_t ioapic_rec;
 	uint16_t ioapic_count = get_ioapic_count();
+	if (ioapic_count == 1) {
+		ioapic_rec = get_ioapic(0);
+		return &ioapic_rec;
+	}
 	int v = 0;
 	for (; v < ioapic_count; ++v) {
 		ioapic_rec = get_ioapic(v);
@@ -55,11 +59,11 @@ void ioapic_redir_set(uint32_t gsi, uint32_t vector, uint32_t del_mode, uint32_t
 	}
 	uint32_t lower =
 		(vector & 0xff) |
-		((del_mode << 8) & 0b111) |
-		((dest_mode << 11) & 0b1) |
-		((intpol << 13) & 0b1) |
-		((trigger_mode << 15) & 0b1) |
-		((mask << 16) & 0b1);
+		((del_mode << 8)) |
+		((dest_mode << 11)) |
+		((intpol << 13)) |
+		((trigger_mode << 15)) |
+		((mask << 16));
 	//uint32_t upper = (dest_mode << 24);
 	uint32_t upper = 0;
 	ioapic_register_write(0x10 + gsi * 2, lower, ioapic);
