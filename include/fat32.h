@@ -40,12 +40,12 @@
  */
 typedef struct fat32_fs_info_t {
 	uint32_t signature1;		// Must contain FAT32_SIGNATURE
-	char reserved1[480];		// Should be zeroed
-	uint32_t structsig;
-	uint32_t freecount;
-	uint32_t nextfree;
-	char reserved2[12];
-	uint32_t trailsig;
+	char reserved1[480];		// Should be zeroed (reserved)
+	uint32_t structsig;		// Must contain FAT32_SIGNATURE2
+	uint32_t freecount;		// Number of free clusters (possibly incorrect)
+	uint32_t nextfree;		// Next free cluster number (likely incorrect)
+	char reserved2[12];		// Should be zeroed (reserved)
+	uint32_t trailsig;		// Must contain FAT32_SIGNATURE3
 } __attribute__((packed)) fat32_fs_info_t;
 
 /**
@@ -53,20 +53,18 @@ typedef struct fat32_fs_info_t {
  * by the driver. This is a higher level version of FSINFO
  */
 typedef struct fat32_t {
-	char device_name[16];
-	uint8_t partitionid;
-	char* volume_name;
-	uint32_t start;
-	uint32_t length;
-	uint32_t rootdircluster;
-	uint16_t reservedsectors;
-	uint32_t fsinfocluster;
-	uint8_t numberoffats;
-	uint32_t fatsize;
-	uint32_t clustersize;
-	uint32_t* fat;
-	fs_directory_entry_t* root;
-	fat32_fs_info_t* info;
+	char device_name[16];		// Device name where the FAT32 volume is
+	uint8_t partitionid;		// Partition ID or 0xFF for a GPT partition
+	char* volume_name;		// Volume name
+	uint64_t start;			// Starting sector
+	uint64_t length;		// Length in sectors
+	uint32_t rootdircluster;	// Cluster number of root dircetory
+	uint16_t reservedsectors;	// Number of reserved sectors
+	uint32_t fsinfocluster;		// Cluster number of FSINFO
+	uint8_t numberoffats;		// Number of FATs
+	uint32_t fatsize;		// Size of each FAT
+	uint32_t clustersize;		// Size of a cluster
+	fat32_fs_info_t* info;		// FSINFO
 } fat32_t;
 
 /**
@@ -74,18 +72,18 @@ typedef struct fat32_t {
  * long filename entry.
  */
 typedef struct directory_entry_t {
-	char name[11];
-	uint8_t attr;
-	uint8_t nt;
-	uint8_t create_time_tenths;
-	uint16_t create_time;
-	uint16_t create_date;
-	uint16_t access_date;
-	uint16_t first_cluster_hi;
-	uint16_t write_time;
-	uint16_t write_date;
-	uint16_t first_cluster_lo;
-	uint32_t size;
+	char name[11];			// Short filename, Space padded e.g. "TEST    TXT" for TEST.TXT
+	uint8_t attr;			// Attributes
+	uint8_t nt;			// Reserved for NT use
+	uint8_t create_time_tenths;	// Creation time tenths of a second
+	uint16_t create_time;		// Creation time
+	uint16_t create_date;		// Creation date
+	uint16_t access_date;		// Access date
+	uint16_t first_cluster_hi;	// High 16 bits of first cluster in chain
+	uint16_t write_time;		// Write time
+	uint16_t write_date;		// Write date
+	uint16_t first_cluster_lo;	// Low 16 bits of first cluster in chain
+	uint32_t size;			// Size in bytes (max: 4GB)
 } __attribute__((packed)) directory_entry_t;
 
 /**
@@ -97,22 +95,22 @@ typedef struct parameter_block_t {
 	uint8_t code2; // 0x76
 	uint8_t code3; // 0x90
 	char oemidentifier[8];
-	uint16_t bytespersector;
-	uint8_t sectorspercluster;
-	uint16_t reservedsectors;
-	uint8_t numberoffats;
-	uint16_t numberofdirentries;
-	uint16_t totalsectors;
-	uint8_t mediatype;
-	uint16_t unusedsectorsperfat;
-	uint16_t sectorspertrack;
-	uint16_t numberofheads;
-	uint32_t hiddensectors;
-	uint32_t sectorsonmedia;
+	uint16_t bytespersector;	// Bytes per sector, use storage device blocksize instead
+	uint8_t sectorspercluster;	// Sectors per cluster
+	uint16_t reservedsectors;	// Reserved sectors
+	uint8_t numberoffats;		// Number of FATs
+	uint16_t numberofdirentries;	// Number of root directory entries (not used)
+	uint16_t totalsectors;		// Total sectors?
+	uint8_t mediatype;		// Media type
+	uint16_t unusedsectorsperfat;	// Unused sectors per FAT
+	uint16_t sectorspertrack;	// Sectors per track (not used)
+	uint16_t numberofheads;		// Number of heads (not used)
+	uint32_t hiddensectors;		// Hidden sectors (not used)
+	uint32_t sectorsonmedia;	// Sectors on media (not used)
 	// Extended Boot Record	
-	uint32_t sectorsperfat;
-	uint16_t flags;
-	uint16_t fatversion;
+	uint32_t sectorsperfat;		// Sectors per FAT
+	uint16_t flags;			// Flags
+	uint16_t fatversion;		// FAT version (should be 0)
 	uint32_t rootdircluster;
 	uint16_t fsinfocluster;
 	uint16_t backupbootsectorcluster;

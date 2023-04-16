@@ -1003,7 +1003,6 @@ int read_fat(fat32_t* info)
 	info->clustersize *= sd->block_size;
 
 	read_fs_info(info);
-	info->root = parse_fat32_directory(NULL, info, info->rootdircluster);
 	kfree(buffer);
 	return 1;
 }
