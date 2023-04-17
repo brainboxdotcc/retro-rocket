@@ -142,7 +142,7 @@ typedef struct filesystem_t {
 	truncate_file truncatefile;
 
 	/**
-	 * @brief Function pointer for cretedir()
+	 * @brief Function pointer for createdir()
 	 * Create a new empty directory.
 	 * The directory should not already exist within the given
 	 * parent directory.
