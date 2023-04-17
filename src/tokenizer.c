@@ -46,6 +46,7 @@ const char* types[] = {
 	"TO",
 	"STEP",
 	"NEXT",
+	"GOTOXY",
 	"GOTO",
 	"GOSUB",
 	"RETURN",
@@ -92,6 +93,12 @@ const char* types[] = {
 	"RECTANGLE",
 	"CIRCLE",
 	"POINT",
+	"OPENOUT",
+	"OPENUP",
+	"WRITE",
+	"MKDIR",
+	"RMDIR",
+	"DELETE",
 };
 
 struct keyword_token {
@@ -110,6 +117,7 @@ static const struct keyword_token keywords[] = {
 	{"TO", TOKENIZER_TO},
 	{"STEP", TOKENIZER_STEP},
 	{"NEXT", TOKENIZER_NEXT},
+	{"GOTOXY", TOKENIZER_GOTOXY},
 	{"GOTO", TOKENIZER_GOTO},
 	{"GOSUB", TOKENIZER_GOSUB},
 	{"RETURN", TOKENIZER_RETURN},
@@ -137,6 +145,12 @@ static const struct keyword_token keywords[] = {
 	{"RECTANGLE", TOKENIZER_RECTANGLE},
 	{"CIRCLE", TOKENIZER_CIRCLE},
 	{"POINT", TOKENIZER_POINT},
+	{"OPENOUT", TOKENIZER_OPENOUT},
+	{"OPENUP", TOKENIZER_OPENUP},
+	{"WRITE", TOKENIZER_WRITE},
+	{"MKDIR", TOKENIZER_MKDIR},
+	{"RMDIR", TOKENIZER_RMDIR},
+	{"DELETE", TOKENIZER_DELETE},
 	{NULL, TOKENIZER_ERROR},
 };
 

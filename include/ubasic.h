@@ -162,12 +162,16 @@ typedef struct ubasic_str_fn
 int64_t ubasic_abs(struct ubasic_ctx* ctx);
 int64_t ubasic_len(struct ubasic_ctx* ctx);
 int64_t ubasic_openin(struct ubasic_ctx* ctx);
+int64_t ubasic_openout(struct ubasic_ctx* ctx);
+int64_t ubasic_openup(struct ubasic_ctx* ctx);
 int64_t ubasic_eof(struct ubasic_ctx* ctx);
 int64_t ubasic_read(struct ubasic_ctx* ctx);
 int64_t ubasic_instr(struct ubasic_ctx* ctx);
 int64_t ubasic_asc(struct ubasic_ctx* ctx);
 int64_t ubasic_getnamecount(struct ubasic_ctx* ctx);
 int64_t ubasic_getsize(struct ubasic_ctx* ctx);
+int64_t ubasic_get_text_max_x(struct ubasic_ctx* ctx);
+int64_t ubasic_get_text_max_y(struct ubasic_ctx* ctx);
 
 // Builtin string functions
 char* ubasic_netinfo(struct ubasic_ctx* ctx);
@@ -208,6 +212,8 @@ char* ubasic_dns(struct ubasic_ctx* ctx);
 int64_t ubasic_rgb(struct ubasic_ctx* ctx);
 void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res);
 const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx);
+
+// Builtin real functions
 void ubasic_sin(struct ubasic_ctx* ctx, double* res);
 void ubasic_cos(struct ubasic_ctx* ctx, double* res);
 void ubasic_tan(struct ubasic_ctx* ctx, double* res);

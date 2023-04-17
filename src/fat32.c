@@ -162,6 +162,22 @@ void parse_short_name(directory_entry_t* entry, char* name, char* dotless)
 	name[12] = 0;
 }
 
+/**
+ * @brief Free a fs_directory_entry_t* list returned by parse_fat32_directory()
+ * 
+ * @param list 
+ */
+void free_fat32_directory(fs_directory_entry_t* list)
+{
+	while (list) {
+		kfree(list->filename);
+		kfree(list->alt_filename);
+		fs_directory_entry_t* next = list->next;
+		kfree(list);
+		list = next;
+	}
+}
+
 fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint32_t cluster)
 {
 	unsigned char* buffer = kmalloc(info->clustersize);
@@ -598,6 +614,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	for (; iter; iter = iter->next) {
 		if (!strcmp(iter->filename, name)) {
 			dprintf("File %s already exists in %s\n", name, treeitem->name);
+			free_fat32_directory(parsed_dir);
 			return 0;
 		}
 	}
@@ -625,6 +642,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 			/* Zero the clusters as we allocate them to the new file */
 			if (!write_cluster(info, cluster, blank_cluster)) {
 				kfree(blank_cluster);
+				free_fat32_directory(parsed_dir);
 				return 0;
 			}
 		}
@@ -659,6 +677,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
 			kfree(buffer);
+			free_fat32_directory(parsed_dir);
 			return 0;
 		}
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
@@ -675,6 +694,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 				space_size++;
 				if (space_size > entry_count + 1) {
 					insert_entries_at(false, info, entries - 1, start_of_space_cluster, buffer, start_of_space_bufferoffset, &short_entry, new_entries, entry_count);
+					free_fat32_directory(parsed_dir);
 					return first_allocated_cluster;
 				}
 			} else {
@@ -690,13 +710,15 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 		uint32_t nextcluster = get_fat_entry(info, cluster);
 		if (nextcluster >= CLUSTER_BAD) {
 			insert_entries_at(true, info, entries - 1, cluster, buffer, 0, &short_entry, new_entries, entry_count);
+			free_fat32_directory(parsed_dir);
 			return first_allocated_cluster;
 		} else {
 			cluster = nextcluster;
 		}
 	}
 	kfree(buffer);
-	return 0;	
+	free_fat32_directory(parsed_dir);
+	return 0;
 }
 
 uint64_t fat32_create_file(void* dir, const char* name, size_t size)
@@ -752,9 +774,9 @@ void* fat32_get_directory(void* t)
 	fs_tree_t* treeitem = (fs_tree_t*)t;
 	if (treeitem) {
 		fat32_t* info = (fat32_t*)treeitem->opaque;
-		return (void*)parse_fat32_directory(treeitem, info, treeitem->lbapos ? treeitem->lbapos : info->rootdircluster);
+		return parse_fat32_directory(treeitem, info, treeitem->lbapos ? treeitem->lbapos : info->rootdircluster);
 	} else {
-		kprintf("*** BUG *** fat32_get_directory: null fs_tree_t*!\n");
+		dprintf("*** BUG *** fat32_get_directory: null fs_tree_t*!\n");
 		return NULL;
 	}
 }
@@ -762,14 +784,14 @@ void* fat32_get_directory(void* t)
 bool fat32_unlink_file(void* dir, const char* name)
 {
 	fs_tree_t* treeitem = (fs_tree_t*)dir;
-	fs_directory_entry_t* iter = NULL;
+	fs_directory_entry_t* iter = NULL, *parsed_dir = NULL;
 	uint32_t cluster = CLUSTER_END;
 	uint32_t file_start = CLUSTER_END;
 	int32_t freed = 0;
 	fat32_t* info = (fat32_t*)treeitem->opaque;
 	uint32_t dir_cluster = treeitem->lbapos ? treeitem->lbapos : info->rootdircluster;
 
-	iter = parse_fat32_directory(treeitem, info, dir_cluster);
+	parsed_dir = iter = parse_fat32_directory(treeitem, info, dir_cluster);
 	for (; iter; iter = iter->next) {
 		if (!strcmp(iter->filename, name)) {
 			file_start = cluster = iter->lbapos;
@@ -779,6 +801,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 
 	if (file_start == CLUSTER_END) {
 		dprintf("not found in %s: %s\n", treeitem->name, name);
+		free_fat32_directory(parsed_dir);
 		return false;
 	}
 
@@ -789,6 +812,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 		freed++;
 		if (cur < CLUSTER_BAD) {
 			if (!set_fat_entry(info, cur, CLUSTER_FREE)) {
+				free_fat32_directory(parsed_dir);
 				return false;
 			}
 		}
@@ -805,6 +829,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 		if (!read_cluster(info, cluster, buffer)) {
 			kprintf("Read failure in fat32_unlink_file cluster=%08x\n", cluster);
 			kfree(buffer);
+			free_fat32_directory(parsed_dir);
 			return NULL;
 		}
 		
@@ -835,6 +860,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 							}
 							write_cluster(info, cluster, buffer);
 							kfree(buffer);
+							free_fat32_directory(parsed_dir);
 							return true;
 						}
 						entry_lfn_start = NULL;
@@ -854,7 +880,8 @@ bool fat32_unlink_file(void* dir, const char* name)
 		}
 	}
 	kfree(buffer);
-	kprintf("fat32 unlink done\n");
+	free_fat32_directory(parsed_dir);
+	dprintf("fat32 unlink done\n");
 	return true;
 }
 
@@ -869,8 +896,10 @@ bool fat32_unlink_dir(void* dir, const char* name)
 	if (iter) {
 		/* Directory not empty */
 		dprintf("fat32_unlink_dir: Directory not empty\n");
+		free_fat32_directory(iter);
 		return false;
 	}
+	free_fat32_directory(iter);
 	return fat32_unlink_file(dir, name);
 }
 

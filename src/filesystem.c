@@ -76,15 +76,14 @@ int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes,
 int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t ibufsz, uint32_t obufsz)
 {
 	/* Check we havent used up all available fds */
-	if (fd_alloc >= FD_MAX)
+	if (fd_alloc >= FD_MAX) {
 		return -1;
+	}
 
 	uint32_t iter = 0;
-	while (iter++ < FD_MAX)
-	{
+	while (iter++ < FD_MAX) {
 		/* Found an empty slot */
-		if (filehandles[fd_last] == NULL)
-		{
+		if (filehandles[fd_last] == NULL) {
 			/* Initialise fs_handle_t struct */
 			filehandles[fd_last] = (fs_handle_t*)kmalloc(sizeof(fs_handle_t));
 			filehandles[fd_last]->type = type;
@@ -95,21 +94,21 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 			filehandles[fd_last]->outbufsize = obufsz;
 			filehandles[fd_last]->inbufpos = 0;
 			filehandles[fd_last]->outbufpos = 0;
-			if (ibufsz)
+			if (ibufsz) {
 				filehandles[fd_last]->inbuf = (unsigned char*)kmalloc(ibufsz);
-			else
+			} else {
 				filehandles[fd_last]->inbuf = NULL;
-			if (obufsz)
+			}
+			if (obufsz) {
 				filehandles[fd_last]->outbuf = (unsigned char*)kmalloc(obufsz);
-			else
+			} else {
 				filehandles[fd_last]->outbuf = NULL;
+			}
 
 			fd_alloc++;
 			fd_last++;
 			return fd_last - 1;
-		}
-		else
-		{
+		} else {
 			fd_last++;
 
 			/* Reached the end of the list? loop back around */
@@ -128,6 +127,8 @@ uint32_t destroy_filehandle(uint32_t descriptor)
 		return 0;
 	else
 	{
+		filehandles[descriptor]->file = NULL;
+		filehandles[descriptor]->seekpos = 0;
 		if (filehandles[descriptor]->inbuf)
 			kfree(filehandles[descriptor]->inbuf);
 		if (filehandles[descriptor]->outbuf)
@@ -151,6 +152,8 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 {
 	fs_directory_entry_t* new_entry = NULL;
 
+	dprintf("fs_create_file '%s'\n", pathandfile);
+
 	if (!verify_path(pathandfile)) {
 		return false;
 	}
@@ -170,6 +173,8 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 		}
 	}
 	kfree(pathinfo);
+
+	dprintf("vfs create: filename: %s pathname: %s\n", filename, pathname);
 
 	if (!filename || !pathname || !*filename) {
 		return false;
@@ -207,7 +212,7 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 			new_entry->device = 0;
 			strlcpy(new_entry->device_name, directory->responsible_driver->name, 15);
 			new_entry->directory = directory;
-			new_entry->filename = filename;
+			new_entry->filename = strdup(filename);
 			new_entry->alt_filename = strdup(filename);
 			new_entry->flags = 0;
 			new_entry->lbapos = lbapos;
@@ -287,7 +292,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 			new_entry->device = 0;
 			strlcpy(new_entry->device_name, directory->responsible_driver->name, 15);
 			new_entry->directory = directory;
-			new_entry->filename = filename;
+			new_entry->filename = strdup(filename);
 			new_entry->alt_filename = strdup(filename);
 			new_entry->lbapos = lbapos;
 			new_entry->day = dt.day;
@@ -347,10 +352,11 @@ int _open(const char* filename, int oflag)
 		type = file_input;
 	}
 
-	dprintf("_open type: %d\n", type);
+	dprintf("_open type: %d for file %s\n", type, filename);
 
 	file = fs_get_file_info(filename);
 	if (file == NULL && type == file_input) {
+		dprintf("open for input does not exist: %s\n", filename);
 		return -1;
 	} else if (file == NULL && type != file_input) {
 		file = fs_create_file(filename, 0);
