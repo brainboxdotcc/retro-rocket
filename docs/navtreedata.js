@@ -27,7 +27,6 @@ var NAVTREE =
   [ "Retro Rocket Kernel", "index.html", [
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
-      [ "Data Structure Index", "classes.html", null ],
       [ "Data Fields", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Variables", "functions_vars.html", "functions_vars" ]
@@ -52,15 +51,15 @@ var NAVTREEINDEX =
 [
 "acpi_8h.html",
 "ata_8h.html#abc751c8edfc3a3daf8243d8837f89bc1",
-"e1000_8h.html#a256b180cd270cab7d957f2296f50bef3",
-"functions_vars_f.html",
-"ioapic_8h.html#a3574e36c20cd71e8e68e0ca15ea1b426",
-"pci_8h.html#af0f4adb484694e2f8e32c34772cccdcf",
-"structachi__hba__fis__t.html#adcedc94bc0601ad864eb0e1ee6c8200a",
-"structe1000__tx__desc.html#a387942d82f33e30603f493a141ea7bdc",
-"structnetdev__t.html#a699f50d657a9b4094222da4429528dfc",
-"structubasic__ctx.html#a446a08b3410c33383f8d69083153ef06",
-"unionip__frag.html"
+"e1000_8h.html#a26c23b3d9a1153ee72427cee068edfea",
+"functions_vars_g.html",
+"ioapic_8h.html#a5c004d39dec23c06b0a3d56049174045",
+"pci_8h.html#af851c079188594b6a0c4d271545676d1",
+"structachi__hba__fis__t.html#afb4dcadd1a5ba973e6852ac945576e99",
+"structe1000__tx__desc.html#a3e5cf6634312d83a0860810ec2dfc17d",
+"structnetdev__t.html#a9f95831169bcca38d95fe43c133139e1",
+"structubasic__ctx.html#a49685c1299b80f648bd7e55107a6f0c2",
+"unionip__frag.html#a1158f72dcffffef978c0d59f5b777f26"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

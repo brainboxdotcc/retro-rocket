@@ -1,6 +1,5 @@
 var NAVTREEINDEX7 =
 {
-"structe1000__tx__desc.html#a387942d82f33e30603f493a141ea7bdc":[0,0,25,3],
 "structe1000__tx__desc.html#a3e5cf6634312d83a0860810ec2dfc17d":[0,0,25,6],
 "structe1000__tx__desc.html#a410f70f69e817adeac128eda97543fef":[0,0,25,4],
 "structe1000__tx__desc.html#a807a50149d88376ea5d17c8f4a42c75f":[0,0,25,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX7 =
 "structnet__address__t.html#aa401bda571cf681d03b42debfc49203f":[0,0,57,1],
 "structnet__address__t.html#aa5c985e38804cfce2cf8704b787fadd1":[0,0,57,2],
 "structnet__address__t.html#af655e2acc5cc6f2c183acb33d87e4b59":[0,0,57,0],
-"structnetdev__t.html":[0,0,58]
+"structnetdev__t.html":[0,0,58],
+"structnetdev__t.html#a699f50d657a9b4094222da4429528dfc":[0,0,58,5]
 };
