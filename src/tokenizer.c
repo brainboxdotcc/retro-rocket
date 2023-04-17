@@ -99,6 +99,7 @@ const char* types[] = {
 	"MKDIR",
 	"RMDIR",
 	"DELETE",
+	"MOUNT",
 };
 
 struct keyword_token {
@@ -151,6 +152,7 @@ static const struct keyword_token keywords[] = {
 	{"MKDIR", TOKENIZER_MKDIR},
 	{"RMDIR", TOKENIZER_RMDIR},
 	{"DELETE", TOKENIZER_DELETE},
+	{"MOUNT", TOKENIZER_MOUNT},
 	{NULL, TOKENIZER_ERROR},
 };
 

@@ -68,6 +68,8 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_readstring, "READ$" },
 	{ ubasic_getname, "GETNAME$" },
 	{ ubasic_getprocname, "GETPROCNAME$" },
+	{ ubasic_ramdisk_from_device, "RAMDISK$" },
+	{ ubasic_ramdisk_from_size, "RAMDISK" },
 	{ NULL, NULL }
 };
 
@@ -591,6 +593,18 @@ static void mkdir_statement(struct ubasic_ctx* ctx)
 	if (!fs_create_directory(name)) {
 		tokenizer_error_print(ctx, "Unable to create directory");
 	}
+}
+
+static void mount_statement(struct ubasic_ctx* ctx)
+{
+	accept(TOKENIZER_MOUNT, ctx);
+	const char* path = str_expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	const char* device = str_expr(ctx);
+	accept(TOKENIZER_COMMA, ctx);
+	const char* fs_type = str_expr(ctx);
+	accept(TOKENIZER_CR, ctx);
+	filesystem_mount(path, device, fs_type);
 }
 
 static void rmdir_statement(struct ubasic_ctx* ctx)
@@ -1289,6 +1303,9 @@ void statement(struct ubasic_ctx* ctx)
 		case TOKENIZER_RMDIR:
 			rmdir_statement(ctx);
 		break;
+		case TOKENIZER_MOUNT:
+			mount_statement(ctx);
+		break;
 		case TOKENIZER_MKDIR:
 			mkdir_statement(ctx);
 		break;
@@ -1879,6 +1896,31 @@ char* ubasic_getprocname(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	return gc_strdup(proc_name(intval));
+}
+
+char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* rd = init_ramdisk_from_storage(strval);
+	if (!rd) {
+		return gc_strdup("");
+	}
+	return gc_strdup(rd);
+}
+
+char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t blocks = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t block_size = intval;
+	const char* rd = init_ramdisk(blocks, block_size);
+	if (!rd) {
+		return gc_strdup("");
+	}
+	return gc_strdup(rd);
 }
 
 char* ubasic_getname(struct ubasic_ctx* ctx)

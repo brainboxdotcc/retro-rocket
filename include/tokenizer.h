@@ -93,6 +93,7 @@ enum {
 	TOKENIZER_MKDIR,
 	TOKENIZER_RMDIR,
 	TOKENIZER_DELETE,
+	TOKENIZER_MOUNT,
 };
 
 extern const char* types[];

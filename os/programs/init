@@ -1,3 +1,18 @@
-10 PRINT "Launching shell..."
-20 CHAIN "/programs/rocketsh"
-30 PRINT "Shell process ended."
+10 PRINT "Mounting ";
+20 COLOR 14
+30 PRINT "filesystems";
+40 COLOR 7
+50 PRINT "..."
+
+60 MOUNT "/devices", "", "devfs"
+70 RAM$ = RAMDISK$("hd0")
+80 IF RAM$ = "" THEN GOTO 100
+90 MOUNT "/harddisk", RAM$, "fat32"
+
+100 PRINT "Launching ";
+110 COLOR 14
+120 PRINT "shell";
+130 COLOR 7
+140 PRINT "..."
+150 CHAIN "/programs/rocketsh"
+160 PRINT "Shell process ended."
