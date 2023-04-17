@@ -137,7 +137,7 @@ typedef struct filesystem_t {
 	 * any data past the new size and freeing it for re-use.
 	 * 
 	 * The file must exist. To create a new file of a given length,
-	 * the creatfile() endpoint should be used instead.
+	 * the createfile() endpoint should be used instead.
 	 */
 	truncate_file truncatefile;
 
