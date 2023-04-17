@@ -57,8 +57,6 @@ var annotated_dup =
     [ "ip_packet_frag", "structip__packet__frag.html", "structip__packet__frag" ],
     [ "iso9660", "structiso9660.html", "structiso9660" ],
     [ "lfn_t", "structlfn__t.html", "structlfn__t" ],
-    [ "MB_MemMap", "struct_m_b___mem_map.html", "struct_m_b___mem_map" ],
-    [ "MultiBoot", "struct_multi_boot.html", "struct_multi_boot" ],
     [ "net_address", "structnet__address.html", "structnet__address" ],
     [ "netdev", "structnetdev.html", "structnetdev" ],
     [ "netproto", "structnetproto.html", "structnetproto" ],

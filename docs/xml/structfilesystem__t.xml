@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="87" column="6" bodyfile="include/filesystem.h" bodystart="87" bodyend="-1"/>
+        <location file="include/filesystem.h" line="92" column="6" bodyfile="include/filesystem.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1a77609a9147050917f0fff5604dd14c36" prot="public" static="no" mutable="no">
         <type>mount_volume</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="93" column="14" bodyfile="include/filesystem.h" bodystart="93" bodyend="-1"/>
+        <location file="include/filesystem.h" line="98" column="14" bodyfile="include/filesystem.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1a99ad863d03be29cf4ddbf592405f12a9" prot="public" static="no" mutable="no">
         <type>get_directory</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="99" column="15" bodyfile="include/filesystem.h" bodystart="99" bodyend="-1"/>
+        <location file="include/filesystem.h" line="104" column="15" bodyfile="include/filesystem.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1ab20175c68487833f4f3f351aaf724326" prot="public" static="no" mutable="no">
         <type>read_file</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="109" column="11" bodyfile="include/filesystem.h" bodystart="109" bodyend="-1"/>
+        <location file="include/filesystem.h" line="114" column="11" bodyfile="include/filesystem.h" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" prot="public" static="no" mutable="no">
         <type>write_file</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="121" column="12" bodyfile="include/filesystem.h" bodystart="121" bodyend="-1"/>
+        <location file="include/filesystem.h" line="126" column="12" bodyfile="include/filesystem.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" prot="public" static="no" mutable="no">
         <type>create_file</type>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="132" column="13" bodyfile="include/filesystem.h" bodystart="132" bodyend="-1"/>
+        <location file="include/filesystem.h" line="137" column="13" bodyfile="include/filesystem.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1abe1dabfc1a3f49cfb4d52980c5ff5a0c" prot="public" static="no" mutable="no">
         <type>truncate_file</type>
@@ -99,11 +99,11 @@
 <para>Function pointer for <ref refid="structfilesystem__t_1abe1dabfc1a3f49cfb4d52980c5ff5a0c" kindref="member">truncatefile()</ref> Truncates an existing file to a new length, discarding any data past the new size and freeing it for re-use. </para>
         </briefdescription>
         <detaileddescription>
-<para>The file must exist. To create a new file of a given length, the creatfile() endpoint should be used instead. </para>
+<para>The file must exist. To create a new file of a given length, the <ref refid="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" kindref="member">createfile()</ref> endpoint should be used instead. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="142" column="15" bodyfile="include/filesystem.h" bodystart="142" bodyend="-1"/>
+        <location file="include/filesystem.h" line="147" column="15" bodyfile="include/filesystem.h" bodystart="147" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1ac33d6d5bdd65541a546fab20594ab7bf" prot="public" static="no" mutable="no">
         <type>create_dir</type>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="150" column="12" bodyfile="include/filesystem.h" bodystart="150" bodyend="-1"/>
+        <location file="include/filesystem.h" line="155" column="12" bodyfile="include/filesystem.h" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1a5a53b5c090ad502a59b6f382f6a64111" prot="public" static="no" mutable="no">
         <type>delete_file</type>
@@ -131,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="158" column="13" bodyfile="include/filesystem.h" bodystart="158" bodyend="-1"/>
+        <location file="include/filesystem.h" line="163" column="13" bodyfile="include/filesystem.h" bodystart="163" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1a85128ed0d4bda3d5431f4d44c7a4ccd5" prot="public" static="no" mutable="no">
         <type>delete_dir</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="167" column="12" bodyfile="include/filesystem.h" bodystart="167" bodyend="-1"/>
+        <location file="include/filesystem.h" line="172" column="12" bodyfile="include/filesystem.h" bodystart="172" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1a3de5608a3632092ae909303a1ba96fe5" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="172" column="20" bodyfile="include/filesystem.h" bodystart="172" bodyend="-1"/>
+        <location file="include/filesystem.h" line="177" column="20" bodyfile="include/filesystem.h" bodystart="177" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -212,7 +212,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/filesystem.h" line="82" column="1" bodyfile="include/filesystem.h" bodystart="82" bodyend="173"/>
+    <location file="include/filesystem.h" line="87" column="1" bodyfile="include/filesystem.h" bodystart="87" bodyend="178"/>
     <listofallmembers>
       <member refid="structfilesystem__t_1ac33d6d5bdd65541a546fab20594ab7bf" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>createdir</name></member>
       <member refid="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" prot="public" virt="non-virtual"><scope>filesystem_t</scope><name>createfile</name></member>

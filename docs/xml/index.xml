@@ -639,38 +639,6 @@
     <member refid="structlfn__t_1adf807cb02a687b32be9688ade90ad515" kind="variable"><name>reserved</name></member>
     <member refid="structlfn__t_1a4fb20bf57d3e87275a06b29abb4b05bf" kind="variable"><name>third</name></member>
   </compound>
-  <compound refid="struct_m_b___mem_map" kind="struct"><name>MB_MemMap</name>
-    <member refid="struct_m_b___mem_map_1a2c9ad2d784659bad4bbf242976816c53" kind="variable"><name>size</name></member>
-    <member refid="struct_m_b___mem_map_1ad603b7a24214373b364176481da62ec7" kind="variable"><name>addr</name></member>
-    <member refid="struct_m_b___mem_map_1a1f39114b8672c4975ee5db66fc6c89dc" kind="variable"><name>len</name></member>
-    <member refid="struct_m_b___mem_map_1a9e95d3b74bd6404923296ad655623f9d" kind="variable"><name>type</name></member>
-  </compound>
-  <compound refid="struct_multi_boot" kind="struct"><name>MultiBoot</name>
-    <member refid="struct_multi_boot_1adf83591da3ac79690a2fb66a7752dafd" kind="variable"><name>flags</name></member>
-    <member refid="struct_multi_boot_1a4b6d0e9bc874451de0c705928e932cd3" kind="variable"><name>mem_lower</name></member>
-    <member refid="struct_multi_boot_1a5db911ce90c3a00fe6431ee1953bcceb" kind="variable"><name>mem_upper</name></member>
-    <member refid="struct_multi_boot_1a035bc35827cf9bcd9adf159aac70d623" kind="variable"><name>boot_device</name></member>
-    <member refid="struct_multi_boot_1a316251571f1249f91cd1d4c0e1f8384c" kind="variable"><name>commandline</name></member>
-    <member refid="struct_multi_boot_1acac135f1dce0b7bf2ddc8ff0ca060716" kind="variable"><name>mods_count</name></member>
-    <member refid="struct_multi_boot_1a092cf71c6cc4d23f95d0293b83f0b197" kind="variable"><name>mods_addr</name></member>
-    <member refid="struct_multi_boot_1ac661a6415f0b296e1b53938892d6d97b" kind="variable"><name>elf_headers_num</name></member>
-    <member refid="struct_multi_boot_1a32f0af438c5644bba99793ae7e5fb3c3" kind="variable"><name>elf_headers_size</name></member>
-    <member refid="struct_multi_boot_1aab1f5016f152789980557fb05452d1d5" kind="variable"><name>elf_headers_addr</name></member>
-    <member refid="struct_multi_boot_1a831cd9a56878ed2f4a1c257537db8f12" kind="variable"><name>elf_headers_shndx</name></member>
-    <member refid="struct_multi_boot_1ae6fedd792bb5e4b80220e7f9d119dce1" kind="variable"><name>mmap_len</name></member>
-    <member refid="struct_multi_boot_1ac16423ad65c32072e83048cc97d7a7d3" kind="variable"><name>mmap_addr</name></member>
-    <member refid="struct_multi_boot_1a220adbbec53720acbf7a986946ba0f94" kind="variable"><name>drives_length</name></member>
-    <member refid="struct_multi_boot_1a19103e02c570d49f0c332b9a1dbba956" kind="variable"><name>drives_addr</name></member>
-    <member refid="struct_multi_boot_1a6c9a56d3ed5b64475addd4afbf994802" kind="variable"><name>config_table</name></member>
-    <member refid="struct_multi_boot_1a715accd8e94a00be2184ae59a778ac79" kind="variable"><name>bootloadername</name></member>
-    <member refid="struct_multi_boot_1abee95663adef6ba0c8da1f8442e31bd2" kind="variable"><name>apm_table</name></member>
-    <member refid="struct_multi_boot_1ad29244898dc80e68bc139b16d5c186d3" kind="variable"><name>vbe_control_info</name></member>
-    <member refid="struct_multi_boot_1a2a9795e68102f48849bc6be428041aef" kind="variable"><name>vbe_mode_info</name></member>
-    <member refid="struct_multi_boot_1a3252b3316f8a9762c56cd22067401689" kind="variable"><name>vbe_mode</name></member>
-    <member refid="struct_multi_boot_1a907f4c57526132ec5b2fbc901e697b58" kind="variable"><name>vbe_interface_seg</name></member>
-    <member refid="struct_multi_boot_1a3b7fbd69ae4a1c4d6c62245ccc762f40" kind="variable"><name>vbe_interface_off</name></member>
-    <member refid="struct_multi_boot_1a2443f7331711629a9c89270089cd01e2" kind="variable"><name>vbe_interface_len</name></member>
-  </compound>
   <compound refid="structnet__address" kind="struct"><name>net_address</name>
     <member refid="structnet__address_1ac33151ae99db4cd348f2779d0f4ea8e5" kind="variable"><name>name</name></member>
     <member refid="structnet__address_1a9153fc615b7424a3834408de042957c6" kind="variable"><name>length</name></member>
@@ -2056,23 +2024,6 @@
     <member refid="memcpy_8h_1ab3b483f8ac77e03edf84bc99394649eb" kind="function"><name>memcmp</name></member>
     <member refid="memcpy_8h_1a227d3cb4ac6a7be48a2eb19d5e9a50ba" kind="function"><name>memset</name></member>
   </compound>
-  <compound refid="multiboot_8h" kind="file"><name>multiboot.h</name>
-    <member refid="multiboot_8h_1a77973acf8c41a727c90531a8b05d0e3a" kind="define"><name>MULTIBOOT_MAGIC</name></member>
-    <member refid="multiboot_8h_1a52c81b90c99d39e08e64ec1d754e4b33" kind="define"><name>MB_MEMORY</name></member>
-    <member refid="multiboot_8h_1ae359b60e9a3922095d00309dc0c01e90" kind="define"><name>MB_BOOTDEV</name></member>
-    <member refid="multiboot_8h_1a4c5d9477e8057c622fedf54170e2cef0" kind="define"><name>MB_CMDLINE</name></member>
-    <member refid="multiboot_8h_1a5ff14e4fe9fe89cb783b5e64aab74a91" kind="define"><name>MB_MODS</name></member>
-    <member refid="multiboot_8h_1ae81ad372795447fef7faea2657cbe0e1" kind="define"><name>MB_AOUT_SYMS</name></member>
-    <member refid="multiboot_8h_1a3be8caf34ba4054ac7275f6a0b56babf" kind="define"><name>MB_ELF</name></member>
-    <member refid="multiboot_8h_1af67662220e40714591c8f75e9520ae23" kind="define"><name>MB_MEMMAP</name></member>
-    <member refid="multiboot_8h_1a71e98f1e238b0f53aa94e70a2aabc682" kind="define"><name>MB_DRIVEINFO</name></member>
-    <member refid="multiboot_8h_1ae6369d88250edf683171d26bdad7b117" kind="define"><name>MB_CONFIGTABLE</name></member>
-    <member refid="multiboot_8h_1a9923bdaf1a8ca03702a5392030f9f6f2" kind="define"><name>MB_BOOTLOADERNAME</name></member>
-    <member refid="multiboot_8h_1a25151fed7e60f4f3319e7819ce561586" kind="define"><name>MB_APMTABLE</name></member>
-    <member refid="multiboot_8h_1a1f1efba6d8ca143b891d7a26767d405a" kind="define"><name>MB_VIDEOINFO</name></member>
-    <member refid="multiboot_8h_1ad3e87f0c1a060718e85f16e7ad4746d9" kind="define"><name>MB_MM_AVAIL</name></member>
-    <member refid="multiboot_8h_1a3cc3c752ccd922b112123620fafe3a41" kind="define"><name>MB_MM_RESVD</name></member>
-  </compound>
   <compound refid="net_8h" kind="file"><name>net.h</name>
     <member refid="net_8h_1a100979a19424dac7612a6ddbfbe6393a" kind="enum"><name>netdev_flags_t</name></member>
     <member refid="net_8h_1a100979a19424dac7612a6ddbfbe6393aacdc0b550a3f9caea41ad5661902ef853" kind="enumvalue"><name>ADMINISTRATIVELY_DOWN</name></member>
@@ -2532,6 +2483,7 @@
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da56842fb1cfc257dbcd3f5987f9bd9b70" kind="enumvalue"><name>TOKENIZER_TO</name></member>
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da1f2e0aedf6f69ab627a41ddf8589753d" kind="enumvalue"><name>TOKENIZER_STEP</name></member>
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da811981e8c1c0a4dcaa433632bd7a07c6" kind="enumvalue"><name>TOKENIZER_NEXT</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da9adb96cfc3eb024bfebcc8c1d1f77278" kind="enumvalue"><name>TOKENIZER_GOTOXY</name></member>
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa2e018e9509b340d974959dd9b35547e" kind="enumvalue"><name>TOKENIZER_GOTO</name></member>
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dad073084b8a763cb7749e9b3cd74b09a5" kind="enumvalue"><name>TOKENIZER_GOSUB</name></member>
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac233e78cc8fc79998affa972181d770b" kind="enumvalue"><name>TOKENIZER_RETURN</name></member>
@@ -2578,6 +2530,13 @@
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dafaa2e963459fc8f3e8cf7a7a98d6b65c" kind="enumvalue"><name>TOKENIZER_RECTANGLE</name></member>
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dabc6f44027e586590f12df8dc47ad4cb4" kind="enumvalue"><name>TOKENIZER_CIRCLE</name></member>
     <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da5e11b4b30ceb04c4b820fc47d0013495" kind="enumvalue"><name>TOKENIZER_POINT</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac75768e6cf525fdf6a5af6f79f340bdd" kind="enumvalue"><name>TOKENIZER_OPENOUT</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da0ecbfe3ed1be7fdffdb735ec7fd14e75" kind="enumvalue"><name>TOKENIZER_OPENUP</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2afbad18382072b275a3f4f11d764c38" kind="enumvalue"><name>TOKENIZER_WRITE</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daeae1e099a0cf879f8541c7a6b3697b01" kind="enumvalue"><name>TOKENIZER_MKDIR</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2579860f97b568a354154a1804d37009" kind="enumvalue"><name>TOKENIZER_RMDIR</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da03e1aeedf74cd70f2294a09c8d422002" kind="enumvalue"><name>TOKENIZER_DELETE</name></member>
+    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da63b76876abcd12fe825e672ead220c07" kind="enumvalue"><name>TOKENIZER_MOUNT</name></member>
     <member refid="tokenizer_8h_1adf89e2fd313b31dbf65c1eba51c4a8bd" kind="variable"><name>types</name></member>
     <member refid="tokenizer_8h_1adf4bd7daf580e0bbeb38158d05346bf6" kind="function"><name>tokenizer_init</name></member>
     <member refid="tokenizer_8h_1ab95d257fd507afd722006b98f701aac4" kind="function"><name>tokenizer_next</name></member>
@@ -2624,12 +2583,16 @@
     <member refid="ubasic_8h_1a94cc5f368eb6a4a51959aa9af71c2727" kind="function"><name>ubasic_abs</name></member>
     <member refid="ubasic_8h_1adcce1bf8e1bb7d43f778c2a3b178c38f" kind="function"><name>ubasic_len</name></member>
     <member refid="ubasic_8h_1af6254c6c76a5252860e6de07c78eb39b" kind="function"><name>ubasic_openin</name></member>
+    <member refid="ubasic_8h_1acca8b4cda5822d2e28342261eab74854" kind="function"><name>ubasic_openout</name></member>
+    <member refid="ubasic_8h_1a7b3e5a5dfce2ebd585d9c02be65f6ba6" kind="function"><name>ubasic_openup</name></member>
     <member refid="ubasic_8h_1a431f36e09e8d38111a31f197e1105ada" kind="function"><name>ubasic_eof</name></member>
     <member refid="ubasic_8h_1a9cc258913671c12ba9b33bf48e4671e4" kind="function"><name>ubasic_read</name></member>
     <member refid="ubasic_8h_1ab8b600ea28480e317f45f1bf713a41b4" kind="function"><name>ubasic_instr</name></member>
     <member refid="ubasic_8h_1aab9b383fbcaccd9f3197620b11097ad0" kind="function"><name>ubasic_asc</name></member>
     <member refid="ubasic_8h_1ad2d0c46d49cf770b5468e1cb3e7137a7" kind="function"><name>ubasic_getnamecount</name></member>
     <member refid="ubasic_8h_1a42187ca69dc53ce2869e7df6960dc7ce" kind="function"><name>ubasic_getsize</name></member>
+    <member refid="ubasic_8h_1adc4d0576a6912532c43369e389419cb4" kind="function"><name>ubasic_get_text_max_x</name></member>
+    <member refid="ubasic_8h_1a9fd7bcca385683c102ac5cffc45f5898" kind="function"><name>ubasic_get_text_max_y</name></member>
     <member refid="ubasic_8h_1a660422bd3c0e07831ab9a20bfd94db7b" kind="function"><name>ubasic_netinfo</name></member>
     <member refid="ubasic_8h_1a5559407d22fff10ff141837c7b094fb0" kind="function"><name>ubasic_left</name></member>
     <member refid="ubasic_8h_1a2ddbbc00e77a2b3575da968d1c719aa7" kind="function"><name>ubasic_mid</name></member>
@@ -2672,6 +2635,8 @@
     <member refid="ubasic_8h_1ac569cb0c5dcad1f65f0eb87849978161" kind="function"><name>str_relation</name></member>
     <member refid="ubasic_8h_1a5da3876b5bfc761a6407ac2020521e0f" kind="function"><name>relation</name></member>
     <member refid="ubasic_8h_1a39ca76350b51eb1ac4f85f7813030be3" kind="function"><name>accept</name></member>
+    <member refid="ubasic_8h_1acd2949249723baac22db2449ccc05d0c" kind="function"><name>ubasic_ramdisk_from_device</name></member>
+    <member refid="ubasic_8h_1a7a221e39127dcc2f13c7828843c534b6" kind="function"><name>ubasic_ramdisk_from_size</name></member>
   </compound>
   <compound refid="udp_8h" kind="file"><name>udp.h</name>
     <member refid="udp_8h_1a23105885384ca2f747d9c906c521fe2e" kind="typedef"><name>udp_daemon_handler</name></member>

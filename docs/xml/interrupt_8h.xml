@@ -696,7 +696,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="6" column="1" bodyfile="include/interrupt.h" bodystart="6" bodyend="24"/>
+        <location file="include/interrupt.h" line="11" column="1" bodyfile="include/interrupt.h" bodystart="11" bodyend="29"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -712,7 +712,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="29" column="9" bodyfile="include/interrupt.h" bodystart="29" bodyend="-1"/>
+        <location file="include/interrupt.h" line="34" column="9" bodyfile="include/interrupt.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="interrupt_8h_1a79e2c6c0a01f6d73ab421b6ffd0035f0" prot="public" static="no">
         <type>struct <ref refid="structshared__interrupt__t" kindref="compound">shared_interrupt_t</ref></type>
@@ -726,7 +726,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="39" column="20"/>
+        <location file="include/interrupt.h" line="44" column="20"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -792,7 +792,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="50" column="6" declfile="include/interrupt.h" declline="50" declcolumn="6"/>
+        <location file="include/interrupt.h" line="55" column="6" declfile="include/interrupt.h" declline="55" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="interrupt_8h_1a1e0b1516a8ed04e2e7d7a1b2a330e6af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -832,7 +832,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="58" column="6" declfile="include/interrupt.h" declline="58" declcolumn="6"/>
+        <location file="include/interrupt.h" line="63" column="6" declfile="include/interrupt.h" declline="63" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="interrupt_8h_1ac12ed84cb143bb64d5b2b631d7764e1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -872,12 +872,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="66" column="6" declfile="include/interrupt.h" declline="66" declcolumn="6"/>
+        <location file="include/interrupt.h" line="71" column="6" declfile="include/interrupt.h" declline="71" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+</simplesect>
+</para>
     </detaileddescription>
     <location file="include/interrupt.h"/>
   </compounddef>

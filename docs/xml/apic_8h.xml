@@ -225,7 +225,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="4" column="9" bodyfile="include/apic.h" bodystart="4" bodyend="-1"/>
+        <location file="include/apic.h" line="9" column="9" bodyfile="include/apic.h" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1a96bccef7658e28a44636ba3a66ff1fe1" prot="public" static="no">
         <name>APIC_BASE_MSR</name>
@@ -236,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="5" column="9" bodyfile="include/apic.h" bodystart="5" bodyend="-1"/>
+        <location file="include/apic.h" line="10" column="9" bodyfile="include/apic.h" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1ac41d667f86d1c94403420c6ff4a3c5de" prot="public" static="no">
         <name>APIC_BASE_MSR_ENABLE</name>
@@ -247,7 +247,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="6" column="9" bodyfile="include/apic.h" bodystart="6" bodyend="-1"/>
+        <location file="include/apic.h" line="11" column="9" bodyfile="include/apic.h" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1ad97a7d2b89d63e06c3e5e9e081dd9194" prot="public" static="no">
         <name>APIC_ID</name>
@@ -258,7 +258,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="9" column="9" bodyfile="include/apic.h" bodystart="9" bodyend="-1"/>
+        <location file="include/apic.h" line="14" column="9" bodyfile="include/apic.h" bodystart="14" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1ab1a256486b56b5660f30be7a7c352672" prot="public" static="no">
         <name>APIC_VERSION</name>
@@ -269,7 +269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="10" column="9" bodyfile="include/apic.h" bodystart="10" bodyend="-1"/>
+        <location file="include/apic.h" line="15" column="9" bodyfile="include/apic.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -288,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="12" column="10" declfile="include/apic.h" declline="12" declcolumn="10"/>
+        <location file="include/apic.h" line="17" column="10" declfile="include/apic.h" declline="17" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="apic_8h_1a7ba83fbfa8fda429adf009e0bfb6a02a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -309,7 +309,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="13" column="6" declfile="include/apic.h" declline="13" declcolumn="6"/>
+        <location file="include/apic.h" line="18" column="6" declfile="include/apic.h" declline="18" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="apic_8h_1a02715a39c4320f513fcecee66a032837" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -322,12 +322,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="14" column="9" declfile="include/apic.h" declline="14" declcolumn="9"/>
+        <location file="include/apic.h" line="19" column="9" declfile="include/apic.h" declline="19" declcolumn="9"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+</simplesect>
+</para>
     </detaileddescription>
     <location file="include/apic.h"/>
   </compounddef>

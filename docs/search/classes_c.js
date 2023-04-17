@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['packet_5fqueue_5fitem_726',['packet_queue_item',['../structpacket__queue__item.html',1,'']]],
-  ['parameter_5fblock_5ft_727',['parameter_block_t',['../structparameter__block__t.html',1,'']]],
-  ['partition_5ft_728',['partition_t',['../structpartition__t.html',1,'']]],
-  ['partition_5ftable_5ft_729',['partition_table_t',['../structpartition__table__t.html',1,'']]],
-  ['pci_5fdev_730',['pci_dev',['../unionpci__dev.html',1,'']]],
-  ['pci_5fsubclass_731',['pci_subclass',['../structpci__subclass.html',1,'']]],
-  ['process_732',['process',['../structprocess.html',1,'']]]
+  ['resource_5frecord_706',['resource_record',['../structresource__record.html',1,'']]],
+  ['resourcerecord_707',['ResourceRecord',['../struct_resource_record.html',1,'']]],
+  ['rsdp_5ft_708',['rsdp_t',['../structrsdp__t.html',1,'']]],
+  ['rsdt_5ft_709',['rsdt_t',['../structrsdt__t.html',1,'']]],
+  ['rtl8139_5fdev_710',['rtl8139_dev',['../structrtl8139__dev.html',1,'']]]
 ];
