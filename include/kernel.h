@@ -1,7 +1,7 @@
 /**
  * @file kernel.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2012-2023
  */
 #pragma once
 
@@ -60,7 +60,7 @@
 /**
  * @file kernel.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2012-2023
  */
 #include "dns.h"
 #include "drawing.h"

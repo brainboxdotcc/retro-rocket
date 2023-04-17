@@ -1,7 +1,7 @@
 /**
  * @file ioapic.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2012-2023
  */
 #ifndef IOAPIC_H
 #define IOAPIC_H

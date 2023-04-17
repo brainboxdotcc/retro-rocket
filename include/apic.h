@@ -1,7 +1,7 @@
 /**
  * @file apic.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2012-2023
  */
 #ifndef __APIC_H__
 #define __APIC_H__
