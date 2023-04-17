@@ -1,3 +1,8 @@
+/**
+ * @file input.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __INPUT_H__
 #define __INPUT_H__
 

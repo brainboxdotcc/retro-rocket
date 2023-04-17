@@ -1,3 +1,8 @@
+/**
+ * @file homer.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #pragma once
 
 #define PANIC_BANNER setforeground(current_console, COLOUR_LIGHTYELLOW); \

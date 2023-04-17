@@ -1,3 +1,8 @@
+/**
+ * @file ata.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __ATA_H__
 #define __ATA_H__
 

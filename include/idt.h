@@ -1,3 +1,8 @@
+/**
+ * @file idt.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __IDT_H__
 #define __IDT_H__
 

@@ -1,3 +1,8 @@
+/**
+ * @file kernel.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #pragma once
 
 #include <stdint.h>
@@ -52,6 +57,11 @@
 #include "icmp.h"
 #include "udp.h"
 #include "dhcp.h"
+/**
+ * @file kernel.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #include "dns.h"
 #include "drawing.h"
 #include "fpu.h"

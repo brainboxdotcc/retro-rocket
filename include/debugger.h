@@ -1,3 +1,8 @@
+/**
+ * @file debugger.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __DEBUGGER_H__
 #define __DEBUGGER_H__
 

@@ -1,3 +1,8 @@
+/**
+ * @file taskswitch.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #pragma once
 
 #define PROC_RUNNING	0

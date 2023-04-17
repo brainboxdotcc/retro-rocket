@@ -1,3 +1,8 @@
+/**
+ * @file io.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __IO_H__
 #define __IO_H__
 

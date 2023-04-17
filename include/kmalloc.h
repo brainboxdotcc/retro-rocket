@@ -1,3 +1,8 @@
+/**
+ * @file kmalloc.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __KMALLOC_H__
 #define __KMALLOC_H__
 

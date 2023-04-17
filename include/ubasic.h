@@ -1,4 +1,5 @@
-/*
+/**
+ * @file ubasic.h
  * BBC BASIC interpreter,
  * Retro Rocket OS Project (C) Craig Edwards 2012.
  * loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).

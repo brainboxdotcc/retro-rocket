@@ -1,3 +1,8 @@
+/**
+ * @file cpuid.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __CPUID_H__
 #define __CPUID_H__
 

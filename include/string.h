@@ -1,3 +1,8 @@
+/**
+ * @file string.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __STRING_H__
 #define __STRING_H__
 

@@ -1,4 +1,5 @@
-/*
+/**
+ * @file tokenizer.h
  * BBC BASIC interpreter,
  * Retro Rocket OS Project (C) Craig Edwards 2012.
  * loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).
@@ -14,7 +15,6 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- *
  */
 #ifndef __TOKENIZER_H__
 #define __TOKENIZER_H__

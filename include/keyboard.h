@@ -1,3 +1,8 @@
+/**
+ * @file keyboard.h
+ * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @copyright Copyright (c) 2023
+ */
 #ifndef __KEYBOARD_H__
 #define __KEYBOARD_H__
 
