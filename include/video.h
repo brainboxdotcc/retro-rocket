@@ -1,5 +1,4 @@
-#ifndef __VIDEO_H__
-#define __VIDEO_H__
+#pragma once
 
 /* Colour names */
 #define COLOUR_BLACK 0
@@ -77,6 +76,11 @@ uint64_t framebuffer_address();
 
 uint64_t pixel_address(int64_t x, int64_t y);
 
+uint64_t get_text_width();
+
+uint64_t get_text_height();
+
+void gotoxy(uint64_t x, uint64_t y);
+
 extern console* current_console;
 
-#endif

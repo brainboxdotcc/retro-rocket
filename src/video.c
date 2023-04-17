@@ -30,6 +30,21 @@ inline uint64_t pixel_address(int64_t x, int64_t y)
 	return 0;
 }
 
+uint64_t get_text_width()
+{
+	return terminal_request.response->terminals[0]->columns;
+}
+
+uint64_t get_text_height()
+{
+	return terminal_request.response->terminals[0]->rows;
+}
+
+void gotoxy(uint64_t x, uint64_t y)
+{
+	kprintf("\033[%d;%df", y % get_text_height(), x % get_text_width());
+}
+
 void putpixel(int64_t x, int64_t y, uint32_t rgb)
 {
 	volatile uint32_t* addr = (volatile uint32_t*)(framebuffer_address() + pixel_address(x, y));

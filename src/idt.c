@@ -15,10 +15,11 @@ void init_idt()
 	/* load IDT pointer */
 	__asm__ volatile("lidtq (%0)\n"::"r"(&idt64));
 
-	/* Unmask and configure each interrupt on the IOAPIC */
+	/* Unmask and configure each interrupt on the IOAPIC
+	 * 24 pins: http://web.archive.org/web/20161130153145/http://download.intel.com/design/chipsets/datashts/29056601.pdf
+	 */
 	for (int in = 0; in < 24; in++) {
-		ioapic_redir_unmask(in);
-		/* Active low, level triggered, interrupt mapped to irq + 32 */
+		/* Unmasked, Active low, level triggered, interrupt mapped to irq + 32 */
 		ioapic_redir_set(in, in + 32, 0, 0, 1, 1, 0);
 	}
 
