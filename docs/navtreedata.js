@@ -25,12 +25,24 @@
 var NAVTREE =
 [
   [ "Retro Rocket Kernel", "index.html", [
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Members", "functions.html", [
+    [ "Data Structures", "annotated.html", [
+      [ "Data Structures", "annotated.html", "annotated_dup" ],
+      [ "Data Structure Index", "classes.html", null ],
+      [ "Data Fields", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Variables", "functions_vars.html", "functions_vars" ]
+      ] ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ],
+      [ "Globals", "globals.html", [
+        [ "All", "globals.html", "globals_dup" ],
+        [ "Functions", "globals_func.html", "globals_func" ],
+        [ "Variables", "globals_vars.html", "globals_vars" ],
+        [ "Typedefs", "globals_type.html", null ],
+        [ "Enumerations", "globals_enum.html", null ],
+        [ "Enumerator", "globals_eval.html", "globals_eval" ],
+        [ "Macros", "globals_defs.html", "globals_defs" ]
       ] ]
     ] ]
   ] ]
@@ -38,10 +50,17 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"structahci__hba__cmd__header__t.html#af83dbc9acd62d32bb0e82bf28ca87b2f",
-"structgpt__header__t.html#a79ed891ffe92857df146217a391ee7fa",
-"structrtl8139__dev.html#ae9915848656b4c91008143cd6b51c60c"
+"acpi_8h.html",
+"ata_8h.html#abc751c8edfc3a3daf8243d8837f89bc1",
+"e1000_8h.html#a256b180cd270cab7d957f2296f50bef3",
+"functions_vars_f.html",
+"ioapic_8h.html#a3574e36c20cd71e8e68e0ca15ea1b426",
+"pci_8h.html#af0f4adb484694e2f8e32c34772cccdcf",
+"structachi__hba__fis__t.html#adcedc94bc0601ad864eb0e1ee6c8200a",
+"structe1000__tx__desc.html#a387942d82f33e30603f493a141ea7bdc",
+"structnetdev__t.html#a699f50d657a9b4094222da4429528dfc",
+"structubasic__ctx.html#a446a08b3410c33383f8d69083153ef06",
+"unionip__frag.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

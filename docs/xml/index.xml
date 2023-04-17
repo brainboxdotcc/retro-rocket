@@ -256,9 +256,9 @@
     <member refid="structarp__packet_1a8d97a18f11bf7098ebe1d42ed0bcf878" kind="variable"><name>dst_hardware_addr</name></member>
     <member refid="structarp__packet_1aa95c7e1b07c268657df62f46924ffff3" kind="variable"><name>dst_protocol_addr</name></member>
   </compound>
-  <compound refid="structarp__table__entry" kind="struct"><name>arp_table_entry</name>
-    <member refid="structarp__table__entry_1a262e2764f94941e4b621de7dfc6a60d2" kind="variable"><name>ip_addr</name></member>
-    <member refid="structarp__table__entry_1a672fa96680003c41e29a5ddcecbfe4e1" kind="variable"><name>mac_addr</name></member>
+  <compound refid="structarp__table__entry__t" kind="struct"><name>arp_table_entry_t</name>
+    <member refid="structarp__table__entry__t_1ae7ab67b6bc15ab399d2ad26451181a5c" kind="variable"><name>ip_addr</name></member>
+    <member refid="structarp__table__entry__t_1ab7d98ed80451a9d02c4b41759ef16ec4" kind="variable"><name>mac_addr</name></member>
   </compound>
   <compound refid="structchannel" kind="struct"><name>channel</name>
     <member refid="structchannel_1ae56da23e4f0275b6ae2f73f94a578dd2" kind="variable"><name>base</name></member>
@@ -276,14 +276,14 @@
     <member refid="structconsole_1aa45e29de771517b78d3637bb503f21ec" kind="variable"><name>buffer</name></member>
     <member refid="structconsole_1a3792de1a10e5002f78b3d3c7b8a9decb" kind="variable"><name>bufcnt</name></member>
   </compound>
-  <compound refid="structdatetime" kind="struct"><name>datetime</name>
-    <member refid="structdatetime_1a58508b8f0563e4412ad8822a626e7cc1" kind="variable"><name>century</name></member>
-    <member refid="structdatetime_1afff708acf42d452c7676bb7f3e98c3f5" kind="variable"><name>year</name></member>
-    <member refid="structdatetime_1aee54dcab1c86e3079f655c65401d02e7" kind="variable"><name>month</name></member>
-    <member refid="structdatetime_1a61aa3f43954e36bfd20eaf73a74e2788" kind="variable"><name>day</name></member>
-    <member refid="structdatetime_1a6523b722773c5c61908b8577111454d7" kind="variable"><name>hour</name></member>
-    <member refid="structdatetime_1adffb9d751833989b7eae93a0314496c1" kind="variable"><name>minute</name></member>
-    <member refid="structdatetime_1a6026ae22bb35c0c16166ca178369f179" kind="variable"><name>second</name></member>
+  <compound refid="structdatetime__t" kind="struct"><name>datetime_t</name>
+    <member refid="structdatetime__t_1a47c95a965cf321c500654ef7303cc8b6" kind="variable"><name>century</name></member>
+    <member refid="structdatetime__t_1a085c6705129014a66a8c9faee283ef29" kind="variable"><name>year</name></member>
+    <member refid="structdatetime__t_1a69a3491a78234c70fcd6dbdf7cd4c8c4" kind="variable"><name>month</name></member>
+    <member refid="structdatetime__t_1afabded25c81cb29402963646e458e652" kind="variable"><name>day</name></member>
+    <member refid="structdatetime__t_1a2f40a1600a005b946eda5582f3368f08" kind="variable"><name>hour</name></member>
+    <member refid="structdatetime__t_1a2f66889685c065cc329bcd90f067d53e" kind="variable"><name>minute</name></member>
+    <member refid="structdatetime__t_1a11d19b04bb5d36df03b097fbade51775" kind="variable"><name>second</name></member>
   </compound>
   <compound refid="structdevname__prefix__t" kind="struct"><name>devname_prefix_t</name>
     <member refid="structdevname__prefix__t_1a86ffb4bc1c86c654c1e56691694c2f12" kind="variable"><name>prefix</name></member>
@@ -330,17 +330,17 @@
     <member refid="structdns__header_1a7b840ee6675cd6935d77f2c89a6f263e" kind="variable"><name>arcount</name></member>
     <member refid="structdns__header_1a7f4f0dbdf7eb6a25363c1a42f4ffbf7e" kind="variable"><name>payload</name></member>
   </compound>
-  <compound refid="structdns__request" kind="struct"><name>dns_request</name>
-    <member refid="structdns__request_1a4824addfaa9b30c32b03e39245bd81f9" kind="variable"><name>id</name></member>
-    <member refid="structdns__request_1a61bb96f80a3d74aae170876994d9e872" kind="variable"><name>rr_class</name></member>
-    <member refid="structdns__request_1a9420b270aa2b9682c18b68ade08898c8" kind="variable"><name>ttl</name></member>
-    <member refid="structdns__request_1a6095fbf1e058cd809c52c89497c30a20" kind="variable"><name>type</name></member>
-    <member refid="structdns__request_1a2c358768354f2c44068297de4cb4588b" kind="variable"><name>orig</name></member>
-    <member refid="structdns__request_1ade10de8e952ab1bf8e08a52668dc0414" kind="variable"><name>result</name></member>
-    <member refid="structdns__request_1a288689d04cb06cfbdbe8d2823b1cd158" kind="variable"><name>result_length</name></member>
-    <member refid="structdns__request_1a7318593e8938535958811fa561847186" kind="variable"><name>callback_a</name></member>
-    <member refid="structdns__request_1a5a194ced253c5b60657cec697f3fae46" kind="variable"><name>callback_aaaa</name></member>
-    <member refid="structdns__request_1a94798df1b9b5f4a3f18a3e6979baf217" kind="variable"><name>callback_ptr</name></member>
+  <compound refid="structdns__request__t" kind="struct"><name>dns_request_t</name>
+    <member refid="structdns__request__t_1a42cd4a6bfa83a8645aa9024ebb747b2b" kind="variable"><name>id</name></member>
+    <member refid="structdns__request__t_1a727e5418948e58563a06388ef0260903" kind="variable"><name>rr_class</name></member>
+    <member refid="structdns__request__t_1ad1e054902252ce58458f471b9d27974b" kind="variable"><name>ttl</name></member>
+    <member refid="structdns__request__t_1a7120f1cd6bc58f6b0fb11c211487e7f4" kind="variable"><name>type</name></member>
+    <member refid="structdns__request__t_1a42c1bbb10eb145a1eb66e4ac7677f364" kind="variable"><name>orig</name></member>
+    <member refid="structdns__request__t_1aa5126cd983774a044aade81c8b14db2f" kind="variable"><name>result</name></member>
+    <member refid="structdns__request__t_1a5fc101895f7535f5ca05d630a08ded23" kind="variable"><name>result_length</name></member>
+    <member refid="structdns__request__t_1a9d089986bfa2caace7149616e5be019a" kind="variable"><name>callback_a</name></member>
+    <member refid="structdns__request__t_1a55e0884fab350875872113f0ee73313d" kind="variable"><name>callback_aaaa</name></member>
+    <member refid="structdns__request__t_1aff105f76ee6ec115fb3948ab56a69841" kind="variable"><name>callback_ptr</name></member>
   </compound>
   <compound refid="structdns__result__t" kind="struct"><name>dns_result_t</name>
     <member refid="structdns__result__t_1a31114cb349229843279de9596dba27b4" kind="variable"><name>error</name></member>
@@ -404,9 +404,9 @@
     <member refid="structfilesystem__t_1a85128ed0d4bda3d5431f4d44c7a4ccd5" kind="variable"><name>rmdir</name></member>
     <member refid="structfilesystem__t_1a3de5608a3632092ae909303a1ba96fe5" kind="variable"><name>next</name></member>
   </compound>
-  <compound refid="structfooter" kind="struct"><name>footer</name>
-    <member refid="structfooter_1a125512bb0db20a174b050835c75b593f" kind="variable"><name>magic</name></member>
-    <member refid="structfooter_1a2dbfeae7ab589833e4dbb10aff48fa57" kind="variable"><name>header</name></member>
+  <compound refid="structfooter__t" kind="struct"><name>footer_t</name>
+    <member refid="structfooter__t_1a09829e21ce0e4c219f9d9d03325da475" kind="variable"><name>magic</name></member>
+    <member refid="structfooter__t_1a06b283e85f1d31f0cabadb0e84747a5c" kind="variable"><name>header</name></member>
   </compound>
   <compound refid="structfor__state" kind="struct"><name>for_state</name>
     <member refid="structfor__state_1ac34939b2a9960a6164bb0033879ca67d" kind="variable"><name>line_after_for</name></member>
@@ -486,21 +486,21 @@
     <member refid="structgpt__header__t_1ac8f8ae51701b9683ff0bc3e04efda0f2" kind="variable"><name>crc_32_of_entries</name></member>
     <member refid="structgpt__header__t_1a6f036a7d24e25521e33a1bfabb38cbac" kind="variable"><name>reserved1</name></member>
   </compound>
-  <compound refid="structheader" kind="struct"><name>header</name>
-    <member refid="structheader_1aa5d6eee0eff2282381b081fab7a196ef" kind="variable"><name>magic</name></member>
-    <member refid="structheader_1a74aaa64a1a22a9cb3eda2b6bedc51be4" kind="variable"><name>size</name></member>
-    <member refid="structheader_1a6f818534d9ccc9568eb555008d110dc2" kind="variable"><name>free</name></member>
-    <member refid="structheader_1a0e41d64c02b931fc4e295c832c714b03" kind="variable"><name>prev</name></member>
-    <member refid="structheader_1ad027bf8dacedb0375d53238be5d7903d" kind="variable"><name>next</name></member>
+  <compound refid="structheader__t" kind="struct"><name>header_t</name>
+    <member refid="structheader__t_1ab3d48d9260046c5bf934f2b862a19b67" kind="variable"><name>magic</name></member>
+    <member refid="structheader__t_1ac2025ce07dbf0565712e8e4788707ad9" kind="variable"><name>size</name></member>
+    <member refid="structheader__t_1a2ba75eebea85aeadb0a3753a0f8d7d2a" kind="variable"><name>free</name></member>
+    <member refid="structheader__t_1ab45830d1e5f78b67facd9559193e80a1" kind="variable"><name>prev</name></member>
+    <member refid="structheader__t_1a66d1b95597278f73437ab44372b476d4" kind="variable"><name>next</name></member>
   </compound>
-  <compound refid="structheap" kind="struct"><name>heap</name>
-    <member refid="structheap_1a0061a66e7fb595b0b37a8b87ccbd3319" kind="variable"><name>list_free</name></member>
-    <member refid="structheap_1a9fe1d99b4e38ec98f980dbba8226e360" kind="variable"><name>heap_addr</name></member>
-    <member refid="structheap_1a8702801a820180d8cb77e521ec20847d" kind="variable"><name>end_addr</name></member>
-    <member refid="structheap_1a38e4b2d20ea32266bc8724f3e61657c0" kind="variable"><name>max_size</name></member>
-    <member refid="structheap_1a84391622f993ab02bace447d7ceec0a4" kind="variable"><name>min_size</name></member>
-    <member refid="structheap_1a3e3066d0e2c98cb2fd8a7e694b4838d9" kind="variable"><name>user</name></member>
-    <member refid="structheap_1a651a0d4cbb95469239df0bce6dba22bc" kind="variable"><name>rw</name></member>
+  <compound refid="structheap__t" kind="struct"><name>heap_t</name>
+    <member refid="structheap__t_1ae5cf0a522d0047a84762a679175f950b" kind="variable"><name>list_free</name></member>
+    <member refid="structheap__t_1a560968204d237f40896a773fef3fa3da" kind="variable"><name>heap_addr</name></member>
+    <member refid="structheap__t_1ab3c95cf0a38d6b88944c11212391194a" kind="variable"><name>end_addr</name></member>
+    <member refid="structheap__t_1a225d6bc7a838af0e9faad37140d124b1" kind="variable"><name>max_size</name></member>
+    <member refid="structheap__t_1ab5c14fb5089e6cc3a5989fbca6414926" kind="variable"><name>min_size</name></member>
+    <member refid="structheap__t_1a2f79c797f13305d6b85aaadcb95ea20c" kind="variable"><name>user</name></member>
+    <member refid="structheap__t_1a1078b47f348ab7721e5db430c34443e2" kind="variable"><name>rw</name></member>
   </compound>
   <compound refid="structicmp__echo__packet" kind="struct"><name>icmp_echo_packet</name>
     <member refid="structicmp__echo__packet_1a0301500a6c65e8dc39edd992325f6c3b" kind="variable"><name>type</name></member>
@@ -560,22 +560,22 @@
     <member refid="structide__device_1a78eb4d04da3cf2daec7be0903324b056" kind="variable"><name>size</name></member>
     <member refid="structide__device_1a7fec3a761af4ffd1c95562bcbfc1f888" kind="variable"><name>model</name></member>
   </compound>
-  <compound refid="structidle__timer" kind="struct"><name>idle_timer</name>
-    <member refid="structidle__timer_1a66783c0392a4df624b95fdce6c2d8af4" kind="variable"><name>func</name></member>
-    <member refid="structidle__timer_1a463cb69d79fd90fd94de59fceba325c8" kind="variable"><name>next</name></member>
+  <compound refid="structidle__timer__t" kind="struct"><name>idle_timer_t</name>
+    <member refid="structidle__timer__t_1a841c3c2181190d1dc30fbb4d2341fd53" kind="variable"><name>func</name></member>
+    <member refid="structidle__timer__t_1ab8cbbca083b310c8c38be8da8d1463f6" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structidt__entry" kind="struct"><name>idt_entry</name>
-    <member refid="structidt__entry_1a578592f9814b8dea58c0e90edd29e94a" kind="variable"><name>offset_1</name></member>
-    <member refid="structidt__entry_1a4cefe0d92bb5f6e53085fd6205e59ccd" kind="variable"><name>selector</name></member>
-    <member refid="structidt__entry_1ad3ac4a95dfd5bd16b1086d6731695c48" kind="variable"><name>ist</name></member>
-    <member refid="structidt__entry_1ae39bdfaf20a438a956c221e340f62fe3" kind="variable"><name>type_attributes</name></member>
-    <member refid="structidt__entry_1a478287ec7b84bb769aeee811910de1a3" kind="variable"><name>offset_2</name></member>
-    <member refid="structidt__entry_1a58386222d04252f2a8093a502080a2fd" kind="variable"><name>offset_3</name></member>
-    <member refid="structidt__entry_1ae441acebd46bcfa0696aa522d5a4ba6d" kind="variable"><name>zero</name></member>
+    <member refid="structidt__entry_1a628a6b7e8dca3a7b116585c8f6ccdff1" kind="variable"><name>offset_1</name></member>
+    <member refid="structidt__entry_1ae3c0639a0ccf29f5219c7197d358d96b" kind="variable"><name>selector</name></member>
+    <member refid="structidt__entry_1ab53c29c613ee58fa22491f0a2dcd258f" kind="variable"><name>ist</name></member>
+    <member refid="structidt__entry_1a4487a10c185ceec51cc2d810f5550d05" kind="variable"><name>type_attributes</name></member>
+    <member refid="structidt__entry_1a14029668091a81e3ee9d08f0af4a7bd5" kind="variable"><name>offset_2</name></member>
+    <member refid="structidt__entry_1a73fe83dfb88a153e5b3557cd6085d00c" kind="variable"><name>offset_3</name></member>
+    <member refid="structidt__entry_1af04b0fb43e1f77596c052a893f92947e" kind="variable"><name>zero</name></member>
   </compound>
   <compound refid="structidt__ptr" kind="struct"><name>idt_ptr</name>
-    <member refid="structidt__ptr_1aff506a142b3e7718fdcebfaa4454b30f" kind="variable"><name>limit</name></member>
-    <member refid="structidt__ptr_1a09eada8143b6d168eddce1874ee5b9b8" kind="variable"><name>base</name></member>
+    <member refid="structidt__ptr_1a798cddc9629de194f70780cd805f3fc1" kind="variable"><name>limit</name></member>
+    <member refid="structidt__ptr_1a96fae657ab9c2b3af8bef2475b0d0d81" kind="variable"><name>base</name></member>
   </compound>
   <compound refid="structioapic__t" kind="struct"><name>ioapic_t</name>
     <member refid="structioapic__t_1a9715af343d97df90aab7b1b586c68813" kind="variable"><name>id</name></member>
@@ -592,10 +592,10 @@
     <member refid="unionip__frag_1a126f005453611922f0e7538606855f01" kind="variable"><name>fragment_offset_low</name></member>
     <member refid="unionip__frag_1a31c59d9aa135e6e4b80f1b9c4677d80c" kind="variable"><name>@1</name></member>
   </compound>
-  <compound refid="structip__fragmented__packet__parts" kind="struct"><name>ip_fragmented_packet_parts</name>
-    <member refid="structip__fragmented__packet__parts_1aa44e14f41b7c9bfc8530b0eba55cdb64" kind="variable"><name>id</name></member>
-    <member refid="structip__fragmented__packet__parts_1a71fa69707e3f0f904571d2b021a11a07" kind="variable"><name>size</name></member>
-    <member refid="structip__fragmented__packet__parts_1a34f2dbe117d6c2a2ec5e65cc82303f89" kind="variable"><name>ordered_list</name></member>
+  <compound refid="structip__fragmented__packet__parts__t" kind="struct"><name>ip_fragmented_packet_parts_t</name>
+    <member refid="structip__fragmented__packet__parts__t_1a7401228a02edd00738962e274032b37f" kind="variable"><name>id</name></member>
+    <member refid="structip__fragmented__packet__parts__t_1aa27082d7c653e9bc69df897c8e6bf39a" kind="variable"><name>size</name></member>
+    <member refid="structip__fragmented__packet__parts__t_1a3ddaf68c537b10dbe65ee6159ed47393" kind="variable"><name>ordered_list</name></member>
   </compound>
   <compound refid="structip__packet" kind="struct"><name>ip_packet</name>
     <member refid="structip__packet_1aae9f83e495279f167a1764221b0e6111" kind="variable"><name>version_ihl_ptr</name></member>
@@ -614,11 +614,11 @@
     <member refid="structip__packet_1a20deb7e47a0a2281cf127c943543877a" kind="variable"><name>options</name></member>
     <member refid="structip__packet_1a99b17a03694e6cc968418015e5e92a1b" kind="variable"><name>data</name></member>
   </compound>
-  <compound refid="structip__packet__frag" kind="struct"><name>ip_packet_frag</name>
-    <member refid="structip__packet__frag_1af78c854d78acdd971445eb67261b11f9" kind="variable"><name>offset</name></member>
-    <member refid="structip__packet__frag_1ad9c512b1c1cf184c83b09a0ba16d4f80" kind="variable"><name>packet</name></member>
-    <member refid="structip__packet__frag_1a3c4ce4a94336c9d7e86ad831b0fd03ba" kind="variable"><name>next</name></member>
-    <member refid="structip__packet__frag_1aacbec8186bf36d50cd027629d8ba3f9c" kind="variable"><name>prev</name></member>
+  <compound refid="structip__packet__frag__t" kind="struct"><name>ip_packet_frag_t</name>
+    <member refid="structip__packet__frag__t_1a5155fad2e87e8849a6ddcff0c4dff719" kind="variable"><name>offset</name></member>
+    <member refid="structip__packet__frag__t_1a1d0a672fd1eebf10b8bef4c0e6005404" kind="variable"><name>packet</name></member>
+    <member refid="structip__packet__frag__t_1ae5891eeb9409248339b57d75babb5357" kind="variable"><name>next</name></member>
+    <member refid="structip__packet__frag__t_1aff59f3ee8b474d95c22cb2f4e61c07c0" kind="variable"><name>prev</name></member>
   </compound>
   <compound refid="structiso9660" kind="struct"><name>iso9660</name>
     <member refid="structiso9660_1a63fd07800cf31658024670de2a20a168" kind="variable"><name>joliet</name></member>
@@ -639,31 +639,31 @@
     <member refid="structlfn__t_1adf807cb02a687b32be9688ade90ad515" kind="variable"><name>reserved</name></member>
     <member refid="structlfn__t_1a4fb20bf57d3e87275a06b29abb4b05bf" kind="variable"><name>third</name></member>
   </compound>
-  <compound refid="structnet__address" kind="struct"><name>net_address</name>
-    <member refid="structnet__address_1ac33151ae99db4cd348f2779d0f4ea8e5" kind="variable"><name>name</name></member>
-    <member refid="structnet__address_1a9153fc615b7424a3834408de042957c6" kind="variable"><name>length</name></member>
-    <member refid="structnet__address_1ad505bb7cf7f55af38f8163dbbaaf7c8b" kind="variable"><name>bytes</name></member>
+  <compound refid="structnet__address__t" kind="struct"><name>net_address_t</name>
+    <member refid="structnet__address__t_1aa5c985e38804cfce2cf8704b787fadd1" kind="variable"><name>name</name></member>
+    <member refid="structnet__address__t_1aa401bda571cf681d03b42debfc49203f" kind="variable"><name>length</name></member>
+    <member refid="structnet__address__t_1af655e2acc5cc6f2c183acb33d87e4b59" kind="variable"><name>bytes</name></member>
   </compound>
-  <compound refid="structnetdev" kind="struct"><name>netdev</name>
-    <member refid="structnetdev_1a5ffe2705b10eff531467141eb739a330" kind="variable"><name>name</name></member>
-    <member refid="structnetdev_1a1ef04ea8a65ceab854929679c2cb19e8" kind="variable"><name>description</name></member>
-    <member refid="structnetdev_1a2d71ae8437d9fa7d30a7bd8deb79c5d9" kind="variable"><name>speed</name></member>
-    <member refid="structnetdev_1aabb1d719dbecb9912acc54ab976c18b0" kind="variable"><name>flags</name></member>
-    <member refid="structnetdev_1a28dcac5c3e3acdef066fee03b7851304" kind="variable"><name>mtu</name></member>
-    <member refid="structnetdev_1a6675d7789d23a9d4d250c900022d5404" kind="variable"><name>num_netprotos</name></member>
-    <member refid="structnetdev_1aafef66d79358b32174066cefa05995b9" kind="variable"><name>netproto</name></member>
+  <compound refid="structnetdev__t" kind="struct"><name>netdev_t</name>
+    <member refid="structnetdev__t_1ac5414e10d1ac4886a720ab53b5ec4d61" kind="variable"><name>name</name></member>
+    <member refid="structnetdev__t_1abb86af76b81051a7f5a51c5cf3fb9c5a" kind="variable"><name>description</name></member>
+    <member refid="structnetdev__t_1ad0f57b1c29286d4dc2dc23bf7b3ff228" kind="variable"><name>speed</name></member>
+    <member refid="structnetdev__t_1aec987a0487a82c232aedaa6c07074c64" kind="variable"><name>flags</name></member>
+    <member refid="structnetdev__t_1ad583e9c3a1a9b16feb10045cde13e7c7" kind="variable"><name>mtu</name></member>
+    <member refid="structnetdev__t_1a699f50d657a9b4094222da4429528dfc" kind="variable"><name>num_netprotos</name></member>
+    <member refid="structnetdev__t_1a9f95831169bcca38d95fe43c133139e1" kind="variable"><name>netproto</name></member>
   </compound>
-  <compound refid="structnetproto" kind="struct"><name>netproto</name>
-    <member refid="structnetproto_1a2b71d45cd5a9878d2bd810168a482946" kind="variable"><name>name</name></member>
-    <member refid="structnetproto_1ad944682dcb1b56b587f769457c2ca5ef" kind="variable"><name>ethernet_protocol_id</name></member>
-    <member refid="structnetproto_1a6961690c2ca65b469e1ca78b3f24aefc" kind="variable"><name>num_addresses</name></member>
-    <member refid="structnetproto_1ae5c8fc76a44e86348e9bfd8d88646694" kind="variable"><name>addresses</name></member>
+  <compound refid="structnetproto__t" kind="struct"><name>netproto_t</name>
+    <member refid="structnetproto__t_1ad66e783d3cf2b3a13b4931867ab7b5d1" kind="variable"><name>name</name></member>
+    <member refid="structnetproto__t_1ac72e039bffe317e4fd4421a37335f28d" kind="variable"><name>ethernet_protocol_id</name></member>
+    <member refid="structnetproto__t_1a564a05b0b12d3bbec640d96c2aacf0ee" kind="variable"><name>num_addresses</name></member>
+    <member refid="structnetproto__t_1add8d1fe92216ede7c2978664f7b13955" kind="variable"><name>addresses</name></member>
   </compound>
-  <compound refid="structpacket__queue__item" kind="struct"><name>packet_queue_item</name>
-    <member refid="structpacket__queue__item_1af722eb16fd126566732d410fdde749db" kind="variable"><name>packet</name></member>
-    <member refid="structpacket__queue__item_1ac055aecb4e268ef45267c938cf606ca5" kind="variable"><name>arp_tries</name></member>
-    <member refid="structpacket__queue__item_1a03538ce863bb3b87325730d3840f12c7" kind="variable"><name>last_arp</name></member>
-    <member refid="structpacket__queue__item_1ac946df139c5fdeb0ba5a215f8cd58752" kind="variable"><name>next</name></member>
+  <compound refid="structpacket__queue__item__t" kind="struct"><name>packet_queue_item_t</name>
+    <member refid="structpacket__queue__item__t_1a5256e38ed05ccee148b617643bb5aa0a" kind="variable"><name>packet</name></member>
+    <member refid="structpacket__queue__item__t_1af061ceef9c5ebb26be9d84cb3b848b4d" kind="variable"><name>arp_tries</name></member>
+    <member refid="structpacket__queue__item__t_1a74b07ecaf224fa58052ca23b973253fd" kind="variable"><name>last_arp</name></member>
+    <member refid="structpacket__queue__item__t_1aaf2b6f07f091fbafacd0ba21639eda4b" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structparameter__block__t" kind="struct"><name>parameter_block_t</name>
     <member refid="structparameter__block__t_1afb24d577a2001ccfc12427e5efa7b8a8" kind="variable"><name>code1</name></member>
@@ -709,16 +709,16 @@
   <compound refid="structpartition__table__t" kind="struct"><name>partition_table_t</name>
     <member refid="structpartition__table__t_1a390bf115198bf0cecf5da4391ad4bc0a" kind="variable"><name>p_entry</name></member>
   </compound>
-  <compound refid="unionpci__dev" kind="union"><name>pci_dev</name>
-    <member refid="unionpci__dev_1a492f60aaa8a612ece65d3d408efbd76c" kind="variable"><name>bits</name></member>
-    <member refid="unionpci__dev_1aa2c29e797ce8e6fc189b3e5edaa409e0" kind="variable"><name>always_zero</name></member>
-    <member refid="unionpci__dev_1a6cf5ed12d330a9c1480be838f9963db5" kind="variable"><name>field_num</name></member>
-    <member refid="unionpci__dev_1a186c25513769465794978727b90fee2e" kind="variable"><name>function_num</name></member>
-    <member refid="unionpci__dev_1a6a4da0280c0a132a4cb6f6b8bb6fb869" kind="variable"><name>device_num</name></member>
-    <member refid="unionpci__dev_1a2e89e5a3d2d9a9b31425ec0b0f3d739a" kind="variable"><name>bus_num</name></member>
-    <member refid="unionpci__dev_1a9aa60c7d798354200876442d349200b0" kind="variable"><name>reserved</name></member>
-    <member refid="unionpci__dev_1ab1ba6737ea909d56dd693d53a3f00efc" kind="variable"><name>enable</name></member>
-    <member refid="unionpci__dev_1a6f4a6877eb5c18ac832242ae7020e428" kind="variable"><name>@9</name></member>
+  <compound refid="unionpci__dev__t" kind="union"><name>pci_dev_t</name>
+    <member refid="unionpci__dev__t_1adde70930095b969feb020f63e9787995" kind="variable"><name>bits</name></member>
+    <member refid="unionpci__dev__t_1acfb0462d62b875ee7fe15e2b14d91eda" kind="variable"><name>always_zero</name></member>
+    <member refid="unionpci__dev__t_1a7524ae869dc8dfcb4f77401fe2e269a5" kind="variable"><name>field_num</name></member>
+    <member refid="unionpci__dev__t_1abe10382a04765a3635a01690e3554470" kind="variable"><name>function_num</name></member>
+    <member refid="unionpci__dev__t_1a460e2e8efff04303cbdc75f165a6f4f9" kind="variable"><name>device_num</name></member>
+    <member refid="unionpci__dev__t_1aa0f23870d9356b03e5891eff6da6f37f" kind="variable"><name>bus_num</name></member>
+    <member refid="unionpci__dev__t_1a0265961a5fa3f645e9873f4849c37b2a" kind="variable"><name>reserved</name></member>
+    <member refid="unionpci__dev__t_1abba574f34daa989bfcf3f3fa9f91fab6" kind="variable"><name>enable</name></member>
+    <member refid="unionpci__dev__t_1a8ff0aca9022ecd15da8fc9576bb0f306" kind="variable"><name>@9</name></member>
   </compound>
   <compound refid="structpci__subclass" kind="struct"><name>pci_subclass</name>
     <member refid="structpci__subclass_1a0880e8bd8ca319057cce63ca53ac7c6b" kind="variable"><name>id</name></member>
@@ -771,19 +771,19 @@
     <member refid="structrsdt__t_1a67ae0a8956225068c22bc714b47f4dc5" kind="variable"><name>header</name></member>
     <member refid="structrsdt__t_1a4d70b93c02daf9f247eb80bb4d5712b2" kind="variable"><name>pointer_to_other_sdt</name></member>
   </compound>
-  <compound refid="structrtl8139__dev" kind="struct"><name>rtl8139_dev</name>
-    <member refid="structrtl8139__dev_1a2be81538d67ae19d0bd534447bdb5156" kind="variable"><name>active</name></member>
-    <member refid="structrtl8139__dev_1a3ed0076bec8f827a3757a6f77b34f249" kind="variable"><name>name</name></member>
-    <member refid="structrtl8139__dev_1a19ae0b0886fa8472f6458ed58824043d" kind="variable"><name>bar_type</name></member>
-    <member refid="structrtl8139__dev_1aae5786c116d9569ff709765a49d5970d" kind="variable"><name>io_base</name></member>
-    <member refid="structrtl8139__dev_1a1ae7cab031235292ddefd1bd5c1ae30e" kind="variable"><name>mem_base</name></member>
-    <member refid="structrtl8139__dev_1a7daaf74c5c75fb6251569d812b3f62af" kind="variable"><name>eeprom_exist</name></member>
-    <member refid="structrtl8139__dev_1a46e05b7fb2906d280b60fe420fc83a7a" kind="variable"><name>mac_addr</name></member>
-    <member refid="structrtl8139__dev_1adb5a054847fc440a6a8bc3a766d919ed" kind="variable"><name>mac_addr_str</name></member>
-    <member refid="structrtl8139__dev_1a1f96b9b5345a1fa6d044b6fb88178212" kind="variable"><name>rx_buffer</name></member>
-    <member refid="structrtl8139__dev_1a186dc5c86e87002b58989fcc82e15817" kind="variable"><name>tx_buffers</name></member>
-    <member refid="structrtl8139__dev_1ae9915848656b4c91008143cd6b51c60c" kind="variable"><name>tx_cur</name></member>
-    <member refid="structrtl8139__dev_1a154c6891ed23c5a591ec2ea4640071b5" kind="variable"><name>current_packet_ptr</name></member>
+  <compound refid="structrtl8139__dev__t" kind="struct"><name>rtl8139_dev_t</name>
+    <member refid="structrtl8139__dev__t_1ad101e68e995225a6b08b2d34ef4b3d81" kind="variable"><name>active</name></member>
+    <member refid="structrtl8139__dev__t_1acbf0a5e72635523be046499f1da274cc" kind="variable"><name>name</name></member>
+    <member refid="structrtl8139__dev__t_1a2225d0bef4f691fff023892b2671dea1" kind="variable"><name>bar_type</name></member>
+    <member refid="structrtl8139__dev__t_1a7ca99bafca485c1c433d57d8e860b2ef" kind="variable"><name>io_base</name></member>
+    <member refid="structrtl8139__dev__t_1ad718412416576382d86c872bf1ab11e9" kind="variable"><name>mem_base</name></member>
+    <member refid="structrtl8139__dev__t_1ac0146e242667f0ef1e8af8dc615c5dba" kind="variable"><name>eeprom_exist</name></member>
+    <member refid="structrtl8139__dev__t_1a31de80003d4dcf0cb722c4ca1021bb7a" kind="variable"><name>mac_addr</name></member>
+    <member refid="structrtl8139__dev__t_1a88a562f77fc4846b091ab1734fbc7003" kind="variable"><name>mac_addr_str</name></member>
+    <member refid="structrtl8139__dev__t_1afa41487b7e81c01292ac8337a3dc3190" kind="variable"><name>rx_buffer</name></member>
+    <member refid="structrtl8139__dev__t_1a80f76dca9d159e2730085452aeb94791" kind="variable"><name>tx_buffers</name></member>
+    <member refid="structrtl8139__dev__t_1a50f255f2bb257e5fbb89527b6978ff07" kind="variable"><name>tx_cur</name></member>
+    <member refid="structrtl8139__dev__t_1a2f1421d991b25a0bea8673480d14e028" kind="variable"><name>current_packet_ptr</name></member>
   </compound>
   <compound refid="structsdt__header__t" kind="struct"><name>sdt_header_t</name>
     <member refid="structsdt__header__t_1a61e330810bd36057bf09649bc366fad0" kind="variable"><name>signature</name></member>
@@ -802,9 +802,9 @@
     <member refid="structshared__interrupt__t_1adc6ce3f7ffccf94e1f5f34e7f647d959" kind="variable"><name>opaque</name></member>
     <member refid="structshared__interrupt__t_1a65c2b0190a13c775cc010245c95db9d9" kind="variable"><name>next</name></member>
   </compound>
-  <compound refid="structstack__frame" kind="struct"><name>stack_frame</name>
-    <member refid="structstack__frame_1a807e65e5e5bc6e096f22e1271432fe8b" kind="variable"><name>next</name></member>
-    <member refid="structstack__frame_1aad132ec0a2778a3ebec41ec0cb8d6f53" kind="variable"><name>addr</name></member>
+  <compound refid="structstack__frame__t" kind="struct"><name>stack_frame_t</name>
+    <member refid="structstack__frame__t_1ad080d4ad51974443347595b774d2201d" kind="variable"><name>next</name></member>
+    <member refid="structstack__frame__t_1ad18985bafd3c77f53a64bceb023e37dd" kind="variable"><name>addr</name></member>
   </compound>
   <compound refid="structstorage__device__t" kind="struct"><name>storage_device_t</name>
     <member refid="structstorage__device__t_1afed2809e3332d40efe7645b76dcb7501" kind="variable"><name>name</name></member>
@@ -816,11 +816,11 @@
     <member refid="structstorage__device__t_1a66eebca62325df9d8c0a0286c92ffa0c" kind="variable"><name>opaque2</name></member>
     <member refid="structstorage__device__t_1ad1b4bda1ebedc6cf141f8f157a663d14" kind="variable"><name>next</name></member>
   </compound>
-  <compound refid="structsymbol" kind="struct"><name>symbol</name>
-    <member refid="structsymbol_1a4fad8f11a2b2d8a21dcb4f5623d6c0fd" kind="variable"><name>name</name></member>
-    <member refid="structsymbol_1ae52ab1c44eaa919baa33ece1ff867626" kind="variable"><name>address</name></member>
-    <member refid="structsymbol_1afbfbe42fd0942e42f09161f9014c7fa1" kind="variable"><name>type</name></member>
-    <member refid="structsymbol_1a183c6511350f3ecc3dbac04c1809ff75" kind="variable"><name>next</name></member>
+  <compound refid="structsymbol__t" kind="struct"><name>symbol_t</name>
+    <member refid="structsymbol__t_1aeb9236c76060c4ca851c9650fcef03c7" kind="variable"><name>name</name></member>
+    <member refid="structsymbol__t_1a4628eba0f17268e8ae29dc6cecf841dc" kind="variable"><name>address</name></member>
+    <member refid="structsymbol__t_1abb77883d32792ec428dec28f673cbc7f" kind="variable"><name>type</name></member>
+    <member refid="structsymbol__t_1a861a5493ea50bb15da5f36bf7eed659c" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structtcp__conn__t" kind="struct"><name>tcp_conn_t</name>
     <member refid="structtcp__conn__t_1a421d637ca41e18729e4ec584d8b024fa" kind="variable"><name>state</name></member>
@@ -903,9 +903,9 @@
     <member refid="uniontos__flags_1a83232e3a342efd68765a05b15d81f214" kind="variable"><name>ecn</name></member>
     <member refid="uniontos__flags_1a37ef35706068ce963e79034e1ed2fc20" kind="variable"><name>@5</name></member>
   </compound>
-  <compound refid="structtx__desc" kind="struct"><name>tx_desc</name>
-    <member refid="structtx__desc_1a586d3b5e66e9cbbc0ff268d7271d6386" kind="variable"><name>phys_addr</name></member>
-    <member refid="structtx__desc_1a9858f376a8e33d0ed0f28ed33d3d0142" kind="variable"><name>packet_size</name></member>
+  <compound refid="structtx__desc__t" kind="struct"><name>tx_desc_t</name>
+    <member refid="structtx__desc__t_1a35fa46d23be5734edbae7bc50f1ff813" kind="variable"><name>phys_addr</name></member>
+    <member refid="structtx__desc__t_1a52967bf4cc4abcd50d171f52b9fa07ef" kind="variable"><name>packet_size</name></member>
   </compound>
   <compound refid="structub__line__ref" kind="struct"><name>ub_line_ref</name>
     <member refid="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" kind="variable"><name>line_number</name></member>
@@ -1013,7 +1013,6 @@
   <compound refid="namespacestd" kind="namespace"><name>std</name>
   </compound>
   <compound refid="acpi_8h" kind="file"><name>acpi.h</name>
-    <member refid="acpi_8h_1a406398bd24fba893e63c7205a02228a9" kind="typedef"><name>ioapic_t</name></member>
     <member refid="acpi_8h_1ad062e372a0f0dce043b8411fdce3e0cb" kind="variable"><name>signature</name></member>
     <member refid="acpi_8h_1a6796c847bbd16253ce2538754c250bd6" kind="variable"><name>checksum</name></member>
     <member refid="acpi_8h_1a7713337f58022f54635c8ac926b0abbd" kind="variable"><name>oem_id</name></member>
@@ -1078,7 +1077,6 @@
     <member refid="ahci_8h_1a3965c5db290baca217198a0da9de0ee2a6d51bc47354d35b144fa146cbcb0d5cd" kind="enumvalue"><name>FIS_TYPE_BIST</name></member>
     <member refid="ahci_8h_1a3965c5db290baca217198a0da9de0ee2a2af968dcd3c14953622d44e9e90c6336" kind="enumvalue"><name>FIS_TYPE_PIO_SETUP</name></member>
     <member refid="ahci_8h_1a3965c5db290baca217198a0da9de0ee2ab4aa404255097815f1e4a1dd372a151a" kind="enumvalue"><name>FIS_TYPE_DEV_BITS</name></member>
-    <member refid="ahci_8h_1a214e4dbbe058ae58a62fce719b74ed19" kind="typedef"><name>ahci_fis_type_t</name></member>
     <member refid="ahci_8h_1aa682c9430d53cab300ee8940356ef8ec" kind="variable"><name>fis_type</name></member>
     <member refid="ahci_8h_1a992e274c1d71ede460beb0d8af125622" kind="variable"><name>pmport</name></member>
     <member refid="ahci_8h_1ae09be11ca919ba207e66f2dc574125eb" kind="variable"><name>rsv0</name></member>
@@ -1191,7 +1189,6 @@
     <member refid="arp_8h_1a54b168c1808c891a5f770f8e8f31277e" kind="enum"><name>arp_packet_type_t</name></member>
     <member refid="arp_8h_1a54b168c1808c891a5f770f8e8f31277eafb58ccf8b7b11505ff2117a10bf6ff61" kind="enumvalue"><name>ARP_REQUEST</name></member>
     <member refid="arp_8h_1a54b168c1808c891a5f770f8e8f31277ea8bb24a026264a5b22435864179f874d9" kind="enumvalue"><name>ARP_REPLY</name></member>
-    <member refid="arp_8h_1a276a932bf657bb621392ef3fc52bf96d" kind="typedef"><name>arp_table_entry_t</name></member>
     <member refid="arp_8h_1a735a525959a7de8d59c0d9d58e453762" kind="variable"><name>hardware_type</name></member>
     <member refid="arp_8h_1ab551400c74271f35d0c79f81d29cffbb" kind="variable"><name>protocol</name></member>
     <member refid="arp_8h_1a2b6b06607261b860332af4cbe9316bdd" kind="variable"><name>hardware_addr_len</name></member>
@@ -1297,7 +1294,6 @@
     <member refid="clock_8h_1a69ae2c8a40198aac3773362260014c21a6fe5cfee4adf90dfd38fd18914c5b986" kind="enumvalue"><name>CMOS_ADDR</name></member>
     <member refid="clock_8h_1a69ae2c8a40198aac3773362260014c21a5d0fad18a24a081df89af28de4d7c315" kind="enumvalue"><name>CMOS_DATA</name></member>
     <member refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kind="typedef"><name>time_t</name></member>
-    <member refid="clock_8h_1a7fd5014583884e4e7e8145819337ac37" kind="typedef"><name>datetime_t</name></member>
     <member refid="clock_8h_1acaac299510c8ace6baf3848cf616de85" kind="function"><name>get_datetime_str</name></member>
     <member refid="clock_8h_1a5422fc453dd6b462d4bc1fc0df9e4bd8" kind="function"><name>get_datetime</name></member>
     <member refid="clock_8h_1aff93106d7e8609959f1bd8185a822def" kind="function"><name>init_realtime_clock</name></member>
@@ -1391,8 +1387,6 @@
     <member refid="debugger_8h_1a4465c182ec3f22fa4a5ffd4af848b169" kind="define"><name>SYM_WEAK_SYMBOL</name></member>
     <member refid="debugger_8h_1af1dbca97cde78a24e4101e03005d4007" kind="define"><name>SYM_STABS</name></member>
     <member refid="debugger_8h_1a13ebb37cd7e67e5653e2d75d9e3dbea8" kind="define"><name>SYM_UNKNOWN</name></member>
-    <member refid="debugger_8h_1a4a009eff48932a547a4b8cd931958af9" kind="typedef"><name>symbol_t</name></member>
-    <member refid="debugger_8h_1aec9a61c7e37b0e1d70eb9d5f50303217" kind="typedef"><name>stack_frame_t</name></member>
     <member refid="debugger_8h_1a193f7f97cdb75d26f4009b5a3edf72ec" kind="function"><name>dump_hex</name></member>
     <member refid="debugger_8h_1a568e49ee3a2e0adab55fa38535e40835" kind="function"><name>init_debug</name></member>
     <member refid="debugger_8h_1a73b6618270491b1d78d378a62a5a52b1" kind="function"><name>backtrace</name></member>
@@ -1402,7 +1396,6 @@
     <member refid="devfs_8h_1a083dbd47759155f3cdf939a0a61ab6c2" kind="function"><name>init_devfs</name></member>
   </compound>
   <compound refid="devicename_8h" kind="file"><name>devicename.h</name>
-    <member refid="devicename_8h_1a404a31bcc0fd308e4139095fcbab0b17" kind="typedef"><name>devname_prefix_t</name></member>
     <member refid="devicename_8h_1a4525d2540fdbd10b71f393938eb14b49" kind="function"><name>make_unique_device_name</name></member>
     <member refid="devicename_8h_1a82c1ef772588c7cc11fd325be15fdda4" kind="function"><name>init_devicenames</name></member>
   </compound>
@@ -1484,7 +1477,6 @@
     <member refid="dns_8h_1ab9639695b38bed3782b421d7131e6050" kind="typedef"><name>dns_reply_callback_a</name></member>
     <member refid="dns_8h_1a0ac363607997edad2f3cf17572261e33" kind="typedef"><name>dns_reply_callback_aaaa</name></member>
     <member refid="dns_8h_1ac38ed452c927864d66b2edfadf0961a3" kind="typedef"><name>dns_reply_callback_ptr</name></member>
-    <member refid="dns_8h_1aa503b206b28c83cea558116d6d7c4184" kind="typedef"><name>dns_request_t</name></member>
     <member refid="dns_8h_1a4fc3a0c58dfbd1e68224521185cb9384" kind="variable"><name>id</name></member>
     <member refid="dns_8h_1a2db3c72f2819e6fc2ded786640e45be7" kind="variable"><name>flags1</name></member>
     <member refid="dns_8h_1af5832b014375b58f4cb5545879ae3ef4" kind="variable"><name>flags2</name></member>
@@ -1507,7 +1499,6 @@
     <member refid="drawing_8h_1a64eac3de72c5fb357a411255761bc026" kind="enum"><name>coordinate_range_type_t</name></member>
     <member refid="drawing_8h_1a64eac3de72c5fb357a411255761bc026a79ad98dafc28d584aeaa013e876b6bbd" kind="enumvalue"><name>RANGE_X</name></member>
     <member refid="drawing_8h_1a64eac3de72c5fb357a411255761bc026a9cf1dda65c5f08847d610b40ee5c6c2f" kind="enumvalue"><name>RANGE_Y</name></member>
-    <member refid="drawing_8h_1a68216b5898669306f8ae7ca44ae8af48" kind="typedef"><name>coordinate_range_type_t</name></member>
     <member refid="drawing_8h_1a2a5b74ca1f1aa5b0ba866e2b33bf0f56" kind="function"><name>draw_line</name></member>
     <member refid="drawing_8h_1a57bb8ad7dccb765be14981ddee2440f8" kind="function"><name>draw_horizontal_line</name></member>
     <member refid="drawing_8h_1af3247c45af29225f8b887633435c9b1f" kind="function"><name>draw_horizontal_rectangle</name></member>
@@ -1639,7 +1630,6 @@
     <member refid="fat32_8h_1a1b9d773a3987b01fdca3c1013fab4f10" kind="define"><name>CLUSTER_FREE</name></member>
     <member refid="fat32_8h_1a67410fff1de66462e0eecbc703811c5a" kind="define"><name>GPT_EFI_SYSTEM</name></member>
     <member refid="fat32_8h_1a463a8a224f6ad57583643e9d1490a593" kind="define"><name>GPT_MICROSOFT_BASIC_DATA</name></member>
-    <member refid="fat32_8h_1a04a70f98f04de4f886662a9781e8d04b" kind="typedef"><name>fat32_t</name></member>
     <member refid="fat32_8h_1a2bbb3a97ada9d67ddd5b3991ac1a92c9" kind="variable"><name>signature1</name></member>
     <member refid="fat32_8h_1a40abd2fc31137d322f7aefae01dc0907" kind="variable"><name>reserved1</name></member>
     <member refid="fat32_8h_1abd568a06ff3e01fd8c5d315b0e25ae88" kind="variable"><name>structsig</name></member>
@@ -1724,12 +1714,6 @@
     <member refid="filesystem_8h_1a8ec1bba1ee1bc3fe7b46f30eff181e3e" kind="typedef"><name>delete_dir</name></member>
     <member refid="filesystem_8h_1aedade13300b3b7656d01691660c3d275" kind="typedef"><name>block_read</name></member>
     <member refid="filesystem_8h_1afbf0a8246b98b1f4ddca666aeb3fae3d" kind="typedef"><name>block_write</name></member>
-    <member refid="filesystem_8h_1ae9a4b52a5409ef2a849e512355c884b4" kind="typedef"><name>fs_directory_entry_t</name></member>
-    <member refid="filesystem_8h_1a23ba991855f6f34d96c5fbbf84052f64" kind="typedef"><name>filesystem_t</name></member>
-    <member refid="filesystem_8h_1adfeeeae57c0257d8f48f3afbb4af1b28" kind="typedef"><name>storage_device_t</name></member>
-    <member refid="filesystem_8h_1a53c0e32c77874cf0a70265517c51bad5" kind="typedef"><name>fs_tree_t</name></member>
-    <member refid="filesystem_8h_1add5a5a98536831657dd83ba5b4653aaa" kind="typedef"><name>fs_handle_type_t</name></member>
-    <member refid="filesystem_8h_1ad8fac494541962836f886e76051a33c7" kind="typedef"><name>fs_handle_t</name></member>
     <member refid="filesystem_8h_1a90ae435cc1f4e6cccba5cc179c2bd81c" kind="function"><name>register_filesystem</name></member>
     <member refid="filesystem_8h_1a86db0085cc6c14e76ac68e70b79b3a32" kind="function"><name>find_filesystem</name></member>
     <member refid="filesystem_8h_1a1c947f6ecb49c4c29193dbfb80f48913" kind="function"><name>register_storage_device</name></member>
@@ -1833,8 +1817,6 @@
     <member refid="icmp_8h_1a09fa01a48262e99d0bab6d3591999ded" kind="function"><name>icmp_send_echo</name></member>
   </compound>
   <compound refid="idt_8h" kind="file"><name>idt.h</name>
-    <member refid="idt_8h_1acf712e9345921424b661a2b35d878cfd" kind="typedef"><name>idt_ptr_t</name></member>
-    <member refid="idt_8h_1a7fa08eab4728566f47a68b280ab88404" kind="typedef"><name>idt_entry_t</name></member>
     <member refid="idt_8h_1ab28e82ae69032cb4ad3ec3a0be3d7129" kind="variable"><name>limit</name></member>
     <member refid="idt_8h_1ab43a5b10c2bc104ddd909a4cf11d6d6a" kind="variable"><name>base</name></member>
     <member refid="idt_8h_1a9523167633082272d9b1ee3d88034de0" kind="variable"><name>__attribute__</name></member>
@@ -1871,7 +1853,6 @@
     <member refid="interrupt_8h_1af6fa48603541cdb142bd4e154bf7637fabdd1d431f5bafa9d36984e2af6ed842b" kind="enumvalue"><name>IRQ15</name></member>
     <member refid="interrupt_8h_1af6fa48603541cdb142bd4e154bf7637faba4f53f24e658cc7831d104622ccede2" kind="enumvalue"><name>IRQ16</name></member>
     <member refid="interrupt_8h_1a7a3af27140adcc73f278f9d9c9dcd4bc" kind="typedef"><name>isr_t</name></member>
-    <member refid="interrupt_8h_1a79e2c6c0a01f6d73ab421b6ffd0035f0" kind="typedef"><name>shared_interrupt_t</name></member>
     <member refid="interrupt_8h_1ac87a1da59a9138c3bb0750ca7ea75c20" kind="function"><name>register_interrupt_handler</name></member>
     <member refid="interrupt_8h_1a1e0b1516a8ed04e2e7d7a1b2a330e6af" kind="function"><name>Interrupt</name></member>
     <member refid="interrupt_8h_1ac12ed84cb143bb64d5b2b631d7764e1a" kind="function"><name>IRQ</name></member>
@@ -1905,9 +1886,6 @@
     <member refid="ip_8h_1a23a343a8c6f8daa0adbcf7d7bac9a478a92d2ba8746d548d7f29fdcdb4572ec37" kind="enumvalue"><name>PROTOCOL_ICMP</name></member>
     <member refid="ip_8h_1a23a343a8c6f8daa0adbcf7d7bac9a478ae991c7cad918269624b3c28147e18a93" kind="enumvalue"><name>PROTOCOL_TCP</name></member>
     <member refid="ip_8h_1a23a343a8c6f8daa0adbcf7d7bac9a478a3c79df624160aa6dbeeb4e2c13ca3dc7" kind="enumvalue"><name>PROTOCOL_UDP</name></member>
-    <member refid="ip_8h_1af05bd7c2edecc7b857ffe7dfeb4f9ec5" kind="typedef"><name>ip_packet_frag_t</name></member>
-    <member refid="ip_8h_1a3f5903d87cf3c581e9e1d83cd114c28e" kind="typedef"><name>ip_fragmented_packet_parts_t</name></member>
-    <member refid="ip_8h_1a52a31051ee4cbb63cf3d6d4ab2006b8c" kind="typedef"><name>packet_queue_item_t</name></member>
     <member refid="ip_8h_1a46a6da6b1936191571fd30b2a749f38c" kind="variable"><name>bits</name></member>
     <member refid="ip_8h_1a3b1222ec79882abb51fb3c4743e69980" kind="variable"><name>reserved_zero</name></member>
     <member refid="ip_8h_1a900391174cfa12e45c33b91dfb51567a" kind="variable"><name>dont_fragment</name></member>
@@ -1965,9 +1943,6 @@
   </compound>
   <compound refid="kmalloc_8h" kind="file"><name>kmalloc.h</name>
     <member refid="kmalloc_8h_1a604474f5c0892ea2c6c16b5e45c59f59" kind="define"><name>HEAP_MAGIC</name></member>
-    <member refid="kmalloc_8h_1aa4c4605d601a9cd704fbb0374568fb04" kind="typedef"><name>header_t</name></member>
-    <member refid="kmalloc_8h_1a05c7a0ad0cc791358ad862376b626154" kind="typedef"><name>footer_t</name></member>
-    <member refid="kmalloc_8h_1ad3bb09826584eab4757c6cd2f988e7d6" kind="typedef"><name>heap_t</name></member>
     <member refid="kmalloc_8h_1aa6bcd5af56ca7ffbc761b010cbd70e39" kind="function"><name>kmalloc</name></member>
     <member refid="kmalloc_8h_1adc6f21bbda2c71015c428920cf785abd" kind="function"><name>kmalloc_ext</name></member>
     <member refid="kmalloc_8h_1aa3ff6401026972fc396bda649a01c994" kind="function"><name>kfree</name></member>
@@ -2028,9 +2003,6 @@
     <member refid="net_8h_1a100979a19424dac7612a6ddbfbe6393a" kind="enum"><name>netdev_flags_t</name></member>
     <member refid="net_8h_1a100979a19424dac7612a6ddbfbe6393aacdc0b550a3f9caea41ad5661902ef853" kind="enumvalue"><name>ADMINISTRATIVELY_DOWN</name></member>
     <member refid="net_8h_1a100979a19424dac7612a6ddbfbe6393aa7a691a2430ec26878897b5fbc9c22a4c" kind="enumvalue"><name>CONNECTED</name></member>
-    <member refid="net_8h_1a7794ad25e45b95608b60bd215158070c" kind="typedef"><name>net_address_t</name></member>
-    <member refid="net_8h_1a7272548312e1720dff246aaa41785cb0" kind="typedef"><name>netproto_t</name></member>
-    <member refid="net_8h_1a14012f723b7591ad2fa42ace34601ac4" kind="typedef"><name>netdev_t</name></member>
     <member refid="net_8h_1a0f87ed8affa01dbac5f7ffd1ef04145a" kind="function"><name>htonb</name></member>
     <member refid="net_8h_1adb21c2774d9244f2e823bbebd14dfe7c" kind="function"><name>ntohb</name></member>
     <member refid="net_8h_1aa2f2e3bea3fbf5ee0e6a1cfd8745ce0e" kind="function"><name>htons</name></member>
@@ -2145,7 +2117,6 @@
     <member refid="pci_8h_1a6e719bea36ac98073329ee789f7a8f67" kind="define"><name>PCI_NONE</name></member>
     <member refid="pci_8h_1a616b1485f3933c23fee5d1c039286517" kind="define"><name>DEVICE_PER_BUS</name></member>
     <member refid="pci_8h_1ab0d2b8cb6cd3a8b0f09661af854727d4" kind="define"><name>FUNCTION_PER_DEVICE</name></member>
-    <member refid="pci_8h_1a68c913ada2b8e5a5956b5b1632304851" kind="typedef"><name>pci_dev_t</name></member>
     <member refid="pci_8h_1a20f742d67da8197d67e0f679982f0328" kind="variable"><name>dev_zero</name></member>
     <member refid="pci_8h_1a1b3ead5a8fcb9b7c6a20c61df6e4a56e" kind="function"><name>pci_read</name></member>
     <member refid="pci_8h_1a0f62b415645f8773747ea15af6177ead" kind="function"><name>pci_write</name></member>
@@ -2297,8 +2268,6 @@
     <member refid="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a5e33309348beaa903376dcd2889b18da" kind="enumvalue"><name>CSCR</name></member>
     <member refid="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611afd37b443dd70246c9d89d96e884d0576" kind="enumvalue"><name>PARA78</name></member>
     <member refid="rtl8139_8h_1af5c4b440c6a9c15ea97d4455ea996611a1997d8f3f5bb1408474bb6f90de0b502" kind="enumvalue"><name>PARA7c</name></member>
-    <member refid="rtl8139_8h_1a722f4b0a23c7772ae64cb76be87b11c7" kind="typedef"><name>tx_desc_t</name></member>
-    <member refid="rtl8139_8h_1a6371211774726c3dc4efa1400f458594" kind="typedef"><name>rtl8139_dev_t</name></member>
     <member refid="rtl8139_8h_1aa8376ab52bb984dc5977fde84cc6ac20" kind="function"><name>rtl8139_send_packet</name></member>
     <member refid="rtl8139_8h_1afcf1f3ad1e43a154cdee3c48beae8a93" kind="function"><name>rtl8139_handler</name></member>
     <member refid="rtl8139_8h_1aaeab8345c9dcf11708bfa095299f408a" kind="function"><name>init_rtl8139</name></member>
@@ -2345,9 +2314,7 @@
     <member refid="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4" kind="enum"><name>idle_type_t</name></member>
     <member refid="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a170f38abe527a71ef15f1d6fd1ba9677" kind="enumvalue"><name>IDLE_FOREGROUND</name></member>
     <member refid="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a875e3a3a86598eb910bc4405a16e8a99" kind="enumvalue"><name>IDLE_BACKGROUND</name></member>
-    <member refid="taskswitch_8h_1a73eaa2b328f8a7c189807afe312133d8" kind="typedef"><name>idle_type_t</name></member>
     <member refid="taskswitch_8h_1a82c77e5c902b86503a57e02bb4314bad" kind="typedef"><name>proc_idle_timer_t</name></member>
-    <member refid="taskswitch_8h_1a32b0736904bdbb3bc63f6912b804ad91" kind="typedef"><name>idle_timer_t</name></member>
     <member refid="taskswitch_8h_1a1d93354a9a1cd28edc0ff1f2b117aaa4" kind="function"><name>proc_load</name></member>
     <member refid="taskswitch_8h_1ad7437b5486e6d717fff0d680c0e85933" kind="function"><name>proc_find</name></member>
     <member refid="taskswitch_8h_1a2f81e671670c3c195e49086794de8563" kind="function"><name>proc_cur</name></member>
@@ -2438,13 +2405,6 @@
     <member refid="tcp_8h_1a532d23cd8e2186da3eabde8110cd24c6" kind="variable"><name>urgent</name></member>
     <member refid="tcp_8h_1a15d570669f1585f18a87d277f1753027" kind="variable"><name>options</name></member>
     <member refid="tcp_8h_1a6f6c2642db097f0b28399640e13dd102" kind="variable"><name>payload</name></member>
-    <member refid="tcp_8h_1a4fd0b16695699fcb386d2e12194d6678" kind="typedef"><name>tcp_options_t</name></member>
-    <member refid="tcp_8h_1aaa72cf5f0ce661ed99a589124f6ef342" kind="typedef"><name>tcp_state_t</name></member>
-    <member refid="tcp_8h_1a88d7593264502a2f5ce60e8dc55b407f" kind="typedef"><name>tcp_error_t</name></member>
-    <member refid="tcp_8h_1a7d56d9ac3309d820bf3f9fb89855be5e" kind="typedef"><name>tcp_ordered_list_t</name></member>
-    <member refid="tcp_8h_1a95ca4b1139cfe6df36f064cd54936839" kind="typedef"><name>tcp_conn_t</name></member>
-    <member refid="tcp_8h_1ae5b125652cf84af6008e97edce6f6e83" kind="typedef"><name>tcp_port_type_t</name></member>
-    <member refid="tcp_8h_1a7efb0484f28602cf493c2582538b735c" kind="typedef"><name>tcp_error_code_t</name></member>
     <member refid="tcp_8h_1a877d84e89e013415707bad5e9d8b99ae" kind="function"><name>__attribute__</name></member>
     <member refid="tcp_8h_1a8d4611b68b5ca398ee9bc373573afab6" kind="function"><name>tcp_handle_packet</name></member>
     <member refid="tcp_8h_1a0e048a052cd5ec7a0bfe8734751990f1" kind="function"><name>tcp_init</name></member>
@@ -2561,25 +2521,9 @@
     <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268" kind="enumvalue"><name>RT_STRING</name></member>
     <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966a8748e4019711d7c401d6ed2b1568717d" kind="enumvalue"><name>RT_INT</name></member>
     <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966af84eb2d6bedef8785a996abbec035e87" kind="enumvalue"><name>RT_FLOAT</name></member>
-    <member refid="ubasic_8h_1a1a277b6d298b8440ed9b87d11fd0024a" kind="typedef"><name>for_state</name></member>
-    <member refid="ubasic_8h_1a29fd087722abca20020ed378bcfa48a7" kind="typedef"><name>ub_var_int</name></member>
-    <member refid="ubasic_8h_1aa90b2bd981fef2f71f7407bb26e48f69" kind="typedef"><name>ub_var_double</name></member>
-    <member refid="ubasic_8h_1a4fee12d7983d6ebbb14be65e26d00cc2" kind="typedef"><name>ub_var_string</name></member>
-    <member refid="ubasic_8h_1a796c2111fa2b30ee697116f1e1d8d900" kind="typedef"><name>ub_fn_type</name></member>
-    <member refid="ubasic_8h_1a0de4e0f73c35d1581263b58586e1bb81" kind="typedef"><name>ub_return_type</name></member>
-    <member refid="ubasic_8h_1a023d2039d3700b54e4c0bc99a7703798" kind="typedef"><name>ub_param</name></member>
-    <member refid="ubasic_8h_1a2791aeb6247beed9936f8f5acfd9238a" kind="typedef"><name>ub_proc_fn_def</name></member>
-    <member refid="ubasic_8h_1acc3e263c5498088a9576b3d0dc36fa12" kind="typedef"><name>ub_var_int_array</name></member>
-    <member refid="ubasic_8h_1a203216ed240cc2d72d769f34b5f44f3a" kind="typedef"><name>ub_var_string_array</name></member>
-    <member refid="ubasic_8h_1a8227d1ca913e77608aae30a1dae2e105" kind="typedef"><name>ub_var_double_array</name></member>
-    <member refid="ubasic_8h_1a6ae8f7d3de6bc65ab2ebd6527f1ae833" kind="typedef"><name>ub_line_ref</name></member>
-    <member refid="ubasic_8h_1afa74f8445aef0692f8a1cedf0bf72851" kind="typedef"><name>ubasic_ctx</name></member>
     <member refid="ubasic_8h_1a59c9cd726acfbe69d8df60ab2b2d0607" kind="typedef"><name>builtin_int_fn</name></member>
     <member refid="ubasic_8h_1a32fb15d1935e217117fd02b2f319bb93" kind="typedef"><name>builtin_str_fn</name></member>
     <member refid="ubasic_8h_1adccc7c01a1bb1d7cca42e285830ce6a6" kind="typedef"><name>builtin_double_fn</name></member>
-    <member refid="ubasic_8h_1a643c7d6370c88d71dc44db6187aa34f2" kind="typedef"><name>ubasic_int_fn</name></member>
-    <member refid="ubasic_8h_1aab7a95dc6222d0f715e168afc561e336" kind="typedef"><name>ubasic_double_fn</name></member>
-    <member refid="ubasic_8h_1a377ee25d70ce9afcb15c8eabb00fdf3c" kind="typedef"><name>ubasic_str_fn</name></member>
     <member refid="ubasic_8h_1a94cc5f368eb6a4a51959aa9af71c2727" kind="function"><name>ubasic_abs</name></member>
     <member refid="ubasic_8h_1adcce1bf8e1bb7d43f778c2a3b178c38f" kind="function"><name>ubasic_len</name></member>
     <member refid="ubasic_8h_1af6254c6c76a5252860e6de07c78eb39b" kind="function"><name>ubasic_openin</name></member>

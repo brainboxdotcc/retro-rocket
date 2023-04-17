@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structfooter__t" kind="struct" language="C++" prot="public">
+    <compoundname>footer_t</compoundname>
+    <includes local="no">kmalloc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfooter__t_1a09829e21ce0e4c219f9d9d03325da475" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t footer_t::magic</definition>
+        <argsstring></argsstring>
+        <name>magic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="30" column="10" bodyfile="include/kmalloc.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfooter__t_1a06b283e85f1d31f0cabadb0e84747a5c" prot="public" static="no" mutable="no">
+        <type><ref refid="structheader__t" kindref="compound">header_t</ref> *</type>
+        <definition>header_t* footer_t::header</definition>
+        <argsstring></argsstring>
+        <name>header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="31" column="10" bodyfile="include/kmalloc.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>uint64_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>footer_t</label>
+        <link refid="structfooter__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>header</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>magic</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>header_t</label>
+        <link refid="structheader__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>magic</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>free</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>struct header *</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/kmalloc.h" line="29" column="1" bodyfile="include/kmalloc.h" bodystart="29" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structfooter__t_1a06b283e85f1d31f0cabadb0e84747a5c" prot="public" virt="non-virtual"><scope>footer_t</scope><name>header</name></member>
+      <member refid="structfooter__t_1a09829e21ce0e4c219f9d9d03325da475" prot="public" virt="non-virtual"><scope>footer_t</scope><name>magic</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

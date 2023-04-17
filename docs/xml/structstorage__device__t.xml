@@ -10,7 +10,7 @@
         <argsstring>[16]</argsstring>
         <name>name</name>
         <briefdescription>
-<para>Storage device name, e.g. &apos;hd0&apos;. You should use make_unique_device_name() to fill this field. </para>
+<para>Storage device name, e.g. &apos;hd0&apos;. You should use <ref refid="devicename_8h_1a4525d2540fdbd10b71f393938eb14b49" kindref="member">make_unique_device_name()</ref> to fill this field. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -33,7 +33,7 @@
         <location file="include/filesystem.h" line="202" column="10" bodyfile="include/filesystem.h" bodystart="202" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" prot="public" static="no" mutable="no">
-        <type>block_read</type>
+        <type><ref refid="filesystem_8h_1aedade13300b3b7656d01691660c3d275" kindref="member">block_read</ref></type>
         <definition>block_read storage_device_t::blockread</definition>
         <argsstring></argsstring>
         <name>blockread</name>
@@ -47,7 +47,7 @@
         <location file="include/filesystem.h" line="208" column="12" bodyfile="include/filesystem.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" prot="public" static="no" mutable="no">
-        <type>block_write</type>
+        <type><ref refid="filesystem_8h_1afbf0a8246b98b1f4ddca666aeb3fae3d" kindref="member">block_write</ref></type>
         <definition>block_write storage_device_t::blockwrite</definition>
         <argsstring></argsstring>
         <name>blockwrite</name>

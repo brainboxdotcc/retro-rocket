@@ -85,8 +85,7 @@ $(document).ready(function(){initNavTree('structlfn__t.html',''); initResizable(
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structlfn__t-members.html">List of all members</a>  </div>
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">lfn_t Struct Reference</div>  </div>
 </div><!--header-->
@@ -94,6 +93,8 @@ $(document).ready(function(){initNavTree('structlfn__t.html',''); initResizable(
 
 <p>Long filename entry, overlays a <a class="el" href="structdirectory__entry__t.html" title="A directory entry, e.g. file, volume label, directory, long filename entry.">directory_entry_t</a>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the 'order' attribute indicates which order they go in.  
  <a href="structlfn__t.html#details">More...</a></p>
+
+<p><code>#include &lt;fat32.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for lfn_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -103,7 +104,7 @@ $(document).ready(function(){initNavTree('structlfn__t.html',''); initResizable(
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
+Data Fields</h2></td></tr>
 <tr class="memitem:ad428046f110e2292d2637c6ba63ace51"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlfn__t.html#ad428046f110e2292d2637c6ba63ace51">order</a></td></tr>
 <tr class="memdesc:ad428046f110e2292d2637c6ba63ace51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note the order is arbitrary. It may have the value 0, 3, 65, 48... No way to know! To work around this weirdness, we have an array of <a class="el" href="structlfn__t.html" title="Long filename entry, overlays a directory_entry_t. These entries repeat before a non-lfn entry,...">lfn_t</a>[256] that holds all possible entries ordered by the order value, which we can then iterate once we encounter a non-lfn to build the name.  <a href="structlfn__t.html#ad428046f110e2292d2637c6ba63ace51">More...</a><br /></td></tr>
 <tr class="separator:ad428046f110e2292d2637c6ba63ace51"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,7 +125,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Long filename entry, overlays a <a class="el" href="structdirectory__entry__t.html" title="A directory entry, e.g. file, volume label, directory, long filename entry.">directory_entry_t</a>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the 'order' attribute indicates which order they go in. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a6fc86b6d0928583cbda425aa1d81267e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6fc86b6d0928583cbda425aa1d81267e">&#9670;&nbsp;</a></span>attributes</h2>
 
@@ -245,7 +246,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structlfn__t.html">lfn_t</a></li>
-    <li class="footer">Generated on Mon Apr 17 2023 19:01:04 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 17 2023 21:00:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

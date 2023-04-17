@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structnetdev__t" kind="struct" language="C++" prot="public">
+    <compoundname>netdev_t</compoundname>
+    <includes local="no">net.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structnetdev__t_1ac5414e10d1ac4886a720ab53b5ec4d61" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char netdev_t::name[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="56" column="6" bodyfile="include/net.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnetdev__t_1abb86af76b81051a7f5a51c5cf3fb9c5a" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* netdev_t::description</definition>
+        <argsstring></argsstring>
+        <name>description</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="57" column="6" bodyfile="include/net.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnetdev__t_1ad0f57b1c29286d4dc2dc23bf7b3ff228" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t netdev_t::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="58" column="10" bodyfile="include/net.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnetdev__t_1aec987a0487a82c232aedaa6c07074c64" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t netdev_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="59" column="9" bodyfile="include/net.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnetdev__t_1ad583e9c3a1a9b16feb10045cde13e7c7" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t netdev_t::mtu</definition>
+        <argsstring></argsstring>
+        <name>mtu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="60" column="10" bodyfile="include/net.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnetdev__t_1a699f50d657a9b4094222da4429528dfc" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t netdev_t::num_netprotos</definition>
+        <argsstring></argsstring>
+        <name>num_netprotos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="61" column="9" bodyfile="include/net.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnetdev__t_1a9f95831169bcca38d95fe43c133139e1" prot="public" static="no" mutable="no">
+        <type><ref refid="structnetproto__t" kindref="compound">netproto_t</ref> *</type>
+        <definition>netproto_t* netdev_t::netproto</definition>
+        <argsstring></argsstring>
+        <name>netproto</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="62" column="12" bodyfile="include/net.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An ethernet network device, this relates directly to a physical network card in the machine. A device may have zero or more attached protocols, each protocol intercepts an ethernet id number. Where a protocol requires another protocol to be of use, e.g. ARP with IPv4, the dependency will be added automatically by other protocols that require it. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>net_address_t</label>
+        <link refid="structnet__address__t"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>bytes</edgelabel>
+          <edgelabel>length</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>netproto_t</label>
+        <link refid="structnetproto__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>ethernet_protocol_id</edgelabel>
+          <edgelabel>num_addresses</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>addresses</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint16_t</label>
+      </node>
+      <node id="6">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>netdev_t</label>
+        <link refid="structnetdev__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>netproto</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mtu</edgelabel>
+          <edgelabel>speed</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>description</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>flags</edgelabel>
+          <edgelabel>num_netprotos</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/net.h" line="55" column="1" bodyfile="include/net.h" bodystart="55" bodyend="63"/>
+    <listofallmembers>
+      <member refid="structnetdev__t_1abb86af76b81051a7f5a51c5cf3fb9c5a" prot="public" virt="non-virtual"><scope>netdev_t</scope><name>description</name></member>
+      <member refid="structnetdev__t_1aec987a0487a82c232aedaa6c07074c64" prot="public" virt="non-virtual"><scope>netdev_t</scope><name>flags</name></member>
+      <member refid="structnetdev__t_1ad583e9c3a1a9b16feb10045cde13e7c7" prot="public" virt="non-virtual"><scope>netdev_t</scope><name>mtu</name></member>
+      <member refid="structnetdev__t_1ac5414e10d1ac4886a720ab53b5ec4d61" prot="public" virt="non-virtual"><scope>netdev_t</scope><name>name</name></member>
+      <member refid="structnetdev__t_1a9f95831169bcca38d95fe43c133139e1" prot="public" virt="non-virtual"><scope>netdev_t</scope><name>netproto</name></member>
+      <member refid="structnetdev__t_1a699f50d657a9b4094222da4429528dfc" prot="public" virt="non-virtual"><scope>netdev_t</scope><name>num_netprotos</name></member>
+      <member refid="structnetdev__t_1ad0f57b1c29286d4dc2dc23bf7b3ff228" prot="public" virt="non-virtual"><scope>netdev_t</scope><name>speed</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

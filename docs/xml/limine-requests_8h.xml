@@ -21,8 +21,8 @@
         <argsstring></argsstring>
         <name>stack_size_request</name>
         <initializer>= {
-    .id = LIMINE_STACK_SIZE_REQUEST,
-    .revision = 0,
+    .<ref refid="ip_8h_1a4fc3a0c58dfbd1e68224521185cb9384" kindref="member">id</ref> = LIMINE_STACK_SIZE_REQUEST,
+    .<ref refid="acpi_8h_1ab01c6e281b316b1770d5646f3d3101c4" kindref="member">revision</ref> = 0,
     .stack_size = (1024 * 1024 * 32),
 }</initializer>
         <briefdescription>
@@ -39,8 +39,8 @@
         <argsstring></argsstring>
         <name>hhdm_request</name>
         <initializer>= {
-    .id = LIMINE_HHDM_REQUEST,
-    .revision = 0,
+    .<ref refid="ip_8h_1a4fc3a0c58dfbd1e68224521185cb9384" kindref="member">id</ref> = LIMINE_HHDM_REQUEST,
+    .<ref refid="acpi_8h_1ab01c6e281b316b1770d5646f3d3101c4" kindref="member">revision</ref> = 0,
 }</initializer>
         <briefdescription>
         </briefdescription>
@@ -56,8 +56,8 @@
         <argsstring></argsstring>
         <name>address_request</name>
         <initializer>= {
-	.id = LIMINE_KERNEL_ADDRESS_REQUEST,
-	.revision = 0,
+	.<ref refid="ip_8h_1a4fc3a0c58dfbd1e68224521185cb9384" kindref="member">id</ref> = LIMINE_KERNEL_ADDRESS_REQUEST,
+	.<ref refid="acpi_8h_1ab01c6e281b316b1770d5646f3d3101c4" kindref="member">revision</ref> = 0,
 }</initializer>
         <briefdescription>
         </briefdescription>

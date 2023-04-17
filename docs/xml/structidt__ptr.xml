@@ -4,9 +4,9 @@
     <compoundname>idt_ptr</compoundname>
     <includes local="no">idt.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structidt__ptr_1aff506a142b3e7718fdcebfaa4454b30f" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structidt__ptr_1a798cddc9629de194f70780cd805f3fc1" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
-        <definition>uint16_t idt_ptr::limit</definition>
+        <definition>uint16_t idt_ptr_t::limit</definition>
         <argsstring></argsstring>
         <name>limit</name>
         <briefdescription>
@@ -17,9 +17,9 @@
         </inbodydescription>
         <location file="include/idt.h" line="12" column="10" bodyfile="include/idt.h" bodystart="12" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structidt__ptr_1a09eada8143b6d168eddce1874ee5b9b8" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structidt__ptr_1a96fae657ab9c2b3af8bef2475b0d0d81" prot="public" static="no" mutable="no">
         <type>void *</type>
-        <definition>void* idt_ptr::base</definition>
+        <definition>void* idt_ptr_t::base</definition>
         <argsstring></argsstring>
         <name>base</name>
         <briefdescription>
@@ -43,7 +43,7 @@
         <label>uint16_t</label>
       </node>
       <node id="1">
-        <label>idt_ptr</label>
+        <label>idt_ptr_t</label>
         <link refid="structidt__ptr"/>
         <childnode refid="2" relation="usage">
           <edgelabel>limit</edgelabel>
@@ -55,8 +55,8 @@
     </collaborationgraph>
     <location file="include/idt.h" line="11" column="1" bodyfile="include/idt.h" bodystart="11" bodyend="14"/>
     <listofallmembers>
-      <member refid="structidt__ptr_1a09eada8143b6d168eddce1874ee5b9b8" prot="public" virt="non-virtual"><scope>idt_ptr</scope><name>base</name></member>
-      <member refid="structidt__ptr_1aff506a142b3e7718fdcebfaa4454b30f" prot="public" virt="non-virtual"><scope>idt_ptr</scope><name>limit</name></member>
+      <member refid="structidt__ptr_1a96fae657ab9c2b3af8bef2475b0d0d81" prot="public" virt="non-virtual"><scope>idt_ptr</scope><name>base</name></member>
+      <member refid="structidt__ptr_1a798cddc9629de194f70780cd805f3fc1" prot="public" virt="non-virtual"><scope>idt_ptr</scope><name>limit</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structnet__address__t" kind="struct" language="C++" prot="public">
+    <compoundname>net_address_t</compoundname>
+    <includes local="no">net.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structnet__address__t_1aa5c985e38804cfce2cf8704b787fadd1" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char net_address_t::name[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="21" column="6" bodyfile="include/net.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnet__address__t_1aa401bda571cf681d03b42debfc49203f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t net_address_t::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="22" column="9" bodyfile="include/net.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structnet__address__t_1af655e2acc5cc6f2c183acb33d87e4b59" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* net_address_t::bytes</definition>
+        <argsstring></argsstring>
+        <name>bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/net.h" line="23" column="9" bodyfile="include/net.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Represents an address that is bound to a protocol on an interface. This is kept as flexible as possible, to represent potentially different protocol&apos;s forms of addresses, e.g. IPv4, IPv6, IPX, Econet etc. The length indicates the number of bytes in the address, and the bytes field contains the actual address in host byte order. For example in IPv4, length would be 4 and bytes would essentially point at a uint32_t. The name is purely a human readable label for use in commands. The label might be &apos;ip.address&apos;, &apos;ip.gateway&apos; etc. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>net_address_t</label>
+        <link refid="structnet__address__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>bytes</edgelabel>
+          <edgelabel>length</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/net.h" line="20" column="1" bodyfile="include/net.h" bodystart="20" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structnet__address__t_1af655e2acc5cc6f2c183acb33d87e4b59" prot="public" virt="non-virtual"><scope>net_address_t</scope><name>bytes</name></member>
+      <member refid="structnet__address__t_1aa401bda571cf681d03b42debfc49203f" prot="public" virt="non-virtual"><scope>net_address_t</scope><name>length</name></member>
+      <member refid="structnet__address__t_1aa5c985e38804cfce2cf8704b787fadd1" prot="public" virt="non-virtual"><scope>net_address_t</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

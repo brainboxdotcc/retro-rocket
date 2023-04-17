@@ -18,104 +18,125 @@
     <invincdepgraph>
       <node id="27">
         <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>acpi.h</label>
+        <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="5">
         <label>arp.h</label>
+        <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="9">
         <label>dns.h</label>
+        <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="13">
         <label>fat32.h</label>
+        <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="31">
         <label>udp.h</label>
+        <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="29">
         <label>tcp.h</label>
+        <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="7">
         <label>devicename.h</label>
+        <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="17">
         <label>idt.h</label>
+        <link refid="idt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="10">
         <label>drawing.h</label>
+        <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="28">
         <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="30">
         <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="26">
         <label>printf.h</label>
+        <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="11">
         <label>e1000.h</label>
+        <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="18">
         <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
       </node>
       <node id="14">
         <label>fpu.h</label>
+        <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="16">
         <label>icmp.h</label>
+        <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="20">
         <label>ip.h</label>
+        <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="21">
         <label>maths.h</label>
+        <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="12">
         <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="2">
         <label>kernel.h</label>
+        <link refid="kernel_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -177,26 +198,31 @@
       </node>
       <node id="22">
         <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="24">
         <label>partition.h</label>
+        <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="15">
         <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="23">
         <label>net.h</label>
+        <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="19">
         <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -208,28 +234,32 @@
       </node>
       <node id="25">
         <label>pci.h</label>
+        <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="4">
         <label>ahci.h</label>
+        <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="8">
         <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>clock.h</label>
+        <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
-    <innerclass refid="structheader" prot="public">header</innerclass>
-    <innerclass refid="structfooter" prot="public">footer</innerclass>
-    <innerclass refid="structheap" prot="public">heap</innerclass>
+    <innerclass refid="structheader__t" prot="public">header_t</innerclass>
+    <innerclass refid="structfooter__t" prot="public">footer_t</innerclass>
+    <innerclass refid="structheap__t" prot="public">heap_t</innerclass>
       <sectiondef kind="define">
       <memberdef kind="define" id="kmalloc_8h_1a604474f5c0892ea2c6c16b5e45c59f59" prot="public" static="no">
         <name>HEAP_MAGIC</name>
@@ -241,47 +271,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="include/kmalloc.h" line="15" column="9" bodyfile="include/kmalloc.h" bodystart="15" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="kmalloc_8h_1aa4c4605d601a9cd704fbb0374568fb04" prot="public" static="no">
-        <type>struct <ref refid="structheader" kindref="compound">header</ref></type>
-        <definition>typedef struct header header_t</definition>
-        <argsstring></argsstring>
-        <name>header_t</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="27" column="9"/>
-      </memberdef>
-      <memberdef kind="typedef" id="kmalloc_8h_1a05c7a0ad0cc791358ad862376b626154" prot="public" static="no">
-        <type>struct <ref refid="structfooter" kindref="compound">footer</ref></type>
-        <definition>typedef struct footer footer_t</definition>
-        <argsstring></argsstring>
-        <name>footer_t</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="32" column="9"/>
-      </memberdef>
-      <memberdef kind="typedef" id="kmalloc_8h_1ad3bb09826584eab4757c6cd2f988e7d6" prot="public" static="no">
-        <type>struct <ref refid="structheap" kindref="compound">heap</ref></type>
-        <definition>typedef struct heap heap_t</definition>
-        <argsstring></argsstring>
-        <name>heap_t</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="50" column="8"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -345,7 +334,7 @@
         <location file="include/kmalloc.h" line="56" column="6" declfile="include/kmalloc.h" declline="56" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1aba7ce08189c188afd939c2228c320421" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="structheap" kindref="compound">heap_t</ref> *</type>
+        <type><ref refid="structheap__t" kindref="compound">heap_t</ref> *</type>
         <definition>heap_t* create_heap</definition>
         <argsstring>(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw)</argsstring>
         <name>create_heap</name>

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structip__fragmented__packet__parts__t" kind="struct" language="C++" prot="public">
+    <compoundname>ip_fragmented_packet_parts_t</compoundname>
+    <includes local="no">ip.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structip__fragmented__packet__parts__t_1a7401228a02edd00738962e274032b37f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t ip_fragmented_packet_parts_t::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="81" column="10" bodyfile="include/ip.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structip__fragmented__packet__parts__t_1aa27082d7c653e9bc69df897c8e6bf39a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ip_fragmented_packet_parts_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="82" column="10" bodyfile="include/ip.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structip__fragmented__packet__parts__t_1a3ddaf68c537b10dbe65ee6159ed47393" prot="public" static="no" mutable="no">
+        <type><ref refid="structip__packet__frag__t" kindref="compound">ip_packet_frag_t</ref> *</type>
+        <definition>ip_packet_frag_t* ip_fragmented_packet_parts_t::ordered_list</definition>
+        <argsstring></argsstring>
+        <name>ordered_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ip.h" line="83" column="18" bodyfile="include/ip.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>ip_packet_frag_t</label>
+        <link refid="structip__packet__frag__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>packet</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>offset</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>uint16_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>struct ip_packet_frag *</label>
+      </node>
+      <node id="1">
+        <label>ip_fragmented_packet_parts_t</label>
+        <link refid="structip__fragmented__packet__parts__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ordered_list</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>id</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ip_packet_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ip.h" line="80" column="1" bodyfile="include/ip.h" bodystart="80" bodyend="84"/>
+    <listofallmembers>
+      <member refid="structip__fragmented__packet__parts__t_1a7401228a02edd00738962e274032b37f" prot="public" virt="non-virtual"><scope>ip_fragmented_packet_parts_t</scope><name>id</name></member>
+      <member refid="structip__fragmented__packet__parts__t_1a3ddaf68c537b10dbe65ee6159ed47393" prot="public" virt="non-virtual"><scope>ip_fragmented_packet_parts_t</scope><name>ordered_list</name></member>
+      <member refid="structip__fragmented__packet__parts__t_1aa27082d7c653e9bc69df897c8e6bf39a" prot="public" virt="non-virtual"><scope>ip_fragmented_packet_parts_t</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

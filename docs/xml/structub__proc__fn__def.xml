@@ -18,7 +18,7 @@
         <location file="include/ubasic.h" line="71" column="6" bodyfile="include/ubasic.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__proc__fn__def_1aaf1a001204ca6a291414325774eda5bc" prot="public" static="no" mutable="no">
-        <type>ub_fn_type</type>
+        <type><ref refid="ubasic_8h_1a65231902c1f22532519da8a1c01ba53e" kindref="member">ub_fn_type</ref></type>
         <definition>ub_fn_type ub_proc_fn_def::type</definition>
         <argsstring></argsstring>
         <name>type</name>
@@ -85,6 +85,9 @@
           <edgelabel>next</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>ub_fn_type</label>
+      </node>
       <node id="1">
         <label>ub_proc_fn_def</label>
         <link refid="structub__proc__fn__def"/>
@@ -109,9 +112,6 @@
       </node>
       <node id="3">
         <label>char</label>
-      </node>
-      <node id="2">
-        <label>enum ub_fn_type</label>
       </node>
     </collaborationgraph>
     <location file="include/ubasic.h" line="70" column="1" bodyfile="include/ubasic.h" bodystart="70" bodyend="76"/>

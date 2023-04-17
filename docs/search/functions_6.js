@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['factorial_2072',['factorial',['../maths_8h.html#a73776fd605fa19612cdeaa699c517cf8',1,'maths.h']]],
+  ['filesystem_5fmount_2073',['filesystem_mount',['../filesystem_8h.html#a7277c11237470183b5d22fc977185169',1,'filesystem.h']]],
+  ['find_5ffilesystem_2074',['find_filesystem',['../filesystem_8h.html#a86db0085cc6c14e76ac68e70b79b3a32',1,'filesystem.h']]],
+  ['find_5fpartition_5fof_5ftype_2075',['find_partition_of_type',['../partition_8h.html#a0b43d0539bc7d0d61324a5687201ed18',1,'partition.h']]],
+  ['find_5fstorage_5fdevice_2076',['find_storage_device',['../filesystem_8h.html#a1a11d52abe39eec5ff5057fb568abcaa',1,'filesystem.h']]],
+  ['framebuffer_5faddress_2077',['framebuffer_address',['../video_8h.html#aa712e88bef297396764bb1a9b810d072',1,'video.h']]],
+  ['fs_5fcreate_5fdirectory_2078',['fs_create_directory',['../filesystem_8h.html#ade4787d5728ce138b4f86eae5efe000b',1,'filesystem.h']]],
+  ['fs_5fcreate_5ffile_2079',['fs_create_file',['../filesystem_8h.html#af29b0affdc800f4d78ab5e9c60a1726a',1,'filesystem.h']]],
+  ['fs_5fdelete_5fdirectory_2080',['fs_delete_directory',['../filesystem_8h.html#ae475207338a0787caf15949e45badfe8',1,'filesystem.h']]],
+  ['fs_5fdelete_5ffile_2081',['fs_delete_file',['../filesystem_8h.html#af54d35de43947f1e7e1a86eed9270a6d',1,'filesystem.h']]],
+  ['fs_5fget_5ffile_5finfo_2082',['fs_get_file_info',['../filesystem_8h.html#a93b69bf53951ce16a8e648f238631696',1,'filesystem.h']]],
+  ['fs_5fget_5fitems_2083',['fs_get_items',['../filesystem_8h.html#aeea14dbba6f8453923e288ece85cf6df',1,'filesystem.h']]],
+  ['fs_5fis_5fdirectory_2084',['fs_is_directory',['../filesystem_8h.html#aba196fffbbe3a92cf3d5d4c7372539ab',1,'filesystem.h']]],
+  ['fs_5fread_5ffile_2085',['fs_read_file',['../filesystem_8h.html#ab6174ea1e5338a32b45778cb26b7ebc4',1,'filesystem.h']]],
+  ['fs_5ftruncate_5ffile_2086',['fs_truncate_file',['../filesystem_8h.html#a3692a5983409c6e8f74cbe0c5c3435f4',1,'filesystem.h']]],
+  ['ftruncate_2087',['ftruncate',['../filesystem_8h.html#ab7aad6d7661082e4aa5ec28badba8ca5',1,'filesystem.h']]]
+];

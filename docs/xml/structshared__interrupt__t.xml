@@ -5,7 +5,7 @@
     <includes local="no">interrupt.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structshared__interrupt__t_1ac6fced04f32e114bbf9d69582b5d1156" prot="public" static="no" mutable="no">
-        <type>isr_t</type>
+        <type><ref refid="interrupt_8h_1a7a3af27140adcc73f278f9d9c9dcd4bc" kindref="member">isr_t</ref></type>
         <definition>isr_t shared_interrupt_t::interrupt_handler</definition>
         <argsstring></argsstring>
         <name>interrupt_handler</name>
@@ -18,7 +18,7 @@
         <location file="include/interrupt.h" line="40" column="7" bodyfile="include/interrupt.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structshared__interrupt__t_1af7e76fc930c7cbd3be9d0caf9f4eeeca" prot="public" static="no" mutable="no">
-        <type><ref refid="unionpci__dev" kindref="compound">pci_dev_t</ref></type>
+        <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
         <definition>pci_dev_t shared_interrupt_t::device</definition>
         <argsstring></argsstring>
         <name>device</name>
@@ -66,7 +66,7 @@
       <node id="6">
         <label>void *</label>
       </node>
-      <node id="4">
+      <node id="5">
         <label>anonymous:@9</label>
       </node>
       <node id="1">
@@ -85,19 +85,16 @@
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="5">
+      <node id="4">
         <label>uint32_t</label>
       </node>
       <node id="2">
         <label>uint8_t</label>
       </node>
       <node id="3">
-        <label>pci_dev</label>
-        <link refid="unionpci__dev"/>
+        <label>pci_dev_t</label>
+        <link refid="unionpci__dev__t"/>
         <childnode refid="4" relation="usage">
-          <edgelabel>@9</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
           <edgelabel>always_zero</edgelabel>
           <edgelabel>bits</edgelabel>
           <edgelabel>bus_num</edgelabel>
@@ -106,6 +103,9 @@
           <edgelabel>field_num</edgelabel>
           <edgelabel>function_num</edgelabel>
           <edgelabel>reserved</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>@9</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>

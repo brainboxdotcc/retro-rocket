@@ -5,7 +5,7 @@
     <includes local="no">tcp.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structtcp__conn__t_1a421d637ca41e18729e4ec584d8b024fa" prot="public" static="no" mutable="no">
-        <type>tcp_state_t</type>
+        <type><ref refid="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83f" kindref="member">tcp_state_t</ref></type>
         <definition>tcp_state_t tcp_conn_t::state</definition>
         <argsstring></argsstring>
         <name>state</name>
@@ -330,7 +330,7 @@
         <location file="include/tcp.h" line="136" column="8" bodyfile="include/tcp.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtcp__conn__t_1a7e391305d27894e9021565865fa8900d" prot="public" static="no" mutable="no">
-        <type>spinlock</type>
+        <type><ref refid="spinlock_8h_1a2755b28d0f2d03d909ff34a55bf898f5" kindref="member">spinlock</ref></type>
         <definition>spinlock tcp_conn_t::recv_buffer_spinlock</definition>
         <argsstring></argsstring>
         <name>recv_buffer_spinlock</name>
@@ -343,7 +343,7 @@
         <location file="include/tcp.h" line="138" column="10" bodyfile="include/tcp.h" bodystart="138" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtcp__conn__t_1ad3af22b08d7f2deba80b1efeb4c3dc21" prot="public" static="no" mutable="no">
-        <type>spinlock</type>
+        <type><ref refid="spinlock_8h_1a2755b28d0f2d03d909ff34a55bf898f5" kindref="member">spinlock</ref></type>
         <definition>spinlock tcp_conn_t::send_buffer_spinlock</definition>
         <argsstring></argsstring>
         <name>send_buffer_spinlock</name>
@@ -387,7 +387,7 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="4">
+      <node id="3">
         <label>size_t</label>
       </node>
       <node id="1">
@@ -398,13 +398,10 @@
           <edgelabel>remote_port</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>state</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>recv_buffer_len</edgelabel>
           <edgelabel>send_buffer_len</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>irs</edgelabel>
           <edgelabel>iss</edgelabel>
           <edgelabel>local_addr</edgelabel>
@@ -417,47 +414,50 @@
           <edgelabel>remote_addr</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>fd</edgelabel>
           <edgelabel>recv_eof_pos</edgelabel>
           <edgelabel>send_eof_pos</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>recv_buffer</edgelabel>
           <edgelabel>send_buffer</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>segment_list</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>state</edgelabel>
         </childnode>
       </node>
       <node id="2">
         <label>uint16_t</label>
       </node>
-      <node id="3">
-        <label>enum tcp_state_t</label>
-      </node>
-      <node id="6">
+      <node id="5">
         <label>int</label>
       </node>
-      <node id="5">
+      <node id="4">
         <label>uint32_t</label>
       </node>
-      <node id="7">
+      <node id="6">
         <label>uint8_t</label>
       </node>
       <node id="9">
-        <label>tcp_segment_t *</label>
+        <label>tcp_state_t</label>
       </node>
       <node id="8">
+        <label>tcp_segment_t *</label>
+      </node>
+      <node id="7">
         <label>tcp_ordered_list_t</label>
         <link refid="structtcp__ordered__list__t"/>
-        <childnode refid="4" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>len</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>segment</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>next</edgelabel>
           <edgelabel>prev</edgelabel>
         </childnode>

@@ -5,7 +5,7 @@
     <includes local="no">ubasic.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structubasic__double__fn_1a09662270d292dc1a4a41cd4bfe8a30d5" prot="public" static="no" mutable="no">
-        <type>builtin_double_fn</type>
+        <type><ref refid="ubasic_8h_1adccc7c01a1bb1d7cca42e285830ce6a6" kindref="member">builtin_double_fn</ref></type>
         <definition>builtin_double_fn ubasic_double_fn::handler</definition>
         <argsstring></argsstring>
         <name>handler</name>
@@ -36,13 +36,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="11">
+      <node id="12">
         <label>size_t</label>
       </node>
       <node id="21">
         <label>ub_param</label>
         <link refid="structub__param"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="21" relation="usage">
@@ -53,47 +53,47 @@
         <label>ubasic_ctx</label>
         <link refid="structubasic__ctx"/>
         <childnode refid="3" relation="usage">
+          <edgelabel>fn_type</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>string_array_variables</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>int_variables</edgelabel>
           <edgelabel>local_int_variables</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>for_stack_ptr</edgelabel>
           <edgelabel>gosub_stack</edgelabel>
           <edgelabel>gosub_stack_ptr</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>item_begin</edgelabel>
           <edgelabel>nextptr</edgelabel>
           <edgelabel>program_ptr</edgelabel>
           <edgelabel>ptr</edgelabel>
           <edgelabel>string</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>cons</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>current_linenum</edgelabel>
           <edgelabel>eval_linenum</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>graphics_colour</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>double_variables</edgelabel>
           <edgelabel>local_double_variables</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
+        <childnode refid="17" relation="usage">
           <edgelabel>bracket_depth</edgelabel>
           <edgelabel>current_token</edgelabel>
           <edgelabel>ended</edgelabel>
           <edgelabel>errored</edgelabel>
           <edgelabel>oldlen</edgelabel>
-        </childnode>
-        <childnode refid="17" relation="usage">
-          <edgelabel>fn_type</edgelabel>
         </childnode>
         <childnode refid="18" relation="usage">
           <edgelabel>int_array_variables</edgelabel>
@@ -101,7 +101,7 @@
         <childnode refid="19" relation="usage">
           <edgelabel>defs</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>local_string_variables</edgelabel>
           <edgelabel>str_variables</edgelabel>
         </childnode>
@@ -125,7 +125,7 @@
       <node id="22">
         <label>ub_line_ref</label>
         <link refid="structub__line__ref"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>ptr</edgelabel>
         </childnode>
         <childnode refid="23" relation="usage">
@@ -136,25 +136,25 @@
           <edgelabel>prev</edgelabel>
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>int32_t</label>
       </node>
-      <node id="4">
+      <node id="5">
         <label>uint64_t</label>
       </node>
-      <node id="14">
+      <node id="15">
         <label>ub_var_double</label>
         <link refid="structub__var__double"/>
-        <childnode refid="15" relation="usage">
+        <childnode refid="16" relation="usage">
           <edgelabel>value</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>global</edgelabel>
         </childnode>
       </node>
@@ -164,88 +164,88 @@
         <childnode refid="2" relation="usage">
           <edgelabel>handler</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
       </node>
-      <node id="3">
+      <node id="20">
+        <label>ub_fn_type</label>
+      </node>
+      <node id="4">
         <label>ub_var_string_array</label>
         <link refid="structub__var__string__array"/>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>values</edgelabel>
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>ub_var_int</label>
         <link refid="structub__var__int"/>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>value</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>global</edgelabel>
         </childnode>
       </node>
       <node id="18">
         <label>ub_var_int_array</label>
         <link refid="structub__var__int__array"/>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>values</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>int</label>
       </node>
-      <node id="17">
-        <label>enum ub_return_type</label>
-      </node>
-      <node id="15">
+      <node id="16">
         <label>double</label>
       </node>
       <node id="23">
         <label>uint32_t</label>
       </node>
-      <node id="6">
+      <node id="7">
         <label>ub_var_string</label>
         <link refid="structub__var__string"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>value</edgelabel>
           <edgelabel>varname</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>global</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>uint8_t</label>
       </node>
       <node id="25">
         <label>for_state</label>
         <link refid="structfor__state"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>for_variable</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>line_after_for</edgelabel>
           <edgelabel>step</edgelabel>
           <edgelabel>to</edgelabel>
@@ -257,10 +257,10 @@
         <childnode refid="20" relation="usage">
           <edgelabel>type</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>line</edgelabel>
         </childnode>
         <childnode refid="19" relation="usage">
@@ -270,30 +270,30 @@
           <edgelabel>params</edgelabel>
         </childnode>
       </node>
-      <node id="7">
+      <node id="3">
+        <label>ub_return_type</label>
+      </node>
+      <node id="8">
         <label>bool</label>
       </node>
-      <node id="9">
+      <node id="10">
         <label>int64_t</label>
       </node>
-      <node id="5">
+      <node id="6">
         <label>char</label>
       </node>
-      <node id="20">
-        <label>enum ub_fn_type</label>
-      </node>
-      <node id="10">
+      <node id="11">
         <label>console</label>
         <link refid="structconsole"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>buffer</edgelabel>
           <edgelabel>dirty</edgelabel>
           <edgelabel>internalbuffer</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>bufcnt</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>attributes</edgelabel>
           <edgelabel>last</edgelabel>
           <edgelabel>x</edgelabel>

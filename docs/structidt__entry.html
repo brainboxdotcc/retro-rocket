@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Retro Rocket Kernel: idt_entry Struct Reference</title>
+<title>Retro Rocket Kernel: idt_entry_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,130 +85,132 @@ $(document).ready(function(){initNavTree('structidt__entry.html',''); initResiza
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structidt__entry-members.html">List of all members</a>  </div>
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">idt_entry Struct Reference</div>  </div>
+<div class="title">idt_entry_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;idt.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for idt_entry:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for idt_entry_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structidt__entry__coll__graph.svg" width="332" height="156"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structidt__entry__coll__graph.svg" width="332" height="156"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a578592f9814b8dea58c0e90edd29e94a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a578592f9814b8dea58c0e90edd29e94a">offset_1</a></td></tr>
-<tr class="separator:a578592f9814b8dea58c0e90edd29e94a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cefe0d92bb5f6e53085fd6205e59ccd"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a4cefe0d92bb5f6e53085fd6205e59ccd">selector</a></td></tr>
-<tr class="separator:a4cefe0d92bb5f6e53085fd6205e59ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3ac4a95dfd5bd16b1086d6731695c48"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#ad3ac4a95dfd5bd16b1086d6731695c48">ist</a></td></tr>
-<tr class="separator:ad3ac4a95dfd5bd16b1086d6731695c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae39bdfaf20a438a956c221e340f62fe3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#ae39bdfaf20a438a956c221e340f62fe3">type_attributes</a></td></tr>
-<tr class="separator:ae39bdfaf20a438a956c221e340f62fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a478287ec7b84bb769aeee811910de1a3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a478287ec7b84bb769aeee811910de1a3">offset_2</a></td></tr>
-<tr class="separator:a478287ec7b84bb769aeee811910de1a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58386222d04252f2a8093a502080a2fd"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a58386222d04252f2a8093a502080a2fd">offset_3</a></td></tr>
-<tr class="separator:a58386222d04252f2a8093a502080a2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae441acebd46bcfa0696aa522d5a4ba6d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#ae441acebd46bcfa0696aa522d5a4ba6d">zero</a></td></tr>
-<tr class="separator:ae441acebd46bcfa0696aa522d5a4ba6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+Data Fields</h2></td></tr>
+<tr class="memitem:a628a6b7e8dca3a7b116585c8f6ccdff1"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a628a6b7e8dca3a7b116585c8f6ccdff1">offset_1</a></td></tr>
+<tr class="separator:a628a6b7e8dca3a7b116585c8f6ccdff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3c0639a0ccf29f5219c7197d358d96b"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#ae3c0639a0ccf29f5219c7197d358d96b">selector</a></td></tr>
+<tr class="separator:ae3c0639a0ccf29f5219c7197d358d96b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab53c29c613ee58fa22491f0a2dcd258f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#ab53c29c613ee58fa22491f0a2dcd258f">ist</a></td></tr>
+<tr class="separator:ab53c29c613ee58fa22491f0a2dcd258f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4487a10c185ceec51cc2d810f5550d05"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a4487a10c185ceec51cc2d810f5550d05">type_attributes</a></td></tr>
+<tr class="separator:a4487a10c185ceec51cc2d810f5550d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14029668091a81e3ee9d08f0af4a7bd5"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a14029668091a81e3ee9d08f0af4a7bd5">offset_2</a></td></tr>
+<tr class="separator:a14029668091a81e3ee9d08f0af4a7bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73fe83dfb88a153e5b3557cd6085d00c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#a73fe83dfb88a153e5b3557cd6085d00c">offset_3</a></td></tr>
+<tr class="separator:a73fe83dfb88a153e5b3557cd6085d00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af04b0fb43e1f77596c052a893f92947e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html#af04b0fb43e1f77596c052a893f92947e">zero</a></td></tr>
+<tr class="separator:af04b0fb43e1f77596c052a893f92947e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ad3ac4a95dfd5bd16b1086d6731695c48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3ac4a95dfd5bd16b1086d6731695c48">&#9670;&nbsp;</a></span>ist</h2>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="ab53c29c613ee58fa22491f0a2dcd258f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab53c29c613ee58fa22491f0a2dcd258f">&#9670;&nbsp;</a></span>ist</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t idt_entry::ist</td>
+          <td class="memname">uint8_t idt_entry_t::ist</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a578592f9814b8dea58c0e90edd29e94a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a578592f9814b8dea58c0e90edd29e94a">&#9670;&nbsp;</a></span>offset_1</h2>
+<a id="a628a6b7e8dca3a7b116585c8f6ccdff1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a628a6b7e8dca3a7b116585c8f6ccdff1">&#9670;&nbsp;</a></span>offset_1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t idt_entry::offset_1</td>
+          <td class="memname">uint16_t idt_entry_t::offset_1</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a478287ec7b84bb769aeee811910de1a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a478287ec7b84bb769aeee811910de1a3">&#9670;&nbsp;</a></span>offset_2</h2>
+<a id="a14029668091a81e3ee9d08f0af4a7bd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14029668091a81e3ee9d08f0af4a7bd5">&#9670;&nbsp;</a></span>offset_2</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t idt_entry::offset_2</td>
+          <td class="memname">uint16_t idt_entry_t::offset_2</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a58386222d04252f2a8093a502080a2fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58386222d04252f2a8093a502080a2fd">&#9670;&nbsp;</a></span>offset_3</h2>
+<a id="a73fe83dfb88a153e5b3557cd6085d00c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73fe83dfb88a153e5b3557cd6085d00c">&#9670;&nbsp;</a></span>offset_3</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t idt_entry::offset_3</td>
+          <td class="memname">uint32_t idt_entry_t::offset_3</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4cefe0d92bb5f6e53085fd6205e59ccd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cefe0d92bb5f6e53085fd6205e59ccd">&#9670;&nbsp;</a></span>selector</h2>
+<a id="ae3c0639a0ccf29f5219c7197d358d96b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c0639a0ccf29f5219c7197d358d96b">&#9670;&nbsp;</a></span>selector</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t idt_entry::selector</td>
+          <td class="memname">uint16_t idt_entry_t::selector</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae39bdfaf20a438a956c221e340f62fe3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae39bdfaf20a438a956c221e340f62fe3">&#9670;&nbsp;</a></span>type_attributes</h2>
+<a id="a4487a10c185ceec51cc2d810f5550d05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4487a10c185ceec51cc2d810f5550d05">&#9670;&nbsp;</a></span>type_attributes</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t idt_entry::type_attributes</td>
+          <td class="memname">uint8_t idt_entry_t::type_attributes</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae441acebd46bcfa0696aa522d5a4ba6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae441acebd46bcfa0696aa522d5a4ba6d">&#9670;&nbsp;</a></span>zero</h2>
+<a id="af04b0fb43e1f77596c052a893f92947e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af04b0fb43e1f77596c052a893f92947e">&#9670;&nbsp;</a></span>zero</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t idt_entry::zero</td>
+          <td class="memname">uint32_t idt_entry_t::zero</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -221,7 +223,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structidt__entry.html">idt_entry</a></li>
-    <li class="footer">Generated on Mon Apr 17 2023 19:01:04 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 17 2023 21:00:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

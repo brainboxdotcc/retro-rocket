@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structsymbol__t" kind="struct" language="C++" prot="public">
+    <compoundname>symbol_t</compoundname>
+    <includes local="no">debugger.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsymbol__t_1aeb9236c76060c4ca851c9650fcef03c7" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* symbol_t::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/debugger.h" line="28" column="6" bodyfile="include/debugger.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsymbol__t_1a4628eba0f17268e8ae29dc6cecf841dc" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t symbol_t::address</definition>
+        <argsstring></argsstring>
+        <name>address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/debugger.h" line="29" column="10" bodyfile="include/debugger.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsymbol__t_1abb77883d32792ec428dec28f673cbc7f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t symbol_t::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/debugger.h" line="30" column="9" bodyfile="include/debugger.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsymbol__t_1a861a5493ea50bb15da5f36bf7eed659c" prot="public" static="no" mutable="no">
+        <type>struct symbol *</type>
+        <definition>struct symbol* symbol_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/debugger.h" line="31" column="14" bodyfile="include/debugger.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>symbol_t</label>
+        <link refid="structsymbol__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>address</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>struct symbol *</label>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/debugger.h" line="26" column="1" bodyfile="include/debugger.h" bodystart="27" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structsymbol__t_1a4628eba0f17268e8ae29dc6cecf841dc" prot="public" virt="non-virtual"><scope>symbol_t</scope><name>address</name></member>
+      <member refid="structsymbol__t_1aeb9236c76060c4ca851c9650fcef03c7" prot="public" virt="non-virtual"><scope>symbol_t</scope><name>name</name></member>
+      <member refid="structsymbol__t_1a861a5493ea50bb15da5f36bf7eed659c" prot="public" virt="non-virtual"><scope>symbol_t</scope><name>next</name></member>
+      <member refid="structsymbol__t_1abb77883d32792ec428dec28f673cbc7f" prot="public" virt="non-virtual"><scope>symbol_t</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -85,23 +85,25 @@ $(document).ready(function(){initNavTree('structtcp__conn__t.html',''); initResi
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structtcp__conn__t-members.html">List of all members</a>  </div>
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">tcp_conn_t Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;tcp.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for tcp_conn_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structtcp__conn__t__coll__graph.svg" width="100%" height="585"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structtcp__conn__t__coll__graph.svg" width="100%" height="585"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a421d637ca41e18729e4ec584d8b024fa"><td class="memItemLeft" align="right" valign="top">tcp_state_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a421d637ca41e18729e4ec584d8b024fa">state</a></td></tr>
+Data Fields</h2></td></tr>
+<tr class="memitem:a421d637ca41e18729e4ec584d8b024fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="tcp_8h.html#a30a6f4a8caaf05f882c7c7ecb1e8d83f">tcp_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a421d637ca41e18729e4ec584d8b024fa">state</a></td></tr>
 <tr class="separator:a421d637ca41e18729e4ec584d8b024fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ba8d1c78e428583f9cc29150f72b6ca"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a2ba8d1c78e428583f9cc29150f72b6ca">local_addr</a></td></tr>
 <tr class="separator:a2ba8d1c78e428583f9cc29150f72b6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,16 +153,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ad79d52e25f5afe41b3ee7d69a5393a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a784b043c9765b200d1df6e227e733489"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a784b043c9765b200d1df6e227e733489">send_buffer_len</a></td></tr>
 <tr class="separator:a784b043c9765b200d1df6e227e733489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e391305d27894e9021565865fa8900d"><td class="memItemLeft" align="right" valign="top">spinlock&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a7e391305d27894e9021565865fa8900d">recv_buffer_spinlock</a></td></tr>
+<tr class="memitem:a7e391305d27894e9021565865fa8900d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a7e391305d27894e9021565865fa8900d">recv_buffer_spinlock</a></td></tr>
 <tr class="separator:a7e391305d27894e9021565865fa8900d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3af22b08d7f2deba80b1efeb4c3dc21"><td class="memItemLeft" align="right" valign="top">spinlock&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#ad3af22b08d7f2deba80b1efeb4c3dc21">send_buffer_spinlock</a></td></tr>
+<tr class="memitem:ad3af22b08d7f2deba80b1efeb4c3dc21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#ad3af22b08d7f2deba80b1efeb4c3dc21">send_buffer_spinlock</a></td></tr>
 <tr class="separator:ad3af22b08d7f2deba80b1efeb4c3dc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2803242afb4331b26910c5271f958f61"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a2803242afb4331b26910c5271f958f61">msl_time</a></td></tr>
 <tr class="separator:a2803242afb4331b26910c5271f958f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e8b6507b87ac3f2574b69239c17a0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtcp__ordered__list__t.html">tcp_ordered_list_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#ae8e8b6507b87ac3f2574b69239c17a0f">segment_list</a></td></tr>
 <tr class="separator:ae8e8b6507b87ac3f2574b69239c17a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<h2 class="groupheader">Field Documentation</h2>
 <a id="a24e74b3dfa2af7aa3bcbdfa0f3799730"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24e74b3dfa2af7aa3bcbdfa0f3799730">&#9670;&nbsp;</a></span>fd</h2>
 
@@ -336,7 +338,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">spinlock tcp_conn_t::recv_buffer_spinlock</td>
+          <td class="memname"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a> tcp_conn_t::recv_buffer_spinlock</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -434,7 +436,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">spinlock tcp_conn_t::send_buffer_spinlock</td>
+          <td class="memname"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a> tcp_conn_t::send_buffer_spinlock</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -560,7 +562,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tcp_state_t tcp_conn_t::state</td>
+          <td class="memname"><a class="el" href="tcp_8h.html#a30a6f4a8caaf05f882c7c7ecb1e8d83f">tcp_state_t</a> tcp_conn_t::state</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -573,7 +575,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a></li>
-    <li class="footer">Generated on Mon Apr 17 2023 19:01:04 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 17 2023 21:00:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

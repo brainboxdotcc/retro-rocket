@@ -5,7 +5,7 @@
     <includes local="no">filesystem.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structfs__handle__t_1ad7a4b108d79edee95a52f6a98115f6da" prot="public" static="no" mutable="no">
-        <type>fs_handle_type_t</type>
+        <type><ref refid="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3" kindref="member">fs_handle_type_t</ref></type>
         <definition>fs_handle_type_t fs_handle_t::type</definition>
         <argsstring></argsstring>
         <name>type</name>
@@ -142,6 +142,9 @@
 <para>The FD table is an array of pointers to these structs, any closed FD is NULL. </para>
     </detaileddescription>
     <collaborationgraph>
+      <node id="14">
+        <label>fs_handle_type_t</label>
+      </node>
       <node id="8">
         <label>size_t</label>
       </node>
@@ -173,9 +176,6 @@
           <edgelabel>truncatefile</edgelabel>
         </childnode>
       </node>
-      <node id="13">
-        <label>enum fs_handle_type_t</label>
-      </node>
       <node id="3">
         <label>uint64_t</label>
       </node>
@@ -192,15 +192,15 @@
           <edgelabel>outbufsize</edgelabel>
           <edgelabel>seekpos</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
-          <edgelabel>type</edgelabel>
-        </childnode>
         <childnode refid="7" relation="usage">
           <edgelabel>inbuf</edgelabel>
           <edgelabel>outbuf</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>cached</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>type</edgelabel>
         </childnode>
       </node>
       <node id="11">
@@ -245,7 +245,7 @@
       <node id="6">
         <label>void *(*)(void *)</label>
       </node>
-      <node id="14">
+      <node id="13">
         <label>bool</label>
       </node>
       <node id="2">

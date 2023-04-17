@@ -6,89 +6,107 @@
     <invincdepgraph>
       <node id="27">
         <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>acpi.h</label>
+        <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="5">
         <label>arp.h</label>
+        <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="9">
         <label>dns.h</label>
+        <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="13">
         <label>fat32.h</label>
+        <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="31">
         <label>udp.h</label>
+        <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="29">
         <label>tcp.h</label>
+        <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="7">
         <label>devicename.h</label>
+        <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="17">
         <label>idt.h</label>
+        <link refid="idt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="10">
         <label>drawing.h</label>
+        <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="28">
         <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="30">
         <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="26">
         <label>printf.h</label>
+        <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="11">
         <label>e1000.h</label>
+        <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="18">
         <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
       </node>
       <node id="14">
         <label>fpu.h</label>
+        <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="16">
         <label>icmp.h</label>
+        <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="20">
         <label>ip.h</label>
+        <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -100,16 +118,19 @@
       </node>
       <node id="21">
         <label>maths.h</label>
+        <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="12">
         <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="2">
         <label>kernel.h</label>
+        <link refid="kernel_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -171,46 +192,55 @@
       </node>
       <node id="22">
         <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="24">
         <label>partition.h</label>
+        <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="15">
         <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="23">
         <label>net.h</label>
+        <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="19">
         <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="25">
         <label>pci.h</label>
+        <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="4">
         <label>ahci.h</label>
+        <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="8">
         <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>clock.h</label>
+        <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -291,7 +321,7 @@
       </memberdef>
       <memberdef kind="define" id="filesystem_8h_1a010187fb7398870cb57af650e65bded1" prot="public" static="no">
         <name>_O_RDWR</name>
-        <initializer>(_O_WRONLY|_O_RDONLY)</initializer>
+        <initializer>(<ref refid="filesystem_8h_1ac58f7734ab4dd8ae25bda2fba713ea56" kindref="member">_O_WRONLY</ref>|<ref refid="filesystem_8h_1a4d457d93039cb26f27461c4af5868309" kindref="member">_O_RDONLY</ref>)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -302,7 +332,7 @@
       </memberdef>
       <memberdef kind="define" id="filesystem_8h_1ad7b6b046dfb46cc575f4b9dd418df545" prot="public" static="no">
         <name>FS_DIRECTORY</name>
-        <initializer>0x00000001	/* Entry is a directory */</initializer>
+        <initializer>0x00000001	/* Entry <ref refid="ahci_8h_1ab21fab504791fdabfb4441c735452afb" kindref="member">is</ref> <ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref> directory */</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -313,7 +343,7 @@
       </memberdef>
       <memberdef kind="define" id="filesystem_8h_1a5bc0261888d6a9d3b88c2d19693627bb" prot="public" static="no">
         <name>FS_MOUNTPOINT</name>
-        <initializer>0x00000002	/* Entry is a mountpoint */</initializer>
+        <initializer>0x00000002	/* Entry <ref refid="ahci_8h_1ab21fab504791fdabfb4441c735452afb" kindref="member">is</ref> <ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref> mountpoint */</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -518,100 +548,6 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="45" column="9" bodyfile="include/filesystem.h" bodystart="45" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="filesystem_8h_1ae9a4b52a5409ef2a849e512355c884b4" prot="public" static="no">
-        <type>struct <ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref></type>
-        <definition>typedef struct fs_directory_entry_t fs_directory_entry_t</definition>
-        <argsstring></argsstring>
-        <name>fs_directory_entry_t</name>
-        <briefdescription>
-<para>A VFS directory entry. Files AND directories have these, but internally there is also a tree of fs_tree_t* which is used for faster access and caching the structure to RAM. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/filesystem.h" line="69" column="22"/>
-      </memberdef>
-      <memberdef kind="typedef" id="filesystem_8h_1a23ba991855f6f34d96c5fbbf84052f64" prot="public" static="no">
-        <type>struct <ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref></type>
-        <definition>typedef struct filesystem_t filesystem_t</definition>
-        <argsstring></argsstring>
-        <name>filesystem_t</name>
-        <briefdescription>
-<para>Defines a filesystem driver. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>A driver does not need to implement all functions listed here. An unimplemented function should be NULL.</para>
-<para>At a bare minimum a filesystem should support: mount, getdir, readfile</para>
-<para>For full read/write support, all endpoints should be defined.</para>
-<para><simplesect kind="note"><para>The VFS maintains a separate cache of the directory structure which is adjusted to match any requests made to the underlying filesystem driver. The filesystem driver does not have to concern itself with keeping this cache up to date. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/filesystem.h" line="178" column="14"/>
-      </memberdef>
-      <memberdef kind="typedef" id="filesystem_8h_1adfeeeae57c0257d8f48f3afbb4af1b28" prot="public" static="no">
-        <type>struct <ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref></type>
-        <definition>typedef struct storage_device_t storage_device_t</definition>
-        <argsstring></argsstring>
-        <name>storage_device_t</name>
-        <briefdescription>
-<para>Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>A block storage device is expected to provide at least one endpoint for a readonly storage device like a ROM or CD, which is blockread(). Reads and writes are always performed in block_size chunks, and any buffers used for requests are expected to be a clean modulus of this block size.</para>
-<para>Writeable filesystems should also implement blockwrite(). </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/filesystem.h" line="239" column="18"/>
-      </memberdef>
-      <memberdef kind="typedef" id="filesystem_8h_1a53c0e32c77874cf0a70265517c51bad5" prot="public" static="no">
-        <type>struct <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref></type>
-        <definition>typedef struct fs_tree_t fs_tree_t</definition>
-        <argsstring></argsstring>
-        <name>fs_tree_t</name>
-        <briefdescription>
-<para>Used internally by filesystem.c to cache directories to RAM. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Also used to route requests for that directory through to their driver. Also used to attach a driver initially to its mountpoint UNIX-style. <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> structs are usually not usable or visible to non-filesystem drivers. </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/filesystem.h" line="263" column="11"/>
-      </memberdef>
-      <memberdef kind="typedef" id="filesystem_8h_1add5a5a98536831657dd83ba5b4653aaa" prot="public" static="no">
-        <type>enum fs_handle_type_t</type>
-        <definition>typedef enum fs_handle_type_t fs_handle_type_t</definition>
-        <argsstring></argsstring>
-        <name>fs_handle_type_t</name>
-        <briefdescription>
-<para>File handle access type. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/filesystem.h" line="284" column="18"/>
-      </memberdef>
-      <memberdef kind="typedef" id="filesystem_8h_1ad8fac494541962836f886e76051a33c7" prot="public" static="no">
-        <type>struct <ref refid="structfs__handle__t" kindref="compound">fs_handle_t</ref></type>
-        <definition>typedef struct fs_handle_t fs_handle_t</definition>
-        <argsstring></argsstring>
-        <name>fs_handle_t</name>
-        <briefdescription>
-<para>The data for an open file descriptor. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>The FD table is an array of pointers to these structs, any closed FD is NULL. </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/filesystem.h" line="303" column="13"/>
-      </memberdef>
       </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="filesystem_8h_1a90ae435cc1f4e6cccba5cc179c2bd81c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -764,7 +700,7 @@
 <parametername>name</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Name of storage device registered by register_storage_device() </para>
+<para>Name of storage device registered by <ref refid="filesystem_8h_1a1c947f6ecb49c4c29193dbfb80f48913" kindref="member">register_storage_device()</ref> </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -830,7 +766,7 @@
 <parametername>name</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Name of storage device registered by register_storage_device() </para>
+<para>Name of storage device registered by <ref refid="filesystem_8h_1a1c947f6ecb49c4c29193dbfb80f48913" kindref="member">register_storage_device()</ref> </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -884,7 +820,7 @@
           <declname>opaque</declname>
         </param>
         <briefdescription>
-<para>Attach a filesystem to a VFS directory. Do not use this function for end user features, use filesystem_mount() instead. </para>
+<para>Attach a filesystem to a VFS directory. Do not use this function for end user features, use <ref refid="filesystem_8h_1a7277c11237470183b5d22fc977185169" kindref="member">filesystem_mount()</ref> instead. </para>
         </briefdescription>
         <detaileddescription>
 <para><simplesect kind="note"><para>The opaque data is optional and if included is driver-specific.</para>
@@ -1610,7 +1546,7 @@
           <declname>pathname</declname>
         </param>
         <param>
-          <type>mode_t</type>
+          <type><ref refid="filesystem_8h_1af456ddc19314d0bde5426f9027e96b05" kindref="member">mode_t</ref></type>
           <declname>mode</declname>
         </param>
         <briefdescription>

@@ -6,104 +6,125 @@
     <invincdepgraph>
       <node id="27">
         <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>acpi.h</label>
+        <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="5">
         <label>arp.h</label>
+        <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="9">
         <label>dns.h</label>
+        <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="13">
         <label>fat32.h</label>
+        <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="31">
         <label>udp.h</label>
+        <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="29">
         <label>tcp.h</label>
+        <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="7">
         <label>devicename.h</label>
+        <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="17">
         <label>idt.h</label>
+        <link refid="idt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="10">
         <label>drawing.h</label>
+        <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="28">
         <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="30">
         <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="26">
         <label>printf.h</label>
+        <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="11">
         <label>e1000.h</label>
+        <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="18">
         <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
       </node>
       <node id="14">
         <label>fpu.h</label>
+        <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="16">
         <label>icmp.h</label>
+        <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="20">
         <label>ip.h</label>
+        <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="21">
         <label>maths.h</label>
+        <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="12">
         <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="2">
         <label>kernel.h</label>
+        <link refid="kernel_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -165,11 +186,13 @@
       </node>
       <node id="22">
         <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="24">
         <label>partition.h</label>
+        <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -181,42 +204,49 @@
       </node>
       <node id="15">
         <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="23">
         <label>net.h</label>
+        <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="19">
         <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="25">
         <label>pci.h</label>
+        <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="4">
         <label>ahci.h</label>
+        <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="8">
         <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>clock.h</label>
+        <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="structprocess" prot="public">process</innerclass>
-    <innerclass refid="structidle__timer" prot="public">idle_timer</innerclass>
+    <innerclass refid="structidle__timer__t" prot="public">idle_timer_t</innerclass>
       <sectiondef kind="define">
       <memberdef kind="define" id="taskswitch_8h_1a26975b50f0f5914f501689709f08147a" prot="public" static="no">
         <name>PROC_RUNNING</name>
@@ -283,20 +313,6 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="taskswitch_8h_1a73eaa2b328f8a7c189807afe312133d8" prot="public" static="no">
-        <type>enum idle_type_t</type>
-        <definition>typedef enum idle_type_t idle_type_t</definition>
-        <argsstring></argsstring>
-        <name>idle_type_t</name>
-        <briefdescription>
-<para>Types of idle task. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/taskswitch.h" line="45" column="13"/>
-      </memberdef>
       <memberdef kind="typedef" id="taskswitch_8h_1a82c77e5c902b86503a57e02bb4314bad" prot="public" static="no">
         <type>void(*</type>
         <definition>typedef void(* proc_idle_timer_t) (void)</definition>
@@ -309,19 +325,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="include/taskswitch.h" line="48" column="9" bodyfile="include/taskswitch.h" bodystart="48" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="typedef" id="taskswitch_8h_1a32b0736904bdbb3bc63f6912b804ad91" prot="public" static="no">
-        <type>struct <ref refid="structidle__timer" kindref="compound">idle_timer</ref></type>
-        <definition>typedef struct idle_timer idle_timer_t</definition>
-        <argsstring></argsstring>
-        <name>idle_timer_t</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/taskswitch.h" line="53" column="14"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -540,11 +543,11 @@
         <argsstring>(proc_idle_timer_t handler, idle_type_t type)</argsstring>
         <name>proc_register_idle</name>
         <param>
-          <type>proc_idle_timer_t</type>
+          <type><ref refid="taskswitch_8h_1a82c77e5c902b86503a57e02bb4314bad" kindref="member">proc_idle_timer_t</ref></type>
           <declname>handler</declname>
         </param>
         <param>
-          <type>idle_type_t</type>
+          <type><ref refid="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4" kindref="member">idle_type_t</ref></type>
           <declname>type</declname>
         </param>
         <briefdescription>

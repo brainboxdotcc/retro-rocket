@@ -85,8 +85,7 @@ $(document).ready(function(){initNavTree('structstorage__device__t.html',''); in
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structstorage__device__t-members.html">List of all members</a>  </div>
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">storage_device_t Struct Reference</div>  </div>
 </div><!--header-->
@@ -94,6 +93,8 @@ $(document).ready(function(){initNavTree('structstorage__device__t.html',''); in
 
 <p>Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc.  
  <a href="structstorage__device__t.html#details">More...</a></p>
+
+<p><code>#include &lt;filesystem.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for storage_device_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -103,17 +104,17 @@ $(document).ready(function(){initNavTree('structstorage__device__t.html',''); in
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
+Data Fields</h2></td></tr>
 <tr class="memitem:afed2809e3332d40efe7645b76dcb7501"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#afed2809e3332d40efe7645b76dcb7501">name</a> [16]</td></tr>
-<tr class="memdesc:afed2809e3332d40efe7645b76dcb7501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage device name, e.g. 'hd0'. You should use make_unique_device_name() to fill this field.  <a href="structstorage__device__t.html#afed2809e3332d40efe7645b76dcb7501">More...</a><br /></td></tr>
+<tr class="memdesc:afed2809e3332d40efe7645b76dcb7501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage device name, e.g. 'hd0'. You should use <a class="el" href="devicename_8h.html#a4525d2540fdbd10b71f393938eb14b49">make_unique_device_name()</a> to fill this field.  <a href="structstorage__device__t.html#afed2809e3332d40efe7645b76dcb7501">More...</a><br /></td></tr>
 <tr class="separator:afed2809e3332d40efe7645b76dcb7501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b7e3635e869e1e8b2245665ee988547"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a4b7e3635e869e1e8b2245665ee988547">size</a></td></tr>
 <tr class="memdesc:a4b7e3635e869e1e8b2245665ee988547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total extent of storage device if known, otherwise this value should be SIZE_MAX.  <a href="structstorage__device__t.html#a4b7e3635e869e1e8b2245665ee988547">More...</a><br /></td></tr>
 <tr class="separator:a4b7e3635e869e1e8b2245665ee988547"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a918ae65b2e583bef5384dc4c596977b2"><td class="memItemLeft" align="right" valign="top">block_read&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2">blockread</a></td></tr>
+<tr class="memitem:a918ae65b2e583bef5384dc4c596977b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="filesystem_8h.html#aedade13300b3b7656d01691660c3d275">block_read</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2">blockread</a></td></tr>
 <tr class="memdesc:a918ae65b2e583bef5384dc4c596977b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2" title="Function pointer for blockread() Block reads are always expected to be in increments of block_size.">blockread()</a> Block reads are always expected to be in increments of block_size.  <a href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2">More...</a><br /></td></tr>
 <tr class="separator:a918ae65b2e583bef5384dc4c596977b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ba455dae844ff9aae01e950f8271495"><td class="memItemLeft" align="right" valign="top">block_write&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495">blockwrite</a></td></tr>
+<tr class="memitem:a5ba455dae844ff9aae01e950f8271495"><td class="memItemLeft" align="right" valign="top"><a class="el" href="filesystem_8h.html#afbf0a8246b98b1f4ddca666aeb3fae3d">block_write</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495">blockwrite</a></td></tr>
 <tr class="memdesc:a5ba455dae844ff9aae01e950f8271495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495" title="Function pointer for blockwrite() Block writes are always expected to be in increments of block_size.">blockwrite()</a> Block writes are always expected to be in increments of block_size.  <a href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495">More...</a><br /></td></tr>
 <tr class="separator:a5ba455dae844ff9aae01e950f8271495"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62fabd3b49e19f188297d179ffbcd090"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__device__t.html#a62fabd3b49e19f188297d179ffbcd090">block_size</a></td></tr>
@@ -133,7 +134,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc. </p>
 <p>A block storage device is expected to provide at least one endpoint for a readonly storage device like a ROM or CD, which is <a class="el" href="structstorage__device__t.html#a918ae65b2e583bef5384dc4c596977b2" title="Function pointer for blockread() Block reads are always expected to be in increments of block_size.">blockread()</a>. Reads and writes are always performed in block_size chunks, and any buffers used for requests are expected to be a clean modulus of this block size.</p>
 <p>Writeable filesystems should also implement <a class="el" href="structstorage__device__t.html#a5ba455dae844ff9aae01e950f8271495" title="Function pointer for blockwrite() Block writes are always expected to be in increments of block_size.">blockwrite()</a>. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a62fabd3b49e19f188297d179ffbcd090"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62fabd3b49e19f188297d179ffbcd090">&#9670;&nbsp;</a></span>block_size</h2>
 
@@ -157,7 +158,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">block_read storage_device_t::blockread</td>
+          <td class="memname"><a class="el" href="filesystem_8h.html#aedade13300b3b7656d01691660c3d275">block_read</a> storage_device_t::blockread</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -173,7 +174,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">block_write storage_device_t::blockwrite</td>
+          <td class="memname"><a class="el" href="filesystem_8h.html#afbf0a8246b98b1f4ddca666aeb3fae3d">block_write</a> storage_device_t::blockwrite</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -194,7 +195,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Storage device name, e.g. 'hd0'. You should use make_unique_device_name() to fill this field. </p>
+<p>Storage device name, e.g. 'hd0'. You should use <a class="el" href="devicename_8h.html#a4525d2540fdbd10b71f393938eb14b49">make_unique_device_name()</a> to fill this field. </p>
 
 </div>
 </div>
@@ -268,7 +269,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structstorage__device__t.html">storage_device_t</a></li>
-    <li class="footer">Generated on Mon Apr 17 2023 19:01:04 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 17 2023 21:00:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

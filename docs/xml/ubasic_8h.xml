@@ -6,94 +6,113 @@
     <invincdepgraph>
       <node id="27">
         <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>acpi.h</label>
+        <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="5">
         <label>arp.h</label>
+        <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="9">
         <label>dns.h</label>
+        <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="13">
         <label>fat32.h</label>
+        <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="31">
         <label>udp.h</label>
+        <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="29">
         <label>tcp.h</label>
+        <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="7">
         <label>devicename.h</label>
+        <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="17">
         <label>idt.h</label>
+        <link refid="idt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="10">
         <label>drawing.h</label>
+        <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="28">
         <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="30">
         <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="26">
         <label>printf.h</label>
+        <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="11">
         <label>e1000.h</label>
+        <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="18">
         <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
       </node>
       <node id="14">
         <label>fpu.h</label>
+        <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="16">
         <label>icmp.h</label>
+        <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="20">
         <label>ip.h</label>
+        <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="21">
         <label>maths.h</label>
+        <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -105,11 +124,13 @@
       </node>
       <node id="12">
         <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="2">
         <label>kernel.h</label>
+        <link refid="kernel_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -171,46 +192,55 @@
       </node>
       <node id="22">
         <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="24">
         <label>partition.h</label>
+        <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="15">
         <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="23">
         <label>net.h</label>
+        <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="19">
         <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="25">
         <label>pci.h</label>
+        <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="4">
         <label>ahci.h</label>
+        <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="8">
         <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>clock.h</label>
+        <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -324,175 +354,6 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="ubasic_8h_1a1a277b6d298b8440ed9b87d11fd0024a" prot="public" static="no">
-        <type>struct <ref refid="structfor__state" kindref="compound">for_state</ref></type>
-        <definition>typedef struct for_state for_state</definition>
-        <argsstring></argsstring>
-        <name>for_state</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="31" column="11"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a29fd087722abca20020ed378bcfa48a7" prot="public" static="no">
-        <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref></type>
-        <definition>typedef struct ub_var_int ub_var_int</definition>
-        <argsstring></argsstring>
-        <name>ub_var_int</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="38" column="12"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1aa90b2bd981fef2f71f7407bb26e48f69" prot="public" static="no">
-        <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref></type>
-        <definition>typedef struct ub_var_double ub_var_double</definition>
-        <argsstring></argsstring>
-        <name>ub_var_double</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="45" column="15"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a4fee12d7983d6ebbb14be65e26d00cc2" prot="public" static="no">
-        <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref></type>
-        <definition>typedef struct ub_var_string ub_var_string</definition>
-        <argsstring></argsstring>
-        <name>ub_var_string</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="52" column="15"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a796c2111fa2b30ee697116f1e1d8d900" prot="public" static="no">
-        <type>enum ub_fn_type</type>
-        <definition>typedef enum ub_fn_type ub_fn_type</definition>
-        <argsstring></argsstring>
-        <name>ub_fn_type</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="57" column="12"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a0de4e0f73c35d1581263b58586e1bb81" prot="public" static="no">
-        <type>enum ub_return_type</type>
-        <definition>typedef enum ub_return_type ub_return_type</definition>
-        <argsstring></argsstring>
-        <name>ub_return_type</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="63" column="16"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a023d2039d3700b54e4c0bc99a7703798" prot="public" static="no">
-        <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref></type>
-        <definition>typedef struct ub_param ub_param</definition>
-        <argsstring></argsstring>
-        <name>ub_param</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="68" column="10"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a2791aeb6247beed9936f8f5acfd9238a" prot="public" static="no">
-        <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref></type>
-        <definition>typedef struct ub_proc_fn_def ub_proc_fn_def</definition>
-        <argsstring></argsstring>
-        <name>ub_proc_fn_def</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="76" column="16"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1acc3e263c5498088a9576b3d0dc36fa12" prot="public" static="no">
-        <type>struct <ref refid="structub__var__int__array" kindref="compound">ub_var_int_array</ref></type>
-        <definition>typedef struct ub_var_int_array ub_var_int_array</definition>
-        <argsstring></argsstring>
-        <name>ub_var_int_array</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="82" column="18"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a203216ed240cc2d72d769f34b5f44f3a" prot="public" static="no">
-        <type>struct <ref refid="structub__var__string__array" kindref="compound">ub_var_string_array</ref></type>
-        <definition>typedef struct ub_var_string_array ub_var_string_array</definition>
-        <argsstring></argsstring>
-        <name>ub_var_string_array</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="88" column="21"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a8227d1ca913e77608aae30a1dae2e105" prot="public" static="no">
-        <type>struct <ref refid="structub__var__double__array" kindref="compound">ub_var_double_array</ref></type>
-        <definition>typedef struct ub_var_double_array ub_var_double_array</definition>
-        <argsstring></argsstring>
-        <name>ub_var_double_array</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="94" column="21"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a6ae8f7d3de6bc65ab2ebd6527f1ae833" prot="public" static="no">
-        <type>struct <ref refid="structub__line__ref" kindref="compound">ub_line_ref</ref></type>
-        <definition>typedef struct ub_line_ref ub_line_ref</definition>
-        <argsstring></argsstring>
-        <name>ub_line_ref</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="101" column="13"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1afa74f8445aef0692f8a1cedf0bf72851" prot="public" static="no">
-        <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref></type>
-        <definition>typedef struct ubasic_ctx ubasic_ctx</definition>
-        <argsstring></argsstring>
-        <name>ubasic_ctx</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="137" column="12"/>
-      </memberdef>
       <memberdef kind="typedef" id="ubasic_8h_1a59c9cd726acfbe69d8df60ab2b2d0607" prot="public" static="no">
         <type>int64_t(*</type>
         <definition>typedef int64_t(* builtin_int_fn) (struct ubasic_ctx *ctx)</definition>
@@ -531,45 +392,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="include/ubasic.h" line="142" column="9" bodyfile="include/ubasic.h" bodystart="142" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a643c7d6370c88d71dc44db6187aa34f2" prot="public" static="no">
-        <type>struct <ref refid="structubasic__int__fn" kindref="compound">ubasic_int_fn</ref></type>
-        <definition>typedef struct ubasic_int_fn ubasic_int_fn</definition>
-        <argsstring></argsstring>
-        <name>ubasic_int_fn</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="148" column="15"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1aab7a95dc6222d0f715e168afc561e336" prot="public" static="no">
-        <type>struct <ref refid="structubasic__double__fn" kindref="compound">ubasic_double_fn</ref></type>
-        <definition>typedef struct ubasic_double_fn ubasic_double_fn</definition>
-        <argsstring></argsstring>
-        <name>ubasic_double_fn</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="154" column="18"/>
-      </memberdef>
-      <memberdef kind="typedef" id="ubasic_8h_1a377ee25d70ce9afcb15c8eabb00fdf3c" prot="public" static="no">
-        <type>struct <ref refid="structubasic__str__fn" kindref="compound">ubasic_str_fn</ref></type>
-        <definition>typedef struct ubasic_str_fn ubasic_str_fn</definition>
-        <argsstring></argsstring>
-        <name>ubasic_str_fn</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="160" column="15"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1222,7 +1044,7 @@
         <location file="include/ubasic.h" line="197" column="6" declfile="include/ubasic.h" declline="197" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1af3c28214a6d26d3373d8ed9f1d5276a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ub_return_type</type>
+        <type><ref refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966" kindref="member">ub_return_type</ref></type>
         <definition>ub_return_type ubasic_get_numeric_variable</definition>
         <argsstring>(const char *var, struct ubasic_ctx *ctx, double *res)</argsstring>
         <name>ubasic_get_numeric_variable</name>

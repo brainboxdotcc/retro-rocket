@@ -1,5 +1,5 @@
 var structidt__ptr =
 [
-    [ "base", "structidt__ptr.html#a09eada8143b6d168eddce1874ee5b9b8", null ],
-    [ "limit", "structidt__ptr.html#aff506a142b3e7718fdcebfaa4454b30f", null ]
+    [ "base", "structidt__ptr.html#a96fae657ab9c2b3af8bef2475b0d0d81", null ],
+    [ "limit", "structidt__ptr.html#a798cddc9629de194f70780cd805f3fc1", null ]
 ];

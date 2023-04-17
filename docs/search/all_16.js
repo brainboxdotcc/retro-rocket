@@ -1,9 +1,26 @@
 var searchData=
 [
-  ['w_625',['w',['../structahci__hba__cmd__header__t.html#aeb06318c2f2dec40f2ba0a550db489a6',1,'ahci_hba_cmd_header_t']]],
-  ['waitpid_626',['waitpid',['../structprocess.html#abef94160cdd9c34d160149a0f158c298',1,'process']]],
-  ['window_5fsize_627',['window_size',['../structtcp__segment.html#abec6f99799f7de1f94ab944f77a5e68f',1,'tcp_segment']]],
-  ['write_5fdate_628',['write_date',['../structdirectory__entry__t.html#a22564a01db91fcf858379ac3c859dfe4',1,'directory_entry_t']]],
-  ['write_5ftime_629',['write_time',['../structdirectory__entry__t.html#a4db44a7eb18ba3c7a9df278344383119',1,'directory_entry_t']]],
-  ['writefile_630',['writefile',['../structfilesystem__t.html#aba266bd5449616e92bb1706f8c408d9f',1,'filesystem_t']]]
+  ['va_5farg_1821',['va_arg',['../printf_8h.html#a81ebe6ea6253b0c6618e29de70fe10eb',1,'printf.h']]],
+  ['va_5fend_1822',['va_end',['../printf_8h.html#acd9b3b9085ec072324c5fdac2b40304e',1,'printf.h']]],
+  ['va_5flist_1823',['va_list',['../printf_8h.html#af53f622e3b6c080daeb167c1955d7ec1',1,'printf.h']]],
+  ['va_5fstart_1824',['va_start',['../printf_8h.html#a2df0a040774eeb8907a380bea31dfc90',1,'printf.h']]],
+  ['value_1825',['value',['../structub__var__int.html#a4106a4e6d32df6e5b2da883f4e10ae0c',1,'ub_var_int::value()'],['../structub__var__double.html#a620aa2ed021098e708df2a898740bcd4',1,'ub_var_double::value()'],['../structub__var__string.html#a517112dbc50ed6d63c5f3329268dd1cd',1,'ub_var_string::value()']]],
+  ['values_1826',['values',['../structub__var__double__array.html#a6ad54348f4cecebba4caa28100290d3b',1,'ub_var_double_array::values()'],['../structub__var__string__array.html#ae96a3583047fd5775ec9072ce398ce24',1,'ub_var_string_array::values()'],['../structub__var__int__array.html#a7eb1cf6fda97af4bccfb62d8bace1c68',1,'ub_var_int_array::values()']]],
+  ['varname_1827',['varname',['../structub__var__int.html#ac015b8fa7056409f66e0d17b464cb209',1,'ub_var_int::varname()'],['../structub__var__double.html#a8aeeb3da34b8fd28a89df734f479b1ce',1,'ub_var_double::varname()'],['../structub__var__string.html#a19e17db1435bcf756f7f67357f4cb8d8',1,'ub_var_string::varname()'],['../structub__var__int__array.html#abae9007289baa96f76c8382bf51505a1',1,'ub_var_int_array::varname()'],['../structub__var__string__array.html#a2ec25e204d99d5c9c64ffe0aace3eec8',1,'ub_var_string_array::varname()'],['../structub__var__double__array.html#a6e2d329a15c5dc642233553d076fd653',1,'ub_var_double_array::varname()']]],
+  ['vendor_1828',['vendor',['../structahci__hba__port__t.html#ab7fc0cce6672b5a599fc07ed6a20a091',1,'ahci_hba_port_t::vendor()'],['../structahci__hba__mem__t.html#a0f439393ae9c260fd35c1f7565147e35',1,'ahci_hba_mem_t::vendor()'],['../ahci_8h.html#adea7e7ade5cd02d3f97ac87b3032a648',1,'vendor():&#160;ahci.h']]],
+  ['version_1829',['version',['../struct____attribute____.html#a2e226654212aebfb764a8df90d66b006',1,'__attribute__::version()'],['../ip_8h.html#ab22abc2906422da61885ac6c8e6a1a59',1,'version():&#160;ip.h'],['../structip__packet.html#a375973498730f4e3058b211ddde328b8',1,'ip_packet::version()']]],
+  ['version_5fihl_5fptr_1830',['version_ihl_ptr',['../ip_8h.html#a8423311c91b40fe5616a2ab8afa080f0',1,'version_ihl_ptr():&#160;ip.h'],['../structip__packet.html#aae9f83e495279f167a1764221b0e6111',1,'ip_packet::version_ihl_ptr()']]],
+  ['video_2eh_1831',['video.h',['../video_8h.html',1,'']]],
+  ['volume_5fcreation_5fdate_1832',['volume_creation_date',['../struct____attribute____.html#a58ec3d12c07e67860f9e49dbb8e5301a',1,'__attribute__']]],
+  ['volume_5feffective_5fdate_1833',['volume_effective_date',['../struct____attribute____.html#a86fae2cdfbf37c6d23ad4bf0bd14f1bf',1,'__attribute__']]],
+  ['volume_5fexpire_5fdate_1834',['volume_expire_date',['../struct____attribute____.html#a4323d07c8fa41051199f92c93ab431c8',1,'__attribute__']]],
+  ['volume_5fmodification_5fdate_1835',['volume_modification_date',['../struct____attribute____.html#a9fd7fe89bfb11fc399f2d3ace17acc67',1,'__attribute__']]],
+  ['volume_5fname_1836',['volume_name',['../structiso9660.html#a40d46baf58f37ed1e187831f0fd1a564',1,'iso9660::volume_name()'],['../structfat32__t.html#a83f8a38f977565edf3bb80f2dc663def',1,'fat32_t::volume_name()']]],
+  ['volume_5fset_5fid_1837',['volume_set_id',['../struct____attribute____.html#a9d51a4ee3c46b604365659f354d20a50',1,'__attribute__']]],
+  ['volumeidentifier_1838',['volumeidentifier',['../struct____attribute____.html#a6489ab3cf0120cc05964c7b8cd207a7f',1,'__attribute__']]],
+  ['volumelabel_1839',['volumelabel',['../structparameter__block__t.html#ada4d7415e8d11afda16fe1d377f25db1',1,'parameter_block_t::volumelabel()'],['../fat32_8h.html#ab34ead29a8f85f2e42b4dd22e2effd1b',1,'volumelabel():&#160;fat32.h']]],
+  ['vprintf_1840',['vprintf',['../printf_8h.html#acc23aaaff6fcb9a669853efe712ba4b7',1,'printf.h']]],
+  ['vs_1841',['vs',['../structahci__hba__mem__t.html#a74c55d339a8104bea69039718203e6c7',1,'ahci_hba_mem_t::vs()'],['../ahci_8h.html#aa28ef6d3e35ddb7e7c464496e2789fee',1,'vs():&#160;ahci.h']]],
+  ['vsnprintf_1842',['vsnprintf',['../printf_8h.html#ac0ca54b8d1d72520cd648fb57ce0dda2',1,'printf.h']]],
+  ['vsprintf_1843',['vsprintf',['../printf_8h.html#aaa83f2a89dae6d03dfe15deae29f383a',1,'printf.h']]]
 ];
