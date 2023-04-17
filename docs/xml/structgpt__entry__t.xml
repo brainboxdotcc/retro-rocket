@@ -4,9 +4,9 @@
     <compoundname>gpt_entry_t</compoundname>
     <includes local="no">partition.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structgpt__entry__t_1afb26992c0cdae8c892f6dec300427427" prot="public" static="no" mutable="no">
-        <type>char</type>
-        <definition>char gpt_entry_t::type_guid[16]</definition>
+      <memberdef kind="variable" id="structgpt__entry__t_1a2db53fd581a4591553720d89c00b7e5d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t gpt_entry_t::type_guid[16]</definition>
         <argsstring>[16]</argsstring>
         <name>type_guid</name>
         <briefdescription>
@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="58" column="6" bodyfile="include/partition.h" bodystart="58" bodyend="-1"/>
+        <location file="include/partition.h" line="67" column="9" bodyfile="include/partition.h" bodystart="67" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structgpt__entry__t_1a49384c7614178eb2b7ee94e2e45b451b" prot="public" static="no" mutable="no">
-        <type>char</type>
-        <definition>char gpt_entry_t::unique_id[16]</definition>
+      <memberdef kind="variable" id="structgpt__entry__t_1ab33bc82d762c5c72532d9234b6a9dd0e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t gpt_entry_t::unique_id[16]</definition>
         <argsstring>[16]</argsstring>
         <name>unique_id</name>
         <briefdescription>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="59" column="6" bodyfile="include/partition.h" bodystart="59" bodyend="-1"/>
+        <location file="include/partition.h" line="68" column="9" bodyfile="include/partition.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1a7e0fe1119be865efd92ad63be4855983" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="60" column="10" bodyfile="include/partition.h" bodystart="60" bodyend="-1"/>
+        <location file="include/partition.h" line="69" column="10" bodyfile="include/partition.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1ada4573b77b257d223aabdb54782fcb1a" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="61" column="10" bodyfile="include/partition.h" bodystart="61" bodyend="-1"/>
+        <location file="include/partition.h" line="70" column="10" bodyfile="include/partition.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1a5e301f9875b8a13d8bbb4cab19795ab8" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="62" column="10" bodyfile="include/partition.h" bodystart="62" bodyend="-1"/>
+        <location file="include/partition.h" line="71" column="10" bodyfile="include/partition.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1af5beda8d83837344bf274890f08ec83d" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="63" column="6" bodyfile="include/partition.h" bodystart="63" bodyend="-1"/>
+        <location file="include/partition.h" line="72" column="6" bodyfile="include/partition.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -101,22 +101,27 @@
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>type_guid</edgelabel>
           <edgelabel>unique_id</edgelabel>
         </childnode>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
       </node>
       <node id="3">
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/partition.h" line="57" column="1" bodyfile="include/partition.h" bodystart="57" bodyend="64"/>
+    <location file="include/partition.h" line="66" column="1" bodyfile="include/partition.h" bodystart="66" bodyend="73"/>
     <listofallmembers>
       <member refid="structgpt__entry__t_1a5e301f9875b8a13d8bbb4cab19795ab8" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>attributes</name></member>
       <member refid="structgpt__entry__t_1ada4573b77b257d223aabdb54782fcb1a" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>end_lba</name></member>
       <member refid="structgpt__entry__t_1af5beda8d83837344bf274890f08ec83d" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>name</name></member>
       <member refid="structgpt__entry__t_1a7e0fe1119be865efd92ad63be4855983" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>start_lba</name></member>
-      <member refid="structgpt__entry__t_1afb26992c0cdae8c892f6dec300427427" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>type_guid</name></member>
-      <member refid="structgpt__entry__t_1a49384c7614178eb2b7ee94e2e45b451b" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>unique_id</name></member>
+      <member refid="structgpt__entry__t_1a2db53fd581a4591553720d89c00b7e5d" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>type_guid</name></member>
+      <member refid="structgpt__entry__t_1ab33bc82d762c5c72532d9234b6a9dd0e" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>unique_id</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

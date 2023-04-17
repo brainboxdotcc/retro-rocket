@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrsdt__t" kind="struct" language="C++" prot="public">
+    <compoundname>rsdt_t</compoundname>
+    <includes local="no">acpi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrsdt__t_1a67ae0a8956225068c22bc714b47f4dc5" prot="public" static="no" mutable="no">
+        <type><ref refid="structsdt__header__t" kindref="compound">sdt_header_t</ref></type>
+        <definition>sdt_header_t rsdt_t::header</definition>
+        <argsstring></argsstring>
+        <name>header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="39" column="14" bodyfile="include/acpi.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdt__t_1a4d70b93c02daf9f247eb80bb4d5712b2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rsdt_t::pointer_to_other_sdt[]</definition>
+        <argsstring>[]</argsstring>
+        <name>pointer_to_other_sdt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="40" column="10" bodyfile="include/acpi.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Root System Description Table. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>sdt_header_t</label>
+        <link refid="structsdt__header__t"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>oem_id</edgelabel>
+          <edgelabel>oem_table_id</edgelabel>
+          <edgelabel>signature</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>creator_id</edgelabel>
+          <edgelabel>creator_revision</edgelabel>
+          <edgelabel>length</edgelabel>
+          <edgelabel>oem_revision</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>checksum</edgelabel>
+          <edgelabel>revision</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>rsdt_t</label>
+        <link refid="structrsdt__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>pointer_to_other_sdt</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>header</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/acpi.h" line="38" column="1" bodyfile="include/acpi.h" bodystart="38" bodyend="42"/>
+    <listofallmembers>
+      <member refid="structrsdt__t_1a67ae0a8956225068c22bc714b47f4dc5" prot="public" virt="non-virtual"><scope>rsdt_t</scope><name>header</name></member>
+      <member refid="structrsdt__t_1a4d70b93c02daf9f247eb80bb4d5712b2" prot="public" virt="non-virtual"><scope>rsdt_t</scope><name>pointer_to_other_sdt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

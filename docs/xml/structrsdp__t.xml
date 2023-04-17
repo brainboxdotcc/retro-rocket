@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrsdp__t" kind="struct" language="C++" prot="public">
+    <compoundname>rsdp_t</compoundname>
+    <includes local="no">acpi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrsdp__t_1ae3e48eb5a8a88cc1e06d3bd96ce93dd6" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rsdp_t::signature[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="9" column="6" bodyfile="include/acpi.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1ab133d8b5ec18bfde3af9d11cfb13896b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsdp_t::checksum</definition>
+        <argsstring></argsstring>
+        <name>checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="10" column="9" bodyfile="include/acpi.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1ae0f70c354d88e9c5298d0547765b4677" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rsdp_t::oem_id[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>oem_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="11" column="6" bodyfile="include/acpi.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1a3f4712eed0205429c4801e1e3eb93fe8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsdp_t::revision</definition>
+        <argsstring></argsstring>
+        <name>revision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="12" column="9" bodyfile="include/acpi.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1a046202226bc2107cd9bf7ea7815be67a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rsdp_t::rsdt_address</definition>
+        <argsstring></argsstring>
+        <name>rsdt_address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="13" column="10" bodyfile="include/acpi.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1aa83e3806992d7a7f405b7d5cef9ce500" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rsdp_t::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="14" column="10" bodyfile="include/acpi.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1a9e01f9df50bd375bdddbd254220fb432" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rsdp_t::xsdt_address</definition>
+        <argsstring></argsstring>
+        <name>xsdt_address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="15" column="10" bodyfile="include/acpi.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1a7fcc71ed3a17b621826adb15c69d6bd8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsdp_t::extended_checksum</definition>
+        <argsstring></argsstring>
+        <name>extended_checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="16" column="9" bodyfile="include/acpi.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrsdp__t_1a9417b5fb7f6448c63489b2c835cd813c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rsdp_t::reserved[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="17" column="9" bodyfile="include/acpi.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ACPI Root System Description Pointer (RSDP) </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+      <node id="1">
+        <label>rsdp_t</label>
+        <link refid="structrsdp__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>xsdt_address</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>oem_id</edgelabel>
+          <edgelabel>signature</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>length</edgelabel>
+          <edgelabel>rsdt_address</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>checksum</edgelabel>
+          <edgelabel>extended_checksum</edgelabel>
+          <edgelabel>reserved</edgelabel>
+          <edgelabel>revision</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/acpi.h" line="8" column="1" bodyfile="include/acpi.h" bodystart="8" bodyend="18"/>
+    <listofallmembers>
+      <member refid="structrsdp__t_1ab133d8b5ec18bfde3af9d11cfb13896b" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>checksum</name></member>
+      <member refid="structrsdp__t_1a7fcc71ed3a17b621826adb15c69d6bd8" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>extended_checksum</name></member>
+      <member refid="structrsdp__t_1aa83e3806992d7a7f405b7d5cef9ce500" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>length</name></member>
+      <member refid="structrsdp__t_1ae0f70c354d88e9c5298d0547765b4677" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>oem_id</name></member>
+      <member refid="structrsdp__t_1a9417b5fb7f6448c63489b2c835cd813c" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>reserved</name></member>
+      <member refid="structrsdp__t_1a3f4712eed0205429c4801e1e3eb93fe8" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>revision</name></member>
+      <member refid="structrsdp__t_1a046202226bc2107cd9bf7ea7815be67a" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>rsdt_address</name></member>
+      <member refid="structrsdp__t_1ae3e48eb5a8a88cc1e06d3bd96ce93dd6" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>signature</name></member>
+      <member refid="structrsdp__t_1a9e01f9df50bd375bdddbd254220fb432" prot="public" virt="non-virtual"><scope>rsdp_t</scope><name>xsdt_address</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

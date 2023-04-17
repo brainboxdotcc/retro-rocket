@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structsdt__header__t" kind="struct" language="C++" prot="public">
+    <compoundname>sdt_header_t</compoundname>
+    <includes local="no">acpi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsdt__header__t_1a61e330810bd36057bf09649bc366fad0" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char sdt_header_t::signature[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="24" column="6" bodyfile="include/acpi.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1abe57e83b002ec9c735441cdf583c2a85" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sdt_header_t::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="25" column="10" bodyfile="include/acpi.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1a7ca1eb8b50d806ab4cd2e354b7029bff" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t sdt_header_t::revision</definition>
+        <argsstring></argsstring>
+        <name>revision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="26" column="9" bodyfile="include/acpi.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1aa299d8aed090e515ea3d0a6615e6f13b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t sdt_header_t::checksum</definition>
+        <argsstring></argsstring>
+        <name>checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="27" column="9" bodyfile="include/acpi.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1a617232300a3a39c41cd8af74b9c3c660" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char sdt_header_t::oem_id[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>oem_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="28" column="6" bodyfile="include/acpi.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1a80ae2966dc905c4d6afef8d39c558a06" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char sdt_header_t::oem_table_id[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>oem_table_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="29" column="6" bodyfile="include/acpi.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1ab45624493b14b1ec7a7b00243f6ae1c0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sdt_header_t::oem_revision</definition>
+        <argsstring></argsstring>
+        <name>oem_revision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="30" column="10" bodyfile="include/acpi.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1a2c5951f2b6e6e98fc2301c32be64a891" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sdt_header_t::creator_id</definition>
+        <argsstring></argsstring>
+        <name>creator_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="31" column="10" bodyfile="include/acpi.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsdt__header__t_1a2ef1914f5362f7775b8eeb9f6691da2d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sdt_header_t::creator_revision</definition>
+        <argsstring></argsstring>
+        <name>creator_revision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="32" column="10" bodyfile="include/acpi.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>System Description Table Header. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>sdt_header_t</label>
+        <link refid="structsdt__header__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>oem_id</edgelabel>
+          <edgelabel>oem_table_id</edgelabel>
+          <edgelabel>signature</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>creator_id</edgelabel>
+          <edgelabel>creator_revision</edgelabel>
+          <edgelabel>length</edgelabel>
+          <edgelabel>oem_revision</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>checksum</edgelabel>
+          <edgelabel>revision</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/acpi.h" line="23" column="1" bodyfile="include/acpi.h" bodystart="23" bodyend="33"/>
+    <listofallmembers>
+      <member refid="structsdt__header__t_1aa299d8aed090e515ea3d0a6615e6f13b" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>checksum</name></member>
+      <member refid="structsdt__header__t_1a2c5951f2b6e6e98fc2301c32be64a891" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>creator_id</name></member>
+      <member refid="structsdt__header__t_1a2ef1914f5362f7775b8eeb9f6691da2d" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>creator_revision</name></member>
+      <member refid="structsdt__header__t_1abe57e83b002ec9c735441cdf583c2a85" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>length</name></member>
+      <member refid="structsdt__header__t_1a617232300a3a39c41cd8af74b9c3c660" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>oem_id</name></member>
+      <member refid="structsdt__header__t_1ab45624493b14b1ec7a7b00243f6ae1c0" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>oem_revision</name></member>
+      <member refid="structsdt__header__t_1a80ae2966dc905c4d6afef8d39c558a06" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>oem_table_id</name></member>
+      <member refid="structsdt__header__t_1a7ca1eb8b50d806ab4cd2e354b7029bff" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>revision</name></member>
+      <member refid="structsdt__header__t_1a61e330810bd36057bf09649bc366fad0" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>signature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

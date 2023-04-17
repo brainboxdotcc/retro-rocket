@@ -2,7 +2,7 @@ var structgpt__header__t =
 [
     [ "crc_32_of_entries", "structgpt__header__t.html#ac8f8ae51701b9683ff0bc3e04efda0f2", null ],
     [ "crc_checksum", "structgpt__header__t.html#a93911710223d932c2cf8b13a446ad2ee", null ],
-    [ "disk_guid", "structgpt__header__t.html#a1aa91bd44f89e32a4ad630bcbbd2acac", null ],
+    [ "disk_guid", "structgpt__header__t.html#a79ed891ffe92857df146217a391ee7fa", null ],
     [ "first_usable_block", "structgpt__header__t.html#a709210fecd013c9b8be9845a3b327ea4", null ],
     [ "gpt_revision", "structgpt__header__t.html#a2fafdbba3d58c482bc05764b675fa9da", null ],
     [ "header_size", "structgpt__header__t.html#a93f13eaade92102060ef1e1f3647ae34", null ],

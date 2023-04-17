@@ -26,7 +26,7 @@ var searchData=
   ['ethernet_5fframe_178',['ethernet_frame',['../structethernet__frame.html',1,'']]],
   ['ethernet_5fprotocol_5fid_179',['ethernet_protocol_id',['../structnetproto.html#ad944682dcb1b56b587f769457c2ca5ef',1,'netproto']]],
   ['eval_5flinenum_180',['eval_linenum',['../structubasic__ctx.html#a5b0f365c2985b1a34a20e9dbce6545ce',1,'ubasic_ctx']]],
-  ['extended_5fchecksum_181',['extended_checksum',['../structrsdp.html#a3514c4a6de2614d9248000ab5776e2bb',1,'rsdp']]],
+  ['extended_5fchecksum_181',['extended_checksum',['../structrsdp__t.html#a7fcc71ed3a17b621826adb15c69d6bd8',1,'rsdp_t']]],
   ['extent_5flba_5flsb_182',['extent_lba_lsb',['../struct____attribute____.html#acb79cb292bdd3c077c5f0ce46a640ec9',1,'__attribute__']]],
   ['extent_5flba_5fmsb_183',['extent_lba_msb',['../struct____attribute____.html#a4613b745c8832e7c39470fb4dcd44115',1,'__attribute__']]]
 ];

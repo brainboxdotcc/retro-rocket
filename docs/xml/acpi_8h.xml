@@ -549,62 +549,24 @@
         </childnode>
       </node>
     </invincdepgraph>
-    <innerclass refid="structrsdp" prot="public">rsdp</innerclass>
-    <innerclass refid="structsdt__header" prot="public">sdt_header</innerclass>
-    <innerclass refid="structrsdt" prot="public">rsdt</innerclass>
-    <innerclass refid="structioapic" prot="public">ioapic</innerclass>
+    <innerclass refid="structrsdp__t" prot="public">rsdp_t</innerclass>
+    <innerclass refid="structsdt__header__t" prot="public">sdt_header_t</innerclass>
+    <innerclass refid="structrsdt__t" prot="public">rsdt_t</innerclass>
+    <innerclass refid="structioapic__t" prot="public">ioapic_t</innerclass>
       <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="acpi_8h_1acf8d1189eeb89be875016d73a306e0bb" prot="public" static="no">
-        <type>struct <ref refid="structrsdp" kindref="compound">rsdp</ref></type>
-        <definition>typedef struct rsdp rsdp_t</definition>
-        <argsstring></argsstring>
-        <name>rsdp_t</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/acpi.h" line="1" column="0" bodyfile="include/acpi.h" bodystart="16" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="typedef" id="acpi_8h_1aee27fc1585431d988702436e853307de" prot="public" static="no">
-        <type>struct <ref refid="structsdt__header" kindref="compound">sdt_header</ref></type>
-        <definition>typedef struct sdt_header sdt_header_t</definition>
-        <argsstring></argsstring>
-        <name>sdt_header_t</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/acpi.h" line="1" column="0" bodyfile="include/acpi.h" bodystart="29" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="typedef" id="acpi_8h_1ac6417da4c2edeef81744c181cf53c259" prot="public" static="no">
-        <type>struct <ref refid="structrsdt" kindref="compound">rsdt</ref></type>
-        <definition>typedef struct rsdt rsdt_t</definition>
-        <argsstring></argsstring>
-        <name>rsdt_t</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/acpi.h" line="1" column="0" bodyfile="include/acpi.h" bodystart="37" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="typedef" id="acpi_8h_1a6d0ccb9933c8214c125548a54f216a72" prot="public" static="no">
-        <type>struct <ref refid="structioapic" kindref="compound">ioapic</ref></type>
-        <definition>typedef struct ioapic ioapic_t</definition>
+      <memberdef kind="typedef" id="acpi_8h_1a406398bd24fba893e63c7205a02228a9" prot="public" static="no">
+        <type>struct <ref refid="structioapic__t" kindref="compound">ioapic_t</ref></type>
+        <definition>typedef struct ioapic_t ioapic_t</definition>
         <argsstring></argsstring>
         <name>ioapic_t</name>
         <briefdescription>
+<para>Definition of an IOAPIC. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="1" column="0" bodyfile="include/acpi.h" bodystart="45" bodyend="-1"/>
+        <location file="include/acpi.h" line="52" column="10"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -778,7 +740,7 @@
         <location file="include/acpi.h" line="8" column="10" bodyfile="include/acpi.h" bodystart="8" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8h_1a89376b1a0d2080ce083befe8f35cd34d" prot="public" static="no" mutable="no">
-        <type><ref refid="structsdt__header" kindref="compound">sdt_header_t</ref></type>
+        <type><ref refid="structsdt__header__t" kindref="compound">sdt_header_t</ref></type>
         <definition>sdt_header_t header</definition>
         <argsstring></argsstring>
         <name>header</name>
@@ -803,32 +765,22 @@
         </inbodydescription>
         <location file="include/acpi.h" line="1" column="10" bodyfile="include/acpi.h" bodystart="1" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="acpi_8h_1aafbf64bca4eea0ce21790146ad03e6f8" prot="public" static="no" mutable="no">
-        <type>struct <ref refid="structioapic" kindref="compound">ioapic</ref></type>
-        <definition>struct ioapic __attribute__</definition>
-        <argsstring></argsstring>
-        <name>__attribute__</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/acpi.h" line="44" column="1"/>
-      </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="acpi_8h_1a879788731194c66cc02bf0de311d1def" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>struct <ref refid="structrsdp" kindref="compound">rsdp</ref></type>
-        <definition>struct rsdp __attribute__</definition>
-        <argsstring>((packed))</argsstring>
+      <memberdef kind="function" id="acpi_8h_1a08df82d89767e6d89ca02f7a441a16a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structrsdp__t" kindref="compound">rsdp_t</ref></type>
+        <definition>struct rsdp_t __attribute__</definition>
+        <argsstring>((packed)) rsdp_t</argsstring>
         <name>__attribute__</name>
         <param>
           <type>(packed)</type>
         </param>
         <briefdescription>
+<para>ACPI Root System Description Pointer (RSDP) </para>
         </briefdescription>
         <detaileddescription>
+<para>Root System Description Table.</para>
+<para>System Description Table Header. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -840,12 +792,13 @@
         <argsstring>()</argsstring>
         <name>init_cores</name>
         <briefdescription>
+<para>Detect SMP cores, IOAPICs, Local APICs. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="47" column="6" declfile="include/acpi.h" declline="47" declcolumn="6"/>
+        <location file="include/acpi.h" line="57" column="6" declfile="include/acpi.h" declline="57" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8h_1ae7164bbaa4c4e814bdeaf05f386103ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t *</type>
@@ -853,12 +806,16 @@
         <argsstring>()</argsstring>
         <name>get_lapic_ids</name>
         <briefdescription>
+<para>Get the local apic ids. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>uint8_t* </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="48" column="9" declfile="include/acpi.h" declline="48" declcolumn="9"/>
+        <location file="include/acpi.h" line="64" column="9" declfile="include/acpi.h" declline="64" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8h_1a1a6dfa32a21e7522a6094874a4c36e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -866,12 +823,16 @@
         <argsstring>()</argsstring>
         <name>get_cpu_count</name>
         <briefdescription>
+<para>Get the cpu count. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>uint16_t </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="49" column="10" declfile="include/acpi.h" declline="49" declcolumn="10"/>
+        <location file="include/acpi.h" line="71" column="10" declfile="include/acpi.h" declline="71" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8h_1a9a09b0320ee05b488156e6a7f4be862b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -879,15 +840,19 @@
         <argsstring>()</argsstring>
         <name>get_local_apic</name>
         <briefdescription>
+<para>Get the local apic. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>uint64_t </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="50" column="10" declfile="include/acpi.h" declline="50" declcolumn="10"/>
+        <location file="include/acpi.h" line="78" column="10" declfile="include/acpi.h" declline="78" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8h_1ab3f0de3b6d0c93058d3615110a0c7f39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="structioapic" kindref="compound">ioapic_t</ref></type>
+        <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref></type>
         <definition>ioapic_t get_ioapic</definition>
         <argsstring>(uint16_t index)</argsstring>
         <name>get_ioapic</name>
@@ -896,12 +861,25 @@
           <declname>index</declname>
         </param>
         <briefdescription>
+<para>Get the ioapic. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IOAPIC index </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structioapic__t" kindref="compound">ioapic_t</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="51" column="10" declfile="include/acpi.h" declline="51" declcolumn="10"/>
+        <location file="include/acpi.h" line="86" column="10" declfile="include/acpi.h" declline="86" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8h_1a6cbfbecf6dc77c9aebad4a0836e2b9fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -909,12 +887,16 @@
         <argsstring>()</argsstring>
         <name>get_ioapic_count</name>
         <briefdescription>
+<para>Get the ioapic count. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>uint16_t total number of IOAPICs </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="52" column="10" declfile="include/acpi.h" declline="52" declcolumn="10"/>
+        <location file="include/acpi.h" line="93" column="10" declfile="include/acpi.h" declline="93" declcolumn="10"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

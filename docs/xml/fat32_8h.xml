@@ -559,12 +559,35 @@
         <name>FAT32_SIGNATURE</name>
         <initializer>0x41615252</initializer>
         <briefdescription>
+<para>FAT32 FSINFO sector signature. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="5" column="9" bodyfile="include/fat32.h" bodystart="5" bodyend="-1"/>
+        <location file="include/fat32.h" line="8" column="9" bodyfile="include/fat32.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a50f190f7713d6be27a12d4f99b8d5dec" prot="public" static="no">
+        <name>FAT32_SIGNATURE2</name>
+        <initializer>0x61417272</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="9" column="9" bodyfile="include/fat32.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1af8e8a835520d0f72e04a1759462a049b" prot="public" static="no">
+        <name>FAT32_SIGNATURE3</name>
+        <initializer>0xAA550000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="10" column="9" bodyfile="include/fat32.h" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1aef018487342a3344aa32ee15ddcb4410" prot="public" static="no">
         <name>ATTR_READ_ONLY</name>
@@ -575,7 +598,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="7" column="9" bodyfile="include/fat32.h" bodystart="7" bodyend="-1"/>
+        <location file="include/fat32.h" line="12" column="9" bodyfile="include/fat32.h" bodystart="12" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1a42249a182dc832d4647b67281c2ffc90" prot="public" static="no">
         <name>ATTR_HIDDEN</name>
@@ -586,7 +609,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="8" column="9" bodyfile="include/fat32.h" bodystart="8" bodyend="-1"/>
+        <location file="include/fat32.h" line="13" column="9" bodyfile="include/fat32.h" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1a1c1250075cd2ca065a67a44fc9fc3222" prot="public" static="no">
         <name>ATTR_SYSTEM</name>
@@ -597,7 +620,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="9" column="9" bodyfile="include/fat32.h" bodystart="9" bodyend="-1"/>
+        <location file="include/fat32.h" line="14" column="9" bodyfile="include/fat32.h" bodystart="14" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1ab14d118689e61ffb3e29f83d38f1f135" prot="public" static="no">
         <name>ATTR_VOLUME_ID</name>
@@ -608,7 +631,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="10" column="9" bodyfile="include/fat32.h" bodystart="10" bodyend="-1"/>
+        <location file="include/fat32.h" line="15" column="9" bodyfile="include/fat32.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1afa13d3c1c60925f7b1e639233a799860" prot="public" static="no">
         <name>ATTR_DIRECTORY</name>
@@ -619,7 +642,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="11" column="9" bodyfile="include/fat32.h" bodystart="11" bodyend="-1"/>
+        <location file="include/fat32.h" line="16" column="9" bodyfile="include/fat32.h" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1a1b257aa7e0fdd8b11372edf885302176" prot="public" static="no">
         <name>ATTR_ARCHIVE</name>
@@ -630,7 +653,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="12" column="9" bodyfile="include/fat32.h" bodystart="12" bodyend="-1"/>
+        <location file="include/fat32.h" line="17" column="9" bodyfile="include/fat32.h" bodystart="17" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1a4530dded7bddf70573cbc1fc4515367e" prot="public" static="no">
         <name>ATTR_LONG_NAME</name>
@@ -641,7 +664,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="13" column="9" bodyfile="include/fat32.h" bodystart="13" bodyend="-1"/>
+        <location file="include/fat32.h" line="18" column="9" bodyfile="include/fat32.h" bodystart="18" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1a731cf87da8157bd11a7a6d10102d168c" prot="public" static="no">
         <name>ATTR_LFN_DELETED</name>
@@ -652,7 +675,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="15" column="9" bodyfile="include/fat32.h" bodystart="15" bodyend="-1"/>
+        <location file="include/fat32.h" line="20" column="9" bodyfile="include/fat32.h" bodystart="20" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1ac25c831549b59dc4db5cf7002dcd4d0f" prot="public" static="no">
         <name>ATTR_LFN_LAST_ENTRY</name>
@@ -663,7 +686,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="16" column="9" bodyfile="include/fat32.h" bodystart="16" bodyend="-1"/>
+        <location file="include/fat32.h" line="21" column="9" bodyfile="include/fat32.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a25e14f7cee749eae300f179067563f09" prot="public" static="no">
+        <name>DELETED_ENTRY</name>
+        <initializer>0xE5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="23" column="9" bodyfile="include/fat32.h" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1a50b3c7ff77f4ac57d61c3b611bbcf63d" prot="public" static="no">
         <name>CLUSTER_END</name>
@@ -674,7 +708,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="18" column="9" bodyfile="include/fat32.h" bodystart="18" bodyend="-1"/>
+        <location file="include/fat32.h" line="25" column="9" bodyfile="include/fat32.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1aca71ac2df704b07a4c5a6df78f06bae4" prot="public" static="no">
         <name>CLUSTER_BAD</name>
@@ -685,7 +719,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="19" column="9" bodyfile="include/fat32.h" bodystart="19" bodyend="-1"/>
+        <location file="include/fat32.h" line="26" column="9" bodyfile="include/fat32.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="fat32_8h_1a1b9d773a3987b01fdca3c1013fab4f10" prot="public" static="no">
         <name>CLUSTER_FREE</name>
@@ -696,7 +730,31 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="20" column="9" bodyfile="include/fat32.h" bodystart="20" bodyend="-1"/>
+        <location file="include/fat32.h" line="27" column="9" bodyfile="include/fat32.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a67410fff1de66462e0eecbc703811c5a" prot="public" static="no">
+        <name>GPT_EFI_SYSTEM</name>
+        <initializer>&quot;28732AC1-1FF8-D211-BA4B-00A0C93EC93B&quot;</initializer>
+        <briefdescription>
+<para>EFI system partition GUID. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="32" column="9" bodyfile="include/fat32.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a463a8a224f6ad57583643e9d1490a593" prot="public" static="no">
+        <name>GPT_MICROSOFT_BASIC_DATA</name>
+        <initializer>&quot;EBD0A0A2-B9E5-4433-87C0-68B6B72699C7&quot;</initializer>
+        <briefdescription>
+<para>Microsoft basic data partition GUID. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/fat32.h" line="36" column="9" bodyfile="include/fat32.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -712,7 +770,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="54" column="9"/>
+        <location file="include/fat32.h" line="68" column="9"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -1466,7 +1524,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/fat32.h" line="141" column="6" declfile="include/fat32.h" declline="141" declcolumn="6"/>
+        <location file="include/fat32.h" line="155" column="6" declfile="include/fat32.h" declline="155" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

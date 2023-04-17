@@ -950,13 +950,15 @@
         <argsstring></argsstring>
         <name>__attribute__</name>
         <briefdescription>
-<para>A directory entry, e.g. file, volume label, directory, long filename entry. </para>
+<para>System Description Table Header. </para>
         </briefdescription>
         <detaileddescription>
 <para>A disk partition table consisiting of four <ref refid="structpartition__t" kindref="compound">partition_t</ref>.</para>
 <para>Structure for an IP packet.</para>
 <para>Long filename entry, overlays a <ref refid="structdirectory__entry__t" kindref="compound">directory_entry_t</ref>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the &apos;order&apos; attribute indicates which order they go in.</para>
-<para>FAT32 BIOS parameter block (BPB), stored in the boot sector of the drive. </para>
+<para>FAT32 BIOS parameter block (BPB), stored in the boot sector of the drive.</para>
+<para>A directory entry, e.g. file, volume label, directory, long filename entry.</para>
+<para>Root System Description Table. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
