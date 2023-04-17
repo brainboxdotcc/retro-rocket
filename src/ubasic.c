@@ -216,6 +216,8 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
 	ctx->double_variables = old->double_variables;
+	ctx->line_tail = old->line_tail;
+	ctx->lines = old->lines;
 
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = old->local_int_variables[i];
@@ -2216,6 +2218,7 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		while (extract_comma_list(def, ctx));
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
 		atomic->fn_type = RT_INT;
+		dprintf("Function eval, jump to line %d\n", def->line);
 		jump_linenum(def->line, atomic);
 
 		while (!ubasic_finished(atomic))
