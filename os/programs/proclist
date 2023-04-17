@@ -1,7 +1,7 @@
 10 X = GETPROCCOUNT
 15 PRINT "PID   "; "PROCESS NAME"
 16 PRINT "----- "; "----------------------"
-20 FOR Y = 0 TO X - 1
+20 FOR Y = 0 TO X
 30 PRINT GETPROCID(Y), "     ", GETPROCNAME$(Y)
 40 NEXT
 50 PRINT "----- "; "----------------------"
