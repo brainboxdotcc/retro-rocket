@@ -379,7 +379,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 
 	tokenizer_init(ctx->program_ptr, ctx);
 
-	ctx->ended = 0;
+	ctx->ended = false;
 	return;
 }
 
@@ -1211,7 +1211,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 static void end_statement(struct ubasic_ctx* ctx)
 {
 	accept(END, ctx);
-	ctx->ended = 1;
+	ctx->ended = true;
 }
 
 static void eq_statement(struct ubasic_ctx* ctx)
@@ -1220,16 +1220,17 @@ static void eq_statement(struct ubasic_ctx* ctx)
 
 	if (ctx->fn_type == RT_STRING) {
 		ctx->fn_return = (void*)str_expr(ctx);
+	} else if (ctx->fn_type == RT_FLOAT) {
+		double_expr(ctx, (void*)&ctx->fn_return);
 	} else {
 		ctx->fn_return = (void*)expr(ctx);
 	}
 
 	accept(NEWLINE, ctx);
 
-	ctx->ended = 1;
+	ctx->ended = true;
 }
 
-/*---------------------------------------------------------------------------*/
 void statement(struct ubasic_ctx* ctx)
 {
 	int token = tokenizer_token(ctx);
@@ -1327,19 +1328,17 @@ void statement(struct ubasic_ctx* ctx)
 			return tokenizer_error_print(ctx, "Unknown keyword");
 	}
 }
-/*---------------------------------------------------------------------------*/
+
 void line_statement(struct ubasic_ctx* ctx)
 {
 	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
 	accept(NUMBER, ctx);
 	statement(ctx);
-	return;
 }
-/*---------------------------------------------------------------------------*/
+
 void ubasic_run(struct ubasic_ctx* ctx)
 {
 	if (ubasic_finished(ctx)) {
-		//dprintf("Instance finished\n");
 		return;
 	}
 	line_statement(ctx);
@@ -1354,13 +1353,12 @@ void ubasic_run(struct ubasic_ctx* ctx)
 	}
 	gc();
 }
-/*---------------------------------------------------------------------------*/
-int ubasic_finished(struct ubasic_ctx* ctx)
+
+bool ubasic_finished(struct ubasic_ctx* ctx)
 {
-	int st = ctx->ended || tokenizer_finished(ctx);
-	return st;
+	return ctx->ended || tokenizer_finished(ctx);
 }
-/*---------------------------------------------------------------------------*/
+
 void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* ctx)
 {
 	/* first, itdentify the variable's type. Look for $ for string,
@@ -2403,7 +2401,7 @@ ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* c
 	return RT_FLOAT;
 }
 
-int ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx)
+int64_t ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx)
 {
 	double res;
 	if (ubasic_get_double_variable(var, ctx, &res)) {

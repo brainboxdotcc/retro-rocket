@@ -1,8 +1,16 @@
 /**
  * @file ubasic.h
- * BBC BASIC interpreter,
+ * @brief Retro Rocket BASIC interpreter
+ * 
  * Retro Rocket OS Project (C) Craig Edwards 2012.
- * loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).
+ * @note loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).
+ * 
+ * uBASIC is far more limited than the dialect implemented here. It only allowed
+ * variables of one letter in length, and only integer variables, no PROC, FN,
+ * or additional functions, no floating point or string ops, no INPUT,
+ * just plain mathematical expressions, no ability to isolate execution into a
+ * context, and was (and in parts still is) quite badly optimised. It was what
+ * it was, a good starting off point.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -106,7 +114,7 @@ typedef struct ubasic_ctx
 	char const* nextptr;
         int current_token;
 	int64_t current_linenum;
-	int errored;
+	bool errored;
         char *program_ptr;
         char string[MAX_STRINGLEN];
         uint64_t gosub_stack[MAX_GOSUB_STACK_DEPTH];
@@ -125,7 +133,7 @@ typedef struct ubasic_ctx
 	struct ub_var_int_array* int_array_variables;
 	struct ub_var_string_array* string_array_variables;
 	struct console* cons;
-        int ended;
+        bool ended;
 	ub_return_type fn_type;
 	void* fn_return;
 	int bracket_depth;
@@ -185,7 +193,7 @@ char* ubasic_getname(struct ubasic_ctx* ctx);
 struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error);
 void ubasic_destroy(struct ubasic_ctx* ctx);
 void ubasic_run(struct ubasic_ctx* ctx);
-int ubasic_finished(struct ubasic_ctx* ctx);
+bool ubasic_finished(struct ubasic_ctx* ctx);
 int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
@@ -197,7 +205,7 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local);
 
 ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res);
-int ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);
+int64_t ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);
 
 int64_t expr(struct ubasic_ctx* ctx);
 void double_expr(struct ubasic_ctx* ctx, double* res);

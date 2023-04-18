@@ -127,20 +127,14 @@ static int singlechar(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 int get_next_token(struct ubasic_ctx* ctx)
 {
-	int i;
-	char hex = 0;
-
-	DEBUG_PRINTF("get_next_token(): '%s'\n", ctx->ptr);
-
 	if(*ctx->ptr == 0) {
 		return ENDOFINPUT;
 	}
 	
 	if (isdigit(*ctx->ptr) || *ctx->ptr == '&'|| *ctx->ptr == '.') {
-		hex = (*ctx->ptr == '&') ? 1 : 0;
-		if (hex) {
+		if (*ctx->ptr == '&') {
 			ctx->ptr++;
-			for (i = 0; i < MAX_NUMLEN; ++i) {
+			for (int i = 0; i < MAX_NUMLEN; ++i) {
 				if (!isxdigit(ctx->ptr[i])) {
 					if (i > 1) {
 						ctx->nextptr = ctx->ptr + i;
@@ -157,7 +151,7 @@ int get_next_token(struct ubasic_ctx* ctx)
 			}
 		} else {
 			/* Scan forwards up to MAX_NUMLEN characters */
-			for (i = 0; i < MAX_NUMLEN; ++i) {
+			for (int i = 0; i < MAX_NUMLEN; ++i) {
 				/* Until we find a character that isnt part of a number */
 				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
 					if (i > 0) {
@@ -176,10 +170,10 @@ int get_next_token(struct ubasic_ctx* ctx)
 		}
 		tokenizer_error_print(ctx, "Number too long");
 		return ERROR;
-	} else if(singlechar(ctx)) {
+	} else if (singlechar(ctx)) {
 		ctx->nextptr = ctx->ptr + 1;
 		return singlechar(ctx);
-	} else if(*ctx->ptr == '"') {
+	} else if (*ctx->ptr == '"') {
 		ctx->nextptr = ctx->ptr;
 		int strl = 0;
 		do {
@@ -327,7 +321,7 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 			setforeground(current_console, COLOUR_LIGHTRED);
 			kprintf("Error on line %d: %s\n", ctx->current_linenum, error);
 			setforeground(current_console, COLOUR_WHITE);
-			ctx->ended = 1;
+			ctx->ended = true;
 		}
 	} else {
 		if (!ctx->errored) {
