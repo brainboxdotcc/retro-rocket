@@ -17,16 +17,6 @@
  *
  */
 
-#define DEBUG 1
-
-#if DEBUG
-#define DEBUG_PRINTF(...)  dprintf(__VA_ARGS__)
-#else
-#define DEBUG_PRINTF(...)
-#endif
-
-#define ubasic_error(str) tokenizer_error_print(ctx, str)
-
 #include <kernel.h>
 
 struct ubasic_int_fn builtin_int[] =
@@ -1194,7 +1184,6 @@ static void for_statement(struct ubasic_ctx* ctx)
 		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, NUMBER);
 		ctx->for_stack[ctx->for_stack_ptr].for_variable = (char*)for_variable;
 		ctx->for_stack[ctx->for_stack_ptr].to = to;
-		DEBUG_PRINTF("for_statement: new for, var %s to %d\n", ctx->for_stack[ctx->for_stack_ptr].for_variable, ctx->for_stack[ctx->for_stack_ptr].to); 
 		ctx->for_stack_ptr++;
 	} else {
 		tokenizer_error_print(ctx, "Too many FOR");

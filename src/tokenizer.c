@@ -17,14 +17,6 @@
  *
  */
 
-#define DEBUG 0
-
-#if DEBUG
-#define DEBUG_PRINTF(...)	kprintf(__VA_ARGS__)
-#else
-#define DEBUG_PRINTF(...)
-#endif
-
 #include <kernel.h>
 
 #define MAX_NUMLEN 32
@@ -260,13 +252,11 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 		return;
 	}
 
-	DEBUG_PRINTF("tokenizer_next: %p\n", ctx->nextptr);
 	ctx->ptr = ctx->nextptr;
 	while(*ctx->ptr == ' ') {
 		++ctx->ptr;
 	}
 	ctx->current_token = get_next_token(ctx);
-	DEBUG_PRINTF("tokenizer_next: '%s' %d\n", ctx->ptr, ctx->current_token);
 	return;
 }
 
