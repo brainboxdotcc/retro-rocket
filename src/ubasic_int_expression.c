@@ -4,14 +4,14 @@ static int64_t varfactor(struct ubasic_ctx* ctx)
 {
 	int64_t r = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	// Special case for builin functions
-	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
+	if (tokenizer_token(ctx) == COMMA)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
 	else
 	{
-		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
-			accept(TOKENIZER_RIGHTPAREN, ctx);
+		if (tokenizer_token(ctx) == RIGHTPAREN)
+			accept(RIGHTPAREN, ctx);
 		else
-			accept(TOKENIZER_VARIABLE, ctx);
+			accept(VARIABLE, ctx);
 	}
 	return r;
 }
@@ -22,15 +22,15 @@ int64_t factor(struct ubasic_ctx* ctx)
 
 	int tok = tokenizer_token(ctx);
 	switch (tok) {
-		case TOKENIZER_NUMBER:
-		case TOKENIZER_HEXNUMBER:
+		case NUMBER:
+		case HEXNUMBER:
 			r = tokenizer_num(ctx, tok);
 			accept(tok, ctx);
 		break;
-		case TOKENIZER_LEFTPAREN:
-			accept(TOKENIZER_LEFTPAREN, ctx);
+		case LEFTPAREN:
+			accept(LEFTPAREN, ctx);
 			r = expr(ctx);
-			accept(TOKENIZER_RIGHTPAREN, ctx);
+			accept(RIGHTPAREN, ctx);
 		break;
 		default:
 			r = varfactor(ctx);
@@ -47,20 +47,20 @@ int relation(struct ubasic_ctx* ctx)
 	r1 = expr(ctx);
 	op = tokenizer_token(ctx);
 
-	while (op == TOKENIZER_LT || op == TOKENIZER_GT || op == TOKENIZER_EQ)
+	while (op == LT || op == GT || op == EQ)
 	{
 		tokenizer_next(ctx);
 		r2 = expr(ctx);
 
 		switch (op)
 		{
-			case TOKENIZER_LT:
+			case LT:
 				r1 = r1 < r2;
 			break;
-			case TOKENIZER_GT:
+			case GT:
 				r1 = r1 > r2;
 			break;
-			case TOKENIZER_EQ:
+			case EQ:
 				r1 = r1 == r2;
 			break;
 		}
@@ -79,23 +79,23 @@ int64_t term(struct ubasic_ctx* ctx)
 	f1 = factor(ctx);
 	//kprintf("Factor is %d\n", f1);
 	op = tokenizer_token(ctx);
-	while (op == TOKENIZER_ASTR || op == TOKENIZER_SLASH || op == TOKENIZER_MOD)
+	while (op == ASTR || op == SLASH || op == MOD)
 	{
 		tokenizer_next(ctx);
 		f2 = factor(ctx);
 		switch (op)
 		{
-			case TOKENIZER_ASTR:
+			case ASTR:
 				f1 = f1 * f2;
 			break;
-			case TOKENIZER_SLASH:
+			case SLASH:
 				if (f2 == 0) {
 					tokenizer_error_print(ctx, "Division by zero");
 				} else {
 					f1 = f1 / f2;
 				}
 			break;
-			case TOKENIZER_MOD:
+			case MOD:
 				f1 = f1 % f2;
 			break;
 		}
@@ -113,22 +113,22 @@ int64_t expr(struct ubasic_ctx* ctx)
 	t1 = term(ctx);
 	op = tokenizer_token(ctx);
 
-	while (op == TOKENIZER_PLUS || op == TOKENIZER_MINUS || op == TOKENIZER_AND || op == TOKENIZER_OR)
+	while (op == PLUS || op == MINUS || op == AND || op == OR)
 	{
 		tokenizer_next(ctx);
 		t2 = term(ctx);
 		switch (op)
 		{
-			case TOKENIZER_PLUS:
+			case PLUS:
 				t1 = t1 + t2;
 			break;
-			case TOKENIZER_MINUS:
+			case MINUS:
 				t1 = t1 - t2;
 			break;
-			case TOKENIZER_AND:
+			case AND:
 				t1 = t1 & t2;
 			break;
-			case TOKENIZER_OR:
+			case OR:
 				t1 = t1 | t2;
 			break;
 		}

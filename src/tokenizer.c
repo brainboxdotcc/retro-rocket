@@ -29,184 +29,110 @@
 
 #define MAX_NUMLEN 32
 
-const char* types[] = {
-	"ERROR",
-	"END OF INPUT",
-	"NUMBER",
-	"HEX NUMBER",
-	"STRING",
-	"VARIABLE",
-	"LET",
-	"PRINT",
-	"IF",
-	"THEN",
-	"ELSE",
-	"CHAIN",
-	"FOR",
-	"TO",
-	"STEP",
-	"NEXT",
-	"GOTOXY",
-	"GOTO",
-	"GOSUB",
-	"RETURN",
-	"CALL",
-	"INPUT",
-	"COLOUR",
-	"COLOR",
-	"EVAL",
-	"OPENIN",
-	"READ",
-	"CLOSE",
-	"EOF",
-	"DEF",
-	"PROC",
-	"FN",
-	"END",
-	"REM",
-	",",
-	";",
-	"+",
-	"-",
-	"AND",
-	"OR",
-	"*",
-	"/",
-	"MOD",
-	")",
-	"(",
-	"<",
-	">",
-	"=",
-	"NEW LINE",
-	"&",
-	"~",
-	"GLOBAL",
-	"SOCKREAD",
-	"SOCKWRITE",
-	"CONNECT",
-	"SOCKCLOSE",
-	"CLS",
-	"GCOL",
-	"LINE",
-	"TRIANGLE",
-	"RECTANGLE",
-	"CIRCLE",
-	"POINT",
-	"OPENOUT",
-	"OPENUP",
-	"WRITE",
-	"MKDIR",
-	"RMDIR",
-	"DELETE",
-	"MOUNT",
-};
-
-struct keyword_token {
-	char *keyword;
-	int token;
-};
-
-static const struct keyword_token keywords[] = {
-	{"LET", TOKENIZER_LET},
-	{"PRINT", TOKENIZER_PRINT},
-	{"IF", TOKENIZER_IF},
-	{"THEN", TOKENIZER_THEN},
-	{"ELSE", TOKENIZER_ELSE},
-	{"DEF", TOKENIZER_DEF},
-	{"FOR", TOKENIZER_FOR},
-	{"TO", TOKENIZER_TO},
-	{"STEP", TOKENIZER_STEP},
-	{"NEXT", TOKENIZER_NEXT},
-	{"GOTOXY", TOKENIZER_GOTOXY},
-	{"GOTO", TOKENIZER_GOTO},
-	{"GOSUB", TOKENIZER_GOSUB},
-	{"RETURN", TOKENIZER_RETURN},
-	{"CALL", TOKENIZER_CALL},
-	{"INPUT", TOKENIZER_INPUT},
-	{"COLOR", TOKENIZER_COLOR},
-	{"COLOUR", TOKENIZER_COLOUR},
-	{"END", TOKENIZER_END},
-	{"CHAIN", TOKENIZER_CHAIN},
-	{"EVAL", TOKENIZER_EVAL},
-	{"OPENIN", TOKENIZER_OPENIN},
-	{"READ", TOKENIZER_READ},
-	{"CLOSE", TOKENIZER_CLOSE},
-	{"EOF", TOKENIZER_EOF},
-	{"REM", TOKENIZER_REM},
-	{"GLOBAL", TOKENIZER_GLOBAL},
-	{"SOCKREAD", TOKENIZER_SOCKREAD},
-	{"SOCKWRITE", TOKENIZER_SOCKWRITE},
-	{"CONNECT", TOKENIZER_CONNECT},
-	{"SOCKCLOSE", TOKENIZER_SOCKCLOSE},
-	{"CLS", TOKENIZER_CLS},
-	{"GCOL", TOKENIZER_GCOL},
-	{"LINE", TOKENIZER_LINE},
-	{"TRIANGLE", TOKENIZER_TRIANGLE},
-	{"RECTANGLE", TOKENIZER_RECTANGLE},
-	{"CIRCLE", TOKENIZER_CIRCLE},
-	{"POINT", TOKENIZER_POINT},
-	{"OPENOUT", TOKENIZER_OPENOUT},
-	{"OPENUP", TOKENIZER_OPENUP},
-	{"WRITE", TOKENIZER_WRITE},
-	{"MKDIR", TOKENIZER_MKDIR},
-	{"RMDIR", TOKENIZER_RMDIR},
-	{"DELETE", TOKENIZER_DELETE},
-	{"MOUNT", TOKENIZER_MOUNT},
-	{NULL, TOKENIZER_ERROR},
+/**
+ * @brief Contains a list of statement keywords.
+ * 
+ * @note It is important that these are alphabetically sorted.
+ * It allows us to optimise the search.
+ */
+const int keywords[] = {
+	CALL,
+	CHAIN,
+	CIRCLE,
+	CLOSE,
+	CLS,
+	COLOR,
+	COLOUR,
+	CONNECT,
+	CURSOR,
+	DEF,
+	DELETE,
+	ELSE,
+	END,
+	EOF,
+	EVAL,
+	FOR,
+	GCOL,
+	GLOBAL,
+	GOSUB,
+	GOTO,
+	IF,
+	INPUT,
+	LET,
+	LINE,
+	MKDIR,
+	MOUNT,
+	NEXT,
+	OPENIN,
+	OPENOUT,
+	OPENUP,
+	POINT,
+	PRINT,
+	READ,
+	RECTANGLE,
+	REM,
+	RETURN,
+	RMDIR,
+	SOCKCLOSE,
+	SOCKREAD,
+	SOCKWRITE,
+	STEP,
+	THEN,
+	TO,
+	TRIANGLE,
+	WRITE,
+	-1,
 };
 
 /*---------------------------------------------------------------------------*/
 static int singlechar(struct ubasic_ctx* ctx)
 {
-	if(*ctx->ptr == '\n') {
-		return TOKENIZER_CR;
-	} else if(*ctx->ptr == ',') {
-		return TOKENIZER_COMMA;
-	} else if(*ctx->ptr == ';') {
-		return TOKENIZER_SEMICOLON;
-	} else if(*ctx->ptr == '+') {
-		return TOKENIZER_PLUS;
-	} else if(*ctx->ptr == '-') {
-		return TOKENIZER_MINUS;
-	} else if(*ctx->ptr == '&') {
-		return TOKENIZER_AND;
-	} else if(*ctx->ptr == '|') {
-		return TOKENIZER_OR;
-	} else if(*ctx->ptr == '*') {
-		return TOKENIZER_ASTR;
-	} else if(*ctx->ptr == '/') {
-		return TOKENIZER_SLASH;
-	} else if(*ctx->ptr == '%') {
-		return TOKENIZER_MOD;
-	} else if(*ctx->ptr == '(') {
-		return TOKENIZER_LEFTPAREN;
-	} else if(*ctx->ptr == ')') {
-		return TOKENIZER_RIGHTPAREN;
-	} else if(*ctx->ptr == '<') {
-		return TOKENIZER_LT;
-	} else if(*ctx->ptr == '>') {
-		return TOKENIZER_GT;
-	} else if(*ctx->ptr == '=') {
-		return TOKENIZER_EQ;
-	} else if(*ctx->ptr == '&') {
-		return TOKENIZER_AMPERSAND;
-	} else if (*ctx->ptr == '~') {
-		return TOKENIZER_TILDE;
+	switch (*ctx->ptr) {
+		case '\n':
+			return CR;
+		case ',':
+			return COMMA;
+		case ';':
+			return SEMICOLON;
+		case '+':
+			return PLUS;
+		case '-':
+			return MINUS;
+		case '&':
+			return AND;
+		case '|':
+			return OR;
+		case '*':
+			return ASTR;
+		case '/':
+			return SLASH;
+		case '%':
+			return MOD;
+		case '(':
+			return LEFTPAREN;
+		case ')':
+			return RIGHTPAREN;
+		case '<':
+			return LT;
+		case '>':
+			return GT;
+		case '=':
+			return EQ;
+		case '~':
+			return TILDE;
 	}
 	return 0;
 }
 /*---------------------------------------------------------------------------*/
 int get_next_token(struct ubasic_ctx* ctx)
 {
-	struct keyword_token const *kt;
 	int i;
 	char hex = 0;
 
 	DEBUG_PRINTF("get_next_token(): '%s'\n", ctx->ptr);
 
 	if(*ctx->ptr == 0) {
-		return TOKENIZER_ENDOFINPUT;
+		return ENDOFINPUT;
 	}
 	
 	if (isdigit(*ctx->ptr) || *ctx->ptr == '&'|| *ctx->ptr == '.') {
@@ -217,15 +143,15 @@ int get_next_token(struct ubasic_ctx* ctx)
 				if (!isxdigit(ctx->ptr[i])) {
 					if (i > 1) {
 						ctx->nextptr = ctx->ptr + i;
-						return TOKENIZER_HEXNUMBER;
+						return HEXNUMBER;
 					} else {
 						tokenizer_error_print(ctx, "Hexadecimal number too short");
-						return TOKENIZER_ERROR;
+						return ERROR;
 					}
 				}
 				if (!isxdigit(ctx->ptr[i])) {
 					tokenizer_error_print(ctx, "Malformed hexadecimal number");
-					return TOKENIZER_ERROR;
+					return ERROR;
 				}
 			}
 		} else {
@@ -235,20 +161,20 @@ int get_next_token(struct ubasic_ctx* ctx)
 				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
 					if (i > 0) {
 						ctx->nextptr = ctx->ptr + i;
-						return TOKENIZER_NUMBER;
+						return NUMBER;
 					} else {
 						tokenizer_error_print(ctx, "Number too short");
-						return TOKENIZER_ERROR;
+						return ERROR;
 					}
 				}
 				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
 					tokenizer_error_print(ctx, "Malformed number");
-					return TOKENIZER_ERROR;
+					return ERROR;
 				}
 			}
 		}
 		tokenizer_error_print(ctx, "Number too long");
-		return TOKENIZER_ERROR;
+		return ERROR;
 	} else if(singlechar(ctx)) {
 		ctx->nextptr = ctx->ptr + 1;
 		return singlechar(ctx);
@@ -264,12 +190,21 @@ int get_next_token(struct ubasic_ctx* ctx)
 			}
 		} while(*ctx->nextptr != '"');
 		++ctx->nextptr;
-		return TOKENIZER_STRING;
+		return STRING;
 	} else {
-		for(kt = keywords; kt->keyword != NULL; ++kt) {
-			if(strncmp(ctx->ptr, kt->keyword, strlen(kt->keyword)) == 0) {
-				ctx->nextptr = ctx->ptr + strlen(kt->keyword);
-				return kt->token;
+		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+		for(int kt = 0; keywords[kt] != -1; ++kt) {
+			size_t len = strlen(token_names[keywords[kt]]);
+			int comparison = strncmp(ctx->ptr, token_names[keywords[kt]], len);
+			if (comparison == 0) {
+				ctx->nextptr = ctx->ptr + len;
+				return keywords[kt];
+			} else if (comparison < 0) {
+				/* We depend upon keyword_tokens being alphabetically sorted,
+				* so that we can bail early if we go too far down the list
+				* and still haven't found the keyword.
+				*/
+				break;
 			}
 		}
 	}
@@ -306,11 +241,11 @@ int get_next_token(struct ubasic_ctx* ctx)
 		if (*ctx->nextptr == '$' || *ctx->nextptr == '#')
 			ctx->nextptr++;
 		//kprintf("Variable. nextptr = %08x ptr = %08x\n", ctx->nextptr, ctx->ptr);
-		return TOKENIZER_VARIABLE;
+		return VARIABLE;
 	}
 
 	
-	return TOKENIZER_ERROR;
+	return ERROR;
 }
 /*---------------------------------------------------------------------------*/
 void
@@ -344,7 +279,7 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 {
-	return token == TOKENIZER_NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
+	return token == NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
 }
 
 void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f)
@@ -358,7 +293,7 @@ bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 	char *string_end;
 	int string_len;
 	
-	if(tokenizer_token(ctx) != TOKENIZER_STRING) {
+	if(tokenizer_token(ctx) != STRING) {
 		return true;
 	}
 	string_end = strchr(ctx->ptr + 1, '"');
@@ -407,7 +342,7 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 int tokenizer_finished(struct ubasic_ctx* ctx)
 {
 	//kprintf("tokenizer_finished? %d %08x\n", *ctx->ptr, ctx->ptr);
-	return *ctx->ptr == 0 || ctx->current_token == TOKENIZER_ENDOFINPUT;
+	return *ctx->ptr == 0 || ctx->current_token == ENDOFINPUT;
 }
 /*---------------------------------------------------------------------------*/
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx)

@@ -9,14 +9,14 @@ void double_varfactor(struct ubasic_ctx* ctx, double* res)
 	//dprintf("double_varfactor\n");
 
 	// Special case for builin functions
-	if (tokenizer_token(ctx) == TOKENIZER_COMMA)
+	if (tokenizer_token(ctx) == COMMA)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
 	else
 	{
-		if (tokenizer_token(ctx) == TOKENIZER_RIGHTPAREN)
-			accept(TOKENIZER_RIGHTPAREN, ctx);
+		if (tokenizer_token(ctx) == RIGHTPAREN)
+			accept(RIGHTPAREN, ctx);
 		else
-			accept(TOKENIZER_VARIABLE, ctx);
+			accept(VARIABLE, ctx);
 	}
 	*res = r;
 }
@@ -27,18 +27,18 @@ void double_factor(struct ubasic_ctx* ctx, double* res)
 
 	int tok = tokenizer_token(ctx);
 	switch (tok) {
-		case TOKENIZER_NUMBER:
-			//dprintf("double_factor TOKENIZER_NUMBER\n");
+		case NUMBER:
+			//dprintf("double_factor NUMBER\n");
 			tokenizer_fnum(ctx, tok, res);
 			//dprintf("double_factor fnum->r=%s\n", double_to_string(*res, buffer, 50, 0));
 			accept(tok, ctx);
 		break;
-		case TOKENIZER_LEFTPAREN:
-			//dprintf("double_factor TOKENIZER_LEFTPAREN\n");
-			accept(TOKENIZER_LEFTPAREN, ctx);
+		case LEFTPAREN:
+			//dprintf("double_factor LEFTPAREN\n");
+			accept(LEFTPAREN, ctx);
 			double_expr(ctx, res);
 			//dprintf("double_factor expr->r=%s\n", double_to_string(*res, buffer, 50, 0));
-			accept(TOKENIZER_RIGHTPAREN, ctx);
+			accept(RIGHTPAREN, ctx);
 		break;
 		default:
 			//dprintf("double_factor default\n");
@@ -61,7 +61,7 @@ void double_term(struct ubasic_ctx* ctx, double* res)
 
 	op = tokenizer_token(ctx);
 	//dprintf("first op=%d %s\n", op, types[op]);
-	while (op == TOKENIZER_ASTR || op == TOKENIZER_SLASH || op == TOKENIZER_MOD)
+	while (op == ASTR || op == SLASH || op == MOD)
 	{
 		tokenizer_next(ctx);
 		//dprintf("double_term second double_factor call\n");
@@ -69,10 +69,10 @@ void double_term(struct ubasic_ctx* ctx, double* res)
 		//dprintf("double_term f2=%s\n", double_to_string(f2, buffer, 50, 0));
 		switch (op)
 		{
-			case TOKENIZER_ASTR:
+			case ASTR:
 				f1 = f1 * f2;
 			break;
-			case TOKENIZER_SLASH:
+			case SLASH:
 				if (f2 == 0.0) {
 					tokenizer_error_print(ctx, "Division by zero");
 					*res = 0.0;
@@ -80,7 +80,7 @@ void double_term(struct ubasic_ctx* ctx, double* res)
 					f1 = f1 / f2;
 				}
 			break;
-			case TOKENIZER_MOD:
+			case MOD:
 				f1 = (int64_t)f1 % (int64_t)f2;
 			break;
 		}
@@ -102,25 +102,25 @@ void double_expr(struct ubasic_ctx* ctx, double* res)
 	op = tokenizer_token(ctx);
 	//dprintf("double_expr before type, type is %d %s\n", op, types[op]);
 
-	while (op == TOKENIZER_PLUS || op == TOKENIZER_MINUS || op == TOKENIZER_AND || op == TOKENIZER_OR) {
+	while (op == PLUS || op == MINUS || op == AND || op == OR) {
 		//dprintf("double_expr after type, type is %d %s\n", op, types[op]);
 		tokenizer_next(ctx);
 		//dprintf("double_expr call 2nd double_term\n");
 		double_term(ctx, &t2);
 		switch (op) {
-			case TOKENIZER_PLUS:
+			case PLUS:
 				//dprintf("tokenizer plus\n");
 				t1 = t1 + t2;
 			break;
-			case TOKENIZER_MINUS:
+			case MINUS:
 				//dprintf("tokenizer minus\n");
 				t1 = t1 - t2;
 			break;
-			case TOKENIZER_AND:
+			case AND:
 				//dprintf("tokenizer and\n");
 				t1 = (int64_t)t1 & (int64_t)t2;
 			break;
-			case TOKENIZER_OR:
+			case OR:
 				//dprintf("tokenizer or\n");
 				t1 = (int64_t)t1 | (int64_t)t2;
 			break;

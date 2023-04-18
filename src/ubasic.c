@@ -130,7 +130,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	int i;
 
 	ctx->errored = false;
-	ctx->current_token = TOKENIZER_ERROR;	
+	ctx->current_token = ERROR;	
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
 	ctx->double_variables = NULL;
@@ -173,7 +173,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ctx->line_tail = NULL;
 	uint32_t last_line = 0xFFFFFFFF;
 	while (!tokenizer_finished(ctx)) {
-		uint32_t line = tokenizer_num(ctx, TOKENIZER_NUMBER);
+		uint32_t line = tokenizer_num(ctx, NUMBER);
 		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
 			*error = "Misordered lines in BASIC program";
 			ubasic_destroy(ctx);
@@ -195,12 +195,12 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 			do {
 				tokenizer_next(ctx);
 			}
-			while (tokenizer_token(ctx) != TOKENIZER_CR && !tokenizer_finished(ctx));
-			if (tokenizer_token(ctx) == TOKENIZER_CR) {
+			while (tokenizer_token(ctx) != CR && !tokenizer_finished(ctx));
+			if (tokenizer_token(ctx) == CR) {
 				tokenizer_next(ctx);
 			}
 		}
-		while(tokenizer_token(ctx) != TOKENIZER_NUMBER && !tokenizer_finished(ctx));
+		while(tokenizer_token(ctx) != NUMBER && !tokenizer_finished(ctx));
 	}
 	tokenizer_init(ctx->program_ptr, ctx);
 
@@ -212,7 +212,7 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	struct ubasic_ctx* ctx = (struct ubasic_ctx*)kmalloc(sizeof(struct ubasic_ctx));
 	int i;
 
-	ctx->current_token = TOKENIZER_ERROR;
+	ctx->current_token = ERROR;
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
 	ctx->double_variables = old->double_variables;
@@ -245,7 +245,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 
 	while (1)
 	{
-		currentline = tokenizer_num(ctx, TOKENIZER_NUMBER);
+		currentline = tokenizer_num(ctx, NUMBER);
 		char const* linestart = ctx->ptr;
 		do
 		{
@@ -253,7 +253,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 			{
 				tokenizer_next(ctx);
 			}
-			while (tokenizer_token(ctx) != TOKENIZER_CR && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
+			while (tokenizer_token(ctx) != CR && tokenizer_token(ctx) != ENDOFINPUT);
 			
 			char const* lineend = ctx->ptr;
 			
@@ -359,20 +359,20 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 			}
 
 
-			if (tokenizer_token(ctx) == TOKENIZER_CR)
+			if (tokenizer_token(ctx) == CR)
 			{
 				tokenizer_next(ctx);
 			}
 
 			kfree(linetext);
 
-			if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT) {
+			if (tokenizer_token(ctx) == ENDOFINPUT) {
 				break;
 			}
 		}
-		while (tokenizer_token(ctx) != TOKENIZER_NUMBER && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
+		while (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != ENDOFINPUT);
 
-		if (tokenizer_token(ctx) == TOKENIZER_ENDOFINPUT) {
+		if (tokenizer_token(ctx) == ENDOFINPUT) {
 			break;
 		}
 	}
@@ -441,7 +441,8 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 void accept(int token, struct ubasic_ctx* ctx)
 {
 	char err[MAX_STRINGLEN];
-	sprintf(err, "Expected %s got %s", types[token], types[tokenizer_token(ctx)]);
+	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+	sprintf(err, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
 	if (token != tokenizer_token(ctx)) {
 		tokenizer_error_print(ctx, err);
 		return;
@@ -467,15 +468,15 @@ bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void goto_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_GOTO, ctx);
-	jump_linenum(tokenizer_num(ctx, TOKENIZER_NUMBER), ctx);
+	accept(GOTO, ctx);
+	jump_linenum(tokenizer_num(ctx, NUMBER), ctx);
 }
 
 static void colour_statement(struct ubasic_ctx* ctx, int tok)
 {
 	accept(tok, ctx);
 	setforeground((console*)ctx->cons, expr(ctx));
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 bool is_builtin_double_fn(const char* fn_name) {
@@ -499,7 +500,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 	do {
 		no_newline = 0;
 		*buffer = 0;
-		if (tokenizer_token(ctx) == TOKENIZER_STRING) {
+		if (tokenizer_token(ctx) == STRING) {
 			if (tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
 				snprintf(buffer, MAX_STRINGLEN, "%s", ctx->string);
 				strlcat(out, buffer, MAX_STRINGLEN);
@@ -508,21 +509,21 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 				return NULL;
 			}
 			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == TOKENIZER_COMMA) {
+		} else if (tokenizer_token(ctx) == COMMA) {
 			strlcat(out, "\t", MAX_STRINGLEN);
 			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == TOKENIZER_SEMICOLON) {
+		} else if (tokenizer_token(ctx) == SEMICOLON) {
 			no_newline = 1;
 			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == TOKENIZER_TILDE) {
+		} else if (tokenizer_token(ctx) == TILDE) {
 			next_hex = 1;
 			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == TOKENIZER_PLUS) {
+		} else if (tokenizer_token(ctx) == PLUS) {
 			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == TOKENIZER_VARIABLE || tokenizer_token(ctx) == TOKENIZER_NUMBER || tokenizer_token(ctx) == TOKENIZER_HEXNUMBER) {
+		} else if (tokenizer_token(ctx) == VARIABLE || tokenizer_token(ctx) == NUMBER || tokenizer_token(ctx) == HEXNUMBER) {
 			/* Check if it's a string or numeric expression */
 			const char* oldctx = ctx->ptr;
-			if (tokenizer_token(ctx) != TOKENIZER_NUMBER && tokenizer_token(ctx) != TOKENIZER_HEXNUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))) {
+			if (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != HEXNUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))) {
 				ctx->ptr = oldctx;
 				sprintf(buffer, "%s", str_expr(ctx));
 				strlcat(out, buffer, MAX_STRINGLEN);
@@ -549,7 +550,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 		}
 		numprints++;
 	}
-  	while(tokenizer_token(ctx) != TOKENIZER_CR && tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && numprints < 255);
+  	while(tokenizer_token(ctx) != CR && tokenizer_token(ctx) != ENDOFINPUT && numprints < 255);
   
 	if (!no_newline) {
 		strlcat(out, "\n", MAX_STRINGLEN);
@@ -566,7 +567,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void print_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_PRINT, ctx);
+	accept(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
 		kprintf(out);
@@ -577,10 +578,10 @@ static void sockwrite_statement(struct ubasic_ctx* ctx)
 {
 	int fd = -1;
 
-	accept(TOKENIZER_SOCKWRITE, ctx);
+	accept(SOCKWRITE, ctx);
 	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
 		send(fd, out, strlen(out));
@@ -589,9 +590,9 @@ static void sockwrite_statement(struct ubasic_ctx* ctx)
 
 static void mkdir_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_MKDIR, ctx);
+	accept(MKDIR, ctx);
 	const char* name = str_expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	if (!fs_create_directory(name)) {
 		tokenizer_error_print(ctx, "Unable to create directory");
 	}
@@ -599,21 +600,21 @@ static void mkdir_statement(struct ubasic_ctx* ctx)
 
 static void mount_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_MOUNT, ctx);
+	accept(MOUNT, ctx);
 	const char* path = str_expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	const char* device = str_expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	const char* fs_type = str_expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	filesystem_mount(path, device, fs_type);
 }
 
 static void rmdir_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_RMDIR, ctx);
+	accept(RMDIR, ctx);
 	const char* name = str_expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	if (!fs_delete_directory(name)) {
 		tokenizer_error_print(ctx, "Unable to delete directory");
 	}
@@ -622,9 +623,9 @@ static void rmdir_statement(struct ubasic_ctx* ctx)
 
 static void delete_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_DELETE, ctx);
+	accept(DELETE, ctx);
 	const char* name = str_expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	if (!fs_delete_file(name)) {
 		tokenizer_error_print(ctx, "Unable to delete file");
 	}
@@ -635,10 +636,10 @@ static void write_statement(struct ubasic_ctx* ctx)
 {
 	int fd = -1;
 
-	accept(TOKENIZER_WRITE, ctx);
+	accept(WRITE, ctx);
 	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
 	char* out = printable_syntax(ctx);
 	if (out) {
 		_write(fd, out, strlen(out));
@@ -650,7 +651,7 @@ static void if_statement(struct ubasic_ctx* ctx)
 {
 	int r;
   
-	accept(TOKENIZER_IF, ctx);
+	accept(IF, ctx);
 
 	char current_line[MAX_STRINGLEN];
 	char* pos = strchr(ctx->ptr, '\n');
@@ -669,7 +670,7 @@ static void if_statement(struct ubasic_ctx* ctx)
 	}
 
 	r = stringlike ? str_relation(ctx) : relation(ctx);
-	accept(TOKENIZER_THEN, ctx);
+	accept(THEN, ctx);
 	if (r)
 	{
 		statement(ctx);
@@ -680,16 +681,16 @@ static void if_statement(struct ubasic_ctx* ctx)
 		{
 			tokenizer_next(ctx);
 		}
-   		while(tokenizer_token(ctx) != TOKENIZER_ELSE &&
-				tokenizer_token(ctx) != TOKENIZER_CR &&
-				tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT);
+   		while(tokenizer_token(ctx) != ELSE &&
+				tokenizer_token(ctx) != CR &&
+				tokenizer_token(ctx) != ENDOFINPUT);
 
-		if (tokenizer_token(ctx) == TOKENIZER_ELSE)
+		if (tokenizer_token(ctx) == ELSE)
 		{
 			tokenizer_next(ctx);
 			statement(ctx);
 		}
-   			else if (tokenizer_token(ctx) == TOKENIZER_CR)
+   			else if (tokenizer_token(ctx) == CR)
 		{
 			tokenizer_next(ctx);
 		}
@@ -698,12 +699,12 @@ static void if_statement(struct ubasic_ctx* ctx)
 
 static void chain_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_CHAIN, ctx);
+	accept(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
 	//kprintf("Chaining '%s'\n", pn);
 	struct process* p = proc_load(pn, ctx->cons);
 	if (p == NULL) {
-		accept(TOKENIZER_CR, ctx);
+		accept(CR, ctx);
 		return;
 	}
 	struct ubasic_ctx* new_proc = p->code;
@@ -729,14 +730,14 @@ static void chain_statement(struct ubasic_ctx* ctx)
 
 	/* Inherit global variables into new process */
 	proc_wait(proc_cur(), p->pid);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void eval_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_EVAL, ctx);
+	accept(EVAL, ctx);
 	const char* v = str_expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 
 	if (ctx->current_linenum == 9998) {
 		ctx->eval_linenum = 0;
@@ -801,10 +802,10 @@ static void eval_statement(struct ubasic_ctx* ctx)
 
 static void rem_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_REM, ctx);
-	while (tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && tokenizer_token(ctx) != TOKENIZER_CR)
+	accept(REM, ctx);
+	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != CR)
 		tokenizer_next(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void def_statement(struct ubasic_ctx* ctx)
@@ -813,10 +814,10 @@ static void def_statement(struct ubasic_ctx* ctx)
 	// we just skip the entire line moving to the next if we hit a DEF statement.
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we dont fall through into a function.
-	accept(TOKENIZER_DEF, ctx);
-	while (tokenizer_token(ctx) != TOKENIZER_ENDOFINPUT && tokenizer_token(ctx) != TOKENIZER_CR)
+	accept(DEF, ctx);
+	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != CR)
 		tokenizer_next(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void openin_statement(struct ubasic_ctx* ctx)
@@ -841,9 +842,9 @@ static void read_statement(struct ubasic_ctx* ctx)
 
 static void close_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_CLOSE, ctx);
+	accept(CLOSE, ctx);
 	_close(expr(ctx));
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void eof_statement(struct ubasic_ctx* ctx)
@@ -855,9 +856,9 @@ static void input_statement(struct ubasic_ctx* ctx)
 {
 	const char* var;
 
-	accept(TOKENIZER_INPUT, ctx);
+	accept(INPUT, ctx);
 	var = tokenizer_variable_name(ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
+	accept(VARIABLE, ctx);
 
 	if (kinput(10240, (console*)ctx->cons) != 0)
 	{
@@ -878,7 +879,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 
 		kfreeinput((console*)ctx->cons);
 
-		accept(TOKENIZER_CR, ctx);
+		accept(CR, ctx);
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
 	}
@@ -892,12 +893,12 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 
 	//dprintf("S");
 
-	accept(TOKENIZER_SOCKREAD, ctx);
+	accept(SOCKREAD, ctx);
 	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
 	var = tokenizer_variable_name(ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
+	accept(VARIABLE, ctx);
 
 	int rv = recv(fd, input, MAX_STRINGLEN, false, 10);
 
@@ -917,7 +918,7 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 			break;
 		}
 
-		accept(TOKENIZER_CR, ctx);
+		accept(CR, ctx);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
@@ -931,12 +932,12 @@ static void connect_statement(struct ubasic_ctx* ctx)
 	const char* fd_var = NULL, *ip = NULL;
 	int64_t port = 0;
 
-	accept(TOKENIZER_CONNECT, ctx);
+	accept(CONNECT, ctx);
 	fd_var = tokenizer_variable_name(ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
 	ip = str_expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	port = expr(ctx);
 
 	int rv = connect(str_to_ip(ip), port, 0, true);
@@ -955,7 +956,7 @@ static void connect_statement(struct ubasic_ctx* ctx)
 			break;
 		}
 
-		accept(TOKENIZER_CR, ctx);
+		accept(CR, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
@@ -965,15 +966,15 @@ static void sockclose_statement(struct ubasic_ctx* ctx)
 {
 	const char* fd_var = NULL;
 
-	accept(TOKENIZER_SOCKCLOSE, ctx);
+	accept(SOCKCLOSE, ctx);
 	fd_var = tokenizer_variable_name(ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
+	accept(VARIABLE, ctx);
 
 	int rv = closesocket(ubasic_get_numeric_int_variable(fd_var, ctx));
 	if (rv == 0) {
 		// Clear variable to -1
 		ubasic_set_int_variable(fd_var, -1, ctx, false, false);
-		accept(TOKENIZER_CR, ctx);
+		accept(CR, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
@@ -987,8 +988,8 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 	double f_expr = 0;
 
 	var = tokenizer_variable_name(ctx);
-	accept(TOKENIZER_VARIABLE, ctx);
-	accept(TOKENIZER_EQ, ctx);
+	accept(VARIABLE, ctx);
+	accept(EQ, ctx);
 
 	switch (var[strlen(var) - 1])
 	{
@@ -1004,101 +1005,101 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 			ubasic_set_int_variable(var, expr(ctx), ctx, false, global);
 		break;
 	}
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void cls_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_CLS, ctx);
+	accept(CLS, ctx);
 	clearscreen(current_console);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void gcol_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_GCOL, ctx);
+	accept(GCOL, ctx);
 	ctx->graphics_colour = expr(ctx);
 	//dprintf("New graphics color: %08X\n", ctx->graphics_colour);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void gotoxy_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_GOTOXY, ctx);
+	accept(CURSOR, ctx);
 	int64_t x = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y = expr(ctx);
 	gotoxy(x, y);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 }
 
 static void draw_line_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_LINE, ctx);
+	accept(LINE, ctx);
 	int64_t x1 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t x2 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
 static void point_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_POINT, ctx);
+	accept(POINT, ctx);
 	int64_t x1 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	putpixel(x1, y1, ctx->graphics_colour);
 }
 
 static void triangle_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_TRIANGLE, ctx);
+	accept(TRIANGLE, ctx);
 	int64_t x1 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t x2 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t x3 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y3 = expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	draw_triangle(x1, y1, x2, y2, x3, y3, ctx->graphics_colour);
 }
 
 static void rectangle_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_RECTANGLE, ctx);
+	accept(RECTANGLE, ctx);
 	int64_t x1 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t x2 = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
 static void circle_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_CIRCLE, ctx);
+	accept(CIRCLE, ctx);
 	int64_t x = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t y = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t radius = expr(ctx);
-	accept(TOKENIZER_COMMA, ctx);
+	accept(COMMA, ctx);
 	int64_t filled = expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 	draw_circle(x, y, radius, filled, ctx->graphics_colour);
 }
 
@@ -1107,13 +1108,13 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 {
 	int linenum;
 
-	accept(TOKENIZER_GOSUB, ctx);
-	linenum = tokenizer_num(ctx, TOKENIZER_NUMBER);
-	accept(TOKENIZER_NUMBER, ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(GOSUB, ctx);
+	linenum = tokenizer_num(ctx, NUMBER);
+	accept(NUMBER, ctx);
+	accept(CR, ctx);
 
 	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
-		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, TOKENIZER_NUMBER);
+		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
 		ctx->gosub_stack_ptr++;
 		jump_linenum(linenum, ctx);
 	} else {
@@ -1124,7 +1125,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 static void return_statement(struct ubasic_ctx* ctx)
 {
 	//kprintf("Return\n");
-	accept(TOKENIZER_RETURN, ctx);
+	accept(RETURN, ctx);
 	if (ctx->gosub_stack_ptr > 0) {
 		ctx->gosub_stack_ptr--;
 		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
@@ -1135,7 +1136,7 @@ static void return_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void next_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_NEXT, ctx);
+	accept(NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
 		if (strchr(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, '#')) {
 			double incr;
@@ -1148,7 +1149,7 @@ static void next_statement(struct ubasic_ctx* ctx)
 			} else {
 				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
 				ctx->for_stack_ptr--;
-				accept(TOKENIZER_CR, ctx);
+				accept(CR, ctx);
 			}
 		} else {
 			int incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
@@ -1160,12 +1161,12 @@ static void next_statement(struct ubasic_ctx* ctx)
 			} else {
 				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
 				ctx->for_stack_ptr--;
-				accept(TOKENIZER_CR, ctx);
+				accept(CR, ctx);
 			}
 		}
 	} else {
 		tokenizer_error_print(ctx, "next_statement: non-matching next");
-		accept(TOKENIZER_CR, ctx);
+		accept(CR, ctx);
 	}
 }
 
@@ -1175,21 +1176,21 @@ static void for_statement(struct ubasic_ctx* ctx)
 	const char* for_variable;
 	int to;
   
-	accept(TOKENIZER_FOR, ctx);
+	accept(FOR, ctx);
 	for_variable = strdup(tokenizer_variable_name(ctx));
-	accept(TOKENIZER_VARIABLE, ctx);
-	accept(TOKENIZER_EQ, ctx);
+	accept(VARIABLE, ctx);
+	accept(EQ, ctx);
 	if (strchr(for_variable, '#')) {
 		ubasic_set_double_variable(for_variable, expr(ctx), ctx, false, false);
 	} else {
 		ubasic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
 	}
-	accept(TOKENIZER_TO, ctx);
+	accept(TO, ctx);
 	to = expr(ctx);
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 
 	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH) {
-		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, TOKENIZER_NUMBER);
+		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, NUMBER);
 		ctx->for_stack[ctx->for_stack_ptr].for_variable = (char*)for_variable;
 		ctx->for_stack[ctx->for_stack_ptr].to = to;
 		DEBUG_PRINTF("for_statement: new for, var %s to %d\n", ctx->for_stack[ctx->for_stack_ptr].for_variable, ctx->for_stack[ctx->for_stack_ptr].to); 
@@ -1202,13 +1203,13 @@ static void for_statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 static void end_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_END, ctx);
+	accept(END, ctx);
 	ctx->ended = 1;
 }
 
 static void eq_statement(struct ubasic_ctx* ctx)
 {
-	accept(TOKENIZER_EQ, ctx);
+	accept(EQ, ctx);
 
 	if (ctx->fn_type == RT_STRING) {
 		ctx->fn_return = (void*)str_expr(ctx);
@@ -1216,7 +1217,7 @@ static void eq_statement(struct ubasic_ctx* ctx)
 		ctx->fn_return = (void*)expr(ctx);
 	}
 
-	accept(TOKENIZER_CR, ctx);
+	accept(CR, ctx);
 
 	ctx->ended = 1;
 }
@@ -1227,131 +1228,131 @@ void statement(struct ubasic_ctx* ctx)
 	int token = tokenizer_token(ctx);
 
 	switch (token) {
-		case TOKENIZER_REM:
+		case REM:
 			rem_statement(ctx);
 		break;
-		case TOKENIZER_COLOR:
-			colour_statement(ctx, TOKENIZER_COLOR);
+		case COLOR:
+			colour_statement(ctx, COLOR);
 		break;
-		case TOKENIZER_COLOUR:
-			colour_statement(ctx, TOKENIZER_COLOUR);
+		case COLOUR:
+			colour_statement(ctx, COLOUR);
 		break;
-		case TOKENIZER_DEF:
+		case DEF:
 			def_statement(ctx);
 		break;
-		case TOKENIZER_CHAIN:
+		case CHAIN:
 			chain_statement(ctx);
 		break;
-		case TOKENIZER_EVAL:
+		case EVAL:
 			eval_statement(ctx);
 		break;
-		case TOKENIZER_OPENIN:
+		case OPENIN:
 			openin_statement(ctx);
 		break;
-		case TOKENIZER_OPENOUT:
+		case OPENOUT:
 			openout_statement(ctx);
 		break;
-		case TOKENIZER_OPENUP:
+		case OPENUP:
 			openup_statement(ctx);
 		break;
-		case TOKENIZER_READ:
+		case READ:
 			read_statement(ctx);
 		break;
-		case TOKENIZER_CLOSE:
+		case CLOSE:
 			close_statement(ctx);
 		break;
-		case TOKENIZER_EOF:
+		case EOF:
 			eof_statement(ctx);
 		break;
-		case TOKENIZER_PRINT:
+		case PRINT:
 			print_statement(ctx);
 		break;
-		case TOKENIZER_IF:
+		case IF:
 			if_statement(ctx);
 		break;
-		case TOKENIZER_GOTOXY:
+		case CURSOR:
 			gotoxy_statement(ctx);
 		break;
-		case TOKENIZER_GOTO:
+		case GOTO:
 			goto_statement(ctx);
 		break;
-		case TOKENIZER_GOSUB:
+		case GOSUB:
 			gosub_statement(ctx);
 		break;
-		case TOKENIZER_RETURN:
+		case RETURN:
 			return_statement(ctx);
 		break;
-		case TOKENIZER_FOR:
+		case FOR:
 			for_statement(ctx);
 		break;
-		case TOKENIZER_NEXT:
+		case NEXT:
 			next_statement(ctx);
 		break;
-		case TOKENIZER_END:
+		case END:
 			end_statement(ctx);
 		break;
-		case TOKENIZER_INPUT:
+		case INPUT:
 			input_statement(ctx);
 		break;
-		case TOKENIZER_SOCKREAD:
+		case SOCKREAD:
 			sockread_statement(ctx);
 		break;
-		case TOKENIZER_SOCKWRITE:
+		case SOCKWRITE:
 			sockwrite_statement(ctx);
 		break;
-		case TOKENIZER_DELETE:
+		case DELETE:
 			delete_statement(ctx);
 		break;
-		case TOKENIZER_RMDIR:
+		case RMDIR:
 			rmdir_statement(ctx);
 		break;
-		case TOKENIZER_MOUNT:
+		case MOUNT:
 			mount_statement(ctx);
 		break;
-		case TOKENIZER_MKDIR:
+		case MKDIR:
 			mkdir_statement(ctx);
 		break;
-		case TOKENIZER_CONNECT:
+		case CONNECT:
 			connect_statement(ctx);
 		break;
-		case TOKENIZER_SOCKCLOSE:
+		case SOCKCLOSE:
 			sockclose_statement(ctx);
 		break;
-		case TOKENIZER_POINT:
+		case POINT:
 			point_statement(ctx);
 		break;
-		case TOKENIZER_CLS:
+		case CLS:
 			cls_statement(ctx);
 		break;
-		case TOKENIZER_GCOL:
+		case GCOL:
 			gcol_statement(ctx);
 		break;
-		case TOKENIZER_LINE:
+		case LINE:
 			draw_line_statement(ctx);
 		break;
-		case TOKENIZER_TRIANGLE:
+		case TRIANGLE:
 			triangle_statement(ctx);
 		break;
-		case TOKENIZER_WRITE:
+		case WRITE:
 			write_statement(ctx);
 		break;
-		case TOKENIZER_RECTANGLE:
+		case RECTANGLE:
 			rectangle_statement(ctx);
 		break;
-		case TOKENIZER_CIRCLE:
+		case CIRCLE:
 			circle_statement(ctx);
 		break;
-		case TOKENIZER_LET:
-			accept(TOKENIZER_LET, ctx);
+		case LET:
+			accept(LET, ctx);
 			/* Fall through. */
-		case TOKENIZER_VARIABLE:
+		case VARIABLE:
 			let_statement(ctx, false);
 		break;
-		case TOKENIZER_GLOBAL:
-			accept(TOKENIZER_GLOBAL, ctx);
+		case GLOBAL:
+			accept(GLOBAL, ctx);
 			let_statement(ctx, true);
 		break;
-		case TOKENIZER_EQ:
+		case EQ:
 			eq_statement(ctx);
 		break;
 		default:
@@ -1363,8 +1364,8 @@ void statement(struct ubasic_ctx* ctx)
 /*---------------------------------------------------------------------------*/
 void line_statement(struct ubasic_ctx* ctx)
 {
-	ctx->current_linenum = tokenizer_num(ctx, TOKENIZER_NUMBER);
-	accept(TOKENIZER_NUMBER, ctx);
+	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
+	accept(NUMBER, ctx);
 	statement(ctx);
 	return;
 }
