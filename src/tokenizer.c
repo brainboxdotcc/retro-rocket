@@ -85,7 +85,6 @@ const int keywords[] = {
 	-1,
 };
 
-/*---------------------------------------------------------------------------*/
 static int singlechar(struct ubasic_ctx* ctx)
 {
 	switch (*ctx->ptr) {
@@ -124,7 +123,7 @@ static int singlechar(struct ubasic_ctx* ctx)
 	}
 	return 0;
 }
-/*---------------------------------------------------------------------------*/
+
 int get_next_token(struct ubasic_ctx* ctx)
 {
 	if(*ctx->ptr == 0) {
@@ -242,19 +241,18 @@ int get_next_token(struct ubasic_ctx* ctx)
 	
 	return ERROR;
 }
-/*---------------------------------------------------------------------------*/
-void
-tokenizer_init(const char *program, struct ubasic_ctx* ctx)
+
+void tokenizer_init(const char *program, struct ubasic_ctx* ctx)
 {
 	ctx->ptr = program;
 	ctx->current_token = get_next_token(ctx);
 }
-/*---------------------------------------------------------------------------*/
+
 int tokenizer_token(struct ubasic_ctx* ctx)
 {
 	return ctx->current_token;
 }
-/*---------------------------------------------------------------------------*/
+
 void tokenizer_next(struct ubasic_ctx* ctx)
 {
 
@@ -271,7 +269,7 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 	DEBUG_PRINTF("tokenizer_next: '%s' %d\n", ctx->ptr, ctx->current_token);
 	return;
 }
-/*---------------------------------------------------------------------------*/
+
 int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 {
 	return token == NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
@@ -282,7 +280,7 @@ void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f)
 	atof(ctx->ptr, f);
 	return;
 }
-/*---------------------------------------------------------------------------*/
+
 bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 {
 	char *string_end;
@@ -310,7 +308,7 @@ bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 	dest[string_len] = 0;
 	return true;
 }
-/*---------------------------------------------------------------------------*/
+
 void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 {
 	ubasic_set_string_variable("ERROR$", error, ctx, false, false);
@@ -333,13 +331,13 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 		}
 	}
 }
-/*---------------------------------------------------------------------------*/
+
 int tokenizer_finished(struct ubasic_ctx* ctx)
 {
 	//kprintf("tokenizer_finished? %d %08x\n", *ctx->ptr, ctx->ptr);
 	return *ctx->ptr == 0 || ctx->current_token == ENDOFINPUT;
 }
-/*---------------------------------------------------------------------------*/
+
 const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 {
 	char varname[MAX_VARNAME];
@@ -352,7 +350,6 @@ const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 	/* TODO: Validate variable name, weed out e.g. TEST$$ or $TEST$ which are not valid. */
 	return gc_strdup(varname);
 }
-/*---------------------------------------------------------------------------*/
 
 bool tokenizer_decimal_number(struct ubasic_ctx* ctx)
 {

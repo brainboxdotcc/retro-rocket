@@ -119,7 +119,6 @@ void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
 	ubasic_set_double_variable("PI#", 3.141592653589793238, ctx, false, false);
 }
 
-/*---------------------------------------------------------------------------*/
 struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
 {
 	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
@@ -465,7 +464,7 @@ bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 	tokenizer_error_print(ctx, "No such line");
 	return false;
 }
-/*---------------------------------------------------------------------------*/
+
 static void goto_statement(struct ubasic_ctx* ctx)
 {
 	accept(GOTO, ctx);
@@ -571,7 +570,6 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 	return gc_strdup(out);
 }
 
-/*---------------------------------------------------------------------------*/
 static void print_statement(struct ubasic_ctx* ctx)
 {
 	accept(PRINT, ctx);
@@ -653,7 +651,6 @@ static void write_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 static void if_statement(struct ubasic_ctx* ctx)
 {
 	int r;
@@ -987,7 +984,6 @@ static void sockclose_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 static void let_statement(struct ubasic_ctx* ctx, bool global)
 {
 	const char* var;
@@ -1110,7 +1106,6 @@ static void circle_statement(struct ubasic_ctx* ctx)
 	draw_circle(x, y, radius, filled, ctx->graphics_colour);
 }
 
-/*---------------------------------------------------------------------------*/
 static void gosub_statement(struct ubasic_ctx* ctx)
 {
 	int linenum;
@@ -1128,7 +1123,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 		tokenizer_error_print(ctx, "gosub_statement: gosub stack exhausted");
 	}
 }
-/*---------------------------------------------------------------------------*/
+
 static void return_statement(struct ubasic_ctx* ctx)
 {
 	//kprintf("Return\n");
@@ -1140,7 +1135,7 @@ static void return_statement(struct ubasic_ctx* ctx)
 		tokenizer_error_print(ctx, "return_statement: non-matching return");
 	}
 }
-/*---------------------------------------------------------------------------*/
+
 static void next_statement(struct ubasic_ctx* ctx)
 {
 	accept(NEXT, ctx);
@@ -1177,7 +1172,6 @@ static void next_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 static void for_statement(struct ubasic_ctx* ctx)
 {
 	const char* for_variable;
@@ -1207,7 +1201,6 @@ static void for_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 static void end_statement(struct ubasic_ctx* ctx)
 {
 	accept(END, ctx);
@@ -2281,7 +2274,6 @@ const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx)
 	return NULL;
 }
 
-/*---------------------------------------------------------------------------*/
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 {
 	char* retv;
