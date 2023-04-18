@@ -66,6 +66,7 @@
 	T(INPUT) \
 	T(COLOUR) \
 	T(COLOR) \
+	T(BACKGROUND) \
 	T(EVAL) \
 	T(OPENIN) \
 	T(READ) \

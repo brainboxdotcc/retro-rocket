@@ -36,6 +36,7 @@
  * It allows us to optimise the search.
  */
 const int keywords[] = {
+	BACKGROUND,
 	CALL,
 	CHAIN,
 	CIRCLE,

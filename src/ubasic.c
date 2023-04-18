@@ -479,6 +479,13 @@ static void colour_statement(struct ubasic_ctx* ctx, int tok)
 	accept(NEWLINE, ctx);
 }
 
+static void background_statement(struct ubasic_ctx* ctx)
+{
+	accept(BACKGROUND, ctx);
+	setbackground((console*)ctx->cons, expr(ctx));
+	accept(NEWLINE, ctx);
+}
+
 bool is_builtin_double_fn(const char* fn_name) {
 	for (int i = 0; builtin_double[i].name; ++i) {
 		if (!strcmp(fn_name, builtin_double[i].name)) {
@@ -1230,6 +1237,9 @@ void statement(struct ubasic_ctx* ctx)
 	switch (token) {
 		case REM:
 			rem_statement(ctx);
+		break;
+		case BACKGROUND:
+			background_statement(ctx);
 		break;
 		case COLOR:
 			colour_statement(ctx, COLOR);
