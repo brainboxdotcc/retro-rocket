@@ -44,12 +44,12 @@ const char* str_factor(struct ubasic_ctx* ctx)
 	return r;
 }
 
-int str_relation(struct ubasic_ctx* ctx)
+int64_t str_relation(struct ubasic_ctx* ctx)
 {
-	int op, r;
+	int r;
 
 	const char* r1 = str_expr(ctx);
-	op = tokenizer_token(ctx);
+	int op = tokenizer_token(ctx);
 
 	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS)
 	{
@@ -77,24 +77,20 @@ int str_relation(struct ubasic_ctx* ctx)
 
 const char* str_expr(struct ubasic_ctx* ctx)
 {
-	char* t1;
-	char* t2;
-	char tmp[1024];
-	int op;
+	char tmp[MAX_STRINGLEN];
+	char* t1 = (char*)str_factor(ctx);
+	int op = tokenizer_token(ctx);
 
-	t1 = (char*)str_factor(ctx);
-	op = tokenizer_token(ctx);
-
-	strlcpy(tmp, t1, 1024);
+	strlcpy(tmp, t1, MAX_STRINGLEN);
 	
 	while (op == PLUS)
 	{
 		tokenizer_next(ctx);
-		t2 = (char*)str_factor(ctx);
+		char* t2 = (char*)str_factor(ctx);
 		switch (op)
 		{
 			case PLUS:
-				strlcat(tmp, t2, 1024);
+				strlcat(tmp, t2, MAX_STRINGLEN);
 			break;
 		}
 		op = tokenizer_token(ctx);

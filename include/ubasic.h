@@ -228,8 +228,8 @@ void ubasic_cos(struct ubasic_ctx* ctx, double* res);
 void ubasic_tan(struct ubasic_ctx* ctx, double* res);
 void ubasic_pow(struct ubasic_ctx* ctx, double* res);
 
-int str_relation(struct ubasic_ctx* ctx);
-int relation(struct ubasic_ctx* ctx);
+int64_t str_relation(struct ubasic_ctx* ctx);
+int64_t relation(struct ubasic_ctx* ctx);
 int64_t expr(struct ubasic_ctx* ctx);
 const char* str_expr(struct ubasic_ctx* ctx);
 void double_expr(struct ubasic_ctx* ctx, double* res);
