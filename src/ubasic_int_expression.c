@@ -96,7 +96,11 @@ int64_t term(struct ubasic_ctx* ctx)
 				}
 			break;
 			case MOD:
-				f1 = f1 % f2;
+				if (f2 == 0) {
+					tokenizer_error_print(ctx, "Division by zero");
+				} else {
+					f1 = f1 % f2;
+				}
 			break;
 		}
 		op = tokenizer_token(ctx);

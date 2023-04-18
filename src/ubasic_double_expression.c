@@ -81,7 +81,12 @@ void double_term(struct ubasic_ctx* ctx, double* res)
 				}
 			break;
 			case MOD:
-				f1 = (int64_t)f1 % (int64_t)f2;
+				if (f2 == 0.0) {
+					tokenizer_error_print(ctx, "Division by zero");
+					*res = 0.0;
+				} else {
+					f1 = (int64_t)f1 % (int64_t)f2;
+				}
 			break;
 		}
 		op = tokenizer_token(ctx);

@@ -257,7 +257,6 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 		++ctx->ptr;
 	}
 	ctx->current_token = get_next_token(ctx);
-	return;
 }
 
 int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
@@ -268,7 +267,6 @@ int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
 void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f)
 {
 	atof(ctx->ptr, f);
-	return;
 }
 
 bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
@@ -324,7 +322,6 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 
 int tokenizer_finished(struct ubasic_ctx* ctx)
 {
-	//kprintf("tokenizer_finished? %d %08x\n", *ctx->ptr, ctx->ptr);
 	return *ctx->ptr == 0 || ctx->current_token == ENDOFINPUT;
 }
 
