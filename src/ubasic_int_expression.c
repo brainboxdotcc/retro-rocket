@@ -8,8 +8,8 @@ static int64_t varfactor(struct ubasic_ctx* ctx)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
 	else
 	{
-		if (tokenizer_token(ctx) == RIGHTPAREN)
-			accept(RIGHTPAREN, ctx);
+		if (tokenizer_token(ctx) == CLOSEBRACKET)
+			accept(CLOSEBRACKET, ctx);
 		else
 			accept(VARIABLE, ctx);
 	}
@@ -27,10 +27,10 @@ int64_t factor(struct ubasic_ctx* ctx)
 			r = tokenizer_num(ctx, tok);
 			accept(tok, ctx);
 		break;
-		case LEFTPAREN:
-			accept(LEFTPAREN, ctx);
+		case OPENBRACKET:
+			accept(OPENBRACKET, ctx);
 			r = expr(ctx);
-			accept(RIGHTPAREN, ctx);
+			accept(CLOSEBRACKET, ctx);
 		break;
 		default:
 			r = varfactor(ctx);
@@ -47,20 +47,20 @@ int relation(struct ubasic_ctx* ctx)
 	r1 = expr(ctx);
 	op = tokenizer_token(ctx);
 
-	while (op == LT || op == GT || op == EQ)
+	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS)
 	{
 		tokenizer_next(ctx);
 		r2 = expr(ctx);
 
 		switch (op)
 		{
-			case LT:
+			case LESSTHAN:
 				r1 = r1 < r2;
 			break;
-			case GT:
+			case GREATERTHAN:
 				r1 = r1 > r2;
 			break;
-			case EQ:
+			case EQUALS:
 				r1 = r1 == r2;
 			break;
 		}
@@ -79,13 +79,13 @@ int64_t term(struct ubasic_ctx* ctx)
 	f1 = factor(ctx);
 	//kprintf("Factor is %d\n", f1);
 	op = tokenizer_token(ctx);
-	while (op == ASTR || op == SLASH || op == MOD)
+	while (op == ASTERISK || op == SLASH || op == MOD)
 	{
 		tokenizer_next(ctx);
 		f2 = factor(ctx);
 		switch (op)
 		{
-			case ASTR:
+			case ASTERISK:
 				f1 = f1 * f2;
 			break;
 			case SLASH:

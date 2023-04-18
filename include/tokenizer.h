@@ -82,15 +82,15 @@
 	T(MINUS) \
 	T(AND) \
 	T(OR) \
-	T(ASTR) \
+	T(ASTERISK) \
 	T(SLASH) \
 	T(MOD) \
-	T(LEFTPAREN) \
-	T(RIGHTPAREN) \
-	T(LT) \
-	T(GT) \
-	T(EQ) \
-	T(CR) \
+	T(OPENBRACKET) \
+	T(CLOSEBRACKET) \
+	T(LESSTHAN) \
+	T(GREATERTHAN) \
+	T(EQUALS) \
+	T(NEWLINE) \
 	T(AMPERSAND) \
 	T(TILDE) \
 	T(GLOBAL) \

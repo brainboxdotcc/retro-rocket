@@ -195,8 +195,8 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 			do {
 				tokenizer_next(ctx);
 			}
-			while (tokenizer_token(ctx) != CR && !tokenizer_finished(ctx));
-			if (tokenizer_token(ctx) == CR) {
+			while (tokenizer_token(ctx) != NEWLINE && !tokenizer_finished(ctx));
+			if (tokenizer_token(ctx) == NEWLINE) {
 				tokenizer_next(ctx);
 			}
 		}
@@ -253,7 +253,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 			{
 				tokenizer_next(ctx);
 			}
-			while (tokenizer_token(ctx) != CR && tokenizer_token(ctx) != ENDOFINPUT);
+			while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT);
 			
 			char const* lineend = ctx->ptr;
 			
@@ -359,7 +359,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 			}
 
 
-			if (tokenizer_token(ctx) == CR)
+			if (tokenizer_token(ctx) == NEWLINE)
 			{
 				tokenizer_next(ctx);
 			}
@@ -476,7 +476,7 @@ static void colour_statement(struct ubasic_ctx* ctx, int tok)
 {
 	accept(tok, ctx);
 	setforeground((console*)ctx->cons, expr(ctx));
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 bool is_builtin_double_fn(const char* fn_name) {
@@ -550,7 +550,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 		}
 		numprints++;
 	}
-  	while(tokenizer_token(ctx) != CR && tokenizer_token(ctx) != ENDOFINPUT && numprints < 255);
+  	while(tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT && numprints < 255);
   
 	if (!no_newline) {
 		strlcat(out, "\n", MAX_STRINGLEN);
@@ -592,7 +592,7 @@ static void mkdir_statement(struct ubasic_ctx* ctx)
 {
 	accept(MKDIR, ctx);
 	const char* name = str_expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	if (!fs_create_directory(name)) {
 		tokenizer_error_print(ctx, "Unable to create directory");
 	}
@@ -606,7 +606,7 @@ static void mount_statement(struct ubasic_ctx* ctx)
 	const char* device = str_expr(ctx);
 	accept(COMMA, ctx);
 	const char* fs_type = str_expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	filesystem_mount(path, device, fs_type);
 }
 
@@ -614,7 +614,7 @@ static void rmdir_statement(struct ubasic_ctx* ctx)
 {
 	accept(RMDIR, ctx);
 	const char* name = str_expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	if (!fs_delete_directory(name)) {
 		tokenizer_error_print(ctx, "Unable to delete directory");
 	}
@@ -625,7 +625,7 @@ static void delete_statement(struct ubasic_ctx* ctx)
 {
 	accept(DELETE, ctx);
 	const char* name = str_expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	if (!fs_delete_file(name)) {
 		tokenizer_error_print(ctx, "Unable to delete file");
 	}
@@ -682,7 +682,7 @@ static void if_statement(struct ubasic_ctx* ctx)
 			tokenizer_next(ctx);
 		}
    		while(tokenizer_token(ctx) != ELSE &&
-				tokenizer_token(ctx) != CR &&
+				tokenizer_token(ctx) != NEWLINE &&
 				tokenizer_token(ctx) != ENDOFINPUT);
 
 		if (tokenizer_token(ctx) == ELSE)
@@ -690,7 +690,7 @@ static void if_statement(struct ubasic_ctx* ctx)
 			tokenizer_next(ctx);
 			statement(ctx);
 		}
-   			else if (tokenizer_token(ctx) == CR)
+   			else if (tokenizer_token(ctx) == NEWLINE)
 		{
 			tokenizer_next(ctx);
 		}
@@ -704,7 +704,7 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	//kprintf("Chaining '%s'\n", pn);
 	struct process* p = proc_load(pn, ctx->cons);
 	if (p == NULL) {
-		accept(CR, ctx);
+		accept(NEWLINE, ctx);
 		return;
 	}
 	struct ubasic_ctx* new_proc = p->code;
@@ -730,14 +730,14 @@ static void chain_statement(struct ubasic_ctx* ctx)
 
 	/* Inherit global variables into new process */
 	proc_wait(proc_cur(), p->pid);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void eval_statement(struct ubasic_ctx* ctx)
 {
 	accept(EVAL, ctx);
 	const char* v = str_expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 
 	if (ctx->current_linenum == 9998) {
 		ctx->eval_linenum = 0;
@@ -803,9 +803,9 @@ static void eval_statement(struct ubasic_ctx* ctx)
 static void rem_statement(struct ubasic_ctx* ctx)
 {
 	accept(REM, ctx);
-	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != CR)
+	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE)
 		tokenizer_next(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void def_statement(struct ubasic_ctx* ctx)
@@ -815,9 +815,9 @@ static void def_statement(struct ubasic_ctx* ctx)
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we dont fall through into a function.
 	accept(DEF, ctx);
-	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != CR)
+	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE)
 		tokenizer_next(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void openin_statement(struct ubasic_ctx* ctx)
@@ -844,7 +844,7 @@ static void close_statement(struct ubasic_ctx* ctx)
 {
 	accept(CLOSE, ctx);
 	_close(expr(ctx));
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void eof_statement(struct ubasic_ctx* ctx)
@@ -879,7 +879,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 
 		kfreeinput((console*)ctx->cons);
 
-		accept(CR, ctx);
+		accept(NEWLINE, ctx);
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
 	}
@@ -918,7 +918,7 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 			break;
 		}
 
-		accept(CR, ctx);
+		accept(NEWLINE, ctx);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
@@ -956,7 +956,7 @@ static void connect_statement(struct ubasic_ctx* ctx)
 			break;
 		}
 
-		accept(CR, ctx);
+		accept(NEWLINE, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
@@ -974,7 +974,7 @@ static void sockclose_statement(struct ubasic_ctx* ctx)
 	if (rv == 0) {
 		// Clear variable to -1
 		ubasic_set_int_variable(fd_var, -1, ctx, false, false);
-		accept(CR, ctx);
+		accept(NEWLINE, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
@@ -989,7 +989,7 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 
 	var = tokenizer_variable_name(ctx);
 	accept(VARIABLE, ctx);
-	accept(EQ, ctx);
+	accept(EQUALS, ctx);
 
 	switch (var[strlen(var) - 1])
 	{
@@ -1005,14 +1005,14 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 			ubasic_set_int_variable(var, expr(ctx), ctx, false, global);
 		break;
 	}
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void cls_statement(struct ubasic_ctx* ctx)
 {
 	accept(CLS, ctx);
 	clearscreen(current_console);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void gcol_statement(struct ubasic_ctx* ctx)
@@ -1020,7 +1020,7 @@ static void gcol_statement(struct ubasic_ctx* ctx)
 	accept(GCOL, ctx);
 	ctx->graphics_colour = expr(ctx);
 	//dprintf("New graphics color: %08X\n", ctx->graphics_colour);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void gotoxy_statement(struct ubasic_ctx* ctx)
@@ -1030,7 +1030,7 @@ static void gotoxy_statement(struct ubasic_ctx* ctx)
 	accept(COMMA, ctx);
 	int64_t y = expr(ctx);
 	gotoxy(x, y);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 }
 
 static void draw_line_statement(struct ubasic_ctx* ctx)
@@ -1043,7 +1043,7 @@ static void draw_line_statement(struct ubasic_ctx* ctx)
 	int64_t x2 = expr(ctx);
 	accept(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
@@ -1053,7 +1053,7 @@ static void point_statement(struct ubasic_ctx* ctx)
 	int64_t x1 = expr(ctx);
 	accept(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	putpixel(x1, y1, ctx->graphics_colour);
 }
 
@@ -1071,7 +1071,7 @@ static void triangle_statement(struct ubasic_ctx* ctx)
 	int64_t x3 = expr(ctx);
 	accept(COMMA, ctx);
 	int64_t y3 = expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	draw_triangle(x1, y1, x2, y2, x3, y3, ctx->graphics_colour);
 }
 
@@ -1085,7 +1085,7 @@ static void rectangle_statement(struct ubasic_ctx* ctx)
 	int64_t x2 = expr(ctx);
 	accept(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
@@ -1099,7 +1099,7 @@ static void circle_statement(struct ubasic_ctx* ctx)
 	int64_t radius = expr(ctx);
 	accept(COMMA, ctx);
 	int64_t filled = expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 	draw_circle(x, y, radius, filled, ctx->graphics_colour);
 }
 
@@ -1111,7 +1111,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	accept(GOSUB, ctx);
 	linenum = tokenizer_num(ctx, NUMBER);
 	accept(NUMBER, ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 
 	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
 		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
@@ -1149,7 +1149,7 @@ static void next_statement(struct ubasic_ctx* ctx)
 			} else {
 				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
 				ctx->for_stack_ptr--;
-				accept(CR, ctx);
+				accept(NEWLINE, ctx);
 			}
 		} else {
 			int incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
@@ -1161,12 +1161,12 @@ static void next_statement(struct ubasic_ctx* ctx)
 			} else {
 				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
 				ctx->for_stack_ptr--;
-				accept(CR, ctx);
+				accept(NEWLINE, ctx);
 			}
 		}
 	} else {
 		tokenizer_error_print(ctx, "next_statement: non-matching next");
-		accept(CR, ctx);
+		accept(NEWLINE, ctx);
 	}
 }
 
@@ -1179,7 +1179,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 	accept(FOR, ctx);
 	for_variable = strdup(tokenizer_variable_name(ctx));
 	accept(VARIABLE, ctx);
-	accept(EQ, ctx);
+	accept(EQUALS, ctx);
 	if (strchr(for_variable, '#')) {
 		ubasic_set_double_variable(for_variable, expr(ctx), ctx, false, false);
 	} else {
@@ -1187,7 +1187,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 	}
 	accept(TO, ctx);
 	to = expr(ctx);
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 
 	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH) {
 		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, NUMBER);
@@ -1209,7 +1209,7 @@ static void end_statement(struct ubasic_ctx* ctx)
 
 static void eq_statement(struct ubasic_ctx* ctx)
 {
-	accept(EQ, ctx);
+	accept(EQUALS, ctx);
 
 	if (ctx->fn_type == RT_STRING) {
 		ctx->fn_return = (void*)str_expr(ctx);
@@ -1217,7 +1217,7 @@ static void eq_statement(struct ubasic_ctx* ctx)
 		ctx->fn_return = (void*)expr(ctx);
 	}
 
-	accept(CR, ctx);
+	accept(NEWLINE, ctx);
 
 	ctx->ended = 1;
 }
@@ -1352,7 +1352,7 @@ void statement(struct ubasic_ctx* ctx)
 			accept(GLOBAL, ctx);
 			let_statement(ctx, true);
 		break;
-		case EQ:
+		case EQUALS:
 			eq_statement(ctx);
 		break;
 		default:

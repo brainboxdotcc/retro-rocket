@@ -13,8 +13,8 @@ void double_varfactor(struct ubasic_ctx* ctx, double* res)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
 	else
 	{
-		if (tokenizer_token(ctx) == RIGHTPAREN)
-			accept(RIGHTPAREN, ctx);
+		if (tokenizer_token(ctx) == CLOSEBRACKET)
+			accept(CLOSEBRACKET, ctx);
 		else
 			accept(VARIABLE, ctx);
 	}
@@ -33,12 +33,12 @@ void double_factor(struct ubasic_ctx* ctx, double* res)
 			//dprintf("double_factor fnum->r=%s\n", double_to_string(*res, buffer, 50, 0));
 			accept(tok, ctx);
 		break;
-		case LEFTPAREN:
-			//dprintf("double_factor LEFTPAREN\n");
-			accept(LEFTPAREN, ctx);
+		case OPENBRACKET:
+			//dprintf("double_factor OPENBRACKET\n");
+			accept(OPENBRACKET, ctx);
 			double_expr(ctx, res);
 			//dprintf("double_factor expr->r=%s\n", double_to_string(*res, buffer, 50, 0));
-			accept(RIGHTPAREN, ctx);
+			accept(CLOSEBRACKET, ctx);
 		break;
 		default:
 			//dprintf("double_factor default\n");
@@ -61,7 +61,7 @@ void double_term(struct ubasic_ctx* ctx, double* res)
 
 	op = tokenizer_token(ctx);
 	//dprintf("first op=%d %s\n", op, types[op]);
-	while (op == ASTR || op == SLASH || op == MOD)
+	while (op == ASTERISK || op == SLASH || op == MOD)
 	{
 		tokenizer_next(ctx);
 		//dprintf("double_term second double_factor call\n");
@@ -69,7 +69,7 @@ void double_term(struct ubasic_ctx* ctx, double* res)
 		//dprintf("double_term f2=%s\n", double_to_string(f2, buffer, 50, 0));
 		switch (op)
 		{
-			case ASTR:
+			case ASTERISK:
 				f1 = f1 * f2;
 			break;
 			case SLASH:

@@ -89,7 +89,7 @@ static int singlechar(struct ubasic_ctx* ctx)
 {
 	switch (*ctx->ptr) {
 		case '\n':
-			return CR;
+			return NEWLINE;
 		case ',':
 			return COMMA;
 		case ';':
@@ -103,21 +103,21 @@ static int singlechar(struct ubasic_ctx* ctx)
 		case '|':
 			return OR;
 		case '*':
-			return ASTR;
+			return ASTERISK;
 		case '/':
 			return SLASH;
 		case '%':
 			return MOD;
 		case '(':
-			return LEFTPAREN;
+			return OPENBRACKET;
 		case ')':
-			return RIGHTPAREN;
+			return CLOSEBRACKET;
 		case '<':
-			return LT;
+			return LESSTHAN;
 		case '>':
-			return GT;
+			return GREATERTHAN;
 		case '=':
-			return EQ;
+			return EQUALS;
 		case '~':
 			return TILDE;
 	}

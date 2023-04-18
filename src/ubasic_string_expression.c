@@ -8,8 +8,8 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 		if (!tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
 			return "";
 		}
-		if (tokenizer_token(ctx) == RIGHTPAREN)
-			accept(RIGHTPAREN, ctx);
+		if (tokenizer_token(ctx) == CLOSEBRACKET)
+			accept(CLOSEBRACKET, ctx);
 		else
 			accept(STRING, ctx);
 		return ctx->string;
@@ -17,8 +17,8 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 	else
 	{
 		r = ubasic_get_string_variable(tokenizer_variable_name(ctx), ctx);
-		if (tokenizer_token(ctx) == RIGHTPAREN)
-			accept(RIGHTPAREN, ctx);
+		if (tokenizer_token(ctx) == CLOSEBRACKET)
+			accept(CLOSEBRACKET, ctx);
 		else
 			accept(VARIABLE, ctx);
 	}
@@ -31,10 +31,10 @@ const char* str_factor(struct ubasic_ctx* ctx)
 
 	switch(tokenizer_token(ctx))
 	{
-		case LEFTPAREN:
-			accept(LEFTPAREN, ctx);
+		case OPENBRACKET:
+			accept(OPENBRACKET, ctx);
 			r = str_expr(ctx);
-			accept(RIGHTPAREN, ctx);
+			accept(CLOSEBRACKET, ctx);
 		break;
 		default:
 			r = str_varfactor(ctx);
@@ -51,20 +51,20 @@ int str_relation(struct ubasic_ctx* ctx)
 	const char* r1 = str_expr(ctx);
 	op = tokenizer_token(ctx);
 
-	while (op == LT || op == GT || op == EQ)
+	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS)
 	{
 		tokenizer_next(ctx);
 		const char* r2 = str_expr(ctx);
 
 		switch (op)
 		{
-			case LT:
+			case LESSTHAN:
 				r = (strcmp(r1, r2) < 0);
 			break;
-			case GT:
+			case GREATERTHAN:
 				r = (strcmp(r1, r2) > 0);
 			break;
-			case EQ:
+			case EQUALS:
 				r = (strcmp(r1, r2) == 0);
 			break;
 		}
