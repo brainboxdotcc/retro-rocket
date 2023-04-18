@@ -1236,139 +1236,95 @@ void statement(struct ubasic_ctx* ctx)
 
 	switch (token) {
 		case REM:
-			rem_statement(ctx);
-		break;
+			return rem_statement(ctx);
 		case BACKGROUND:
-			background_statement(ctx);
-		break;
+			return background_statement(ctx);
 		case COLOR:
-			colour_statement(ctx, COLOR);
-		break;
+			return colour_statement(ctx, COLOR);
 		case COLOUR:
-			colour_statement(ctx, COLOUR);
-		break;
+			return colour_statement(ctx, COLOUR);
 		case DEF:
-			def_statement(ctx);
-		break;
+			return def_statement(ctx);
 		case CHAIN:
-			chain_statement(ctx);
-		break;
+			return chain_statement(ctx);
 		case EVAL:
-			eval_statement(ctx);
-		break;
+			return eval_statement(ctx);
 		case OPENIN:
-			openin_statement(ctx);
-		break;
+			return openin_statement(ctx);
 		case OPENOUT:
-			openout_statement(ctx);
-		break;
+			return openout_statement(ctx);
 		case OPENUP:
-			openup_statement(ctx);
-		break;
+			return openup_statement(ctx);
 		case READ:
-			read_statement(ctx);
-		break;
+			return read_statement(ctx);
 		case CLOSE:
-			close_statement(ctx);
-		break;
+			return close_statement(ctx);
 		case EOF:
-			eof_statement(ctx);
-		break;
+			return eof_statement(ctx);
 		case PRINT:
-			print_statement(ctx);
-		break;
+			return print_statement(ctx);
 		case IF:
-			if_statement(ctx);
-		break;
+			return if_statement(ctx);
 		case CURSOR:
-			gotoxy_statement(ctx);
-		break;
+			return gotoxy_statement(ctx);
 		case GOTO:
-			goto_statement(ctx);
-		break;
+			return goto_statement(ctx);
 		case GOSUB:
-			gosub_statement(ctx);
-		break;
+			return gosub_statement(ctx);
 		case RETURN:
-			return_statement(ctx);
-		break;
+			return return_statement(ctx);
 		case FOR:
-			for_statement(ctx);
-		break;
+			return for_statement(ctx);
 		case NEXT:
-			next_statement(ctx);
-		break;
+			return next_statement(ctx);
 		case END:
-			end_statement(ctx);
-		break;
+			return end_statement(ctx);
 		case INPUT:
-			input_statement(ctx);
-		break;
+			return input_statement(ctx);
 		case SOCKREAD:
-			sockread_statement(ctx);
-		break;
+			return sockread_statement(ctx);
 		case SOCKWRITE:
-			sockwrite_statement(ctx);
-		break;
+			return sockwrite_statement(ctx);
 		case DELETE:
-			delete_statement(ctx);
-		break;
+			return delete_statement(ctx);
 		case RMDIR:
-			rmdir_statement(ctx);
-		break;
+			return rmdir_statement(ctx);
 		case MOUNT:
-			mount_statement(ctx);
-		break;
+			return mount_statement(ctx);
 		case MKDIR:
-			mkdir_statement(ctx);
-		break;
+			return mkdir_statement(ctx);
 		case CONNECT:
-			connect_statement(ctx);
-		break;
+			return connect_statement(ctx);
 		case SOCKCLOSE:
-			sockclose_statement(ctx);
-		break;
+			return sockclose_statement(ctx);
 		case POINT:
-			point_statement(ctx);
-		break;
+			return point_statement(ctx);
 		case CLS:
-			cls_statement(ctx);
-		break;
+			return cls_statement(ctx);
 		case GCOL:
-			gcol_statement(ctx);
-		break;
+			return gcol_statement(ctx);
 		case LINE:
-			draw_line_statement(ctx);
-		break;
+			return draw_line_statement(ctx);
 		case TRIANGLE:
-			triangle_statement(ctx);
-		break;
+			return triangle_statement(ctx);
 		case WRITE:
-			write_statement(ctx);
-		break;
+			return write_statement(ctx);
 		case RECTANGLE:
-			rectangle_statement(ctx);
-		break;
+			return rectangle_statement(ctx);
 		case CIRCLE:
-			circle_statement(ctx);
-		break;
+			return circle_statement(ctx);
 		case LET:
 			accept(LET, ctx);
 			/* Fall through. */
 		case VARIABLE:
-			let_statement(ctx, false);
-		break;
+			return let_statement(ctx, false);
 		case GLOBAL:
 			accept(GLOBAL, ctx);
-			let_statement(ctx, true);
-		break;
+			return let_statement(ctx, true);
 		case EQUALS:
-			eq_statement(ctx);
-		break;
+			return eq_statement(ctx);
 		default:
-			tokenizer_error_print(ctx, "Unknown keyword");
-			//kprintf("%s\n ->%d\n", ctx->program_ptr, ctx->current_token);
-		break;
+			return tokenizer_error_print(ctx, "Unknown keyword");
 	}
 }
 /*---------------------------------------------------------------------------*/
