@@ -53,11 +53,11 @@ typedef struct heap {
 /* Prototypes */
 void* kmalloc(uint64_t size);					/* Kernel heap malloc */
 void* kmalloc_ext(uint64_t size, uint8_t align, uint64_t *phys);	/* Extended version */
-void kfree(void* addr);
+void kfree(const void* addr);
 heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw); /* Create a heap */
 void init_heap();
 void print_heapinfo();
-void preboot_fail(char* msg);
+void preboot_fail(const char* msg);
 void* kcalloc(size_t num, size_t size);
 void* krealloc(void* ptr, size_t new_size);
 uint32_t kmalloc_low(uint32_t size);

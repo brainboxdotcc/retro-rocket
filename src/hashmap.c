@@ -8,12 +8,12 @@
 
 static void *(*_malloc)(size_t) = NULL;
 static void *(*_realloc)(void *, size_t) = NULL;
-static void (*_free)(void *) = NULL;
+static void (*_free)(const void *) = NULL;
 
 // hashmap_set_allocator allows for configuring a custom allocator for
 // all hashmap library operations. This function, if needed, should be called
 // only once at startup and a prior to calling hashmap_new().
-void hashmap_set_allocator([[maybe_unused]] void *(*malloc)(size_t), [[maybe_unused]] void (*free)(void*)) 
+void hashmap_set_allocator([[maybe_unused]] void *(*malloc)(size_t), [[maybe_unused]] void (*free)(const void*)) 
 {
     _malloc = kmalloc;
     _free = kfree;
@@ -28,7 +28,7 @@ struct bucket {
 struct hashmap {
     void *(*malloc)(size_t);
     void *(*realloc)(void *, size_t);
-    void (*free)(void *);
+    void (*free)(const void *);
     bool oom;
     size_t elsize;
     size_t cap;
@@ -36,7 +36,7 @@ struct hashmap {
     uint64_t seed1;
     uint64_t (*hash)(const void *item, uint64_t seed0, uint64_t seed1);
     int (*compare)(const void *a, const void *b, void *udata);
-    void (*elfree)(void *item);
+    void (*elfree)(const void *item);
     void *udata;
     size_t bucketsz;
     size_t nbuckets;
@@ -66,14 +66,14 @@ static uint64_t get_hash(struct hashmap *map, const void *key) {
 struct hashmap *hashmap_new_with_allocator(
                             void *(*_malloc)(size_t), 
                             void *(*_realloc)(void*, size_t), 
-                            void (*_free)(void*),
+                            void (*_free)(const void*),
                             size_t elsize, size_t cap, 
                             uint64_t seed0, uint64_t seed1,
                             uint64_t (*hash)(const void *item, 
                                              uint64_t seed0, uint64_t seed1),
                             int (*compare)(const void *a, const void *b, 
                                            void *udata),
-                            void (*elfree)(void *item),
+                            void (*elfree)(const void *item),
                             void *udata)
 {
     _malloc = _malloc ? _malloc : kmalloc;
@@ -150,7 +150,7 @@ struct hashmap *hashmap_new(size_t elsize, size_t cap,
                                              uint64_t seed0, uint64_t seed1),
                             int (*compare)(const void *a, const void *b, 
                                            void *udata),
-                            void (*elfree)(void *item),
+                            void (*elfree)(const void *item),
                             void *udata)
 {
     return hashmap_new_with_allocator(

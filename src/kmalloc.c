@@ -35,7 +35,7 @@ header_t* ord_list_src_head(header_t* head,header_t *list);	/* Looking for node 
 
 /* Memory manager utility routines */
 static void* alloc(uint64_t size,uint8_t align,heap_t *heap);/* Allocate memory on the heap */
-static void free_int(void*, heap_t *heap);		/* Free memory on the heap */
+static void free_int(const void*, heap_t *heap);		/* Free memory on the heap */
 void expand_heap(uint64_t size, heap_t *heap);	/* Extend the heap by size bytes (paligned)*/
 void shrink_heap(uint64_t size, heap_t *heap);	/* Shrink the heap to size bytes (paligned) */
 void fix_heap_list(heap_t *heap);		/* Always ensure the block is within the heap */
@@ -62,7 +62,7 @@ char invalid_frame(uint64_t physaddr)
 	return 0;
 }
 
-void preboot_fail(char* msg)
+void preboot_fail(const char* msg)
 {
 	setforeground(current_console, COLOUR_LIGHTRED);
 	kprintf("%s\n", msg);
@@ -280,7 +280,7 @@ static void *alloc(uint64_t size,uint8_t palign, heap_t *heap)
 	return ret;
 }
 
-static void free_int(void *addr, heap_t *heap)
+static void free_int(const void *addr, heap_t *heap)
 {
 	/* pointers to the current, previous and next block */
 	header_t *th = NULL, *th_left = NULL, *th_right = NULL;
@@ -566,7 +566,7 @@ void* kmalloc(uint64_t size)
 	return kmalloc_ext(size, 0, 0);
 }
 
-void kfree(void* addr)
+void kfree(const void* addr)
 {
 	if (kheap) {
 		free_int(addr, kheap);

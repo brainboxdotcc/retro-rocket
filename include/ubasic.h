@@ -27,56 +27,88 @@
  */
 #pragma once 
 
+/**
+ * @brief Maximum length of a string variable
+ */
 #define MAX_STRINGLEN 1024
-#define MAX_GOSUB_STACK_DEPTH 255
-#define MAX_FOR_STACK_DEPTH 50
 
+/**
+ * @brief Maximum stack depth of GOSUB, PROC, FN
+ */
+#define MAX_GOSUB_STACK_DEPTH 255
+
+/**
+ * @brief Maximum stack depth of FOR...NEXT
+ */
+#define MAX_FOR_STACK_DEPTH 255
+
+/**
+ * @brief State for a FOR...NEXT loop
+ */
 typedef struct for_state {
         int64_t line_after_for;
-        char* for_variable;
+        const char* for_variable;
         int64_t to;
         int64_t step;
 } for_state;
 
+/**
+ * @brief An integer variable
+ */
 typedef struct ub_var_int {
-	char* varname;
+	const char* varname;
 	int64_t value;
 	bool global;
 	struct ub_var_int* next;
 } ub_var_int;
 
+/**
+ * @brief A real (double) variable
+ */
 typedef struct ub_var_double {
-	char* varname;
+	const char* varname;
 	double value;
 	bool global;
 	struct ub_var_double* next;
 } ub_var_double;
 
+/**
+ * @brief A string variable
+ */
 typedef struct ub_var_string {
-	char* varname; /* Not including the $ on the end! */
+	const char* varname;
 	char* value;
 	bool global;
 	struct ub_var_string* next;
 } ub_var_string;
 
+/**
+ * @brief Function or procedure
+ */
 typedef enum ub_fn_type {
 	FT_FN,
 	FT_PROC
 } ub_fn_type;
 
+/**
+ * @brief Return type of FN
+ */
 typedef enum ub_return_type {
 	RT_STRING,
 	RT_INT,
 	RT_FLOAT,
 } ub_return_type;
 
+/**
+ * @brief FN/PROC parameter
+ */
 typedef struct ub_param {
-	char* name;
+	const char* name;
 	struct ub_param* next;
 } ub_param;
 
 typedef struct ub_proc_fn_def {
-	char* name;
+	const char* name;
 	ub_fn_type type;
 	int64_t line;
 	struct ub_param* params;
@@ -84,19 +116,19 @@ typedef struct ub_proc_fn_def {
 } ub_proc_fn_def;
 
 typedef struct ub_var_int_array {
-	char* varname;
+	const char* varname;
 	struct ub_var_int* values;
 	uint64_t itemcount;
 } ub_var_int_array;
 
 typedef struct ub_var_string_array {
-	char* varname;
+	const char* varname;
 	struct ub_var_string* values;
 	uint64_t itemcount;
 } ub_var_string_array;
 
 typedef struct ub_var_double_array {
-	char* varname;
+	const char* varname;
 	struct ub_var_double* values;
 	uint64_t itemcount;
 } ub_var_double_array;
@@ -110,12 +142,12 @@ typedef struct ub_line_ref {
 
 typedef struct ubasic_ctx
 {
-        char const *ptr;
+        char const* ptr;
 	char const* nextptr;
         int current_token;
 	int64_t current_linenum;
 	bool errored;
-        char *program_ptr;
+        char* program_ptr;
         char string[MAX_STRINGLEN];
         uint64_t gosub_stack[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_int* local_int_variables[MAX_GOSUB_STACK_DEPTH];

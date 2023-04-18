@@ -43,13 +43,11 @@ int64_t relation(struct ubasic_ctx* ctx)
 	int64_t r1 = expr(ctx);
 	int op = tokenizer_token(ctx);
 
-	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS)
-	{
+	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
 		tokenizer_next(ctx);
 		int64_t r2 = expr(ctx);
 
-		switch (op)
-		{
+		switch (op) {
 			case LESSTHAN:
 				r1 = r1 < r2;
 			break;
@@ -71,12 +69,10 @@ int64_t term(struct ubasic_ctx* ctx)
 {
 	int64_t f1 = factor(ctx);
 	int op = tokenizer_token(ctx);
-	while (op == ASTERISK || op == SLASH || op == MOD)
-	{
+	while (op == ASTERISK || op == SLASH || op == MOD) {
 		tokenizer_next(ctx);
 		int64_t f2 = factor(ctx);
-		switch (op)
-		{
+		switch (op) {
 			case ASTERISK:
 				f1 = f1 * f2;
 			break;
@@ -106,12 +102,10 @@ int64_t expr(struct ubasic_ctx* ctx)
 	int64_t t1 = term(ctx);
 	int op = tokenizer_token(ctx);
 
-	while (op == PLUS || op == MINUS || op == AND || op == OR)
-	{
+	while (op == PLUS || op == MINUS || op == AND || op == OR) {
 		tokenizer_next(ctx);
 		int64_t t2 = term(ctx);
-		switch (op)
-		{
+		switch (op) {
 			case PLUS:
 				t1 = t1 + t2;
 			break;

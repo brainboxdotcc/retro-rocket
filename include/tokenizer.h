@@ -55,8 +55,8 @@
 	T(ELSE) \
 	T(CHAIN) \
 	T(FOR) \
-	T(TO) \
 	T(STEP) \
+	T(TO) \
 	T(NEXT) \
 	T(CURSOR) \
 	T(GOTO) \

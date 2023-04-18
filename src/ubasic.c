@@ -232,17 +232,13 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 {
 	int currentline = 0;
 
-	while (1)
-	{
+	while (true) {
 		currentline = tokenizer_num(ctx, NUMBER);
 		char const* linestart = ctx->ptr;
-		do
-		{
-			do
-			{
+		do {
+			do {
 				tokenizer_next(ctx);
-			}
-			while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT);
+			} while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT);
 			
 			char const* lineend = ctx->ptr;
 			
@@ -258,29 +254,24 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 			while (*search++ == ' ');
 			--search;
 
-			if (!strncmp(search, "DEF ", 4))
-			{
+			if (!strncmp(search, "DEF ", 4)) {
 				search += 4;
 				ub_fn_type type = FT_FN;
-				if (!strncmp(search, "FN", 2))
-				{
+				if (!strncmp(search, "FN", 2)) {
 					search += 2;
 					while (*search++ == ' ');
 					type = FT_FN;
-				}
-				else if (!strncmp(search, "PROC", 4))
-				{
+				} else if (!strncmp(search, "PROC", 4)) {
 					search += 4;
 					while (*search++ == ' ');
 					type = FT_PROC;
 				}
 
-				char name[1024];
+				char name[MAX_STRINGLEN];
 				int ni = 0;
-				struct ub_proc_fn_def* def = (struct ub_proc_fn_def*)kmalloc(sizeof(struct ub_proc_fn_def));
+				struct ub_proc_fn_def* def = kmalloc(sizeof(struct ub_proc_fn_def));
 				--search;
-				while (ni < 1023 && *search != '\n' && *search != 0 && *search != '(')
-				{
+				while (ni < MAX_STRINGLEN - 2 && *search != '\n' && *search != 0 && *search != '(') {
 					name[ni++] = *search++;
 				}
 				name[ni] = 0;
@@ -294,67 +285,49 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 
 				def->params = NULL;
 
-				if (*search == '(')
-				{
+				if (*search == '(') {
 					search++;
 					// Parse parameters
-					char pname[1024];
+					char pname[MAX_STRINGLEN];
 					int pni = 0;
-					while (*search != 0)
-					{
-						if (pni < 1023 && *search != ',' && *search != ')' && *search != ' ')
+					while (*search != 0) {
+						if (pni < MAX_STRINGLEN - 1 && *search != ',' && *search != ')' && *search != ' ') {
 							pname[pni++] = *search;
+						}
 
-						if (*search == ',' || *search == ')')
-						{
+						if (*search == ',' || *search == ')') {
 							pname[pni] = 0;
 							struct ub_param* par = (struct ub_param*)kmalloc(sizeof(struct ub_param));
-							//kprintf("pn='%s'\n", pname);
 
 							par->next = NULL;
 							par->name = strdup(pname);
 
-							if (def->params == NULL)
-							{
+							if (def->params == NULL) {
 								def->params = par;
-							}
-							else
-							{
+							} else {
 								struct ub_param* cur = def->params;
-								for (; cur; cur = cur->next)
-								{
-									if (cur->next == NULL)
-									{
+								for (; cur; cur = cur->next) {
+									if (cur->next == NULL) {
 										cur->next = par;
 										break;
 									}
 								}
 							}
-
-							if (*search == ')')
+							if (*search == ')') {
 								break;
-
+							}
 							pni = 0;
 						}
-
 						search++;
-
 					}
 				}
-
 				ctx->defs = def;
-
-				//kprintf("Name='%s'\n", name);
 			}
 
-
-			if (tokenizer_token(ctx) == NEWLINE)
-			{
+			if (tokenizer_token(ctx) == NEWLINE) {
 				tokenizer_next(ctx);
 			}
-
 			kfree(linetext);
-
 			if (tokenizer_token(ctx) == ENDOFINPUT) {
 				break;
 			}
@@ -375,10 +348,10 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 struct ub_proc_fn_def* ubasic_find_fn(const char* name, struct ubasic_ctx* ctx)
 {
 	struct ub_proc_fn_def* cur = ctx->defs;
-	for (; cur; cur = cur->next)
-	{
-		if (!strcmp(name, cur->name))
+	for (; cur; cur = cur->next) {
+		if (!strcmp(name, cur->name)) {
 			return cur;
+		}
 	}
 	return NULL;
 }
@@ -429,10 +402,10 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 
 void accept(int token, struct ubasic_ctx* ctx)
 {
-	char err[MAX_STRINGLEN];
-	GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
-	sprintf(err, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
 	if (token != tokenizer_token(ctx)) {
+		char err[MAX_STRINGLEN];
+		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
+		sprintf(err, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
 		tokenizer_error_print(ctx, err);
 		return;
 	}
@@ -643,8 +616,6 @@ static void write_statement(struct ubasic_ctx* ctx)
 
 static void if_statement(struct ubasic_ctx* ctx)
 {
-	int r;
-  
 	accept(IF, ctx);
 
 	char current_line[MAX_STRINGLEN];
@@ -663,29 +634,19 @@ static void if_statement(struct ubasic_ctx* ctx)
 		}
 	}
 
-	r = stringlike ? str_relation(ctx) : relation(ctx);
+	int64_t r = stringlike ? str_relation(ctx) : relation(ctx);
 	accept(THEN, ctx);
-	if (r)
-	{
+	if (r) {
 		statement(ctx);
-	}
-	else
-	{
-		do
-		{
+	} else {
+		do {
 			tokenizer_next(ctx);
-		}
-   		while(tokenizer_token(ctx) != ELSE &&
-				tokenizer_token(ctx) != NEWLINE &&
-				tokenizer_token(ctx) != ENDOFINPUT);
+		} while (tokenizer_token(ctx) != ELSE && tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT);
 
-		if (tokenizer_token(ctx) == ELSE)
-		{
+		if (tokenizer_token(ctx) == ELSE) {
 			tokenizer_next(ctx);
 			statement(ctx);
-		}
-   			else if (tokenizer_token(ctx) == NEWLINE)
-		{
+		} else if (tokenizer_token(ctx) == NEWLINE) {
 			tokenizer_next(ctx);
 		}
 	}
@@ -695,7 +656,6 @@ static void chain_statement(struct ubasic_ctx* ctx)
 {
 	accept(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
-	//kprintf("Chaining '%s'\n", pn);
 	struct process* p = proc_load(pn, ctx->cons);
 	if (p == NULL) {
 		accept(NEWLINE, ctx);
@@ -706,6 +666,7 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	struct ub_var_string* cur_str = ctx->str_variables;
 	struct ub_var_double* cur_double = ctx->double_variables;
 
+	/* Inherit global variables into new process */
 	for (; cur_int; cur_int = cur_int->next) {
 		if (cur_int->global) {
 			ubasic_set_int_variable(cur_int->varname, cur_int->value, new_proc, false, true);
@@ -722,7 +683,6 @@ static void chain_statement(struct ubasic_ctx* ctx)
 		}
 	}
 
-	/* Inherit global variables into new process */
 	proc_wait(proc_cur(), p->pid);
 	accept(NEWLINE, ctx);
 }
@@ -797,8 +757,9 @@ static void eval_statement(struct ubasic_ctx* ctx)
 static void rem_statement(struct ubasic_ctx* ctx)
 {
 	accept(REM, ctx);
-	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE)
+	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
 		tokenizer_next(ctx);
+	}
 	accept(NEWLINE, ctx);
 }
 
@@ -809,8 +770,9 @@ static void def_statement(struct ubasic_ctx* ctx)
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we dont fall through into a function.
 	accept(DEF, ctx);
-	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE)
+	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
 		tokenizer_next(ctx);
+	}
 	accept(NEWLINE, ctx);
 }
 
@@ -848,16 +810,12 @@ static void eof_statement(struct ubasic_ctx* ctx)
 
 static void input_statement(struct ubasic_ctx* ctx)
 {
-	const char* var;
-
 	accept(INPUT, ctx);
-	var = tokenizer_variable_name(ctx);
+	const char* var = tokenizer_variable_name(ctx);
 	accept(VARIABLE, ctx);
 
-	if (kinput(10240, (console*)ctx->cons) != 0)
-	{
-		switch (var[strlen(var) - 1])
-		{
+	if (kinput(10240, (console*)ctx->cons) != 0) {
+		switch (var[strlen(var) - 1]) {
 			case '$':
 				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
 			break;
@@ -870,9 +828,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 				ubasic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
 			break;
 		}
-
 		kfreeinput((console*)ctx->cons);
-
 		accept(NEWLINE, ctx);
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
@@ -884,8 +840,6 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 	char input[MAX_STRINGLEN];
 	const char* var = NULL;
 	int fd = -1;
-
-	//dprintf("S");
 
 	accept(SOCKREAD, ctx);
 	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
@@ -1116,7 +1070,6 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 
 static void return_statement(struct ubasic_ctx* ctx)
 {
-	//kprintf("Return\n");
 	accept(RETURN, ctx);
 	if (ctx->gosub_stack_ptr > 0) {
 		ctx->gosub_stack_ptr--;
@@ -1130,45 +1083,39 @@ static void next_statement(struct ubasic_ctx* ctx)
 {
 	accept(NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
+		bool continue_loop = false;
 		if (strchr(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, '#')) {
 			double incr;
 			ubasic_get_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx, &incr);
-			//kprintf("incr is %d\n", incr);
-			ubasic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
-
-			if (incr <= ctx->for_stack[ctx->for_stack_ptr - 1].to) {
-				jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
-			} else {
-				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
-				ctx->for_stack_ptr--;
-				accept(NEWLINE, ctx);
-			}
+			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
+			ubasic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
+			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
+			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr > ctx->for_stack[ctx->for_stack_ptr - 1].to));
 		} else {
-			int incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
-			//kprintf("incr is %d\n", incr);
-			ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ++incr, ctx, false, false);
-
-			if (incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) {
-				jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
-			} else {
-				kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
-				ctx->for_stack_ptr--;
-				accept(NEWLINE, ctx);
-			}
+			int64_t incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
+			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
+			ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
+			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
+			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr > ctx->for_stack[ctx->for_stack_ptr - 1].to));
 		}
+		if (continue_loop) {
+			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
+		} else {
+			kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
+			ctx->for_stack_ptr--;
+			accept(NEWLINE, ctx);
+		}
+
 	} else {
-		tokenizer_error_print(ctx, "next_statement: non-matching next");
+		tokenizer_error_print(ctx, "NEXT without FOR");
 		accept(NEWLINE, ctx);
 	}
 }
 
 static void for_statement(struct ubasic_ctx* ctx)
 {
-	const char* for_variable;
-	int to;
-  
 	accept(FOR, ctx);
-	for_variable = strdup(tokenizer_variable_name(ctx));
+	const char* for_variable = strdup(tokenizer_variable_name(ctx));
 	accept(VARIABLE, ctx);
 	accept(EQUALS, ctx);
 	if (strchr(for_variable, '#')) {
@@ -1177,13 +1124,31 @@ static void for_statement(struct ubasic_ctx* ctx)
 		ubasic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
 	}
 	accept(TO, ctx);
-	to = expr(ctx);
-	accept(NEWLINE, ctx);
+	/* STEP needs special treatment, as it happens after an expression and is not separated by a comma */
+	char* marker = NULL;
+	for (char* n = (char*)ctx->ptr; *n && *n != '\n'; ++n) {
+		if (strncmp(n, " STEP ", 6) == 0) {
+			*n = '\n';
+			marker = n;
+			break;
+		}
+	}
+	uint64_t to = expr(ctx), step = 1;
+	tokenizer_next(ctx);
+	if (marker) {
+		*marker = ' ';
+	}
+	if (tokenizer_token(ctx) == STEP) {
+		accept(STEP, ctx);
+		step = expr(ctx);
+		accept(NEWLINE, ctx);
+	}
 
 	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH) {
 		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, NUMBER);
-		ctx->for_stack[ctx->for_stack_ptr].for_variable = (char*)for_variable;
+		ctx->for_stack[ctx->for_stack_ptr].for_variable = for_variable;
 		ctx->for_stack[ctx->for_stack_ptr].to = to;
+		ctx->for_stack[ctx->for_stack_ptr].step = step;
 		ctx->for_stack_ptr++;
 	} else {
 		tokenizer_error_print(ctx, "Too many FOR");
