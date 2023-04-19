@@ -75,6 +75,7 @@
 	T(EOF) \
 	T(DEF) \
 	T(PROC) \
+	T(RETPROC) \
 	T(FN) \
 	T(END) \
 	T(REM) \

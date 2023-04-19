@@ -94,6 +94,7 @@ typedef enum ub_fn_type {
  * @brief Return type of FN
  */
 typedef enum ub_return_type {
+	RT_NONE,
 	RT_STRING,
 	RT_INT,
 	RT_FLOAT,

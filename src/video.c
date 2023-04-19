@@ -42,7 +42,7 @@ uint64_t get_text_height()
 
 void gotoxy(uint64_t x, uint64_t y)
 {
-	kprintf("\033[%d;%df", y % get_text_height(), x % get_text_width());
+	kprintf("\033[%d;%dH", y % (get_text_height() + 1), x % (get_text_width() + 1));
 }
 
 void putpixel(int64_t x, int64_t y, uint32_t rgb)

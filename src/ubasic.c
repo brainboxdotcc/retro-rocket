@@ -19,6 +19,9 @@
 
 #include <kernel.h>
 
+void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx);
+uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx);
+
 struct ubasic_int_fn builtin_int[] =
 {
 	{ ubasic_abs, "ABS" },
@@ -222,6 +225,8 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->for_stack_ptr = old->for_stack_ptr;
 	ctx->gosub_stack_ptr = old->gosub_stack_ptr;
 	ctx->defs = old->defs;
+	ctx->ended = false;
+	ctx->errored = false;
 
 	tokenizer_init(ctx->program_ptr, ctx);
 
@@ -281,6 +286,8 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 				def->line = currentline;
 				def->next = ctx->defs;
 
+				dprintf("PROC: %s (line %d)\n", def->name, currentline);
+
 				/* Parse parameters */
 
 				def->params = NULL;
@@ -290,7 +297,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 					// Parse parameters
 					char pname[MAX_STRINGLEN];
 					int pni = 0;
-					while (*search != 0) {
+					while (*search != 0 && *search != '\n') {
 						if (pni < MAX_STRINGLEN - 1 && *search != ',' && *search != ')' && *search != ' ') {
 							pname[pni++] = *search;
 						}
@@ -309,6 +316,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 								for (; cur; cur = cur->next) {
 									if (cur->next == NULL) {
 										cur->next = par;
+										dprintf("   PARAM: %s\n", cur->name);
 										break;
 									}
 								}
@@ -612,6 +620,47 @@ static void write_statement(struct ubasic_ctx* ctx)
 	if (out) {
 		_write(fd, out, strlen(out));
 	}
+}
+
+static void proc_statement(struct ubasic_ctx* ctx)
+{
+	char procname[MAX_STRINGLEN];
+	char* p = procname;
+	size_t procnamelen = 0;
+	accept(PROC, ctx);
+	while (*ctx->ptr != '\n' && *ctx->ptr != 0  && *ctx->ptr != '(' && procnamelen < MAX_STRINGLEN - 1) {
+		if (*ctx->ptr != ' ') {
+			*(p++) = *(ctx->ptr++);
+		}
+		procnamelen++;
+	}
+	*p++ = 0;
+	struct ub_proc_fn_def* def = ubasic_find_fn(procname, ctx);
+	if (def) {
+		ctx->gosub_stack_ptr++;
+
+		if (*ctx->ptr == '(' && *(ctx->ptr + 1) != ')') {
+			begin_comma_list(def, ctx);
+			while (extract_comma_list(def, ctx));
+		}
+		struct ubasic_ctx* atomic = ubasic_clone(ctx);
+		atomic->fn_type = RT_NONE;
+		jump_linenum(def->line, atomic);
+
+		while (!ubasic_finished(atomic)) {
+			line_statement(atomic);
+		}
+		/* Only free the base struct! */
+		kfree(atomic);
+
+		ctx->gosub_stack_ptr--;
+		while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
+			tokenizer_next(ctx);
+		}
+		accept(NEWLINE, ctx);
+		return;
+	}
+	tokenizer_error_print(ctx, "No such PROC");
 }
 
 static void if_statement(struct ubasic_ctx* ctx)
@@ -1183,12 +1232,26 @@ static void eq_statement(struct ubasic_ctx* ctx)
 		ctx->fn_return = (void*)str_expr(ctx);
 	} else if (ctx->fn_type == RT_FLOAT) {
 		double_expr(ctx, (void*)&ctx->fn_return);
-	} else {
+	} else if (ctx->fn_type == RT_INT)  {
 		ctx->fn_return = (void*)expr(ctx);
+	} else if (ctx->fn_type == RT_NONE)  {
+		tokenizer_error_print(ctx, "Can't return a value from a PROC");
+		return;
 	}
 
 	accept(NEWLINE, ctx);
 
+	ctx->ended = true;
+}
+
+static void retproc_statement(struct ubasic_ctx* ctx)
+{
+	accept(RETPROC, ctx);
+	accept(NEWLINE, ctx);
+	if (ctx->fn_type != RT_NONE)  {
+		tokenizer_error_print(ctx, "Can't RETPROC from a FN");
+		return;
+	}
 	ctx->ended = true;
 }
 
@@ -1225,6 +1288,10 @@ void statement(struct ubasic_ctx* ctx)
 			return eof_statement(ctx);
 		case PRINT:
 			return print_statement(ctx);
+		case PROC:
+			return proc_statement(ctx);
+		case RETPROC:
+			return retproc_statement(ctx);
 		case IF:
 			return if_statement(ctx);
 		case CURSOR:
@@ -1644,7 +1711,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	const char* rv = gc_strdup("");
-	if (def != NULL) {
+	if (def) {
 		ctx->gosub_stack_ptr++;
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
@@ -2136,8 +2203,7 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	int64_t rv = 0;
-	if (def != NULL)
-	{
+	if (def) {
 		ctx->gosub_stack_ptr++;
 
 		begin_comma_list(def, ctx);
@@ -2147,14 +2213,12 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		dprintf("Function eval, jump to line %d\n", def->line);
 		jump_linenum(def->line, atomic);
 
-		while (!ubasic_finished(atomic))
-		{
+		while (!ubasic_finished(atomic)) {
 			line_statement(atomic);
 		}
-		if (atomic->fn_return == NULL)
+		if (atomic->fn_return == NULL) {
 			tokenizer_error_print(ctx, "End of function without returning value");
-		else
-		{
+		} else {
 			rv = (int64_t)atomic->fn_return;
 		}
 
@@ -2172,8 +2236,7 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
-	if (def != NULL)
-	{
+	if (def) {
 		ctx->gosub_stack_ptr++;
 
 		begin_comma_list(def, ctx);
@@ -2182,14 +2245,12 @@ void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* 
 		atomic->fn_type = RT_FLOAT;
 		jump_linenum(def->line, atomic);
 
-		while (!ubasic_finished(atomic))
-		{
+		while (!ubasic_finished(atomic)) {
 			line_statement(atomic);
 		}
-		if (atomic->fn_return == NULL)
+		if (atomic->fn_return == NULL) {
 			tokenizer_error_print(ctx, "End of function without returning value");
-		else
-		{
+		} else {
 			*res = *((double*)atomic->fn_return);
 		}
 
