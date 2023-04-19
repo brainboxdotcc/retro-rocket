@@ -32,7 +32,7 @@ DEF FNload$(file$)
 	FH = OPENIN(file$)
 	V$ = ""
 	REPEAT
-		V$ = V$ + CHR$(READ(FH))
+		V$ = V$ + READ$(FH) + CHR$(10)
 	UNTIL EOF(FH) = 1
 	CLOSE FH
 =V$
