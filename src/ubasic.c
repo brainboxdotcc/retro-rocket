@@ -41,6 +41,8 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_rgb, "RGB" },
 	{ ubasic_get_text_max_x, "TERMWIDTH" },
 	{ ubasic_get_text_max_y, "TERMHEIGHT" },
+	{ ubasic_get_text_cur_x, "CURRENTX" },
+	{ ubasic_get_text_cur_y, "CURRENTY" },
 	{ NULL, NULL }
 };
 
@@ -1951,6 +1953,20 @@ int64_t ubasic_get_text_max_x(struct ubasic_ctx* ctx)
 int64_t ubasic_get_text_max_y(struct ubasic_ctx* ctx)
 {
 	return get_text_height();
+}
+
+int64_t ubasic_get_text_cur_x(struct ubasic_ctx* ctx)
+{
+	uint64_t x = 0, y = 0;
+	get_text_position(&x, &y);
+	return x;
+}
+
+int64_t ubasic_get_text_cur_y(struct ubasic_ctx* ctx)
+{
+	uint64_t x = 0, y = 0;
+	get_text_position(&x, &y);
+	return y;
 }
 
 int64_t ubasic_getprocid(struct ubasic_ctx* ctx)

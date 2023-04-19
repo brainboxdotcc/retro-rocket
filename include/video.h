@@ -87,5 +87,7 @@ uint64_t get_text_height();
 
 void gotoxy(uint64_t x, uint64_t y);
 
+void get_text_position(uint64_t* x, uint64_t* y);
+
 extern console* current_console;
 

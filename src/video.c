@@ -1,17 +1,21 @@
 #include <kernel.h>
 
-static int64_t screen_x = 0, screen_y = 0;
+static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0;
 static console first_console;
+bool wait_state = false;
 console* current_console = NULL;
+
+void terminal_callback(struct limine_terminal*, uint64_t, uint64_t, uint64_t, uint64_t);
 
 static volatile struct limine_terminal_request terminal_request = {
     .id = LIMINE_TERMINAL_REQUEST,
-    .revision = 0
+    .revision = 0,
+    .callback = terminal_callback,
 };
 
 static volatile struct limine_framebuffer_request framebuffer_request = {
     .id = LIMINE_FRAMEBUFFER_REQUEST,
-    .revision = 0
+    .revision = 0,
 };
 
 inline uint64_t framebuffer_address()
@@ -38,6 +42,15 @@ uint64_t get_text_width()
 uint64_t get_text_height()
 {
 	return terminal_request.response->terminals[0]->rows;
+}
+
+void get_text_position(uint64_t* x, uint64_t* y)
+{
+	wait_state = true;
+	putstring(current_console, "\033[6n");
+	while (wait_state);
+	*x = current_x;
+	*y = current_y;
 }
 
 void gotoxy(uint64_t x, uint64_t y)
@@ -97,9 +110,22 @@ void dputstring(char* message)
 void putstring(console* c, char* message)
 {
 	dputstring(message);
-	//return;
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
 	terminal_request.response->write(terminal, message, strlen(message));
+}
+
+void terminal_callback(struct limine_terminal *terminal, uint64_t type, uint64_t x, uint64_t y, uint64_t z)
+{
+	switch (type) {
+		case LIMINE_TERMINAL_CB_BELL:
+			beep(1000);
+		break;
+		case LIMINE_TERMINAL_CB_POS_REPORT:
+			current_x = x;
+			current_y = y;
+		break;
+	}
+	wait_state = false;
 }
 
 void init_console()
