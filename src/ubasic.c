@@ -621,20 +621,34 @@ static void if_statement(struct ubasic_ctx* ctx)
 	char current_line[MAX_STRINGLEN];
 	char* pos = strchr(ctx->ptr, '\n');
 	char* end = strchr(ctx->ptr, 0);
-	bool stringlike = false;
+	bool stringlike = false, real = false;
 	strlcpy(current_line, ctx->ptr, pos ? pos - ctx->ptr + 1 : end - ctx->ptr + 1);
 	if (strlen(current_line) > 10) { // "IF 1 THEN ..."
 		for (char* n = current_line; *n; ++n) {
-			if (*n == '$') {
-				stringlike = true;
+			if (isalnum(*n) && *(n + 1) == '$') {
+				stringlike = true; /* String variable */
 				break;
-			} else if (*n == ' ' && *(n+1) == 'T' && *(n+2) == 'H' && *(n+3) == 'E' && *(n+4) == 'N') {
+			} else if (isalnum(*n) && *(n + 1) == '#') {
+				real = true; /* Real variable */
+				break;
+			} else if (isdigit(*n) && *(n + 1) == '.' && isdigit(*(n + 2))) {
+				real = true; /* Decimal number */
+				break;
+			} else if (*n == ' ' && *(n + 1) == 'T' && *(n + 2) == 'H' && *(n + 3) == 'E' && *(n + 4) == 'N') {
 				break;
 			}
 		}
 	}
 
-	int64_t r = stringlike ? str_relation(ctx) : relation(ctx);
+	bool r = false;
+	if (!real) {
+		int64_t ri = stringlike ? str_relation(ctx) :  relation(ctx);
+		r = (ri != 0);
+	} else {
+		double rd;
+		double_relation(ctx, &rd);
+		r = (rd != 0.0);
+	}
 	accept(THEN, ctx);
 	if (r) {
 		statement(ctx);

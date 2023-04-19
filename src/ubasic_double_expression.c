@@ -103,3 +103,32 @@ void double_expr(struct ubasic_ctx* ctx, double* res)
 	*res = t1;
 }
 
+void double_relation(struct ubasic_ctx* ctx, double* res)
+{
+	double r1;
+	double_expr(ctx, &r1);
+	int op = tokenizer_token(ctx);
+
+	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
+		tokenizer_next(ctx);
+		double r2;
+		double_expr(ctx, &r2);
+
+		switch (op) {
+			case LESSTHAN:
+				r1 = r1 < r2;
+			break;
+			case GREATERTHAN:
+				r1 = r1 > r2;
+			break;
+			case EQUALS:
+				r1 = r1 == r2;
+			break;
+		}
+
+		op = tokenizer_token(ctx);
+	}
+
+	*res = r1;
+}
+

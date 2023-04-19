@@ -107,6 +107,10 @@ typedef struct ub_param {
 	struct ub_param* next;
 } ub_param;
 
+/**
+ * @brief Procedure or function definition
+ * Each has a name, a type, a starting line and a parameter list
+ */
 typedef struct ub_proc_fn_def {
 	const char* name;
 	ub_fn_type type;
@@ -115,24 +119,44 @@ typedef struct ub_proc_fn_def {
 	struct ub_proc_fn_def* next;
 } ub_proc_fn_def;
 
+/**
+ * @brief An array of integers
+ */
 typedef struct ub_var_int_array {
 	const char* varname;
 	struct ub_var_int* values;
 	uint64_t itemcount;
 } ub_var_int_array;
 
+/**
+ * @brief An array of strings
+ */
 typedef struct ub_var_string_array {
 	const char* varname;
 	struct ub_var_string* values;
 	uint64_t itemcount;
 } ub_var_string_array;
 
+/**
+ * @brief An array of real (double)
+ */
 typedef struct ub_var_double_array {
 	const char* varname;
 	struct ub_var_double* values;
 	uint64_t itemcount;
 } ub_var_double_array;
 
+/**
+ * @brief Line reference in program.
+ * Each program has a doubly linked list of these,
+ * stored in ascending order. Once we iterate the
+ * list past the search number we know we don't have
+ * to search any further.
+ * 
+ * TODO: If search number is < current line number,
+ * search backwards instead and stop when previous
+ * number is before search.
+ */
 typedef struct ub_line_ref {
 	uint32_t line_number;
 	const char* ptr;
@@ -140,8 +164,15 @@ typedef struct ub_line_ref {
 	struct ub_line_ref* next;
 } ub_line_ref;
 
-typedef struct ubasic_ctx
-{
+/**
+ * @brief BASIC program context
+ * Every instance of a BASIC program has one of these,
+ * also certain structures such as procedures will clone
+ * the context and run on the clone until the procedure
+ * completes. Cloned contexts share variables and you
+ * should never call ubasic_destroy() on them!
+ */
+typedef struct ubasic_ctx {
         char const* ptr;
 	char const* nextptr;
         int current_token;
@@ -176,30 +207,51 @@ typedef struct ubasic_ctx
 	ub_line_ref* line_tail;		// Pointer to last element of line list
 } ubasic_ctx;
 
-
+/**
+ * @brief Integer function signature
+ */
 typedef int64_t (*builtin_int_fn)(struct ubasic_ctx* ctx);
+
+/**
+ * @brief String function signature
+ */
 typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
+
+/**
+ * @brief Real (double) function signature
+ */
 typedef void (*builtin_double_fn)(struct ubasic_ctx* ctx, double* res);
 
+/**
+ * @brief Builtin integer function
+ */
 typedef struct ubasic_int_fn
 {
 	builtin_int_fn handler;
 	const char* name;
 } ubasic_int_fn;
 
+/**
+ * @brief Builtin real (double) function
+ */
 typedef struct ubasic_double_fn
 {
 	builtin_double_fn handler;
 	const char* name;
 } ubasic_double_fn;
 
+/**
+ * @brief Builtin string function
+ */
 typedef struct ubasic_str_fn
 {
 	builtin_str_fn handler;
 	const char* name;
 } ubasic_str_fn;
 
-// Builtin integer functions
+/*
+ * Builtin integer functions
+ */
 int64_t ubasic_abs(struct ubasic_ctx* ctx);
 int64_t ubasic_len(struct ubasic_ctx* ctx);
 int64_t ubasic_openin(struct ubasic_ctx* ctx);
@@ -213,60 +265,74 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx);
 int64_t ubasic_getsize(struct ubasic_ctx* ctx);
 int64_t ubasic_get_text_max_x(struct ubasic_ctx* ctx);
 int64_t ubasic_get_text_max_y(struct ubasic_ctx* ctx);
+int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
+int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
+int64_t ubasic_rgb(struct ubasic_ctx* ctx);
 
-// Builtin string functions
+
+/*
+ * Builtin string functions
+ */
 char* ubasic_netinfo(struct ubasic_ctx* ctx);
 char* ubasic_left(struct ubasic_ctx* ctx);
 char* ubasic_mid(struct ubasic_ctx* ctx);
 char* ubasic_chr(struct ubasic_ctx* ctx);
 char* ubasic_readstring(struct ubasic_ctx* ctx);
 char* ubasic_getname(struct ubasic_ctx* ctx);
-
-struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error);
-void ubasic_destroy(struct ubasic_ctx* ctx);
-void ubasic_run(struct ubasic_ctx* ctx);
-bool ubasic_finished(struct ubasic_ctx* ctx);
-int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
-bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
-const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
-void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
-bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global);
-void ubasic_set_double_variable(const char* var, const double value, struct ubasic_ctx* ctx, bool local, bool global);
-void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);
-void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local);
-
-ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res);
-int64_t ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);
-
-int64_t expr(struct ubasic_ctx* ctx);
-void double_expr(struct ubasic_ctx* ctx, double* res);
-void line_statement(struct ubasic_ctx* ctx);
-void statement(struct ubasic_ctx* ctx);
-const char* str_expr(struct ubasic_ctx* ctx);
-const char* str_varfactor(struct ubasic_ctx* ctx);
-void ubasic_parse_fn(struct ubasic_ctx* ctx);
-int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
-int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
 char* ubasic_getprocname(struct ubasic_ctx* ctx);
 char* ubasic_dns(struct ubasic_ctx* ctx);
-int64_t ubasic_rgb(struct ubasic_ctx* ctx);
-void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res);
-const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx);
+char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx);
+char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx);
 
-// Builtin real functions
+/*
+ * Builtin real (double) functions
+ */
 void ubasic_sin(struct ubasic_ctx* ctx, double* res);
 void ubasic_cos(struct ubasic_ctx* ctx, double* res);
 void ubasic_tan(struct ubasic_ctx* ctx, double* res);
 void ubasic_pow(struct ubasic_ctx* ctx, double* res);
 
-int64_t str_relation(struct ubasic_ctx* ctx);
-int64_t relation(struct ubasic_ctx* ctx);
-int64_t expr(struct ubasic_ctx* ctx);
-const char* str_expr(struct ubasic_ctx* ctx);
-void double_expr(struct ubasic_ctx* ctx, double* res);
-
+/*
+ * Context control functions
+ */
+struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error);
+void ubasic_destroy(struct ubasic_ctx* ctx);
+void ubasic_run(struct ubasic_ctx* ctx);
+bool ubasic_finished(struct ubasic_ctx* ctx);
+bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
+void line_statement(struct ubasic_ctx* ctx);
+void statement(struct ubasic_ctx* ctx);
 void accept(int token, struct ubasic_ctx* ctx);
+void ubasic_parse_fn(struct ubasic_ctx* ctx);
 
-char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx);
-char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx);
+/*
+ * Variable getter/setter functions
+ */
+int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
+bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
+const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
+void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
+void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global);
+void ubasic_set_double_variable(const char* var, const double value, struct ubasic_ctx* ctx, bool local, bool global);
+void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);
+void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local);
+ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res);
+int64_t ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);
+
+/*
+ * Integer expression evaluation
+ */
+int64_t expr(struct ubasic_ctx* ctx);
+int64_t relation(struct ubasic_ctx* ctx);
+
+/*
+ * Real (double) expression evalutation
+ */
+void double_expr(struct ubasic_ctx* ctx, double* res);
+void double_relation(struct ubasic_ctx* ctx, double* res);
+
+/*
+ * String expression evaluation
+ */
+const char* str_expr(struct ubasic_ctx* ctx);
+int64_t str_relation(struct ubasic_ctx* ctx);
