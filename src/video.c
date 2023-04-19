@@ -121,8 +121,8 @@ void terminal_callback(struct limine_terminal *terminal, uint64_t type, uint64_t
 			beep(1000);
 		break;
 		case LIMINE_TERMINAL_CB_POS_REPORT:
-			current_x = x;
-			current_y = y;
+			current_x = x - 1;
+			current_y = y - 1;
 		break;
 	}
 	wait_state = false;
