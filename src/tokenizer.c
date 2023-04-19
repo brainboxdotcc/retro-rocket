@@ -257,7 +257,7 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 	}
 
 	ctx->ptr = ctx->nextptr;
-	while(*ctx->ptr == ' ') {
+	while(*ctx->ptr == ' ' || *ctx->ptr == '\t') {
 		++ctx->ptr;
 	}
 	ctx->current_token = get_next_token(ctx);
