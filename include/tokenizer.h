@@ -114,6 +114,8 @@
 	T(MKDIR) \
 	T(RMDIR) \
 	T(DELETE) \
+	T(REPEAT) \
+	T(UNTIL) \
 	T(MOUNT)
 
 /*

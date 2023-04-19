@@ -65,6 +65,7 @@ const int keywords[] = {
 	READ,
 	RECTANGLE,
 	REM,
+	REPEAT,
 	RETPROC,
 	RETURN,
 	RMDIR,
@@ -75,6 +76,7 @@ const int keywords[] = {
 	THEN,
 	TO,
 	TRIANGLE,
+	UNTIL,
 	WRITE,
 	-1,
 };

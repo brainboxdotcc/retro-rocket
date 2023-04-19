@@ -174,7 +174,9 @@ void backtrace()
 	setforeground(current_console, COLOUR_LIGHTGREEN);
 	while (frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page) {
 		name = findsymbol((uint64_t)frame->addr, &offset);
-		kprintf("\tat %s()+0%08x [0x%llx]\n",  name ? name : "[???]", offset, frame->addr);
+		if (!strcmp(name, "idt_init") && !strcmp(name, "Interrupt") && !strcmp(name, "error_handler")) {
+			kprintf("\tat %s()+0%08x [0x%llx]\n",  name ? name : "[???]", offset, frame->addr);
+		}
 		frame = frame->next;
 	}
 	setforeground(current_console, COLOUR_WHITE);

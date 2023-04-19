@@ -21,6 +21,7 @@
 
 void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx);
 uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx);
+bool conditional(struct ubasic_ctx* ctx);
 
 struct ubasic_int_fn builtin_int[] =
 {
@@ -112,8 +113,49 @@ void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
 	ubasic_set_double_variable("PI#", 3.141592653589793238, ctx, false, false);
 }
 
+const char* auto_number(const char* program, uint64_t line, uint64_t increment)
+{
+	size_t new_size_max = strlen(program) * 2;
+	char* newprog = kmalloc(new_size_max);
+	char line_buffer[MAX_STRINGLEN];
+	char* line_ptr = line_buffer;
+	bool insert_line = true;
+	*newprog = 0;
+	while (*program) {
+		if (insert_line) {
+			while (*program == '\n') {
+				*line_ptr++ = '\n';
+				program++;
+			}
+			snprintf(line_buffer, MAX_STRINGLEN, "%d ", line);
+			line += increment;
+			insert_line = false;
+			line_ptr = line_buffer + strlen(line_buffer);
+		}
+		if (*program == '\n') {
+			insert_line = true;
+			*line_ptr = 0;
+			strlcat(newprog, line_buffer, new_size_max);
+			strlcat(newprog, "\n", new_size_max);
+		}
+		*line_ptr++ = *program++;
+	}
+	strlcat(newprog, "\n", new_size_max);
+	const char* corrected = strdup(newprog);
+	kfree(newprog);
+	return corrected;
+}
+
 struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
 {
+	if (!isdigit(*program)) {
+		/* Program is not line numbered! Auto-number it. */
+		const char* numbered = auto_number(program, 10, 10);
+		struct ubasic_ctx* c = ubasic_init(numbered, cons, pid, file, error);
+		kfree(numbered);
+		return c;
+	}
+
 	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
 	if (ctx == NULL) {
 		*error = "Out of memory";
@@ -663,17 +705,15 @@ static void proc_statement(struct ubasic_ctx* ctx)
 	tokenizer_error_print(ctx, "No such PROC");
 }
 
-static void if_statement(struct ubasic_ctx* ctx)
+bool conditional(struct ubasic_ctx* ctx)
 {
-	accept(IF, ctx);
-
 	char current_line[MAX_STRINGLEN];
 	char* pos = strchr(ctx->ptr, '\n');
 	char* end = strchr(ctx->ptr, 0);
 	bool stringlike = false, real = false;
 	strlcpy(current_line, ctx->ptr, pos ? pos - ctx->ptr + 1 : end - ctx->ptr + 1);
 	if (strlen(current_line) > 10) { // "IF 1 THEN ..."
-		for (char* n = current_line; *n; ++n) {
+		for (char* n = current_line; *n && *n != '\n'; ++n) {
 			if (isalnum(*n) && *(n + 1) == '$') {
 				stringlike = true; /* String variable */
 				break;
@@ -684,6 +724,8 @@ static void if_statement(struct ubasic_ctx* ctx)
 				real = true; /* Decimal number */
 				break;
 			} else if (*n == ' ' && *(n + 1) == 'T' && *(n + 2) == 'H' && *(n + 3) == 'E' && *(n + 4) == 'N') {
+				break;
+			} else if (*n == '\n') {
 				break;
 			}
 		}
@@ -698,6 +740,13 @@ static void if_statement(struct ubasic_ctx* ctx)
 		double_relation(ctx, &rd);
 		r = (rd != 0.0);
 	}
+	return r;
+}
+
+static void if_statement(struct ubasic_ctx* ctx)
+{
+	accept(IF, ctx);
+	bool r = conditional(ctx);
 	accept(THEN, ctx);
 	if (r) {
 		statement(ctx);
@@ -1218,6 +1267,40 @@ static void for_statement(struct ubasic_ctx* ctx)
 	}
 }
 
+static void repeat_statement(struct ubasic_ctx* ctx)
+{
+	accept(REPEAT, ctx);
+	accept(NEWLINE, ctx);
+	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
+		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
+		ctx->gosub_stack_ptr++;
+	} else {
+		tokenizer_error_print(ctx, "REPEAT stack exhausted");
+	}
+
+}
+
+
+static void until_statement(struct ubasic_ctx* ctx)
+{
+	accept(UNTIL, ctx);
+	bool done = conditional(ctx);
+	accept(NEWLINE, ctx);
+
+	if (ctx->gosub_stack_ptr > 0) {
+		if (!done) {
+			jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr - 1], ctx);
+		} else {
+			ctx->gosub_stack_ptr--;
+		}
+	} else {
+		tokenizer_error_print(ctx, "UNTIL without REPEAT");
+	}
+
+}
+
+
+
 static void end_statement(struct ubasic_ctx* ctx)
 {
 	accept(END, ctx);
@@ -1300,6 +1383,10 @@ void statement(struct ubasic_ctx* ctx)
 			return goto_statement(ctx);
 		case GOSUB:
 			return gosub_statement(ctx);
+		case REPEAT:
+			return repeat_statement(ctx);
+		case UNTIL:
+			return until_statement(ctx);
 		case RETURN:
 			return return_statement(ctx);
 		case FOR:
