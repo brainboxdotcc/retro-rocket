@@ -1879,6 +1879,9 @@ bool ubasic_redim_int_array(const char* var, int64_t size, struct ubasic_ctx* ct
 	struct ub_var_int_array* cur = ctx->int_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)size == cur->itemcount) {
+				return true;
+			}
 			cur->values = krealloc(cur->values, sizeof(int64_t) * size);
 			if ((uint64_t)size > cur->itemcount) {
 				/* If array is being expanded, zero the new entries */
@@ -1890,6 +1893,7 @@ bool ubasic_redim_int_array(const char* var, int64_t size, struct ubasic_ctx* ct
 			return true;
 		}
 	}
+	tokenizer_error_print(ctx, "No such array variable");
 	return false;
 }
 
@@ -1902,6 +1906,9 @@ bool ubasic_redim_string_array(const char* var, int64_t size, struct ubasic_ctx*
 	struct ub_var_string_array* cur = ctx->string_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)size == cur->itemcount) {
+				return true;
+			}
 			if ((uint64_t)size < cur->itemcount) {
 				/* If string array is being reduced in size, free strings that fall in the freed area */
 				for (uint64_t x = size; x < (uint64_t)cur->itemcount; ++x) {
@@ -1921,6 +1928,7 @@ bool ubasic_redim_string_array(const char* var, int64_t size, struct ubasic_ctx*
 			return true;
 		}
 	}
+	tokenizer_error_print(ctx, "No such array variable");
 	return false;	
 }
 
@@ -1933,6 +1941,9 @@ bool ubasic_redim_double_array(const char* var, int64_t size, struct ubasic_ctx*
 	struct ub_var_double_array* cur = ctx->double_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)size == cur->itemcount) {
+				return true;
+			}
 			cur->values = krealloc(cur->values, sizeof(double) * size);
 			if ((uint64_t)size > cur->itemcount) {
 				/* If array is being expanded, zero the new entries */
@@ -1944,6 +1955,7 @@ bool ubasic_redim_double_array(const char* var, int64_t size, struct ubasic_ctx*
 			return true;
 		}
 	}
+	tokenizer_error_print(ctx, "No such array variable");
 	return false;	
 }
 
