@@ -201,7 +201,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 
 	// Scan the program for functions and procedures
 
-        tokenizer_init(ctx->program_ptr, ctx);
+	tokenizer_init(ctx->program_ptr, ctx);
 	ubasic_parse_fn(ctx);
 
 	set_system_variables(ctx, pid);
@@ -1113,8 +1113,7 @@ static int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
 {
 	while(*ctx->ptr != '(' && *ctx->ptr != '\n' && *ctx->ptr) ctx->ptr++;
 	if (*ctx->ptr != '(') {
-		tokenizer_error_print(ctx, "Missing array subscript");
-		return 0;
+		return -1;
 	}
 	ctx->ptr++;
 	ctx->current_token = get_next_token(ctx);
@@ -1139,6 +1138,10 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 	if (varname_is_int_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
 		int64_t value = expr(ctx);
+		if (index == -1) {
+			ubasic_set_int_array(var, value, ctx);
+			return;
+		}
 		ubasic_set_int_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
 		return;
@@ -1146,6 +1149,9 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 	if (varname_is_string_array_access(ctx, var)) {
 		int64_t index = arr_expr_set_index(ctx, var);
 		const char* value = str_expr(ctx);
+		if (index == -1) {
+			ubasic_set_string_array(var, value, ctx);
+		}
 		ubasic_set_string_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
 		return;
@@ -1154,6 +1160,9 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 		int64_t index = arr_expr_set_index(ctx, var);
 		double value = 0;
 		double_expr(ctx, &value);
+		if (index == -1) {
+			ubasic_set_double_array(var, value, ctx);
+		}
 		ubasic_set_double_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
 		return;
@@ -1985,6 +1994,57 @@ void ubasic_set_string_array_variable(const char* var, int64_t index, const char
 		}
 	}
 	tokenizer_error_print(ctx, "No such array variable");
+}
+
+void ubasic_set_string_array(const char* var, const char* value, struct ubasic_ctx* ctx)
+{
+	if (!valid_string_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return;
+	}
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			for (uint64_t x = 0; x < cur->itemcount; ++x) {
+				if (cur->values[x]) {
+					kfree(cur->values[x]);
+				}
+				cur->values[x] = strdup(value);
+			}
+		}
+	}
+}
+
+void ubasic_set_int_array(const char* var, int64_t value, struct ubasic_ctx* ctx)
+{
+	if (!valid_string_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return;
+	}
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			for (uint64_t x = 0; x < cur->itemcount; ++x) {
+				cur->values[x] = value;
+			}
+		}
+	}
+}
+
+void ubasic_set_double_array(const char* var, double value, struct ubasic_ctx* ctx)
+{
+	if (!valid_double_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return;
+	}
+	struct ub_var_double_array* cur = ctx->double_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			for (uint64_t x = 0; x < cur->itemcount; ++x) {
+				cur->values[x] = value;
+			}
+		}
+	}
 }
 
 void ubasic_set_double_array_variable(const char* var, int64_t index, double value, struct ubasic_ctx* ctx)

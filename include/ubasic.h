@@ -355,6 +355,9 @@ bool varname_is_int_array_access(struct ubasic_ctx* ctx, const char* varname);
 bool varname_is_string_array_access(struct ubasic_ctx* ctx, const char* varname);
 bool varname_is_double_array_access(struct ubasic_ctx* ctx, const char* varname);
 int64_t arr_variable_index(struct ubasic_ctx* ctx);
+void ubasic_set_int_array(const char* var, int64_t value, struct ubasic_ctx* ctx);
+void ubasic_set_string_array(const char* var, const char* value, struct ubasic_ctx* ctx);
+void ubasic_set_double_array(const char* var, double value, struct ubasic_ctx* ctx);
 
 /*
  * Integer expression evaluation
