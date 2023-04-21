@@ -1113,6 +1113,8 @@ static int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
 {
 	while(*ctx->ptr != '(' && *ctx->ptr != '\n' && *ctx->ptr) ctx->ptr++;
 	if (*ctx->ptr != '(') {
+		accept(VARIABLE, ctx);	
+		accept(EQUALS, ctx);
 		return -1;
 	}
 	ctx->ptr++;
