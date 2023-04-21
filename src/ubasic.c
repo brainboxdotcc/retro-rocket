@@ -166,10 +166,13 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	int i;
 
 	ctx->errored = false;
-	ctx->current_token = ERROR;	
+	ctx->current_token = ERROR;
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
 	ctx->double_variables = NULL;
+	ctx->int_array_variables = NULL;
+	ctx->string_array_variables = NULL;
+	ctx->double_array_variables = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = NULL;
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
@@ -252,6 +255,9 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
 	ctx->double_variables = old->double_variables;
+	ctx->int_array_variables = old->int_array_variables;
+	ctx->string_array_variables = old->string_array_variables;
+	ctx->double_array_variables = old->double_array_variables;
 	ctx->line_tail = old->line_tail;
 	ctx->lines = old->lines;
 
@@ -423,6 +429,25 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 		kfree(ctx->str_variables->value);
 		kfree(ctx->str_variables);
 	}
+	for (; ctx->int_array_variables; ctx->int_array_variables = ctx->int_array_variables->next) {
+		kfree(ctx->int_array_variables->varname);
+		kfree(ctx->int_array_variables->values);
+		kfree(ctx->int_array_variables);
+	}
+	for (; ctx->double_array_variables; ctx->double_array_variables = ctx->double_array_variables->next) {
+		kfree(ctx->double_array_variables->varname);
+		kfree(ctx->double_array_variables->values);
+		kfree(ctx->double_array_variables);
+	}
+	for (; ctx->string_array_variables; ctx->string_array_variables = ctx->string_array_variables->next) {
+		kfree(ctx->string_array_variables->varname);
+		for (size_t f = 0; f < ctx->string_array_variables->itemcount; ++f) {
+			if (ctx->string_array_variables->values[f]) {
+				kfree(ctx->string_array_variables->values[f]);
+			}
+		}
+		kfree(ctx->string_array_variables);
+	}
 	for (size_t x = 0; x < ctx->gosub_stack_ptr; x++) {
 		for (; ctx->local_int_variables[x]; ctx->local_int_variables[x] = ctx->local_int_variables[x]->next) {
 			kfree(ctx->local_int_variables[x]->varname);
@@ -591,6 +616,48 @@ static void print_statement(struct ubasic_ctx* ctx)
 	const char* out = printable_syntax(ctx);
 	if (out) {
 		kprintf(out);
+	}
+}
+
+static void dim_statement(struct ubasic_ctx* ctx)
+{
+	accept(DIM, ctx);
+	const char* array_name = tokenizer_variable_name(ctx);
+	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
+	int64_t array_size = expr(ctx);
+	accept(NEWLINE, ctx);
+	char last = array_name[strlen(array_name) - 1];
+	switch (last) {
+		case '#':
+			ubasic_dim_double_array(array_name, array_size, ctx);
+		break;
+		case '$':
+			ubasic_dim_string_array(array_name, array_size, ctx);
+		break;
+		default:
+			ubasic_dim_int_array(array_name, array_size, ctx);
+	}
+}
+
+static void redim_statement(struct ubasic_ctx* ctx)
+{
+	accept(REDIM, ctx);
+	const char* array_name = tokenizer_variable_name(ctx);
+	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
+	int64_t array_size = expr(ctx);
+	accept(NEWLINE, ctx);
+	char last = array_name[strlen(array_name) - 1];
+	switch (last) {
+		case '#':
+			ubasic_redim_double_array(array_name, array_size, ctx);
+		break;
+		case '$':
+			ubasic_redim_string_array(array_name, array_size, ctx);
+		break;
+		default:
+			ubasic_redim_int_array(array_name, array_size, ctx);
 	}
 }
 
@@ -1042,6 +1109,25 @@ static void sockclose_statement(struct ubasic_ctx* ctx)
 	}
 }
 
+static int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
+{
+	while(*ctx->ptr != '(' && *ctx->ptr != '\n' && *ctx->ptr) ctx->ptr++;
+	if (*ctx->ptr != '(') {
+		tokenizer_error_print(ctx, "Missing array subscript");
+		return 0;
+	}
+	ctx->ptr++;
+	ctx->current_token = get_next_token(ctx);
+	if (*ctx->ptr == '-') {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		return 0;
+	}
+	int64_t index = expr(ctx);
+	accept(CLOSEBRACKET, ctx);
+	accept(EQUALS, ctx);
+	return index;
+}
+
 static void let_statement(struct ubasic_ctx* ctx, bool global)
 {
 	const char* var;
@@ -1049,6 +1135,30 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 	double f_expr = 0;
 
 	var = tokenizer_variable_name(ctx);
+
+	if (varname_is_int_array_access(ctx, var)) {
+		int64_t index = arr_expr_set_index(ctx, var);
+		int64_t value = expr(ctx);
+		ubasic_set_int_array_variable(var, index, value, ctx);
+		accept(NEWLINE, ctx);
+		return;
+	}
+	if (varname_is_string_array_access(ctx, var)) {
+		int64_t index = arr_expr_set_index(ctx, var);
+		const char* value = str_expr(ctx);
+		ubasic_set_string_array_variable(var, index, value, ctx);
+		accept(NEWLINE, ctx);
+		return;
+	}
+	if (varname_is_double_array_access(ctx, var)) {
+		int64_t index = arr_expr_set_index(ctx, var);
+		double value = 0;
+		double_expr(ctx, &value);
+		ubasic_set_double_array_variable(var, index, value, ctx);
+		accept(NEWLINE, ctx);
+		return;
+	}
+
 	accept(VARIABLE, ctx);
 	accept(EQUALS, ctx);
 
@@ -1429,6 +1539,10 @@ void statement(struct ubasic_ctx* ctx)
 			return write_statement(ctx);
 		case RECTANGLE:
 			return rectangle_statement(ctx);
+		case DIM:
+			return dim_statement(ctx);
+		case REDIM:
+			return redim_statement(ctx);
 		case CIRCLE:
 			return circle_statement(ctx);
 		case LET:
@@ -1474,31 +1588,6 @@ void ubasic_run(struct ubasic_ctx* ctx)
 bool ubasic_finished(struct ubasic_ctx* ctx)
 {
 	return ctx->ended || tokenizer_finished(ctx);
-}
-
-void ubasic_set_variable(const char* var, const char* value, struct ubasic_ctx* ctx)
-{
-	/* first, itdentify the variable's type. Look for $ for string,
-	 * and parenthesis for arrays
-	 */
-	const char last_letter = var[strlen(var) - 1];
-
-	switch (last_letter) {
-		case '$':
-			ubasic_set_string_variable(var, value, ctx, 0, false);
-		break;
-		case '#':
-			double f = 0.0;
-			atof(value, &f);
-			ubasic_set_double_variable(var, f, ctx, 0, false);
-		break;
-		case ')':
-			ubasic_set_array_variable(var, atoll(value, 10), ctx, 0);
-		break;
-		default:
-			ubasic_set_int_variable(var, atoll(value, 10), ctx, 0, false);
-		break;
-	}
 }
 
 int valid_string_var(const char* name)
@@ -1624,8 +1713,311 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 	}
 }
 
-void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local)
+const char* ubasic_get_string_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx)
 {
+	if (index < 0) {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		return "";
+	}
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)index >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Array index out of bounds");
+				return "";
+			}
+			if (cur->values[index]) {
+				return gc_strdup(cur->values[index]);
+			}
+			return "";
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return "";
+}
+
+int64_t ubasic_get_int_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx)
+{
+	if (index < 0) {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		return 0;
+	}
+	dprintf("Get array var: '%s' index %d\n", var, index);
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)index >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Array index out of bounds");
+				return 0;
+			}
+			return cur->values[index];
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return 0;
+}
+
+bool ubasic_get_double_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx, double* ret)
+{
+	if (index < 0) {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		*ret = 0;
+		return false;
+	}
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)index >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Array index out of bounds");
+				return false;
+			}
+			*ret = cur->values[index];
+			return true;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	*ret = 0;
+	return false;
+}
+
+bool ubasic_dim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+{
+	if (!valid_int_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return false;
+	}
+	if (size < 1) {
+		tokenizer_error_print(ctx, "Invalid array size");
+		return false;
+	}
+
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			tokenizer_error_print(ctx, "Array already dimensioned");
+			return false;
+		}
+	}
+	struct ub_var_int_array* new = kmalloc(sizeof(ub_var_int_array));
+	new->itemcount = size;
+	new->next = ctx->int_array_variables;
+	new->varname = strdup(var);
+	new->values = kmalloc(sizeof(int64_t) * size);
+	for (int64_t v = 0; v < size; ++v) {
+		new->values[v] = 0;
+	}
+	ctx->int_array_variables = new;
+	return true;
+}
+
+bool ubasic_dim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+{
+	if (!valid_string_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return false;
+	}
+	if (size < 1) {
+		tokenizer_error_print(ctx, "Invalid array size");
+		return false;
+	}
+
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			tokenizer_error_print(ctx, "Array already dimensioned");
+			return false;
+		}
+	}
+	struct ub_var_string_array* new = kmalloc(sizeof(ub_var_string_array));
+	new->itemcount = size;
+	new->next = ctx->string_array_variables;
+	new->varname = strdup(var);
+	new->values = kmalloc(sizeof(char*) * size);
+	for (int64_t v = 0; v < size; ++v) {
+		new->values[v] = NULL;
+	}
+	ctx->string_array_variables = new;
+	return true;	
+}
+
+bool ubasic_dim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+{
+	if (!valid_double_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return false;
+	}
+	if (size < 1) {
+		tokenizer_error_print(ctx, "Invalid array size");
+		return false;
+	}
+
+	struct ub_var_double_array* cur = ctx->double_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			tokenizer_error_print(ctx, "Array already dimensioned");
+			return false;
+		}
+	}
+	struct ub_var_double_array* new = kmalloc(sizeof(ub_var_double_array));
+	new->itemcount = size;
+	new->next = ctx->double_array_variables;
+	new->varname = strdup(var);
+	new->values = kmalloc(sizeof(double) * size);
+	for (int64_t v = 0; v < size; ++v) {
+		new->values[v] = 0.0;
+	}
+	ctx->double_array_variables = new;
+	return true;		
+}
+
+bool ubasic_redim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+{
+	if (size < 1) {
+		tokenizer_error_print(ctx, "Invalid array size");
+		return false;
+	}
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)size < cur->itemcount) {
+				tokenizer_error_print(ctx, "Cannot REDIM an array to a smaller size");
+				return false;
+			}
+			cur->values = krealloc(cur->values, sizeof(int64_t) * size);
+			for (int64_t i = cur->itemcount; i < size; ++i) {
+				cur->values[i] = 0;
+			}
+			cur->itemcount = size;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool ubasic_redim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+{
+	if (size < 1) {
+		tokenizer_error_print(ctx, "Invalid array size");
+		return false;
+	}
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)size < cur->itemcount) {
+				tokenizer_error_print(ctx, "Cannot REDIM an array to a smaller size");
+				return false;
+			}
+			cur->values = krealloc(cur->values, sizeof(char*) * size);
+			for (int64_t i = cur->itemcount; i < size; ++i) {
+				cur->values[i] = NULL;
+			}
+			cur->itemcount = size;
+			return true;
+		}
+	}
+	return false;	
+}
+
+bool ubasic_redim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+{
+	if (size < 1) {
+		tokenizer_error_print(ctx, "Invalid array size");
+		return false;
+	}
+	struct ub_var_double_array* cur = ctx->double_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)size < cur->itemcount) {
+				tokenizer_error_print(ctx, "Cannot REDIM an array to a smaller size");
+				return false;
+			}
+			cur->values = krealloc(cur->values, sizeof(double) * size);
+			for (int64_t i = cur->itemcount; i < size; ++i) {
+				cur->values[i] = 0;
+			}
+			cur->itemcount = size;
+			return true;
+		}
+	}
+	return false;	
+}
+
+void ubasic_set_string_array_variable(const char* var, int64_t index, const char* value, struct ubasic_ctx* ctx)
+{
+	if (!valid_string_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return;
+	}
+	if (index < 0) {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		return;
+	}
+
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)index >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Array index out of bounds");
+				return;
+			}
+			if (cur->values[index]) {
+				kfree(cur->values[index]);
+			}
+			cur->values[index] = strdup(value);
+			return;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+}
+
+void ubasic_set_double_array_variable(const char* var, int64_t index, double value, struct ubasic_ctx* ctx)
+{
+	if (!valid_double_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return;
+	}
+	if (index < 0) {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		return;
+	}
+
+	struct ub_var_double_array* cur = ctx->double_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)index >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Array index out of bounds");
+				return;
+			}
+			cur->values[index] = value;
+			return;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+}
+
+void ubasic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct ubasic_ctx* ctx)
+{
+	if (!valid_int_var(var)) {
+		tokenizer_error_print(ctx, "Malformed variable name");
+		return;
+	}
+	if (index < 0) {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		return;
+	}
+
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)index >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Array index out of bounds");
+				return;
+			}
+			cur->values[index] = value;
+			return;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
 }
 
 void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global)
@@ -2406,6 +2798,43 @@ const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx)
 	return NULL;
 }
 
+bool varname_is_int_array_access(struct ubasic_ctx* ctx, const char* varname)
+{
+	for (ub_var_int_array* i = ctx->int_array_variables; i; i = i->next) {
+		if (!strcmp(i->varname, varname)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool varname_is_string_array_access(struct ubasic_ctx* ctx, const char* varname)
+{
+	for (ub_var_string_array* i = ctx->string_array_variables; i; i = i->next) {
+		if (!strcmp(i->varname, varname)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool varname_is_double_array_access(struct ubasic_ctx* ctx, const char* varname)
+{
+	for (ub_var_double_array* i = ctx->double_array_variables; i; i = i->next) {
+		if (!strcmp(i->varname, varname)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+int64_t arr_variable_index(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	return intval;
+}
+
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 {
 	char* retv;
@@ -2416,6 +2845,10 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 	if (varname_is_string_function(var)) {
 		const char* res = ubasic_eval_str_fn(var, ctx);
 		return res;
+	}
+
+	if (varname_is_string_array_access(ctx, var)) {
+		return ubasic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
 	struct ub_var_string* list[] = {
@@ -2450,6 +2883,10 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	
 	if (varname_is_function(var)) {
 		return ubasic_eval_int_fn(var, ctx);
+	}
+
+	if (varname_is_int_array_access(ctx, var)) {
+		return ubasic_get_int_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
 	struct ub_var_int* list[] = { 
@@ -2489,6 +2926,11 @@ bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double*
 		ubasic_eval_double_fn(var, ctx, res);
 		return true;
 	}
+
+	if (varname_is_double_array_access(ctx, var)) {
+		return ubasic_get_double_array_variable(var, arr_variable_index(ctx), ctx, res);
+	}
+
 
 	struct ub_var_double* list[] = { 
 		ctx->local_double_variables[ctx->gosub_stack_ptr],

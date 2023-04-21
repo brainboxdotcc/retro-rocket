@@ -125,8 +125,9 @@ typedef struct ub_proc_fn_def {
  */
 typedef struct ub_var_int_array {
 	const char* varname;
-	struct ub_var_int* values;
+	int64_t* values;
 	uint64_t itemcount;
+	struct ub_var_int_array* next;
 } ub_var_int_array;
 
 /**
@@ -134,8 +135,9 @@ typedef struct ub_var_int_array {
  */
 typedef struct ub_var_string_array {
 	const char* varname;
-	struct ub_var_string* values;
+	const char** values;
 	uint64_t itemcount;
+	struct ub_var_string_array* next;
 } ub_var_string_array;
 
 /**
@@ -143,8 +145,9 @@ typedef struct ub_var_string_array {
  */
 typedef struct ub_var_double_array {
 	const char* varname;
-	struct ub_var_double* values;
+	double* values;
 	uint64_t itemcount;
+	struct ub_var_double_array* next;
 } ub_var_double_array;
 
 /**
@@ -179,31 +182,44 @@ typedef struct ubasic_ctx {
         int current_token;
 	int64_t current_linenum;
 	bool errored;
+        bool ended;
         char* program_ptr;
+
         char string[MAX_STRINGLEN];
-        uint64_t gosub_stack[MAX_GOSUB_STACK_DEPTH];
+
 	struct ub_var_int* local_int_variables[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_string* local_string_variables[MAX_GOSUB_STACK_DEPTH];
 	struct ub_var_double* local_double_variables[MAX_GOSUB_STACK_DEPTH];
+
+        uint64_t gosub_stack[MAX_GOSUB_STACK_DEPTH];
         uint64_t gosub_stack_ptr;
+
 	int oldlen;
 	int64_t eval_linenum;
+
         struct for_state for_stack[MAX_FOR_STACK_DEPTH];
         uint64_t for_stack_ptr;
+
 	struct ub_proc_fn_def* defs;
+
         struct ub_var_int* int_variables;
 	struct ub_var_string* str_variables;
 	struct ub_var_double* double_variables;
+
 	struct ub_var_int_array* int_array_variables;
 	struct ub_var_string_array* string_array_variables;
+	struct ub_var_double_array* double_array_variables;
+
 	struct console* cons;
-        bool ended;
+
 	ub_return_type fn_type;
 	void* fn_return;
 	int bracket_depth;
 	char const* item_begin;
 	struct ub_param* param;
+
 	int32_t graphics_colour;	// Current GCOL
+
 	ub_line_ref* lines;		// Doubly linked list of line numbers to char pointers
 	ub_line_ref* line_tail;		// Pointer to last element of line list
 } ubasic_ctx;
@@ -314,13 +330,31 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx);
 int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
 bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
 const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
-void ubasic_set_variable(const char* varname, const char* value, struct ubasic_ctx* ctx);
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global);
 void ubasic_set_double_variable(const char* var, const double value, struct ubasic_ctx* ctx, bool local, bool global);
 void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);
-void ubasic_set_array_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local);
 ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res);
 int64_t ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);
+
+/*
+ * Array manipulation functions
+ */
+void ubasic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct ubasic_ctx* ctx);
+void ubasic_set_string_array_variable(const char* var, int64_t index, const char* value, struct ubasic_ctx* ctx);
+void ubasic_set_double_array_variable(const char* var, int64_t index, double value, struct ubasic_ctx* ctx);
+bool ubasic_get_double_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx, double* ret);
+int64_t ubasic_get_int_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx);
+const char* ubasic_get_string_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx);
+bool ubasic_dim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
+bool ubasic_dim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
+bool ubasic_dim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
+bool ubasic_redim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
+bool ubasic_redim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
+bool ubasic_redim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
+bool varname_is_int_array_access(struct ubasic_ctx* ctx, const char* varname);
+bool varname_is_string_array_access(struct ubasic_ctx* ctx, const char* varname);
+bool varname_is_double_array_access(struct ubasic_ctx* ctx, const char* varname);
+int64_t arr_variable_index(struct ubasic_ctx* ctx);
 
 /*
  * Integer expression evaluation

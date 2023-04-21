@@ -116,6 +116,8 @@
 	T(DELETE) \
 	T(REPEAT) \
 	T(UNTIL) \
+	T(DIM) \
+	T(REDIM) \
 	T(MOUNT)
 
 /*
