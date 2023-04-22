@@ -1142,6 +1142,7 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 		int64_t value = expr(ctx);
 		if (index == -1) {
 			ubasic_set_int_array(var, value, ctx);
+			accept(NEWLINE, ctx);
 			return;
 		}
 		ubasic_set_int_array_variable(var, index, value, ctx);
@@ -1153,6 +1154,8 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 		const char* value = str_expr(ctx);
 		if (index == -1) {
 			ubasic_set_string_array(var, value, ctx);
+			accept(NEWLINE, ctx);
+			return;
 		}
 		ubasic_set_string_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
@@ -1164,6 +1167,8 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 		double_expr(ctx, &value);
 		if (index == -1) {
 			ubasic_set_double_array(var, value, ctx);
+			accept(NEWLINE, ctx);
+			return;
 		}
 		ubasic_set_double_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
@@ -2019,7 +2024,7 @@ void ubasic_set_string_array(const char* var, const char* value, struct ubasic_c
 
 void ubasic_set_int_array(const char* var, int64_t value, struct ubasic_ctx* ctx)
 {
-	if (!valid_string_var(var)) {
+	if (!valid_int_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return;
 	}
