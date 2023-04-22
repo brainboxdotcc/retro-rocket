@@ -9,7 +9,7 @@
 #define PROC_IDLE	1
 #define PROC_DELETE	2
 
-struct process {
+typedef struct process_t {
 	/*Identification */
 	uint32_t		pid;	/*PROCESS ID */
 	uint32_t		ppid;	/*Parent PID */
@@ -32,9 +32,14 @@ struct process {
 	struct ubasic_ctx*	code;	/* uBASIC context */
 
 	/*Process Management */
-	struct process*		prev;	/* Prev Process */
-	struct process*		next;	/* Next Process */
-};
+	struct process_t*	prev;	/* Prev Process */
+	struct process_t*	next;	/* Next Process */
+} process_t;
+
+typedef struct proc_id_t {
+	uint32_t id;
+	process_t* proc;
+} proc_id_t;
 
 /**
  * @brief Types of idle task
@@ -52,13 +57,13 @@ typedef struct idle_timer {
 	struct idle_timer* next;
 } idle_timer_t;
 
-struct process* proc_load(const char* fullpath, struct console* cons);
-struct process* proc_find(uint32_t pid);
-struct process* proc_cur();
-void proc_wait(struct process* proc, uint32_t otherpid);
-void proc_run(struct process* proc);
-int proc_ended(struct process* proc);
-void proc_kill(struct process* proc);
+process_t* proc_load(const char* fullpath, struct console* cons);
+process_t* proc_find(uint32_t pid);
+process_t* proc_cur();
+void proc_wait(process_t* proc, uint32_t otherpid);
+void proc_run(process_t* proc);
+int proc_ended(process_t* proc);
+void proc_kill(process_t* proc);
 void proc_show_list();
 void proc_loop();
 void proc_timer();

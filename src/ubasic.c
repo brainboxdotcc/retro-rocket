@@ -837,7 +837,7 @@ static void chain_statement(struct ubasic_ctx* ctx)
 {
 	accept(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
-	struct process* p = proc_load(pn, ctx->cons);
+	process_t* p = proc_load(pn, ctx->cons);
 	if (p == NULL) {
 		accept(NEWLINE, ctx);
 		return;

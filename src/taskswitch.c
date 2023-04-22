@@ -1,26 +1,54 @@
 #include <kernel.h>
 
-struct process* proc_current[256] = { NULL };	/* This can be changed by an interrupt, MAKE A COPY */
-struct process* proc_list[256] = { NULL };
-static struct process* proc_running[256] = { NULL };	/* This is the safe copy of proc_current */
-spinlock locks[256] = { 0 };
-
+/**
+ * @brief The currently running process
+ */
+process_t* proc_current = NULL;
+/**
+ * @brief Doubly linked list of processes.
+ * We store the doubly linked list for fast iteration from one process
+ * to the next for the round robin scheduler of processes.
+ */
+process_t* proc_list = NULL;
+/**
+ * @brief A hash map of processes by PID.
+ * We use this when we want to find a process by PID (which we do quite often
+ * whenever a process waits on another process). This makes it faster to look
+ * up a process by PID instead of having to iteate the doubly linked list we
+ * use for scheduling.
+ */
+struct hashmap* process_by_pid = NULL;
+/**
+ * @brief Next process ID number we will give out for the next process.
+ * This increments by one, but will not reuse "holes", so it behaves in
+ * a generally posix-like manner.
+ */
 uint32_t nextid = 1;
-uint8_t nextcpu = 0;
-spinlock bkl = 0;
+/**
+ * @brief A counter of the number of active processes, we use this to
+ * find out how many processes are running and iterate it or decrement it
+ * as processes are killed or started so that to find out the total count
+ * we do not need to iterate either the hash map or the doubly linked list.
+ */
+uint32_t process_count = 0;
 
+/**
+ * @brief Lists of "idle tasks", idle tasks are simple kernel functions
+ * that execute once per cycle around the process loop, used for things that
+ * we do not want to put into an interrupt, but still need to run often.
+ * timer idles on the other hand are inserted into the LAPIC timer,
+ * and need to be written to be friendly within an interrupt context.
+ */
 idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 
-struct process* proc_load(const char* fullpath, struct console* cons)
+process_t* proc_load(const char* fullpath, struct console* cons)
 {
-	//dump_hex(locks, 256 * 4);
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
-	if (fsi != NULL) {
+	if (fsi != NULL && !(fsi->flags & FS_DIRECTORY)) {
 		unsigned char* programtext = kmalloc(fsi->size + 1);
 		*(programtext + fsi->size) = 0;
 		if (fs_read_file(fsi, 0, fsi->size, programtext)) {
-			//kprintf("program len = %d size = %d cpu=%d\n", strlen(programtext), fsi->size, nextcpu);
-			struct process* newproc = kmalloc(sizeof(struct process));
+			process_t* newproc = kmalloc(sizeof(process_t));
 			char* error = "Unknown error";
 			newproc->code = ubasic_init((const char*)programtext, (console*)cons, nextid, fullpath, &error);
 			if (!newproc->code) {
@@ -34,38 +62,29 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 			newproc->pid = nextid++;
 			newproc->size = fsi->size;
 			newproc->cons = cons;
-			newproc->cpu = nextcpu;
-			//newproc->text = programtext;
+			newproc->cpu = 0;
 			kfree(programtext);
 
-			interrupts_off();
-			bkl = 1;
-
-			if (proc_list[nextcpu] == NULL) {
+			if (proc_list == NULL) {
 				/* First process */
-				proc_list[nextcpu] = newproc;
+				proc_list = newproc;
 				newproc->next = NULL;
 				newproc->prev = NULL;
 			} else {
 				/* Any other process */
-				newproc->next = proc_list[nextcpu];
+				newproc->next = proc_list;
 				newproc->prev = NULL;
-				proc_list[nextcpu]->prev = newproc;
-				proc_list[nextcpu] = newproc;
+				proc_list->prev = newproc;
+				proc_list = newproc;
 			}
 
 			// No current proc? Make it the only proc.
-			if (proc_current[nextcpu] == NULL)
-				proc_current[nextcpu] = proc_list[nextcpu];
+			if (proc_current == NULL) {
+				proc_current = proc_list;
+			}
 
-			nextcpu++;
-			if (nextcpu > 0)
-				nextcpu = 0;
-
-			bkl = 0;
-			interrupts_on();
-
-			//kprintf("returning\n");
+			process_count++;
+			hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
 
 			return newproc;
 		} else {
@@ -78,67 +97,46 @@ struct process* proc_load(const char* fullpath, struct console* cons)
 	return NULL;
 }
 
-struct process* proc_cur()
+process_t* proc_cur()
 {
-	return proc_running[cpu_id()];
+	return proc_current;
 }
 
-void proc_run(struct process* proc)
+void proc_run(process_t* proc)
 {
-	proc_running[cpu_id()] = proc;
 	if (proc->waitpid == 0)
 		ubasic_run(proc->code);
 	else if (proc_find(proc->waitpid) == NULL) {
-		//kprintf("Process %d exited, resuming %d\n", proc->waitpid, proc->pid);
 		proc->waitpid = 0;
 		ubasic_run(proc->code);
 	}
-	//else
-	//	kprintf("proc_find(%d) == %d\n.\n", proc->waitpid, proc_find(proc->waitpid));
 }
 
-struct process* proc_find(uint32_t pid)
+process_t* proc_find(uint32_t pid)
 {
-	interrupts_off();
-	bkl = 1;
-	struct process* foundproc = NULL;
-	int cpu = 0;
-	for (; cpu < 1; cpu++) {
-		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next)
-			if (cur->pid == pid)
-				foundproc = cur;
+	return hashmap_get(process_by_pid, &(proc_id_t){ .id = pid });
+}
+
+void proc_wait(process_t* proc, uint32_t otherpid)
+{
+	if (!proc_find(otherpid)) {
+		/* Process would wait forever */
+		return;
 	}
-	bkl = 0;
-	interrupts_on();
-
-	return foundproc;
-}
-
-void proc_wait(struct process* proc, uint32_t otherpid)
-{
-	//kprintf("Process waiting for pid %d\n", otherpid);
 	proc->waitpid = otherpid;
 }
 
-void proc_kill(struct process* proc)
+void proc_kill(process_t* proc)
 {
-	interrupts_off();
-	bkl = 1;
-
-	struct process* cur = proc_list[proc->cpu];
-
-	int countprocs = 0;
-	for (; cur; cur = cur->next) {
-		countprocs++;
+	for (process_t* cur = proc_list; cur; cur = cur->next) {
 		if (cur->pid == proc->pid) {
 			if (proc->next == NULL && proc->prev == NULL) {
 				// the only process!
-				proc_list[proc->cpu] = NULL;
+				proc_list = NULL;
 			} else if (proc->prev == NULL && proc->next != NULL) {
 				// first item
-				proc_list[proc->cpu] = proc->next;
-				proc_list[proc->cpu]->prev = NULL;
+				proc_list = proc->next;
+				proc_list->prev = NULL;
 			} else if (proc->prev != NULL && proc->next == NULL) {
 				// last item
 				proc->prev->next = NULL;
@@ -152,102 +150,65 @@ void proc_kill(struct process* proc)
 		}
 	}
 
-	proc_current[proc->cpu] = proc_list[proc->cpu];
+	proc_current = proc_list;
 
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
-	//kfree(proc->text);
+	hashmap_delete(process_by_pid, &(proc_id_t){ .id = proc->pid });
+	kfree(proc);
+	process_count--;
 
 	/* Killed the last process? */
-	int cpun = 0, proclists = 0;
-	for (; cpun < 256; cpun++)
-		if (proc_list[cpun] != NULL)
-			proclists++;
-
-	if (proclists == 0) {
+	if (proc_list == NULL) {
 		setforeground(current_console, COLOUR_LIGHTRED);
 		kprintf("\nSystem halted.");
+		interrupts_off();
 		wait_forever();
 	}
-
-	bkl = 0;
-	interrupts_on();
 }
 
 void proc_show_list()
 {
-	interrupts_off();
-	int cpu = 0;
-	for (; cpu < 256; cpu++) {
-		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next) {
-			kprintf("PID %d CPU %d name %s\n", cur->pid, cpu, cur->name);
-		}
+	process_t* cur = proc_list;
+	for (; cur; cur = cur->next) {
+		kprintf("PID %d CPU %d name %s\n", cur->pid, cur->cpu, cur->name);
 	}
-	interrupts_on();
 }
 
 int64_t proc_total()
 {
-	interrupts_off();
-	int64_t tot = 0;
-	int cpu = 0;
-	for (; cpu < 256; cpu++) {
-		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next) {
-			tot++;
-		}
-	}
-	return tot;
-	interrupts_on();
+	return process_count;
 }
 
 const char* proc_name(int64_t index)
 {
-	interrupts_off();
 	int64_t tot = 0;
-	int cpu = 0;
-	for (; cpu < 256; cpu++) {
-		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next) {
-			if (tot == index) {
-				interrupts_on();
-				return cur->name;
-			}
-			tot++;
+	for (process_t* cur = proc_list; cur; cur = cur->next) {
+		if (tot == index) {
+			return cur->name;
 		}
+		tot++;
 	}
-	interrupts_on();
 	return "";
 }
 
 uint32_t proc_id(int64_t index)
 {
-	interrupts_off();
 	int64_t tot = 0;
-	int cpu = 0;
-	for (; cpu < 256; cpu++) {
-		struct process* cur = proc_list[cpu];
-		for (; cur; cur = cur->next) {
-			if (tot == index) {
-				interrupts_on();
-				return cur->pid;
-			}
-			tot++;
+	process_t* cur = proc_list;
+	for (; cur; cur = cur->next) {
+		if (tot == index) {
+			return cur->pid;
 		}
+		tot++;
 	}
-	interrupts_on();
 	return 0;
 }
 
 void proc_run_next()
 {
-	struct process* current;
-	interrupts_off();
-	bkl = 1;
-	current = proc_current[cpu_id()];
-	bkl = 0;
-	interrupts_on();
+	process_t* current;
+	current = proc_current;
 
 	if (current != NULL) {
 		proc_run(current);
@@ -257,9 +218,20 @@ void proc_run_next()
 	}
 }
 
+uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+	const process_t *p = item;
+	return p->pid * seed0 ^ seed1;
+}
+
+int process_compare(const void *a, const void *b, void *udata) {
+	const process_t *pa = a;
+	const process_t *pb = b;
+	return pa->pid - pb->pid;
+}
 void init_process()
 {
-	struct process* init = proc_load("/programs/init", (struct console*)current_console);
+	process_by_pid = hashmap_new(sizeof(process_t*), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
+	process_t* init = proc_load("/programs/init", (struct console*)current_console);
 	if (!init) {
 		preboot_fail("/programs/init missing or invalid!\n");
 	}
@@ -269,11 +241,9 @@ void init_process()
 void proc_loop()
 {
 	while (true) {
-		while (bkl);
 		proc_timer();
 		proc_run_next();
-		idle_timer_t* i = task_idles;
-		for (; i; i = i->next) {
+		for (idle_timer_t* i = task_idles; i; i = i->next) {
 			i->func();
 		}
 	}
@@ -281,27 +251,22 @@ void proc_loop()
 
 void proc_timer()
 {
-	bkl = 1;
-	if (proc_list[cpu_id()] == NULL)
+	if (proc_list == NULL)
 		return;
 
-	if (proc_current[cpu_id()]->next == NULL)
-		proc_current[cpu_id()] = proc_list[cpu_id()];
+	if (proc_current->next == NULL)
+		proc_current = proc_list;
 	else
-		proc_current[cpu_id()] = proc_current[cpu_id()]->next;
-	bkl = 0;
-	//kprintf("%08x", proc_current);
+		proc_current = proc_current->next;
 }
 
-int proc_ended(struct process* proc)
+int proc_ended(process_t* proc)
 {
-	int r = ubasic_finished(proc->code);
-	return r;
+	return ubasic_finished(proc->code);
 }
 
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type)
 {
-	/* Add the new filesystem to the start of the list */
 	idle_timer_t* newidle = kmalloc(sizeof(idle_timer_t));
 	newidle->func = handler;
 	if (type == IDLE_FOREGROUND) {	

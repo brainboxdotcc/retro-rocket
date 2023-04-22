@@ -1,7 +1,7 @@
 #include <kernel.h>
 #include <hashmap.h>
 
-struct hashmap* prefix_hash;
+struct hashmap* prefix_hash = NULL;
 
 int string_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
 	const devname_prefix_t* ua = a;
