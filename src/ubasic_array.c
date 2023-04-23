@@ -34,6 +34,7 @@ int64_t arr_variable_index(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("array subscript")
 	return intval;
 }
 

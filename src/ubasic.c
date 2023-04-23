@@ -1877,6 +1877,7 @@ int64_t ubasic_open_func(struct ubasic_ctx* ctx, int oflag)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("OPEN");
 	if (fs_is_directory(strval)) {
 		tokenizer_error_print(ctx, "Not a file");
 		return 0;
@@ -1905,6 +1906,7 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("GETNAMECOUNT");
 	if (!fs_is_directory(strval)) {
 		tokenizer_error_print(ctx, "Not a directory");
 		return 0;
@@ -1951,6 +1953,7 @@ int64_t ubasic_getprocid(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCID");
 	return proc_id(intval);
 }
 
@@ -1964,6 +1967,7 @@ int64_t ubasic_rgb(struct ubasic_ctx* ctx)
 	g = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	b = intval;
+	PARAMS_END("RGB");
 	return (uint32_t)(r << 16 | g << 8 | b);
 }
 
@@ -1971,6 +1975,7 @@ char* ubasic_getprocname(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCNAME$");
 	process_t* process = proc_find(proc_id(intval));
 	return process && process->name ? gc_strdup(process->name) : "";
 }
@@ -1979,6 +1984,7 @@ int64_t ubasic_getprocparent(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCPARENT");
 	process_t* process = proc_find(proc_id(intval));
 	return process ? process->ppid : 0;
 }
@@ -1987,6 +1993,7 @@ int64_t ubasic_getproccpuid(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCCPUID");
 	process_t* process = proc_find(proc_id(intval));
 	return process ? process->cpu : 0;
 }
@@ -1995,6 +2002,7 @@ char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("RAMDISK$");
 	const char* rd = init_ramdisk_from_storage(strval);
 	if (!rd) {
 		return gc_strdup("");
@@ -2009,6 +2017,7 @@ char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx)
 	int64_t blocks = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t block_size = intval;
+	PARAMS_END("RAMDISK");
 	const char* rd = init_ramdisk(blocks, block_size);
 	if (!rd) {
 		return gc_strdup("");
@@ -2021,6 +2030,7 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETNAME$");
 	if (!fs_is_directory(strval)) {
 		tokenizer_error_print(ctx, "Not a directory");
 		return 0;
@@ -2043,6 +2053,7 @@ int64_t ubasic_getsize(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETSIZE");
 	fs_directory_entry_t* fsl = fs_get_items(strval);
 	int count = 0;
 	while (fsl)
@@ -2060,6 +2071,7 @@ int64_t ubasic_eof(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("EOF");
 	return _eof(intval);
 }
 
@@ -2067,6 +2079,7 @@ int64_t ubasic_asc(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("ASC");
 	return *strval;
 }
 
@@ -2074,6 +2087,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("CHR$");
 	char res[2] = {(unsigned char)intval, 0};
 	return gc_strdup(res);
 }
@@ -2088,6 +2102,7 @@ int64_t ubasic_instr(struct ubasic_ctx* ctx)
 	haystack = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	needle = strval;
+	PARAMS_END("INSTR");
 	for (i = 0; i < strlen(haystack) - strlen(needle) + 1; ++i)
 		if (!strncmp(haystack + i, needle, strlen(needle)))
 			return i + 1;
@@ -2102,6 +2117,7 @@ char* ubasic_readstring(struct ubasic_ctx* ctx)
 	*res = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("READ$");
 	while (!_eof(intval) && ofs < 1024)
 	{
 		if (_read(intval, res + ofs, 1) != 1)
@@ -2123,6 +2139,7 @@ int64_t ubasic_read(struct ubasic_ctx* ctx)
 	char res;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("READ");
 	if (_read(intval, &res, 1) != 1)
 		tokenizer_error_print(ctx, "Error reading from file");
 	return res;
@@ -2132,6 +2149,7 @@ char* ubasic_netinfo(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("NETINFO$");
 	char ip[16] = { 0 };
 	if (!stricmp(strval, "ip")) {
 		unsigned char raw[4];
@@ -2163,6 +2181,7 @@ char* ubasic_dns(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("DNS$");
 	char ip[16] = { 0 };
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2);
 	get_ip_str(ip, (uint8_t*)&addr);
@@ -2174,6 +2193,7 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("LEFT$");
 	if (intval > strlen(strval) || intval < 0)
 		intval = strlen(strval);
 	char* cut = gc_strdup(strval);
@@ -2190,6 +2210,7 @@ char* ubasic_mid(struct ubasic_ctx* ctx)
 	intval = 0;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t end = intval;
+	PARAMS_END("MID$");
 	if (start > strlen(strval) || start < 0) {
 		start = 0;
 	}
@@ -2205,6 +2226,7 @@ int64_t ubasic_len(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("LEN");
 	return strlen(strval);
 }
 
@@ -2212,6 +2234,7 @@ int64_t ubasic_abs(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("ABS");
 	return labs(intval);
 }
 
@@ -2219,6 +2242,7 @@ void ubasic_sin(struct ubasic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
+	PARAMS_END("SIN");
 	*res = sin(doubleval);
 }
 
@@ -2226,6 +2250,7 @@ void ubasic_cos(struct ubasic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
+	PARAMS_END("COS");
 	*res = cos(doubleval);
 }
 
@@ -2233,6 +2258,7 @@ void ubasic_tan(struct ubasic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
+	PARAMS_END("TAN");
 	*res = tan(doubleval);
 }
 
@@ -2242,6 +2268,7 @@ void ubasic_pow(struct ubasic_ctx* ctx, double* res)
 	PARAMS_GET_ITEM(BIP_DOUBLE);
 	double base = doubleval;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
+	PARAMS_END("POW");
 	*res = pow(base, doubleval);
 }
 

@@ -349,9 +349,9 @@ typedef struct ubasic_str_fn
  * @brief Ends fetching of function parameters, throwing an error if parameters still remain
  */
 #define PARAMS_END(NAME) { \
-	ctx->ptr--; \
-	if (*ctx->ptr != ')') \
-		tokenizer_error_print(ctx, "Too many parameters for function " NAME); \
+	if (*(ctx->ptr - 1) != ')') { \
+		tokenizer_error_print(ctx, "Invalid number of parameters for " NAME); \
+	} \
 }
 
 
