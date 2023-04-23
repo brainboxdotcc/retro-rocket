@@ -5,9 +5,7 @@
 50 PRINT "..."
 
 60 MOUNT "/devices", "", "devfs"
-70 RAM$ = RAMDISK$("hd0")
-80 IF RAM$ = "" THEN GOTO 100
-90 MOUNT "/harddisk", RAM$, "fat32"
+70 MOUNT "/harddisk", "hd0", "fat32"
 
 100 PRINT "Launching ";
 110 COLOR 14
