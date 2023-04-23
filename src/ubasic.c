@@ -170,7 +170,6 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 		kfree(numbered);
 		return c;
 	}
-
 	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
 	if (ctx == NULL) {
 		*error = "Out of memory";
@@ -222,9 +221,9 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ubasic_set_string_variable("PROGRAM$", file, ctx, false, false);
 
 	/* Build doubly linked list of line number references */
-	uint32_t last_line = 0xFFFFFFFF;
+	uint64_t last_line = 0xFFFFFFFF;
 	while (!tokenizer_finished(ctx)) {
-		uint32_t line = tokenizer_num(ctx, NUMBER);
+		uint64_t line = tokenizer_num(ctx, NUMBER);
 		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
 			*error = "Misordered lines in BASIC program";
 			ubasic_destroy(ctx);
@@ -1595,7 +1594,7 @@ bool valid_int_var(const char* name)
 			return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global)
