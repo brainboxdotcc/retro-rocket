@@ -235,6 +235,7 @@ int process_compare(const void *a, const void *b, void *udata) {
 	const process_t *pb = b;
 	return pa->pid == pb->pid ? 0 : (pa->pid < pb->pid ? -1 : 1);
 }
+
 void init_process()
 {
 	process_by_pid = hashmap_new(sizeof(proc_id_t), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);

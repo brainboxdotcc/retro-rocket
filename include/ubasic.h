@@ -164,8 +164,6 @@ typedef struct ub_var_double_array {
 typedef struct ub_line_ref {
 	uint32_t line_number;
 	const char* ptr;
-	struct ub_line_ref* prev;
-	struct ub_line_ref* next;
 } ub_line_ref;
 
 /**
@@ -220,8 +218,7 @@ typedef struct ubasic_ctx {
 
 	int32_t graphics_colour;	// Current GCOL
 
-	ub_line_ref* lines;		// Doubly linked list of line numbers to char pointers
-	ub_line_ref* line_tail;		// Pointer to last element of line list
+	struct hashmap* lines;		// Hash map of line number to char pointers
 } ubasic_ctx;
 
 /**

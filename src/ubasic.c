@@ -150,6 +150,17 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 	return corrected;
 }
 
+uint64_t line_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+	const ub_line_ref *l = item;
+	return l->line_number * l->line_number * seed0 * seed1;
+}
+
+int line_compare(const void *a, const void *b, void *udata) {
+	const ub_line_ref *la = a;
+	const ub_line_ref *lb = b;
+	return la->line_number == lb->line_number ? 0 : (la->line_number < lb->line_number ? -1 : 1);
+}
+
 struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
 {
 	if (!isdigit(*program)) {
@@ -192,6 +203,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 		*error = "Out of memory";
 		return NULL;
 	}
+	ctx->lines = hashmap_new(sizeof(ub_line_ref), 1000, time(NULL) , 4583058, line_hash, line_compare, NULL, NULL);
 
 	// Clean extra whitespace from the program
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
@@ -210,8 +222,6 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ubasic_set_string_variable("PROGRAM$", file, ctx, false, false);
 
 	/* Build doubly linked list of line number references */
-	ctx->lines = NULL;
-	ctx->line_tail = NULL;
 	uint32_t last_line = 0xFFFFFFFF;
 	while (!tokenizer_finished(ctx)) {
 		uint32_t line = tokenizer_num(ctx, NUMBER);
@@ -221,17 +231,11 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 			return NULL;
 		}
 		last_line = line;
-		ub_line_ref* lr = kmalloc(sizeof(ub_line_ref));
-		lr->line_number = line;
-		lr->ptr = ctx->ptr;
-		lr->prev = ctx->line_tail;
-		lr->next = NULL;
-		if (ctx->lines == NULL) {
-			ctx->lines = lr;
-		} else {
-			ctx->line_tail->next = lr;
+		if (hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = line, .ptr = ctx->ptr })) {
+			*error = "Line hashed twice in BASIC program (internal error)";
+			ubasic_destroy(ctx);
+			return NULL;
 		}
-		ctx->line_tail = lr;
 		do {
 			do {
 				tokenizer_next(ctx);
@@ -260,7 +264,6 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->int_array_variables = old->int_array_variables;
 	ctx->string_array_variables = old->string_array_variables;
 	ctx->double_array_variables = old->double_array_variables;
-	ctx->line_tail = old->line_tail;
 	ctx->lines = old->lines;
 
 	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
@@ -465,9 +468,7 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 			kfree(ctx->local_string_variables[x]);
 		}
 	}
-	for (; ctx->lines; ctx->lines = ctx->lines->next) {
-		kfree(ctx->lines);
-	}
+	hashmap_free(ctx->lines);
 	for (; ctx->defs; ctx->defs = ctx->defs->next) {
 		kfree(ctx->defs->name);
 		for (; ctx->defs->params; ctx->defs->params = ctx->defs->params->next) {
@@ -493,18 +494,14 @@ void accept(int token, struct ubasic_ctx* ctx)
 
 bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 {
-	for(ub_line_ref* lr = ctx->lines; lr; lr = lr->next) {
-		if (lr->line_number == linenum) {
-			ctx->ptr = lr->ptr;
-			ctx->current_token = get_next_token(ctx);
-			return true;
-		} else if (lr->line_number > linenum) {
-			tokenizer_error_print(ctx, "No such line");
-			return false;
-		}
+	ub_line_ref* line = hashmap_get(ctx->lines, &(ub_line_ref){ .line_number = linenum });
+	if (!line) {
+		tokenizer_error_print(ctx, "No such line");
+		return false;
 	}
-	tokenizer_error_print(ctx, "No such line");
-	return false;
+	ctx->ptr = line->ptr;
+	ctx->current_token = get_next_token(ctx);
+	return true;
 }
 
 static void goto_statement(struct ubasic_ctx* ctx)
@@ -900,20 +897,8 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		const char* line_9999 = (ctx->program_ptr + strlen(ctx->program_ptr) + 1);
 		strlcat(ctx->program_ptr, "\n9999 RETURN\n", ctx->oldlen + 5000);
 
-		ub_line_ref* lr = kmalloc(sizeof(ub_line_ref));
-		lr->line_number = 9998;
-		lr->ptr = line_9998;
-		lr->prev = ctx->line_tail;
-		lr->next = NULL;
-		ctx->line_tail->next = lr;
-		ctx->line_tail = lr;
-		lr = kmalloc(sizeof(ub_line_ref));
-		lr->line_number = 9999;
-		lr->ptr = line_9999;
-		lr->prev = ctx->line_tail;
-		lr->next = NULL;
-		ctx->line_tail->next = lr;
-		ctx->line_tail = lr;
+		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = 9998, .ptr = line_9998 });
+		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = 9999, .ptr = line_9999 });
 
 		ctx->eval_linenum = ctx->current_linenum;
 		ctx->gosub_stack[ctx->gosub_stack_ptr++] = ctx->current_linenum;
@@ -924,16 +909,8 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		ctx->oldlen = 0;
 		ctx->eval_linenum = 0;
 		/* Delete references to the eval lines */
-		for (int64_t line = 9999; line >= 9998; --line) {
-			ub_line_ref* lr = ctx->line_tail;
-			if (lr->line_number != line) {
-				ctx->eval_linenum = 0;
-				tokenizer_error_print(ctx, "Unable to unwind EVAL");
-				return;
-			}
-			ctx->line_tail = lr->prev;
-			kfree(lr);
-		}
+		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = 9998 });
+		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = 9999 });
 	}
 }
 
