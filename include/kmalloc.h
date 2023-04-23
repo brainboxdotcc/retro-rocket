@@ -3,8 +3,7 @@
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @copyright Copyright (c) 2012-2023
  */
-#ifndef __KMALLOC_H__
-#define __KMALLOC_H__
+#pragma once
 
 #include <stddef.h>
 
@@ -24,12 +23,12 @@ typedef struct header {
 	uint8_t  free;
 	struct header* prev;
 	struct header* next;
-}header_t;
+} header_t;
 
 typedef struct footer {
 	uint64_t magic;
 	header_t *header;
-}footer_t;
+} footer_t;
 
 /* Definition for a heap */
 typedef struct heap {
@@ -65,5 +64,4 @@ uint64_t get_free_memory();
 uint64_t get_used_memory();
 uint64_t get_total_memory();
 
-#endif
 

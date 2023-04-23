@@ -716,14 +716,23 @@ uint32_t kmalloc_low(uint32_t size)
 	return allocated;
 }
 
-uint64_t get_free_memory()
-{
-	return heaplen - allocated;
-}
-
 uint64_t get_used_memory()
 {
-	return allocated;
+	uint64_t t = 0;
+	header_t*tmp = kheap->list_free;
+	if (!kheap->list_free) {
+		return 0;
+	}
+	while (tmp) {
+		t += tmp->size;
+		tmp = tmp->next;
+	}
+	return t;
+}
+
+uint64_t get_free_memory()
+{
+	return heaplen - get_used_memory();
 }
 
 uint64_t get_total_memory()
