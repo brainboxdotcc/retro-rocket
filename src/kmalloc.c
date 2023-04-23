@@ -3,7 +3,6 @@
 #include <limine.h>
 
 extern uint64_t k_end;		/* Heap straight after kernel */
-//uint64_t heap_pos = (uint64_t)&k_end;
 uint64_t heap_pos = 0x00200000;
 
 volatile struct limine_memmap_request memory_map_request = {
@@ -303,6 +302,7 @@ static void free_int(const void *addr, heap_t *heap)
 	if (tf->magic != HEAP_MAGIC) {
 		return;	/* Check if footer */
 	}
+
 	/* Find associated free blocks */
 	/* Check if a free block left */
 	if ((uint64_t)th != (uint64_t)heap->heap_addr) {
@@ -351,8 +351,6 @@ static void free_int(const void *addr, heap_t *heap)
 		/* Otherwise we insert the entry */
 		heap->list_free = ord_list_insert(th,heap->list_free);
 	}
-
-	allocated -= th->size;
 }
 
 void expand_heap(uint64_t size, heap_t *heap)
@@ -538,7 +536,6 @@ void* kmalloc_org(uint64_t size, uint8_t align,uint64_t *phys)
 
 void* kmalloc_ext(uint64_t size, uint8_t align, uint64_t *phys)
 {
-	allocated += size;
 	void* ret;
 	if (kheap) {
 		return alloc(size,align,kheap);
@@ -719,4 +716,17 @@ uint32_t kmalloc_low(uint32_t size)
 	return allocated;
 }
 
+uint64_t get_free_memory()
+{
+	return heaplen - allocated;
+}
 
+uint64_t get_used_memory()
+{
+	return allocated;
+}
+
+uint64_t get_total_memory()
+{
+	return heaplen;
+}

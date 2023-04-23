@@ -35,12 +35,12 @@
 /**
  * @brief Maximum stack depth of GOSUB, PROC, FN
  */
-#define MAX_GOSUB_STACK_DEPTH 255
+#define MAX_CALL_STACK_DEPTH 255
 
 /**
  * @brief Maximum stack depth of FOR...NEXT
  */
-#define MAX_FOR_STACK_DEPTH 255
+#define MAX_LOOP_STACK_DEPTH 255
 
 /**
  * @brief State for a FOR...NEXT loop
@@ -199,17 +199,17 @@ typedef struct ubasic_ctx {
 
         char string[MAX_STRINGLEN];
 
-	struct ub_var_int* local_int_variables[MAX_GOSUB_STACK_DEPTH];
-	struct ub_var_string* local_string_variables[MAX_GOSUB_STACK_DEPTH];
-	struct ub_var_double* local_double_variables[MAX_GOSUB_STACK_DEPTH];
+	struct ub_var_int* local_int_variables[MAX_CALL_STACK_DEPTH];
+	struct ub_var_string* local_string_variables[MAX_CALL_STACK_DEPTH];
+	struct ub_var_double* local_double_variables[MAX_CALL_STACK_DEPTH];
 
-        uint64_t gosub_stack[MAX_GOSUB_STACK_DEPTH];
+        uint64_t gosub_stack[MAX_CALL_STACK_DEPTH];
         uint64_t gosub_stack_ptr;
 
 	int oldlen;
 	int64_t eval_linenum;
 
-        struct for_state for_stack[MAX_FOR_STACK_DEPTH];
+        struct for_state for_stack[MAX_LOOP_STACK_DEPTH];
         uint64_t for_stack_ptr;
 
 	struct ub_proc_fn_def* defs;
@@ -386,6 +386,9 @@ int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
 int64_t ubasic_getprocparent(struct ubasic_ctx* ctx);
 int64_t ubasic_getproccpuid(struct ubasic_ctx* ctx);
 int64_t ubasic_rgb(struct ubasic_ctx* ctx);
+int64_t ubasic_get_free_mem(struct ubasic_ctx* ctx);
+int64_t ubasic_get_used_mem(struct ubasic_ctx* ctx);
+int64_t ubasic_get_total_mem(struct ubasic_ctx* ctx);
 
 
 /*

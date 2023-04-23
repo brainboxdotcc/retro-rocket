@@ -45,6 +45,9 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_get_text_max_y, "TERMHEIGHT" },
 	{ ubasic_get_text_cur_x, "CURRENTX" },
 	{ ubasic_get_text_cur_y, "CURRENTY" },
+	{ ubasic_get_free_mem, "MEMFREE" },
+	{ ubasic_get_used_mem, "MEMUSED" },
+	{ ubasic_get_total_mem, "MEMORY" },
 	{ NULL, NULL }
 };
 
@@ -189,11 +192,11 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ctx->int_array_variables = NULL;
 	ctx->string_array_variables = NULL;
 	ctx->double_array_variables = NULL;
-	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = NULL;
-	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_string_variables[i] = NULL;
-	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_double_variables[i] = NULL;
 	ctx->cons = (struct console*)cons;
 	ctx->oldlen = 0;
@@ -269,11 +272,11 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->double_array_variables = old->double_array_variables;
 	ctx->lines = old->lines;
 
-	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = old->local_int_variables[i];
-	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_string_variables[i] = old->local_string_variables[i];
-	for (i = 0; i < MAX_GOSUB_STACK_DEPTH; i++)
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_double_variables[i] = old->local_double_variables[i];
 
 	ctx->cons = old->cons;
@@ -721,7 +724,7 @@ static void proc_statement(struct ubasic_ctx* ctx)
 		}
 		accept(NEWLINE, ctx);
 
-		if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
+		if (ctx->gosub_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
 			ctx->gosub_stack_ptr++;
 			jump_linenum(def->line, ctx);
@@ -1238,7 +1241,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	accept(NUMBER, ctx);
 	accept(NEWLINE, ctx);
 
-	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
+	if (ctx->gosub_stack_ptr < MAX_CALL_STACK_DEPTH) {
 		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
 		ctx->gosub_stack_ptr++;
 		jump_linenum(linenum, ctx);
@@ -1327,7 +1330,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 		accept(NEWLINE, ctx);
 	}
 
-	if (ctx->for_stack_ptr < MAX_FOR_STACK_DEPTH) {
+	if (ctx->for_stack_ptr < MAX_LOOP_STACK_DEPTH) {
 		ctx->for_stack[ctx->for_stack_ptr].line_after_for = tokenizer_num(ctx, NUMBER);
 		ctx->for_stack[ctx->for_stack_ptr].for_variable = for_variable;
 		ctx->for_stack[ctx->for_stack_ptr].to = to;
@@ -1342,7 +1345,7 @@ static void repeat_statement(struct ubasic_ctx* ctx)
 {
 	accept(REPEAT, ctx);
 	accept(NEWLINE, ctx);
-	if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
+	if (ctx->gosub_stack_ptr < MAX_CALL_STACK_DEPTH) {
 		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
 		ctx->gosub_stack_ptr++;
 	} else {
@@ -1963,6 +1966,21 @@ int64_t ubasic_get_text_cur_y(struct ubasic_ctx* ctx)
 	uint64_t x = 0, y = 0;
 	get_text_position(&x, &y);
 	return y;
+}
+
+int64_t ubasic_get_free_mem(struct ubasic_ctx* ctx)
+{
+	return get_free_memory();
+}
+
+int64_t ubasic_get_used_mem(struct ubasic_ctx* ctx)
+{
+	return get_used_memory();
+}
+
+int64_t ubasic_get_total_mem(struct ubasic_ctx* ctx)
+{
+	return get_total_memory();
 }
 
 int64_t ubasic_getprocid(struct ubasic_ctx* ctx)

@@ -199,19 +199,19 @@ char* strdup(const char* string)
 char* gc_strdup(const char* string)
 {
 	uint32_t siz = strlen(string) + 1;
-	char* result = (char*)kmalloc(siz);
+	char* result = kmalloc(siz);
 	strlcpy(result, string, siz);
 	*(result+siz) = 0;
 
 	if (gc_list == NULL)
 	{
-		gc_list = (struct gc_str*)kmalloc(sizeof(struct gc_str));
+		gc_list = kmalloc(sizeof(struct gc_str));
 		gc_list->next = NULL;
 		gc_list->ptr = result;
 	}
 	else
 	{
-		struct gc_str* new = (struct gc_str*)kmalloc(sizeof(struct gc_str));
+		struct gc_str* new = kmalloc(sizeof(struct gc_str));
 		new->next = gc_list;
 		new->ptr = result;
 		gc_list = new;
@@ -227,8 +227,7 @@ int gc()
 	for (; cur; cur = cur->next)
 	{
 		n++;
-		kfree((char*)cur->ptr);
-		cur->ptr = NULL;
+		kfree(cur->ptr);
 		kfree(cur);
 	}
 

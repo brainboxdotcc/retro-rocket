@@ -61,6 +61,9 @@ void preboot_fail(const char* msg);
 void* kcalloc(size_t num, size_t size);
 void* krealloc(void* ptr, size_t new_size);
 uint32_t kmalloc_low(uint32_t size);
+uint64_t get_free_memory();
+uint64_t get_used_memory();
+uint64_t get_total_memory();
 
 #endif
 
