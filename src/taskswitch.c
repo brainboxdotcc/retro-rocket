@@ -41,7 +41,7 @@ uint32_t process_count = 0;
  */
 idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 
-process_t* proc_load(const char* fullpath, struct console* cons)
+process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
 	if (fsi != NULL && !(fsi->flags & FS_DIRECTORY)) {
@@ -60,7 +60,11 @@ process_t* proc_load(const char* fullpath, struct console* cons)
 			newproc->waitpid = 0;
 			newproc->name = strdup(fsi->filename);
 			newproc->pid = nextid++;
+			newproc->directory = strdup(fullpath);
 			newproc->size = fsi->size;
+			newproc->start_time = time(NULL);
+			newproc->state = PROC_RUNNING;
+			newproc->ppid = parent_pid;
 			newproc->cons = cons;
 			newproc->cpu = 0;
 			kfree(programtext);
@@ -104,20 +108,35 @@ process_t* proc_cur()
 
 void proc_run(process_t* proc)
 {
-	if (proc->waitpid == 0)
+	if (proc->waitpid == 0) {
 		ubasic_run(proc->code);
-	else if (proc_find(proc->waitpid) == NULL) {
+	} else if (proc_find(proc->waitpid) == NULL) {
 		proc->waitpid = 0;
 		ubasic_run(proc->code);
 	}
 }
 
-process_t* proc_find(uint32_t pid)
+process_t* proc_find(pid_t pid)
 {
-	return hashmap_get(process_by_pid, &(proc_id_t){ .id = pid });
+	proc_id_t* id = hashmap_get(process_by_pid, &(proc_id_t){ .id = pid });
+	return id ? id->proc : NULL;
 }
 
-void proc_wait(process_t* proc, uint32_t otherpid)
+bool proc_kill_id(pid_t id)
+{
+	process_t* cur = proc_cur();
+	process_t* proc = proc_find(id);
+	if (cur->pid == id) {
+		return false;
+	}
+	if (proc) {
+		proc_kill(proc);
+		return true;
+	}
+	return false;
+}
+
+void proc_wait(process_t* proc, pid_t otherpid)
 {
 	if (!proc_find(otherpid)) {
 		/* Process would wait forever */
@@ -154,6 +173,7 @@ void proc_kill(process_t* proc)
 
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
+	kfree(proc->directory);
 	hashmap_delete(process_by_pid, &(proc_id_t){ .id = proc->pid });
 	kfree(proc);
 	process_count--;
@@ -180,23 +200,10 @@ int64_t proc_total()
 	return process_count;
 }
 
-const char* proc_name(int64_t index)
+pid_t proc_id(int64_t index)
 {
 	int64_t tot = 0;
 	for (process_t* cur = proc_list; cur; cur = cur->next) {
-		if (tot == index) {
-			return cur->name;
-		}
-		tot++;
-	}
-	return "";
-}
-
-uint32_t proc_id(int64_t index)
-{
-	int64_t tot = 0;
-	process_t* cur = proc_list;
-	for (; cur; cur = cur->next) {
 		if (tot == index) {
 			return cur->pid;
 		}
@@ -226,12 +233,12 @@ uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1) {
 int process_compare(const void *a, const void *b, void *udata) {
 	const process_t *pa = a;
 	const process_t *pb = b;
-	return pa->pid - pb->pid;
+	return pa->pid == pb->pid ? 0 : (pa->pid < pb->pid ? -1 : 1);
 }
 void init_process()
 {
-	process_by_pid = hashmap_new(sizeof(process_t*), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
-	process_t* init = proc_load("/programs/init", (struct console*)current_console);
+	process_by_pid = hashmap_new(sizeof(proc_id_t), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
+	process_t* init = proc_load("/programs/init", (struct console*)current_console, 0);
 	if (!init) {
 		preboot_fail("/programs/init missing or invalid!\n");
 	}

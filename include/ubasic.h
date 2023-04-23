@@ -286,6 +286,8 @@ int64_t ubasic_get_text_cur_x(struct ubasic_ctx* ctx);
 int64_t ubasic_get_text_cur_y(struct ubasic_ctx* ctx);
 int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
 int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
+int64_t ubasic_getprocparent(struct ubasic_ctx* ctx);
+int64_t ubasic_getproccpuid(struct ubasic_ctx* ctx);
 int64_t ubasic_rgb(struct ubasic_ctx* ctx);
 
 

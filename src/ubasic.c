@@ -38,6 +38,8 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_getsize, "GETSIZE" },
 	{ ubasic_getproccount, "GETPROCCOUNT" },
 	{ ubasic_getprocid, "GETPROCID" },
+	{ ubasic_getprocparent, "GETPROCPARENT" },
+	{ ubasic_getproccpuid, "GETPROCCPUID" },
 	{ ubasic_rgb, "RGB" },
 	{ ubasic_get_text_max_x, "TERMWIDTH" },
 	{ ubasic_get_text_max_y, "TERMHEIGHT" },
@@ -837,7 +839,7 @@ static void chain_statement(struct ubasic_ctx* ctx)
 {
 	accept(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
-	process_t* p = proc_load(pn, ctx->cons);
+	process_t* p = proc_load(pn, ctx->cons, proc_cur()->pid);
 	if (p == NULL) {
 		accept(NEWLINE, ctx);
 		return;
@@ -2469,7 +2471,24 @@ char* ubasic_getprocname(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	return gc_strdup(proc_name(intval));
+	process_t* process = proc_find(proc_id(intval));
+	return process && process->name ? gc_strdup(process->name) : "";
+}
+
+int64_t ubasic_getprocparent(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	process_t* process = proc_find(proc_id(intval));
+	return process ? process->ppid : 0;
+}
+
+int64_t ubasic_getproccpuid(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	process_t* process = proc_find(proc_id(intval));
+	return process ? process->cpu : 0;
 }
 
 char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx)
