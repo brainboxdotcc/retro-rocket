@@ -276,6 +276,92 @@ typedef struct ubasic_str_fn
 	const char* name;
 } ubasic_str_fn;
 
+#define BIP_STRING 0
+#define BIP_INT 1
+#define BIP_DOUBLE 2
+
+/**
+ * @brief Begin parsing function parameters
+ */
+#define PARAMS_START \
+	[[maybe_unused]] int itemtype = BIP_INT; \
+	[[maybe_unused]] int64_t intval = 0; \
+	[[maybe_unused]] double doubleval = 0; \
+	[[maybe_unused]] char* strval = NULL; \
+	[[maybe_unused]] char oldval = 0; \
+	[[maybe_unused]] char oldct = 0; \
+	[[maybe_unused]] char* oldptr = 0; \
+	[[maybe_unused]] char const* oldnextptr = NULL; \
+	[[maybe_unused]] int gotone = 0; \
+	[[maybe_unused]] int bracket_depth = 0; \
+	[[maybe_unused]] char const* item_begin = ctx->ptr;
+
+/**
+ * @brief Get a function parameter of type
+ * @param type Type of function parameter to get, fills one of the variables
+ * strval, doubleval or intval.
+ */
+#define PARAMS_GET_ITEM(type) { gotone = 0; \
+	while (!gotone) \
+	{ \
+		if (*ctx->ptr == '(') { \
+			bracket_depth++; \
+			if (bracket_depth == 1) \
+				item_begin = ctx->ptr + 1; \
+		} \
+       		else if (*ctx->ptr == ')') \
+			bracket_depth--; \
+		if ((*ctx->ptr == ',' && bracket_depth == 1) || (*ctx->ptr == ')' && bracket_depth == 0)) { \
+			gotone = 1; \
+			oldval = *ctx->ptr; \
+			oldct = ctx->current_token; \
+			oldptr = (char*)ctx->ptr; \
+			oldnextptr = ctx->nextptr; \
+			ctx->nextptr = item_begin; \
+			ctx->ptr = item_begin; \
+			ctx->current_token = get_next_token(ctx); \
+			*oldptr = 0; \
+			itemtype = type; \
+			if (itemtype == BIP_STRING) { \
+				strval = (char*)str_expr(ctx); \
+			} else if (itemtype == BIP_DOUBLE) { \
+				double_expr(ctx, &doubleval); \
+			} else { \
+				intval = expr(ctx); \
+			} \
+			*oldptr = oldval; \
+			ctx->ptr = oldptr; \
+			ctx->nextptr = oldnextptr; \
+			ctx->current_token = oldct; \
+			item_begin = ctx->ptr + 1; \
+			gotone = 1; \
+		} \
+		if (bracket_depth == 0 || *ctx->ptr == 0) { \
+			ctx->nextptr = ctx->ptr; \
+			ctx->current_token = get_next_token(ctx); \
+			gotone = 1; \
+		} \
+		ctx->ptr++; \
+	} \
+}
+
+/**
+ * @brief Ends fetching of function parameters, throwing an error if parameters still remain
+ */
+#define PARAMS_END(NAME) { \
+	ctx->ptr--; \
+	if (*ctx->ptr != ')') \
+		tokenizer_error_print(ctx, "Too many parameters for function " NAME); \
+}
+
+
+/*
+ * Validation functions
+ */
+bool valid_int_var(const char* name);
+bool valid_string_var(const char* name);
+bool valid_double_var(const char* name);
+
 /*
  * Builtin integer functions
  */
@@ -370,6 +456,8 @@ int64_t arr_variable_index(struct ubasic_ctx* ctx);
 void ubasic_set_int_array(const char* var, int64_t value, struct ubasic_ctx* ctx);
 void ubasic_set_string_array(const char* var, const char* value, struct ubasic_ctx* ctx);
 void ubasic_set_double_array(const char* var, double value, struct ubasic_ctx* ctx);
+void dim_statement(struct ubasic_ctx* ctx);
+void redim_statement(struct ubasic_ctx* ctx);
 
 /*
  * Integer expression evaluation
