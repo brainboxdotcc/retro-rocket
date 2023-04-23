@@ -196,7 +196,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
-	// as EVAL appends to the program on lines 9998 and 9999.
+	// as EVAL appends to the program on lines EVAL_LINE and EVAL_LINE + 1.
 	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
 	if (ctx->program_ptr == NULL) {
 		kfree(ctx);
@@ -873,7 +873,7 @@ static void eval_statement(struct ubasic_ctx* ctx)
 	const char* v = str_expr(ctx);
 	accept(NEWLINE, ctx);
 
-	if (ctx->current_linenum == 9998) {
+	if (ctx->current_linenum == EVAL_LINE) {
 		ctx->eval_linenum = 0;
 		tokenizer_error_print(ctx, "Recursive EVAL");
 		return;
@@ -891,26 +891,26 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		if (last > 13) {
 			strlcat(ctx->program_ptr, "\n", ctx->oldlen + 5000);
 		}
-		const char* line_9998 = (ctx->program_ptr + strlen(ctx->program_ptr));
-		strlcat(ctx->program_ptr, "9998 ", ctx->oldlen + 5000);
+		const char* line_eval = (ctx->program_ptr + strlen(ctx->program_ptr));
+		strlcat(ctx->program_ptr, STRINGIFY(EVAL_LINE)" ", ctx->oldlen + 5000);
 		strlcat(ctx->program_ptr, clean_v, ctx->oldlen + 5000);
-		const char* line_9999 = (ctx->program_ptr + strlen(ctx->program_ptr) + 1);
-		strlcat(ctx->program_ptr, "\n9999 RETURN\n", ctx->oldlen + 5000);
+		const char* line_eval_end = (ctx->program_ptr + strlen(ctx->program_ptr) + 1);
+		strlcat(ctx->program_ptr, "\n"STRINGIFY(EVAL_END_LINE)" RETURN\n", ctx->oldlen + 5000);
 
-		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = 9998, .ptr = line_9998 });
-		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = 9999, .ptr = line_9999 });
+		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = EVAL_LINE, .ptr = line_eval });
+		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = EVAL_END_LINE, .ptr = line_eval_end });
 
 		ctx->eval_linenum = ctx->current_linenum;
 		ctx->gosub_stack[ctx->gosub_stack_ptr++] = ctx->current_linenum;
 
-		jump_linenum(9998, ctx);
+		jump_linenum(EVAL_LINE, ctx);
 	} else {
 		ctx->program_ptr[ctx->oldlen] = 0;
 		ctx->oldlen = 0;
 		ctx->eval_linenum = 0;
 		/* Delete references to the eval lines */
-		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = 9998 });
-		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = 9999 });
+		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = EVAL_LINE });
+		hashmap_delete(ctx->lines, &(ub_line_ref){ .line_number = EVAL_END_LINE });
 	}
 }
 

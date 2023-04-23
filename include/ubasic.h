@@ -167,6 +167,19 @@ typedef struct ub_line_ref {
 } ub_line_ref;
 
 /**
+ * @brief Specil line number where EVAL code is inserted dynamically
+ */
+#define EVAL_LINE	999999998
+/**
+ * @brief RETURN statement after EVAL code
+ * 
+ */
+#define EVAL_END_LINE	999999999
+
+#define AUX(x) #x
+#define STRINGIFY(x) AUX(x)
+
+/**
  * @brief BASIC program context
  * Every instance of a BASIC program has one of these,
  * also certain structures such as procedures will clone
