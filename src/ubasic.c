@@ -203,7 +203,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 		*error = "Out of memory";
 		return NULL;
 	}
-	ctx->lines = hashmap_new(sizeof(ub_line_ref), 1000, time(NULL) , 4583058, line_hash, line_compare, NULL, NULL);
+	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
 
 	// Clean extra whitespace from the program
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);

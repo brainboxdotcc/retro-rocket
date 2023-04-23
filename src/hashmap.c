@@ -118,9 +118,9 @@ struct hashmap *hashmap_new_with_allocator(
 		return NULL;
 	}
 	memset(map->buckets, 0, map->bucketsz*map->nbuckets);
-	map->growat = map->nbuckets * 2;
-	map->shrinkat = map->nbuckets * 1;
-	map->malloc = _malloc;
+	map->growat = map->nbuckets*0.75;
+	map->shrinkat = map->nbuckets*0.10;
+    	map->malloc = _malloc;
 	map->realloc = _realloc;
 	map->free = _free;
 	return map;  
@@ -192,16 +192,16 @@ void hashmap_clear(struct hashmap *map, bool update_cap) {
 	}
 	memset(map->buckets, 0, map->bucketsz*map->nbuckets);
 	map->mask = map->nbuckets-1;
-	map->growat = map->nbuckets * 2;
-	map->shrinkat = map->nbuckets * 1;
+	map->growat = map->nbuckets*0.75;
+	map->shrinkat = map->nbuckets*0.10;
 }
 
 
 static bool resize(struct hashmap *map, size_t new_cap) {
 	struct hashmap *map2 = hashmap_new_with_allocator(map->malloc, map->realloc, map->free,
-													  map->elsize, new_cap, map->seed0, 
-													  map->seed1, map->hash, map->compare,
-													  map->elfree, map->udata);
+			map->elsize, new_cap, map->seed0, 
+			map->seed1, map->hash, map->compare,
+			map->elfree, map->udata);
 	if (!map2) {
 		return false;
 	}
@@ -277,7 +277,6 @@ void *hashmap_set(struct hashmap *map, const void *item) {
 			memcpy(map->spare, bucket, map->bucketsz);
 			memcpy(bucket, entry, map->bucketsz);
 			memcpy(entry, map->spare, map->bucketsz);
-			return NULL;
 		}		
 		i = (i + 1) & map->mask;
 		entry->dib += 1;
