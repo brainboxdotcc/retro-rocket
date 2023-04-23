@@ -123,9 +123,9 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 	char* newprog = kmalloc(new_size_max);
 	char line_buffer[MAX_STRINGLEN];
 	char* line_ptr = line_buffer;
-	bool insert_line = true;
+	bool insert_line = true, ended = false;
 	*newprog = 0;
-	while (*program) {
+	while (!ended) {
 		if (insert_line) {
 			while (*program == '\n') {
 				*line_ptr++ = '\n';
@@ -136,7 +136,10 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 			insert_line = false;
 			line_ptr = line_buffer + strlen(line_buffer);
 		}
-		if (*program == '\n') {
+		if (*program == '\n' || !*program) {
+			if (!*program) {
+				ended = true;
+			}
 			insert_line = true;
 			*line_ptr = 0;
 			strlcat(newprog, line_buffer, new_size_max);
@@ -181,6 +184,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ctx->current_token = ERROR;
 	ctx->int_variables = NULL;
 	ctx->str_variables = NULL;
+	ctx->fn_type = RT_MAIN;
 	ctx->double_variables = NULL;
 	ctx->int_array_variables = NULL;
 	ctx->string_array_variables = NULL;
@@ -704,31 +708,26 @@ static void proc_statement(struct ubasic_ctx* ctx)
 	*p++ = 0;
 	struct ub_proc_fn_def* def = ubasic_find_fn(procname, ctx);
 	if (def) {
-		ctx->gosub_stack_ptr++;
-
 		if (*ctx->ptr == '(' && *(ctx->ptr + 1) != ')') {
+			ctx->gosub_stack_ptr++;
 			begin_comma_list(def, ctx);
 			while (extract_comma_list(def, ctx));
+			ctx->gosub_stack_ptr--;
 		}
-		struct ubasic_ctx* atomic = ubasic_clone(ctx);
-		atomic->fn_type = RT_NONE;
-		jump_linenum(def->line, atomic);
+		ctx->fn_type = RT_NONE;
 
-		while (!ubasic_finished(atomic)) {
-			line_statement(atomic);
-			if (atomic->errored) {
-				ctx->errored = true;
-				break;
-			}
-		}
-		/* Only free the base struct! */
-		kfree(atomic);
-
-		ctx->gosub_stack_ptr--;
 		while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
 			tokenizer_next(ctx);
 		}
 		accept(NEWLINE, ctx);
+
+		if (ctx->gosub_stack_ptr < MAX_GOSUB_STACK_DEPTH) {
+			ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
+			ctx->gosub_stack_ptr++;
+			jump_linenum(def->line, ctx);
+		} else {
+			tokenizer_error_print(ctx, "PROC: stack exhausted");
+		}
 		return;
 	}
 	tokenizer_error_print(ctx, "No such PROC");
@@ -1244,18 +1243,22 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 		ctx->gosub_stack_ptr++;
 		jump_linenum(linenum, ctx);
 	} else {
-		tokenizer_error_print(ctx, "gosub_statement: gosub stack exhausted");
+		tokenizer_error_print(ctx, "GOSUB: stack exhausted");
 	}
 }
 
 static void return_statement(struct ubasic_ctx* ctx)
 {
 	accept(RETURN, ctx);
+	if (ctx->fn_type != RT_MAIN)  {
+		tokenizer_error_print(ctx, "RETURN inside FN or PROC");
+		return;
+	}
 	if (ctx->gosub_stack_ptr > 0) {
 		ctx->gosub_stack_ptr--;
 		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
 	} else {
-		tokenizer_error_print(ctx, "return_statement: non-matching return");
+		tokenizer_error_print(ctx, "RETURN without GOSUB");
 	}
 }
 
@@ -1403,7 +1406,13 @@ static void retproc_statement(struct ubasic_ctx* ctx)
 		tokenizer_error_print(ctx, "Can't RETPROC from a FN");
 		return;
 	}
-	ctx->ended = true;
+	ctx->fn_type = RT_MAIN;
+	if (ctx->gosub_stack_ptr > 0) {
+		ctx->gosub_stack_ptr--;
+		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
+	} else {
+		tokenizer_error_print(ctx, "RETPROC when not inside PROC");
+	}
 }
 
 void statement(struct ubasic_ctx* ctx)
@@ -1529,6 +1538,9 @@ void ubasic_run(struct ubasic_ctx* ctx)
 		return;
 	}
 	line_statement(ctx);
+	/*if (ctx->fn_type == RT_NONE) {
+		dprintf("Line %d\n", ctx->current_linenum);
+	}*/
 	if (ctx->errored) {
 		ctx->errored = false;
 		if (ctx->gosub_stack_ptr > 0) {
@@ -1807,13 +1819,17 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 		*oldptr = 0;
 		if (ctx->param) {
 			size_t len = strlen(ctx->param->name);
+			dprintf("Set PROC/FN param: %s to ", ctx->param->name);
 			if (ctx->param->name[len - 1] == '$') {
+				dprintf("string value\n");
 				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
 			} else if (ctx->param->name[len - 1] == '#') {
 				double f = 0.0;
 				double_expr(ctx, &f);
+				dprintf("double value\n");
 				ubasic_set_double_variable(ctx->param->name, f, ctx, true, false);
 			} else {
+				dprintf("int value\n");
 				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
 			}
 

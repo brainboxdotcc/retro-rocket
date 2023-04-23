@@ -91,13 +91,14 @@ typedef enum ub_fn_type {
 } ub_fn_type;
 
 /**
- * @brief Return type of FN
+ * @brief Return type of FN, PROC
  */
 typedef enum ub_return_type {
-	RT_NONE,
-	RT_STRING,
-	RT_INT,
-	RT_FLOAT,
+	RT_MAIN,	// In main
+	RT_NONE,	// No return value
+	RT_STRING,	// String return value
+	RT_INT,		// Integer return value
+	RT_FLOAT,	// Double return value
 } ub_return_type;
 
 /**
