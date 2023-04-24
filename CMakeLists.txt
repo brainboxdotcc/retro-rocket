@@ -10,6 +10,8 @@ set(CMAKE_ASM_FLAGS "-pipe -g -fno-PIC -Wall -Wextra -Wno-unused-parameter -nost
 
 set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
 
+include("${CMAKE_SOURCE_DIR}/cmake/custom_targets.cmake")
+
 file(GLOB SOURCES "src/*.c")
 file(GLOB ASSEMBLY "asm/*")
 
@@ -27,3 +29,18 @@ add_custom_command(TARGET "kernel.bin" POST_BUILD
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   COMMENT "Build ISO image and scripts"
 )
+
+copy_config(limine.cfg limine.cfg)
+copy_config(limine.sys limine/limine.sys)
+copy_config(limine-cd.bin limine/limine-cd.bin)
+copy_config(imine-efi.bin limine/limine-cd-efi.bin)
+
+copy_font(system.f08 system.f08)
+copy_font(system.f16 system.f16)
+copy_font(system.f20 system.f20)
+
+file(GLOB basic_program_list ${CMAKE_SOURCE_DIR}/os/programs/*.rrbasic)
+foreach (basic_program ${basic_program_list})
+    get_filename_component(basic_name ${basic_program} NAME)
+    copy_basic(${basic_name} ${basic_name})
+endforeach()
