@@ -78,27 +78,28 @@ unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t
 				return KEY_DEL;
 			break;
 			default:
-				dprintf("Unknown escape seq: %02x", scancode);
+				escaped = 0;
 			break;
 		}
+	}
+	if (escaped) {
+		return 0;
+	}
+	/* Kludge for stupid vnc/qemu keymapping, alt+# for # symbol */
+	if (scancode == 0x04 && alt_state) return '#';
+	if (scancode > 0x53 || keyboard_scan_map_lower[scancode] == 0) {
+		/* Special key */
+		dprintf("Keyboard: Special key %08x not implemented yet\n", scancode);
 		return 0;
 	} else {
-		/* Kludge for stupid vnc/qemu keymapping, alt+# for # symbol */
-		if (scancode == 0x04 && alt_state) return '#';
-		if (scancode > 0x53 || keyboard_scan_map_lower[scancode] == 0) {
-			/* Special key */
-			dprintf("Keyboard: Special key %08x not implemented yet\n", scancode);
-			return 0;
-		} else {
-			if (caps_lock) {
-				char v = (shift_state ? keyboard_scan_map_lower : keyboard_scan_map_upper)[scancode];
-				if ((v < 'a' || v > 'z') && (v < 'A' || v > 'Z')) {
-					v = (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
-				}
-				return v;
-			} else {
-				return (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
+		if (caps_lock) {
+			char v = (shift_state ? keyboard_scan_map_lower : keyboard_scan_map_upper)[scancode];
+			if ((v < 'a' || v > 'z') && (v < 'A' || v > 'Z')) {
+				v = (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
 			}
+			return v;
+		} else {
+			return (shift_state ? keyboard_scan_map_upper : keyboard_scan_map_lower)[scancode];
 		}
 	}
 }
@@ -125,7 +126,7 @@ bool caps_lock_on()
 
 void keyboard_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
 {
-	unsigned char new_scan_code = inb(0x60);
+	uint8_t new_scan_code = inb(0x60);
 
 	if (escaped) {
 		new_scan_code += 256;
