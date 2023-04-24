@@ -32,6 +32,7 @@ RETPROC
 DEF PROCtext
 	CURSOR 1, 2
 	FOR l = top TO top + TERMHEIGHT - 2
+		PRINT CHR$(27) + "[0K";
 		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
 	NEXT
 RETPROC
@@ -83,16 +84,18 @@ DEF PROCup
 RETPROC
 DEF PROCdown
 	currenty = currenty + 1
-	IF currenty > TERMHEIGHT - 2 THEN PROCscrollDown
+	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
 RETPROC
 DEF PROCscrollDown
-	currenty = TERMHEIGHT - 2
+	currenty = TERMHEIGHT - 3
 	top = top + 1
+	PROCtext
 RETPROC
 DEF PROCscrollUp
 	currenty = 0
 	top = top - 1
 	IF top < 0 THEN top = 0
+	PROCtext
 RETPROC
 DEF PROCright
 	currentx = currentx + 1
