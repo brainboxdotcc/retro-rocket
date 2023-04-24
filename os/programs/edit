@@ -1,8 +1,11 @@
+max = 100
+lines = 0
+top = 0
+DIM content$, max
+PROCload(ARGS$)
 PROCdraw
-filecontent$ = FNload$(ARGS$)
-PROCtext(filecontent$)
+PROCtext
 END
-
 DEF PROCdraw
 	CLS
 	BACKGROUND 4
@@ -23,16 +26,28 @@ DEF PROCdraw
 	BACKGROUND 0
 	CURSOR 1, 2
 RETPROC
-
-DEF PROCtext(text$)
-	PRINT text$
+DEF PROCtext
+	CURSOR 1, 2
+	FOR l = top TO top + TERMHEIGHT - 2
+		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
+	NEXT
 RETPROC
-
-DEF FNload$(file$)
+DEF PROCload(file$)
 	FH = OPENIN(file$)
-	V$ = ""
+	IF FH < 0 THEN PROCfail
+	lines = 0
 	REPEAT
-		V$ = V$ + READ$(FH) + CHR$(10)
+		content$(lines) = READ$(FH)
+		lines = lines + 1
+		IF lines = max THEN PROCgrow
 	UNTIL EOF(FH) = 1
 	CLOSE FH
-=V$
+RETPROC
+DEF PROCgrow
+	max = max + 100
+	REDIM content$, max
+RETPROC
+DEF PROCfail
+	PRINT "Could not open file: "; ARGS$
+	END
+RETPROC

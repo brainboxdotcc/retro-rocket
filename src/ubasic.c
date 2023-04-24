@@ -1405,7 +1405,7 @@ static void retproc_statement(struct ubasic_ctx* ctx)
 {
 	accept(RETPROC, ctx);
 	accept(NEWLINE, ctx);
-	if (ctx->fn_type != RT_NONE)  {
+	if (ctx->fn_type != RT_NONE && ctx->fn_type != RT_MAIN)  {
 		tokenizer_error_print(ctx, "Can't RETPROC from a FN");
 		return;
 	}
