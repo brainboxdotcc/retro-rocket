@@ -468,8 +468,8 @@ bool fat32_extend_file(void* f, uint32_t size)
 
 	/* Calculate how many clusters are needed for this size of file */
 	uint32_t size_in_clusters = size / info->clustersize;
-	if (size_in_clusters == 0) {
-		size_in_clusters = 1;
+	while (size_in_clusters * info->clustersize < size) {
+		size_in_clusters++;
 	}
 
 	if (alloc_more) {
@@ -621,8 +621,8 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 
 	/* Calculate how many clusters are needed for this size of file */
 	uint32_t size_in_clusters = size / info->clustersize;
-	if (size_in_clusters == 0) {
-		size_in_clusters = 1;
+	while (size_in_clusters * info->clustersize < size) {
+		size_in_clusters++;
 	}
 
 	/* Allocate cluster chain to cover file length */

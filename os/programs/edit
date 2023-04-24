@@ -68,6 +68,8 @@ DEF PROCprocessKey(in)
 	IF in = 251 THEN PROCdown
 	IF in = 252 THEN PROCleft
 	IF in = 253 THEN PROCright
+	IF in = 249 THEN PROCend
+	IF in = 254 THEN PROChome
 	IF in < 128 THEN PRINT CHR$(in);
 RETPROC
 DEF PROCquit
@@ -100,4 +102,11 @@ RETPROC
 DEF PROCright
 	currentx = currentx + 1
 	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
+RETPROC
+DEF PROCend
+	currentx = LEN(content$(top + currenty))
+	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
+RETPROC
+DEF PROChome
+	currentx = 0
 RETPROC

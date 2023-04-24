@@ -123,13 +123,13 @@ void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
 
 const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 {
-	size_t new_size_max = strlen(program) * 2;
+	size_t new_size_max = strlen(program) * 5;
 	char* newprog = kmalloc(new_size_max);
 	char line_buffer[MAX_STRINGLEN];
 	char* line_ptr = line_buffer;
 	bool insert_line = true, ended = false;
 	*newprog = 0;
-	while (!ended) {
+	while (true) {
 		if (insert_line) {
 			while (*program == '\n') {
 				*line_ptr++ = '\n';
@@ -139,6 +139,9 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 			line += increment;
 			insert_line = false;
 			line_ptr = line_buffer + strlen(line_buffer);
+			if (ended) {
+				break;
+			}
 		}
 		if (*program == '\n' || !*program) {
 			if (!*program) {
@@ -734,7 +737,8 @@ static void proc_statement(struct ubasic_ctx* ctx)
 		}
 		return;
 	}
-	tokenizer_error_print(ctx, "No such PROC");
+	char err[MAX_STRINGLEN];
+	snprintf(err, MAX_STRINGLEN, "No such PROC %s", procname);
 }
 
 bool conditional(struct ubasic_ctx* ctx)

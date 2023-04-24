@@ -109,17 +109,19 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	uint32_t divided_length = bytes / sd->block_size;
 	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
-	if (divided_length == 0) {
-		divided_length = 1;
+	/* ... because integer division rounds DOWN */
+	while (divided_length * sd->block_size < bytes) {
+		divided_length++;
 	}
-	if (divided_length < 16) {
+	size_t max_per_read = AHCI_DEV_SATAPI ? 4 : 16;
+	if (divided_length < max_per_read) {
 		return check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
 	}
 	while (divided_length > 0) {
 		bool r = check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
-		start += divided_length > 16 ? 16 : divided_length;
-		buffer += divided_length > 16 ? 16 * sd->block_size : divided_length * sd->block_size;
-		divided_length -= divided_length > 16 ? 16 : divided_length;
+		start += divided_length > max_per_read ? max_per_read : divided_length;
+		buffer += divided_length > max_per_read ? max_per_read * sd->block_size : divided_length * sd->block_size;
+		divided_length -= divided_length > max_per_read ? max_per_read : divided_length;
 		if (!r) {
 			return false;
 		}
@@ -137,8 +139,8 @@ int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, c
 	uint32_t divided_length = bytes / sd->block_size;
 	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
-	if (divided_length == 0) {
-		divided_length = 1;
+	while (divided_length * sd->block_size < bytes) {
+		divided_length++;
 	}
 	if (divided_length < 16) {
 		return ahci_write(port, start, divided_length, (char*)buffer, abar);
