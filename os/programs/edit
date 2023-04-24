@@ -1,14 +1,19 @@
+REM globals
 max = 100
 lines = 0
 top = 0
 currentx = 0
 currenty = 0
 DIM content$, max
+
+REM load file, draw UI, start editor input loop
 PROCload(ARGS$)
 PROCdraw
 PROCtext
 PROCedit
 END
+
+REM draw UI around editor window
 DEF PROCdraw
 	CLS
 	BACKGROUND 4
@@ -29,6 +34,8 @@ DEF PROCdraw
 	BACKGROUND 0
 	CURSOR 1, 2
 RETPROC
+
+REM display text to editor window
 DEF PROCtext
 	CURSOR 1, 2
 	FOR l = top TO top + TERMHEIGHT - 2
@@ -36,25 +43,40 @@ DEF PROCtext
 		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
 	NEXT
 RETPROC
+
+REM load a file into the array, translating TAB to four spaces
 DEF PROCload(file$)
 	FH = OPENIN(file$)
 	IF FH < 0 THEN PROCfail
 	lines = 0
 	REPEAT
-		content$(lines) = READ$(FH)
+		rawLine$ = READ$(FH)
+		processed$ = ""
+		FOR N = 0 TO LEN(rawLine$)
+			char$ = MID$(rawLine$, N, N+1)
+			IF char$ = CHR$(9) THEN processed$ = processed$ + "    "
+			IF char$ > CHR$(9) THEN processed$ = processed$ + char$
+		NEXT
+		content$(lines) = processed$
 		lines = lines + 1
 		IF lines = max THEN PROCgrow
 	UNTIL EOF(FH) = 1
 	CLOSE FH
 RETPROC
+
+REM increase array used to store text
 DEF PROCgrow
 	max = max + 100
 	REDIM content$, max
 RETPROC
+
+REM error handler
 DEF PROCfail
 	PRINT "Could not open file: "; ARGS$
 	END
 RETPROC
+
+REM handle editor input loop
 DEF PROCedit
 	REPEAT
 		CURSOR currentx + 1, currenty + 2
@@ -62,51 +84,108 @@ DEF PROCedit
 		IF key$ > "" THEN PROCprocessKey(ASC(key$))
 	UNTIL FALSE
 RETPROC
+
+REM handle keypress
 DEF PROCprocessKey(in)
 	IF in = 27 THEN PROCquit
+	IF in = 13 THEN PROCenter
 	IF in = 250 THEN PROCup
 	IF in = 251 THEN PROCdown
 	IF in = 252 THEN PROCleft
 	IF in = 253 THEN PROCright
 	IF in = 249 THEN PROCend
 	IF in = 254 THEN PROChome
+	IF in = 245 THEN PROCpageUp
+	IF in = 246 THEN PROCpageDown
 	IF in < 128 THEN PRINT CHR$(in);
 RETPROC
+
+REM handle escape key
 DEF PROCquit
 	CLS
 	END
 RETPROC
+
+REM handle cursor left key
 DEF PROCleft
 	currentx = currentx - 1
 	IF currentx < 0 THEN currentx = 0
 RETPROC
+
+REM handle cursor up key
 DEF PROCup
 	currenty = currenty - 1
 	IF currenty < 0 THEN PROCscrollUp
 RETPROC
+
+REM handle cursor down key
 DEF PROCdown
 	currenty = currenty + 1
 	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
 RETPROC
+
+REM scroll screen down one line
 DEF PROCscrollDown
 	currenty = TERMHEIGHT - 3
 	top = top + 1
+	IF top > TERMHEIGHT - 2 + lines THEN top = TERMHEIGHT - 2 + lines
 	PROCtext
 RETPROC
+
+REM Scroll screen up one line
 DEF PROCscrollUp
 	currenty = 0
 	top = top - 1
 	IF top < 0 THEN top = 0
 	PROCtext
 RETPROC
+
+REM handle cursor right key
 DEF PROCright
 	currentx = currentx + 1
 	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
 RETPROC
+
+REM handle end key
 DEF PROCend
 	currentx = LEN(content$(top + currenty))
 	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
 RETPROC
+
+REM handle home key
 DEF PROChome
 	currentx = 0
+RETPROC
+
+REM handle page up key
+DEF PROCpageUp
+	top = top - TERMHEIGHT - 2
+	IF top < 0 THEN top = 0
+	PROCtext
+RETPROC
+
+REM handle page down key
+DEF PROCpageDown
+	top = top + TERMHEIGHT - 2
+	IF top > TERMHEIGHT - 2 + lines THEN top = TERMHEIGHT - 2 + lines
+	PROCtext
+RETPROC
+
+REM handle enter key, split line if neccessary
+DEF PROCenter
+	currentLine$ = content$(top + currenty)
+	start$ = MID$(currentLine$, 0, currentx)
+	end$ = MID$(currentLine$, currentx, LEN(currentLine$))
+	content$(top + currenty) = start$
+	REM push lines below down
+	FOR l = lines-1 TO top + currenty STEP 0-1
+		content$(l + 1) = content$(l)
+	NEXT
+	content$(top + currenty + 1) = end$
+	currentx = 0
+	currenty = currenty + 1
+	lines = lines + 1
+	IF lines = max THEN PROCgrow
+	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
+	PROCtext
 RETPROC
