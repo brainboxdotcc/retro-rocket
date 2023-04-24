@@ -71,6 +71,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_getprocname, "GETPROCNAME$" },
 	{ ubasic_ramdisk_from_device, "RAMDISK$" },
 	{ ubasic_ramdisk_from_size, "RAMDISK" },
+	{ ubasic_inkey, "INKEY$" },
 	{ NULL, NULL }
 };
 
@@ -1859,7 +1860,7 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
-	const char* rv = gc_strdup("");
+	const char* rv = "";
 	if (def) {
 		ctx->gosub_stack_ptr++;
 		begin_comma_list(def, ctx);
@@ -2039,7 +2040,7 @@ char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx)
 	PARAMS_END("RAMDISK$");
 	const char* rd = init_ramdisk_from_storage(strval);
 	if (!rd) {
-		return gc_strdup("");
+		return "";
 	}
 	return gc_strdup(rd);
 }
@@ -2054,9 +2055,22 @@ char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx)
 	PARAMS_END("RAMDISK");
 	const char* rd = init_ramdisk(blocks, block_size);
 	if (!rd) {
-		return gc_strdup("");
+		return "";
 	}
 	return gc_strdup(rd);
+}
+
+char* ubasic_inkey(struct ubasic_ctx* ctx)
+{
+	const uint8_t key[2] = { kgetc((console*)ctx->cons), 0 };
+	
+	if (*key == 255) {
+		// hlt stops busy waiting for INKEY$
+		__asm__ volatile("hlt");
+		return "";
+	} else {
+		return gc_strdup((const char*)key);
+	}
 }
 
 char* ubasic_getname(struct ubasic_ctx* ctx)
@@ -2079,7 +2093,7 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 		}
 		fsl = fsl->next;
 	}
-	return gc_strdup("");
+	return "";
 }
 
 int64_t ubasic_getsize(struct ubasic_ctx* ctx)
@@ -2114,7 +2128,7 @@ int64_t ubasic_asc(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("ASC");
-	return *strval;
+	return (unsigned char)*strval;
 }
 
 char* ubasic_chr(struct ubasic_ctx* ctx)

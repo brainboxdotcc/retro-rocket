@@ -48,16 +48,34 @@ unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t
 		switch (scancode) {
 			/* Alt+# or Alt+3 for # symbol, a kludge for vnc/qemu */
 			case 0x48:
-				dprintf("UP");
+				return KEY_UP;
 			break;
 			case 0x50:
-				dprintf("DOWN");
+				return KEY_DOWN;
 			break;
 			case 0x4B:
-				dprintf("LEFT");
+				return KEY_LEFT;
 			break;
 			case 0x4D:
-				dprintf("RIGHT");
+				return KEY_RIGHT;
+			break;
+			case 0x47:
+				return KEY_HOME;
+			break;
+			case 0x4F:
+				return KEY_END;
+			break;
+			case 0x49:
+				return KEY_PAGEUP;
+			break;
+			case 0x51:
+				return KEY_PAGEDOWN;
+			break;
+			case 0x52:
+				return KEY_INS;
+			break;
+			case 0x53:
+				return KEY_DEL;
 			break;
 			default:
 				dprintf("Unknown escape seq: %02x", scancode);
@@ -85,7 +103,25 @@ unsigned char translate_keycode(unsigned char scancode, uint8_t escaped, uint8_t
 	}
 }
 
+bool ctrl_held()
+{
+	return ctrl_state;
+}
 
+bool shift_held()
+{
+	return shift_state;
+}
+
+bool alt_held()
+{
+	return alt_state;
+}
+
+bool caps_lock_on()
+{
+	return caps_lock;
+}
 
 void keyboard_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
 {

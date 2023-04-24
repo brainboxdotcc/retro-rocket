@@ -1,10 +1,13 @@
 max = 100
 lines = 0
 top = 0
+currentx = 0
+currenty = 0
 DIM content$, max
 PROCload(ARGS$)
 PROCdraw
 PROCtext
+PROCedit
 END
 DEF PROCdraw
 	CLS
@@ -15,7 +18,7 @@ DEF PROCdraw
 		PRINT " ";
 	NEXT
 	CURSOR 2, TERMHEIGHT
-	PRINT "^X EXIT"; CHR$(9); "^S SAVE"; CHR$(9); CHR$(9); "^W WHEREIS"; CHR$(9); "^R REPLACE";
+	PRINT "ESC EXIT"; CHR$(9); "^S SAVE"; CHR$(9); CHR$(9); "^W WHEREIS"; CHR$(9); "^R REPLACE";
 	CURSOR 1, 0
 	FOR X = 0 TO TERMWIDTH
 		PRINT " ";
@@ -50,4 +53,48 @@ RETPROC
 DEF PROCfail
 	PRINT "Could not open file: "; ARGS$
 	END
+RETPROC
+DEF PROCedit
+	REPEAT
+		CURSOR currentx + 1, currenty + 2
+		key$ = INKEY$
+		IF key$ > "" THEN PROCprocessKey(ASC(key$))
+	UNTIL FALSE
+RETPROC
+DEF PROCprocessKey(in)
+	IF in = 27 THEN PROCquit
+	IF in = 250 THEN PROCup
+	IF in = 251 THEN PROCdown
+	IF in = 252 THEN PROCleft
+	IF in = 253 THEN PROCright
+	IF in < 128 THEN PRINT CHR$(in);
+RETPROC
+DEF PROCquit
+	CLS
+	END
+RETPROC
+DEF PROCleft
+	currentx = currentx - 1
+	IF currentx < 0 THEN currentx = 0
+RETPROC
+DEF PROCup
+	currenty = currenty - 1
+	IF currenty < 0 THEN PROCscrollUp
+RETPROC
+DEF PROCdown
+	currenty = currenty + 1
+	IF currenty > TERMHEIGHT - 2 THEN PROCscrollDown
+RETPROC
+DEF PROCscrollDown
+	currenty = TERMHEIGHT - 2
+	top = top + 1
+RETPROC
+DEF PROCscrollUp
+	currenty = 0
+	top = top - 1
+	IF top < 0 THEN top = 0
+RETPROC
+DEF PROCright
+	currentx = currentx + 1
+	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
 RETPROC

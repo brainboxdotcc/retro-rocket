@@ -21,6 +21,11 @@ size_t kinput(size_t maxlen, console* cons)
 	}
 
 	switch (cons->last) {
+		case KEY_UP:
+		case KEY_DOWN:
+		case KEY_LEFT:
+		case KEY_RIGHT:
+		break;
 		case '\r':
 			kprintf("\n");
 		break;

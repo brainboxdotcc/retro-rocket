@@ -4,6 +4,9 @@ struct gc_str* gc_list = NULL;
 
 unsigned int strlen(const char* str)
 {
+	if (!str || !*str) {
+		return 0;
+	}
 	unsigned int len = 0;
 	for(; *str; ++str)
 		len++;
