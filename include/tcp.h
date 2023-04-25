@@ -226,6 +226,14 @@ int send(int socket, const void* buffer, uint32_t length);
 int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t timeout);
 
 /**
+ * @brief Returns true if the socket is connected
+ * 
+ * @param socket socket descriptor from connect()
+ * @return true if socket is connected, false if not. This will return false if connect() hasn't succeeded yet.
+ */
+bool is_connected(int socket);
+
+/**
  * @brief Return the error description associated with an error code
  * @note Invalid error codes return the constant "No error".
  * 

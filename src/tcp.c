@@ -1260,6 +1260,17 @@ int closesocket(int socket)
 	return tcp_close(conn);
 }
 
+bool is_connected(int socket)
+{
+	tcp_conn_t* conn = tcp_find_by_fd(socket);
+	if (conn == NULL) {
+		return false;
+	} else if (conn->state != TCP_ESTABLISHED) {
+		return false;
+	}
+	return conn->state == TCP_ESTABLISHED;
+}
+
 int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t timeout)
 {
 	dprintf("recv(): socket=%d blocking=%d\n", socket, blocking);

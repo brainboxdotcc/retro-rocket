@@ -48,6 +48,7 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_get_free_mem, "MEMFREE" },
 	{ ubasic_get_used_mem, "MEMUSED" },
 	{ ubasic_get_total_mem, "MEMORY" },
+	{ ubasic_sockstatus, "SOCKSTATUS" },
 	{ NULL, NULL }
 };
 
@@ -2105,6 +2106,19 @@ char* ubasic_insocket(struct ubasic_ctx* ctx)
 	return "";
 }
 
+int64_t ubasic_sockstatus(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t fd = intval;
+	PARAMS_END("SOCKSTATUS");
+
+	if (fd < 0) {
+		return 0;
+	}
+
+	return is_connected(fd);
+}
 
 char* ubasic_getname(struct ubasic_ctx* ctx)
 {

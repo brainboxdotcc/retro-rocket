@@ -389,7 +389,7 @@ int64_t ubasic_rgb(struct ubasic_ctx* ctx);
 int64_t ubasic_get_free_mem(struct ubasic_ctx* ctx);
 int64_t ubasic_get_used_mem(struct ubasic_ctx* ctx);
 int64_t ubasic_get_total_mem(struct ubasic_ctx* ctx);
-
+int64_t ubasic_sockstatus(struct ubasic_ctx* ctx);
 
 /*
  * Builtin string functions
