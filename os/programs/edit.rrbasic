@@ -200,6 +200,7 @@ RETPROC
 
 REM handle page down key
 DEF PROCpageDown
+	IF top + currenty + TERMHEIGHT - 2 > lines - 1 THEN RETPROC
 	top = top + TERMHEIGHT - 2
 	IF top > TERMHEIGHT - 2 + lines THEN top = TERMHEIGHT - 2 + lines
 	PROCtext
