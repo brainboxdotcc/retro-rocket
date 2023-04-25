@@ -66,6 +66,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_left, "LEFT$" },
 	{ ubasic_mid, "MID$" },
 	{ ubasic_chr, "CHR$" },
+	{ ubasic_insocket, "INSOCKET$" },
 	{ ubasic_readstring, "READ$" },
 	{ ubasic_getname, "GETNAME$" },
 	{ ubasic_getprocname, "GETPROCNAME$" },
@@ -2076,6 +2077,34 @@ char* ubasic_inkey(struct ubasic_ctx* ctx)
 		return gc_strdup((const char*)key);
 	}
 }
+
+char* ubasic_insocket(struct ubasic_ctx* ctx)
+{
+	uint8_t input[2] = { 0, 0 };
+	
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t fd = intval;
+	PARAMS_END("INSOCKET$");
+
+	if (fd < 0) {
+		tokenizer_error_print(ctx, "Invalid socket descriptor");
+		return "";
+	}
+
+	int rv = recv(fd, input, 1, false, 0);
+
+	if (rv > 0) {
+		input[1] = 0;
+		return gc_strdup((const char*)input);
+	} else if (rv < 0) {
+		tokenizer_error_print(ctx, socket_error(rv));
+	} else {
+		__asm__ volatile("hlt");
+	}
+	return "";
+}
+
 
 char* ubasic_getname(struct ubasic_ctx* ctx)
 {
