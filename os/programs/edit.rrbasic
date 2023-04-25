@@ -8,14 +8,14 @@ DIM content$, max
 
 REM load file, draw UI, start editor input loop
 PROCload(ARGS$)
-PROCdraw
+IF ARGS$ = "edit" THEN lines = 1
+CLS
 PROCtext
 PROCedit
 END
 
 REM draw UI around editor window
 DEF PROCdraw
-	CLS
 	BACKGROUND 4
 	COLOUR 15
 	CURSOR 1, TERMHEIGHT
@@ -24,6 +24,8 @@ DEF PROCdraw
 	NEXT
 	CURSOR 2, TERMHEIGHT
 	PRINT "ESC EXIT"; CHR$(9); "^S SAVE"; CHR$(9); CHR$(9); "^W WHEREIS"; CHR$(9); "^R REPLACE";
+	CURSOR TERMWIDTH - 15, TERMHEIGHT
+	PRINT currentx; ","; top + currenty;
 	CURSOR 1, 0
 	FOR X = 0 TO TERMWIDTH
 		PRINT " ";
@@ -35,17 +37,30 @@ DEF PROCdraw
 	CURSOR 1, 2
 RETPROC
 
+DEF PROChideCursor
+	PRINT CHR$(27);"[?25l";
+RETPROC
+
+DEF PROCshowCursor
+	PRINT CHR$(27);"[?25h";
+RETPROC
+
+
 REM display text to editor window
 DEF PROCtext
+	PROChideCursor
+	PROCdraw
 	CURSOR 1, 2
 	FOR l = top TO top + TERMHEIGHT - 2
 		PRINT CHR$(27) + "[0K";
 		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
 	NEXT
+	PROCshowCursor
 RETPROC
 
 REM load a file into the array, translating TAB to four spaces
 DEF PROCload(file$)
+	IF file$ = "edit" THEN RETPROC
 	FH = OPENIN(file$)
 	IF FH < 0 THEN PROCfail
 	lines = 0
@@ -97,7 +112,21 @@ DEF PROCprocessKey(in)
 	IF in = 254 THEN PROChome
 	IF in = 245 THEN PROCpageUp
 	IF in = 246 THEN PROCpageDown
-	IF in < 128 THEN PRINT CHR$(in);
+	IF in = 247 THEN PROCdelete
+	IF in = 8 THEN PROCbackSpace
+	incopy = in
+	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(incopy)
+	cx = LEN(content$(top + currenty))
+	IF currentx > cx THEN currentx = cx
+	IF currenty + top > lines - 1 THEN currenty = lines - top - 1
+RETPROC
+
+DEF PROCinsertChar(i)
+	start$ = MID$(content$(top + currenty), 0, currentx)
+	end$ = MID$(content$(top + currenty), currentx, LEN(content$(top + currenty)))
+	content$(top + currenty) = start$ + CHR$(i) + end$
+	currentx = currentx + 1
+	PROCtext
 RETPROC
 
 REM handle escape key
@@ -110,18 +139,21 @@ REM handle cursor left key
 DEF PROCleft
 	currentx = currentx - 1
 	IF currentx < 0 THEN currentx = 0
+	PROCtext
 RETPROC
 
 REM handle cursor up key
 DEF PROCup
 	currenty = currenty - 1
 	IF currenty < 0 THEN PROCscrollUp
+	PROCtext
 RETPROC
 
 REM handle cursor down key
 DEF PROCdown
 	currenty = currenty + 1
 	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
+	PROCtext
 RETPROC
 
 REM scroll screen down one line
@@ -137,24 +169,26 @@ DEF PROCscrollUp
 	currenty = 0
 	top = top - 1
 	IF top < 0 THEN top = 0
-	PROCtext
 RETPROC
 
 REM handle cursor right key
 DEF PROCright
 	currentx = currentx + 1
 	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
+	PROCtext
 RETPROC
 
 REM handle end key
 DEF PROCend
 	currentx = LEN(content$(top + currenty))
 	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
+	PROCtext
 RETPROC
 
 REM handle home key
 DEF PROChome
 	currentx = 0
+	PROCtext
 RETPROC
 
 REM handle page up key
@@ -188,4 +222,56 @@ DEF PROCenter
 	IF lines = max THEN PROCgrow
 	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
 	PROCtext
+RETPROC
+
+REM handle delete key, join line if neccessary
+DEF PROCdelete
+	currentLine$ = content$(top + currenty)
+	len = LEN(currentLine$)
+	IF currentx > len - 1 THEN PROCjoin
+	IF currentx < len THEN PROCdeleteRight
+	PROCtext
+RETPROC
+
+DEF PROCbackSpace
+	cx = currentx
+	IF cx = 0 THEN PROCjoinAbove
+	IF cx > 0 THEN PROCdeleteLeft
+	PROCtext
+RETPROC
+
+DEF PROCdeleteLeft
+	start$ = MID$(content$(top + currenty), 0, currentx - 1)
+	end$ = MID$(content$(top + currenty), currentx, LEN(content$(top + currenty)))
+	content$(top + currenty) = start$ + end$
+	currentx = currentx - 1
+RETPROC
+
+DEF PROCdeleteRight
+	start$ = MID$(content$(top + currenty), 0, currentx)
+	end$ = MID$(content$(top + currenty), currentx + 1, LEN(content$(top + currenty)))
+	content$(top + currenty) = start$ + end$
+RETPROC
+
+DEF PROCjoin
+	IF currenty = lines - 1 THEN RETPROC
+	content$(top + currenty) = content$(top + currenty) + content$(top + currenty + 1)
+	FOR l = top + currenty + 1 TO lines - 1
+		content$(l) = content$(l + 1)
+	NEXT
+	content$(lines - 1) = ""
+	lines = lines - 1
+RETPROC
+
+DEF PROCjoinAbove
+	IF currenty = 0 THEN RETPROC
+	newcurrentx = LEN(content$(top + currenty - 1))
+	content$(top + currenty - 1) = content$(top + currenty - 1) + content$(top + currenty)
+	FOR l = top + currenty TO lines - 1
+		content$(l) = content$(l + 1)
+	NEXT
+	content$(lines - 1) = ""
+	currentx = newcurrentx
+	currenty = currenty - 1
+	lines = lines - 1
 RETPROC
