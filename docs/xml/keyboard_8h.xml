@@ -245,6 +245,100 @@
         </childnode>
       </node>
     </invincdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0b" prot="public" static="no" strong="no">
+        <type></type>
+        <name>extended_key_t</name>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba5d9c9ba1d8f2c6f6737db37d3f449071" prot="public">
+          <name>KEY_PAGEUP</name>
+          <initializer>= 245</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba5996c34d86df2b3c1be741aeb35bdbc4" prot="public">
+          <name>KEY_PAGEDOWN</name>
+          <initializer>= 246</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba5adcbb7ea7c9c7405c50fe2a3e7c2629" prot="public">
+          <name>KEY_DEL</name>
+          <initializer>= 247</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba2eb57cc422cad9808960658c9ebc987a" prot="public">
+          <name>KEY_INS</name>
+          <initializer>= 248</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0baa8adb6fcb92dec58fb19410eacfdd403" prot="public">
+          <name>KEY_END</name>
+          <initializer>= 249</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba0848a442d907968b211b97bc2bd88acd" prot="public">
+          <name>KEY_UP</name>
+          <initializer>= 250</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0baa9cdac7967bf7d88fdb761138a2a3416" prot="public">
+          <name>KEY_DOWN</name>
+          <initializer>= 251</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba612120b69c7dfd46086db7aaebdbcf65" prot="public">
+          <name>KEY_LEFT</name>
+          <initializer>= 252</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba6504370d9c6391e1a9da6a1a529b089d" prot="public">
+          <name>KEY_RIGHT</name>
+          <initializer>= 253</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0bad5b83418c285e43af5d3a87b4d4049d7" prot="public">
+          <name>KEY_HOME</name>
+          <initializer>= 254</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Extended keys. BASIC reports these keypresses directly via INKEY$. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="12" column="1" bodyfile="include/keyboard.h" bodystart="12" bodyend="23"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="keyboard_8h_1ac3a72156d4bbba013e4d62801992794d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -252,12 +346,13 @@
         <argsstring>()</argsstring>
         <name>init_keyboard</name>
         <briefdescription>
+<para>Claim keyboard interrupt. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="9" column="6" declfile="include/keyboard.h" declline="9" declcolumn="6"/>
+        <location file="include/keyboard.h" line="28" column="6" declfile="include/keyboard.h" declline="28" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="keyboard_8h_1af186c1d48613bd858b7f774e5bd47935" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned char</type>
@@ -269,12 +364,93 @@
           <declname>cons</declname>
         </param>
         <briefdescription>
+<para>Returns next key in circular buffer, or 255 if no key available. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cons</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current console </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>unsigned char key from circular buffer </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="10" column="15" declfile="include/keyboard.h" declline="10" declcolumn="15"/>
+        <location file="include/keyboard.h" line="36" column="15" declfile="include/keyboard.h" declline="36" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8h_1afdb02475d45b894eb5ec2a57b4100eea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ctrl_held</definition>
+        <argsstring>()</argsstring>
+        <name>ctrl_held</name>
+        <briefdescription>
+<para>Returns true if the CTRL key is held down. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if CTRL key held </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="43" column="6" declfile="include/keyboard.h" declline="43" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8h_1a91e9663f1e43e4aca8439739c3b10c69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool shift_held</definition>
+        <argsstring>()</argsstring>
+        <name>shift_held</name>
+        <briefdescription>
+<para>Returns true if the SHIFT key is held down. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if SHIFT key held </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="50" column="6" declfile="include/keyboard.h" declline="50" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8h_1ac7d5ba52d15d8a0066ee06b39399411f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool alt_held</definition>
+        <argsstring>()</argsstring>
+        <name>alt_held</name>
+        <briefdescription>
+<para>Returns true if the ALT key is held down. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if ALT key held </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="57" column="6" declfile="include/keyboard.h" declline="57" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8h_1af491f52ce63929279d3733c13ba771d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool caps_lock_on</definition>
+        <argsstring>()</argsstring>
+        <name>caps_lock_on</name>
+        <briefdescription>
+<para>Returns true if the CAPS LOCK key is enganged. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if CAPS LOCK is on </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="64" column="6" declfile="include/keyboard.h" declline="64" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

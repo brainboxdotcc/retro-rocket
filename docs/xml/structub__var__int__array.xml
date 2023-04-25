@@ -4,9 +4,9 @@
     <compoundname>ub_var_int_array</compoundname>
     <includes local="no">ubasic.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structub__var__int__array_1abae9007289baa96f76c8382bf51505a1" prot="public" static="no" mutable="no">
-        <type>char *</type>
-        <definition>char* ub_var_int_array::varname</definition>
+      <memberdef kind="variable" id="structub__var__int__array_1ab345e14192c5b3d869af33f5c791cecf" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ub_var_int_array::varname</definition>
         <argsstring></argsstring>
         <name>varname</name>
         <briefdescription>
@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="79" column="6" bodyfile="include/ubasic.h" bodystart="79" bodyend="-1"/>
+        <location file="include/ubasic.h" line="128" column="12" bodyfile="include/ubasic.h" bodystart="128" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structub__var__int__array_1a7eb1cf6fda97af4bccfb62d8bace1c68" prot="public" static="no" mutable="no">
-        <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
-        <definition>struct ub_var_int* ub_var_int_array::values</definition>
+      <memberdef kind="variable" id="structub__var__int__array_1a9e76aa2d852b35b2f4d72555588cfc38" prot="public" static="no" mutable="no">
+        <type>int64_t *</type>
+        <definition>int64_t* ub_var_int_array::values</definition>
         <argsstring></argsstring>
         <name>values</name>
         <briefdescription>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="80" column="18" bodyfile="include/ubasic.h" bodystart="80" bodyend="-1"/>
+        <location file="include/ubasic.h" line="129" column="9" bodyfile="include/ubasic.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__int__array_1a1d2adba640f45f6a1c64554bd58b14d6" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -41,48 +41,46 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="81" column="10" bodyfile="include/ubasic.h" bodystart="81" bodyend="-1"/>
+        <location file="include/ubasic.h" line="130" column="10" bodyfile="include/ubasic.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__var__int__array_1a9fb370c37cad3ae89ab6814b37a443dd" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__var__int__array" kindref="compound">ub_var_int_array</ref> *</type>
+        <definition>struct ub_var_int_array* ub_var_int_array::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="131" column="24" bodyfile="include/ubasic.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>An array of integers. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="6">
-        <label>uint64_t</label>
-      </node>
       <node id="2">
-        <label>ub_var_int</label>
-        <link refid="structub__var__int"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>varname</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>value</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>global</edgelabel>
-        </childnode>
+        <label>uint64_t</label>
       </node>
       <node id="1">
         <label>ub_var_int_array</label>
         <link refid="structub__var__int__array"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>values</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
-      </node>
-      <node id="5">
-        <label>bool</label>
+        <childnode refid="4" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
       </node>
       <node id="4">
         <label>int64_t</label>
@@ -91,11 +89,12 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="78" column="1" bodyfile="include/ubasic.h" bodystart="78" bodyend="82"/>
+    <location file="include/ubasic.h" line="127" column="1" bodyfile="include/ubasic.h" bodystart="127" bodyend="132"/>
     <listofallmembers>
       <member refid="structub__var__int__array_1a1d2adba640f45f6a1c64554bd58b14d6" prot="public" virt="non-virtual"><scope>ub_var_int_array</scope><name>itemcount</name></member>
-      <member refid="structub__var__int__array_1a7eb1cf6fda97af4bccfb62d8bace1c68" prot="public" virt="non-virtual"><scope>ub_var_int_array</scope><name>values</name></member>
-      <member refid="structub__var__int__array_1abae9007289baa96f76c8382bf51505a1" prot="public" virt="non-virtual"><scope>ub_var_int_array</scope><name>varname</name></member>
+      <member refid="structub__var__int__array_1a9fb370c37cad3ae89ab6814b37a443dd" prot="public" virt="non-virtual"><scope>ub_var_int_array</scope><name>next</name></member>
+      <member refid="structub__var__int__array_1a9e76aa2d852b35b2f4d72555588cfc38" prot="public" virt="non-virtual"><scope>ub_var_int_array</scope><name>values</name></member>
+      <member refid="structub__var__int__array_1ab345e14192c5b3d869af33f5c791cecf" prot="public" virt="non-virtual"><scope>ub_var_int_array</scope><name>varname</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

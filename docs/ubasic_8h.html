@@ -94,54 +94,102 @@ $(document).ready(function(){initNavTree('ubasic_8h.html',''); initResizable(); 
 <div class="title">ubasic.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Retro Rocket BASIC interpreter.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfor__state.html">for_state</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">State for a FOR...NEXT loop.  <a href="structfor__state.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int.html">ub_var_int</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An integer variable.  <a href="structub__var__int.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__double.html">ub_var_double</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A real (double) variable.  <a href="structub__var__double.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string.html">ub_var_string</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A string variable.  <a href="structub__var__string.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__param.html">ub_param</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FN/PROC parameter.  <a href="structub__param.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__proc__fn__def.html">ub_proc_fn_def</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Procedure or function definition Each has a name, a type, a starting line and a parameter list.  <a href="structub__proc__fn__def.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int__array.html">ub_var_int_array</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of integers.  <a href="structub__var__int__array.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string__array.html">ub_var_string_array</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of strings.  <a href="structub__var__string__array.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__double__array.html">ub_var_double_array</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of real (double)  <a href="structub__var__double__array.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__line__ref.html">ub_line_ref</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line reference in program. Each program has a doubly linked list of these, stored in ascending order. Once we iterate the list past the search number we know we don't have to search any further.  <a href="structub__line__ref.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__ctx.html">ubasic_ctx</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">BASIC program context Every instance of a BASIC program has one of these, also certain structures such as procedures will clone the context and run on the clone until the procedure completes. Cloned contexts share variables and you should never call <a class="el" href="ubasic_8h.html#a21e82eb492a50cc82cbfac248d6b4785">ubasic_destroy()</a> on them!  <a href="structubasic__ctx.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__int__fn.html">ubasic_int_fn</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin integer function.  <a href="structubasic__int__fn.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__double__fn.html">ubasic_double_fn</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin real (double) function.  <a href="structubasic__double__fn.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structubasic__str__fn.html">ubasic_str_fn</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin string function.  <a href="structubasic__str__fn.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a90bf9480b781825abfeb3f500d75531c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a90bf9480b781825abfeb3f500d75531c">MAX_STRINGLEN</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:a90bf9480b781825abfeb3f500d75531c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length of a string variable.  <a href="ubasic_8h.html#a90bf9480b781825abfeb3f500d75531c">More...</a><br /></td></tr>
 <tr class="separator:a90bf9480b781825abfeb3f500d75531c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab086f9d28e5039a26d7fa99afa82fac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#aab086f9d28e5039a26d7fa99afa82fac">MAX_GOSUB_STACK_DEPTH</a>&#160;&#160;&#160;255</td></tr>
-<tr class="separator:aab086f9d28e5039a26d7fa99afa82fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd61ad878c267312a7dfe05d09a67850"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#afd61ad878c267312a7dfe05d09a67850">MAX_FOR_STACK_DEPTH</a>&#160;&#160;&#160;50</td></tr>
-<tr class="separator:afd61ad878c267312a7dfe05d09a67850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36568dfcd0f5dfaaeebb51d3c9aeb303"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>&#160;&#160;&#160;255</td></tr>
+<tr class="memdesc:a36568dfcd0f5dfaaeebb51d3c9aeb303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum stack depth of GOSUB, PROC, FN.  <a href="ubasic_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">More...</a><br /></td></tr>
+<tr class="separator:a36568dfcd0f5dfaaeebb51d3c9aeb303"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad70e9ba1e1b2bbdb011ab487c2cb353d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">MAX_LOOP_STACK_DEPTH</a>&#160;&#160;&#160;255</td></tr>
+<tr class="memdesc:ad70e9ba1e1b2bbdb011ab487c2cb353d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum stack depth of FOR...NEXT.  <a href="ubasic_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">More...</a><br /></td></tr>
+<tr class="separator:ad70e9ba1e1b2bbdb011ab487c2cb353d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d28f33b55479f791aed387d6cc2dd75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a1d28f33b55479f791aed387d6cc2dd75">EVAL_LINE</a>&#160;&#160;&#160;999999998</td></tr>
+<tr class="memdesc:a1d28f33b55479f791aed387d6cc2dd75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specil line number where EVAL code is inserted dynamically.  <a href="ubasic_8h.html#a1d28f33b55479f791aed387d6cc2dd75">More...</a><br /></td></tr>
+<tr class="separator:a1d28f33b55479f791aed387d6cc2dd75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed46a4c9764a1d0bb5501f0a2a4b4b51"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#aed46a4c9764a1d0bb5501f0a2a4b4b51">EVAL_END_LINE</a>&#160;&#160;&#160;999999999</td></tr>
+<tr class="memdesc:aed46a4c9764a1d0bb5501f0a2a4b4b51"><td class="mdescLeft">&#160;</td><td class="mdescRight">RETURN statement after EVAL code.  <a href="ubasic_8h.html#aed46a4c9764a1d0bb5501f0a2a4b4b51">More...</a><br /></td></tr>
+<tr class="separator:aed46a4c9764a1d0bb5501f0a2a4b4b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a4dcaa2bd546946fb376aac316a19a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2a4dcaa2bd546946fb376aac316a19a0">AUX</a>(x)&#160;&#160;&#160;#x</td></tr>
+<tr class="separator:a2a4dcaa2bd546946fb376aac316a19a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df1d22fb5f09eccc23b9f399670cfd7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a6df1d22fb5f09eccc23b9f399670cfd7">STRINGIFY</a>(x)&#160;&#160;&#160;<a class="el" href="ubasic_8h.html#a2a4dcaa2bd546946fb376aac316a19a0">AUX</a>(x)</td></tr>
+<tr class="separator:a6df1d22fb5f09eccc23b9f399670cfd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a191803ac954f2ded69217a0e864e2af7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a191803ac954f2ded69217a0e864e2af7">BIP_STRING</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a191803ac954f2ded69217a0e864e2af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0436fd63cfd2d23d40c9fd8c7b68b8d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a0436fd63cfd2d23d40c9fd8c7b68b8d5">BIP_INT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a0436fd63cfd2d23d40c9fd8c7b68b8d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d82ccf15b505bc8ce28ba1bd7a7f5a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2d82ccf15b505bc8ce28ba1bd7a7f5a5">BIP_DOUBLE</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a2d82ccf15b505bc8ce28ba1bd7a7f5a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2a689c60d5146f9e0fe59050f5227b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#adc2a689c60d5146f9e0fe59050f5227b">PARAMS_START</a></td></tr>
+<tr class="memdesc:adc2a689c60d5146f9e0fe59050f5227b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin parsing function parameters.  <a href="ubasic_8h.html#adc2a689c60d5146f9e0fe59050f5227b">More...</a><br /></td></tr>
+<tr class="separator:adc2a689c60d5146f9e0fe59050f5227b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a18e363a2e01dbde04f5098ff9ec26b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2a18e363a2e01dbde04f5098ff9ec26b">PARAMS_GET_ITEM</a>(<a class="el" href="icmp_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a>)</td></tr>
+<tr class="memdesc:a2a18e363a2e01dbde04f5098ff9ec26b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a function parameter of type.  <a href="ubasic_8h.html#a2a18e363a2e01dbde04f5098ff9ec26b">More...</a><br /></td></tr>
+<tr class="separator:a2a18e363a2e01dbde04f5098ff9ec26b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a2274a78543b9de385959508de7225e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a9a2274a78543b9de385959508de7225e">PARAMS_END</a>(NAME)</td></tr>
+<tr class="memdesc:a9a2274a78543b9de385959508de7225e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends fetching of function parameters, throwing an error if parameters still remain.  <a href="ubasic_8h.html#a9a2274a78543b9de385959508de7225e">More...</a><br /></td></tr>
+<tr class="separator:a9a2274a78543b9de385959508de7225e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a59c9cd726acfbe69d8df60ab2b2d0607"><td class="memItemLeft" align="right" valign="top">typedef int64_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a59c9cd726acfbe69d8df60ab2b2d0607">builtin_int_fn</a>) (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a59c9cd726acfbe69d8df60ab2b2d0607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer function signature.  <a href="ubasic_8h.html#a59c9cd726acfbe69d8df60ab2b2d0607">More...</a><br /></td></tr>
 <tr class="separator:a59c9cd726acfbe69d8df60ab2b2d0607"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32fb15d1935e217117fd02b2f319bb93"><td class="memItemLeft" align="right" valign="top">typedef char *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a32fb15d1935e217117fd02b2f319bb93">builtin_str_fn</a>) (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a32fb15d1935e217117fd02b2f319bb93"><td class="mdescLeft">&#160;</td><td class="mdescRight">String function signature.  <a href="ubasic_8h.html#a32fb15d1935e217117fd02b2f319bb93">More...</a><br /></td></tr>
 <tr class="separator:a32fb15d1935e217117fd02b2f319bb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adccc7c01a1bb1d7cca42e285830ce6a6"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#adccc7c01a1bb1d7cca42e285830ce6a6">builtin_double_fn</a>) (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
+<tr class="memdesc:adccc7c01a1bb1d7cca42e285830ce6a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real (double) function signature.  <a href="ubasic_8h.html#adccc7c01a1bb1d7cca42e285830ce6a6">More...</a><br /></td></tr>
 <tr class="separator:adccc7c01a1bb1d7cca42e285830ce6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -149,15 +197,28 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a65231902c1f22532519da8a1c01ba53e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a65231902c1f22532519da8a1c01ba53e">ub_fn_type</a> { <a class="el" href="ubasic_8h.html#a65231902c1f22532519da8a1c01ba53eac71ea04245e41b2d6b8e533fcc74c659">FT_FN</a>
 , <a class="el" href="ubasic_8h.html#a65231902c1f22532519da8a1c01ba53ead53af2599d572a45176f7076ae759bd6">FT_PROC</a>
  }</td></tr>
+<tr class="memdesc:a65231902c1f22532519da8a1c01ba53e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function or procedure.  <a href="ubasic_8h.html#a65231902c1f22532519da8a1c01ba53e">More...</a><br /></td></tr>
 <tr class="separator:a65231902c1f22532519da8a1c01ba53e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2279cec37b8a81d5f18e78d7335b1966"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a> { <a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268">RT_STRING</a>
+<tr class="memitem:a2279cec37b8a81d5f18e78d7335b1966"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a> { <br />
+&#160;&#160;<a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966a3b89ef745ac9a8ac746aff719e609758">RT_MAIN</a>
+, <a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966af6a45e9ab07167656b5d6509a8cc0a26">RT_NONE</a>
+, <a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268">RT_STRING</a>
 , <a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966a8748e4019711d7c401d6ed2b1568717d">RT_INT</a>
-, <a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966af84eb2d6bedef8785a996abbec035e87">RT_FLOAT</a>
+, <br />
+&#160;&#160;<a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966af84eb2d6bedef8785a996abbec035e87">RT_FLOAT</a>
+<br />
  }</td></tr>
+<tr class="memdesc:a2279cec37b8a81d5f18e78d7335b1966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return type of FN, PROC.  <a href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966">More...</a><br /></td></tr>
 <tr class="separator:a2279cec37b8a81d5f18e78d7335b1966"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a9e892389dc272853d51b1bbbb49f4411"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a9e892389dc272853d51b1bbbb49f4411">valid_int_var</a> (const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="separator:a9e892389dc272853d51b1bbbb49f4411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad783607ef9114bb476aec066a2d5e5eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ad783607ef9114bb476aec066a2d5e5eb">valid_string_var</a> (const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="separator:ad783607ef9114bb476aec066a2d5e5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af12fcb4c5efc346a3a296505dce0a74f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#af12fcb4c5efc346a3a296505dce0a74f">valid_double_var</a> (const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="separator:af12fcb4c5efc346a3a296505dce0a74f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94cc5f368eb6a4a51959aa9af71c2727"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a94cc5f368eb6a4a51959aa9af71c2727">ubasic_abs</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a94cc5f368eb6a4a51959aa9af71c2727"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcce1bf8e1bb7d43f778c2a3b178c38f"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#adcce1bf8e1bb7d43f778c2a3b178c38f">ubasic_len</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
@@ -184,6 +245,26 @@ Functions</h2></td></tr>
 <tr class="separator:adc4d0576a6912532c43369e389419cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fd7bcca385683c102ac5cffc45f5898"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a9fd7bcca385683c102ac5cffc45f5898">ubasic_get_text_max_y</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a9fd7bcca385683c102ac5cffc45f5898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7c18925902c35809a4ae24b5787780c"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ad7c18925902c35809a4ae24b5787780c">ubasic_get_text_cur_x</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ad7c18925902c35809a4ae24b5787780c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fe0a2bf952bc71fc3b09badeeb540dc"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a1fe0a2bf952bc71fc3b09badeeb540dc">ubasic_get_text_cur_y</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a1fe0a2bf952bc71fc3b09badeeb540dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b993cc07b1f0d7deb322edc1578fdf5"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a3b993cc07b1f0d7deb322edc1578fdf5">ubasic_getproccount</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a3b993cc07b1f0d7deb322edc1578fdf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b9bd6cdb5c5e3cb2d94830df2354c0"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a28b9bd6cdb5c5e3cb2d94830df2354c0">ubasic_getprocid</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a28b9bd6cdb5c5e3cb2d94830df2354c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0448532249db3ce85c3134e92fd5903d"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a0448532249db3ce85c3134e92fd5903d">ubasic_getprocparent</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a0448532249db3ce85c3134e92fd5903d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47f7d009dcfc6df8674a01bc55e47652"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a47f7d009dcfc6df8674a01bc55e47652">ubasic_getproccpuid</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a47f7d009dcfc6df8674a01bc55e47652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a773791be71cc0db044c07e3d39290e0f"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a773791be71cc0db044c07e3d39290e0f">ubasic_rgb</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a773791be71cc0db044c07e3d39290e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462ab4f978e27131b28689795e3a7809"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a462ab4f978e27131b28689795e3a7809">ubasic_get_free_mem</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a462ab4f978e27131b28689795e3a7809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b4ab01042f261fd3d5b33e70564362a"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2b4ab01042f261fd3d5b33e70564362a">ubasic_get_used_mem</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a2b4ab01042f261fd3d5b33e70564362a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a167c9064a24dd6810927007a72c05ae7"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a167c9064a24dd6810927007a72c05ae7">ubasic_get_total_mem</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a167c9064a24dd6810927007a72c05ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a660422bd3c0e07831ab9a20bfd94db7b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a660422bd3c0e07831ab9a20bfd94db7b">ubasic_netinfo</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a660422bd3c0e07831ab9a20bfd94db7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5559407d22fff10ff141837c7b094fb0"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a5559407d22fff10ff141837c7b094fb0">ubasic_left</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
@@ -196,64 +277,16 @@ Functions</h2></td></tr>
 <tr class="separator:a5fad97e282aa0b13b8776eeeb505315c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a628557296864cfb7a5a9a8ab38cce2b5"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a628557296864cfb7a5a9a8ab38cce2b5">ubasic_getname</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a628557296864cfb7a5a9a8ab38cce2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35b7dedd50cfc30346ac4881430b531b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a35b7dedd50cfc30346ac4881430b531b">ubasic_init</a> (const char *program, <a class="el" href="structconsole.html">console</a> *cons, uint32_t pid, const char *file, char **<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
-<tr class="separator:a35b7dedd50cfc30346ac4881430b531b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21e82eb492a50cc82cbfac248d6b4785"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a21e82eb492a50cc82cbfac248d6b4785">ubasic_destroy</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a21e82eb492a50cc82cbfac248d6b4785"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00ac2759ea41ff03f3e994f35f6bc03a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a00ac2759ea41ff03f3e994f35f6bc03a">ubasic_run</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a00ac2759ea41ff03f3e994f35f6bc03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2dfc2340f033d44a00993bfe4bf9c80"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ae2dfc2340f033d44a00993bfe4bf9c80">ubasic_finished</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:ae2dfc2340f033d44a00993bfe4bf9c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb8eb6e0aa9c7606623fc241b99760be"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#adb8eb6e0aa9c7606623fc241b99760be">ubasic_get_int_variable</a> (const char *varname, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:adb8eb6e0aa9c7606623fc241b99760be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fea34db30fac3281466a93c55078c06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2fea34db30fac3281466a93c55078c06">ubasic_get_double_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="separator:a2fea34db30fac3281466a93c55078c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ac55179aa9a0176f342a67638608cf6"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a9ac55179aa9a0176f342a67638608cf6">ubasic_get_string_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a9ac55179aa9a0176f342a67638608cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dab8199fb7b2e99f20e8d8432b69b81"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a5dab8199fb7b2e99f20e8d8432b69b81">ubasic_set_variable</a> (const char *varname, const char *value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a5dab8199fb7b2e99f20e8d8432b69b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcb910d7d9652ff94b305c3a8c398882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#afcb910d7d9652ff94b305c3a8c398882">jump_linenum</a> (int64_t linenum, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:afcb910d7d9652ff94b305c3a8c398882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7913e05cee9dd3d85bc859e06af69f60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a7913e05cee9dd3d85bc859e06af69f60">ubasic_set_string_variable</a> (const char *var, const char *value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, bool local, bool global)</td></tr>
-<tr class="separator:a7913e05cee9dd3d85bc859e06af69f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a387c29c224dd166b6bea4add9897522e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a387c29c224dd166b6bea4add9897522e">ubasic_set_double_variable</a> (const char *var, const double value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, bool local, bool global)</td></tr>
-<tr class="separator:a387c29c224dd166b6bea4add9897522e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d554a1fcd609a257c2f842a08ac05ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a6d554a1fcd609a257c2f842a08ac05ea">ubasic_set_int_variable</a> (const char *var, int64_t value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, bool local, bool global)</td></tr>
-<tr class="separator:a6d554a1fcd609a257c2f842a08ac05ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeba4a7a47c9691fe982cfb3bcd98534b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#aeba4a7a47c9691fe982cfb3bcd98534b">ubasic_set_array_variable</a> (const char *var, int64_t value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, bool local)</td></tr>
-<tr class="separator:aeba4a7a47c9691fe982cfb3bcd98534b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3c28214a6d26d3373d8ed9f1d5276a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#af3c28214a6d26d3373d8ed9f1d5276a8">ubasic_get_numeric_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="separator:af3c28214a6d26d3373d8ed9f1d5276a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a384d812b87f1117d47fe61d413b6763b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a384d812b87f1117d47fe61d413b6763b">ubasic_get_numeric_int_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a384d812b87f1117d47fe61d413b6763b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a934280027312e986008618e74b82782e"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a934280027312e986008618e74b82782e">expr</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a934280027312e986008618e74b82782e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e46aaf021f5d93d251df94cbe164e91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a1e46aaf021f5d93d251df94cbe164e91">double_expr</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="separator:a1e46aaf021f5d93d251df94cbe164e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84e680982e0290ec61df8b84dca64588"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a84e680982e0290ec61df8b84dca64588">line_statement</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a84e680982e0290ec61df8b84dca64588"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2034463854d3258a38238de07f3049fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2034463854d3258a38238de07f3049fb">statement</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a2034463854d3258a38238de07f3049fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f32d6049526ddd7e979e741ba73053e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a5f32d6049526ddd7e979e741ba73053e">str_expr</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a5f32d6049526ddd7e979e741ba73053e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af865ac3ed5536e2dc99cfbb4d902ae4a"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#af865ac3ed5536e2dc99cfbb4d902ae4a">str_varfactor</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:af865ac3ed5536e2dc99cfbb4d902ae4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ce4459f3701be5c97c7f9908bf0c259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a6ce4459f3701be5c97c7f9908bf0c259">ubasic_parse_fn</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a6ce4459f3701be5c97c7f9908bf0c259"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b993cc07b1f0d7deb322edc1578fdf5"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a3b993cc07b1f0d7deb322edc1578fdf5">ubasic_getproccount</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a3b993cc07b1f0d7deb322edc1578fdf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28b9bd6cdb5c5e3cb2d94830df2354c0"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a28b9bd6cdb5c5e3cb2d94830df2354c0">ubasic_getprocid</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a28b9bd6cdb5c5e3cb2d94830df2354c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6905e50078318caf5db72a91748c697"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ad6905e50078318caf5db72a91748c697">ubasic_getprocname</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
 <tr class="separator:ad6905e50078318caf5db72a91748c697"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63d3193d934771514392dcd19b13fe32"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a63d3193d934771514392dcd19b13fe32">ubasic_dns</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a63d3193d934771514392dcd19b13fe32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a773791be71cc0db044c07e3d39290e0f"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a773791be71cc0db044c07e3d39290e0f">ubasic_rgb</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a773791be71cc0db044c07e3d39290e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ce0ab5acfae5031b62200a2f6bf97f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a5ce0ab5acfae5031b62200a2f6bf97f5">ubasic_eval_double_fn</a> (const char *fn_name, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
-<tr class="separator:a5ce0ab5acfae5031b62200a2f6bf97f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4865c0eb38ab199e7adca32b4c777385"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a4865c0eb38ab199e7adca32b4c777385">ubasic_test_string_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a4865c0eb38ab199e7adca32b4c777385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd2949249723baac22db2449ccc05d0c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#acd2949249723baac22db2449ccc05d0c">ubasic_ramdisk_from_device</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:acd2949249723baac22db2449ccc05d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a221e39127dcc2f13c7828843c534b6"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a7a221e39127dcc2f13c7828843c534b6">ubasic_ramdisk_from_size</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a7a221e39127dcc2f13c7828843c534b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad2a298566403ea6e945e74753490a72"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#aad2a298566403ea6e945e74753490a72">ubasic_inkey</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:aad2a298566403ea6e945e74753490a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05da1e347cfc8fbe0098c51316ed2640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a05da1e347cfc8fbe0098c51316ed2640">ubasic_sin</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
 <tr class="separator:a05da1e347cfc8fbe0098c51316ed2640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8146f852198c2a7936d9e6088ac0dfd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a8146f852198c2a7936d9e6088ac0dfd3">ubasic_cos</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
@@ -262,46 +295,222 @@ Functions</h2></td></tr>
 <tr class="separator:a7b786c07e1ca434cd8e5942bc74e4497"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad79849ce5ab570769fddacecced88c70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ad79849ce5ab570769fddacecced88c70">ubasic_pow</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
 <tr class="separator:ad79849ce5ab570769fddacecced88c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac569cb0c5dcad1f65f0eb87849978161"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ac569cb0c5dcad1f65f0eb87849978161">str_relation</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:ac569cb0c5dcad1f65f0eb87849978161"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5da3876b5bfc761a6407ac2020521e0f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a5da3876b5bfc761a6407ac2020521e0f">relation</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a5da3876b5bfc761a6407ac2020521e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b7dedd50cfc30346ac4881430b531b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a35b7dedd50cfc30346ac4881430b531b">ubasic_init</a> (const char *program, <a class="el" href="structconsole.html">console</a> *cons, uint32_t pid, const char *file, char **<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
+<tr class="separator:a35b7dedd50cfc30346ac4881430b531b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21e82eb492a50cc82cbfac248d6b4785"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a21e82eb492a50cc82cbfac248d6b4785">ubasic_destroy</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a21e82eb492a50cc82cbfac248d6b4785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00ac2759ea41ff03f3e994f35f6bc03a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a00ac2759ea41ff03f3e994f35f6bc03a">ubasic_run</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a00ac2759ea41ff03f3e994f35f6bc03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3896bfc03a8659a518d9fa133705b57a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a3896bfc03a8659a518d9fa133705b57a">ubasic_finished</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a3896bfc03a8659a518d9fa133705b57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcb910d7d9652ff94b305c3a8c398882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#afcb910d7d9652ff94b305c3a8c398882">jump_linenum</a> (int64_t linenum, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:afcb910d7d9652ff94b305c3a8c398882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84e680982e0290ec61df8b84dca64588"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a84e680982e0290ec61df8b84dca64588">line_statement</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a84e680982e0290ec61df8b84dca64588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2034463854d3258a38238de07f3049fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2034463854d3258a38238de07f3049fb">statement</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a2034463854d3258a38238de07f3049fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39ca76350b51eb1ac4f85f7813030be3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a39ca76350b51eb1ac4f85f7813030be3">accept</a> (int token, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a39ca76350b51eb1ac4f85f7813030be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd2949249723baac22db2449ccc05d0c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#acd2949249723baac22db2449ccc05d0c">ubasic_ramdisk_from_device</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:acd2949249723baac22db2449ccc05d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a221e39127dcc2f13c7828843c534b6"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a7a221e39127dcc2f13c7828843c534b6">ubasic_ramdisk_from_size</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a7a221e39127dcc2f13c7828843c534b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce4459f3701be5c97c7f9908bf0c259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a6ce4459f3701be5c97c7f9908bf0c259">ubasic_parse_fn</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a6ce4459f3701be5c97c7f9908bf0c259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb8eb6e0aa9c7606623fc241b99760be"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#adb8eb6e0aa9c7606623fc241b99760be">ubasic_get_int_variable</a> (const char *varname, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:adb8eb6e0aa9c7606623fc241b99760be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fea34db30fac3281466a93c55078c06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2fea34db30fac3281466a93c55078c06">ubasic_get_double_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
+<tr class="separator:a2fea34db30fac3281466a93c55078c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac55179aa9a0176f342a67638608cf6"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a9ac55179aa9a0176f342a67638608cf6">ubasic_get_string_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a9ac55179aa9a0176f342a67638608cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7913e05cee9dd3d85bc859e06af69f60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a7913e05cee9dd3d85bc859e06af69f60">ubasic_set_string_variable</a> (const char *var, const char *value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, bool local, bool global)</td></tr>
+<tr class="separator:a7913e05cee9dd3d85bc859e06af69f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a387c29c224dd166b6bea4add9897522e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a387c29c224dd166b6bea4add9897522e">ubasic_set_double_variable</a> (const char *var, const double value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, bool local, bool global)</td></tr>
+<tr class="separator:a387c29c224dd166b6bea4add9897522e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d554a1fcd609a257c2f842a08ac05ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a6d554a1fcd609a257c2f842a08ac05ea">ubasic_set_int_variable</a> (const char *var, int64_t value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, bool local, bool global)</td></tr>
+<tr class="separator:a6d554a1fcd609a257c2f842a08ac05ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c28214a6d26d3373d8ed9f1d5276a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ubasic_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#af3c28214a6d26d3373d8ed9f1d5276a8">ubasic_get_numeric_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
+<tr class="separator:af3c28214a6d26d3373d8ed9f1d5276a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26278649a7fc073686287cbe68630ceb"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a26278649a7fc073686287cbe68630ceb">ubasic_get_numeric_int_variable</a> (const char *var, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a26278649a7fc073686287cbe68630ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ff1e98b41b281615a5106abf149a38c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a8ff1e98b41b281615a5106abf149a38c">ubasic_set_int_array_variable</a> (const char *var, int64_t index, int64_t value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a8ff1e98b41b281615a5106abf149a38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71d25c191a27099b2521315c8436325a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a71d25c191a27099b2521315c8436325a">ubasic_set_string_array_variable</a> (const char *var, int64_t index, const char *value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a71d25c191a27099b2521315c8436325a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52df6c6bc053b1eeee167a65fcce994d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a52df6c6bc053b1eeee167a65fcce994d">ubasic_set_double_array_variable</a> (const char *var, int64_t index, double value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a52df6c6bc053b1eeee167a65fcce994d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb8a5071931afc1d021b6903b0bff9b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a9fb8a5071931afc1d021b6903b0bff9b">ubasic_get_double_array_variable</a> (const char *var, int64_t index, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *ret)</td></tr>
+<tr class="separator:a9fb8a5071931afc1d021b6903b0bff9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2eeb9e5539791eba6f6c9045398bb9"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#afd2eeb9e5539791eba6f6c9045398bb9">ubasic_get_int_array_variable</a> (const char *var, int64_t index, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:afd2eeb9e5539791eba6f6c9045398bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a678b1b7e037ed46bc5735e7ce3fc5d7d"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a678b1b7e037ed46bc5735e7ce3fc5d7d">ubasic_get_string_array_variable</a> (const char *var, int64_t index, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a678b1b7e037ed46bc5735e7ce3fc5d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61de4ead74b5b3e09a0147694360941e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a61de4ead74b5b3e09a0147694360941e">ubasic_dim_string_array</a> (const char *var, int64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a61de4ead74b5b3e09a0147694360941e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5402930fc57ae99497b1096b544eba39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a5402930fc57ae99497b1096b544eba39">ubasic_dim_int_array</a> (const char *var, int64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a5402930fc57ae99497b1096b544eba39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab89b6a47290ed8a7169f0f6dafd57852"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ab89b6a47290ed8a7169f0f6dafd57852">ubasic_dim_double_array</a> (const char *var, int64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ab89b6a47290ed8a7169f0f6dafd57852"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f5cb2daec8c2d9362e16f16986c67e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ae5f5cb2daec8c2d9362e16f16986c67e">ubasic_redim_string_array</a> (const char *var, int64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ae5f5cb2daec8c2d9362e16f16986c67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada83ba1a1893d271061eb7fdfefca265"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ada83ba1a1893d271061eb7fdfefca265">ubasic_redim_int_array</a> (const char *var, int64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ada83ba1a1893d271061eb7fdfefca265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1022a5c0a65ddd11828780593cbc0a7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ae1022a5c0a65ddd11828780593cbc0a7">ubasic_redim_double_array</a> (const char *var, int64_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ae1022a5c0a65ddd11828780593cbc0a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c439e60cb300da93ee63f2d805674da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a4c439e60cb300da93ee63f2d805674da">varname_is_int_array_access</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, const char *varname)</td></tr>
+<tr class="separator:a4c439e60cb300da93ee63f2d805674da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f2207fcc8d13b51cd2f737fe8fd88a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a6f2207fcc8d13b51cd2f737fe8fd88a2">varname_is_string_array_access</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, const char *varname)</td></tr>
+<tr class="separator:a6f2207fcc8d13b51cd2f737fe8fd88a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b26e2e8637402018a3909845864f38"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ad4b26e2e8637402018a3909845864f38">varname_is_double_array_access</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, const char *varname)</td></tr>
+<tr class="separator:ad4b26e2e8637402018a3909845864f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae86f53bbc258d856c797494b042b7ba7"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ae86f53bbc258d856c797494b042b7ba7">arr_variable_index</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ae86f53bbc258d856c797494b042b7ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85e3e72b95b6af40c26193726bd3fba1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a85e3e72b95b6af40c26193726bd3fba1">ubasic_set_int_array</a> (const char *var, int64_t value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a85e3e72b95b6af40c26193726bd3fba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d98a7d3cbf232d3f90900bfc122777a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a9d98a7d3cbf232d3f90900bfc122777a">ubasic_set_string_array</a> (const char *var, const char *value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a9d98a7d3cbf232d3f90900bfc122777a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d2a2ab5eb71dbc29d8e638510543a26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a6d2a2ab5eb71dbc29d8e638510543a26">ubasic_set_double_array</a> (const char *var, double value, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a6d2a2ab5eb71dbc29d8e638510543a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b18c1c7ad294c2c77e5ca0055578ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ac7b18c1c7ad294c2c77e5ca0055578ee">dim_statement</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ac7b18c1c7ad294c2c77e5ca0055578ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2199845dd038c41cf53d86f6a813625c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a2199845dd038c41cf53d86f6a813625c">redim_statement</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a2199845dd038c41cf53d86f6a813625c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a934280027312e986008618e74b82782e"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a934280027312e986008618e74b82782e">expr</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a934280027312e986008618e74b82782e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae25be7d2d8ae25c9353e2d7381578a98"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#ae25be7d2d8ae25c9353e2d7381578a98">relation</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:ae25be7d2d8ae25c9353e2d7381578a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e46aaf021f5d93d251df94cbe164e91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a1e46aaf021f5d93d251df94cbe164e91">double_expr</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
+<tr class="separator:a1e46aaf021f5d93d251df94cbe164e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ea4e8496cc967a2709cd10cf69c42fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a1ea4e8496cc967a2709cd10cf69c42fa">double_relation</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, double *res)</td></tr>
+<tr class="separator:a1ea4e8496cc967a2709cd10cf69c42fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e66a30ddf1eb98b8efd0ca640c35713"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a3e66a30ddf1eb98b8efd0ca640c35713">str_expr</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a3e66a30ddf1eb98b8efd0ca640c35713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dec748cd3e08bfddbb46b0793a57a4f"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ubasic_8h.html#a4dec748cd3e08bfddbb46b0793a57a4f">str_relation</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a4dec748cd3e08bfddbb46b0793a57a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>BBC BASIC interpreter, Retro Rocket OS Project (C) Craig Edwards 2012. loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).</p>
+<div class="textblock"><p>Retro Rocket BASIC interpreter. </p>
+<p>Retro Rocket OS Project (C) Craig Edwards 2012. </p><dl class="section note"><dt>Note</dt><dd>loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).</dd></dl>
+<p>uBASIC is far more limited than the dialect implemented here. It only allowed variables of one letter in length, and only integer variables, no PROC, FN, or additional functions, no floating point or string ops, no INPUT, just plain mathematical expressions, no ability to isolate execution into a context, and was (and in parts still is) quite badly optimised. It was what it was, a good starting off point.</p>
 <p>THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS `&lsquo;AS IS&rsquo;' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="afd61ad878c267312a7dfe05d09a67850"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd61ad878c267312a7dfe05d09a67850">&#9670;&nbsp;</a></span>MAX_FOR_STACK_DEPTH</h2>
+<a id="a2a4dcaa2bd546946fb376aac316a19a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4dcaa2bd546946fb376aac316a19a0">&#9670;&nbsp;</a></span>AUX</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAX_FOR_STACK_DEPTH&#160;&#160;&#160;50</td>
+          <td class="memname">#define AUX</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;#x</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aab086f9d28e5039a26d7fa99afa82fac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab086f9d28e5039a26d7fa99afa82fac">&#9670;&nbsp;</a></span>MAX_GOSUB_STACK_DEPTH</h2>
+<a id="a2d82ccf15b505bc8ce28ba1bd7a7f5a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d82ccf15b505bc8ce28ba1bd7a7f5a5">&#9670;&nbsp;</a></span>BIP_DOUBLE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAX_GOSUB_STACK_DEPTH&#160;&#160;&#160;255</td>
+          <td class="memname">#define BIP_DOUBLE&#160;&#160;&#160;2</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0436fd63cfd2d23d40c9fd8c7b68b8d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0436fd63cfd2d23d40c9fd8c7b68b8d5">&#9670;&nbsp;</a></span>BIP_INT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BIP_INT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a191803ac954f2ded69217a0e864e2af7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a191803ac954f2ded69217a0e864e2af7">&#9670;&nbsp;</a></span>BIP_STRING</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BIP_STRING&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed46a4c9764a1d0bb5501f0a2a4b4b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed46a4c9764a1d0bb5501f0a2a4b4b51">&#9670;&nbsp;</a></span>EVAL_END_LINE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EVAL_END_LINE&#160;&#160;&#160;999999999</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RETURN statement after EVAL code. </p>
+
+</div>
+</div>
+<a id="a1d28f33b55479f791aed387d6cc2dd75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d28f33b55479f791aed387d6cc2dd75">&#9670;&nbsp;</a></span>EVAL_LINE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EVAL_LINE&#160;&#160;&#160;999999998</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specil line number where EVAL code is inserted dynamically. </p>
+
+</div>
+</div>
+<a id="a36568dfcd0f5dfaaeebb51d3c9aeb303"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36568dfcd0f5dfaaeebb51d3c9aeb303">&#9670;&nbsp;</a></span>MAX_CALL_STACK_DEPTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_CALL_STACK_DEPTH&#160;&#160;&#160;255</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum stack depth of GOSUB, PROC, FN. </p>
+
+</div>
+</div>
+<a id="ad70e9ba1e1b2bbdb011ab487c2cb353d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad70e9ba1e1b2bbdb011ab487c2cb353d">&#9670;&nbsp;</a></span>MAX_LOOP_STACK_DEPTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_LOOP_STACK_DEPTH&#160;&#160;&#160;255</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum stack depth of FOR...NEXT. </p>
 
 </div>
 </div>
@@ -313,6 +522,105 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define MAX_STRINGLEN&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum length of a string variable. </p>
+
+</div>
+</div>
+<a id="a9a2274a78543b9de385959508de7225e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a2274a78543b9de385959508de7225e">&#9670;&nbsp;</a></span>PARAMS_END</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARAMS_END</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NAME</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
+<div class="line">    if (*(ctx-&gt;ptr - 1) != <span class="charliteral">&#39;)&#39;</span>) { \</div>
+<div class="line">        tokenizer_error_print(ctx, <span class="stringliteral">&quot;Invalid number of parameters for &quot;</span> NAME); \</div>
+<div class="line">    } \</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Ends fetching of function parameters, throwing an error if parameters still remain. </p>
+
+</div>
+</div>
+<a id="a2a18e363a2e01dbde04f5098ff9ec26b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a18e363a2e01dbde04f5098ff9ec26b">&#9670;&nbsp;</a></span>PARAMS_GET_ITEM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARAMS_GET_ITEM</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="icmp_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a function parameter of type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type of function parameter to get, fills one of the variables strval, doubleval or intval. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adc2a689c60d5146f9e0fe59050f5227b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2a689c60d5146f9e0fe59050f5227b">&#9670;&nbsp;</a></span>PARAMS_START</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARAMS_START</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    [[maybe_unused]] <span class="keywordtype">int</span> itemtype = <a class="code" href="ubasic_8h.html#a0436fd63cfd2d23d40c9fd8c7b68b8d5">BIP_INT</a>; \</div>
+<div class="line">    [[maybe_unused]] int64_t intval = 0; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">double</span> doubleval = 0; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">char</span>* strval = NULL; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">char</span> oldval = 0; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">char</span> oldct = 0; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">char</span>* oldptr = 0; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">char</span> <span class="keyword">const</span>* oldnextptr = NULL; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">int</span> gotone = 0; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">int</span> bracket_depth = 0; \</div>
+<div class="line">    [[maybe_unused]] <span class="keywordtype">char</span> <span class="keyword">const</span>* item_begin = ctx-&gt;ptr;</div>
+<div class="ttc" id="aubasic_8h_html_a0436fd63cfd2d23d40c9fd8c7b68b8d5"><div class="ttname"><a href="ubasic_8h.html#a0436fd63cfd2d23d40c9fd8c7b68b8d5">BIP_INT</a></div><div class="ttdeci">#define BIP_INT</div><div class="ttdef"><b>Definition:</b> ubasic.h:281</div></div>
+</div><!-- fragment -->
+<p>Begin parsing function parameters. </p>
+
+</div>
+</div>
+<a id="a6df1d22fb5f09eccc23b9f399670cfd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6df1d22fb5f09eccc23b9f399670cfd7">&#9670;&nbsp;</a></span>STRINGIFY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STRINGIFY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="ubasic_8h.html#a2a4dcaa2bd546946fb376aac316a19a0">AUX</a>(x)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -332,6 +640,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Real (double) function signature. </p>
+
 </div>
 </div>
 <a id="a59c9cd726acfbe69d8df60ab2b2d0607"></a>
@@ -345,6 +655,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Integer function signature. </p>
 
 </div>
 </div>
@@ -360,6 +672,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>String function signature. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
@@ -374,6 +688,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Function or procedure. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a65231902c1f22532519da8a1c01ba53eac71ea04245e41b2d6b8e533fcc74c659"></a>FT_FN&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a65231902c1f22532519da8a1c01ba53ead53af2599d572a45176f7076ae759bd6"></a>FT_PROC&#160;</td><td class="fielddoc"></td></tr>
@@ -392,8 +708,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Return type of FN, PROC. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268"></a>RT_STRING&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2279cec37b8a81d5f18e78d7335b1966a3b89ef745ac9a8ac746aff719e609758"></a>RT_MAIN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2279cec37b8a81d5f18e78d7335b1966af6a45e9ab07167656b5d6509a8cc0a26"></a>RT_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268"></a>RT_STRING&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2279cec37b8a81d5f18e78d7335b1966a8748e4019711d7c401d6ed2b1568717d"></a>RT_INT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2279cec37b8a81d5f18e78d7335b1966af84eb2d6bedef8785a996abbec035e87"></a>RT_FLOAT&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -429,6 +749,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae86f53bbc258d856c797494b042b7ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae86f53bbc258d856c797494b042b7ba7">&#9670;&nbsp;</a></span>arr_variable_index()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t arr_variable_index </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7b18c1c7ad294c2c77e5ca0055578ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b18c1c7ad294c2c77e5ca0055578ee">&#9670;&nbsp;</a></span>dim_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dim_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1e46aaf021f5d93d251df94cbe164e91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e46aaf021f5d93d251df94cbe164e91">&#9670;&nbsp;</a></span>double_expr()</h2>
 
@@ -437,6 +793,34 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void double_expr </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>res</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ea4e8496cc967a2709cd10cf69c42fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ea4e8496cc967a2709cd10cf69c42fa">&#9670;&nbsp;</a></span>double_relation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void double_relation </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em>, </td>
@@ -521,14 +905,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5da3876b5bfc761a6407ac2020521e0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5da3876b5bfc761a6407ac2020521e0f">&#9670;&nbsp;</a></span>relation()</h2>
+<a id="a2199845dd038c41cf53d86f6a813625c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2199845dd038c41cf53d86f6a813625c">&#9670;&nbsp;</a></span>redim_statement()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int relation </td>
+          <td class="memname">void redim_statement </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae25be7d2d8ae25c9353e2d7381578a98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae25be7d2d8ae25c9353e2d7381578a98">&#9670;&nbsp;</a></span>relation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t relation </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -557,14 +959,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5f32d6049526ddd7e979e741ba73053e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f32d6049526ddd7e979e741ba73053e">&#9670;&nbsp;</a></span>str_expr()</h2>
+<a id="a3e66a30ddf1eb98b8efd0ca640c35713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e66a30ddf1eb98b8efd0ca640c35713">&#9670;&nbsp;</a></span>str_expr()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char * str_expr </td>
+          <td class="memname">const char* str_expr </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -575,32 +977,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac569cb0c5dcad1f65f0eb87849978161"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac569cb0c5dcad1f65f0eb87849978161">&#9670;&nbsp;</a></span>str_relation()</h2>
+<a id="a4dec748cd3e08bfddbb46b0793a57a4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dec748cd3e08bfddbb46b0793a57a4f">&#9670;&nbsp;</a></span>str_relation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int str_relation </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af865ac3ed5536e2dc99cfbb4d902ae4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af865ac3ed5536e2dc99cfbb4d902ae4a">&#9670;&nbsp;</a></span>str_varfactor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* str_varfactor </td>
+          <td class="memname">int64_t str_relation </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -711,6 +1095,108 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab89b6a47290ed8a7169f0f6dafd57852"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89b6a47290ed8a7169f0f6dafd57852">&#9670;&nbsp;</a></span>ubasic_dim_double_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ubasic_dim_double_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5402930fc57ae99497b1096b544eba39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5402930fc57ae99497b1096b544eba39">&#9670;&nbsp;</a></span>ubasic_dim_int_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ubasic_dim_int_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a61de4ead74b5b3e09a0147694360941e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61de4ead74b5b3e09a0147694360941e">&#9670;&nbsp;</a></span>ubasic_dim_string_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ubasic_dim_string_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a63d3193d934771514392dcd19b13fe32"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a63d3193d934771514392dcd19b13fe32">&#9670;&nbsp;</a></span>ubasic_dns()</h2>
 
@@ -747,17 +1233,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5ce0ab5acfae5031b62200a2f6bf97f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ce0ab5acfae5031b62200a2f6bf97f5">&#9670;&nbsp;</a></span>ubasic_eval_double_fn()</h2>
+<a id="a3896bfc03a8659a518d9fa133705b57a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3896bfc03a8659a518d9fa133705b57a">&#9670;&nbsp;</a></span>ubasic_finished()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ubasic_eval_double_fn </td>
+          <td class="memname">bool ubasic_finished </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9fb8a5071931afc1d021b6903b0bff9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fb8a5071931afc1d021b6903b0bff9b">&#9670;&nbsp;</a></span>ubasic_get_double_array_variable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ubasic_get_double_array_variable </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>fn_name</em>, </td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -769,30 +1279,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>res</em>&#160;</td>
+          <td class="paramname"><em>ret</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae2dfc2340f033d44a00993bfe4bf9c80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2dfc2340f033d44a00993bfe4bf9c80">&#9670;&nbsp;</a></span>ubasic_finished()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ubasic_finished </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -833,6 +1325,58 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a462ab4f978e27131b28689795e3a7809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a462ab4f978e27131b28689795e3a7809">&#9670;&nbsp;</a></span>ubasic_get_free_mem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_get_free_mem </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd2eeb9e5539791eba6f6c9045398bb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd2eeb9e5539791eba6f6c9045398bb9">&#9670;&nbsp;</a></span>ubasic_get_int_array_variable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_get_int_array_variable </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adb8eb6e0aa9c7606623fc241b99760be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb8eb6e0aa9c7606623fc241b99760be">&#9670;&nbsp;</a></span>ubasic_get_int_variable()</h2>
 
@@ -861,14 +1405,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a384d812b87f1117d47fe61d413b6763b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a384d812b87f1117d47fe61d413b6763b">&#9670;&nbsp;</a></span>ubasic_get_numeric_int_variable()</h2>
+<a id="a26278649a7fc073686287cbe68630ceb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26278649a7fc073686287cbe68630ceb">&#9670;&nbsp;</a></span>ubasic_get_numeric_int_variable()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int ubasic_get_numeric_int_variable </td>
+          <td class="memname">int64_t ubasic_get_numeric_int_variable </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>var</em>, </td>
@@ -923,6 +1467,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a678b1b7e037ed46bc5735e7ce3fc5d7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a678b1b7e037ed46bc5735e7ce3fc5d7d">&#9670;&nbsp;</a></span>ubasic_get_string_array_variable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* ubasic_get_string_array_variable </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9ac55179aa9a0176f342a67638608cf6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9ac55179aa9a0176f342a67638608cf6">&#9670;&nbsp;</a></span>ubasic_get_string_variable()</h2>
 
@@ -945,6 +1523,42 @@ Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad7c18925902c35809a4ae24b5787780c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7c18925902c35809a4ae24b5787780c">&#9670;&nbsp;</a></span>ubasic_get_text_cur_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_get_text_cur_x </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1fe0a2bf952bc71fc3b09badeeb540dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fe0a2bf952bc71fc3b09badeeb540dc">&#9670;&nbsp;</a></span>ubasic_get_text_cur_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_get_text_cur_y </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -977,6 +1591,42 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int64_t ubasic_get_text_max_y </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a167c9064a24dd6810927007a72c05ae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a167c9064a24dd6810927007a72c05ae7">&#9670;&nbsp;</a></span>ubasic_get_total_mem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_get_total_mem </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b4ab01042f261fd3d5b33e70564362a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b4ab01042f261fd3d5b33e70564362a">&#9670;&nbsp;</a></span>ubasic_get_used_mem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_get_used_mem </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -1041,6 +1691,24 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a47f7d009dcfc6df8674a01bc55e47652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47f7d009dcfc6df8674a01bc55e47652">&#9670;&nbsp;</a></span>ubasic_getproccpuid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_getproccpuid </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a28b9bd6cdb5c5e3cb2d94830df2354c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a28b9bd6cdb5c5e3cb2d94830df2354c0">&#9670;&nbsp;</a></span>ubasic_getprocid()</h2>
 
@@ -1067,6 +1735,24 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">char* ubasic_getprocname </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0448532249db3ce85c3134e92fd5903d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0448532249db3ce85c3134e92fd5903d">&#9670;&nbsp;</a></span>ubasic_getprocparent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t ubasic_getprocparent </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -1135,6 +1821,24 @@ Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad2a298566403ea6e945e74753490a72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad2a298566403ea6e945e74753490a72">&#9670;&nbsp;</a></span>ubasic_inkey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* ubasic_inkey </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1403,6 +2107,108 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae1022a5c0a65ddd11828780593cbc0a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1022a5c0a65ddd11828780593cbc0a7">&#9670;&nbsp;</a></span>ubasic_redim_double_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ubasic_redim_double_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada83ba1a1893d271061eb7fdfefca265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada83ba1a1893d271061eb7fdfefca265">&#9670;&nbsp;</a></span>ubasic_redim_int_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ubasic_redim_int_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae5f5cb2daec8c2d9362e16f16986c67e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f5cb2daec8c2d9362e16f16986c67e">&#9670;&nbsp;</a></span>ubasic_redim_string_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ubasic_redim_string_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a773791be71cc0db044c07e3d39290e0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a773791be71cc0db044c07e3d39290e0f">&#9670;&nbsp;</a></span>ubasic_rgb()</h2>
 
@@ -1439,14 +2245,48 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aeba4a7a47c9691fe982cfb3bcd98534b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeba4a7a47c9691fe982cfb3bcd98534b">&#9670;&nbsp;</a></span>ubasic_set_array_variable()</h2>
+<a id="a6d2a2ab5eb71dbc29d8e638510543a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d2a2ab5eb71dbc29d8e638510543a26">&#9670;&nbsp;</a></span>ubasic_set_double_array()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ubasic_set_array_variable </td>
+          <td class="memname">void ubasic_set_double_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52df6c6bc053b1eeee167a65fcce994d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52df6c6bc053b1eeee167a65fcce994d">&#9670;&nbsp;</a></span>ubasic_set_double_array_variable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ubasic_set_double_array_variable </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>var</em>, </td>
@@ -1455,19 +2295,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>value</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>local</em>&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1525,6 +2365,80 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a85e3e72b95b6af40c26193726bd3fba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85e3e72b95b6af40c26193726bd3fba1">&#9670;&nbsp;</a></span>ubasic_set_int_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ubasic_set_int_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ff1e98b41b281615a5106abf149a38c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ff1e98b41b281615a5106abf149a38c">&#9670;&nbsp;</a></span>ubasic_set_int_array_variable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ubasic_set_int_array_variable </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6d554a1fcd609a257c2f842a08ac05ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6d554a1fcd609a257c2f842a08ac05ea">&#9670;&nbsp;</a></span>ubasic_set_int_variable()</h2>
 
@@ -1571,6 +2485,80 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9d98a7d3cbf232d3f90900bfc122777a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d98a7d3cbf232d3f90900bfc122777a">&#9670;&nbsp;</a></span>ubasic_set_string_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ubasic_set_string_array </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a71d25c191a27099b2521315c8436325a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71d25c191a27099b2521315c8436325a">&#9670;&nbsp;</a></span>ubasic_set_string_array_variable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ubasic_set_string_array_variable </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7913e05cee9dd3d85bc859e06af69f60"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7913e05cee9dd3d85bc859e06af69f60">&#9670;&nbsp;</a></span>ubasic_set_string_variable()</h2>
 
@@ -1606,40 +2594,6 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>global</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5dab8199fb7b2e99f20e8d8432b69b81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dab8199fb7b2e99f20e8d8432b69b81">&#9670;&nbsp;</a></span>ubasic_set_variable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ubasic_set_variable </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>varname</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1707,23 +2661,133 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4865c0eb38ab199e7adca32b4c777385"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4865c0eb38ab199e7adca32b4c777385">&#9670;&nbsp;</a></span>ubasic_test_string_variable()</h2>
+<a id="af12fcb4c5efc346a3a296505dce0a74f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af12fcb4c5efc346a3a296505dce0a74f">&#9670;&nbsp;</a></span>valid_double_var()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char* ubasic_test_string_variable </td>
+          <td class="memname">bool valid_double_var </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>var</em>, </td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e892389dc272853d51b1bbbb49f4411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e892389dc272853d51b1bbbb49f4411">&#9670;&nbsp;</a></span>valid_int_var()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool valid_int_var </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad783607ef9114bb476aec066a2d5e5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad783607ef9114bb476aec066a2d5e5eb">&#9670;&nbsp;</a></span>valid_string_var()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool valid_string_var </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4b26e2e8637402018a3909845864f38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4b26e2e8637402018a3909845864f38">&#9670;&nbsp;</a></span>varname_is_double_array_access()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool varname_is_double_array_access </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>varname</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c439e60cb300da93ee63f2d805674da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c439e60cb300da93ee63f2d805674da">&#9670;&nbsp;</a></span>varname_is_int_array_access()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool varname_is_int_array_access </td>
+          <td>(</td>
           <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>varname</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f2207fcc8d13b51cd2f737fe8fd88a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f2207fcc8d13b51cd2f737fe8fd88a2">&#9670;&nbsp;</a></span>varname_is_string_array_access()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool varname_is_string_array_access </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>varname</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1741,7 +2805,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="ubasic_8h.html">ubasic.h</a></li>
-    <li class="footer">Generated on Mon Apr 17 2023 21:24:31 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 25 2023 02:11:05 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

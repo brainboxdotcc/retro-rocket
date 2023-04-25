@@ -245,51 +245,49 @@
         </childnode>
       </node>
     </invincdepgraph>
-    <innerclass refid="structprocess" prot="public">process</innerclass>
+    <innerclass refid="structprocess__t" prot="public">process_t</innerclass>
+    <innerclass refid="structproc__id__t" prot="public">proc_id_t</innerclass>
     <innerclass refid="structidle__timer__t" prot="public">idle_timer_t</innerclass>
-      <sectiondef kind="define">
-      <memberdef kind="define" id="taskswitch_8h_1a26975b50f0f5914f501689709f08147a" prot="public" static="no">
-        <name>PROC_RUNNING</name>
-        <initializer>0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/taskswitch.h" line="8" column="9" bodyfile="include/taskswitch.h" bodystart="8" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="taskswitch_8h_1ae7215d0fcd3af15ded53baf19247fcbd" prot="public" static="no">
-        <name>PROC_IDLE</name>
-        <initializer>1</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/taskswitch.h" line="9" column="9" bodyfile="include/taskswitch.h" bodystart="9" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="taskswitch_8h_1a9066801bca0864b3acdde08438ec1380" prot="public" static="no">
-        <name>PROC_DELETE</name>
-        <initializer>2</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/taskswitch.h" line="10" column="9" bodyfile="include/taskswitch.h" bodystart="10" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="enum">
+      <memberdef kind="enum" id="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854" prot="public" static="no" strong="no">
+        <type></type>
+        <name>process_state_t</name>
+        <enumvalue id="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857" prot="public">
+          <name>PROC_RUNNING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c" prot="public">
+          <name>PROC_IDLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854a36e1fd61daba444bb9738105db8d59b9" prot="public">
+          <name>PROC_DELET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Represents the current state of a process. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="12" column="1" bodyfile="include/taskswitch.h" bodystart="12" bodyend="16"/>
+      </memberdef>
       <memberdef kind="enum" id="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4" prot="public" static="no" strong="no">
         <type></type>
         <name>idle_type_t</name>
         <enumvalue id="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a170f38abe527a71ef15f1d6fd1ba9677" prot="public">
           <name>IDLE_FOREGROUND</name>
           <briefdescription>
-<para>A foreground idle task that runs in the task switch loop between context switches. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -297,7 +295,6 @@
         <enumvalue id="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a875e3a3a86598eb910bc4405a16e8a99" prot="public">
           <name>IDLE_BACKGROUND</name>
           <briefdescription>
-<para>A background idle task that runs via the LAPIC timer ISR. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -309,10 +306,62 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="42" column="1" bodyfile="include/taskswitch.h" bodystart="42" bodyend="45"/>
+        <location file="include/taskswitch.h" line="54" column="1" bodyfile="include/taskswitch.h" bodystart="54" bodyend="57"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t pid_t</definition>
+        <argsstring></argsstring>
+        <name>pid_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="18" column="18" bodyfile="include/taskswitch.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="taskswitch_8h_1af2306308627701b66dc6f3babe821ab4" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t uid_t</definition>
+        <argsstring></argsstring>
+        <name>uid_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="19" column="18" bodyfile="include/taskswitch.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="taskswitch_8h_1aa7352f1065fe606194d792e2b292cf83" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t gid_t</definition>
+        <argsstring></argsstring>
+        <name>gid_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="20" column="18" bodyfile="include/taskswitch.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="taskswitch_8h_1a66e2436dbfe8b3600c090f28627b621f" prot="public" static="no">
+        <type>uint8_t</type>
+        <definition>typedef uint8_t cpu_id_t</definition>
+        <argsstring></argsstring>
+        <name>cpu_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="21" column="17" bodyfile="include/taskswitch.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="typedef" id="taskswitch_8h_1a82c77e5c902b86503a57e02bb4314bad" prot="public" static="no">
         <type>void(*</type>
         <definition>typedef void(* proc_idle_timer_t) (void)</definition>
@@ -324,14 +373,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="48" column="9" bodyfile="include/taskswitch.h" bodystart="48" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="60" column="9" bodyfile="include/taskswitch.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="taskswitch_8h_1a1d93354a9a1cd28edc0ff1f2b117aaa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
-        <definition>struct process* proc_load</definition>
-        <argsstring>(const char *fullpath, struct console *cons)</argsstring>
+      <memberdef kind="function" id="taskswitch_8h_1a1fd5c9b930b5a5573f366249df958e96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
+        <definition>process_t* proc_load</definition>
+        <argsstring>(const char *fullpath, struct console *cons, pid_t parent_pid)</argsstring>
         <name>proc_load</name>
         <param>
           <type>const char *</type>
@@ -341,115 +390,251 @@
           <type>struct <ref refid="structconsole" kindref="compound">console</ref> *</type>
           <declname>cons</declname>
         </param>
+        <param>
+          <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
+          <declname>parent_pid</declname>
+        </param>
         <briefdescription>
+<para>Load a new BASIC process. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fullpath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fully qualified path to file </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cons</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>console </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parent_pid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>parent PID, or 0 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>process_t* new process details </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="55" column="15" declfile="include/taskswitch.h" declline="55" declcolumn="15"/>
+        <location file="include/taskswitch.h" line="78" column="11" declfile="include/taskswitch.h" declline="78" declcolumn="11"/>
       </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1ad7437b5486e6d717fff0d680c0e85933" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
-        <definition>struct process* proc_find</definition>
-        <argsstring>(uint32_t pid)</argsstring>
+      <memberdef kind="function" id="taskswitch_8h_1ab5a40192ac7fb47cf38c7e803ccd0efb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
+        <definition>process_t* proc_find</definition>
+        <argsstring>(pid_t pid)</argsstring>
         <name>proc_find</name>
         <param>
-          <type>uint32_t</type>
+          <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
           <declname>pid</declname>
         </param>
         <briefdescription>
+<para>Find a process by ID. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>process ID </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>process_t* process detail or NULL if not found </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="56" column="15" declfile="include/taskswitch.h" declline="56" declcolumn="15"/>
+        <location file="include/taskswitch.h" line="86" column="11" declfile="include/taskswitch.h" declline="86" declcolumn="11"/>
       </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1a2f81e671670c3c195e49086794de8563" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
-        <definition>struct process* proc_cur</definition>
+      <memberdef kind="function" id="taskswitch_8h_1a6d871c77c8a1a04420b1b09715d0b177" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
+        <definition>process_t* proc_cur</definition>
         <argsstring>()</argsstring>
         <name>proc_cur</name>
         <briefdescription>
+<para>Return detail of current process. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>process_t* process detail or NULL if no current process </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="57" column="15" declfile="include/taskswitch.h" declline="57" declcolumn="15"/>
+        <location file="include/taskswitch.h" line="93" column="11" declfile="include/taskswitch.h" declline="93" declcolumn="11"/>
       </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1ad3fb36451746ed5c2268f42161b864c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="taskswitch_8h_1a8b2b24e480bc2b9188e720c028795cee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void proc_wait</definition>
-        <argsstring>(struct process *proc, uint32_t otherpid)</argsstring>
+        <argsstring>(process_t *proc, pid_t otherpid)</argsstring>
         <name>proc_wait</name>
         <param>
-          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
           <declname>proc</declname>
         </param>
         <param>
-          <type>uint32_t</type>
+          <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
           <declname>otherpid</declname>
         </param>
         <briefdescription>
+<para>Mark a process as waiting for another process to complete. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>proc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>process to mark as waiting </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>otherpid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>other process ID to wait on, must exist. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="58" column="6" declfile="include/taskswitch.h" declline="58" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="101" column="6" declfile="include/taskswitch.h" declline="101" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1ad3caa985bd0716e0226c8b95dff1880a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="taskswitch_8h_1abb94173794194e3382dc5482b7e0aa62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void proc_run</definition>
-        <argsstring>(struct process *proc)</argsstring>
+        <argsstring>(process_t *proc)</argsstring>
         <name>proc_run</name>
         <param>
-          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
           <declname>proc</declname>
         </param>
         <briefdescription>
+<para>Run BASIC program for one atomic cycle. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>proc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>process to execute </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="59" column="6" declfile="include/taskswitch.h" declline="59" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="108" column="6" declfile="include/taskswitch.h" declline="108" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1a71841b5135909ec6b19a3e9201a8ec72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="taskswitch_8h_1a7844baa5edadb538de03bc3494e947cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int proc_ended</definition>
-        <argsstring>(struct process *proc)</argsstring>
+        <argsstring>(process_t *proc)</argsstring>
         <name>proc_ended</name>
         <param>
-          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
           <declname>proc</declname>
         </param>
         <briefdescription>
+<para>Returns true if the program has ended. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>proc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>process </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int true if ended </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="60" column="5" declfile="include/taskswitch.h" declline="60" declcolumn="5"/>
+        <location file="include/taskswitch.h" line="116" column="5" declfile="include/taskswitch.h" declline="116" declcolumn="5"/>
       </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1a54250e95131397ad26e7f9c655b4d8e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="taskswitch_8h_1a8951b9dab6452cf831a751d0cda64a5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void proc_kill</definition>
-        <argsstring>(struct process *proc)</argsstring>
+        <argsstring>(process_t *proc)</argsstring>
         <name>proc_kill</name>
         <param>
-          <type>struct <ref refid="structprocess" kindref="compound">process</ref> *</type>
+          <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
           <declname>proc</declname>
         </param>
         <briefdescription>
+<para>Kill a process. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>proc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>process to kill </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="61" column="6" declfile="include/taskswitch.h" declline="61" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="123" column="6" declfile="include/taskswitch.h" declline="123" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1a7b25ff76590322d996a0cb108665cedc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool proc_kill_id</definition>
+        <argsstring>(pid_t id)</argsstring>
+        <name>proc_kill_id</name>
+        <param>
+          <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Kill a process by ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Cannot be used to kill the current process from itself! </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Process ID to kill </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if found and killed </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="132" column="6" declfile="include/taskswitch.h" declline="132" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1aae5fc9e36c6eef167c4207ed63cf17be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -457,12 +642,13 @@
         <argsstring>()</argsstring>
         <name>proc_show_list</name>
         <briefdescription>
+<para>Display a diagnostic list of all processes. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="62" column="6" declfile="include/taskswitch.h" declline="62" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="137" column="6" declfile="include/taskswitch.h" declline="137" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1af57a1ba1649626d231502d6c23bbac49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -470,12 +656,16 @@
         <argsstring>()</argsstring>
         <name>proc_loop</name>
         <briefdescription>
+<para>Run the process scheduling loop. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="note"><para>Does not return </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="63" column="6" declfile="include/taskswitch.h" declline="63" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="143" column="6" declfile="include/taskswitch.h" declline="143" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a1ec64ff3e1bbf088a6611d7304cf72e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -483,12 +673,16 @@
         <argsstring>()</argsstring>
         <name>proc_timer</name>
         <briefdescription>
+<para>Change to next scheduled process. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="note"><para>Uses the round robin scheduling algorithm </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="64" column="6" declfile="include/taskswitch.h" declline="64" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="149" column="6" declfile="include/taskswitch.h" declline="149" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a01a99ff8bacb9f2f0509b21f45fc7217" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -496,33 +690,20 @@
         <argsstring>()</argsstring>
         <name>proc_total</name>
         <briefdescription>
+<para>Returns the total number of running processes. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>int64_t number of running processes </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="65" column="9" declfile="include/taskswitch.h" declline="65" declcolumn="9"/>
+        <location file="include/taskswitch.h" line="156" column="9" declfile="include/taskswitch.h" declline="156" declcolumn="9"/>
       </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1a91750275a2fc6e56c8fb9dcf0e5e0edd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>const char *</type>
-        <definition>const char* proc_name</definition>
-        <argsstring>(int64_t index)</argsstring>
-        <name>proc_name</name>
-        <param>
-          <type>int64_t</type>
-          <declname>index</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/taskswitch.h" line="66" column="12" declfile="include/taskswitch.h" declline="66" declcolumn="12"/>
-      </memberdef>
-      <memberdef kind="function" id="taskswitch_8h_1a4a7ef165aa328422b223f2b4e80a05d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>uint32_t</type>
-        <definition>uint32_t proc_id</definition>
+      <memberdef kind="function" id="taskswitch_8h_1a98ea5946e6a5a7a69b87f081ddf0b1e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
+        <definition>pid_t proc_id</definition>
         <argsstring>(int64_t index)</argsstring>
         <name>proc_id</name>
         <param>
@@ -530,12 +711,25 @@
           <declname>index</declname>
         </param>
         <briefdescription>
+<para>Returns the id of a process by index number. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index number of process to find between 0 and <ref refid="taskswitch_8h_1a01a99ff8bacb9f2f0509b21f45fc7217" kindref="member">proc_total()</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pid_t process id </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="67" column="10" declfile="include/taskswitch.h" declline="67" declcolumn="10"/>
+        <location file="include/taskswitch.h" line="164" column="7" declfile="include/taskswitch.h" declline="164" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1ad2dd4ffab2aaabd37998ec3b3216af48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -575,7 +769,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="75" column="6" declfile="include/taskswitch.h" declline="75" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="172" column="6" declfile="include/taskswitch.h" declline="172" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1ab25d44702b6e10e723714c368c4a7520" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -588,10 +782,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="77" column="6" declfile="include/taskswitch.h" declline="77" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="174" column="6" declfile="include/taskswitch.h" declline="174" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Handles processes and multitasking. </para>
     </briefdescription>
     <detaileddescription>
 <para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>

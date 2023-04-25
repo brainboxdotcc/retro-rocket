@@ -629,10 +629,10 @@
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
-      <memberdef kind="function" id="hashmap_8h_1a101011257b715d9425f1d26d34f94bce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="hashmap_8h_1a5deb1768129efb6534fb02365b2da3e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>struct hashmap *</type>
         <definition>struct hashmap* hashmap_new</definition>
-        <argsstring>(size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *a, const void *b, void *udata), void(*elfree)(void *item), void *udata)</argsstring>
+        <argsstring>(size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *a, const void *b, void *udata), void(*elfree)(const void *item), void *udata)</argsstring>
         <name>hashmap_new</name>
         <param>
           <type>size_t</type>
@@ -659,7 +659,7 @@
           <declname>compare</declname>
         </param>
         <param>
-          <type>void(*)(void *item)</type>
+          <type>void(*)(const void *item)</type>
           <declname>elfree</declname>
         </param>
         <param>
@@ -674,10 +674,10 @@
         </inbodydescription>
         <location file="include/hashmap.h" line="20" column="14" declfile="include/hashmap.h" declline="20" declcolumn="14"/>
       </memberdef>
-      <memberdef kind="function" id="hashmap_8h_1a2c5c11e3f02309391e351f33df96c1bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="hashmap_8h_1ab73d927a882f7da5131ce3ec050f2888" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>struct hashmap *</type>
         <definition>struct hashmap* hashmap_new_with_allocator</definition>
-        <argsstring>(void *(*malloc)(size_t), void *(*realloc)(void *, size_t), void(*free)(void *), size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *a, const void *b, void *udata), void(*elfree)(void *item), void *udata)</argsstring>
+        <argsstring>(void *(*malloc)(size_t), void *(*realloc)(void *, size_t), void(*free)(const void *), size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *a, const void *b, void *udata), void(*elfree)(const void *item), void *udata)</argsstring>
         <name>hashmap_new_with_allocator</name>
         <param>
           <type>void *(*)(size_t)</type>
@@ -688,7 +688,7 @@
           <declname>realloc</declname>
         </param>
         <param>
-          <type>void(*)(void *)</type>
+          <type>void(*)(const void *)</type>
           <declname>free</declname>
         </param>
         <param>
@@ -716,7 +716,7 @@
           <declname>compare</declname>
         </param>
         <param>
-          <type>void(*)(void *item)</type>
+          <type>void(*)(const void *item)</type>
           <declname>elfree</declname>
         </param>
         <param>
@@ -995,17 +995,17 @@
         </inbodydescription>
         <location file="include/hashmap.h" line="54" column="10" declfile="include/hashmap.h" declline="54" declcolumn="10"/>
       </memberdef>
-      <memberdef kind="function" id="hashmap_8h_1a50515f0051f7822eafb0f977a1e12b1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="hashmap_8h_1afbb750eb52a3b3647bcff308652725bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hashmap_set_allocator</definition>
-        <argsstring>(void *(*malloc)(size_t), void(*free)(void *))</argsstring>
+        <argsstring>(void *(*malloc)(size_t), void(*free)(const void *))</argsstring>
         <name>hashmap_set_allocator</name>
         <param>
           <type>void *(*)(size_t)</type>
           <declname>malloc</declname>
         </param>
         <param>
-          <type>void(*)(void *)</type>
+          <type>void(*)(const void *)</type>
           <declname>free</declname>
         </param>
         <briefdescription>

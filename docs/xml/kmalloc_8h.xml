@@ -270,7 +270,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="15" column="9" bodyfile="include/kmalloc.h" bodystart="15" bodyend="-1"/>
+        <location file="include/kmalloc.h" line="14" column="9" bodyfile="include/kmalloc.h" bodystart="14" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -289,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="54" column="6" declfile="include/kmalloc.h" declline="54" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="53" column="6" declfile="include/kmalloc.h" declline="53" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1adc6f21bbda2c71015c428920cf785abd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -314,15 +314,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="55" column="6" declfile="include/kmalloc.h" declline="55" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="54" column="6" declfile="include/kmalloc.h" declline="54" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1aa3ff6401026972fc396bda649a01c994" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="kmalloc_8h_1ab78be9148ec4aacde543a359c126cba0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void kfree</definition>
-        <argsstring>(void *addr)</argsstring>
+        <argsstring>(const void *addr)</argsstring>
         <name>kfree</name>
         <param>
-          <type>void *</type>
+          <type>const void *</type>
           <declname>addr</declname>
         </param>
         <briefdescription>
@@ -331,7 +331,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="56" column="6" declfile="include/kmalloc.h" declline="56" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="55" column="6" declfile="include/kmalloc.h" declline="55" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1aba7ce08189c188afd939c2228c320421" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structheap__t" kindref="compound">heap_t</ref> *</type>
@@ -368,7 +368,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="57" column="7" declfile="include/kmalloc.h" declline="57" declcolumn="7"/>
+        <location file="include/kmalloc.h" line="56" column="7" declfile="include/kmalloc.h" declline="56" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1a632fb5550678e7d65db823fb1adc2dd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -381,7 +381,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="58" column="6" declfile="include/kmalloc.h" declline="58" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="57" column="6" declfile="include/kmalloc.h" declline="57" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1a56ae8e632dd1a93d76e4a9b9f265f3a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -394,15 +394,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="59" column="6" declfile="include/kmalloc.h" declline="59" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="58" column="6" declfile="include/kmalloc.h" declline="58" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1a82a73c7addea8ea1a143be9663efc5e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="kmalloc_8h_1a48ed44cd60d7dd25dc396e20739a3a84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void preboot_fail</definition>
-        <argsstring>(char *msg)</argsstring>
+        <argsstring>(const char *msg)</argsstring>
         <name>preboot_fail</name>
         <param>
-          <type>char *</type>
+          <type>const char *</type>
           <declname>msg</declname>
         </param>
         <briefdescription>
@@ -411,7 +411,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="60" column="6" declfile="include/kmalloc.h" declline="60" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="59" column="6" declfile="include/kmalloc.h" declline="59" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1a4af91afe377146f47af63dac6fb93fb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -432,7 +432,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="61" column="6" declfile="include/kmalloc.h" declline="61" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="60" column="6" declfile="include/kmalloc.h" declline="60" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1aece282b3071af855886669942d53537a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -453,7 +453,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="62" column="6" declfile="include/kmalloc.h" declline="62" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="61" column="6" declfile="include/kmalloc.h" declline="61" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1a2ae41a466ab6ea275ca1ebae81b56945" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -470,7 +470,46 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
+        <location file="include/kmalloc.h" line="62" column="10" declfile="include/kmalloc.h" declline="62" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1ab1204bd1ce4097b381452452445b75f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_free_memory</definition>
+        <argsstring>()</argsstring>
+        <name>get_free_memory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
         <location file="include/kmalloc.h" line="63" column="10" declfile="include/kmalloc.h" declline="63" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a3637eb65ed827e7cba29a4dc57273a37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_used_memory</definition>
+        <argsstring>()</argsstring>
+        <name>get_used_memory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="64" column="10" declfile="include/kmalloc.h" declline="64" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a9227ee8bcad10a2503376915463f28b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_total_memory</definition>
+        <argsstring>()</argsstring>
+        <name>get_total_memory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="65" column="10" declfile="include/kmalloc.h" declline="65" declcolumn="10"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

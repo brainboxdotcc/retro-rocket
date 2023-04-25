@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="97" column="10" bodyfile="include/ubasic.h" bodystart="97" bodyend="-1"/>
+        <location file="include/ubasic.h" line="166" column="10" bodyfile="include/ubasic.h" bodystart="166" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -28,38 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="98" column="12" bodyfile="include/ubasic.h" bodystart="98" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structub__line__ref_1aff354abc3d12b0064deaa6adc6a954a9" prot="public" static="no" mutable="no">
-        <type>struct <ref refid="structub__line__ref" kindref="compound">ub_line_ref</ref> *</type>
-        <definition>struct ub_line_ref* ub_line_ref::prev</definition>
-        <argsstring></argsstring>
-        <name>prev</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="99" column="19" bodyfile="include/ubasic.h" bodystart="99" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structub__line__ref_1a1ed83cf1c8a2692780e039fef5bacd87" prot="public" static="no" mutable="no">
-        <type>struct <ref refid="structub__line__ref" kindref="compound">ub_line_ref</ref> *</type>
-        <definition>struct ub_line_ref* ub_line_ref::next</definition>
-        <argsstring></argsstring>
-        <name>next</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="100" column="19" bodyfile="include/ubasic.h" bodystart="100" bodyend="-1"/>
+        <location file="include/ubasic.h" line="167" column="12" bodyfile="include/ubasic.h" bodystart="167" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Line reference in program. Each program has a doubly linked list of these, stored in ascending order. Once we iterate the list past the search number we know we don&apos;t have to search any further. </para>
     </briefdescription>
     <detaileddescription>
+<para>TODO: If search number is &lt; current line number, search backwards instead and stop when previous number is before search. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -71,10 +47,6 @@
         <childnode refid="3" relation="usage">
           <edgelabel>line_number</edgelabel>
         </childnode>
-        <childnode refid="1" relation="usage">
-          <edgelabel>next</edgelabel>
-          <edgelabel>prev</edgelabel>
-        </childnode>
       </node>
       <node id="3">
         <label>uint32_t</label>
@@ -83,11 +55,9 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="96" column="1" bodyfile="include/ubasic.h" bodystart="96" bodyend="101"/>
+    <location file="include/ubasic.h" line="165" column="1" bodyfile="include/ubasic.h" bodystart="165" bodyend="168"/>
     <listofallmembers>
       <member refid="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>line_number</name></member>
-      <member refid="structub__line__ref_1a1ed83cf1c8a2692780e039fef5bacd87" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>next</name></member>
-      <member refid="structub__line__ref_1aff354abc3d12b0064deaa6adc6a954a9" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>prev</name></member>
       <member refid="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>ptr</name></member>
     </listofallmembers>
   </compounddef>

@@ -97,10 +97,10 @@ $(document).ready(function(){initNavTree('hashmap_8h.html',''); initResizable();
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a101011257b715d9425f1d26d34f94bce"><td class="memItemLeft" align="right" valign="top">struct hashmap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a101011257b715d9425f1d26d34f94bce">hashmap_new</a> (size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(void *item), void *udata)</td></tr>
-<tr class="separator:a101011257b715d9425f1d26d34f94bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c5c11e3f02309391e351f33df96c1bf"><td class="memItemLeft" align="right" valign="top">struct hashmap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a2c5c11e3f02309391e351f33df96c1bf">hashmap_new_with_allocator</a> (void *(*malloc)(size_t), void *(*realloc)(void *, size_t), void(*free)(void *), size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(void *item), void *udata)</td></tr>
-<tr class="separator:a2c5c11e3f02309391e351f33df96c1bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5deb1768129efb6534fb02365b2da3e6"><td class="memItemLeft" align="right" valign="top">struct hashmap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a5deb1768129efb6534fb02365b2da3e6">hashmap_new</a> (size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
+<tr class="separator:a5deb1768129efb6534fb02365b2da3e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab73d927a882f7da5131ce3ec050f2888"><td class="memItemLeft" align="right" valign="top">struct hashmap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ab73d927a882f7da5131ce3ec050f2888">hashmap_new_with_allocator</a> (void *(*malloc)(size_t), void *(*realloc)(void *, size_t), void(*free)(const void *), size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
+<tr class="separator:ab73d927a882f7da5131ce3ec050f2888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97ab64db6070065a0e8b5afc23793342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a97ab64db6070065a0e8b5afc23793342">hashmap_free</a> (struct hashmap *map)</td></tr>
 <tr class="separator:a97ab64db6070065a0e8b5afc23793342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab09b4f126a08c1e716bac424b1927f19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ab09b4f126a08c1e716bac424b1927f19">hashmap_clear</a> (struct hashmap *map, bool update_cap)</td></tr>
@@ -125,8 +125,8 @@ Functions</h2></td></tr>
 <tr class="separator:a9a8e35929f3fa17f10b93594e89e98ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ad2116023e2861efbaeeb332e2bef24"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a0ad2116023e2861efbaeeb332e2bef24">hashmap_murmur</a> (const void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="separator:a0ad2116023e2861efbaeeb332e2bef24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50515f0051f7822eafb0f977a1e12b1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a50515f0051f7822eafb0f977a1e12b1d">hashmap_set_allocator</a> (void *(*malloc)(size_t), void(*free)(void *))</td></tr>
-<tr class="separator:a50515f0051f7822eafb0f977a1e12b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbb750eb52a3b3647bcff308652725bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#afbb750eb52a3b3647bcff308652725bb">hashmap_set_allocator</a> (void *(*malloc)(size_t), void(*free)(const void *))</td></tr>
+<tr class="separator:afbb750eb52a3b3647bcff308652725bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab09b4f126a08c1e716bac424b1927f19"></a>
@@ -323,8 +323,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a101011257b715d9425f1d26d34f94bce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a101011257b715d9425f1d26d34f94bce">&#9670;&nbsp;</a></span>hashmap_new()</h2>
+<a id="a5deb1768129efb6534fb02365b2da3e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5deb1768129efb6534fb02365b2da3e6">&#9670;&nbsp;</a></span>hashmap_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,7 +368,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(void *item)&#160;</td>
+          <td class="paramtype">void(*)(const void *item)&#160;</td>
           <td class="paramname"><em>elfree</em>, </td>
         </tr>
         <tr>
@@ -387,8 +387,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2c5c11e3f02309391e351f33df96c1bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c5c11e3f02309391e351f33df96c1bf">&#9670;&nbsp;</a></span>hashmap_new_with_allocator()</h2>
+<a id="ab73d927a882f7da5131ce3ec050f2888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73d927a882f7da5131ce3ec050f2888">&#9670;&nbsp;</a></span>hashmap_new_with_allocator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -408,7 +408,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(void *)&#160;</td>
+          <td class="paramtype">void(*)(const void *)&#160;</td>
           <td class="paramname"><em>free</em>, </td>
         </tr>
         <tr>
@@ -450,7 +450,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(void *item)&#160;</td>
+          <td class="paramtype">void(*)(const void *item)&#160;</td>
           <td class="paramname"><em>elfree</em>, </td>
         </tr>
         <tr>
@@ -577,8 +577,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a50515f0051f7822eafb0f977a1e12b1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50515f0051f7822eafb0f977a1e12b1d">&#9670;&nbsp;</a></span>hashmap_set_allocator()</h2>
+<a id="afbb750eb52a3b3647bcff308652725bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbb750eb52a3b3647bcff308652725bb">&#9670;&nbsp;</a></span>hashmap_set_allocator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +592,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(void *)&#160;</td>
+          <td class="paramtype">void(*)(const void *)&#160;</td>
           <td class="paramname"><em>free</em>&#160;</td>
         </tr>
         <tr>
@@ -651,7 +651,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="hashmap_8h.html">hashmap.h</a></li>
-    <li class="footer">Generated on Mon Apr 17 2023 21:24:31 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 25 2023 02:11:05 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -85,23 +85,147 @@ $(document).ready(function(){initNavTree('keyboard_8h.html',''); initResizable()
 
 <div class="header">
   <div class="summary">
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">keyboard.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a28ea8f371588faf8c0f361fd56c0db0b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0b">extended_key_t</a> { <br />
+&#160;&#160;<a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba5d9c9ba1d8f2c6f6737db37d3f449071">KEY_PAGEUP</a> = 245
+, <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba5996c34d86df2b3c1be741aeb35bdbc4">KEY_PAGEDOWN</a> = 246
+, <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba5adcbb7ea7c9c7405c50fe2a3e7c2629">KEY_DEL</a> = 247
+, <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba2eb57cc422cad9808960658c9ebc987a">KEY_INS</a> = 248
+, <br />
+&#160;&#160;<a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0baa8adb6fcb92dec58fb19410eacfdd403">KEY_END</a> = 249
+, <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba0848a442d907968b211b97bc2bd88acd">KEY_UP</a> = 250
+, <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0baa9cdac7967bf7d88fdb761138a2a3416">KEY_DOWN</a> = 251
+, <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba612120b69c7dfd46086db7aaebdbcf65">KEY_LEFT</a> = 252
+, <br />
+&#160;&#160;<a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba6504370d9c6391e1a9da6a1a529b089d">KEY_RIGHT</a> = 253
+, <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0bad5b83418c285e43af5d3a87b4d4049d7">KEY_HOME</a> = 254
+<br />
+ }</td></tr>
+<tr class="memdesc:a28ea8f371588faf8c0f361fd56c0db0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended keys. BASIC reports these keypresses directly via INKEY$.  <a href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0b">More...</a><br /></td></tr>
+<tr class="separator:a28ea8f371588faf8c0f361fd56c0db0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac3a72156d4bbba013e4d62801992794d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">init_keyboard</a> ()</td></tr>
+<tr class="memdesc:ac3a72156d4bbba013e4d62801992794d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Claim keyboard interrupt.  <a href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">More...</a><br /></td></tr>
 <tr class="separator:ac3a72156d4bbba013e4d62801992794d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af186c1d48613bd858b7f774e5bd47935"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">kgetc</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
+<tr class="memdesc:af186c1d48613bd858b7f774e5bd47935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns next key in circular buffer, or 255 if no key available.  <a href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">More...</a><br /></td></tr>
 <tr class="separator:af186c1d48613bd858b7f774e5bd47935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdb02475d45b894eb5ec2a57b4100eea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea">ctrl_held</a> ()</td></tr>
+<tr class="memdesc:afdb02475d45b894eb5ec2a57b4100eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the CTRL key is held down.  <a href="keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea">More...</a><br /></td></tr>
+<tr class="separator:afdb02475d45b894eb5ec2a57b4100eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91e9663f1e43e4aca8439739c3b10c69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a91e9663f1e43e4aca8439739c3b10c69">shift_held</a> ()</td></tr>
+<tr class="memdesc:a91e9663f1e43e4aca8439739c3b10c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the SHIFT key is held down.  <a href="keyboard_8h.html#a91e9663f1e43e4aca8439739c3b10c69">More...</a><br /></td></tr>
+<tr class="separator:a91e9663f1e43e4aca8439739c3b10c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7d5ba52d15d8a0066ee06b39399411f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#ac7d5ba52d15d8a0066ee06b39399411f">alt_held</a> ()</td></tr>
+<tr class="memdesc:ac7d5ba52d15d8a0066ee06b39399411f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the ALT key is held down.  <a href="keyboard_8h.html#ac7d5ba52d15d8a0066ee06b39399411f">More...</a><br /></td></tr>
+<tr class="separator:ac7d5ba52d15d8a0066ee06b39399411f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af491f52ce63929279d3733c13ba771d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#af491f52ce63929279d3733c13ba771d2">caps_lock_on</a> ()</td></tr>
+<tr class="memdesc:af491f52ce63929279d3733c13ba771d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the CAPS LOCK key is enganged.  <a href="keyboard_8h.html#af491f52ce63929279d3733c13ba771d2">More...</a><br /></td></tr>
+<tr class="separator:af491f52ce63929279d3733c13ba771d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a28ea8f371588faf8c0f361fd56c0db0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28ea8f371588faf8c0f361fd56c0db0b">&#9670;&nbsp;</a></span>extended_key_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0b">extended_key_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extended keys. BASIC reports these keypresses directly via INKEY$. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba5d9c9ba1d8f2c6f6737db37d3f449071"></a>KEY_PAGEUP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba5996c34d86df2b3c1be741aeb35bdbc4"></a>KEY_PAGEDOWN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba5adcbb7ea7c9c7405c50fe2a3e7c2629"></a>KEY_DEL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba2eb57cc422cad9808960658c9ebc987a"></a>KEY_INS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0baa8adb6fcb92dec58fb19410eacfdd403"></a>KEY_END&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba0848a442d907968b211b97bc2bd88acd"></a>KEY_UP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0baa9cdac7967bf7d88fdb761138a2a3416"></a>KEY_DOWN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba612120b69c7dfd46086db7aaebdbcf65"></a>KEY_LEFT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba6504370d9c6391e1a9da6a1a529b089d"></a>KEY_RIGHT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0bad5b83418c285e43af5d3a87b4d4049d7"></a>KEY_HOME&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ac7d5ba52d15d8a0066ee06b39399411f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7d5ba52d15d8a0066ee06b39399411f">&#9670;&nbsp;</a></span>alt_held()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool alt_held </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the ALT key is held down. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if ALT key held </dd></dl>
+
+</div>
+</div>
+<a id="af491f52ce63929279d3733c13ba771d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af491f52ce63929279d3733c13ba771d2">&#9670;&nbsp;</a></span>caps_lock_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool caps_lock_on </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the CAPS LOCK key is enganged. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if CAPS LOCK is on </dd></dl>
+
+</div>
+</div>
+<a id="afdb02475d45b894eb5ec2a57b4100eea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdb02475d45b894eb5ec2a57b4100eea">&#9670;&nbsp;</a></span>ctrl_held()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ctrl_held </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the CTRL key is held down. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if CTRL key held </dd></dl>
+
+</div>
+</div>
 <a id="ac3a72156d4bbba013e4d62801992794d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3a72156d4bbba013e4d62801992794d">&#9670;&nbsp;</a></span>init_keyboard()</h2>
 
@@ -116,6 +240,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Claim keyboard interrupt. </p>
 
 </div>
 </div>
@@ -135,6 +261,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns next key in circular buffer, or 255 if no key available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cons</td><td>current console </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>unsigned char key from circular buffer </dd></dl>
+
+</div>
+</div>
+<a id="a91e9663f1e43e4aca8439739c3b10c69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e9663f1e43e4aca8439739c3b10c69">&#9670;&nbsp;</a></span>shift_held()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool shift_held </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the SHIFT key is held down. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if SHIFT key held </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -143,7 +298,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="keyboard_8h.html">keyboard.h</a></li>
-    <li class="footer">Generated on Mon Apr 17 2023 21:24:31 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Apr 25 2023 02:11:05 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

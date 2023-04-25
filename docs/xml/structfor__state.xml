@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="27" column="17" bodyfile="include/ubasic.h" bodystart="27" bodyend="-1"/>
+        <location file="include/ubasic.h" line="49" column="17" bodyfile="include/ubasic.h" bodystart="49" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structfor__state_1a0f918f30cf424d575518cbb3d1b80f5b" prot="public" static="no" mutable="no">
-        <type>char *</type>
-        <definition>char* for_state::for_variable</definition>
+      <memberdef kind="variable" id="structfor__state_1ad6d90447bf137e2ec375d5b35c29cde7" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* for_state::for_variable</definition>
         <argsstring></argsstring>
         <name>for_variable</name>
         <briefdescription>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="28" column="14" bodyfile="include/ubasic.h" bodystart="28" bodyend="-1"/>
+        <location file="include/ubasic.h" line="50" column="20" bodyfile="include/ubasic.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfor__state_1acb42d93785a6f2a3cbbe775fdee9f11b" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="29" column="17" bodyfile="include/ubasic.h" bodystart="29" bodyend="-1"/>
+        <location file="include/ubasic.h" line="51" column="17" bodyfile="include/ubasic.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfor__state_1ab4b4931a9408840da9e2ff33001f851a" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -54,10 +54,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="30" column="17" bodyfile="include/ubasic.h" bodystart="30" bodyend="-1"/>
+        <location file="include/ubasic.h" line="52" column="17" bodyfile="include/ubasic.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>State for a FOR...NEXT loop. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -81,9 +82,9 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="26" column="1" bodyfile="include/ubasic.h" bodystart="26" bodyend="31"/>
+    <location file="include/ubasic.h" line="48" column="1" bodyfile="include/ubasic.h" bodystart="48" bodyend="53"/>
     <listofallmembers>
-      <member refid="structfor__state_1a0f918f30cf424d575518cbb3d1b80f5b" prot="public" virt="non-virtual"><scope>for_state</scope><name>for_variable</name></member>
+      <member refid="structfor__state_1ad6d90447bf137e2ec375d5b35c29cde7" prot="public" virt="non-virtual"><scope>for_state</scope><name>for_variable</name></member>
       <member refid="structfor__state_1ac34939b2a9960a6164bb0033879ca67d" prot="public" virt="non-virtual"><scope>for_state</scope><name>line_after_for</name></member>
       <member refid="structfor__state_1ab4b4931a9408840da9e2ff33001f851a" prot="public" virt="non-virtual"><scope>for_state</scope><name>step</name></member>
       <member refid="structfor__state_1acb42d93785a6f2a3cbbe775fdee9f11b" prot="public" virt="non-virtual"><scope>for_state</scope><name>to</name></member>

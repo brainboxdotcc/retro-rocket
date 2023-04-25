@@ -4,9 +4,9 @@
     <compoundname>ub_var_int</compoundname>
     <includes local="no">ubasic.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structub__var__int_1ac015b8fa7056409f66e0d17b464cb209" prot="public" static="no" mutable="no">
-        <type>char *</type>
-        <definition>char* ub_var_int::varname</definition>
+      <memberdef kind="variable" id="structub__var__int_1a2744e85bfb487737b7442dfa99c9bd62" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ub_var_int::varname</definition>
         <argsstring></argsstring>
         <name>varname</name>
         <briefdescription>
@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="34" column="6" bodyfile="include/ubasic.h" bodystart="34" bodyend="-1"/>
+        <location file="include/ubasic.h" line="59" column="12" bodyfile="include/ubasic.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__int_1a4106a4e6d32df6e5b2da883f4e10ae0c" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="35" column="9" bodyfile="include/ubasic.h" bodystart="35" bodyend="-1"/>
+        <location file="include/ubasic.h" line="60" column="9" bodyfile="include/ubasic.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__int_1af005cf66421048f3fcdf4d2c70dea930" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="36" column="6" bodyfile="include/ubasic.h" bodystart="36" bodyend="-1"/>
+        <location file="include/ubasic.h" line="61" column="6" bodyfile="include/ubasic.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__int_1a8dda4e8cd294e42cf2e7d267f2c10cda" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
@@ -54,10 +54,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="37" column="18" bodyfile="include/ubasic.h" bodystart="37" bodyend="-1"/>
+        <location file="include/ubasic.h" line="62" column="18" bodyfile="include/ubasic.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>An integer variable. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -88,12 +89,12 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="33" column="1" bodyfile="include/ubasic.h" bodystart="33" bodyend="38"/>
+    <location file="include/ubasic.h" line="58" column="1" bodyfile="include/ubasic.h" bodystart="58" bodyend="63"/>
     <listofallmembers>
       <member refid="structub__var__int_1af005cf66421048f3fcdf4d2c70dea930" prot="public" virt="non-virtual"><scope>ub_var_int</scope><name>global</name></member>
       <member refid="structub__var__int_1a8dda4e8cd294e42cf2e7d267f2c10cda" prot="public" virt="non-virtual"><scope>ub_var_int</scope><name>next</name></member>
       <member refid="structub__var__int_1a4106a4e6d32df6e5b2da883f4e10ae0c" prot="public" virt="non-virtual"><scope>ub_var_int</scope><name>value</name></member>
-      <member refid="structub__var__int_1ac015b8fa7056409f66e0d17b464cb209" prot="public" virt="non-virtual"><scope>ub_var_int</scope><name>varname</name></member>
+      <member refid="structub__var__int_1a2744e85bfb487737b7442dfa99c9bd62" prot="public" virt="non-virtual"><scope>ub_var_int</scope><name>varname</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

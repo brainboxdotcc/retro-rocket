@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="105" column="20" bodyfile="include/ubasic.h" bodystart="105" bodyend="-1"/>
+        <location file="include/ubasic.h" line="192" column="20" bodyfile="include/ubasic.h" bodystart="192" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a5b5d57bf094e597f42cf3c65c10438d2" prot="public" static="no" mutable="no">
         <type>char const  *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="106" column="12" bodyfile="include/ubasic.h" bodystart="106" bodyend="-1"/>
+        <location file="include/ubasic.h" line="193" column="12" bodyfile="include/ubasic.h" bodystart="193" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a446a08b3410c33383f8d69083153ef06" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="107" column="13" bodyfile="include/ubasic.h" bodystart="107" bodyend="-1"/>
+        <location file="include/ubasic.h" line="194" column="13" bodyfile="include/ubasic.h" bodystart="194" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a49685c1299b80f648bd7e55107a6f0c2" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -54,11 +54,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="108" column="9" bodyfile="include/ubasic.h" bodystart="108" bodyend="-1"/>
+        <location file="include/ubasic.h" line="195" column="9" bodyfile="include/ubasic.h" bodystart="195" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1afee0876c34d4d12787aa3833e64fb5c8" prot="public" static="no" mutable="no">
-        <type>int</type>
-        <definition>int ubasic_ctx::errored</definition>
+      <memberdef kind="variable" id="structubasic__ctx_1a0cfa88ca9f55b408b541af2c80d64a90" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ubasic_ctx::errored</definition>
         <argsstring></argsstring>
         <name>errored</name>
         <briefdescription>
@@ -67,7 +67,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="109" column="5" bodyfile="include/ubasic.h" bodystart="109" bodyend="-1"/>
+        <location file="include/ubasic.h" line="196" column="6" bodyfile="include/ubasic.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structubasic__ctx_1ae97525f281273ea45492eb6a6e1b0dd9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ubasic_ctx::ended</definition>
+        <argsstring></argsstring>
+        <name>ended</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="197" column="14" bodyfile="include/ubasic.h" bodystart="197" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ad228067b994f862ff64d9ea07927e3e7" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -80,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="110" column="14" bodyfile="include/ubasic.h" bodystart="110" bodyend="-1"/>
+        <location file="include/ubasic.h" line="198" column="14" bodyfile="include/ubasic.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ad4f82e6f89c9b88bd7a946d78479df38" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -93,20 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="111" column="14" bodyfile="include/ubasic.h" bodystart="111" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t ubasic_ctx::gosub_stack[255]</definition>
-        <argsstring>[255]</argsstring>
-        <name>gosub_stack</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="112" column="18" bodyfile="include/ubasic.h" bodystart="112" bodyend="-1"/>
+        <location file="include/ubasic.h" line="200" column="14" bodyfile="include/ubasic.h" bodystart="200" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a29c2fb098e7e87179a80c78957352ca0" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="113" column="18" bodyfile="include/ubasic.h" bodystart="113" bodyend="-1"/>
+        <location file="include/ubasic.h" line="202" column="18" bodyfile="include/ubasic.h" bodystart="202" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ac174583082681c819beac71bf6c856e2" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="114" column="21" bodyfile="include/ubasic.h" bodystart="114" bodyend="-1"/>
+        <location file="include/ubasic.h" line="203" column="21" bodyfile="include/ubasic.h" bodystart="203" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1addf1b80ca1ad690c7375230adeb8b2a6" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref> *</type>
@@ -145,7 +145,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="115" column="21" bodyfile="include/ubasic.h" bodystart="115" bodyend="-1"/>
+        <location file="include/ubasic.h" line="204" column="21" bodyfile="include/ubasic.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ubasic_ctx::gosub_stack[255]</definition>
+        <argsstring>[255]</argsstring>
+        <name>gosub_stack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="206" column="18" bodyfile="include/ubasic.h" bodystart="206" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a1d1b18d255584d6f092f4a8a6ed2028b" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -158,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="116" column="18" bodyfile="include/ubasic.h" bodystart="116" bodyend="-1"/>
+        <location file="include/ubasic.h" line="207" column="18" bodyfile="include/ubasic.h" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a2b482ac38918fb15a4f6cd6e00874897" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -171,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="117" column="5" bodyfile="include/ubasic.h" bodystart="117" bodyend="-1"/>
+        <location file="include/ubasic.h" line="209" column="5" bodyfile="include/ubasic.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a5b0f365c2985b1a34a20e9dbce6545ce" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -184,12 +197,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="118" column="9" bodyfile="include/ubasic.h" bodystart="118" bodyend="-1"/>
+        <location file="include/ubasic.h" line="210" column="9" bodyfile="include/ubasic.h" bodystart="210" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1a4bd44b09f60594c87614733347281ae3" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structubasic__ctx_1a68a1ad7151a19c90017b3837dfd74488" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfor__state" kindref="compound">for_state</ref></type>
-        <definition>struct for_state ubasic_ctx::for_stack[50]</definition>
-        <argsstring>[50]</argsstring>
+        <definition>struct for_state ubasic_ctx::for_stack[255]</definition>
+        <argsstring>[255]</argsstring>
         <name>for_stack</name>
         <briefdescription>
         </briefdescription>
@@ -197,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="118" column="9" bodyfile="include/ubasic.h" bodystart="119" bodyend="-1"/>
+        <location file="include/ubasic.h" line="210" column="9" bodyfile="include/ubasic.h" bodystart="212" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1aceb6c976842ec03cfe88f967daef44c2" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -210,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="120" column="18" bodyfile="include/ubasic.h" bodystart="120" bodyend="-1"/>
+        <location file="include/ubasic.h" line="213" column="18" bodyfile="include/ubasic.h" bodystart="213" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ac3a12ced3a43e55c91640e91c9f6acb5" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref> *</type>
@@ -223,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="121" column="22" bodyfile="include/ubasic.h" bodystart="121" bodyend="-1"/>
+        <location file="include/ubasic.h" line="215" column="22" bodyfile="include/ubasic.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a205229710d812384b09aeb261cb8f77d" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
@@ -236,7 +249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="122" column="26" bodyfile="include/ubasic.h" bodystart="122" bodyend="-1"/>
+        <location file="include/ubasic.h" line="217" column="26" bodyfile="include/ubasic.h" bodystart="217" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a7c236a559e80efe82b692dff35ba6ea2" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
@@ -249,7 +262,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="123" column="21" bodyfile="include/ubasic.h" bodystart="123" bodyend="-1"/>
+        <location file="include/ubasic.h" line="218" column="21" bodyfile="include/ubasic.h" bodystart="218" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a0eebd420f79c71656be34a7041d70b1a" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref> *</type>
@@ -262,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="124" column="21" bodyfile="include/ubasic.h" bodystart="124" bodyend="-1"/>
+        <location file="include/ubasic.h" line="219" column="21" bodyfile="include/ubasic.h" bodystart="219" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ab5661134630cb2eee5e6839c3f82e63c" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int__array" kindref="compound">ub_var_int_array</ref> *</type>
@@ -275,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="125" column="24" bodyfile="include/ubasic.h" bodystart="125" bodyend="-1"/>
+        <location file="include/ubasic.h" line="221" column="24" bodyfile="include/ubasic.h" bodystart="221" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a4bf2896ae15ddd46452f45374883d910" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string__array" kindref="compound">ub_var_string_array</ref> *</type>
@@ -288,7 +301,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="126" column="27" bodyfile="include/ubasic.h" bodystart="126" bodyend="-1"/>
+        <location file="include/ubasic.h" line="222" column="27" bodyfile="include/ubasic.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structubasic__ctx_1afd46497f8296a5c384cbba85d5f90d70" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__var__double__array" kindref="compound">ub_var_double_array</ref> *</type>
+        <definition>struct ub_var_double_array* ubasic_ctx::double_array_variables</definition>
+        <argsstring></argsstring>
+        <name>double_array_variables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="223" column="27" bodyfile="include/ubasic.h" bodystart="223" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a2f3d8eaac3dfab9ee45bfcb9c120a668" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structconsole" kindref="compound">console</ref> *</type>
@@ -301,20 +327,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="127" column="15" bodyfile="include/ubasic.h" bodystart="127" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1a0e5b28a108d3913751c1f497c7f1a345" prot="public" static="no" mutable="no">
-        <type>int</type>
-        <definition>int ubasic_ctx::ended</definition>
-        <argsstring></argsstring>
-        <name>ended</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="128" column="13" bodyfile="include/ubasic.h" bodystart="128" bodyend="-1"/>
+        <location file="include/ubasic.h" line="225" column="15" bodyfile="include/ubasic.h" bodystart="225" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a9e0e3ac42e238db0a9512a17775242af" prot="public" static="no" mutable="no">
         <type><ref refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966" kindref="member">ub_return_type</ref></type>
@@ -327,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="129" column="16" bodyfile="include/ubasic.h" bodystart="129" bodyend="-1"/>
+        <location file="include/ubasic.h" line="227" column="16" bodyfile="include/ubasic.h" bodystart="227" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1aa2068e8b25ef5f141d54b7266892b1a8" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -340,7 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="130" column="6" bodyfile="include/ubasic.h" bodystart="130" bodyend="-1"/>
+        <location file="include/ubasic.h" line="228" column="6" bodyfile="include/ubasic.h" bodystart="228" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ab9835b70d64e17519499bf1d32a9c59b" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -353,7 +366,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="131" column="5" bodyfile="include/ubasic.h" bodystart="131" bodyend="-1"/>
+        <location file="include/ubasic.h" line="229" column="5" bodyfile="include/ubasic.h" bodystart="229" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ac52c5cd3f325dc10408ea4eecee6fac7" prot="public" static="no" mutable="no">
         <type>char const  *</type>
@@ -366,7 +379,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="132" column="12" bodyfile="include/ubasic.h" bodystart="132" bodyend="-1"/>
+        <location file="include/ubasic.h" line="230" column="12" bodyfile="include/ubasic.h" bodystart="230" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a75fe7e0c62284b7f96d3badafc81df07" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref> *</type>
@@ -379,7 +392,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="133" column="16" bodyfile="include/ubasic.h" bodystart="133" bodyend="-1"/>
+        <location file="include/ubasic.h" line="231" column="16" bodyfile="include/ubasic.h" bodystart="231" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1aa068f02eec061e35fabab244735c0fff" prot="public" static="no" mutable="no">
         <type>int32_t</type>
@@ -392,11 +405,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="134" column="9" bodyfile="include/ubasic.h" bodystart="134" bodyend="-1"/>
+        <location file="include/ubasic.h" line="233" column="9" bodyfile="include/ubasic.h" bodystart="233" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1a6e25762f518edf1bf964fba6e4ff3091" prot="public" static="no" mutable="no">
-        <type><ref refid="structub__line__ref" kindref="compound">ub_line_ref</ref> *</type>
-        <definition>ub_line_ref* ubasic_ctx::lines</definition>
+      <memberdef kind="variable" id="structubasic__ctx_1a32ab055ccfa07abadab61933407cd9f9" prot="public" static="no" mutable="no">
+        <type>struct hashmap *</type>
+        <definition>struct hashmap* ubasic_ctx::lines</definition>
         <argsstring></argsstring>
         <name>lines</name>
         <briefdescription>
@@ -405,37 +418,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="135" column="13" bodyfile="include/ubasic.h" bodystart="135" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1acb52eee7ccee41778382fd7a2da8ccce" prot="public" static="no" mutable="no">
-        <type><ref refid="structub__line__ref" kindref="compound">ub_line_ref</ref> *</type>
-        <definition>ub_line_ref* ubasic_ctx::line_tail</definition>
-        <argsstring></argsstring>
-        <name>line_tail</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="136" column="13" bodyfile="include/ubasic.h" bodystart="136" bodyend="-1"/>
+        <location file="include/ubasic.h" line="235" column="15" bodyfile="include/ubasic.h" bodystart="235" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>BASIC program context Every instance of a BASIC program has one of these, also certain structures such as procedures will clone the context and run on the clone until the procedure completes. Cloned contexts share variables and you should never call <ref refid="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" kindref="member">ubasic_destroy()</ref> on them! </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="11">
+      <node id="12">
         <label>size_t</label>
       </node>
-      <node id="20">
+      <node id="21">
         <label>ub_param</label>
         <link refid="structub__param"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="20" relation="usage">
+        <childnode refid="21" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
       </node>
@@ -446,6 +447,9 @@
           <edgelabel>fn_type</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
+          <edgelabel>double_array_variables</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
           <edgelabel>string_array_variables</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
@@ -457,47 +461,48 @@
           <edgelabel>gosub_stack</edgelabel>
           <edgelabel>gosub_stack_ptr</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>item_begin</edgelabel>
           <edgelabel>nextptr</edgelabel>
           <edgelabel>program_ptr</edgelabel>
           <edgelabel>ptr</edgelabel>
           <edgelabel>string</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>cons</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>current_linenum</edgelabel>
           <edgelabel>eval_linenum</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>graphics_colour</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>double_variables</edgelabel>
           <edgelabel>local_double_variables</edgelabel>
         </childnode>
         <childnode refid="16" relation="usage">
-          <edgelabel>bracket_depth</edgelabel>
-          <edgelabel>current_token</edgelabel>
-          <edgelabel>ended</edgelabel>
-          <edgelabel>errored</edgelabel>
-          <edgelabel>oldlen</edgelabel>
+          <edgelabel>lines</edgelabel>
         </childnode>
         <childnode refid="17" relation="usage">
-          <edgelabel>int_array_variables</edgelabel>
+          <edgelabel>bracket_depth</edgelabel>
+          <edgelabel>current_token</edgelabel>
+          <edgelabel>oldlen</edgelabel>
         </childnode>
         <childnode refid="18" relation="usage">
+          <edgelabel>int_array_variables</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>ended</edgelabel>
+          <edgelabel>errored</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
           <edgelabel>defs</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="22" relation="usage">
           <edgelabel>local_string_variables</edgelabel>
           <edgelabel>str_variables</edgelabel>
-        </childnode>
-        <childnode refid="21" relation="usage">
-          <edgelabel>line_tail</edgelabel>
-          <edgelabel>lines</edgelabel>
         </childnode>
         <childnode refid="23" relation="usage">
           <edgelabel>fn_return</edgelabel>
@@ -505,63 +510,69 @@
         <childnode refid="24" relation="usage">
           <edgelabel>for_stack</edgelabel>
         </childnode>
-        <childnode refid="20" relation="usage">
+        <childnode refid="21" relation="usage">
           <edgelabel>param</edgelabel>
         </childnode>
       </node>
       <node id="23">
         <label>void *</label>
       </node>
-      <node id="21">
-        <label>ub_line_ref</label>
-        <link refid="structub__line__ref"/>
-        <childnode refid="5" relation="usage">
-          <edgelabel>ptr</edgelabel>
-        </childnode>
-        <childnode refid="22" relation="usage">
-          <edgelabel>line_number</edgelabel>
-        </childnode>
-        <childnode refid="21" relation="usage">
-          <edgelabel>next</edgelabel>
-          <edgelabel>prev</edgelabel>
-        </childnode>
-      </node>
-      <node id="13">
-        <label>int32_t</label>
-      </node>
-      <node id="4">
-        <label>uint64_t</label>
-      </node>
-      <node id="14">
-        <label>ub_var_double</label>
-        <link refid="structub__var__double"/>
-        <childnode refid="15" relation="usage">
-          <edgelabel>value</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>varname</edgelabel>
-        </childnode>
-        <childnode refid="14" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>global</edgelabel>
-        </childnode>
-      </node>
-      <node id="19">
-        <label>ub_fn_type</label>
-      </node>
       <node id="3">
-        <label>ub_var_string_array</label>
-        <link refid="structub__var__string__array"/>
+        <label>ub_var_double_array</label>
+        <link refid="structub__var__double__array"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
           <edgelabel>varname</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>int32_t</label>
+      </node>
+      <node id="16">
+        <label>struct hashmap *</label>
+      </node>
+      <node id="4">
+        <label>uint64_t</label>
+      </node>
+      <node id="15">
+        <label>ub_var_double</label>
+        <link refid="structub__var__double"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+      </node>
+      <node id="20">
+        <label>ub_fn_type</label>
+      </node>
+      <node id="7">
+        <label>ub_var_string_array</label>
+        <link refid="structub__var__string__array"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>values</edgelabel>
+          <edgelabel>varname</edgelabel>
         </childnode>
       </node>
       <node id="8">
@@ -570,59 +581,59 @@
         <childnode refid="8" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>value</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>global</edgelabel>
         </childnode>
       </node>
-      <node id="17">
+      <node id="18">
         <label>ub_var_int_array</label>
         <link refid="structub__var__int__array"/>
-        <childnode refid="8" relation="usage">
-          <edgelabel>values</edgelabel>
-        </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>varname</edgelabel>
-        </childnode>
-      </node>
-      <node id="16">
-        <label>int</label>
-      </node>
-      <node id="15">
-        <label>double</label>
-      </node>
-      <node id="22">
-        <label>uint32_t</label>
-      </node>
-      <node id="6">
-        <label>ub_var_string</label>
-        <link refid="structub__var__string"/>
-        <childnode refid="5" relation="usage">
-          <edgelabel>value</edgelabel>
-          <edgelabel>varname</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>global</edgelabel>
-        </childnode>
         <childnode refid="6" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
       </node>
-      <node id="12">
+      <node id="17">
+        <label>int</label>
+      </node>
+      <node id="5">
+        <label>double</label>
+      </node>
+      <node id="22">
+        <label>ub_var_string</label>
+        <link refid="structub__var__string"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>value</edgelabel>
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
         <label>uint8_t</label>
       </node>
       <node id="24">
         <label>for_state</label>
         <link refid="structfor__state"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>for_variable</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
@@ -631,49 +642,49 @@
           <edgelabel>to</edgelabel>
         </childnode>
       </node>
-      <node id="18">
+      <node id="19">
         <label>ub_proc_fn_def</label>
         <link refid="structub__proc__fn__def"/>
-        <childnode refid="19" relation="usage">
+        <childnode refid="20" relation="usage">
           <edgelabel>type</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>line</edgelabel>
         </childnode>
-        <childnode refid="18" relation="usage">
+        <childnode refid="19" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="20" relation="usage">
+        <childnode refid="21" relation="usage">
           <edgelabel>params</edgelabel>
         </childnode>
       </node>
       <node id="2">
         <label>ub_return_type</label>
       </node>
-      <node id="7">
+      <node id="10">
         <label>bool</label>
       </node>
       <node id="9">
         <label>int64_t</label>
       </node>
-      <node id="5">
+      <node id="6">
         <label>char</label>
       </node>
-      <node id="10">
+      <node id="11">
         <label>console</label>
         <link refid="structconsole"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>buffer</edgelabel>
           <edgelabel>dirty</edgelabel>
           <edgelabel>internalbuffer</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>bufcnt</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>attributes</edgelabel>
           <edgelabel>last</edgelabel>
           <edgelabel>x</edgelabel>
@@ -681,20 +692,21 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="103" column="1" bodyfile="include/ubasic.h" bodystart="104" bodyend="137"/>
+    <location file="include/ubasic.h" line="191" column="1" bodyfile="include/ubasic.h" bodystart="191" bodyend="236"/>
     <listofallmembers>
       <member refid="structubasic__ctx_1ab9835b70d64e17519499bf1d32a9c59b" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>bracket_depth</name></member>
       <member refid="structubasic__ctx_1a2f3d8eaac3dfab9ee45bfcb9c120a668" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>cons</name></member>
       <member refid="structubasic__ctx_1a49685c1299b80f648bd7e55107a6f0c2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>current_linenum</name></member>
       <member refid="structubasic__ctx_1a446a08b3410c33383f8d69083153ef06" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>current_token</name></member>
       <member refid="structubasic__ctx_1ac3a12ced3a43e55c91640e91c9f6acb5" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>defs</name></member>
+      <member refid="structubasic__ctx_1afd46497f8296a5c384cbba85d5f90d70" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>double_array_variables</name></member>
       <member refid="structubasic__ctx_1a0eebd420f79c71656be34a7041d70b1a" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>double_variables</name></member>
-      <member refid="structubasic__ctx_1a0e5b28a108d3913751c1f497c7f1a345" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>ended</name></member>
-      <member refid="structubasic__ctx_1afee0876c34d4d12787aa3833e64fb5c8" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>errored</name></member>
+      <member refid="structubasic__ctx_1ae97525f281273ea45492eb6a6e1b0dd9" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>ended</name></member>
+      <member refid="structubasic__ctx_1a0cfa88ca9f55b408b541af2c80d64a90" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>errored</name></member>
       <member refid="structubasic__ctx_1a5b0f365c2985b1a34a20e9dbce6545ce" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>eval_linenum</name></member>
       <member refid="structubasic__ctx_1aa2068e8b25ef5f141d54b7266892b1a8" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>fn_return</name></member>
       <member refid="structubasic__ctx_1a9e0e3ac42e238db0a9512a17775242af" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>fn_type</name></member>
-      <member refid="structubasic__ctx_1a4bd44b09f60594c87614733347281ae3" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>for_stack</name></member>
+      <member refid="structubasic__ctx_1a68a1ad7151a19c90017b3837dfd74488" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>for_stack</name></member>
       <member refid="structubasic__ctx_1aceb6c976842ec03cfe88f967daef44c2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>for_stack_ptr</name></member>
       <member refid="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>gosub_stack</name></member>
       <member refid="structubasic__ctx_1a1d1b18d255584d6f092f4a8a6ed2028b" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>gosub_stack_ptr</name></member>
@@ -702,8 +714,7 @@
       <member refid="structubasic__ctx_1ab5661134630cb2eee5e6839c3f82e63c" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>int_array_variables</name></member>
       <member refid="structubasic__ctx_1a205229710d812384b09aeb261cb8f77d" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>int_variables</name></member>
       <member refid="structubasic__ctx_1ac52c5cd3f325dc10408ea4eecee6fac7" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>item_begin</name></member>
-      <member refid="structubasic__ctx_1acb52eee7ccee41778382fd7a2da8ccce" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>line_tail</name></member>
-      <member refid="structubasic__ctx_1a6e25762f518edf1bf964fba6e4ff3091" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>lines</name></member>
+      <member refid="structubasic__ctx_1a32ab055ccfa07abadab61933407cd9f9" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>lines</name></member>
       <member refid="structubasic__ctx_1addf1b80ca1ad690c7375230adeb8b2a6" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>local_double_variables</name></member>
       <member refid="structubasic__ctx_1a29c2fb098e7e87179a80c78957352ca0" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>local_int_variables</name></member>
       <member refid="structubasic__ctx_1ac174583082681c819beac71bf6c856e2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>local_string_variables</name></member>

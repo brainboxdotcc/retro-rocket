@@ -23,6 +23,7 @@ var video_8h =
     [ "dputstring", "video_8h.html#a68614b45a1f07d2b7dfd189061c1cf83", null ],
     [ "framebuffer_address", "video_8h.html#aa712e88bef297396764bb1a9b810d072", null ],
     [ "get_text_height", "video_8h.html#a849430deb40da15a4a934f2fee6d87a9", null ],
+    [ "get_text_position", "video_8h.html#a9fc73a5f42358dfc5528cecf943aebb3", null ],
     [ "get_text_width", "video_8h.html#ac016b9fcd07b7c15004752ce172708f2", null ],
     [ "getpixel", "video_8h.html#aa5401ca0e1f952a097a2976b8f652ec8", null ],
     [ "gotoxy", "video_8h.html#a77f6a7e382b6192d7829bac2f459168e", null ],

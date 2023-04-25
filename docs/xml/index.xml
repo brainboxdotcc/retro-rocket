@@ -410,7 +410,7 @@
   </compound>
   <compound refid="structfor__state" kind="struct"><name>for_state</name>
     <member refid="structfor__state_1ac34939b2a9960a6164bb0033879ca67d" kind="variable"><name>line_after_for</name></member>
-    <member refid="structfor__state_1a0f918f30cf424d575518cbb3d1b80f5b" kind="variable"><name>for_variable</name></member>
+    <member refid="structfor__state_1ad6d90447bf137e2ec375d5b35c29cde7" kind="variable"><name>for_variable</name></member>
     <member refid="structfor__state_1acb42d93785a6f2a3cbbe775fdee9f11b" kind="variable"><name>to</name></member>
     <member refid="structfor__state_1ab4b4931a9408840da9e2ff33001f851a" kind="variable"><name>step</name></member>
   </compound>
@@ -726,23 +726,26 @@
     <member refid="structpci__subclass_1a3194342b598db7b749af735b631d0498" kind="variable"><name>progif</name></member>
     <member refid="structpci__subclass_1a8b7fb89e4cd32a8f3a0b62e81b4e4a5d" kind="variable"><name>description</name></member>
   </compound>
-  <compound refid="structprocess" kind="struct"><name>process</name>
-    <member refid="structprocess_1acd8f5b769761291060bb235c89145236" kind="variable"><name>pid</name></member>
-    <member refid="structprocess_1aeacf31d26e3986013274cc576514a664" kind="variable"><name>ppid</name></member>
-    <member refid="structprocess_1a210dfedfbc72c1519a0b50ef02946e96" kind="variable"><name>uid</name></member>
-    <member refid="structprocess_1a73d1472943f39a6c5941fa636cae4a9a" kind="variable"><name>gid</name></member>
-    <member refid="structprocess_1a4ff2ac1afd6369b0876fa8baef822413" kind="variable"><name>state</name></member>
-    <member refid="structprocess_1ae2ffe3de19599abccaf0d3abddb24094" kind="variable"><name>start_time</name></member>
-    <member refid="structprocess_1abef94160cdd9c34d160149a0f158c298" kind="variable"><name>waitpid</name></member>
-    <member refid="structprocess_1aa987de379c42207c8871c9afcc51beea" kind="variable"><name>cpu</name></member>
-    <member refid="structprocess_1a84a88e05d3fbfde0adaa7299ce44e747" kind="variable"><name>directory</name></member>
-    <member refid="structprocess_1ab00affa63607d02095f147da6f1c0983" kind="variable"><name>name</name></member>
-    <member refid="structprocess_1a112132a3f2554d57b9c87e3373adb15b" kind="variable"><name>size</name></member>
-    <member refid="structprocess_1a82a666ec8f112a67717089585ff03519" kind="variable"><name>text</name></member>
-    <member refid="structprocess_1a2ee944c8bcaa77d0f0bf56a82fa712c3" kind="variable"><name>cons</name></member>
-    <member refid="structprocess_1a5809be20d9ce9d32d792fce2eda54d48" kind="variable"><name>code</name></member>
-    <member refid="structprocess_1ade1995538398f7994808dd957952ff42" kind="variable"><name>prev</name></member>
-    <member refid="structprocess_1aa714b70ab9ca99fc489de2f70a091b0b" kind="variable"><name>next</name></member>
+  <compound refid="structproc__id__t" kind="struct"><name>proc_id_t</name>
+    <member refid="structproc__id__t_1a51c087f8996f4682539f603ba00a58e7" kind="variable"><name>id</name></member>
+    <member refid="structproc__id__t_1a2b22d4924038769edca74fb8e8bb53e3" kind="variable"><name>proc</name></member>
+  </compound>
+  <compound refid="structprocess__t" kind="struct"><name>process_t</name>
+    <member refid="structprocess__t_1a0cea0ed21d2f6ed41a5c99b947041eea" kind="variable"><name>pid</name></member>
+    <member refid="structprocess__t_1a5bec0e4d8de103748bb6cba6ff37291a" kind="variable"><name>ppid</name></member>
+    <member refid="structprocess__t_1a5ca3ea3c45957d39b8993fedc08692b2" kind="variable"><name>uid</name></member>
+    <member refid="structprocess__t_1a07aef83877679df4398fa641ff557519" kind="variable"><name>gid</name></member>
+    <member refid="structprocess__t_1a40e84a87e647e4e0f10f32668c8ed3ab" kind="variable"><name>state</name></member>
+    <member refid="structprocess__t_1a4ecc4cac7db5cdf92547364b666dcd9c" kind="variable"><name>start_time</name></member>
+    <member refid="structprocess__t_1ade947bc49b3c970c9b6fe15da2f12f9b" kind="variable"><name>waitpid</name></member>
+    <member refid="structprocess__t_1a9efd67622874d1d026fb44b259569ac9" kind="variable"><name>cpu</name></member>
+    <member refid="structprocess__t_1a03df500e6a022a5c1f061c8af547476e" kind="variable"><name>directory</name></member>
+    <member refid="structprocess__t_1a39b862a83f8dc13357cfd8cdc8f64a9d" kind="variable"><name>name</name></member>
+    <member refid="structprocess__t_1afb5ad7c637ed36d339e8e9a1027e9aff" kind="variable"><name>size</name></member>
+    <member refid="structprocess__t_1a80a803afc53644e36db504d3dc22b3f4" kind="variable"><name>cons</name></member>
+    <member refid="structprocess__t_1a7bfeb57f190257400c7203666d10128e" kind="variable"><name>code</name></member>
+    <member refid="structprocess__t_1a319121e790b8160ed34c39eba2befe06" kind="variable"><name>prev</name></member>
+    <member refid="structprocess__t_1a35426bef9435a3bc4399ee832dab5cf2" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structresource__record" kind="struct"><name>resource_record</name>
     <member refid="structresource__record_1ad84f975ce84ee9ef0d8f7fc42859352f" kind="variable"><name>type</name></member>
@@ -910,69 +913,71 @@
   <compound refid="structub__line__ref" kind="struct"><name>ub_line_ref</name>
     <member refid="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" kind="variable"><name>line_number</name></member>
     <member refid="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" kind="variable"><name>ptr</name></member>
-    <member refid="structub__line__ref_1aff354abc3d12b0064deaa6adc6a954a9" kind="variable"><name>prev</name></member>
-    <member refid="structub__line__ref_1a1ed83cf1c8a2692780e039fef5bacd87" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__param" kind="struct"><name>ub_param</name>
-    <member refid="structub__param_1a5ed01b68c0d5b7918fdf8279ede2c4fb" kind="variable"><name>name</name></member>
+    <member refid="structub__param_1aac392ca80b9979a619107c2ba48ae684" kind="variable"><name>name</name></member>
     <member refid="structub__param_1a9264c1613cd1a6d11991d170f5fbcced" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__proc__fn__def" kind="struct"><name>ub_proc_fn_def</name>
-    <member refid="structub__proc__fn__def_1ae571d469a347ef7373d1b43050ad53c5" kind="variable"><name>name</name></member>
+    <member refid="structub__proc__fn__def_1a69737ebfd8476239a7f97f08b75e510f" kind="variable"><name>name</name></member>
     <member refid="structub__proc__fn__def_1aaf1a001204ca6a291414325774eda5bc" kind="variable"><name>type</name></member>
     <member refid="structub__proc__fn__def_1ab3410b24ce2ff1bcbd0b8c77316380be" kind="variable"><name>line</name></member>
     <member refid="structub__proc__fn__def_1aaaea6658f10a987ecd19fc991c84cbc7" kind="variable"><name>params</name></member>
     <member refid="structub__proc__fn__def_1a8fd77b8a20b660a5167e10095833853c" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__var__double" kind="struct"><name>ub_var_double</name>
-    <member refid="structub__var__double_1a8aeeb3da34b8fd28a89df734f479b1ce" kind="variable"><name>varname</name></member>
+    <member refid="structub__var__double_1a8c20a899aea6a9aebd96e6c865ea88f0" kind="variable"><name>varname</name></member>
     <member refid="structub__var__double_1a620aa2ed021098e708df2a898740bcd4" kind="variable"><name>value</name></member>
     <member refid="structub__var__double_1a4ad7922ffa767eb500f2e010badff955" kind="variable"><name>global</name></member>
     <member refid="structub__var__double_1ac4bcaac1541e57fd08d8fd2837bcbc88" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__var__double__array" kind="struct"><name>ub_var_double_array</name>
-    <member refid="structub__var__double__array_1a6e2d329a15c5dc642233553d076fd653" kind="variable"><name>varname</name></member>
-    <member refid="structub__var__double__array_1a6ad54348f4cecebba4caa28100290d3b" kind="variable"><name>values</name></member>
+    <member refid="structub__var__double__array_1a8c74f4b0aa92cf0726b48f842289ced7" kind="variable"><name>varname</name></member>
+    <member refid="structub__var__double__array_1aa386858157be0164e16d521499bd7055" kind="variable"><name>values</name></member>
     <member refid="structub__var__double__array_1a9ef5668e2f56818ff1211ac769c5a0a4" kind="variable"><name>itemcount</name></member>
+    <member refid="structub__var__double__array_1ad2ab4ade81a9de6a2b75cd4419e23bc4" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__var__int" kind="struct"><name>ub_var_int</name>
-    <member refid="structub__var__int_1ac015b8fa7056409f66e0d17b464cb209" kind="variable"><name>varname</name></member>
+    <member refid="structub__var__int_1a2744e85bfb487737b7442dfa99c9bd62" kind="variable"><name>varname</name></member>
     <member refid="structub__var__int_1a4106a4e6d32df6e5b2da883f4e10ae0c" kind="variable"><name>value</name></member>
     <member refid="structub__var__int_1af005cf66421048f3fcdf4d2c70dea930" kind="variable"><name>global</name></member>
     <member refid="structub__var__int_1a8dda4e8cd294e42cf2e7d267f2c10cda" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__var__int__array" kind="struct"><name>ub_var_int_array</name>
-    <member refid="structub__var__int__array_1abae9007289baa96f76c8382bf51505a1" kind="variable"><name>varname</name></member>
-    <member refid="structub__var__int__array_1a7eb1cf6fda97af4bccfb62d8bace1c68" kind="variable"><name>values</name></member>
+    <member refid="structub__var__int__array_1ab345e14192c5b3d869af33f5c791cecf" kind="variable"><name>varname</name></member>
+    <member refid="structub__var__int__array_1a9e76aa2d852b35b2f4d72555588cfc38" kind="variable"><name>values</name></member>
     <member refid="structub__var__int__array_1a1d2adba640f45f6a1c64554bd58b14d6" kind="variable"><name>itemcount</name></member>
+    <member refid="structub__var__int__array_1a9fb370c37cad3ae89ab6814b37a443dd" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__var__string" kind="struct"><name>ub_var_string</name>
-    <member refid="structub__var__string_1a19e17db1435bcf756f7f67357f4cb8d8" kind="variable"><name>varname</name></member>
+    <member refid="structub__var__string_1af278b453d313a0e63c0395937a795d75" kind="variable"><name>varname</name></member>
     <member refid="structub__var__string_1a517112dbc50ed6d63c5f3329268dd1cd" kind="variable"><name>value</name></member>
     <member refid="structub__var__string_1ade8e78c672af1108b32c95dd3999ea8c" kind="variable"><name>global</name></member>
     <member refid="structub__var__string_1a34110f560c0720684e32e58c08fa85bc" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structub__var__string__array" kind="struct"><name>ub_var_string_array</name>
-    <member refid="structub__var__string__array_1a2ec25e204d99d5c9c64ffe0aace3eec8" kind="variable"><name>varname</name></member>
-    <member refid="structub__var__string__array_1ae96a3583047fd5775ec9072ce398ce24" kind="variable"><name>values</name></member>
+    <member refid="structub__var__string__array_1a4b97bd699ec3bd96713be62ad889e622" kind="variable"><name>varname</name></member>
+    <member refid="structub__var__string__array_1a0468ca4e4652091b9f8afeb85097901d" kind="variable"><name>values</name></member>
     <member refid="structub__var__string__array_1a28c819b89b7683cecf3932b0245d0fd2" kind="variable"><name>itemcount</name></member>
+    <member refid="structub__var__string__array_1aeb1eb236e3d5b0f692e1735d41e9b1b5" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structubasic__ctx" kind="struct"><name>ubasic_ctx</name>
     <member refid="structubasic__ctx_1acd8a93d99a365218f65f2bcfe5a687fd" kind="variable"><name>ptr</name></member>
     <member refid="structubasic__ctx_1a5b5d57bf094e597f42cf3c65c10438d2" kind="variable"><name>nextptr</name></member>
     <member refid="structubasic__ctx_1a446a08b3410c33383f8d69083153ef06" kind="variable"><name>current_token</name></member>
     <member refid="structubasic__ctx_1a49685c1299b80f648bd7e55107a6f0c2" kind="variable"><name>current_linenum</name></member>
-    <member refid="structubasic__ctx_1afee0876c34d4d12787aa3833e64fb5c8" kind="variable"><name>errored</name></member>
+    <member refid="structubasic__ctx_1a0cfa88ca9f55b408b541af2c80d64a90" kind="variable"><name>errored</name></member>
+    <member refid="structubasic__ctx_1ae97525f281273ea45492eb6a6e1b0dd9" kind="variable"><name>ended</name></member>
     <member refid="structubasic__ctx_1ad228067b994f862ff64d9ea07927e3e7" kind="variable"><name>program_ptr</name></member>
     <member refid="structubasic__ctx_1ad4f82e6f89c9b88bd7a946d78479df38" kind="variable"><name>string</name></member>
-    <member refid="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" kind="variable"><name>gosub_stack</name></member>
     <member refid="structubasic__ctx_1a29c2fb098e7e87179a80c78957352ca0" kind="variable"><name>local_int_variables</name></member>
     <member refid="structubasic__ctx_1ac174583082681c819beac71bf6c856e2" kind="variable"><name>local_string_variables</name></member>
     <member refid="structubasic__ctx_1addf1b80ca1ad690c7375230adeb8b2a6" kind="variable"><name>local_double_variables</name></member>
+    <member refid="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" kind="variable"><name>gosub_stack</name></member>
     <member refid="structubasic__ctx_1a1d1b18d255584d6f092f4a8a6ed2028b" kind="variable"><name>gosub_stack_ptr</name></member>
     <member refid="structubasic__ctx_1a2b482ac38918fb15a4f6cd6e00874897" kind="variable"><name>oldlen</name></member>
     <member refid="structubasic__ctx_1a5b0f365c2985b1a34a20e9dbce6545ce" kind="variable"><name>eval_linenum</name></member>
-    <member refid="structubasic__ctx_1a4bd44b09f60594c87614733347281ae3" kind="variable"><name>for_stack</name></member>
+    <member refid="structubasic__ctx_1a68a1ad7151a19c90017b3837dfd74488" kind="variable"><name>for_stack</name></member>
     <member refid="structubasic__ctx_1aceb6c976842ec03cfe88f967daef44c2" kind="variable"><name>for_stack_ptr</name></member>
     <member refid="structubasic__ctx_1ac3a12ced3a43e55c91640e91c9f6acb5" kind="variable"><name>defs</name></member>
     <member refid="structubasic__ctx_1a205229710d812384b09aeb261cb8f77d" kind="variable"><name>int_variables</name></member>
@@ -980,16 +985,15 @@
     <member refid="structubasic__ctx_1a0eebd420f79c71656be34a7041d70b1a" kind="variable"><name>double_variables</name></member>
     <member refid="structubasic__ctx_1ab5661134630cb2eee5e6839c3f82e63c" kind="variable"><name>int_array_variables</name></member>
     <member refid="structubasic__ctx_1a4bf2896ae15ddd46452f45374883d910" kind="variable"><name>string_array_variables</name></member>
+    <member refid="structubasic__ctx_1afd46497f8296a5c384cbba85d5f90d70" kind="variable"><name>double_array_variables</name></member>
     <member refid="structubasic__ctx_1a2f3d8eaac3dfab9ee45bfcb9c120a668" kind="variable"><name>cons</name></member>
-    <member refid="structubasic__ctx_1a0e5b28a108d3913751c1f497c7f1a345" kind="variable"><name>ended</name></member>
     <member refid="structubasic__ctx_1a9e0e3ac42e238db0a9512a17775242af" kind="variable"><name>fn_type</name></member>
     <member refid="structubasic__ctx_1aa2068e8b25ef5f141d54b7266892b1a8" kind="variable"><name>fn_return</name></member>
     <member refid="structubasic__ctx_1ab9835b70d64e17519499bf1d32a9c59b" kind="variable"><name>bracket_depth</name></member>
     <member refid="structubasic__ctx_1ac52c5cd3f325dc10408ea4eecee6fac7" kind="variable"><name>item_begin</name></member>
     <member refid="structubasic__ctx_1a75fe7e0c62284b7f96d3badafc81df07" kind="variable"><name>param</name></member>
     <member refid="structubasic__ctx_1aa068f02eec061e35fabab244735c0fff" kind="variable"><name>graphics_colour</name></member>
-    <member refid="structubasic__ctx_1a6e25762f518edf1bf964fba6e4ff3091" kind="variable"><name>lines</name></member>
-    <member refid="structubasic__ctx_1acb52eee7ccee41778382fd7a2da8ccce" kind="variable"><name>line_tail</name></member>
+    <member refid="structubasic__ctx_1a32ab055ccfa07abadab61933407cd9f9" kind="variable"><name>lines</name></member>
   </compound>
   <compound refid="structubasic__double__fn" kind="struct"><name>ubasic_double_fn</name>
     <member refid="structubasic__double__fn_1a09662270d292dc1a4a41cd4bfe8a30d5" kind="variable"><name>handler</name></member>
@@ -1751,8 +1755,8 @@
     <member refid="fpu_8h_1a37eb4f4e2722507e0a98aff05e5fb2c1" kind="function"><name>double_to_string</name></member>
   </compound>
   <compound refid="hashmap_8h" kind="file"><name>hashmap.h</name>
-    <member refid="hashmap_8h_1a101011257b715d9425f1d26d34f94bce" kind="function"><name>hashmap_new</name></member>
-    <member refid="hashmap_8h_1a2c5c11e3f02309391e351f33df96c1bf" kind="function"><name>hashmap_new_with_allocator</name></member>
+    <member refid="hashmap_8h_1a5deb1768129efb6534fb02365b2da3e6" kind="function"><name>hashmap_new</name></member>
+    <member refid="hashmap_8h_1ab73d927a882f7da5131ce3ec050f2888" kind="function"><name>hashmap_new_with_allocator</name></member>
     <member refid="hashmap_8h_1a97ab64db6070065a0e8b5afc23793342" kind="function"><name>hashmap_free</name></member>
     <member refid="hashmap_8h_1ab09b4f126a08c1e716bac424b1927f19" kind="function"><name>hashmap_clear</name></member>
     <member refid="hashmap_8h_1acf2d7645190129fb4880ba452c6436ce" kind="function"><name>hashmap_count</name></member>
@@ -1765,7 +1769,7 @@
     <member refid="hashmap_8h_1abc4cede290fdcdc96168de2c86373882" kind="function"><name>hashmap_iter</name></member>
     <member refid="hashmap_8h_1a9a8e35929f3fa17f10b93594e89e98ad" kind="function"><name>hashmap_sip</name></member>
     <member refid="hashmap_8h_1a0ad2116023e2861efbaeeb332e2bef24" kind="function"><name>hashmap_murmur</name></member>
-    <member refid="hashmap_8h_1a50515f0051f7822eafb0f977a1e12b1d" kind="function"><name>hashmap_set_allocator</name></member>
+    <member refid="hashmap_8h_1afbb750eb52a3b3647bcff308652725bb" kind="function"><name>hashmap_set_allocator</name></member>
   </compound>
   <compound refid="homer_8h" kind="file"><name>homer.h</name>
     <member refid="homer_8h_1aa715c7b4dfcfdbbd5dabf65eadd4c835" kind="define"><name>PANIC_BANNER</name></member>
@@ -1938,21 +1942,39 @@
     <member refid="kernel_8h_1a5223ee9f88fe7e81690f051742972f40" kind="function"><name>network_down</name></member>
   </compound>
   <compound refid="keyboard_8h" kind="file"><name>keyboard.h</name>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0b" kind="enum"><name>extended_key_t</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba5d9c9ba1d8f2c6f6737db37d3f449071" kind="enumvalue"><name>KEY_PAGEUP</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba5996c34d86df2b3c1be741aeb35bdbc4" kind="enumvalue"><name>KEY_PAGEDOWN</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba5adcbb7ea7c9c7405c50fe2a3e7c2629" kind="enumvalue"><name>KEY_DEL</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba2eb57cc422cad9808960658c9ebc987a" kind="enumvalue"><name>KEY_INS</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0baa8adb6fcb92dec58fb19410eacfdd403" kind="enumvalue"><name>KEY_END</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba0848a442d907968b211b97bc2bd88acd" kind="enumvalue"><name>KEY_UP</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0baa9cdac7967bf7d88fdb761138a2a3416" kind="enumvalue"><name>KEY_DOWN</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba612120b69c7dfd46086db7aaebdbcf65" kind="enumvalue"><name>KEY_LEFT</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0ba6504370d9c6391e1a9da6a1a529b089d" kind="enumvalue"><name>KEY_RIGHT</name></member>
+    <member refid="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0bad5b83418c285e43af5d3a87b4d4049d7" kind="enumvalue"><name>KEY_HOME</name></member>
     <member refid="keyboard_8h_1ac3a72156d4bbba013e4d62801992794d" kind="function"><name>init_keyboard</name></member>
     <member refid="keyboard_8h_1af186c1d48613bd858b7f774e5bd47935" kind="function"><name>kgetc</name></member>
+    <member refid="keyboard_8h_1afdb02475d45b894eb5ec2a57b4100eea" kind="function"><name>ctrl_held</name></member>
+    <member refid="keyboard_8h_1a91e9663f1e43e4aca8439739c3b10c69" kind="function"><name>shift_held</name></member>
+    <member refid="keyboard_8h_1ac7d5ba52d15d8a0066ee06b39399411f" kind="function"><name>alt_held</name></member>
+    <member refid="keyboard_8h_1af491f52ce63929279d3733c13ba771d2" kind="function"><name>caps_lock_on</name></member>
   </compound>
   <compound refid="kmalloc_8h" kind="file"><name>kmalloc.h</name>
     <member refid="kmalloc_8h_1a604474f5c0892ea2c6c16b5e45c59f59" kind="define"><name>HEAP_MAGIC</name></member>
     <member refid="kmalloc_8h_1aa6bcd5af56ca7ffbc761b010cbd70e39" kind="function"><name>kmalloc</name></member>
     <member refid="kmalloc_8h_1adc6f21bbda2c71015c428920cf785abd" kind="function"><name>kmalloc_ext</name></member>
-    <member refid="kmalloc_8h_1aa3ff6401026972fc396bda649a01c994" kind="function"><name>kfree</name></member>
+    <member refid="kmalloc_8h_1ab78be9148ec4aacde543a359c126cba0" kind="function"><name>kfree</name></member>
     <member refid="kmalloc_8h_1aba7ce08189c188afd939c2228c320421" kind="function"><name>create_heap</name></member>
     <member refid="kmalloc_8h_1a632fb5550678e7d65db823fb1adc2dd9" kind="function"><name>init_heap</name></member>
     <member refid="kmalloc_8h_1a56ae8e632dd1a93d76e4a9b9f265f3a2" kind="function"><name>print_heapinfo</name></member>
-    <member refid="kmalloc_8h_1a82a73c7addea8ea1a143be9663efc5e0" kind="function"><name>preboot_fail</name></member>
+    <member refid="kmalloc_8h_1a48ed44cd60d7dd25dc396e20739a3a84" kind="function"><name>preboot_fail</name></member>
     <member refid="kmalloc_8h_1a4af91afe377146f47af63dac6fb93fb9" kind="function"><name>kcalloc</name></member>
     <member refid="kmalloc_8h_1aece282b3071af855886669942d53537a" kind="function"><name>krealloc</name></member>
     <member refid="kmalloc_8h_1a2ae41a466ab6ea275ca1ebae81b56945" kind="function"><name>kmalloc_low</name></member>
+    <member refid="kmalloc_8h_1ab1204bd1ce4097b381452452445b75f4" kind="function"><name>get_free_memory</name></member>
+    <member refid="kmalloc_8h_1a3637eb65ed827e7cba29a4dc57273a37" kind="function"><name>get_used_memory</name></member>
+    <member refid="kmalloc_8h_1a9227ee8bcad10a2503376915463f28b5" kind="function"><name>get_total_memory</name></member>
   </compound>
   <compound refid="lapic__timer_8h" kind="file"><name>lapic_timer.h</name>
     <member refid="lapic__timer_8h_1af0dcf61cef039a03256058a024e729c5" kind="define"><name>APIC_TASKPRIOR</name></member>
@@ -2308,26 +2330,31 @@
     <member refid="string_8h_1ac2504e01693d9eac955a61ea1e2403b5" kind="function"><name>labs</name></member>
   </compound>
   <compound refid="taskswitch_8h" kind="file"><name>taskswitch.h</name>
-    <member refid="taskswitch_8h_1a26975b50f0f5914f501689709f08147a" kind="define"><name>PROC_RUNNING</name></member>
-    <member refid="taskswitch_8h_1ae7215d0fcd3af15ded53baf19247fcbd" kind="define"><name>PROC_IDLE</name></member>
-    <member refid="taskswitch_8h_1a9066801bca0864b3acdde08438ec1380" kind="define"><name>PROC_DELETE</name></member>
+    <member refid="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854" kind="enum"><name>process_state_t</name></member>
+    <member refid="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857" kind="enumvalue"><name>PROC_RUNNING</name></member>
+    <member refid="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c" kind="enumvalue"><name>PROC_IDLE</name></member>
+    <member refid="taskswitch_8h_1ab97efa0d1c4aeaf55ff756bf16685854a36e1fd61daba444bb9738105db8d59b9" kind="enumvalue"><name>PROC_DELET</name></member>
     <member refid="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4" kind="enum"><name>idle_type_t</name></member>
     <member refid="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a170f38abe527a71ef15f1d6fd1ba9677" kind="enumvalue"><name>IDLE_FOREGROUND</name></member>
     <member refid="taskswitch_8h_1ab6c8a1a3016b13baf9af7476cceac7d4a875e3a3a86598eb910bc4405a16e8a99" kind="enumvalue"><name>IDLE_BACKGROUND</name></member>
+    <member refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kind="typedef"><name>pid_t</name></member>
+    <member refid="taskswitch_8h_1af2306308627701b66dc6f3babe821ab4" kind="typedef"><name>uid_t</name></member>
+    <member refid="taskswitch_8h_1aa7352f1065fe606194d792e2b292cf83" kind="typedef"><name>gid_t</name></member>
+    <member refid="taskswitch_8h_1a66e2436dbfe8b3600c090f28627b621f" kind="typedef"><name>cpu_id_t</name></member>
     <member refid="taskswitch_8h_1a82c77e5c902b86503a57e02bb4314bad" kind="typedef"><name>proc_idle_timer_t</name></member>
-    <member refid="taskswitch_8h_1a1d93354a9a1cd28edc0ff1f2b117aaa4" kind="function"><name>proc_load</name></member>
-    <member refid="taskswitch_8h_1ad7437b5486e6d717fff0d680c0e85933" kind="function"><name>proc_find</name></member>
-    <member refid="taskswitch_8h_1a2f81e671670c3c195e49086794de8563" kind="function"><name>proc_cur</name></member>
-    <member refid="taskswitch_8h_1ad3fb36451746ed5c2268f42161b864c2" kind="function"><name>proc_wait</name></member>
-    <member refid="taskswitch_8h_1ad3caa985bd0716e0226c8b95dff1880a" kind="function"><name>proc_run</name></member>
-    <member refid="taskswitch_8h_1a71841b5135909ec6b19a3e9201a8ec72" kind="function"><name>proc_ended</name></member>
-    <member refid="taskswitch_8h_1a54250e95131397ad26e7f9c655b4d8e2" kind="function"><name>proc_kill</name></member>
+    <member refid="taskswitch_8h_1a1fd5c9b930b5a5573f366249df958e96" kind="function"><name>proc_load</name></member>
+    <member refid="taskswitch_8h_1ab5a40192ac7fb47cf38c7e803ccd0efb" kind="function"><name>proc_find</name></member>
+    <member refid="taskswitch_8h_1a6d871c77c8a1a04420b1b09715d0b177" kind="function"><name>proc_cur</name></member>
+    <member refid="taskswitch_8h_1a8b2b24e480bc2b9188e720c028795cee" kind="function"><name>proc_wait</name></member>
+    <member refid="taskswitch_8h_1abb94173794194e3382dc5482b7e0aa62" kind="function"><name>proc_run</name></member>
+    <member refid="taskswitch_8h_1a7844baa5edadb538de03bc3494e947cc" kind="function"><name>proc_ended</name></member>
+    <member refid="taskswitch_8h_1a8951b9dab6452cf831a751d0cda64a5d" kind="function"><name>proc_kill</name></member>
+    <member refid="taskswitch_8h_1a7b25ff76590322d996a0cb108665cedc" kind="function"><name>proc_kill_id</name></member>
     <member refid="taskswitch_8h_1aae5fc9e36c6eef167c4207ed63cf17be" kind="function"><name>proc_show_list</name></member>
     <member refid="taskswitch_8h_1af57a1ba1649626d231502d6c23bbac49" kind="function"><name>proc_loop</name></member>
     <member refid="taskswitch_8h_1a1ec64ff3e1bbf088a6611d7304cf72e2" kind="function"><name>proc_timer</name></member>
     <member refid="taskswitch_8h_1a01a99ff8bacb9f2f0509b21f45fc7217" kind="function"><name>proc_total</name></member>
-    <member refid="taskswitch_8h_1a91750275a2fc6e56c8fb9dcf0e5e0edd" kind="function"><name>proc_name</name></member>
-    <member refid="taskswitch_8h_1a4a7ef165aa328422b223f2b4e80a05d3" kind="function"><name>proc_id</name></member>
+    <member refid="taskswitch_8h_1a98ea5946e6a5a7a69b87f081ddf0b1e4" kind="function"><name>proc_id</name></member>
     <member refid="taskswitch_8h_1ad2dd4ffab2aaabd37998ec3b3216af48" kind="function"><name>proc_register_idle</name></member>
     <member refid="taskswitch_8h_1ab25d44702b6e10e723714c368c4a7520" kind="function"><name>init_process</name></member>
   </compound>
@@ -2426,79 +2453,89 @@
   </compound>
   <compound refid="tokenizer_8h" kind="file"><name>tokenizer.h</name>
     <member refid="tokenizer_8h_1ad004bd52426bd91bc9d41b6efb6ea35d" kind="define"><name>MAX_VARNAME</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4d" kind="enum"><name>@14</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da8c703027d2d9fdf356c987536db628c8" kind="enumvalue"><name>TOKENIZER_ERROR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da170b8bba44a39d5008dbf9192901519a" kind="enumvalue"><name>TOKENIZER_ENDOFINPUT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da7a18777807e014f8825153bf14bf1e88" kind="enumvalue"><name>TOKENIZER_NUMBER</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab24e012af22a7f666701c53c6c22708d" kind="enumvalue"><name>TOKENIZER_HEXNUMBER</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac1b8e803f5e2cf08f07ebf39ea572d58" kind="enumvalue"><name>TOKENIZER_STRING</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daeb144fe61367c996057c4acca513d31d" kind="enumvalue"><name>TOKENIZER_VARIABLE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da9971e801020bc1123565aab25e83a0ac" kind="enumvalue"><name>TOKENIZER_LET</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dadebdfbb3f16fd7b44f88a40854a15a71" kind="enumvalue"><name>TOKENIZER_PRINT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dacc83e57e0fdfda7221224d90a3ca9aaa" kind="enumvalue"><name>TOKENIZER_IF</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da27ce04e1a96d97525bdbafa250aaada8" kind="enumvalue"><name>TOKENIZER_THEN</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daf009fe5a8687261e5364f9b8223c8cf1" kind="enumvalue"><name>TOKENIZER_ELSE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daedf36b3dd00ebb7c3fd59c82d74d99d1" kind="enumvalue"><name>TOKENIZER_CHAIN</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daff69099ed05d49fcbea5e2feb659b087" kind="enumvalue"><name>TOKENIZER_FOR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da56842fb1cfc257dbcd3f5987f9bd9b70" kind="enumvalue"><name>TOKENIZER_TO</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da1f2e0aedf6f69ab627a41ddf8589753d" kind="enumvalue"><name>TOKENIZER_STEP</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da811981e8c1c0a4dcaa433632bd7a07c6" kind="enumvalue"><name>TOKENIZER_NEXT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da9adb96cfc3eb024bfebcc8c1d1f77278" kind="enumvalue"><name>TOKENIZER_GOTOXY</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa2e018e9509b340d974959dd9b35547e" kind="enumvalue"><name>TOKENIZER_GOTO</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dad073084b8a763cb7749e9b3cd74b09a5" kind="enumvalue"><name>TOKENIZER_GOSUB</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac233e78cc8fc79998affa972181d770b" kind="enumvalue"><name>TOKENIZER_RETURN</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2108da58e0c0c4dc858e221ed7779de7" kind="enumvalue"><name>TOKENIZER_CALL</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab825ed387571840f380fddc462d7da2d" kind="enumvalue"><name>TOKENIZER_INPUT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dacfac4ccd2fc8e448b33894b5777d847e" kind="enumvalue"><name>TOKENIZER_COLOUR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da056d07fb96a6a34f3e9aa1b757f754ef" kind="enumvalue"><name>TOKENIZER_COLOR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da31a07c09237f72e64ae937758a791c73" kind="enumvalue"><name>TOKENIZER_EVAL</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daf06bddfcf509b33cadc5feb88e075fdd" kind="enumvalue"><name>TOKENIZER_OPENIN</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da392a3cb8e8eb1cd2a3541ad941561ded" kind="enumvalue"><name>TOKENIZER_READ</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da05480642625913269b1571a8118fc5e0" kind="enumvalue"><name>TOKENIZER_CLOSE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da1ab4951087ffab1c4b6bcbbcf473eed8" kind="enumvalue"><name>TOKENIZER_EOF</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da9dd55d24b3a171af3dea1e4b93e68757" kind="enumvalue"><name>TOKENIZER_DEF</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da1a8299aa79df3195cf64c5796e973d44" kind="enumvalue"><name>TOKENIZER_PROC</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab1a13a741f482f698d02a8b8af964db8" kind="enumvalue"><name>TOKENIZER_FN</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2620cf5648565e05dba9ea2acd3248f5" kind="enumvalue"><name>TOKENIZER_END</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dabbdad093a11f5e0ad5cbc6019d4d84cf" kind="enumvalue"><name>TOKENIZER_REM</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da56c795c8d210d3c1e5130ee6130ae81e" kind="enumvalue"><name>TOKENIZER_COMMA</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dafab6dcb60a9c6fbcd903cb7c013bbc74" kind="enumvalue"><name>TOKENIZER_SEMICOLON</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa6fca8f7f6f5222747c45a45f75a48b9" kind="enumvalue"><name>TOKENIZER_PLUS</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daecddd119344517b93a9a260c3746a41b" kind="enumvalue"><name>TOKENIZER_MINUS</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa2e33452a0a5c91dc002a568c032ebc0" kind="enumvalue"><name>TOKENIZER_AND</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da6f98ff031e50100d6cca205f5bd14929" kind="enumvalue"><name>TOKENIZER_OR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dabcb0201bdd748ad0a518a5f4f52a59df" kind="enumvalue"><name>TOKENIZER_ASTR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da54210a51a05309abc2700e568f03968c" kind="enumvalue"><name>TOKENIZER_SLASH</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da3264c33d54798ea0a16e40b061952e35" kind="enumvalue"><name>TOKENIZER_MOD</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac0a95f64ec9ff436c5a523d550bd8412" kind="enumvalue"><name>TOKENIZER_LEFTPAREN</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da367a0b4b117abff742799bcbb21c5f7c" kind="enumvalue"><name>TOKENIZER_RIGHTPAREN</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dab0ff1b31006a8c456edc34bd58b2e22d" kind="enumvalue"><name>TOKENIZER_LT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daf491c21dfe18c2de75ec1eabcfb1b5ac" kind="enumvalue"><name>TOKENIZER_GT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da45eab4a13908edb8064a16e648fae9b0" kind="enumvalue"><name>TOKENIZER_EQ</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da61c099f4c9983afd87ab361ea7210c16" kind="enumvalue"><name>TOKENIZER_CR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da4cb5122e3b2d6a6e2c77cd42e829ac03" kind="enumvalue"><name>TOKENIZER_AMPERSAND</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dafd81caa6e05a7605464876b6f0f1af07" kind="enumvalue"><name>TOKENIZER_TILDE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da186b50b9aa24baac2b32b4ad51effb7a" kind="enumvalue"><name>TOKENIZER_GLOBAL</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daa4250a33d8898c3b74a77c29289f3621" kind="enumvalue"><name>TOKENIZER_SOCKREAD</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da88241b38234f619a65ab960ccd41a103" kind="enumvalue"><name>TOKENIZER_SOCKWRITE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da022cb2137e73524e3d135bbcc78f098c" kind="enumvalue"><name>TOKENIZER_CONNECT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dad2cb7519b17c3ab9043ace8f268a9532" kind="enumvalue"><name>TOKENIZER_SOCKCLOSE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dae7a58b891ff2c92d2c7979561dd8e27f" kind="enumvalue"><name>TOKENIZER_CLS</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da7f56edae209f10072ede0c9070cf2a46" kind="enumvalue"><name>TOKENIZER_GCOL</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da646b12d88d8cff9218766e106d7910fd" kind="enumvalue"><name>TOKENIZER_LINE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da6046694213910c4b01001132e75d9c8c" kind="enumvalue"><name>TOKENIZER_TRIANGLE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dafaa2e963459fc8f3e8cf7a7a98d6b65c" kind="enumvalue"><name>TOKENIZER_RECTANGLE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dabc6f44027e586590f12df8dc47ad4cb4" kind="enumvalue"><name>TOKENIZER_CIRCLE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da5e11b4b30ceb04c4b820fc47d0013495" kind="enumvalue"><name>TOKENIZER_POINT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4dac75768e6cf525fdf6a5af6f79f340bdd" kind="enumvalue"><name>TOKENIZER_OPENOUT</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da0ecbfe3ed1be7fdffdb735ec7fd14e75" kind="enumvalue"><name>TOKENIZER_OPENUP</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2afbad18382072b275a3f4f11d764c38" kind="enumvalue"><name>TOKENIZER_WRITE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4daeae1e099a0cf879f8541c7a6b3697b01" kind="enumvalue"><name>TOKENIZER_MKDIR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da2579860f97b568a354154a1804d37009" kind="enumvalue"><name>TOKENIZER_RMDIR</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da03e1aeedf74cd70f2294a09c8d422002" kind="enumvalue"><name>TOKENIZER_DELETE</name></member>
-    <member refid="tokenizer_8h_1a16af7b253440dadd46a80a4b9fddba4da63b76876abcd12fe825e672ead220c07" kind="enumvalue"><name>TOKENIZER_MOUNT</name></member>
-    <member refid="tokenizer_8h_1adf89e2fd313b31dbf65c1eba51c4a8bd" kind="variable"><name>types</name></member>
-    <member refid="tokenizer_8h_1adf4bd7daf580e0bbeb38158d05346bf6" kind="function"><name>tokenizer_init</name></member>
+    <member refid="tokenizer_8h_1aed8760364c7992625d06c93d12b2496d" kind="define"><name>GENERATE_ENUM</name></member>
+    <member refid="tokenizer_8h_1adf58d994c35f18ec84b628d8321f52e5" kind="define"><name>GENERATE_STRING</name></member>
+    <member refid="tokenizer_8h_1a5550a757a3d33ed38ce7298c1d190ba7" kind="define"><name>GENERATE_ENUM_LIST</name></member>
+    <member refid="tokenizer_8h_1a9ed1b1ec376180d8103a22b86dde3ad8" kind="define"><name>GENERATE_ENUM_STRING_NAMES</name></member>
+    <member refid="tokenizer_8h_1ae61303e288a41f0e25ff8cd0c6296957" kind="define"><name>TOKEN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfe" kind="enum"><name>token_t</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea2fd6f336d08340583bd620a7f5694c90" kind="enumvalue"><name>ERROR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeac1134699adacb9ef38af73c816283ec8" kind="enumvalue"><name>ENDOFINPUT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea12a90dfe20486bbe3e075afcd19ef2d0" kind="enumvalue"><name>NUMBER</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeab41295c7909ca312a97caf0738fb98bb" kind="enumvalue"><name>HEXNUMBER</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921" kind="enumvalue"><name>STRING</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea39031ce5df6f91d3778590d6d644b9ea" kind="enumvalue"><name>VARIABLE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeafb72619a5a922e816967c4aa49301754" kind="enumvalue"><name>LET</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeab107229d44d042caa8ab8df4c8acaa1f" kind="enumvalue"><name>PRINT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea252802eda493fb6b4a279c4452acb547" kind="enumvalue"><name>IF</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeabb40477a291c07277e13d096645f4305" kind="enumvalue"><name>THEN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea90d649d830ea440c8b8a56c7ef23c426" kind="enumvalue"><name>ELSE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea84abcfd92dfa0c7274f800080bbbd035" kind="enumvalue"><name>CHAIN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaa809654855caa62449850d9122fd77a8" kind="enumvalue"><name>FOR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeac0ba526afb7f54207517b48a892961c2" kind="enumvalue"><name>STEP</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea7a745bf8e4299d36823f18d0c317cee8" kind="enumvalue"><name>TO</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeab13b96bf99a409e019f70dc1602532fd" kind="enumvalue"><name>NEXT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea63cd5d9b665699b0b17c898a414c63d5" kind="enumvalue"><name>CURSOR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeadf1256e4198172eedfbf12c770d11589" kind="enumvalue"><name>GOTO</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea8612419d5828ef882ea333f8684fcb94" kind="enumvalue"><name>GOSUB</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea520e09ffec033636dba711f3441cc600" kind="enumvalue"><name>RETURN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeabd0ebc08c262bab82a1882256d2d66e8" kind="enumvalue"><name>CALL</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeae310c909d76b003d016bef8bdf16936a" kind="enumvalue"><name>INPUT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeae9f7feee75ca2c376b044b67bc693d9f" kind="enumvalue"><name>COLOUR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea7a5ecb5193db2d5f258ae1abd33714b9" kind="enumvalue"><name>COLOR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaa44b734476c2f3d073ee7aca08660a0e" kind="enumvalue"><name>BACKGROUND</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea60ad4e9e08d2f606cd6a3f233c7c3777" kind="enumvalue"><name>EVAL</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeadaafc8212c6fd7e0adeaa5e0f3fdd178" kind="enumvalue"><name>OPENIN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeacb9be765f361bb7efb9073730aac92c6" kind="enumvalue"><name>READ</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea685f73194ad125cbc784c3210cdb3449" kind="enumvalue"><name>CLOSE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaea6ac6f7e89234d17d6cd8d3bc10dd7b" kind="enumvalue"><name>EOF</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea4ec32ebb3d661f27da6aff17d460ac94" kind="enumvalue"><name>DEF</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea616db68dab196835059ff976d67fac33" kind="enumvalue"><name>PROC</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeac61a0be39db3e2f70423b02985bd4b63" kind="enumvalue"><name>RETPROC</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea2b3998cd87e8262d24320d944567c991" kind="enumvalue"><name>FN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeadc6f24fd6915a3f2786a1b7045406924" kind="enumvalue"><name>END</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea6fa560d597fa4329bfbfecaa750f9d51" kind="enumvalue"><name>REM</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaf81277bcd86412fe04bb68718ea09392" kind="enumvalue"><name>COMMA</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea55eebe3c7e08b49cd5969442f4f8c4ce" kind="enumvalue"><name>SEMICOLON</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea87fe59ef12c3d13dc2a4d14c9b16c1f9" kind="enumvalue"><name>PLUS</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaf613d73b4e7b570ffd967df4a13c4225" kind="enumvalue"><name>MINUS</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f" kind="enumvalue"><name>AND</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074" kind="enumvalue"><name>OR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea7a48eb0b5d5a758daa1bfac07896eccb" kind="enumvalue"><name>ASTERISK</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaaabdfe7000ca535236502bb0c87ad944" kind="enumvalue"><name>SLASH</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea140fcc89db148e5975f1486e794675ba" kind="enumvalue"><name>MOD</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeafe809946a48c76d7ccda8e5bd1e389b7" kind="enumvalue"><name>OPENBRACKET</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea48b044f523c3b1a98190b9cd3dfeff10" kind="enumvalue"><name>CLOSEBRACKET</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea8ce9b27601f653ddc597894a1018c55d" kind="enumvalue"><name>LESSTHAN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea484f1aeccc501366d064c353cf4b3c05" kind="enumvalue"><name>GREATERTHAN</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea949310f9cb536c15919e133f7e7316f3" kind="enumvalue"><name>EQUALS</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea59d02b47a666732cc6577f158272b099" kind="enumvalue"><name>NEWLINE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea95e91c94e7307b0b02d6278061a3aaa8" kind="enumvalue"><name>AMPERSAND</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfead66592048e633b05bcb00ea408b39a47" kind="enumvalue"><name>TILDE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeafde1bb5ef04b28059e61df449501f1c0" kind="enumvalue"><name>GLOBAL</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea6a4e1ff15bc0daed40ab38b3ebdc923f" kind="enumvalue"><name>SOCKREAD</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaaf9d42232a00c13fdacd612e4dfcb812" kind="enumvalue"><name>SOCKWRITE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea20391dd2915a0e64343d24c2f2e40b95" kind="enumvalue"><name>CONNECT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea0f06a4daf1c339047d49e224733000ec" kind="enumvalue"><name>SOCKCLOSE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaa5e0d06ffc1b0ee32eda539e6528a3e6" kind="enumvalue"><name>CLS</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaeada68b9f24186e84531a9ea174a6d54" kind="enumvalue"><name>GCOL</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeab023460c84f774a219d46ccf4665994c" kind="enumvalue"><name>LINE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea2fd33892864d1c342d3bead2f2d9ad56" kind="enumvalue"><name>TRIANGLE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeae552ab0a96c0384a6e918e726b7f6102" kind="enumvalue"><name>RECTANGLE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaa79c827759ea48f0735386c4b1188911" kind="enumvalue"><name>CIRCLE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565" kind="enumvalue"><name>POINT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea4129fbc9099a38a45236ef001ac88f7b" kind="enumvalue"><name>OPENOUT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea5d40d07a11694bcaa920c76927d4518c" kind="enumvalue"><name>OPENUP</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea61aa7ff70b76bff0fda378cf61d6afbc" kind="enumvalue"><name>WRITE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaa38c102cd5f16bce8688265f3fcd0898" kind="enumvalue"><name>MKDIR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaca55b35eb23ace758d275b9201760016" kind="enumvalue"><name>RMDIR</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea9d61e82a9a12752f10aece1b22183913" kind="enumvalue"><name>DELETE</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea972f3df9d279a3d3acc88bcbe4452d51" kind="enumvalue"><name>REPEAT</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeaa4f38f5001aff1b45ecf511715d587d4" kind="enumvalue"><name>UNTIL</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea6c8e5f290be4be86fd5e7048654b4a50" kind="enumvalue"><name>DIM</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea1afe969dfc59ae506f1b734e08bf6e96" kind="enumvalue"><name>REDIM</name></member>
+    <member refid="tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeabe8c81f9db8320b327f4fe513a1a873b" kind="enumvalue"><name>MOUNT</name></member>
+    <member refid="tokenizer_8h_1a8b20eecbf3cb305174870ee0732f3e38" kind="function"><name>tokenizer_init</name></member>
     <member refid="tokenizer_8h_1ab95d257fd507afd722006b98f701aac4" kind="function"><name>tokenizer_next</name></member>
     <member refid="tokenizer_8h_1a79ca032550e6866dee021d3da651dbad" kind="function"><name>tokenizer_token</name></member>
     <member refid="tokenizer_8h_1a269601b38635279d07cffaa53be980d7" kind="function"><name>tokenizer_num</name></member>
@@ -2512,18 +2549,33 @@
   </compound>
   <compound refid="ubasic_8h" kind="file"><name>ubasic.h</name>
     <member refid="ubasic_8h_1a90bf9480b781825abfeb3f500d75531c" kind="define"><name>MAX_STRINGLEN</name></member>
-    <member refid="ubasic_8h_1aab086f9d28e5039a26d7fa99afa82fac" kind="define"><name>MAX_GOSUB_STACK_DEPTH</name></member>
-    <member refid="ubasic_8h_1afd61ad878c267312a7dfe05d09a67850" kind="define"><name>MAX_FOR_STACK_DEPTH</name></member>
+    <member refid="ubasic_8h_1a36568dfcd0f5dfaaeebb51d3c9aeb303" kind="define"><name>MAX_CALL_STACK_DEPTH</name></member>
+    <member refid="ubasic_8h_1ad70e9ba1e1b2bbdb011ab487c2cb353d" kind="define"><name>MAX_LOOP_STACK_DEPTH</name></member>
+    <member refid="ubasic_8h_1a1d28f33b55479f791aed387d6cc2dd75" kind="define"><name>EVAL_LINE</name></member>
+    <member refid="ubasic_8h_1aed46a4c9764a1d0bb5501f0a2a4b4b51" kind="define"><name>EVAL_END_LINE</name></member>
+    <member refid="ubasic_8h_1a2a4dcaa2bd546946fb376aac316a19a0" kind="define"><name>AUX</name></member>
+    <member refid="ubasic_8h_1a6df1d22fb5f09eccc23b9f399670cfd7" kind="define"><name>STRINGIFY</name></member>
+    <member refid="ubasic_8h_1a191803ac954f2ded69217a0e864e2af7" kind="define"><name>BIP_STRING</name></member>
+    <member refid="ubasic_8h_1a0436fd63cfd2d23d40c9fd8c7b68b8d5" kind="define"><name>BIP_INT</name></member>
+    <member refid="ubasic_8h_1a2d82ccf15b505bc8ce28ba1bd7a7f5a5" kind="define"><name>BIP_DOUBLE</name></member>
+    <member refid="ubasic_8h_1adc2a689c60d5146f9e0fe59050f5227b" kind="define"><name>PARAMS_START</name></member>
+    <member refid="ubasic_8h_1a2a18e363a2e01dbde04f5098ff9ec26b" kind="define"><name>PARAMS_GET_ITEM</name></member>
+    <member refid="ubasic_8h_1a9a2274a78543b9de385959508de7225e" kind="define"><name>PARAMS_END</name></member>
     <member refid="ubasic_8h_1a65231902c1f22532519da8a1c01ba53e" kind="enum"><name>ub_fn_type</name></member>
     <member refid="ubasic_8h_1a65231902c1f22532519da8a1c01ba53eac71ea04245e41b2d6b8e533fcc74c659" kind="enumvalue"><name>FT_FN</name></member>
     <member refid="ubasic_8h_1a65231902c1f22532519da8a1c01ba53ead53af2599d572a45176f7076ae759bd6" kind="enumvalue"><name>FT_PROC</name></member>
     <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966" kind="enum"><name>ub_return_type</name></member>
+    <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966a3b89ef745ac9a8ac746aff719e609758" kind="enumvalue"><name>RT_MAIN</name></member>
+    <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966af6a45e9ab07167656b5d6509a8cc0a26" kind="enumvalue"><name>RT_NONE</name></member>
     <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268" kind="enumvalue"><name>RT_STRING</name></member>
     <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966a8748e4019711d7c401d6ed2b1568717d" kind="enumvalue"><name>RT_INT</name></member>
     <member refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966af84eb2d6bedef8785a996abbec035e87" kind="enumvalue"><name>RT_FLOAT</name></member>
     <member refid="ubasic_8h_1a59c9cd726acfbe69d8df60ab2b2d0607" kind="typedef"><name>builtin_int_fn</name></member>
     <member refid="ubasic_8h_1a32fb15d1935e217117fd02b2f319bb93" kind="typedef"><name>builtin_str_fn</name></member>
     <member refid="ubasic_8h_1adccc7c01a1bb1d7cca42e285830ce6a6" kind="typedef"><name>builtin_double_fn</name></member>
+    <member refid="ubasic_8h_1a9e892389dc272853d51b1bbbb49f4411" kind="function"><name>valid_int_var</name></member>
+    <member refid="ubasic_8h_1ad783607ef9114bb476aec066a2d5e5eb" kind="function"><name>valid_string_var</name></member>
+    <member refid="ubasic_8h_1af12fcb4c5efc346a3a296505dce0a74f" kind="function"><name>valid_double_var</name></member>
     <member refid="ubasic_8h_1a94cc5f368eb6a4a51959aa9af71c2727" kind="function"><name>ubasic_abs</name></member>
     <member refid="ubasic_8h_1adcce1bf8e1bb7d43f778c2a3b178c38f" kind="function"><name>ubasic_len</name></member>
     <member refid="ubasic_8h_1af6254c6c76a5252860e6de07c78eb39b" kind="function"><name>ubasic_openin</name></member>
@@ -2537,50 +2589,75 @@
     <member refid="ubasic_8h_1a42187ca69dc53ce2869e7df6960dc7ce" kind="function"><name>ubasic_getsize</name></member>
     <member refid="ubasic_8h_1adc4d0576a6912532c43369e389419cb4" kind="function"><name>ubasic_get_text_max_x</name></member>
     <member refid="ubasic_8h_1a9fd7bcca385683c102ac5cffc45f5898" kind="function"><name>ubasic_get_text_max_y</name></member>
+    <member refid="ubasic_8h_1ad7c18925902c35809a4ae24b5787780c" kind="function"><name>ubasic_get_text_cur_x</name></member>
+    <member refid="ubasic_8h_1a1fe0a2bf952bc71fc3b09badeeb540dc" kind="function"><name>ubasic_get_text_cur_y</name></member>
+    <member refid="ubasic_8h_1a3b993cc07b1f0d7deb322edc1578fdf5" kind="function"><name>ubasic_getproccount</name></member>
+    <member refid="ubasic_8h_1a28b9bd6cdb5c5e3cb2d94830df2354c0" kind="function"><name>ubasic_getprocid</name></member>
+    <member refid="ubasic_8h_1a0448532249db3ce85c3134e92fd5903d" kind="function"><name>ubasic_getprocparent</name></member>
+    <member refid="ubasic_8h_1a47f7d009dcfc6df8674a01bc55e47652" kind="function"><name>ubasic_getproccpuid</name></member>
+    <member refid="ubasic_8h_1a773791be71cc0db044c07e3d39290e0f" kind="function"><name>ubasic_rgb</name></member>
+    <member refid="ubasic_8h_1a462ab4f978e27131b28689795e3a7809" kind="function"><name>ubasic_get_free_mem</name></member>
+    <member refid="ubasic_8h_1a2b4ab01042f261fd3d5b33e70564362a" kind="function"><name>ubasic_get_used_mem</name></member>
+    <member refid="ubasic_8h_1a167c9064a24dd6810927007a72c05ae7" kind="function"><name>ubasic_get_total_mem</name></member>
     <member refid="ubasic_8h_1a660422bd3c0e07831ab9a20bfd94db7b" kind="function"><name>ubasic_netinfo</name></member>
     <member refid="ubasic_8h_1a5559407d22fff10ff141837c7b094fb0" kind="function"><name>ubasic_left</name></member>
     <member refid="ubasic_8h_1a2ddbbc00e77a2b3575da968d1c719aa7" kind="function"><name>ubasic_mid</name></member>
     <member refid="ubasic_8h_1a778c0201919e608abd2646c9b9cb0b60" kind="function"><name>ubasic_chr</name></member>
     <member refid="ubasic_8h_1a5fad97e282aa0b13b8776eeeb505315c" kind="function"><name>ubasic_readstring</name></member>
     <member refid="ubasic_8h_1a628557296864cfb7a5a9a8ab38cce2b5" kind="function"><name>ubasic_getname</name></member>
-    <member refid="ubasic_8h_1a35b7dedd50cfc30346ac4881430b531b" kind="function"><name>ubasic_init</name></member>
-    <member refid="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" kind="function"><name>ubasic_destroy</name></member>
-    <member refid="ubasic_8h_1a00ac2759ea41ff03f3e994f35f6bc03a" kind="function"><name>ubasic_run</name></member>
-    <member refid="ubasic_8h_1ae2dfc2340f033d44a00993bfe4bf9c80" kind="function"><name>ubasic_finished</name></member>
-    <member refid="ubasic_8h_1adb8eb6e0aa9c7606623fc241b99760be" kind="function"><name>ubasic_get_int_variable</name></member>
-    <member refid="ubasic_8h_1a2fea34db30fac3281466a93c55078c06" kind="function"><name>ubasic_get_double_variable</name></member>
-    <member refid="ubasic_8h_1a9ac55179aa9a0176f342a67638608cf6" kind="function"><name>ubasic_get_string_variable</name></member>
-    <member refid="ubasic_8h_1a5dab8199fb7b2e99f20e8d8432b69b81" kind="function"><name>ubasic_set_variable</name></member>
-    <member refid="ubasic_8h_1afcb910d7d9652ff94b305c3a8c398882" kind="function"><name>jump_linenum</name></member>
-    <member refid="ubasic_8h_1a7913e05cee9dd3d85bc859e06af69f60" kind="function"><name>ubasic_set_string_variable</name></member>
-    <member refid="ubasic_8h_1a387c29c224dd166b6bea4add9897522e" kind="function"><name>ubasic_set_double_variable</name></member>
-    <member refid="ubasic_8h_1a6d554a1fcd609a257c2f842a08ac05ea" kind="function"><name>ubasic_set_int_variable</name></member>
-    <member refid="ubasic_8h_1aeba4a7a47c9691fe982cfb3bcd98534b" kind="function"><name>ubasic_set_array_variable</name></member>
-    <member refid="ubasic_8h_1af3c28214a6d26d3373d8ed9f1d5276a8" kind="function"><name>ubasic_get_numeric_variable</name></member>
-    <member refid="ubasic_8h_1a384d812b87f1117d47fe61d413b6763b" kind="function"><name>ubasic_get_numeric_int_variable</name></member>
-    <member refid="ubasic_8h_1a934280027312e986008618e74b82782e" kind="function"><name>expr</name></member>
-    <member refid="ubasic_8h_1a1e46aaf021f5d93d251df94cbe164e91" kind="function"><name>double_expr</name></member>
-    <member refid="ubasic_8h_1a84e680982e0290ec61df8b84dca64588" kind="function"><name>line_statement</name></member>
-    <member refid="ubasic_8h_1a2034463854d3258a38238de07f3049fb" kind="function"><name>statement</name></member>
-    <member refid="ubasic_8h_1a5f32d6049526ddd7e979e741ba73053e" kind="function"><name>str_expr</name></member>
-    <member refid="ubasic_8h_1af865ac3ed5536e2dc99cfbb4d902ae4a" kind="function"><name>str_varfactor</name></member>
-    <member refid="ubasic_8h_1a6ce4459f3701be5c97c7f9908bf0c259" kind="function"><name>ubasic_parse_fn</name></member>
-    <member refid="ubasic_8h_1a3b993cc07b1f0d7deb322edc1578fdf5" kind="function"><name>ubasic_getproccount</name></member>
-    <member refid="ubasic_8h_1a28b9bd6cdb5c5e3cb2d94830df2354c0" kind="function"><name>ubasic_getprocid</name></member>
     <member refid="ubasic_8h_1ad6905e50078318caf5db72a91748c697" kind="function"><name>ubasic_getprocname</name></member>
     <member refid="ubasic_8h_1a63d3193d934771514392dcd19b13fe32" kind="function"><name>ubasic_dns</name></member>
-    <member refid="ubasic_8h_1a773791be71cc0db044c07e3d39290e0f" kind="function"><name>ubasic_rgb</name></member>
-    <member refid="ubasic_8h_1a5ce0ab5acfae5031b62200a2f6bf97f5" kind="function"><name>ubasic_eval_double_fn</name></member>
-    <member refid="ubasic_8h_1a4865c0eb38ab199e7adca32b4c777385" kind="function"><name>ubasic_test_string_variable</name></member>
+    <member refid="ubasic_8h_1acd2949249723baac22db2449ccc05d0c" kind="function"><name>ubasic_ramdisk_from_device</name></member>
+    <member refid="ubasic_8h_1a7a221e39127dcc2f13c7828843c534b6" kind="function"><name>ubasic_ramdisk_from_size</name></member>
+    <member refid="ubasic_8h_1aad2a298566403ea6e945e74753490a72" kind="function"><name>ubasic_inkey</name></member>
     <member refid="ubasic_8h_1a05da1e347cfc8fbe0098c51316ed2640" kind="function"><name>ubasic_sin</name></member>
     <member refid="ubasic_8h_1a8146f852198c2a7936d9e6088ac0dfd3" kind="function"><name>ubasic_cos</name></member>
     <member refid="ubasic_8h_1a7b786c07e1ca434cd8e5942bc74e4497" kind="function"><name>ubasic_tan</name></member>
     <member refid="ubasic_8h_1ad79849ce5ab570769fddacecced88c70" kind="function"><name>ubasic_pow</name></member>
-    <member refid="ubasic_8h_1ac569cb0c5dcad1f65f0eb87849978161" kind="function"><name>str_relation</name></member>
-    <member refid="ubasic_8h_1a5da3876b5bfc761a6407ac2020521e0f" kind="function"><name>relation</name></member>
+    <member refid="ubasic_8h_1a35b7dedd50cfc30346ac4881430b531b" kind="function"><name>ubasic_init</name></member>
+    <member refid="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" kind="function"><name>ubasic_destroy</name></member>
+    <member refid="ubasic_8h_1a00ac2759ea41ff03f3e994f35f6bc03a" kind="function"><name>ubasic_run</name></member>
+    <member refid="ubasic_8h_1a3896bfc03a8659a518d9fa133705b57a" kind="function"><name>ubasic_finished</name></member>
+    <member refid="ubasic_8h_1afcb910d7d9652ff94b305c3a8c398882" kind="function"><name>jump_linenum</name></member>
+    <member refid="ubasic_8h_1a84e680982e0290ec61df8b84dca64588" kind="function"><name>line_statement</name></member>
+    <member refid="ubasic_8h_1a2034463854d3258a38238de07f3049fb" kind="function"><name>statement</name></member>
     <member refid="ubasic_8h_1a39ca76350b51eb1ac4f85f7813030be3" kind="function"><name>accept</name></member>
-    <member refid="ubasic_8h_1acd2949249723baac22db2449ccc05d0c" kind="function"><name>ubasic_ramdisk_from_device</name></member>
-    <member refid="ubasic_8h_1a7a221e39127dcc2f13c7828843c534b6" kind="function"><name>ubasic_ramdisk_from_size</name></member>
+    <member refid="ubasic_8h_1a6ce4459f3701be5c97c7f9908bf0c259" kind="function"><name>ubasic_parse_fn</name></member>
+    <member refid="ubasic_8h_1adb8eb6e0aa9c7606623fc241b99760be" kind="function"><name>ubasic_get_int_variable</name></member>
+    <member refid="ubasic_8h_1a2fea34db30fac3281466a93c55078c06" kind="function"><name>ubasic_get_double_variable</name></member>
+    <member refid="ubasic_8h_1a9ac55179aa9a0176f342a67638608cf6" kind="function"><name>ubasic_get_string_variable</name></member>
+    <member refid="ubasic_8h_1a7913e05cee9dd3d85bc859e06af69f60" kind="function"><name>ubasic_set_string_variable</name></member>
+    <member refid="ubasic_8h_1a387c29c224dd166b6bea4add9897522e" kind="function"><name>ubasic_set_double_variable</name></member>
+    <member refid="ubasic_8h_1a6d554a1fcd609a257c2f842a08ac05ea" kind="function"><name>ubasic_set_int_variable</name></member>
+    <member refid="ubasic_8h_1af3c28214a6d26d3373d8ed9f1d5276a8" kind="function"><name>ubasic_get_numeric_variable</name></member>
+    <member refid="ubasic_8h_1a26278649a7fc073686287cbe68630ceb" kind="function"><name>ubasic_get_numeric_int_variable</name></member>
+    <member refid="ubasic_8h_1a8ff1e98b41b281615a5106abf149a38c" kind="function"><name>ubasic_set_int_array_variable</name></member>
+    <member refid="ubasic_8h_1a71d25c191a27099b2521315c8436325a" kind="function"><name>ubasic_set_string_array_variable</name></member>
+    <member refid="ubasic_8h_1a52df6c6bc053b1eeee167a65fcce994d" kind="function"><name>ubasic_set_double_array_variable</name></member>
+    <member refid="ubasic_8h_1a9fb8a5071931afc1d021b6903b0bff9b" kind="function"><name>ubasic_get_double_array_variable</name></member>
+    <member refid="ubasic_8h_1afd2eeb9e5539791eba6f6c9045398bb9" kind="function"><name>ubasic_get_int_array_variable</name></member>
+    <member refid="ubasic_8h_1a678b1b7e037ed46bc5735e7ce3fc5d7d" kind="function"><name>ubasic_get_string_array_variable</name></member>
+    <member refid="ubasic_8h_1a61de4ead74b5b3e09a0147694360941e" kind="function"><name>ubasic_dim_string_array</name></member>
+    <member refid="ubasic_8h_1a5402930fc57ae99497b1096b544eba39" kind="function"><name>ubasic_dim_int_array</name></member>
+    <member refid="ubasic_8h_1ab89b6a47290ed8a7169f0f6dafd57852" kind="function"><name>ubasic_dim_double_array</name></member>
+    <member refid="ubasic_8h_1ae5f5cb2daec8c2d9362e16f16986c67e" kind="function"><name>ubasic_redim_string_array</name></member>
+    <member refid="ubasic_8h_1ada83ba1a1893d271061eb7fdfefca265" kind="function"><name>ubasic_redim_int_array</name></member>
+    <member refid="ubasic_8h_1ae1022a5c0a65ddd11828780593cbc0a7" kind="function"><name>ubasic_redim_double_array</name></member>
+    <member refid="ubasic_8h_1a4c439e60cb300da93ee63f2d805674da" kind="function"><name>varname_is_int_array_access</name></member>
+    <member refid="ubasic_8h_1a6f2207fcc8d13b51cd2f737fe8fd88a2" kind="function"><name>varname_is_string_array_access</name></member>
+    <member refid="ubasic_8h_1ad4b26e2e8637402018a3909845864f38" kind="function"><name>varname_is_double_array_access</name></member>
+    <member refid="ubasic_8h_1ae86f53bbc258d856c797494b042b7ba7" kind="function"><name>arr_variable_index</name></member>
+    <member refid="ubasic_8h_1a85e3e72b95b6af40c26193726bd3fba1" kind="function"><name>ubasic_set_int_array</name></member>
+    <member refid="ubasic_8h_1a9d98a7d3cbf232d3f90900bfc122777a" kind="function"><name>ubasic_set_string_array</name></member>
+    <member refid="ubasic_8h_1a6d2a2ab5eb71dbc29d8e638510543a26" kind="function"><name>ubasic_set_double_array</name></member>
+    <member refid="ubasic_8h_1ac7b18c1c7ad294c2c77e5ca0055578ee" kind="function"><name>dim_statement</name></member>
+    <member refid="ubasic_8h_1a2199845dd038c41cf53d86f6a813625c" kind="function"><name>redim_statement</name></member>
+    <member refid="ubasic_8h_1a934280027312e986008618e74b82782e" kind="function"><name>expr</name></member>
+    <member refid="ubasic_8h_1ae25be7d2d8ae25c9353e2d7381578a98" kind="function"><name>relation</name></member>
+    <member refid="ubasic_8h_1a1e46aaf021f5d93d251df94cbe164e91" kind="function"><name>double_expr</name></member>
+    <member refid="ubasic_8h_1a1ea4e8496cc967a2709cd10cf69c42fa" kind="function"><name>double_relation</name></member>
+    <member refid="ubasic_8h_1a3e66a30ddf1eb98b8efd0ca640c35713" kind="function"><name>str_expr</name></member>
+    <member refid="ubasic_8h_1a4dec748cd3e08bfddbb46b0793a57a4f" kind="function"><name>str_relation</name></member>
   </compound>
   <compound refid="udp_8h" kind="file"><name>udp.h</name>
     <member refid="udp_8h_1a23105885384ca2f747d9c906c521fe2e" kind="typedef"><name>udp_daemon_handler</name></member>
@@ -2632,6 +2709,7 @@
     <member refid="video_8h_1ac016b9fcd07b7c15004752ce172708f2" kind="function"><name>get_text_width</name></member>
     <member refid="video_8h_1a849430deb40da15a4a934f2fee6d87a9" kind="function"><name>get_text_height</name></member>
     <member refid="video_8h_1a77f6a7e382b6192d7829bac2f459168e" kind="function"><name>gotoxy</name></member>
+    <member refid="video_8h_1a9fc73a5f42358dfc5528cecf943aebb3" kind="function"><name>get_text_position</name></member>
   </compound>
   <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>include</name>
   </compound>

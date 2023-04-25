@@ -4,9 +4,9 @@
     <compoundname>ub_param</compoundname>
     <includes local="no">ubasic.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structub__param_1a5ed01b68c0d5b7918fdf8279ede2c4fb" prot="public" static="no" mutable="no">
-        <type>char *</type>
-        <definition>char* ub_param::name</definition>
+      <memberdef kind="variable" id="structub__param_1aac392ca80b9979a619107c2ba48ae684" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ub_param::name</definition>
         <argsstring></argsstring>
         <name>name</name>
         <briefdescription>
@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="66" column="6" bodyfile="include/ubasic.h" bodystart="66" bodyend="-1"/>
+        <location file="include/ubasic.h" line="108" column="12" bodyfile="include/ubasic.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__param_1a9264c1613cd1a6d11991d170f5fbcced" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref> *</type>
@@ -28,10 +28,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="67" column="16" bodyfile="include/ubasic.h" bodystart="67" bodyend="-1"/>
+        <location file="include/ubasic.h" line="109" column="16" bodyfile="include/ubasic.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>FN/PROC parameter. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -50,9 +51,9 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="65" column="1" bodyfile="include/ubasic.h" bodystart="65" bodyend="68"/>
+    <location file="include/ubasic.h" line="107" column="1" bodyfile="include/ubasic.h" bodystart="107" bodyend="110"/>
     <listofallmembers>
-      <member refid="structub__param_1a5ed01b68c0d5b7918fdf8279ede2c4fb" prot="public" virt="non-virtual"><scope>ub_param</scope><name>name</name></member>
+      <member refid="structub__param_1aac392ca80b9979a619107c2ba48ae684" prot="public" virt="non-virtual"><scope>ub_param</scope><name>name</name></member>
       <member refid="structub__param_1a9264c1613cd1a6d11991d170f5fbcced" prot="public" virt="non-virtual"><scope>ub_param</scope><name>next</name></member>
     </listofallmembers>
   </compounddef>
