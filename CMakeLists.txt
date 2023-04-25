@@ -26,6 +26,8 @@ add_executable("kernel.bin" ${SOURCES} ${ASSEMBLY})
 
 add_link_options("-m elf_x86_64 -nostdlib -no-pie -T buildtools/linker.ld")
 
+add_custom_target(ISO ALL DEPENDS ${CMAKE_BINARY_DIR}/rr.iso)
+
 copy_config(limine.cfg limine.cfg)
 copy_config(limine.sys limine/limine.sys)
 copy_config(limine-cd.bin limine/limine-cd.bin)

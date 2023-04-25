@@ -3,11 +3,12 @@ function(copy_basic TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/${TARGETFILE}")
     get_filename_component(basic_name ${TARGETFILE} NAME_WE)
     set(OUTNAME_WE "${CMAKE_BINARY_DIR}/iso/programs/${basic_name}")
-    add_custom_command(OUTPUT ${OUTNAME}
+    add_custom_command(OUTPUT ${OUTNAME_WE}
         COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/programs" && cp ${FILENAME} ${OUTNAME_WE}
         DEPENDS ${FILENAME})
-    add_custom_target(basic_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
+    add_custom_target(basic_${SOURCEFILE} ALL DEPENDS ${OUTNAME_WE})
     add_dependencies("kernel.bin" basic_${SOURCEFILE})
+    add_dependencies(ISO basic_${SOURCEFILE})
 endfunction()
 
 function(copy_font TARGETFILE SOURCEFILE)
@@ -18,6 +19,7 @@ function(copy_font TARGETFILE SOURCEFILE)
         DEPENDS ${FILENAME})
     add_custom_target(font_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
     add_dependencies("kernel.bin" font_${SOURCEFILE})
+    add_dependencies(ISO font_${SOURCEFILE})
 endfunction()
 
 function(copy_config TARGETFILE SOURCEFILE)
@@ -28,6 +30,7 @@ function(copy_config TARGETFILE SOURCEFILE)
         DEPENDS ${FILENAME})
     add_custom_target(config_${TARGETFILE} ALL DEPENDS ${OUTNAME})
     add_dependencies("kernel.bin" config_${TARGETFILE})
+    add_dependencies(ISO config_${TARGETFILE})
 endfunction()
 
 function(run TARGETFILE)
@@ -85,8 +88,7 @@ endfunction()
 function(iso TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
-        COMMAND xorriso -as mkisofs -b limine-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso" 2>/dev/null
-        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh")
-    add_custom_target(ISO ALL DEPENDS ${OUTNAME})
+        COMMAND xorriso -as mkisofs -b limine-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso"
+        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list})
     add_dependencies(ISO SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh")
 endfunction()
