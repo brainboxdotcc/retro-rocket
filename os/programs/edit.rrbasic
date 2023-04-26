@@ -15,6 +15,7 @@ PROCtext
 PROCedit
 END
 
+REM clear line from cursor to right
 DEF PROCclearLineFromCursor
 	PRINT CHR$(27) + "[0K";
 RETPROC
@@ -38,6 +39,7 @@ DEF PROCdraw
 	CURSOR 1, 2
 RETPROC
 
+REM Display prompt in bottom section of screen
 DEF PROCprompt(prompt$)
 	PROCdraw
 	BACKGROUND 4
@@ -48,19 +50,21 @@ DEF PROCprompt(prompt$)
 	PRINT prompt$; ": ";
 RETPROC
 
+REM clear prompt
 DEF PROCendPrompt
 	CLS
 	PROCtext
 RETPROC
 
+REM hide text cursor
 DEF PROChideCursor
 	PRINT CHR$(27);"[?25l";
 RETPROC
 
+REM show text cursor
 DEF PROCshowCursor
 	PRINT CHR$(27);"[?25h";
 RETPROC
-
 
 REM display text to editor window
 DEF PROCtext
@@ -140,6 +144,7 @@ DEF PROCprocessKey(in)
 	IF currenty + top > lines - 1 THEN currenty = lines - top - 1
 RETPROC
 
+REM insert character at current position and advance right
 DEF PROCinsertChar(i)
 	start$ = MID$(content$(top + currenty), 0, currentx)
 	end$ = MID$(content$(top + currenty), currentx, LEN(content$(top + currenty)))
@@ -149,6 +154,7 @@ DEF PROCinsertChar(i)
 	PROCtext
 RETPROC
 
+REM handle CTRL+key
 DEF PROCctrl(ctrlkey$)
 	IF UPPER$(ctrlkey$) = "S" THEN PROCsave
 	IF UPPER$(ctrlkey$) = "W" THEN PROCsearch
@@ -156,12 +162,14 @@ DEF PROCctrl(ctrlkey$)
 	PROCtext
 RETPROC
 
+REM handle save
 DEF PROCsave
 	IF ARGS$ = "edit" THEN PROCsaveNew
 	IF ARGS$ = "edit" THEN RETPROC
 	PROCsaveAs
 RETPROC
 
+REM handle save over existing file
 DEF PROCsaveAs
 	PROCprompt("Save as [" + ARGS$ + "]")
 	INPUT file$
@@ -169,17 +177,19 @@ DEF PROCsaveAs
 	PROCdoSave(file$)
 RETPROC
 
+REM handle save to new file
 DEF PROCsaveNew
 	PROCprompt("Save as")
 	INPUT file$
 	PROCdoSave(file$)
 RETPROC
 
+REM save file
 DEF PROCdoSave(saveFileName$)
-	REM write file
 	FH = OPENOUT(saveFileName$)
 	IF FH < 0 THEN PROCsaveError($saveFileName$)
 	IF FH < 0 THEN RETPROC
+	REM write file line by line
 	FOR X = 0 TO lines
 		WRITE FH, content$(X)
 	NEXT
@@ -187,17 +197,20 @@ DEF PROCdoSave(saveFileName$)
 	dirty = FALSE
 RETPROC
 
+REM display save error
 DEF PROCsaveError
 	PROCprompt("Unable to save file! Press any key to continue")
 	REPEAT
 	UNTIL INKEY$ > ""
 RETPROC
 
+REM text search
 DEF PROCsearch
 	PROCprompt("Search text")
 	INPUT find$
 RETPROC
 
+REM search and replace
 DEF PROCreplace
 	PROCprompt("Search text")
 	INPUT find$
@@ -214,6 +227,7 @@ DEF PROCquit
 	END
 RETPROC
 
+REM confirm exit if file contents changed
 DEF PROCconfirm
 	PROCprompt("Contents changed. Are you sure?")
 	REPEAT
@@ -326,6 +340,7 @@ DEF PROCdelete
 	PROCtext
 RETPROC
 
+REM handle backspace
 DEF PROCbackSpace
 	cx = currentx
 	IF cx = 0 THEN PROCjoinAbove
@@ -334,6 +349,7 @@ DEF PROCbackSpace
 	PROCtext
 RETPROC
 
+REM delete character to left of cursor, advance left
 DEF PROCdeleteLeft
 	start$ = MID$(content$(top + currenty), 0, currentx - 1)
 	end$ = MID$(content$(top + currenty), currentx, LEN(content$(top + currenty)))
@@ -341,12 +357,14 @@ DEF PROCdeleteLeft
 	currentx = currentx - 1
 RETPROC
 
+REM delete one character to the right
 DEF PROCdeleteRight
 	start$ = MID$(content$(top + currenty), 0, currentx)
 	end$ = MID$(content$(top + currenty), currentx + 1, LEN(content$(top + currenty)))
 	content$(top + currenty) = start$ + end$
 RETPROC
 
+REM join the end of the current line to the line below, moving lines up
 DEF PROCjoin
 	IF currenty = lines - 1 THEN RETPROC
 	content$(top + currenty) = content$(top + currenty) + content$(top + currenty + 1)
@@ -357,6 +375,7 @@ DEF PROCjoin
 	lines = lines - 1
 RETPROC
 
+REM join the start of the current line to the line above, moving lines up
 DEF PROCjoinAbove
 	IF currenty = 0 THEN RETPROC
 	newcurrentx = LEN(content$(top + currenty - 1))
