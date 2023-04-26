@@ -1,30 +1,197 @@
 registered = FALSE
+rawlog = TRUE
 REM HOST$ = ARGS$
 HOST$ = "ip222.ip-141-95-6.eu"
-PRINT "Connecting to "; HOST$; " ";
-IP$ = DNS$(HOST$)
-PRINT " (IP: "; IP$; ")... ";
-CONNECT FD, IP$, 6667
-PRINT "Connected!"
-
+NICK$ = "Test0001"
+GECOS$ = "Retro Rocket OS IRC Client"
+IDENT$ = "test"
+PORT = 6667
+SCROLLBACK = 512
 currentLine$ = ""
-DIM lineParts$,255
+DIM lineParts$, 255
+DIM scrollback$, SCROLLBACK
+DIM lineColour, SCROLLBACK
+scrollptr = TERMHEIGHT - 2
+top = 0
 
-REPEAT
-	IF registered = FALSE THEN PROCregister
-
-	char$ = INSOCKET$(FD)
-	IF char$ > "" THEN PROCprocess(char$)
-
-UNTIL SOCKSTATUS(FD) = 0
-
-SOCKCLOSE FD
+PROCconnect
+PROCmainLoop
 END
 
+DEF PROCmainLoop
+	CLS
+	PROCdraw
+	iterations = 0
+	REPEAT
+		IF registered = FALSE THEN PROCregister
+		char$ = INSOCKET$(FD)
+		IF char$ > "" THEN PROCprocess(char$)
+		CURSOR 15, TERMHEIGHT
+		COLOR 15
+		IF char$ = "" THEN PROCkeyScan
+		iterations = iterations + 1
+	UNTIL SOCKSTATUS(FD) = 0
+	SOCKCLOSE FD
+RETPROC
+
+DEF PROCkeyScan
+	key$ = INKEY$
+	IF key$ > "" THEN PROCprocessKey(ASC(key$))
+RETPROC
+
+REM handle keypress
+DEF PROCprocessKey(in)
+	incopy = in
+	ctrl = CTRLKEY
+	IF ctrl = TRUE THEN PROCctrl(CHR$(incopy))
+	IF ctrl = TRUE THEN RETPROC
+	IF in = 27 THEN PROCquit
+	IF in = 13 THEN PROCenter
+	IF in = 250 THEN PROCup
+	IF in = 251 THEN PROCdown
+	IF in = 252 THEN PROCleft
+	IF in = 253 THEN PROCright
+	IF in = 249 THEN PROCend
+	IF in = 254 THEN PROChome
+	IF in = 245 THEN PROCpageUp
+	IF in = 246 THEN PROCpageDown
+	IF in = 247 THEN PROCdelete
+	IF in = 8 THEN PROCbackSpace
+	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(incopy)
+RETPROC
+
+DEF PROCinsertChar(inkey)
+RETPROC
+
+DEF PROCctrl(ctrlkey$)
+RETPROC
+
+DEF PROCquit
+RETPROC
+
+DEF PROCenter
+RETPROC
+
+DEF PROCup
+RETPROC
+
+DEF PROCdown
+RETPROC
+
+DEF PROCleft
+RETPROC
+
+DEF PROCright
+RETPROC
+
+DEF PROCend
+RETPROC
+
+DEF PROChome
+RETPROC
+
+DEF PROCpageUp
+	top = top - TERMHEIGHT - 2
+	IF top < 0 THEN top = 0
+	PROCtext
+RETPROC
+
+DEF PROCpageDown
+	top = top + TERMHEIGHT - 2
+	IF top + TERMHEIGHT + 2 > scrollptr THEN top = scrollptr - TERMHEIGHT + 2
+	PROCtext
+RETPROC
+
+DEF PROCdelete
+RETPROC
+
+DEF PROCbackSpace
+RETPROC
+
+REM clear line from cursor to right
+DEF PROCclearLineFromCursor
+	PRINT CHR$(27) + "[0K";
+RETPROC
+
+REM draw UI around window
+DEF PROCdraw
+	BACKGROUND 4
+	COLOUR 15
+	CURSOR 1, TERMHEIGHT
+	PROCclearLineFromCursor
+	CURSOR 2, TERMHEIGHT
+	PRINT "[#channel] ";
+	CURSOR TERMWIDTH - 15, TERMHEIGHT
+	CURSOR 1, 0
+	PROCclearLineFromCursor
+	CURSOR TERMWIDTH / 2 - 5, 0
+	PRINT "IRC CLIENT"
+	COLOUR 7
+	BACKGROUND 0
+	CURSOR 1, 2
+RETPROC
+
+REM hide text cursor
+DEF PROChideCursor
+	PRINT CHR$(27);"[?25l";
+RETPROC
+
+REM show text cursor
+DEF PROCshowCursor
+	PRINT CHR$(27);"[?25h";
+RETPROC
+
+REM display text to editor window
+DEF PROCtext
+	PROChideCursor
+	PROCdraw
+	CURSOR 1, 2
+	FOR l = top TO top + TERMHEIGHT - 2
+		PROCclearLineFromCursor
+		IF l < SCROLLBACK THEN PROCprintLine(l)
+	NEXT
+	PROCshowCursor
+RETPROC
+
+DEF PROCprintLine(lineIndex)
+	COLOUR lineColour(lineIndex)
+	PRINT scrollback$(lineIndex)
+RETPROC
+
+DEF PROCout(col, text$)
+	safeText$ = text$
+	safeCol = col
+	REPEAT
+		scrollback$(scrollptr) = LEFT$(safeText$, TERMWIDTH - 1)
+		safeText$ = MID$(safeText$, TERMWIDTH - 1, LEN(safeText$))
+		lineColour(scrollptr) = safeCol
+		scrollptr = scrollptr + 1
+		top = top + 1
+		IF scrollptr > SCROLLBACK - 1 THEN PROCdiscard
+	UNTIL safeText$ = ""
+	PROCtext
+RETPROC
+
+DEF PROCdiscard
+	FOR n = 0 TO scrollptr - 1
+		scrollback$(n) = scrollback$(n + 1)
+		lineColour(n) = lineColour(n + 1)
+	NEXT
+	scrollptr = scrollptr - 1
+	top = top - 1
+RETPROC
+
+DEF PROCconnect
+	PRINT "Connecting to "; HOST$; " ";
+	IP$ = DNS$(HOST$)
+	PRINT " (IP: "; IP$; ")... ";
+	CONNECT FD, IP$, PORT
+	PRINT "Connected!"
+RETPROC
 
 DEF PROCregister
-	PROCsend("USER test * * :Test")
-	PROCsend("NICK :Test0001")
+	PROCsend("USER " + IDENT$ + " * * :" + GECOS$)
+	PROCsend("NICK :" + NICK$)
 	registered = TRUE
 RETPROC
 
@@ -35,8 +202,13 @@ DEF PROCprocess(c$)
 	IF c$ > CHR$(13) THEN currentLine$ = currentLine$ + c$
 RETPROC
 
+DEF PROCrawLog
+	IF rawlog = FALSE THEN RETPROC
+	PROCout(8, "RAWLOG: " + currentLine$)
+RETPROC
+
 DEF PROCprocessLine
-	PRINT currentLine$
+	PROCrawLog
 	tokenIndex = 0
 	lastToken = FALSE
 	lineParts$ = ""
@@ -56,10 +228,6 @@ DEF PROCprocessLine
 	IF LEFT$(lineParts$(tokenIndex - 1), 1) = ":" THEN lineParts$(tokenIndex - 1) = MID$(lineParts$(tokenIndex - 1), 1, LEN(lineParts$(tokenIndex - 1)))
 	prefix$ = ""
 	IF LEFT$(lineParts$(0),1) = ":" THEN PROChandlePrefix
-	PRINT "PREFIX: "; prefix$
-	FOR X = 0 TO tokenIndex
-		PRINT "TOKEN "; X; ": '"; lineParts$(X); "'"
-	NEXT
 	commands$ = lineParts$(0)
 	PROCprocessCommand
 RETPROC
@@ -69,14 +237,53 @@ DEF PROCsend(data$)
 RETPROC
 
 DEF PROChandlePrefix
-	prefix$ = lineParts$(0)
+	prefix$ = MID$(lineParts$(0), 1, LEN(lineParts$(0)))
+	userNick$ = prefix$
+	userIdent$ = ""
+	userHost$ = ""
 	FOR X = 0 TO tokenIndex - 1
 		lineParts$(X) = lineParts$(X + 1)
 	NEXT
 	tokenIndex = tokenIndex - 1
+	plingPos = INSTR(prefix$, "!")
+	IF plingPos > 0 THEN PROCparsePrefixNUH
+RETPROC
+
+DEF PROCparsePrefixNUH
+	userHost$ = prefix$
+	userNick$ = LEFT$(userHost$, INSTR(userHost$, "!") - 1)
+	userHost$ = MID$(userHost$, INSTR(userHost$, "!"), LEN(userHost$))
+	userIdent$ = LEFT$(userHost$, INSTR(userHost$, "@") - 1)
+	userHost$ = MID$(userHost$, INSTR(userHost$, "@"), LEN(userHost$))
 RETPROC
 
 DEF PROCprocessCommand
-	IF commands$ = "PING" THEN PROCsend("PONG :" + lineParts$(1))
+	IF commands$ = "PING" THEN PROCping
+	IF commands$ = "NOTICE" THEN PROCnotice
+	IF commands$ = "PRIVMSG" THEN PROCprivmsg
+	IF commands$ = "372" THEN PROCmotdLine
+	IF commands$ = "376" THEN PROCmotdEnd
 RETPROC
 
+DEF PROCping
+	PROCsend("PONG :" + lineParts$(1))
+	PROCout(5, "= PING? PONG!")
+RETPROC
+
+DEF PROCnotice
+	PROCout(12, "-" + userNick$ + "- " + lineParts$(2))
+RETPROC
+
+DEF PROCprivmsg
+	COLOR 15
+	channel$ = lineParts$(1)
+	PROCout(15, "<" + userNick$ + "/" + channel$ + "> " + lineParts$(2))
+RETPROC
+
+DEF PROCmotdLine
+	PROCout(2, "-MOTD- " + lineParts$(2))
+RETPROC
+
+DEF PROCmotdEnd
+	PROCout(2, "-MOTD ENDS-")
+RETPROC
