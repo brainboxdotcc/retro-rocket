@@ -187,7 +187,7 @@ RETPROC
 REM save file
 DEF PROCdoSave(saveFileName$)
 	FH = OPENOUT(saveFileName$)
-	IF FH < 0 THEN PROCsaveError($saveFileName$)
+	IF FH < 0 THEN PROCsaveError(saveFileName$)
 	IF FH < 0 THEN RETPROC
 	REM write file line by line
 	FOR X = 0 TO lines
