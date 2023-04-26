@@ -942,6 +942,17 @@ static void eof_statement(struct ubasic_ctx* ctx)
 	tokenizer_error_print(ctx, "EOF is a function");
 }
 
+/**
+ * @brief Process INPUT statement.
+ * 
+ * The INPUT statement will yield while waiting for input, essentially if
+ * there is no complete line in the input buffer yet, it will yield back to
+ * the OS task loop for other processes to get a turn. Each time the process
+ * is entered while waiting for the input line to be completed, it will just
+ * loop back against the same INPUT statement again until completed.
+ * 
+ * @param ctx BASIC context
+ */
 static void input_statement(struct ubasic_ctx* ctx)
 {
 	accept(INPUT, ctx);
@@ -965,12 +976,22 @@ static void input_statement(struct ubasic_ctx* ctx)
 		}
 		kfreeinput((console*)ctx->cons);
 		accept(NEWLINE, ctx);
-		dprintf("\n\n\n                  INPUT COMPLETE                   \n\n\n");
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
 	}
 }
 
+/**
+ * @brief Process SOCKREAD statement.
+ * 
+ * The SOCKREAD statement will yield while waiting for data, essentially if
+ * there is no complete line in the data buffer yet, it will yield back to
+ * the OS task loop for other processes to get a turn. Each time the process
+ * is entered while waiting for the data to be completed, it will just
+ * loop back against the same SOCKREAD statement again until completed.
+ * 
+ * @param ctx BASIC context
+ */
 static void sockread_statement(struct ubasic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
