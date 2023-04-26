@@ -4,6 +4,7 @@ lines = 0
 top = 0
 currentx = 0
 currenty = 0
+dirty = FALSE
 DIM content$, max
 
 REM load file, draw UI, start editor input loop
@@ -144,6 +145,7 @@ DEF PROCinsertChar(i)
 	end$ = MID$(content$(top + currenty), currentx, LEN(content$(top + currenty)))
 	content$(top + currenty) = start$ + CHR$(i) + end$
 	currentx = currentx + 1
+	dirty = TRUE
 	PROCtext
 RETPROC
 
@@ -185,6 +187,7 @@ DEF PROCdoSave(saveFileName$)
 		WRITE FH, content$(X)
 	NEXT
 	CLOSE FH
+	dirty = FALSE
 RETPROC
 
 DEF PROCsaveError
@@ -203,10 +206,25 @@ DEF PROCreplace
 	INPUT find$
 	PROCprompt("Replace text")
 	INPUT replace$
+	dirty = TRUE
 RETPROC
 
 REM handle escape key
 DEF PROCquit
+	IF dirty = TRUE THEN PROCconfirm
+	IF dirty = TRUE THEN RETPROC
+	CLS
+	END
+RETPROC
+
+DEF PROCconfirm
+	PROCprompt("Contents changed. Are you sure?")
+	REPEAT
+		input$ = INKEY$
+	UNTIL input$ > ""
+	PROCtext
+	IF input$ = "N" THEN RETPROC
+	IF input$ = "n" THEN RETPROC
 	CLS
 	END
 RETPROC
@@ -298,6 +316,7 @@ DEF PROCenter
 	lines = lines + 1
 	IF lines = max THEN PROCgrow
 	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
+	dirty = TRUE
 	PROCtext
 RETPROC
 
@@ -307,6 +326,7 @@ DEF PROCdelete
 	len = LEN(currentLine$)
 	IF currentx > len - 1 THEN PROCjoin
 	IF currentx < len THEN PROCdeleteRight
+	dirty = TRUE
 	PROCtext
 RETPROC
 
@@ -314,6 +334,7 @@ DEF PROCbackSpace
 	cx = currentx
 	IF cx = 0 THEN PROCjoinAbove
 	IF cx > 0 THEN PROCdeleteLeft
+	dirty = TRUE
 	PROCtext
 RETPROC
 
