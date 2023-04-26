@@ -182,6 +182,9 @@ int storage_device_ide_block_read(void* dev, uint64_t start, uint32_t bytes, uns
 	while (divided_length * sd->block_size < bytes) {
 		divided_length++;
 	}
+	if (divided_length < 1) {
+		divided_length++;
+	}
 	return ide_read_sectors((uint8_t)sd->opaque1, divided_length, start, (uint64_t)buffer);
 }
 
@@ -203,6 +206,9 @@ int storage_device_ide_block_write(void* dev, uint64_t start, uint32_t bytes, co
 	uint32_t divided_length = bytes / sd->block_size;
 	/* ... because integer division rounds DOWN */
 	while (divided_length * sd->block_size < bytes) {
+		divided_length++;
+	}
+	if (divided_length < 1) {
 		divided_length++;
 	}
 	return ide_write_sectors((uint8_t)sd->opaque1, divided_length, start, (uint64_t)buffer);

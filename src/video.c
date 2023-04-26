@@ -44,6 +44,12 @@ uint64_t get_text_height()
 	return terminal_request.response->terminals[0]->rows;
 }
 
+void screenonly(console* c, const char* s)
+{
+	struct limine_terminal *terminal = terminal_request.response->terminals[0];
+	terminal_request.response->write(terminal, s, strlen(s));
+}
+
 void get_text_position(uint64_t* x, uint64_t* y)
 {
 	wait_state = true;
@@ -55,7 +61,9 @@ void get_text_position(uint64_t* x, uint64_t* y)
 
 void gotoxy(uint64_t x, uint64_t y)
 {
-	kprintf("\033[%d;%dH", y % (get_text_height() + 1), x % (get_text_width() + 1));
+	char cursor_command[32];
+	snprintf(cursor_command, 32, "\033[%d;%dH", y % (get_text_height() + 1), x % (get_text_width() + 1));
+	screenonly(current_console, cursor_command);
 }
 
 void putpixel(int64_t x, int64_t y, uint32_t rgb)
@@ -69,11 +77,11 @@ uint32_t getpixel(int64_t x, int64_t y)
 	return *((volatile uint32_t*)(framebuffer_address() + pixel_address(x, y)));
 }
 
-/* Clear the screen */
+/* Clear the screen - note this does not send the ansi to the debug console */
 void clearscreen(console* c)
 {
 	draw_horizontal_rectangle(0, 0, screen_get_width() - 1, screen_get_height() - 1, 0x000000);
-	putstring(c, "\033[2J\033[0;0H");
+	screenonly(c, "\033[2J\033[0;0H");
 }
 
 void dput(const char n)

@@ -14,27 +14,42 @@ PROCtext
 PROCedit
 END
 
+DEF PROCclearLineFromCursor
+	PRINT CHR$(27) + "[0K";
+RETPROC
+
 REM draw UI around editor window
 DEF PROCdraw
 	BACKGROUND 4
 	COLOUR 15
 	CURSOR 1, TERMHEIGHT
-	FOR X = 0 TO TERMWIDTH
-		PRINT " ";
-	NEXT
+	PROCclearLineFromCursor
 	CURSOR 2, TERMHEIGHT
 	PRINT "ESC EXIT"; CHR$(9); "^S SAVE"; CHR$(9); CHR$(9); "^W WHEREIS"; CHR$(9); "^R REPLACE";
 	CURSOR TERMWIDTH - 15, TERMHEIGHT
 	PRINT currentx; ","; top + currenty;
 	CURSOR 1, 0
-	FOR X = 0 TO TERMWIDTH
-		PRINT " ";
-	NEXT
+	PROCclearLineFromCursor
 	CURSOR TERMWIDTH / 2 - 2, 0
 	PRINT "EDIT"
 	COLOUR 7
 	BACKGROUND 0
 	CURSOR 1, 2
+RETPROC
+
+DEF PROCprompt(prompt$)
+	PROCdraw
+	BACKGROUND 4
+	COLOUR 15
+	CURSOR 1, TERMHEIGHT
+	PROCclearLineFromCursor
+	CURSOR 2, TERMHEIGHT
+	PRINT prompt$; ": ";
+RETPROC
+
+DEF PROCendPrompt
+	CLS
+	PROCtext
 RETPROC
 
 DEF PROChideCursor
@@ -52,7 +67,7 @@ DEF PROCtext
 	PROCdraw
 	CURSOR 1, 2
 	FOR l = top TO top + TERMHEIGHT - 2
-		PRINT CHR$(27) + "[0K";
+		PROCclearLineFromCursor
 		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
 	NEXT
 	PROCshowCursor
@@ -102,6 +117,10 @@ RETPROC
 
 REM handle keypress
 DEF PROCprocessKey(in)
+	incopy = in
+	ctrl = CTRLKEY
+	IF ctrl = TRUE THEN PROCctrl(incopy)
+	IF ctrl = TRUE THEN RETPROC
 	IF in = 27 THEN PROCquit
 	IF in = 13 THEN PROCenter
 	IF in = 250 THEN PROCup
@@ -114,7 +133,6 @@ DEF PROCprocessKey(in)
 	IF in = 246 THEN PROCpageDown
 	IF in = 247 THEN PROCdelete
 	IF in = 8 THEN PROCbackSpace
-	incopy = in
 	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(incopy)
 	cx = LEN(content$(top + currenty))
 	IF currentx > cx THEN currentx = cx
@@ -127,6 +145,64 @@ DEF PROCinsertChar(i)
 	content$(top + currenty) = start$ + CHR$(i) + end$
 	currentx = currentx + 1
 	PROCtext
+RETPROC
+
+DEF PROCctrl(ctrlkey)
+	IF ctrlkey = ASC("S") THEN PROCsave
+	IF ctrlkey = ASC("W") THEN PROCsearch
+	IF ctrlkey = ASC("R") THEN PROCreplace
+	IF ctrlkey = ASC("s") THEN PROCsave
+	IF ctrlkey = ASC("w") THEN PROCsearch
+	IF ctrlkey = ASC("r") THEN PROCreplace
+	PROCtext
+RETPROC
+
+DEF PROCsave
+	IF ARGS$ = "edit" THEN PROCsaveNew
+	IF ARGS$ = "edit" THEN RETPROC
+	PROCsaveAs
+RETPROC
+
+DEF PROCsaveAs
+	PROCprompt("Save as [" + ARGS$ + "]")
+	INPUT file$
+	IF file$ = "" THEN file$ = ARGS$
+	PROCdoSave(file$)
+RETPROC
+
+DEF PROCsaveNew
+	PROCprompt("Save as")
+	INPUT file$
+	PROCdoSave(file$)
+RETPROC
+
+DEF PROCdoSave(saveFileName$)
+	REM write file
+	FH = OPENOUT(saveFileName$)
+	IF FH < 0 THEN PROCsaveError($saveFileName$)
+	IF FH < 0 THEN RETPROC
+	FOR X = 0 TO lines
+		WRITE FH, content$(X)
+	NEXT
+	CLOSE FH
+RETPROC
+
+DEF PROCsaveError
+	PROCprompt("Unable to save file! Press any key to continue")
+	REPEAT
+	UNTIL INKEY$ > ""
+RETPROC
+
+DEF PROCsearch
+	PROCprompt("Search text")
+	INPUT find$
+RETPROC
+
+DEF PROCreplace
+	PROCprompt("Search text")
+	INPUT find$
+	PROCprompt("Replace text")
+	INPUT replace$
 RETPROC
 
 REM handle escape key

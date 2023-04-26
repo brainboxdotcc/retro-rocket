@@ -27,7 +27,7 @@ size_t kinput(size_t maxlen, console* cons)
 		case KEY_RIGHT:
 		break;
 		case '\r':
-			kprintf("\n");
+			put(cons, '\n');
 		break;
 		case 8:
 			if (cons->bufcnt != 0) {
@@ -63,6 +63,7 @@ void kfreeinput(console* cons)
 {
 	kfree(cons->internalbuffer);
 	cons->internalbuffer = cons->buffer = NULL;
+	cons->bufcnt = 0;
 }
 
 char* kgetinput(console* cons)

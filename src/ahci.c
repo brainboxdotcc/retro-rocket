@@ -113,6 +113,10 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	while (divided_length * sd->block_size < bytes) {
 		divided_length++;
 	}
+	if (divided_length < 1) {
+		divided_length++;
+	}
+
 	size_t max_per_read = AHCI_DEV_SATAPI ? 4 : 16;
 	if (divided_length < max_per_read) {
 		return check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
@@ -142,6 +146,10 @@ int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, c
 	while (divided_length * sd->block_size < bytes) {
 		divided_length++;
 	}
+	if (divided_length < 1) {
+		divided_length++;
+	}
+
 	if (divided_length < 16) {
 		return ahci_write(port, start, divided_length, (char*)buffer, abar);
 	}

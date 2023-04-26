@@ -360,6 +360,9 @@ int _open(const char* filename, int oflag)
 		return -1;
 	} else if (file == NULL && type != file_input) {
 		file = fs_create_file(filename, 0);
+	} else if (file != NULL && type == file_output) {
+		fs_truncate_file(file, 0);
+		dprintf("Open for output ONLY, existing file; truncated to 0\n");
 	}
 	if (file == NULL) {
 		return -1;

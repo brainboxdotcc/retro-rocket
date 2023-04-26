@@ -286,9 +286,15 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 	uint32_t amount_read = 0;
 	unsigned char* clbuf = kmalloc(info->clustersize);
 
+	dprintf("fat32_read_file: lbapos=%08x\n", cluster);
+
 	// Advance to start when start != 0, for fseek()
 	while ((clustercount++ < start / info->clustersize) && cluster < CLUSTER_BAD) {
 		cluster = get_fat_entry(info, cluster);
+	}
+
+	if (cluster >= CLUSTER_BAD) {
+		dprintf("First cluster in file marked BAD or END! cluster=%08x\n", cluster);
 	}
 
 	while (true) {
@@ -334,43 +340,52 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 
 	uint32_t cluster = file->lbapos;
 	uint64_t current_pos = 0;
-	uint32_t first = 1;
 	unsigned char* clbuf = kmalloc(info->clustersize);
 	//memset(clbuf, 0, info->clustersize);
 
 	if (start + length > file->size) {
 		// File size must be extended to meet this requirement
 		if (!fat32_extend_file(f, start + length - file->size)) {
+			dprintf("Couldn't extend file\n");
 			return false;
 		}
 	}
 
-	while (cluster < CLUSTER_BAD && current_pos <= start + length) {
-		if (!read_cluster(info, cluster, clbuf)) {
-			kfree(clbuf);
-			return false;
-		}
-		if (current_pos >= start && current_pos <= start + length) {
+	uint64_t start_offset = start % info->clustersize;
+
+	dprintf("Start: %d length %d cluster %08x\n", start, length, cluster);
+
+	while (cluster < CLUSTER_BAD) {
+		dprintf("Current pos: %d cluster %08x\n", current_pos, cluster);
+		uint64_t start_of_block = current_pos;
+		uint64_t end_of_block = current_pos + info->clustersize;
+		uint64_t start_of_write = start;
+		uint64_t end_of_write = start + length;
+		if (start_of_block <= end_of_write || end_of_block >= start_of_write) {
+			dprintf("In range, writing\n");
+			if (!read_cluster(info, cluster, clbuf)) {
+				kfree(clbuf);
+				dprintf("Didnt read cluster %d\n", cluster);
+				return false;
+			}
 			int64_t to_write = length;
 			if (length > info->clustersize) {
 				to_write = info->clustersize;
 			}
-			if (first == 1) {
-				/* Special case where start != 0 */
-				memcpy(clbuf + (start % info->clustersize), buffer, to_write - (start % info->clustersize));
-			} else {
-				memcpy(clbuf, buffer, to_write);
-			}
+			memcpy(clbuf + start_offset, buffer, to_write);
+			start_offset = 0;
+			dprintf("Amended cluster:\n");
+			dump_hex(clbuf, info->clustersize);
 			if (!write_cluster(info, cluster, clbuf)) {
 				dprintf("Write failure in fat32_write_file cluster=%08x\n", cluster);
 				kfree(clbuf);
 				return false;
 			}
 			buffer += to_write;
-			first = 0;
 		}
 		cluster = get_fat_entry(info, cluster);
 		current_pos += info->clustersize;
+		dprintf("New current pos: %d new cluster %08x\n", current_pos, cluster);
 	}
 	kfree(clbuf);
 	return true;
@@ -418,6 +433,7 @@ bool fat32_truncate_file(void* f, size_t length)
 			uint32_t this_file_cluster = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
 			if (this_file_cluster == file->lbapos && entry->name[0] != 0 && !(entry->name[0] & 0x80) && entry->attr != ATTR_LONG_NAME) {
 				entry->size = length;
+				file->size = length;
 				dump_hex(entry, 32);
 				write_cluster(info, cluster, buffer);
 				kfree(buffer);
@@ -471,6 +487,10 @@ bool fat32_extend_file(void* f, uint32_t size)
 	while (size_in_clusters * info->clustersize < size) {
 		size_in_clusters++;
 	}
+	if (size_in_clusters < 1) {
+		size_in_clusters++;
+	}
+
 
 	if (alloc_more) {
 		while (cluster < CLUSTER_BAD) {
@@ -522,6 +542,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 				dump_hex(entry, 32);
 				write_cluster(info, cluster, buffer);
 				kfree(buffer);
+				dprintf("Directory info amended\n");
 				return true;
 			}
 			bufferoffset += sizeof(directory_entry_t);
@@ -624,6 +645,11 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	while (size_in_clusters * info->clustersize < size) {
 		size_in_clusters++;
 	}
+	dprintf("internal create: UNADJUSTED SIZE IN CLUSTERS: %d\n", size_in_clusters);
+	if (size_in_clusters < 1) {
+		size_in_clusters++;
+	}
+	dprintf("internal create: SIZE IN CLUSTERS: %d\n", size_in_clusters);
 
 	/* Allocate cluster chain to cover file length */
 	uint32_t last_cluster = CLUSTER_END;
@@ -645,6 +671,11 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 				free_fat32_directory(parsed_dir);
 				return 0;
 			}
+		} else {
+			dprintf("Next free fat entry is end! - disk full?\n");
+			kfree(blank_cluster);
+			free_fat32_directory(parsed_dir);
+			wait_forever();
 		}
 		if (last_cluster != CLUSTER_END) {
 			set_fat_entry(info, last_cluster, cluster);
@@ -682,6 +713,8 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 		}
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
 		uint32_t entries = 0; // max of info->clustersize / 32 file entries per cluster
+		space_size = 0;
+		start_of_space_bufferoffset = -1;
 
 		while (entries++ < info->clustersize / 32) {
 			/* Hunt for a space with entry_count+1 contiguous empty dir entries */
@@ -692,7 +725,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 					space_size = 0;
 				}
 				space_size++;
-				if (space_size > entry_count + 1) {
+				if (space_size > entry_count + 1 && entries + entry_count + 1 < info->clustersize / 32) {
 					insert_entries_at(false, info, entries - 1, start_of_space_cluster, buffer, start_of_space_bufferoffset, &short_entry, new_entries, entry_count);
 					free_fat32_directory(parsed_dir);
 					return first_allocated_cluster;
@@ -947,11 +980,13 @@ uint32_t find_next_free_fat_entry(fat32_t* info)
 
 	while (offset < info->fatsize) {
 		if (!read_storage_device(info->device_name, fat_entry_sector + offset, sd->block_size, (uint8_t*)buffer)) {
+			dprintf("Failed to read sector %llx\n", fat_entry_sector + offset);
 			kfree(buffer);
 			return CLUSTER_END;
 		}
 		for (size_t t = 0; t < sd->block_size / sizeof(uint32_t); ++t) {
 			if (buffer[t] == CLUSTER_FREE) {
+				kfree(buffer);
 				return count & 0x0FFFFFFF;
 			}
 			++count;
@@ -959,6 +994,7 @@ uint32_t find_next_free_fat_entry(fat32_t* info)
 		++offset;
 	}
 	kfree(buffer);
+	dprintf("No free clusters :(\n");
 	return CLUSTER_END;
 }
 

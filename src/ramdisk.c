@@ -30,8 +30,11 @@ int rd_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buff
 	ramdisk_t* disk = hashmap_get(disks, &find_disk);
 	if (disk) {
 		uint32_t divided_length = bytes / sd->block_size;
-		if (divided_length == 0) {
-			divided_length = 1;
+		while (divided_length * sd->block_size < bytes) {
+			divided_length++;
+		}
+		if (divided_length < 1) {
+			divided_length++;
 		}
 		if (start + divided_length > disk->blocks) {
 			dprintf("Requested sector %llx plus len %llx is greater than ramdisk size of %llx sectors\n", start, divided_length, disk->blocks);
@@ -54,8 +57,11 @@ int rd_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned cha
 	ramdisk_t* disk = hashmap_get(disks, &find_disk);
 	if (disk) {
 		uint32_t divided_length = bytes / sd->block_size;
-		if (divided_length == 0) {
-			divided_length = 1;
+		while (divided_length * sd->block_size < bytes) {
+			divided_length++;
+		}
+		if (divided_length < 1) {
+			divided_length++;
 		}
 		if (start + divided_length > disk->blocks) {
 			dprintf("Requested sector %llx plus len %llx is greater than ramdisk size of %llx sectors\n", start, divided_length, disk->blocks);

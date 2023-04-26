@@ -49,6 +49,10 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_get_used_mem, "MEMUSED" },
 	{ ubasic_get_total_mem, "MEMORY" },
 	{ ubasic_sockstatus, "SOCKSTATUS" },
+	{ ubasic_ctrlkey, "CTRLKEY" },
+	{ ubasic_shiftkey, "SHIFTKEY" },
+	{ ubasic_altkey, "ALTKEY" },
+	{ ubasic_capslock, "ALTKEY" },
 	{ NULL, NULL }
 };
 
@@ -944,6 +948,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 	const char* var = tokenizer_variable_name(ctx);
 	accept(VARIABLE, ctx);
 
+	/* Clear buffer */
 	if (kinput(10240, (console*)ctx->cons) != 0) {
 		switch (var[strlen(var) - 1]) {
 			case '$':
@@ -960,6 +965,7 @@ static void input_statement(struct ubasic_ctx* ctx)
 		}
 		kfreeinput((console*)ctx->cons);
 		accept(NEWLINE, ctx);
+		dprintf("\n\n\n                  INPUT COMPLETE                   \n\n\n");
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
 	}
@@ -1829,17 +1835,17 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 		*oldptr = 0;
 		if (ctx->param) {
 			size_t len = strlen(ctx->param->name);
-			dprintf("Set PROC/FN param: %s to ", ctx->param->name);
+			//dprintf("Set PROC/FN param: %s to ", ctx->param->name);
 			if (ctx->param->name[len - 1] == '$') {
-				dprintf("string value\n");
+				//dprintf("string value\n");
 				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
 			} else if (ctx->param->name[len - 1] == '#') {
 				double f = 0.0;
 				double_expr(ctx, &f);
-				dprintf("double value\n");
+				//dprintf("double value\n");
 				ubasic_set_double_variable(ctx->param->name, f, ctx, true, false);
 			} else {
-				dprintf("int value\n");
+				//dprintf("int value\n");
 				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
 			}
 
@@ -2118,6 +2124,26 @@ int64_t ubasic_sockstatus(struct ubasic_ctx* ctx)
 	}
 
 	return is_connected(fd);
+}
+
+int64_t ubasic_ctrlkey(struct ubasic_ctx* ctx)
+{
+	return ctrl_held();
+}
+
+int64_t ubasic_shiftkey(struct ubasic_ctx* ctx)
+{
+	return shift_held();
+}
+
+int64_t ubasic_altkey(struct ubasic_ctx* ctx)
+{
+	return alt_held();
+}
+
+int64_t ubasic_capslock(struct ubasic_ctx* ctx)
+{
+	return caps_lock_on();
 }
 
 char* ubasic_getname(struct ubasic_ctx* ctx)
