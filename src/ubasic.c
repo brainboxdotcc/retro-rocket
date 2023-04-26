@@ -2380,11 +2380,18 @@ char* ubasic_mid(struct ubasic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t end = intval;
 	PARAMS_END("MID$");
-	if (start > strlen(strval) || start < 0) {
+	int64_t len = strlen(strval);
+	if (start > len) {
+		start = len;
+	}
+	if (start < 0) {
 		start = 0;
 	}
-	if (end > strlen(strval) || end < start) {
+	if (end < start) {
 		end = start;
+	}
+	if (end > len) {
+		end = len;
 	}
 	char* cut = gc_strdup(strval);
 	*(cut + end) = 0;
