@@ -410,7 +410,8 @@ char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx);
 char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx);
 char* ubasic_inkey(struct ubasic_ctx* ctx);
 char* ubasic_insocket(struct ubasic_ctx* ctx);
-
+char* ubasic_upper(struct ubasic_ctx* ctx);
+char* ubasic_lower(struct ubasic_ctx* ctx);
 /*
  * Builtin real (double) functions
  */

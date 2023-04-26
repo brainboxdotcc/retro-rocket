@@ -78,6 +78,8 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_ramdisk_from_device, "RAMDISK$" },
 	{ ubasic_ramdisk_from_size, "RAMDISK" },
 	{ ubasic_inkey, "INKEY$" },
+	{ ubasic_upper, "UPPER$" },
+	{ ubasic_lower, "LOWER$" },
 	{ NULL, NULL }
 };
 
@@ -2329,6 +2331,31 @@ char* ubasic_dns(struct ubasic_ctx* ctx)
 	get_ip_str(ip, (uint8_t*)&addr);
 	return gc_strdup(ip);
 }
+
+char* ubasic_upper(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("UPPER$");
+	char* modified = gc_strdup(strval);
+	for (char* m = modified; *m; ++m) {
+		*m = toupper(*m);
+	}
+	return modified;
+}
+
+char* ubasic_lower(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("LOWER$");
+	char* modified = gc_strdup(strval);
+	for (char* m = modified; *m; ++m) {
+		*m = tolower(*m);
+	}
+	return modified;
+}
+
 
 char* ubasic_left(struct ubasic_ctx* ctx)
 {

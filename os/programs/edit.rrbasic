@@ -120,7 +120,7 @@ REM handle keypress
 DEF PROCprocessKey(in)
 	incopy = in
 	ctrl = CTRLKEY
-	IF ctrl = TRUE THEN PROCctrl(incopy)
+	IF ctrl = TRUE THEN PROCctrl(CHR$(incopy))
 	IF ctrl = TRUE THEN RETPROC
 	IF in = 27 THEN PROCquit
 	IF in = 13 THEN PROCenter
@@ -149,13 +149,10 @@ DEF PROCinsertChar(i)
 	PROCtext
 RETPROC
 
-DEF PROCctrl(ctrlkey)
-	IF ctrlkey = ASC("S") THEN PROCsave
-	IF ctrlkey = ASC("W") THEN PROCsearch
-	IF ctrlkey = ASC("R") THEN PROCreplace
-	IF ctrlkey = ASC("s") THEN PROCsave
-	IF ctrlkey = ASC("w") THEN PROCsearch
-	IF ctrlkey = ASC("r") THEN PROCreplace
+DEF PROCctrl(ctrlkey$)
+	IF UPPER$(ctrlkey$) = "S" THEN PROCsave
+	IF UPPER$(ctrlkey$) = "W" THEN PROCsearch
+	IF UPPER$(ctrlkey$) = "R" THEN PROCreplace
 	PROCtext
 RETPROC
 
@@ -223,8 +220,7 @@ DEF PROCconfirm
 		input$ = INKEY$
 	UNTIL input$ > ""
 	PROCtext
-	IF input$ = "N" THEN RETPROC
-	IF input$ = "n" THEN RETPROC
+	IF UPPER$(input$) = "N" THEN RETPROC
 	CLS
 	END
 RETPROC
