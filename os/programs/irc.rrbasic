@@ -1,0 +1,82 @@
+registered = FALSE
+REM HOST$ = ARGS$
+HOST$ = "ip222.ip-141-95-6.eu"
+PRINT "Connecting to "; HOST$; " ";
+IP$ = DNS$(HOST$)
+PRINT " (IP: "; IP$; ")... ";
+CONNECT FD, IP$, 6667
+PRINT "Connected!"
+
+currentLine$ = ""
+DIM lineParts$,255
+
+REPEAT
+	IF registered = FALSE THEN PROCregister
+
+	char$ = INSOCKET$(FD)
+	IF char$ > "" THEN PROCprocess(char$)
+
+UNTIL SOCKSTATUS(FD) = 0
+
+SOCKCLOSE FD
+END
+
+
+DEF PROCregister
+	PROCsend("USER test * * :Test")
+	PROCsend("NICK :Test0001")
+	registered = TRUE
+RETPROC
+
+DEF PROCprocess(c$)
+	IF c$ = CHR$(10) THEN RETPROC
+	IF c$ = CHR$(13) THEN PROCprocessLine
+	IF c$ < CHR$(13) THEN currentLine$ = currentLine$ + c$
+	IF c$ > CHR$(13) THEN currentLine$ = currentLine$ + c$
+RETPROC
+
+DEF PROCprocessLine
+	PRINT currentLine$
+	tokenIndex = 0
+	lastToken = FALSE
+	lineParts$ = ""
+	REPEAT
+		space = INSTR(currentLine$, " ")
+		oldCurrentLine$ = currentLine$
+		IF space = 0 THEN nextToken$ = currentLine$
+		IF space = 0 THEN currentLine$ = ""
+		IF space > 0 THEN nextToken$ = LEFT$(currentLine$, space - 1)
+		IF space > 0 THEN currentLine$ = MID$(currentLine$, space, LEN(currentLine$))
+		IF lastToken = FALSE THEN lineParts$(tokenIndex) = nextToken$
+		IF lastToken = FALSE THEN tokenIndex = tokenIndex + 1
+		IF tokenIndex > 1 THEN IF LEFT$(nextToken$, 1) = ":" THEN IF lastToken = FALSE THEN lastToken = TRUE
+		IF lastToken = TRUE THEN lineParts$(tokenIndex - 1) = oldCurrentLine$
+		IF lastToken = TRUE THEN currentLine$ = ""
+	UNTIL currentLine$ = ""
+	IF LEFT$(lineParts$(tokenIndex - 1), 1) = ":" THEN lineParts$(tokenIndex - 1) = MID$(lineParts$(tokenIndex - 1), 1, LEN(lineParts$(tokenIndex - 1)))
+	prefix$ = ""
+	IF LEFT$(lineParts$(0),1) = ":" THEN PROChandlePrefix
+	PRINT "PREFIX: "; prefix$
+	FOR X = 0 TO tokenIndex
+		PRINT "TOKEN "; X; ": '"; lineParts$(X); "'"
+	NEXT
+	commands$ = lineParts$(0)
+	PROCprocessCommand
+RETPROC
+
+DEF PROCsend(data$)
+	SOCKWRITE FD, data$; CHR$(13); CHR$(10);
+RETPROC
+
+DEF PROChandlePrefix
+	prefix$ = lineParts$(0)
+	FOR X = 0 TO tokenIndex - 1
+		lineParts$(X) = lineParts$(X + 1)
+	NEXT
+	tokenIndex = tokenIndex - 1
+RETPROC
+
+DEF PROCprocessCommand
+	IF commands$ = "PING" THEN PROCsend("PONG :" + lineParts$(1))
+RETPROC
+
