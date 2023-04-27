@@ -315,11 +315,9 @@ DEF PROCenter
 	currentLine$ = content$(top + currenty)
 	start$ = MID$(currentLine$, 0, currentx)
 	end$ = MID$(currentLine$, currentx, LEN(currentLine$))
-	content$(top + currenty) = start$
 	REM push lines below down
-	FOR l = lines-1 TO top + currenty STEP 0-1
-		content$(l + 1) = content$(l)
-	NEXT
+	PUSH content$, top + currenty
+	content$(top + currenty) = start$
 	content$(top + currenty + 1) = end$
 	currentx = 0
 	currenty = currenty + 1
@@ -368,9 +366,7 @@ REM join the end of the current line to the line below, moving lines up
 DEF PROCjoin
 	IF currenty = lines - 1 THEN RETPROC
 	content$(top + currenty) = content$(top + currenty) + content$(top + currenty + 1)
-	FOR l = top + currenty + 1 TO lines - 1
-		content$(l) = content$(l + 1)
-	NEXT
+	POP content$, top + currenty + 1
 	content$(lines - 1) = ""
 	lines = lines - 1
 RETPROC
@@ -380,9 +376,7 @@ DEF PROCjoinAbove
 	IF currenty = 0 THEN RETPROC
 	newcurrentx = LEN(content$(top + currenty - 1))
 	content$(top + currenty - 1) = content$(top + currenty - 1) + content$(top + currenty)
-	FOR l = top + currenty TO lines - 1
-		content$(l) = content$(l + 1)
-	NEXT
+	POP content$, top + currenty
 	content$(lines - 1) = ""
 	currentx = newcurrentx
 	currenty = currenty - 1
