@@ -348,10 +348,7 @@ DEF PROChandlePrefix
 	userNick$ = prefix$
 	userIdent$ = ""
 	userHost$ = ""
-	REM FOR X = 0 TO tokenIndex - 1
-	REM	lineParts$(X) = lineParts$(X + 1)
-	REM NEXT
-	PUSH lineParts$,0
+	POP lineParts$,0
 	tokenIndex = tokenIndex - 1
 	plingPos = INSTR(prefix$, "!")
 	IF plingPos > 0 THEN PROCparsePrefixNUH

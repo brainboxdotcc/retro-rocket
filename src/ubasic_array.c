@@ -564,9 +564,11 @@ bool ubasic_push_string_array(const char* var, int64_t push_pos, struct ubasic_c
 				tokenizer_error_print(ctx, "Array too small for PUSH");
 				return false;
 			}
-			kfree(cur->values[cur->itemcount - 1]);
+			if (cur->values[cur->itemcount - 1]) {
+				kfree(cur->values[cur->itemcount - 1]);
+			}
 			cur->values[cur->itemcount - 1] = NULL;
-			for (uint64_t i = cur->itemcount - 2; i >= (uint64_t)push_pos; --i) {
+			for (uint64_t i = cur->itemcount - 2; i > (uint64_t)push_pos; --i) {
 				cur->values[i + 1] = cur->values[i];
 			}
 			return true;
@@ -593,7 +595,7 @@ bool ubasic_push_int_array(const char* var, int64_t push_pos, struct ubasic_ctx*
 				tokenizer_error_print(ctx, "Array too small for PUSH");
 				return false;
 			}
-			for (uint64_t i = cur->itemcount - 2; i >= (uint64_t)push_pos; --i) {
+			for (uint64_t i = cur->itemcount - 2; i > (uint64_t)push_pos; --i) {
 				cur->values[i + 1] = cur->values[i];
 			}
 			return true;
@@ -620,7 +622,7 @@ bool ubasic_push_double_array(const char* var, int64_t push_pos, struct ubasic_c
 				tokenizer_error_print(ctx, "Array too small for PUSH");
 				return false;
 			}
-			for (uint64_t i = cur->itemcount - 2; i >= (uint64_t)push_pos; --i) {
+			for (uint64_t i = cur->itemcount - 2; i > (uint64_t)push_pos; --i) {
 				cur->values[i + 1] = cur->values[i];
 			}
 			return true;
@@ -639,7 +641,6 @@ void push_statement(struct ubasic_ctx* ctx)
 	int64_t push_pos = expr(ctx);
 	accept(NEWLINE, ctx);
 	char last = array_name[strlen(array_name) - 1];
-	kprintf("var name: '%s' push at '%d'\n", array_name, push_pos);
 	switch (last) {
 		case '#':
 			ubasic_push_double_array(array_name, push_pos, ctx);
