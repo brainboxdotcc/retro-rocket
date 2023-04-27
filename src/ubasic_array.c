@@ -477,7 +477,7 @@ int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
 
 bool ubasic_pop_string_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
 {
-	if (pop_pos < 1) {
+	if (pop_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
 		return false;
 	}
@@ -503,7 +503,7 @@ bool ubasic_pop_string_array(const char* var, int64_t pop_pos, struct ubasic_ctx
 
 bool ubasic_pop_int_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
 {
-	if (pop_pos < 1) {
+	if (pop_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
 		return false;
 	}
@@ -526,7 +526,7 @@ bool ubasic_pop_int_array(const char* var, int64_t pop_pos, struct ubasic_ctx* c
 
 bool ubasic_pop_double_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
 {
-	if (pop_pos < 1) {
+	if (pop_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
 		return false;
 	}
@@ -549,7 +549,7 @@ bool ubasic_pop_double_array(const char* var, int64_t pop_pos, struct ubasic_ctx
 
 bool ubasic_push_string_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
 {
-	if (push_pos < 1) {
+	if (push_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
 		return false;
 	}
@@ -578,7 +578,7 @@ bool ubasic_push_string_array(const char* var, int64_t push_pos, struct ubasic_c
 
 bool ubasic_push_int_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
 {
-	if (push_pos < 1) {
+	if (push_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
 		return false;
 	}
@@ -605,7 +605,7 @@ bool ubasic_push_int_array(const char* var, int64_t push_pos, struct ubasic_ctx*
 
 bool ubasic_push_double_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
 {
-	if (push_pos < 1) {
+	if (push_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
 		return false;
 	}
@@ -632,12 +632,14 @@ bool ubasic_push_double_array(const char* var, int64_t push_pos, struct ubasic_c
 
 void push_statement(struct ubasic_ctx* ctx)
 {
-	accept(REDIM, ctx);
+	accept(PUSH, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
 	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
 	int64_t push_pos = expr(ctx);
 	accept(NEWLINE, ctx);
 	char last = array_name[strlen(array_name) - 1];
+	kprintf("var name: '%s' push at '%d'\n", array_name, push_pos);
 	switch (last) {
 		case '#':
 			ubasic_push_double_array(array_name, push_pos, ctx);
@@ -652,9 +654,10 @@ void push_statement(struct ubasic_ctx* ctx)
 
 void pop_statement(struct ubasic_ctx* ctx)
 {
-	accept(REDIM, ctx);
+	accept(POP, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
 	accept(VARIABLE, ctx);
+	accept(COMMA, ctx);
 	int64_t pop_pos = expr(ctx);
 	accept(NEWLINE, ctx);
 	char last = array_name[strlen(array_name) - 1];

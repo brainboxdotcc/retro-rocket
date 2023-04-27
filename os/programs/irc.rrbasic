@@ -278,10 +278,12 @@ DEF PROCout(col, text$)
 RETPROC
 
 DEF PROCdiscard
-	FOR n = 0 TO scrollptr - 1
-		scrollback$(n) = scrollback$(n + 1)
-		lineColour(n) = lineColour(n + 1)
-	NEXT
+	REM FOR n = 0 TO scrollptr - 1
+	REM 	scrollback$(n) = scrollback$(n + 1)
+	REM 	lineColour(n) = lineColour(n + 1)
+	REM NEXT
+	POP scrollback$,0
+	POP lineColour,0
 	scrollptr = scrollptr - 1
 	top = top - 1
 RETPROC
@@ -346,9 +348,10 @@ DEF PROChandlePrefix
 	userNick$ = prefix$
 	userIdent$ = ""
 	userHost$ = ""
-	FOR X = 0 TO tokenIndex - 1
-		lineParts$(X) = lineParts$(X + 1)
-	NEXT
+	REM FOR X = 0 TO tokenIndex - 1
+	REM	lineParts$(X) = lineParts$(X + 1)
+	REM NEXT
+	PUSH lineParts$,0
 	tokenIndex = tokenIndex - 1
 	plingPos = INSTR(prefix$, "!")
 	IF plingPos > 0 THEN PROCparsePrefixNUH

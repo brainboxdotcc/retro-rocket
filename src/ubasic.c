@@ -522,7 +522,9 @@ bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 {
 	ub_line_ref* line = hashmap_get(ctx->lines, &(ub_line_ref){ .line_number = linenum });
 	if (!line) {
-		tokenizer_error_print(ctx, "No such line");
+		char err[MAX_STRINGLEN];
+		snprintf(err, MAX_STRINGLEN, "No such line %d", linenum);
+		tokenizer_error_print(ctx, err);
 		return false;
 	}
 	ctx->ptr = line->ptr;
@@ -880,9 +882,9 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		 * to the line where the EVAL statement is.
 		 */
 		ctx->eval_linenum = ctx->current_linenum;
+		ctx->call_stack[ctx->call_stack_ptr] = ctx->current_linenum;
 		ctx->call_stack_ptr++;
 		init_local_heap(ctx);
-		ctx->call_stack[ctx->call_stack_ptr] = ctx->current_linenum;
 
 		jump_linenum(EVAL_LINE, ctx);
 	} else {
@@ -1233,6 +1235,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 		ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
 		ctx->call_stack_ptr++;
+		init_local_heap(ctx);
 		jump_linenum(linenum, ctx);
 	} else {
 		tokenizer_error_print(ctx, "GOSUB: stack exhausted");
