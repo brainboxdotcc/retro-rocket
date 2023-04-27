@@ -588,7 +588,7 @@ static char* printable_syntax(struct ubasic_ctx* ctx)
 			const char* oldctx = ctx->ptr;
 			if (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != HEXNUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))) {
 				ctx->ptr = oldctx;
-				sprintf(buffer, "%s", str_expr(ctx));
+				strlcpy(buffer, str_expr(ctx), MAX_STRINGLEN);
 				strlcat(out, buffer, MAX_STRINGLEN);
 			} else {
 				ctx->ptr = oldctx;
@@ -632,7 +632,7 @@ static void print_statement(struct ubasic_ctx* ctx)
 	accept(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
-		kprintf(out);
+		putstring((console*)ctx->cons, out);
 	}
 }
 
@@ -1660,8 +1660,6 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 		error_set = true;
 	}
 
-	//kprintf("set string '%s' to '%s' %d\n", var, value, local);
-
 	if (!valid_string_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return;
@@ -2255,7 +2253,6 @@ int64_t ubasic_instr(struct ubasic_ctx* ctx)
 
 char* ubasic_readstring(struct ubasic_ctx* ctx)
 {
-	//kprintf("read string\n");
 	char* res = (char*)kmalloc(1024);
 	int ofs = 0;
 	*res = 0;
@@ -2270,7 +2267,6 @@ char* ubasic_readstring(struct ubasic_ctx* ctx)
 			break;
 		else
 			ofs++;
-		//kprintf("Got byte %d", res[ofs - 1]);
 	}
 	*(res+ofs) = 0;
 	char* ret = gc_strdup(res);
@@ -2363,8 +2359,16 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("LEFT$");
-	if (intval > strlen(strval) || intval < 0)
-		intval = strlen(strval);
+	int64_t len = strlen(strval);
+	if (intval < 0) {
+		intval = 0;
+	}
+	if (len == 0 || intval == 0) {
+		return "";
+	}
+	if (intval > len) {
+		intval = len;
+	}
 	char* cut = gc_strdup(strval);
 	*(cut + intval) = 0;
 	return cut;
@@ -2381,6 +2385,9 @@ char* ubasic_mid(struct ubasic_ctx* ctx)
 	int64_t end = intval;
 	PARAMS_END("MID$");
 	int64_t len = strlen(strval);
+	if (len == 0) {
+		return "";
+	}
 	if (start > len) {
 		start = len;
 	}
@@ -2637,7 +2644,6 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 
 	for (j = 0; j < 2; j++)
 	{
-		//kprintf("Iter %d\n", j);
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
