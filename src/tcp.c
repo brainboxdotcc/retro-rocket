@@ -18,7 +18,7 @@ static const char* error_messages[] = {
 };
 
 /* Set this to output or record a trace of the TCP I/O. This is very noisy! */
-#define TCP_TRACE 1
+#define TCP_TRACE 0
 
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 
@@ -333,8 +333,6 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 		return NULL;
 	}
 
-	dprintf("TCP send segment\n");
-
 	ip_packet_t encap;
 	tcp_options_t options = { .mss = flags & TCP_SYN ? 1460 : 0 };
 	uint16_t length = sizeof(tcp_segment_t) + count + (flags & TCP_SYN ? 4 : 0);
@@ -371,9 +369,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	memcpy((void*)packet->payload + (flags & TCP_SYN ? 4 : 0), data, count);
 
 	packet->checksum = htons(tcp_calculate_checksum(&encap, packet, length));
-	dprintf("TCP -> IP send packet\n");
 	ip_send_packet(encap.dst_ip, packet, length, PROTOCOL_TCP);
-	dprintf("TCP -> IP send packet DONE\n");
 
 	conn->snd_nxt += count;
 	if (flags & (TCP_SYN | TCP_FIN)) {
@@ -935,7 +931,6 @@ bool tcp_state_time_wait(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_
  */
 bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
-	dprintf("tcp_state_machine");
 	switch (conn->state) {
 		case TCP_LISTEN:
 			return tcp_state_listen(encap_packet, segment, conn, options, len);
@@ -971,25 +966,20 @@ bool tcp_state_machine(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_co
  */
 void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t* segment, size_t len)
 {
-	dprintf("tcp_handle_packet\n");
 	tcp_options_t options;
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
 	tcp_byte_order_in(segment);
 	tcp_parse_options(segment, &options);
 	if (our_checksum == segment->checksum) {
-		dprintf("tcp with valid checksum\n");
 		tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
 		if (conn) {
 			//tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
 			tcp_state_machine(encap_packet, segment, conn, &options, len);
-		} else {
-			dprintf("tcp packet with no TCB\n");
 		}
 	} else {
 		dprintf("tcp packet with invalid checksum\n");
 		//tcp_dump_segment(true, NULL, encap_packet, segment, &options, len, our_checksum);
 	}
-	dprintf("tcp_handle_packet done\n");
 }
 
 /**
@@ -1020,7 +1010,6 @@ void tcp_idle()
 				}
 				conn->send_buffer_len -= amount_to_send;
 				interrupts_on();
-				dprintf("done send buffer resize down\n");
 			}
 		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
 			tcp_free(conn);
@@ -1094,8 +1083,6 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	uint32_t isn = get_isn();
 	unsigned char ip[4] = { 0 };
 
-	dprintf("tcp_connect() with isn=%d\n", isn);
-
 	gethostaddr(ip);
 
 	conn.remote_addr = target_addr;
@@ -1136,21 +1123,12 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.recv_buffer_spinlock = 0;
 	conn.send_buffer_spinlock = 0;
 
-	dprintf("tcp_connect() local port=%d\n", conn.local_port);
-
 	tcp_set_state(&conn, TCP_SYN_SENT);
-
-	dprintf("tcp_connect() sending segment\n");
-
 	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
-
-	dprintf("tcp_connect() setting hashmap\n");
-
 	hashmap_set(tcb, &conn);
 
 	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
 	if (new_conn) {
-		dprintf("tcp_connect() setting conn fd\n");
 		new_conn->fd = tcp_allocate_fd(new_conn);
 		if (new_conn->fd == -1) {
 			dprintf("tcp_connect() allocation of fd failed\n");
@@ -1197,7 +1175,6 @@ int tcp_close(tcp_conn_t* conn)
 
 int send(int socket, const void* buffer, uint32_t length)
 {
-	dprintf("send(): %d\n", length);
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
 	if (conn == NULL) {
 		dprintf("send(): invalid socket %d\n", socket);
@@ -1211,7 +1188,6 @@ int send(int socket, const void* buffer, uint32_t length)
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
 	conn->send_buffer_len += length;
 	interrupts_on();
-	dprintf("send(): done\n");
 	return (int)length;
 }
 
@@ -1224,18 +1200,14 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 		}
 		return result;
 	}
-	dprintf("connect(): tcp_connect() gave us fd %d\n", result);
 	tcp_conn_t* conn = tcp_find_by_fd(result);
 	time_t start = time(NULL);
-	dprintf("Connect waiting: ");
 	while (conn && conn->state < TCP_ESTABLISHED) {
-		dprintf(".");
 		__asm__ volatile("hlt");
 		if (time(NULL) - start > 10) {
 			return TCP_ERROR_CONNECTION_FAILED;
 		}
 	};
-	dprintf("\nconnect(): socket state ESTABLISHED\n");
 	return conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
 }
 
@@ -1262,7 +1234,6 @@ bool is_connected(int socket)
 
 int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t timeout)
 {
-	//dprintf("recv(): socket=%d blocking=%d\n", socket, blocking);
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
 	if (conn == NULL) {
 		dprintf("recv(): invalid socket\n");
@@ -1273,7 +1244,6 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 	}
 
 	if (blocking) {
-		//dprintf("recv(): start blocking wait\n");
 		time_t now = time(NULL);
 		while (conn->recv_buffer_len == 0 || conn->recv_buffer == NULL) {
 			if (time(NULL) - now > timeout || conn->state != TCP_ESTABLISHED) {
@@ -1284,7 +1254,6 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 	if (conn->recv_buffer_len > 0 && conn->recv_buffer != NULL) {
 		interrupts_off();
 		/* There is buffered data to receive  */
-		//dprintf("recv buffer resize down\n");
 		size_t amount_to_recv = conn->recv_buffer_len > maxlen ? maxlen : conn->recv_buffer_len;
 		memcpy(buffer, conn->recv_buffer, amount_to_recv);
 		/* Resize recv buffer down */

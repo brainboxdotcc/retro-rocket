@@ -39,14 +39,12 @@ static uint32_t rtl_inl(uint32_t io) {
 bool packet_is_ok(uint16_t* packet)
 {
 	uint8_t flags = *((uint8_t*)packet);
-	dump_hex((unsigned char*)packet, 4);
 	bool bad = (flags & (RX_RUNT | RX_LONG | RX_CRC | RX_FAE));
 	if (!bad && (flags & RX_ROK)) {
 		if (*(packet + 1) > 8192 || *(packet + 1) < 20) {
 			dprintf("Bad packet, out of size range\n");
 			return false;
 		}
-		dprintf("GOOD packet, RX flags set: %02x len=%d\n", flags, *(packet+1));
 		return true;
 	}
 	dprintf("Bad packet, RX error flags set: %02x\n", flags);
@@ -58,7 +56,6 @@ void receive_packet() {
 
 		uint8_t tmp_cmd = rtl_inb(ChipCmd);
 		if (tmp_cmd & CR_BUFE) {
-			dprintf("CR_BUFE is set, bailing receive loop\n");
 			break;
 		}
 
@@ -75,7 +72,6 @@ void receive_packet() {
 				t += 2;
 
 				if (packet_length) {
-					dprintf("Copy to ethernet handler\n");
 					void* packet = kmalloc(packet_length);
 					memcpy(packet, t, packet_length);
 					ethernet_handle_packet(packet, packet_length);
@@ -94,8 +90,6 @@ void receive_packet() {
 			}
 
 			tmp_cmd = rtl_inb(ChipCmd);
-
-			dprintf("Received one packet\n");
 
 		} while (!(tmp_cmd & CR_BUFE));
 
@@ -124,7 +118,6 @@ void rtl8139_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t err
 	if(status & TOK) {
 		// Sent
 		rtl_outw(IntrStatus, TX_OK);
-		dprintf("RTL8139: Packet sent\n");
 	}
 	if (status & ROK) {
 		// Received
@@ -182,8 +175,6 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 
 	interrupts_off();
 
-	dprintf("RTL8139 send packet (%s): ", in_interrupt ? "in int" : "outside int");
-
 	// Static buffer below 4GB
 	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
@@ -209,7 +200,7 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	uint32_t tx_status;
 	while ((tx_status = rtl_inl(TxStatus0 + old_cur)) & (TX_OWN | TX_TUN | TX_TOK | TX_OWC | TX_TABT | TX_CRS)) {
 		if (tx_status & TX_OWN) {
-			dprintf("DMA transfer of packet completed\n");
+			//dprintf("DMA transfer of packet completed\n");
 		}
 		if (tx_status & TX_TUN) {
 			dprintf("Transmit buffer overrun!\n");
@@ -219,7 +210,6 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 			/*
 			 * When the whole packet is moved to line, the TOK(in TSD) is set to 1. 
 			 */
-			dprintf("Send success and complete\n");
 			break;
 		}
 		if (tx_status & TX_OWC) {
@@ -235,8 +225,6 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 			break;
 		}
 	}
-
-	dprintf("RTL8139 send packet done\n");
 
 	interrupts_on();
 }

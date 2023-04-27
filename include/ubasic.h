@@ -206,6 +206,9 @@ typedef struct ubasic_ctx {
         uint64_t gosub_stack[MAX_CALL_STACK_DEPTH];
         uint64_t gosub_stack_ptr;
 
+        uint64_t repeat_stack[MAX_LOOP_STACK_DEPTH];
+        uint64_t repeat_stack_ptr;
+
 	int oldlen;
 	int64_t eval_linenum;
 

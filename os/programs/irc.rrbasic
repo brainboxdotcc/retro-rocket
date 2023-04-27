@@ -132,16 +132,14 @@ DEF PROCpartCommand(channel$)
 	PROCsend("PART " + c$)
 RETPROC
 
-DEF PROCmessageCommand(cam$)
-	channelAndMessage$ = cam$
+DEF PROCmessageCommand(channelAndMessage$)
 	msgSpace = INSTR(channelAndMessage$, " ")
 	msgChannel$ = LEFT$(channelAndMessage$, msgSpace - 1)
 	msgText$ = MID$(channelAndMessage$, msgSpace, LEN(channelAndMessage$))
 	PROCsend("PRIVMSG " + msgChannel$ + " :" + msgText$)
 RETPROC
 
-DEF PROCnoticeCommand(cams$)
-	channelAndMessage$ = cam$
+DEF PROCnoticeCommand(channelAndMessage$)
 	msgSpace = INSTR(channelAndMessage$, " ")
 	msgChannel$ = LEFT$(channelAndMessage$, msgSpace - 1)
 	msgText$ = MID$(channelAndMessage$, msgSpace, LEN(channelAndMessage$))
@@ -268,11 +266,10 @@ RETPROC
 
 DEF PROCout(col, text$)
 	safeText$ = text$
-	safeCol = col
 	REPEAT
 		scrollback$(scrollptr) = LEFT$(safeText$, TERMWIDTH - 1)
 		safeText$ = MID$(safeText$, TERMWIDTH - 1, LEN(safeText$))
-		lineColour(scrollptr) = safeCol
+		lineColour(scrollptr) = col
 		scrollptr = scrollptr + 1
 		top = top + 1
 		IF scrollptr > SCROLLBACK - 1 THEN PROCdiscard

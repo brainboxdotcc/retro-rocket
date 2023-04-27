@@ -226,7 +226,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	// Clean extra whitespace from the program
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
 
-	ctx->for_stack_ptr = ctx->gosub_stack_ptr = 0;
+	ctx->for_stack_ptr = ctx->gosub_stack_ptr = ctx->repeat_stack_ptr = 0;
 	ctx->defs = NULL;
 
 	ctx->graphics_colour = 0xFFFFFF;
@@ -291,12 +291,18 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_double_variables[i] = old->local_double_variables[i];
 
+	for (i = 0; i < MAX_LOOP_STACK_DEPTH; i++) {
+		ctx->for_stack[i] = old->for_stack[i];
+		ctx->repeat_stack[i] = old->repeat_stack[i];
+	}
+
 	ctx->cons = old->cons;
 	ctx->oldlen = old->oldlen;
 	ctx->fn_return = NULL;
 	ctx->program_ptr = old->program_ptr;
 	ctx->for_stack_ptr = old->for_stack_ptr;
 	ctx->gosub_stack_ptr = old->gosub_stack_ptr;
+	ctx->repeat_stack_ptr = old->repeat_stack_ptr;
 	ctx->defs = old->defs;
 	ctx->ended = false;
 	ctx->errored = false;
@@ -551,6 +557,40 @@ bool is_builtin_double_fn(const char* fn_name) {
 	return false;
 }
 
+void free_local_stack(struct ubasic_ctx* ctx)
+{
+	// FIXME this is broken as it double-frees
+	// be sure about lifetimes of these variables!
+	return;
+	while (ctx->local_string_variables[ctx->gosub_stack_ptr]) {
+		struct ub_var_string* next = ctx->local_string_variables[ctx->gosub_stack_ptr]->next;
+		kfree(ctx->local_string_variables[ctx->gosub_stack_ptr]->value);
+		kfree(ctx->local_string_variables[ctx->gosub_stack_ptr]->varname);
+		kfree(ctx->local_string_variables[ctx->gosub_stack_ptr]);
+		ctx->local_string_variables[ctx->gosub_stack_ptr] = next;
+	}
+	while (ctx->local_int_variables[ctx->gosub_stack_ptr]) {
+		struct ub_var_int* next = ctx->local_int_variables[ctx->gosub_stack_ptr]->next;
+		kfree(ctx->local_int_variables[ctx->gosub_stack_ptr]->varname);
+		kfree(ctx->local_int_variables[ctx->gosub_stack_ptr]);
+		ctx->local_int_variables[ctx->gosub_stack_ptr] = next;
+	}
+	while (ctx->local_double_variables[ctx->gosub_stack_ptr]) {
+		struct ub_var_double* next = ctx->local_double_variables[ctx->gosub_stack_ptr]->next;
+		kfree(ctx->local_double_variables[ctx->gosub_stack_ptr]->varname);
+		kfree(ctx->local_double_variables[ctx->gosub_stack_ptr]);
+		ctx->local_double_variables[ctx->gosub_stack_ptr] = next;
+	}
+}
+
+void init_local_stack(struct ubasic_ctx* ctx)
+{
+	ctx->local_int_variables[ctx->gosub_stack_ptr] = NULL;
+	ctx->local_string_variables[ctx->gosub_stack_ptr] = NULL;
+	ctx->local_double_variables[ctx->gosub_stack_ptr] = NULL;
+}
+
+
 static char* printable_syntax(struct ubasic_ctx* ctx)
 {
 	int numprints = 0;
@@ -725,8 +765,13 @@ static void proc_statement(struct ubasic_ctx* ctx)
 	if (def) {
 		if (*ctx->ptr == '(' && *(ctx->ptr + 1) != ')') {
 			ctx->gosub_stack_ptr++;
+			init_local_stack(ctx);
 			begin_comma_list(def, ctx);
 			while (extract_comma_list(def, ctx));
+			ctx->gosub_stack_ptr--;
+		} else {
+			ctx->gosub_stack_ptr++;
+			init_local_stack(ctx);
 			ctx->gosub_stack_ptr--;
 		}
 		ctx->fn_type = RT_NONE;
@@ -756,22 +801,20 @@ bool conditional(struct ubasic_ctx* ctx)
 	char* end = strchr(ctx->ptr, 0);
 	bool stringlike = false, real = false;
 	strlcpy(current_line, ctx->ptr, pos ? pos - ctx->ptr + 1 : end - ctx->ptr + 1);
-	if (strlen(current_line) > 10) { // "IF 1 THEN ..."
-		for (char* n = current_line; *n && *n != '\n'; ++n) {
-			if (isalnum(*n) && *(n + 1) == '$') {
-				stringlike = true; /* String variable */
-				break;
-			} else if (isalnum(*n) && *(n + 1) == '#') {
-				real = true; /* Real variable */
-				break;
-			} else if (isdigit(*n) && *(n + 1) == '.' && isdigit(*(n + 2))) {
-				real = true; /* Decimal number */
-				break;
-			} else if (*n == ' ' && *(n + 1) == 'T' && *(n + 2) == 'H' && *(n + 3) == 'E' && *(n + 4) == 'N') {
-				break;
-			} else if (*n == '\n') {
-				break;
-			}
+	for (char* n = current_line; *n && *n != '\n'; ++n) {
+		if (strlen(n) >= 2 && isalnum(*n) && *(n + 1) == '$') {
+			stringlike = true; /* String variable */
+			break;
+		} else if (strlen(n) >= 2 && isalnum(*n) && *(n + 1) == '#') {
+			real = true; /* Real variable */
+			break;
+		} else if (strlen(n) >= 3 && isdigit(*n) && *(n + 1) == '.' && isdigit(*(n + 2))) {
+			real = true; /* Decimal number */
+			break;
+		} else if (strlen(n) >= 5 && *n == ' ' && *(n + 1) == 'T' && *(n + 2) == 'H' && *(n + 3) == 'E' && *(n + 4) == 'N') {
+			break;
+		} else if (*n == '\n') {
+			break;
 		}
 	}
 
@@ -877,7 +920,9 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = EVAL_END_LINE, .ptr = line_eval_end });
 
 		ctx->eval_linenum = ctx->current_linenum;
-		ctx->gosub_stack[ctx->gosub_stack_ptr++] = ctx->current_linenum;
+		ctx->gosub_stack_ptr++;
+		init_local_stack(ctx);
+		ctx->gosub_stack[ctx->gosub_stack_ptr] = ctx->current_linenum;
 
 		jump_linenum(EVAL_LINE, ctx);
 	} else {
@@ -1294,6 +1339,7 @@ static void return_statement(struct ubasic_ctx* ctx)
 		return;
 	}
 	if (ctx->gosub_stack_ptr > 0) {
+		free_local_stack(ctx);
 		ctx->gosub_stack_ptr--;
 		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
 	} else {
@@ -1381,9 +1427,9 @@ static void repeat_statement(struct ubasic_ctx* ctx)
 {
 	accept(REPEAT, ctx);
 	accept(NEWLINE, ctx);
-	if (ctx->gosub_stack_ptr < MAX_CALL_STACK_DEPTH) {
-		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
-		ctx->gosub_stack_ptr++;
+	if (ctx->repeat_stack_ptr < MAX_LOOP_STACK_DEPTH) {
+		ctx->repeat_stack[ctx->repeat_stack_ptr] = tokenizer_num(ctx, NUMBER);
+		ctx->repeat_stack_ptr++;
 	} else {
 		tokenizer_error_print(ctx, "REPEAT stack exhausted");
 	}
@@ -1397,11 +1443,11 @@ static void until_statement(struct ubasic_ctx* ctx)
 	bool done = conditional(ctx);
 	accept(NEWLINE, ctx);
 
-	if (ctx->gosub_stack_ptr > 0) {
+	if (ctx->repeat_stack_ptr > 0) {
 		if (!done) {
-			jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr - 1], ctx);
+			jump_linenum(ctx->repeat_stack[ctx->repeat_stack_ptr - 1], ctx);
 		} else {
-			ctx->gosub_stack_ptr--;
+			ctx->repeat_stack_ptr--;
 		}
 	} else {
 		tokenizer_error_print(ctx, "UNTIL without REPEAT");
@@ -1447,6 +1493,7 @@ static void retproc_statement(struct ubasic_ctx* ctx)
 	}
 	ctx->fn_type = RT_MAIN;
 	if (ctx->gosub_stack_ptr > 0) {
+		free_local_stack(ctx);
 		ctx->gosub_stack_ptr--;
 		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
 	} else {
@@ -1583,6 +1630,7 @@ void ubasic_run(struct ubasic_ctx* ctx)
 	if (ctx->errored) {
 		ctx->errored = false;
 		if (ctx->gosub_stack_ptr > 0) {
+			free_local_stack(ctx);
 			ctx->gosub_stack_ptr--;
 			if (jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx)) {
 				line_statement(ctx);
@@ -1686,6 +1734,9 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 		}
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
+				if (local) {
+					tokenizer_error_print(ctx, "Parameter variables are constants");
+				}
 				if (error_set && *cur->value) {
 					/* If ERROR$ is set, can't change it except to empty */
 					return;
@@ -1751,6 +1802,9 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 			cur = ctx->local_int_variables[ctx->gosub_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
+				if (local) {
+					tokenizer_error_print(ctx, "Parameter variables are constants");
+				}
 				//dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
 				cur->value = value;
 				return;
@@ -1803,6 +1857,9 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 			cur = ctx->local_double_variables[ctx->gosub_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
+				if (local) {
+					tokenizer_error_print(ctx, "Parameter variables are constants");
+				}
 				//dprintf("Set double variable '%s' to '%s' (updating)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 				cur->value = value;
 				return;
@@ -1896,6 +1953,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	const char* rv = "";
 	if (def) {
 		ctx->gosub_stack_ptr++;
+		init_local_stack(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
@@ -1918,6 +1976,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		/* Only free the base struct! */
 		kfree(atomic);
 
+		free_local_stack(ctx);
 		ctx->gosub_stack_ptr--;
 
 		return rv;
@@ -2513,7 +2572,7 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	int64_t rv = 0;
 	if (def) {
 		ctx->gosub_stack_ptr++;
-
+		init_local_stack(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
@@ -2538,6 +2597,7 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		/* Only free the base struct! */
 		kfree(atomic);
 
+		free_local_stack(ctx);
 		ctx->gosub_stack_ptr--;
 
 		return rv;
@@ -2551,7 +2611,7 @@ void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* 
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	if (def) {
 		ctx->gosub_stack_ptr++;
-
+		init_local_stack(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
@@ -2574,6 +2634,7 @@ void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* 
 		/* Only free the base struct! */
 		kfree(atomic);
 
+		free_local_stack(ctx);
 		ctx->gosub_stack_ptr--;
 
 		return;
@@ -2636,13 +2697,13 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 		return ubasic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
-	struct ub_var_string* list[] = {
-		ctx->local_string_variables[ctx->gosub_stack_ptr],
-		ctx->str_variables
-	};
+	struct ub_var_string* list[ctx->gosub_stack_ptr + 1];
 	int j;
-
-	for (j = 0; j < 2; j++)
+	for (j = ctx->gosub_stack_ptr; j > 0; --j) {
+		list[j] = ctx->local_string_variables[j];
+	}
+	list[0] = ctx->str_variables;
+	for (j = ctx->gosub_stack_ptr; j >= 0; --j)
 	{
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
@@ -2653,7 +2714,7 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 	}
 
 	char err[1024];
-	sprintf(err, "No such variable '%s'", var);
+	sprintf(err, "No such string variable '%s'", var);
 	tokenizer_error_print(ctx, err);
 	return "";
 }
@@ -2673,13 +2734,14 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 		return ubasic_get_int_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
-	struct ub_var_int* list[] = { 
-		ctx->local_int_variables[ctx->gosub_stack_ptr],
-		ctx->int_variables
-	};
+	struct ub_var_int* list[ctx->gosub_stack_ptr + 1];
 	int j;
-
-	for (j = 0; j < 2; j++)	{
+	for (j = ctx->gosub_stack_ptr; j > 0; --j) {
+		list[j] = ctx->local_int_variables[j];
+	}
+	list[0] = ctx->int_variables;
+	for (j = ctx->gosub_stack_ptr; j >= 0; --j)
+	{
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
@@ -2695,7 +2757,7 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 
 
 	char err[MAX_STRINGLEN];
-	snprintf(err, MAX_STRINGLEN, "No such variable '%s'", var);
+	snprintf(err, MAX_STRINGLEN, "No such integer variable '%s'", var);
 	tokenizer_error_print(ctx, err);
 	return 0; /* No such variable */
 }
@@ -2716,13 +2778,14 @@ bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double*
 	}
 
 
-	struct ub_var_double* list[] = { 
-		ctx->local_double_variables[ctx->gosub_stack_ptr],
-		ctx->double_variables
-	};
+	struct ub_var_double* list[ctx->gosub_stack_ptr + 1];
 	int j;
-
-	for (j = 0; j < 2; j++)	{
+	for (j = ctx->gosub_stack_ptr; j > 0; --j) {
+		list[j] = ctx->local_double_variables[j];
+	}
+	list[0] = ctx->double_variables;
+	for (j = ctx->gosub_stack_ptr; j >= 0; --j)
+	{
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
@@ -2735,7 +2798,7 @@ bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double*
 
 	char err[1024];
 	if (var[strlen(var) - 1] == '#') {
-		sprintf(err, "No such REAL variable '%s'", var);
+		sprintf(err, "No such real variable '%s'", var);
 		tokenizer_error_print(ctx, err);
 	}
 	*res = 0.0; /* No such variable */

@@ -235,7 +235,6 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 		arp_send_packet(zero_hardware_addr, dst_ip);
 		return;
 	}
-	dprintf("IP: Ethernet send\n");
 	ethernet_send_packet(dst_hardware_addr, (uint8_t*)packet, htons(packet->length), ETHERNET_TYPE_IP);
 	// Remember to free the packet!
 	kfree(packet);
@@ -316,12 +315,10 @@ uint64_t ip_frag_hash(const void *item, uint64_t seed0, uint64_t seed1) {
  * @param n_len Packet length
  */
 void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
-	dprintf("ip_handle_packet\n");
 	char src_ip[20];
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
 	if (packet->version == IP_IPV4) {
-		dprintf("IPv4 packet\n");
 		get_ip_str(src_ip, packet->src_ip);
 		void * data_ptr = (void*)packet + packet->ihl * 4;
 		size_t data_len = ntohs(packet->length) - (packet->ihl * 4);
@@ -340,7 +337,6 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 		 */
 		uint16_t frag_offset = ((uint16_t)packet->frag.fragment_offset_low | ((uint16_t)packet->frag.fragment_offset_high << 8));
 		if (!packet->frag.dont_fragment) {
-			dprintf("Packet can be fragmented\n");
 			if (packet->frag.more_fragments_follow) {
 				dprintf("Fragment is one of set (MF)\n");
 				/* Packet is part of a fragmented set */
@@ -420,18 +416,14 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 		}
 
 		if (packet->protocol == PROTOCOL_ICMP) {
-			dprintf("Passing to ICMP handler\n");
 			icmp_handle_packet(packet, data_ptr, data_len);
 		} else if (packet->protocol == PROTOCOL_UDP) {
-			dprintf("Passing to UDP handler\n");
 			udp_handle_packet(packet, data_ptr, data_len);
 		} else if (packet->protocol == PROTOCOL_TCP) {
-			dprintf("Passing to TCP handler\n");
 			tcp_handle_packet(packet, data_ptr, data_len);
 		}
 
 		if (fragment_to_free) {
-			dprintf("Freeing fragment\n");
 			kfree(data_ptr);
 		}
 	} else {

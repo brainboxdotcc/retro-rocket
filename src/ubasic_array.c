@@ -67,7 +67,6 @@ int64_t ubasic_get_int_array_variable(const char* var, int64_t index, struct uba
 		tokenizer_error_print(ctx, "Array index out of bounds");
 		return 0;
 	}
-	dprintf("Get array var: '%s' index %d\n", var, index);
 	struct ub_var_int_array* cur = ctx->int_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {

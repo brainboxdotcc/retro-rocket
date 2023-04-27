@@ -2,7 +2,8 @@
 
 static int64_t varfactor(struct ubasic_ctx* ctx)
 {
-	int64_t r = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	const char* vn = tokenizer_variable_name(ctx);
+	int64_t r = ubasic_get_numeric_int_variable(vn, ctx);
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == COMMA) {
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
