@@ -34,7 +34,7 @@ void init_devfs()
 	devfs->rmdir = NULL;
 	devfs->rm = NULL;
 	register_filesystem(devfs);
-	devfs_entries = (fs_directory_entry_t*)kmalloc(sizeof(fs_directory_entry_t));
+	devfs_entries = kmalloc(sizeof(fs_directory_entry_t));
 	devfs_entries->next = NULL;
 	devfs_entries->size = 0;
 	devfs_entries->flags = 0;

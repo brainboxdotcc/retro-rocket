@@ -455,3 +455,218 @@ void redim_statement(struct ubasic_ctx* ctx)
 	}
 }
 
+int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
+{
+	while(*ctx->ptr != '(' && *ctx->ptr != '\n' && *ctx->ptr) ctx->ptr++;
+	if (*ctx->ptr != '(') {
+		accept(VARIABLE, ctx);	
+		accept(EQUALS, ctx);
+		return -1;
+	}
+	ctx->ptr++;
+	ctx->current_token = get_next_token(ctx);
+	if (*ctx->ptr == '-') {
+		tokenizer_error_print(ctx, "Array index out of bounds");
+		return 0;
+	}
+	int64_t index = expr(ctx);
+	accept(CLOSEBRACKET, ctx);
+	accept(EQUALS, ctx);
+	return index;
+}
+
+bool ubasic_pop_string_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
+{
+	if (pop_pos < 1) {
+		tokenizer_error_print(ctx, "Invalid array index");
+		return false;
+	}
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)pop_pos >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Invalid array index");
+				return false;
+			}
+			if (cur->values[pop_pos]) {
+				kfree(cur->values[pop_pos]);
+			}
+			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount + 1; ++i) {
+				cur->values[i] = cur->values[i + 1];
+			}
+			return true;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return false;	
+}
+
+bool ubasic_pop_int_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
+{
+	if (pop_pos < 1) {
+		tokenizer_error_print(ctx, "Invalid array index");
+		return false;
+	}
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)pop_pos >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Invalid array index");
+				return false;
+			}
+			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount + 1; ++i) {
+				cur->values[i] = cur->values[i + 1];
+			}
+			return true;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return false;	
+}
+
+bool ubasic_pop_double_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
+{
+	if (pop_pos < 1) {
+		tokenizer_error_print(ctx, "Invalid array index");
+		return false;
+	}
+	struct ub_var_double_array* cur = ctx->double_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)pop_pos >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Invalid array index");
+				return false;
+			}
+			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount + 1; ++i) {
+				cur->values[i] = cur->values[i + 1];
+			}
+			return true;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return false;	
+}
+
+bool ubasic_push_string_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
+{
+	if (push_pos < 1) {
+		tokenizer_error_print(ctx, "Invalid array index");
+		return false;
+	}
+	struct ub_var_string_array* cur = ctx->string_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)push_pos >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Invalid array index");
+				return false;
+			}
+			if (cur->itemcount < 2) {
+				tokenizer_error_print(ctx, "Array too small for PUSH");
+				return false;
+			}
+			kfree(cur->values[cur->itemcount - 1]);
+			cur->values[cur->itemcount - 1] = NULL;
+			for (uint64_t i = cur->itemcount - 2; i >= (uint64_t)push_pos; --i) {
+				cur->values[i + 1] = cur->values[i];
+			}
+			return true;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return false;	
+}
+
+bool ubasic_push_int_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
+{
+	if (push_pos < 1) {
+		tokenizer_error_print(ctx, "Invalid array index");
+		return false;
+	}
+	struct ub_var_int_array* cur = ctx->int_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)push_pos >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Invalid array index");
+				return false;
+			}
+			if (cur->itemcount < 2) {
+				tokenizer_error_print(ctx, "Array too small for PUSH");
+				return false;
+			}
+			for (uint64_t i = cur->itemcount - 2; i >= (uint64_t)push_pos; --i) {
+				cur->values[i + 1] = cur->values[i];
+			}
+			return true;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return false;	
+}
+
+bool ubasic_push_double_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
+{
+	if (push_pos < 1) {
+		tokenizer_error_print(ctx, "Invalid array index");
+		return false;
+	}
+	struct ub_var_double_array* cur = ctx->double_array_variables;
+	for (; cur; cur = cur->next) {
+		if (!strcmp(var, cur->varname)) {
+			if ((uint64_t)push_pos >= cur->itemcount) {
+				tokenizer_error_print(ctx, "Invalid array index");
+				return false;
+			}
+			if (cur->itemcount < 2) {
+				tokenizer_error_print(ctx, "Array too small for PUSH");
+				return false;
+			}
+			for (uint64_t i = cur->itemcount - 2; i >= (uint64_t)push_pos; --i) {
+				cur->values[i + 1] = cur->values[i];
+			}
+			return true;
+		}
+	}
+	tokenizer_error_print(ctx, "No such array variable");
+	return false;	
+}
+
+void push_statement(struct ubasic_ctx* ctx)
+{
+	accept(REDIM, ctx);
+	const char* array_name = tokenizer_variable_name(ctx);
+	accept(VARIABLE, ctx);
+	int64_t push_pos = expr(ctx);
+	accept(NEWLINE, ctx);
+	char last = array_name[strlen(array_name) - 1];
+	switch (last) {
+		case '#':
+			ubasic_push_double_array(array_name, push_pos, ctx);
+		break;
+		case '$':
+			ubasic_push_string_array(array_name, push_pos, ctx);
+		break;
+		default:
+			ubasic_push_int_array(array_name, push_pos, ctx);
+	}
+}
+
+void pop_statement(struct ubasic_ctx* ctx)
+{
+	accept(REDIM, ctx);
+	const char* array_name = tokenizer_variable_name(ctx);
+	accept(VARIABLE, ctx);
+	int64_t pop_pos = expr(ctx);
+	accept(NEWLINE, ctx);
+	char last = array_name[strlen(array_name) - 1];
+	switch (last) {
+		case '#':
+			ubasic_pop_double_array(array_name, pop_pos, ctx);
+		break;
+		case '$':
+			ubasic_pop_string_array(array_name, pop_pos, ctx);
+		break;
+		default:
+			ubasic_pop_int_array(array_name, pop_pos, ctx);
+	}
+}
+

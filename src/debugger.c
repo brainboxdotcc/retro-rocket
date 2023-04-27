@@ -55,7 +55,7 @@ void init_debug()
 		symbol_fail();
 		return;
 	} else {
-		unsigned char* filecontent = (unsigned char*)kmalloc(filesize);
+		unsigned char* filecontent = kmalloc(filesize);
 		if (!fs_read_file(symfile, 0, filesize, filecontent)) {
 			symbol_fail();
 			kfree(filecontent);
@@ -72,7 +72,7 @@ void init_debug()
 		uint32_t offset = 0;
 		uint32_t symcount = 0;
 		uint32_t sizebytes = 0;
-		symbol_table = (symbol_t*)kmalloc(sizeof(symbol_t));
+		symbol_table = kmalloc(sizeof(symbol_t));
 		symbol_t* thisentry = symbol_table;
 
 		while (offset < filesize) {
@@ -106,11 +106,11 @@ void init_debug()
 			uint32_t length = strlen(symbol) + 1;
 
 			if (*type == 'T') {
-				thisentry->name = (char*)kmalloc(length);
+				thisentry->name = kmalloc(length);
 				memcpy(thisentry->name, symbol, length);
 				thisentry->address = hextoint(symbol_address);
 				thisentry->type = *type;
-				symbol_t* next = (symbol_t*)kmalloc(sizeof(symbol_t));
+				symbol_t* next = kmalloc(sizeof(symbol_t));
 				next->next = NULL;
 				thisentry->next = next;
 				thisentry = thisentry->next;

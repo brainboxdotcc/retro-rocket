@@ -193,7 +193,7 @@ int isalnum(const char x)
 char* strdup(const char* string)
 {
 	uint32_t siz = strlen(string) + 1;
-	char* result = (char*)kmalloc(siz);
+	char* result = kmalloc(siz);
 	strlcpy(result, string, siz);
 	*(result+siz) = 0;
 	return result;

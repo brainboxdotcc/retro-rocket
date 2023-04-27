@@ -348,9 +348,9 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 						frag_map = hashmap_new(sizeof(ip_fragmented_packet_parts_t), 0, 564364368549036, 67545346834, ip_frag_hash, ip_frag_compare, NULL, NULL);
 					}
 					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL };
-					ip_packet_frag_t* fragment = (ip_packet_frag_t*)kmalloc(sizeof(ip_packet_frag_t*));
+					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
 					fragment->offset = frag_offset;
-					fragment->packet = (ip_packet_t*)kmalloc(ntohs(packet->length));
+					fragment->packet = kmalloc(ntohs(packet->length));
 					memcpy(fragment->packet, packet, ntohs(packet->length));
 					frag_list_insert(fragment, fragmented.ordered_list);
 					hashmap_set(frag_map, &fragmented);
@@ -363,10 +363,10 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 						dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
 						return;
 					}
-					ip_packet_frag_t* fragment = (ip_packet_frag_t*)kmalloc(sizeof(ip_packet_frag_t*));
+					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
 					fragmented->size += data_len;
 					fragment->offset = frag_offset;
-					fragment->packet = (ip_packet_t*)kmalloc(ntohs(packet->length));
+					fragment->packet = kmalloc(ntohs(packet->length));
 					memcpy(fragment->packet, packet, ntohs(packet->length));
 					frag_list_insert(fragment, fragmented->ordered_list);
 				}
@@ -383,10 +383,10 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
 					return;
 				}
-				ip_packet_frag_t* fragment = (ip_packet_frag_t*)kmalloc(sizeof(ip_packet_frag_t*));
+				ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
 				fragmented->size += data_len;
 				fragment->offset = frag_offset;
-				fragment->packet = (ip_packet_t*)kmalloc(ntohs(packet->length));
+				fragment->packet = kmalloc(ntohs(packet->length));
 				memcpy(fragment->packet, packet, ntohs(packet->length));
 				frag_list_insert(fragment, fragmented->ordered_list);
 

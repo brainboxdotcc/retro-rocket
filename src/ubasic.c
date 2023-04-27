@@ -195,6 +195,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	}
 	int i;
 
+	ctx->if_nest_level = 0;
 	ctx->errored = false;
 	ctx->current_token = ERROR;
 	ctx->int_variables = NULL;
@@ -215,7 +216,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	ctx->fn_return = NULL;
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
 	// as EVAL appends to the program on lines EVAL_LINE and EVAL_LINE + 1.
-	ctx->program_ptr = (char*)kmalloc(strlen(program) + 5000);
+	ctx->program_ptr = kmalloc(strlen(program) + 5000);
 	if (ctx->program_ptr == NULL) {
 		kfree(ctx);
 		*error = "Out of memory";
@@ -226,7 +227,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	// Clean extra whitespace from the program
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
 
-	ctx->for_stack_ptr = ctx->gosub_stack_ptr = ctx->repeat_stack_ptr = 0;
+	ctx->for_stack_ptr = ctx->call_stack_ptr = ctx->repeat_stack_ptr = 0;
 	ctx->defs = NULL;
 
 	ctx->graphics_colour = 0xFFFFFF;
@@ -272,9 +273,10 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 
 struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 {
-	struct ubasic_ctx* ctx = (struct ubasic_ctx*)kmalloc(sizeof(struct ubasic_ctx));
+	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
 	int i;
 
+	ctx->if_nest_level = old->if_nest_level;
 	ctx->current_token = ERROR;
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
@@ -301,7 +303,7 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->fn_return = NULL;
 	ctx->program_ptr = old->program_ptr;
 	ctx->for_stack_ptr = old->for_stack_ptr;
-	ctx->gosub_stack_ptr = old->gosub_stack_ptr;
+	ctx->call_stack_ptr = old->call_stack_ptr;
 	ctx->repeat_stack_ptr = old->repeat_stack_ptr;
 	ctx->defs = old->defs;
 	ctx->ended = false;
@@ -326,7 +328,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 			
 			char const* lineend = ctx->ptr;
 			
-			char* linetext = (char*)kmalloc(lineend - linestart + 1);
+			char* linetext = kmalloc(lineend - linestart + 1);
 			strlcpy(linetext, linestart, lineend - linestart + 1);
 
 			char* search = linetext;
@@ -383,7 +385,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 
 						if (*search == ',' || *search == ')') {
 							pname[pni] = 0;
-							struct ub_param* par = (struct ub_param*)kmalloc(sizeof(struct ub_param));
+							struct ub_param* par = kmalloc(sizeof(struct ub_param));
 
 							par->next = NULL;
 							par->name = strdup(pname);
@@ -477,7 +479,7 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 		}
 		kfree(ctx->string_array_variables);
 	}
-	for (size_t x = 0; x < ctx->gosub_stack_ptr; x++) {
+	for (size_t x = 0; x < ctx->call_stack_ptr; x++) {
 		for (; ctx->local_int_variables[x]; ctx->local_int_variables[x] = ctx->local_int_variables[x]->next) {
 			kfree(ctx->local_int_variables[x]->varname);
 			kfree(ctx->local_int_variables[x]);
@@ -557,43 +559,51 @@ bool is_builtin_double_fn(const char* fn_name) {
 	return false;
 }
 
-void free_local_stack(struct ubasic_ctx* ctx)
+/**
+ * @brief Free variables held on the local call stack
+ * 
+ * @param ctx BASIC context
+ */
+void free_local_heap(struct ubasic_ctx* ctx)
 {
-	// FIXME this is broken as it double-frees
-	// be sure about lifetimes of these variables!
-	// TODO: ONly run this when the stack is at ptr 0, against all levels!
-	// -- de-dupe the list somehow.
-	return;
-	while (ctx->local_string_variables[ctx->gosub_stack_ptr]) {
-		struct ub_var_string* next = ctx->local_string_variables[ctx->gosub_stack_ptr]->next;
-		kfree(ctx->local_string_variables[ctx->gosub_stack_ptr]->value);
-		kfree(ctx->local_string_variables[ctx->gosub_stack_ptr]->varname);
-		kfree(ctx->local_string_variables[ctx->gosub_stack_ptr]);
-		ctx->local_string_variables[ctx->gosub_stack_ptr] = next;
+	while (ctx->local_string_variables[ctx->call_stack_ptr]) {
+		struct ub_var_string* next = ctx->local_string_variables[ctx->call_stack_ptr]->next;
+		kfree(ctx->local_string_variables[ctx->call_stack_ptr]->value);
+		kfree(ctx->local_string_variables[ctx->call_stack_ptr]->varname);
+		kfree(ctx->local_string_variables[ctx->call_stack_ptr]);
+		ctx->local_string_variables[ctx->call_stack_ptr] = next;
 	}
-	while (ctx->local_int_variables[ctx->gosub_stack_ptr]) {
-		struct ub_var_int* next = ctx->local_int_variables[ctx->gosub_stack_ptr]->next;
-		kfree(ctx->local_int_variables[ctx->gosub_stack_ptr]->varname);
-		kfree(ctx->local_int_variables[ctx->gosub_stack_ptr]);
-		ctx->local_int_variables[ctx->gosub_stack_ptr] = next;
+	while (ctx->local_int_variables[ctx->call_stack_ptr]) {
+		struct ub_var_int* next = ctx->local_int_variables[ctx->call_stack_ptr]->next;
+		kfree(ctx->local_int_variables[ctx->call_stack_ptr]->varname);
+		kfree(ctx->local_int_variables[ctx->call_stack_ptr]);
+		ctx->local_int_variables[ctx->call_stack_ptr] = next;
 	}
-	while (ctx->local_double_variables[ctx->gosub_stack_ptr]) {
-		struct ub_var_double* next = ctx->local_double_variables[ctx->gosub_stack_ptr]->next;
-		kfree(ctx->local_double_variables[ctx->gosub_stack_ptr]->varname);
-		kfree(ctx->local_double_variables[ctx->gosub_stack_ptr]);
-		ctx->local_double_variables[ctx->gosub_stack_ptr] = next;
+	while (ctx->local_double_variables[ctx->call_stack_ptr]) {
+		struct ub_var_double* next = ctx->local_double_variables[ctx->call_stack_ptr]->next;
+		kfree(ctx->local_double_variables[ctx->call_stack_ptr]->varname);
+		kfree(ctx->local_double_variables[ctx->call_stack_ptr]);
+		ctx->local_double_variables[ctx->call_stack_ptr] = next;
 	}
+	ctx->local_int_variables[ctx->call_stack_ptr] = NULL;
+	ctx->local_string_variables[ctx->call_stack_ptr] = NULL;
+	ctx->local_double_variables[ctx->call_stack_ptr] = NULL;
 }
 
-void init_local_stack(struct ubasic_ctx* ctx)
+/**
+ * @brief Initialise the local call stack
+ * 
+ * @param ctx 
+ */
+void init_local_heap(struct ubasic_ctx* ctx)
 {
-	ctx->local_int_variables[ctx->gosub_stack_ptr] = NULL;
-	ctx->local_string_variables[ctx->gosub_stack_ptr] = NULL;
-	ctx->local_double_variables[ctx->gosub_stack_ptr] = NULL;
+	ctx->local_int_variables[ctx->call_stack_ptr] = NULL;
+	ctx->local_string_variables[ctx->call_stack_ptr] = NULL;
+	ctx->local_double_variables[ctx->call_stack_ptr] = NULL;
 }
 
 
-static char* printable_syntax(struct ubasic_ctx* ctx)
+char* printable_syntax(struct ubasic_ctx* ctx)
 {
 	int numprints = 0;
 	int no_newline = 0;
@@ -692,64 +702,6 @@ static void sockwrite_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void mkdir_statement(struct ubasic_ctx* ctx)
-{
-	accept(MKDIR, ctx);
-	const char* name = str_expr(ctx);
-	accept(NEWLINE, ctx);
-	if (!fs_create_directory(name)) {
-		tokenizer_error_print(ctx, "Unable to create directory");
-	}
-}
-
-static void mount_statement(struct ubasic_ctx* ctx)
-{
-	accept(MOUNT, ctx);
-	const char* path = str_expr(ctx);
-	accept(COMMA, ctx);
-	const char* device = str_expr(ctx);
-	accept(COMMA, ctx);
-	const char* fs_type = str_expr(ctx);
-	accept(NEWLINE, ctx);
-	filesystem_mount(path, device, fs_type);
-}
-
-static void rmdir_statement(struct ubasic_ctx* ctx)
-{
-	accept(RMDIR, ctx);
-	const char* name = str_expr(ctx);
-	accept(NEWLINE, ctx);
-	if (!fs_delete_directory(name)) {
-		tokenizer_error_print(ctx, "Unable to delete directory");
-	}
-}
-
-
-static void delete_statement(struct ubasic_ctx* ctx)
-{
-	accept(DELETE, ctx);
-	const char* name = str_expr(ctx);
-	accept(NEWLINE, ctx);
-	if (!fs_delete_file(name)) {
-		tokenizer_error_print(ctx, "Unable to delete file");
-	}
-}
-
-
-static void write_statement(struct ubasic_ctx* ctx)
-{
-	int fd = -1;
-
-	accept(WRITE, ctx);
-	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
-	char* out = printable_syntax(ctx);
-	if (out) {
-		_write(fd, out, strlen(out));
-	}
-}
-
 static void proc_statement(struct ubasic_ctx* ctx)
 {
 	char procname[MAX_STRINGLEN];
@@ -766,15 +718,15 @@ static void proc_statement(struct ubasic_ctx* ctx)
 	struct ub_proc_fn_def* def = ubasic_find_fn(procname, ctx);
 	if (def) {
 		if (*ctx->ptr == '(' && *(ctx->ptr + 1) != ')') {
-			ctx->gosub_stack_ptr++;
-			init_local_stack(ctx);
+			ctx->call_stack_ptr++;
+			init_local_heap(ctx);
 			begin_comma_list(def, ctx);
 			while (extract_comma_list(def, ctx));
-			ctx->gosub_stack_ptr--;
+			ctx->call_stack_ptr--;
 		} else {
-			ctx->gosub_stack_ptr++;
-			init_local_stack(ctx);
-			ctx->gosub_stack_ptr--;
+			ctx->call_stack_ptr++;
+			init_local_heap(ctx);
+			ctx->call_stack_ptr--;
 		}
 		ctx->fn_type = RT_NONE;
 
@@ -783,9 +735,9 @@ static void proc_statement(struct ubasic_ctx* ctx)
 		}
 		accept(NEWLINE, ctx);
 
-		if (ctx->gosub_stack_ptr < MAX_CALL_STACK_DEPTH) {
-			ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
-			ctx->gosub_stack_ptr++;
+		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
+			ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
+			ctx->call_stack_ptr++;
 			jump_linenum(def->line, ctx);
 		} else {
 			tokenizer_error_print(ctx, "PROC: stack exhausted");
@@ -921,10 +873,16 @@ static void eval_statement(struct ubasic_ctx* ctx)
 		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = EVAL_LINE, .ptr = line_eval });
 		hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = EVAL_END_LINE, .ptr = line_eval_end });
 
+		/**
+		 * @brief An EVAL jumps to the line number at the end of the program
+		 * (EVAL_LINE) where the evaluation is to take place. Once compeleted,
+		 * a RETURN statement is executed at EVAL_END_LINE, which returns back
+		 * to the line where the EVAL statement is.
+		 */
 		ctx->eval_linenum = ctx->current_linenum;
-		ctx->gosub_stack_ptr++;
-		init_local_stack(ctx);
-		ctx->gosub_stack[ctx->gosub_stack_ptr] = ctx->current_linenum;
+		ctx->call_stack_ptr++;
+		init_local_heap(ctx);
+		ctx->call_stack[ctx->call_stack_ptr] = ctx->current_linenum;
 
 		jump_linenum(EVAL_LINE, ctx);
 	} else {
@@ -957,38 +915,6 @@ static void def_statement(struct ubasic_ctx* ctx)
 		tokenizer_next(ctx);
 	}
 	accept(NEWLINE, ctx);
-}
-
-static void openin_statement(struct ubasic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "OPENIN is a function");
-}
-
-static void openup_statement(struct ubasic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "OPENUP is a function");
-}
-
-static void openout_statement(struct ubasic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "OPENOUT is a function");
-}
-
-static void read_statement(struct ubasic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "READ is a function");
-}
-
-static void close_statement(struct ubasic_ctx* ctx)
-{
-	accept(CLOSE, ctx);
-	_close(expr(ctx));
-	accept(NEWLINE, ctx);
-}
-
-static void eof_statement(struct ubasic_ctx* ctx)
-{
-	tokenizer_error_print(ctx, "EOF is a function");
 }
 
 /**
@@ -1132,26 +1058,6 @@ static void sockclose_statement(struct ubasic_ctx* ctx)
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
-}
-
-static int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
-{
-	while(*ctx->ptr != '(' && *ctx->ptr != '\n' && *ctx->ptr) ctx->ptr++;
-	if (*ctx->ptr != '(') {
-		accept(VARIABLE, ctx);	
-		accept(EQUALS, ctx);
-		return -1;
-	}
-	ctx->ptr++;
-	ctx->current_token = get_next_token(ctx);
-	if (*ctx->ptr == '-') {
-		tokenizer_error_print(ctx, "Array index out of bounds");
-		return 0;
-	}
-	int64_t index = expr(ctx);
-	accept(CLOSEBRACKET, ctx);
-	accept(EQUALS, ctx);
-	return index;
 }
 
 static void let_statement(struct ubasic_ctx* ctx, bool global)
@@ -1324,9 +1230,9 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	accept(NUMBER, ctx);
 	accept(NEWLINE, ctx);
 
-	if (ctx->gosub_stack_ptr < MAX_CALL_STACK_DEPTH) {
-		ctx->gosub_stack[ctx->gosub_stack_ptr] = tokenizer_num(ctx, NUMBER);
-		ctx->gosub_stack_ptr++;
+	if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
+		ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
+		ctx->call_stack_ptr++;
 		jump_linenum(linenum, ctx);
 	} else {
 		tokenizer_error_print(ctx, "GOSUB: stack exhausted");
@@ -1340,10 +1246,10 @@ static void return_statement(struct ubasic_ctx* ctx)
 		tokenizer_error_print(ctx, "RETURN inside FN or PROC");
 		return;
 	}
-	if (ctx->gosub_stack_ptr > 0) {
-		free_local_stack(ctx);
-		ctx->gosub_stack_ptr--;
-		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
+	if (ctx->call_stack_ptr > 0) {
+		free_local_heap(ctx);
+		ctx->call_stack_ptr--;
+		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);
 	} else {
 		tokenizer_error_print(ctx, "RETURN without GOSUB");
 	}
@@ -1494,13 +1400,21 @@ static void retproc_statement(struct ubasic_ctx* ctx)
 		return;
 	}
 	ctx->fn_type = RT_MAIN;
-	if (ctx->gosub_stack_ptr > 0) {
-		free_local_stack(ctx);
-		ctx->gosub_stack_ptr--;
-		jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx);
+	if (ctx->call_stack_ptr > 0) {
+		free_local_heap(ctx);
+		ctx->call_stack_ptr--;
+		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);
 	} else {
 		tokenizer_error_print(ctx, "RETPROC when not inside PROC");
 	}
+}
+
+int64_t ubasic_asc(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("ASC");
+	return (unsigned char)*strval;
 }
 
 void statement(struct ubasic_ctx* ctx)
@@ -1596,6 +1510,10 @@ void statement(struct ubasic_ctx* ctx)
 			return dim_statement(ctx);
 		case REDIM:
 			return redim_statement(ctx);
+		case PUSH:
+			return push_statement(ctx);
+		case POP:
+			return pop_statement(ctx);
 		case CIRCLE:
 			return circle_statement(ctx);
 		case LET:
@@ -1631,10 +1549,10 @@ void ubasic_run(struct ubasic_ctx* ctx)
 	}*/
 	if (ctx->errored) {
 		ctx->errored = false;
-		if (ctx->gosub_stack_ptr > 0) {
-			free_local_stack(ctx);
-			ctx->gosub_stack_ptr--;
-			if (jump_linenum(ctx->gosub_stack[ctx->gosub_stack_ptr], ctx)) {
+		if (ctx->call_stack_ptr > 0) {
+			free_local_heap(ctx);
+			ctx->call_stack_ptr--;
+			if (jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx)) {
 				line_statement(ctx);
 			}
 		}
@@ -1703,7 +1621,7 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 	bool error_set = false;
 	struct ub_var_string* list[] = {
 		ctx->str_variables,
-		ctx->local_string_variables[ctx->gosub_stack_ptr]
+		ctx->local_string_variables[ctx->call_stack_ptr]
 	};
 
 	if (*value && !strcmp(var, "ERROR$")) {
@@ -1716,13 +1634,13 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 	}
 	if (list[local] == NULL) {
 		if (local) {
-			ctx->local_string_variables[ctx->gosub_stack_ptr] = (struct ub_var_string*)kmalloc(sizeof(struct ub_var_string));
-			ctx->local_string_variables[ctx->gosub_stack_ptr]->next = NULL;
-			ctx->local_string_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
-			ctx->local_string_variables[ctx->gosub_stack_ptr]->value = strdup(value);
-			ctx->local_string_variables[ctx->gosub_stack_ptr]->global = global;
+			ctx->local_string_variables[ctx->call_stack_ptr] = kmalloc(sizeof(struct ub_var_string));
+			ctx->local_string_variables[ctx->call_stack_ptr]->next = NULL;
+			ctx->local_string_variables[ctx->call_stack_ptr]->varname = strdup(var);
+			ctx->local_string_variables[ctx->call_stack_ptr]->value = strdup(value);
+			ctx->local_string_variables[ctx->call_stack_ptr]->global = global;
 		} else {
-			ctx->str_variables = (struct ub_var_string*)kmalloc(sizeof(struct ub_var_string));
+			ctx->str_variables = kmalloc(sizeof(struct ub_var_string));
 			ctx->str_variables->next = NULL;
 			ctx->str_variables->varname = strdup(var);
 			ctx->str_variables->value = strdup(value);
@@ -1732,7 +1650,7 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 	} else {
 		struct ub_var_string* cur = ctx->str_variables;
 		if (local) {
-			cur = ctx->local_string_variables[ctx->gosub_stack_ptr];
+			cur = ctx->local_string_variables[ctx->call_stack_ptr];
 		}
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
@@ -1751,20 +1669,13 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 				return;
 			}
 		}
-		struct ub_var_string* newvar = (struct ub_var_string*)kmalloc(sizeof(struct ub_var_string));
-		if (local) {
-			newvar->next = ctx->local_string_variables[ctx->gosub_stack_ptr];
-		} else {
-			newvar->next = ctx->str_variables;
-		}
-
-		newvar->next = ctx->str_variables;
+		struct ub_var_string* newvar = kmalloc(sizeof(struct ub_var_string));
+		newvar->next = (local ? ctx->local_string_variables[ctx->call_stack_ptr] : ctx->str_variables);
 		newvar->varname = strdup(var);
 		newvar->value = strdup(value);
 		newvar->global = global;
-	
 		if (local) {
-			ctx->local_string_variables[ctx->gosub_stack_ptr] = newvar;
+			ctx->local_string_variables[ctx->call_stack_ptr] = newvar;
 		} else {
 			ctx->str_variables = newvar;
 		}
@@ -1775,7 +1686,7 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 {
 	struct ub_var_int* list[] = {
 		ctx->int_variables,
-		ctx->local_int_variables[ctx->gosub_stack_ptr]
+		ctx->local_int_variables[ctx->call_stack_ptr]
 	};
 
 	if (!valid_int_var(var)) {
@@ -1786,10 +1697,10 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 	if (list[local] == NULL) {
 		if (local) {
 			//dprintf("Set int variable '%s' to '%d' (gosub local)\n", var, value);
-			ctx->local_int_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_int));
-			ctx->local_int_variables[ctx->gosub_stack_ptr]->next = NULL;
-			ctx->local_int_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
-			ctx->local_int_variables[ctx->gosub_stack_ptr]->value = value;
+			ctx->local_int_variables[ctx->call_stack_ptr] = kmalloc(sizeof(struct ub_var_int));
+			ctx->local_int_variables[ctx->call_stack_ptr]->next = NULL;
+			ctx->local_int_variables[ctx->call_stack_ptr]->varname = strdup(var);
+			ctx->local_int_variables[ctx->call_stack_ptr]->value = value;
 		} else {
 			//dprintf("Set int variable '%s' to '%d' (default)\n", var, value);
 			ctx->int_variables = kmalloc(sizeof(struct ub_var_int));
@@ -1801,7 +1712,7 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 	} else {
 		struct ub_var_int* cur = ctx->int_variables;
 		if (local)
-			cur = ctx->local_int_variables[ctx->gosub_stack_ptr];
+			cur = ctx->local_int_variables[ctx->call_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
 				if (local) {
@@ -1814,11 +1725,11 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 		}
 		//dprintf("Set int variable '%s' to '%d'\n", var, value);
 		struct ub_var_int* newvar = kmalloc(sizeof(struct ub_var_int));
-		newvar->next = (local ? ctx->local_int_variables[ctx->gosub_stack_ptr] : ctx->int_variables);
+		newvar->next = (local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables);
 		newvar->varname = strdup(var);
 		newvar->value = value;
 		if (local) {
-			ctx->local_int_variables[ctx->gosub_stack_ptr] = newvar;
+			ctx->local_int_variables[ctx->call_stack_ptr] = newvar;
 		} else {
 			ctx->int_variables = newvar;
 		}
@@ -1829,7 +1740,7 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 {
 	struct ub_var_double* list[] = {
 		ctx->double_variables,
-		ctx->local_double_variables[ctx->gosub_stack_ptr]
+		ctx->local_double_variables[ctx->call_stack_ptr]
 	};
 	//char buffer[MAX_STRINGLEN];
 
@@ -1841,10 +1752,10 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 	if (list[local] == NULL) {
 		if (local) {
 			//dprintf("Set double variable '%s' to '%s' (gosub local)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
-			ctx->local_double_variables[ctx->gosub_stack_ptr] = kmalloc(sizeof(struct ub_var_double));
-			ctx->local_double_variables[ctx->gosub_stack_ptr]->next = NULL;
-			ctx->local_double_variables[ctx->gosub_stack_ptr]->varname = strdup(var);
-			ctx->local_double_variables[ctx->gosub_stack_ptr]->value = value;
+			ctx->local_double_variables[ctx->call_stack_ptr] = kmalloc(sizeof(struct ub_var_double));
+			ctx->local_double_variables[ctx->call_stack_ptr]->next = NULL;
+			ctx->local_double_variables[ctx->call_stack_ptr]->varname = strdup(var);
+			ctx->local_double_variables[ctx->call_stack_ptr]->value = value;
 		} else {
 			//dprintf("Set double variable '%s' to '%s' (default)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 			ctx->double_variables = kmalloc(sizeof(struct ub_var_double));
@@ -1856,7 +1767,7 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 	} else {
 		struct ub_var_double* cur = ctx->double_variables;
 		if (local)
-			cur = ctx->local_double_variables[ctx->gosub_stack_ptr];
+			cur = ctx->local_double_variables[ctx->call_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
 				if (local) {
@@ -1869,11 +1780,11 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 		}
 		//dprintf("Set double variable '%s' to '%s'\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 		struct ub_var_double* newvar = kmalloc(sizeof(struct ub_var_double));
-		newvar->next = (local ? ctx->local_double_variables[ctx->gosub_stack_ptr] : ctx->double_variables);
+		newvar->next = (local ? ctx->local_double_variables[ctx->call_stack_ptr] : ctx->double_variables);
 		newvar->varname = strdup(var);
 		newvar->value = value;
 		if (local) {
-			ctx->local_double_variables[ctx->gosub_stack_ptr] = newvar;
+			ctx->local_double_variables[ctx->call_stack_ptr] = newvar;
 		} else {
 			ctx->double_variables = newvar;
 		}
@@ -1954,8 +1865,8 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	const char* rv = "";
 	if (def) {
-		ctx->gosub_stack_ptr++;
-		init_local_stack(ctx);
+		ctx->call_stack_ptr++;
+		init_local_heap(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
@@ -1978,60 +1889,13 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		/* Only free the base struct! */
 		kfree(atomic);
 
-		free_local_stack(ctx);
-		ctx->gosub_stack_ptr--;
+		free_local_heap(ctx);
+		ctx->call_stack_ptr--;
 
 		return rv;
 	}
 	tokenizer_error_print(ctx, "No such string FN");
 	return rv;
-}
-
-int64_t ubasic_open_func(struct ubasic_ctx* ctx, int oflag)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("OPEN");
-	if (fs_is_directory(strval)) {
-		tokenizer_error_print(ctx, "Not a file");
-		return 0;
-	}
-	int fd = _open(strval, oflag);
-	dprintf("ubasic_open_func: %s returned: %d\n", strval, fd);
-	return fd;
-}
-
-int64_t ubasic_openin(struct ubasic_ctx* ctx)
-{
-	return ubasic_open_func(ctx, _O_RDONLY);
-}
-
-int64_t ubasic_openout(struct ubasic_ctx* ctx)
-{
-	return ubasic_open_func(ctx, _O_WRONLY);
-}
-
-int64_t ubasic_openup(struct ubasic_ctx* ctx)
-{
-	return ubasic_open_func(ctx, _O_RDWR);
-}
-
-int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("GETNAMECOUNT");
-	if (!fs_is_directory(strval)) {
-		tokenizer_error_print(ctx, "Not a directory");
-		return 0;
-	}
-	fs_directory_entry_t* fsl = fs_get_items(strval);
-	int count = 0;
-	while (fsl) {
-		fsl = fsl->next;
-		count++;
-	}
-	return count;
 }
 
 int64_t ubasic_getproccount(struct ubasic_ctx* ctx)
@@ -2228,64 +2092,6 @@ int64_t ubasic_capslock(struct ubasic_ctx* ctx)
 	return caps_lock_on();
 }
 
-char* ubasic_getname(struct ubasic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETNAME$");
-	if (!fs_is_directory(strval)) {
-		tokenizer_error_print(ctx, "Not a directory");
-		return 0;
-	}
-	fs_directory_entry_t* fsl = fs_get_items(strval);
-	int count = 0;
-	while (fsl)
-	{
-		if (count++ == intval)
-		{
-			return gc_strdup(fsl->filename);
-		}
-		fsl = fsl->next;
-	}
-	return "";
-}
-
-int64_t ubasic_getsize(struct ubasic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETSIZE");
-	fs_directory_entry_t* fsl = fs_get_items(strval);
-	int count = 0;
-	while (fsl)
-	{
-		if (count++ == intval)
-		{
-			return fsl->size;
-		}
-		fsl = fsl->next;
-	}
-	return 0;
-}
-
-int64_t ubasic_eof(struct ubasic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("EOF");
-	return _eof(intval);
-}
-
-int64_t ubasic_asc(struct ubasic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("ASC");
-	return (unsigned char)*strval;
-}
-
 char* ubasic_chr(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
@@ -2297,7 +2103,6 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 
 int64_t ubasic_instr(struct ubasic_ctx* ctx)
 {
-	uint32_t i;
 	char* haystack;
 	char* needle;
 	PARAMS_START;
@@ -2306,44 +2111,13 @@ int64_t ubasic_instr(struct ubasic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	needle = strval;
 	PARAMS_END("INSTR");
-	for (i = 0; i < strlen(haystack) - strlen(needle) + 1; ++i)
-		if (!strncmp(haystack + i, needle, strlen(needle)))
+	size_t n_len = strlen(needle);
+	for (size_t i = 0; i < strlen(haystack) - n_len + 1; ++i) {
+		if (!strncmp(haystack + i, needle, n_len)) {
 			return i + 1;
-	return 0;
-}
-
-char* ubasic_readstring(struct ubasic_ctx* ctx)
-{
-	char* res = (char*)kmalloc(1024);
-	int ofs = 0;
-	*res = 0;
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("READ$");
-	while (!_eof(intval) && ofs < 1024)
-	{
-		if (_read(intval, res + ofs, 1) != 1)
-			tokenizer_error_print(ctx, "Error reading from file");
-		if (*(res + ofs) == '\n')
-			break;
-		else
-			ofs++;
+		}
 	}
-	*(res+ofs) = 0;
-	char* ret = gc_strdup(res);
-	kfree(res);
-	return ret;
-}
-
-int64_t ubasic_read(struct ubasic_ctx* ctx)
-{
-	char res;
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("READ");
-	if (_read(intval, &res, 1) != 1)
-		tokenizer_error_print(ctx, "Error reading from file");
-	return res;
+	return 0;
 }
 
 char* ubasic_netinfo(struct ubasic_ctx* ctx)
@@ -2573,8 +2347,8 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	int64_t rv = 0;
 	if (def) {
-		ctx->gosub_stack_ptr++;
-		init_local_stack(ctx);
+		ctx->call_stack_ptr++;
+		init_local_heap(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
@@ -2599,8 +2373,8 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		/* Only free the base struct! */
 		kfree(atomic);
 
-		free_local_stack(ctx);
-		ctx->gosub_stack_ptr--;
+		free_local_heap(ctx);
+		ctx->call_stack_ptr--;
 
 		return rv;
 	}
@@ -2612,8 +2386,8 @@ void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* 
 {
 	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
 	if (def) {
-		ctx->gosub_stack_ptr++;
-		init_local_stack(ctx);
+		ctx->call_stack_ptr++;
+		init_local_heap(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
 		struct ubasic_ctx* atomic = ubasic_clone(ctx);
@@ -2636,8 +2410,8 @@ void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* 
 		/* Only free the base struct! */
 		kfree(atomic);
 
-		free_local_stack(ctx);
-		ctx->gosub_stack_ptr--;
+		free_local_heap(ctx);
+		ctx->call_stack_ptr--;
 
 		return;
 	}
@@ -2668,7 +2442,7 @@ char varname_is_double_function(const char* varname) {
 const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx)
 {
 	struct ub_var_string* list[] = {
-		ctx->local_string_variables[ctx->gosub_stack_ptr],
+		ctx->local_string_variables[ctx->call_stack_ptr],
 		ctx->str_variables
 	};
 	for (int j = 0; j < 2; j++)
@@ -2699,13 +2473,13 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 		return ubasic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
-	struct ub_var_string* list[ctx->gosub_stack_ptr + 1];
+	struct ub_var_string* list[ctx->call_stack_ptr + 1];
 	int j;
-	for (j = ctx->gosub_stack_ptr; j > 0; --j) {
+	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_string_variables[j];
 	}
 	list[0] = ctx->str_variables;
-	for (j = ctx->gosub_stack_ptr; j >= 0; --j)
+	for (j = ctx->call_stack_ptr; j >= 0; --j)
 	{
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
@@ -2736,13 +2510,13 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 		return ubasic_get_int_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
-	struct ub_var_int* list[ctx->gosub_stack_ptr + 1];
+	struct ub_var_int* list[ctx->call_stack_ptr + 1];
 	int j;
-	for (j = ctx->gosub_stack_ptr; j > 0; --j) {
+	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_int_variables[j];
 	}
 	list[0] = ctx->int_variables;
-	for (j = ctx->gosub_stack_ptr; j >= 0; --j)
+	for (j = ctx->call_stack_ptr; j >= 0; --j)
 	{
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
@@ -2780,13 +2554,13 @@ bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double*
 	}
 
 
-	struct ub_var_double* list[ctx->gosub_stack_ptr + 1];
+	struct ub_var_double* list[ctx->call_stack_ptr + 1];
 	int j;
-	for (j = ctx->gosub_stack_ptr; j > 0; --j) {
+	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_double_variables[j];
 	}
 	list[0] = ctx->double_variables;
-	for (j = ctx->gosub_stack_ptr; j >= 0; --j)
+	for (j = ctx->call_stack_ptr; j >= 0; --j)
 	{
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {

@@ -118,6 +118,8 @@
 	T(UNTIL) \
 	T(DIM) \
 	T(REDIM) \
+	T(PUSH) \
+	T(POP) \
 	T(MOUNT)
 
 /*

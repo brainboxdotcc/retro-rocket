@@ -43,7 +43,7 @@ int parse_pvd(iso9660* info, unsigned char* buffer)
 	}
 
 	int j = 0;
-	info->volume_name = (char*)kmalloc(strlen(pvd->volumeidentifier) + 1);
+	info->volume_name = kmalloc(strlen(pvd->volumeidentifier) + 1);
 	for (ptr = pvd->volumeidentifier; *ptr; ++ptr)
 		info->volume_name[j++] = *ptr;
 	// Null-terminate volume name
@@ -60,7 +60,7 @@ int parse_pvd(iso9660* info, unsigned char* buffer)
 
 fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes)
 {
-	unsigned char* dirbuffer = (unsigned char*)kmalloc(lengthbytes);
+	unsigned char* dirbuffer = kmalloc(lengthbytes);
 	int j;
 
 	_memset(dirbuffer, 0, lengthbytes);
@@ -89,11 +89,11 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 		// Skip the first two entries, '.' and '..'
 		if (entrycount > 2)
 		{
-			fs_directory_entry_t* thisentry = (fs_directory_entry_t*)kmalloc(sizeof(fs_directory_entry_t));
+			fs_directory_entry_t* thisentry = kmalloc(sizeof(fs_directory_entry_t));
 
 			if (info->joliet == 0)
 			{
-				thisentry->filename = (char*)kmalloc(fentry->filename_length + 1);
+				thisentry->filename = kmalloc(fentry->filename_length + 1);
 				j = 0;
 				char* ptr = fentry->filename;
 				// Stop at end of string or at ; which seperates the version id from the filename.
@@ -109,7 +109,7 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 			else
 			{
 				// Parse joliet filename, 16-bit unicode UCS-2
-				thisentry->filename = (char*)kmalloc((fentry->filename_length / 2) + 1);
+				thisentry->filename = kmalloc((fentry->filename_length / 2) + 1);
 				j = 0;
 				char* ptr = fentry->filename;
 				for (; j < fentry->filename_length / 2; ptr += 2)
@@ -239,7 +239,7 @@ bool iso_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buff
 	// we must read one more than we asked for for safety.
 	sectors_size++;
 
-	unsigned char* readbuf = (unsigned char*)kmalloc(sectors_size * fs->block_size);
+	unsigned char* readbuf = kmalloc(sectors_size * fs->block_size);
 	if (!read_storage_device(file->device_name, sectors_start, length, readbuf))
 	{
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
@@ -261,8 +261,8 @@ iso9660* iso_mount_volume(const char* name)
 		return NULL;
 	}
 
-	unsigned char* buffer = (unsigned char*)kmalloc(fs->block_size);
-	iso9660* info = (iso9660*)kmalloc(sizeof(iso9660));
+	unsigned char* buffer = kmalloc(fs->block_size);
+	iso9660* info = kmalloc(sizeof(iso9660));
 	_memset(buffer, 0, 2048);
 	uint32_t VolumeDescriptorPos = PVD_LBA;
 	info->device = fs;

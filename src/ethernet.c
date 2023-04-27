@@ -12,7 +12,6 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t
     memcpy(frame->dst_mac_addr, dst_mac_addr, 6);
     memcpy(frame_data, data, len);
     frame->type = htons(protocol);
-    dprintf("ethernet: net driver send packet\n");
     rtl8139_send_packet(frame, sizeof(ethernet_frame_t) + len);
     kfree(frame);
     return len;
@@ -22,8 +21,6 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 	void * data = (void*) packet + sizeof(ethernet_frame_t);
 	int data_len = len - sizeof(ethernet_frame_t);
 
-	dprintf("ethernet_handle_packet type %04x len %d, data_len %d\n", data_len ? ntohs(packet->type) : 0, len, data_len);
-
 	if (len <= 0) {
 		dprintf("Ethernet handler got packet of <0 size");
 		return;
@@ -32,7 +29,6 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 	uint16_t packet_type = ntohs(packet->type);
 	ethernet_protocol_t handler = protocol_handlers[packet_type];
 	if (handler != NULL) {
-		dprintf("Passing to handler for protocol %04x\n", packet_type);
 		handler(data, data_len);
 		return;
 	}

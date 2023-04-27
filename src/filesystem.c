@@ -85,7 +85,7 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 		/* Found an empty slot */
 		if (filehandles[fd_last] == NULL) {
 			/* Initialise fs_handle_t struct */
-			filehandles[fd_last] = (fs_handle_t*)kmalloc(sizeof(fs_handle_t));
+			filehandles[fd_last] = kmalloc(sizeof(fs_handle_t));
 			filehandles[fd_last]->type = type;
 			filehandles[fd_last]->file = file;
 			filehandles[fd_last]->seekpos = 0;
@@ -95,12 +95,12 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 			filehandles[fd_last]->inbufpos = 0;
 			filehandles[fd_last]->outbufpos = 0;
 			if (ibufsz) {
-				filehandles[fd_last]->inbuf = (unsigned char*)kmalloc(ibufsz);
+				filehandles[fd_last]->inbuf = kmalloc(ibufsz);
 			} else {
 				filehandles[fd_last]->inbuf = NULL;
 			}
 			if (obufsz) {
-				filehandles[fd_last]->outbuf = (unsigned char*)kmalloc(obufsz);
+				filehandles[fd_last]->outbuf = kmalloc(obufsz);
 			} else {
 				filehandles[fd_last]->outbuf = NULL;
 			}
@@ -644,7 +644,7 @@ void retrieve_node_from_driver(fs_tree_t* node)
 			 * Make each dir empty and 'dirty' and get its opaque
 			 * from the parent dir
 			 */
-			fs_tree_t* newnode = (fs_tree_t*)kmalloc(sizeof(fs_tree_t));
+			fs_tree_t* newnode = kmalloc(sizeof(fs_tree_t));
 
 			newnode->name = x->filename;
 			newnode->lbapos = x->lbapos;
@@ -712,7 +712,7 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 	if (!strcmp(path, "/"))
 		return fs_tree;
 	/* First build the dir stack */
-	dirstack_t* ds = (dirstack_t*)kmalloc(sizeof(dirstack_t));
+	dirstack_t* ds = kmalloc(sizeof(dirstack_t));
 	dirstack_t* walk = ds;
 	char* copy = strdup(path);
 	char* parse;
@@ -724,7 +724,7 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 			walk->name = strdup(last);
 			last = parse + 1;
 
-                        dirstack_t* next = (dirstack_t*)kmalloc(sizeof(dirstack_t));
+                        dirstack_t* next = kmalloc(sizeof(dirstack_t));
 			walk->next = next;
 			next->next = 0;
 			next->name = NULL;
