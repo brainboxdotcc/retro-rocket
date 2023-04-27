@@ -99,7 +99,7 @@ void put(console* c, const char n)
 	terminal_request.response->write(terminal, &n, 1);
 }
 
-void dputstring(char* message)
+void dputstring(const char* message)
 {
 	for (; *message; ++message) {
 		outb(0xE9, *message);
@@ -115,7 +115,7 @@ void dputstring(char* message)
  * handled by put() and setcursor(), and the internal functions it
  * calls.
  */
-void putstring(console* c, char* message)
+void putstring(console* c, const char* message)
 {
 	dputstring(message);
 	struct limine_terminal *terminal = terminal_request.response->terminals[0];
