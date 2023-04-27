@@ -60,6 +60,7 @@ var tcp_8h =
     [ "__attribute__", "tcp_8h.html#a877d84e89e013415707bad5e9d8b99ae", null ],
     [ "closesocket", "tcp_8h.html#ad4725afcb96cfe437fd7a748129b1f33", null ],
     [ "connect", "tcp_8h.html#a4a95723a63184d3eb69a619853f560da", null ],
+    [ "is_connected", "tcp_8h.html#a39bac2a3c55fa01613ed4a5579a5ca67", null ],
     [ "recv", "tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36", null ],
     [ "send", "tcp_8h.html#a5787e23039c4a2243cbc968a48431d2e", null ],
     [ "socket_error", "tcp_8h.html#a0a5ac590e0a9088bc8ddf519e8e0967d", null ],

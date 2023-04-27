@@ -9,10 +9,14 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
 ## 🌟 Features
 
 * 💻Command line shell powered by BASIC
-* 🧰A bunch of useful command line tools
+* 🧰A bunch of useful command line tools, including:
+  * 📜A fully featured WYSIWYG editor
+  * 💬A simple IRC client
 * ✏️Graphics drawing commands
-* 💽VFS with support for FAT32 and ISO9660 filesystems
-* ✅Co-operative multitasking of BASIC programs
+* 💽Virtual File System with support for:
+  * FAT32 (*read/write*)
+  * ISO9660 (*read only*)
+* ✅Multitasking of BASIC programs
 * 📶Network stack with TCP, IP, UDP, and ICMP
 
 ## 💻 System Requirements

@@ -205,6 +205,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36">recv</a> (int socket, void *buffer, uint32_t maxlen, bool blocking, uint32_t timeout)</td></tr>
 <tr class="memdesc:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from an open socket. The data is buffered, and this function will fill the buffer when there is data in the buffer to read.  <a href="tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36">More...</a><br /></td></tr>
 <tr class="separator:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a39bac2a3c55fa01613ed4a5579a5ca67">is_connected</a> (int socket)</td></tr>
+<tr class="memdesc:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the socket is connected.  <a href="tcp_8h.html#a39bac2a3c55fa01613ed4a5579a5ca67">More...</a><br /></td></tr>
+<tr class="separator:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a5ac590e0a9088bc8ddf519e8e0967d"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a0a5ac590e0a9088bc8ddf519e8e0967d">socket_error</a> (int error_code)</td></tr>
 <tr class="memdesc:a0a5ac590e0a9088bc8ddf519e8e0967d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the error description associated with an error code.  <a href="tcp_8h.html#a0a5ac590e0a9088bc8ddf519e8e0967d">More...</a><br /></td></tr>
 <tr class="separator:a0a5ac590e0a9088bc8ddf519e8e0967d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -540,6 +543,33 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Zero or positive file descriptor number on success, negative for error </dd></dl>
+
+</div>
+</div>
+<a id="a39bac2a3c55fa01613ed4a5579a5ca67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39bac2a3c55fa01613ed4a5579a5ca67">&#9670;&nbsp;</a></span>is_connected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_connected </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>socket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the socket is connected. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">socket</td><td>socket descriptor from <a class="el" href="tcp_8h.html#a4a95723a63184d3eb69a619853f560da" title="Connect to a TCP port at a given IPv4 address.">connect()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if socket is connected, false if not. This will return false if <a class="el" href="tcp_8h.html#a4a95723a63184d3eb69a619853f560da" title="Connect to a TCP port at a given IPv4 address.">connect()</a> hasn't succeeded yet. </dd></dl>
 
 </div>
 </div>
@@ -1164,7 +1194,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="tcp_8h.html">tcp.h</a></li>
-    <li class="footer">Generated on Tue Apr 25 2023 02:11:05 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Apr 27 2023 01:16:36 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

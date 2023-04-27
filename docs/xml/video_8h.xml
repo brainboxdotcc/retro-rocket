@@ -485,17 +485,17 @@
         </inbodydescription>
         <location file="include/video.h" line="51" column="6" declfile="include/video.h" declline="51" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="video_8h_1a884ecfe4f55a1ba8fc677d423fc99ba0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8h_1a998a88c58c530407ae8b304a306b74fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void putstring</definition>
-        <argsstring>(console *c, char *message)</argsstring>
+        <argsstring>(console *c, const char *message)</argsstring>
         <name>putstring</name>
         <param>
           <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
           <declname>c</declname>
         </param>
         <param>
-          <type>char *</type>
+          <type>const char *</type>
           <declname>message</declname>
         </param>
         <briefdescription>
@@ -506,13 +506,13 @@
         </inbodydescription>
         <location file="include/video.h" line="56" column="6" declfile="include/video.h" declline="56" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="video_8h_1a68614b45a1f07d2b7dfd189061c1cf83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="video_8h_1a1d4ff70fd24e5e51101991bc73fbe02e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void dputstring</definition>
-        <argsstring>(char *message)</argsstring>
+        <argsstring>(const char *message)</argsstring>
         <name>dputstring</name>
         <param>
-          <type>char *</type>
+          <type>const char *</type>
           <declname>message</declname>
         </param>
         <briefdescription>

@@ -1001,6 +1001,91 @@
         </inbodydescription>
         <location file="include/ubasic.h" line="391" column="9" declfile="include/ubasic.h" declline="391" declcolumn="9"/>
       </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a5bafb947bba64bc042f1c7dfb2ab42f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_sockstatus</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_sockstatus</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="392" column="9" declfile="include/ubasic.h" declline="392" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1aec11cc5ab70c66a33b2da3e165440391" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_ctrlkey</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_ctrlkey</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="393" column="9" declfile="include/ubasic.h" declline="393" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a40ae827c1f9676ecf32de92ad8638719" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_shiftkey</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_shiftkey</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="394" column="9" declfile="include/ubasic.h" declline="394" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a6949b410744a34d839c76a6d3b8c8aa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_altkey</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_altkey</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="395" column="9" declfile="include/ubasic.h" declline="395" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a1655dec9872a125de54df8d6e44f4bff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t ubasic_capslock</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_capslock</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="396" column="9" declfile="include/ubasic.h" declline="396" declcolumn="9"/>
+      </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a660422bd3c0e07831ab9a20bfd94db7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
         <definition>char* ubasic_netinfo</definition>
@@ -1016,7 +1101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="397" column="6" declfile="include/ubasic.h" declline="397" declcolumn="6"/>
+        <location file="include/ubasic.h" line="401" column="6" declfile="include/ubasic.h" declline="401" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a5559407d22fff10ff141837c7b094fb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1033,7 +1118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="398" column="6" declfile="include/ubasic.h" declline="398" declcolumn="6"/>
+        <location file="include/ubasic.h" line="402" column="6" declfile="include/ubasic.h" declline="402" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a2ddbbc00e77a2b3575da968d1c719aa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1050,7 +1135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="399" column="6" declfile="include/ubasic.h" declline="399" declcolumn="6"/>
+        <location file="include/ubasic.h" line="403" column="6" declfile="include/ubasic.h" declline="403" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a778c0201919e608abd2646c9b9cb0b60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1067,7 +1152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="400" column="6" declfile="include/ubasic.h" declline="400" declcolumn="6"/>
+        <location file="include/ubasic.h" line="404" column="6" declfile="include/ubasic.h" declline="404" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a5fad97e282aa0b13b8776eeeb505315c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1084,7 +1169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="401" column="6" declfile="include/ubasic.h" declline="401" declcolumn="6"/>
+        <location file="include/ubasic.h" line="405" column="6" declfile="include/ubasic.h" declline="405" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a628557296864cfb7a5a9a8ab38cce2b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1101,7 +1186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="402" column="6" declfile="include/ubasic.h" declline="402" declcolumn="6"/>
+        <location file="include/ubasic.h" line="406" column="6" declfile="include/ubasic.h" declline="406" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ad6905e50078318caf5db72a91748c697" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1118,7 +1203,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="403" column="6" declfile="include/ubasic.h" declline="403" declcolumn="6"/>
+        <location file="include/ubasic.h" line="407" column="6" declfile="include/ubasic.h" declline="407" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a63d3193d934771514392dcd19b13fe32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1135,7 +1220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="404" column="6" declfile="include/ubasic.h" declline="404" declcolumn="6"/>
+        <location file="include/ubasic.h" line="408" column="6" declfile="include/ubasic.h" declline="408" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1acd2949249723baac22db2449ccc05d0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1152,7 +1237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="405" column="6" declfile="include/ubasic.h" declline="405" declcolumn="6"/>
+        <location file="include/ubasic.h" line="409" column="6" declfile="include/ubasic.h" declline="409" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a7a221e39127dcc2f13c7828843c534b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1169,7 +1254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="406" column="6" declfile="include/ubasic.h" declline="406" declcolumn="6"/>
+        <location file="include/ubasic.h" line="410" column="6" declfile="include/ubasic.h" declline="410" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1aad2a298566403ea6e945e74753490a72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1186,7 +1271,58 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="407" column="6" declfile="include/ubasic.h" declline="407" declcolumn="6"/>
+        <location file="include/ubasic.h" line="411" column="6" declfile="include/ubasic.h" declline="411" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a62c643f483b0298ca643a9f3804de84d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_insocket</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_insocket</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="412" column="6" declfile="include/ubasic.h" declline="412" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a14cdae728cb7f1450f4fcd47fc4f5ef1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_upper</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_upper</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="413" column="6" declfile="include/ubasic.h" declline="413" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ubasic_8h_1a1b6bbf38ab270714827342edf7f873b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* ubasic_lower</definition>
+        <argsstring>(struct ubasic_ctx *ctx)</argsstring>
+        <name>ubasic_lower</name>
+        <param>
+          <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="414" column="6" declfile="include/ubasic.h" declline="414" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a05da1e347cfc8fbe0098c51316ed2640" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1207,7 +1343,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="412" column="6" declfile="include/ubasic.h" declline="412" declcolumn="6"/>
+        <location file="include/ubasic.h" line="418" column="6" declfile="include/ubasic.h" declline="418" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a8146f852198c2a7936d9e6088ac0dfd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1228,7 +1364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="413" column="6" declfile="include/ubasic.h" declline="413" declcolumn="6"/>
+        <location file="include/ubasic.h" line="419" column="6" declfile="include/ubasic.h" declline="419" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a7b786c07e1ca434cd8e5942bc74e4497" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1249,7 +1385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="414" column="6" declfile="include/ubasic.h" declline="414" declcolumn="6"/>
+        <location file="include/ubasic.h" line="420" column="6" declfile="include/ubasic.h" declline="420" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ad79849ce5ab570769fddacecced88c70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1270,7 +1406,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="415" column="6" declfile="include/ubasic.h" declline="415" declcolumn="6"/>
+        <location file="include/ubasic.h" line="421" column="6" declfile="include/ubasic.h" declline="421" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a35b7dedd50cfc30346ac4881430b531b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
@@ -1303,7 +1439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="420" column="18" declfile="include/ubasic.h" declline="420" declcolumn="18"/>
+        <location file="include/ubasic.h" line="426" column="18" declfile="include/ubasic.h" declline="426" declcolumn="18"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1320,7 +1456,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="421" column="6" declfile="include/ubasic.h" declline="421" declcolumn="6"/>
+        <location file="include/ubasic.h" line="427" column="6" declfile="include/ubasic.h" declline="427" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a00ac2759ea41ff03f3e994f35f6bc03a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1337,7 +1473,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="422" column="6" declfile="include/ubasic.h" declline="422" declcolumn="6"/>
+        <location file="include/ubasic.h" line="428" column="6" declfile="include/ubasic.h" declline="428" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a3896bfc03a8659a518d9fa133705b57a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1354,7 +1490,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="423" column="6" declfile="include/ubasic.h" declline="423" declcolumn="6"/>
+        <location file="include/ubasic.h" line="429" column="6" declfile="include/ubasic.h" declline="429" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1afcb910d7d9652ff94b305c3a8c398882" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1375,7 +1511,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="424" column="6" declfile="include/ubasic.h" declline="424" declcolumn="6"/>
+        <location file="include/ubasic.h" line="430" column="6" declfile="include/ubasic.h" declline="430" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a84e680982e0290ec61df8b84dca64588" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1392,7 +1528,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="425" column="6" declfile="include/ubasic.h" declline="425" declcolumn="6"/>
+        <location file="include/ubasic.h" line="431" column="6" declfile="include/ubasic.h" declline="431" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a2034463854d3258a38238de07f3049fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1409,7 +1545,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="426" column="6" declfile="include/ubasic.h" declline="426" declcolumn="6"/>
+        <location file="include/ubasic.h" line="432" column="6" declfile="include/ubasic.h" declline="432" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a39ca76350b51eb1ac4f85f7813030be3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1430,7 +1566,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="427" column="6" declfile="include/ubasic.h" declline="427" declcolumn="6"/>
+        <location file="include/ubasic.h" line="433" column="6" declfile="include/ubasic.h" declline="433" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a6ce4459f3701be5c97c7f9908bf0c259" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1447,7 +1583,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="428" column="6" declfile="include/ubasic.h" declline="428" declcolumn="6"/>
+        <location file="include/ubasic.h" line="434" column="6" declfile="include/ubasic.h" declline="434" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1adb8eb6e0aa9c7606623fc241b99760be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1468,7 +1604,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="433" column="9" declfile="include/ubasic.h" declline="433" declcolumn="9"/>
+        <location file="include/ubasic.h" line="439" column="9" declfile="include/ubasic.h" declline="439" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a2fea34db30fac3281466a93c55078c06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1493,7 +1629,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="434" column="6" declfile="include/ubasic.h" declline="434" declcolumn="6"/>
+        <location file="include/ubasic.h" line="440" column="6" declfile="include/ubasic.h" declline="440" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a9ac55179aa9a0176f342a67638608cf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -1514,7 +1650,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="435" column="12" declfile="include/ubasic.h" declline="435" declcolumn="12"/>
+        <location file="include/ubasic.h" line="441" column="12" declfile="include/ubasic.h" declline="441" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a7913e05cee9dd3d85bc859e06af69f60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1547,7 +1683,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="436" column="6" declfile="include/ubasic.h" declline="436" declcolumn="6"/>
+        <location file="include/ubasic.h" line="442" column="6" declfile="include/ubasic.h" declline="442" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a387c29c224dd166b6bea4add9897522e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1580,7 +1716,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="437" column="6" declfile="include/ubasic.h" declline="437" declcolumn="6"/>
+        <location file="include/ubasic.h" line="443" column="6" declfile="include/ubasic.h" declline="443" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a6d554a1fcd609a257c2f842a08ac05ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1613,7 +1749,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="438" column="6" declfile="include/ubasic.h" declline="438" declcolumn="6"/>
+        <location file="include/ubasic.h" line="444" column="6" declfile="include/ubasic.h" declline="444" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1af3c28214a6d26d3373d8ed9f1d5276a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966" kindref="member">ub_return_type</ref></type>
@@ -1638,7 +1774,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="439" column="16" declfile="include/ubasic.h" declline="439" declcolumn="16"/>
+        <location file="include/ubasic.h" line="445" column="16" declfile="include/ubasic.h" declline="445" declcolumn="16"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a26278649a7fc073686287cbe68630ceb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1659,7 +1795,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="440" column="9" declfile="include/ubasic.h" declline="440" declcolumn="9"/>
+        <location file="include/ubasic.h" line="446" column="9" declfile="include/ubasic.h" declline="446" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a8ff1e98b41b281615a5106abf149a38c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1688,7 +1824,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="445" column="6" declfile="include/ubasic.h" declline="445" declcolumn="6"/>
+        <location file="include/ubasic.h" line="451" column="6" declfile="include/ubasic.h" declline="451" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a71d25c191a27099b2521315c8436325a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1717,7 +1853,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="446" column="6" declfile="include/ubasic.h" declline="446" declcolumn="6"/>
+        <location file="include/ubasic.h" line="452" column="6" declfile="include/ubasic.h" declline="452" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a52df6c6bc053b1eeee167a65fcce994d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1746,7 +1882,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="447" column="6" declfile="include/ubasic.h" declline="447" declcolumn="6"/>
+        <location file="include/ubasic.h" line="453" column="6" declfile="include/ubasic.h" declline="453" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a9fb8a5071931afc1d021b6903b0bff9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1775,7 +1911,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="448" column="6" declfile="include/ubasic.h" declline="448" declcolumn="6"/>
+        <location file="include/ubasic.h" line="454" column="6" declfile="include/ubasic.h" declline="454" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1afd2eeb9e5539791eba6f6c9045398bb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1800,7 +1936,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="449" column="9" declfile="include/ubasic.h" declline="449" declcolumn="9"/>
+        <location file="include/ubasic.h" line="455" column="9" declfile="include/ubasic.h" declline="455" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a678b1b7e037ed46bc5735e7ce3fc5d7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -1825,7 +1961,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="450" column="12" declfile="include/ubasic.h" declline="450" declcolumn="12"/>
+        <location file="include/ubasic.h" line="456" column="12" declfile="include/ubasic.h" declline="456" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a61de4ead74b5b3e09a0147694360941e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1850,7 +1986,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="451" column="6" declfile="include/ubasic.h" declline="451" declcolumn="6"/>
+        <location file="include/ubasic.h" line="457" column="6" declfile="include/ubasic.h" declline="457" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a5402930fc57ae99497b1096b544eba39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1875,7 +2011,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="452" column="6" declfile="include/ubasic.h" declline="452" declcolumn="6"/>
+        <location file="include/ubasic.h" line="458" column="6" declfile="include/ubasic.h" declline="458" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ab89b6a47290ed8a7169f0f6dafd57852" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1900,7 +2036,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="453" column="6" declfile="include/ubasic.h" declline="453" declcolumn="6"/>
+        <location file="include/ubasic.h" line="459" column="6" declfile="include/ubasic.h" declline="459" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ae5f5cb2daec8c2d9362e16f16986c67e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1925,7 +2061,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="454" column="6" declfile="include/ubasic.h" declline="454" declcolumn="6"/>
+        <location file="include/ubasic.h" line="460" column="6" declfile="include/ubasic.h" declline="460" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ada83ba1a1893d271061eb7fdfefca265" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1950,7 +2086,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="455" column="6" declfile="include/ubasic.h" declline="455" declcolumn="6"/>
+        <location file="include/ubasic.h" line="461" column="6" declfile="include/ubasic.h" declline="461" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ae1022a5c0a65ddd11828780593cbc0a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1975,7 +2111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="456" column="6" declfile="include/ubasic.h" declline="456" declcolumn="6"/>
+        <location file="include/ubasic.h" line="462" column="6" declfile="include/ubasic.h" declline="462" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a4c439e60cb300da93ee63f2d805674da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1996,7 +2132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="457" column="6" declfile="include/ubasic.h" declline="457" declcolumn="6"/>
+        <location file="include/ubasic.h" line="463" column="6" declfile="include/ubasic.h" declline="463" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a6f2207fcc8d13b51cd2f737fe8fd88a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2017,7 +2153,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="458" column="6" declfile="include/ubasic.h" declline="458" declcolumn="6"/>
+        <location file="include/ubasic.h" line="464" column="6" declfile="include/ubasic.h" declline="464" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ad4b26e2e8637402018a3909845864f38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2038,7 +2174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="459" column="6" declfile="include/ubasic.h" declline="459" declcolumn="6"/>
+        <location file="include/ubasic.h" line="465" column="6" declfile="include/ubasic.h" declline="465" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ae86f53bbc258d856c797494b042b7ba7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2055,7 +2191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="460" column="9" declfile="include/ubasic.h" declline="460" declcolumn="9"/>
+        <location file="include/ubasic.h" line="466" column="9" declfile="include/ubasic.h" declline="466" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a85e3e72b95b6af40c26193726bd3fba1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2080,7 +2216,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="461" column="6" declfile="include/ubasic.h" declline="461" declcolumn="6"/>
+        <location file="include/ubasic.h" line="467" column="6" declfile="include/ubasic.h" declline="467" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a9d98a7d3cbf232d3f90900bfc122777a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2105,7 +2241,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="462" column="6" declfile="include/ubasic.h" declline="462" declcolumn="6"/>
+        <location file="include/ubasic.h" line="468" column="6" declfile="include/ubasic.h" declline="468" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a6d2a2ab5eb71dbc29d8e638510543a26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2130,7 +2266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="463" column="6" declfile="include/ubasic.h" declline="463" declcolumn="6"/>
+        <location file="include/ubasic.h" line="469" column="6" declfile="include/ubasic.h" declline="469" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ac7b18c1c7ad294c2c77e5ca0055578ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2147,7 +2283,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="464" column="6" declfile="include/ubasic.h" declline="464" declcolumn="6"/>
+        <location file="include/ubasic.h" line="470" column="6" declfile="include/ubasic.h" declline="470" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a2199845dd038c41cf53d86f6a813625c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2164,7 +2300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="465" column="6" declfile="include/ubasic.h" declline="465" declcolumn="6"/>
+        <location file="include/ubasic.h" line="471" column="6" declfile="include/ubasic.h" declline="471" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a934280027312e986008618e74b82782e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2181,7 +2317,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="470" column="9" declfile="include/ubasic.h" declline="470" declcolumn="9"/>
+        <location file="include/ubasic.h" line="476" column="9" declfile="include/ubasic.h" declline="476" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1ae25be7d2d8ae25c9353e2d7381578a98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2198,7 +2334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="471" column="9" declfile="include/ubasic.h" declline="471" declcolumn="9"/>
+        <location file="include/ubasic.h" line="477" column="9" declfile="include/ubasic.h" declline="477" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a1e46aaf021f5d93d251df94cbe164e91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2219,7 +2355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="476" column="6" declfile="include/ubasic.h" declline="476" declcolumn="6"/>
+        <location file="include/ubasic.h" line="482" column="6" declfile="include/ubasic.h" declline="482" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a1ea4e8496cc967a2709cd10cf69c42fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2240,7 +2376,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="477" column="6" declfile="include/ubasic.h" declline="477" declcolumn="6"/>
+        <location file="include/ubasic.h" line="483" column="6" declfile="include/ubasic.h" declline="483" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a3e66a30ddf1eb98b8efd0ca640c35713" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -2257,7 +2393,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="482" column="12" declfile="include/ubasic.h" declline="482" declcolumn="12"/>
+        <location file="include/ubasic.h" line="488" column="12" declfile="include/ubasic.h" declline="488" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="ubasic_8h_1a4dec748cd3e08bfddbb46b0793a57a4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2274,7 +2410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="483" column="9" declfile="include/ubasic.h" declline="483" declcolumn="9"/>
+        <location file="include/ubasic.h" line="489" column="9" declfile="include/ubasic.h" declline="489" declcolumn="9"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

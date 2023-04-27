@@ -1704,6 +1704,36 @@
         </inbodydescription>
         <location file="include/tcp.h" line="226" column="5" declfile="include/tcp.h" declline="226" declcolumn="5"/>
       </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a39bac2a3c55fa01613ed4a5579a5ca67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_connected</definition>
+        <argsstring>(int socket)</argsstring>
+        <name>is_connected</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <briefdescription>
+<para>Returns true if the socket is connected. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>socket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>socket descriptor from <ref refid="tcp_8h_1a4a95723a63184d3eb69a619853f560da" kindref="member">connect()</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if socket is connected, false if not. This will return false if <ref refid="tcp_8h_1a4a95723a63184d3eb69a619853f560da" kindref="member">connect()</ref> hasn&apos;t succeeded yet. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="234" column="6" declfile="include/tcp.h" declline="234" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="tcp_8h_1a0a5ac590e0a9088bc8ddf519e8e0967d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
         <definition>const char* socket_error</definition>
@@ -1734,7 +1764,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="235" column="12" declfile="include/tcp.h" declline="235" declcolumn="12"/>
+        <location file="include/tcp.h" line="243" column="12" declfile="include/tcp.h" declline="243" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a5505c46ddfafecad526d12d4d1666050" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1748,7 +1778,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="241" column="6" declfile="include/tcp.h" declline="241" declcolumn="6"/>
+        <location file="include/tcp.h" line="249" column="6" declfile="include/tcp.h" declline="249" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

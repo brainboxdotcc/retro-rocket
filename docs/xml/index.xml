@@ -2439,6 +2439,7 @@
     <member refid="tcp_8h_1ad4725afcb96cfe437fd7a748129b1f33" kind="function"><name>closesocket</name></member>
     <member refid="tcp_8h_1a5787e23039c4a2243cbc968a48431d2e" kind="function"><name>send</name></member>
     <member refid="tcp_8h_1a6df7b901b1a9f3ec7046f958f9e7cf36" kind="function"><name>recv</name></member>
+    <member refid="tcp_8h_1a39bac2a3c55fa01613ed4a5579a5ca67" kind="function"><name>is_connected</name></member>
     <member refid="tcp_8h_1a0a5ac590e0a9088bc8ddf519e8e0967d" kind="function"><name>socket_error</name></member>
     <member refid="tcp_8h_1a5505c46ddfafecad526d12d4d1666050" kind="function"><name>tcp_idle</name></member>
   </compound>
@@ -2599,6 +2600,11 @@
     <member refid="ubasic_8h_1a462ab4f978e27131b28689795e3a7809" kind="function"><name>ubasic_get_free_mem</name></member>
     <member refid="ubasic_8h_1a2b4ab01042f261fd3d5b33e70564362a" kind="function"><name>ubasic_get_used_mem</name></member>
     <member refid="ubasic_8h_1a167c9064a24dd6810927007a72c05ae7" kind="function"><name>ubasic_get_total_mem</name></member>
+    <member refid="ubasic_8h_1a5bafb947bba64bc042f1c7dfb2ab42f1" kind="function"><name>ubasic_sockstatus</name></member>
+    <member refid="ubasic_8h_1aec11cc5ab70c66a33b2da3e165440391" kind="function"><name>ubasic_ctrlkey</name></member>
+    <member refid="ubasic_8h_1a40ae827c1f9676ecf32de92ad8638719" kind="function"><name>ubasic_shiftkey</name></member>
+    <member refid="ubasic_8h_1a6949b410744a34d839c76a6d3b8c8aa0" kind="function"><name>ubasic_altkey</name></member>
+    <member refid="ubasic_8h_1a1655dec9872a125de54df8d6e44f4bff" kind="function"><name>ubasic_capslock</name></member>
     <member refid="ubasic_8h_1a660422bd3c0e07831ab9a20bfd94db7b" kind="function"><name>ubasic_netinfo</name></member>
     <member refid="ubasic_8h_1a5559407d22fff10ff141837c7b094fb0" kind="function"><name>ubasic_left</name></member>
     <member refid="ubasic_8h_1a2ddbbc00e77a2b3575da968d1c719aa7" kind="function"><name>ubasic_mid</name></member>
@@ -2610,6 +2616,9 @@
     <member refid="ubasic_8h_1acd2949249723baac22db2449ccc05d0c" kind="function"><name>ubasic_ramdisk_from_device</name></member>
     <member refid="ubasic_8h_1a7a221e39127dcc2f13c7828843c534b6" kind="function"><name>ubasic_ramdisk_from_size</name></member>
     <member refid="ubasic_8h_1aad2a298566403ea6e945e74753490a72" kind="function"><name>ubasic_inkey</name></member>
+    <member refid="ubasic_8h_1a62c643f483b0298ca643a9f3804de84d" kind="function"><name>ubasic_insocket</name></member>
+    <member refid="ubasic_8h_1a14cdae728cb7f1450f4fcd47fc4f5ef1" kind="function"><name>ubasic_upper</name></member>
+    <member refid="ubasic_8h_1a1b6bbf38ab270714827342edf7f873b2" kind="function"><name>ubasic_lower</name></member>
     <member refid="ubasic_8h_1a05da1e347cfc8fbe0098c51316ed2640" kind="function"><name>ubasic_sin</name></member>
     <member refid="ubasic_8h_1a8146f852198c2a7936d9e6088ac0dfd3" kind="function"><name>ubasic_cos</name></member>
     <member refid="ubasic_8h_1a7b786c07e1ca434cd8e5942bc74e4497" kind="function"><name>ubasic_tan</name></member>
@@ -2693,8 +2702,8 @@
     <member refid="video_8h_1a43d9b652336a0df72765cc74cb497381" kind="variable"><name>current_console</name></member>
     <member refid="video_8h_1a89b876ad8ed8fcb7e9ce6f6dd7518512" kind="function"><name>clearscreen</name></member>
     <member refid="video_8h_1ae71c2439af390bbb8d7ea3f59226983d" kind="function"><name>setcursor</name></member>
-    <member refid="video_8h_1a884ecfe4f55a1ba8fc677d423fc99ba0" kind="function"><name>putstring</name></member>
-    <member refid="video_8h_1a68614b45a1f07d2b7dfd189061c1cf83" kind="function"><name>dputstring</name></member>
+    <member refid="video_8h_1a998a88c58c530407ae8b304a306b74fe" kind="function"><name>putstring</name></member>
+    <member refid="video_8h_1a1d4ff70fd24e5e51101991bc73fbe02e" kind="function"><name>dputstring</name></member>
     <member refid="video_8h_1a6aa3e180e6074ca3376aae3fe2521967" kind="function"><name>put</name></member>
     <member refid="video_8h_1a10de4e9cb74656845ee2808d17f3e9b7" kind="function"><name>dput</name></member>
     <member refid="video_8h_1ab9c32270380ee4550fa848647b745f39" kind="function"><name>init_console</name></member>
