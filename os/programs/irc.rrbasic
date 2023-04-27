@@ -1,5 +1,5 @@
 registered = FALSE
-rawlog = TRUE
+rawlog = FALSE
 REM HOST$ = ARGS$
 HOST$ = "ip222.ip-141-95-6.eu"
 NICK$ = "Test0001"
@@ -12,7 +12,11 @@ DIM lineParts$, 255
 DIM scrollback$, SCROLLBACK
 DIM lineColour, SCROLLBACK
 scrollptr = TERMHEIGHT - 2
+curChannel$ = "-"
+networkName$ = "-"
 top = 0
+currentx = 0
+in$ = ""
 
 PROCconnect
 PROCmainLoop
@@ -26,8 +30,6 @@ DEF PROCmainLoop
 		IF registered = FALSE THEN PROCregister
 		char$ = INSOCKET$(FD)
 		IF char$ > "" THEN PROCprocess(char$)
-		CURSOR 15, TERMHEIGHT
-		COLOR 15
 		IF char$ = "" THEN PROCkeyScan
 		iterations = iterations + 1
 	UNTIL SOCKSTATUS(FD) = 0
@@ -58,10 +60,31 @@ DEF PROCprocessKey(in)
 	IF in = 247 THEN PROCdelete
 	IF in = 8 THEN PROCbackSpace
 	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(incopy)
+	PROCdisplayInput
 RETPROC
 
-DEF PROCinsertChar(inkey)
+DEF PROCdisplayInput
+	PROChideCursor
+	CURSOR 2, TERMHEIGHT
+	COLOR 15
+	BACKGROUND 4
+	leftX = LEN(curChannel$) + 5
+	PRINT "["; curChannel$; "] ";
+	CURSOR leftX, TERMHEIGHT
+	PRINT in$;
+	PROCclearLineFromCursor
+	CURSOR leftX + currentx, TERMHEIGHT
+	PROCshowCursor
+	BACKGROUND 0
 RETPROC
+
+DEF PROCinsertChar(i)
+	start$ = MID$(in$, 0, currentx)
+	end$ = MID$(in$, currentx, LEN(in$))
+	in$ = start$ + CHR$(i) + end$
+	currentx = currentx + 1
+RETPROC
+
 
 DEF PROCctrl(ctrlkey$)
 RETPROC
@@ -70,6 +93,59 @@ DEF PROCquit
 RETPROC
 
 DEF PROCenter
+	IF LEFT$(in$, 1) = "/" THEN PROCslash(MID$(in$, 1, LEN(in$)))
+	IF LEFT$(in$, 1) = "/" THEN RETPROC
+	PROCmessageCurrent(in$)
+RETPROC
+
+DEF PROCmessageCurrent(message$)
+	in$ = ""
+	currentx = 0
+RETPROC
+
+DEF PROCslash(slash$)
+	slashSpace = INSTR(slash$, " ")
+	slashCommand$ = UPPER$(LEFT$(slash$, slashSpace - 1))
+	slashParams$ = MID$(slash$, slashSpace, LEN(slash$))
+	IF slashCommand$ = "JOIN" THEN PROCjoinCommand(slashParams$)
+	IF slashCommand$ = "PART" THEN PROCpartCommand(slashParams$)
+	IF slashCommand$ = "MSG" THEN PROCmessageCommand(slashParams$)
+	IF slashCommand$ = "PRIVMSG" THEN PROCmessageCommand(slashParams$)
+	IF slashCommand$ = "NOTICE" THEN PROCnoticeCommand(slashParams$)
+	IF slashCommand$ = "RAWLOG" THEN PROCrawLogCommand(slashParams$)
+	in$ = ""
+	currentx = 0
+RETPROC
+
+DEF PROCrawLogCommand(onoff$)
+	rawlog = FALSE
+	IF UPPER$(onoff$) = "ON" THEN rawlog = TRUE
+RETPROC
+
+DEF PROCjoinCommand(channel$)
+	c$ = channel$
+	PROCsend("JOIN " + c$)
+RETPROC
+
+DEF PROCpartCommand(channel$)
+	c$ = channel$
+	PROCsend("PART " + c$)
+RETPROC
+
+DEF PROCmessageCommand(cam$)
+	channelAndMessage$ = cam$
+	msgSpace = INSTR(channelAndMessage$, " ")
+	msgChannel$ = LEFT$(channelAndMessage$, msgSpace - 1)
+	msgText$ = MID$(channelAndMessage$, msgSpace, LEN(channelAndMessage$))
+	PROCsend("PRIVMSG " + msgChannel$ + " :" + msgText$)
+RETPROC
+
+DEF PROCnoticeCommand(cams$)
+	channelAndMessage$ = cam$
+	msgSpace = INSTR(channelAndMessage$, " ")
+	msgChannel$ = LEFT$(channelAndMessage$, msgSpace - 1)
+	msgText$ = MID$(channelAndMessage$, msgSpace, LEN(channelAndMessage$))
+	PROCsend("NOTICE " + msgChannel$ + " :" + msgText$)
 RETPROC
 
 DEF PROCup
@@ -79,15 +155,22 @@ DEF PROCdown
 RETPROC
 
 DEF PROCleft
+	currentx = currentx - 1
+	IF currentx < 0 THEN currentx = 0
 RETPROC
 
+
 DEF PROCright
+	currentx = currentx + 1
+	IF currentx < 0 THEN currentx = 0
 RETPROC
 
 DEF PROCend
+	currentx = LEN(in$)
 RETPROC
 
 DEF PROChome
+	currentx = 0
 RETPROC
 
 DEF PROCpageUp
@@ -102,10 +185,33 @@ DEF PROCpageDown
 	PROCtext
 RETPROC
 
+REM handle delete key
 DEF PROCdelete
+	len = LEN(in$)
+	IF currentx < len THEN PROCdeleteRight
 RETPROC
 
+REM handle backspace
 DEF PROCbackSpace
+	cx = currentx
+	IF cx > 0 THEN PROCdeleteLeft
+RETPROC
+
+REM delete character to left of cursor, advance left
+DEF PROCdeleteLeft
+	start$ = MID$(in$, 0, currentx - 1)
+	end$ = MID$(in$, currentx, LEN(in$))
+	in$ = start$ + end$
+	currentx = currentx - 1
+RETPROC
+
+REM delete one character to the right
+DEF PROCdeleteRight
+	start$ = MID$(in$, 0, currentx)
+	end$ = MID$(in$, currentx + 1, LEN(in$))
+	in$ = start$ + end$
+	len = LEN(in$)
+	IF currentx > len THEN currentx = len
 RETPROC
 
 REM clear line from cursor to right
@@ -115,17 +221,18 @@ RETPROC
 
 REM draw UI around window
 DEF PROCdraw
+	title$ = "Satellite: IRC Client for Retro Rocket OS"
 	BACKGROUND 4
 	COLOUR 15
 	CURSOR 1, TERMHEIGHT
 	PROCclearLineFromCursor
 	CURSOR 2, TERMHEIGHT
-	PRINT "[#channel] ";
+	PRINT "["; curChannel$; "] ";
 	CURSOR TERMWIDTH - 15, TERMHEIGHT
 	CURSOR 1, 0
 	PROCclearLineFromCursor
-	CURSOR TERMWIDTH / 2 - 5, 0
-	PRINT "IRC CLIENT"
+	CURSOR TERMWIDTH / 2 - LEN(title$) / 2, 0
+	PRINT title$;
 	COLOUR 7
 	BACKGROUND 0
 	CURSOR 1, 2
@@ -151,6 +258,7 @@ DEF PROCtext
 		IF l < SCROLLBACK THEN PROCprintLine(l)
 	NEXT
 	PROCshowCursor
+	PROCdisplayInput
 RETPROC
 
 DEF PROCprintLine(lineIndex)
@@ -261,8 +369,30 @@ DEF PROCprocessCommand
 	IF commands$ = "PING" THEN PROCping
 	IF commands$ = "NOTICE" THEN PROCnotice
 	IF commands$ = "PRIVMSG" THEN PROCprivmsg
+	IF commands$ = "005" THEN PROCiSupport
 	IF commands$ = "372" THEN PROCmotdLine
 	IF commands$ = "376" THEN PROCmotdEnd
+RETPROC
+
+DEF PROCiSupport
+	FOR x = 2 TO tokenIndex - 1
+		st$ = lineParts$(x)
+		IF st$ > "" THEN PROCprocessSupportToken(st$)
+	NEXT
+RETPROC
+
+DEF PROCprocessSupportToken(supportToken$)
+	supportValue$ = ""
+	supportKey$ = supportToken$
+	supportEquals = INSTR(supportToken$, "=")
+	IF supportEquals > 0 THEN supportKey$ = LEFT$(supportToken$, supportEquals - 1)
+	IF supportEquals > 0 THEN supportValue$ = MID$(supportToken$, supportEquals, LEN(supportToken$))
+	IF supportKey$ = "NETWORK" THEN PROCsaveNetName(supportKey$, supportValue$)
+RETPROC
+
+DEF PROCsaveNetName(key$, value$)
+	curChannel$ = value$
+	networkName$ = value$
 RETPROC
 
 DEF PROCping
