@@ -561,6 +561,8 @@ void free_local_stack(struct ubasic_ctx* ctx)
 {
 	// FIXME this is broken as it double-frees
 	// be sure about lifetimes of these variables!
+	// TODO: ONly run this when the stack is at ptr 0, against all levels!
+	// -- de-dupe the list somehow.
 	return;
 	while (ctx->local_string_variables[ctx->gosub_stack_ptr]) {
 		struct ub_var_string* next = ctx->local_string_variables[ctx->gosub_stack_ptr]->next;
