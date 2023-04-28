@@ -25,13 +25,11 @@ END
 DEF PROCmainLoop
 	CLS
 	PROCdraw
-	iterations = 0
 	REPEAT
 		IF registered = FALSE THEN PROCregister
 		char$ = INSOCKET$(FD)
 		IF char$ > "" THEN PROCprocess(char$)
 		IF char$ = "" THEN PROCkeyScan
-		iterations = iterations + 1
 	UNTIL SOCKSTATUS(FD) = 0
 	SOCKCLOSE FD
 RETPROC
@@ -43,9 +41,8 @@ RETPROC
 
 REM handle keypress
 DEF PROCprocessKey(in)
-	incopy = in
 	ctrl = CTRLKEY
-	IF ctrl = TRUE THEN PROCctrl(CHR$(incopy))
+	IF ctrl = TRUE THEN PROCctrl(CHR$(in))
 	IF ctrl = TRUE THEN RETPROC
 	IF in = 27 THEN PROCquit
 	IF in = 13 THEN PROCenter
@@ -59,7 +56,7 @@ DEF PROCprocessKey(in)
 	IF in = 246 THEN PROCpageDown
 	IF in = 247 THEN PROCdelete
 	IF in = 8 THEN PROCbackSpace
-	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(incopy)
+	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(in)
 	PROCdisplayInput
 RETPROC
 
@@ -265,23 +262,18 @@ DEF PROCprintLine(lineIndex)
 RETPROC
 
 DEF PROCout(col, text$)
-	safeText$ = text$
 	REPEAT
-		scrollback$(scrollptr) = LEFT$(safeText$, TERMWIDTH - 1)
-		safeText$ = MID$(safeText$, TERMWIDTH - 1, LEN(safeText$))
+		scrollback$(scrollptr) = LEFT$(text$, TERMWIDTH - 1)
+		LOCAL text$ = MID$(text$, TERMWIDTH - 1, LEN(text$))
 		lineColour(scrollptr) = col
 		scrollptr = scrollptr + 1
 		top = top + 1
 		IF scrollptr > SCROLLBACK - 1 THEN PROCdiscard
-	UNTIL safeText$ = ""
+	UNTIL text$ = ""
 	PROCtext
 RETPROC
 
 DEF PROCdiscard
-	REM FOR n = 0 TO scrollptr - 1
-	REM 	scrollback$(n) = scrollback$(n + 1)
-	REM 	lineColour(n) = lineColour(n + 1)
-	REM NEXT
 	POP scrollback$,0
 	POP lineColour,0
 	scrollptr = scrollptr - 1

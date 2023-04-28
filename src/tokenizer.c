@@ -54,6 +54,7 @@ const int keywords[] = {
 	INPUT,
 	LET,
 	LINE,
+	LOCAL,
 	MKDIR,
 	MOUNT,
 	NEXT,

@@ -120,6 +120,7 @@
 	T(REDIM) \
 	T(PUSH) \
 	T(POP) \
+	T(LOCAL) \
 	T(MOUNT)
 
 /*

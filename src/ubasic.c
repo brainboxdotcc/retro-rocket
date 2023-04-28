@@ -532,20 +532,20 @@ bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 	return true;
 }
 
-static void goto_statement(struct ubasic_ctx* ctx)
+void goto_statement(struct ubasic_ctx* ctx)
 {
 	accept(GOTO, ctx);
 	jump_linenum(tokenizer_num(ctx, NUMBER), ctx);
 }
 
-static void colour_statement(struct ubasic_ctx* ctx, int tok)
+void colour_statement(struct ubasic_ctx* ctx, int tok)
 {
 	accept(tok, ctx);
 	setforeground((console*)ctx->cons, expr(ctx));
 	accept(NEWLINE, ctx);
 }
 
-static void background_statement(struct ubasic_ctx* ctx)
+void background_statement(struct ubasic_ctx* ctx)
 {
 	accept(BACKGROUND, ctx);
 	setbackground((console*)ctx->cons, expr(ctx));
@@ -681,7 +681,7 @@ char* printable_syntax(struct ubasic_ctx* ctx)
 	return gc_strdup(out);
 }
 
-static void print_statement(struct ubasic_ctx* ctx)
+void print_statement(struct ubasic_ctx* ctx)
 {
 	accept(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
@@ -690,7 +690,7 @@ static void print_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void sockwrite_statement(struct ubasic_ctx* ctx)
+void sockwrite_statement(struct ubasic_ctx* ctx)
 {
 	int fd = -1;
 
@@ -704,7 +704,7 @@ static void sockwrite_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void proc_statement(struct ubasic_ctx* ctx)
+void proc_statement(struct ubasic_ctx* ctx)
 {
 	char procname[MAX_STRINGLEN];
 	char* p = procname;
@@ -786,7 +786,7 @@ bool conditional(struct ubasic_ctx* ctx)
 	return r;
 }
 
-static void if_statement(struct ubasic_ctx* ctx)
+void if_statement(struct ubasic_ctx* ctx)
 {
 	accept(IF, ctx);
 	bool r = conditional(ctx);
@@ -807,7 +807,7 @@ static void if_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void chain_statement(struct ubasic_ctx* ctx)
+void chain_statement(struct ubasic_ctx* ctx)
 {
 	accept(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
@@ -842,7 +842,7 @@ static void chain_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-static void eval_statement(struct ubasic_ctx* ctx)
+void eval_statement(struct ubasic_ctx* ctx)
 {
 	accept(EVAL, ctx);
 	const char* v = str_expr(ctx);
@@ -897,7 +897,7 @@ static void eval_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void rem_statement(struct ubasic_ctx* ctx)
+void rem_statement(struct ubasic_ctx* ctx)
 {
 	accept(REM, ctx);
 	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
@@ -906,7 +906,7 @@ static void rem_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-static void def_statement(struct ubasic_ctx* ctx)
+void def_statement(struct ubasic_ctx* ctx)
 {
 	// Because the function or procedure definition is pre-parsed by ubasic_init(),
 	// we just skip the entire line moving to the next if we hit a DEF statement.
@@ -930,7 +930,7 @@ static void def_statement(struct ubasic_ctx* ctx)
  * 
  * @param ctx BASIC context
  */
-static void input_statement(struct ubasic_ctx* ctx)
+void input_statement(struct ubasic_ctx* ctx)
 {
 	accept(INPUT, ctx);
 	const char* var = tokenizer_variable_name(ctx);
@@ -969,7 +969,7 @@ static void input_statement(struct ubasic_ctx* ctx)
  * 
  * @param ctx BASIC context
  */
-static void sockread_statement(struct ubasic_ctx* ctx)
+void sockread_statement(struct ubasic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
 	const char* var = NULL;
@@ -1008,7 +1008,7 @@ static void sockread_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void connect_statement(struct ubasic_ctx* ctx)
+void connect_statement(struct ubasic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
 	const char* fd_var = NULL, *ip = NULL;
@@ -1044,7 +1044,7 @@ static void connect_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void sockclose_statement(struct ubasic_ctx* ctx)
+void sockclose_statement(struct ubasic_ctx* ctx)
 {
 	const char* fd_var = NULL;
 
@@ -1062,7 +1062,7 @@ static void sockclose_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void let_statement(struct ubasic_ctx* ctx, bool global)
+void let_statement(struct ubasic_ctx* ctx, bool global, bool local)
 {
 	const char* var;
 	const char* _expr;
@@ -1115,27 +1115,27 @@ static void let_statement(struct ubasic_ctx* ctx, bool global)
 	{
 		case '$':
 			_expr = str_expr(ctx);
-			ubasic_set_string_variable(var, _expr, ctx, false, global);
+			ubasic_set_string_variable(var, _expr, ctx, local, global);
 		break;
 		case '#':
 			double_expr(ctx, &f_expr);
-			ubasic_set_double_variable(var, f_expr, ctx, false, global);
+			ubasic_set_double_variable(var, f_expr, ctx, local, global);
 		break;
 		default:
-			ubasic_set_int_variable(var, expr(ctx), ctx, false, global);
+			ubasic_set_int_variable(var, expr(ctx), ctx, local, global);
 		break;
 	}
 	accept(NEWLINE, ctx);
 }
 
-static void cls_statement(struct ubasic_ctx* ctx)
+void cls_statement(struct ubasic_ctx* ctx)
 {
 	accept(CLS, ctx);
 	clearscreen(current_console);
 	accept(NEWLINE, ctx);
 }
 
-static void gcol_statement(struct ubasic_ctx* ctx)
+void gcol_statement(struct ubasic_ctx* ctx)
 {
 	accept(GCOL, ctx);
 	ctx->graphics_colour = expr(ctx);
@@ -1143,7 +1143,7 @@ static void gcol_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-static void gotoxy_statement(struct ubasic_ctx* ctx)
+void gotoxy_statement(struct ubasic_ctx* ctx)
 {
 	accept(CURSOR, ctx);
 	int64_t x = expr(ctx);
@@ -1153,7 +1153,7 @@ static void gotoxy_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-static void draw_line_statement(struct ubasic_ctx* ctx)
+void draw_line_statement(struct ubasic_ctx* ctx)
 {
 	accept(LINE, ctx);
 	int64_t x1 = expr(ctx);
@@ -1167,7 +1167,7 @@ static void draw_line_statement(struct ubasic_ctx* ctx)
 	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
-static void point_statement(struct ubasic_ctx* ctx)
+void point_statement(struct ubasic_ctx* ctx)
 {
 	accept(POINT, ctx);
 	int64_t x1 = expr(ctx);
@@ -1177,7 +1177,7 @@ static void point_statement(struct ubasic_ctx* ctx)
 	putpixel(x1, y1, ctx->graphics_colour);
 }
 
-static void triangle_statement(struct ubasic_ctx* ctx)
+void triangle_statement(struct ubasic_ctx* ctx)
 {
 	accept(TRIANGLE, ctx);
 	int64_t x1 = expr(ctx);
@@ -1195,7 +1195,7 @@ static void triangle_statement(struct ubasic_ctx* ctx)
 	draw_triangle(x1, y1, x2, y2, x3, y3, ctx->graphics_colour);
 }
 
-static void rectangle_statement(struct ubasic_ctx* ctx)
+void rectangle_statement(struct ubasic_ctx* ctx)
 {
 	accept(RECTANGLE, ctx);
 	int64_t x1 = expr(ctx);
@@ -1209,7 +1209,7 @@ static void rectangle_statement(struct ubasic_ctx* ctx)
 	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
-static void circle_statement(struct ubasic_ctx* ctx)
+void circle_statement(struct ubasic_ctx* ctx)
 {
 	accept(CIRCLE, ctx);
 	int64_t x = expr(ctx);
@@ -1223,7 +1223,7 @@ static void circle_statement(struct ubasic_ctx* ctx)
 	draw_circle(x, y, radius, filled, ctx->graphics_colour);
 }
 
-static void gosub_statement(struct ubasic_ctx* ctx)
+void gosub_statement(struct ubasic_ctx* ctx)
 {
 	int linenum;
 
@@ -1242,7 +1242,7 @@ static void gosub_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void return_statement(struct ubasic_ctx* ctx)
+void return_statement(struct ubasic_ctx* ctx)
 {
 	accept(RETURN, ctx);
 	if (ctx->fn_type != RT_MAIN)  {
@@ -1258,7 +1258,7 @@ static void return_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void next_statement(struct ubasic_ctx* ctx)
+void next_statement(struct ubasic_ctx* ctx)
 {
 	accept(NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
@@ -1291,7 +1291,7 @@ static void next_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void for_statement(struct ubasic_ctx* ctx)
+void for_statement(struct ubasic_ctx* ctx)
 {
 	accept(FOR, ctx);
 	const char* for_variable = strdup(tokenizer_variable_name(ctx));
@@ -1334,7 +1334,7 @@ static void for_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-static void repeat_statement(struct ubasic_ctx* ctx)
+void repeat_statement(struct ubasic_ctx* ctx)
 {
 	accept(REPEAT, ctx);
 	accept(NEWLINE, ctx);
@@ -1348,7 +1348,7 @@ static void repeat_statement(struct ubasic_ctx* ctx)
 }
 
 
-static void until_statement(struct ubasic_ctx* ctx)
+void until_statement(struct ubasic_ctx* ctx)
 {
 	accept(UNTIL, ctx);
 	bool done = conditional(ctx);
@@ -1368,13 +1368,13 @@ static void until_statement(struct ubasic_ctx* ctx)
 
 
 
-static void end_statement(struct ubasic_ctx* ctx)
+void end_statement(struct ubasic_ctx* ctx)
 {
 	accept(END, ctx);
 	ctx->ended = true;
 }
 
-static void eq_statement(struct ubasic_ctx* ctx)
+void eq_statement(struct ubasic_ctx* ctx)
 {
 	accept(EQUALS, ctx);
 
@@ -1394,7 +1394,7 @@ static void eq_statement(struct ubasic_ctx* ctx)
 	ctx->ended = true;
 }
 
-static void retproc_statement(struct ubasic_ctx* ctx)
+void retproc_statement(struct ubasic_ctx* ctx)
 {
 	accept(RETPROC, ctx);
 	accept(NEWLINE, ctx);
@@ -1523,10 +1523,13 @@ void statement(struct ubasic_ctx* ctx)
 			accept(LET, ctx);
 			/* Fall through. */
 		case VARIABLE:
-			return let_statement(ctx, false);
+			return let_statement(ctx, false, false);
 		case GLOBAL:
 			accept(GLOBAL, ctx);
-			return let_statement(ctx, true);
+			return let_statement(ctx, true, false);
+		case LOCAL:
+			accept(LOCAL, ctx);
+			return let_statement(ctx, false, true);
 		case EQUALS:
 			return eq_statement(ctx);
 		default:
@@ -1657,9 +1660,6 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 		}
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname))	{
-				if (local) {
-					tokenizer_error_print(ctx, "Parameter variables are constants");
-				}
 				if (error_set && *cur->value) {
 					/* If ERROR$ is set, can't change it except to empty */
 					return;
@@ -1718,9 +1718,6 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 			cur = ctx->local_int_variables[ctx->call_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
-				if (local) {
-					tokenizer_error_print(ctx, "Parameter variables are constants");
-				}
 				//dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
 				cur->value = value;
 				return;
@@ -1773,9 +1770,6 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 			cur = ctx->local_double_variables[ctx->call_stack_ptr];
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
-				if (local) {
-					tokenizer_error_print(ctx, "Parameter variables are constants");
-				}
 				//dprintf("Set double variable '%s' to '%s' (updating)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 				cur->value = value;
 				return;
