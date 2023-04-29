@@ -10,6 +10,7 @@ shared_interrupt_t* shared_interrupt[256] = { 0 };
 
 void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque)
 {
+	interrupts_off();
 	shared_interrupt_t* si = kmalloc(sizeof(shared_interrupt_t));
 	si->device = device;
 	si->interrupt_handler = handler;
@@ -19,6 +20,7 @@ void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
 	if (si->next) {
 		dprintf("NOTE: %s %d is shared!\n", n < 32 ? "ISR" : "IRQ", n < 32 ? n : n - 32);
 	}
+	interrupts_on();
 }
 
 /**

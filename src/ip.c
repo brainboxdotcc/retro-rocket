@@ -185,7 +185,7 @@ void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]]
 
 void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol) {
 	uint8_t dst_hardware_addr[6] = { 0, 0, 0, 0, 0, 0 };
-	ip_packet_t * packet = kmalloc(sizeof(ip_packet_t) + len);
+	ip_packet_t* packet = kmalloc(sizeof(ip_packet_t) + len);
 	memset(packet, 0, sizeof(ip_packet_t));
 	packet->version = IP_IPV4;
 	packet->ihl = sizeof(ip_packet_t) / sizeof(uint32_t); // header length is in 32 bit words

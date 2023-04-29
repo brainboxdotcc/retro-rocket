@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-static const uint32_t quantum = 50;
+static const uint64_t quantum = 100;
 
 void lapic_spurious([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, void* opaque)
 {
@@ -12,7 +12,7 @@ void init_lapic_timer()
 	if (quantum == 0) {
 		return;
 	}
-	
+
 	register_interrupt_handler(IRQ7, lapic_spurious, dev_zero, NULL);
 	register_interrupt_handler(IRQ16, timer_callback, dev_zero, NULL);
 
@@ -34,10 +34,11 @@ void init_lapic_timer()
 		get_datetime(&t);
 	}
 	kprintf("Done!\n");
-	uint32_t ticks_per_second = 0xFFFFFFFF - apic_read(APIC_TMRCURRCNT);
-	uint32_t ticks_per_quantum = ticks_per_second / quantum;
+	uint64_t ticks_per_second = 0xFFFFFFFF - apic_read(APIC_TMRCURRCNT);
+	uint64_t ticks_per_quantum = ticks_per_second / quantum;
 
-	//kprintf("ticks_per_second = %d; ticks_per_quantum = %d; quantum = %d\n", ticks_per_second, ticks_per_quantum, quantum);
+	dprintf("ticks_per_second = %d; ticks_per_quantum = %d; quantum = %d\n", ticks_per_second, ticks_per_quantum, quantum);
+
 	apic_write(APIC_TMRINITCNT, ticks_per_quantum);
 	apic_write(APIC_LVT_TMR, IRQ16 | TMR_PERIODIC);
 	apic_write(APIC_TMRDIV, 0x03);

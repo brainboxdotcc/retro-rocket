@@ -32,6 +32,7 @@ DEF PROCmainLoop
 		IF char$ = "" THEN PROCkeyScan
 	UNTIL SOCKSTATUS(FD) = 0
 	SOCKCLOSE FD
+	CLS
 RETPROC
 
 DEF PROCkeyScan
@@ -87,6 +88,7 @@ DEF PROCctrl(ctrlkey$)
 RETPROC
 
 DEF PROCquit
+	PROCquitCommand("Program ended")
 RETPROC
 
 DEF PROCenter
@@ -110,8 +112,16 @@ DEF PROCslash(slash$)
 	IF slashCommand$ = "PRIVMSG" THEN PROCmessageCommand(slashParams$)
 	IF slashCommand$ = "NOTICE" THEN PROCnoticeCommand(slashParams$)
 	IF slashCommand$ = "RAWLOG" THEN PROCrawLogCommand(slashParams$)
+	IF slashCommand$ = "QUIT" THEN PROCquitCommand(slashParams$)
 	in$ = ""
 	currentx = 0
+RETPROC
+
+DEF PROCquitCommand(quitMessage$)
+	IF quitMessage$ = "" THEN PROCsend("QUIT :Satellite IRC Client");
+	IF quitMessage$ > "" THEN PROCsend("QUIT :" + quitMessage$)
+	CLS
+	CLOSESOCKET FD
 RETPROC
 
 DEF PROCrawLogCommand(onoff$)

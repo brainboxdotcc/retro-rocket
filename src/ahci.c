@@ -346,6 +346,7 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	}
 	if (spin == 1000000) {
 		dprintf("Port hung [read size]\n");
+		kfree(buf);
 		return 0;
 	}
  
@@ -359,6 +360,7 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 			break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
 			dprintf("Read disk error [read size]\n");
+			kfree(buf);
 			return 0;
 		}
 	}
@@ -366,6 +368,7 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
 		dprintf("Read disk error [read size]\n");
+		kfree(buf);
 		return 0;
 	}
 

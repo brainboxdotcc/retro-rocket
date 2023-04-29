@@ -7,6 +7,8 @@ void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, [[maybe_
 		if (*type == DHCPOFFER) {
 			uint32_t* server_ip = get_dhcp_options(packet, OPT_SERVER_IP);
 			if (!server_ip) {
+				kfree(type);
+				kfree(server_ip);
 				return;
 			}
 			dhcp_request((uint8_t*)&packet->your_ip, packet->xid, *server_ip);
@@ -45,20 +47,22 @@ void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, [[maybe_
 void dhcp_discover() {
 	uint8_t request_ip[4] = { 0, 0, 0, 0 };
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
-	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
+	dhcp_packet_t* packet = kmalloc(sizeof(dhcp_packet_t));
 	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet);
 	kprintf("Configuring network via DHCP\n");
 	memset(packet, 0, sizeof(dhcp_packet_t));
 	uint16_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
+	kfree(packet);
 }
 
 void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
-	dhcp_packet_t * packet = kmalloc(sizeof(dhcp_packet_t));
+	dhcp_packet_t* packet = kmalloc(sizeof(dhcp_packet_t));
 	memset(packet, 0, sizeof(dhcp_packet_t));
 	uint16_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
+	kfree(packet);
 }
 
 void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {

@@ -271,6 +271,7 @@ iso9660* iso_mount_volume(const char* name)
 		if (!read_storage_device(name, VolumeDescriptorPos++, fs->block_size, buffer)) {
 			kprintf("ISO9660: Could not read LBA sector 0x%x from %s!\n", VolumeDescriptorPos, name);
 			kfree(info);
+			kfree(buffer);
 			return NULL;
 		}
 		unsigned char VolumeDescriptorID = buffer[0];
