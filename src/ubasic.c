@@ -786,14 +786,72 @@ bool conditional(struct ubasic_ctx* ctx)
 	return r;
 }
 
+void else_statement(struct ubasic_ctx* ctx)
+{
+	/* If we get to an ELSE, this means that we executed a THEN part of a block IF,
+	 * so we must skip it and any content up until the next ENDIF 
+	 */
+	accept(ELSE, ctx);
+	accept(NEWLINE, ctx);
+	while (tokenizer_token(ctx) != END && !tokenizer_finished(ctx)) {
+		tokenizer_next(ctx);
+		if (*ctx->ptr == 'I' && *(ctx->ptr+1) == 'F') {
+			accept(IF, ctx);
+			accept(NEWLINE, ctx);
+			return;
+		}
+	}
+	tokenizer_error_print(ctx, "Block IF/THEN/ELSE without ENDIF");
+}
+
 void if_statement(struct ubasic_ctx* ctx)
 {
 	accept(IF, ctx);
 	bool r = conditional(ctx);
 	accept(THEN, ctx);
 	if (r) {
+		if (tokenizer_token(ctx) == NEWLINE) {
+			/* Multi-statement block IF */
+			dprintf("Block IF (THEN)\n");
+			accept(NEWLINE, ctx);
+			ctx->if_nest_level++;
+			return;
+		}
 		statement(ctx);
 	} else {
+		if (tokenizer_token(ctx) == NEWLINE) {
+			/* Multi-statement block IF, looking for ELSE */
+			dprintf("Block IF (ELSE)\n");
+			const char* old_start = ctx->ptr;
+			const char* old_end = ctx->nextptr;
+			while (!tokenizer_finished(ctx)) {
+				int t = tokenizer_token(ctx);
+				tokenizer_next(ctx);
+				if (t == ELSE && tokenizer_token(ctx) == NEWLINE) {
+					ctx->if_nest_level++;
+					accept(NEWLINE, ctx);
+					dprintf("Found ELSE\n");
+					return;
+				}
+			}
+			/* Didn't find a multiline ELSE, look for ENDIF */
+			ctx->ptr = old_start;
+			ctx->nextptr = old_end;
+			ctx->current_token = 0;
+			dprintf("ELSE ENDIF %d %d %d\n", *ctx->ptr, ctx->current_token, tokenizer_finished(ctx));
+			while (!tokenizer_finished(ctx)) {
+				dprintf("Iterate ELSE ENDIF\n");
+				int t = tokenizer_token(ctx);
+				tokenizer_next(ctx);
+				if (t == END && tokenizer_token(ctx) == IF) {
+					accept(IF, ctx);
+					accept(NEWLINE, ctx);
+					dprintf("Found ENDIF\n");
+					return;
+				}
+			}
+			tokenizer_error_print(ctx, "Block IF without ENDIF");
+		}
 		do {
 			tokenizer_next(ctx);
 		} while (tokenizer_token(ctx) != ELSE && tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT);
@@ -1366,11 +1424,23 @@ void until_statement(struct ubasic_ctx* ctx)
 
 }
 
-
+void endif_statement(struct ubasic_ctx* ctx)
+{
+	if (ctx->if_nest_level == 0) {
+		tokenizer_error_print(ctx, "ENDIF outside of block IF");
+	}
+	accept(IF, ctx);
+	accept(NEWLINE, ctx);
+	ctx->if_nest_level--;
+}
 
 void end_statement(struct ubasic_ctx* ctx)
 {
 	accept(END, ctx);
+	if (tokenizer_token(ctx) == IF) {
+		endif_statement(ctx);
+		return;
+	}
 	ctx->ended = true;
 }
 
@@ -1459,6 +1529,8 @@ void statement(struct ubasic_ctx* ctx)
 			return retproc_statement(ctx);
 		case IF:
 			return if_statement(ctx);
+		case ELSE:
+			return else_statement(ctx);
 		case CURSOR:
 			return gotoxy_statement(ctx);
 		case GOTO:
