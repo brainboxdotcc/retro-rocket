@@ -408,9 +408,12 @@ typedef struct ubasic_str_fn
 	const char* name;
 } ubasic_str_fn;
 
-#define BIP_STRING 0
-#define BIP_INT 1
-#define BIP_DOUBLE 2
+typedef enum parameter_type_t {
+	BIP_STRING,
+	BIP_INT,
+	BIP_DOUBLE,
+	BIP_VARIABLE,
+} parameter_type_t;
 
 /**
  * @brief Begin parsing function parameters
@@ -458,6 +461,8 @@ typedef struct ubasic_str_fn
 				strval = (char*)str_expr(ctx); \
 			} else if (itemtype == BIP_DOUBLE) { \
 				double_expr(ctx, &doubleval); \
+			} else if (itemtype == BIP_VARIABLE) { \
+				strval = (char*)tokenizer_variable_name(ctx); \
 			} else { \
 				intval = expr(ctx); \
 			} \
@@ -542,6 +547,7 @@ char* ubasic_inkey(struct ubasic_ctx* ctx);
 char* ubasic_insocket(struct ubasic_ctx* ctx);
 char* ubasic_upper(struct ubasic_ctx* ctx);
 char* ubasic_lower(struct ubasic_ctx* ctx);
+char* ubasic_tokenize(struct ubasic_ctx* ctx);
 
 /*
  * File I/O functions

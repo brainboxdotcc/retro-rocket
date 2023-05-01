@@ -80,6 +80,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_inkey, "INKEY$" },
 	{ ubasic_upper, "UPPER$" },
 	{ ubasic_lower, "LOWER$" },
+	{ ubasic_tokenize, "TOKENIZE$" },
 	{ NULL, NULL }
 };
 
@@ -812,7 +813,6 @@ void if_statement(struct ubasic_ctx* ctx)
 	if (r) {
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* Multi-statement block IF */
-			dprintf("Block IF (THEN)\n");
 			accept(NEWLINE, ctx);
 			ctx->if_nest_level++;
 			return;
@@ -821,7 +821,6 @@ void if_statement(struct ubasic_ctx* ctx)
 	} else {
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* Multi-statement block IF, looking for ELSE */
-			dprintf("Block IF (ELSE)\n");
 			const char* old_start = ctx->ptr;
 			const char* old_end = ctx->nextptr;
 			while (!tokenizer_finished(ctx)) {
@@ -830,7 +829,6 @@ void if_statement(struct ubasic_ctx* ctx)
 				if (t == ELSE && tokenizer_token(ctx) == NEWLINE) {
 					ctx->if_nest_level++;
 					accept(NEWLINE, ctx);
-					dprintf("Found ELSE\n");
 					return;
 				}
 			}
@@ -838,19 +836,15 @@ void if_statement(struct ubasic_ctx* ctx)
 			ctx->ptr = old_start;
 			ctx->nextptr = old_end;
 			ctx->current_token = 0;
-			dprintf("ELSE ENDIF %d %d %d\n", *ctx->ptr, ctx->current_token, tokenizer_finished(ctx));
 			while (!tokenizer_finished(ctx)) {
-				dprintf("Iterate ELSE ENDIF\n");
 				int t = tokenizer_token(ctx);
 				tokenizer_next(ctx);
 				if (t == END && tokenizer_token(ctx) == IF) {
 					accept(IF, ctx);
 					accept(NEWLINE, ctx);
-					dprintf("Found ENDIF\n");
 					return;
 				}
 			}
-			tokenizer_error_print(ctx, "Block IF without ENDIF");
 		}
 		do {
 			tokenizer_next(ctx);
@@ -2254,6 +2248,40 @@ char* ubasic_lower(struct ubasic_ctx* ctx)
 		*m = tolower(*m);
 	}
 	return modified;
+}
+
+char* ubasic_tokenize(struct ubasic_ctx* ctx)
+{
+	char* varname, *split;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_VARIABLE);
+	varname = strval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	split = strval;
+	PARAMS_END("TOKENIZE$");
+	const char* current_value = ubasic_get_string_variable(varname, ctx);
+	const char* old_value = current_value;
+	size_t len = strlen(current_value);
+	size_t split_len = strlen(split);
+	size_t ofs = 0;
+	while (*current_value) {
+		if (ofs + split_len > len) {
+			break;
+		} else if (!strncmp(current_value, split, split_len)) {
+			char return_value[MAX_STRINGLEN];
+			char new_value[MAX_STRINGLEN];
+			strlcpy(return_value, old_value, ofs + split_len);
+			strlcpy(new_value, old_value + ofs + split_len, MAX_STRINGLEN);
+			ubasic_set_string_variable(varname, new_value, ctx, false, false);
+			return gc_strdup(return_value);
+		}
+		current_value++;
+		ofs++;
+	}
+	char return_value[MAX_STRINGLEN];
+	strlcpy(return_value, old_value, MAX_STRINGLEN);
+	ubasic_set_string_variable(varname, "", ctx, false, false);
+	return gc_strdup(return_value);
 }
 
 
