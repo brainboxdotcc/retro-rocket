@@ -536,6 +536,7 @@ int64_t ubasic_random(struct ubasic_ctx* ctx);
  */
 char* ubasic_netinfo(struct ubasic_ctx* ctx);
 char* ubasic_left(struct ubasic_ctx* ctx);
+char* ubasic_right(struct ubasic_ctx* ctx);
 char* ubasic_mid(struct ubasic_ctx* ctx);
 char* ubasic_chr(struct ubasic_ctx* ctx);
 char* ubasic_readstring(struct ubasic_ctx* ctx);

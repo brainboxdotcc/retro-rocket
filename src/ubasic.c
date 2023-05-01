@@ -70,6 +70,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_netinfo, "NETINFO$" },
 	{ ubasic_dns, "DNS$" },
 	{ ubasic_left, "LEFT$" },
+	{ ubasic_right, "RIGHT$" },
 	{ ubasic_mid, "MID$" },
 	{ ubasic_chr, "CHR$" },
 	{ ubasic_insocket, "INSOCKET$" },
@@ -2318,6 +2319,25 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	char* cut = gc_strdup(strval);
 	*(cut + intval) = 0;
 	return cut;
+}
+
+char* ubasic_right(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("RIGHT$");
+	int64_t len = strlen(strval);
+	if (intval < 0) {
+		intval = 0;
+	}
+	if (len == 0 || intval == 0) {
+		return "";
+	}
+	if (intval > len) {
+		intval = len;
+	}
+	return gc_strdup(strval + len - intval);
 }
 
 char* ubasic_mid(struct ubasic_ctx* ctx)
