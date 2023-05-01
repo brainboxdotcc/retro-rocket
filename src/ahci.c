@@ -303,6 +303,8 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 		dprintf("Read disk error (start %llx count %llx)\n", start, count);
 		return false;
 	}
+
+	add_random_entropy(*buf);
  
 	return true;
 }
@@ -465,6 +467,8 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 		dprintf("Read disk error [atapi] (start %llx count %llx)\n", start, count);
 		return false;
 	}
+
+	add_random_entropy(*buf);
 
 	return true;
 }

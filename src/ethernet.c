@@ -28,6 +28,9 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 
 	uint16_t packet_type = ntohs(packet->type);
 	ethernet_protocol_t handler = protocol_handlers[packet_type];
+	if (data_len >= 8) {
+		add_random_entropy(*(uint64_t*)data);		
+	}
 	if (handler != NULL) {
 		handler(data, data_len);
 		return;

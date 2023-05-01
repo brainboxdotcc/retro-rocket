@@ -46,6 +46,8 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 			memcpy(arp_packet->dst_hardware_addr, dst_hardware_addr, 6);
 			memcpy(arp_packet->dst_protocol_addr, dst_protocol_addr, 4);
 
+			add_random_entropy((uint64_t)(uint64_t*)arp_packet->dst_hardware_addr);
+
 			arp_packet->opcode = htons(ARP_REPLY);
 			arp_packet->hardware_addr_len = 6;
 			arp_packet->protocol_addr_len = 4;

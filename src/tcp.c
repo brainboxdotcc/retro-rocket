@@ -150,6 +150,7 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	sum += (sum >> 16);
 
 	kfree(pseudo);
+	add_random_entropy(sum ^ (uint64_t)pseudo);
 	return ~sum;
 }
 

@@ -17,6 +17,7 @@
 #include "spinlock.h"
 #include "printf.h"
 #include "hashmap.h"
+#include "random.h"
 #include "video.h"
 #include "string.h"
 #include "io.h"

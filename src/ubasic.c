@@ -52,7 +52,8 @@ struct ubasic_int_fn builtin_int[] =
 	{ ubasic_ctrlkey, "CTRLKEY" },
 	{ ubasic_shiftkey, "SHIFTKEY" },
 	{ ubasic_altkey, "ALTKEY" },
-	{ ubasic_capslock, "ALTKEY" },
+	{ ubasic_capslock, "CAPSLOCK" },
+	{ ubasic_random, "RND" },
 	{ NULL, NULL }
 };
 
@@ -2154,6 +2155,19 @@ int64_t ubasic_capslock(struct ubasic_ctx* ctx)
 {
 	return caps_lock_on();
 }
+
+int64_t ubasic_random(struct ubasic_ctx* ctx)
+{
+	int64_t low, high;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	low = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	high = intval;
+	PARAMS_END("RND");
+	return (mt_rand() % (high - low + 1)) + low;
+}
+
 
 char* ubasic_chr(struct ubasic_ctx* ctx)
 {

@@ -49,6 +49,7 @@ time_t time(time_t* t) {
 		*t = epoch;
 	}
 	/* Always return the value regardless */
+	add_random_entropy((uint64_t)epoch);
 	return epoch;
 }
 

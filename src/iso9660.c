@@ -248,7 +248,8 @@ bool iso_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buff
 	}
 	memcpy(buffer, readbuf + (start % fs->block_size), length);
 
-	//kprintf("Freeing ptr %08x\n", readbuf);
+	add_random_entropy(*(uint64_t*)readbuf);
+
 	kfree(readbuf);
 	return true;
 }

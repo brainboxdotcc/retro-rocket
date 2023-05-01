@@ -37,6 +37,8 @@ void init_lapic_timer()
 	uint64_t ticks_per_second = 0xFFFFFFFF - apic_read(APIC_TMRCURRCNT);
 	uint64_t ticks_per_quantum = ticks_per_second / quantum;
 
+	add_random_entropy(ticks_per_second);
+
 	dprintf("ticks_per_second = %d; ticks_per_quantum = %d; quantum = %d\n", ticks_per_second, ticks_per_quantum, quantum);
 
 	apic_write(APIC_TMRINITCNT, ticks_per_quantum);

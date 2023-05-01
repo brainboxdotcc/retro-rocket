@@ -529,6 +529,7 @@ int64_t ubasic_ctrlkey(struct ubasic_ctx* ctx);
 int64_t ubasic_shiftkey(struct ubasic_ctx* ctx);
 int64_t ubasic_altkey(struct ubasic_ctx* ctx);
 int64_t ubasic_capslock(struct ubasic_ctx* ctx);
+int64_t ubasic_random(struct ubasic_ctx* ctx);
 
 /*
  * Builtin string functions

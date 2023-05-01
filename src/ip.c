@@ -318,6 +318,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 	char src_ip[20];
 	*((uint8_t*)(&packet->version_ihl_ptr)) = ntohb(*((uint8_t*)(&packet->version_ihl_ptr)), 4);
 	*((uint8_t*)(packet->flags_fragment_ptr)) = ntohb(*((uint8_t*)(packet->flags_fragment_ptr)), 3);
+	add_random_entropy(packet->header_checksum ^ (*(uint32_t*)packet->src_ip));
 	if (packet->version == IP_IPV4) {
 		get_ip_str(src_ip, packet->src_ip);
 		void * data_ptr = (void*)packet + packet->ihl * 4;

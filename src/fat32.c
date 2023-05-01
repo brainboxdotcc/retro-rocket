@@ -1079,6 +1079,8 @@ int read_fat(fat32_t* info)
 	info->clustersize = par->sectorspercluster;
 	info->clustersize *= sd->block_size;
 
+	add_random_entropy(par->serialnumber);
+
 	read_fs_info(info);
 	kfree(buffer);
 	return 1;

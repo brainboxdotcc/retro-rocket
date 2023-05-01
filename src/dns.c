@@ -159,6 +159,7 @@ void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t 
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
 	dprintf("dns inbound packet of size %d\n", length);
 	if (request) {
+		add_random_entropy(*(uint64_t*)packet);
 		if (request->result_length == 0) {
 			dprintf("No processed result yet\n");
 			char* error = NULL;
