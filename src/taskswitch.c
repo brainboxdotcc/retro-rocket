@@ -161,12 +161,11 @@ const char* proc_set_csd(process_t* proc, const char* csd)
 		return proc->csd;
 	}
 
-	proc->csd = krealloc((void*)proc->csd, len + csdlen + 1);
-	strlcpy((char*)(proc->csd + len), csd, len + csdlen + 1);
-	char* end = (char*)proc->csd + csdlen;
-	if (*end == '/') {
-		*end = 0;
+	proc->csd = krealloc((void*)proc->csd, len + csdlen + 2);
+	if (len > 1) {
+		strlcat((char*)proc->csd, "/", len + csdlen + 2);
 	}
+	strlcat((char*)proc->csd, csd, len + csdlen + 2);
 	dprintf("Process %d CSD set to: '%s'\n", proc->pid, proc->csd);
 	return proc->csd;
 }
