@@ -62,12 +62,12 @@ DEF PROCversion
 RETPROC
 
 DEF PROCbuiltinChdir
-	CHDIR ARGS$
+	EVAL "CHDIR " + CHR$(34) + ARGS$ + CHR$(34)
 	builtin = TRUE
 RETPROC
 
 DEF PROCbuiltinRun
-	CHAIN ARGS$
+	EVAL "CHAIN " + CHR$(34) + ARGS$ + CHR$(34)
 	builtin = TRUE
 RETPROC
 
