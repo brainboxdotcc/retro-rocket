@@ -1,7 +1,11 @@
 DIR$ = ARGS$
+
 IF DIR$ = "dir" THEN DIR$ = ""
 N = GETNAMECOUNT(DIR$)
-FOR X = 0 TO N
+IF N = 0 THEN PROCreport
+IF N = 0 THEN END
+
+FOR X = N - 1 TO 0-1 STEP 0-1
 	FILE$ = GETNAME$(DIR$,X)
 	IF FILETYPE$(FILE$) = "directory" THEN COLOR 9
 	IF FILETYPE$(FILE$) = "file" THEN COLOR 15
@@ -18,7 +22,11 @@ FOR X = 0 TO N
 	COLOR 7
 	PRINT UPPER$(LEFT$(FILETYPE$(FILE$),1))
 NEXT
-IF DIR$ = "" THEN DIR$ = CSD$
-COLOR 7
-PRINT N; " items in " + DIR$
+PROCreport
 END
+
+DEF PROCreport
+	IF DIR$ = "" THEN DIR$ = CSD$
+	COLOR 7
+	PRINT N; " items in " + DIR$
+RETPROC
