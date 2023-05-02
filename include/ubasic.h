@@ -567,6 +567,7 @@ void mount_statement(struct ubasic_ctx* ctx);
 void rmdir_statement(struct ubasic_ctx* ctx);
 void write_statement(struct ubasic_ctx* ctx);
 void chdir_statement(struct ubasic_ctx* ctx);
+char* ubasic_filetype(struct ubasic_ctx* ctx);
 
 /*
  * Builtin real (double) functions

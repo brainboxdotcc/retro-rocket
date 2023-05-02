@@ -84,6 +84,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_lower, "LOWER$" },
 	{ ubasic_tokenize, "TOKENIZE$" },
 	{ ubasic_csd, "CSD$" },
+	{ ubasic_filetype, "FILETYPE$" },
 	{ NULL, NULL }
 };
 

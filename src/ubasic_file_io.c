@@ -162,6 +162,15 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	return "";
 }
 
+char* ubasic_filetype(struct ubasic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	const char* dir = make_full_path(strval);
+	PARAMS_END("FILETYPE$");
+	return fs_is_directory(dir) ? "directory" : "file";
+}
+
 int64_t ubasic_getsize(struct ubasic_ctx* ctx)
 {
 	PARAMS_START;
