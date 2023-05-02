@@ -1301,10 +1301,6 @@ void gosub_statement(struct ubasic_ctx* ctx)
 void return_statement(struct ubasic_ctx* ctx)
 {
 	accept(RETURN, ctx);
-	if (ctx->fn_type != RT_MAIN)  {
-		tokenizer_error_print(ctx, "RETURN inside FN or PROC");
-		return;
-	}
 	if (ctx->call_stack_ptr > 0) {
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;

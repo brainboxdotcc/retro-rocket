@@ -1,38 +1,81 @@
-5 REM *** Retro Rocket BASIC Shell ***
+REM *** Retro Rocket BASIC Shell ***
 
-10 PROMPT$ = "ROCKETSH"
-20 PRINT ""
-30 PRINT "Welcome to ";
-40 COLOR 14
-50 PRINT "Retro Rocket ";
-60 COLOR 7
-70 PRINT "BASIC shell."
-90 PRINT ""
-100 PATH$ = "/programs"
+PROMPT$ = "ROCKETSH"
+PATH$ = "/programs"
+VERSION$ = "2.0"
 
-110 COLOR 14
-120 PRINT PROMPT$;
-130 COLOR 7
-140 PRINT "> ";
-150 INPUT inp$
-160 IF inp$ = "" THEN GOTO 110
+PRINT ""
+PRINT "Welcome to ";
+COLOR 14
+PRINT "Retro Rocket ";
+COLOR 7
+PRINT "BASIC shell."
+PRINT ""
 
-190 spaceidx = INSTR(inp$, " ")
-200 IF spaceidx = 0 THEN GOTO 230
-210 command$ = LEFT$(inp$, spaceidx - 1)
-220 GOTO 240
-230 command$ = inp$
-240 GLOBAL ARGS$ = MID$(inp$, spaceidx, LEN(inp$))
+REPEAT
+	PROCdisplayPrompt
+	INPUT in$
+	IF in$ > "" THEN PROCprocessCommand(in$)
+UNTIL in$ = "END"
+END
 
-250 FH = OPENIN(PATH$ + "/" + command$)
-260 IF FH < 0 THEN GOTO 300
-270 CLOSE FH
-280 CHAIN PATH$ + "/" + command$
-290 GOTO 110
+DEF PROCdisplayPrompt
+	COLOR 14
+	PRINT PROMPT$;
+	COLOR 7
+	PRINT "> ";
+RETPROC
 
-300 GLOBAL ARGS$ = inp$
-310 IF inp$ = "END" THEN GOTO 400
-320 EVAL inp$
-330 GOTO 110
+DEF PROCprocessCommand(inp$)
+	spaceidx = INSTR(inp$, " ")
+	command$ = ""
+	IF spaceidx > 0 THEN command$ = LEFT$(inp$, spaceidx - 1)
+	IF spaceidx < 1 THEN command$ = inp$
+	GLOBAL ARGS$ = MID$(inp$, spaceidx, LEN(inp$))
+	builtin = FALSE
+	PROCbuiltins
+	IF builtin = TRUE THEN RETPROC
+	FH = OPENIN(PATH$ + "/" + command$)
+	IF FH < 0 THEN PROCevalBasic
+	IF FH > 0-1 THEN PROCrunCommand(command$)
+RETPROC
 
-400 END
+DEF PROCbuiltins
+	IF command$ = "chdir" THEN PROCbuiltinChdir
+	IF command$ = "cd" THEN PROCbuiltinChdir
+	IF command$ = "run" THEN PROCbuiltinRun
+	IF command$ = "version" THEN PROCversion
+RETPROC
+
+DEF PROCversion
+	PRINT "┌─────────────────────────────────────────────────────┐"
+	PRINT "│ ";
+	COLOR 14
+	PRINT "rocketsh ";
+	COLOR 7
+	PRINT "Retro Rocket Shell version "; VERSION$; "             │"
+	PRINT "├─────────────────────────────────────────────────────┤"
+	PRINT "│ Licensed under the Apache 2.0 License.              │"
+	PRINT "│ (C) Craig Edwards, Brainbox.cc 2012-2023            │"
+	PRINT "└─────────────────────────────────────────────────────┘"
+	builtin = TRUE
+RETPROC
+
+DEF PROCbuiltinChdir
+	CHDIR ARGS$
+	builtin = TRUE
+RETPROC
+
+DEF PROCbuiltinRun
+	CHAIN ARGS$
+	builtin = TRUE
+RETPROC
+
+DEF PROCevalBasic
+	EVAL inp$
+RETPROC
+
+DEF PROCrunCommand(cmd$)
+	CLOSE FH
+	CHAIN PATH$ + "/" + cmd$
+RETPROC
