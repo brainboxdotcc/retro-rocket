@@ -1,5 +1,30 @@
 #include <kernel.h>
 
+const char* make_full_path(const char* relative)
+{
+	if (*relative == '/') {
+		dprintf("make_full_path %s -> %s\n", relative, relative);
+		return relative;
+	}
+
+	const char* csd = proc_cur()->csd;
+	char qualified_path[MAX_STRINGLEN];
+
+	if (*relative == 0) {
+		dprintf("make_full_path %s -> %s\n", relative, csd);
+		return csd;
+	}
+
+	if (*csd == '/' && *(csd+1) == 0) {
+		snprintf(qualified_path, MAX_STRINGLEN, "%s%s", csd, relative);
+		dprintf("make_full_path %s -> %s\n", relative, qualified_path);
+		return gc_strdup(qualified_path);
+	}
+	snprintf(qualified_path, MAX_STRINGLEN, "%s/%s", csd, relative);
+	dprintf("make_full_path %s -> %s\n", relative, qualified_path);
+	return gc_strdup(qualified_path);
+}
+
 char* ubasic_readstring(struct ubasic_ctx* ctx)
 {
 	char* res = kmalloc(MAX_STRINGLEN);
@@ -71,11 +96,12 @@ int64_t ubasic_open_func(struct ubasic_ctx* ctx, int oflag)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("OPEN");
-	if (fs_is_directory(strval)) {
+	const char* file = make_full_path(strval);
+	if (fs_is_directory(file)) {
 		tokenizer_error_print(ctx, "Not a file");
 		return 0;
 	}
-	int fd = _open(strval, oflag);
+	int fd = _open(file, oflag);
 	dprintf("ubasic_open_func: %s returned: %d\n", strval, fd);
 	return fd;
 }
@@ -100,11 +126,12 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("GETNAMECOUNT");
-	if (!fs_is_directory(strval)) {
+	const char* dir = make_full_path(strval);
+	if (!fs_is_directory(dir)) {
 		tokenizer_error_print(ctx, "Not a directory");
 		return 0;
 	}
-	fs_directory_entry_t* fsl = fs_get_items(strval);
+	fs_directory_entry_t* fsl = fs_get_items(dir);
 	int count = 0;
 	while (fsl) {
 		fsl = fsl->next;
@@ -119,11 +146,12 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("GETNAME$");
-	if (!fs_is_directory(strval)) {
+	const char* dir = make_full_path(strval);
+	if (!fs_is_directory(dir)) {
 		tokenizer_error_print(ctx, "Not a directory");
 		return 0;
 	}
-	fs_directory_entry_t* fsl = fs_get_items(strval);
+	fs_directory_entry_t* fsl = fs_get_items(dir);
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
@@ -140,7 +168,8 @@ int64_t ubasic_getsize(struct ubasic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("GETSIZE");
-	fs_directory_entry_t* fsl = fs_get_items(strval);
+	const char* dir = make_full_path(strval);
+	fs_directory_entry_t* fsl = fs_get_items(dir);
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
@@ -164,7 +193,8 @@ void mkdir_statement(struct ubasic_ctx* ctx)
 	accept(MKDIR, ctx);
 	const char* name = str_expr(ctx);
 	accept(NEWLINE, ctx);
-	if (!fs_create_directory(name)) {
+	const char* dir = make_full_path(name);
+	if (!fs_create_directory(dir)) {
 		tokenizer_error_print(ctx, "Unable to create directory");
 	}
 }
@@ -172,7 +202,7 @@ void mkdir_statement(struct ubasic_ctx* ctx)
 void mount_statement(struct ubasic_ctx* ctx)
 {
 	accept(MOUNT, ctx);
-	const char* path = str_expr(ctx);
+	const char* path = make_full_path(str_expr(ctx));
 	accept(COMMA, ctx);
 	const char* device = str_expr(ctx);
 	accept(COMMA, ctx);
@@ -184,7 +214,7 @@ void mount_statement(struct ubasic_ctx* ctx)
 void rmdir_statement(struct ubasic_ctx* ctx)
 {
 	accept(RMDIR, ctx);
-	const char* name = str_expr(ctx);
+	const char* name = make_full_path(str_expr(ctx));
 	accept(NEWLINE, ctx);
 	if (!fs_delete_directory(name)) {
 		tokenizer_error_print(ctx, "Unable to delete directory");
@@ -195,7 +225,7 @@ void rmdir_statement(struct ubasic_ctx* ctx)
 void delete_statement(struct ubasic_ctx* ctx)
 {
 	accept(DELETE, ctx);
-	const char* name = str_expr(ctx);
+	const char* name = make_full_path(str_expr(ctx));
 	accept(NEWLINE, ctx);
 	if (!fs_delete_file(name)) {
 		tokenizer_error_print(ctx, "Unable to delete file");
