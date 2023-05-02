@@ -21,21 +21,22 @@ typedef uint32_t gid_t;		// Group ID
 typedef uint8_t cpu_id_t;	// CPU ID
 
 typedef struct process_t {
-	pid_t		pid;		/* Process ID */
-	pid_t		ppid;		/* Parent Process ID */
-	uid_t		uid;		/* User id - Future use */
-	gid_t		gid;		/* Group id - Future use */
-	process_state_t	state;		/* Running state */
-	time_t		start_time;	/* Start time (UNIX epoch)*/
-	pid_t		waitpid;	/* PID we are waiting on compltion of */
-	cpu_id_t	cpu;		/* CPU ID */
-	const char*	directory;	/* Directory of program */
-	const char*	name;		/* Filename of program */
-	uint64_t	size;		/* Size of program in bytes */
-	struct console*		cons;	/* Program's console */
-	struct ubasic_ctx*	code;	/* BASIC context */
-	struct process_t*	prev;	/* Prev process in doubly linked list */
-	struct process_t*	next;	/* Next process in doubly linked list */
+	pid_t			pid;		/* Process ID */
+	pid_t			ppid;		/* Parent Process ID */
+	uid_t			uid;		/* User id - Future use */
+	gid_t			gid;		/* Group id - Future use */
+	process_state_t		state;		/* Running state */
+	time_t			start_time;	/* Start time (UNIX epoch)*/
+	pid_t			waitpid;	/* PID we are waiting on compltion of */
+	cpu_id_t		cpu;		/* CPU ID */
+	const char*		directory;	/* Directory of program */
+	const char*		name;		/* Filename of program */
+	uint64_t		size;		/* Size of program in bytes */
+	const char*		csd;		/* Current selected directory */
+	struct console*		cons;		/* Program's console */
+	struct ubasic_ctx*	code;		/* BASIC context */
+	struct process_t*	prev;		/* Prev process in doubly linked list */
+	struct process_t*	next;		/* Next process in doubly linked list */
 } process_t;
 
 /**
@@ -73,9 +74,10 @@ typedef struct idle_timer {
  * @param fullpath fully qualified path to file
  * @param cons console
  * @param parent_pid parent PID, or 0
+ * @param csd Currently selected directory
  * @return process_t* new process details
  */
-process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid);
+process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd);
 
 /**
  * @brief Find a process by ID
@@ -170,6 +172,17 @@ pid_t proc_id(int64_t index);
  * @param type type of idle to register
  */
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type);
+
+/**
+ * @brief Change CSD (currently selected directory) of process
+ * 
+ * @note No validation of the path is peformed, this must be done
+ * extnerally to this function by validating the file information on VFS.
+ * @param proc Process struct
+ * @param csd current directory
+ * @return const char* new current directory
+ */
+const char* proc_set_csd(process_t* proc, const char* csd);
 
 void init_process();
 

@@ -83,6 +83,7 @@ struct ubasic_str_fn builtin_str[] =
 	{ ubasic_upper, "UPPER$" },
 	{ ubasic_lower, "LOWER$" },
 	{ ubasic_tokenize, "TOKENIZE$" },
+	{ ubasic_csd, "CSD$" },
 	{ NULL, NULL }
 };
 
@@ -865,7 +866,7 @@ void chain_statement(struct ubasic_ctx* ctx)
 {
 	accept(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
-	process_t* p = proc_load(pn, ctx->cons, proc_cur()->pid);
+	process_t* p = proc_load(pn, ctx->cons, proc_cur()->pid, proc_cur()->csd);
 	if (p == NULL) {
 		accept(NEWLINE, ctx);
 		return;
@@ -1585,6 +1586,8 @@ void statement(struct ubasic_ctx* ctx)
 			return push_statement(ctx);
 		case POP:
 			return pop_statement(ctx);
+		case CHDIR:
+			return chdir_statement(ctx);
 		case CIRCLE:
 			return circle_statement(ctx);
 		case LET:
@@ -1603,6 +1606,29 @@ void statement(struct ubasic_ctx* ctx)
 		default:
 			return tokenizer_error_print(ctx, "Unknown keyword");
 	}
+}
+
+void chdir_statement(struct ubasic_ctx* ctx)
+{
+	accept(CHDIR, ctx);
+	const char* csd = str_expr(ctx);
+	accept(NEWLINE, ctx);
+	const char* old = strdup(proc_cur()->csd);
+	const char* new = proc_set_csd(proc_cur(), csd);
+	if (new && fs_is_directory(new)) {
+		kfree(old);
+		return;
+	}
+
+	if (!new) {
+		tokenizer_error_print(ctx, "Invalid directory");
+	}
+	if (!fs_is_directory(new)) {
+		tokenizer_error_print(ctx, "Not a directory");
+	}
+
+	proc_set_csd(proc_cur(), old);
+	kfree(old);
 }
 
 void line_statement(struct ubasic_ctx* ctx)
@@ -2263,6 +2289,11 @@ char* ubasic_lower(struct ubasic_ctx* ctx)
 		*m = tolower(*m);
 	}
 	return modified;
+}
+
+char* ubasic_csd(struct ubasic_ctx* ctx)
+{
+	return gc_strdup(proc_cur()->csd);
 }
 
 char* ubasic_tokenize(struct ubasic_ctx* ctx)

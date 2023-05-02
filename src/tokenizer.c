@@ -31,6 +31,7 @@ const int keywords[] = {
 	BACKGROUND,
 	CALL,
 	CHAIN,
+	CHDIR,
 	CIRCLE,
 	CLOSE,
 	CLS,

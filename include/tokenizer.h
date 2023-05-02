@@ -121,6 +121,7 @@
 	T(PUSH) \
 	T(POP) \
 	T(LOCAL) \
+	T(CHDIR) \
 	T(MOUNT)
 
 /*

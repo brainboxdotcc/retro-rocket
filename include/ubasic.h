@@ -550,6 +550,7 @@ char* ubasic_insocket(struct ubasic_ctx* ctx);
 char* ubasic_upper(struct ubasic_ctx* ctx);
 char* ubasic_lower(struct ubasic_ctx* ctx);
 char* ubasic_tokenize(struct ubasic_ctx* ctx);
+char* ubasic_csd(struct ubasic_ctx* ctx);
 
 /*
  * File I/O functions
@@ -565,6 +566,7 @@ void mkdir_statement(struct ubasic_ctx* ctx);
 void mount_statement(struct ubasic_ctx* ctx);
 void rmdir_statement(struct ubasic_ctx* ctx);
 void write_statement(struct ubasic_ctx* ctx);
+void chdir_statement(struct ubasic_ctx* ctx);
 
 /*
  * Builtin real (double) functions

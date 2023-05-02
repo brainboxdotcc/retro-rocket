@@ -41,7 +41,7 @@ uint32_t process_count = 0;
  */
 idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 
-process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid)
+process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
 	if (fsi != NULL && !(fsi->flags & FS_DIRECTORY)) {
@@ -61,6 +61,7 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 			newproc->name = strdup(fsi->filename);
 			newproc->pid = nextid++;
 			newproc->directory = strdup(fullpath);
+			newproc->csd = strdup(csd);
 			newproc->size = fsi->size;
 			newproc->start_time = time(NULL);
 			newproc->state = PROC_RUNNING;
@@ -145,6 +146,39 @@ void proc_wait(process_t* proc, pid_t otherpid)
 	proc->waitpid = otherpid;
 }
 
+const char* proc_set_csd(process_t* proc, const char* csd)
+{
+	if (!csd || !*csd || !proc) {
+		return NULL;
+	}
+
+	size_t len = strlen(proc->csd), csdlen = strlen(csd);
+
+	if (*csd == '/') {
+		kfree(proc->csd);
+		proc->csd = strdup(csd);
+		dprintf("Process %d CSD set to: '%s'\n", proc->pid, proc->csd);
+		return proc->csd;
+	}
+
+	proc->csd = krealloc((void*)proc->csd, len + csdlen + 1);
+	strlcpy((char*)(proc->csd + len), csd, len + csdlen + 1);
+	char* end = (char*)proc->csd + csdlen;
+	if (*end == '/') {
+		*end = 0;
+	}
+	dprintf("Process %d CSD set to: '%s'\n", proc->pid, proc->csd);
+	return proc->csd;
+}
+
+const char* proc_get_csd(process_t* proc)
+{
+	if (!proc) {
+		return "";
+	}
+	return proc->csd;
+}
+
 void proc_kill(process_t* proc)
 {
 	for (process_t* cur = proc_list; cur; cur = cur->next) {
@@ -174,6 +208,7 @@ void proc_kill(process_t* proc)
 	ubasic_destroy(proc->code);
 	kfree(proc->name);
 	kfree(proc->directory);
+	kfree(proc->csd);
 	hashmap_delete(process_by_pid, &(proc_id_t){ .id = proc->pid });
 	kfree(proc);
 	process_count--;
@@ -239,7 +274,7 @@ int process_compare(const void *a, const void *b, void *udata) {
 void init_process()
 {
 	process_by_pid = hashmap_new(sizeof(proc_id_t), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
-	process_t* init = proc_load("/programs/init", (struct console*)current_console, 0);
+	process_t* init = proc_load("/programs/init", (struct console*)current_console, 0, "/");
 	if (!init) {
 		preboot_fail("/programs/init missing or invalid!\n");
 	}
