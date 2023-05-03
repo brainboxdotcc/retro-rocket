@@ -6,7 +6,7 @@ Imagine an alterate present time, where the [BBC Micro](https://en.wikipedia.org
 
 This is an alternative operating system inspired by [Acorn MOS 3.20](https://en.wikipedia.org/wiki/Acorn_MOS), but modernised for current hardware as a thought experiment and a bit of a toy to have fun with.
 
-Its userland is completely written in a dialect of BASIC based heavily on BBC BASIC, with full access to hardware (just like the old days), multi-tasking, modern filesystem support (in progress!), and more as well as planned backwards compatibility with Acorn features such as ADFS via disk images.
+Its userland is completely written in a dialect of BASIC based heavily on BBC BASIC, with full access to hardware (just like the old days), multi-tasking, modern filesystem support, internet utilities and more as well as planned backwards compatibility with Acorn features such as ADFS via disk images.
 
 ## 🌟 Features
 
