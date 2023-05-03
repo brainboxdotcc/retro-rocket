@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structub__var__generic__array" kind="struct" language="C++" prot="public">
+    <compoundname>ub_var_generic_array</compoundname>
+    <includes local="no">ubasic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structub__var__generic__array_1af21e1d4abdb6f71f64710b97dd7449b2" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ub_var_generic_array::itemcount</definition>
+        <argsstring></argsstring>
+        <name>itemcount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="160" column="10" bodyfile="include/ubasic.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__var__generic__array_1a3facefcc76b7d5683d635404b0f914a5" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ub_var_generic_array::varname</definition>
+        <argsstring></argsstring>
+        <name>varname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="161" column="12" bodyfile="include/ubasic.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__var__generic__array_1ac74a5a05b7300ef7b4149024019b5bf8" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* ub_var_generic_array::values_inaccesible</definition>
+        <argsstring></argsstring>
+        <name>values_inaccesible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="162" column="6" bodyfile="include/ubasic.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structub__var__generic__array_1a7c907ab5774af24b24c04528fa84a44e" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structub__var__generic__array" kindref="compound">ub_var_generic_array</ref> *</type>
+        <definition>struct ub_var_generic_array* ub_var_generic_array::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="163" column="28" bodyfile="include/ubasic.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A generic array, we can use this to represent any array regardless of its contained type. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>void *</label>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="1">
+        <label>ub_var_generic_array</label>
+        <link refid="structub__var__generic__array"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>itemcount</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>values_inaccesible</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/ubasic.h" line="159" column="1" bodyfile="include/ubasic.h" bodystart="159" bodyend="164"/>
+    <listofallmembers>
+      <member refid="structub__var__generic__array_1af21e1d4abdb6f71f64710b97dd7449b2" prot="public" virt="non-virtual"><scope>ub_var_generic_array</scope><name>itemcount</name></member>
+      <member refid="structub__var__generic__array_1a7c907ab5774af24b24c04528fa84a44e" prot="public" virt="non-virtual"><scope>ub_var_generic_array</scope><name>next</name></member>
+      <member refid="structub__var__generic__array_1ac74a5a05b7300ef7b4149024019b5bf8" prot="public" virt="non-virtual"><scope>ub_var_generic_array</scope><name>values_inaccesible</name></member>
+      <member refid="structub__var__generic__array_1a3facefcc76b7d5683d635404b0f914a5" prot="public" virt="non-virtual"><scope>ub_var_generic_array</scope><name>varname</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

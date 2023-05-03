@@ -4,6 +4,19 @@
     <compoundname>ub_var_double_array</compoundname>
     <includes local="no">ubasic.h</includes>
       <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structub__var__double__array_1a9ef5668e2f56818ff1211ac769c5a0a4" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ub_var_double_array::itemcount</definition>
+        <argsstring></argsstring>
+        <name>itemcount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="148" column="10" bodyfile="include/ubasic.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="structub__var__double__array_1a8c74f4b0aa92cf0726b48f842289ced7" prot="public" static="no" mutable="no">
         <type>const char *</type>
         <definition>const char* ub_var_double_array::varname</definition>
@@ -15,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="148" column="12" bodyfile="include/ubasic.h" bodystart="148" bodyend="-1"/>
+        <location file="include/ubasic.h" line="149" column="12" bodyfile="include/ubasic.h" bodystart="149" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__double__array_1aa386858157be0164e16d521499bd7055" prot="public" static="no" mutable="no">
         <type>double *</type>
@@ -28,20 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="149" column="8" bodyfile="include/ubasic.h" bodystart="149" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structub__var__double__array_1a9ef5668e2f56818ff1211ac769c5a0a4" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t ub_var_double_array::itemcount</definition>
-        <argsstring></argsstring>
-        <name>itemcount</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="150" column="10" bodyfile="include/ubasic.h" bodystart="150" bodyend="-1"/>
+        <location file="include/ubasic.h" line="150" column="8" bodyfile="include/ubasic.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__double__array_1ad2ab4ade81a9de6a2b75cd4419e23bc4" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double__array" kindref="compound">ub_var_double_array</ref> *</type>
@@ -70,19 +70,19 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="2" relation="usage">
-          <edgelabel>itemcount</edgelabel>
+          <edgelabel>values</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>values</edgelabel>
+          <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
       </node>
-      <node id="2">
+      <node id="3">
         <label>uint64_t</label>
       </node>
-      <node id="3">
+      <node id="2">
         <label>double</label>
       </node>
       <node id="4">

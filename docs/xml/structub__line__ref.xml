@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="166" column="10" bodyfile="include/ubasic.h" bodystart="166" bodyend="-1"/>
+        <location file="include/ubasic.h" line="172" column="10" bodyfile="include/ubasic.h" bodystart="172" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -28,14 +28,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="167" column="12" bodyfile="include/ubasic.h" bodystart="167" bodyend="-1"/>
+        <location file="include/ubasic.h" line="173" column="12" bodyfile="include/ubasic.h" bodystart="173" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Line reference in program. Each program has a doubly linked list of these, stored in ascending order. Once we iterate the list past the search number we know we don&apos;t have to search any further. </para>
+<para>Line reference in program. Each program has a hashmap of these so it can find a line number in O(1) time. </para>
     </briefdescription>
     <detaileddescription>
-<para>TODO: If search number is &lt; current line number, search backwards instead and stop when previous number is before search. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -55,7 +54,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="165" column="1" bodyfile="include/ubasic.h" bodystart="165" bodyend="168"/>
+    <location file="include/ubasic.h" line="171" column="1" bodyfile="include/ubasic.h" bodystart="171" bodyend="174"/>
     <listofallmembers>
       <member refid="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>line_number</name></member>
       <member refid="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>ptr</name></member>

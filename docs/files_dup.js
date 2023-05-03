@@ -42,6 +42,7 @@ var files_dup =
     [ "pci.h", "pci_8h.html", "pci_8h" ],
     [ "printf.h", "printf_8h.html", "printf_8h" ],
     [ "ramdisk.h", "ramdisk_8h.html", "ramdisk_8h" ],
+    [ "random.h", "random_8h.html", "random_8h" ],
     [ "rtl8139.h", "rtl8139_8h.html", "rtl8139_8h" ],
     [ "spinlock.h", "spinlock_8h.html", "spinlock_8h" ],
     [ "string.h", "string_8h.html", "string_8h" ],

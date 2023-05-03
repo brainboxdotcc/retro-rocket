@@ -34,13 +34,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="32">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="30">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -64,13 +64,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="29">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="31">
         <label>tokenizer.h</label>
         <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
@@ -183,6 +183,8 @@
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
       </node>
       <node id="22">
         <label>memcpy.h</label>
@@ -193,6 +195,12 @@
       <node id="24">
         <label>partition.h</label>
         <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>random.h</label>
+        <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -306,7 +314,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="54" column="1" bodyfile="include/taskswitch.h" bodystart="54" bodyend="57"/>
+        <location file="include/taskswitch.h" line="55" column="1" bodyfile="include/taskswitch.h" bodystart="55" bodyend="58"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -373,14 +381,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="60" column="9" bodyfile="include/taskswitch.h" bodystart="60" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="61" column="9" bodyfile="include/taskswitch.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="taskswitch_8h_1a1fd5c9b930b5a5573f366249df958e96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="taskswitch_8h_1aa489f46acde8e80831f0432a1da6e695" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
         <definition>process_t* proc_load</definition>
-        <argsstring>(const char *fullpath, struct console *cons, pid_t parent_pid)</argsstring>
+        <argsstring>(const char *fullpath, struct console *cons, pid_t parent_pid, const char *csd)</argsstring>
         <name>proc_load</name>
         <param>
           <type>const char *</type>
@@ -393,6 +401,10 @@
         <param>
           <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
           <declname>parent_pid</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>csd</declname>
         </param>
         <briefdescription>
 <para>Load a new BASIC process. </para>
@@ -422,6 +434,14 @@
 <para>parent PID, or 0 </para>
 </parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>csd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Currently selected directory </para>
+</parameterdescription>
+</parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>process_t* new process details </para>
 </simplesect>
@@ -429,7 +449,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="78" column="11" declfile="include/taskswitch.h" declline="78" declcolumn="11"/>
+        <location file="include/taskswitch.h" line="80" column="11" declfile="include/taskswitch.h" declline="80" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1ab5a40192ac7fb47cf38c7e803ccd0efb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -459,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="86" column="11" declfile="include/taskswitch.h" declline="86" declcolumn="11"/>
+        <location file="include/taskswitch.h" line="88" column="11" declfile="include/taskswitch.h" declline="88" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a6d871c77c8a1a04420b1b09715d0b177" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -476,7 +496,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="93" column="11" declfile="include/taskswitch.h" declline="93" declcolumn="11"/>
+        <location file="include/taskswitch.h" line="95" column="11" declfile="include/taskswitch.h" declline="95" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a8b2b24e480bc2b9188e720c028795cee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -516,7 +536,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="101" column="6" declfile="include/taskswitch.h" declline="101" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="103" column="6" declfile="include/taskswitch.h" declline="103" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1abb94173794194e3382dc5482b7e0aa62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -544,7 +564,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="108" column="6" declfile="include/taskswitch.h" declline="108" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="110" column="6" declfile="include/taskswitch.h" declline="110" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a7844baa5edadb538de03bc3494e947cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -574,7 +594,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="116" column="5" declfile="include/taskswitch.h" declline="116" declcolumn="5"/>
+        <location file="include/taskswitch.h" line="118" column="5" declfile="include/taskswitch.h" declline="118" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a8951b9dab6452cf831a751d0cda64a5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -602,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="123" column="6" declfile="include/taskswitch.h" declline="123" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="125" column="6" declfile="include/taskswitch.h" declline="125" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a7b25ff76590322d996a0cb108665cedc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -634,7 +654,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="132" column="6" declfile="include/taskswitch.h" declline="132" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="134" column="6" declfile="include/taskswitch.h" declline="134" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1aae5fc9e36c6eef167c4207ed63cf17be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -648,7 +668,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="137" column="6" declfile="include/taskswitch.h" declline="137" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="139" column="6" declfile="include/taskswitch.h" declline="139" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1af57a1ba1649626d231502d6c23bbac49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -665,7 +685,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="143" column="6" declfile="include/taskswitch.h" declline="143" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="145" column="6" declfile="include/taskswitch.h" declline="145" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a1ec64ff3e1bbf088a6611d7304cf72e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -682,7 +702,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="149" column="6" declfile="include/taskswitch.h" declline="149" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="151" column="6" declfile="include/taskswitch.h" declline="151" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a01a99ff8bacb9f2f0509b21f45fc7217" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -699,7 +719,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="156" column="9" declfile="include/taskswitch.h" declline="156" declcolumn="9"/>
+        <location file="include/taskswitch.h" line="158" column="9" declfile="include/taskswitch.h" declline="158" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1a98ea5946e6a5a7a69b87f081ddf0b1e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
@@ -729,7 +749,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="164" column="7" declfile="include/taskswitch.h" declline="164" declcolumn="7"/>
+        <location file="include/taskswitch.h" line="166" column="7" declfile="include/taskswitch.h" declline="166" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1ad2dd4ffab2aaabd37998ec3b3216af48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -769,7 +789,51 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="172" column="6" declfile="include/taskswitch.h" declline="172" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="174" column="6" declfile="include/taskswitch.h" declline="174" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8h_1aa0340f929d97ebceb2e0d7eaa9d4d3ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* proc_set_csd</definition>
+        <argsstring>(process_t *proc, const char *csd)</argsstring>
+        <name>proc_set_csd</name>
+        <param>
+          <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
+          <declname>proc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>csd</declname>
+        </param>
+        <briefdescription>
+<para>Change CSD (currently selected directory) of process. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>No validation of the path is peformed, this must be done extnerally to this function by validating the file information on VFS. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>proc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Process struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>csd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current directory </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>const char* new current directory </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="185" column="12" declfile="include/taskswitch.h" declline="185" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8h_1ab25d44702b6e10e723714c368c4a7520" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -782,7 +846,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="174" column="6" declfile="include/taskswitch.h" declline="174" declcolumn="6"/>
+        <location file="include/taskswitch.h" line="187" column="6" declfile="include/taskswitch.h" declline="187" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

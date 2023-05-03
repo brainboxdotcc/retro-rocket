@@ -53,13 +53,14 @@ var NAVTREEINDEX =
 "ata_8h.html#abc751c8edfc3a3daf8243d8837f89bc1",
 "e1000_8h.html#a26c23b3d9a1153ee72427cee068edfea",
 "functions_vars_g.html",
-"io_8h.html#a69a113b29ec341dbc385f2538c0f02b8",
-"pci_8h.html#aa577c828b808ce3e44cd62cf8f8c33b5",
-"struct____attribute____.html#ad10652ce4ec7894bdc3afa7dabd23942",
-"structdns__header.html#a7b840ee6675cd6935d77f2c89a6f263e",
-"structip__packet__frag__t.html#a1d0a672fd1eebf10b8bef4c0e6005404",
-"structub__var__double__array.html#ad2ab4ade81a9de6a2b75cd4419e23bc4",
-"tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeac1134699adacb9ef38af73c816283ec8"
+"io_8h.html#a6ff9c725b92b32dfde9096d5bdb4899d",
+"pci_8h.html#aaa58db8af2d00af66c78624104e1016b",
+"struct____attribute____.html#aa6446a04be8762884bc3b7ffd9c5e2ef",
+"structdirectory__entry__t.html#a76ba803cd18a35c52c75f3e3ab5f56e3",
+"structip__packet.html#aa49cf2e0ecdc2a7380178155c180c2d6",
+"structub__proc__fn__def.html#a8fd77b8a20b660a5167e10095833853c",
+"tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea87fe59ef12c3d13dc2a4d14c9b16c1f9",
+"uniontos__flags.html#a4f1a0ed8906119a7c45d40bb7076ca64"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

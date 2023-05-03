@@ -3,6 +3,7 @@ var structprocess__t =
     [ "code", "structprocess__t.html#a7bfeb57f190257400c7203666d10128e", null ],
     [ "cons", "structprocess__t.html#a80a803afc53644e36db504d3dc22b3f4", null ],
     [ "cpu", "structprocess__t.html#a9efd67622874d1d026fb44b259569ac9", null ],
+    [ "csd", "structprocess__t.html#a9b3ddad1d78a30249998440a837922b3", null ],
     [ "directory", "structprocess__t.html#a03df500e6a022a5c1f061c8af547476e", null ],
     [ "gid", "structprocess__t.html#a07aef83877679df4398fa641ff557519", null ],
     [ "name", "structprocess__t.html#a39b862a83f8dc13357cfd8cdc8f64a9d", null ],

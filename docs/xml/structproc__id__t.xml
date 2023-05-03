@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="47" column="10" bodyfile="include/taskswitch.h" bodystart="47" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="48" column="10" bodyfile="include/taskswitch.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structproc__id__t_1a2b22d4924038769edca74fb8e8bb53e3" prot="public" static="no" mutable="no">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="48" column="11" bodyfile="include/taskswitch.h" bodystart="48" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="49" column="11" bodyfile="include/taskswitch.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -67,9 +67,12 @@
           <edgelabel>local_int_variables</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
+          <edgelabel>call_stack</edgelabel>
+          <edgelabel>call_stack_ptr</edgelabel>
           <edgelabel>for_stack_ptr</edgelabel>
-          <edgelabel>gosub_stack</edgelabel>
-          <edgelabel>gosub_stack_ptr</edgelabel>
+          <edgelabel>if_nest_level</edgelabel>
+          <edgelabel>repeat_stack</edgelabel>
+          <edgelabel>repeat_stack_ptr</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>item_begin</edgelabel>
@@ -88,6 +91,9 @@
         <childnode refid="17" relation="usage">
           <edgelabel>graphics_colour</edgelabel>
         </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>oldlen</edgelabel>
+        </childnode>
         <childnode refid="18" relation="usage">
           <edgelabel>double_variables</edgelabel>
           <edgelabel>local_double_variables</edgelabel>
@@ -98,7 +104,6 @@
         <childnode refid="20" relation="usage">
           <edgelabel>bracket_depth</edgelabel>
           <edgelabel>current_token</edgelabel>
-          <edgelabel>oldlen</edgelabel>
         </childnode>
         <childnode refid="21" relation="usage">
           <edgelabel>int_array_variables</edgelabel>
@@ -133,11 +138,11 @@
         <childnode refid="7" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>itemcount</edgelabel>
-        </childnode>
         <childnode refid="8" relation="usage">
           <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>varname</edgelabel>
@@ -183,6 +188,7 @@
           <edgelabel>code</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
+          <edgelabel>csd</edgelabel>
           <edgelabel>directory</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
@@ -353,7 +359,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/taskswitch.h" line="46" column="1" bodyfile="include/taskswitch.h" bodystart="46" bodyend="49"/>
+    <location file="include/taskswitch.h" line="47" column="1" bodyfile="include/taskswitch.h" bodystart="47" bodyend="50"/>
     <listofallmembers>
       <member refid="structproc__id__t_1a51c087f8996f4682539f603ba00a58e7" prot="public" virt="non-virtual"><scope>proc_id_t</scope><name>id</name></member>
       <member refid="structproc__id__t_1a2b22d4924038769edca74fb8e8bb53e3" prot="public" virt="non-virtual"><scope>proc_id_t</scope><name>proc</name></member>

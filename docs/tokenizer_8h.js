@@ -82,6 +82,10 @@ var tokenizer_8h =
       [ "UNTIL", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa4f38f5001aff1b45ecf511715d587d4", null ],
       [ "DIM", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6c8e5f290be4be86fd5e7048654b4a50", null ],
       [ "REDIM", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea1afe969dfc59ae506f1b734e08bf6e96", null ],
+      [ "PUSH", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead263caec619c4d99e4684ba0fabd9493", null ],
+      [ "POP", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea061dcf4785583d8653942f2d252174fa", null ],
+      [ "LOCAL", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead0ef00e708ed18ba004480dceb79ecfb", null ],
+      [ "CHDIR", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea2b6ce73e76e23d54b62e59fba07b6616", null ],
       [ "MOUNT", "tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeabe8c81f9db8320b327f4fe513a1a873b", null ]
     ] ],
     [ "get_next_token", "tokenizer_8h.html#abadcb4f19d80e60be45f20bbad01e779", null ],

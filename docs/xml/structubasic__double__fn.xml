@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="267" column="19" bodyfile="include/ubasic.h" bodystart="267" bodyend="-1"/>
+        <location file="include/ubasic.h" line="398" column="19" bodyfile="include/ubasic.h" bodystart="398" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__double__fn_1ac0f70823fd1a5d049e7fad012fe8a955" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="268" column="12" bodyfile="include/ubasic.h" bodystart="268" bodyend="-1"/>
+        <location file="include/ubasic.h" line="399" column="12" bodyfile="include/ubasic.h" bodystart="399" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -66,10 +66,13 @@
           <edgelabel>int_variables</edgelabel>
           <edgelabel>local_int_variables</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
+          <edgelabel>call_stack</edgelabel>
+          <edgelabel>call_stack_ptr</edgelabel>
           <edgelabel>for_stack_ptr</edgelabel>
-          <edgelabel>gosub_stack</edgelabel>
-          <edgelabel>gosub_stack_ptr</edgelabel>
+          <edgelabel>if_nest_level</edgelabel>
+          <edgelabel>repeat_stack</edgelabel>
+          <edgelabel>repeat_stack_ptr</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
           <edgelabel>item_begin</edgelabel>
@@ -88,6 +91,9 @@
         <childnode refid="15" relation="usage">
           <edgelabel>graphics_colour</edgelabel>
         </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>oldlen</edgelabel>
+        </childnode>
         <childnode refid="16" relation="usage">
           <edgelabel>double_variables</edgelabel>
           <edgelabel>local_double_variables</edgelabel>
@@ -98,7 +104,6 @@
         <childnode refid="18" relation="usage">
           <edgelabel>bracket_depth</edgelabel>
           <edgelabel>current_token</edgelabel>
-          <edgelabel>oldlen</edgelabel>
         </childnode>
         <childnode refid="19" relation="usage">
           <edgelabel>int_array_variables</edgelabel>
@@ -134,10 +139,10 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>itemcount</edgelabel>
+          <edgelabel>values</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
-          <edgelabel>values</edgelabel>
+          <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
           <edgelabel>varname</edgelabel>
@@ -149,13 +154,13 @@
       <node id="17">
         <label>struct hashmap *</label>
       </node>
-      <node id="5">
+      <node id="6">
         <label>uint64_t</label>
       </node>
       <node id="16">
         <label>ub_var_double</label>
         <link refid="structub__var__double"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>value</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
@@ -187,7 +192,7 @@
         <childnode refid="8" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
@@ -214,7 +219,7 @@
       <node id="19">
         <label>ub_var_int_array</label>
         <link refid="structub__var__int__array"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
@@ -230,7 +235,7 @@
       <node id="18">
         <label>int</label>
       </node>
-      <node id="6">
+      <node id="5">
         <label>double</label>
       </node>
       <node id="23">
@@ -312,7 +317,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="265" column="1" bodyfile="include/ubasic.h" bodystart="266" bodyend="269"/>
+    <location file="include/ubasic.h" line="396" column="1" bodyfile="include/ubasic.h" bodystart="397" bodyend="400"/>
     <listofallmembers>
       <member refid="structubasic__double__fn_1a09662270d292dc1a4a41cd4bfe8a30d5" prot="public" virt="non-virtual"><scope>ubasic_double_fn</scope><name>handler</name></member>
       <member refid="structubasic__double__fn_1ac0f70823fd1a5d049e7fad012fe8a955" prot="public" virt="non-virtual"><scope>ubasic_double_fn</scope><name>name</name></member>

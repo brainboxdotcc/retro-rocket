@@ -1,0 +1,780 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="random_8h" kind="file" language="C++">
+    <compoundname>random.h</compoundname>
+    <includes refid="kernel_8h" local="yes">kernel.h</includes>
+    <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <incdepgraph>
+      <node id="25">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="28">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+      </node>
+      <node id="48">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="53">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="39">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="34">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="14">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="10">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="35">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="54">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="49">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="21">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="33">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="38">
+        <label>ubasic.h</label>
+        <link refid="ubasic_8h"/>
+      </node>
+      <node id="47">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+      </node>
+      <node id="11">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="23">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="13">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+      </node>
+      <node id="24">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="27">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
+      </node>
+      <node id="14">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structmt__rand__t" prot="public">mt_rand_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="random_8h_1ac9774c4e8103044eeed77c6df7e4fb77" prot="public" static="no">
+        <name>STATE_VECTOR_LENGTH</name>
+        <initializer>624</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="5" column="9" bodyfile="include/random.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="random_8h_1a3078dacc50d0dad95ad9fe0f448a953e" prot="public" static="no">
+        <name>STATE_VECTOR_M</name>
+        <initializer>397</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="6" column="9" bodyfile="include/random.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="random_8h_1a2789baddb920819b38ad82e4536698cf" prot="public" static="no">
+        <name>RAND_MAX_ENTROPY</name>
+        <initializer>(size_t)24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="7" column="9" bodyfile="include/random.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="random_8h_1a690f251553b39fd4f31894826141b61a" prot="public" static="no">
+        <name>RAND_MAX</name>
+        <initializer>SIZE_MAX</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="8" column="9" bodyfile="include/random.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="random_8h_1a17398ef8767d2679233a56f58c0ff682" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void add_random_entropy</definition>
+        <argsstring>(uint64_t bytes)</argsstring>
+        <name>add_random_entropy</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>bytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="16" column="6" declfile="include/random.h" declline="16" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="random_8h_1aa884e8a383a2ae369b2adaa98741bee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t gen_rand_long</definition>
+        <argsstring>(mt_rand_t *rand)</argsstring>
+        <name>gen_rand_long</name>
+        <param>
+          <type><ref refid="structmt__rand__t" kindref="compound">mt_rand_t</ref> *</type>
+          <declname>rand</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="17" column="10" declfile="include/random.h" declline="17" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="random_8h_1a2ba413d21f47c72e34c941bcf28af42e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double gen_rand_double</definition>
+        <argsstring>(mt_rand_t *rand)</argsstring>
+        <name>gen_rand_double</name>
+        <param>
+          <type><ref refid="structmt__rand__t" kindref="compound">mt_rand_t</ref> *</type>
+          <declname>rand</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="18" column="8" declfile="include/random.h" declline="18" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="random_8h_1aeab878bd50dff883741353ce05dcf788" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t gen_rand_64</definition>
+        <argsstring>(mt_rand_t *rand)</argsstring>
+        <name>gen_rand_64</name>
+        <param>
+          <type><ref refid="structmt__rand__t" kindref="compound">mt_rand_t</ref> *</type>
+          <declname>rand</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="19" column="10" declfile="include/random.h" declline="19" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="random_8h_1a59539226d3532537b1e741c2bc124a8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t mt_rand</definition>
+        <argsstring>()</argsstring>
+        <name>mt_rand</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/random.h" line="20" column="10" declfile="include/random.h" declline="20" declcolumn="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/random.h"/>
+  </compounddef>
+</doxygen>

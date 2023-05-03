@@ -5,7 +5,7 @@
     <includes refid="kernel_8h" local="yes">kernel.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <incdepgraph>
-      <node id="25">
+      <node id="26">
         <label>ata.h</label>
         <link refid="ata_8h"/>
         <childnode refid="3" relation="include">
@@ -14,43 +14,43 @@
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="41">
+      <node id="42">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="46">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="53">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="32">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="51">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="30">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
       </node>
@@ -58,13 +58,13 @@
         <label>spinlock.h</label>
         <link refid="spinlock_8h"/>
       </node>
-      <node id="48">
+      <node id="49">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="23">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -79,26 +79,26 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="53">
+      <node id="54">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="44">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="18">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
-      <node id="39">
+      <node id="40">
         <label>tokenizer.h</label>
         <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
@@ -107,11 +107,11 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="34">
+      <node id="35">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
-      <node id="14">
+      <node id="15">
         <label>io.h</label>
         <link refid="io_8h"/>
       </node>
@@ -121,24 +121,24 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="45">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="38">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
       </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="35">
+      <node id="36">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="12">
+      <node id="13">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
@@ -148,41 +148,41 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="50">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="47">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="27">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="21">
+      <node id="22">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="31">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
       </node>
-      <node id="33">
+      <node id="34">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="38">
+      <node id="39">
         <label>ubasic.h</label>
         <link refid="ubasic_8h"/>
       </node>
-      <node id="47">
+      <node id="48">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -295,22 +295,30 @@
         </childnode>
         <childnode refid="53" relation="include">
         </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
         <childnode refid="1" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="12">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
       </node>
@@ -326,61 +334,61 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="43">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="19">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="33">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="23">
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="20">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
-      <node id="13">
+      <node id="14">
         <label>string.h</label>
         <link refid="string_8h"/>
       </node>
-      <node id="24">
+      <node id="25">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="52">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="37">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -420,13 +428,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="31">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="29">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -450,13 +458,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="30">
         <label>tokenizer.h</label>
         <link refid="tokenizer_8h"/>
         <childnode refid="2" relation="include">
@@ -569,6 +577,8 @@
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
       </node>
       <node id="21">
         <label>memcpy.h</label>
@@ -579,6 +589,12 @@
       <node id="23">
         <label>partition.h</label>
         <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>random.h</label>
+        <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>

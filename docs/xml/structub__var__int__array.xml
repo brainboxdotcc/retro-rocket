@@ -4,6 +4,19 @@
     <compoundname>ub_var_int_array</compoundname>
     <includes local="no">ubasic.h</includes>
       <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structub__var__int__array_1a1d2adba640f45f6a1c64554bd58b14d6" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ub_var_int_array::itemcount</definition>
+        <argsstring></argsstring>
+        <name>itemcount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="128" column="10" bodyfile="include/ubasic.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="structub__var__int__array_1ab345e14192c5b3d869af33f5c791cecf" prot="public" static="no" mutable="no">
         <type>const char *</type>
         <definition>const char* ub_var_int_array::varname</definition>
@@ -15,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="128" column="12" bodyfile="include/ubasic.h" bodystart="128" bodyend="-1"/>
+        <location file="include/ubasic.h" line="129" column="12" bodyfile="include/ubasic.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__int__array_1a9e76aa2d852b35b2f4d72555588cfc38" prot="public" static="no" mutable="no">
         <type>int64_t *</type>
@@ -28,20 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="129" column="9" bodyfile="include/ubasic.h" bodystart="129" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structub__var__int__array_1a1d2adba640f45f6a1c64554bd58b14d6" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t ub_var_int_array::itemcount</definition>
-        <argsstring></argsstring>
-        <name>itemcount</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/ubasic.h" line="130" column="10" bodyfile="include/ubasic.h" bodystart="130" bodyend="-1"/>
+        <location file="include/ubasic.h" line="130" column="9" bodyfile="include/ubasic.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__int__array_1a9fb370c37cad3ae89ab6814b37a443dd" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int__array" kindref="compound">ub_var_int_array</ref> *</type>

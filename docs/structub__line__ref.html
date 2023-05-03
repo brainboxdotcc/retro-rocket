@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structub__line__ref.html',''); initRes
 </div><!--header-->
 <div class="contents">
 
-<p>Line reference in program. Each program has a doubly linked list of these, stored in ascending order. Once we iterate the list past the search number we know we don't have to search any further.  
+<p>Line reference in program. Each program has a hashmap of these so it can find a line number in O(1) time.  
  <a href="structub__line__ref.html#details">More...</a></p>
 
 <p><code>#include &lt;ubasic.h&gt;</code></p>
@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('structub__line__ref.html',''); initRes
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structub__line__ref__coll__graph.svg" width="188" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structub__line__ref__coll__graph.svg" width="188" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -111,8 +112,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a7ce3ba31ea4c2b0b65a351e905dfebf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Line reference in program. Each program has a doubly linked list of these, stored in ascending order. Once we iterate the list past the search number we know we don't have to search any further. </p>
-<p>TODO: If search number is &lt; current line number, search backwards instead and stop when previous number is before search. </p>
+<div class="textblock"><p>Line reference in program. Each program has a hashmap of these so it can find a line number in O(1) time. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a3b8d78ec408ffd8b8571496401edc6ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b8d78ec408ffd8b8571496401edc6ac">&#9670;&nbsp;</a></span>line_number</h2>
@@ -148,7 +148,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__line__ref.html">ub_line_ref</a></li>
-    <li class="footer">Generated on Thu Apr 27 2023 01:16:36 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 3 2023 13:47:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

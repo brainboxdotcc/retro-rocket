@@ -147,6 +147,19 @@
         </inbodydescription>
         <location file="include/taskswitch.h" line="34" column="9" bodyfile="include/taskswitch.h" bodystart="34" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="structprocess__t_1a9b3ddad1d78a30249998440a837922b3" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* process_t::csd</definition>
+        <argsstring></argsstring>
+        <name>csd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/taskswitch.h" line="35" column="11" bodyfile="include/taskswitch.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="structprocess__t_1a80a803afc53644e36db504d3dc22b3f4" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structconsole" kindref="compound">console</ref> *</type>
         <definition>struct console* process_t::cons</definition>
@@ -158,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="35" column="14" bodyfile="include/taskswitch.h" bodystart="35" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="36" column="14" bodyfile="include/taskswitch.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structprocess__t_1a7bfeb57f190257400c7203666d10128e" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structubasic__ctx" kindref="compound">ubasic_ctx</ref> *</type>
@@ -171,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="36" column="17" bodyfile="include/taskswitch.h" bodystart="36" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="37" column="17" bodyfile="include/taskswitch.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structprocess__t_1a319121e790b8160ed34c39eba2befe06" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -184,7 +197,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="37" column="16" bodyfile="include/taskswitch.h" bodystart="37" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="38" column="16" bodyfile="include/taskswitch.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structprocess__t_1a35426bef9435a3bc4399ee832dab5cf2" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -197,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/taskswitch.h" line="38" column="16" bodyfile="include/taskswitch.h" bodystart="38" bodyend="-1"/>
+        <location file="include/taskswitch.h" line="39" column="16" bodyfile="include/taskswitch.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -235,9 +248,12 @@
           <edgelabel>local_int_variables</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
+          <edgelabel>call_stack</edgelabel>
+          <edgelabel>call_stack_ptr</edgelabel>
           <edgelabel>for_stack_ptr</edgelabel>
-          <edgelabel>gosub_stack</edgelabel>
-          <edgelabel>gosub_stack_ptr</edgelabel>
+          <edgelabel>if_nest_level</edgelabel>
+          <edgelabel>repeat_stack</edgelabel>
+          <edgelabel>repeat_stack_ptr</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
           <edgelabel>item_begin</edgelabel>
@@ -256,6 +272,9 @@
         <childnode refid="16" relation="usage">
           <edgelabel>graphics_colour</edgelabel>
         </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>oldlen</edgelabel>
+        </childnode>
         <childnode refid="17" relation="usage">
           <edgelabel>double_variables</edgelabel>
           <edgelabel>local_double_variables</edgelabel>
@@ -266,7 +285,6 @@
         <childnode refid="19" relation="usage">
           <edgelabel>bracket_depth</edgelabel>
           <edgelabel>current_token</edgelabel>
-          <edgelabel>oldlen</edgelabel>
         </childnode>
         <childnode refid="20" relation="usage">
           <edgelabel>int_array_variables</edgelabel>
@@ -301,11 +319,11 @@
         <childnode refid="6" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>itemcount</edgelabel>
-        </childnode>
         <childnode refid="7" relation="usage">
           <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
           <edgelabel>varname</edgelabel>
@@ -341,6 +359,7 @@
           <edgelabel>code</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
+          <edgelabel>csd</edgelabel>
           <edgelabel>directory</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
@@ -511,11 +530,12 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/taskswitch.h" line="23" column="1" bodyfile="include/taskswitch.h" bodystart="23" bodyend="39"/>
+    <location file="include/taskswitch.h" line="23" column="1" bodyfile="include/taskswitch.h" bodystart="23" bodyend="40"/>
     <listofallmembers>
       <member refid="structprocess__t_1a7bfeb57f190257400c7203666d10128e" prot="public" virt="non-virtual"><scope>process_t</scope><name>code</name></member>
       <member refid="structprocess__t_1a80a803afc53644e36db504d3dc22b3f4" prot="public" virt="non-virtual"><scope>process_t</scope><name>cons</name></member>
       <member refid="structprocess__t_1a9efd67622874d1d026fb44b259569ac9" prot="public" virt="non-virtual"><scope>process_t</scope><name>cpu</name></member>
+      <member refid="structprocess__t_1a9b3ddad1d78a30249998440a837922b3" prot="public" virt="non-virtual"><scope>process_t</scope><name>csd</name></member>
       <member refid="structprocess__t_1a03df500e6a022a5c1f061c8af547476e" prot="public" virt="non-virtual"><scope>process_t</scope><name>directory</name></member>
       <member refid="structprocess__t_1a07aef83877679df4398fa641ff557519" prot="public" virt="non-virtual"><scope>process_t</scope><name>gid</name></member>
       <member refid="structprocess__t_1a39b862a83f8dc13357cfd8cdc8f64a9d" prot="public" virt="non-virtual"><scope>process_t</scope><name>name</name></member>

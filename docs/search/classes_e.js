@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['tcp_5fconn_5ft_2026',['tcp_conn_t',['../structtcp__conn__t.html',1,'']]],
-  ['tcp_5fip_5fpseudo_5fheader_5ft_2027',['tcp_ip_pseudo_header_t',['../structtcp__ip__pseudo__header__t.html',1,'']]],
-  ['tcp_5foptions_5ft_2028',['tcp_options_t',['../structtcp__options__t.html',1,'']]],
-  ['tcp_5fordered_5flist_5ft_2029',['tcp_ordered_list_t',['../structtcp__ordered__list__t.html',1,'']]],
-  ['tcp_5fsegment_2030',['tcp_segment',['../structtcp__segment.html',1,'']]],
-  ['tcp_5fsegment_5fflags_5ft_2031',['tcp_segment_flags_t',['../uniontcp__segment__flags__t.html',1,'']]],
-  ['tos_5fflags_2032',['tos_flags',['../uniontos__flags.html',1,'']]],
-  ['tx_5fdesc_5ft_2033',['tx_desc_t',['../structtx__desc__t.html',1,'']]]
+  ['sdt_5fheader_5ft_2076',['sdt_header_t',['../structsdt__header__t.html',1,'']]],
+  ['shared_5finterrupt_5ft_2077',['shared_interrupt_t',['../structshared__interrupt__t.html',1,'']]],
+  ['stack_5fframe_5ft_2078',['stack_frame_t',['../structstack__frame__t.html',1,'']]],
+  ['storage_5fdevice_5ft_2079',['storage_device_t',['../structstorage__device__t.html',1,'']]],
+  ['symbol_5ft_2080',['symbol_t',['../structsymbol__t.html',1,'']]]
 ];

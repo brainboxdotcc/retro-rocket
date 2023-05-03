@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>ptr</name>
         <briefdescription>
+<para>Pointer to the start of the next token Always between program_ptr and program_ptr + strlen(program_ptr) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="192" column="20" bodyfile="include/ubasic.h" bodystart="192" bodyend="-1"/>
+        <location file="include/ubasic.h" line="201" column="20" bodyfile="include/ubasic.h" bodystart="201" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a5b5d57bf094e597f42cf3c65c10438d2" prot="public" static="no" mutable="no">
         <type>char const  *</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>nextptr</name>
         <briefdescription>
+<para>Pointer to the character after the next token. Always between program_ptr and program_ptr + strlen(program_ptr) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="193" column="12" bodyfile="include/ubasic.h" bodystart="193" bodyend="-1"/>
+        <location file="include/ubasic.h" line="206" column="12" bodyfile="include/ubasic.h" bodystart="206" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a446a08b3410c33383f8d69083153ef06" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>current_token</name>
         <briefdescription>
+<para>Numeric form of the token between ptr and nextptr. Should always be a value within the enum token_t. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="194" column="13" bodyfile="include/ubasic.h" bodystart="194" bodyend="-1"/>
+        <location file="include/ubasic.h" line="211" column="13" bodyfile="include/ubasic.h" bodystart="211" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a49685c1299b80f648bd7e55107a6f0c2" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -49,12 +52,13 @@
         <argsstring></argsstring>
         <name>current_linenum</name>
         <briefdescription>
+<para>Current line number. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="195" column="9" bodyfile="include/ubasic.h" bodystart="195" bodyend="-1"/>
+        <location file="include/ubasic.h" line="215" column="9" bodyfile="include/ubasic.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a0cfa88ca9f55b408b541af2c80d64a90" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -62,12 +66,13 @@
         <argsstring></argsstring>
         <name>errored</name>
         <briefdescription>
+<para>True if the program has thrown an error and should end. This may not actually cause termination of the program if we are inside an EVAL at the time. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="196" column="6" bodyfile="include/ubasic.h" bodystart="196" bodyend="-1"/>
+        <location file="include/ubasic.h" line="221" column="6" bodyfile="include/ubasic.h" bodystart="221" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ae97525f281273ea45492eb6a6e1b0dd9" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -75,12 +80,13 @@
         <argsstring></argsstring>
         <name>ended</name>
         <briefdescription>
+<para>True if the program has ended, e.g. it reached an explicit END statement, or fell off the end of the program to the terminating null char. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="197" column="14" bodyfile="include/ubasic.h" bodystart="197" bodyend="-1"/>
+        <location file="include/ubasic.h" line="227" column="14" bodyfile="include/ubasic.h" bodystart="227" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ad228067b994f862ff64d9ea07927e3e7" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -88,12 +94,13 @@
         <argsstring></argsstring>
         <name>program_ptr</name>
         <briefdescription>
+<para>The whole program text, untokenized. May have been &quot;cleaned&quot; by an initial preprocessing phase which removes unneccesary spacing etc. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="198" column="14" bodyfile="include/ubasic.h" bodystart="198" bodyend="-1"/>
+        <location file="include/ubasic.h" line="233" column="14" bodyfile="include/ubasic.h" bodystart="233" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ad4f82e6f89c9b88bd7a946d78479df38" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -101,12 +108,13 @@
         <argsstring>[1024]</argsstring>
         <name>string</name>
         <briefdescription>
+<para>A context-local string buffer used for parsing function/procedure parameter lists. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="200" column="14" bodyfile="include/ubasic.h" bodystart="200" bodyend="-1"/>
+        <location file="include/ubasic.h" line="238" column="14" bodyfile="include/ubasic.h" bodystart="238" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a29c2fb098e7e87179a80c78957352ca0" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
@@ -114,12 +122,13 @@
         <argsstring>[255]</argsstring>
         <name>local_int_variables</name>
         <briefdescription>
+<para>Local integer variable stack for variables declared within a function or procedure scope. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="202" column="18" bodyfile="include/ubasic.h" bodystart="202" bodyend="-1"/>
+        <location file="include/ubasic.h" line="243" column="18" bodyfile="include/ubasic.h" bodystart="243" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ac174583082681c819beac71bf6c856e2" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
@@ -127,12 +136,13 @@
         <argsstring>[255]</argsstring>
         <name>local_string_variables</name>
         <briefdescription>
+<para>Local string variable stack for variables declared within a function or procedure scope. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="203" column="21" bodyfile="include/ubasic.h" bodystart="203" bodyend="-1"/>
+        <location file="include/ubasic.h" line="248" column="21" bodyfile="include/ubasic.h" bodystart="248" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1addf1b80ca1ad690c7375230adeb8b2a6" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref> *</type>
@@ -140,51 +150,83 @@
         <argsstring>[255]</argsstring>
         <name>local_double_variables</name>
         <briefdescription>
+<para>Local real (double) variable stack for variables declared within a function or procedure scope. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="204" column="21" bodyfile="include/ubasic.h" bodystart="204" bodyend="-1"/>
+        <location file="include/ubasic.h" line="253" column="21" bodyfile="include/ubasic.h" bodystart="253" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structubasic__ctx_1aee4b16b4e20ca018ca86f63bdde188eb" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
-        <definition>uint64_t ubasic_ctx::gosub_stack[255]</definition>
+        <definition>uint64_t ubasic_ctx::call_stack[255]</definition>
         <argsstring>[255]</argsstring>
-        <name>gosub_stack</name>
+        <name>call_stack</name>
         <briefdescription>
+<para>Call stack, holds the return line numbers for each level of calls to a procedure, function or GOSUB. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="206" column="18" bodyfile="include/ubasic.h" bodystart="206" bodyend="-1"/>
+        <location file="include/ubasic.h" line="258" column="18" bodyfile="include/ubasic.h" bodystart="258" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1a1d1b18d255584d6f092f4a8a6ed2028b" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structubasic__ctx_1ab1610ba076efffe0790edf1ddb5e9d53" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
-        <definition>uint64_t ubasic_ctx::gosub_stack_ptr</definition>
+        <definition>uint64_t ubasic_ctx::call_stack_ptr</definition>
         <argsstring></argsstring>
-        <name>gosub_stack_ptr</name>
+        <name>call_stack_ptr</name>
         <briefdescription>
+<para>How far up the call stack we are. The call stack pointer starts at 0, and can go as high as MAX_CALL_STACK_DEPTH - 1. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="207" column="18" bodyfile="include/ubasic.h" bodystart="207" bodyend="-1"/>
+        <location file="include/ubasic.h" line="263" column="18" bodyfile="include/ubasic.h" bodystart="263" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structubasic__ctx_1a2b482ac38918fb15a4f6cd6e00874897" prot="public" static="no" mutable="no">
-        <type>int</type>
-        <definition>int ubasic_ctx::oldlen</definition>
+      <memberdef kind="variable" id="structubasic__ctx_1a7ccfa0dd5c8617ecf5c25a18cac04525" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ubasic_ctx::repeat_stack[255]</definition>
+        <argsstring>[255]</argsstring>
+        <name>repeat_stack</name>
+        <briefdescription>
+<para>Repeat stack, holds the return line numbers for each level of REPEAT...UNTIL loop. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="268" column="18" bodyfile="include/ubasic.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structubasic__ctx_1a2ccb20364e329e7f22a2e94472aa2ab8" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ubasic_ctx::repeat_stack_ptr</definition>
+        <argsstring></argsstring>
+        <name>repeat_stack_ptr</name>
+        <briefdescription>
+<para>How far up the REPEAT...UNTIL stack we are. The repeat stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="274" column="18" bodyfile="include/ubasic.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structubasic__ctx_1a9a68b49365d12d8313ec781160f12d77" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t ubasic_ctx::oldlen</definition>
         <argsstring></argsstring>
         <name>oldlen</name>
         <briefdescription>
+<para>Previous program length, before an EVAL statement. An EVAL statement appends additional lines to the program beyond its original end, storing the previous size in this value. If this value is non-zero an EVAL is in progress, otherwise no EVAL is executing. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="209" column="5" bodyfile="include/ubasic.h" bodystart="209" bodyend="-1"/>
+        <location file="include/ubasic.h" line="282" column="8" bodyfile="include/ubasic.h" bodystart="282" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a5b0f365c2985b1a34a20e9dbce6545ce" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -192,12 +234,13 @@
         <argsstring></argsstring>
         <name>eval_linenum</name>
         <briefdescription>
+<para>The return line number for an EVAL statement. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="210" column="9" bodyfile="include/ubasic.h" bodystart="210" bodyend="-1"/>
+        <location file="include/ubasic.h" line="286" column="9" bodyfile="include/ubasic.h" bodystart="286" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a68a1ad7151a19c90017b3837dfd74488" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfor__state" kindref="compound">for_state</ref></type>
@@ -205,12 +248,13 @@
         <argsstring>[255]</argsstring>
         <name>for_stack</name>
         <briefdescription>
+<para>FOR stack, holds the return line numbers for each level of FOR...NEXT loop. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="210" column="9" bodyfile="include/ubasic.h" bodystart="212" bodyend="-1"/>
+        <location file="include/ubasic.h" line="286" column="9" bodyfile="include/ubasic.h" bodystart="291" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1aceb6c976842ec03cfe88f967daef44c2" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -218,12 +262,13 @@
         <argsstring></argsstring>
         <name>for_stack_ptr</name>
         <briefdescription>
+<para>How far up the FOR...NEXT stack we are. The FOR stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="213" column="18" bodyfile="include/ubasic.h" bodystart="213" bodyend="-1"/>
+        <location file="include/ubasic.h" line="297" column="18" bodyfile="include/ubasic.h" bodystart="297" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ac3a12ced3a43e55c91640e91c9f6acb5" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref> *</type>
@@ -231,12 +276,13 @@
         <argsstring></argsstring>
         <name>defs</name>
         <briefdescription>
+<para>Definitions for procedures and functions in the program. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="215" column="22" bodyfile="include/ubasic.h" bodystart="215" bodyend="-1"/>
+        <location file="include/ubasic.h" line="301" column="22" bodyfile="include/ubasic.h" bodystart="301" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a205229710d812384b09aeb261cb8f77d" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
@@ -244,12 +290,13 @@
         <argsstring></argsstring>
         <name>int_variables</name>
         <briefdescription>
+<para>Global integer variable list. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="217" column="26" bodyfile="include/ubasic.h" bodystart="217" bodyend="-1"/>
+        <location file="include/ubasic.h" line="305" column="26" bodyfile="include/ubasic.h" bodystart="305" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a7c236a559e80efe82b692dff35ba6ea2" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
@@ -257,12 +304,13 @@
         <argsstring></argsstring>
         <name>str_variables</name>
         <briefdescription>
+<para>Global string variable list. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="218" column="21" bodyfile="include/ubasic.h" bodystart="218" bodyend="-1"/>
+        <location file="include/ubasic.h" line="309" column="21" bodyfile="include/ubasic.h" bodystart="309" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a0eebd420f79c71656be34a7041d70b1a" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref> *</type>
@@ -270,12 +318,13 @@
         <argsstring></argsstring>
         <name>double_variables</name>
         <briefdescription>
+<para>Global double variable list. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="219" column="21" bodyfile="include/ubasic.h" bodystart="219" bodyend="-1"/>
+        <location file="include/ubasic.h" line="313" column="21" bodyfile="include/ubasic.h" bodystart="313" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ab5661134630cb2eee5e6839c3f82e63c" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int__array" kindref="compound">ub_var_int_array</ref> *</type>
@@ -283,12 +332,13 @@
         <argsstring></argsstring>
         <name>int_array_variables</name>
         <briefdescription>
+<para>Global integer array variable list. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="221" column="24" bodyfile="include/ubasic.h" bodystart="221" bodyend="-1"/>
+        <location file="include/ubasic.h" line="317" column="24" bodyfile="include/ubasic.h" bodystart="317" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a4bf2896ae15ddd46452f45374883d910" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string__array" kindref="compound">ub_var_string_array</ref> *</type>
@@ -296,12 +346,13 @@
         <argsstring></argsstring>
         <name>string_array_variables</name>
         <briefdescription>
+<para>Global string array variable list. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="222" column="27" bodyfile="include/ubasic.h" bodystart="222" bodyend="-1"/>
+        <location file="include/ubasic.h" line="321" column="27" bodyfile="include/ubasic.h" bodystart="321" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1afd46497f8296a5c384cbba85d5f90d70" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double__array" kindref="compound">ub_var_double_array</ref> *</type>
@@ -309,12 +360,13 @@
         <argsstring></argsstring>
         <name>double_array_variables</name>
         <briefdescription>
+<para>Global double array variable list. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="223" column="27" bodyfile="include/ubasic.h" bodystart="223" bodyend="-1"/>
+        <location file="include/ubasic.h" line="325" column="27" bodyfile="include/ubasic.h" bodystart="325" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a2f3d8eaac3dfab9ee45bfcb9c120a668" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structconsole" kindref="compound">console</ref> *</type>
@@ -322,12 +374,13 @@
         <argsstring></argsstring>
         <name>cons</name>
         <briefdescription>
+<para>I/O Console. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="225" column="15" bodyfile="include/ubasic.h" bodystart="225" bodyend="-1"/>
+        <location file="include/ubasic.h" line="329" column="15" bodyfile="include/ubasic.h" bodystart="329" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a9e0e3ac42e238db0a9512a17775242af" prot="public" static="no" mutable="no">
         <type><ref refid="ubasic_8h_1a2279cec37b8a81d5f18e78d7335b1966" kindref="member">ub_return_type</ref></type>
@@ -335,12 +388,13 @@
         <argsstring></argsstring>
         <name>fn_type</name>
         <briefdescription>
+<para>Function return type expected. This is only relavent when executing a function atomically. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="227" column="16" bodyfile="include/ubasic.h" bodystart="227" bodyend="-1"/>
+        <location file="include/ubasic.h" line="334" column="16" bodyfile="include/ubasic.h" bodystart="334" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1aa2068e8b25ef5f141d54b7266892b1a8" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -348,12 +402,13 @@
         <argsstring></argsstring>
         <name>fn_return</name>
         <briefdescription>
+<para>Function return value pointer. This is only relavent when executing a function atomically. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="228" column="6" bodyfile="include/ubasic.h" bodystart="228" bodyend="-1"/>
+        <location file="include/ubasic.h" line="339" column="6" bodyfile="include/ubasic.h" bodystart="339" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ab9835b70d64e17519499bf1d32a9c59b" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -361,12 +416,13 @@
         <argsstring></argsstring>
         <name>bracket_depth</name>
         <briefdescription>
+<para>Bracket depth when parsing function or procedure parameter lists. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="229" column="5" bodyfile="include/ubasic.h" bodystart="229" bodyend="-1"/>
+        <location file="include/ubasic.h" line="344" column="5" bodyfile="include/ubasic.h" bodystart="344" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1ac52c5cd3f325dc10408ea4eecee6fac7" prot="public" static="no" mutable="no">
         <type>char const  *</type>
@@ -374,12 +430,13 @@
         <argsstring></argsstring>
         <name>item_begin</name>
         <briefdescription>
+<para>Item start pointer when parsing function or procedure parameter lists. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="230" column="12" bodyfile="include/ubasic.h" bodystart="230" bodyend="-1"/>
+        <location file="include/ubasic.h" line="349" column="12" bodyfile="include/ubasic.h" bodystart="349" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a75fe7e0c62284b7f96d3badafc81df07" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref> *</type>
@@ -387,12 +444,13 @@
         <argsstring></argsstring>
         <name>param</name>
         <briefdescription>
+<para>Linked list of function parameters when parsing function or procedure parameter lists. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="231" column="16" bodyfile="include/ubasic.h" bodystart="231" bodyend="-1"/>
+        <location file="include/ubasic.h" line="354" column="16" bodyfile="include/ubasic.h" bodystart="354" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1aa068f02eec061e35fabab244735c0fff" prot="public" static="no" mutable="no">
         <type>int32_t</type>
@@ -400,12 +458,13 @@
         <argsstring></argsstring>
         <name>graphics_colour</name>
         <briefdescription>
+<para>Current graphics colour (GCOL) for graphics drawing commands. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="233" column="9" bodyfile="include/ubasic.h" bodystart="233" bodyend="-1"/>
+        <location file="include/ubasic.h" line="358" column="9" bodyfile="include/ubasic.h" bodystart="358" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structubasic__ctx_1a32ab055ccfa07abadab61933407cd9f9" prot="public" static="no" mutable="no">
         <type>struct hashmap *</type>
@@ -413,16 +472,31 @@
         <argsstring></argsstring>
         <name>lines</name>
         <briefdescription>
+<para>Hashmap of lines for O(1) lookup of line numbers. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/ubasic.h" line="235" column="15" bodyfile="include/ubasic.h" bodystart="235" bodyend="-1"/>
+        <location file="include/ubasic.h" line="362" column="15" bodyfile="include/ubasic.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structubasic__ctx_1a8c9b56dfdd6aca748c7f2fa193afcba1" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ubasic_ctx::if_nest_level</definition>
+        <argsstring></argsstring>
+        <name>if_nest_level</name>
+        <briefdescription>
+<para>Block IF...THEN...ELSE depth. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ubasic.h" line="366" column="10" bodyfile="include/ubasic.h" bodystart="366" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>BASIC program context Every instance of a BASIC program has one of these, also certain structures such as procedures will clone the context and run on the clone until the procedure completes. Cloned contexts share variables and you should never call <ref refid="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" kindref="member">ubasic_destroy()</ref> on them! </para>
+<para>BASIC program context. Every instance of a BASIC program has one of these,* also certain structures such as functions will clone the context and run on the clone until the function completes. Cloned contexts share variables and you should never call <ref refid="ubasic_8h_1a21e82eb492a50cc82cbfac248d6b4785" kindref="member">ubasic_destroy()</ref> on them! </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -456,10 +530,13 @@
           <edgelabel>int_variables</edgelabel>
           <edgelabel>local_int_variables</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
+          <edgelabel>call_stack</edgelabel>
+          <edgelabel>call_stack_ptr</edgelabel>
           <edgelabel>for_stack_ptr</edgelabel>
-          <edgelabel>gosub_stack</edgelabel>
-          <edgelabel>gosub_stack_ptr</edgelabel>
+          <edgelabel>if_nest_level</edgelabel>
+          <edgelabel>repeat_stack</edgelabel>
+          <edgelabel>repeat_stack_ptr</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>item_begin</edgelabel>
@@ -478,6 +555,9 @@
         <childnode refid="14" relation="usage">
           <edgelabel>graphics_colour</edgelabel>
         </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>oldlen</edgelabel>
+        </childnode>
         <childnode refid="15" relation="usage">
           <edgelabel>double_variables</edgelabel>
           <edgelabel>local_double_variables</edgelabel>
@@ -488,7 +568,6 @@
         <childnode refid="17" relation="usage">
           <edgelabel>bracket_depth</edgelabel>
           <edgelabel>current_token</edgelabel>
-          <edgelabel>oldlen</edgelabel>
         </childnode>
         <childnode refid="18" relation="usage">
           <edgelabel>int_array_variables</edgelabel>
@@ -524,10 +603,10 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>itemcount</edgelabel>
+          <edgelabel>values</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>values</edgelabel>
+          <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>varname</edgelabel>
@@ -539,13 +618,13 @@
       <node id="16">
         <label>struct hashmap *</label>
       </node>
-      <node id="4">
+      <node id="5">
         <label>uint64_t</label>
       </node>
       <node id="15">
         <label>ub_var_double</label>
         <link refid="structub__var__double"/>
-        <childnode refid="5" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>value</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
@@ -567,7 +646,7 @@
         <childnode refid="7" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
@@ -594,7 +673,7 @@
       <node id="18">
         <label>ub_var_int_array</label>
         <link refid="structub__var__int__array"/>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>itemcount</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
@@ -610,7 +689,7 @@
       <node id="17">
         <label>int</label>
       </node>
-      <node id="5">
+      <node id="4">
         <label>double</label>
       </node>
       <node id="22">
@@ -692,9 +771,11 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/ubasic.h" line="191" column="1" bodyfile="include/ubasic.h" bodystart="191" bodyend="236"/>
+    <location file="include/ubasic.h" line="196" column="1" bodyfile="include/ubasic.h" bodystart="196" bodyend="367"/>
     <listofallmembers>
       <member refid="structubasic__ctx_1ab9835b70d64e17519499bf1d32a9c59b" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>bracket_depth</name></member>
+      <member refid="structubasic__ctx_1aee4b16b4e20ca018ca86f63bdde188eb" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>call_stack</name></member>
+      <member refid="structubasic__ctx_1ab1610ba076efffe0790edf1ddb5e9d53" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>call_stack_ptr</name></member>
       <member refid="structubasic__ctx_1a2f3d8eaac3dfab9ee45bfcb9c120a668" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>cons</name></member>
       <member refid="structubasic__ctx_1a49685c1299b80f648bd7e55107a6f0c2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>current_linenum</name></member>
       <member refid="structubasic__ctx_1a446a08b3410c33383f8d69083153ef06" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>current_token</name></member>
@@ -708,9 +789,8 @@
       <member refid="structubasic__ctx_1a9e0e3ac42e238db0a9512a17775242af" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>fn_type</name></member>
       <member refid="structubasic__ctx_1a68a1ad7151a19c90017b3837dfd74488" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>for_stack</name></member>
       <member refid="structubasic__ctx_1aceb6c976842ec03cfe88f967daef44c2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>for_stack_ptr</name></member>
-      <member refid="structubasic__ctx_1acf23ab6f8de88ce893d6f2385845cc57" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>gosub_stack</name></member>
-      <member refid="structubasic__ctx_1a1d1b18d255584d6f092f4a8a6ed2028b" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>gosub_stack_ptr</name></member>
       <member refid="structubasic__ctx_1aa068f02eec061e35fabab244735c0fff" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>graphics_colour</name></member>
+      <member refid="structubasic__ctx_1a8c9b56dfdd6aca748c7f2fa193afcba1" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>if_nest_level</name></member>
       <member refid="structubasic__ctx_1ab5661134630cb2eee5e6839c3f82e63c" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>int_array_variables</name></member>
       <member refid="structubasic__ctx_1a205229710d812384b09aeb261cb8f77d" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>int_variables</name></member>
       <member refid="structubasic__ctx_1ac52c5cd3f325dc10408ea4eecee6fac7" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>item_begin</name></member>
@@ -719,10 +799,12 @@
       <member refid="structubasic__ctx_1a29c2fb098e7e87179a80c78957352ca0" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>local_int_variables</name></member>
       <member refid="structubasic__ctx_1ac174583082681c819beac71bf6c856e2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>local_string_variables</name></member>
       <member refid="structubasic__ctx_1a5b5d57bf094e597f42cf3c65c10438d2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>nextptr</name></member>
-      <member refid="structubasic__ctx_1a2b482ac38918fb15a4f6cd6e00874897" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>oldlen</name></member>
+      <member refid="structubasic__ctx_1a9a68b49365d12d8313ec781160f12d77" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>oldlen</name></member>
       <member refid="structubasic__ctx_1a75fe7e0c62284b7f96d3badafc81df07" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>param</name></member>
       <member refid="structubasic__ctx_1ad228067b994f862ff64d9ea07927e3e7" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>program_ptr</name></member>
       <member refid="structubasic__ctx_1acd8a93d99a365218f65f2bcfe5a687fd" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>ptr</name></member>
+      <member refid="structubasic__ctx_1a7ccfa0dd5c8617ecf5c25a18cac04525" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>repeat_stack</name></member>
+      <member refid="structubasic__ctx_1a2ccb20364e329e7f22a2e94472aa2ab8" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>repeat_stack_ptr</name></member>
       <member refid="structubasic__ctx_1a7c236a559e80efe82b692dff35ba6ea2" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>str_variables</name></member>
       <member refid="structubasic__ctx_1ad4f82e6f89c9b88bd7a946d78479df38" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>string</name></member>
       <member refid="structubasic__ctx_1a4bf2896ae15ddd46452f45374883d910" prot="public" virt="non-virtual"><scope>ubasic_ctx</scope><name>string_array_variables</name></member>

@@ -137,9 +137,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1fd5c9b930b5a5573f366249df958e96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a1fd5c9b930b5a5573f366249df958e96">proc_load</a> (const char *fullpath, struct <a class="el" href="structconsole.html">console</a> *cons, <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> parent_pid)</td></tr>
-<tr class="memdesc:a1fd5c9b930b5a5573f366249df958e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a new BASIC process.  <a href="taskswitch_8h.html#a1fd5c9b930b5a5573f366249df958e96">More...</a><br /></td></tr>
-<tr class="separator:a1fd5c9b930b5a5573f366249df958e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa489f46acde8e80831f0432a1da6e695"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#aa489f46acde8e80831f0432a1da6e695">proc_load</a> (const char *fullpath, struct <a class="el" href="structconsole.html">console</a> *cons, <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> parent_pid, const char *csd)</td></tr>
+<tr class="memdesc:aa489f46acde8e80831f0432a1da6e695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a new BASIC process.  <a href="taskswitch_8h.html#aa489f46acde8e80831f0432a1da6e695">More...</a><br /></td></tr>
+<tr class="separator:aa489f46acde8e80831f0432a1da6e695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5a40192ac7fb47cf38c7e803ccd0efb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ab5a40192ac7fb47cf38c7e803ccd0efb">proc_find</a> (<a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> pid)</td></tr>
 <tr class="memdesc:ab5a40192ac7fb47cf38c7e803ccd0efb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a process by ID.  <a href="taskswitch_8h.html#ab5a40192ac7fb47cf38c7e803ccd0efb">More...</a><br /></td></tr>
 <tr class="separator:ab5a40192ac7fb47cf38c7e803ccd0efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +179,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ad2dd4ffab2aaabd37998ec3b3216af48">proc_register_idle</a> (<a class="el" href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">proc_idle_timer_t</a> handler, <a class="el" href="taskswitch_8h.html#ab6c8a1a3016b13baf9af7476cceac7d4">idle_type_t</a> <a class="el" href="icmp_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a>)</td></tr>
 <tr class="memdesc:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a function to be called periodically during idle time.  <a href="taskswitch_8h.html#ad2dd4ffab2aaabd37998ec3b3216af48">More...</a><br /></td></tr>
 <tr class="separator:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0340f929d97ebceb2e0d7eaa9d4d3ff"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff">proc_set_csd</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc, const char *csd)</td></tr>
+<tr class="memdesc:aa0340f929d97ebceb2e0d7eaa9d4d3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change CSD (currently selected directory) of process.  <a href="taskswitch_8h.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff">More...</a><br /></td></tr>
+<tr class="separator:aa0340f929d97ebceb2e0d7eaa9d4d3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab25d44702b6e10e723714c368c4a7520"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520">init_process</a> ()</td></tr>
 <tr class="separator:ab25d44702b6e10e723714c368c4a7520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -472,8 +475,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1fd5c9b930b5a5573f366249df958e96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fd5c9b930b5a5573f366249df958e96">&#9670;&nbsp;</a></span>proc_load()</h2>
+<a id="aa489f46acde8e80831f0432a1da6e695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa489f46acde8e80831f0432a1da6e695">&#9670;&nbsp;</a></span>proc_load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -494,7 +497,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a>&#160;</td>
-          <td class="paramname"><em>parent_pid</em>&#160;</td>
+          <td class="paramname"><em>parent_pid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>csd</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -510,6 +519,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">fullpath</td><td>fully qualified path to file </td></tr>
     <tr><td class="paramname">cons</td><td>console </td></tr>
     <tr><td class="paramname">parent_pid</td><td>parent PID, or 0 </td></tr>
+    <tr><td class="paramname">csd</td><td>Currently selected directory </td></tr>
   </table>
   </dd>
 </dl>
@@ -597,6 +607,45 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa0340f929d97ebceb2e0d7eaa9d4d3ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0340f929d97ebceb2e0d7eaa9d4d3ff">&#9670;&nbsp;</a></span>proc_set_csd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* proc_set_csd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td>
+          <td class="paramname"><em>proc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>csd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change CSD (currently selected directory) of process. </p>
+<dl class="section note"><dt>Note</dt><dd>No validation of the path is peformed, this must be done extnerally to this function by validating the file information on VFS. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">proc</td><td>Process struct </td></tr>
+    <tr><td class="paramname">csd</td><td>current directory </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const char* new current directory </dd></dl>
 
 </div>
 </div>
@@ -702,7 +751,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="taskswitch_8h.html">taskswitch.h</a></li>
-    <li class="footer">Generated on Thu Apr 27 2023 01:16:36 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 3 2023 13:47:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
