@@ -1,2 +1,3 @@
-10 PRINT DNS$(ARGS$)
-20 END
+IF ARGS$ = "host" THEN PRINT "Hostname not specified"
+IF ARGS$ = "host" THEN END
+PRINT DNS$(ARGS$)

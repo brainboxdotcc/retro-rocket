@@ -1,1 +1,3 @@
-10 RMDIR ARGS$
+IF ARGS$ = "rmdir" THEN PRINT "Directory name not specified"
+IF ARGS$ = "rmdir" THEN END
+RMDIR ARGS$

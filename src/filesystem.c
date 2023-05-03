@@ -1102,8 +1102,8 @@ int filesystem_mount(const char* pathname, const char* device, const char* files
 		"%s %s to %s%s%s\n",
 		success ? "Mounted" : "Failed to mount",
 		pathname,
-		device ? device : "",
-		device ? " as " : "",
+		device && *device ? device : "",
+		device && *device ? " as " : "",
 		filesystem_driver
 	);
 	return success;

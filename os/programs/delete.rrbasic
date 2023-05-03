@@ -1,1 +1,3 @@
-10 DELETE ARGS$
+IF ARGS$ = "delete" THEN PRINT "File name not specified"
+IF ARGS$ = "delete" THEN END
+DELETE ARGS$

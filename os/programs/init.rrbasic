@@ -1,16 +1,16 @@
-10 PRINT "Mounting ";
-20 COLOR 14
-30 PRINT "filesystems";
-40 COLOR 7
-50 PRINT "..."
+PRINT "Mounting ";
+COLOR 14
+PRINT "filesystems";
+COLOR 7
+PRINT "..."
 
-60 MOUNT "/devices", "", "devfs"
-70 MOUNT "/harddisk", "hd0", "fat32"
+MOUNT "/devices", "", "devfs"
+MOUNT "/harddisk", "hd0", "fat32"
 
-100 PRINT "Launching ";
-110 COLOR 14
-120 PRINT "shell";
-130 COLOR 7
-140 PRINT "..."
-150 CHAIN "/programs/rocketsh"
-160 PRINT "Shell process ended."
+PRINT "Launching ";
+COLOR 14
+PRINT "shell";
+COLOR 7
+PRINT "..."
+CHAIN "/programs/rocketsh"
+PRINT "Shell process ended."

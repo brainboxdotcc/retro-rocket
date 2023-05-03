@@ -1,1 +1,3 @@
-10 MKDIR ARGS$
+IF ARGS$ = "mkdir" THEN PRINT "Directory name not specified"
+IF ARGS$ = "mkdir" THEN END
+MKDIR ARGS$

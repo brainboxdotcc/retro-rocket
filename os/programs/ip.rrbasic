@@ -1,7 +1,6 @@
-10 PRINT "Network Interface Status"
-20 PRINT "------------------------"
-30 PRINT "IP:          "; NETINFO$("ip")
-40 PRINT "SUBNET MASK: "; NETINFO$("mask")
-50 PRINT "DNS:         "; NETINFO$("dns")
-60 PRINT "GATEWAY:     "; NETINFO$("gw")
-70 END
+PRINT "Network Interface Status"
+PRINT "────────────────────────"
+PRINT "IP:          "; NETINFO$("ip")
+PRINT "SUBNET MASK: "; NETINFO$("mask")
+PRINT "DNS:         "; NETINFO$("dns")
+PRINT "GATEWAY:     "; NETINFO$("gw")
