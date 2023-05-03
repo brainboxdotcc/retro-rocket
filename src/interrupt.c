@@ -28,7 +28,7 @@ void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
  */
 void local_apic_clear_interrupt()
 {
-	apic_write(0xB0, 0);
+	apic_write(APIC_EOI, 0);
 }
 
 /* Both the Interrupt() and ISR() functions are dispatched from the assembly code trampoline via a pre-set IDT */
