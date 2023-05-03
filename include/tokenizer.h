@@ -122,6 +122,7 @@
 	T(POP) \
 	T(LOCAL) \
 	T(CHDIR) \
+	T(LIBRARY) \
 	T(MOUNT)
 
 /*

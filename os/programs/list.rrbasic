@@ -1,5 +1,5 @@
-IF ARGS$ = "list" THEN PRINT "File name not specified"
-IF ARGS$ = "list" THEN END
+IF ARGS$ = "" THEN PRINT "File name not specified"
+IF ARGS$ = "" THEN END
 FILE$ = ARGS$
 FH = OPENIN(FILE$)
 REPEAT

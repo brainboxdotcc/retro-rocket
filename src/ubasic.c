@@ -184,6 +184,39 @@ int line_compare(const void *a, const void *b, void *udata) {
 	return la->line_number == lb->line_number ? 0 : (la->line_number < lb->line_number ? -1 : 1);
 }
 
+bool basic_hash_lines(struct ubasic_ctx* ctx, char** error)
+{
+	/* Build doubly linked list of line number references */
+	uint64_t last_line = 0xFFFFFFFF;
+	while (!tokenizer_finished(ctx)) {
+		uint64_t line = tokenizer_num(ctx, NUMBER);
+		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
+			*error = "Misordered lines in BASIC program";
+			ubasic_destroy(ctx);
+			return false;
+		}
+		last_line = line;
+		if (hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = line, .ptr = ctx->ptr })) {
+			*error = "Line hashed twice in BASIC program (internal error)";
+			ubasic_destroy(ctx);
+			return false;
+		}
+		ctx->highest_line = line;
+		do {
+			do {
+				tokenizer_next(ctx);
+			}
+			while (tokenizer_token(ctx) != NEWLINE && !tokenizer_finished(ctx));
+			if (tokenizer_token(ctx) == NEWLINE) {
+				tokenizer_next(ctx);
+			}
+		}
+		while(tokenizer_token(ctx) != NUMBER && !tokenizer_finished(ctx));
+	}
+	tokenizer_init(ctx->program_ptr, ctx);
+	return true;
+}
+
 struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
 {
 	if (!isdigit(*program)) {
@@ -245,35 +278,96 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	set_system_variables(ctx, pid);
 	ubasic_set_string_variable("PROGRAM$", file, ctx, false, false);
 
-	/* Build doubly linked list of line number references */
-	uint64_t last_line = 0xFFFFFFFF;
-	while (!tokenizer_finished(ctx)) {
-		uint64_t line = tokenizer_num(ctx, NUMBER);
-		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
-			*error = "Misordered lines in BASIC program";
-			ubasic_destroy(ctx);
-			return NULL;
-		}
-		last_line = line;
-		if (hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = line, .ptr = ctx->ptr })) {
-			*error = "Line hashed twice in BASIC program (internal error)";
-			ubasic_destroy(ctx);
-			return NULL;
-		}
-		do {
-			do {
-				tokenizer_next(ctx);
-			}
-			while (tokenizer_token(ctx) != NEWLINE && !tokenizer_finished(ctx));
-			if (tokenizer_token(ctx) == NEWLINE) {
-				tokenizer_next(ctx);
-			}
-		}
-		while(tokenizer_token(ctx) != NUMBER && !tokenizer_finished(ctx));
+	if (!basic_hash_lines(ctx, error)) {
+		return false;
 	}
-	tokenizer_init(ctx->program_ptr, ctx);
 
 	return ctx;
+}
+
+/**
+ * @brief Loads a library by appending it to the end of a running program
+ * This will cause many pointers in the context to become invalid, so the
+ * library_statement() function will regenerate them. Do not rely on copies
+ * of any ptrs inside ctx from before this call!
+ * 
+ * @param ctx BASIC context
+ */
+void library_statement(struct ubasic_ctx* ctx)
+{
+	accept(LIBRARY, ctx);
+	const char* lib_file = str_expr(ctx);
+
+	/* Validate the file exists and is not a directory */
+	fs_directory_entry_t* file_info = fs_get_file_info(lib_file);
+	if (!file_info || fs_is_directory(lib_file)) {
+		tokenizer_error_print(ctx, "Not a library file");
+	}
+	accept(NEWLINE, ctx);
+	/* Calculate the next line we will continue from after loading the library
+	 * (we need to look ahead and take note of this because the entire program
+	 * pointer structure will be rebuilt and any old ctx->ptr will be invalid!)
+	 */
+	uint64_t next_line = tokenizer_num(ctx, NUMBER);
+
+	/* Load the library file from VFS */
+	size_t library_len = file_info->size;
+	char* temp_library = kmalloc(library_len);
+	char* clean_library = kmalloc(library_len);
+	if (!fs_read_file(file_info, 0, library_len, (uint8_t*)temp_library)) {
+		tokenizer_error_print(ctx, "Error reading library file");
+		kfree(temp_library);
+		kfree(clean_library);
+		return;
+	}
+	*(temp_library + library_len) = 0;
+
+	/* Clean the BASIC code and check it is not numbered code */
+	clean_library = clean_basic(temp_library, clean_library);
+	kfree(temp_library);
+	if (isdigit(*clean_library)) {
+		tokenizer_error_print(ctx, "Library files cannot contain line numbers");
+		kfree(clean_library);
+		return;
+	}
+
+	/* Auto-number the library to be above the existing program statements */
+	const char* numbered = auto_number(clean_library, ctx->highest_line + 10, 10);
+	library_len = strlen(numbered);
+
+	/* Append the renumbered library to the end of the program (this reallocates
+	 * ctx->program_ptr invalidating ctx->ptr and ctx->next_ptr - the tokeinizer
+	 * must be reinitailised and the line hash rebuilt)
+	 */
+	ctx->program_ptr = krealloc(ctx->program_ptr, strlen(ctx->program_ptr) + 5000 + library_len);
+	strlcpy(ctx->program_ptr + strlen(ctx->program_ptr) - 1, numbered, strlen(ctx->program_ptr) + 5000 + library_len);
+	kfree(clean_library);
+	kfree(numbered);
+
+	/* Reinitialise token parser and scan for new functions/procedures now the
+	 * library is included in the program. Frees old list of DEFs.
+	 */
+	tokenizer_init(ctx->program_ptr, ctx);
+	basic_free_defs(ctx);
+	ubasic_parse_fn(ctx);
+
+	/* Rebuild line number hash map (needs a complete rehash as all pointers are
+	 * now invalidated)
+	 */
+	char error[MAX_STRINGLEN];
+	hashmap_free(ctx->lines);
+	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
+	if (!basic_hash_lines(ctx, (char**)&error)) {
+		tokenizer_error_print(ctx, error);
+		return;
+	}
+
+	/* Reset tokenizer again, and jump back to the line number after the LIBRARY
+	 * statement that we recorded at the top of the function.
+	 */
+	tokenizer_init(ctx->program_ptr, ctx);
+	jump_linenum(next_line, ctx);
+
 }
 
 struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
@@ -290,6 +384,7 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	ctx->string_array_variables = old->string_array_variables;
 	ctx->double_array_variables = old->double_array_variables;
 	ctx->lines = old->lines;
+	ctx->highest_line = old->highest_line;
 
 	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_int_variables[i] = old->local_int_variables[i];
@@ -329,7 +424,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 		do {
 			do {
 				tokenizer_next(ctx);
-			} while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT);
+			} while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT && *ctx->ptr);
 			
 			char const* lineend = ctx->ptr;
 			
@@ -426,9 +521,9 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 				break;
 			}
 		}
-		while (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != ENDOFINPUT);
+		while (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != ENDOFINPUT && *ctx->ptr);
 
-		if (tokenizer_token(ctx) == ENDOFINPUT) {
+		if (tokenizer_token(ctx) == ENDOFINPUT || !*ctx->ptr) {
 			break;
 		}
 	}
@@ -448,6 +543,18 @@ struct ub_proc_fn_def* ubasic_find_fn(const char* name, struct ubasic_ctx* ctx)
 		}
 	}
 	return NULL;
+}
+
+void basic_free_defs(struct ubasic_ctx* ctx)
+{
+	for (; ctx->defs; ctx->defs = ctx->defs->next) {
+		kfree(ctx->defs->name);
+		for (; ctx->defs->params; ctx->defs->params = ctx->defs->params->next) {
+			kfree(ctx->defs->params->name);
+			kfree(ctx->defs->params);
+		}
+	}
+	ctx->defs = NULL;
 }
 
 void ubasic_destroy(struct ubasic_ctx* ctx)
@@ -500,13 +607,7 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 		}
 	}
 	hashmap_free(ctx->lines);
-	for (; ctx->defs; ctx->defs = ctx->defs->next) {
-		kfree(ctx->defs->name);
-		for (; ctx->defs->params; ctx->defs->params = ctx->defs->params->next) {
-			kfree(ctx->defs->params->name);
-			kfree(ctx->defs->params);
-		}
-	}
+	basic_free_defs(ctx);
 	kfree((char*)ctx->program_ptr);
 	kfree(ctx);
 }
@@ -1587,6 +1688,8 @@ void statement(struct ubasic_ctx* ctx)
 			return chdir_statement(ctx);
 		case CIRCLE:
 			return circle_statement(ctx);
+		case LIBRARY:
+			return library_statement(ctx);
 		case LET:
 			accept(LET, ctx);
 			/* Fall through. */

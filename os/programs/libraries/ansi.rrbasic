@@ -1,0 +1,11 @@
+END
+
+REM hide text cursor
+DEF PROChideCursor
+	PRINT CHR$(27);"[?25l";
+RETPROC
+
+REM show text cursor
+DEF PROCshowCursor
+	PRINT CHR$(27);"[?25h";
+RETPROC

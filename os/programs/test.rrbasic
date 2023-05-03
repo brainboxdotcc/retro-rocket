@@ -1,20 +1,8 @@
-10 a = 3200
-20 foobar = 50
-30 bazqux = 40
-40 mystring$ = "A String"
-50 PRINT "Welcome to ";
-60 COLOR 14
-70 PRINT "the test ";
-80 COLOR 7
-90 PRINT "script!"
-100 PRINT "Variables test: ";
-110 PRINT foobar + bazqux - 1, 89, mystring$ + " extra"
-120 ZVAR = FNfoo(90)
-130 PRINT "ZVAR contains ", ZVAR
-140 FOR N = 0 TO 100 STEP 10
-150 PRINT N
-160 NEXT
-170 END
-180 DEF FN foo(A)
-190 PRINT "function called with ", A
-200 =69
+LIBRARY LIB$ + "/ansi"
+
+PRINT "Program here"
+PROChideCursor
+PROCshowCursor
+PRINT "Library calls completed"
+
+END

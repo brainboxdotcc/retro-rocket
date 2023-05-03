@@ -9,7 +9,7 @@ DIM content$, max
 
 REM load file, draw UI, start editor input loop
 PROCload(ARGS$)
-IF ARGS$ = "edit" THEN lines = 1
+IF ARGS$ = "" THEN lines = 1
 CLS
 PROCtext
 PROCedit
@@ -80,7 +80,7 @@ RETPROC
 
 REM load a file into the array, translating TAB to four spaces
 DEF PROCload(file$)
-	IF file$ = "edit" THEN RETPROC
+	IF file$ = "" THEN RETPROC
 	FH = OPENIN(file$)
 	IF FH < 0 THEN PROCfail
 	lines = 0
@@ -164,8 +164,8 @@ RETPROC
 
 REM handle save
 DEF PROCsave
-	IF ARGS$ = "edit" THEN PROCsaveNew
-	IF ARGS$ = "edit" THEN RETPROC
+	IF ARGS$ = "" THEN PROCsaveNew
+	IF ARGS$ = "" THEN RETPROC
 	PROCsaveAs
 RETPROC
 

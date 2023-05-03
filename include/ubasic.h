@@ -364,6 +364,10 @@ typedef struct ubasic_ctx {
 	 * @brief Block IF...THEN...ELSE depth
 	 */
 	uint64_t if_nest_level;
+	/**
+	 * @brief highest line number in program
+	 */
+	int64_t highest_line;
 } ubasic_ctx;
 
 /**
@@ -658,3 +662,5 @@ int64_t str_relation(struct ubasic_ctx* ctx);
  * Misc functions
  */
 char* printable_syntax(struct ubasic_ctx* ctx);
+void library_statement(struct ubasic_ctx* ctx);
+void basic_free_defs(struct ubasic_ctx* ctx);

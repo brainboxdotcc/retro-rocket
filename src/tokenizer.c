@@ -54,6 +54,7 @@ const int keywords[] = {
 	IF,
 	INPUT,
 	LET,
+	LIBRARY,
 	LINE,
 	LOCAL,
 	MKDIR,

@@ -11,6 +11,19 @@ function(copy_basic TARGETFILE SOURCEFILE)
     add_dependencies(ISO basic_${SOURCEFILE})
 endfunction()
 
+function(copy_basic_lib TARGETFILE SOURCEFILE)
+    set(FILENAME "${CMAKE_SOURCE_DIR}/os/programs/libraries/${SOURCEFILE}")
+    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/programs/libraries/${TARGETFILE}")
+    get_filename_component(basic_name ${TARGETFILE} NAME_WE)
+    set(OUTNAME_WE "${CMAKE_BINARY_DIR}/iso/programs/libraries/${basic_name}")
+    add_custom_command(OUTPUT ${OUTNAME_WE}
+        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/programs/libraries" && cp ${FILENAME} ${OUTNAME_WE}
+        DEPENDS ${FILENAME})
+    add_custom_target(basic_${SOURCEFILE} ALL DEPENDS ${OUTNAME_WE})
+    add_dependencies("kernel.bin" basic_${SOURCEFILE})
+    add_dependencies(ISO basic_${SOURCEFILE})
+endfunction()
+
 function(copy_font TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/fonts/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/fonts/${TARGETFILE}")

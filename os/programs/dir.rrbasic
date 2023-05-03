@@ -1,6 +1,5 @@
 DIR$ = ARGS$
 
-IF DIR$ = "dir" THEN DIR$ = ""
 N = GETNAMECOUNT(DIR$)
 IF N = 0 THEN PROCreport
 IF N = 0 THEN END
