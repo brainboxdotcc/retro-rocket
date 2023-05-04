@@ -1544,7 +1544,8 @@ void eq_statement(struct ubasic_ctx* ctx)
 	accept(EQUALS, ctx);
 
 	if (ctx->fn_type == RT_STRING) {
-		ctx->fn_return = (void*)str_expr(ctx);
+		const char* e = str_expr(ctx);
+		ctx->fn_return = (void*)e;
 	} else if (ctx->fn_type == RT_FLOAT) {
 		double_expr(ctx, (void*)&ctx->fn_return);
 	} else if (ctx->fn_type == RT_INT)  {
@@ -2074,7 +2075,7 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 		if (atomic->fn_return == NULL) {
 			tokenizer_error_print(ctx, "End of function without returning value");
 		} else {
-			rv = (const char*)atomic->fn_return;
+			rv = gc_strdup((const char*)atomic->fn_return);
 		}
 
 		/* Only free the base struct! */

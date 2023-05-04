@@ -9,3 +9,192 @@ REM show text cursor
 DEF PROCshowCursor
 	PRINT CHR$(27);"[?25h";
 RETPROC
+
+REM clear line from cursor to right
+DEF PROCclearLineFromCursor
+	PRINT CHR$(27) + "[0K";
+RETPROC
+
+REM handle up key to recall through history
+DEF PROCEDup
+	IF EDhistPtr = 0-1 THEN RETPROC
+	EDPos = EDPos + 1
+	IF EDPos = EDhistSize THEN EDPos = EDhistSize - 1
+	EDin$ = EDhist$(EDPos)
+	EDcurrentx = LEN(EDin$)
+RETPROC
+
+REM handle down key to recall through history
+DEF PROCEDdown
+	IF EDhistPtr = 0-1 THEN RETPROC
+	EDPos = EDPos - 1
+	IF EDPos < 0 THEN EDPos = 0
+	EDin$ = EDhist$(EDPos)
+	EDcurrentx = LEN(EDin$)
+RETPROC
+
+REM add a line to the history (this is not automatic)
+DEF PROCEdAddHistory(hist$)
+	IF EDhistPtr = 0-1 THEN RETPROC
+	PUSH EDhist$,1
+	EDhist$(1) = hist$
+	EDhistPtr = EDhistPtr + 1
+	IF EDhistPtr = EDhistSize THEN PROCEDgrow
+RETPROC
+
+REM grow the history array to accomodate more history lines
+DEF PROCEDgrow
+	REDIM EDhist$, EDhistSize + 50
+	EDhistSize = EDhistSize + 50
+RETPROC
+
+REM handle left edit key
+DEF PROCEDleft
+	EDcurrentx = EDcurrentx - 1
+	IF EDcurrentx < 0 THEN EDcurrentx = 0
+RETPROC
+
+REM handle right edit key
+DEF PROCEDright
+	EDcurrentx = EDcurrentx + 1
+	IF EDcurrentx < 0 THEN EDcurrentx = 0
+RETPROC
+
+REM handle end edit key
+DEF PROCEDend
+	EDcurrentx = LEN(EDin$)
+RETPROC
+
+REM handle home edit key
+DEF PROCEDhome
+	EDcurrentx = 0
+RETPROC
+
+REM handle delete edit key
+DEF PROCEDdelete
+	EDlen = LEN(EDin$)
+	IF EDcurrentx < EDlen THEN PROCEDdeleteRight
+RETPROC
+
+REM handle backspace edit key
+DEF PROCEDbackSpace
+	cx = EDcurrentx
+	IF cx > 0 THEN PROCEDdeleteLeft
+RETPROC
+
+REM delete character to left of cursor, advance left
+DEF PROCEDdeleteLeft
+	EDstart$ = MID$(EDin$, 0, EDcurrentx - 1)
+	EDend$ = MID$(EDin$, EDcurrentx, LEN(EDin$))
+	EDin$ = EDstart$ + EDend$
+	EDcurrentx = EDcurrentx - 1
+RETPROC
+
+REM delete one character to the right
+DEF PROCEDdeleteRight
+	EDstart$ = MID$(EDin$, 0, EDcurrentx)
+	EDend$ = MID$(EDin$, EDcurrentx + 1, LEN(EDin$))
+	EDin$ = EDstart$ + EDend$
+	EDlen = LEN(EDin$)
+	IF EDcurrentx > EDlen THEN EDcurrentx = EDlen
+RETPROC
+
+REM clear line from cursor to right
+DEF PROCEDclearLineFromCursor
+	PRINT CHR$(27) + "[0K";
+RETPROC
+
+REM insert character into edit line up to TERMWIDTH -1
+DEF PROCEDinsertChar(i)
+	IF EDcurrentx + EDStartInputX > TERMWIDTH - 1 THEN RETPROC
+	EDstart$ = MID$(EDin$, 0, EDcurrentx)
+	EDend$ = MID$(EDin$, EDcurrentx, LEN(EDin$))
+	EDin$ = EDstart$ + CHR$(i) + EDend$
+	EDcurrentx = EDcurrentx + 1
+	IF EDhistPtr = 0-1 THEN RETPROC
+	EDhist$(0) = EDin$
+RETPROC
+
+REM process any incoming key into the edit buffer
+DEF PROCEdRun
+	key$ = INKEY$
+	IF key$ > "" THEN PROCEDprocessKey(ASC(key$))
+RETPROC
+
+REM internal: Initialise internal history variables
+DEF PROCEdInitInternalHistory
+	DIM EDhist$, 50
+	EDhistSize = 50
+	EDhistPtr = 1
+	EDPos = 0
+RETPROC
+
+REM initialise line edit (history = TRUE to enable history, FALSE to disable history)
+DEF PROCEdInit(history)
+	EDhistPtr = 0-1
+	IF history = TRUE THEN PROCEdInitInternalHistory
+RETPROC
+
+REM start a line edit at the current cursor position, finished by pressing ENTER or ESC
+DEF PROCEdStart
+	EDin$ = ""
+	EdEsc = FALSE
+	EDcurrentx = 0
+	EDPos = 0
+	EDStartInputX = CURRENTX + 1
+	EDStartInputY = CURRENTY + 1
+	EdComplete = FALSE
+RETPROC
+
+REM handle line enter
+DEF PROCEDenter
+	EdComplete = TRUE
+RETPROC
+
+REM handle line abort (ESC) - clears line
+DEF PROCEDabort
+	EDin$ = ""
+	CURSOR EDStartInputX, EDStartInputY
+	PROCclearLineFromCursor
+	EdComplete = TRUE
+	EdEsc = TRUE
+RETPROC
+
+REM get the line edit result
+DEF FNEdResult$
+=EDin$
+
+REM return true if line edit was aborted (ESC)
+DEF FNEdAborted
+=EdEsc
+
+REM Accept line input using line-edit and history
+REM return the completed line in FNEdResult$()
+DEF PROCEdLine
+	PROCEdStart
+	REPEAT
+		PROCEdRun
+	UNTIL EdComplete = TRUE
+RETPROC
+
+REM handle line edit keypress
+DEF PROCEDprocessKey(in)
+	IF in = 13 THEN PROCEDenter
+	IF in = 27 THEN PROCEDabort
+	IF in = 250 THEN PROCEDup
+	IF in = 251 THEN PROCEDdown
+	IF in = 252 THEN PROCEDleft
+	IF in = 253 THEN PROCEDright
+	IF in = 249 THEN PROCEDend
+	IF in = 254 THEN PROCEDhome
+	IF in = 247 THEN PROCEDdelete
+	IF in = 8 THEN PROCEDbackSpace
+	IF in < 128 THEN IF in > 31 THEN PROCEDinsertChar(in)
+	PROChideCursor
+	CURSOR EDStartInputX, EDStartInputY
+	PROCclearLineFromCursor
+	PRINT EDin$;
+	CURSOR EDStartInputX + EDcurrentx, EDStartInputY
+	PROCshowCursor
+RETPROC
+

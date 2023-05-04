@@ -1,4 +1,7 @@
 REM *** Retro Rocket BASIC Shell ***
+LIBRARY LIB$ + "/ansi"
+
+PROCEdInit(TRUE)
 
 REM System variables
 PROMPT$ = "ROCKETSH"
@@ -17,7 +20,10 @@ PRINT ""
 REM Input loop
 REPEAT
 	PROCdisplayPrompt
-	INPUT in$
+	PROCEdLine
+	PRINT ""
+	in$ = FNEdResult$()
+	PROCEdAddHistory(in$)
 	IF in$ > "" THEN PROCprocessCommand(in$)
 UNTIL in$ = "END"
 END

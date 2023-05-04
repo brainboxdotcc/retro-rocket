@@ -1,8 +1,12 @@
 LIBRARY LIB$ + "/ansi"
-
-PRINT "Program here"
-PROChideCursor
-PROCshowCursor
-PRINT "Library calls completed"
-
+PROCEdInit(TRUE)
+PROCEdAddHistory("Some line")
+PROCEdAddHistory("Some other line")
+PROCEdAddHistory("Third history line")
+PRINT "Enter something: ";
+PROCEdLine
+PRINT ""
+line$ = FNEdResult$()
+PRINT "You entered: "; FNEdResult$()
+PROCEdAddHistory(line$)
 END
