@@ -52,10 +52,9 @@ function(run TARGETFILE)
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND echo "qemu-system-x86_64 \
 	-s \
-	-cpu host \
-	-trace *msi* \
-	--enable-kvm \
 	-monitor stdio \
+	--enable-kvm \
+	-cpu host \
 	-smp 8 \
 	-usb \
 	-usbdevice mouse \
@@ -65,7 +64,6 @@ function(run TARGETFILE)
 	-device ide-hd,drive=disk,bus=ahci.0 \
 	-drive file=rr.iso,media=cdrom,if=none,id=sata-cdrom \
 	-device ide-cd,drive=sata-cdrom,bus=ahci.1 \
-	-no-reboot \
 	-no-shutdown \
 	-boot d \
 	-vnc 0.0.0.0:2 \

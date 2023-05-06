@@ -9,7 +9,7 @@ void ioapic_register_write(uint32_t index, uint32_t value, ioapic_t *ioapic)
 {
 	if (ioapic == NULL)
 		return;
-	uint32_t *mmio = (uint32_t*)ioapic->paddr;
+	volatile uint32_t *mmio = (volatile uint32_t*)ioapic->paddr;
 	mmio[0] = index & 0xFF;
 	mmio[4] = value;
 }
@@ -18,9 +18,9 @@ uint32_t ioapic_register_read(uint32_t index, ioapic_t* ioapic)
 {
 	if (ioapic == NULL)
 		return 0;
-	uint32_t *mmio = (uint32_t*) ioapic->paddr;
+	volatile uint32_t *mmio = (volatile uint32_t*) ioapic->paddr;
 	mmio[0] = index & 0xFF;
-	uint32_t ret = mmio[4];
+	volatile uint32_t ret = mmio[4];
 	return ret;
 }
 
