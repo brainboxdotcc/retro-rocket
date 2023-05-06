@@ -85,7 +85,7 @@ struct basic_str_fn builtin_str[] =
 };
 
 #define NEGATE_STATEMENT(s, len) { \
-	char statement[len + 2]; \
+	char statement[len + 3]; \
 	snprintf(statement, len + 3, "%s -", s); \
 	if (strncmp(statement, p, len + 2) == 0) { \
 		memcpy(d, p, len + 1); \
