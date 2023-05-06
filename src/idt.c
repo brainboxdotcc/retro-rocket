@@ -106,12 +106,13 @@ void init_idt()
 		ioapic_redir_set(in, in + 32, 0, 0, 1, 1, 0);
 	}*/
 
-	/* PIT timer set to ridiculously low frequency, we don't seem to be able to disable it in qemu so at least
-	 * lets make it less disruptive.
+	/* PIT timer
 	 */
+	uint32_t frequency = 50;
+	uint32_t microsecs_divisor = 1193180 / frequency;
 	outb(0x43, 0x36);
-	outb(0x40, 0xFF);
-	outb(0x40, 0xFF);
+	outb(0x40, (uint8_t)microsecs_divisor & 0xFF);
+	outb(0x40, (uint8_t)microsecs_divisor >> 8);
 
 	pic_remap(0x20, 0x28);
 	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);

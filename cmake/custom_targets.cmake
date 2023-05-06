@@ -53,6 +53,8 @@ function(run TARGETFILE)
         COMMAND echo "qemu-system-x86_64 \
 	-s \
 	-monitor stdio \
+	-cpu host \
+	--enable-kvm \
 	-smp 8 \
 	-usb \
 	-usbdevice mouse \
