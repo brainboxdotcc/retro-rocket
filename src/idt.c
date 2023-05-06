@@ -9,6 +9,7 @@ volatile idt_ptr_t idt64 = { sizeof(idt_entry_t) * 255, NULL };
 #define PIC2_COMMAND	PIC2
 #define PIC2_DATA	(PIC2+1)
 
+#define PIC_EOI		0x20		/* End-of-interrupt command code */
 #define ICW1_ICW4	0x01		/* Indicates that ICW4 will be present */
 #define ICW1_SINGLE	0x02		/* Single (cascade) mode */
 #define ICW1_INTERVAL4	0x04		/* Call address interval 4 (8) */
@@ -71,6 +72,14 @@ void pic_enable()
 	outb(PIC2_DATA, enable);
 }
 
+void pic_eoi(int irq)
+{
+	if(irq >= 8) {
+		outb(PIC2_COMMAND, PIC_EOI);
+	}
+	outb(PIC1_COMMAND, PIC_EOI);
+}
+
 void init_idt()
 {
 	/* Allocate memory for IDT */
@@ -91,11 +100,11 @@ void init_idt()
 	/* Unmask and configure each interrupt on the IOAPIC
 	 * 24 pins: http://web.archive.org/web/20161130153145/http://download.intel.com/design/chipsets/datashts/29056601.pdf
 	 */
-	for (int in = 0; in < 24; in++) {
+	/*for (int in = 0; in < 24; in++) {
 		// Unmasked, Active low, level triggered, interrupt mapped to irq + 32
 		dprintf("IOAPIC redirection set %d -> %d\n", in, in + 32);
 		ioapic_redir_set(in, in + 32, 0, 0, 1, 1, 0);
-	}
+	}*/
 
 	/* PIT timer set to ridiculously low frequency, we don't seem to be able to disable it in qemu so at least
 	 * lets make it less disruptive.
@@ -105,7 +114,8 @@ void init_idt()
 	outb(0x40, 0xFF);
 
 	pic_remap(0x20, 0x28);
-	pic_disable();
+	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
+	pic_enable();
 
 	/* Now we are safe to enable interrupts */
 	interrupts_on();

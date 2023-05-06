@@ -48,7 +48,8 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 		wait_forever();
 	}
 
-	local_apic_clear_interrupt();
+	//local_apic_clear_interrupt();
+	pic_eoi(isrnumber);
 }
 
 void IRQ(uint64_t isrnumber, uint64_t irqnum)
@@ -68,7 +69,8 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum)
 	}
 	/* IRQ7 is the APIC spurious interrupt, we never acknowledge it */
 	if (irqnum != IRQ7) {
-		local_apic_clear_interrupt();
+		//local_apic_clear_interrupt();
+		pic_eoi(isrnumber);
 	}
 }
 

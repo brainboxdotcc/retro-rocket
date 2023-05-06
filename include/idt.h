@@ -32,4 +32,6 @@ void init_idt();
 /* Function body defined in asm/loader.S */
 void idt_init(void* idt);
 
+void pic_eoi(int irq);
+
 #endif
