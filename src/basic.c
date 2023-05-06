@@ -84,13 +84,29 @@ struct basic_str_fn builtin_str[] =
 	{ NULL, NULL }
 };
 
+#define NEGATE_STATEMENT(s, len) { \
+	char statement[len + 2]; \
+	snprintf(statement, len + 3, "%s -", s); \
+	if (strncmp(statement, p, len + 2) == 0) { \
+		memcpy(d, p, len + 1); \
+		d += len + 1; \
+		p += len + 2; \
+		memcpy(d, "(0-1)*", 6); \
+		d += 6; \
+	} \
+}
+
 char* clean_basic(const char* program, char* output_buffer)
 {
 	bool in_quotes = false;
-	uint16_t bracket_depth = 0;
+	uint16_t bracket_depth = 0, count = 0;
 	const char* p = program;
 	char *d = output_buffer;
 	while (*p) {
+		NEGATE_STATEMENT("IF", 2);
+		NEGATE_STATEMENT(" TO", 3);
+		NEGATE_STATEMENT(" STEP", 5);
+		NEGATE_STATEMENT("PRINT", 5);
 		while (*p == '\r') {
 			p++;
 		}
@@ -104,11 +120,13 @@ char* clean_basic(const char* program, char* output_buffer)
 		if (!in_quotes && bracket_depth > 0) {
 			if (*p != ' ') {
 				*d++ = *p++;
+				count++;
 			} else {
 				p++;
 			}
 		} else {
 			*d++ = *p++;
+			count++;
 		}
 		// Remove extra newlines
 		if (*(p - 1) == '\n' || *(p - 1) == '\r') {
@@ -116,9 +134,28 @@ char* clean_basic(const char* program, char* output_buffer)
 				p++;
 			}
 		}
+		if (count > 2) {
+			char* prev = d - 1;
+			while (isspace(*prev) && prev > output_buffer) --prev;
+			if (*(prev) == '-') {
+				char* ptr = prev;
+				--prev;
+				while (isspace(*prev) && prev > output_buffer) --prev;
+				const char op = *prev;
+				/* Translate negative values into an expression represented entirely as positive numbers */
+				if (op == '=' || op == '<' || op == '>' || op == '*' || op == '-' ||
+					op == '/' || op == '+' || op == ',' || op == ';' || op == '(') {
+					*ptr = '(';
+					memcpy(d, "0-1)*", 5);
+					d += 5;
+					count += 5;
+				}
+			}
+		}
 	}
 	// Terminate output
 	*d = 0;
+	//dprintf("clean => %s\n", output_buffer);
 	return output_buffer;
 }
 
@@ -739,7 +776,7 @@ char* printable_syntax(struct basic_ctx* ctx)
 			tokenizer_next(ctx);
 		} else if (tokenizer_token(ctx) == PLUS) {
 			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == VARIABLE || tokenizer_token(ctx) == NUMBER || tokenizer_token(ctx) == HEXNUMBER) {
+		} else if (tokenizer_token(ctx) == OPENBRACKET || tokenizer_token(ctx) == VARIABLE || tokenizer_token(ctx) == NUMBER || tokenizer_token(ctx) == HEXNUMBER) {
 			/* Check if it's a string or numeric expression */
 			const char* oldctx = ctx->ptr;
 			if (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != HEXNUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))) {

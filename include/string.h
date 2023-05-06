@@ -28,6 +28,10 @@ char tolower(char low);
 
 int isalnum(const char x);
 
+bool isspace(const char x);
+
+bool isalpha(const char x);
+
 char* strchr(const char *s, int c);
 
 uint32_t strlcat(char *dst, const char *src, uint32_t siz);

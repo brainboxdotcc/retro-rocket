@@ -47,7 +47,7 @@ DEF PROCprocessCommand(inp$)
 	IF builtin = TRUE THEN RETPROC
 	FH = OPENIN(PATH$ + "/" + command$)
 	IF FH < 0 THEN PROCevalBasic
-	IF FH > 0-1 THEN PROCrunCommand(command$)
+	IF FH > -1 THEN PROCrunCommand(command$)
 RETPROC
 
 REM extract parameters from commandline

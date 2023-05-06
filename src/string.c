@@ -190,6 +190,16 @@ int isalnum(const char x)
 	return ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z') || (x >= '0' && x <= '9'));
 }
 
+bool isalpha(const char x)
+{
+	return (x >= 'A' && x <= 'Z');
+}
+
+bool isspace(const char x)
+{
+	return x == ' ' || x == '\t';
+}
+
 char* strdup(const char* string)
 {
 	uint32_t siz = strlen(string) + 1;

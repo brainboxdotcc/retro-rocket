@@ -133,7 +133,7 @@ int get_next_token(struct basic_ctx* ctx)
 		return ENDOFINPUT;
 	}
 	
-	if (isdigit(*ctx->ptr) || *ctx->ptr == '&'|| *ctx->ptr == '.') {
+	if (isdigit(*ctx->ptr) || *ctx->ptr == '&' || *ctx->ptr == '.') {
 		if (*ctx->ptr == '&') {
 			ctx->ptr++;
 			for (int i = 0; i < MAX_NUMLEN; ++i) {
@@ -353,6 +353,9 @@ bool tokenizer_decimal_number(struct basic_ctx* ctx)
 {
 	const char* ptr = ctx->ptr;
 	int whole_part_count = 0, decimal_part_count = 0;
+	if (*ptr == '+' || *ptr == '-') {
+		ptr++;
+	}
 	while (isdigit(*ptr)) {
 		whole_part_count++;
 		ptr++;

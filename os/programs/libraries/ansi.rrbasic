@@ -17,7 +17,7 @@ RETPROC
 
 REM handle up key to recall through history
 DEF PROCEDup
-	IF EDhistPtr = 0-1 THEN RETPROC
+	IF EDhistPtr = -1 THEN RETPROC
 	EDPos = EDPos + 1
 	IF EDPos = EDhistSize THEN EDPos = EDhistSize - 1
 	EDin$ = EDhist$(EDPos)
@@ -26,7 +26,7 @@ RETPROC
 
 REM handle down key to recall through history
 DEF PROCEDdown
-	IF EDhistPtr = 0-1 THEN RETPROC
+	IF EDhistPtr = -1 THEN RETPROC
 	EDPos = EDPos - 1
 	IF EDPos < 0 THEN EDPos = 0
 	EDin$ = EDhist$(EDPos)
@@ -35,7 +35,7 @@ RETPROC
 
 REM add a line to the history (this is not automatic)
 DEF PROCEdAddHistory(hist$)
-	IF EDhistPtr = 0-1 THEN RETPROC
+	IF EDhistPtr = -1 THEN RETPROC
 	PUSH EDhist$,1
 	EDhist$(1) = hist$
 	EDhistPtr = EDhistPtr + 1
@@ -111,7 +111,7 @@ DEF PROCEDinsertChar(i)
 	EDend$ = MID$(EDin$, EDcurrentx, LEN(EDin$))
 	EDin$ = EDstart$ + CHR$(i) + EDend$
 	EDcurrentx = EDcurrentx + 1
-	IF EDhistPtr = 0-1 THEN RETPROC
+	IF EDhistPtr = -1 THEN RETPROC
 	EDhist$(0) = EDin$
 RETPROC
 
@@ -121,7 +121,7 @@ DEF PROCEdRun
 	IF key$ > "" THEN PROCEDprocessKey(ASC(key$))
 RETPROC
 
-REM internal: Initialise internal history variables
+REM internal - Initialise internal history variables
 DEF PROCEdInitInternalHistory
 	DIM EDhist$, 50
 	EDhistSize = 50
@@ -131,7 +131,7 @@ RETPROC
 
 REM initialise line edit (history = TRUE to enable history, FALSE to disable history)
 DEF PROCEdInit(history)
-	EDhistPtr = 0-1
+	EDhistPtr = -1
 	IF history = TRUE THEN PROCEdInitInternalHistory
 RETPROC
 
