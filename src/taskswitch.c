@@ -50,7 +50,7 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 		if (fs_read_file(fsi, 0, fsi->size, programtext)) {
 			process_t* newproc = kmalloc(sizeof(process_t));
 			char* error = "Unknown error";
-			newproc->code = ubasic_init((const char*)programtext, (console*)cons, nextid, fullpath, &error);
+			newproc->code = basic_init((const char*)programtext, (console*)cons, nextid, fullpath, &error);
 			if (!newproc->code) {
 				kfree(newproc);
 				kfree(programtext);
@@ -110,10 +110,10 @@ process_t* proc_cur()
 void proc_run(process_t* proc)
 {
 	if (proc->waitpid == 0) {
-		ubasic_run(proc->code);
+		basic_run(proc->code);
 	} else if (proc_find(proc->waitpid) == NULL) {
 		proc->waitpid = 0;
-		ubasic_run(proc->code);
+		basic_run(proc->code);
 	}
 }
 
@@ -204,7 +204,7 @@ void proc_kill(process_t* proc)
 
 	proc_current = proc_list;
 
-	ubasic_destroy(proc->code);
+	basic_destroy(proc->code);
 	kfree(proc->name);
 	kfree(proc->directory);
 	kfree(proc->csd);
@@ -304,7 +304,7 @@ void proc_timer()
 
 int proc_ended(process_t* proc)
 {
-	return ubasic_finished(proc->code);
+	return basic_finished(proc->code);
 }
 
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type)

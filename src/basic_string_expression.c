@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-const char* str_varfactor(struct ubasic_ctx* ctx)
+const char* str_varfactor(struct basic_ctx* ctx)
 {
 	const char* r;
 	if (*ctx->ptr == '"') {
@@ -14,7 +14,7 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 		 }
 		return ctx->string;
 	} else {
-		r = ubasic_get_string_variable(tokenizer_variable_name(ctx), ctx);
+		r = basic_get_string_variable(tokenizer_variable_name(ctx), ctx);
 		if (tokenizer_token(ctx) == CLOSEBRACKET) {
 			accept(CLOSEBRACKET, ctx);
 		} else {
@@ -24,7 +24,7 @@ const char* str_varfactor(struct ubasic_ctx* ctx)
 	return r;
 }
 
-const char* str_factor(struct ubasic_ctx* ctx)
+const char* str_factor(struct basic_ctx* ctx)
 {
 	switch (tokenizer_token(ctx)) {
 		case OPENBRACKET:
@@ -39,7 +39,7 @@ const char* str_factor(struct ubasic_ctx* ctx)
 	}
 }
 
-int64_t str_relation(struct ubasic_ctx* ctx)
+int64_t str_relation(struct basic_ctx* ctx)
 {
 	int r;
 
@@ -68,7 +68,7 @@ int64_t str_relation(struct ubasic_ctx* ctx)
 	return r;
 }
 
-const char* str_expr(struct ubasic_ctx* ctx)
+const char* str_expr(struct basic_ctx* ctx)
 {
 	char tmp[MAX_STRINGLEN];
 	char* t1 = (char*)str_factor(ctx);

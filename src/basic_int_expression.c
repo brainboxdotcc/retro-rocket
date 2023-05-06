@@ -1,9 +1,9 @@
 #include <kernel.h>
 
-static int64_t varfactor(struct ubasic_ctx* ctx)
+static int64_t varfactor(struct basic_ctx* ctx)
 {
 	const char* vn = tokenizer_variable_name(ctx);
-	int64_t r = ubasic_get_numeric_int_variable(vn, ctx);
+	int64_t r = basic_get_numeric_int_variable(vn, ctx);
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == COMMA) {
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
@@ -17,7 +17,7 @@ static int64_t varfactor(struct ubasic_ctx* ctx)
 	return r;
 }
 
-int64_t factor(struct ubasic_ctx* ctx)
+int64_t factor(struct basic_ctx* ctx)
 {
 	int64_t r = 0;
 	int tok = tokenizer_token(ctx);
@@ -39,7 +39,7 @@ int64_t factor(struct ubasic_ctx* ctx)
 	return r;
 }
 
-int64_t relation(struct ubasic_ctx* ctx)
+int64_t relation(struct basic_ctx* ctx)
 {
 	int64_t r1 = expr(ctx);
 	int op = tokenizer_token(ctx);
@@ -66,7 +66,7 @@ int64_t relation(struct ubasic_ctx* ctx)
 	return r1;
 }
 
-int64_t term(struct ubasic_ctx* ctx)
+int64_t term(struct basic_ctx* ctx)
 {
 	int64_t f1 = factor(ctx);
 	int op = tokenizer_token(ctx);
@@ -98,7 +98,7 @@ int64_t term(struct ubasic_ctx* ctx)
 }
 
 
-int64_t expr(struct ubasic_ctx* ctx)
+int64_t expr(struct basic_ctx* ctx)
 {
 	int64_t t1 = term(ctx);
 	int op = tokenizer_token(ctx);

@@ -25,7 +25,7 @@ const char* make_full_path(const char* relative)
 	return gc_strdup(qualified_path);
 }
 
-char* ubasic_readstring(struct ubasic_ctx* ctx)
+char* basic_readstring(struct basic_ctx* ctx)
 {
 	char* res = kmalloc(MAX_STRINGLEN);
 	int ofs = 0;
@@ -47,7 +47,7 @@ char* ubasic_readstring(struct ubasic_ctx* ctx)
 	return ret;
 }
 
-int64_t ubasic_read(struct ubasic_ctx* ctx)
+int64_t basic_read(struct basic_ctx* ctx)
 {
 	char res;
 	PARAMS_START;
@@ -59,39 +59,39 @@ int64_t ubasic_read(struct ubasic_ctx* ctx)
 	return res;
 }
 
-void openin_statement(struct ubasic_ctx* ctx)
+void openin_statement(struct basic_ctx* ctx)
 {
 	tokenizer_error_print(ctx, "OPENIN is a function");
 }
 
-void openup_statement(struct ubasic_ctx* ctx)
+void openup_statement(struct basic_ctx* ctx)
 {
 	tokenizer_error_print(ctx, "OPENUP is a function");
 }
 
-void openout_statement(struct ubasic_ctx* ctx)
+void openout_statement(struct basic_ctx* ctx)
 {
 	tokenizer_error_print(ctx, "OPENOUT is a function");
 }
 
-void read_statement(struct ubasic_ctx* ctx)
+void read_statement(struct basic_ctx* ctx)
 {
 	tokenizer_error_print(ctx, "READ is a function");
 }
 
-void close_statement(struct ubasic_ctx* ctx)
+void close_statement(struct basic_ctx* ctx)
 {
 	accept(CLOSE, ctx);
 	_close(expr(ctx));
 	accept(NEWLINE, ctx);
 }
 
-void eof_statement(struct ubasic_ctx* ctx)
+void eof_statement(struct basic_ctx* ctx)
 {
 	tokenizer_error_print(ctx, "EOF is a function");
 }
 
-int64_t ubasic_open_func(struct ubasic_ctx* ctx, int oflag)
+int64_t basic_open_func(struct basic_ctx* ctx, int oflag)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -102,26 +102,26 @@ int64_t ubasic_open_func(struct ubasic_ctx* ctx, int oflag)
 		return 0;
 	}
 	int fd = _open(file, oflag);
-	dprintf("ubasic_open_func: %s returned: %d\n", strval, fd);
+	dprintf("basic_open_func: %s returned: %d\n", strval, fd);
 	return fd;
 }
 
-int64_t ubasic_openin(struct ubasic_ctx* ctx)
+int64_t basic_openin(struct basic_ctx* ctx)
 {
-	return ubasic_open_func(ctx, _O_RDONLY);
+	return basic_open_func(ctx, _O_RDONLY);
 }
 
-int64_t ubasic_openout(struct ubasic_ctx* ctx)
+int64_t basic_openout(struct basic_ctx* ctx)
 {
-	return ubasic_open_func(ctx, _O_WRONLY);
+	return basic_open_func(ctx, _O_WRONLY);
 }
 
-int64_t ubasic_openup(struct ubasic_ctx* ctx)
+int64_t basic_openup(struct basic_ctx* ctx)
 {
-	return ubasic_open_func(ctx, _O_RDWR);
+	return basic_open_func(ctx, _O_RDWR);
 }
 
-int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
+int64_t basic_getnamecount(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -140,7 +140,7 @@ int64_t ubasic_getnamecount(struct ubasic_ctx* ctx)
 	return count;
 }
 
-char* ubasic_getname(struct ubasic_ctx* ctx)
+char* basic_getname(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -162,7 +162,7 @@ char* ubasic_getname(struct ubasic_ctx* ctx)
 	return "";
 }
 
-char* ubasic_filetype(struct ubasic_ctx* ctx)
+char* basic_filetype(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -171,7 +171,7 @@ char* ubasic_filetype(struct ubasic_ctx* ctx)
 	return fs_is_directory(dir) ? "directory" : "file";
 }
 
-int64_t ubasic_getsize(struct ubasic_ctx* ctx)
+int64_t basic_getsize(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -189,7 +189,7 @@ int64_t ubasic_getsize(struct ubasic_ctx* ctx)
 	return 0;
 }
 
-int64_t ubasic_eof(struct ubasic_ctx* ctx)
+int64_t basic_eof(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -197,7 +197,7 @@ int64_t ubasic_eof(struct ubasic_ctx* ctx)
 	return _eof(intval);
 }
 
-void mkdir_statement(struct ubasic_ctx* ctx)
+void mkdir_statement(struct basic_ctx* ctx)
 {
 	accept(MKDIR, ctx);
 	const char* name = str_expr(ctx);
@@ -208,7 +208,7 @@ void mkdir_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void mount_statement(struct ubasic_ctx* ctx)
+void mount_statement(struct basic_ctx* ctx)
 {
 	accept(MOUNT, ctx);
 	const char* path = make_full_path(str_expr(ctx));
@@ -220,7 +220,7 @@ void mount_statement(struct ubasic_ctx* ctx)
 	filesystem_mount(path, device, fs_type);
 }
 
-void rmdir_statement(struct ubasic_ctx* ctx)
+void rmdir_statement(struct basic_ctx* ctx)
 {
 	accept(RMDIR, ctx);
 	const char* name = make_full_path(str_expr(ctx));
@@ -231,7 +231,7 @@ void rmdir_statement(struct ubasic_ctx* ctx)
 }
 
 
-void delete_statement(struct ubasic_ctx* ctx)
+void delete_statement(struct basic_ctx* ctx)
 {
 	accept(DELETE, ctx);
 	const char* name = make_full_path(str_expr(ctx));
@@ -242,12 +242,12 @@ void delete_statement(struct ubasic_ctx* ctx)
 }
 
 
-void write_statement(struct ubasic_ctx* ctx)
+void write_statement(struct basic_ctx* ctx)
 {
 	int fd = -1;
 
 	accept(WRITE, ctx);
-	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept(VARIABLE, ctx);
 	accept(COMMA, ctx);
 	char* out = printable_syntax(ctx);

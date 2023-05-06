@@ -1,5 +1,5 @@
 /**
- * @file ubasic.h
+ * @file basic.h
  * @brief Retro Rocket BASIC interpreter
  * 
  * Retro Rocket OS Project (C) Craig Edwards 2012.
@@ -191,9 +191,9 @@ typedef struct ub_line_ref {
  * Every instance of a BASIC program has one of these,* also certain structures
  * such as functions will clone the context and run on the clone until the function
  * completes. Cloned contexts share variables and you should never call
- * ubasic_destroy() on them!
+ * basic_destroy() on them!
  */
-typedef struct ubasic_ctx {
+typedef struct basic_ctx {
 	/**
 	 * @brief Pointer to the start of the next token
 	 * Always between program_ptr and program_ptr + strlen(program_ptr)
@@ -368,49 +368,49 @@ typedef struct ubasic_ctx {
 	 * @brief highest line number in program
 	 */
 	int64_t highest_line;
-} ubasic_ctx;
+} basic_ctx;
 
 /**
  * @brief Integer function signature
  */
-typedef int64_t (*builtin_int_fn)(struct ubasic_ctx* ctx);
+typedef int64_t (*builtin_int_fn)(struct basic_ctx* ctx);
 
 /**
  * @brief String function signature
  */
-typedef char* (*builtin_str_fn)(struct ubasic_ctx* ctx);
+typedef char* (*builtin_str_fn)(struct basic_ctx* ctx);
 
 /**
  * @brief Real (double) function signature
  */
-typedef void (*builtin_double_fn)(struct ubasic_ctx* ctx, double* res);
+typedef void (*builtin_double_fn)(struct basic_ctx* ctx, double* res);
 
 /**
  * @brief Builtin integer function
  */
-typedef struct ubasic_int_fn
+typedef struct basic_int_fn
 {
 	builtin_int_fn handler;
 	const char* name;
-} ubasic_int_fn;
+} basic_int_fn;
 
 /**
  * @brief Builtin real (double) function
  */
-typedef struct ubasic_double_fn
+typedef struct basic_double_fn
 {
 	builtin_double_fn handler;
 	const char* name;
-} ubasic_double_fn;
+} basic_double_fn;
 
 /**
  * @brief Builtin string function
  */
-typedef struct ubasic_str_fn
+typedef struct basic_str_fn
 {
 	builtin_str_fn handler;
 	const char* name;
-} ubasic_str_fn;
+} basic_str_fn;
 
 typedef enum parameter_type_t {
 	BIP_STRING,
@@ -505,162 +505,166 @@ bool valid_double_var(const char* name);
 /*
  * Builtin integer functions
  */
-int64_t ubasic_abs(struct ubasic_ctx* ctx);
-int64_t ubasic_len(struct ubasic_ctx* ctx);
-int64_t ubasic_openin(struct ubasic_ctx* ctx);
-int64_t ubasic_openout(struct ubasic_ctx* ctx);
-int64_t ubasic_openup(struct ubasic_ctx* ctx);
-int64_t ubasic_eof(struct ubasic_ctx* ctx);
-int64_t ubasic_read(struct ubasic_ctx* ctx);
-int64_t ubasic_instr(struct ubasic_ctx* ctx);
-int64_t ubasic_asc(struct ubasic_ctx* ctx);
-int64_t ubasic_getnamecount(struct ubasic_ctx* ctx);
-int64_t ubasic_getsize(struct ubasic_ctx* ctx);
-int64_t ubasic_get_text_max_x(struct ubasic_ctx* ctx);
-int64_t ubasic_get_text_max_y(struct ubasic_ctx* ctx);
-int64_t ubasic_get_text_cur_x(struct ubasic_ctx* ctx);
-int64_t ubasic_get_text_cur_y(struct ubasic_ctx* ctx);
-int64_t ubasic_getproccount(struct ubasic_ctx* ctx);
-int64_t ubasic_getprocid(struct ubasic_ctx* ctx);
-int64_t ubasic_getprocparent(struct ubasic_ctx* ctx);
-int64_t ubasic_getproccpuid(struct ubasic_ctx* ctx);
-int64_t ubasic_rgb(struct ubasic_ctx* ctx);
-int64_t ubasic_get_free_mem(struct ubasic_ctx* ctx);
-int64_t ubasic_get_used_mem(struct ubasic_ctx* ctx);
-int64_t ubasic_get_total_mem(struct ubasic_ctx* ctx);
-int64_t ubasic_sockstatus(struct ubasic_ctx* ctx);
-int64_t ubasic_ctrlkey(struct ubasic_ctx* ctx);
-int64_t ubasic_shiftkey(struct ubasic_ctx* ctx);
-int64_t ubasic_altkey(struct ubasic_ctx* ctx);
-int64_t ubasic_capslock(struct ubasic_ctx* ctx);
-int64_t ubasic_random(struct ubasic_ctx* ctx);
+int64_t basic_abs(struct basic_ctx* ctx);
+int64_t basic_len(struct basic_ctx* ctx);
+int64_t basic_openin(struct basic_ctx* ctx);
+int64_t basic_openout(struct basic_ctx* ctx);
+int64_t basic_openup(struct basic_ctx* ctx);
+int64_t basic_eof(struct basic_ctx* ctx);
+int64_t basic_read(struct basic_ctx* ctx);
+int64_t basic_instr(struct basic_ctx* ctx);
+int64_t basic_asc(struct basic_ctx* ctx);
+int64_t basic_getnamecount(struct basic_ctx* ctx);
+int64_t basic_getsize(struct basic_ctx* ctx);
+int64_t basic_get_text_max_x(struct basic_ctx* ctx);
+int64_t basic_get_text_max_y(struct basic_ctx* ctx);
+int64_t basic_get_text_cur_x(struct basic_ctx* ctx);
+int64_t basic_get_text_cur_y(struct basic_ctx* ctx);
+int64_t basic_getproccount(struct basic_ctx* ctx);
+int64_t basic_getprocid(struct basic_ctx* ctx);
+int64_t basic_getprocparent(struct basic_ctx* ctx);
+int64_t basic_getproccpuid(struct basic_ctx* ctx);
+int64_t basic_rgb(struct basic_ctx* ctx);
+int64_t basic_get_free_mem(struct basic_ctx* ctx);
+int64_t basic_get_used_mem(struct basic_ctx* ctx);
+int64_t basic_get_total_mem(struct basic_ctx* ctx);
+int64_t basic_sockstatus(struct basic_ctx* ctx);
+int64_t basic_ctrlkey(struct basic_ctx* ctx);
+int64_t basic_shiftkey(struct basic_ctx* ctx);
+int64_t basic_altkey(struct basic_ctx* ctx);
+int64_t basic_capslock(struct basic_ctx* ctx);
+int64_t basic_random(struct basic_ctx* ctx);
 
 /*
  * Builtin string functions
  */
-char* ubasic_netinfo(struct ubasic_ctx* ctx);
-char* ubasic_left(struct ubasic_ctx* ctx);
-char* ubasic_right(struct ubasic_ctx* ctx);
-char* ubasic_mid(struct ubasic_ctx* ctx);
-char* ubasic_chr(struct ubasic_ctx* ctx);
-char* ubasic_readstring(struct ubasic_ctx* ctx);
-char* ubasic_getname(struct ubasic_ctx* ctx);
-char* ubasic_getprocname(struct ubasic_ctx* ctx);
-char* ubasic_dns(struct ubasic_ctx* ctx);
-char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx);
-char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx);
-char* ubasic_inkey(struct ubasic_ctx* ctx);
-char* ubasic_insocket(struct ubasic_ctx* ctx);
-char* ubasic_upper(struct ubasic_ctx* ctx);
-char* ubasic_lower(struct ubasic_ctx* ctx);
-char* ubasic_tokenize(struct ubasic_ctx* ctx);
-char* ubasic_csd(struct ubasic_ctx* ctx);
+char* basic_netinfo(struct basic_ctx* ctx);
+char* basic_left(struct basic_ctx* ctx);
+char* basic_right(struct basic_ctx* ctx);
+char* basic_mid(struct basic_ctx* ctx);
+char* basic_chr(struct basic_ctx* ctx);
+char* basic_readstring(struct basic_ctx* ctx);
+char* basic_getname(struct basic_ctx* ctx);
+char* basic_getprocname(struct basic_ctx* ctx);
+char* basic_dns(struct basic_ctx* ctx);
+char* basic_ramdisk_from_device(struct basic_ctx* ctx);
+char* basic_ramdisk_from_size(struct basic_ctx* ctx);
+char* basic_inkey(struct basic_ctx* ctx);
+char* basic_insocket(struct basic_ctx* ctx);
+char* basic_upper(struct basic_ctx* ctx);
+char* basic_lower(struct basic_ctx* ctx);
+char* basic_tokenize(struct basic_ctx* ctx);
+char* basic_csd(struct basic_ctx* ctx);
 
 /*
  * File I/O functions
  */
-void openin_statement(struct ubasic_ctx* ctx);
-void openup_statement(struct ubasic_ctx* ctx);
-void openout_statement(struct ubasic_ctx* ctx);
-void read_statement(struct ubasic_ctx* ctx);
-void close_statement(struct ubasic_ctx* ctx);
-void eof_statement(struct ubasic_ctx* ctx);
-void delete_statement(struct ubasic_ctx* ctx);
-void mkdir_statement(struct ubasic_ctx* ctx);
-void mount_statement(struct ubasic_ctx* ctx);
-void rmdir_statement(struct ubasic_ctx* ctx);
-void write_statement(struct ubasic_ctx* ctx);
-void chdir_statement(struct ubasic_ctx* ctx);
-char* ubasic_filetype(struct ubasic_ctx* ctx);
+void openin_statement(struct basic_ctx* ctx);
+void openup_statement(struct basic_ctx* ctx);
+void openout_statement(struct basic_ctx* ctx);
+void read_statement(struct basic_ctx* ctx);
+void close_statement(struct basic_ctx* ctx);
+void eof_statement(struct basic_ctx* ctx);
+void delete_statement(struct basic_ctx* ctx);
+void mkdir_statement(struct basic_ctx* ctx);
+void mount_statement(struct basic_ctx* ctx);
+void rmdir_statement(struct basic_ctx* ctx);
+void write_statement(struct basic_ctx* ctx);
+void chdir_statement(struct basic_ctx* ctx);
+char* basic_filetype(struct basic_ctx* ctx);
 
 /*
  * Builtin real (double) functions
  */
-void ubasic_sin(struct ubasic_ctx* ctx, double* res);
-void ubasic_cos(struct ubasic_ctx* ctx, double* res);
-void ubasic_tan(struct ubasic_ctx* ctx, double* res);
-void ubasic_pow(struct ubasic_ctx* ctx, double* res);
+void basic_sin(struct basic_ctx* ctx, double* res);
+void basic_cos(struct basic_ctx* ctx, double* res);
+void basic_tan(struct basic_ctx* ctx, double* res);
+void basic_pow(struct basic_ctx* ctx, double* res);
 
 /*
  * Context control functions
  */
-struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error);
-void ubasic_destroy(struct ubasic_ctx* ctx);
-void ubasic_run(struct ubasic_ctx* ctx);
-bool ubasic_finished(struct ubasic_ctx* ctx);
-bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx);
-void line_statement(struct ubasic_ctx* ctx);
-void statement(struct ubasic_ctx* ctx);
-void accept(int token, struct ubasic_ctx* ctx);
-void ubasic_parse_fn(struct ubasic_ctx* ctx);
+struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error);
+void basic_destroy(struct basic_ctx* ctx);
+void basic_run(struct basic_ctx* ctx);
+bool basic_finished(struct basic_ctx* ctx);
+bool jump_linenum(int64_t linenum, struct basic_ctx* ctx);
+void line_statement(struct basic_ctx* ctx);
+void statement(struct basic_ctx* ctx);
+void accept(int token, struct basic_ctx* ctx);
+void basic_parse_fn(struct basic_ctx* ctx);
 
 /*
  * Variable getter/setter functions
  */
-int64_t ubasic_get_int_variable(const char* varname, struct ubasic_ctx* ctx);
-bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res);
-const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx);
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global);
-void ubasic_set_double_variable(const char* var, const double value, struct ubasic_ctx* ctx, bool local, bool global);
-void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global);
-ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res);
-int64_t ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx);
+int64_t basic_get_int_variable(const char* varname, struct basic_ctx* ctx);
+bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* res);
+const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx);
+void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool global);
+void basic_set_double_variable(const char* var, const double value, struct basic_ctx* ctx, bool local, bool global);
+void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool global);
+ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx, double* res);
+int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx);
 
 /*
  * Array manipulation functions
  */
-void ubasic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct ubasic_ctx* ctx);
-void ubasic_set_string_array_variable(const char* var, int64_t index, const char* value, struct ubasic_ctx* ctx);
-void ubasic_set_double_array_variable(const char* var, int64_t index, double value, struct ubasic_ctx* ctx);
-bool ubasic_get_double_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx, double* ret);
-int64_t ubasic_get_int_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx);
-const char* ubasic_get_string_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx);
-bool ubasic_dim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
-bool ubasic_dim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
-bool ubasic_dim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
-bool ubasic_redim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
-bool ubasic_redim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
-bool ubasic_redim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx);
-bool varname_is_int_array_access(struct ubasic_ctx* ctx, const char* varname);
-bool varname_is_string_array_access(struct ubasic_ctx* ctx, const char* varname);
-bool varname_is_double_array_access(struct ubasic_ctx* ctx, const char* varname);
-int64_t arr_variable_index(struct ubasic_ctx* ctx);
-void ubasic_set_int_array(const char* var, int64_t value, struct ubasic_ctx* ctx);
-void ubasic_set_string_array(const char* var, const char* value, struct ubasic_ctx* ctx);
-void ubasic_set_double_array(const char* var, double value, struct ubasic_ctx* ctx);
-void dim_statement(struct ubasic_ctx* ctx);
-void redim_statement(struct ubasic_ctx* ctx);
-void pop_statement(struct ubasic_ctx* ctx);
-void push_statement(struct ubasic_ctx* ctx);
-int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname);
-bool ubasic_pop_string_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx);
-bool ubasic_pop_int_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx);
-bool ubasic_pop_double_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx);
-bool ubasic_push_string_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx);
-bool ubasic_push_int_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx);
-bool ubasic_push_double_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx);
+void basic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct basic_ctx* ctx);
+void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx);
+void basic_set_double_array_variable(const char* var, int64_t index, double value, struct basic_ctx* ctx);
+bool basic_get_double_array_variable(const char* var, int64_t index, struct basic_ctx* ctx, double* ret);
+int64_t basic_get_int_array_variable(const char* var, int64_t index, struct basic_ctx* ctx);
+const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx);
+bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* ctx);
+bool varname_is_int_array_access(struct basic_ctx* ctx, const char* varname);
+bool varname_is_string_array_access(struct basic_ctx* ctx, const char* varname);
+bool varname_is_double_array_access(struct basic_ctx* ctx, const char* varname);
+int64_t arr_variable_index(struct basic_ctx* ctx);
+void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx);
+void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx);
+void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx);
+void dim_statement(struct basic_ctx* ctx);
+void redim_statement(struct basic_ctx* ctx);
+void pop_statement(struct basic_ctx* ctx);
+void push_statement(struct basic_ctx* ctx);
+int64_t arr_expr_set_index(struct basic_ctx* ctx, const char* varname);
+bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx);
+bool basic_pop_int_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx);
+bool basic_pop_double_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx);
+bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx* ctx);
+bool basic_push_int_array(const char* var, int64_t push_pos, struct basic_ctx* ctx);
+bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx* ctx);
 
 /*
  * Integer expression evaluation
  */
-int64_t expr(struct ubasic_ctx* ctx);
-int64_t relation(struct ubasic_ctx* ctx);
+int64_t expr(struct basic_ctx* ctx);
+int64_t relation(struct basic_ctx* ctx);
 
 /*
  * Real (double) expression evalutation
  */
-void double_expr(struct ubasic_ctx* ctx, double* res);
-void double_relation(struct ubasic_ctx* ctx, double* res);
+void double_expr(struct basic_ctx* ctx, double* res);
+void double_relation(struct basic_ctx* ctx, double* res);
 
 /*
  * String expression evaluation
  */
-const char* str_expr(struct ubasic_ctx* ctx);
-int64_t str_relation(struct ubasic_ctx* ctx);
+const char* str_expr(struct basic_ctx* ctx);
+int64_t str_relation(struct basic_ctx* ctx);
 
 /*
  * Misc functions
  */
-char* printable_syntax(struct ubasic_ctx* ctx);
-void library_statement(struct ubasic_ctx* ctx);
-void basic_free_defs(struct ubasic_ctx* ctx);
+char* printable_syntax(struct basic_ctx* ctx);
+void library_statement(struct basic_ctx* ctx);
+void basic_free_defs(struct basic_ctx* ctx);
+void begin_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx);
+uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx);
+bool conditional(struct basic_ctx* ctx);
+

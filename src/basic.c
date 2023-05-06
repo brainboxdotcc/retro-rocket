@@ -19,72 +19,68 @@
 
 #include <kernel.h>
 
-void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx);
-uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx);
-bool conditional(struct ubasic_ctx* ctx);
-
-struct ubasic_int_fn builtin_int[] =
+struct basic_int_fn builtin_int[] =
 {
-	{ ubasic_abs, "ABS" },
-	{ ubasic_len, "LEN" },
-	{ ubasic_openin, "OPENIN" },
-	{ ubasic_openout, "OPENOUT" },
-	{ ubasic_openup, "OPENUP" },
-	{ ubasic_eof, "EOF" },
-	{ ubasic_read, "READ" },
-	{ ubasic_instr, "INSTR" },
-	{ ubasic_asc, "ASC" },
-	{ ubasic_getnamecount, "GETNAMECOUNT" },
-	{ ubasic_getsize, "GETSIZE" },
-	{ ubasic_getproccount, "GETPROCCOUNT" },
-	{ ubasic_getprocid, "GETPROCID" },
-	{ ubasic_getprocparent, "GETPROCPARENT" },
-	{ ubasic_getproccpuid, "GETPROCCPUID" },
-	{ ubasic_rgb, "RGB" },
-	{ ubasic_get_text_max_x, "TERMWIDTH" },
-	{ ubasic_get_text_max_y, "TERMHEIGHT" },
-	{ ubasic_get_text_cur_x, "CURRENTX" },
-	{ ubasic_get_text_cur_y, "CURRENTY" },
-	{ ubasic_get_free_mem, "MEMFREE" },
-	{ ubasic_get_used_mem, "MEMUSED" },
-	{ ubasic_get_total_mem, "MEMORY" },
-	{ ubasic_sockstatus, "SOCKSTATUS" },
-	{ ubasic_ctrlkey, "CTRLKEY" },
-	{ ubasic_shiftkey, "SHIFTKEY" },
-	{ ubasic_altkey, "ALTKEY" },
-	{ ubasic_capslock, "CAPSLOCK" },
-	{ ubasic_random, "RND" },
+	{ basic_abs, "ABS" },
+	{ basic_len, "LEN" },
+	{ basic_openin, "OPENIN" },
+	{ basic_openout, "OPENOUT" },
+	{ basic_openup, "OPENUP" },
+	{ basic_eof, "EOF" },
+	{ basic_read, "READ" },
+	{ basic_instr, "INSTR" },
+	{ basic_asc, "ASC" },
+	{ basic_getnamecount, "GETNAMECOUNT" },
+	{ basic_getsize, "GETSIZE" },
+	{ basic_getproccount, "GETPROCCOUNT" },
+	{ basic_getprocid, "GETPROCID" },
+	{ basic_getprocparent, "GETPROCPARENT" },
+	{ basic_getproccpuid, "GETPROCCPUID" },
+	{ basic_rgb, "RGB" },
+	{ basic_get_text_max_x, "TERMWIDTH" },
+	{ basic_get_text_max_y, "TERMHEIGHT" },
+	{ basic_get_text_cur_x, "CURRENTX" },
+	{ basic_get_text_cur_y, "CURRENTY" },
+	{ basic_get_free_mem, "MEMFREE" },
+	{ basic_get_used_mem, "MEMUSED" },
+	{ basic_get_total_mem, "MEMORY" },
+	{ basic_sockstatus, "SOCKSTATUS" },
+	{ basic_ctrlkey, "CTRLKEY" },
+	{ basic_shiftkey, "SHIFTKEY" },
+	{ basic_altkey, "ALTKEY" },
+	{ basic_capslock, "CAPSLOCK" },
+	{ basic_random, "RND" },
 	{ NULL, NULL }
 };
 
-struct ubasic_double_fn builtin_double[] = {
-	{ ubasic_sin, "SIN" },
-	{ ubasic_cos, "COS" },
-	{ ubasic_tan, "TAN" },
-	{ ubasic_pow, "POW" },
+struct basic_double_fn builtin_double[] = {
+	{ basic_sin, "SIN" },
+	{ basic_cos, "COS" },
+	{ basic_tan, "TAN" },
+	{ basic_pow, "POW" },
 	{ NULL, NULL },
 };
 
-struct ubasic_str_fn builtin_str[] =
+struct basic_str_fn builtin_str[] =
 {
-	{ ubasic_netinfo, "NETINFO$" },
-	{ ubasic_dns, "DNS$" },
-	{ ubasic_left, "LEFT$" },
-	{ ubasic_right, "RIGHT$" },
-	{ ubasic_mid, "MID$" },
-	{ ubasic_chr, "CHR$" },
-	{ ubasic_insocket, "INSOCKET$" },
-	{ ubasic_readstring, "READ$" },
-	{ ubasic_getname, "GETNAME$" },
-	{ ubasic_getprocname, "GETPROCNAME$" },
-	{ ubasic_ramdisk_from_device, "RAMDISK$" },
-	{ ubasic_ramdisk_from_size, "RAMDISK" },
-	{ ubasic_inkey, "INKEY$" },
-	{ ubasic_upper, "UPPER$" },
-	{ ubasic_lower, "LOWER$" },
-	{ ubasic_tokenize, "TOKENIZE$" },
-	{ ubasic_csd, "CSD$" },
-	{ ubasic_filetype, "FILETYPE$" },
+	{ basic_netinfo, "NETINFO$" },
+	{ basic_dns, "DNS$" },
+	{ basic_left, "LEFT$" },
+	{ basic_right, "RIGHT$" },
+	{ basic_mid, "MID$" },
+	{ basic_chr, "CHR$" },
+	{ basic_insocket, "INSOCKET$" },
+	{ basic_readstring, "READ$" },
+	{ basic_getname, "GETNAME$" },
+	{ basic_getprocname, "GETPROCNAME$" },
+	{ basic_ramdisk_from_device, "RAMDISK$" },
+	{ basic_ramdisk_from_size, "RAMDISK" },
+	{ basic_inkey, "INKEY$" },
+	{ basic_upper, "UPPER$" },
+	{ basic_lower, "LOWER$" },
+	{ basic_tokenize, "TOKENIZE$" },
+	{ basic_csd, "CSD$" },
+	{ basic_filetype, "FILETYPE$" },
 	{ NULL, NULL }
 };
 
@@ -126,12 +122,12 @@ char* clean_basic(const char* program, char* output_buffer)
 	return output_buffer;
 }
 
-void set_system_variables(struct ubasic_ctx* ctx, uint32_t pid)
+void set_system_variables(struct basic_ctx* ctx, uint32_t pid)
 {
-	ubasic_set_int_variable("TRUE", 1, ctx, false, false);
-	ubasic_set_int_variable("FALSE", 0, ctx, false, false);
-	ubasic_set_int_variable("PID", pid, ctx, false, false);
-	ubasic_set_double_variable("PI#", 3.141592653589793238, ctx, false, false);
+	basic_set_int_variable("TRUE", 1, ctx, false, false);
+	basic_set_int_variable("FALSE", 0, ctx, false, false);
+	basic_set_int_variable("PID", pid, ctx, false, false);
+	basic_set_double_variable("PI#", 3.141592653589793238, ctx, false, false);
 }
 
 const char* auto_number(const char* program, uint64_t line, uint64_t increment)
@@ -184,7 +180,7 @@ int line_compare(const void *a, const void *b, void *udata) {
 	return la->line_number == lb->line_number ? 0 : (la->line_number < lb->line_number ? -1 : 1);
 }
 
-bool basic_hash_lines(struct ubasic_ctx* ctx, char** error)
+bool basic_hash_lines(struct basic_ctx* ctx, char** error)
 {
 	/* Build doubly linked list of line number references */
 	uint64_t last_line = 0xFFFFFFFF;
@@ -192,13 +188,13 @@ bool basic_hash_lines(struct ubasic_ctx* ctx, char** error)
 		uint64_t line = tokenizer_num(ctx, NUMBER);
 		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
 			*error = "Misordered lines in BASIC program";
-			ubasic_destroy(ctx);
+			basic_destroy(ctx);
 			return false;
 		}
 		last_line = line;
 		if (hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = line, .ptr = ctx->ptr })) {
 			*error = "Line hashed twice in BASIC program (internal error)";
-			ubasic_destroy(ctx);
+			basic_destroy(ctx);
 			return false;
 		}
 		ctx->highest_line = line;
@@ -217,16 +213,16 @@ bool basic_hash_lines(struct ubasic_ctx* ctx, char** error)
 	return true;
 }
 
-struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
+struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
 {
 	if (!isdigit(*program)) {
 		/* Program is not line numbered! Auto-number it. */
 		const char* numbered = auto_number(program, 10, 10);
-		struct ubasic_ctx* c = ubasic_init(numbered, cons, pid, file, error);
+		struct basic_ctx* c = basic_init(numbered, cons, pid, file, error);
 		kfree(numbered);
 		return c;
 	}
-	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
+	struct basic_ctx* ctx = kmalloc(sizeof(struct basic_ctx));
 	if (ctx == NULL) {
 		*error = "Out of memory";
 		return NULL;
@@ -273,10 +269,10 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
 	// Scan the program for functions and procedures
 
 	tokenizer_init(ctx->program_ptr, ctx);
-	ubasic_parse_fn(ctx);
+	basic_parse_fn(ctx);
 
 	set_system_variables(ctx, pid);
-	ubasic_set_string_variable("PROGRAM$", file, ctx, false, false);
+	basic_set_string_variable("PROGRAM$", file, ctx, false, false);
 
 	if (!basic_hash_lines(ctx, error)) {
 		return false;
@@ -293,7 +289,7 @@ struct ubasic_ctx* ubasic_init(const char *program, console* cons, uint32_t pid,
  * 
  * @param ctx BASIC context
  */
-void library_statement(struct ubasic_ctx* ctx)
+void library_statement(struct basic_ctx* ctx)
 {
 	accept(LIBRARY, ctx);
 	const char* lib_file = str_expr(ctx);
@@ -349,7 +345,7 @@ void library_statement(struct ubasic_ctx* ctx)
 	 */
 	tokenizer_init(ctx->program_ptr, ctx);
 	basic_free_defs(ctx);
-	ubasic_parse_fn(ctx);
+	basic_parse_fn(ctx);
 
 	/* Rebuild line number hash map (needs a complete rehash as all pointers are
 	 * now invalidated)
@@ -370,9 +366,9 @@ void library_statement(struct ubasic_ctx* ctx)
 
 }
 
-struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
+struct basic_ctx* basic_clone(struct basic_ctx* old)
 {
-	struct ubasic_ctx* ctx = kmalloc(sizeof(struct ubasic_ctx));
+	struct basic_ctx* ctx = kmalloc(sizeof(struct basic_ctx));
 	int i;
 
 	ctx->if_nest_level = old->if_nest_level;
@@ -414,7 +410,7 @@ struct ubasic_ctx* ubasic_clone(struct ubasic_ctx* old)
 	return ctx;
 }
 
-void ubasic_parse_fn(struct ubasic_ctx* ctx)
+void basic_parse_fn(struct basic_ctx* ctx)
 {
 	int currentline = 0;
 
@@ -534,7 +530,7 @@ void ubasic_parse_fn(struct ubasic_ctx* ctx)
 	return;
 }
 
-struct ub_proc_fn_def* ubasic_find_fn(const char* name, struct ubasic_ctx* ctx)
+struct ub_proc_fn_def* basic_find_fn(const char* name, struct basic_ctx* ctx)
 {
 	struct ub_proc_fn_def* cur = ctx->defs;
 	for (; cur; cur = cur->next) {
@@ -545,7 +541,7 @@ struct ub_proc_fn_def* ubasic_find_fn(const char* name, struct ubasic_ctx* ctx)
 	return NULL;
 }
 
-void basic_free_defs(struct ubasic_ctx* ctx)
+void basic_free_defs(struct basic_ctx* ctx)
 {
 	for (; ctx->defs; ctx->defs = ctx->defs->next) {
 		kfree(ctx->defs->name);
@@ -557,7 +553,7 @@ void basic_free_defs(struct ubasic_ctx* ctx)
 	ctx->defs = NULL;
 }
 
-void ubasic_destroy(struct ubasic_ctx* ctx)
+void basic_destroy(struct basic_ctx* ctx)
 {
 	for (; ctx->int_variables; ctx->int_variables = ctx->int_variables->next) {
 		kfree(ctx->int_variables->varname);
@@ -612,7 +608,7 @@ void ubasic_destroy(struct ubasic_ctx* ctx)
 	kfree(ctx);
 }
 
-void accept(int token, struct ubasic_ctx* ctx)
+void accept(int token, struct basic_ctx* ctx)
 {
 	if (token != tokenizer_token(ctx)) {
 		char err[MAX_STRINGLEN];
@@ -624,7 +620,7 @@ void accept(int token, struct ubasic_ctx* ctx)
 	tokenizer_next(ctx);
 }
 
-bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
+bool jump_linenum(int64_t linenum, struct basic_ctx* ctx)
 {
 	ub_line_ref* line = hashmap_get(ctx->lines, &(ub_line_ref){ .line_number = linenum });
 	if (!line) {
@@ -638,20 +634,20 @@ bool jump_linenum(int64_t linenum, struct ubasic_ctx* ctx)
 	return true;
 }
 
-void goto_statement(struct ubasic_ctx* ctx)
+void goto_statement(struct basic_ctx* ctx)
 {
 	accept(GOTO, ctx);
 	jump_linenum(tokenizer_num(ctx, NUMBER), ctx);
 }
 
-void colour_statement(struct ubasic_ctx* ctx, int tok)
+void colour_statement(struct basic_ctx* ctx, int tok)
 {
 	accept(tok, ctx);
 	setforeground((console*)ctx->cons, expr(ctx));
 	accept(NEWLINE, ctx);
 }
 
-void background_statement(struct ubasic_ctx* ctx)
+void background_statement(struct basic_ctx* ctx)
 {
 	accept(BACKGROUND, ctx);
 	setbackground((console*)ctx->cons, expr(ctx));
@@ -672,7 +668,7 @@ bool is_builtin_double_fn(const char* fn_name) {
  * 
  * @param ctx BASIC context
  */
-void free_local_heap(struct ubasic_ctx* ctx)
+void free_local_heap(struct basic_ctx* ctx)
 {
 	while (ctx->local_string_variables[ctx->call_stack_ptr]) {
 		struct ub_var_string* next = ctx->local_string_variables[ctx->call_stack_ptr]->next;
@@ -703,7 +699,7 @@ void free_local_heap(struct ubasic_ctx* ctx)
  * 
  * @param ctx 
  */
-void init_local_heap(struct ubasic_ctx* ctx)
+void init_local_heap(struct basic_ctx* ctx)
 {
 	ctx->local_int_variables[ctx->call_stack_ptr] = NULL;
 	ctx->local_string_variables[ctx->call_stack_ptr] = NULL;
@@ -711,7 +707,7 @@ void init_local_heap(struct ubasic_ctx* ctx)
 }
 
 
-char* printable_syntax(struct ubasic_ctx* ctx)
+char* printable_syntax(struct basic_ctx* ctx)
 {
 	int numprints = 0;
 	int no_newline = 0;
@@ -787,7 +783,7 @@ char* printable_syntax(struct ubasic_ctx* ctx)
 	return gc_strdup(out);
 }
 
-void print_statement(struct ubasic_ctx* ctx)
+void print_statement(struct basic_ctx* ctx)
 {
 	accept(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
@@ -796,12 +792,12 @@ void print_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void sockwrite_statement(struct ubasic_ctx* ctx)
+void sockwrite_statement(struct basic_ctx* ctx)
 {
 	int fd = -1;
 
 	accept(SOCKWRITE, ctx);
-	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept(VARIABLE, ctx);
 	accept(COMMA, ctx);
 	const char* out = printable_syntax(ctx);
@@ -810,7 +806,7 @@ void sockwrite_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void proc_statement(struct ubasic_ctx* ctx)
+void proc_statement(struct basic_ctx* ctx)
 {
 	char procname[MAX_STRINGLEN];
 	char* p = procname;
@@ -823,7 +819,7 @@ void proc_statement(struct ubasic_ctx* ctx)
 		procnamelen++;
 	}
 	*p++ = 0;
-	struct ub_proc_fn_def* def = ubasic_find_fn(procname, ctx);
+	struct ub_proc_fn_def* def = basic_find_fn(procname, ctx);
 	if (def) {
 		if (*ctx->ptr == '(' && *(ctx->ptr + 1) != ')') {
 			ctx->call_stack_ptr++;
@@ -856,7 +852,7 @@ void proc_statement(struct ubasic_ctx* ctx)
 	snprintf(err, MAX_STRINGLEN, "No such PROC %s", procname);
 }
 
-bool conditional(struct ubasic_ctx* ctx)
+bool conditional(struct basic_ctx* ctx)
 {
 	char current_line[MAX_STRINGLEN];
 	char* pos = strchr(ctx->ptr, '\n');
@@ -892,7 +888,7 @@ bool conditional(struct ubasic_ctx* ctx)
 	return r;
 }
 
-void else_statement(struct ubasic_ctx* ctx)
+void else_statement(struct basic_ctx* ctx)
 {
 	/* If we get to an ELSE, this means that we executed a THEN part of a block IF,
 	 * so we must skip it and any content up until the next ENDIF 
@@ -910,7 +906,7 @@ void else_statement(struct ubasic_ctx* ctx)
 	tokenizer_error_print(ctx, "Block IF/THEN/ELSE without ENDIF");
 }
 
-void if_statement(struct ubasic_ctx* ctx)
+void if_statement(struct basic_ctx* ctx)
 {
 	accept(IF, ctx);
 	bool r = conditional(ctx);
@@ -964,7 +960,7 @@ void if_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void chain_statement(struct ubasic_ctx* ctx)
+void chain_statement(struct basic_ctx* ctx)
 {
 	accept(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
@@ -973,7 +969,7 @@ void chain_statement(struct ubasic_ctx* ctx)
 		accept(NEWLINE, ctx);
 		return;
 	}
-	struct ubasic_ctx* new_proc = p->code;
+	struct basic_ctx* new_proc = p->code;
 	struct ub_var_int* cur_int = ctx->int_variables;
 	struct ub_var_string* cur_str = ctx->str_variables;
 	struct ub_var_double* cur_double = ctx->double_variables;
@@ -981,17 +977,17 @@ void chain_statement(struct ubasic_ctx* ctx)
 	/* Inherit global variables into new process */
 	for (; cur_int; cur_int = cur_int->next) {
 		if (cur_int->global) {
-			ubasic_set_int_variable(cur_int->varname, cur_int->value, new_proc, false, true);
+			basic_set_int_variable(cur_int->varname, cur_int->value, new_proc, false, true);
 		}
 	}
 	for (; cur_str; cur_str = cur_str->next) {
 		if (cur_str->global) {
-			ubasic_set_string_variable(cur_str->varname, cur_str->value, new_proc, false, true);
+			basic_set_string_variable(cur_str->varname, cur_str->value, new_proc, false, true);
 		}
 	}
 	for (; cur_double; cur_double = cur_double->next) {
 		if (cur_double->global) {
-			ubasic_set_double_variable(cur_double->varname, cur_double->value, new_proc, false, true);
+			basic_set_double_variable(cur_double->varname, cur_double->value, new_proc, false, true);
 		}
 	}
 
@@ -999,7 +995,7 @@ void chain_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-void eval_statement(struct ubasic_ctx* ctx)
+void eval_statement(struct basic_ctx* ctx)
 {
 	accept(EVAL, ctx);
 	const char* v = str_expr(ctx);
@@ -1015,8 +1011,8 @@ void eval_statement(struct ubasic_ctx* ctx)
 	clean_basic(v, clean_v);
 
 	if (ctx->oldlen == 0) {
-		ubasic_set_string_variable("ERROR$", "", ctx, false, false);
-		ubasic_set_int_variable("ERROR", 0, ctx, false, false);
+		basic_set_string_variable("ERROR$", "", ctx, false, false);
+		basic_set_int_variable("ERROR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
 		/* If program doesn't end in newline, add one */
 		char last = ctx->program_ptr[strlen(ctx->program_ptr) - 1];
@@ -1054,7 +1050,7 @@ void eval_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void rem_statement(struct ubasic_ctx* ctx)
+void rem_statement(struct basic_ctx* ctx)
 {
 	accept(REM, ctx);
 	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
@@ -1063,9 +1059,9 @@ void rem_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-void def_statement(struct ubasic_ctx* ctx)
+void def_statement(struct basic_ctx* ctx)
 {
-	// Because the function or procedure definition is pre-parsed by ubasic_init(),
+	// Because the function or procedure definition is pre-parsed by basic_init(),
 	// we just skip the entire line moving to the next if we hit a DEF statement.
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we dont fall through into a function.
@@ -1087,7 +1083,7 @@ void def_statement(struct ubasic_ctx* ctx)
  * 
  * @param ctx BASIC context
  */
-void input_statement(struct ubasic_ctx* ctx)
+void input_statement(struct basic_ctx* ctx)
 {
 	accept(INPUT, ctx);
 	const char* var = tokenizer_variable_name(ctx);
@@ -1097,15 +1093,15 @@ void input_statement(struct ubasic_ctx* ctx)
 	if (kinput(10240, (console*)ctx->cons) != 0) {
 		switch (var[strlen(var) - 1]) {
 			case '$':
-				ubasic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
+				basic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
 			break;
 			case '#':
 				double f = 0;
 				atof(kgetinput((console*)ctx->cons), &f);
-				ubasic_set_double_variable(var, f, ctx, false, false);
+				basic_set_double_variable(var, f, ctx, false, false);
 			break;
 			default:
-				ubasic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
+				basic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
 			break;
 		}
 		kfreeinput((console*)ctx->cons);
@@ -1126,14 +1122,14 @@ void input_statement(struct ubasic_ctx* ctx)
  * 
  * @param ctx BASIC context
  */
-void sockread_statement(struct ubasic_ctx* ctx)
+void sockread_statement(struct basic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
 	const char* var = NULL;
 	int fd = -1;
 
 	accept(SOCKREAD, ctx);
-	fd = ubasic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept(VARIABLE, ctx);
 	accept(COMMA, ctx);
 	var = tokenizer_variable_name(ctx);
@@ -1145,15 +1141,15 @@ void sockread_statement(struct ubasic_ctx* ctx)
 		*(input + rv) = 0;
 		switch (var[strlen(var) - 1]) {
 			case '$':
-				ubasic_set_string_variable(var, input, ctx, false, false);
+				basic_set_string_variable(var, input, ctx, false, false);
 			break;
 			case '#':
 				double f = 0;
 				atof(input, &f);
-				ubasic_set_double_variable(var, f, ctx, false, false);
+				basic_set_double_variable(var, f, ctx, false, false);
 			break;
 			default:
-				ubasic_set_int_variable(var, atoll(input, 10), ctx, false, false);
+				basic_set_int_variable(var, atoll(input, 10), ctx, false, false);
 			break;
 		}
 
@@ -1165,7 +1161,7 @@ void sockread_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void connect_statement(struct ubasic_ctx* ctx)
+void connect_statement(struct basic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
 	const char* fd_var = NULL, *ip = NULL;
@@ -1191,7 +1187,7 @@ void connect_statement(struct ubasic_ctx* ctx)
 				tokenizer_error_print(ctx, "Cannot store socket descriptor in REAL");
 			break;
 			default:
-				ubasic_set_int_variable(fd_var, rv, ctx, false, false);
+				basic_set_int_variable(fd_var, rv, ctx, false, false);
 			break;
 		}
 
@@ -1201,7 +1197,7 @@ void connect_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void sockclose_statement(struct ubasic_ctx* ctx)
+void sockclose_statement(struct basic_ctx* ctx)
 {
 	const char* fd_var = NULL;
 
@@ -1209,17 +1205,17 @@ void sockclose_statement(struct ubasic_ctx* ctx)
 	fd_var = tokenizer_variable_name(ctx);
 	accept(VARIABLE, ctx);
 
-	int rv = closesocket(ubasic_get_numeric_int_variable(fd_var, ctx));
+	int rv = closesocket(basic_get_numeric_int_variable(fd_var, ctx));
 	if (rv == 0) {
 		// Clear variable to -1
-		ubasic_set_int_variable(fd_var, -1, ctx, false, false);
+		basic_set_int_variable(fd_var, -1, ctx, false, false);
 		accept(NEWLINE, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
 }
 
-void let_statement(struct ubasic_ctx* ctx, bool global, bool local)
+void let_statement(struct basic_ctx* ctx, bool global, bool local)
 {
 	const char* var;
 	const char* _expr;
@@ -1231,11 +1227,11 @@ void let_statement(struct ubasic_ctx* ctx, bool global, bool local)
 		int64_t index = arr_expr_set_index(ctx, var);
 		int64_t value = expr(ctx);
 		if (index == -1) {
-			ubasic_set_int_array(var, value, ctx);
+			basic_set_int_array(var, value, ctx);
 			accept(NEWLINE, ctx);
 			return;
 		}
-		ubasic_set_int_array_variable(var, index, value, ctx);
+		basic_set_int_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
 		return;
 	}
@@ -1243,11 +1239,11 @@ void let_statement(struct ubasic_ctx* ctx, bool global, bool local)
 		int64_t index = arr_expr_set_index(ctx, var);
 		const char* value = str_expr(ctx);
 		if (index == -1) {
-			ubasic_set_string_array(var, value, ctx);
+			basic_set_string_array(var, value, ctx);
 			accept(NEWLINE, ctx);
 			return;
 		}
-		ubasic_set_string_array_variable(var, index, value, ctx);
+		basic_set_string_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
 		return;
 	}
@@ -1256,11 +1252,11 @@ void let_statement(struct ubasic_ctx* ctx, bool global, bool local)
 		double value = 0;
 		double_expr(ctx, &value);
 		if (index == -1) {
-			ubasic_set_double_array(var, value, ctx);
+			basic_set_double_array(var, value, ctx);
 			accept(NEWLINE, ctx);
 			return;
 		}
-		ubasic_set_double_array_variable(var, index, value, ctx);
+		basic_set_double_array_variable(var, index, value, ctx);
 		accept(NEWLINE, ctx);
 		return;
 	}
@@ -1272,27 +1268,27 @@ void let_statement(struct ubasic_ctx* ctx, bool global, bool local)
 	{
 		case '$':
 			_expr = str_expr(ctx);
-			ubasic_set_string_variable(var, _expr, ctx, local, global);
+			basic_set_string_variable(var, _expr, ctx, local, global);
 		break;
 		case '#':
 			double_expr(ctx, &f_expr);
-			ubasic_set_double_variable(var, f_expr, ctx, local, global);
+			basic_set_double_variable(var, f_expr, ctx, local, global);
 		break;
 		default:
-			ubasic_set_int_variable(var, expr(ctx), ctx, local, global);
+			basic_set_int_variable(var, expr(ctx), ctx, local, global);
 		break;
 	}
 	accept(NEWLINE, ctx);
 }
 
-void cls_statement(struct ubasic_ctx* ctx)
+void cls_statement(struct basic_ctx* ctx)
 {
 	accept(CLS, ctx);
 	clearscreen(current_console);
 	accept(NEWLINE, ctx);
 }
 
-void gcol_statement(struct ubasic_ctx* ctx)
+void gcol_statement(struct basic_ctx* ctx)
 {
 	accept(GCOL, ctx);
 	ctx->graphics_colour = expr(ctx);
@@ -1300,7 +1296,7 @@ void gcol_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-void gotoxy_statement(struct ubasic_ctx* ctx)
+void gotoxy_statement(struct basic_ctx* ctx)
 {
 	accept(CURSOR, ctx);
 	int64_t x = expr(ctx);
@@ -1310,7 +1306,7 @@ void gotoxy_statement(struct ubasic_ctx* ctx)
 	accept(NEWLINE, ctx);
 }
 
-void draw_line_statement(struct ubasic_ctx* ctx)
+void draw_line_statement(struct basic_ctx* ctx)
 {
 	accept(LINE, ctx);
 	int64_t x1 = expr(ctx);
@@ -1324,7 +1320,7 @@ void draw_line_statement(struct ubasic_ctx* ctx)
 	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
-void point_statement(struct ubasic_ctx* ctx)
+void point_statement(struct basic_ctx* ctx)
 {
 	accept(POINT, ctx);
 	int64_t x1 = expr(ctx);
@@ -1334,7 +1330,7 @@ void point_statement(struct ubasic_ctx* ctx)
 	putpixel(x1, y1, ctx->graphics_colour);
 }
 
-void triangle_statement(struct ubasic_ctx* ctx)
+void triangle_statement(struct basic_ctx* ctx)
 {
 	accept(TRIANGLE, ctx);
 	int64_t x1 = expr(ctx);
@@ -1352,7 +1348,7 @@ void triangle_statement(struct ubasic_ctx* ctx)
 	draw_triangle(x1, y1, x2, y2, x3, y3, ctx->graphics_colour);
 }
 
-void rectangle_statement(struct ubasic_ctx* ctx)
+void rectangle_statement(struct basic_ctx* ctx)
 {
 	accept(RECTANGLE, ctx);
 	int64_t x1 = expr(ctx);
@@ -1366,7 +1362,7 @@ void rectangle_statement(struct ubasic_ctx* ctx)
 	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
-void circle_statement(struct ubasic_ctx* ctx)
+void circle_statement(struct basic_ctx* ctx)
 {
 	accept(CIRCLE, ctx);
 	int64_t x = expr(ctx);
@@ -1380,7 +1376,7 @@ void circle_statement(struct ubasic_ctx* ctx)
 	draw_circle(x, y, radius, filled, ctx->graphics_colour);
 }
 
-void gosub_statement(struct ubasic_ctx* ctx)
+void gosub_statement(struct basic_ctx* ctx)
 {
 	int linenum;
 
@@ -1399,7 +1395,7 @@ void gosub_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void return_statement(struct ubasic_ctx* ctx)
+void return_statement(struct basic_ctx* ctx)
 {
 	accept(RETURN, ctx);
 	if (ctx->call_stack_ptr > 0) {
@@ -1411,22 +1407,22 @@ void return_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void next_statement(struct ubasic_ctx* ctx)
+void next_statement(struct basic_ctx* ctx)
 {
 	accept(NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
 		bool continue_loop = false;
 		if (strchr(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, '#')) {
 			double incr;
-			ubasic_get_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx, &incr);
+			basic_get_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx, &incr);
 			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
-			ubasic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
+			basic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
 			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
 			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr > ctx->for_stack[ctx->for_stack_ptr - 1].to));
 		} else {
-			int64_t incr = ubasic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
+			int64_t incr = basic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
 			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
-			ubasic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
+			basic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
 			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
 			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr > ctx->for_stack[ctx->for_stack_ptr - 1].to));
 		}
@@ -1444,16 +1440,16 @@ void next_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void for_statement(struct ubasic_ctx* ctx)
+void for_statement(struct basic_ctx* ctx)
 {
 	accept(FOR, ctx);
 	const char* for_variable = strdup(tokenizer_variable_name(ctx));
 	accept(VARIABLE, ctx);
 	accept(EQUALS, ctx);
 	if (strchr(for_variable, '#')) {
-		ubasic_set_double_variable(for_variable, expr(ctx), ctx, false, false);
+		basic_set_double_variable(for_variable, expr(ctx), ctx, false, false);
 	} else {
-		ubasic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
+		basic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
 	}
 	accept(TO, ctx);
 	/* STEP needs special treatment, as it happens after an expression and is not separated by a comma */
@@ -1487,7 +1483,7 @@ void for_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void repeat_statement(struct ubasic_ctx* ctx)
+void repeat_statement(struct basic_ctx* ctx)
 {
 	accept(REPEAT, ctx);
 	accept(NEWLINE, ctx);
@@ -1501,7 +1497,7 @@ void repeat_statement(struct ubasic_ctx* ctx)
 }
 
 
-void until_statement(struct ubasic_ctx* ctx)
+void until_statement(struct basic_ctx* ctx)
 {
 	accept(UNTIL, ctx);
 	bool done = conditional(ctx);
@@ -1519,7 +1515,7 @@ void until_statement(struct ubasic_ctx* ctx)
 
 }
 
-void endif_statement(struct ubasic_ctx* ctx)
+void endif_statement(struct basic_ctx* ctx)
 {
 	if (ctx->if_nest_level == 0) {
 		tokenizer_error_print(ctx, "ENDIF outside of block IF");
@@ -1529,7 +1525,7 @@ void endif_statement(struct ubasic_ctx* ctx)
 	ctx->if_nest_level--;
 }
 
-void end_statement(struct ubasic_ctx* ctx)
+void end_statement(struct basic_ctx* ctx)
 {
 	accept(END, ctx);
 	if (tokenizer_token(ctx) == IF) {
@@ -1539,7 +1535,7 @@ void end_statement(struct ubasic_ctx* ctx)
 	ctx->ended = true;
 }
 
-void eq_statement(struct ubasic_ctx* ctx)
+void eq_statement(struct basic_ctx* ctx)
 {
 	accept(EQUALS, ctx);
 
@@ -1560,7 +1556,7 @@ void eq_statement(struct ubasic_ctx* ctx)
 	ctx->ended = true;
 }
 
-void retproc_statement(struct ubasic_ctx* ctx)
+void retproc_statement(struct basic_ctx* ctx)
 {
 	accept(RETPROC, ctx);
 	accept(NEWLINE, ctx);
@@ -1578,7 +1574,7 @@ void retproc_statement(struct ubasic_ctx* ctx)
 	}
 }
 
-int64_t ubasic_asc(struct ubasic_ctx* ctx)
+int64_t basic_asc(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -1586,7 +1582,7 @@ int64_t ubasic_asc(struct ubasic_ctx* ctx)
 	return (unsigned char)*strval;
 }
 
-void statement(struct ubasic_ctx* ctx)
+void statement(struct basic_ctx* ctx)
 {
 	int token = tokenizer_token(ctx);
 
@@ -1709,7 +1705,7 @@ void statement(struct ubasic_ctx* ctx)
 	}
 }
 
-void chdir_statement(struct ubasic_ctx* ctx)
+void chdir_statement(struct basic_ctx* ctx)
 {
 	accept(CHDIR, ctx);
 	const char* csd = str_expr(ctx);
@@ -1732,16 +1728,16 @@ void chdir_statement(struct ubasic_ctx* ctx)
 	kfree(old);
 }
 
-void line_statement(struct ubasic_ctx* ctx)
+void line_statement(struct basic_ctx* ctx)
 {
 	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
 	accept(NUMBER, ctx);
 	statement(ctx);
 }
 
-void ubasic_run(struct ubasic_ctx* ctx)
+void basic_run(struct basic_ctx* ctx)
 {
-	if (ubasic_finished(ctx)) {
+	if (basic_finished(ctx)) {
 		return;
 	}
 	line_statement(ctx);
@@ -1761,7 +1757,7 @@ void ubasic_run(struct ubasic_ctx* ctx)
 	gc();
 }
 
-bool ubasic_finished(struct ubasic_ctx* ctx)
+bool basic_finished(struct basic_ctx* ctx)
 {
 	return ctx->ended || tokenizer_finished(ctx);
 }
@@ -1817,7 +1813,7 @@ bool valid_int_var(const char* name)
 	return true;
 }
 
-void ubasic_set_string_variable(const char* var, const char* value, struct ubasic_ctx* ctx, bool local, bool global)
+void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool global)
 {
 	bool error_set = false;
 	struct ub_var_string* list[] = {
@@ -1880,7 +1876,7 @@ void ubasic_set_string_variable(const char* var, const char* value, struct ubasi
 	}
 }
 
-void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* ctx, bool local, bool global)
+void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ctx, bool local, bool global)
 {
 	struct ub_var_int* list[] = {
 		ctx->int_variables,
@@ -1931,7 +1927,7 @@ void ubasic_set_int_variable(const char* var, int64_t value, struct ubasic_ctx* 
 	}
 }
 
-void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx* ctx, bool local, bool global)
+void basic_set_double_variable(const char* var, double value, struct basic_ctx* ctx, bool local, bool global)
 {
 	struct ub_var_double* list[] = {
 		ctx->double_variables,
@@ -1983,14 +1979,14 @@ void ubasic_set_double_variable(const char* var, double value, struct ubasic_ctx
 	}
 }
 
-void begin_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
+void begin_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
 	ctx->bracket_depth = 0;
 	ctx->param = def->params;
 	ctx->item_begin = (char*)ctx->ptr;
 }
 
 
-uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
+uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
 	if (*ctx->ptr == '(') {
 		ctx->bracket_depth++;
 		if (ctx->bracket_depth == 1) {
@@ -2021,15 +2017,15 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 			//dprintf("Set PROC/FN param: %s to ", ctx->param->name);
 			if (ctx->param->name[len - 1] == '$') {
 				//dprintf("string value\n");
-				ubasic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
+				basic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
 			} else if (ctx->param->name[len - 1] == '#') {
 				double f = 0.0;
 				double_expr(ctx, &f);
 				//dprintf("double value\n");
-				ubasic_set_double_variable(ctx->param->name, f, ctx, true, false);
+				basic_set_double_variable(ctx->param->name, f, ctx, true, false);
 			} else {
 				//dprintf("int value\n");
-				ubasic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
+				basic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
 			}
 
 			ctx->param = ctx->param->next;
@@ -2052,20 +2048,20 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct ubasic_ctx* ctx) {
 
 }
 
-const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
+const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 {
-	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
+	struct ub_proc_fn_def* def = basic_find_fn(fn_name + 2, ctx);
 	const char* rv = "";
 	if (def) {
 		ctx->call_stack_ptr++;
 		init_local_heap(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
-		struct ubasic_ctx* atomic = ubasic_clone(ctx);
+		struct basic_ctx* atomic = basic_clone(ctx);
 		atomic->fn_type = RT_STRING;
 		jump_linenum(def->line, atomic);
 
-		while (!ubasic_finished(atomic)) {
+		while (!basic_finished(atomic)) {
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
@@ -2090,51 +2086,51 @@ const char* ubasic_eval_str_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	return rv;
 }
 
-int64_t ubasic_getproccount(struct ubasic_ctx* ctx)
+int64_t basic_getproccount(struct basic_ctx* ctx)
 {
 	return proc_total();
 }
 
-int64_t ubasic_get_text_max_x(struct ubasic_ctx* ctx)
+int64_t basic_get_text_max_x(struct basic_ctx* ctx)
 {
 	return get_text_width();
 }
 
-int64_t ubasic_get_text_max_y(struct ubasic_ctx* ctx)
+int64_t basic_get_text_max_y(struct basic_ctx* ctx)
 {
 	return get_text_height();
 }
 
-int64_t ubasic_get_text_cur_x(struct ubasic_ctx* ctx)
+int64_t basic_get_text_cur_x(struct basic_ctx* ctx)
 {
 	uint64_t x = 0, y = 0;
 	get_text_position(&x, &y);
 	return x;
 }
 
-int64_t ubasic_get_text_cur_y(struct ubasic_ctx* ctx)
+int64_t basic_get_text_cur_y(struct basic_ctx* ctx)
 {
 	uint64_t x = 0, y = 0;
 	get_text_position(&x, &y);
 	return y;
 }
 
-int64_t ubasic_get_free_mem(struct ubasic_ctx* ctx)
+int64_t basic_get_free_mem(struct basic_ctx* ctx)
 {
 	return get_free_memory();
 }
 
-int64_t ubasic_get_used_mem(struct ubasic_ctx* ctx)
+int64_t basic_get_used_mem(struct basic_ctx* ctx)
 {
 	return get_used_memory();
 }
 
-int64_t ubasic_get_total_mem(struct ubasic_ctx* ctx)
+int64_t basic_get_total_mem(struct basic_ctx* ctx)
 {
 	return get_total_memory();
 }
 
-int64_t ubasic_getprocid(struct ubasic_ctx* ctx)
+int64_t basic_getprocid(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2142,7 +2138,7 @@ int64_t ubasic_getprocid(struct ubasic_ctx* ctx)
 	return proc_id(intval);
 }
 
-int64_t ubasic_rgb(struct ubasic_ctx* ctx)
+int64_t basic_rgb(struct basic_ctx* ctx)
 {
 	int64_t r, g, b;
 	PARAMS_START;
@@ -2156,7 +2152,7 @@ int64_t ubasic_rgb(struct ubasic_ctx* ctx)
 	return (uint32_t)(r << 16 | g << 8 | b);
 }
 
-char* ubasic_getprocname(struct ubasic_ctx* ctx)
+char* basic_getprocname(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2165,7 +2161,7 @@ char* ubasic_getprocname(struct ubasic_ctx* ctx)
 	return process && process->name ? gc_strdup(process->name) : "";
 }
 
-int64_t ubasic_getprocparent(struct ubasic_ctx* ctx)
+int64_t basic_getprocparent(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2174,7 +2170,7 @@ int64_t ubasic_getprocparent(struct ubasic_ctx* ctx)
 	return process ? process->ppid : 0;
 }
 
-int64_t ubasic_getproccpuid(struct ubasic_ctx* ctx)
+int64_t basic_getproccpuid(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2183,7 +2179,7 @@ int64_t ubasic_getproccpuid(struct ubasic_ctx* ctx)
 	return process ? process->cpu : 0;
 }
 
-char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx)
+char* basic_ramdisk_from_device(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2195,7 +2191,7 @@ char* ubasic_ramdisk_from_device(struct ubasic_ctx* ctx)
 	return gc_strdup(rd);
 }
 
-char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx)
+char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2210,7 +2206,7 @@ char* ubasic_ramdisk_from_size(struct ubasic_ctx* ctx)
 	return gc_strdup(rd);
 }
 
-char* ubasic_inkey(struct ubasic_ctx* ctx)
+char* basic_inkey(struct basic_ctx* ctx)
 {
 	const uint8_t key[2] = { kgetc((console*)ctx->cons), 0 };
 	
@@ -2223,7 +2219,7 @@ char* ubasic_inkey(struct ubasic_ctx* ctx)
 	}
 }
 
-char* ubasic_insocket(struct ubasic_ctx* ctx)
+char* basic_insocket(struct basic_ctx* ctx)
 {
 	uint8_t input[2] = { 0, 0 };
 	
@@ -2250,7 +2246,7 @@ char* ubasic_insocket(struct ubasic_ctx* ctx)
 	return "";
 }
 
-int64_t ubasic_sockstatus(struct ubasic_ctx* ctx)
+int64_t basic_sockstatus(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2264,27 +2260,27 @@ int64_t ubasic_sockstatus(struct ubasic_ctx* ctx)
 	return is_connected(fd);
 }
 
-int64_t ubasic_ctrlkey(struct ubasic_ctx* ctx)
+int64_t basic_ctrlkey(struct basic_ctx* ctx)
 {
 	return ctrl_held();
 }
 
-int64_t ubasic_shiftkey(struct ubasic_ctx* ctx)
+int64_t basic_shiftkey(struct basic_ctx* ctx)
 {
 	return shift_held();
 }
 
-int64_t ubasic_altkey(struct ubasic_ctx* ctx)
+int64_t basic_altkey(struct basic_ctx* ctx)
 {
 	return alt_held();
 }
 
-int64_t ubasic_capslock(struct ubasic_ctx* ctx)
+int64_t basic_capslock(struct basic_ctx* ctx)
 {
 	return caps_lock_on();
 }
 
-int64_t ubasic_random(struct ubasic_ctx* ctx)
+int64_t basic_random(struct basic_ctx* ctx)
 {
 	int64_t low, high;
 	PARAMS_START;
@@ -2297,7 +2293,7 @@ int64_t ubasic_random(struct ubasic_ctx* ctx)
 }
 
 
-char* ubasic_chr(struct ubasic_ctx* ctx)
+char* basic_chr(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2306,7 +2302,7 @@ char* ubasic_chr(struct ubasic_ctx* ctx)
 	return gc_strdup(res);
 }
 
-int64_t ubasic_instr(struct ubasic_ctx* ctx)
+int64_t basic_instr(struct basic_ctx* ctx)
 {
 	char* haystack;
 	char* needle;
@@ -2325,7 +2321,7 @@ int64_t ubasic_instr(struct ubasic_ctx* ctx)
 	return 0;
 }
 
-char* ubasic_netinfo(struct ubasic_ctx* ctx)
+char* basic_netinfo(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2357,7 +2353,7 @@ char* ubasic_netinfo(struct ubasic_ctx* ctx)
 	return gc_strdup("0.0.0.0");
 }
 
-char* ubasic_dns(struct ubasic_ctx* ctx)
+char* basic_dns(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2368,7 +2364,7 @@ char* ubasic_dns(struct ubasic_ctx* ctx)
 	return gc_strdup(ip);
 }
 
-char* ubasic_upper(struct ubasic_ctx* ctx)
+char* basic_upper(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2380,7 +2376,7 @@ char* ubasic_upper(struct ubasic_ctx* ctx)
 	return modified;
 }
 
-char* ubasic_lower(struct ubasic_ctx* ctx)
+char* basic_lower(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2392,12 +2388,12 @@ char* ubasic_lower(struct ubasic_ctx* ctx)
 	return modified;
 }
 
-char* ubasic_csd(struct ubasic_ctx* ctx)
+char* basic_csd(struct basic_ctx* ctx)
 {
 	return gc_strdup(proc_cur()->csd);
 }
 
-char* ubasic_tokenize(struct ubasic_ctx* ctx)
+char* basic_tokenize(struct basic_ctx* ctx)
 {
 	char* varname, *split;
 	PARAMS_START;
@@ -2406,7 +2402,7 @@ char* ubasic_tokenize(struct ubasic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	split = strval;
 	PARAMS_END("TOKENIZE$");
-	const char* current_value = ubasic_get_string_variable(varname, ctx);
+	const char* current_value = basic_get_string_variable(varname, ctx);
 	const char* old_value = current_value;
 	size_t len = strlen(current_value);
 	size_t split_len = strlen(split);
@@ -2419,7 +2415,7 @@ char* ubasic_tokenize(struct ubasic_ctx* ctx)
 			char new_value[MAX_STRINGLEN];
 			strlcpy(return_value, old_value, ofs + split_len);
 			strlcpy(new_value, old_value + ofs + split_len, MAX_STRINGLEN);
-			ubasic_set_string_variable(varname, new_value, ctx, false, false);
+			basic_set_string_variable(varname, new_value, ctx, false, false);
 			return gc_strdup(return_value);
 		}
 		current_value++;
@@ -2427,12 +2423,12 @@ char* ubasic_tokenize(struct ubasic_ctx* ctx)
 	}
 	char return_value[MAX_STRINGLEN];
 	strlcpy(return_value, old_value, MAX_STRINGLEN);
-	ubasic_set_string_variable(varname, "", ctx, false, false);
+	basic_set_string_variable(varname, "", ctx, false, false);
 	return gc_strdup(return_value);
 }
 
 
-char* ubasic_left(struct ubasic_ctx* ctx)
+char* basic_left(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2453,7 +2449,7 @@ char* ubasic_left(struct ubasic_ctx* ctx)
 	return cut;
 }
 
-char* ubasic_right(struct ubasic_ctx* ctx)
+char* basic_right(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2472,7 +2468,7 @@ char* ubasic_right(struct ubasic_ctx* ctx)
 	return gc_strdup(strval + len - intval);
 }
 
-char* ubasic_mid(struct ubasic_ctx* ctx)
+char* basic_mid(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2503,7 +2499,7 @@ char* ubasic_mid(struct ubasic_ctx* ctx)
 	return cut + start;
 }
 
-int64_t ubasic_len(struct ubasic_ctx* ctx)
+int64_t basic_len(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
@@ -2511,7 +2507,7 @@ int64_t ubasic_len(struct ubasic_ctx* ctx)
 	return strlen(strval);
 }
 
-int64_t ubasic_abs(struct ubasic_ctx* ctx)
+int64_t basic_abs(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -2519,7 +2515,7 @@ int64_t ubasic_abs(struct ubasic_ctx* ctx)
 	return labs(intval);
 }
 
-void ubasic_sin(struct ubasic_ctx* ctx, double* res)
+void basic_sin(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
@@ -2527,7 +2523,7 @@ void ubasic_sin(struct ubasic_ctx* ctx, double* res)
 	*res = sin(doubleval);
 }
 
-void ubasic_cos(struct ubasic_ctx* ctx, double* res)
+void basic_cos(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
@@ -2535,7 +2531,7 @@ void ubasic_cos(struct ubasic_ctx* ctx, double* res)
 	*res = cos(doubleval);
 }
 
-void ubasic_tan(struct ubasic_ctx* ctx, double* res)
+void basic_tan(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
@@ -2543,7 +2539,7 @@ void ubasic_tan(struct ubasic_ctx* ctx, double* res)
 	*res = tan(doubleval);
 }
 
-void ubasic_pow(struct ubasic_ctx* ctx, double* res)
+void basic_pow(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
@@ -2562,7 +2558,7 @@ void ubasic_pow(struct ubasic_ctx* ctx, double* res)
  * @param res pointer to return value of function
  * @return uint64_t true/false return
  */
-char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int64_t* res) {
+char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res) {
 	int i;
 	for (i = 0; builtin_int[i].name; ++i) {
 		if (!strcmp(fn_name, builtin_int[i].name)) {
@@ -2573,7 +2569,7 @@ char ubasic_builtin_int_fn(const char* fn_name, struct ubasic_ctx* ctx, int64_t*
 	return 0;
 }
 
-char ubasic_builtin_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res) {
+char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res) {
 	int i;
 	for (i = 0; builtin_double[i].name; ++i) {
 		if (!strcmp(fn_name, builtin_double[i].name)) {
@@ -2593,7 +2589,7 @@ char ubasic_builtin_double_fn(const char* fn_name, struct ubasic_ctx* ctx, doubl
  * @param res pointer to return value of function
  * @return uint64_t true/false return
  */
-char ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** res) {
+char basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res) {
 	int i;
 	for (i = 0; builtin_str[i].name; ++i) {
 		if (!strcmp(fn_name, builtin_str[i].name)) {
@@ -2605,21 +2601,21 @@ char ubasic_builtin_str_fn(const char* fn_name, struct ubasic_ctx* ctx, char** r
 }
 
 
-int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
+int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 {
-	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
+	struct ub_proc_fn_def* def = basic_find_fn(fn_name + 2, ctx);
 	int64_t rv = 0;
 	if (def) {
 		ctx->call_stack_ptr++;
 		init_local_heap(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
-		struct ubasic_ctx* atomic = ubasic_clone(ctx);
+		struct basic_ctx* atomic = basic_clone(ctx);
 		atomic->fn_type = RT_INT;
 		dprintf("Function eval, jump to line %d\n", def->line);
 		jump_linenum(def->line, atomic);
 
-		while (!ubasic_finished(atomic)) {
+		while (!basic_finished(atomic)) {
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
@@ -2645,19 +2641,19 @@ int64_t ubasic_eval_int_fn(const char* fn_name, struct ubasic_ctx* ctx)
 	return 0;
 }
 
-void ubasic_eval_double_fn(const char* fn_name, struct ubasic_ctx* ctx, double* res)
+void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res)
 {
-	struct ub_proc_fn_def* def = ubasic_find_fn(fn_name + 2, ctx);
+	struct ub_proc_fn_def* def = basic_find_fn(fn_name + 2, ctx);
 	if (def) {
 		ctx->call_stack_ptr++;
 		init_local_heap(ctx);
 		begin_comma_list(def, ctx);
 		while (extract_comma_list(def, ctx));
-		struct ubasic_ctx* atomic = ubasic_clone(ctx);
+		struct basic_ctx* atomic = basic_clone(ctx);
 		atomic->fn_type = RT_FLOAT;
 		jump_linenum(def->line, atomic);
 
-		while (!ubasic_finished(atomic)) {
+		while (!basic_finished(atomic)) {
 			line_statement(atomic);
 			if (atomic->errored) {
 				ctx->errored = true;
@@ -2702,7 +2698,7 @@ char varname_is_double_function(const char* varname) {
 	return (*varname == 'F' && *(varname + 1) == 'N' && strchr(varname, '#') && !strchr(varname, '$'));
 }
 
-const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx)
+const char* basic_test_string_variable(const char* var, struct basic_ctx* ctx)
 {
 	struct ub_var_string* list[] = {
 		ctx->local_string_variables[ctx->call_stack_ptr],
@@ -2720,20 +2716,20 @@ const char* ubasic_test_string_variable(const char* var, struct ubasic_ctx* ctx)
 	return NULL;
 }
 
-const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
+const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 {
 	char* retv;
-	int t = ubasic_builtin_str_fn(var, ctx, &retv);
+	int t = basic_builtin_str_fn(var, ctx, &retv);
 	if (t)
 		return retv;
 
 	if (varname_is_string_function(var)) {
-		const char* res = ubasic_eval_str_fn(var, ctx);
+		const char* res = basic_eval_str_fn(var, ctx);
 		return res;
 	}
 
 	if (varname_is_string_array_access(ctx, var)) {
-		return ubasic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
+		return basic_get_string_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
 	struct ub_var_string* list[ctx->call_stack_ptr + 1];
@@ -2758,19 +2754,19 @@ const char* ubasic_get_string_variable(const char* var, struct ubasic_ctx* ctx)
 	return "";
 }
 
-int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
+int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 {
 	int64_t retv = 0;
-	if (ubasic_builtin_int_fn(var, ctx, &retv)) {
+	if (basic_builtin_int_fn(var, ctx, &retv)) {
 		return retv;
 	}
 	
 	if (varname_is_function(var)) {
-		return ubasic_eval_int_fn(var, ctx);
+		return basic_eval_int_fn(var, ctx);
 	}
 
 	if (varname_is_int_array_access(ctx, var)) {
-		return ubasic_get_int_array_variable(var, arr_variable_index(ctx), ctx);
+		return basic_get_int_array_variable(var, arr_variable_index(ctx), ctx);
 	}
 
 	struct ub_var_int* list[ctx->call_stack_ptr + 1];
@@ -2787,7 +2783,7 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 				int64_t v = cur->value;
 				/* If ERROR is read, it resets its value */
 				if (!strcmp(var, "ERROR")) {
-					ubasic_set_int_variable("ERROR", 0, ctx, false, false);
+					basic_set_int_variable("ERROR", 0, ctx, false, false);
 				}
 				return v;
 			}
@@ -2801,19 +2797,19 @@ int64_t ubasic_get_int_variable(const char* var, struct ubasic_ctx* ctx)
 	return 0; /* No such variable */
 }
 
-bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double* res)
+bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* res)
 {
-	if (ubasic_builtin_double_fn(var, ctx, res)) {
+	if (basic_builtin_double_fn(var, ctx, res)) {
 		return true;
 	}
 		
 	if (varname_is_double_function(var)) {
-		ubasic_eval_double_fn(var, ctx, res);
+		basic_eval_double_fn(var, ctx, res);
 		return true;
 	}
 
 	if (varname_is_double_array_access(ctx, var)) {
-		return ubasic_get_double_array_variable(var, arr_variable_index(ctx), ctx, res);
+		return basic_get_double_array_variable(var, arr_variable_index(ctx), ctx, res);
 	}
 
 
@@ -2844,20 +2840,20 @@ bool ubasic_get_double_variable(const char* var, struct ubasic_ctx* ctx, double*
 	return false;
 }
 
-ub_return_type ubasic_get_numeric_variable(const char* var, struct ubasic_ctx* ctx, double* res)
+ub_return_type basic_get_numeric_variable(const char* var, struct basic_ctx* ctx, double* res)
 {
-	if (ubasic_get_double_variable(var, ctx, res)) {
+	if (basic_get_double_variable(var, ctx, res)) {
 		return RT_INT;
 	}
-	*res = (double)(ubasic_get_int_variable(var, ctx));
+	*res = (double)(basic_get_int_variable(var, ctx));
 	return RT_FLOAT;
 }
 
-int64_t ubasic_get_numeric_int_variable(const char* var, struct ubasic_ctx* ctx)
+int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx)
 {
 	double res;
-	if (ubasic_get_double_variable(var, ctx, &res)) {
+	if (basic_get_double_variable(var, ctx, &res)) {
 		return (int64_t)res;
 	}
-	return ubasic_get_int_variable(var, ctx);
+	return basic_get_int_variable(var, ctx);
 }

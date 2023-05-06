@@ -1,10 +1,10 @@
 #include <kernel.h>
 
-void double_varfactor(struct ubasic_ctx* ctx, double* res)
+void double_varfactor(struct basic_ctx* ctx, double* res)
 {
 	double r;
 
-	ubasic_get_numeric_variable(tokenizer_variable_name(ctx), ctx, &r);
+	basic_get_numeric_variable(tokenizer_variable_name(ctx), ctx, &r);
 
 	// Special case for builin functions
 	if (tokenizer_token(ctx) == COMMA) {
@@ -19,7 +19,7 @@ void double_varfactor(struct ubasic_ctx* ctx, double* res)
 	*res = r;
 }
 
-void double_factor(struct ubasic_ctx* ctx, double* res)
+void double_factor(struct basic_ctx* ctx, double* res)
 {
 	int tok = tokenizer_token(ctx);
 	switch (tok) {
@@ -38,7 +38,7 @@ void double_factor(struct ubasic_ctx* ctx, double* res)
 	}
 }
 
-void double_term(struct ubasic_ctx* ctx, double* res)
+void double_term(struct basic_ctx* ctx, double* res)
 {
 	double f1, f2;
 
@@ -74,7 +74,7 @@ void double_term(struct ubasic_ctx* ctx, double* res)
 	*res = f1;
 }
 
-void double_expr(struct ubasic_ctx* ctx, double* res)
+void double_expr(struct basic_ctx* ctx, double* res)
 {
 	double t1, t2;
 
@@ -103,7 +103,7 @@ void double_expr(struct ubasic_ctx* ctx, double* res)
 	*res = t1;
 }
 
-void double_relation(struct ubasic_ctx* ctx, double* res)
+void double_relation(struct basic_ctx* ctx, double* res)
 {
 	double r1;
 	double_expr(ctx, &r1);

@@ -34,7 +34,7 @@ typedef struct process_t {
 	uint64_t		size;		/* Size of program in bytes */
 	const char*		csd;		/* Current selected directory */
 	struct console*		cons;		/* Program's console */
-	struct ubasic_ctx*	code;		/* BASIC context */
+	struct basic_ctx*	code;		/* BASIC context */
 	struct process_t*	prev;		/* Prev process in doubly linked list */
 	struct process_t*	next;		/* Next process in doubly linked list */
 } process_t;

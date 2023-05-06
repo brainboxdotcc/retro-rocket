@@ -88,7 +88,7 @@ const int keywords[] = {
 	-1,
 };
 
-static int singlechar(struct ubasic_ctx* ctx)
+static int singlechar(struct basic_ctx* ctx)
 {
 	switch (*ctx->ptr) {
 		case '\n':
@@ -127,7 +127,7 @@ static int singlechar(struct ubasic_ctx* ctx)
 	return 0;
 }
 
-int get_next_token(struct ubasic_ctx* ctx)
+int get_next_token(struct basic_ctx* ctx)
 {
 	if(*ctx->ptr == 0) {
 		return ENDOFINPUT;
@@ -245,18 +245,18 @@ int get_next_token(struct ubasic_ctx* ctx)
 	return ERROR;
 }
 
-void tokenizer_init(const char *program, struct ubasic_ctx* ctx)
+void tokenizer_init(const char *program, struct basic_ctx* ctx)
 {
 	ctx->ptr = program;
 	ctx->current_token = get_next_token(ctx);
 }
 
-int tokenizer_token(struct ubasic_ctx* ctx)
+int tokenizer_token(struct basic_ctx* ctx)
 {
 	return ctx->current_token;
 }
 
-void tokenizer_next(struct ubasic_ctx* ctx)
+void tokenizer_next(struct basic_ctx* ctx)
 {
 
 	if(tokenizer_finished(ctx)) {
@@ -270,17 +270,17 @@ void tokenizer_next(struct ubasic_ctx* ctx)
 	ctx->current_token = get_next_token(ctx);
 }
 
-int64_t tokenizer_num(struct ubasic_ctx* ctx, int token)
+int64_t tokenizer_num(struct basic_ctx* ctx, int token)
 {
 	return token == NUMBER ? atoll(ctx->ptr, 10) : atoll(ctx->ptr, 16);
 }
 
-void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f)
+void tokenizer_fnum(struct basic_ctx* ctx, int token, double* f)
 {
 	atof(ctx->ptr, f);
 }
 
-bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
+bool tokenizer_string(char *dest, int len, struct basic_ctx* ctx)
 {
 	char *string_end;
 	int string_len;
@@ -308,11 +308,11 @@ bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx)
 	return true;
 }
 
-void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
+void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 {
-	ubasic_set_string_variable("ERROR$", error, ctx, false, false);
-	ubasic_set_int_variable("ERROR", 1, ctx, false, false);
-	ubasic_set_int_variable("ERRORLINE", ctx->current_linenum, ctx, false, false);
+	basic_set_string_variable("ERROR$", error, ctx, false, false);
+	basic_set_int_variable("ERROR", 1, ctx, false, false);
+	basic_set_int_variable("ERRORLINE", ctx->current_linenum, ctx, false, false);
 	if (ctx->eval_linenum == 0) {
 		if (ctx->ended == 0) {
 			setforeground(current_console, COLOUR_LIGHTRED);
@@ -331,12 +331,12 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error)
 	}
 }
 
-int tokenizer_finished(struct ubasic_ctx* ctx)
+int tokenizer_finished(struct basic_ctx* ctx)
 {
 	return *ctx->ptr == 0 || ctx->current_token == ENDOFINPUT;
 }
 
-const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
+const char* tokenizer_variable_name(struct basic_ctx* ctx)
 {
 	char varname[MAX_VARNAME];
 	int count = 0;
@@ -349,7 +349,7 @@ const char* tokenizer_variable_name(struct ubasic_ctx* ctx)
 	return gc_strdup(varname);
 }
 
-bool tokenizer_decimal_number(struct ubasic_ctx* ctx)
+bool tokenizer_decimal_number(struct basic_ctx* ctx)
 {
 	const char* ptr = ctx->ptr;
 	int whole_part_count = 0, decimal_part_count = 0;

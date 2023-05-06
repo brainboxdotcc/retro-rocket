@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-bool varname_is_int_array_access(struct ubasic_ctx* ctx, const char* varname)
+bool varname_is_int_array_access(struct basic_ctx* ctx, const char* varname)
 {
 	for (ub_var_int_array* i = ctx->int_array_variables; i; i = i->next) {
 		if (!strcmp(i->varname, varname)) {
@@ -10,7 +10,7 @@ bool varname_is_int_array_access(struct ubasic_ctx* ctx, const char* varname)
 	return false;
 }
 
-bool varname_is_string_array_access(struct ubasic_ctx* ctx, const char* varname)
+bool varname_is_string_array_access(struct basic_ctx* ctx, const char* varname)
 {
 	for (ub_var_string_array* i = ctx->string_array_variables; i; i = i->next) {
 		if (!strcmp(i->varname, varname)) {
@@ -20,7 +20,7 @@ bool varname_is_string_array_access(struct ubasic_ctx* ctx, const char* varname)
 	return false;
 }
 
-bool varname_is_double_array_access(struct ubasic_ctx* ctx, const char* varname)
+bool varname_is_double_array_access(struct basic_ctx* ctx, const char* varname)
 {
 	for (ub_var_double_array* i = ctx->double_array_variables; i; i = i->next) {
 		if (!strcmp(i->varname, varname)) {
@@ -30,7 +30,7 @@ bool varname_is_double_array_access(struct ubasic_ctx* ctx, const char* varname)
 	return false;
 }
 
-int64_t arr_variable_index(struct ubasic_ctx* ctx)
+int64_t arr_variable_index(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
@@ -38,7 +38,7 @@ int64_t arr_variable_index(struct ubasic_ctx* ctx)
 	return intval;
 }
 
-const char* ubasic_get_string_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx)
+const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx)
 {
 	if (index < 0) {
 		tokenizer_error_print(ctx, "Array index out of bounds");
@@ -61,7 +61,7 @@ const char* ubasic_get_string_array_variable(const char* var, int64_t index, str
 	return "";
 }
 
-int64_t ubasic_get_int_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx)
+int64_t basic_get_int_array_variable(const char* var, int64_t index, struct basic_ctx* ctx)
 {
 	if (index < 0) {
 		tokenizer_error_print(ctx, "Array index out of bounds");
@@ -81,7 +81,7 @@ int64_t ubasic_get_int_array_variable(const char* var, int64_t index, struct uba
 	return 0;
 }
 
-bool ubasic_get_double_array_variable(const char* var, int64_t index, struct ubasic_ctx* ctx, double* ret)
+bool basic_get_double_array_variable(const char* var, int64_t index, struct basic_ctx* ctx, double* ret)
 {
 	if (index < 0) {
 		tokenizer_error_print(ctx, "Array index out of bounds");
@@ -104,7 +104,7 @@ bool ubasic_get_double_array_variable(const char* var, int64_t index, struct uba
 	return false;
 }
 
-bool ubasic_dim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (!valid_int_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -134,7 +134,7 @@ bool ubasic_dim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
 	return true;
 }
 
-bool ubasic_dim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (!valid_string_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -164,7 +164,7 @@ bool ubasic_dim_string_array(const char* var, int64_t size, struct ubasic_ctx* c
 	return true;	
 }
 
-bool ubasic_dim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (!valid_double_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -194,7 +194,7 @@ bool ubasic_dim_double_array(const char* var, int64_t size, struct ubasic_ctx* c
 	return true;		
 }
 
-bool ubasic_redim_int_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (size < 1) {
 		tokenizer_error_print(ctx, "Invalid array size");
@@ -221,7 +221,7 @@ bool ubasic_redim_int_array(const char* var, int64_t size, struct ubasic_ctx* ct
 	return false;
 }
 
-bool ubasic_redim_string_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (size < 1) {
 		tokenizer_error_print(ctx, "Invalid array size");
@@ -256,7 +256,7 @@ bool ubasic_redim_string_array(const char* var, int64_t size, struct ubasic_ctx*
 	return false;	
 }
 
-bool ubasic_redim_double_array(const char* var, int64_t size, struct ubasic_ctx* ctx)
+bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (size < 1) {
 		tokenizer_error_print(ctx, "Invalid array size");
@@ -283,7 +283,7 @@ bool ubasic_redim_double_array(const char* var, int64_t size, struct ubasic_ctx*
 	return false;	
 }
 
-void ubasic_set_string_array_variable(const char* var, int64_t index, const char* value, struct ubasic_ctx* ctx)
+void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx)
 {
 	if (!valid_string_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -311,7 +311,7 @@ void ubasic_set_string_array_variable(const char* var, int64_t index, const char
 	tokenizer_error_print(ctx, "No such array variable");
 }
 
-void ubasic_set_string_array(const char* var, const char* value, struct ubasic_ctx* ctx)
+void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx)
 {
 	if (!valid_string_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -330,7 +330,7 @@ void ubasic_set_string_array(const char* var, const char* value, struct ubasic_c
 	}
 }
 
-void ubasic_set_int_array(const char* var, int64_t value, struct ubasic_ctx* ctx)
+void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx)
 {
 	if (!valid_int_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -346,7 +346,7 @@ void ubasic_set_int_array(const char* var, int64_t value, struct ubasic_ctx* ctx
 	}
 }
 
-void ubasic_set_double_array(const char* var, double value, struct ubasic_ctx* ctx)
+void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx)
 {
 	if (!valid_double_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -362,7 +362,7 @@ void ubasic_set_double_array(const char* var, double value, struct ubasic_ctx* c
 	}
 }
 
-void ubasic_set_double_array_variable(const char* var, int64_t index, double value, struct ubasic_ctx* ctx)
+void basic_set_double_array_variable(const char* var, int64_t index, double value, struct basic_ctx* ctx)
 {
 	if (!valid_double_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -387,7 +387,7 @@ void ubasic_set_double_array_variable(const char* var, int64_t index, double val
 	tokenizer_error_print(ctx, "No such array variable");
 }
 
-void ubasic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct ubasic_ctx* ctx)
+void basic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct basic_ctx* ctx)
 {
 	if (!valid_int_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
@@ -413,7 +413,7 @@ void ubasic_set_int_array_variable(const char* var, int64_t index, int64_t value
 }
 
 
-void dim_statement(struct ubasic_ctx* ctx)
+void dim_statement(struct basic_ctx* ctx)
 {
 	accept(DIM, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
@@ -424,17 +424,17 @@ void dim_statement(struct ubasic_ctx* ctx)
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':
-			ubasic_dim_double_array(array_name, array_size, ctx);
+			basic_dim_double_array(array_name, array_size, ctx);
 		break;
 		case '$':
-			ubasic_dim_string_array(array_name, array_size, ctx);
+			basic_dim_string_array(array_name, array_size, ctx);
 		break;
 		default:
-			ubasic_dim_int_array(array_name, array_size, ctx);
+			basic_dim_int_array(array_name, array_size, ctx);
 	}
 }
 
-void redim_statement(struct ubasic_ctx* ctx)
+void redim_statement(struct basic_ctx* ctx)
 {
 	accept(REDIM, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
@@ -445,17 +445,17 @@ void redim_statement(struct ubasic_ctx* ctx)
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':
-			ubasic_redim_double_array(array_name, array_size, ctx);
+			basic_redim_double_array(array_name, array_size, ctx);
 		break;
 		case '$':
-			ubasic_redim_string_array(array_name, array_size, ctx);
+			basic_redim_string_array(array_name, array_size, ctx);
 		break;
 		default:
-			ubasic_redim_int_array(array_name, array_size, ctx);
+			basic_redim_int_array(array_name, array_size, ctx);
 	}
 }
 
-int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
+int64_t arr_expr_set_index(struct basic_ctx* ctx, const char* varname)
 {
 	while(*ctx->ptr != '(' && *ctx->ptr != '\n' && *ctx->ptr) ctx->ptr++;
 	if (*ctx->ptr != '(') {
@@ -475,7 +475,7 @@ int64_t arr_expr_set_index(struct ubasic_ctx* ctx, const char* varname)
 	return index;
 }
 
-bool ubasic_pop_string_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
+bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx)
 {
 	if (pop_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
@@ -501,7 +501,7 @@ bool ubasic_pop_string_array(const char* var, int64_t pop_pos, struct ubasic_ctx
 	return false;	
 }
 
-bool ubasic_pop_int_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
+bool basic_pop_int_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx)
 {
 	if (pop_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
@@ -524,7 +524,7 @@ bool ubasic_pop_int_array(const char* var, int64_t pop_pos, struct ubasic_ctx* c
 	return false;	
 }
 
-bool ubasic_pop_double_array(const char* var, int64_t pop_pos, struct ubasic_ctx* ctx)
+bool basic_pop_double_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx)
 {
 	if (pop_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
@@ -547,7 +547,7 @@ bool ubasic_pop_double_array(const char* var, int64_t pop_pos, struct ubasic_ctx
 	return false;	
 }
 
-bool ubasic_push_string_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
+bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx* ctx)
 {
 	if (push_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
@@ -579,7 +579,7 @@ bool ubasic_push_string_array(const char* var, int64_t push_pos, struct ubasic_c
 	return false;	
 }
 
-bool ubasic_push_int_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
+bool basic_push_int_array(const char* var, int64_t push_pos, struct basic_ctx* ctx)
 {
 	if (push_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
@@ -607,7 +607,7 @@ bool ubasic_push_int_array(const char* var, int64_t push_pos, struct ubasic_ctx*
 	return false;	
 }
 
-bool ubasic_push_double_array(const char* var, int64_t push_pos, struct ubasic_ctx* ctx)
+bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx* ctx)
 {
 	if (push_pos < 0) {
 		tokenizer_error_print(ctx, "Invalid array index");
@@ -635,7 +635,7 @@ bool ubasic_push_double_array(const char* var, int64_t push_pos, struct ubasic_c
 	return false;	
 }
 
-void push_statement(struct ubasic_ctx* ctx)
+void push_statement(struct basic_ctx* ctx)
 {
 	accept(PUSH, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
@@ -646,17 +646,17 @@ void push_statement(struct ubasic_ctx* ctx)
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':
-			ubasic_push_double_array(array_name, push_pos, ctx);
+			basic_push_double_array(array_name, push_pos, ctx);
 		break;
 		case '$':
-			ubasic_push_string_array(array_name, push_pos, ctx);
+			basic_push_string_array(array_name, push_pos, ctx);
 		break;
 		default:
-			ubasic_push_int_array(array_name, push_pos, ctx);
+			basic_push_int_array(array_name, push_pos, ctx);
 	}
 }
 
-void pop_statement(struct ubasic_ctx* ctx)
+void pop_statement(struct basic_ctx* ctx)
 {
 	accept(POP, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
@@ -667,13 +667,13 @@ void pop_statement(struct ubasic_ctx* ctx)
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':
-			ubasic_pop_double_array(array_name, pop_pos, ctx);
+			basic_pop_double_array(array_name, pop_pos, ctx);
 		break;
 		case '$':
-			ubasic_pop_string_array(array_name, pop_pos, ctx);
+			basic_pop_string_array(array_name, pop_pos, ctx);
 		break;
 		default:
-			ubasic_pop_int_array(array_name, pop_pos, ctx);
+			basic_pop_int_array(array_name, pop_pos, ctx);
 	}
 }
 

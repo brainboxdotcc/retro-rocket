@@ -40,7 +40,7 @@
  * redirecting into the user program.
  * 
  * The #define below builds an enum, and can also build an array of strings of the names in the
- * enum, which is built and used within ubasic.c for tokenization.
+ * enum, which is built and used within basic.c for tokenization.
  */
 #define TOKEN(T) \
 	T(ERROR) \
@@ -136,14 +136,14 @@ GENERATE_ENUM_LIST(TOKEN, token_t)
  * @param program program text
  * @param ctx context
  */
-void tokenizer_init(const char *program, struct ubasic_ctx* ctx);
+void tokenizer_init(const char *program, struct basic_ctx* ctx);
 
 /**
  * @brief advance to next token
  * 
  * @param ctx context
  */
-void tokenizer_next(struct ubasic_ctx* ctx);
+void tokenizer_next(struct basic_ctx* ctx);
 
 /**
  * @brief peek to next token
@@ -151,7 +151,7 @@ void tokenizer_next(struct ubasic_ctx* ctx);
  * @param ctx context
  * @return int token
  */
-int tokenizer_token(struct ubasic_ctx* ctx);
+int tokenizer_token(struct basic_ctx* ctx);
 
 /**
  * @brief Get integer number as next token
@@ -161,7 +161,7 @@ int tokenizer_token(struct ubasic_ctx* ctx);
  * @param token token (NUMBER or HEXNUMBER)
  * @return int64_t number read from program
  */
-int64_t tokenizer_num(struct ubasic_ctx* ctx, int token);
+int64_t tokenizer_num(struct basic_ctx* ctx, int token);
 
 /**
  * @brief Get real number as next token
@@ -171,7 +171,7 @@ int64_t tokenizer_num(struct ubasic_ctx* ctx, int token);
  * @param token token (NUMBER)
  * @param f number read from program
  */
-void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f);
+void tokenizer_fnum(struct basic_ctx* ctx, int token, double* f);
 
 /**
  * @brief Get a variable name as next token
@@ -180,7 +180,7 @@ void tokenizer_fnum(struct ubasic_ctx* ctx, int token, double* f);
  * @param ctx context
  * @return const char* variable name
  */
-const char* tokenizer_variable_name(struct ubasic_ctx* ctx);
+const char* tokenizer_variable_name(struct basic_ctx* ctx);
 
 /**
  * @brief Get a string constant as the next token
@@ -191,7 +191,7 @@ const char* tokenizer_variable_name(struct ubasic_ctx* ctx);
  * @param ctx context
  * @return true if succesfully found a string constant
  */
-bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
+bool tokenizer_string(char *dest, int len, struct basic_ctx* ctx);
 
 /**
  * @brief Returns true if the program is finished
@@ -200,7 +200,7 @@ bool tokenizer_string(char *dest, int len, struct ubasic_ctx* ctx);
  * @param ctx context
  * @return int true if the program has finished
  */
-int tokenizer_finished(struct ubasic_ctx* ctx);
+int tokenizer_finished(struct basic_ctx* ctx);
 
 /**
  * @brief display an error to the terminal and end the program
@@ -210,7 +210,7 @@ int tokenizer_finished(struct ubasic_ctx* ctx);
  * @param ctx context
  * @param error error message
  */
-void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error);
+void tokenizer_error_print(struct basic_ctx* ctx, const char* error);
 
 /**
  * @brief Get the next token
@@ -219,7 +219,7 @@ void tokenizer_error_print(struct ubasic_ctx* ctx, const char* error);
  * @param ctx context
  * @return int token found
  */
-int get_next_token(struct ubasic_ctx* ctx);
+int get_next_token(struct basic_ctx* ctx);
 
 /**
  * @brief Check if a decimal number is at the current
@@ -229,4 +229,4 @@ int get_next_token(struct ubasic_ctx* ctx);
  * @param ctx context
  * @return true if pointer points at a decimal number
  */
-bool tokenizer_decimal_number(struct ubasic_ctx* ctx);
+bool tokenizer_decimal_number(struct basic_ctx* ctx);
