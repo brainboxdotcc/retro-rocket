@@ -111,15 +111,23 @@ void double_relation(struct basic_ctx* ctx, double* res)
 
 	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
 		tokenizer_next(ctx);
+		bool or_equal = false;
+		if (op == LESSTHAN || op == GREATERTHAN) {
+			int secondary = tokenizer_token(ctx);
+			if (secondary == EQUALS) {
+				or_equal = true;
+				tokenizer_next(ctx);
+			}
+		}
 		double r2;
 		double_expr(ctx, &r2);
 
 		switch (op) {
 			case LESSTHAN:
-				r1 = r1 < r2;
+				r1 = or_equal ? r1 <= r2  : r1 < r2;
 			break;
 			case GREATERTHAN:
-				r1 = r1 > r2;
+				r1 = or_equal ? r1 >= r2 : r1 > r2;
 			break;
 			case EQUALS:
 				r1 = r1 == r2;

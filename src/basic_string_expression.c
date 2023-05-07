@@ -48,14 +48,22 @@ int64_t str_relation(struct basic_ctx* ctx)
 
 	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
 		tokenizer_next(ctx);
+		bool or_equal = false;
+		if (op == LESSTHAN || op == GREATERTHAN) {
+			int secondary = tokenizer_token(ctx);
+			if (secondary == EQUALS) {
+				or_equal = true;
+				tokenizer_next(ctx);
+			}
+		}
 		const char* r2 = str_expr(ctx);
 
 		switch (op) {
 			case LESSTHAN:
-				r = (strcmp(r1, r2) < 0);
+				r = or_equal ? (strcmp(r1, r2) <= 0) : (strcmp(r1, r2) < 0);
 			break;
 			case GREATERTHAN:
-				r = (strcmp(r1, r2) > 0);
+				r = or_equal ? (strcmp(r1, r2) >= 0) : (strcmp(r1, r2) > 0);
 			break;
 			case EQUALS:
 				r = (strcmp(r1, r2) == 0);

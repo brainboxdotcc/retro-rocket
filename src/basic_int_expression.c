@@ -46,14 +46,22 @@ int64_t relation(struct basic_ctx* ctx)
 
 	while (op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
 		tokenizer_next(ctx);
+		bool or_equal = false;
+		if (op == LESSTHAN || op == GREATERTHAN) {
+			int secondary = tokenizer_token(ctx);
+			if (secondary == EQUALS) {
+				or_equal = true;
+				tokenizer_next(ctx);
+			}
+		}
 		int64_t r2 = expr(ctx);
 
 		switch (op) {
 			case LESSTHAN:
-				r1 = r1 < r2;
+				r1 = or_equal ? r1 <= r2  : r1 < r2;
 			break;
 			case GREATERTHAN:
-				r1 = r1 > r2;
+				r1 = or_equal ? r1 >= r2 : r1 > r2;
 			break;
 			case EQUALS:
 				r1 = r1 == r2;
