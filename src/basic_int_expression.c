@@ -117,8 +117,21 @@ int64_t expr(struct basic_ctx* ctx)
 	int64_t t1 = term(ctx);
 	int op = tokenizer_token(ctx);
 
-	while (op == PLUS || op == MINUS || op == AND || op == OR) {
+	while (op == PLUS || op == MINUS || op == AND || op == OR || op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
 		tokenizer_next(ctx);
+		bool or_equal = false, not_equal = false;
+		if (op == LESSTHAN || op == GREATERTHAN) {
+			int secondary = tokenizer_token(ctx);
+			if (secondary == EQUALS) {
+				or_equal = true;
+				tokenizer_next(ctx);
+			}
+			if (op == LESSTHAN && secondary == GREATERTHAN) {
+				op = EQUALS;
+				not_equal = true;
+				tokenizer_next(ctx);
+			}
+		}
 		int64_t t2 = term(ctx);
 		switch (op) {
 			case PLUS:
@@ -132,6 +145,15 @@ int64_t expr(struct basic_ctx* ctx)
 			break;
 			case OR:
 				t1 = t1 | t2;
+			break;
+			case LESSTHAN:
+				t1 = or_equal ? t1 <= t2  : t1 < t2;
+			break;
+			case GREATERTHAN:
+				t1 = or_equal ? t1 >= t2 : t1 > t2;
+			break;
+			case EQUALS:
+				t1 = not_equal ? t1 != t2 : t1 == t2;
 			break;
 		}
 		op = tokenizer_token(ctx);

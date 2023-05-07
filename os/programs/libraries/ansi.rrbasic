@@ -106,7 +106,7 @@ RETPROC
 
 REM insert character into edit line up to TERMWIDTH -1
 DEF PROCEDinsertChar(charInsert)
-	IF EDcurrentx + EDStartInputX > TERMWIDTH - 1 THEN RETPROC
+	IF (EDcurrentx + EDStartInputX) > (TERMWIDTH - 1) THEN RETPROC
 	EDstart$ = MID$(EDin$, 0, EDcurrentx)
 	EDend$ = MID$(EDin$, EDcurrentx, LEN(EDin$))
 	EDin$ = EDstart$ + CHR$(charInsert) + EDend$

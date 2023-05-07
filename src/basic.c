@@ -2818,6 +2818,7 @@ bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
 			}
 		}
 	}
+	return false;
 }
 
 bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
@@ -2837,7 +2838,7 @@ bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
 			}
 		}
 	}
-	false;
+	return false;
 }
 
 bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
