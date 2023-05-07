@@ -11,9 +11,9 @@ void double_varfactor(struct basic_ctx* ctx, double* res)
 		tokenizer_error_print(ctx, "Too many parameters for builtin function");
 	} else {
 		if (tokenizer_token(ctx) == CLOSEBRACKET) {
-			accept(CLOSEBRACKET, ctx);
+			accept_or_return(CLOSEBRACKET, ctx);
 		} else {
-			accept(VARIABLE, ctx);
+			accept_or_return(VARIABLE, ctx);
 		}
 	}
 	*res = r;
@@ -25,12 +25,12 @@ void double_factor(struct basic_ctx* ctx, double* res)
 	switch (tok) {
 		case NUMBER:
 			tokenizer_fnum(ctx, tok, res);
-			accept(tok, ctx);
+			accept_or_return(tok, ctx);
 		break;
 		case OPENBRACKET:
-			accept(OPENBRACKET, ctx);
+			accept_or_return(OPENBRACKET, ctx);
 			double_expr(ctx, res);
-			accept(CLOSEBRACKET, ctx);
+			accept_or_return(CLOSEBRACKET, ctx);
 		break;
 		default:
 			double_varfactor(ctx, res);

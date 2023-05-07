@@ -328,7 +328,7 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
  */
 void library_statement(struct basic_ctx* ctx)
 {
-	accept(LIBRARY, ctx);
+	accept_or_return(LIBRARY, ctx);
 	const char* lib_file = str_expr(ctx);
 
 	/* Validate the file exists and is not a directory */
@@ -336,7 +336,7 @@ void library_statement(struct basic_ctx* ctx)
 	if (!file_info || fs_is_directory(lib_file)) {
 		tokenizer_error_print(ctx, "Not a library file");
 	}
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	/* Calculate the next line we will continue from after loading the library
 	 * (we need to look ahead and take note of this because the entire program
 	 * pointer structure will be rebuilt and any old ctx->ptr will be invalid!)
@@ -645,16 +645,17 @@ void basic_destroy(struct basic_ctx* ctx)
 	kfree(ctx);
 }
 
-void accept(int token, struct basic_ctx* ctx)
+bool accept(int token, struct basic_ctx* ctx)
 {
 	if (token != tokenizer_token(ctx)) {
 		char err[MAX_STRINGLEN];
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
 		sprintf(err, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
 		tokenizer_error_print(ctx, err);
-		return;
+		return false;
 	}
 	tokenizer_next(ctx);
+	return true;
 }
 
 bool jump_linenum(int64_t linenum, struct basic_ctx* ctx)
@@ -673,22 +674,22 @@ bool jump_linenum(int64_t linenum, struct basic_ctx* ctx)
 
 void goto_statement(struct basic_ctx* ctx)
 {
-	accept(GOTO, ctx);
+	accept_or_return(GOTO, ctx);
 	jump_linenum(tokenizer_num(ctx, NUMBER), ctx);
 }
 
 void colour_statement(struct basic_ctx* ctx, int tok)
 {
-	accept(tok, ctx);
+	accept_or_return(tok, ctx);
 	setforeground((console*)ctx->cons, expr(ctx));
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void background_statement(struct basic_ctx* ctx)
 {
-	accept(BACKGROUND, ctx);
+	accept_or_return(BACKGROUND, ctx);
 	setbackground((console*)ctx->cons, expr(ctx));
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 bool is_builtin_double_fn(const char* fn_name) {
@@ -822,7 +823,7 @@ char* printable_syntax(struct basic_ctx* ctx)
 
 void print_statement(struct basic_ctx* ctx)
 {
-	accept(PRINT, ctx);
+	accept_or_return(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
 		putstring((console*)ctx->cons, out);
@@ -833,10 +834,10 @@ void sockwrite_statement(struct basic_ctx* ctx)
 {
 	int fd = -1;
 
-	accept(SOCKWRITE, ctx);
+	accept_or_return(SOCKWRITE, ctx);
 	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
 		send(fd, out, strlen(out));
@@ -848,7 +849,7 @@ void proc_statement(struct basic_ctx* ctx)
 	char procname[MAX_STRINGLEN];
 	char* p = procname;
 	size_t procnamelen = 0;
-	accept(PROC, ctx);
+	accept_or_return(PROC, ctx);
 	while (*ctx->ptr != '\n' && *ctx->ptr != 0  && *ctx->ptr != '(' && procnamelen < MAX_STRINGLEN - 1) {
 		if (*ctx->ptr != ' ') {
 			*(p++) = *(ctx->ptr++);
@@ -874,7 +875,7 @@ void proc_statement(struct basic_ctx* ctx)
 		while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
 			tokenizer_next(ctx);
 		}
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
@@ -930,13 +931,13 @@ void else_statement(struct basic_ctx* ctx)
 	/* If we get to an ELSE, this means that we executed a THEN part of a block IF,
 	 * so we must skip it and any content up until the next ENDIF 
 	 */
-	accept(ELSE, ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(ELSE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	while (tokenizer_token(ctx) != END && !tokenizer_finished(ctx)) {
 		tokenizer_next(ctx);
 		if (*ctx->ptr == 'I' && *(ctx->ptr+1) == 'F') {
-			accept(IF, ctx);
-			accept(NEWLINE, ctx);
+			accept_or_return(IF, ctx);
+			accept_or_return(NEWLINE, ctx);
 			return;
 		}
 	}
@@ -945,13 +946,13 @@ void else_statement(struct basic_ctx* ctx)
 
 void if_statement(struct basic_ctx* ctx)
 {
-	accept(IF, ctx);
+	accept_or_return(IF, ctx);
 	bool r = conditional(ctx);
-	accept(THEN, ctx);
+	accept_or_return(THEN, ctx);
 	if (r) {
 		if (tokenizer_token(ctx) == NEWLINE) {
 			/* Multi-statement block IF */
-			accept(NEWLINE, ctx);
+			accept_or_return(NEWLINE, ctx);
 			ctx->if_nest_level++;
 			return;
 		}
@@ -966,7 +967,7 @@ void if_statement(struct basic_ctx* ctx)
 				tokenizer_next(ctx);
 				if (t == ELSE && tokenizer_token(ctx) == NEWLINE) {
 					ctx->if_nest_level++;
-					accept(NEWLINE, ctx);
+					accept_or_return(NEWLINE, ctx);
 					return;
 				}
 			}
@@ -978,8 +979,8 @@ void if_statement(struct basic_ctx* ctx)
 				int t = tokenizer_token(ctx);
 				tokenizer_next(ctx);
 				if (t == END && tokenizer_token(ctx) == IF) {
-					accept(IF, ctx);
-					accept(NEWLINE, ctx);
+					accept_or_return(IF, ctx);
+					accept_or_return(NEWLINE, ctx);
 					return;
 				}
 			}
@@ -999,11 +1000,11 @@ void if_statement(struct basic_ctx* ctx)
 
 void chain_statement(struct basic_ctx* ctx)
 {
-	accept(CHAIN, ctx);
+	accept_or_return(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
 	process_t* p = proc_load(pn, ctx->cons, proc_cur()->pid, proc_cur()->csd);
 	if (p == NULL) {
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 		return;
 	}
 	struct basic_ctx* new_proc = p->code;
@@ -1029,14 +1030,14 @@ void chain_statement(struct basic_ctx* ctx)
 	}
 
 	proc_wait(proc_cur(), p->pid);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void eval_statement(struct basic_ctx* ctx)
 {
-	accept(EVAL, ctx);
+	accept_or_return(EVAL, ctx);
 	const char* v = str_expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 
 	if (ctx->current_linenum == EVAL_LINE) {
 		ctx->eval_linenum = 0;
@@ -1089,11 +1090,11 @@ void eval_statement(struct basic_ctx* ctx)
 
 void rem_statement(struct basic_ctx* ctx)
 {
-	accept(REM, ctx);
+	accept_or_return(REM, ctx);
 	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
 		tokenizer_next(ctx);
 	}
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void def_statement(struct basic_ctx* ctx)
@@ -1102,11 +1103,11 @@ void def_statement(struct basic_ctx* ctx)
 	// we just skip the entire line moving to the next if we hit a DEF statement.
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we dont fall through into a function.
-	accept(DEF, ctx);
+	accept_or_return(DEF, ctx);
 	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
 		tokenizer_next(ctx);
 	}
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 /**
@@ -1122,9 +1123,9 @@ void def_statement(struct basic_ctx* ctx)
  */
 void input_statement(struct basic_ctx* ctx)
 {
-	accept(INPUT, ctx);
+	accept_or_return(INPUT, ctx);
 	const char* var = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
+	accept_or_return(VARIABLE, ctx);
 
 	/* Clear buffer */
 	if (kinput(10240, (console*)ctx->cons) != 0) {
@@ -1142,7 +1143,7 @@ void input_statement(struct basic_ctx* ctx)
 			break;
 		}
 		kfreeinput((console*)ctx->cons);
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
 	}
@@ -1165,12 +1166,12 @@ void sockread_statement(struct basic_ctx* ctx)
 	const char* var = NULL;
 	int fd = -1;
 
-	accept(SOCKREAD, ctx);
+	accept_or_return(SOCKREAD, ctx);
 	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	var = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
+	accept_or_return(VARIABLE, ctx);
 
 	int rv = recv(fd, input, MAX_STRINGLEN, false, 10);
 
@@ -1190,7 +1191,7 @@ void sockread_statement(struct basic_ctx* ctx)
 			break;
 		}
 
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
@@ -1204,12 +1205,12 @@ void connect_statement(struct basic_ctx* ctx)
 	const char* fd_var = NULL, *ip = NULL;
 	int64_t port = 0;
 
-	accept(CONNECT, ctx);
+	accept_or_return(CONNECT, ctx);
 	fd_var = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	ip = str_expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	port = expr(ctx);
 
 	int rv = connect(str_to_ip(ip), port, 0, true);
@@ -1228,7 +1229,7 @@ void connect_statement(struct basic_ctx* ctx)
 			break;
 		}
 
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
@@ -1238,15 +1239,15 @@ void sockclose_statement(struct basic_ctx* ctx)
 {
 	const char* fd_var = NULL;
 
-	accept(SOCKCLOSE, ctx);
+	accept_or_return(SOCKCLOSE, ctx);
 	fd_var = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
+	accept_or_return(VARIABLE, ctx);
 
 	int rv = closesocket(basic_get_numeric_int_variable(fd_var, ctx));
 	if (rv == 0) {
 		// Clear variable to -1
 		basic_set_int_variable(fd_var, -1, ctx, false, false);
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 	} else {
 		tokenizer_error_print(ctx, socket_error(rv));
 	}
@@ -1265,11 +1266,11 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 		int64_t value = expr(ctx);
 		if (index == -1) {
 			basic_set_int_array(var, value, ctx);
-			accept(NEWLINE, ctx);
+			accept_or_return(NEWLINE, ctx);
 			return;
 		}
 		basic_set_int_array_variable(var, index, value, ctx);
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 		return;
 	}
 	if (varname_is_string_array_access(ctx, var)) {
@@ -1277,11 +1278,11 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 		const char* value = str_expr(ctx);
 		if (index == -1) {
 			basic_set_string_array(var, value, ctx);
-			accept(NEWLINE, ctx);
+			accept_or_return(NEWLINE, ctx);
 			return;
 		}
 		basic_set_string_array_variable(var, index, value, ctx);
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 		return;
 	}
 	if (varname_is_double_array_access(ctx, var)) {
@@ -1290,16 +1291,16 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 		double_expr(ctx, &value);
 		if (index == -1) {
 			basic_set_double_array(var, value, ctx);
-			accept(NEWLINE, ctx);
+			accept_or_return(NEWLINE, ctx);
 			return;
 		}
 		basic_set_double_array_variable(var, index, value, ctx);
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 		return;
 	}
 
-	accept(VARIABLE, ctx);
-	accept(EQUALS, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(EQUALS, ctx);
 
 	switch (var[strlen(var) - 1])
 	{
@@ -1315,101 +1316,101 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 			basic_set_int_variable(var, expr(ctx), ctx, local, global);
 		break;
 	}
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void cls_statement(struct basic_ctx* ctx)
 {
-	accept(CLS, ctx);
+	accept_or_return(CLS, ctx);
 	clearscreen(current_console);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void gcol_statement(struct basic_ctx* ctx)
 {
-	accept(GCOL, ctx);
+	accept_or_return(GCOL, ctx);
 	ctx->graphics_colour = expr(ctx);
 	//dprintf("New graphics color: %08X\n", ctx->graphics_colour);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void gotoxy_statement(struct basic_ctx* ctx)
 {
-	accept(CURSOR, ctx);
+	accept_or_return(CURSOR, ctx);
 	int64_t x = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y = expr(ctx);
 	gotoxy(x, y);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void draw_line_statement(struct basic_ctx* ctx)
 {
-	accept(LINE, ctx);
+	accept_or_return(LINE, ctx);
 	int64_t x1 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t x2 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
 void point_statement(struct basic_ctx* ctx)
 {
-	accept(POINT, ctx);
+	accept_or_return(POINT, ctx);
 	int64_t x1 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	putpixel(x1, y1, ctx->graphics_colour);
 }
 
 void triangle_statement(struct basic_ctx* ctx)
 {
-	accept(TRIANGLE, ctx);
+	accept_or_return(TRIANGLE, ctx);
 	int64_t x1 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t x2 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t x3 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y3 = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	draw_triangle(x1, y1, x2, y2, x3, y3, ctx->graphics_colour);
 }
 
 void rectangle_statement(struct basic_ctx* ctx)
 {
-	accept(RECTANGLE, ctx);
+	accept_or_return(RECTANGLE, ctx);
 	int64_t x1 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y1 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t x2 = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y2 = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
 }
 
 void circle_statement(struct basic_ctx* ctx)
 {
-	accept(CIRCLE, ctx);
+	accept_or_return(CIRCLE, ctx);
 	int64_t x = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t y = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t radius = expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t filled = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	draw_circle(x, y, radius, filled, ctx->graphics_colour);
 }
 
@@ -1417,10 +1418,10 @@ void gosub_statement(struct basic_ctx* ctx)
 {
 	int linenum;
 
-	accept(GOSUB, ctx);
+	accept_or_return(GOSUB, ctx);
 	linenum = tokenizer_num(ctx, NUMBER);
-	accept(NUMBER, ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NUMBER, ctx);
+	accept_or_return(NEWLINE, ctx);
 
 	if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 		ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
@@ -1434,7 +1435,7 @@ void gosub_statement(struct basic_ctx* ctx)
 
 void return_statement(struct basic_ctx* ctx)
 {
-	accept(RETURN, ctx);
+	accept_or_return(RETURN, ctx);
 	if (ctx->call_stack_ptr > 0) {
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
@@ -1446,7 +1447,7 @@ void return_statement(struct basic_ctx* ctx)
 
 void next_statement(struct basic_ctx* ctx)
 {
-	accept(NEXT, ctx);
+	accept_or_return(NEXT, ctx);
 	if (ctx->for_stack_ptr > 0) {
 		bool continue_loop = false;
 		if (strchr(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, '#')) {
@@ -1468,27 +1469,27 @@ void next_statement(struct basic_ctx* ctx)
 		} else {
 			kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
 			ctx->for_stack_ptr--;
-			accept(NEWLINE, ctx);
+			accept_or_return(NEWLINE, ctx);
 		}
 
 	} else {
 		tokenizer_error_print(ctx, "NEXT without FOR");
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 	}
 }
 
 void for_statement(struct basic_ctx* ctx)
 {
-	accept(FOR, ctx);
+	accept_or_return(FOR, ctx);
 	const char* for_variable = strdup(tokenizer_variable_name(ctx));
-	accept(VARIABLE, ctx);
-	accept(EQUALS, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(EQUALS, ctx);
 	if (strchr(for_variable, '#')) {
 		basic_set_double_variable(for_variable, expr(ctx), ctx, false, false);
 	} else {
 		basic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
 	}
-	accept(TO, ctx);
+	accept_or_return(TO, ctx);
 	/* STEP needs special treatment, as it happens after an expression and is not separated by a comma */
 	char* marker = NULL;
 	for (char* n = (char*)ctx->ptr; *n && *n != '\n'; ++n) {
@@ -1504,9 +1505,9 @@ void for_statement(struct basic_ctx* ctx)
 		*marker = ' ';
 	}
 	if (tokenizer_token(ctx) == STEP) {
-		accept(STEP, ctx);
+		accept_or_return(STEP, ctx);
 		step = expr(ctx);
-		accept(NEWLINE, ctx);
+		accept_or_return(NEWLINE, ctx);
 	}
 
 	if (ctx->for_stack_ptr < MAX_LOOP_STACK_DEPTH) {
@@ -1522,8 +1523,8 @@ void for_statement(struct basic_ctx* ctx)
 
 void repeat_statement(struct basic_ctx* ctx)
 {
-	accept(REPEAT, ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(REPEAT, ctx);
+	accept_or_return(NEWLINE, ctx);
 	if (ctx->repeat_stack_ptr < MAX_LOOP_STACK_DEPTH) {
 		ctx->repeat_stack[ctx->repeat_stack_ptr] = tokenizer_num(ctx, NUMBER);
 		ctx->repeat_stack_ptr++;
@@ -1536,9 +1537,9 @@ void repeat_statement(struct basic_ctx* ctx)
 
 void until_statement(struct basic_ctx* ctx)
 {
-	accept(UNTIL, ctx);
+	accept_or_return(UNTIL, ctx);
 	bool done = conditional(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 
 	if (ctx->repeat_stack_ptr > 0) {
 		if (!done) {
@@ -1557,14 +1558,14 @@ void endif_statement(struct basic_ctx* ctx)
 	if (ctx->if_nest_level == 0) {
 		tokenizer_error_print(ctx, "ENDIF outside of block IF");
 	}
-	accept(IF, ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(IF, ctx);
+	accept_or_return(NEWLINE, ctx);
 	ctx->if_nest_level--;
 }
 
 void end_statement(struct basic_ctx* ctx)
 {
-	accept(END, ctx);
+	accept_or_return(END, ctx);
 	if (tokenizer_token(ctx) == IF) {
 		endif_statement(ctx);
 		return;
@@ -1574,7 +1575,7 @@ void end_statement(struct basic_ctx* ctx)
 
 void eq_statement(struct basic_ctx* ctx)
 {
-	accept(EQUALS, ctx);
+	accept_or_return(EQUALS, ctx);
 
 	if (ctx->fn_type == RT_STRING) {
 		const char* e = str_expr(ctx);
@@ -1588,15 +1589,15 @@ void eq_statement(struct basic_ctx* ctx)
 		return;
 	}
 
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 
 	ctx->ended = true;
 }
 
 void retproc_statement(struct basic_ctx* ctx)
 {
-	accept(RETPROC, ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(RETPROC, ctx);
+	accept_or_return(NEWLINE, ctx);
 	if (ctx->fn_type != RT_NONE && ctx->fn_type != RT_MAIN)  {
 		tokenizer_error_print(ctx, "Can't RETPROC from a FN");
 		return;
@@ -1725,15 +1726,15 @@ void statement(struct basic_ctx* ctx)
 		case LIBRARY:
 			return library_statement(ctx);
 		case LET:
-			accept(LET, ctx);
+			accept_or_return(LET, ctx);
 			/* Fall through. */
 		case VARIABLE:
 			return let_statement(ctx, false, false);
 		case GLOBAL:
-			accept(GLOBAL, ctx);
+			accept_or_return(GLOBAL, ctx);
 			return let_statement(ctx, true, false);
 		case LOCAL:
-			accept(LOCAL, ctx);
+			accept_or_return(LOCAL, ctx);
 			return let_statement(ctx, false, true);
 		case EQUALS:
 			return eq_statement(ctx);
@@ -1744,9 +1745,9 @@ void statement(struct basic_ctx* ctx)
 
 void chdir_statement(struct basic_ctx* ctx)
 {
-	accept(CHDIR, ctx);
+	accept_or_return(CHDIR, ctx);
 	const char* csd = str_expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	const char* old = strdup(proc_cur()->csd);
 	const char* new = proc_set_csd(proc_cur(), csd);
 	if (new && fs_is_directory(new)) {
@@ -1768,7 +1769,7 @@ void chdir_statement(struct basic_ctx* ctx)
 void line_statement(struct basic_ctx* ctx)
 {
 	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
-	accept(NUMBER, ctx);
+	accept_or_return(NUMBER, ctx);
 	statement(ctx);
 }
 
@@ -2789,6 +2790,65 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 	sprintf(err, "No such string variable '%s'", var);
 	tokenizer_error_print(ctx, err);
 	return "";
+}
+
+bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
+{
+	struct ub_var_double* list[ctx->call_stack_ptr + 1];
+	int j;
+	for (j = ctx->call_stack_ptr; j > 0; --j) {
+		list[j] = ctx->local_double_variables[j];
+	}
+	list[0] = ctx->double_variables;
+	for (j = ctx->call_stack_ptr; j >= 0; --j)
+	{
+		struct ub_var_double* cur = list[j];
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
+				return true;
+			}
+		}
+	}
+}
+
+bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
+{
+	struct ub_var_string* list[ctx->call_stack_ptr + 1];
+	int j;
+	for (j = ctx->call_stack_ptr; j > 0; --j) {
+		list[j] = ctx->local_string_variables[j];
+	}
+	list[0] = ctx->str_variables;
+	for (j = ctx->call_stack_ptr; j >= 0; --j)
+	{
+		struct ub_var_string* cur = list[j];
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
+				return true;
+			}
+		}
+	}
+	false;
+}
+
+bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
+{
+	struct ub_var_int* list[ctx->call_stack_ptr + 1];
+	int j;
+	for (j = ctx->call_stack_ptr; j > 0; --j) {
+		list[j] = ctx->local_int_variables[j];
+	}
+	list[0] = ctx->int_variables;
+	for (j = ctx->call_stack_ptr; j >= 0; --j)
+	{
+		struct ub_var_int* cur = list[j];
+		for (; cur; cur = cur->next) {
+			if (!strcmp(var, cur->varname))	{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)

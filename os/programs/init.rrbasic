@@ -9,10 +9,12 @@ PRINT "..."
 MOUNT "/devices", "", "devfs"
 MOUNT "/harddisk", "hd0", "fat32"
 
-PRINT "Launching ";
-COLOR 14
-PRINT "shell";
-COLOR 7
-PRINT "..."
-CHAIN "/programs/rocketsh"
-PRINT "Shell process ended."
+REPEAT
+	PRINT "Launching ";
+	COLOR 14
+	PRINT "shell";
+	COLOR 7
+	PRINT "..."
+	CHAIN "/programs/rocketsh"
+	PRINT "Shell process ended."
+UNTIL FALSE

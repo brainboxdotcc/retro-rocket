@@ -106,6 +106,10 @@ bool basic_get_double_array_variable(const char* var, int64_t index, struct basi
 
 bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
+	if (basic_int_variable_exists(var, ctx)) {
+		tokenizer_error_print(ctx, "Variable already exists as non-array type");
+		return false;
+	}
 	if (!valid_int_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return false;
@@ -136,6 +140,10 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 
 bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
+	if (basic_string_variable_exists(var, ctx)) {
+		tokenizer_error_print(ctx, "Variable already exists as non-array type");
+		return false;
+	}
 	if (!valid_string_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return false;
@@ -166,6 +174,10 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 
 bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
+	if (basic_double_variable_exists(var, ctx)) {
+		tokenizer_error_print(ctx, "Variable already exists as non-array type");
+		return false;
+	}
 	if (!valid_double_var(var)) {
 		tokenizer_error_print(ctx, "Malformed variable name");
 		return false;
@@ -415,12 +427,12 @@ void basic_set_int_array_variable(const char* var, int64_t index, int64_t value,
 
 void dim_statement(struct basic_ctx* ctx)
 {
-	accept(DIM, ctx);
+	accept_or_return(DIM, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t array_size = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':
@@ -436,12 +448,12 @@ void dim_statement(struct basic_ctx* ctx)
 
 void redim_statement(struct basic_ctx* ctx)
 {
-	accept(REDIM, ctx);
+	accept_or_return(REDIM, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t array_size = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':
@@ -637,12 +649,12 @@ bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx
 
 void push_statement(struct basic_ctx* ctx)
 {
-	accept(PUSH, ctx);
+	accept_or_return(PUSH, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t push_pos = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':
@@ -658,12 +670,12 @@ void push_statement(struct basic_ctx* ctx)
 
 void pop_statement(struct basic_ctx* ctx)
 {
-	accept(POP, ctx);
+	accept_or_return(POP, ctx);
 	const char* array_name = tokenizer_variable_name(ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	int64_t pop_pos = expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	char last = array_name[strlen(array_name) - 1];
 	switch (last) {
 		case '#':

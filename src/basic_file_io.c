@@ -81,9 +81,9 @@ void read_statement(struct basic_ctx* ctx)
 
 void close_statement(struct basic_ctx* ctx)
 {
-	accept(CLOSE, ctx);
+	accept_or_return(CLOSE, ctx);
 	_close(expr(ctx));
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void eof_statement(struct basic_ctx* ctx)
@@ -199,9 +199,9 @@ int64_t basic_eof(struct basic_ctx* ctx)
 
 void mkdir_statement(struct basic_ctx* ctx)
 {
-	accept(MKDIR, ctx);
+	accept_or_return(MKDIR, ctx);
 	const char* name = str_expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	const char* dir = make_full_path(name);
 	if (!fs_create_directory(dir)) {
 		tokenizer_error_print(ctx, "Unable to create directory");
@@ -210,21 +210,21 @@ void mkdir_statement(struct basic_ctx* ctx)
 
 void mount_statement(struct basic_ctx* ctx)
 {
-	accept(MOUNT, ctx);
+	accept_or_return(MOUNT, ctx);
 	const char* path = make_full_path(str_expr(ctx));
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	const char* device = str_expr(ctx);
-	accept(COMMA, ctx);
+	accept_or_return(COMMA, ctx);
 	const char* fs_type = str_expr(ctx);
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	filesystem_mount(path, device, fs_type);
 }
 
 void rmdir_statement(struct basic_ctx* ctx)
 {
-	accept(RMDIR, ctx);
+	accept_or_return(RMDIR, ctx);
 	const char* name = make_full_path(str_expr(ctx));
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_directory(name)) {
 		tokenizer_error_print(ctx, "Unable to delete directory");
 	}
@@ -233,9 +233,9 @@ void rmdir_statement(struct basic_ctx* ctx)
 
 void delete_statement(struct basic_ctx* ctx)
 {
-	accept(DELETE, ctx);
+	accept_or_return(DELETE, ctx);
 	const char* name = make_full_path(str_expr(ctx));
-	accept(NEWLINE, ctx);
+	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_file(name)) {
 		tokenizer_error_print(ctx, "Unable to delete file");
 	}
@@ -246,10 +246,10 @@ void write_statement(struct basic_ctx* ctx)
 {
 	int fd = -1;
 
-	accept(WRITE, ctx);
+	accept_or_return(WRITE, ctx);
 	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept(VARIABLE, ctx);
-	accept(COMMA, ctx);
+	accept_or_return(VARIABLE, ctx);
+	accept_or_return(COMMA, ctx);
 	char* out = printable_syntax(ctx);
 	if (out) {
 		_write(fd, out, strlen(out));

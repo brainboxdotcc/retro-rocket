@@ -105,11 +105,11 @@ DEF PROCEDclearLineFromCursor
 RETPROC
 
 REM insert character into edit line up to TERMWIDTH -1
-DEF PROCEDinsertChar(i)
+DEF PROCEDinsertChar(charInsert)
 	IF EDcurrentx + EDStartInputX > TERMWIDTH - 1 THEN RETPROC
 	EDstart$ = MID$(EDin$, 0, EDcurrentx)
 	EDend$ = MID$(EDin$, EDcurrentx, LEN(EDin$))
-	EDin$ = EDstart$ + CHR$(i) + EDend$
+	EDin$ = EDstart$ + CHR$(charInsert) + EDend$
 	EDcurrentx = EDcurrentx + 1
 	IF EDhistPtr = -1 THEN RETPROC
 	EDhist$(0) = EDin$
