@@ -318,6 +318,13 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	return ctx;
 }
 
+void yield_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(YIELD, ctx);
+	accept_or_return(NEWLINE, ctx);
+	__asm__ volatile("hlt");
+}
+
 /**
  * @brief Loads a library by appending it to the end of a running program
  * This will cause many pointers in the context to become invalid, so the
@@ -1725,6 +1732,8 @@ void statement(struct basic_ctx* ctx)
 			return circle_statement(ctx);
 		case LIBRARY:
 			return library_statement(ctx);
+		case YIELD:
+			return yield_statement(ctx);
 		case LET:
 			accept_or_return(LET, ctx);
 			/* Fall through. */

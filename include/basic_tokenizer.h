@@ -123,6 +123,7 @@
 	T(LOCAL) \
 	T(CHDIR) \
 	T(LIBRARY) \
+	T(YIELD) \
 	T(MOUNT)
 
 /*

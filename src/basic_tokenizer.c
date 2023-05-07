@@ -85,6 +85,7 @@ const int keywords[] = {
 	TRIANGLE,
 	UNTIL,
 	WRITE,
+	YIELD,
 	-1,
 };
 
