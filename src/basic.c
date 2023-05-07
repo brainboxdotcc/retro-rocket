@@ -1098,9 +1098,8 @@ void eval_statement(struct basic_ctx* ctx)
 void rem_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(REM, ctx);
-	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
-		tokenizer_next(ctx);
-	}
+	while (*ctx->nextptr && *ctx->nextptr != '\n') ctx->nextptr++;
+	tokenizer_next(ctx);
 	accept_or_return(NEWLINE, ctx);
 }
 
@@ -1111,9 +1110,8 @@ void def_statement(struct basic_ctx* ctx)
 	// in the future we should check if the interpreter is actually calling a FN,
 	// to check we dont fall through into a function.
 	accept_or_return(DEF, ctx);
-	while (tokenizer_token(ctx) != ENDOFINPUT && tokenizer_token(ctx) != NEWLINE) {
-		tokenizer_next(ctx);
-	}
+	while (*ctx->nextptr && *ctx->nextptr != '\n') ctx->nextptr++;
+	tokenizer_next(ctx);
 	accept_or_return(NEWLINE, ctx);
 }
 
