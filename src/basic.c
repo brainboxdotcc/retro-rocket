@@ -50,6 +50,9 @@ struct basic_int_fn builtin_int[] =
 	{ basic_altkey, "ALTKEY" },
 	{ basic_capslock, "CAPSLOCK" },
 	{ basic_random, "RND" },
+	{ basic_val, "VAL" },
+	{ basic_hexval, "HEXVAL" },
+	{ basic_octval, "OCTVAL" },
 	{ NULL, NULL }
 };
 
@@ -58,6 +61,7 @@ struct basic_double_fn builtin_double[] = {
 	{ basic_cos, "COS" },
 	{ basic_tan, "TAN" },
 	{ basic_pow, "POW" },
+	{ basic_realval, "REALVAL" },
 	{ NULL, NULL },
 };
 
@@ -81,6 +85,8 @@ struct basic_str_fn builtin_str[] =
 	{ basic_tokenize, "TOKENIZE$" },
 	{ basic_csd, "CSD$" },
 	{ basic_filetype, "FILETYPE$" },
+	{ basic_str, "STR$" },
+	{ basic_bool, "BOOL$" },
 	{ NULL, NULL }
 };
 
@@ -1626,6 +1632,30 @@ int64_t basic_asc(struct basic_ctx* ctx)
 	return (unsigned char)*strval;
 }
 
+int64_t basic_val(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("VAL", 0);
+	return atoll(strval, 10);
+}
+
+int64_t basic_hexval(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("HEXVAL", 0);
+	return atoll(strval, 16);
+}
+
+int64_t basic_octval(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("OCTVAL", 0);
+	return atoll(strval, 8);
+}
+
 void statement(struct basic_ctx* ctx)
 {
 	int token = tokenizer_token(ctx);
@@ -2346,6 +2376,26 @@ char* basic_chr(struct basic_ctx* ctx)
 	return gc_strdup(res);
 }
 
+char* basic_str(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("STR$","");
+	char res[MAX_STRINGLEN];
+	snprintf(res, MAX_STRINGLEN, "%lld", intval);
+	return gc_strdup(res);
+}
+
+char* basic_bool(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("BOOL$","");
+	char res[MAX_STRINGLEN];
+	snprintf(res, MAX_STRINGLEN, "%s", intval ? "TRUE" : "FALSE");
+	return gc_strdup(res);
+}
+
 int64_t basic_instr(struct basic_ctx* ctx)
 {
 	char* haystack;
@@ -2573,6 +2623,15 @@ void basic_cos(struct basic_ctx* ctx, double* res)
 	PARAMS_GET_ITEM(BIP_DOUBLE);
 	PARAMS_END_VOID("COS");
 	*res = cos(doubleval);
+}
+
+void basic_realval(struct basic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END_VOID("REALVAL");
+	atof(strval, res);
+	return;
 }
 
 void basic_tan(struct basic_ctx* ctx, double* res)
