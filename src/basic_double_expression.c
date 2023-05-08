@@ -77,6 +77,13 @@ void double_term(struct basic_ctx* ctx, double* res)
 void double_expr(struct basic_ctx* ctx, double* res)
 {
 	double t1, t2;
+	int lookahead = tokenizer_token(ctx);
+	if (lookahead == NOT) {
+		tokenizer_next(ctx);
+		double_term(ctx, &t1);
+		*res = !t1;
+		return;
+	}
 
 	double_term(ctx, &t1);
 	int op = tokenizer_token(ctx);

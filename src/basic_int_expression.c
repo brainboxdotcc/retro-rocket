@@ -114,6 +114,11 @@ int64_t term(struct basic_ctx* ctx)
 
 int64_t expr(struct basic_ctx* ctx)
 {
+	int lookahead = tokenizer_token(ctx);
+	if (lookahead == NOT) {
+		tokenizer_next(ctx);
+		return !term(ctx);
+	}
 	int64_t t1 = term(ctx);
 	int op = tokenizer_token(ctx);
 
