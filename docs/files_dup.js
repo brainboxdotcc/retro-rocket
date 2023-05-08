@@ -5,6 +5,8 @@ var files_dup =
     [ "apic.h", "apic_8h.html", "apic_8h" ],
     [ "arp.h", "arp_8h.html", "arp_8h" ],
     [ "ata.h", "ata_8h.html", "ata_8h" ],
+    [ "basic.h", "basic_8h.html", "basic_8h" ],
+    [ "basic_tokenizer.h", "basic__tokenizer_8h.html", "basic__tokenizer_8h" ],
     [ "clock.h", "clock_8h.html", "clock_8h" ],
     [ "cpuid.h", "cpuid_8h.html", "cpuid_8h" ],
     [ "debugger.h", "debugger_8h.html", "debugger_8h" ],
@@ -49,8 +51,6 @@ var files_dup =
     [ "taskswitch.h", "taskswitch_8h.html", "taskswitch_8h" ],
     [ "tcp.h", "tcp_8h.html", "tcp_8h" ],
     [ "timer.h", "timer_8h.html", "timer_8h" ],
-    [ "tokenizer.h", "tokenizer_8h.html", "tokenizer_8h" ],
-    [ "ubasic.h", "ubasic_8h.html", "ubasic_8h" ],
     [ "udp.h", "udp_8h.html", "udp_8h" ],
     [ "video.h", "video_8h.html", "video_8h" ]
 ];

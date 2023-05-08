@@ -101,10 +101,7 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="8">
-        <label>size_t</label>
-      </node>
-      <node id="10">
+      <node id="11">
         <label>void *</label>
       </node>
       <node id="5">
@@ -113,8 +110,6 @@
         <childnode refid="3" relation="usage">
           <edgelabel>createdir</edgelabel>
           <edgelabel>createfile</edgelabel>
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>getdir</edgelabel>
@@ -123,13 +118,17 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
-          <edgelabel>rm</edgelabel>
-          <edgelabel>rmdir</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
+          <edgelabel>writefile</edgelabel>
         </childnode>
       </node>
       <node id="3">
@@ -144,19 +143,19 @@
         <childnode refid="7" relation="usage">
           <edgelabel>volume_name</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>device</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>pathtable_lba</edgelabel>
           <edgelabel>rootextent_lba</edgelabel>
           <edgelabel>rootextent_len</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>joliet</edgelabel>
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>storage_device_t</label>
         <link refid="structstorage__device__t"/>
         <childnode refid="3" relation="usage">
@@ -166,24 +165,24 @@
         <childnode refid="7" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>block_size</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>blockread</edgelabel>
           <edgelabel>blockwrite</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>opaque2</edgelabel>
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>uint16_t</label>
       </node>
-      <node id="14">
+      <node id="8">
         <label>int</label>
       </node>
       <node id="4">
@@ -209,21 +208,24 @@
           <edgelabel>device_name</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>dirty</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>uint32_t</label>
       </node>
-      <node id="9">
+      <node id="10">
         <label>uint8_t</label>
       </node>
       <node id="6">
         <label>void *(*)(void *)</label>
+      </node>
+      <node id="9">
+        <label>bool</label>
       </node>
       <node id="2">
         <label>fs_directory_entry_t</label>
@@ -238,7 +240,7 @@
         <childnode refid="4" relation="usage">
           <edgelabel>directory</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>year</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
@@ -246,11 +248,11 @@
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>device</edgelabel>
           <edgelabel>flags</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>day</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>min</edgelabel>

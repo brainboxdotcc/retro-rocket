@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['sdt_5fheader_5ft_2076',['sdt_header_t',['../structsdt__header__t.html',1,'']]],
-  ['shared_5finterrupt_5ft_2077',['shared_interrupt_t',['../structshared__interrupt__t.html',1,'']]],
-  ['stack_5fframe_5ft_2078',['stack_frame_t',['../structstack__frame__t.html',1,'']]],
-  ['storage_5fdevice_5ft_2079',['storage_device_t',['../structstorage__device__t.html',1,'']]],
-  ['symbol_5ft_2080',['symbol_t',['../structsymbol__t.html',1,'']]]
+  ['resource_5frecord_2093',['resource_record',['../structresource__record.html',1,'']]],
+  ['resourcerecord_2094',['ResourceRecord',['../struct_resource_record.html',1,'']]],
+  ['rsdp_5ft_2095',['rsdp_t',['../structrsdp__t.html',1,'']]],
+  ['rsdt_5ft_2096',['rsdt_t',['../structrsdt__t.html',1,'']]],
+  ['rtl8139_5fdev_5ft_2097',['rtl8139_dev_t',['../structrtl8139__dev__t.html',1,'']]]
 ];

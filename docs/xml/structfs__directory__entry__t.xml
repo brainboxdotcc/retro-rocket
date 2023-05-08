@@ -206,10 +206,7 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="7">
-        <label>size_t</label>
-      </node>
-      <node id="9">
+      <node id="10">
         <label>void *</label>
       </node>
       <node id="4">
@@ -218,8 +215,6 @@
         <childnode refid="2" relation="usage">
           <edgelabel>createdir</edgelabel>
           <edgelabel>createfile</edgelabel>
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>getdir</edgelabel>
@@ -228,20 +223,27 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
-          <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
-          <edgelabel>rm</edgelabel>
-          <edgelabel>rmdir</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
+          <edgelabel>writefile</edgelabel>
         </childnode>
       </node>
       <node id="2">
         <label>uint64_t</label>
       </node>
-      <node id="10">
+      <node id="11">
         <label>uint16_t</label>
+      </node>
+      <node id="7">
+        <label>int</label>
       </node>
       <node id="3">
         <label>fs_tree_t</label>
@@ -266,21 +268,24 @@
           <edgelabel>device_name</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>dirty</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>uint32_t</label>
       </node>
-      <node id="8">
+      <node id="9">
         <label>uint8_t</label>
       </node>
       <node id="5">
         <label>void *(*)(void *)</label>
+      </node>
+      <node id="8">
+        <label>bool</label>
       </node>
       <node id="1">
         <label>fs_directory_entry_t</label>
@@ -295,7 +300,7 @@
         <childnode refid="3" relation="usage">
           <edgelabel>directory</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>year</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
@@ -303,11 +308,11 @@
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>device</edgelabel>
           <edgelabel>flags</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>day</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>min</edgelabel>

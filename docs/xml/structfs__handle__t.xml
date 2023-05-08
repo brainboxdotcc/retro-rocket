@@ -145,10 +145,7 @@
       <node id="14">
         <label>fs_handle_type_t</label>
       </node>
-      <node id="8">
-        <label>size_t</label>
-      </node>
-      <node id="10">
+      <node id="11">
         <label>void *</label>
       </node>
       <node id="5">
@@ -157,8 +154,6 @@
         <childnode refid="3" relation="usage">
           <edgelabel>createdir</edgelabel>
           <edgelabel>createfile</edgelabel>
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>getdir</edgelabel>
@@ -167,13 +162,17 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
-          <edgelabel>rm</edgelabel>
-          <edgelabel>rmdir</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
+          <edgelabel>writefile</edgelabel>
         </childnode>
       </node>
       <node id="3">
@@ -196,15 +195,18 @@
           <edgelabel>inbuf</edgelabel>
           <edgelabel>outbuf</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>cached</edgelabel>
         </childnode>
         <childnode refid="14" relation="usage">
           <edgelabel>type</edgelabel>
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>uint16_t</label>
+      </node>
+      <node id="8">
+        <label>int</label>
       </node>
       <node id="4">
         <label>fs_tree_t</label>
@@ -229,23 +231,23 @@
           <edgelabel>device_name</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>dirty</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>uint32_t</label>
       </node>
-      <node id="9">
+      <node id="10">
         <label>uint8_t</label>
       </node>
       <node id="6">
         <label>void *(*)(void *)</label>
       </node>
-      <node id="13">
+      <node id="9">
         <label>bool</label>
       </node>
       <node id="2">
@@ -261,7 +263,7 @@
         <childnode refid="4" relation="usage">
           <edgelabel>directory</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>year</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
@@ -269,11 +271,11 @@
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="13" relation="usage">
           <edgelabel>device</edgelabel>
           <edgelabel>flags</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>day</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>min</edgelabel>

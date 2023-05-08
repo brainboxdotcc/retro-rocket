@@ -174,17 +174,12 @@
 </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="5">
-        <label>size_t</label>
-      </node>
       <node id="1">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
         <childnode refid="2" relation="usage">
           <edgelabel>createdir</edgelabel>
           <edgelabel>createfile</edgelabel>
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>getdir</edgelabel>
@@ -193,20 +188,30 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
-          <edgelabel>rm</edgelabel>
-          <edgelabel>rmdir</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
+          <edgelabel>writefile</edgelabel>
         </childnode>
       </node>
       <node id="2">
         <label>uint64_t</label>
       </node>
+      <node id="5">
+        <label>int</label>
+      </node>
       <node id="3">
         <label>void *(*)(void *)</label>
+      </node>
+      <node id="6">
+        <label>bool</label>
       </node>
       <node id="4">
         <label>char</label>

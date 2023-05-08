@@ -168,10 +168,7 @@
 <para>Also used to route requests for that directory through to their driver. Also used to attach a driver initially to its mountpoint UNIX-style. <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> structs are usually not usable or visible to non-filesystem drivers. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="10">
-        <label>size_t</label>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>void *</label>
       </node>
       <node id="8">
@@ -180,8 +177,6 @@
         <childnode refid="2" relation="usage">
           <edgelabel>createdir</edgelabel>
           <edgelabel>createfile</edgelabel>
-          <edgelabel>readfile</edgelabel>
-          <edgelabel>writefile</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>getdir</edgelabel>
@@ -190,13 +185,17 @@
           <edgelabel>next</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>mount</edgelabel>
           <edgelabel>name</edgelabel>
-          <edgelabel>rm</edgelabel>
-          <edgelabel>rmdir</edgelabel>
         </childnode>
         <childnode refid="10" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>readfile</edgelabel>
+          <edgelabel>rm</edgelabel>
+          <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
+          <edgelabel>writefile</edgelabel>
         </childnode>
       </node>
       <node id="2">
@@ -204,6 +203,9 @@
       </node>
       <node id="4">
         <label>uint16_t</label>
+      </node>
+      <node id="10">
+        <label>int</label>
       </node>
       <node id="1">
         <label>fs_tree_t</label>
@@ -231,7 +233,7 @@
         <childnode refid="7" relation="usage">
           <edgelabel>dirty</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
@@ -243,6 +245,9 @@
       </node>
       <node id="9">
         <label>void *(*)(void *)</label>
+      </node>
+      <node id="11">
+        <label>bool</label>
       </node>
       <node id="3">
         <label>fs_directory_entry_t</label>

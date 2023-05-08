@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['lapic_5ftimer_2eh_2137',['lapic_timer.h',['../lapic__timer_8h.html',1,'']]],
-  ['limine_2drequests_2eh_2138',['limine-requests.h',['../limine-requests_8h.html',1,'']]]
+  ['kernel_2eh_2154',['kernel.h',['../kernel_8h.html',1,'']]],
+  ['keyboard_2eh_2155',['keyboard.h',['../keyboard_8h.html',1,'']]],
+  ['kmalloc_2eh_2156',['kmalloc.h',['../kmalloc_8h.html',1,'']]]
 ];

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structbasic__int__fn" kind="struct" language="C++" prot="public">
+    <compoundname>basic_int_fn</compoundname>
+    <includes local="no">basic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbasic__int__fn_1a454dba69290971934fc7f9c18972268c" prot="public" static="no" mutable="no">
+        <type><ref refid="basic_8h_1aae35741221b4c2f3ba048b8d86d91365" kindref="member">builtin_int_fn</ref></type>
+        <definition>builtin_int_fn basic_int_fn::handler</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="393" column="16" bodyfile="include/basic.h" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbasic__int__fn_1a76c1308b9ab10f9013ee5381ff87ac07" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* basic_int_fn::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="394" column="12" bodyfile="include/basic.h" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Builtin integer function. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>basic_int_fn</label>
+        <link refid="structbasic__int__fn"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>handler</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>int64_t</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/basic.h" line="391" column="1" bodyfile="include/basic.h" bodystart="392" bodyend="395"/>
+    <listofallmembers>
+      <member refid="structbasic__int__fn_1a454dba69290971934fc7f9c18972268c" prot="public" virt="non-virtual"><scope>basic_int_fn</scope><name>handler</name></member>
+      <member refid="structbasic__int__fn_1a76c1308b9ab10f9013ee5381ff87ac07" prot="public" virt="non-virtual"><scope>basic_int_fn</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

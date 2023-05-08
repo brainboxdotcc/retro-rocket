@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['block_5fread_3157',['block_read',['../filesystem_8h.html#aedade13300b3b7656d01691660c3d275',1,'filesystem.h']]],
-  ['block_5fwrite_3158',['block_write',['../filesystem_8h.html#afbf0a8246b98b1f4ddca666aeb3fae3d',1,'filesystem.h']]],
-  ['builtin_5fdouble_5ffn_3159',['builtin_double_fn',['../ubasic_8h.html#adccc7c01a1bb1d7cca42e285830ce6a6',1,'ubasic.h']]],
-  ['builtin_5fint_5ffn_3160',['builtin_int_fn',['../ubasic_8h.html#a59c9cd726acfbe69d8df60ab2b2d0607',1,'ubasic.h']]],
-  ['builtin_5fstr_5ffn_3161',['builtin_str_fn',['../ubasic_8h.html#a32fb15d1935e217117fd02b2f319bb93',1,'ubasic.h']]]
+  ['block_5fread_3187',['block_read',['../filesystem_8h.html#aedade13300b3b7656d01691660c3d275',1,'filesystem.h']]],
+  ['block_5fwrite_3188',['block_write',['../filesystem_8h.html#afbf0a8246b98b1f4ddca666aeb3fae3d',1,'filesystem.h']]],
+  ['builtin_5fdouble_5ffn_3189',['builtin_double_fn',['../basic_8h.html#ab8104015746edc0f683c354654570dbd',1,'basic.h']]],
+  ['builtin_5fint_5ffn_3190',['builtin_int_fn',['../basic_8h.html#aae35741221b4c2f3ba048b8d86d91365',1,'basic.h']]],
+  ['builtin_5fstr_5ffn_3191',['builtin_str_fn',['../basic_8h.html#aa5f5a13b3623e8b26ca39fc2d87efffe',1,'basic.h']]]
 ];

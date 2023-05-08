@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structbasic__str__fn" kind="struct" language="C++" prot="public">
+    <compoundname>basic_str_fn</compoundname>
+    <includes local="no">basic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbasic__str__fn_1abe17a9b00984aec5999c89b3cc8c4764" prot="public" static="no" mutable="no">
+        <type><ref refid="basic_8h_1aa5f5a13b3623e8b26ca39fc2d87efffe" kindref="member">builtin_str_fn</ref></type>
+        <definition>builtin_str_fn basic_str_fn::handler</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="411" column="16" bodyfile="include/basic.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbasic__str__fn_1ad5e869f0e2ad78aa68922d01e82c1571" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* basic_str_fn::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="412" column="12" bodyfile="include/basic.h" bodystart="412" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Builtin string function. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>basic_str_fn</label>
+        <link refid="structbasic__str__fn"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>handler</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/basic.h" line="409" column="1" bodyfile="include/basic.h" bodystart="410" bodyend="413"/>
+    <listofallmembers>
+      <member refid="structbasic__str__fn_1abe17a9b00984aec5999c89b3cc8c4764" prot="public" virt="non-virtual"><scope>basic_str_fn</scope><name>handler</name></member>
+      <member refid="structbasic__str__fn_1ad5e869f0e2ad78aa68922d01e82c1571" prot="public" virt="non-virtual"><scope>basic_str_fn</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

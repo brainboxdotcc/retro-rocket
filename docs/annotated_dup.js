@@ -15,6 +15,10 @@ var annotated_dup =
     [ "ahci_hba_prdt_entry_t", "structahci__hba__prdt__entry__t.html", "structahci__hba__prdt__entry__t" ],
     [ "arp_packet", "structarp__packet.html", "structarp__packet" ],
     [ "arp_table_entry_t", "structarp__table__entry__t.html", "structarp__table__entry__t" ],
+    [ "basic_ctx", "structbasic__ctx.html", "structbasic__ctx" ],
+    [ "basic_double_fn", "structbasic__double__fn.html", "structbasic__double__fn" ],
+    [ "basic_int_fn", "structbasic__int__fn.html", "structbasic__int__fn" ],
+    [ "basic_str_fn", "structbasic__str__fn.html", "structbasic__str__fn" ],
     [ "channel", "structchannel.html", "structchannel" ],
     [ "console", "structconsole.html", "structconsole" ],
     [ "datetime_t", "structdatetime__t.html", "structdatetime__t" ],
@@ -97,9 +101,5 @@ var annotated_dup =
     [ "ub_var_int_array", "structub__var__int__array.html", "structub__var__int__array" ],
     [ "ub_var_string", "structub__var__string.html", "structub__var__string" ],
     [ "ub_var_string_array", "structub__var__string__array.html", "structub__var__string__array" ],
-    [ "ubasic_ctx", "structubasic__ctx.html", "structubasic__ctx" ],
-    [ "ubasic_double_fn", "structubasic__double__fn.html", "structubasic__double__fn" ],
-    [ "ubasic_int_fn", "structubasic__int__fn.html", "structubasic__int__fn" ],
-    [ "ubasic_str_fn", "structubasic__str__fn.html", "structubasic__str__fn" ],
     [ "udp_packet", "structudp__packet.html", "structudp__packet" ]
 ];
