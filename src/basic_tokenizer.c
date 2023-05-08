@@ -28,6 +28,7 @@
  * It allows us to optimise the search.
  */
 const int keywords[] = {
+	AND,
 	BACKGROUND,
 	CALL,
 	CHAIN,
@@ -45,6 +46,7 @@ const int keywords[] = {
 	ELSE,
 	END,
 	EOF,
+	EOR,
 	EVAL,
 	FOR,
 	GCOL,
@@ -60,9 +62,11 @@ const int keywords[] = {
 	MKDIR,
 	MOUNT,
 	NEXT,
+	NOT,
 	OPENIN,
 	OPENOUT,
 	OPENUP,
+	OR,
 	POINT,
 	POP,
 	PRINT,
@@ -102,10 +106,6 @@ static int singlechar(struct basic_ctx* ctx)
 			return PLUS;
 		case '-':
 			return MINUS;
-		case '&':
-			return AND;
-		case '|':
-			return OR;
 		case '*':
 			return ASTERISK;
 		case '/':

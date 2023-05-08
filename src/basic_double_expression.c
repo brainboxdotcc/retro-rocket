@@ -81,7 +81,7 @@ void double_expr(struct basic_ctx* ctx, double* res)
 	double_term(ctx, &t1);
 	int op = tokenizer_token(ctx);
 
-	while (op == PLUS || op == MINUS || op == AND || op == OR || op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
+	while (op == PLUS || op == MINUS || op == AND || op == OR || op == EOR || op == NOT || op == LESSTHAN || op == GREATERTHAN || op == EQUALS) {
 		tokenizer_next(ctx);
 		bool or_equal = false, not_equal = false;
 		if (op == LESSTHAN || op == GREATERTHAN) {
@@ -109,6 +109,12 @@ void double_expr(struct basic_ctx* ctx, double* res)
 			break;
 			case OR:
 				t1 = (int64_t)t1 | (int64_t)t2;
+			break;
+			case NOT:
+				t1 = !t2;
+			break;
+			case EOR:
+				t1 = (int64_t)t1 ^ (int64_t)t2;
 			break;
 			case LESSTHAN:
 				t1 = or_equal ? t1 <= t2  : t1 < t2;

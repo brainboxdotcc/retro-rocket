@@ -85,6 +85,8 @@
 	T(MINUS) \
 	T(AND) \
 	T(OR) \
+	T(NOT) \
+	T(EOR) \
 	T(ASTERISK) \
 	T(SLASH) \
 	T(MOD) \
