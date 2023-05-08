@@ -122,17 +122,21 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 /* Free a file descriptor */
 uint32_t destroy_filehandle(uint32_t descriptor)
 {
+	dprintf("destroy_filehandle(%d)\n", descriptor);
 	/* Sanity checks */
-	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
+	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL) {
 		return 0;
-	else
-	{
+	} else {
 		filehandles[descriptor]->file = NULL;
 		filehandles[descriptor]->seekpos = 0;
-		if (filehandles[descriptor]->inbuf)
+		if (filehandles[descriptor]->inbuf) {
 			kfree(filehandles[descriptor]->inbuf);
-		if (filehandles[descriptor]->outbuf)
+			filehandles[descriptor]->inbuf = NULL;
+		}
+		if (filehandles[descriptor]->outbuf) {
 			kfree(filehandles[descriptor]->outbuf);
+			filehandles[descriptor]->outbuf = NULL;
+		}
 		kfree(filehandles[descriptor]);
 		filehandles[descriptor] = NULL;
 		/* Make the search faster for the next process to ask
@@ -384,19 +388,17 @@ int _open(const char* filename, int oflag)
 		dprintf("read into buffer pos=%d sz=%d buf=%llx\n", filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, filehandles[fd]->inbuf);
 		/* Read an initial buffer into the structure up to fd->inbufsize in size */
 		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
-				file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
-				filehandles[fd]->inbuf))
-		{
+			file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
+			filehandles[fd]->inbuf)) {
 			/* If we couldnt get the initial buffer, there is something wrong.
 			* Give up the filehandle and return error.
 			*/
 			destroy_filehandle(fd);
 			return -1;
-		}
-		else
-		{
-			if (file->size <= filehandles[fd]->inbufsize)
+		} else {
+			if (file->size <= filehandles[fd]->inbufsize) {
 				filehandles[fd]->cached = 1;
+			}
 		}
 	}
 
@@ -415,13 +417,16 @@ void flush_filehandle([[maybe_unused]] uint32_t descriptor)
 /* Close an open file descriptor */
 int _close(uint32_t descriptor)
 {
+	dprintf("_close(%d)\n", descriptor);
 	/* Sanity checks */
-	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL)
+	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL) {
 		return -1;
+	}
 
 	/* Flush any files that arent readonly */
-	if (filehandles[descriptor]->type != file_input)
+	if (filehandles[descriptor]->type != file_input) {
 		flush_filehandle(descriptor);
+	}
 
 	return destroy_filehandle(descriptor) ? 0 : -1;
 }
@@ -445,7 +450,7 @@ long _lseek(int fd, uint64_t offset, uint64_t origin)
 				}
 			}
 			return filehandles[fd]->seekpos;
-	}
+		}
 	}
 	return -1;
 }
@@ -587,6 +592,7 @@ int _write(int fd, void *buffer, unsigned int count)
 	}
 
 	filehandles[fd]->seekpos += count;
+	dprintf("_write done\n");
 	return count;
 }
 

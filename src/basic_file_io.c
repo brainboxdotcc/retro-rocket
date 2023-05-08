@@ -102,7 +102,7 @@ int64_t basic_open_func(struct basic_ctx* ctx, int oflag)
 		return 0;
 	}
 	int fd = _open(file, oflag);
-	dprintf("basic_open_func: %s returned: %d\n", strval, fd);
+	dprintf("basic_open_func(\"%s\") = %d\n", strval, fd);
 	return fd;
 }
 
@@ -252,7 +252,9 @@ void write_statement(struct basic_ctx* ctx)
 	accept_or_return(COMMA, ctx);
 	char* out = printable_syntax(ctx);
 	if (out) {
-		_write(fd, out, strlen(out));
+		if (_write(fd, out, strlen(out)) == -1) {
+			tokenizer_error_print(ctx, "Error writing to file");
+		}
 	}
 }
 

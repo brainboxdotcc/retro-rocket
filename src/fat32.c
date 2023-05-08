@@ -210,6 +210,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 
 					if (entry->attr & ATTR_VOLUME_ID && entry->attr & ATTR_ARCHIVE && info->volume_name == NULL) {
 						info->volume_name = strdup(dotless);
+						highest_lfn_order = -1;
 					} else {
 
 						if (entry->attr == ATTR_LONG_NAME) {
@@ -425,7 +426,6 @@ bool fat32_truncate_file(void* f, size_t length)
 		if (!read_cluster(info, cluster, buffer)) {
 			dprintf("couldnt read directory cluster %d in fat32_truncate_file\n", cluster_to_lba(info, cluster));
 			kfree(buffer);
-			kfree(clbuf);
 			return false;
 		}
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
@@ -439,7 +439,6 @@ bool fat32_truncate_file(void* f, size_t length)
 				dump_hex(entry, 32);
 				write_cluster(info, cluster, buffer);
 				kfree(buffer);
-				kfree(clbuf);
 				return true;
 			}
 			bufferoffset += sizeof(directory_entry_t);
@@ -451,14 +450,12 @@ bool fat32_truncate_file(void* f, size_t length)
 		if (nextcluster >= CLUSTER_BAD) {
 			dprintf("File not found in directory to amend size\n");
 			kfree(buffer);
-			kfree(clbuf);
 			return false;
 		} else {
 			cluster = nextcluster;
 		}
 	}
 	kfree(buffer);
-	kfree(clbuf);
 	return false;
 }
 
@@ -586,7 +583,6 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 
 	if (!read_cluster(info, cluster, buffer)) {
 		dprintf("Read storage failed when extending directory\n");
-		kfree(new_entries);
 		return;
 	}
 
@@ -611,7 +607,6 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 
 		if (entries == info->clustersize / 32) {
 			dprintf("fat32: insert_entries_at() overlaps cluster edge, should not happen - LFN too long?\n");
-			kfree(new_entries);
 			return;
 		}
 
@@ -624,8 +619,6 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 	if (!write_cluster(info, cluster, buffer)) {
 		dprintf("Write storage failed when extending directory\n");
 	}
-
-	kfree(new_entries);
 }
 
 uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, uint8_t attributes)
@@ -1078,6 +1071,8 @@ int read_fat(fat32_t* info)
 	info->info = kmalloc(sizeof(fat32_fs_info_t));
 	info->clustersize = par->sectorspercluster;
 	info->clustersize *= sd->block_size;
+
+	assert(info->clustersize > 0, "Cluster size is zero, probably exfat - critical error");
 
 	add_random_entropy(par->serialnumber);
 

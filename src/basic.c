@@ -1472,7 +1472,7 @@ void next_statement(struct basic_ctx* ctx)
 		if (continue_loop) {
 			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
 		} else {
-			kfree(ctx->for_stack[ctx->for_stack_ptr].for_variable);
+			kfree(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable);
 			ctx->for_stack_ptr--;
 			accept_or_return(NEWLINE, ctx);
 		}
@@ -1490,7 +1490,9 @@ void for_statement(struct basic_ctx* ctx)
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(EQUALS, ctx);
 	if (strchr(for_variable, '#')) {
-		basic_set_double_variable(for_variable, expr(ctx), ctx, false, false);
+		double d;
+		double_expr(ctx, &d);
+		basic_set_double_variable(for_variable, d, ctx, false, false);
 	} else {
 		basic_set_int_variable(for_variable, expr(ctx), ctx, false, false);
 	}
@@ -1949,9 +1951,7 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 		}
 		return;
 	} else {
-		struct ub_var_int* cur = ctx->int_variables;
-		if (local)
-			cur = ctx->local_int_variables[ctx->call_stack_ptr];
+		struct ub_var_int* cur = local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables;
 		for (; cur; cur = cur->next) {
 			if (!strcmp(var, cur->varname)) {
 				//dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
@@ -2753,6 +2753,8 @@ const char* basic_test_string_variable(const char* var, struct basic_ctx* ctx)
 	{
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
+			assert(cur->next != cur, "Variable list is linked to itself");
+			assert(cur->varname, "NULL variable name");
 			if (!strcmp(var, cur->varname))	{
 				return cur->value;
 			}
@@ -2787,6 +2789,8 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 	{
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
+			assert(cur->next != cur, "Variable list is linked to itself");
+			assert(cur->varname, "NULL variable name");
 			if (!strcmp(var, cur->varname))	{
 				return cur->value;
 			}
@@ -2811,6 +2815,8 @@ bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
 	{
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
+			assert(cur->next != cur, "Variable list is linked to itself");
+			assert(cur->varname, "NULL variable name");
 			if (!strcmp(var, cur->varname))	{
 				return true;
 			}
@@ -2831,6 +2837,8 @@ bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
 	{
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
+			assert(cur->next != cur, "Variable list is linked to itself");
+			assert(cur->varname, "NULL variable name");
 			if (!strcmp(var, cur->varname))	{
 				return true;
 			}
@@ -2851,6 +2859,8 @@ bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
 	{
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
+			assert(cur->next != cur, "Variable list is linked to itself");
+			assert(cur->varname, "NULL variable name");
 			if (!strcmp(var, cur->varname))	{
 				return true;
 			}
@@ -2884,6 +2894,8 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 	{
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
+			assert(cur->next != cur, "Variable list is linked to itself");
+			assert(cur->varname, "NULL variable name");
 			if (!strcmp(var, cur->varname))	{
 				int64_t v = cur->value;
 				/* If ERROR is read, it resets its value */
@@ -2928,6 +2940,8 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 	{
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
+			assert(cur->next != cur, "Variable list is linked to itself");
+			assert(cur->varname, "NULL variable name");
 			if (!strcmp(var, cur->varname))	{
 				*res = cur->value;
 				return true;

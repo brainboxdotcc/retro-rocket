@@ -67,9 +67,9 @@
 #include "drawing.h"
 #include "fpu.h"
 
-#define assert(expr, line) if (!(expr)) { \
-	kprintf("Assertion failure at %s:%s: %s", line, __FILE__,__LINE__); \
-	wait_forever(); }
+#define assert(expr, message) if (!(expr)) { \
+	kprintf("Assertion failure at %s:%s: %s", message, __FILE__,__LINE__); \
+	__asm__ volatile("int3"); }
 
 void network_up();
 void network_down();
