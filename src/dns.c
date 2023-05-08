@@ -116,8 +116,7 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
 	unsigned short length;
 
 	/* split name up into labels, create query */
-	while ((tempchr = strchr(tempchr2, '.')) != NULL)
-	{
+	while ((tempchr = strchr(tempchr2, '.')) != NULL) {
 		length = tempchr - tempchr2;
 		if (payloadpos + length + 1 > 507)
 			return -1;
@@ -127,17 +126,18 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
 		tempchr2 = &tempchr[1];
 	}
 	length = strlen(tempchr2);
-	if (length)
-	{
-		if (payloadpos + length + 2 > 507)
+	if (length) {
+		if (payloadpos + length + 2 > 507) {
 			return -1;
+		}
 		payload[payloadpos++] = length;
 		memcpy(&payload[payloadpos], tempchr2, length);
 		payloadpos += length;
 		payload[payloadpos++] = 0;
 	}
-	if (payloadpos > 508)
+	if (payloadpos > 508) {
 		return -1;
+	}
 	length = htons(rr);
 	memcpy(&payload[payloadpos],&length,2);
 	length = htons(rr_class);

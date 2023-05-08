@@ -53,12 +53,10 @@ void mmio_write64 (uint64_t p_address,uint64_t p_value)
 
 void e1000_writeCommand( uint16_t p_address, uint32_t p_value)
 {
-	if ( bar_type == 0 )
-	{
+	if (bar_type == 0) {
 		mmio_write32(mem_base+p_address,p_value);
 	}
-	else
-	{
+	else {
 		outl(io_base, p_address);
 		outl(io_base + 4, p_value);
 	}

@@ -41,10 +41,10 @@ int stricmp(const char* s1, const char* s2)
 
 char* strchr(const char *s, int c)
 {
-	for (; *s; ++s)
-	{
-		if (*s == c)
+	for (; *s; ++s) {
+		if (*s == c) {
 			return (char *)s;
+		}
 	}
 	return NULL;
 }
@@ -101,24 +101,21 @@ uint64_t hextoint(const char* n1)
 	uint64_t result = 0;
 	int i = 0, fact = 1;
 
-	if (length)
-	{
-		if (length > 16)
+	if (length) {
+		if (length > 16) {
 			length = 16;
+		}
 
-		for(i = length - 1; i >= 0; i--)
-		{
+		for(i = length - 1; i >= 0; i--) {
 			char digit = tolower(*(n1 + i));
-			if ((digit >= '0' && digit <= '9') || (digit >= 'a' && digit <= 'f'))
-			{
-				if (digit >= 97)
+			if ((digit >= '0' && digit <= '9') || (digit >= 'a' && digit <= 'f')) {
+				if (digit >= 97) {
 					result += (digit - 87) * fact;
-				else
+				} else {
 					result += (digit - 48) * fact;
+				}
 				fact = fact << 4;
-			}
-			else
-			{
+			} else {
 				return 0;
 			}
 		}
@@ -134,19 +131,19 @@ uint32_t strlcat(char *dst, const char *src, uint32_t siz)
 	const char *s = src;
 	uint32_t n = siz, dlen;
 
-	while (n-- != 0 && *d != '\0')
+	while (n-- != 0 && *d != '\0') {
 		d++;
+	}
 
 	dlen = d - dst;
 	n = siz - dlen;
 
-	if (n == 0)
+	if (n == 0) {
 		return(dlen + strlen(s));
+	}
 
-	while (*s != '\0')
-	{
-		if (n != 1)
-		{
+	while (*s != '\0') {
+		if (n != 1) {
 			*d++ = *s;
 			n--;
 		}
@@ -165,20 +162,19 @@ uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
 	uint32_t n = siz;
 
 	/* Copy as many bytes as will fit */
-	if (n != 0 && --n != 0)
-	{
-		do
-		{
-			if ((*d++ = *s++) == 0)
+	if (n != 0 && --n != 0) {
+		do {
+			if ((*d++ = *s++) == 0) {
 				break;
+			}
 		} while (--n != 0);
 	}
 
 	/* Not enough room in dst, add NUL and traverse rest of src */
-	if (n == 0)
-	{
-		if (siz != 0)
+	if (n == 0) {
+		if (siz != 0) {
 			*d = '\0'; /* NUL-terminate dst */
+		}
 		while (*s++);
 	}
 
@@ -216,14 +212,11 @@ char* gc_strdup(const char* string)
 	strlcpy(result, string, siz);
 	*(result+siz) = 0;
 
-	if (gc_list == NULL)
-	{
+	if (gc_list == NULL) {
 		gc_list = kmalloc(sizeof(struct gc_str));
 		gc_list->next = NULL;
 		gc_list->ptr = result;
-	}
-	else
-	{
+	} else {
 		struct gc_str* new = kmalloc(sizeof(struct gc_str));
 		new->next = gc_list;
 		new->ptr = result;
@@ -237,8 +230,7 @@ int gc()
 {
 	struct gc_str* cur = gc_list;
 	int n = 0;
-	for (; cur; cur = cur->next)
-	{
+	for (; cur; cur = cur->next) {
 		n++;
 		kfree(cur->ptr);
 		kfree(cur);
@@ -267,9 +259,9 @@ bool atof(const char* s, double* a)
 		int sign = 1;
 		int i = 0;
 		c = *s++;
-		if (c == '+')
+		if (c == '+') {
 			c = *s++;
-		else if (c == '-') {
+		} else if (c == '-') {
 			c = *s++;
 			sign = -1;
 		}

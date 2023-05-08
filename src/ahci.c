@@ -205,8 +205,7 @@ int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar)
 	// If not set in SACT and CI, the slot is free
 	uint32_t slots = (port->sact | port->ci);
 	int cmdslots = (abar->cap & 0x0f00) >> 8;
-	for (int i=0; i<cmdslots; i++)
-	{
+	for (int i=0; i<cmdslots; i++) {
 		if ((slots&1) == 0)
 			return i;
 		slots >>= 1;

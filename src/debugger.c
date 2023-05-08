@@ -11,8 +11,7 @@ void dump_hex(void* addr, uint64_t length)
 {
 	unsigned char* address = addr;
 	uint64_t index = 0;
-	for(; index < length; index += 16)
-	{
+	for(; index < length; index += 16) {
 		dprintf("%04x: ", index);
 		size_t hex = 0;
 		for (; hex < 16; ++hex) {

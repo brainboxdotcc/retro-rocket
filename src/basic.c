@@ -1307,8 +1307,7 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(EQUALS, ctx);
 
-	switch (var[strlen(var) - 1])
-	{
+	switch (var[strlen(var) - 1]) {
 		case '$':
 			_expr = str_expr(ctx);
 			basic_set_string_variable(var, _expr, ctx, local, global);
@@ -2749,8 +2748,7 @@ const char* basic_test_string_variable(const char* var, struct basic_ctx* ctx)
 		ctx->local_string_variables[ctx->call_stack_ptr],
 		ctx->str_variables
 	};
-	for (int j = 0; j < 2; j++)
-	{
+	for (int j = 0; j < 2; j++) {
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
 			assert(cur->next != cur, "Variable list is linked to itself");
@@ -2785,8 +2783,7 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 		list[j] = ctx->local_string_variables[j];
 	}
 	list[0] = ctx->str_variables;
-	for (j = ctx->call_stack_ptr; j >= 0; --j)
-	{
+	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
 			assert(cur->next != cur, "Variable list is linked to itself");
@@ -2811,8 +2808,7 @@ bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
 		list[j] = ctx->local_double_variables[j];
 	}
 	list[0] = ctx->double_variables;
-	for (j = ctx->call_stack_ptr; j >= 0; --j)
-	{
+	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
 			assert(cur->next != cur, "Variable list is linked to itself");
@@ -2833,8 +2829,7 @@ bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
 		list[j] = ctx->local_string_variables[j];
 	}
 	list[0] = ctx->str_variables;
-	for (j = ctx->call_stack_ptr; j >= 0; --j)
-	{
+	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
 			assert(cur->next != cur, "Variable list is linked to itself");
@@ -2855,8 +2850,7 @@ bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
 		list[j] = ctx->local_int_variables[j];
 	}
 	list[0] = ctx->int_variables;
-	for (j = ctx->call_stack_ptr; j >= 0; --j)
-	{
+	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
 			assert(cur->next != cur, "Variable list is linked to itself");
@@ -2890,8 +2884,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 		list[j] = ctx->local_int_variables[j];
 	}
 	list[0] = ctx->int_variables;
-	for (j = ctx->call_stack_ptr; j >= 0; --j)
-	{
+	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
 			assert(cur->next != cur, "Variable list is linked to itself");
@@ -2936,8 +2929,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 		list[j] = ctx->local_double_variables[j];
 	}
 	list[0] = ctx->double_variables;
-	for (j = ctx->call_stack_ptr; j >= 0; --j)
-	{
+	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
 			assert(cur->next != cur, "Variable list is linked to itself");

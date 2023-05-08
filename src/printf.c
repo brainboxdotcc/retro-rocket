@@ -10,8 +10,7 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 	const char* end = (max == SIZE_MAX ? (const char*)SIZE_MAX : ptr + max);
 
 	/* begin scanning format specifier list */
-	for(; *fmt; fmt++)
-	{
+	for(; *fmt; fmt++) {
 		switch(state) {
 			/* STATE 0: AWAITING % */
 			case 0:
@@ -26,15 +25,13 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 				/* FALL THROUGH */
 				/* STATE 1: AWAITING FLAGS (%-0) */
 			case 1:
-				if(*fmt == '%')	/* %% */
-				{
+				if(*fmt == '%')	{
 					if (fn(*fmt, &ptr, end)) return count;
 					count++;
 					state = flags = given_wd = 0;
 					break;
 				}
-				if(*fmt == '-')
-				{
+				if(*fmt == '-') {
 					if(flags & PR_LJ)/* %-- is illegal */
 						state = flags = given_wd = 0;
 					else
@@ -44,16 +41,14 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 				/* not a flag char: advance state to check if it's field width */
 				state++;
 				/* check now for '%0...' */
-				if(*fmt == '0')
-				{
+				if(*fmt == '0') {
 					flags |= PR_LZ;
 					fmt++;
 				}
 				/* FALL THROUGH */
 				/* STATE 2: AWAITING (NUMERIC) FIELD WIDTH */
 			case 2:
-				if(*fmt >= '0' && *fmt <= '9')
-				{
+				if(*fmt >= '0' && *fmt <= '9') {
 					given_wd = 10 * given_wd +
 						(*fmt - '0');
 					break;
@@ -63,20 +58,18 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 				/* FALL THROUGH */
 				/* STATE 3: AWAITING MODIFIER CHARS (FNlh) */
 			case 3:
-				if(*fmt == 'F')
-				{
+				if(*fmt == 'F') {
 					flags |= PR_FP;
 					break;
 				}
-				if(*fmt == 'N')
+				if(*fmt == 'N') {
 					break;
-				if(*fmt == 'l')
-				{
+				}
+				if(*fmt == 'l') {
 					flags |= PR_32;
 					break;
 				}
-				if(*fmt == 'h')
-				{
+				if(*fmt == 'h') {
 					flags |= PR_16;
 					break;
 				}
@@ -87,8 +80,7 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 			case 4:
 				where = buf + PR_BUFLEN - 1;
 				*where = '\0';
-				switch(*fmt)
-				{
+				switch(*fmt) {
 				case 'X':
 					flags |= PR_CA;
 					/* xxx - far pointers (%Fp, %Fn) not yet supported */

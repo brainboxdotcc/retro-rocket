@@ -181,8 +181,7 @@ int get_next_token(struct basic_ctx* ctx)
 		int strl = 0;
 		do {
 			++ctx->nextptr;
-			if (++strl > 10240)
-			{
+			if (++strl > 10240) {
 				tokenizer_error_print(ctx, "String constant too long");
 				break;
 			}
@@ -211,16 +210,13 @@ int get_next_token(struct basic_ctx* ctx)
 		ctx->nextptr = ctx->ptr;
 		int varl = 0;
 		while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->nextptr == '$') || (*ctx->nextptr == '#') || (*ctx->nextptr == '(')
-				|| (varl > 0 && isdigit(*ctx->nextptr)))
-		{
+				|| (varl > 0 && isdigit(*ctx->nextptr))) {
 			//kprintf("%c", *ctx->nextptr);
 			ctx->nextptr++;
-			if (*ctx->nextptr == '(')
-			{
+			if (*ctx->nextptr == '(') {
 			//kprintf("Nextptr found open bracket\n");
 			int bracketdepth = 1;
-			do
-			{
+			do {
 				ctx->nextptr++;
 				if (*ctx->nextptr == '(')
 					bracketdepth++;
@@ -230,8 +226,7 @@ int get_next_token(struct basic_ctx* ctx)
 			while (bracketdepth > 1 && *ctx->nextptr != 0);
 			}
 			else
-			if (++varl > 60)
-			{
+			if (++varl > 60) {
 				tokenizer_error_print(ctx, "Variable name too long");
 				break;
 			}
@@ -341,8 +336,7 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx)
 {
 	char varname[MAX_VARNAME];
 	int count = 0;
-	while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$') || (*ctx->ptr == '#')) && count < MAX_VARNAME)
-	{
+	while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$') || (*ctx->ptr == '#')) && count < MAX_VARNAME) {
 		varname[count++] = *(ctx->ptr++);
 	}
 	varname[count] = 0;

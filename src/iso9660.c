@@ -29,14 +29,12 @@ void parse_boot([[maybe_unused]] iso9660* info, [[maybe_unused]] unsigned char* 
 int parse_pvd(iso9660* info, unsigned char* buffer)
 {
 	PVD* pvd = (PVD*)buffer;
-	if (!VERIFY_ISO9660(pvd))
-	{
+	if (!VERIFY_ISO9660(pvd)) {
 		kprintf("ISO9660: Invalid PVD found, identifier is not 'CD001'\n");
 		return 0;
 	}
 	char* ptr = pvd->volumeidentifier + 31;
-	for (; ptr != pvd->volumeidentifier && *ptr == ' '; --ptr)
-	{
+	for (; ptr != pvd->volumeidentifier && *ptr == ' '; --ptr) {
 		// Backpeddle over the trailing spaces in the volume name
 		if (*ptr == ' ')
 			*ptr = 0;
@@ -44,8 +42,9 @@ int parse_pvd(iso9660* info, unsigned char* buffer)
 
 	int j = 0;
 	info->volume_name = kmalloc(strlen(pvd->volumeidentifier) + 1);
-	for (ptr = pvd->volumeidentifier; *ptr; ++ptr)
+	for (ptr = pvd->volumeidentifier; *ptr; ++ptr) {
 		info->volume_name[j++] = *ptr;
+	}
 	// Null-terminate volume name
 	info->volume_name[j] = 0;
 
@@ -65,8 +64,7 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 
 	_memset(dirbuffer, 0, lengthbytes);
 
-	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer))
-	{
+	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer)) {
 		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
 		kfree(dirbuffer);
 		return NULL;
@@ -78,8 +76,7 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 	// Iterate each of the entries in this directory, enumerating files
 	unsigned char* walkbuffer = dirbuffer;
 	int entrycount = 0;
-	while (walkbuffer < dirbuffer + lengthbytes)
-	{
+	while (walkbuffer < dirbuffer + lengthbytes) {
 		entrycount++;
 		ISO9660_directory* fentry = (ISO9660_directory*)walkbuffer;
 
@@ -87,12 +84,10 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 			break;
 
 		// Skip the first two entries, '.' and '..'
-		if (entrycount > 2)
-		{
+		if (entrycount > 2) {
 			fs_directory_entry_t* thisentry = kmalloc(sizeof(fs_directory_entry_t));
 
-			if (info->joliet == 0)
-			{
+			if (info->joliet == 0) {
 				thisentry->filename = kmalloc(fentry->filename_length + 1);
 				j = 0;
 				char* ptr = fentry->filename;
@@ -105,19 +100,17 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 				/* Filenames ending in '.' are not allowed */
 				if (thisentry->filename[j - 1] == '.')
 					thisentry->filename[j - 1] = 0;
-			}
-			else
-			{
+			} else {
 				// Parse joliet filename, 16-bit unicode UCS-2
 				thisentry->filename = kmalloc((fentry->filename_length / 2) + 1);
 				j = 0;
 				char* ptr = fentry->filename;
-				for (; j < fentry->filename_length / 2; ptr += 2)
-				{
-					if (*ptr != 0)
+				for (; j < fentry->filename_length / 2; ptr += 2) {
+					if (*ptr != 0) {
 						thisentry->filename[j++] = '?';
-					else
+					} else {
 						thisentry->filename[j++] = *(ptr + 1);
+					}
 				}
 				thisentry->filename[j] = 0;
 				//kprintf("'%s' ", thisentry->filename);
@@ -157,17 +150,14 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 void parse_svd(iso9660* info, unsigned char* buffer)
 {
 	PVD* svd = (PVD*)buffer;
-        if (!VERIFY_ISO9660(svd))
-	{
+        if (!VERIFY_ISO9660(svd)) {
 		kprintf("ISO9660: Invalid SVD found, identifier is not 'CD001'\n");
 		return;
 	}
 
 	int joliet = 0;
-	if (svd->escape_seq[0] == '%' && svd->escape_seq[1] == '/')
-	{
-		switch (svd->escape_seq[2])
-		{
+	if (svd->escape_seq[0] == '%' && svd->escape_seq[1] == '/') {
+		switch (svd->escape_seq[2]) {
 			case '@':
 				joliet = 1;
 			break;
@@ -180,8 +170,7 @@ void parse_svd(iso9660* info, unsigned char* buffer)
 		}
 	}
 
-	if (joliet)
-	{
+	if (joliet) {
 		//kprintf("Joliet extensions found on CD drive %s, UCS-2 Level %d\n", info->device->name, joliet);
 		info->joliet = joliet;
 		info->pathtable_lba = svd->lsb_pathtable_L_lba;
@@ -199,12 +188,11 @@ void parse_VPD([[maybe_unused]] iso9660* info, [[maybe_unused]] unsigned char* b
 fs_directory_entry_t* hunt_entry(iso9660* info, const char* filename, uint32_t flags)
 {
 	fs_directory_entry_t* currententry = info->root;
-	for(; currententry->next; currententry = currententry->next)
-	{
-		if ((flags != 0) && !(currententry->flags & flags))
+	for(; currententry->next; currententry = currententry->next) {
+		if ((flags != 0) && !(currententry->flags & flags)) {
 			continue;
-		if (!strcmp(filename, currententry->filename))
-		{
+		}
+		if (!strcmp(filename, currententry->filename)) {
 			return currententry;
 		}
 	}
@@ -214,13 +202,10 @@ fs_directory_entry_t* hunt_entry(iso9660* info, const char* filename, uint32_t f
 void* iso_get_directory(void* t)
 {
 	fs_tree_t* treeitem = (fs_tree_t*)t;
-	if (treeitem)
-	{
+	if (treeitem) {
 		iso9660* info = (iso9660*)treeitem->opaque;
 		return (void*)parse_directory(treeitem, (iso9660*)treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, treeitem->size ? treeitem->size : info->rootextent_len);
-	}
-	else
-	{
+	} else {
 		kprintf("*** BUG *** iso_get_directory: null fs_tree_t*!\n");
 		return NULL;
 	}
@@ -240,8 +225,7 @@ bool iso_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buff
 	sectors_size++;
 
 	unsigned char* readbuf = kmalloc(sectors_size * fs->block_size);
-	if (!read_storage_device(file->device_name, sectors_start, length, readbuf))
-	{
+	if (!read_storage_device(file->device_name, sectors_start, length, readbuf)) {
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start, sectors_start + sectors_size);
 		kfree(readbuf);
 		return false;
@@ -267,8 +251,7 @@ iso9660* iso_mount_volume(const char* name)
 	_memset(buffer, 0, 2048);
 	uint32_t VolumeDescriptorPos = PVD_LBA;
 	info->device = fs;
-	while (1)
-	{
+	while (1) {
 		if (!read_storage_device(name, VolumeDescriptorPos++, fs->block_size, buffer)) {
 			kprintf("ISO9660: Could not read LBA sector 0x%x from %s!\n", VolumeDescriptorPos, name);
 			kfree(info);
