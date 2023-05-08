@@ -189,7 +189,7 @@ DEF PROCEDprocessKey(in)
 	IF in = 254 THEN PROCEDhome
 	IF in = 247 THEN PROCEDdelete
 	IF in = 8 THEN PROCEDbackSpace
-	IF in < 128 THEN IF in > 31 THEN PROCEDinsertChar(in)
+	IF (in < 128) AND (in > 31) THEN PROCEDinsertChar(in)
 	PROChideCursor
 	CURSOR EDStartInputX, EDStartInputY
 	PROCclearLineFromCursor
