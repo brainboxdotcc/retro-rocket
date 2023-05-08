@@ -138,7 +138,7 @@ DEF PROCprocessKey(in)
 	IF in = 246 THEN PROCpageDown
 	IF in = 247 THEN PROCdelete
 	IF in = 8 THEN PROCbackSpace
-	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(incopy)
+	IF (in < 128) AND (in > 31) THEN PROCinsertChar(incopy)
 	cx = LEN(content$(top + currenty))
 	IF currentx > cx THEN currentx = cx
 	IF (currenty + top) > (lines - 1) THEN currenty = lines - top - 1

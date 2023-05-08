@@ -57,7 +57,7 @@ DEF PROCprocessKey(in)
 	IF in = 246 THEN PROCpageDown
 	IF in = 247 THEN PROCdelete
 	IF in = 8 THEN PROCbackSpace
-	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(in)
+	IF (in < 128) AND (in > 31) THEN PROCinsertChar(in)
 	PROCdisplayInput
 RETPROC
 
