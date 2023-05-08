@@ -1622,7 +1622,7 @@ int64_t basic_asc(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("ASC");
+	PARAMS_END("ASC", 0);
 	return (unsigned char)*strval;
 }
 
@@ -2178,7 +2178,7 @@ int64_t basic_getprocid(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETPROCID");
+	PARAMS_END("GETPROCID", 0);
 	return proc_id(intval);
 }
 
@@ -2192,7 +2192,7 @@ int64_t basic_rgb(struct basic_ctx* ctx)
 	g = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	b = intval;
-	PARAMS_END("RGB");
+	PARAMS_END("RGB", 0);
 	return (uint32_t)(r << 16 | g << 8 | b);
 }
 
@@ -2200,7 +2200,7 @@ char* basic_getprocname(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETPROCNAME$");
+	PARAMS_END("GETPROCNAME$","");
 	process_t* process = proc_find(proc_id(intval));
 	return process && process->name ? gc_strdup(process->name) : "";
 }
@@ -2209,7 +2209,7 @@ int64_t basic_getprocparent(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETPROCPARENT");
+	PARAMS_END("GETPROCPARENT", 0);
 	process_t* process = proc_find(proc_id(intval));
 	return process ? process->ppid : 0;
 }
@@ -2218,7 +2218,7 @@ int64_t basic_getproccpuid(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETPROCCPUID");
+	PARAMS_END("GETPROCCPUID", 0);
 	process_t* process = proc_find(proc_id(intval));
 	return process ? process->cpu : 0;
 }
@@ -2227,7 +2227,7 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("RAMDISK$");
+	PARAMS_END("RAMDISK$","");
 	const char* rd = init_ramdisk_from_storage(strval);
 	if (!rd) {
 		return "";
@@ -2242,7 +2242,7 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 	int64_t blocks = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t block_size = intval;
-	PARAMS_END("RAMDISK");
+	PARAMS_END("RAMDISK","");
 	const char* rd = init_ramdisk(blocks, block_size);
 	if (!rd) {
 		return "";
@@ -2270,7 +2270,7 @@ char* basic_insocket(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
-	PARAMS_END("INSOCKET$");
+	PARAMS_END("INSOCKET$","");
 
 	if (fd < 0) {
 		tokenizer_error_print(ctx, "Invalid socket descriptor");
@@ -2295,7 +2295,7 @@ int64_t basic_sockstatus(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t fd = intval;
-	PARAMS_END("SOCKSTATUS");
+	PARAMS_END("SOCKSTATUS", 0);
 
 	if (fd < 0) {
 		return 0;
@@ -2332,7 +2332,7 @@ int64_t basic_random(struct basic_ctx* ctx)
 	low = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	high = intval;
-	PARAMS_END("RND");
+	PARAMS_END("RND", 0);
 	return (mt_rand() % (high - low + 1)) + low;
 }
 
@@ -2341,7 +2341,7 @@ char* basic_chr(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("CHR$");
+	PARAMS_END("CHR$","");
 	char res[2] = {(unsigned char)intval, 0};
 	return gc_strdup(res);
 }
@@ -2355,7 +2355,7 @@ int64_t basic_instr(struct basic_ctx* ctx)
 	haystack = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	needle = strval;
-	PARAMS_END("INSTR");
+	PARAMS_END("INSTR", 0);
 	size_t n_len = strlen(needle);
 	for (size_t i = 0; i < strlen(haystack) - n_len + 1; ++i) {
 		if (!strncmp(haystack + i, needle, n_len)) {
@@ -2369,7 +2369,7 @@ char* basic_netinfo(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("NETINFO$");
+	PARAMS_END("NETINFO$","");
 	char ip[16] = { 0 };
 	if (!stricmp(strval, "ip")) {
 		unsigned char raw[4];
@@ -2401,7 +2401,7 @@ char* basic_dns(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("DNS$");
+	PARAMS_END("DNS$","");
 	char ip[16] = { 0 };
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2);
 	get_ip_str(ip, (uint8_t*)&addr);
@@ -2412,7 +2412,7 @@ char* basic_upper(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("UPPER$");
+	PARAMS_END("UPPER$","");
 	char* modified = gc_strdup(strval);
 	for (char* m = modified; *m; ++m) {
 		*m = toupper(*m);
@@ -2424,7 +2424,7 @@ char* basic_lower(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("LOWER$");
+	PARAMS_END("LOWER$","");
 	char* modified = gc_strdup(strval);
 	for (char* m = modified; *m; ++m) {
 		*m = tolower(*m);
@@ -2445,7 +2445,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 	varname = strval;
 	PARAMS_GET_ITEM(BIP_STRING);
 	split = strval;
-	PARAMS_END("TOKENIZE$");
+	PARAMS_END("TOKENIZE$","");
 	const char* current_value = basic_get_string_variable(varname, ctx);
 	const char* old_value = current_value;
 	size_t len = strlen(current_value);
@@ -2477,7 +2477,7 @@ char* basic_left(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("LEFT$");
+	PARAMS_END("LEFT$","");
 	int64_t len = strlen(strval);
 	if (intval < 0) {
 		intval = 0;
@@ -2498,7 +2498,7 @@ char* basic_right(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("RIGHT$");
+	PARAMS_END("RIGHT$","");
 	int64_t len = strlen(strval);
 	if (intval < 0) {
 		intval = 0;
@@ -2521,7 +2521,7 @@ char* basic_mid(struct basic_ctx* ctx)
 	intval = 0;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t end = intval;
-	PARAMS_END("MID$");
+	PARAMS_END("MID$","");
 	int64_t len = strlen(strval);
 	if (len == 0) {
 		return "";
@@ -2547,7 +2547,7 @@ int64_t basic_len(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("LEN");
+	PARAMS_END("LEN",0);
 	return strlen(strval);
 }
 
@@ -2555,7 +2555,7 @@ int64_t basic_abs(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("ABS");
+	PARAMS_END("ABS",0);
 	return labs(intval);
 }
 
@@ -2563,7 +2563,7 @@ void basic_sin(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END("SIN");
+	PARAMS_END_VOID("SIN");
 	*res = sin(doubleval);
 }
 
@@ -2571,7 +2571,7 @@ void basic_cos(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END("COS");
+	PARAMS_END_VOID("COS");
 	*res = cos(doubleval);
 }
 
@@ -2579,7 +2579,7 @@ void basic_tan(struct basic_ctx* ctx, double* res)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END("TAN");
+	PARAMS_END_VOID("TAN");
 	*res = tan(doubleval);
 }
 
@@ -2589,7 +2589,7 @@ void basic_pow(struct basic_ctx* ctx, double* res)
 	PARAMS_GET_ITEM(BIP_DOUBLE);
 	double base = doubleval;
 	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END("POW");
+	PARAMS_END_VOID("POW");
 	*res = pow(base, doubleval);
 }
 

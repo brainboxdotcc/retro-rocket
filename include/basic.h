@@ -443,6 +443,9 @@ typedef enum parameter_type_t {
 #define PARAMS_GET_ITEM(type) { gotone = 0; \
 	while (!gotone) \
 	{ \
+		if (*ctx->ptr == '\n' || *ctx->ptr == 0) { \
+			break; \
+		} \
 		if (*ctx->ptr == '(') { \
 			bracket_depth++; \
 			if (bracket_depth == 1) \
@@ -489,9 +492,17 @@ typedef enum parameter_type_t {
 /**
  * @brief Ends fetching of function parameters, throwing an error if parameters still remain
  */
-#define PARAMS_END(NAME) { \
+#define PARAMS_END(NAME, returnval) { \
 	if (*(ctx->ptr - 1) != ')') { \
 		tokenizer_error_print(ctx, "Invalid number of parameters for " NAME); \
+		return returnval; \
+	} \
+}
+
+#define PARAMS_END_VOID(NAME) { \
+	if (*(ctx->ptr - 1) != ')') { \
+		tokenizer_error_print(ctx, "Invalid number of parameters for " NAME); \
+		return; \
 	} \
 }
 

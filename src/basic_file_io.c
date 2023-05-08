@@ -32,7 +32,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 	*res = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("READ$");
+	PARAMS_END("READ$", "");
 	while (!_eof(intval) && ofs < MAX_STRINGLEN) {
 		if (_read(intval, res + ofs, 1) != 1)
 			tokenizer_error_print(ctx, "Error reading from file");
@@ -52,7 +52,7 @@ int64_t basic_read(struct basic_ctx* ctx)
 	char res;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("READ");
+	PARAMS_END("READ", 0);
 	if (_read(intval, &res, 1) != 1) {
 		tokenizer_error_print(ctx, "Error reading from file");
 	}
@@ -95,7 +95,7 @@ int64_t basic_open_func(struct basic_ctx* ctx, int oflag)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("OPEN");
+	PARAMS_END("OPEN", 0);
 	const char* file = make_full_path(strval);
 	if (fs_is_directory(file)) {
 		tokenizer_error_print(ctx, "Not a file");
@@ -125,7 +125,7 @@ int64_t basic_getnamecount(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("GETNAMECOUNT");
+	PARAMS_END("GETNAMECOUNT", 0);
 	const char* dir = make_full_path(strval);
 	if (!fs_is_directory(dir)) {
 		tokenizer_error_print(ctx, "Not a directory");
@@ -145,7 +145,7 @@ char* basic_getname(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETNAME$");
+	PARAMS_END("GETNAME$", "");
 	const char* dir = make_full_path(strval);
 	if (!fs_is_directory(dir)) {
 		tokenizer_error_print(ctx, "Not a directory");
@@ -167,7 +167,7 @@ char* basic_filetype(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* dir = make_full_path(strval);
-	PARAMS_END("FILETYPE$");
+	PARAMS_END("FILETYPE$", "");
 	return fs_is_directory(dir) ? "directory" : "file";
 }
 
@@ -176,7 +176,7 @@ int64_t basic_getsize(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("GETSIZE");
+	PARAMS_END("GETSIZE", 0);
 	const char* dir = make_full_path(strval);
 	fs_directory_entry_t* fsl = fs_get_items(dir);
 	int count = 0;
@@ -193,7 +193,7 @@ int64_t basic_eof(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("EOF");
+	PARAMS_END("EOF", 0);
 	return _eof(intval);
 }
 
