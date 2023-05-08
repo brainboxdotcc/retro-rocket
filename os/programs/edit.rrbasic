@@ -141,7 +141,7 @@ DEF PROCprocessKey(in)
 	IF in < 128 THEN IF in > 31 THEN PROCinsertChar(incopy)
 	cx = LEN(content$(top + currenty))
 	IF currentx > cx THEN currentx = cx
-	IF currenty + top > lines - 1 THEN currenty = lines - top - 1
+	IF (currenty + top) > (lines - 1) THEN currenty = lines - top - 1
 RETPROC
 
 REM insert character at current position and advance right
@@ -256,7 +256,7 @@ RETPROC
 REM handle cursor down key
 DEF PROCdown
 	currenty = currenty + 1
-	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
+	IF currenty > (TERMHEIGHT - 3) THEN PROCscrollDown
 	PROCtext
 RETPROC
 
@@ -264,7 +264,7 @@ REM scroll screen down one line
 DEF PROCscrollDown
 	currenty = TERMHEIGHT - 3
 	top = top + 1
-	IF top > TERMHEIGHT - 2 + lines THEN top = TERMHEIGHT - 2 + lines
+	IF top > (TERMHEIGHT - 2 + lines) THEN top = TERMHEIGHT - 2 + lines
 	PROCtext
 RETPROC
 
@@ -278,14 +278,14 @@ RETPROC
 REM handle cursor right key
 DEF PROCright
 	currentx = currentx + 1
-	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
+	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
 	PROCtext
 RETPROC
 
 REM handle end key
 DEF PROCend
 	currentx = LEN(content$(top + currenty))
-	IF currentx > TERMWIDTH - 1 THEN currentx = TERMWIDTH - 1
+	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
 	PROCtext
 RETPROC
 
@@ -304,9 +304,9 @@ RETPROC
 
 REM handle page down key
 DEF PROCpageDown
-	IF top + currenty + TERMHEIGHT - 2 > lines - 1 THEN RETPROC
+	IF (top + currenty + TERMHEIGHT - 2) > (lines - 1) THEN RETPROC
 	top = top + TERMHEIGHT - 2
-	IF top > TERMHEIGHT - 2 + lines THEN top = TERMHEIGHT - 2 + lines
+	IF top > (TERMHEIGHT - 2 + lines) THEN top = TERMHEIGHT - 2 + lines
 	PROCtext
 RETPROC
 
@@ -323,7 +323,7 @@ DEF PROCenter
 	currenty = currenty + 1
 	lines = lines + 1
 	IF lines = max THEN PROCgrow
-	IF currenty > TERMHEIGHT - 3 THEN PROCscrollDown
+	IF currenty > (TERMHEIGHT - 3) THEN PROCscrollDown
 	dirty = TRUE
 	PROCtext
 RETPROC
@@ -332,7 +332,7 @@ REM handle delete key, join line if neccessary
 DEF PROCdelete
 	currentLine$ = content$(top + currenty)
 	len = LEN(currentLine$)
-	IF currentx > len - 1 THEN PROCjoin
+	IF currentx > (len - 1) THEN PROCjoin
 	IF currentx < len THEN PROCdeleteRight
 	dirty = TRUE
 	PROCtext
@@ -364,7 +364,7 @@ RETPROC
 
 REM join the end of the current line to the line below, moving lines up
 DEF PROCjoin
-	IF currenty = lines - 1 THEN RETPROC
+	IF currenty = (lines - 1) THEN RETPROC
 	content$(top + currenty) = content$(top + currenty) + content$(top + currenty + 1)
 	POP content$, top + currenty + 1
 	content$(lines - 1) = ""
