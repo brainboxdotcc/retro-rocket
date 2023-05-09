@@ -632,6 +632,7 @@ void statement(struct basic_ctx* ctx);
 bool accept(int token, struct basic_ctx* ctx);
 void basic_parse_fn(struct basic_ctx* ctx);
 struct basic_ctx* basic_clone(struct basic_ctx* old);
+bool basic_finished(struct basic_ctx* ctx);
 
 #define accept_or_return(token, ctx) \
 	if (!accept(token, ctx)) { \
@@ -795,3 +796,13 @@ void repeat_statement(struct basic_ctx* ctx);
 void until_statement(struct basic_ctx* ctx);
 void endif_statement(struct basic_ctx* ctx);
 void end_statement(struct basic_ctx* ctx);
+
+/* Process/memory functions */
+int64_t basic_getproccount(struct basic_ctx* ctx);
+int64_t basic_get_free_mem(struct basic_ctx* ctx);
+int64_t basic_get_used_mem(struct basic_ctx* ctx);
+int64_t basic_get_total_mem(struct basic_ctx* ctx);
+int64_t basic_getprocid(struct basic_ctx* ctx);
+char* basic_getprocname(struct basic_ctx* ctx);
+int64_t basic_getprocparent(struct basic_ctx* ctx);
+int64_t basic_getproccpuid(struct basic_ctx* ctx);
