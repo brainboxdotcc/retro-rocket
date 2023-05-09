@@ -719,6 +719,14 @@ int64_t basic_octval(struct basic_ctx* ctx);
 void basic_realval(struct basic_ctx* ctx, double* res);
 char* basic_str(struct basic_ctx* ctx);
 char* basic_bool(struct basic_ctx* ctx);
+void set_system_variables(struct basic_ctx* ctx, uint32_t pid);
+void let_statement(struct basic_ctx* ctx, bool global, bool local);
+char basic_builtin_str_fn(const char* fn_name, struct basic_ctx* ctx, char** res);
+int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx);
+void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res);
+const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx);
+char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res);
+char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res);
 
 /* Sockets functionality */
 void sockwrite_statement(struct basic_ctx* ctx);

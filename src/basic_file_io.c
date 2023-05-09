@@ -258,3 +258,31 @@ void write_statement(struct basic_ctx* ctx)
 	}
 }
 
+char* basic_csd(struct basic_ctx* ctx)
+{
+	return gc_strdup(proc_cur()->csd);
+}
+
+void chdir_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(CHDIR, ctx);
+	const char* csd = str_expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	const char* old = strdup(proc_cur()->csd);
+	const char* new = proc_set_csd(proc_cur(), csd);
+	if (new && fs_is_directory(new)) {
+		kfree(old);
+		return;
+	}
+
+	if (!new) {
+		tokenizer_error_print(ctx, "Invalid directory");
+	}
+	if (!fs_is_directory(new)) {
+		tokenizer_error_print(ctx, "Not a directory");
+	}
+
+	proc_set_csd(proc_cur(), old);
+	kfree(old);
+}
+

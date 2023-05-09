@@ -59,3 +59,48 @@ void basic_sqrt(struct basic_ctx* ctx, double* res)
 	PARAMS_END_VOID("SQRT");
 	*res = sqrt(v);
 }
+
+int64_t basic_random(struct basic_ctx* ctx)
+{
+	int64_t low, high;
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	low = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	high = intval;
+	PARAMS_END("RND", 0);
+	return (mt_rand() % (high - low + 1)) + low;
+}
+
+int64_t basic_asc(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("ASC", 0);
+	return (unsigned char)*strval;
+}
+
+int64_t basic_val(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("VAL", 0);
+	return atoll(strval, 10);
+}
+
+int64_t basic_hexval(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("HEXVAL", 0);
+	return atoll(strval, 16);
+}
+
+int64_t basic_octval(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("OCTVAL", 0);
+	return atoll(strval, 8);
+}
+
