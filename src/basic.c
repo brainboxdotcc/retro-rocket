@@ -18,7 +18,6 @@
  */
 
 #include <kernel.h>
-#include <cpuid.h>
 
 struct basic_int_fn builtin_int[] =
 {
@@ -892,20 +891,6 @@ void print_statement(struct basic_ctx* ctx)
 	}
 }
 
-void sockwrite_statement(struct basic_ctx* ctx)
-{
-	int fd = -1;
-
-	accept_or_return(SOCKWRITE, ctx);
-	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept_or_return(VARIABLE, ctx);
-	accept_or_return(COMMA, ctx);
-	const char* out = printable_syntax(ctx);
-	if (out) {
-		send(fd, out, strlen(out));
-	}
-}
-
 void proc_statement(struct basic_ctx* ctx)
 {
 	char procname[MAX_STRINGLEN];
@@ -1209,110 +1194,6 @@ void input_statement(struct basic_ctx* ctx)
 	}
 }
 
-/**
- * @brief Process SOCKREAD statement.
- * 
- * The SOCKREAD statement will yield while waiting for data, essentially if
- * there is no complete line in the data buffer yet, it will yield back to
- * the OS task loop for other processes to get a turn. Each time the process
- * is entered while waiting for the data to be completed, it will just
- * loop back against the same SOCKREAD statement again until completed.
- * 
- * @param ctx BASIC context
- */
-void sockread_statement(struct basic_ctx* ctx)
-{
-	char input[MAX_STRINGLEN];
-	const char* var = NULL;
-	int fd = -1;
-
-	accept_or_return(SOCKREAD, ctx);
-	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
-	accept_or_return(VARIABLE, ctx);
-	accept_or_return(COMMA, ctx);
-	var = tokenizer_variable_name(ctx);
-	accept_or_return(VARIABLE, ctx);
-
-	int rv = recv(fd, input, MAX_STRINGLEN, false, 10);
-
-	if (rv > 0) {
-		*(input + rv) = 0;
-		switch (var[strlen(var) - 1]) {
-			case '$':
-				basic_set_string_variable(var, input, ctx, false, false);
-			break;
-			case '#':
-				double f = 0;
-				atof(input, &f);
-				basic_set_double_variable(var, f, ctx, false, false);
-			break;
-			default:
-				basic_set_int_variable(var, atoll(input, 10), ctx, false, false);
-			break;
-		}
-
-		accept_or_return(NEWLINE, ctx);
-	} else if (rv < 0) {
-		tokenizer_error_print(ctx, socket_error(rv));
-	} else {
-		jump_linenum(ctx->current_linenum, ctx);
-	}
-}
-
-void connect_statement(struct basic_ctx* ctx)
-{
-	char input[MAX_STRINGLEN];
-	const char* fd_var = NULL, *ip = NULL;
-	int64_t port = 0;
-
-	accept_or_return(CONNECT, ctx);
-	fd_var = tokenizer_variable_name(ctx);
-	accept_or_return(VARIABLE, ctx);
-	accept_or_return(COMMA, ctx);
-	ip = str_expr(ctx);
-	accept_or_return(COMMA, ctx);
-	port = expr(ctx);
-
-	int rv = connect(str_to_ip(ip), port, 0, true);
-
-	if (rv >= 0) {
-		*(input + rv) = 0;
-		switch (fd_var[strlen(fd_var) - 1]) {
-			case '$':
-				tokenizer_error_print(ctx, "Can't store socket descriptor in STRING");
-			break;
-			case '#':
-				tokenizer_error_print(ctx, "Cannot store socket descriptor in REAL");
-			break;
-			default:
-				basic_set_int_variable(fd_var, rv, ctx, false, false);
-			break;
-		}
-
-		accept_or_return(NEWLINE, ctx);
-	} else {
-		tokenizer_error_print(ctx, socket_error(rv));
-	}
-}
-
-void sockclose_statement(struct basic_ctx* ctx)
-{
-	const char* fd_var = NULL;
-
-	accept_or_return(SOCKCLOSE, ctx);
-	fd_var = tokenizer_variable_name(ctx);
-	accept_or_return(VARIABLE, ctx);
-
-	int rv = closesocket(basic_get_numeric_int_variable(fd_var, ctx));
-	if (rv == 0) {
-		// Clear variable to -1
-		basic_set_int_variable(fd_var, -1, ctx, false, false);
-		accept_or_return(NEWLINE, ctx);
-	} else {
-		tokenizer_error_print(ctx, socket_error(rv));
-	}
-}
-
 void let_statement(struct basic_ctx* ctx, bool global, bool local)
 {
 	const char* var;
@@ -1385,14 +1266,6 @@ void cls_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 }
 
-void gcol_statement(struct basic_ctx* ctx)
-{
-	accept_or_return(GCOL, ctx);
-	ctx->graphics_colour = expr(ctx);
-	//dprintf("New graphics color: %08X\n", ctx->graphics_colour);
-	accept_or_return(NEWLINE, ctx);
-}
-
 void gotoxy_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(CURSOR, ctx);
@@ -1401,76 +1274,6 @@ void gotoxy_statement(struct basic_ctx* ctx)
 	int64_t y = expr(ctx);
 	gotoxy(x, y);
 	accept_or_return(NEWLINE, ctx);
-}
-
-void draw_line_statement(struct basic_ctx* ctx)
-{
-	accept_or_return(LINE, ctx);
-	int64_t x1 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y1 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t x2 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y2 = expr(ctx);
-	accept_or_return(NEWLINE, ctx);
-	draw_line(x1, y1, x2, y2, ctx->graphics_colour);
-}
-
-void point_statement(struct basic_ctx* ctx)
-{
-	accept_or_return(POINT, ctx);
-	int64_t x1 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y1 = expr(ctx);
-	accept_or_return(NEWLINE, ctx);
-	putpixel(x1, y1, ctx->graphics_colour);
-}
-
-void triangle_statement(struct basic_ctx* ctx)
-{
-	accept_or_return(TRIANGLE, ctx);
-	int64_t x1 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y1 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t x2 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y2 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t x3 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y3 = expr(ctx);
-	accept_or_return(NEWLINE, ctx);
-	draw_triangle(x1, y1, x2, y2, x3, y3, ctx->graphics_colour);
-}
-
-void rectangle_statement(struct basic_ctx* ctx)
-{
-	accept_or_return(RECTANGLE, ctx);
-	int64_t x1 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y1 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t x2 = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y2 = expr(ctx);
-	accept_or_return(NEWLINE, ctx);
-	draw_horizontal_rectangle(x1, y1, x2, y2, ctx->graphics_colour);
-}
-
-void circle_statement(struct basic_ctx* ctx)
-{
-	accept_or_return(CIRCLE, ctx);
-	int64_t x = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t y = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t radius = expr(ctx);
-	accept_or_return(COMMA, ctx);
-	int64_t filled = expr(ctx);
-	accept_or_return(NEWLINE, ctx);
-	draw_circle(x, y, radius, filled, ctx->graphics_colour);
 }
 
 void gosub_statement(struct basic_ctx* ctx)
@@ -2277,20 +2080,6 @@ int64_t basic_getprocid(struct basic_ctx* ctx)
 	return proc_id(intval);
 }
 
-int64_t basic_rgb(struct basic_ctx* ctx)
-{
-	int64_t r, g, b;
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	r = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	g = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	b = intval;
-	PARAMS_END("RGB", 0);
-	return (uint32_t)(r << 16 | g << 8 | b);
-}
-
 char* basic_getprocname(struct basic_ctx* ctx)
 {
 	PARAMS_START;
@@ -2356,47 +2145,6 @@ char* basic_inkey(struct basic_ctx* ctx)
 	} else {
 		return gc_strdup((const char*)key);
 	}
-}
-
-char* basic_insocket(struct basic_ctx* ctx)
-{
-	uint8_t input[2] = { 0, 0 };
-	
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t fd = intval;
-	PARAMS_END("INSOCKET$","");
-
-	if (fd < 0) {
-		tokenizer_error_print(ctx, "Invalid socket descriptor");
-		return "";
-	}
-
-	int rv = recv(fd, input, 1, false, 0);
-
-	if (rv > 0) {
-		input[1] = 0;
-		return gc_strdup((const char*)input);
-	} else if (rv < 0) {
-		tokenizer_error_print(ctx, socket_error(rv));
-	} else {
-		__asm__ volatile("hlt");
-	}
-	return "";
-}
-
-int64_t basic_sockstatus(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t fd = intval;
-	PARAMS_END("SOCKSTATUS", 0);
-
-	if (fd < 0) {
-		return 0;
-	}
-
-	return is_connected(fd);
 }
 
 int64_t basic_ctrlkey(struct basic_ctx* ctx)
@@ -2478,49 +2226,6 @@ int64_t basic_instr(struct basic_ctx* ctx)
 		}
 	}
 	return 0;
-}
-
-char* basic_netinfo(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("NETINFO$","");
-	char ip[16] = { 0 };
-	if (!stricmp(strval, "ip")) {
-		unsigned char raw[4];
-		if (gethostaddr(raw)) {
-			get_ip_str(ip, (uint8_t*)&raw);
-			return gc_strdup(ip);
-		}
-		return gc_strdup("0.0.0.0");
-	}
-	if (!stricmp(strval, "gw")) {
-		uint32_t raw = getgatewayaddr();
-		get_ip_str(ip, (uint8_t*)&raw);
-		return gc_strdup(ip);
-	}
-	if (!stricmp(strval, "mask")) {
-		uint32_t raw = getnetmask();
-		get_ip_str(ip, (uint8_t*)&raw);
-		return gc_strdup(ip);
-	}
-	if (!stricmp(strval, "dns")) {
-		uint32_t raw = getdnsaddr();
-		get_ip_str(ip, (uint8_t*)&raw);
-		return gc_strdup(ip);
-	}
-	return gc_strdup("0.0.0.0");
-}
-
-char* basic_dns(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END("DNS$","");
-	char ip[16] = { 0 };
-	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2);
-	get_ip_str(ip, (uint8_t*)&addr);
-	return gc_strdup(ip);
 }
 
 char* basic_upper(struct basic_ctx* ctx)
@@ -2664,57 +2369,6 @@ int64_t basic_len(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("LEN",0);
 	return strlen(strval);
-}
-
-int64_t basic_abs(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("ABS",0);
-	return labs(intval);
-}
-
-void basic_sin(struct basic_ctx* ctx, double* res)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END_VOID("SIN");
-	*res = sin(doubleval);
-}
-
-void basic_cos(struct basic_ctx* ctx, double* res)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END_VOID("COS");
-	*res = cos(doubleval);
-}
-
-void basic_realval(struct basic_ctx* ctx, double* res)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_STRING);
-	PARAMS_END_VOID("REALVAL");
-	atof(strval, res);
-	return;
-}
-
-void basic_tan(struct basic_ctx* ctx, double* res)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END_VOID("TAN");
-	*res = tan(doubleval);
-}
-
-void basic_pow(struct basic_ctx* ctx, double* res)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_DOUBLE);
-	double base = doubleval;
-	PARAMS_GET_ITEM(BIP_DOUBLE);
-	PARAMS_END_VOID("POW");
-	*res = pow(base, doubleval);
 }
 
 /**
@@ -3093,165 +2747,3 @@ int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx)
 	return basic_get_int_variable(var, ctx);
 }
 
-void write_cpuid(struct basic_ctx* ctx, int leaf)
-{
-	__cpuid(
-		leaf,
-		ctx->last_cpuid_result.eax,
-		ctx->last_cpuid_result.ebx,
-		ctx->last_cpuid_result.ecx,
-		ctx->last_cpuid_result.edx);
-}
-
-void write_cpuidex(struct basic_ctx* ctx, int leaf, int subleaf)
-{
-	__cpuid_count(
-		leaf,
-		subleaf,
-		ctx->last_cpuid_result.eax,
-		ctx->last_cpuid_result.ebx,
-		ctx->last_cpuid_result.ecx,
-		ctx->last_cpuid_result.edx);
-}
-
-int64_t get_cpuid_reg(struct basic_ctx* ctx, int64_t reg)
-{
-	cpuid_result_t* res = &ctx->last_cpuid_result;
-	switch (reg) {
-	case 0:
-		return res->eax;
-	case 1:
-		return res->ebx;
-	case 2:
-		return res->ecx;
-	case 3:
-		return res->edx;
-	}
-	tokenizer_error_print(ctx, "Invaild register");
-	return 0;
-}
-
-int64_t basic_legacy_cpuid(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t leaf = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t subleaf = intval;
-	PARAMS_END("LEGACYCPUID", -1);
-	if (subleaf != -1) {
-		write_cpuidex(ctx, leaf, subleaf);
-		return 1;
-	}
-	write_cpuid(ctx, leaf);
-	return 0;
-}
-
-int64_t basic_legacy_getlastcpuid(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	PARAMS_END("LEGACYGETLASTCPUID", -1);
-	return get_cpuid_reg(ctx, intval);
-}
-
-char* basic_cpugetbrand(struct basic_ctx* ctx)
-{
-
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	bool trim = intval;
-	PARAMS_END("CPUGETBRAND$", "");
-	char buffer[50] = {0};
-	unsigned int* tmp = (unsigned int*) buffer;
-	__cpuid(
-		0x80000002,
-		tmp[0],
-		tmp[1],
-		tmp[2],
-		tmp[3]
-	);
-	__cpuid(
-		0x80000003,
-		tmp[4],
-		tmp[5],
-		tmp[6],
-		tmp[7]
-	);
-	__cpuid(
-		0x80000004,
-		tmp[8],
-		tmp[9],
-		tmp[10],
-		tmp[11]
-	);
-	buffer[48] = 0;
-	char* bufferp = (char*) buffer;
-	if (trim) {
-		while (*bufferp == ' ') {
-			++bufferp;
-		}
-	}
-	return gc_strdup(bufferp);
-}
-
-char* basic_cpugetvendor(struct basic_ctx* ctx)
-{
-	__cpuid(
-		0,
-		ctx->last_cpuid_result.eax,
-		ctx->last_cpuid_result.ebx,
-		ctx->last_cpuid_result.ecx,
-		ctx->last_cpuid_result.edx);
-	char buffer[13];
-	((unsigned int*) buffer)[0] = ctx->last_cpuid_result.ebx;
-	((unsigned int*) buffer)[1] = ctx->last_cpuid_result.edx;
-	((unsigned int*) buffer)[2] = ctx->last_cpuid_result.ecx;
-	buffer[12] = '\0';
-	return gc_strdup(buffer);
-}
-
-char* basic_intoasc(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t target = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t length = intval;
-	PARAMS_END("INTOASC$", "");
-	if (length < 0 || length > 8) {
-		tokenizer_error_print(ctx, "Invaild length");
-		return gc_strdup("");
-	}
-	char result[16] = {0};
-	(*(int64_t*) result) = target;
-	result[length] = '\0';
-	return gc_strdup(result);
-}
-
-int64_t basic_cpuid(struct basic_ctx* ctx)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t leaf = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t subleaf = intval;
-	PARAMS_GET_ITEM(BIP_INT);
-	int64_t reg = intval;
-	PARAMS_END("CPUID", -1);
-	if (subleaf != -1) {
-		write_cpuidex(ctx, leaf, subleaf);
-	} else {
-		write_cpuid(ctx, leaf);
-	}
-	return get_cpuid_reg(ctx, reg);
-}
-
-void basic_sqrt(struct basic_ctx* ctx, double* res)
-{
-	PARAMS_START;
-	PARAMS_GET_ITEM(BIP_DOUBLE);
-	double v = doubleval;
-	PARAMS_END_VOID("SQRT");
-	*res = sqrt(v);
-}

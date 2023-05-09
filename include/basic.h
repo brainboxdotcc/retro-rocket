@@ -719,3 +719,33 @@ int64_t basic_octval(struct basic_ctx* ctx);
 void basic_realval(struct basic_ctx* ctx, double* res);
 char* basic_str(struct basic_ctx* ctx);
 char* basic_bool(struct basic_ctx* ctx);
+
+/* Sockets functionality */
+void sockwrite_statement(struct basic_ctx* ctx);
+char* basic_dns(struct basic_ctx* ctx);
+char* basic_netinfo(struct basic_ctx* ctx);
+int64_t basic_sockstatus(struct basic_ctx* ctx);
+char* basic_insocket(struct basic_ctx* ctx);
+void sockclose_statement(struct basic_ctx* ctx);
+void connect_statement(struct basic_ctx* ctx);
+void sockread_statement(struct basic_ctx* ctx);
+
+/* Low level statements */
+void write_cpuid(struct basic_ctx* ctx, int leaf);
+void write_cpuidex(struct basic_ctx* ctx, int leaf, int subleaf);
+int64_t get_cpuid_reg(struct basic_ctx* ctx, int64_t reg);
+int64_t basic_legacy_cpuid(struct basic_ctx* ctx);
+int64_t basic_legacy_getlastcpuid(struct basic_ctx* ctx);
+char* basic_cpugetbrand(struct basic_ctx* ctx);
+char* basic_cpugetvendor(struct basic_ctx* ctx);
+char* basic_intoasc(struct basic_ctx* ctx);
+int64_t basic_cpuid(struct basic_ctx* ctx);
+
+/* Graphics statements */
+int64_t basic_rgb(struct basic_ctx* ctx);
+void circle_statement(struct basic_ctx* ctx);
+void triangle_statement(struct basic_ctx* ctx);
+void point_statement(struct basic_ctx* ctx);
+void draw_line_statement(struct basic_ctx* ctx);
+void gcol_statement(struct basic_ctx* ctx);
+void rectangle_statement(struct basic_ctx* ctx);
