@@ -1,15 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structe1000__tx__desc" kind="struct" language="C++" prot="public">
     <compoundname>e1000_tx_desc</compoundname>
     <includes local="no">e1000.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structe1000__tx__desc_1aa47a8cfea5d9afc2d0751615aad7d5b0" prot="public" static="no" mutable="no">
-        <type>volatile uint64_t</type>
+        <type>uint64_t</type>
         <definition>volatile uint64_t e1000_tx_desc::addr</definition>
         <argsstring></argsstring>
         <name>addr</name>
-        <qualifiedname>e1000_tx_desc::addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -19,11 +18,10 @@
         <location file="include/e1000.h" line="121" column="27" bodyfile="include/e1000.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structe1000__tx__desc_1a410f70f69e817adeac128eda97543fef" prot="public" static="no" mutable="no">
-        <type>volatile uint16_t</type>
+        <type>uint16_t</type>
         <definition>volatile uint16_t e1000_tx_desc::length</definition>
         <argsstring></argsstring>
         <name>length</name>
-        <qualifiedname>e1000_tx_desc::length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -33,11 +31,10 @@
         <location file="include/e1000.h" line="122" column="27" bodyfile="include/e1000.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structe1000__tx__desc_1a807a50149d88376ea5d17c8f4a42c75f" prot="public" static="no" mutable="no">
-        <type>volatile uint8_t</type>
+        <type>uint8_t</type>
         <definition>volatile uint8_t e1000_tx_desc::cso</definition>
         <argsstring></argsstring>
         <name>cso</name>
-        <qualifiedname>e1000_tx_desc::cso</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -47,11 +44,10 @@
         <location file="include/e1000.h" line="123" column="26" bodyfile="include/e1000.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structe1000__tx__desc_1af8aa75e3b925457db8aec8df5d28fab0" prot="public" static="no" mutable="no">
-        <type>volatile uint8_t</type>
+        <type>uint8_t</type>
         <definition>volatile uint8_t e1000_tx_desc::cmd</definition>
         <argsstring></argsstring>
         <name>cmd</name>
-        <qualifiedname>e1000_tx_desc::cmd</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,11 +57,10 @@
         <location file="include/e1000.h" line="124" column="26" bodyfile="include/e1000.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structe1000__tx__desc_1a3e5cf6634312d83a0860810ec2dfc17d" prot="public" static="no" mutable="no">
-        <type>volatile uint8_t</type>
+        <type>uint8_t</type>
         <definition>volatile uint8_t e1000_tx_desc::status</definition>
         <argsstring></argsstring>
         <name>status</name>
-        <qualifiedname>e1000_tx_desc::status</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -75,11 +70,10 @@
         <location file="include/e1000.h" line="125" column="26" bodyfile="include/e1000.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structe1000__tx__desc_1a387942d82f33e30603f493a141ea7bdc" prot="public" static="no" mutable="no">
-        <type>volatile uint8_t</type>
+        <type>uint8_t</type>
         <definition>volatile uint8_t e1000_tx_desc::css</definition>
         <argsstring></argsstring>
         <name>css</name>
-        <qualifiedname>e1000_tx_desc::css</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -89,11 +83,10 @@
         <location file="include/e1000.h" line="126" column="26" bodyfile="include/e1000.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structe1000__tx__desc_1a8a4f48429298f91cda0aa8949ecadd82" prot="public" static="no" mutable="no">
-        <type>volatile uint16_t</type>
+        <type>uint16_t</type>
         <definition>volatile uint16_t e1000_tx_desc::special</definition>
         <argsstring></argsstring>
         <name>special</name>
-        <qualifiedname>e1000_tx_desc::special</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -108,6 +101,15 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
+        <label>uint16_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>e1000_tx_desc</label>
         <link refid="structe1000__tx__desc"/>
@@ -124,15 +126,6 @@
           <edgelabel>css</edgelabel>
           <edgelabel>status</edgelabel>
         </childnode>
-      </node>
-      <node id="3">
-        <label>uint16_t</label>
-      </node>
-      <node id="2">
-        <label>uint64_t</label>
-      </node>
-      <node id="4">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/e1000.h" line="120" column="1" bodyfile="include/e1000.h" bodystart="120" bodyend="128"/>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structrtl8139__dev__t" kind="struct" language="C++" prot="public">
     <compoundname>rtl8139_dev_t</compoundname>
     <includes local="no">rtl8139.h</includes>
@@ -9,7 +9,6 @@
         <definition>bool rtl8139_dev_t::active</definition>
         <argsstring></argsstring>
         <name>active</name>
-        <qualifiedname>rtl8139_dev_t::active</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>char rtl8139_dev_t::name[16]</definition>
         <argsstring>[16]</argsstring>
         <name>name</name>
-        <qualifiedname>rtl8139_dev_t::name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint8_t rtl8139_dev_t::bar_type</definition>
         <argsstring></argsstring>
         <name>bar_type</name>
-        <qualifiedname>rtl8139_dev_t::bar_type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint16_t rtl8139_dev_t::io_base</definition>
         <argsstring></argsstring>
         <name>io_base</name>
-        <qualifiedname>rtl8139_dev_t::io_base</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint32_t rtl8139_dev_t::mem_base</definition>
         <argsstring></argsstring>
         <name>mem_base</name>
-        <qualifiedname>rtl8139_dev_t::mem_base</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>int rtl8139_dev_t::eeprom_exist</definition>
         <argsstring></argsstring>
         <name>eeprom_exist</name>
-        <qualifiedname>rtl8139_dev_t::eeprom_exist</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint8_t rtl8139_dev_t::mac_addr[6]</definition>
         <argsstring>[6]</argsstring>
         <name>mac_addr</name>
-        <qualifiedname>rtl8139_dev_t::mac_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>char rtl8139_dev_t::mac_addr_str[19]</definition>
         <argsstring>[19]</argsstring>
         <name>mac_addr_str</name>
-        <qualifiedname>rtl8139_dev_t::mac_addr_str</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint32_t rtl8139_dev_t::rx_buffer</definition>
         <argsstring></argsstring>
         <name>rx_buffer</name>
-        <qualifiedname>rtl8139_dev_t::rx_buffer</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>uint32_t rtl8139_dev_t::tx_buffers</definition>
         <argsstring></argsstring>
         <name>tx_buffers</name>
-        <qualifiedname>rtl8139_dev_t::tx_buffers</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -149,7 +139,6 @@
         <definition>int rtl8139_dev_t::tx_cur</definition>
         <argsstring></argsstring>
         <name>tx_cur</name>
-        <qualifiedname>rtl8139_dev_t::tx_cur</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -163,7 +152,6 @@
         <definition>uint32_t rtl8139_dev_t::current_packet_ptr</definition>
         <argsstring></argsstring>
         <name>current_packet_ptr</name>
-        <qualifiedname>rtl8139_dev_t::current_packet_ptr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -179,51 +167,51 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>bool</label>
-      </node>
-      <node id="3">
-        <label>char</label>
-      </node>
-      <node id="7">
-        <label>int</label>
-      </node>
       <node id="1">
         <label>rtl8139_dev_t</label>
         <link refid="structrtl8139__dev__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>active</edgelabel>
+          <edgelabel>io_base</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>mac_addr_str</edgelabel>
           <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>bar_type</edgelabel>
-          <edgelabel>mac_addr</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>io_base</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
           <edgelabel>current_packet_ptr</edgelabel>
           <edgelabel>mem_base</edgelabel>
           <edgelabel>rx_buffer</edgelabel>
           <edgelabel>tx_buffers</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>eeprom_exist</edgelabel>
           <edgelabel>tx_cur</edgelabel>
         </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>bar_type</edgelabel>
+          <edgelabel>mac_addr</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>active</edgelabel>
+        </childnode>
       </node>
-      <node id="5">
+      <node id="2">
         <label>uint16_t</label>
       </node>
-      <node id="6">
-        <label>uint32_t</label>
+      <node id="5">
+        <label>int</label>
       </node>
       <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="6">
         <label>uint8_t</label>
+      </node>
+      <node id="7">
+        <label>bool</label>
+      </node>
+      <node id="3">
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/rtl8139.h" line="147" column="1" bodyfile="include/rtl8139.h" bodystart="147" bodyend="160"/>

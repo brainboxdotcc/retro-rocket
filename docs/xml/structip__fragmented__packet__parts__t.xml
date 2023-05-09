@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structip__fragmented__packet__parts__t" kind="struct" language="C++" prot="public">
     <compoundname>ip_fragmented_packet_parts_t</compoundname>
     <includes local="no">ip.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint16_t ip_fragmented_packet_parts_t::id</definition>
         <argsstring></argsstring>
         <name>id</name>
-        <qualifiedname>ip_fragmented_packet_parts_t::id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint32_t ip_fragmented_packet_parts_t::size</definition>
         <argsstring></argsstring>
         <name>size</name>
-        <qualifiedname>ip_fragmented_packet_parts_t::size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>ip_packet_frag_t* ip_fragmented_packet_parts_t::ordered_list</definition>
         <argsstring></argsstring>
         <name>ordered_list</name>
-        <qualifiedname>ip_fragmented_packet_parts_t::ordered_list</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -52,44 +49,44 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="1">
-        <label>ip_fragmented_packet_parts_t</label>
-        <link refid="structip__fragmented__packet__parts__t"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>id</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>size</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>ordered_list</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
+      <node id="2">
         <label>ip_packet_frag_t</label>
         <link refid="structip__packet__frag__t"/>
         <childnode refid="3" relation="usage">
+          <edgelabel>packet</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>offset</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>packet</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
           <edgelabel>next</edgelabel>
           <edgelabel>prev</edgelabel>
         </childnode>
       </node>
-      <node id="5">
-        <label>ip_packet_t</label>
-      </node>
       <node id="6">
-        <label>struct ip_packet_frag *</label>
-      </node>
-      <node id="2">
         <label>uint16_t</label>
       </node>
-      <node id="3">
+      <node id="4">
         <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>struct ip_packet_frag *</label>
+      </node>
+      <node id="1">
+        <label>ip_fragmented_packet_parts_t</label>
+        <link refid="structip__fragmented__packet__parts__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ordered_list</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>id</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ip_packet_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ip.h" line="80" column="1" bodyfile="include/ip.h" bodystart="80" bodyend="84"/>

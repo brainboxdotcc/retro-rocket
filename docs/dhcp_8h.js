@@ -41,7 +41,7 @@ var dhcp_8h =
     [ "__attribute__", "dhcp_8h.html#af609d957a70f8b6388a2a1081cbabd4a", null ],
     [ "dhcp_discover", "dhcp_8h.html#a6028f8888ed57058a2980fc21c62f42d", null ],
     [ "dhcp_request", "dhcp_8h.html#a109d6076d8a1bd76c747e255c695e811", null ],
-    [ "get_dhcp_options", "dhcp_8h.html#a7402d4b4085ec09a51986c3ca9c17138", null ],
+    [ "get_dhcp_options", "dhcp_8h.html#a9668f2ab1536deb20757b3863bc72592", null ],
     [ "make_dhcp_packet", "dhcp_8h.html#aecfb3a139afb70e5e481a6b79dd4e6cc", null ],
     [ "boot_file", "dhcp_8h.html#a78ed9edda7b542ef10c7d09dbbde1eeb", null ],
     [ "client_hardware_addr", "dhcp_8h.html#a668cf3710953f506bc14fad30c1141c4", null ],

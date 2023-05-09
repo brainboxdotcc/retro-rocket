@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structioapic__t" kind="struct" language="C++" prot="public">
     <compoundname>ioapic_t</compoundname>
     <includes local="no">acpi.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t ioapic_t::id</definition>
         <argsstring></argsstring>
         <name>id</name>
-        <qualifiedname>ioapic_t::id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint64_t ioapic_t::paddr</definition>
         <argsstring></argsstring>
         <name>paddr</name>
-        <qualifiedname>ioapic_t::paddr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint32_t ioapic_t::gsi_base</definition>
         <argsstring></argsstring>
         <name>gsi_base</name>
-        <qualifiedname>ioapic_t::gsi_base</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint8_t ioapic_t::gsi_count</definition>
         <argsstring></argsstring>
         <name>gsi_count</name>
-        <qualifiedname>ioapic_t::gsi_count</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -67,27 +63,27 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
       <node id="1">
         <label>ioapic_t</label>
         <link refid="structioapic__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>paddr</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>gsi_base</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>gsi_count</edgelabel>
           <edgelabel>id</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>paddr</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>gsi_base</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
-        <label>uint32_t</label>
       </node>
       <node id="3">
-        <label>uint64_t</label>
+        <label>uint32_t</label>
       </node>
-      <node id="2">
+      <node id="4">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>

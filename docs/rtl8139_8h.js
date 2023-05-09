@@ -111,7 +111,7 @@ var rtl8139_8h =
       [ "TX_CRS", "rtl8139_8h.html#a2e53add6ee3b8f979db8707505e29015aacfae4836cc3918914bb2cc828254d37", null ]
     ] ],
     [ "init_rtl8139", "rtl8139_8h.html#aaeab8345c9dcf11708bfa095299f408a", null ],
-    [ "read_mac_addr", "rtl8139_8h.html#a38d4aeb3d3a6c3d8974301a88264fbad", null ],
+    [ "read_mac_addr", "rtl8139_8h.html#a6ffee74a1d59b89074475e3f63b90467", null ],
     [ "receive_packet", "rtl8139_8h.html#a2e3eda51e49f15540e2bff7ea40f05db", null ],
     [ "rtl8139_get_mac_addr", "rtl8139_8h.html#a6afdb8e39171181fcfd0e49f28b10e3e", null ],
     [ "rtl8139_handler", "rtl8139_8h.html#afcf1f3ad1e43a154cdee3c48beae8a93", null ],

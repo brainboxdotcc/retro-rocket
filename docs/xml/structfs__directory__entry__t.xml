@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structfs__directory__entry__t" kind="struct" language="C++" prot="public">
     <compoundname>fs_directory_entry_t</compoundname>
     <includes local="no">filesystem.h</includes>
@@ -9,7 +9,6 @@
         <definition>char* fs_directory_entry_t::filename</definition>
         <argsstring></argsstring>
         <name>filename</name>
-        <qualifiedname>fs_directory_entry_t::filename</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>char* fs_directory_entry_t::alt_filename</definition>
         <argsstring></argsstring>
         <name>alt_filename</name>
-        <qualifiedname>fs_directory_entry_t::alt_filename</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint16_t fs_directory_entry_t::year</definition>
         <argsstring></argsstring>
         <name>year</name>
-        <qualifiedname>fs_directory_entry_t::year</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint8_t fs_directory_entry_t::month</definition>
         <argsstring></argsstring>
         <name>month</name>
-        <qualifiedname>fs_directory_entry_t::month</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint8_t fs_directory_entry_t::day</definition>
         <argsstring></argsstring>
         <name>day</name>
-        <qualifiedname>fs_directory_entry_t::day</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>uint8_t fs_directory_entry_t::hour</definition>
         <argsstring></argsstring>
         <name>hour</name>
-        <qualifiedname>fs_directory_entry_t::hour</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint8_t fs_directory_entry_t::min</definition>
         <argsstring></argsstring>
         <name>min</name>
-        <qualifiedname>fs_directory_entry_t::min</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>uint8_t fs_directory_entry_t::sec</definition>
         <argsstring></argsstring>
         <name>sec</name>
-        <qualifiedname>fs_directory_entry_t::sec</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint64_t fs_directory_entry_t::lbapos</definition>
         <argsstring></argsstring>
         <name>lbapos</name>
-        <qualifiedname>fs_directory_entry_t::lbapos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>char fs_directory_entry_t::device_name[16]</definition>
         <argsstring>[16]</argsstring>
         <name>device_name</name>
-        <qualifiedname>fs_directory_entry_t::device_name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -149,7 +139,6 @@
         <definition>uint32_t fs_directory_entry_t::device</definition>
         <argsstring></argsstring>
         <name>device</name>
-        <qualifiedname>fs_directory_entry_t::device</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -163,7 +152,6 @@
         <definition>uint64_t fs_directory_entry_t::size</definition>
         <argsstring></argsstring>
         <name>size</name>
-        <qualifiedname>fs_directory_entry_t::size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -177,7 +165,6 @@
         <definition>uint32_t fs_directory_entry_t::flags</definition>
         <argsstring></argsstring>
         <name>flags</name>
-        <qualifiedname>fs_directory_entry_t::flags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -191,7 +178,6 @@
         <definition>struct fs_tree_t* fs_directory_entry_t::directory</definition>
         <argsstring></argsstring>
         <name>directory</name>
-        <qualifiedname>fs_directory_entry_t::directory</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -205,7 +191,6 @@
         <definition>struct fs_directory_entry_t* fs_directory_entry_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
-        <qualifiedname>fs_directory_entry_t::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -221,122 +206,122 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="11">
-        <label>bool</label>
+      <node id="10">
+        <label>void *</label>
       </node>
-      <node id="2">
-        <label>char</label>
-      </node>
-      <node id="8">
+      <node id="4">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>name</edgelabel>
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>mount</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>getdir</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="4" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>mount</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
           <edgelabel>readfile</edgelabel>
           <edgelabel>rm</edgelabel>
           <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
           <edgelabel>writefile</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>createdir</edgelabel>
-          <edgelabel>createfile</edgelabel>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="11">
+        <label>uint16_t</label>
+      </node>
+      <node id="7">
+        <label>int</label>
+      </node>
+      <node id="3">
+        <label>fs_tree_t</label>
+        <link refid="structfs__tree__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="1" relation="usage">
+          <edgelabel>files</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>child_dirs</edgelabel>
           <edgelabel>next</edgelabel>
+          <edgelabel>parent</edgelabel>
         </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>responsible_driver</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>dirty</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>uint32_t</label>
+      </node>
+      <node id="9">
+        <label>uint8_t</label>
+      </node>
+      <node id="5">
+        <label>void *(*)(void *)</label>
+      </node>
+      <node id="8">
+        <label>bool</label>
       </node>
       <node id="1">
         <label>fs_directory_entry_t</label>
         <link refid="structfs__directory__entry__t"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
         <childnode refid="2" relation="usage">
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>directory</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>year</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
           <edgelabel>alt_filename</edgelabel>
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>year</edgelabel>
+        <childnode refid="12" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>flags</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>day</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>min</edgelabel>
           <edgelabel>month</edgelabel>
           <edgelabel>sec</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>lbapos</edgelabel>
-          <edgelabel>size</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>flags</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>directory</edgelabel>
-        </childnode>
-        <childnode refid="1" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-      </node>
-      <node id="7">
-        <label>fs_tree_t</label>
-        <link refid="structfs__tree__t"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>dirty</edgelabel>
-        </childnode>
-        <childnode refid="2" relation="usage">
-          <edgelabel>device_name</edgelabel>
-          <edgelabel>name</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>child_dirs</edgelabel>
-          <edgelabel>next</edgelabel>
-          <edgelabel>parent</edgelabel>
-        </childnode>
-        <childnode refid="1" relation="usage">
-          <edgelabel>files</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>responsible_driver</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>lbapos</edgelabel>
-          <edgelabel>size</edgelabel>
-        </childnode>
-        <childnode refid="12" relation="usage">
-          <edgelabel>opaque</edgelabel>
-        </childnode>
-      </node>
-      <node id="9">
-        <label>int</label>
-      </node>
-      <node id="3">
-        <label>uint16_t</label>
       </node>
       <node id="6">
-        <label>uint32_t</label>
-      </node>
-      <node id="5">
-        <label>uint64_t</label>
-      </node>
-      <node id="4">
-        <label>uint8_t</label>
-      </node>
-      <node id="12">
-        <label>void *</label>
-      </node>
-      <node id="10">
-        <label>void *(*)(void *)</label>
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/filesystem.h" line="52" column="1" bodyfile="include/filesystem.h" bodystart="52" bodyend="69"/>

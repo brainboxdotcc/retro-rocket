@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structfs__tree__t" kind="struct" language="C++" prot="public">
     <compoundname>fs_tree_t</compoundname>
     <includes local="no">filesystem.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t fs_tree_t::dirty</definition>
         <argsstring></argsstring>
         <name>dirty</name>
-        <qualifiedname>fs_tree_t::dirty</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>char* fs_tree_t::name</definition>
         <argsstring></argsstring>
         <name>name</name>
-        <qualifiedname>fs_tree_t::name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>struct fs_tree_t* fs_tree_t::parent</definition>
         <argsstring></argsstring>
         <name>parent</name>
-        <qualifiedname>fs_tree_t::parent</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>struct fs_tree_t* fs_tree_t::child_dirs</definition>
         <argsstring></argsstring>
         <name>child_dirs</name>
-        <qualifiedname>fs_tree_t::child_dirs</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>struct fs_directory_entry_t* fs_tree_t::files</definition>
         <argsstring></argsstring>
         <name>files</name>
-        <qualifiedname>fs_tree_t::files</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>struct filesystem_t* fs_tree_t::responsible_driver</definition>
         <argsstring></argsstring>
         <name>responsible_driver</name>
-        <qualifiedname>fs_tree_t::responsible_driver</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint64_t fs_tree_t::lbapos</definition>
         <argsstring></argsstring>
         <name>lbapos</name>
-        <qualifiedname>fs_tree_t::lbapos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>char fs_tree_t::device_name[16]</definition>
         <argsstring>[16]</argsstring>
         <name>device_name</name>
-        <qualifiedname>fs_tree_t::device_name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint64_t fs_tree_t::device</definition>
         <argsstring></argsstring>
         <name>device</name>
-        <qualifiedname>fs_tree_t::device</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>uint64_t fs_tree_t::size</definition>
         <argsstring></argsstring>
         <name>size</name>
-        <qualifiedname>fs_tree_t::size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -149,7 +139,6 @@
         <definition>void* fs_tree_t::opaque</definition>
         <argsstring></argsstring>
         <name>opaque</name>
-        <qualifiedname>fs_tree_t::opaque</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -163,7 +152,6 @@
         <definition>struct fs_tree_t* fs_tree_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
-        <qualifiedname>fs_tree_t::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -180,23 +168,27 @@
 <para>Also used to route requests for that directory through to their driver. Also used to attach a driver initially to its mountpoint UNIX-style. <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> structs are usually not usable or visible to non-filesystem drivers. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="11">
-        <label>bool</label>
-      </node>
-      <node id="3">
-        <label>char</label>
+      <node id="12">
+        <label>void *</label>
       </node>
       <node id="8">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>name</edgelabel>
+        <childnode refid="2" relation="usage">
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
-          <edgelabel>mount</edgelabel>
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>name</edgelabel>
         </childnode>
         <childnode refid="10" relation="usage">
-          <edgelabel>getdir</edgelabel>
+          <edgelabel>mount</edgelabel>
         </childnode>
         <childnode refid="11" relation="usage">
           <edgelabel>readfile</edgelabel>
@@ -205,97 +197,93 @@
           <edgelabel>truncatefile</edgelabel>
           <edgelabel>writefile</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>createdir</edgelabel>
-          <edgelabel>createfile</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
       </node>
       <node id="4">
-        <label>fs_directory_entry_t</label>
-        <link refid="structfs__directory__entry__t"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>alt_filename</edgelabel>
-          <edgelabel>device_name</edgelabel>
-          <edgelabel>filename</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>year</edgelabel>
-        </childnode>
-        <childnode refid="2" relation="usage">
-          <edgelabel>day</edgelabel>
-          <edgelabel>hour</edgelabel>
-          <edgelabel>min</edgelabel>
-          <edgelabel>month</edgelabel>
-          <edgelabel>sec</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>lbapos</edgelabel>
-          <edgelabel>size</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>flags</edgelabel>
-        </childnode>
-        <childnode refid="1" relation="usage">
-          <edgelabel>directory</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
+        <label>uint16_t</label>
+      </node>
+      <node id="10">
+        <label>int</label>
       </node>
       <node id="1">
         <label>fs_tree_t</label>
         <link refid="structfs__tree__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>dirty</edgelabel>
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>device_name</edgelabel>
-          <edgelabel>name</edgelabel>
+          <edgelabel>files</edgelabel>
         </childnode>
         <childnode refid="1" relation="usage">
           <edgelabel>child_dirs</edgelabel>
           <edgelabel>next</edgelabel>
           <edgelabel>parent</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>files</edgelabel>
-        </childnode>
         <childnode refid="8" relation="usage">
           <edgelabel>responsible_driver</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>lbapos</edgelabel>
-          <edgelabel>size</edgelabel>
+        <childnode refid="5" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>dirty</edgelabel>
         </childnode>
         <childnode refid="12" relation="usage">
           <edgelabel>opaque</edgelabel>
         </childnode>
       </node>
-      <node id="9">
-        <label>int</label>
-      </node>
-      <node id="5">
-        <label>uint16_t</label>
-      </node>
-      <node id="7">
+      <node id="6">
         <label>uint32_t</label>
       </node>
-      <node id="6">
-        <label>uint64_t</label>
-      </node>
-      <node id="2">
+      <node id="7">
         <label>uint8_t</label>
       </node>
-      <node id="12">
-        <label>void *</label>
-      </node>
-      <node id="10">
+      <node id="9">
         <label>void *(*)(void *)</label>
+      </node>
+      <node id="11">
+        <label>bool</label>
+      </node>
+      <node id="3">
+        <label>fs_directory_entry_t</label>
+        <link refid="structfs__directory__entry__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>directory</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>year</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>alt_filename</edgelabel>
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>filename</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>flags</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>day</edgelabel>
+          <edgelabel>hour</edgelabel>
+          <edgelabel>min</edgelabel>
+          <edgelabel>month</edgelabel>
+          <edgelabel>sec</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/filesystem.h" line="250" column="1" bodyfile="include/filesystem.h" bodystart="250" bodyend="263"/>

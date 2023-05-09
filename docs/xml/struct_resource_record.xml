@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="struct_resource_record" kind="struct" language="C++" prot="public">
     <compoundname>ResourceRecord</compoundname>
     <includes local="no">dns.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t ResourceRecord::type</definition>
         <argsstring></argsstring>
         <name>type</name>
-        <qualifiedname>ResourceRecord::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint32_t ResourceRecord::rr_class</definition>
         <argsstring></argsstring>
         <name>rr_class</name>
-        <qualifiedname>ResourceRecord::rr_class</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint32_t ResourceRecord::ttl</definition>
         <argsstring></argsstring>
         <name>ttl</name>
-        <qualifiedname>ResourceRecord::ttl</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint32_t ResourceRecord::rdlength</definition>
         <argsstring></argsstring>
         <name>rdlength</name>
-        <qualifiedname>ResourceRecord::rdlength</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -71,18 +67,18 @@
         <label>ResourceRecord</label>
         <link refid="struct_resource_record"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>type</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>rdlength</edgelabel>
           <edgelabel>rr_class</edgelabel>
           <edgelabel>ttl</edgelabel>
         </childnode>
-      </node>
-      <node id="3">
-        <label>uint32_t</label>
+        <childnode refid="3" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
       </node>
       <node id="2">
+        <label>uint32_t</label>
+      </node>
+      <node id="3">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>

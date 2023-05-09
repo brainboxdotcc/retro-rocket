@@ -8,7 +8,7 @@ var acpi_8h =
     [ "get_cpu_count", "acpi_8h.html#a1a6dfa32a21e7522a6094874a4c36e0c", null ],
     [ "get_ioapic", "acpi_8h.html#ab3f0de3b6d0c93058d3615110a0c7f39", null ],
     [ "get_ioapic_count", "acpi_8h.html#a6cbfbecf6dc77c9aebad4a0836e2b9fd", null ],
-    [ "get_lapic_ids", "acpi_8h.html#a880fc46c376ff5d20147c7cd3cfb9079", null ],
+    [ "get_lapic_ids", "acpi_8h.html#ae7164bbaa4c4e814bdeaf05f386103ba", null ],
     [ "get_local_apic", "acpi_8h.html#a9a09b0320ee05b488156e6a7f4be862b", null ],
     [ "init_cores", "acpi_8h.html#a1994da1e5a421570132607aaad5afec9", null ],
     [ "checksum", "acpi_8h.html#a6796c847bbd16253ce2538754c250bd6", null ],

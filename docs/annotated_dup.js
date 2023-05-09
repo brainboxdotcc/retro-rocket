@@ -40,6 +40,7 @@ var annotated_dup =
     [ "fs_directory_entry_t", "structfs__directory__entry__t.html", "structfs__directory__entry__t" ],
     [ "fs_handle_t", "structfs__handle__t.html", "structfs__handle__t" ],
     [ "fs_tree_t", "structfs__tree__t.html", "structfs__tree__t" ],
+    [ "g_cpuid_vendor_t", "structg__cpuid__vendor__t.html", "structg__cpuid__vendor__t" ],
     [ "gc_str", "structgc__str.html", "structgc__str" ],
     [ "gpt_entry_t", "structgpt__entry__t.html", "structgpt__entry__t" ],
     [ "gpt_header_t", "structgpt__header__t.html", "structgpt__header__t" ],

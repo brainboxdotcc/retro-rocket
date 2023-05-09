@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structidt__entry" kind="struct" language="C++" prot="public">
     <compoundname>idt_entry</compoundname>
     <includes local="no">idt.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint16_t idt_entry_t::offset_1</definition>
         <argsstring></argsstring>
         <name>offset_1</name>
-        <qualifiedname>idt_entry::offset_1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint16_t idt_entry_t::selector</definition>
         <argsstring></argsstring>
         <name>selector</name>
-        <qualifiedname>idt_entry::selector</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint8_t idt_entry_t::ist</definition>
         <argsstring></argsstring>
         <name>ist</name>
-        <qualifiedname>idt_entry::ist</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint8_t idt_entry_t::type_attributes</definition>
         <argsstring></argsstring>
         <name>type_attributes</name>
-        <qualifiedname>idt_entry::type_attributes</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint16_t idt_entry_t::offset_2</definition>
         <argsstring></argsstring>
         <name>offset_2</name>
-        <qualifiedname>idt_entry::offset_2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>uint32_t idt_entry_t::offset_3</definition>
         <argsstring></argsstring>
         <name>offset_3</name>
-        <qualifiedname>idt_entry::offset_3</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint32_t idt_entry_t::zero</definition>
         <argsstring></argsstring>
         <name>zero</name>
-        <qualifiedname>idt_entry::zero</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -108,6 +101,15 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>idt_entry_t</label>
         <link refid="structidt__entry"/>
@@ -117,22 +119,13 @@
           <edgelabel>selector</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>ist</edgelabel>
-          <edgelabel>type_attributes</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>offset_3</edgelabel>
           <edgelabel>zero</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint16_t</label>
-      </node>
-      <node id="4">
-        <label>uint32_t</label>
-      </node>
-      <node id="3">
-        <label>uint8_t</label>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ist</edgelabel>
+          <edgelabel>type_attributes</edgelabel>
+        </childnode>
       </node>
     </collaborationgraph>
     <location file="include/idt.h" line="17" column="1" bodyfile="include/idt.h" bodystart="17" bodyend="25"/>

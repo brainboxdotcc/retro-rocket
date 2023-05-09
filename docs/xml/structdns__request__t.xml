@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structdns__request__t" kind="struct" language="C++" prot="public">
     <compoundname>dns_request_t</compoundname>
     <includes local="no">dns.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint16_t dns_request_t::id</definition>
         <argsstring></argsstring>
         <name>id</name>
-        <qualifiedname>dns_request_t::id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint32_t dns_request_t::rr_class</definition>
         <argsstring></argsstring>
         <name>rr_class</name>
-        <qualifiedname>dns_request_t::rr_class</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint32_t dns_request_t::ttl</definition>
         <argsstring></argsstring>
         <name>ttl</name>
-        <qualifiedname>dns_request_t::ttl</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint16_t dns_request_t::type</definition>
         <argsstring></argsstring>
         <name>type</name>
-        <qualifiedname>dns_request_t::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>unsigned char* dns_request_t::orig</definition>
         <argsstring></argsstring>
         <name>orig</name>
-        <qualifiedname>dns_request_t::orig</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>char dns_request_t::result[256]</definition>
         <argsstring>[256]</argsstring>
         <name>result</name>
-        <qualifiedname>dns_request_t::result</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint8_t dns_request_t::result_length</definition>
         <argsstring></argsstring>
         <name>result_length</name>
-        <qualifiedname>dns_request_t::result_length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>dns_reply_callback_a dns_request_t::callback_a</definition>
         <argsstring></argsstring>
         <name>callback_a</name>
-        <qualifiedname>dns_request_t::callback_a</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>dns_reply_callback_aaaa dns_request_t::callback_aaaa</definition>
         <argsstring></argsstring>
         <name>callback_aaaa</name>
-        <qualifiedname>dns_request_t::callback_aaaa</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>dns_reply_callback_ptr dns_request_t::callback_ptr</definition>
         <argsstring></argsstring>
         <name>callback_ptr</name>
-        <qualifiedname>dns_request_t::callback_ptr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -150,39 +140,39 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="3">
+        <label>uint16_t</label>
+      </node>
       <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
+      <node id="2">
         <label>char</label>
       </node>
       <node id="1">
         <label>dns_request_t</label>
         <link refid="structdns__request__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>id</edgelabel>
-          <edgelabel>type</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>callback_a</edgelabel>
-          <edgelabel>rr_class</edgelabel>
-          <edgelabel>ttl</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>callback_ptr</edgelabel>
           <edgelabel>orig</edgelabel>
           <edgelabel>result</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>id</edgelabel>
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>callback_a</edgelabel>
+          <edgelabel>rr_class</edgelabel>
+          <edgelabel>ttl</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>callback_aaaa</edgelabel>
           <edgelabel>result_length</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint16_t</label>
-      </node>
-      <node id="3">
-        <label>uint32_t</label>
-      </node>
-      <node id="5">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/dns.h" line="70" column="1" bodyfile="include/dns.h" bodystart="70" bodyend="81"/>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="uniontcp__segment__flags__t" kind="union" language="C++" prot="public">
     <compoundname>tcp_segment_flags_t</compoundname>
     <includes local="no">tcp.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t tcp_segment_flags_t::bits1</definition>
         <argsstring></argsstring>
         <name>bits1</name>
-        <qualifiedname>tcp_segment_flags_t::bits1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t tcp_segment_flags_t::bits2</definition>
         <argsstring></argsstring>
         <name>bits2</name>
-        <qualifiedname>tcp_segment_flags_t::bits2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint8_t tcp_segment_flags_t::reserved</definition>
         <argsstring></argsstring>
         <name>reserved</name>
-        <qualifiedname>tcp_segment_flags_t::reserved</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -52,7 +49,6 @@
         <definition>uint8_t tcp_segment_flags_t::off</definition>
         <argsstring></argsstring>
         <name>off</name>
-        <qualifiedname>tcp_segment_flags_t::off</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -67,7 +63,6 @@
         <definition>uint8_t tcp_segment_flags_t::fin</definition>
         <argsstring></argsstring>
         <name>fin</name>
-        <qualifiedname>tcp_segment_flags_t::fin</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -82,7 +77,6 @@
         <definition>uint8_t tcp_segment_flags_t::syn</definition>
         <argsstring></argsstring>
         <name>syn</name>
-        <qualifiedname>tcp_segment_flags_t::syn</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -97,7 +91,6 @@
         <definition>uint8_t tcp_segment_flags_t::rst</definition>
         <argsstring></argsstring>
         <name>rst</name>
-        <qualifiedname>tcp_segment_flags_t::rst</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -112,7 +105,6 @@
         <definition>uint8_t tcp_segment_flags_t::psh</definition>
         <argsstring></argsstring>
         <name>psh</name>
-        <qualifiedname>tcp_segment_flags_t::psh</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -127,7 +119,6 @@
         <definition>uint8_t tcp_segment_flags_t::ack</definition>
         <argsstring></argsstring>
         <name>ack</name>
-        <qualifiedname>tcp_segment_flags_t::ack</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -142,7 +133,6 @@
         <definition>uint8_t tcp_segment_flags_t::urg</definition>
         <argsstring></argsstring>
         <name>urg</name>
-        <qualifiedname>tcp_segment_flags_t::urg</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -157,7 +147,6 @@
         <definition>uint8_t tcp_segment_flags_t::ece</definition>
         <argsstring></argsstring>
         <name>ece</name>
-        <qualifiedname>tcp_segment_flags_t::ece</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -172,7 +161,6 @@
         <definition>uint8_t tcp_segment_flags_t::cwr</definition>
         <argsstring></argsstring>
         <name>cwr</name>
-        <qualifiedname>tcp_segment_flags_t::cwr</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -187,7 +175,6 @@
         <definition>struct tcp_segment_flags_t::@10 tcp_segment_flags_t::@11</definition>
         <argsstring></argsstring>
         <name>@11</name>
-        <qualifiedname>tcp_segment_flags_t::@11</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -202,13 +189,16 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
+      <node id="2">
         <label>anonymous:@11</label>
       </node>
       <node id="1">
         <label>tcp_segment_flags_t</label>
         <link refid="uniontcp__segment__flags__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>@11</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>ack</edgelabel>
           <edgelabel>bits1</edgelabel>
           <edgelabel>bits2</edgelabel>
@@ -221,11 +211,8 @@
           <edgelabel>rst</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>@11</edgelabel>
-        </childnode>
       </node>
-      <node id="2">
+      <node id="3">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structdirectory__entry__t" kind="struct" language="C++" prot="public">
     <compoundname>directory_entry_t</compoundname>
     <includes local="no">fat32.h</includes>
@@ -9,7 +9,6 @@
         <definition>char directory_entry_t::name[11]</definition>
         <argsstring>[11]</argsstring>
         <name>name</name>
-        <qualifiedname>directory_entry_t::name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t directory_entry_t::attr</definition>
         <argsstring></argsstring>
         <name>attr</name>
-        <qualifiedname>directory_entry_t::attr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint8_t directory_entry_t::nt</definition>
         <argsstring></argsstring>
         <name>nt</name>
-        <qualifiedname>directory_entry_t::nt</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint8_t directory_entry_t::create_time_tenths</definition>
         <argsstring></argsstring>
         <name>create_time_tenths</name>
-        <qualifiedname>directory_entry_t::create_time_tenths</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint16_t directory_entry_t::create_time</definition>
         <argsstring></argsstring>
         <name>create_time</name>
-        <qualifiedname>directory_entry_t::create_time</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>uint16_t directory_entry_t::create_date</definition>
         <argsstring></argsstring>
         <name>create_date</name>
-        <qualifiedname>directory_entry_t::create_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint16_t directory_entry_t::access_date</definition>
         <argsstring></argsstring>
         <name>access_date</name>
-        <qualifiedname>directory_entry_t::access_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>uint16_t directory_entry_t::first_cluster_hi</definition>
         <argsstring></argsstring>
         <name>first_cluster_hi</name>
-        <qualifiedname>directory_entry_t::first_cluster_hi</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint16_t directory_entry_t::write_time</definition>
         <argsstring></argsstring>
         <name>write_time</name>
-        <qualifiedname>directory_entry_t::write_time</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>uint16_t directory_entry_t::write_date</definition>
         <argsstring></argsstring>
         <name>write_date</name>
-        <qualifiedname>directory_entry_t::write_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -149,7 +139,6 @@
         <definition>uint16_t directory_entry_t::first_cluster_lo</definition>
         <argsstring></argsstring>
         <name>first_cluster_lo</name>
-        <qualifiedname>directory_entry_t::first_cluster_lo</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -163,7 +152,6 @@
         <definition>uint32_t directory_entry_t::size</definition>
         <argsstring></argsstring>
         <name>size</name>
-        <qualifiedname>directory_entry_t::size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -179,21 +167,10 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>char</label>
-      </node>
       <node id="1">
         <label>directory_entry_t</label>
         <link refid="structdirectory__entry__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>name</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>attr</edgelabel>
-          <edgelabel>create_time_tenths</edgelabel>
-          <edgelabel>nt</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>access_date</edgelabel>
           <edgelabel>create_date</edgelabel>
           <edgelabel>create_time</edgelabel>
@@ -202,18 +179,29 @@
           <edgelabel>write_date</edgelabel>
           <edgelabel>write_time</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="3" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>size</edgelabel>
         </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>attr</edgelabel>
+          <edgelabel>create_time_tenths</edgelabel>
+          <edgelabel>nt</edgelabel>
+        </childnode>
       </node>
-      <node id="4">
+      <node id="2">
         <label>uint16_t</label>
       </node>
-      <node id="5">
+      <node id="4">
         <label>uint32_t</label>
       </node>
-      <node id="3">
+      <node id="5">
         <label>uint8_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/fat32.h" line="79" column="1" bodyfile="include/fat32.h" bodystart="79" bodyend="92"/>

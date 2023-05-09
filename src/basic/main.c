@@ -1,5 +1,7 @@
-/*
- * BBC BASIC interpreter,
+/**
+ * @file basic/main.c
+ * @brief Main functions for BASIC interpreter, context creation, destruction and cloning
+
  * Retro Rocket OS Project (C) Craig Edwards 2012.
  * loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).
  *

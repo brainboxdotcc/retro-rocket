@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structfat32__fs__info__t" kind="struct" language="C++" prot="public">
     <compoundname>fat32_fs_info_t</compoundname>
     <includes local="no">fat32.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint32_t fat32_fs_info_t::signature1</definition>
         <argsstring></argsstring>
         <name>signature1</name>
-        <qualifiedname>fat32_fs_info_t::signature1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>char fat32_fs_info_t::reserved1[480]</definition>
         <argsstring>[480]</argsstring>
         <name>reserved1</name>
-        <qualifiedname>fat32_fs_info_t::reserved1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint32_t fat32_fs_info_t::structsig</definition>
         <argsstring></argsstring>
         <name>structsig</name>
-        <qualifiedname>fat32_fs_info_t::structsig</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint32_t fat32_fs_info_t::freecount</definition>
         <argsstring></argsstring>
         <name>freecount</name>
-        <qualifiedname>fat32_fs_info_t::freecount</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint32_t fat32_fs_info_t::nextfree</definition>
         <argsstring></argsstring>
         <name>nextfree</name>
-        <qualifiedname>fat32_fs_info_t::nextfree</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>char fat32_fs_info_t::reserved2[12]</definition>
         <argsstring>[12]</argsstring>
         <name>reserved2</name>
-        <qualifiedname>fat32_fs_info_t::reserved2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint32_t fat32_fs_info_t::trailsig</definition>
         <argsstring></argsstring>
         <name>trailsig</name>
-        <qualifiedname>fat32_fs_info_t::trailsig</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -109,26 +102,26 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>char</label>
-      </node>
       <node id="1">
         <label>fat32_fs_info_t</label>
         <link refid="structfat32__fs__info__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>reserved1</edgelabel>
+          <edgelabel>reserved2</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>freecount</edgelabel>
           <edgelabel>nextfree</edgelabel>
           <edgelabel>signature1</edgelabel>
           <edgelabel>structsig</edgelabel>
           <edgelabel>trailsig</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>reserved1</edgelabel>
-          <edgelabel>reserved2</edgelabel>
-        </childnode>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
       </node>
       <node id="2">
-        <label>uint32_t</label>
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/fat32.h" line="46" column="1" bodyfile="include/fat32.h" bodystart="46" bodyend="54"/>

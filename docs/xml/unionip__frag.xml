@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="unionip__frag" kind="union" language="C++" prot="public">
     <compoundname>ip_frag</compoundname>
     <includes local="no">ip.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint16_t ip_frag::bits</definition>
         <argsstring></argsstring>
         <name>bits</name>
-        <qualifiedname>ip_frag::bits</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t ip_frag::reserved_zero</definition>
         <argsstring></argsstring>
         <name>reserved_zero</name>
-        <qualifiedname>ip_frag::reserved_zero</qualifiedname>
         <bitfield> 1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -38,7 +36,6 @@
         <definition>uint8_t ip_frag::dont_fragment</definition>
         <argsstring></argsstring>
         <name>dont_fragment</name>
-        <qualifiedname>ip_frag::dont_fragment</qualifiedname>
         <bitfield> 1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -53,7 +50,6 @@
         <definition>uint8_t ip_frag::more_fragments_follow</definition>
         <argsstring></argsstring>
         <name>more_fragments_follow</name>
-        <qualifiedname>ip_frag::more_fragments_follow</qualifiedname>
         <bitfield> 1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -68,7 +64,6 @@
         <definition>uint8_t ip_frag::fragment_offset_high</definition>
         <argsstring></argsstring>
         <name>fragment_offset_high</name>
-        <qualifiedname>ip_frag::fragment_offset_high</qualifiedname>
         <bitfield> 5</bitfield>
         <briefdescription>
         </briefdescription>
@@ -83,7 +78,6 @@
         <definition>uint8_t ip_frag::fragment_offset_low</definition>
         <argsstring></argsstring>
         <name>fragment_offset_low</name>
-        <qualifiedname>ip_frag::fragment_offset_low</qualifiedname>
         <bitfield> 8</bitfield>
         <briefdescription>
         </briefdescription>
@@ -98,7 +92,6 @@
         <definition>struct ip_frag::@0 ip_frag::@1</definition>
         <argsstring></argsstring>
         <name>@1</name>
-        <qualifiedname>ip_frag::@1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -117,6 +110,12 @@
       <node id="4">
         <label>anonymous:@1</label>
       </node>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>ip_frag</label>
         <link refid="unionip__frag"/>
@@ -133,12 +132,6 @@
         <childnode refid="4" relation="usage">
           <edgelabel>@1</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint16_t</label>
-      </node>
-      <node id="3">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ip.h" line="33" column="1" bodyfile="include/ip.h" bodystart="33" bodyend="42"/>

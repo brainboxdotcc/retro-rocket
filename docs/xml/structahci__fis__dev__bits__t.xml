@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structahci__fis__dev__bits__t" kind="struct" language="C++" prot="public">
     <compoundname>ahci_fis_dev_bits_t</compoundname>
     <includes local="no">ahci.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::fis_type</definition>
         <argsstring></argsstring>
         <name>fis_type</name>
-        <qualifiedname>ahci_fis_dev_bits_t::fis_type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::pmport</definition>
         <argsstring></argsstring>
         <name>pmport</name>
-        <qualifiedname>ahci_fis_dev_bits_t::pmport</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -38,7 +36,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::rsvd</definition>
         <argsstring></argsstring>
         <name>rsvd</name>
-        <qualifiedname>ahci_fis_dev_bits_t::rsvd</qualifiedname>
         <bitfield>2</bitfield>
         <briefdescription>
         </briefdescription>
@@ -53,7 +50,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::i</definition>
         <argsstring></argsstring>
         <name>i</name>
-        <qualifiedname>ahci_fis_dev_bits_t::i</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -68,7 +64,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::n</definition>
         <argsstring></argsstring>
         <name>n</name>
-        <qualifiedname>ahci_fis_dev_bits_t::n</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -83,7 +78,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::statusl</definition>
         <argsstring></argsstring>
         <name>statusl</name>
-        <qualifiedname>ahci_fis_dev_bits_t::statusl</qualifiedname>
         <bitfield>3</bitfield>
         <briefdescription>
         </briefdescription>
@@ -98,7 +92,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::rsvd2</definition>
         <argsstring></argsstring>
         <name>rsvd2</name>
-        <qualifiedname>ahci_fis_dev_bits_t::rsvd2</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -113,7 +106,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::statush</definition>
         <argsstring></argsstring>
         <name>statush</name>
-        <qualifiedname>ahci_fis_dev_bits_t::statush</qualifiedname>
         <bitfield>3</bitfield>
         <briefdescription>
         </briefdescription>
@@ -128,7 +120,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::rsvd3</definition>
         <argsstring></argsstring>
         <name>rsvd3</name>
-        <qualifiedname>ahci_fis_dev_bits_t::rsvd3</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -143,7 +134,6 @@
         <definition>uint8_t ahci_fis_dev_bits_t::error</definition>
         <argsstring></argsstring>
         <name>error</name>
-        <qualifiedname>ahci_fis_dev_bits_t::error</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -158,6 +148,9 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>ahci_fis_dev_bits_t</label>
         <link refid="structahci__fis__dev__bits__t"/>
@@ -174,9 +167,6 @@
           <edgelabel>statusl</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ahci.h" line="214" column="1" bodyfile="include/ahci.h" bodystart="214" bodyend="225"/>

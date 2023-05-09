@@ -1,5 +1,5 @@
 var ramdisk_8h =
 [
-    [ "init_ramdisk", "ramdisk_8h.html#a2338ab3c1c0d3bce36c530a7c0bbb8bd", null ],
-    [ "init_ramdisk_from_storage", "ramdisk_8h.html#a9f393ce6db46f3552a45fbbdf2dda2b6", null ]
+    [ "init_ramdisk", "ramdisk_8h.html#af84c012f7363b70081ad1db8212a3e24", null ],
+    [ "init_ramdisk_from_storage", "ramdisk_8h.html#acd0ea3e208dd91c4a5352db5f152a502", null ]
 ];

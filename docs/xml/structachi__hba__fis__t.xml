@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structachi__hba__fis__t" kind="struct" language="C++" prot="public">
     <compoundname>achi_hba_fis_t</compoundname>
     <includes local="no">ahci.h</includes>
@@ -9,7 +9,6 @@
         <definition>ahci_fis_dma_setup_t achi_hba_fis_t::dsfis</definition>
         <argsstring></argsstring>
         <name>dsfis</name>
-        <qualifiedname>achi_hba_fis_t::dsfis</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t achi_hba_fis_t::pad0[4]</definition>
         <argsstring>[4]</argsstring>
         <name>pad0</name>
-        <qualifiedname>achi_hba_fis_t::pad0</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>ahci_fis_pio_setup_t achi_hba_fis_t::psfis</definition>
         <argsstring></argsstring>
         <name>psfis</name>
-        <qualifiedname>achi_hba_fis_t::psfis</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint8_t achi_hba_fis_t::pad1[12]</definition>
         <argsstring>[12]</argsstring>
         <name>pad1</name>
-        <qualifiedname>achi_hba_fis_t::pad1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>ahci_fis_reg_d2h_t achi_hba_fis_t::rfis</definition>
         <argsstring></argsstring>
         <name>rfis</name>
-        <qualifiedname>achi_hba_fis_t::rfis</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>uint8_t achi_hba_fis_t::pad2[4]</definition>
         <argsstring>[4]</argsstring>
         <name>pad2</name>
-        <qualifiedname>achi_hba_fis_t::pad2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>ahci_fis_dev_bits_t achi_hba_fis_t::sdbfis</definition>
         <argsstring></argsstring>
         <name>sdbfis</name>
-        <qualifiedname>achi_hba_fis_t::sdbfis</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>uint8_t achi_hba_fis_t::ufis[64]</definition>
         <argsstring>[64]</argsstring>
         <name>ufis</name>
-        <qualifiedname>achi_hba_fis_t::ufis</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint8_t achi_hba_fis_t::rsv[0x100-0xA0]</definition>
         <argsstring>[0x100-0xA0]</argsstring>
         <name>rsv</name>
-        <qualifiedname>achi_hba_fis_t::rsv</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -136,49 +127,18 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="1">
-        <label>achi_hba_fis_t</label>
-        <link refid="structachi__hba__fis__t"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>dsfis</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>pad0</edgelabel>
-          <edgelabel>pad1</edgelabel>
-          <edgelabel>pad2</edgelabel>
-          <edgelabel>rsv</edgelabel>
-          <edgelabel>ufis</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>psfis</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>rfis</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>sdbfis</edgelabel>
-        </childnode>
-      </node>
-      <node id="9">
-        <label>ahci_fis_dev_bits_t</label>
-        <link refid="structahci__fis__dev__bits__t"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>error</edgelabel>
-          <edgelabel>fis_type</edgelabel>
-          <edgelabel>i</edgelabel>
-          <edgelabel>n</edgelabel>
-          <edgelabel>pmport</edgelabel>
-          <edgelabel>rsvd</edgelabel>
-          <edgelabel>rsvd2</edgelabel>
-          <edgelabel>rsvd3</edgelabel>
-          <edgelabel>statush</edgelabel>
-          <edgelabel>statusl</edgelabel>
-          <edgelabel>...</edgelabel>
-        </childnode>
-      </node>
-      <node id="2">
+      <node id="5">
         <label>ahci_fis_dma_setup_t</label>
         <link refid="structahci__fis__dma__setup__t"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>DMAbufferID</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>DMAbufOffset</edgelabel>
+          <edgelabel>TransferCount</edgelabel>
+          <edgelabel>resvd</edgelabel>
+          <edgelabel>rsvd</edgelabel>
+        </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>a</edgelabel>
           <edgelabel>d</edgelabel>
@@ -188,19 +148,13 @@
           <edgelabel>rsv0</edgelabel>
           <edgelabel>rsved</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>DMAbufferID</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>DMAbufOffset</edgelabel>
-          <edgelabel>TransferCount</edgelabel>
-          <edgelabel>resvd</edgelabel>
-          <edgelabel>rsvd</edgelabel>
-        </childnode>
       </node>
-      <node id="6">
+      <node id="8">
         <label>ahci_fis_pio_setup_t</label>
         <link refid="structahci__fis__pio__setup__t"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>tc</edgelabel>
+        </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>counth</edgelabel>
           <edgelabel>countl</edgelabel>
@@ -214,11 +168,34 @@
           <edgelabel>lba1</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>tc</edgelabel>
+      </node>
+      <node id="1">
+        <label>achi_hba_fis_t</label>
+        <link refid="structachi__hba__fis__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sdbfis</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>rfis</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>dsfis</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>pad0</edgelabel>
+          <edgelabel>pad1</edgelabel>
+          <edgelabel>pad2</edgelabel>
+          <edgelabel>rsv</edgelabel>
+          <edgelabel>ufis</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>psfis</edgelabel>
         </childnode>
       </node>
-      <node id="8">
+      <node id="6">
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
         <label>ahci_fis_reg_d2h_t</label>
         <link refid="structahci__fis__reg__d2h__t"/>
         <childnode refid="3" relation="usage">
@@ -235,17 +212,31 @@
           <edgelabel>...</edgelabel>
         </childnode>
       </node>
-      <node id="7">
+      <node id="9">
         <label>uint16_t</label>
       </node>
-      <node id="5">
+      <node id="7">
         <label>uint32_t</label>
-      </node>
-      <node id="4">
-        <label>uint64_t</label>
       </node>
       <node id="3">
         <label>uint8_t</label>
+      </node>
+      <node id="2">
+        <label>ahci_fis_dev_bits_t</label>
+        <link refid="structahci__fis__dev__bits__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>error</edgelabel>
+          <edgelabel>fis_type</edgelabel>
+          <edgelabel>i</edgelabel>
+          <edgelabel>n</edgelabel>
+          <edgelabel>pmport</edgelabel>
+          <edgelabel>rsvd</edgelabel>
+          <edgelabel>rsvd2</edgelabel>
+          <edgelabel>rsvd3</edgelabel>
+          <edgelabel>statush</edgelabel>
+          <edgelabel>statusl</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
       </node>
     </collaborationgraph>
     <location file="include/ahci.h" line="227" column="1" bodyfile="include/ahci.h" bodystart="228" bodyend="249"/>

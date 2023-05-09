@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structudp__packet" kind="struct" language="C++" prot="public">
     <compoundname>udp_packet</compoundname>
     <includes local="no">udp.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint16_t udp_packet::src_port</definition>
         <argsstring></argsstring>
         <name>src_port</name>
-        <qualifiedname>udp_packet::src_port</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint16_t udp_packet::dst_port</definition>
         <argsstring></argsstring>
         <name>dst_port</name>
-        <qualifiedname>udp_packet::dst_port</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint16_t udp_packet::length</definition>
         <argsstring></argsstring>
         <name>length</name>
-        <qualifiedname>udp_packet::length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint16_t udp_packet::checksum</definition>
         <argsstring></argsstring>
         <name>checksum</name>
-        <qualifiedname>udp_packet::checksum</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint8_t udp_packet::data[]</definition>
         <argsstring>[]</argsstring>
         <name>data</name>
-        <qualifiedname>udp_packet::data</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -81,6 +76,12 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>udp_packet</label>
         <link refid="structudp__packet"/>
@@ -93,12 +94,6 @@
         <childnode refid="3" relation="usage">
           <edgelabel>data</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint16_t</label>
-      </node>
-      <node id="3">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/udp.h" line="16" column="1" bodyfile="include/udp.h" bodystart="16" bodyend="22"/>

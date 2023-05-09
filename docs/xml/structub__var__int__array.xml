@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structub__var__int__array" kind="struct" language="C++" prot="public">
     <compoundname>ub_var_int_array</compoundname>
     <includes local="no">basic.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint64_t ub_var_int_array::itemcount</definition>
         <argsstring></argsstring>
         <name>itemcount</name>
-        <qualifiedname>ub_var_int_array::itemcount</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>const char* ub_var_int_array::varname</definition>
         <argsstring></argsstring>
         <name>varname</name>
-        <qualifiedname>ub_var_int_array::varname</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>int64_t* ub_var_int_array::values</definition>
         <argsstring></argsstring>
         <name>values</name>
-        <qualifiedname>ub_var_int_array::values</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>struct ub_var_int_array* ub_var_int_array::next</definition>
         <argsstring></argsstring>
         <name>next</name>
-        <qualifiedname>ub_var_int_array::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -67,11 +63,8 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>char</label>
-      </node>
-      <node id="4">
-        <label>int64_t</label>
+      <node id="2">
+        <label>uint64_t</label>
       </node>
       <node id="1">
         <label>ub_var_int_array</label>
@@ -89,8 +82,11 @@
           <edgelabel>next</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>uint64_t</label>
+      <node id="4">
+        <label>int64_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/basic.h" line="127" column="1" bodyfile="include/basic.h" bodystart="127" bodyend="132"/>

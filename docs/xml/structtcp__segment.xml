@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structtcp__segment" kind="struct" language="C++" prot="public">
     <compoundname>tcp_segment</compoundname>
     <includes local="no">tcp.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint16_t tcp_segment::src_port</definition>
         <argsstring></argsstring>
         <name>src_port</name>
-        <qualifiedname>tcp_segment::src_port</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint16_t tcp_segment::dst_port</definition>
         <argsstring></argsstring>
         <name>dst_port</name>
-        <qualifiedname>tcp_segment::dst_port</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint32_t tcp_segment::seq</definition>
         <argsstring></argsstring>
         <name>seq</name>
-        <qualifiedname>tcp_segment::seq</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint32_t tcp_segment::ack</definition>
         <argsstring></argsstring>
         <name>ack</name>
-        <qualifiedname>tcp_segment::ack</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>tcp_segment_flags_t tcp_segment::flags</definition>
         <argsstring></argsstring>
         <name>flags</name>
-        <qualifiedname>tcp_segment::flags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>uint16_t tcp_segment::window_size</definition>
         <argsstring></argsstring>
         <name>window_size</name>
-        <qualifiedname>tcp_segment::window_size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint16_t tcp_segment::checksum</definition>
         <argsstring></argsstring>
         <name>checksum</name>
-        <qualifiedname>tcp_segment::checksum</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>uint16_t tcp_segment::urgent</definition>
         <argsstring></argsstring>
         <name>urgent</name>
-        <qualifiedname>tcp_segment::urgent</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint8_t tcp_segment::options[0]</definition>
         <argsstring>[0]</argsstring>
         <name>options</name>
-        <qualifiedname>tcp_segment::options</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>uint8_t tcp_segment::payload[]</definition>
         <argsstring>[]</argsstring>
         <name>payload</name>
-        <qualifiedname>tcp_segment::payload</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -150,34 +140,15 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="6">
+      <node id="4">
         <label>anonymous:@11</label>
       </node>
-      <node id="1">
-        <label>tcp_segment</label>
-        <link refid="structtcp__segment"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>checksum</edgelabel>
-          <edgelabel>dst_port</edgelabel>
-          <edgelabel>src_port</edgelabel>
-          <edgelabel>urgent</edgelabel>
-          <edgelabel>window_size</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>ack</edgelabel>
-          <edgelabel>seq</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>flags</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>options</edgelabel>
-          <edgelabel>payload</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
+      <node id="3">
         <label>tcp_segment_flags_t</label>
         <link refid="uniontcp__segment__flags__t"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>@11</edgelabel>
+        </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>ack</edgelabel>
           <edgelabel>bits1</edgelabel>
@@ -191,14 +162,33 @@
           <edgelabel>rst</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>@11</edgelabel>
-        </childnode>
       </node>
       <node id="2">
         <label>uint16_t</label>
       </node>
-      <node id="3">
+      <node id="1">
+        <label>tcp_segment</label>
+        <link refid="structtcp__segment"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>checksum</edgelabel>
+          <edgelabel>dst_port</edgelabel>
+          <edgelabel>src_port</edgelabel>
+          <edgelabel>urgent</edgelabel>
+          <edgelabel>window_size</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>flags</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>ack</edgelabel>
+          <edgelabel>seq</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>options</edgelabel>
+          <edgelabel>payload</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
         <label>uint32_t</label>
       </node>
       <node id="5">

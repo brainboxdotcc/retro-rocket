@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structheader__t" kind="struct" language="C++" prot="public">
     <compoundname>header_t</compoundname>
     <includes local="no">kmalloc.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint64_t header_t::magic</definition>
         <argsstring></argsstring>
         <name>magic</name>
-        <qualifiedname>header_t::magic</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint64_t header_t::size</definition>
         <argsstring></argsstring>
         <name>size</name>
-        <qualifiedname>header_t::size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint8_t header_t::free</definition>
         <argsstring></argsstring>
         <name>free</name>
-        <qualifiedname>header_t::free</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>struct header* header_t::prev</definition>
         <argsstring></argsstring>
         <name>prev</name>
-        <qualifiedname>header_t::prev</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>struct header* header_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
-        <qualifiedname>header_t::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -80,6 +75,12 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>header_t</label>
         <link refid="structheader__t"/>
@@ -88,21 +89,15 @@
           <edgelabel>size</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>free</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>next</edgelabel>
           <edgelabel>prev</edgelabel>
         </childnode>
-      </node>
-      <node id="4">
-        <label>struct header *</label>
-      </node>
-      <node id="2">
-        <label>uint64_t</label>
+        <childnode refid="4" relation="usage">
+          <edgelabel>free</edgelabel>
+        </childnode>
       </node>
       <node id="3">
-        <label>uint8_t</label>
+        <label>struct header *</label>
       </node>
     </collaborationgraph>
     <location file="include/kmalloc.h" line="20" column="1" bodyfile="include/kmalloc.h" bodystart="20" bodyend="26"/>

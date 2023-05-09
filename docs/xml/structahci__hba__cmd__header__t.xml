@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structahci__hba__cmd__header__t" kind="struct" language="C++" prot="public">
     <compoundname>ahci_hba_cmd_header_t</compoundname>
     <includes local="no">ahci.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::cfl</definition>
         <argsstring></argsstring>
         <name>cfl</name>
-        <qualifiedname>ahci_hba_cmd_header_t::cfl</qualifiedname>
         <bitfield>5</bitfield>
         <briefdescription>
         </briefdescription>
@@ -24,7 +23,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::a</definition>
         <argsstring></argsstring>
         <name>a</name>
-        <qualifiedname>ahci_hba_cmd_header_t::a</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -39,7 +37,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::w</definition>
         <argsstring></argsstring>
         <name>w</name>
-        <qualifiedname>ahci_hba_cmd_header_t::w</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -54,7 +51,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::p</definition>
         <argsstring></argsstring>
         <name>p</name>
-        <qualifiedname>ahci_hba_cmd_header_t::p</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -69,7 +65,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::r</definition>
         <argsstring></argsstring>
         <name>r</name>
-        <qualifiedname>ahci_hba_cmd_header_t::r</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -84,7 +79,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::b</definition>
         <argsstring></argsstring>
         <name>b</name>
-        <qualifiedname>ahci_hba_cmd_header_t::b</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -99,7 +93,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::c</definition>
         <argsstring></argsstring>
         <name>c</name>
-        <qualifiedname>ahci_hba_cmd_header_t::c</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -114,7 +107,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::rsv0</definition>
         <argsstring></argsstring>
         <name>rsv0</name>
-        <qualifiedname>ahci_hba_cmd_header_t::rsv0</qualifiedname>
         <bitfield>1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -129,7 +121,6 @@
         <definition>uint8_t ahci_hba_cmd_header_t::pmp</definition>
         <argsstring></argsstring>
         <name>pmp</name>
-        <qualifiedname>ahci_hba_cmd_header_t::pmp</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -144,7 +135,6 @@
         <definition>uint16_t ahci_hba_cmd_header_t::prdtl</definition>
         <argsstring></argsstring>
         <name>prdtl</name>
-        <qualifiedname>ahci_hba_cmd_header_t::prdtl</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -154,11 +144,10 @@
         <location file="include/ahci.h" line="265" column="10" bodyfile="include/ahci.h" bodystart="265" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structahci__hba__cmd__header__t_1ad8879c18128f8aee8e639c423c1ca06f" prot="public" static="no" mutable="no">
-        <type>volatile uint32_t</type>
+        <type>uint32_t</type>
         <definition>volatile uint32_t ahci_hba_cmd_header_t::prdbc</definition>
         <argsstring></argsstring>
         <name>prdbc</name>
-        <qualifiedname>ahci_hba_cmd_header_t::prdbc</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -172,7 +161,6 @@
         <definition>uint32_t ahci_hba_cmd_header_t::ctba</definition>
         <argsstring></argsstring>
         <name>ctba</name>
-        <qualifiedname>ahci_hba_cmd_header_t::ctba</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -186,7 +174,6 @@
         <definition>uint32_t ahci_hba_cmd_header_t::ctbau</definition>
         <argsstring></argsstring>
         <name>ctbau</name>
-        <qualifiedname>ahci_hba_cmd_header_t::ctbau</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -200,7 +187,6 @@
         <definition>uint32_t ahci_hba_cmd_header_t::rsv1[4]</definition>
         <argsstring>[4]</argsstring>
         <name>rsv1</name>
-        <qualifiedname>ahci_hba_cmd_header_t::rsv1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -215,10 +201,28 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>ahci_hba_cmd_header_t</label>
         <link refid="structahci__hba__cmd__header__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>prdtl</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>ctba</edgelabel>
+          <edgelabel>ctbau</edgelabel>
+          <edgelabel>prdbc</edgelabel>
+          <edgelabel>rsv1</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>a</edgelabel>
           <edgelabel>b</edgelabel>
           <edgelabel>c</edgelabel>
@@ -229,24 +233,6 @@
           <edgelabel>rsv0</edgelabel>
           <edgelabel>w</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>prdtl</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>ctba</edgelabel>
-          <edgelabel>ctbau</edgelabel>
-          <edgelabel>prdbc</edgelabel>
-          <edgelabel>rsv1</edgelabel>
-        </childnode>
-      </node>
-      <node id="3">
-        <label>uint16_t</label>
-      </node>
-      <node id="4">
-        <label>uint32_t</label>
-      </node>
-      <node id="2">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ahci.h" line="251" column="1" bodyfile="include/ahci.h" bodystart="252" bodyend="277"/>

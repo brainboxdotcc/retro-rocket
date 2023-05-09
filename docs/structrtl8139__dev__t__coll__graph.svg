@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 502;
+var viewWidth = 508;
 var viewHeight = 128;
 var sectionId = 'dynsection-0';
 </script>
@@ -58,8 +58,8 @@ var sectionId = 'dynsection-0';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="PCI device configuration.">
-<polygon fill="#bfbfbf" stroke="black" points="163.5,-0.5 163.5,-19.5 246.5,-19.5 246.5,-0.5 163.5,-0.5"/>
-<text text-anchor="middle" x="205" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">rtl8139_dev_t</text>
+<polygon fill="#bfbfbf" stroke="black" points="202.5,-0.5 202.5,-19.5 285.5,-19.5 285.5,-0.5 202.5,-0.5"/>
+<text text-anchor="middle" x="244" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">rtl8139_dev_t</text>
 </a>
 </g>
 </g>
@@ -67,103 +67,103 @@ var sectionId = 'dynsection-0';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="0,-100.5 0,-119.5 38,-119.5 38,-100.5 0,-100.5"/>
-<text text-anchor="middle" x="19" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">bool</text>
+<polygon fill="none" stroke="#bfbfbf" points="0,-100.5 0,-119.5 56,-119.5 56,-100.5 0,-100.5"/>
+<text text-anchor="middle" x="28" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint16_t</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M18.45,-89.6C19.1,-73.42 22.81,-50.98 37,-38 54.98,-21.55 119.57,-15.09 163.22,-12.57"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="14.94,-90.03 18.4,-100.05 21.94,-90.06 14.94,-90.03"/>
-<text text-anchor="middle" x="54" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00"> active</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M27.35,-90.03C27.9,-73.76 31.5,-50.95 46,-38 68.38,-18.01 150.94,-12.71 202.11,-11.37"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="23.85,-90.49 27.38,-100.49 30.85,-90.48 23.85,-90.49"/>
+<text text-anchor="middle" x="66.5" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00"> io_base</text>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="57,-100.5 57,-119.5 95,-119.5 95,-100.5 57,-100.5"/>
-<text text-anchor="middle" x="76" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">char</text>
+<polygon fill="none" stroke="#bfbfbf" points="74,-100.5 74,-119.5 112,-119.5 112,-100.5 74,-100.5"/>
+<text text-anchor="middle" x="93" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">char</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node1 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M74.18,-89.97C73.76,-74.02 75.92,-51.72 89,-38 99.24,-27.26 134.45,-20.08 163.42,-15.84"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="70.7,-90.48 74.82,-100.24 77.69,-90.04 70.7,-90.48"/>
-<text text-anchor="middle" x="124" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00"> mac_addr_str</text>
-<text text-anchor="middle" x="124" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">name</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M90.75,-89.87C90,-73.87 91.79,-51.54 105,-38 118.31,-24.36 166.46,-17.34 202.38,-13.92"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="87.29,-90.52 91.62,-100.19 94.27,-89.94 87.29,-90.52"/>
+<text text-anchor="middle" x="140" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00"> mac_addr_str</text>
+<text text-anchor="middle" x="140" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">name</text>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="144,-100.5 144,-119.5 194,-119.5 194,-100.5 144,-100.5"/>
-<text text-anchor="middle" x="169" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint8_t</text>
+<polygon fill="none" stroke="#bfbfbf" points="158,-100.5 158,-119.5 214,-119.5 214,-100.5 158,-100.5"/>
+<text text-anchor="middle" x="186" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint32_t</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node1 -->
 <g id="edge3" class="edge">
 <title>Node4&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M164.96,-90.05C162.76,-75.1 161.91,-54.17 170,-38 173.85,-30.31 181.03,-24.18 187.89,-19.72"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="161.56,-90.91 166.78,-100.12 168.45,-89.66 161.56,-90.91"/>
-<text text-anchor="middle" x="194.5" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00"> bar_type</text>
-<text text-anchor="middle" x="194.5" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">mac_addr</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M181.21,-90.46C178.37,-75.16 177.02,-53.52 187,-38 192.45,-29.53 201.34,-23.66 210.5,-19.61"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="177.81,-91.3 183.4,-100.3 184.65,-89.78 177.81,-91.3"/>
+<text text-anchor="middle" x="234" y="-74" font-family="Helvetica,sans-Serif" font-size="10.00"> current_packet_ptr</text>
+<text text-anchor="middle" x="234" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00">mem_base</text>
+<text text-anchor="middle" x="234" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">rx_buffer</text>
+<text text-anchor="middle" x="234" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">tx_buffers</text>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="213,-100.5 213,-119.5 269,-119.5 269,-100.5 213,-100.5"/>
-<text text-anchor="middle" x="241" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint16_t</text>
+<polygon fill="none" stroke="#bfbfbf" points="288.5,-100.5 288.5,-119.5 317.5,-119.5 317.5,-100.5 288.5,-100.5"/>
+<text text-anchor="middle" x="303" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">int</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node1 -->
 <g id="edge4" class="edge">
 <title>Node5&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M236.19,-90.3C232.22,-75.8 226.11,-55.31 219,-38 216.43,-31.75 212.93,-25 210.08,-19.81"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="232.83,-91.31 238.78,-100.08 239.6,-89.52 232.83,-91.31"/>
-<text text-anchor="middle" x="253.5" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00"> io_base</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M300.5,-90.12C297.74,-74.9 292.12,-53.56 281,-38 275.64,-30.49 267.54,-24.25 260.28,-19.66"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="297.1,-91.02 302.09,-100.36 304.01,-89.94 297.1,-91.02"/>
+<text text-anchor="middle" x="333" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00"> eeprom_exist</text>
+<text text-anchor="middle" x="333" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">tx_cur</text>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="287,-100.5 287,-119.5 343,-119.5 343,-100.5 287,-100.5"/>
-<text text-anchor="middle" x="315" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint32_t</text>
+<polygon fill="none" stroke="#bfbfbf" points="371,-100.5 371,-119.5 421,-119.5 421,-100.5 371,-100.5"/>
+<text text-anchor="middle" x="396" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint8_t</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node1 -->
 <g id="edge5" class="edge">
 <title>Node6&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M309.57,-90.52C304.02,-74.6 293.93,-52.04 278,-38 268.37,-29.51 255.83,-23.61 243.87,-19.53"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="306.32,-91.84 312.71,-100.29 312.99,-89.7 306.32,-91.84"/>
-<text text-anchor="middle" x="352" y="-74" font-family="Helvetica,sans-Serif" font-size="10.00"> current_packet_ptr</text>
-<text text-anchor="middle" x="352" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00">mem_base</text>
-<text text-anchor="middle" x="352" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">rx_buffer</text>
-<text text-anchor="middle" x="352" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">tx_buffers</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M394.69,-90.11C392.53,-73.93 386.86,-51.2 372,-38 359.35,-26.76 318.06,-19.46 285.76,-15.32"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="391.21,-90.47 395.69,-100.07 398.17,-89.77 391.21,-90.47"/>
+<text text-anchor="middle" x="417.5" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00"> bar_type</text>
+<text text-anchor="middle" x="417.5" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">mac_addr</text>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="412.5,-100.5 412.5,-119.5 441.5,-119.5 441.5,-100.5 412.5,-100.5"/>
-<text text-anchor="middle" x="427" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">int</text>
+<polygon fill="none" stroke="#bfbfbf" points="449,-100.5 449,-119.5 487,-119.5 487,-100.5 449,-100.5"/>
+<text text-anchor="middle" x="468" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">bool</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node1 -->
 <g id="edge6" class="edge">
 <title>Node7&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M425.98,-90.36C424.03,-73.97 418.49,-50.79 403,-38 379.86,-18.89 297.57,-13.28 246.65,-11.65"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="422.5,-90.75 426.84,-100.41 429.47,-90.15 422.5,-90.75"/>
-<text text-anchor="middle" x="459" y="-63" font-family="Helvetica,sans-Serif" font-size="10.00"> eeprom_exist</text>
-<text text-anchor="middle" x="459" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">tx_cur</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M467.55,-90.4C466.08,-74.03 461.22,-50.86 446,-38 422.49,-18.13 337.62,-12.8 285.66,-11.42"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="464.05,-90.64 468.1,-100.43 471.04,-90.25 464.05,-90.64"/>
+<text text-anchor="middle" x="483" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00"> active</text>
 </g>
 </g>
 </svg>

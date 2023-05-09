@@ -12,8 +12,8 @@
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="88,-0.5 88,-19.5 150,-19.5 150,-0.5 88,-0.5"/>
-<text text-anchor="middle" x="119" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">symbol_t</text>
+<polygon fill="#bfbfbf" stroke="black" points="103,-0.5 103,-19.5 165,-19.5 165,-0.5 103,-0.5"/>
+<text text-anchor="middle" x="134" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">symbol_t</text>
 </a>
 </g>
 </g>
@@ -21,65 +21,65 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="0,-67.5 0,-86.5 38,-86.5 38,-67.5 0,-67.5"/>
-<text text-anchor="middle" x="19" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">char</text>
+<polygon fill="none" stroke="#bfbfbf" points="0,-67.5 0,-86.5 56,-86.5 56,-67.5 0,-67.5"/>
+<text text-anchor="middle" x="28" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint64_t</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M30.47,-58.91C36,-51.7 43.13,-43.67 51,-38 62.13,-29.98 75.97,-23.92 88.26,-19.6"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="27.38,-57.21 24.4,-67.38 33.07,-61.29 27.38,-57.21"/>
-<text text-anchor="middle" x="66.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> name</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M41.28,-59.44C47.81,-52.12 56.18,-43.85 65,-38 76.9,-30.11 91.45,-23.98 104.12,-19.58"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="38.32,-57.52 34.53,-67.41 43.66,-62.04 38.32,-57.52"/>
+<text text-anchor="middle" x="86" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> address</text>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="56,-67.5 56,-86.5 112,-86.5 112,-67.5 56,-67.5"/>
-<text text-anchor="middle" x="84" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint64_t</text>
+<polygon fill="none" stroke="#bfbfbf" points="74,-67.5 74,-86.5 112,-86.5 112,-67.5 74,-67.5"/>
+<text text-anchor="middle" x="93" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">char</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node1 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M85.17,-56.96C86.15,-50.65 87.91,-43.76 91,-38 94.83,-30.86 101.23,-24.48 106.94,-19.72"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="81.64,-57.05 84.1,-67.36 88.6,-57.76 81.64,-57.05"/>
-<text text-anchor="middle" x="112" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> address</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M104.02,-58.53C111.95,-45.95 122.33,-29.51 128.56,-19.63"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="100.9,-56.91 98.53,-67.23 106.82,-60.64 100.9,-56.91"/>
+<text text-anchor="middle" x="130.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> name</text>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="130,-67.5 130,-86.5 180,-86.5 180,-67.5 130,-67.5"/>
-<text text-anchor="middle" x="155" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint8_t</text>
+<polygon fill="none" stroke="#bfbfbf" points="130,-67.5 130,-86.5 222,-86.5 222,-67.5 130,-67.5"/>
+<text text-anchor="middle" x="176" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">struct symbol *</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node1 -->
 <g id="edge3" class="edge">
 <title>Node4&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M145.12,-58.16C138.18,-45.63 129.2,-29.41 123.78,-19.63"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="142.24,-60.18 150.14,-67.23 148.36,-56.79 142.24,-60.18"/>
-<text text-anchor="middle" x="151.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> type</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M164.71,-58.53C156.58,-45.95 145.96,-29.51 139.57,-19.63"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="161.97,-60.73 170.34,-67.23 167.85,-56.94 161.97,-60.73"/>
+<text text-anchor="middle" x="169.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> next</text>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:title=" ">
-<polygon fill="none" stroke="black" points="198,-67.5 198,-86.5 290,-86.5 290,-67.5 198,-67.5"/>
-<text text-anchor="middle" x="244" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">struct symbol *</text>
+<polygon fill="none" stroke="#bfbfbf" points="240,-67.5 240,-86.5 290,-86.5 290,-67.5 240,-67.5"/>
+<text text-anchor="middle" x="265" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">uint8_t</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node1 -->
 <g id="edge4" class="edge">
 <title>Node5&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M218.24,-62.6C193.48,-49.73 156.81,-30.66 135.67,-19.67"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="216.91,-65.86 227.4,-67.37 220.14,-59.65 216.91,-65.86"/>
-<text text-anchor="middle" x="200.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> next</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M238.34,-62.77C212.4,-49.9 173.72,-30.71 151.47,-19.67"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="237.09,-66.06 247.6,-67.37 240.2,-59.79 237.09,-66.06"/>
+<text text-anchor="middle" x="219.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> type</text>
 </g>
 </g>
 </svg>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structicmp__packet" kind="struct" language="C++" prot="public">
     <compoundname>icmp_packet</compoundname>
     <includes local="no">icmp.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t icmp_packet::type</definition>
         <argsstring></argsstring>
         <name>type</name>
-        <qualifiedname>icmp_packet::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t icmp_packet::code</definition>
         <argsstring></argsstring>
         <name>code</name>
-        <qualifiedname>icmp_packet::code</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint16_t icmp_packet::checksum</definition>
         <argsstring></argsstring>
         <name>checksum</name>
-        <qualifiedname>icmp_packet::checksum</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint32_t icmp_packet::unused</definition>
         <argsstring></argsstring>
         <name>unused</name>
-        <qualifiedname>icmp_packet::unused</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>ip_packet_t icmp_packet::original_datagram</definition>
         <argsstring></argsstring>
         <name>original_datagram</name>
-        <qualifiedname>icmp_packet::original_datagram</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -80,12 +75,20 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="3">
+        <label>uint16_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>uint8_t</label>
+      </node>
       <node id="1">
         <label>icmp_packet</label>
         <link refid="structicmp__packet"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>code</edgelabel>
-          <edgelabel>type</edgelabel>
+          <edgelabel>original_datagram</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>checksum</edgelabel>
@@ -94,20 +97,12 @@
           <edgelabel>unused</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>original_datagram</edgelabel>
+          <edgelabel>code</edgelabel>
+          <edgelabel>type</edgelabel>
         </childnode>
       </node>
-      <node id="5">
-        <label>ip_packet_t</label>
-      </node>
-      <node id="3">
-        <label>uint16_t</label>
-      </node>
-      <node id="4">
-        <label>uint32_t</label>
-      </node>
       <node id="2">
-        <label>uint8_t</label>
+        <label>ip_packet_t</label>
       </node>
     </collaborationgraph>
     <location file="include/icmp.h" line="45" column="1" bodyfile="include/icmp.h" bodystart="45" bodyend="51"/>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structconsole" kind="struct" language="C++" prot="public">
     <compoundname>console</compoundname>
     <includes local="no">video.h</includes>
@@ -9,7 +9,6 @@
         <definition>char console::dirty</definition>
         <argsstring></argsstring>
         <name>dirty</name>
-        <qualifiedname>console::dirty</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t console::x</definition>
         <argsstring></argsstring>
         <name>x</name>
-        <qualifiedname>console::x</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint8_t console::y</definition>
         <argsstring></argsstring>
         <name>y</name>
-        <qualifiedname>console::y</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint8_t console::attributes</definition>
         <argsstring></argsstring>
         <name>attributes</name>
-        <qualifiedname>console::attributes</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint8_t console::last</definition>
         <argsstring></argsstring>
         <name>last</name>
-        <qualifiedname>console::last</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>char* console::internalbuffer</definition>
         <argsstring></argsstring>
         <name>internalbuffer</name>
-        <qualifiedname>console::internalbuffer</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>char* console::buffer</definition>
         <argsstring></argsstring>
         <name>buffer</name>
-        <qualifiedname>console::buffer</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>size_t console::bufcnt</definition>
         <argsstring></argsstring>
         <name>bufcnt</name>
-        <qualifiedname>console::bufcnt</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -122,6 +114,12 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="3">
+        <label>size_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
+      </node>
       <node id="2">
         <label>char</label>
       </node>
@@ -134,20 +132,14 @@
           <edgelabel>internalbuffer</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
+          <edgelabel>bufcnt</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>attributes</edgelabel>
           <edgelabel>last</edgelabel>
           <edgelabel>x</edgelabel>
           <edgelabel>y</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>bufcnt</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
-        <label>size_t</label>
-      </node>
-      <node id="3">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/video.h" line="33" column="1" bodyfile="include/video.h" bodystart="34" bodyend="43"/>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structahci__hba__mem__t" kind="struct" language="C++" prot="public">
     <compoundname>ahci_hba_mem_t</compoundname>
     <includes local="no">ahci.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint32_t ahci_hba_mem_t::cap</definition>
         <argsstring></argsstring>
         <name>cap</name>
-        <qualifiedname>ahci_hba_mem_t::cap</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint32_t ahci_hba_mem_t::ghc</definition>
         <argsstring></argsstring>
         <name>ghc</name>
-        <qualifiedname>ahci_hba_mem_t::ghc</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint32_t ahci_hba_mem_t::is</definition>
         <argsstring></argsstring>
         <name>is</name>
-        <qualifiedname>ahci_hba_mem_t::is</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint32_t ahci_hba_mem_t::pi</definition>
         <argsstring></argsstring>
         <name>pi</name>
-        <qualifiedname>ahci_hba_mem_t::pi</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint32_t ahci_hba_mem_t::vs</definition>
         <argsstring></argsstring>
         <name>vs</name>
-        <qualifiedname>ahci_hba_mem_t::vs</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>uint32_t ahci_hba_mem_t::ccc_ctl</definition>
         <argsstring></argsstring>
         <name>ccc_ctl</name>
-        <qualifiedname>ahci_hba_mem_t::ccc_ctl</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint32_t ahci_hba_mem_t::ccc_pts</definition>
         <argsstring></argsstring>
         <name>ccc_pts</name>
-        <qualifiedname>ahci_hba_mem_t::ccc_pts</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>uint32_t ahci_hba_mem_t::em_loc</definition>
         <argsstring></argsstring>
         <name>em_loc</name>
-        <qualifiedname>ahci_hba_mem_t::em_loc</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint32_t ahci_hba_mem_t::em_ctl</definition>
         <argsstring></argsstring>
         <name>em_ctl</name>
-        <qualifiedname>ahci_hba_mem_t::em_ctl</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>uint32_t ahci_hba_mem_t::cap2</definition>
         <argsstring></argsstring>
         <name>cap2</name>
-        <qualifiedname>ahci_hba_mem_t::cap2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -149,7 +139,6 @@
         <definition>uint32_t ahci_hba_mem_t::bohc</definition>
         <argsstring></argsstring>
         <name>bohc</name>
-        <qualifiedname>ahci_hba_mem_t::bohc</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -163,7 +152,6 @@
         <definition>uint8_t ahci_hba_mem_t::rsv[0xA0-0x2C]</definition>
         <argsstring>[0xA0-0x2C]</argsstring>
         <name>rsv</name>
-        <qualifiedname>ahci_hba_mem_t::rsv</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -177,7 +165,6 @@
         <definition>uint8_t ahci_hba_mem_t::vendor[0x100-0xA0]</definition>
         <argsstring>[0x100-0xA0]</argsstring>
         <name>vendor</name>
-        <qualifiedname>ahci_hba_mem_t::vendor</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -191,7 +178,6 @@
         <definition>ahci_hba_port_t ahci_hba_mem_t::ports[1]</definition>
         <argsstring>[1]</argsstring>
         <name>ports</name>
-        <qualifiedname>ahci_hba_mem_t::ports</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -210,6 +196,9 @@
         <label>ahci_hba_mem_t</label>
         <link refid="structahci__hba__mem__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>ports</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>bohc</edgelabel>
           <edgelabel>cap</edgelabel>
           <edgelabel>cap2</edgelabel>
@@ -222,18 +211,21 @@
           <edgelabel>pi</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>rsv</edgelabel>
           <edgelabel>vendor</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>ports</edgelabel>
-        </childnode>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
       </node>
       <node id="4">
+        <label>uint8_t</label>
+      </node>
+      <node id="2">
         <label>ahci_hba_port_t</label>
         <link refid="structahci__hba__port__t"/>
-        <childnode refid="2" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>ci</edgelabel>
           <edgelabel>clb</edgelabel>
           <edgelabel>clbu</edgelabel>
@@ -246,12 +238,6 @@
           <edgelabel>rsv0</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint32_t</label>
-      </node>
-      <node id="3">
-        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ahci.h" line="190" column="1" bodyfile="include/ahci.h" bodystart="190" bodyend="212"/>

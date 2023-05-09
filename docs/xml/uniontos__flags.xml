@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="uniontos__flags" kind="union" language="C++" prot="public">
     <compoundname>tos_flags</compoundname>
     <includes local="no">ip.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t tos_flags::bits</definition>
         <argsstring></argsstring>
         <name>bits</name>
-        <qualifiedname>tos_flags::bits</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t tos_flags::dscp</definition>
         <argsstring></argsstring>
         <name>dscp</name>
-        <qualifiedname>tos_flags::dscp</qualifiedname>
         <bitfield>6</bitfield>
         <briefdescription>
         </briefdescription>
@@ -38,7 +36,6 @@
         <definition>uint8_t tos_flags::ecn</definition>
         <argsstring></argsstring>
         <name>ecn</name>
-        <qualifiedname>tos_flags::ecn</qualifiedname>
         <bitfield>2</bitfield>
         <briefdescription>
         </briefdescription>
@@ -53,7 +50,6 @@
         <definition>struct tos_flags::@4 tos_flags::@5</definition>
         <argsstring></argsstring>
         <name>@5</name>
-        <qualifiedname>tos_flags::@5</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -68,9 +64,6 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>anonymous:@5</label>
-      </node>
       <node id="1">
         <label>tos_flags</label>
         <link refid="uniontos__flags"/>
@@ -82,6 +75,9 @@
         <childnode refid="3" relation="usage">
           <edgelabel>@5</edgelabel>
         </childnode>
+      </node>
+      <node id="3">
+        <label>anonymous:@5</label>
       </node>
       <node id="2">
         <label>uint8_t</label>

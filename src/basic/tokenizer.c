@@ -1,5 +1,7 @@
-/*
- * BBC BASIC interpreter,
+/**
+ * @file basic/tokenizer.c
+ * @brief BASIC tokenizer functions
+ * 
  * Retro Rocket OS Project (C) Craig Edwards 2012.
  * loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).
  *

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structfor__state" kind="struct" language="C++" prot="public">
     <compoundname>for_state</compoundname>
     <includes local="no">basic.h</includes>
@@ -9,7 +9,6 @@
         <definition>int64_t for_state::line_after_for</definition>
         <argsstring></argsstring>
         <name>line_after_for</name>
-        <qualifiedname>for_state::line_after_for</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>const char* for_state::for_variable</definition>
         <argsstring></argsstring>
         <name>for_variable</name>
-        <qualifiedname>for_state::for_variable</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>int64_t for_state::to</definition>
         <argsstring></argsstring>
         <name>to</name>
-        <qualifiedname>for_state::to</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>int64_t for_state::step</definition>
         <argsstring></argsstring>
         <name>step</name>
-        <qualifiedname>for_state::step</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -67,23 +63,23 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>char</label>
-      </node>
       <node id="1">
         <label>for_state</label>
         <link refid="structfor__state"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>for_variable</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>line_after_for</edgelabel>
           <edgelabel>step</edgelabel>
           <edgelabel>to</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>for_variable</edgelabel>
-        </childnode>
+      </node>
+      <node id="3">
+        <label>int64_t</label>
       </node>
       <node id="2">
-        <label>int64_t</label>
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/basic.h" line="48" column="1" bodyfile="include/basic.h" bodystart="48" bodyend="53"/>

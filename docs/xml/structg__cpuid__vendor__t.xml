@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structg__cpuid__vendor__t" kind="struct" language="C++" prot="public">
+    <compoundname>g_cpuid_vendor_t</compoundname>
+    <includes local="no">basic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structg__cpuid__vendor__t_1af493e0ad3f5785527a03e5951a82e264" prot="public" static="no" mutable="no">
+        <type>char const  *</type>
+        <definition>char const* g_cpuid_vendor_t::varname</definition>
+        <argsstring></argsstring>
+        <name>varname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="200" column="12" bodyfile="include/basic.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structg__cpuid__vendor__t_1a5f63798347ba4b4a818a813a6af4ea4b" prot="public" static="no" mutable="no">
+        <type>char const  *</type>
+        <definition>char const* g_cpuid_vendor_t::vendor</definition>
+        <argsstring></argsstring>
+        <name>vendor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="201" column="12" bodyfile="include/basic.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>char</label>
+      </node>
+      <node id="1">
+        <label>g_cpuid_vendor_t</label>
+        <link refid="structg__cpuid__vendor__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>varname</edgelabel>
+          <edgelabel>vendor</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/basic.h" line="199" column="1" bodyfile="include/basic.h" bodystart="199" bodyend="202"/>
+    <listofallmembers>
+      <member refid="structg__cpuid__vendor__t_1af493e0ad3f5785527a03e5951a82e264" prot="public" virt="non-virtual"><scope>g_cpuid_vendor_t</scope><name>varname</name></member>
+      <member refid="structg__cpuid__vendor__t_1a5f63798347ba4b4a818a813a6af4ea4b" prot="public" virt="non-virtual"><scope>g_cpuid_vendor_t</scope><name>vendor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

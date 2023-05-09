@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structgpt__header__t" kind="struct" language="C++" prot="public">
     <compoundname>gpt_header_t</compoundname>
     <includes local="no">partition.h</includes>
@@ -9,7 +9,6 @@
         <definition>char gpt_header_t::signature[8]</definition>
         <argsstring>[8]</argsstring>
         <name>signature</name>
-        <qualifiedname>gpt_header_t::signature</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint32_t gpt_header_t::gpt_revision</definition>
         <argsstring></argsstring>
         <name>gpt_revision</name>
-        <qualifiedname>gpt_header_t::gpt_revision</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint32_t gpt_header_t::header_size</definition>
         <argsstring></argsstring>
         <name>header_size</name>
-        <qualifiedname>gpt_header_t::header_size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint32_t gpt_header_t::crc_checksum</definition>
         <argsstring></argsstring>
         <name>crc_checksum</name>
-        <qualifiedname>gpt_header_t::crc_checksum</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint32_t gpt_header_t::reserved0</definition>
         <argsstring></argsstring>
         <name>reserved0</name>
-        <qualifiedname>gpt_header_t::reserved0</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>uint64_t gpt_header_t::lba_of_this_header</definition>
         <argsstring></argsstring>
         <name>lba_of_this_header</name>
-        <qualifiedname>gpt_header_t::lba_of_this_header</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -93,7 +87,6 @@
         <definition>uint64_t gpt_header_t::lba_of_alternative_header</definition>
         <argsstring></argsstring>
         <name>lba_of_alternative_header</name>
-        <qualifiedname>gpt_header_t::lba_of_alternative_header</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -107,7 +100,6 @@
         <definition>uint64_t gpt_header_t::first_usable_block</definition>
         <argsstring></argsstring>
         <name>first_usable_block</name>
-        <qualifiedname>gpt_header_t::first_usable_block</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -121,7 +113,6 @@
         <definition>uint64_t gpt_header_t::last_usable_block</definition>
         <argsstring></argsstring>
         <name>last_usable_block</name>
-        <qualifiedname>gpt_header_t::last_usable_block</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -135,7 +126,6 @@
         <definition>uint8_t gpt_header_t::disk_guid[16]</definition>
         <argsstring>[16]</argsstring>
         <name>disk_guid</name>
-        <qualifiedname>gpt_header_t::disk_guid</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -149,7 +139,6 @@
         <definition>uint64_t gpt_header_t::lba_of_partition_entries</definition>
         <argsstring></argsstring>
         <name>lba_of_partition_entries</name>
-        <qualifiedname>gpt_header_t::lba_of_partition_entries</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -163,7 +152,6 @@
         <definition>uint32_t gpt_header_t::number_partition_entries</definition>
         <argsstring></argsstring>
         <name>number_partition_entries</name>
-        <qualifiedname>gpt_header_t::number_partition_entries</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -177,7 +165,6 @@
         <definition>uint32_t gpt_header_t::size_of_each_entry</definition>
         <argsstring></argsstring>
         <name>size_of_each_entry</name>
-        <qualifiedname>gpt_header_t::size_of_each_entry</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -191,7 +178,6 @@
         <definition>uint32_t gpt_header_t::crc_32_of_entries</definition>
         <argsstring></argsstring>
         <name>crc_32_of_entries</name>
-        <qualifiedname>gpt_header_t::crc_32_of_entries</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -205,7 +191,6 @@
         <definition>uint8_t gpt_header_t::reserved1[]</definition>
         <argsstring>[]</argsstring>
         <name>reserved1</name>
-        <qualifiedname>gpt_header_t::reserved1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -220,16 +205,20 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>char</label>
-      </node>
       <node id="1">
         <label>gpt_header_t</label>
         <link refid="structgpt__header__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>signature</edgelabel>
+          <edgelabel>first_usable_block</edgelabel>
+          <edgelabel>last_usable_block</edgelabel>
+          <edgelabel>lba_of_alternative_header</edgelabel>
+          <edgelabel>lba_of_partition_entries</edgelabel>
+          <edgelabel>lba_of_this_header</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
+          <edgelabel>signature</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>crc_32_of_entries</edgelabel>
           <edgelabel>crc_checksum</edgelabel>
           <edgelabel>gpt_revision</edgelabel>
@@ -238,26 +227,22 @@
           <edgelabel>reserved0</edgelabel>
           <edgelabel>size_of_each_entry</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>first_usable_block</edgelabel>
-          <edgelabel>last_usable_block</edgelabel>
-          <edgelabel>lba_of_alternative_header</edgelabel>
-          <edgelabel>lba_of_partition_entries</edgelabel>
-          <edgelabel>lba_of_this_header</edgelabel>
-        </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>disk_guid</edgelabel>
           <edgelabel>reserved1</edgelabel>
         </childnode>
       </node>
-      <node id="3">
-        <label>uint32_t</label>
+      <node id="2">
+        <label>uint64_t</label>
       </node>
       <node id="4">
-        <label>uint64_t</label>
+        <label>uint32_t</label>
       </node>
       <node id="5">
         <label>uint8_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/partition.h" line="53" column="1" bodyfile="include/partition.h" bodystart="53" bodyend="69"/>

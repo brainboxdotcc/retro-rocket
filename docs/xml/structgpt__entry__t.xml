@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structgpt__entry__t" kind="struct" language="C++" prot="public">
     <compoundname>gpt_entry_t</compoundname>
     <includes local="no">partition.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t gpt_entry_t::type_guid[16]</definition>
         <argsstring>[16]</argsstring>
         <name>type_guid</name>
-        <qualifiedname>gpt_entry_t::type_guid</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t gpt_entry_t::unique_id[16]</definition>
         <argsstring>[16]</argsstring>
         <name>unique_id</name>
-        <qualifiedname>gpt_entry_t::unique_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint64_t gpt_entry_t::start_lba</definition>
         <argsstring></argsstring>
         <name>start_lba</name>
-        <qualifiedname>gpt_entry_t::start_lba</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint64_t gpt_entry_t::end_lba</definition>
         <argsstring></argsstring>
         <name>end_lba</name>
-        <qualifiedname>gpt_entry_t::end_lba</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint64_t gpt_entry_t::attributes</definition>
         <argsstring></argsstring>
         <name>attributes</name>
-        <qualifiedname>gpt_entry_t::attributes</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -79,7 +74,6 @@
         <definition>char gpt_entry_t::name[72]</definition>
         <argsstring>[72]</argsstring>
         <name>name</name>
-        <qualifiedname>gpt_entry_t::name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -94,30 +88,30 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="4">
-        <label>char</label>
+      <node id="2">
+        <label>uint64_t</label>
       </node>
       <node id="1">
         <label>gpt_entry_t</label>
         <link refid="structgpt__entry__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>type_guid</edgelabel>
-          <edgelabel>unique_id</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>attributes</edgelabel>
           <edgelabel>end_lba</edgelabel>
           <edgelabel>start_lba</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>type_guid</edgelabel>
+          <edgelabel>unique_id</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
       </node>
       <node id="3">
-        <label>uint64_t</label>
-      </node>
-      <node id="2">
-        <label>uint8_t</label>
+        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/partition.h" line="71" column="1" bodyfile="include/partition.h" bodystart="71" bodyend="78"/>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structicmp__echo__packet" kind="struct" language="C++" prot="public">
     <compoundname>icmp_echo_packet</compoundname>
     <includes local="no">icmp.h</includes>
@@ -9,7 +9,6 @@
         <definition>uint8_t icmp_echo_packet::type</definition>
         <argsstring></argsstring>
         <name>type</name>
-        <qualifiedname>icmp_echo_packet::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -23,7 +22,6 @@
         <definition>uint8_t icmp_echo_packet::code</definition>
         <argsstring></argsstring>
         <name>code</name>
-        <qualifiedname>icmp_echo_packet::code</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,7 +35,6 @@
         <definition>uint16_t icmp_echo_packet::checksum</definition>
         <argsstring></argsstring>
         <name>checksum</name>
-        <qualifiedname>icmp_echo_packet::checksum</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -51,7 +48,6 @@
         <definition>uint16_t icmp_echo_packet::id</definition>
         <argsstring></argsstring>
         <name>id</name>
-        <qualifiedname>icmp_echo_packet::id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -65,7 +61,6 @@
         <definition>uint16_t icmp_echo_packet::seq</definition>
         <argsstring></argsstring>
         <name>seq</name>
-        <qualifiedname>icmp_echo_packet::seq</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -84,19 +79,19 @@
         <label>icmp_echo_packet</label>
         <link refid="structicmp__echo__packet"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>code</edgelabel>
-          <edgelabel>type</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>checksum</edgelabel>
           <edgelabel>id</edgelabel>
           <edgelabel>seq</edgelabel>
         </childnode>
-      </node>
-      <node id="3">
-        <label>uint16_t</label>
+        <childnode refid="3" relation="usage">
+          <edgelabel>code</edgelabel>
+          <edgelabel>type</edgelabel>
+        </childnode>
       </node>
       <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>
