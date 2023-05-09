@@ -6,34 +6,34 @@
 
 const struct g_cpuid_vendor cpuid_vendors[] =
 {
-	{ "VENDORAMDK$",       "AMDisbetter!" },
-	{ "VENDORAMD$",        "AuthenticAMD" },
-	{ "VENDORCENTAUR$",    "CentaurHauls" },
-	{ "VENDORCYRIX$",      "CyrixInstead" },
-	{ "VENDORINTEL$",      "GenuineIntel" },
-	{ "VENDORTRANSMETA$",  "TransmetaCPU" },
-	{ "VENDORTRANSMETAS$", "GenuineTMx86" },
-	{ "VENDORNSC$",        "Geode by NSC" },
-	{ "VENDORNEXGEN$",     "NexGenDriven" },
-	{ "VENDORRISE$",       "RiseRiseRise" },
-	{ "VENDORSIS$",        "SiS SiS SiS " },
-	{ "VENDORUMC$",        "UMC UMC UMC " },
-	{ "VENDORVIA$",        "VIA VIA VIA " },
-	{ "VENDORVORTEX86$",   "Vortex86 SoC" },
-	{ "VENDORZHAOXIN$",    "  Shanghai  " },
-	{ "VENDORHYGON$",      "HygonGenuine" },
-	{ "VENDORRDC$",        "Genuine  RDC" },
-	{ "VENDORBHYVE$",      "bhyve bhyve " },
-	{ "VENDORKVM$",        " KVMKVMKVM  " },
-	{ "VENDORQEMU$",       "TCGTCGTCGTCG" },
-	{ "VENDORHYPERV$",     "Microsoft Hv" },
-	{ "VENDORXTA$",        "MicrosoftXTA" },
-	{ "VENDORPARALLELS1$", " lrpepyh  vr" },
-	{ "VENDORPARALLELS2$", "prl hyperv  " },
-	{ "VENDORVMWARE$",     "VMwareVMware" },
-	{ "VENDORXEN$",        "XenVMMXenVMM" },
-	{ "VENDORACRN$",       "ACRNACRNACRN" },
-	{ "VENDORQNX$",        " QNXQVMBSQG " },
+	{ "VENDOR_AMD_K5$",     "AMDisbetter!" },
+	{ "VENDOR_AMD$",        "AuthenticAMD" },
+	{ "VENDOR_CENTAUR$",    "CentaurHauls" },
+	{ "VENDOR_CYRIX$",      "CyrixInstead" },
+	{ "VENDOR_INTEL$",      "GenuineIntel" },
+	{ "VENDOR_TRANSMETA$",  "GenuineTMx86" },
+	{ "VENDOR_TRANSMETAS$", "TransmetaCPU" },
+	{ "VENDOR_NSC$",        "Geode by NSC" },
+	{ "VENDOR_NEXGEN$",     "NexGenDriven" },
+	{ "VENDOR_RISE$",       "RiseRiseRise" },
+	{ "VENDOR_SIS$",        "SiS SiS SiS " },
+	{ "VENDOR_UMC$",        "UMC UMC UMC " },
+	{ "VENDOR_VIA$",        "VIA VIA VIA " },
+	{ "VENDOR_VORTEX86$",   "Vortex86 SoC" },
+	{ "VENDOR_ZHAOXIN$",    "  Shanghai  " },
+	{ "VENDOR_HYGON$",      "HygonGenuine" },
+	{ "VENDOR_RDC$",        "Genuine  RDC" },
+	{ "VENDOR_BHYVE$",      "bhyve bhyve " },
+	{ "VENDOR_KVM$",        " KVMKVMKVM  " },
+	{ "VENDOR_QEMU$",       "TCGTCGTCGTCG" },
+	{ "VENDOR_HYPERV$",     "Microsoft Hv" },
+	{ "VENDOR_XTA$",        "MicrosoftXTA" },
+	{ "VENDOR_PARALLELS$",  " lrpepyh  vr" },
+	{ "VENDOR_FPARALLELS$", "prl hyperv  " },
+	{ "VENDOR_VMWARE$",     "VMwareVMware" },
+	{ "VENDOR_XEN$",        "XenVMMXenVMM" },
+	{ "VENDOR_ACRN$",       "ACRNACRNACRN" },
+	{ "VENDOR_QNX$",        " QNXQVMBSQG " },
 	{ NULL,                NULL }
 };
 
@@ -118,71 +118,64 @@ void let_statement(struct basic_ctx* ctx, bool global, bool local)
 	accept_or_return(NEWLINE, ctx);
 }
 
-bool valid_string_var(const char* name)
+bool valid_suffix_var(const char* name, char suffix)
 {
 	const char* i;
 	unsigned int varLength = strlen(name);
-	if (varLength < 2 || name[varLength - 1] != '$') {
+	if (suffix != '\0') {
+		if (varLength < 2 || name[varLength - 1] != suffix) {
+			return false;
+		}
+		size_t offset = 0;
+		for (i = name; *i != suffix; ++i) {
+			if (*i == suffix && *(i + 1) != 0) {
+			       return false;
+			}
+			if (offset > 0 && isdigit(*i)) {
+				continue;
+			}
+			if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
+				return false;
+			}
+			if (offset > 60) {
+				return false;
+			}
+			++offset;
+		}
+		return true;
+	}
+	if (varLength < 1) {
 		return false;
 	}
-	for (i = name; *i != '$'; i++) {
-		if (*i == '$' && *(i + 1) != 0) {
+	size_t offset = 0;
+	for (i = name; *i; ++i) {
+		if (offset > 0 && isdigit(*i)) {
+			continue;
+		}
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
 			return false;
 		}
-		if (!isalnum(*i)) {
+		if (offset > 60) {
 			return false;
 		}
+		++offset;
 	}
 	return true;
+}
+
+bool valid_string_var(const char* name)
+{
+    return valid_suffix_var(name, '$');
 }
 
 bool valid_double_var(const char* name)
 {
-	const char* i;
-	unsigned int varLength = strlen(name);
-	if (varLength < 2 || name[varLength - 1] != '#') {
-		return false;
-	}
-	int ofs = 0;
-	for (i = name; *i != '#'; i++) {
-		if (*i == '#' && *(i + 1) != 0) {
-		       return false;
-		}
-		if (ofs > 0 && isdigit(*i)) {
-			continue;
-		}
-		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
-			return false;
-		}
-		if (ofs > 60) {
-			return false;
-		}
-		ofs++;
-	}
-	return true;
+    return valid_suffix_var(name, '#');
 }
 
 bool valid_int_var(const char* name)
 {
-	const char* i;
-	unsigned int varLength = strlen(name);
-	if (varLength < 1) {
-		return false;
-	}
-	int ofs = 0;
-	for (i = name; *i; i++) {
-		if (ofs > 0 && isdigit(*i)) {
-			continue;
-		}
-		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
-			return false;
-		}
-		if (ofs > 60) {
-			return false;
-		}
-		ofs++;
-	}
-	return true;
+    return valid_suffix_var(name, '\0');
 }
 
 void basic_set_string_variable(const char* var, const char* value, struct basic_ctx* ctx, bool local, bool global)
