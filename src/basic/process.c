@@ -1,5 +1,5 @@
 /**
- * @file basic_process.c
+ * @file basic/process.c
  * @brief BASIC process and memory functions
  */
 #include <kernel.h>

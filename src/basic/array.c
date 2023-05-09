@@ -1,3 +1,7 @@
+/**
+ * @file basic/array.c
+ * @brief BASIC console IO functions
+ */
 #include <kernel.h>
 
 bool varname_is_int_array_access(struct basic_ctx* ctx, const char* varname)

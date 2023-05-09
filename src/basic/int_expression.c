@@ -1,5 +1,5 @@
 /**
- * @file basic_int_expression.c
+ * @file basic/int_expression.c
  * @brief BASIC integer expression functions
  */
 #include <kernel.h>

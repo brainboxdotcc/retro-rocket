@@ -1,5 +1,5 @@
 /**
- * @file basic_maths.c
+ * @file basic/maths.c
  * @brief BASIC maths functions
  */
 #include <kernel.h>

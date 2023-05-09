@@ -1,5 +1,5 @@
 /**
- * @file basic_function.c
+ * @file basic/function.c
  * @brief BASIC function/procedure functions
  */
 #include <kernel.h>

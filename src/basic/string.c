@@ -1,5 +1,5 @@
 /**
- * @file basic_string.c
+ * @file basic/string.c
  * @brief BASIC string manipulation functions
  */
 #include <kernel.h>

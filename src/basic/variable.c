@@ -1,5 +1,5 @@
 /**
- * @file basic_variable.c
+ * @file basic/variable.c
  * @brief BASIC variable assignment and manipulation functions
  */
 #include <kernel.h>

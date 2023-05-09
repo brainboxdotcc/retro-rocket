@@ -1,5 +1,5 @@
 /**
- * @file basic_string_expression.c
+ * @file basic/string_expression.c
  * @brief BASIC string expression functions
  */
 #include <kernel.h>

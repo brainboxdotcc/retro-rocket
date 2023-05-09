@@ -1,5 +1,5 @@
 /**
- * @file basic_console.c
+ * @file basic/console.c
  * @brief BASIC console IO functions
  */
 #include <kernel.h>

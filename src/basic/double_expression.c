@@ -1,5 +1,5 @@
 /**
- * @file basic_double_expression.c
+ * @file basic/double_expression.c
  * @brief BASIC double/real expression functions
  */
 #include <kernel.h>

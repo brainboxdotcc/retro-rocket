@@ -1,5 +1,5 @@
 /**
- * @file basic_graphics.c
+ * @file basic/graphics.c
  * @brief BASIC graphics drawing functions
  */
 #include <kernel.h>

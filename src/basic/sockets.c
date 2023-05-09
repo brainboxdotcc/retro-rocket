@@ -1,5 +1,5 @@
 /**
- * @file basic_sockets.c
+ * @file basic/sockets.c
  * @brief BASIC network socket functions
  */
 #include <kernel.h>
