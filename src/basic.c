@@ -1912,13 +1912,21 @@ bool valid_double_var(const char* name)
 	if (varLength < 2 || name[varLength - 1] != '#') {
 		return false;
 	}
+	int ofs = 0;
 	for (i = name; *i != '#'; i++) {
 		if (*i == '#' && *(i + 1) != 0) {
 		       return false;
 		}
-		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
+		if (ofs > 0 && isdigit(*i)) {
+			continue;
+		}
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
 			return false;
 		}
+		if (ofs > 60) {
+			return false;
+		}
+		ofs++;
 	}
 	return true;
 }
@@ -1930,10 +1938,18 @@ bool valid_int_var(const char* name)
 	if (varLength < 1) {
 		return false;
 	}
+	int ofs = 0;
 	for (i = name; *i; i++) {
-		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
+		if (ofs > 0 && isdigit(*i)) {
+			continue;
+		}
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
 			return false;
 		}
+		if (ofs > 60) {
+			return false;
+		}
+		ofs++;
 	}
 	return true;
 }
