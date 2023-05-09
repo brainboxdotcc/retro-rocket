@@ -1,3 +1,7 @@
+/**
+ * @file basic_graphics.c
+ * @brief BASIC graphics drawing functions
+ */
 #include <kernel.h>
 
 void gcol_statement(struct basic_ctx* ctx)

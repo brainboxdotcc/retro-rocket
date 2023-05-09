@@ -1,3 +1,7 @@
+/**
+ * @file basic_string.c
+ * @brief BASIC string manipulation functions
+ */
 #include <kernel.h>
 
 char* basic_chr(struct basic_ctx* ctx)

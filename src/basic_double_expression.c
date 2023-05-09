@@ -1,3 +1,7 @@
+/**
+ * @file basic_double_expression.c
+ * @brief BASIC double/real expression functions
+ */
 #include <kernel.h>
 
 void double_varfactor(struct basic_ctx* ctx, double* res)

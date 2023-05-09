@@ -1,3 +1,7 @@
+/**
+ * @file basic_sockets.c
+ * @brief BASIC network socket functions
+ */
 #include <kernel.h>
 
 /**

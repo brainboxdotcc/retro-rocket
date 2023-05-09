@@ -1,3 +1,7 @@
+/**
+ * @file basic_process.c
+ * @brief BASIC process and memory functions
+ */
 #include <kernel.h>
 
 int64_t basic_getproccount(struct basic_ctx* ctx)

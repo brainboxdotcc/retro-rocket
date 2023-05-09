@@ -1,3 +1,7 @@
+/**
+ * @file basic_file_io.c
+ * @brief BASIC file functions
+ */
 #include <kernel.h>
 
 const char* make_full_path(const char* relative)

@@ -1,3 +1,7 @@
+/**
+ * @file basic_maths.c
+ * @brief BASIC maths functions
+ */
 #include <kernel.h>
 
 int64_t basic_abs(struct basic_ctx* ctx)

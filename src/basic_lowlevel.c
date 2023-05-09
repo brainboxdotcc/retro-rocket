@@ -1,3 +1,7 @@
+/**
+ * @file basic_lowlevel.c
+ * @brief BASIC low level (assembly/machine) functions
+ */
 #include <kernel.h>
 #include <cpuid.h>
 

@@ -1,3 +1,7 @@
+/**
+ * @file basic_console.c
+ * @brief BASIC console IO functions
+ */
 #include <kernel.h>
 
 int64_t basic_get_text_max_x(struct basic_ctx* ctx)

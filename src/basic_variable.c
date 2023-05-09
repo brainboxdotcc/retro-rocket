@@ -1,3 +1,7 @@
+/**
+ * @file basic_variable.c
+ * @brief BASIC variable assignment and manipulation functions
+ */
 #include <kernel.h>
 
 const struct g_cpuid_vendor cpuid_vendors[] =

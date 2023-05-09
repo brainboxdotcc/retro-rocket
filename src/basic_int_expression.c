@@ -1,3 +1,7 @@
+/**
+ * @file basic_int_expression.c
+ * @brief BASIC integer expression functions
+ */
 #include <kernel.h>
 
 static int64_t varfactor(struct basic_ctx* ctx)
