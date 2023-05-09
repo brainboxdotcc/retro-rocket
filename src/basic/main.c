@@ -235,13 +235,16 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	// Scan the program for functions and procedures
 
 	tokenizer_init(ctx->program_ptr, ctx);
-	basic_parse_fn(ctx);
+	if (!basic_parse_fn(ctx)) {
+		*error = "Duplicate function name";
+		return NULL;
+	}
 
 	set_system_variables(ctx, pid);
 	basic_set_string_variable("PROGRAM$", file, ctx, false, false);
 
 	if (!basic_hash_lines(ctx, error)) {
-		return false;
+		return NULL;
 	}
 
 	return ctx;
@@ -309,6 +312,10 @@ void library_statement(struct basic_ctx* ctx)
 	 * must be reinitailised and the line hash rebuilt)
 	 */
 	ctx->program_ptr = krealloc(ctx->program_ptr, strlen(ctx->program_ptr) + 5000 + library_len);
+	char last = ctx->program_ptr[strlen(ctx->program_ptr) - 2];
+	if (last > 13) {
+		strlcat(ctx->program_ptr, "\n", strlen(ctx->program_ptr) + 5000 + library_len);
+	}
 	strlcpy(ctx->program_ptr + strlen(ctx->program_ptr) - 1, numbered, strlen(ctx->program_ptr) + 5000 + library_len);
 	kfree(clean_library);
 	kfree(numbered);
@@ -318,7 +325,9 @@ void library_statement(struct basic_ctx* ctx)
 	 */
 	tokenizer_init(ctx->program_ptr, ctx);
 	basic_free_defs(ctx);
-	basic_parse_fn(ctx);
+	if (!basic_parse_fn(ctx)) {
+		return;
+	}
 
 	/* Rebuild line number hash map (needs a complete rehash as all pointers are
 	 * now invalidated)
@@ -335,8 +344,25 @@ void library_statement(struct basic_ctx* ctx)
 	 * statement that we recorded at the top of the function.
 	 */
 	tokenizer_init(ctx->program_ptr, ctx);
-	jump_linenum(next_line, ctx);
 
+	/* Look for constructor PROC with same name as library */
+	struct ub_proc_fn_def* def = basic_find_fn(file_info->filename, ctx);
+	if (def) {
+		dprintf("Calling initialisation constructor '%s' on line %d with return to line %d\n", file_info->filename, def->line, next_line);
+		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
+			ctx->call_stack[ctx->call_stack_ptr] = next_line;
+			init_local_heap(ctx);
+			ctx->call_stack_ptr++;
+			ctx->fn_type = RT_NONE;
+			jump_linenum(def->line, ctx);
+		} else {
+			tokenizer_error_print(ctx, "LIBRARY: Call stack exhausted when calling constructor PROC");
+		}
+		return;
+	} else {
+		dprintf("Library '%s' has no initialisation constructor, continue at line %d\n", file_info->filename, next_line);
+		jump_linenum(next_line, ctx);
+	}
 }
 
 struct basic_ctx* basic_clone(struct basic_ctx* old)
@@ -570,7 +596,7 @@ void eval_statement(struct basic_ctx* ctx)
 		basic_set_int_variable("ERROR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
 		/* If program doesn't end in newline, add one */
-		char last = ctx->program_ptr[strlen(ctx->program_ptr) - 1];
+		char last = ctx->program_ptr[strlen(ctx->program_ptr) - 2];
 		if (last > 13) {
 			strlcat(ctx->program_ptr, "\n", ctx->oldlen + 5000);
 		}
@@ -742,6 +768,10 @@ void line_statement(struct basic_ctx* ctx)
 {
 	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
 	accept_or_return(NUMBER, ctx);
+	if (tokenizer_token(ctx) == NEWLINE) {
+		/* Empty line! */
+		return;
+	}
 	statement(ctx);
 }
 

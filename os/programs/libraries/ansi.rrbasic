@@ -1,4 +1,6 @@
-END
+DEF PROCansi
+	EDhistPtr = -1
+RETPROC
 
 REM hide text cursor
 DEF PROChideCursor
@@ -131,7 +133,6 @@ RETPROC
 
 REM initialise line edit (history = TRUE to enable history, FALSE to disable history)
 DEF PROCEdInit(history)
-	EDhistPtr = -1
 	IF history = TRUE THEN PROCEdInitInternalHistory
 RETPROC
 

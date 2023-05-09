@@ -630,7 +630,7 @@ bool jump_linenum(int64_t linenum, struct basic_ctx* ctx);
 void line_statement(struct basic_ctx* ctx);
 void statement(struct basic_ctx* ctx);
 bool accept(int token, struct basic_ctx* ctx);
-void basic_parse_fn(struct basic_ctx* ctx);
+bool basic_parse_fn(struct basic_ctx* ctx);
 struct basic_ctx* basic_clone(struct basic_ctx* old);
 bool basic_finished(struct basic_ctx* ctx);
 

@@ -319,7 +319,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 	return;
 }
 
-void basic_parse_fn(struct basic_ctx* ctx)
+bool basic_parse_fn(struct basic_ctx* ctx)
 {
 	int currentline = 0;
 
@@ -360,13 +360,20 @@ void basic_parse_fn(struct basic_ctx* ctx)
 
 				char name[MAX_STRINGLEN];
 				int ni = 0;
-				struct ub_proc_fn_def* def = kmalloc(sizeof(struct ub_proc_fn_def));
 				--search;
 				while (ni < MAX_STRINGLEN - 2 && *search != '\n' && *search != 0 && *search != '(') {
 					name[ni++] = *search++;
 				}
 				name[ni] = 0;
+				struct ub_proc_fn_def* exist_def = basic_find_fn(name, ctx);
+				if (exist_def) {
+					char error[MAX_STRINGLEN];
+					snprintf(error, MAX_STRINGLEN, "Duplicate function name '%s'", name);
+					tokenizer_error_print(ctx, error);
+					return false;
+				}
 
+				struct ub_proc_fn_def* def = kmalloc(sizeof(struct ub_proc_fn_def));
 				def->name = strdup(name);
 				def->type = type;
 				def->line = currentline;
@@ -436,7 +443,7 @@ void basic_parse_fn(struct basic_ctx* ctx)
 	tokenizer_init(ctx->program_ptr, ctx);
 
 	ctx->ended = false;
-	return;
+	return true;
 }
 
 struct ub_proc_fn_def* basic_find_fn(const char* name, struct basic_ctx* ctx)
