@@ -181,7 +181,7 @@ int get_next_token(struct basic_ctx* ctx)
 		int strl = 0;
 		do {
 			++ctx->nextptr;
-			if (++strl > 10240) {
+			if (++strl > MAX_STRINGLEN) {
 				tokenizer_error_print(ctx, "String constant too long");
 				break;
 			}
@@ -206,34 +206,39 @@ int get_next_token(struct basic_ctx* ctx)
 		}
 	}
 
-	if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$') || (*ctx->ptr == '#')) {
+	if ((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || *ctx->ptr == '_') {
 		ctx->nextptr = ctx->ptr;
 		int varl = 0;
-		while ((*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') || (*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') || (*ctx->nextptr == '$') || (*ctx->nextptr == '#') || (*ctx->nextptr == '(')
-				|| (varl > 0 && isdigit(*ctx->nextptr))) {
-			//kprintf("%c", *ctx->nextptr);
+		while (
+			(*ctx->nextptr >= 'a' && *ctx->nextptr <= 'z') ||
+			(*ctx->nextptr >= 'A' && *ctx->nextptr <= 'Z') ||
+			(*ctx->nextptr == '_') ||
+			(varl > 0 && *ctx->nextptr == '$') ||
+			(varl > 0 && *ctx->nextptr == '#') ||
+			(varl > 0 && *ctx->nextptr == '(') ||
+			(varl > 0 && isdigit(*ctx->nextptr))
+		) {
 			ctx->nextptr++;
 			if (*ctx->nextptr == '(') {
-			//kprintf("Nextptr found open bracket\n");
-			int bracketdepth = 1;
-			do {
-				ctx->nextptr++;
-				if (*ctx->nextptr == '(')
-					bracketdepth++;
-				else if (*ctx->nextptr == ')')
-					bracketdepth--;
-			}
-			while (bracketdepth > 1 && *ctx->nextptr != 0);
-			}
-			else
-			if (++varl > 60) {
+				int bracketdepth = 1;
+				do {
+					ctx->nextptr++;
+					if (*ctx->nextptr == '(') {
+						bracketdepth++;
+					}
+					else if (*ctx->nextptr == ')') {
+						bracketdepth--;
+					}
+				}
+				while (bracketdepth > 1 && *ctx->nextptr != 0);
+			} else if (++varl > 60) {
 				tokenizer_error_print(ctx, "Variable name too long");
 				break;
 			}
 		}
-		if (*ctx->nextptr == '$' || *ctx->nextptr == '#')
+		if (*ctx->nextptr == '$' || *ctx->nextptr == '#') {
 			ctx->nextptr++;
-		//kprintf("Variable. nextptr = %08x ptr = %08x\n", ctx->nextptr, ctx->ptr);
+		}
 		return VARIABLE;
 	}
 
@@ -336,10 +341,27 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx)
 {
 	char varname[MAX_VARNAME];
 	int count = 0;
-	while (((*ctx->ptr >= 'a' && *ctx->ptr <= 'z') || (*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') || (*ctx->ptr == '$') || (*ctx->ptr == '#')) && count < MAX_VARNAME) {
+	while (
+		(
+			(*ctx->ptr >= 'a' && *ctx->ptr <= 'z') ||
+			(*ctx->ptr >= 'A' && *ctx->ptr <= 'Z') ||
+			(count > 0 && *ctx->ptr == '$') ||
+			(count > 0 && *ctx->ptr == '#') ||
+			(*ctx->ptr == '_') ||
+			(count > 0 && isdigit(*ctx->ptr))
+		) && count < MAX_VARNAME
+	) {
 		varname[count++] = *(ctx->ptr++);
 	}
 	varname[count] = 0;
+	for (int n = 0; n < count - 1; ++n) {
+		if (varname[n] == '$' || varname[n] == '#') {
+			char error[MAX_STRINGLEN];
+			snprintf(error, MAX_STRINGLEN, "Invalid variable name '%s'", varname);
+			tokenizer_error_print(ctx, error);
+			return "";
+		}
+	}
 	/* TODO: Validate variable name, weed out e.g. TEST$$ or $TEST$ which are not valid. */
 	return gc_strdup(varname);
 }
