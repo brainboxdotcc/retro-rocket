@@ -631,6 +631,7 @@ void line_statement(struct basic_ctx* ctx);
 void statement(struct basic_ctx* ctx);
 bool accept(int token, struct basic_ctx* ctx);
 void basic_parse_fn(struct basic_ctx* ctx);
+struct basic_ctx* basic_clone(struct basic_ctx* old);
 
 #define accept_or_return(token, ctx) \
 	if (!accept(token, ctx)) { \
@@ -727,6 +728,14 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx);
 char basic_builtin_double_fn(const char* fn_name, struct basic_ctx* ctx, double* res);
 char basic_builtin_int_fn(const char* fn_name, struct basic_ctx* ctx, int64_t* res);
+struct ub_proc_fn_def* basic_find_fn(const char* name, struct basic_ctx* ctx);
+void init_local_heap(struct basic_ctx* ctx);
+void free_local_heap(struct basic_ctx* ctx);
+bool is_builtin_double_fn(const char* fn_name);
+void def_statement(struct basic_ctx* ctx);
+void proc_statement(struct basic_ctx* ctx);
+void eq_statement(struct basic_ctx* ctx);
+void retproc_statement(struct basic_ctx* ctx);
 
 /* Sockets functionality */
 void sockwrite_statement(struct basic_ctx* ctx);

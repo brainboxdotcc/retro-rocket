@@ -258,6 +258,34 @@ void write_statement(struct basic_ctx* ctx)
 	}
 }
 
+char* basic_ramdisk_from_device(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	PARAMS_END("RAMDISK$","");
+	const char* rd = init_ramdisk_from_storage(strval);
+	if (!rd) {
+		return "";
+	}
+	return gc_strdup(rd);
+}
+
+char* basic_ramdisk_from_size(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t blocks = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t block_size = intval;
+	PARAMS_END("RAMDISK","");
+	const char* rd = init_ramdisk(blocks, block_size);
+	if (!rd) {
+		return "";
+	}
+	return gc_strdup(rd);
+}
+
+
 char* basic_csd(struct basic_ctx* ctx)
 {
 	return gc_strdup(proc_cur()->csd);
