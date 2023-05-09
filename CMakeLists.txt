@@ -12,7 +12,7 @@ set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
 
 include("${CMAKE_SOURCE_DIR}/cmake/custom_targets.cmake")
 
-file(GLOB SOURCES "src/*.c")
+file(GLOB SOURCES "src/*.c" "src/basic/*.c")
 file(GLOB ASSEMBLY "asm/*")
 
 set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-declarations -Wno-unused-parameter -nostdlib -mno-mmx -mno-3dnow -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=kernel -mno-red-zone -Wno-address-of-packed-member")
