@@ -50,3 +50,11 @@ double cos(double rads);
  * @return double tangent of radians
  */
 double tan(double rads);
+
+/**
+ * @brief Calculate square root of x
+ *
+ * @param x the number whose square root is to be calculated
+ * @return double calculated square root of `x`
+ */
+double sqrt(double x);

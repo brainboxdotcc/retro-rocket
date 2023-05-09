@@ -174,7 +174,7 @@ typedef struct ub_line_ref {
 } ub_line_ref;
 
 /**
- * @brief Specil line number where EVAL code is inserted dynamically
+ * @brief Special line number where EVAL code is inserted dynamically
  */
 #define EVAL_LINE	999999998
 /**
@@ -196,6 +196,11 @@ typedef struct cpuid_result {
 	unsigned int edx;
 } cpuid_result_t;
 
+typedef struct g_cpuid_vendor {
+	char const* varname;
+	char const* vendor;
+} g_cpuid_vendor_t;
+
 /**
  * @brief BASIC program context.
  * Every instance of a BASIC program has one of these,* also certain structures
@@ -208,7 +213,7 @@ typedef struct basic_ctx {
 	 * @brief Pointer to the start of the next token
 	 * Always between program_ptr and program_ptr + strlen(program_ptr)
 	 */
-        char const* ptr;
+	char const* ptr;
 	/**
 	 * @brief Pointer to the character after the next token.
 	 * Always between program_ptr and program_ptr + strlen(program_ptr)
@@ -218,7 +223,7 @@ typedef struct basic_ctx {
 	 * @brief Numeric form of the token between ptr and nextptr.
 	 * Should always be a value within the enum token_t
 	 */
-        int current_token;
+	int current_token;
 	/**
 	 * @brief Current line number
 	 */
@@ -234,18 +239,18 @@ typedef struct basic_ctx {
 	 * END statement, or fell off the end of the program to the terminating
 	 * null char.
 	 */
-        bool ended;
+	bool ended;
 	/**
 	 * @brief The whole program text, untokenized.
 	 * May have been "cleaned" by an initial preprocessing phase which removes
 	 * unneccesary spacing etc.
 	 */
-        char* program_ptr;
+	char* program_ptr;
 	/**
 	 * @brief A context-local string buffer used for parsing function/procedure
 	 * parameter lists.
 	 */
-        char string[MAX_STRINGLEN];
+	char string[MAX_STRINGLEN];
 	/**
 	 * @brief Local integer variable stack for variables declared within a
 	 * function or procedure scope.
@@ -265,23 +270,23 @@ typedef struct basic_ctx {
 	 * @brief Call stack, holds the return line numbers for each
 	 * level of calls to a procedure, function or GOSUB
 	 */
-        uint64_t call_stack[MAX_CALL_STACK_DEPTH];
+	uint64_t call_stack[MAX_CALL_STACK_DEPTH];
 	/**
 	 * @brief How far up the call stack we are. The call stack pointer
 	 * starts at 0, and can go as high as MAX_CALL_STACK_DEPTH - 1
 	 */
-        uint64_t call_stack_ptr;
+	uint64_t call_stack_ptr;
 	/**
 	 * @brief Repeat stack, holds the return line numbers for each
 	 * level of REPEAT...UNTIL loop.
 	 */
-        uint64_t repeat_stack[MAX_LOOP_STACK_DEPTH];
+	uint64_t repeat_stack[MAX_LOOP_STACK_DEPTH];
 	/**
 	 * @brief How far up the REPEAT...UNTIL stack we are. The repeat
 	 * stack pointer starts at 0, and can go as high as
 	 * MAX_LOOP_STACK_DEPTH - 1
 	 */
-        uint64_t repeat_stack_ptr;
+	uint64_t repeat_stack_ptr;
 	/**
 	 * @brief Previous program length, before an EVAL statement.
 	 * An EVAL statement appends additional lines to the program
@@ -298,13 +303,13 @@ typedef struct basic_ctx {
 	 * @brief FOR stack, holds the return line numbers for each
 	 * level of FOR...NEXT loop.
 	 */
-        struct for_state for_stack[MAX_LOOP_STACK_DEPTH];
+	struct for_state for_stack[MAX_LOOP_STACK_DEPTH];
 	/**
 	 * @brief How far up the FOR...NEXT stack we are. The FOR
 	 * stack pointer starts at 0, and can go as high as
 	 * MAX_LOOP_STACK_DEPTH - 1
 	 */
-        uint64_t for_stack_ptr;
+	uint64_t for_stack_ptr;
 	/**
 	 * @brief Definitions for procedures and functions in the program
 	 */
@@ -312,7 +317,7 @@ typedef struct basic_ctx {
 	/**
 	 * @brief Global integer variable list
 	 */
-        struct ub_var_int* int_variables;
+	struct ub_var_int* int_variables;
 	/**
 	 * @brief Global string variable list
 	 */
@@ -611,6 +616,8 @@ void basic_sin(struct basic_ctx* ctx, double* res);
 void basic_cos(struct basic_ctx* ctx, double* res);
 void basic_tan(struct basic_ctx* ctx, double* res);
 void basic_pow(struct basic_ctx* ctx, double* res);
+void basic_sqrt(struct basic_ctx* ctx, double* res);
+
 
 /*
  * Context control functions
