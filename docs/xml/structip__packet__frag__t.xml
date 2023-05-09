@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structip__packet__frag__t" kind="struct" language="C++" prot="public">
     <compoundname>ip_packet_frag_t</compoundname>
     <includes local="no">ip.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint32_t ip_packet_frag_t::offset</definition>
         <argsstring></argsstring>
         <name>offset</name>
+        <qualifiedname>ip_packet_frag_t::offset</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>ip_packet_t* ip_packet_frag_t::packet</definition>
         <argsstring></argsstring>
         <name>packet</name>
+        <qualifiedname>ip_packet_frag_t::packet</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>struct ip_packet_frag* ip_packet_frag_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
+        <qualifiedname>ip_packet_frag_t::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>struct ip_packet_frag* ip_packet_frag_t::prev</definition>
         <argsstring></argsstring>
         <name>prev</name>
+        <qualifiedname>ip_packet_frag_t::prev</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -66,10 +70,10 @@
         <label>ip_packet_frag_t</label>
         <link refid="structip__packet__frag__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>packet</edgelabel>
+          <edgelabel>offset</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>offset</edgelabel>
+          <edgelabel>packet</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>next</edgelabel>
@@ -77,13 +81,13 @@
         </childnode>
       </node>
       <node id="3">
-        <label>uint32_t</label>
+        <label>ip_packet_t</label>
       </node>
       <node id="4">
         <label>struct ip_packet_frag *</label>
       </node>
       <node id="2">
-        <label>ip_packet_t</label>
+        <label>uint32_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ip.h" line="73" column="1" bodyfile="include/ip.h" bodystart="73" bodyend="78"/>

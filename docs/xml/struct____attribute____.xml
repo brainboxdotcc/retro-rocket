@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="struct____attribute____" kind="struct" language="C++" prot="public">
     <compoundname>__attribute__</compoundname>
     <includes local="no">iso9660.h</includes>
@@ -9,6 +9,7 @@
         <definition>char __attribute__::year[4]</definition>
         <argsstring>[4]</argsstring>
         <name>year</name>
+        <qualifiedname>__attribute__::year</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>char __attribute__::month[2]</definition>
         <argsstring>[2]</argsstring>
         <name>month</name>
+        <qualifiedname>__attribute__::month</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>char __attribute__::day[2]</definition>
         <argsstring>[2]</argsstring>
         <name>day</name>
+        <qualifiedname>__attribute__::day</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>char __attribute__::hour[2]</definition>
         <argsstring>[2]</argsstring>
         <name>hour</name>
+        <qualifiedname>__attribute__::hour</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>char __attribute__::minute[2]</definition>
         <argsstring>[2]</argsstring>
         <name>minute</name>
+        <qualifiedname>__attribute__::minute</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>char __attribute__::second[2]</definition>
         <argsstring>[2]</argsstring>
         <name>second</name>
+        <qualifiedname>__attribute__::second</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>char __attribute__::millisecond[2]</definition>
         <argsstring>[2]</argsstring>
         <name>millisecond</name>
+        <qualifiedname>__attribute__::millisecond</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>char __attribute__::tz_offset</definition>
         <argsstring></argsstring>
         <name>tz_offset</name>
+        <qualifiedname>__attribute__::tz_offset</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint8_t __attribute__::years_since_1900</definition>
         <argsstring></argsstring>
         <name>years_since_1900</name>
+        <qualifiedname>__attribute__::years_since_1900</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -126,6 +135,7 @@
         <definition>uint8_t __attribute__::month</definition>
         <argsstring></argsstring>
         <name>month</name>
+        <qualifiedname>__attribute__::month</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -139,6 +149,7 @@
         <definition>uint8_t __attribute__::day</definition>
         <argsstring></argsstring>
         <name>day</name>
+        <qualifiedname>__attribute__::day</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -152,6 +163,7 @@
         <definition>uint8_t __attribute__::hour</definition>
         <argsstring></argsstring>
         <name>hour</name>
+        <qualifiedname>__attribute__::hour</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -165,6 +177,7 @@
         <definition>uint8_t __attribute__::minute</definition>
         <argsstring></argsstring>
         <name>minute</name>
+        <qualifiedname>__attribute__::minute</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -178,6 +191,7 @@
         <definition>uint8_t __attribute__::second</definition>
         <argsstring></argsstring>
         <name>second</name>
+        <qualifiedname>__attribute__::second</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -191,6 +205,7 @@
         <definition>uint8_t __attribute__::length</definition>
         <argsstring></argsstring>
         <name>length</name>
+        <qualifiedname>__attribute__::length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -204,6 +219,7 @@
         <definition>uint8_t __attribute__::attribute_length</definition>
         <argsstring></argsstring>
         <name>attribute_length</name>
+        <qualifiedname>__attribute__::attribute_length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -217,6 +233,7 @@
         <definition>uint32_t __attribute__::extent_lba_lsb</definition>
         <argsstring></argsstring>
         <name>extent_lba_lsb</name>
+        <qualifiedname>__attribute__::extent_lba_lsb</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -230,6 +247,7 @@
         <definition>uint32_t __attribute__::extent_lba_msb</definition>
         <argsstring></argsstring>
         <name>extent_lba_msb</name>
+        <qualifiedname>__attribute__::extent_lba_msb</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -243,6 +261,7 @@
         <definition>uint32_t __attribute__::data_length_lsb</definition>
         <argsstring></argsstring>
         <name>data_length_lsb</name>
+        <qualifiedname>__attribute__::data_length_lsb</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -256,6 +275,7 @@
         <definition>uint32_t __attribute__::data_length_msb</definition>
         <argsstring></argsstring>
         <name>data_length_msb</name>
+        <qualifiedname>__attribute__::data_length_msb</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -269,6 +289,7 @@
         <definition>DIRECTORY_date __attribute__::recording_date</definition>
         <argsstring></argsstring>
         <name>recording_date</name>
+        <qualifiedname>__attribute__::recording_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -282,6 +303,7 @@
         <definition>uint8_t __attribute__::file_flags</definition>
         <argsstring></argsstring>
         <name>file_flags</name>
+        <qualifiedname>__attribute__::file_flags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -295,6 +317,7 @@
         <definition>uint16_t __attribute__::interleave_unit_size</definition>
         <argsstring></argsstring>
         <name>interleave_unit_size</name>
+        <qualifiedname>__attribute__::interleave_unit_size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -308,6 +331,7 @@
         <definition>uint16_t __attribute__::sequence_number_lsb</definition>
         <argsstring></argsstring>
         <name>sequence_number_lsb</name>
+        <qualifiedname>__attribute__::sequence_number_lsb</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -321,6 +345,7 @@
         <definition>uint16_t __attribute__::sequence_number_msb</definition>
         <argsstring></argsstring>
         <name>sequence_number_msb</name>
+        <qualifiedname>__attribute__::sequence_number_msb</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -334,6 +359,7 @@
         <definition>uint8_t __attribute__::filename_length</definition>
         <argsstring></argsstring>
         <name>filename_length</name>
+        <qualifiedname>__attribute__::filename_length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -347,6 +373,7 @@
         <definition>char __attribute__::filename[12]</definition>
         <argsstring>[12]</argsstring>
         <name>filename</name>
+        <qualifiedname>__attribute__::filename</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -360,6 +387,7 @@
         <definition>uint8_t __attribute__::typecode</definition>
         <argsstring></argsstring>
         <name>typecode</name>
+        <qualifiedname>__attribute__::typecode</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -373,6 +401,7 @@
         <definition>char __attribute__::standardidentifier[5]</definition>
         <argsstring>[5]</argsstring>
         <name>standardidentifier</name>
+        <qualifiedname>__attribute__::standardidentifier</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -386,6 +415,7 @@
         <definition>uint8_t __attribute__::version</definition>
         <argsstring></argsstring>
         <name>version</name>
+        <qualifiedname>__attribute__::version</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -399,6 +429,7 @@
         <definition>uint8_t __attribute__::unused</definition>
         <argsstring></argsstring>
         <name>unused</name>
+        <qualifiedname>__attribute__::unused</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -412,6 +443,7 @@
         <definition>char __attribute__::systemidentifier[32]</definition>
         <argsstring>[32]</argsstring>
         <name>systemidentifier</name>
+        <qualifiedname>__attribute__::systemidentifier</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -425,6 +457,7 @@
         <definition>char __attribute__::volumeidentifier[32]</definition>
         <argsstring>[32]</argsstring>
         <name>volumeidentifier</name>
+        <qualifiedname>__attribute__::volumeidentifier</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -438,6 +471,7 @@
         <definition>char __attribute__::unused2[8]</definition>
         <argsstring>[8]</argsstring>
         <name>unused2</name>
+        <qualifiedname>__attribute__::unused2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -451,6 +485,7 @@
         <definition>uint32_t __attribute__::lsb_volumespacesize</definition>
         <argsstring></argsstring>
         <name>lsb_volumespacesize</name>
+        <qualifiedname>__attribute__::lsb_volumespacesize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -464,6 +499,7 @@
         <definition>uint32_t __attribute__::msb_volumespacesize</definition>
         <argsstring></argsstring>
         <name>msb_volumespacesize</name>
+        <qualifiedname>__attribute__::msb_volumespacesize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -477,6 +513,7 @@
         <definition>char __attribute__::escape_seq[8]</definition>
         <argsstring>[8]</argsstring>
         <name>escape_seq</name>
+        <qualifiedname>__attribute__::escape_seq</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -490,6 +527,7 @@
         <definition>char __attribute__::unused3[32-8]</definition>
         <argsstring>[32-8]</argsstring>
         <name>unused3</name>
+        <qualifiedname>__attribute__::unused3</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -503,6 +541,7 @@
         <definition>uint16_t __attribute__::lsb_volumesetsize</definition>
         <argsstring></argsstring>
         <name>lsb_volumesetsize</name>
+        <qualifiedname>__attribute__::lsb_volumesetsize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -516,6 +555,7 @@
         <definition>uint16_t __attribute__::msb_volumesetsize</definition>
         <argsstring></argsstring>
         <name>msb_volumesetsize</name>
+        <qualifiedname>__attribute__::msb_volumesetsize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -529,6 +569,7 @@
         <definition>uint16_t __attribute__::lsb_volumeseqno</definition>
         <argsstring></argsstring>
         <name>lsb_volumeseqno</name>
+        <qualifiedname>__attribute__::lsb_volumeseqno</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -542,6 +583,7 @@
         <definition>uint16_t __attribute__::msb_volumeseqno</definition>
         <argsstring></argsstring>
         <name>msb_volumeseqno</name>
+        <qualifiedname>__attribute__::msb_volumeseqno</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -555,6 +597,7 @@
         <definition>uint16_t __attribute__::lsb_blocksize</definition>
         <argsstring></argsstring>
         <name>lsb_blocksize</name>
+        <qualifiedname>__attribute__::lsb_blocksize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -568,6 +611,7 @@
         <definition>uint16_t __attribute__::msb_blocksize</definition>
         <argsstring></argsstring>
         <name>msb_blocksize</name>
+        <qualifiedname>__attribute__::msb_blocksize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -581,6 +625,7 @@
         <definition>uint32_t __attribute__::lsb_pathtablesize</definition>
         <argsstring></argsstring>
         <name>lsb_pathtablesize</name>
+        <qualifiedname>__attribute__::lsb_pathtablesize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -594,6 +639,7 @@
         <definition>uint32_t __attribute__::msb_pathtablesize</definition>
         <argsstring></argsstring>
         <name>msb_pathtablesize</name>
+        <qualifiedname>__attribute__::msb_pathtablesize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -607,6 +653,7 @@
         <definition>uint32_t __attribute__::lsb_pathtable_L_lba</definition>
         <argsstring></argsstring>
         <name>lsb_pathtable_L_lba</name>
+        <qualifiedname>__attribute__::lsb_pathtable_L_lba</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -620,6 +667,7 @@
         <definition>uint32_t __attribute__::lsb_optpathtable_L_lba</definition>
         <argsstring></argsstring>
         <name>lsb_optpathtable_L_lba</name>
+        <qualifiedname>__attribute__::lsb_optpathtable_L_lba</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -633,6 +681,7 @@
         <definition>uint32_t __attribute__::lsb_pathtable_M_lba</definition>
         <argsstring></argsstring>
         <name>lsb_pathtable_M_lba</name>
+        <qualifiedname>__attribute__::lsb_pathtable_M_lba</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -646,6 +695,7 @@
         <definition>uint32_t __attribute__::lsb_optpathtable_M_lba</definition>
         <argsstring></argsstring>
         <name>lsb_optpathtable_M_lba</name>
+        <qualifiedname>__attribute__::lsb_optpathtable_M_lba</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -659,6 +709,7 @@
         <definition>ISO9660_directory __attribute__::root_directory</definition>
         <argsstring></argsstring>
         <name>root_directory</name>
+        <qualifiedname>__attribute__::root_directory</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -672,6 +723,7 @@
         <definition>char __attribute__::volume_set_id[128]</definition>
         <argsstring>[128]</argsstring>
         <name>volume_set_id</name>
+        <qualifiedname>__attribute__::volume_set_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -685,6 +737,7 @@
         <definition>char __attribute__::publisher_id[128]</definition>
         <argsstring>[128]</argsstring>
         <name>publisher_id</name>
+        <qualifiedname>__attribute__::publisher_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -698,6 +751,7 @@
         <definition>char __attribute__::data_preparer[128]</definition>
         <argsstring>[128]</argsstring>
         <name>data_preparer</name>
+        <qualifiedname>__attribute__::data_preparer</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -711,6 +765,7 @@
         <definition>char __attribute__::application_id[128]</definition>
         <argsstring>[128]</argsstring>
         <name>application_id</name>
+        <qualifiedname>__attribute__::application_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -724,6 +779,7 @@
         <definition>char __attribute__::copyright_file[38]</definition>
         <argsstring>[38]</argsstring>
         <name>copyright_file</name>
+        <qualifiedname>__attribute__::copyright_file</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -737,6 +793,7 @@
         <definition>char __attribute__::abstract_file[36]</definition>
         <argsstring>[36]</argsstring>
         <name>abstract_file</name>
+        <qualifiedname>__attribute__::abstract_file</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -750,6 +807,7 @@
         <definition>char __attribute__::bibliographic_file[37]</definition>
         <argsstring>[37]</argsstring>
         <name>bibliographic_file</name>
+        <qualifiedname>__attribute__::bibliographic_file</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -763,6 +821,7 @@
         <definition>PVD_date __attribute__::volume_creation_date</definition>
         <argsstring></argsstring>
         <name>volume_creation_date</name>
+        <qualifiedname>__attribute__::volume_creation_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -776,6 +835,7 @@
         <definition>PVD_date __attribute__::volume_modification_date</definition>
         <argsstring></argsstring>
         <name>volume_modification_date</name>
+        <qualifiedname>__attribute__::volume_modification_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -789,6 +849,7 @@
         <definition>PVD_date __attribute__::volume_expire_date</definition>
         <argsstring></argsstring>
         <name>volume_expire_date</name>
+        <qualifiedname>__attribute__::volume_expire_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -802,6 +863,7 @@
         <definition>PVD_date __attribute__::volume_effective_date</definition>
         <argsstring></argsstring>
         <name>volume_effective_date</name>
+        <qualifiedname>__attribute__::volume_effective_date</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -815,6 +877,7 @@
         <definition>uint8_t __attribute__::file_structure_version</definition>
         <argsstring></argsstring>
         <name>file_structure_version</name>
+        <qualifiedname>__attribute__::file_structure_version</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -828,6 +891,7 @@
         <definition>char __attribute__::unused4</definition>
         <argsstring></argsstring>
         <name>unused4</name>
+        <qualifiedname>__attribute__::unused4</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -841,6 +905,7 @@
         <definition>uint8_t __attribute__::application_use[512]</definition>
         <argsstring>[512]</argsstring>
         <name>application_use</name>
+        <qualifiedname>__attribute__::application_use</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -854,6 +919,7 @@
         <definition>uint8_t __attribute__::reserved[653]</definition>
         <argsstring>[653]</argsstring>
         <name>reserved</name>
+        <qualifiedname>__attribute__::reserved</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -868,17 +934,11 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="7">
+      <node id="5">
         <label>DIRECTORY_date</label>
       </node>
-      <node id="2">
-        <label>uint16_t</label>
-      </node>
-      <node id="4">
-        <label>uint32_t</label>
-      </node>
-      <node id="5">
-        <label>uint8_t</label>
+      <node id="7">
+        <label>ISO9660_directory</label>
       </node>
       <node id="8">
         <label>PVD_date</label>
@@ -887,17 +947,6 @@
         <label>__attribute__</label>
         <link refid="struct____attribute____"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>interleave_unit_size</edgelabel>
-          <edgelabel>lsb_blocksize</edgelabel>
-          <edgelabel>lsb_volumeseqno</edgelabel>
-          <edgelabel>lsb_volumesetsize</edgelabel>
-          <edgelabel>msb_blocksize</edgelabel>
-          <edgelabel>msb_volumeseqno</edgelabel>
-          <edgelabel>msb_volumesetsize</edgelabel>
-          <edgelabel>sequence_number_lsb</edgelabel>
-          <edgelabel>sequence_number_msb</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>abstract_file</edgelabel>
           <edgelabel>application_id</edgelabel>
           <edgelabel>bibliographic_file</edgelabel>
@@ -908,6 +957,19 @@
           <edgelabel>filename</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>millisecond</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>application_use</edgelabel>
+          <edgelabel>attribute_length</edgelabel>
+          <edgelabel>day</edgelabel>
+          <edgelabel>file_flags</edgelabel>
+          <edgelabel>file_structure_version</edgelabel>
+          <edgelabel>filename_length</edgelabel>
+          <edgelabel>hour</edgelabel>
+          <edgelabel>length</edgelabel>
+          <edgelabel>minute</edgelabel>
+          <edgelabel>month</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
@@ -924,23 +986,21 @@
           <edgelabel>...</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>application_use</edgelabel>
-          <edgelabel>attribute_length</edgelabel>
-          <edgelabel>day</edgelabel>
-          <edgelabel>file_flags</edgelabel>
-          <edgelabel>file_structure_version</edgelabel>
-          <edgelabel>filename_length</edgelabel>
-          <edgelabel>hour</edgelabel>
-          <edgelabel>length</edgelabel>
-          <edgelabel>minute</edgelabel>
-          <edgelabel>month</edgelabel>
-          <edgelabel>...</edgelabel>
+          <edgelabel>recording_date</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
-          <edgelabel>root_directory</edgelabel>
+          <edgelabel>interleave_unit_size</edgelabel>
+          <edgelabel>lsb_blocksize</edgelabel>
+          <edgelabel>lsb_volumeseqno</edgelabel>
+          <edgelabel>lsb_volumesetsize</edgelabel>
+          <edgelabel>msb_blocksize</edgelabel>
+          <edgelabel>msb_volumeseqno</edgelabel>
+          <edgelabel>msb_volumesetsize</edgelabel>
+          <edgelabel>sequence_number_lsb</edgelabel>
+          <edgelabel>sequence_number_msb</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>recording_date</edgelabel>
+          <edgelabel>root_directory</edgelabel>
         </childnode>
         <childnode refid="8" relation="usage">
           <edgelabel>volume_creation_date</edgelabel>
@@ -949,11 +1009,17 @@
           <edgelabel>volume_modification_date</edgelabel>
         </childnode>
       </node>
-      <node id="3">
+      <node id="2">
         <label>char</label>
       </node>
       <node id="6">
-        <label>ISO9660_directory</label>
+        <label>uint16_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/iso9660.h" line="27" column="1" bodyfile="include/iso9660.h" bodystart="28" bodyend="37"/>

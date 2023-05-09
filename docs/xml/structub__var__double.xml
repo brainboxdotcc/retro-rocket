@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structub__var__double" kind="struct" language="C++" prot="public">
     <compoundname>ub_var_double</compoundname>
     <includes local="no">basic.h</includes>
@@ -9,6 +9,7 @@
         <definition>const char* ub_var_double::varname</definition>
         <argsstring></argsstring>
         <name>varname</name>
+        <qualifiedname>ub_var_double::varname</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>double ub_var_double::value</definition>
         <argsstring></argsstring>
         <name>value</name>
+        <qualifiedname>ub_var_double::value</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>bool ub_var_double::global</definition>
         <argsstring></argsstring>
         <name>global</name>
+        <qualifiedname>ub_var_double::global</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>struct ub_var_double* ub_var_double::next</definition>
         <argsstring></argsstring>
         <name>next</name>
+        <qualifiedname>ub_var_double::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -63,30 +67,30 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="4">
+        <label>bool</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+      <node id="3">
+        <label>double</label>
+      </node>
       <node id="1">
         <label>ub_var_double</label>
         <link refid="structub__var__double"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>value</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>varname</edgelabel>
         </childnode>
-        <childnode refid="1" relation="usage">
-          <edgelabel>next</edgelabel>
+        <childnode refid="3" relation="usage">
+          <edgelabel>value</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>global</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>double</label>
-      </node>
-      <node id="4">
-        <label>bool</label>
-      </node>
-      <node id="3">
-        <label>char</label>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
       </node>
     </collaborationgraph>
     <location file="include/basic.h" line="68" column="1" bodyfile="include/basic.h" bodystart="68" bodyend="73"/>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structdns__header" kind="struct" language="C++" prot="public">
     <compoundname>dns_header</compoundname>
     <includes local="no">dns.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint16_t dns_header::id</definition>
         <argsstring></argsstring>
         <name>id</name>
+        <qualifiedname>dns_header::id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t dns_header::flags1</definition>
         <argsstring></argsstring>
         <name>flags1</name>
+        <qualifiedname>dns_header::flags1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t dns_header::flags2</definition>
         <argsstring></argsstring>
         <name>flags2</name>
+        <qualifiedname>dns_header::flags2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint16_t dns_header::qdcount</definition>
         <argsstring></argsstring>
         <name>qdcount</name>
+        <qualifiedname>dns_header::qdcount</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint16_t dns_header::ancount</definition>
         <argsstring></argsstring>
         <name>ancount</name>
+        <qualifiedname>dns_header::ancount</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint16_t dns_header::nscount</definition>
         <argsstring></argsstring>
         <name>nscount</name>
+        <qualifiedname>dns_header::nscount</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint16_t dns_header::arcount</definition>
         <argsstring></argsstring>
         <name>arcount</name>
+        <qualifiedname>dns_header::arcount</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint8_t dns_header::payload[512]</definition>
         <argsstring>[512]</argsstring>
         <name>payload</name>
+        <qualifiedname>dns_header::payload</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -115,12 +123,6 @@
 <para>Represents a dns request/reply header, and its payload as opaque data. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>uint16_t</label>
-      </node>
-      <node id="3">
-        <label>uint8_t</label>
-      </node>
       <node id="1">
         <label>dns_header</label>
         <link refid="structdns__header"/>
@@ -136,6 +138,12 @@
           <edgelabel>flags2</edgelabel>
           <edgelabel>payload</edgelabel>
         </childnode>
+      </node>
+      <node id="2">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/dns.h" line="55" column="1" bodyfile="include/dns.h" bodystart="55" bodyend="64"/>

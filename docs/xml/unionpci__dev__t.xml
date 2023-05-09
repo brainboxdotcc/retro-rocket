@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="unionpci__dev__t" kind="union" language="C++" prot="public">
     <compoundname>pci_dev_t</compoundname>
     <includes local="no">pci.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint32_t pci_dev_t::bits</definition>
         <argsstring></argsstring>
         <name>bits</name>
+        <qualifiedname>pci_dev_t::bits</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint32_t pci_dev_t::always_zero</definition>
         <argsstring></argsstring>
         <name>always_zero</name>
+        <qualifiedname>pci_dev_t::always_zero</qualifiedname>
         <bitfield> 2</bitfield>
         <briefdescription>
         </briefdescription>
@@ -36,6 +38,7 @@
         <definition>uint32_t pci_dev_t::field_num</definition>
         <argsstring></argsstring>
         <name>field_num</name>
+        <qualifiedname>pci_dev_t::field_num</qualifiedname>
         <bitfield> 6</bitfield>
         <briefdescription>
         </briefdescription>
@@ -50,6 +53,7 @@
         <definition>uint32_t pci_dev_t::function_num</definition>
         <argsstring></argsstring>
         <name>function_num</name>
+        <qualifiedname>pci_dev_t::function_num</qualifiedname>
         <bitfield> 3</bitfield>
         <briefdescription>
         </briefdescription>
@@ -64,6 +68,7 @@
         <definition>uint32_t pci_dev_t::device_num</definition>
         <argsstring></argsstring>
         <name>device_num</name>
+        <qualifiedname>pci_dev_t::device_num</qualifiedname>
         <bitfield> 5</bitfield>
         <briefdescription>
         </briefdescription>
@@ -78,6 +83,7 @@
         <definition>uint32_t pci_dev_t::bus_num</definition>
         <argsstring></argsstring>
         <name>bus_num</name>
+        <qualifiedname>pci_dev_t::bus_num</qualifiedname>
         <bitfield> 8</bitfield>
         <briefdescription>
         </briefdescription>
@@ -92,6 +98,7 @@
         <definition>uint32_t pci_dev_t::reserved</definition>
         <argsstring></argsstring>
         <name>reserved</name>
+        <qualifiedname>pci_dev_t::reserved</qualifiedname>
         <bitfield> 7</bitfield>
         <briefdescription>
         </briefdescription>
@@ -106,6 +113,7 @@
         <definition>uint32_t pci_dev_t::enable</definition>
         <argsstring></argsstring>
         <name>enable</name>
+        <qualifiedname>pci_dev_t::enable</qualifiedname>
         <bitfield> 1</bitfield>
         <briefdescription>
         </briefdescription>
@@ -120,6 +128,7 @@
         <definition>struct pci_dev_t::@8 pci_dev_t::@9</definition>
         <argsstring></argsstring>
         <name>@9</name>
+        <qualifiedname>pci_dev_t::@9</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -137,9 +146,6 @@
       <node id="3">
         <label>anonymous:@9</label>
       </node>
-      <node id="2">
-        <label>uint32_t</label>
-      </node>
       <node id="1">
         <label>pci_dev_t</label>
         <link refid="unionpci__dev__t"/>
@@ -156,6 +162,9 @@
         <childnode refid="3" relation="usage">
           <edgelabel>@9</edgelabel>
         </childnode>
+      </node>
+      <node id="2">
+        <label>uint32_t</label>
       </node>
     </collaborationgraph>
     <location file="include/pci.h" line="16" column="1" bodyfile="include/pci.h" bodystart="16" bodyend="27"/>

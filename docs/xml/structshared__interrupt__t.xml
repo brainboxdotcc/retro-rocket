@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structshared__interrupt__t" kind="struct" language="C++" prot="public">
     <compoundname>shared_interrupt_t</compoundname>
     <includes local="no">interrupt.h</includes>
@@ -9,6 +9,7 @@
         <definition>isr_t shared_interrupt_t::interrupt_handler</definition>
         <argsstring></argsstring>
         <name>interrupt_handler</name>
+        <qualifiedname>shared_interrupt_t::interrupt_handler</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>pci_dev_t shared_interrupt_t::device</definition>
         <argsstring></argsstring>
         <name>device</name>
+        <qualifiedname>shared_interrupt_t::device</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>void* shared_interrupt_t::opaque</definition>
         <argsstring></argsstring>
         <name>opaque</name>
+        <qualifiedname>shared_interrupt_t::opaque</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>struct shared_interrupt_t* shared_interrupt_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
+        <qualifiedname>shared_interrupt_t::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -63,33 +67,8 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="6">
-        <label>void *</label>
-      </node>
       <node id="5">
         <label>anonymous:@9</label>
-      </node>
-      <node id="1">
-        <label>shared_interrupt_t</label>
-        <link refid="structshared__interrupt__t"/>
-        <childnode refid="1" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="2" relation="usage">
-          <edgelabel>interrupt_handler</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>device</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>opaque</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
-        <label>uint32_t</label>
-      </node>
-      <node id="2">
-        <label>uint8_t</label>
       </node>
       <node id="3">
         <label>pci_dev_t</label>
@@ -107,6 +86,31 @@
         <childnode refid="5" relation="usage">
           <edgelabel>@9</edgelabel>
         </childnode>
+      </node>
+      <node id="1">
+        <label>shared_interrupt_t</label>
+        <link refid="structshared__interrupt__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>interrupt_handler</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>device</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="2">
+        <label>uint8_t</label>
+      </node>
+      <node id="6">
+        <label>void *</label>
       </node>
     </collaborationgraph>
     <location file="include/interrupt.h" line="39" column="1" bodyfile="include/interrupt.h" bodystart="39" bodyend="44"/>

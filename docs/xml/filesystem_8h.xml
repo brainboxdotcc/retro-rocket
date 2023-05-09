@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="filesystem_8h" kind="file" language="C++">
     <compoundname>filesystem.h</compoundname>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <invincdepgraph>
-      <node id="28">
-        <label>ramdisk.h</label>
-        <link refid="ramdisk_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="3">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -22,27 +22,15 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
-        <label>dns.h</label>
-        <link refid="dns_8h"/>
+      <node id="6">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>fat32.h</label>
-        <link refid="fat32_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="32">
-        <label>udp.h</label>
-        <link refid="udp_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="31">
-        <label>tcp.h</label>
-        <link refid="tcp_8h"/>
+      <node id="7">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -52,9 +40,15 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
+      <node id="9">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -64,49 +58,21 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="6">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="30">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="27">
-        <label>printf.h</label>
-        <link refid="printf_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
       <node id="12">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
-        <label>initialisation-functions.h</label>
-        <link refid="initialisation-functions_8h"/>
-      </node>
-      <node id="15">
-        <label>fpu.h</label>
-        <link refid="fpu_8h"/>
+      <node id="13">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>icmp.h</label>
-        <link refid="icmp_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="21">
-        <label>ip.h</label>
-        <link refid="ip_8h"/>
+      <node id="14">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -116,15 +82,43 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
-        <label>maths.h</label>
-        <link refid="maths_8h"/>
+      <node id="15">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
-        <label>ethernet.h</label>
-        <link refid="ethernet_8h"/>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
+      </node>
+      <node id="20">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -192,27 +186,15 @@
         <childnode refid="32" relation="include">
         </childnode>
       </node>
+      <node id="22">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="23">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="25">
-        <label>partition.h</label>
-        <link refid="partition_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="29">
-        <label>random.h</label>
-        <link refid="random_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="16">
-        <label>hashmap.h</label>
-        <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -222,9 +204,9 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
-        <label>interrupt.h</label>
-        <link refid="interrupt_8h"/>
+      <node id="25">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -234,21 +216,39 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>ahci.h</label>
-        <link refid="ahci_8h"/>
+      <node id="27">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
-        <label>dhcp.h</label>
-        <link refid="dhcp_8h"/>
+      <node id="28">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="7">
-        <label>clock.h</label>
-        <link refid="clock_8h"/>
+      <node id="29">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -413,9 +413,9 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="30" column="18" bodyfile="include/filesystem.h" bodystart="30" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="filesystem_8h_1ab18ebf0ec55a45b557b2d6e1bdb2ef4d" prot="public" static="no">
+      <memberdef kind="typedef" id="filesystem_8h_1a554e72ed4366427b5b2c7369c8f5a019" prot="public" static="no">
         <type>void *(*</type>
-        <definition>typedef void*(* get_directory) (void *)</definition>
+        <definition>typedef void *(* get_directory) (void *)</definition>
         <argsstring>)(void *)</argsstring>
         <name>get_directory</name>
         <briefdescription>
@@ -588,9 +588,9 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="312" column="5" declfile="include/filesystem.h" declline="312" declcolumn="5"/>
       </memberdef>
-      <memberdef kind="function" id="filesystem_8h_1a86db0085cc6c14e76ac68e70b79b3a32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="filesystem_8h_1a2c68053e2563afebf1fd418edb4331ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
-        <definition>filesystem_t* find_filesystem</definition>
+        <definition>filesystem_t * find_filesystem</definition>
         <argsstring>(const char *name)</argsstring>
         <name>find_filesystem</name>
         <param>
@@ -648,9 +648,9 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="328" column="5" declfile="include/filesystem.h" declline="328" declcolumn="5"/>
       </memberdef>
-      <memberdef kind="function" id="filesystem_8h_1a1a11d52abe39eec5ff5057fb568abcaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="filesystem_8h_1a2d44f355f5c3890515e153c920ee9d64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
-        <definition>storage_device_t* find_storage_device</definition>
+        <definition>storage_device_t * find_storage_device</definition>
         <argsstring>(const char *name)</argsstring>
         <name>find_storage_device</name>
         <param>
@@ -934,9 +934,9 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="388" column="6" declfile="include/filesystem.h" declline="388" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="filesystem_8h_1aeea14dbba6f8453923e288ece85cf6df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="filesystem_8h_1ad9c92a584255bed6a385178d6c6d3a0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
-        <definition>fs_directory_entry_t* fs_get_items</definition>
+        <definition>fs_directory_entry_t * fs_get_items</definition>
         <argsstring>(const char *pathname)</argsstring>
         <name>fs_get_items</name>
         <param>
@@ -996,9 +996,9 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="406" column="6" declfile="include/filesystem.h" declline="406" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="filesystem_8h_1a93b69bf53951ce16a8e648f238631696" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="filesystem_8h_1a350d2944f92964968603dabe5ab799ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
-        <definition>fs_directory_entry_t* fs_get_file_info</definition>
+        <definition>fs_directory_entry_t * fs_get_file_info</definition>
         <argsstring>(const char *pathandfile)</argsstring>
         <name>fs_get_file_info</name>
         <param>
@@ -1026,9 +1026,9 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="414" column="22" declfile="include/filesystem.h" declline="414" declcolumn="22"/>
       </memberdef>
-      <memberdef kind="function" id="filesystem_8h_1af29b0affdc800f4d78ab5e9c60a1726a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="filesystem_8h_1a32279bf53b5bf6110560af02afb4470b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
-        <definition>fs_directory_entry_t* fs_create_file</definition>
+        <definition>fs_directory_entry_t * fs_create_file</definition>
         <argsstring>(const char *pathandfile, size_t bytes)</argsstring>
         <name>fs_create_file</name>
         <param>
@@ -1068,9 +1068,9 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="423" column="22" declfile="include/filesystem.h" declline="423" declcolumn="22"/>
       </memberdef>
-      <memberdef kind="function" id="filesystem_8h_1ade4787d5728ce138b4f86eae5efe000b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="filesystem_8h_1a73fc02b56a1a9282c0ff77b79d78e73d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
-        <definition>fs_directory_entry_t* fs_create_directory</definition>
+        <definition>fs_directory_entry_t * fs_create_directory</definition>
         <argsstring>(const char *pathandfile)</argsstring>
         <name>fs_create_directory</name>
         <param>

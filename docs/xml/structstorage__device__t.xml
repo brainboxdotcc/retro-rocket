@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structstorage__device__t" kind="struct" language="C++" prot="public">
     <compoundname>storage_device_t</compoundname>
     <includes local="no">filesystem.h</includes>
@@ -9,6 +9,7 @@
         <definition>char storage_device_t::name[16]</definition>
         <argsstring>[16]</argsstring>
         <name>name</name>
+        <qualifiedname>storage_device_t::name</qualifiedname>
         <briefdescription>
 <para>Storage device name, e.g. &apos;hd0&apos;. You should use <ref refid="devicename_8h_1a4525d2540fdbd10b71f393938eb14b49" kindref="member">make_unique_device_name()</ref> to fill this field. </para>
         </briefdescription>
@@ -23,6 +24,7 @@
         <definition>uint64_t storage_device_t::size</definition>
         <argsstring></argsstring>
         <name>size</name>
+        <qualifiedname>storage_device_t::size</qualifiedname>
         <briefdescription>
 <para>Total extent of storage device if known, otherwise this value should be SIZE_MAX. </para>
         </briefdescription>
@@ -37,6 +39,7 @@
         <definition>block_read storage_device_t::blockread</definition>
         <argsstring></argsstring>
         <name>blockread</name>
+        <qualifiedname>storage_device_t::blockread</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structstorage__device__t_1a918ae65b2e583bef5384dc4c596977b2" kindref="member">blockread()</ref> Block reads are always expected to be in increments of block_size. </para>
         </briefdescription>
@@ -51,6 +54,7 @@
         <definition>block_write storage_device_t::blockwrite</definition>
         <argsstring></argsstring>
         <name>blockwrite</name>
+        <qualifiedname>storage_device_t::blockwrite</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" kindref="member">blockwrite()</ref> Block writes are always expected to be in increments of block_size. </para>
         </briefdescription>
@@ -65,6 +69,7 @@
         <definition>uint32_t storage_device_t::block_size</definition>
         <argsstring></argsstring>
         <name>block_size</name>
+        <qualifiedname>storage_device_t::block_size</qualifiedname>
         <briefdescription>
 <para>The block size read and write operations. This is usually a sector size on disk drives. </para>
         </briefdescription>
@@ -79,6 +84,7 @@
         <definition>uint64_t storage_device_t::opaque1</definition>
         <argsstring></argsstring>
         <name>opaque1</name>
+        <qualifiedname>storage_device_t::opaque1</qualifiedname>
         <briefdescription>
 <para>An opaque integer value which can be given meaning by the storage device driver. </para>
         </briefdescription>
@@ -93,6 +99,7 @@
         <definition>void* storage_device_t::opaque2</definition>
         <argsstring></argsstring>
         <name>opaque2</name>
+        <qualifiedname>storage_device_t::opaque2</qualifiedname>
         <briefdescription>
 <para>An opaque pointer value which can be given meaning by the storage device driver. </para>
         </briefdescription>
@@ -107,6 +114,7 @@
         <definition>struct storage_device_t* storage_device_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
+        <qualifiedname>storage_device_t::next</qualifiedname>
         <briefdescription>
 <para>Pointer to next storage device, or NULL. </para>
         </briefdescription>
@@ -125,44 +133,44 @@
 <para>Writeable filesystems should also implement <ref refid="structstorage__device__t_1a5ba455dae844ff9aae01e950f8271495" kindref="member">blockwrite()</ref>. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="6">
-        <label>void *</label>
-      </node>
       <node id="2">
-        <label>uint64_t</label>
+        <label>char</label>
+      </node>
+      <node id="4">
+        <label>int</label>
       </node>
       <node id="1">
         <label>storage_device_t</label>
         <link refid="structstorage__device__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>opaque1</edgelabel>
           <edgelabel>size</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>name</edgelabel>
-        </childnode>
-        <childnode refid="1" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>block_size</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
           <edgelabel>blockread</edgelabel>
           <edgelabel>blockwrite</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>block_size</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>opaque2</edgelabel>
         </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
       </node>
       <node id="5">
-        <label>int</label>
-      </node>
-      <node id="4">
         <label>uint32_t</label>
       </node>
       <node id="3">
-        <label>char</label>
+        <label>uint64_t</label>
+      </node>
+      <node id="6">
+        <label>void *</label>
       </node>
     </collaborationgraph>
     <location file="include/filesystem.h" line="190" column="1" bodyfile="include/filesystem.h" bodystart="190" bodyend="239"/>

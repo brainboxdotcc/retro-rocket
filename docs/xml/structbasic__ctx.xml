@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structbasic__ctx" kind="struct" language="C++" prot="public">
     <compoundname>basic_ctx</compoundname>
     <includes local="no">basic.h</includes>
@@ -9,6 +9,7 @@
         <definition>char const* basic_ctx::ptr</definition>
         <argsstring></argsstring>
         <name>ptr</name>
+        <qualifiedname>basic_ctx::ptr</qualifiedname>
         <briefdescription>
 <para>Pointer to the start of the next token Always between program_ptr and program_ptr + strlen(program_ptr) </para>
         </briefdescription>
@@ -16,13 +17,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="201" column="20" bodyfile="include/basic.h" bodystart="201" bodyend="-1"/>
+        <location file="include/basic.h" line="211" column="20" bodyfile="include/basic.h" bodystart="211" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1abbd42e56aa70c8d98d14f961ce7c1023" prot="public" static="no" mutable="no">
         <type>char const  *</type>
         <definition>char const* basic_ctx::nextptr</definition>
         <argsstring></argsstring>
         <name>nextptr</name>
+        <qualifiedname>basic_ctx::nextptr</qualifiedname>
         <briefdescription>
 <para>Pointer to the character after the next token. Always between program_ptr and program_ptr + strlen(program_ptr) </para>
         </briefdescription>
@@ -30,13 +32,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="206" column="12" bodyfile="include/basic.h" bodystart="206" bodyend="-1"/>
+        <location file="include/basic.h" line="216" column="12" bodyfile="include/basic.h" bodystart="216" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a8c3d193580956e83adf2c7af95168a2d" prot="public" static="no" mutable="no">
         <type>int</type>
         <definition>int basic_ctx::current_token</definition>
         <argsstring></argsstring>
         <name>current_token</name>
+        <qualifiedname>basic_ctx::current_token</qualifiedname>
         <briefdescription>
 <para>Numeric form of the token between ptr and nextptr. Should always be a value within the enum token_t. </para>
         </briefdescription>
@@ -44,13 +47,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="211" column="13" bodyfile="include/basic.h" bodystart="211" bodyend="-1"/>
+        <location file="include/basic.h" line="221" column="13" bodyfile="include/basic.h" bodystart="221" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1aa9c6cb436ab16d8036eb779e01556bc8" prot="public" static="no" mutable="no">
         <type>int64_t</type>
         <definition>int64_t basic_ctx::current_linenum</definition>
         <argsstring></argsstring>
         <name>current_linenum</name>
+        <qualifiedname>basic_ctx::current_linenum</qualifiedname>
         <briefdescription>
 <para>Current line number. </para>
         </briefdescription>
@@ -58,13 +62,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="215" column="9" bodyfile="include/basic.h" bodystart="215" bodyend="-1"/>
+        <location file="include/basic.h" line="225" column="9" bodyfile="include/basic.h" bodystart="225" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1af9f20ba47c7abbaf8b3e1664f3cf4038" prot="public" static="no" mutable="no">
         <type>bool</type>
         <definition>bool basic_ctx::errored</definition>
         <argsstring></argsstring>
         <name>errored</name>
+        <qualifiedname>basic_ctx::errored</qualifiedname>
         <briefdescription>
 <para>True if the program has thrown an error and should end. This may not actually cause termination of the program if we are inside an EVAL at the time. </para>
         </briefdescription>
@@ -72,13 +77,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="221" column="6" bodyfile="include/basic.h" bodystart="221" bodyend="-1"/>
+        <location file="include/basic.h" line="231" column="6" bodyfile="include/basic.h" bodystart="231" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a4996c445c7fe37e6a9a5d9fc8930eac7" prot="public" static="no" mutable="no">
         <type>bool</type>
         <definition>bool basic_ctx::ended</definition>
         <argsstring></argsstring>
         <name>ended</name>
+        <qualifiedname>basic_ctx::ended</qualifiedname>
         <briefdescription>
 <para>True if the program has ended, e.g. it reached an explicit END statement, or fell off the end of the program to the terminating null char. </para>
         </briefdescription>
@@ -86,13 +92,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="227" column="14" bodyfile="include/basic.h" bodystart="227" bodyend="-1"/>
+        <location file="include/basic.h" line="237" column="14" bodyfile="include/basic.h" bodystart="237" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a0675a0370047966ece4a370a7022ec21" prot="public" static="no" mutable="no">
         <type>char *</type>
         <definition>char* basic_ctx::program_ptr</definition>
         <argsstring></argsstring>
         <name>program_ptr</name>
+        <qualifiedname>basic_ctx::program_ptr</qualifiedname>
         <briefdescription>
 <para>The whole program text, untokenized. May have been &quot;cleaned&quot; by an initial preprocessing phase which removes unneccesary spacing etc. </para>
         </briefdescription>
@@ -100,13 +107,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="233" column="14" bodyfile="include/basic.h" bodystart="233" bodyend="-1"/>
+        <location file="include/basic.h" line="243" column="14" bodyfile="include/basic.h" bodystart="243" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a84557325a29c400fcad0d769dee1217d" prot="public" static="no" mutable="no">
         <type>char</type>
         <definition>char basic_ctx::string[1024]</definition>
         <argsstring>[1024]</argsstring>
         <name>string</name>
+        <qualifiedname>basic_ctx::string</qualifiedname>
         <briefdescription>
 <para>A context-local string buffer used for parsing function/procedure parameter lists. </para>
         </briefdescription>
@@ -114,13 +122,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="238" column="14" bodyfile="include/basic.h" bodystart="238" bodyend="-1"/>
+        <location file="include/basic.h" line="248" column="14" bodyfile="include/basic.h" bodystart="248" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1aae42d9a7e61a7c9ee355e91ed10812a8" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
         <definition>struct ub_var_int* basic_ctx::local_int_variables[255]</definition>
         <argsstring>[255]</argsstring>
         <name>local_int_variables</name>
+        <qualifiedname>basic_ctx::local_int_variables</qualifiedname>
         <briefdescription>
 <para>Local integer variable stack for variables declared within a function or procedure scope. </para>
         </briefdescription>
@@ -128,13 +137,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="243" column="18" bodyfile="include/basic.h" bodystart="243" bodyend="-1"/>
+        <location file="include/basic.h" line="253" column="18" bodyfile="include/basic.h" bodystart="253" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a79ce260d06fa95b4da3d0d3c1844402f" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
         <definition>struct ub_var_string* basic_ctx::local_string_variables[255]</definition>
         <argsstring>[255]</argsstring>
         <name>local_string_variables</name>
+        <qualifiedname>basic_ctx::local_string_variables</qualifiedname>
         <briefdescription>
 <para>Local string variable stack for variables declared within a function or procedure scope. </para>
         </briefdescription>
@@ -142,13 +152,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="248" column="21" bodyfile="include/basic.h" bodystart="248" bodyend="-1"/>
+        <location file="include/basic.h" line="258" column="21" bodyfile="include/basic.h" bodystart="258" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a76063404a2a2707560ed74747b1ba1a7" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref> *</type>
         <definition>struct ub_var_double* basic_ctx::local_double_variables[255]</definition>
         <argsstring>[255]</argsstring>
         <name>local_double_variables</name>
+        <qualifiedname>basic_ctx::local_double_variables</qualifiedname>
         <briefdescription>
 <para>Local real (double) variable stack for variables declared within a function or procedure scope. </para>
         </briefdescription>
@@ -156,13 +167,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="253" column="21" bodyfile="include/basic.h" bodystart="253" bodyend="-1"/>
+        <location file="include/basic.h" line="263" column="21" bodyfile="include/basic.h" bodystart="263" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a45b690756bd8742294c3a9dc2f0edba0" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t basic_ctx::call_stack[255]</definition>
         <argsstring>[255]</argsstring>
         <name>call_stack</name>
+        <qualifiedname>basic_ctx::call_stack</qualifiedname>
         <briefdescription>
 <para>Call stack, holds the return line numbers for each level of calls to a procedure, function or GOSUB. </para>
         </briefdescription>
@@ -170,13 +182,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="258" column="18" bodyfile="include/basic.h" bodystart="258" bodyend="-1"/>
+        <location file="include/basic.h" line="268" column="18" bodyfile="include/basic.h" bodystart="268" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1ac00d4e20a54a8dbf694b3d4b5b3ea4fa" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t basic_ctx::call_stack_ptr</definition>
         <argsstring></argsstring>
         <name>call_stack_ptr</name>
+        <qualifiedname>basic_ctx::call_stack_ptr</qualifiedname>
         <briefdescription>
 <para>How far up the call stack we are. The call stack pointer starts at 0, and can go as high as MAX_CALL_STACK_DEPTH - 1. </para>
         </briefdescription>
@@ -184,13 +197,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="263" column="18" bodyfile="include/basic.h" bodystart="263" bodyend="-1"/>
+        <location file="include/basic.h" line="273" column="18" bodyfile="include/basic.h" bodystart="273" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a918a01877bff7a7e20e3cb6d757ed841" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t basic_ctx::repeat_stack[255]</definition>
         <argsstring>[255]</argsstring>
         <name>repeat_stack</name>
+        <qualifiedname>basic_ctx::repeat_stack</qualifiedname>
         <briefdescription>
 <para>Repeat stack, holds the return line numbers for each level of REPEAT...UNTIL loop. </para>
         </briefdescription>
@@ -198,13 +212,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="268" column="18" bodyfile="include/basic.h" bodystart="268" bodyend="-1"/>
+        <location file="include/basic.h" line="278" column="18" bodyfile="include/basic.h" bodystart="278" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1af0df0c483df2af35521a6ef256685c2c" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t basic_ctx::repeat_stack_ptr</definition>
         <argsstring></argsstring>
         <name>repeat_stack_ptr</name>
+        <qualifiedname>basic_ctx::repeat_stack_ptr</qualifiedname>
         <briefdescription>
 <para>How far up the REPEAT...UNTIL stack we are. The repeat stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1. </para>
         </briefdescription>
@@ -212,13 +227,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="274" column="18" bodyfile="include/basic.h" bodystart="274" bodyend="-1"/>
+        <location file="include/basic.h" line="284" column="18" bodyfile="include/basic.h" bodystart="284" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a674578281de38ae65285c41f7479a8c7" prot="public" static="no" mutable="no">
         <type>size_t</type>
         <definition>size_t basic_ctx::oldlen</definition>
         <argsstring></argsstring>
         <name>oldlen</name>
+        <qualifiedname>basic_ctx::oldlen</qualifiedname>
         <briefdescription>
 <para>Previous program length, before an EVAL statement. An EVAL statement appends additional lines to the program beyond its original end, storing the previous size in this value. If this value is non-zero an EVAL is in progress, otherwise no EVAL is executing. </para>
         </briefdescription>
@@ -226,13 +242,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="282" column="8" bodyfile="include/basic.h" bodystart="282" bodyend="-1"/>
+        <location file="include/basic.h" line="292" column="8" bodyfile="include/basic.h" bodystart="292" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1ab396154b9578037640184392da4f4aaf" prot="public" static="no" mutable="no">
         <type>int64_t</type>
         <definition>int64_t basic_ctx::eval_linenum</definition>
         <argsstring></argsstring>
         <name>eval_linenum</name>
+        <qualifiedname>basic_ctx::eval_linenum</qualifiedname>
         <briefdescription>
 <para>The return line number for an EVAL statement. </para>
         </briefdescription>
@@ -240,13 +257,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="286" column="9" bodyfile="include/basic.h" bodystart="286" bodyend="-1"/>
+        <location file="include/basic.h" line="296" column="9" bodyfile="include/basic.h" bodystart="296" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a22817fa8a77f93282cb43a5ca1170090" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structfor__state" kindref="compound">for_state</ref></type>
         <definition>struct for_state basic_ctx::for_stack[255]</definition>
         <argsstring>[255]</argsstring>
         <name>for_stack</name>
+        <qualifiedname>basic_ctx::for_stack</qualifiedname>
         <briefdescription>
 <para>FOR stack, holds the return line numbers for each level of FOR...NEXT loop. </para>
         </briefdescription>
@@ -254,13 +272,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="286" column="9" bodyfile="include/basic.h" bodystart="291" bodyend="-1"/>
+        <location file="include/basic.h" line="301" column="24" bodyfile="include/basic.h" bodystart="301" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a7fedb3eaac1114a3c8f5f5d04d6f6a12" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t basic_ctx::for_stack_ptr</definition>
         <argsstring></argsstring>
         <name>for_stack_ptr</name>
+        <qualifiedname>basic_ctx::for_stack_ptr</qualifiedname>
         <briefdescription>
 <para>How far up the FOR...NEXT stack we are. The FOR stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1. </para>
         </briefdescription>
@@ -268,13 +287,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="297" column="18" bodyfile="include/basic.h" bodystart="297" bodyend="-1"/>
+        <location file="include/basic.h" line="307" column="18" bodyfile="include/basic.h" bodystart="307" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a157282323b4469c50186c57519abbfea" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref> *</type>
         <definition>struct ub_proc_fn_def* basic_ctx::defs</definition>
         <argsstring></argsstring>
         <name>defs</name>
+        <qualifiedname>basic_ctx::defs</qualifiedname>
         <briefdescription>
 <para>Definitions for procedures and functions in the program. </para>
         </briefdescription>
@@ -282,13 +302,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="301" column="22" bodyfile="include/basic.h" bodystart="301" bodyend="-1"/>
+        <location file="include/basic.h" line="311" column="22" bodyfile="include/basic.h" bodystart="311" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a7353606faa47b1bc7c83cdaf0f3fc80f" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int" kindref="compound">ub_var_int</ref> *</type>
         <definition>struct ub_var_int* basic_ctx::int_variables</definition>
         <argsstring></argsstring>
         <name>int_variables</name>
+        <qualifiedname>basic_ctx::int_variables</qualifiedname>
         <briefdescription>
 <para>Global integer variable list. </para>
         </briefdescription>
@@ -296,13 +317,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="305" column="26" bodyfile="include/basic.h" bodystart="305" bodyend="-1"/>
+        <location file="include/basic.h" line="315" column="26" bodyfile="include/basic.h" bodystart="315" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a1984d27dcc6d88275a5ee10bbcdb5441" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string" kindref="compound">ub_var_string</ref> *</type>
         <definition>struct ub_var_string* basic_ctx::str_variables</definition>
         <argsstring></argsstring>
         <name>str_variables</name>
+        <qualifiedname>basic_ctx::str_variables</qualifiedname>
         <briefdescription>
 <para>Global string variable list. </para>
         </briefdescription>
@@ -310,13 +332,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="309" column="21" bodyfile="include/basic.h" bodystart="309" bodyend="-1"/>
+        <location file="include/basic.h" line="319" column="21" bodyfile="include/basic.h" bodystart="319" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a4195c623115051bc81d4a9572a324ea5" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double" kindref="compound">ub_var_double</ref> *</type>
         <definition>struct ub_var_double* basic_ctx::double_variables</definition>
         <argsstring></argsstring>
         <name>double_variables</name>
+        <qualifiedname>basic_ctx::double_variables</qualifiedname>
         <briefdescription>
 <para>Global double variable list. </para>
         </briefdescription>
@@ -324,13 +347,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="313" column="21" bodyfile="include/basic.h" bodystart="313" bodyend="-1"/>
+        <location file="include/basic.h" line="323" column="21" bodyfile="include/basic.h" bodystart="323" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a1127413b4863f8920fa6570589565116" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__int__array" kindref="compound">ub_var_int_array</ref> *</type>
         <definition>struct ub_var_int_array* basic_ctx::int_array_variables</definition>
         <argsstring></argsstring>
         <name>int_array_variables</name>
+        <qualifiedname>basic_ctx::int_array_variables</qualifiedname>
         <briefdescription>
 <para>Global integer array variable list. </para>
         </briefdescription>
@@ -338,13 +362,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="317" column="24" bodyfile="include/basic.h" bodystart="317" bodyend="-1"/>
+        <location file="include/basic.h" line="327" column="24" bodyfile="include/basic.h" bodystart="327" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1ac600d49d85d3ea90a651b8048e75671c" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__string__array" kindref="compound">ub_var_string_array</ref> *</type>
         <definition>struct ub_var_string_array* basic_ctx::string_array_variables</definition>
         <argsstring></argsstring>
         <name>string_array_variables</name>
+        <qualifiedname>basic_ctx::string_array_variables</qualifiedname>
         <briefdescription>
 <para>Global string array variable list. </para>
         </briefdescription>
@@ -352,13 +377,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="321" column="27" bodyfile="include/basic.h" bodystart="321" bodyend="-1"/>
+        <location file="include/basic.h" line="331" column="27" bodyfile="include/basic.h" bodystart="331" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a1d891d5892b28d38c0aa4363a071069b" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double__array" kindref="compound">ub_var_double_array</ref> *</type>
         <definition>struct ub_var_double_array* basic_ctx::double_array_variables</definition>
         <argsstring></argsstring>
         <name>double_array_variables</name>
+        <qualifiedname>basic_ctx::double_array_variables</qualifiedname>
         <briefdescription>
 <para>Global double array variable list. </para>
         </briefdescription>
@@ -366,13 +392,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="325" column="27" bodyfile="include/basic.h" bodystart="325" bodyend="-1"/>
+        <location file="include/basic.h" line="335" column="27" bodyfile="include/basic.h" bodystart="335" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a5db8745b7e7112b990a61ebdebb165b8" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structconsole" kindref="compound">console</ref> *</type>
         <definition>struct console* basic_ctx::cons</definition>
         <argsstring></argsstring>
         <name>cons</name>
+        <qualifiedname>basic_ctx::cons</qualifiedname>
         <briefdescription>
 <para>I/O Console. </para>
         </briefdescription>
@@ -380,13 +407,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="329" column="15" bodyfile="include/basic.h" bodystart="329" bodyend="-1"/>
+        <location file="include/basic.h" line="339" column="15" bodyfile="include/basic.h" bodystart="339" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1af890048e3ab646719bad1a1f951757c0" prot="public" static="no" mutable="no">
         <type><ref refid="basic_8h_1a2279cec37b8a81d5f18e78d7335b1966" kindref="member">ub_return_type</ref></type>
         <definition>ub_return_type basic_ctx::fn_type</definition>
         <argsstring></argsstring>
         <name>fn_type</name>
+        <qualifiedname>basic_ctx::fn_type</qualifiedname>
         <briefdescription>
 <para>Function return type expected. This is only relavent when executing a function atomically. </para>
         </briefdescription>
@@ -394,13 +422,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="334" column="16" bodyfile="include/basic.h" bodystart="334" bodyend="-1"/>
+        <location file="include/basic.h" line="344" column="16" bodyfile="include/basic.h" bodystart="344" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a8593d346028574faf17b8e0a80152009" prot="public" static="no" mutable="no">
         <type>void *</type>
         <definition>void* basic_ctx::fn_return</definition>
         <argsstring></argsstring>
         <name>fn_return</name>
+        <qualifiedname>basic_ctx::fn_return</qualifiedname>
         <briefdescription>
 <para>Function return value pointer. This is only relavent when executing a function atomically. </para>
         </briefdescription>
@@ -408,13 +437,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="339" column="6" bodyfile="include/basic.h" bodystart="339" bodyend="-1"/>
+        <location file="include/basic.h" line="349" column="6" bodyfile="include/basic.h" bodystart="349" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a2b20d6976e19478de0616f6a6eb18c0c" prot="public" static="no" mutable="no">
         <type>int</type>
         <definition>int basic_ctx::bracket_depth</definition>
         <argsstring></argsstring>
         <name>bracket_depth</name>
+        <qualifiedname>basic_ctx::bracket_depth</qualifiedname>
         <briefdescription>
 <para>Bracket depth when parsing function or procedure parameter lists. </para>
         </briefdescription>
@@ -422,13 +452,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="344" column="5" bodyfile="include/basic.h" bodystart="344" bodyend="-1"/>
+        <location file="include/basic.h" line="354" column="5" bodyfile="include/basic.h" bodystart="354" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a6d93bbf399fba5da373879d9889fead3" prot="public" static="no" mutable="no">
         <type>char const  *</type>
         <definition>char const* basic_ctx::item_begin</definition>
         <argsstring></argsstring>
         <name>item_begin</name>
+        <qualifiedname>basic_ctx::item_begin</qualifiedname>
         <briefdescription>
 <para>Item start pointer when parsing function or procedure parameter lists. </para>
         </briefdescription>
@@ -436,13 +467,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="349" column="12" bodyfile="include/basic.h" bodystart="349" bodyend="-1"/>
+        <location file="include/basic.h" line="359" column="12" bodyfile="include/basic.h" bodystart="359" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a207d939e27d0a1b25d4418971ddd34c3" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref> *</type>
         <definition>struct ub_param* basic_ctx::param</definition>
         <argsstring></argsstring>
         <name>param</name>
+        <qualifiedname>basic_ctx::param</qualifiedname>
         <briefdescription>
 <para>Linked list of function parameters when parsing function or procedure parameter lists. </para>
         </briefdescription>
@@ -450,13 +482,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="354" column="16" bodyfile="include/basic.h" bodystart="354" bodyend="-1"/>
+        <location file="include/basic.h" line="364" column="16" bodyfile="include/basic.h" bodystart="364" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a53852b59657aa0a3e65fa49357dbf7b0" prot="public" static="no" mutable="no">
         <type>int32_t</type>
         <definition>int32_t basic_ctx::graphics_colour</definition>
         <argsstring></argsstring>
         <name>graphics_colour</name>
+        <qualifiedname>basic_ctx::graphics_colour</qualifiedname>
         <briefdescription>
 <para>Current graphics colour (GCOL) for graphics drawing commands. </para>
         </briefdescription>
@@ -464,13 +497,28 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="358" column="9" bodyfile="include/basic.h" bodystart="358" bodyend="-1"/>
+        <location file="include/basic.h" line="368" column="9" bodyfile="include/basic.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbasic__ctx_1a6bd1fa3ec2d3b4c0b2f33456296e715d" prot="public" static="no" mutable="no">
+        <type><ref refid="structcpuid__result__t" kindref="compound">cpuid_result_t</ref></type>
+        <definition>cpuid_result_t basic_ctx::last_cpuid_result</definition>
+        <argsstring></argsstring>
+        <name>last_cpuid_result</name>
+        <qualifiedname>basic_ctx::last_cpuid_result</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="372" column="16" bodyfile="include/basic.h" bodystart="372" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a069084d2fc5fc7c6623473da3b0ff500" prot="public" static="no" mutable="no">
         <type>struct hashmap *</type>
         <definition>struct hashmap* basic_ctx::lines</definition>
         <argsstring></argsstring>
         <name>lines</name>
+        <qualifiedname>basic_ctx::lines</qualifiedname>
         <briefdescription>
 <para>Hashmap of lines for O(1) lookup of line numbers. </para>
         </briefdescription>
@@ -478,13 +526,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="362" column="15" bodyfile="include/basic.h" bodystart="362" bodyend="-1"/>
+        <location file="include/basic.h" line="376" column="15" bodyfile="include/basic.h" bodystart="376" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1af193438fa4fb81f516c57824e31f1da0" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t basic_ctx::if_nest_level</definition>
         <argsstring></argsstring>
         <name>if_nest_level</name>
+        <qualifiedname>basic_ctx::if_nest_level</qualifiedname>
         <briefdescription>
 <para>Block IF...THEN...ELSE depth. </para>
         </briefdescription>
@@ -492,13 +541,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="366" column="10" bodyfile="include/basic.h" bodystart="366" bodyend="-1"/>
+        <location file="include/basic.h" line="380" column="10" bodyfile="include/basic.h" bodystart="380" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structbasic__ctx_1a7e16bb3a99bcff493c581fab6757c88c" prot="public" static="no" mutable="no">
         <type>int64_t</type>
         <definition>int64_t basic_ctx::highest_line</definition>
         <argsstring></argsstring>
         <name>highest_line</name>
+        <qualifiedname>basic_ctx::highest_line</qualifiedname>
         <briefdescription>
 <para>highest line number in program </para>
         </briefdescription>
@@ -506,7 +556,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="370" column="9" bodyfile="include/basic.h" bodystart="370" bodyend="-1"/>
+        <location file="include/basic.h" line="384" column="9" bodyfile="include/basic.h" bodystart="384" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -515,183 +565,42 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="12">
-        <label>size_t</label>
-      </node>
-      <node id="21">
-        <label>ub_param</label>
-        <link refid="structub__param"/>
-        <childnode refid="6" relation="usage">
-          <edgelabel>name</edgelabel>
-        </childnode>
-        <childnode refid="21" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-      </node>
-      <node id="23">
-        <label>void *</label>
-      </node>
-      <node id="3">
-        <label>ub_var_double_array</label>
-        <link refid="structub__var__double__array"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>values</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>itemcount</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>varname</edgelabel>
-        </childnode>
-      </node>
-      <node id="14">
-        <label>int32_t</label>
-      </node>
-      <node id="16">
-        <label>struct hashmap *</label>
-      </node>
-      <node id="5">
-        <label>uint64_t</label>
-      </node>
-      <node id="15">
-        <label>ub_var_double</label>
-        <link refid="structub__var__double"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>value</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>varname</edgelabel>
-        </childnode>
-        <childnode refid="15" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>global</edgelabel>
-        </childnode>
-      </node>
-      <node id="20">
-        <label>ub_fn_type</label>
-      </node>
-      <node id="7">
-        <label>ub_var_string_array</label>
-        <link refid="structub__var__string__array"/>
-        <childnode refid="7" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>itemcount</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>values</edgelabel>
-          <edgelabel>varname</edgelabel>
-        </childnode>
-      </node>
-      <node id="8">
-        <label>ub_var_int</label>
-        <link refid="structub__var__int"/>
-        <childnode refid="8" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>varname</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>value</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>global</edgelabel>
-        </childnode>
-      </node>
-      <node id="18">
-        <label>ub_var_int_array</label>
-        <link refid="structub__var__int__array"/>
-        <childnode refid="5" relation="usage">
-          <edgelabel>itemcount</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>varname</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>values</edgelabel>
-        </childnode>
-        <childnode refid="18" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-      </node>
-      <node id="17">
-        <label>int</label>
-      </node>
-      <node id="4">
-        <label>double</label>
-      </node>
-      <node id="22">
-        <label>ub_var_string</label>
-        <link refid="structub__var__string"/>
-        <childnode refid="6" relation="usage">
-          <edgelabel>value</edgelabel>
-          <edgelabel>varname</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>global</edgelabel>
-        </childnode>
-        <childnode refid="22" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-      </node>
-      <node id="13">
-        <label>uint8_t</label>
-      </node>
-      <node id="24">
-        <label>for_state</label>
-        <link refid="structfor__state"/>
-        <childnode refid="6" relation="usage">
-          <edgelabel>for_variable</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>line_after_for</edgelabel>
-          <edgelabel>step</edgelabel>
-          <edgelabel>to</edgelabel>
-        </childnode>
-      </node>
-      <node id="19">
-        <label>ub_proc_fn_def</label>
-        <link refid="structub__proc__fn__def"/>
-        <childnode refid="20" relation="usage">
-          <edgelabel>type</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>name</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>line</edgelabel>
-        </childnode>
-        <childnode refid="19" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="21" relation="usage">
-          <edgelabel>params</edgelabel>
-        </childnode>
-      </node>
       <node id="1">
         <label>basic_ctx</label>
         <link refid="structbasic__ctx"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>fn_type</edgelabel>
+          <edgelabel>item_begin</edgelabel>
+          <edgelabel>nextptr</edgelabel>
+          <edgelabel>program_ptr</edgelabel>
+          <edgelabel>ptr</edgelabel>
+          <edgelabel>string</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>double_array_variables</edgelabel>
+          <edgelabel>bracket_depth</edgelabel>
+          <edgelabel>current_token</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>string_array_variables</edgelabel>
+        <childnode refid="4" relation="usage">
+          <edgelabel>current_linenum</edgelabel>
+          <edgelabel>eval_linenum</edgelabel>
+          <edgelabel>highest_line</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="5" relation="usage">
+          <edgelabel>ended</edgelabel>
+          <edgelabel>errored</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
           <edgelabel>int_variables</edgelabel>
           <edgelabel>local_int_variables</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="7" relation="usage">
+          <edgelabel>local_string_variables</edgelabel>
+          <edgelabel>str_variables</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>double_variables</edgelabel>
+          <edgelabel>local_double_variables</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
           <edgelabel>call_stack</edgelabel>
           <edgelabel>call_stack_ptr</edgelabel>
           <edgelabel>for_stack_ptr</edgelabel>
@@ -699,94 +608,248 @@
           <edgelabel>repeat_stack</edgelabel>
           <edgelabel>repeat_stack_ptr</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>item_begin</edgelabel>
-          <edgelabel>nextptr</edgelabel>
-          <edgelabel>program_ptr</edgelabel>
-          <edgelabel>ptr</edgelabel>
-          <edgelabel>string</edgelabel>
-        </childnode>
         <childnode refid="11" relation="usage">
-          <edgelabel>cons</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>current_linenum</edgelabel>
-          <edgelabel>eval_linenum</edgelabel>
-          <edgelabel>highest_line</edgelabel>
-        </childnode>
-        <childnode refid="14" relation="usage">
-          <edgelabel>graphics_colour</edgelabel>
-        </childnode>
-        <childnode refid="12" relation="usage">
           <edgelabel>oldlen</edgelabel>
         </childnode>
-        <childnode refid="15" relation="usage">
-          <edgelabel>double_variables</edgelabel>
-          <edgelabel>local_double_variables</edgelabel>
-        </childnode>
-        <childnode refid="16" relation="usage">
-          <edgelabel>lines</edgelabel>
-        </childnode>
-        <childnode refid="17" relation="usage">
-          <edgelabel>bracket_depth</edgelabel>
-          <edgelabel>current_token</edgelabel>
-        </childnode>
-        <childnode refid="18" relation="usage">
-          <edgelabel>int_array_variables</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>ended</edgelabel>
-          <edgelabel>errored</edgelabel>
-        </childnode>
-        <childnode refid="19" relation="usage">
-          <edgelabel>defs</edgelabel>
-        </childnode>
-        <childnode refid="22" relation="usage">
-          <edgelabel>local_string_variables</edgelabel>
-          <edgelabel>str_variables</edgelabel>
-        </childnode>
-        <childnode refid="23" relation="usage">
-          <edgelabel>fn_return</edgelabel>
-        </childnode>
-        <childnode refid="24" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>for_stack</edgelabel>
         </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>defs</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>int_array_variables</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>string_array_variables</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>double_array_variables</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>cons</edgelabel>
+        </childnode>
         <childnode refid="21" relation="usage">
+          <edgelabel>fn_type</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>fn_return</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
           <edgelabel>param</edgelabel>
         </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>graphics_colour</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>last_cpuid_result</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>lines</edgelabel>
+        </childnode>
       </node>
-      <node id="2">
-        <label>ub_return_type</label>
-      </node>
-      <node id="10">
+      <node id="5">
         <label>bool</label>
       </node>
-      <node id="9">
-        <label>int64_t</label>
-      </node>
-      <node id="6">
+      <node id="2">
         <label>char</label>
       </node>
-      <node id="11">
+      <node id="19">
         <label>console</label>
         <link refid="structconsole"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="2" relation="usage">
           <edgelabel>buffer</edgelabel>
           <edgelabel>dirty</edgelabel>
           <edgelabel>internalbuffer</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
-          <edgelabel>bufcnt</edgelabel>
-        </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="20" relation="usage">
           <edgelabel>attributes</edgelabel>
           <edgelabel>last</edgelabel>
           <edgelabel>x</edgelabel>
           <edgelabel>y</edgelabel>
         </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>bufcnt</edgelabel>
+        </childnode>
+      </node>
+      <node id="24">
+        <label>cpuid_result_t</label>
+        <link refid="structcpuid__result__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>eax</edgelabel>
+          <edgelabel>ebx</edgelabel>
+          <edgelabel>ecx</edgelabel>
+          <edgelabel>edx</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>double</label>
+      </node>
+      <node id="12">
+        <label>for_state</label>
+        <link refid="structfor__state"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>line_after_for</edgelabel>
+          <edgelabel>step</edgelabel>
+          <edgelabel>to</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>for_variable</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>int</label>
+      </node>
+      <node id="23">
+        <label>int32_t</label>
+      </node>
+      <node id="4">
+        <label>int64_t</label>
+      </node>
+      <node id="11">
+        <label>size_t</label>
+      </node>
+      <node id="25">
+        <label>struct hashmap *</label>
+      </node>
+      <node id="14">
+        <label>ub_fn_type</label>
+      </node>
+      <node id="15">
+        <label>ub_param</label>
+        <link refid="structub__param"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>ub_proc_fn_def</label>
+        <link refid="structub__proc__fn__def"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>line</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>params</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="21">
+        <label>ub_return_type</label>
+      </node>
+      <node id="8">
+        <label>ub_var_double</label>
+        <link refid="structub__var__double"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>ub_var_double_array</label>
+        <link refid="structub__var__double__array"/>
+        <childnode refid="10" relation="usage">
+          <edgelabel>itemcount</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>ub_var_int</label>
+        <link refid="structub__var__int"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>ub_var_int_array</label>
+        <link refid="structub__var__int__array"/>
+        <childnode refid="10" relation="usage">
+          <edgelabel>itemcount</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>values</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>ub_var_string</label>
+        <link refid="structub__var__string"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>value</edgelabel>
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>global</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ub_var_string_array</label>
+        <link refid="structub__var__string__array"/>
+        <childnode refid="10" relation="usage">
+          <edgelabel>itemcount</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>values</edgelabel>
+          <edgelabel>varname</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>uint64_t</label>
+      </node>
+      <node id="20">
+        <label>uint8_t</label>
+      </node>
+      <node id="22">
+        <label>void *</label>
       </node>
     </collaborationgraph>
-    <location file="include/basic.h" line="196" column="1" bodyfile="include/basic.h" bodystart="196" bodyend="371"/>
+    <location file="include/basic.h" line="206" column="1" bodyfile="include/basic.h" bodystart="206" bodyend="385"/>
     <listofallmembers>
       <member refid="structbasic__ctx_1a2b20d6976e19478de0616f6a6eb18c0c" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>bracket_depth</name></member>
       <member refid="structbasic__ctx_1a45b690756bd8742294c3a9dc2f0edba0" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>call_stack</name></member>
@@ -810,6 +873,7 @@
       <member refid="structbasic__ctx_1a1127413b4863f8920fa6570589565116" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>int_array_variables</name></member>
       <member refid="structbasic__ctx_1a7353606faa47b1bc7c83cdaf0f3fc80f" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>int_variables</name></member>
       <member refid="structbasic__ctx_1a6d93bbf399fba5da373879d9889fead3" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>item_begin</name></member>
+      <member refid="structbasic__ctx_1a6bd1fa3ec2d3b4c0b2f33456296e715d" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>last_cpuid_result</name></member>
       <member refid="structbasic__ctx_1a069084d2fc5fc7c6623473da3b0ff500" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>lines</name></member>
       <member refid="structbasic__ctx_1a76063404a2a2707560ed74747b1ba1a7" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>local_double_variables</name></member>
       <member refid="structbasic__ctx_1aae42d9a7e61a7c9ee355e91ed10812a8" prot="public" virt="non-virtual"><scope>basic_ctx</scope><name>local_int_variables</name></member>

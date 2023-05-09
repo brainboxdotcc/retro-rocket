@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structfs__handle__t" kind="struct" language="C++" prot="public">
     <compoundname>fs_handle_t</compoundname>
     <includes local="no">filesystem.h</includes>
@@ -9,6 +9,7 @@
         <definition>fs_handle_type_t fs_handle_t::type</definition>
         <argsstring></argsstring>
         <name>type</name>
+        <qualifiedname>fs_handle_t::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>unsigned char* fs_handle_t::inbuf</definition>
         <argsstring></argsstring>
         <name>inbuf</name>
+        <qualifiedname>fs_handle_t::inbuf</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>unsigned char* fs_handle_t::outbuf</definition>
         <argsstring></argsstring>
         <name>outbuf</name>
+        <qualifiedname>fs_handle_t::outbuf</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint64_t fs_handle_t::inbufpos</definition>
         <argsstring></argsstring>
         <name>inbufpos</name>
+        <qualifiedname>fs_handle_t::inbufpos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint64_t fs_handle_t::outbufpos</definition>
         <argsstring></argsstring>
         <name>outbufpos</name>
+        <qualifiedname>fs_handle_t::outbufpos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint64_t fs_handle_t::outbufsize</definition>
         <argsstring></argsstring>
         <name>outbufsize</name>
+        <qualifiedname>fs_handle_t::outbufsize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint64_t fs_handle_t::inbufsize</definition>
         <argsstring></argsstring>
         <name>inbufsize</name>
+        <qualifiedname>fs_handle_t::inbufsize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>fs_directory_entry_t* fs_handle_t::file</definition>
         <argsstring></argsstring>
         <name>file</name>
+        <qualifiedname>fs_handle_t::file</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint64_t fs_handle_t::seekpos</definition>
         <argsstring></argsstring>
         <name>seekpos</name>
+        <qualifiedname>fs_handle_t::seekpos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -126,6 +135,7 @@
         <definition>bool fs_handle_t::cached</definition>
         <argsstring></argsstring>
         <name>cached</name>
+        <qualifiedname>fs_handle_t::cached</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -142,149 +152,149 @@
 <para>The FD table is an array of pointers to these structs, any closed FD is NULL. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="14">
-        <label>fs_handle_type_t</label>
+      <node id="13">
+        <label>bool</label>
       </node>
-      <node id="11">
-        <label>void *</label>
+      <node id="3">
+        <label>char</label>
       </node>
-      <node id="5">
+      <node id="10">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>createdir</edgelabel>
-          <edgelabel>createfile</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>getdir</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>mount</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="12" relation="usage">
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
           <edgelabel>readfile</edgelabel>
           <edgelabel>rm</edgelabel>
           <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
           <edgelabel>writefile</edgelabel>
         </childnode>
-      </node>
-      <node id="3">
-        <label>uint64_t</label>
-      </node>
-      <node id="1">
-        <label>fs_handle_t</label>
-        <link refid="structfs__handle__t"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>file</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>inbufpos</edgelabel>
-          <edgelabel>inbufsize</edgelabel>
-          <edgelabel>outbufpos</edgelabel>
-          <edgelabel>outbufsize</edgelabel>
-          <edgelabel>seekpos</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>inbuf</edgelabel>
-          <edgelabel>outbuf</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>cached</edgelabel>
-        </childnode>
-        <childnode refid="14" relation="usage">
-          <edgelabel>type</edgelabel>
-        </childnode>
-      </node>
-      <node id="12">
-        <label>uint16_t</label>
-      </node>
-      <node id="8">
-        <label>int</label>
-      </node>
-      <node id="4">
-        <label>fs_tree_t</label>
-        <link refid="structfs__tree__t"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>lbapos</edgelabel>
-          <edgelabel>size</edgelabel>
-        </childnode>
-        <childnode refid="2" relation="usage">
-          <edgelabel>files</edgelabel>
-        </childnode>
         <childnode refid="4" relation="usage">
-          <edgelabel>child_dirs</edgelabel>
-          <edgelabel>next</edgelabel>
-          <edgelabel>parent</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>responsible_driver</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>device_name</edgelabel>
-          <edgelabel>name</edgelabel>
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
         </childnode>
         <childnode refid="10" relation="usage">
-          <edgelabel>dirty</edgelabel>
-        </childnode>
-        <childnode refid="11" relation="usage">
-          <edgelabel>opaque</edgelabel>
-        </childnode>
-      </node>
-      <node id="13">
-        <label>uint32_t</label>
-      </node>
-      <node id="10">
-        <label>uint8_t</label>
-      </node>
-      <node id="6">
-        <label>void *(*)(void *)</label>
-      </node>
-      <node id="9">
-        <label>bool</label>
-      </node>
-      <node id="2">
-        <label>fs_directory_entry_t</label>
-        <link refid="structfs__directory__entry__t"/>
-        <childnode refid="2" relation="usage">
           <edgelabel>next</edgelabel>
         </childnode>
+      </node>
+      <node id="5">
+        <label>fs_directory_entry_t</label>
+        <link refid="structfs__directory__entry__t"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>lbapos</edgelabel>
-          <edgelabel>size</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>directory</edgelabel>
-        </childnode>
-        <childnode refid="12" relation="usage">
-          <edgelabel>year</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
           <edgelabel>alt_filename</edgelabel>
           <edgelabel>device_name</edgelabel>
           <edgelabel>filename</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
-          <edgelabel>device</edgelabel>
-          <edgelabel>flags</edgelabel>
+        <childnode refid="6" relation="usage">
+          <edgelabel>year</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>day</edgelabel>
           <edgelabel>hour</edgelabel>
           <edgelabel>min</edgelabel>
           <edgelabel>month</edgelabel>
           <edgelabel>sec</edgelabel>
         </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>flags</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>directory</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>fs_handle_t</label>
+        <link refid="structfs__handle__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>inbuf</edgelabel>
+          <edgelabel>outbuf</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>inbufpos</edgelabel>
+          <edgelabel>inbufsize</edgelabel>
+          <edgelabel>outbufpos</edgelabel>
+          <edgelabel>outbufsize</edgelabel>
+          <edgelabel>seekpos</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>file</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>cached</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>fs_handle_type_t</label>
+      </node>
+      <node id="9">
+        <label>fs_tree_t</label>
+        <link refid="structfs__tree__t"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>dirty</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>device_name</edgelabel>
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>child_dirs</edgelabel>
+          <edgelabel>next</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>files</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>responsible_driver</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>device</edgelabel>
+          <edgelabel>lbapos</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>opaque</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>int</label>
+      </node>
+      <node id="6">
+        <label>uint16_t</label>
+      </node>
+      <node id="8">
+        <label>uint32_t</label>
+      </node>
+      <node id="4">
+        <label>uint64_t</label>
       </node>
       <node id="7">
-        <label>char</label>
+        <label>uint8_t</label>
+      </node>
+      <node id="14">
+        <label>void *</label>
+      </node>
+      <node id="12">
+        <label>void *(*)(void *)</label>
       </node>
     </collaborationgraph>
     <location file="include/filesystem.h" line="292" column="1" bodyfile="include/filesystem.h" bodystart="292" bodyend="303"/>

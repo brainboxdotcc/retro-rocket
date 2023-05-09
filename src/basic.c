@@ -18,6 +18,7 @@
  */
 
 #include <kernel.h>
+#include <cpuid.h>
 
 struct basic_int_fn builtin_int[] =
 {
@@ -53,6 +54,9 @@ struct basic_int_fn builtin_int[] =
 	{ basic_val, "VAL" },
 	{ basic_hexval, "HEXVAL" },
 	{ basic_octval, "OCTVAL" },
+	{ basic_legacy_cpuid, "LCPUID" },
+	{ basic_legacy_getlastcpuid, "LGETLASTCPUID" },
+	{ basic_cpuid, "CPUID" },
 	{ NULL, NULL }
 };
 
@@ -62,6 +66,7 @@ struct basic_double_fn builtin_double[] = {
 	{ basic_tan, "TAN" },
 	{ basic_pow, "POW" },
 	{ basic_realval, "REALVAL" },
+	{ basic_sqrt, "SQRT"},
 	{ NULL, NULL },
 };
 
@@ -87,7 +92,43 @@ struct basic_str_fn builtin_str[] =
 	{ basic_filetype, "FILETYPE$" },
 	{ basic_str, "STR$" },
 	{ basic_bool, "BOOL$" },
+	{ basic_cpugetbrand, "CPUGETBRAND$" },
+	{ basic_cpugetvendor, "CPUGETVENDOR$" },
+	{ basic_intoasc, "INTOASC$" },
 	{ NULL, NULL }
+};
+
+const struct g_cpuid_vendor cpuid_vendors[] =
+{
+	{ "VENDORAMDK$",       "AMDisbetter!" },
+	{ "VENDORAMD$",        "AuthenticAMD" },
+	{ "VENDORCENTAUR$",    "CentaurHauls" },
+	{ "VENDORCYRIX$",      "CyrixInstead" },
+	{ "VENDORINTEL$",      "GenuineIntel" },
+	{ "VENDORTRANSMETA$",  "TransmetaCPU" },
+	{ "VENDORTRANSMETAS$", "GenuineTMx86" },
+	{ "VENDORNSC$",        "Geode by NSC" },
+	{ "VENDORNEXGEN$",     "NexGenDriven" },
+	{ "VENDORRISE$",       "RiseRiseRise" },
+	{ "VENDORSIS$",        "SiS SiS SiS " },
+	{ "VENDORUMC$",        "UMC UMC UMC " },
+	{ "VENDORVIA$",        "VIA VIA VIA " },
+	{ "VENDORVORTEX86$",   "Vortex86 SoC" },
+	{ "VENDORZHAOXIN$",    "  Shanghai  " },
+	{ "VENDORHYGON$",      "HygonGenuine" },
+	{ "VENDORRDC$",        "Genuine  RDC" },
+	{ "VENDORBHYVE$",      "bhyve bhyve " },
+	{ "VENDORKVM$",        " KVMKVMKVM  " },
+	{ "VENDORQEMU$",       "TCGTCGTCGTCG" },
+	{ "VENDORHYPERV$",     "Microsoft Hv" },
+	{ "VENDORXTA$",        "MicrosoftXTA" },
+	{ "VENDORPARALLELS1$", " lrpepyh  vr" },
+	{ "VENDORPARALLELS2$", "prl hyperv  " },
+	{ "VENDORVMWARE$",     "VMwareVMware" },
+	{ "VENDORXEN$",        "XenVMMXenVMM" },
+	{ "VENDORACRN$",       "ACRNACRNACRN" },
+	{ "VENDORQNX$",        " QNXQVMBSQG " },
+	{ NULL,                NULL }
 };
 
 #define NEGATE_STATEMENT(s, len) { \
@@ -167,10 +208,18 @@ char* clean_basic(const char* program, char* output_buffer)
 
 void set_system_variables(struct basic_ctx* ctx, uint32_t pid)
 {
+	const struct g_cpuid_vendor* p = &cpuid_vendors[0];
+	while (p->varname != NULL &&
+		   p->vendor != NULL) {
+		dprintf("'%s' -> '%s'\n", p->varname, p->vendor);
+		basic_set_string_variable(p->varname, p->vendor, ctx, false, false);
+		++p;
+	}
 	basic_set_int_variable("TRUE", 1, ctx, false, false);
 	basic_set_int_variable("FALSE", 0, ctx, false, false);
 	basic_set_int_variable("PID", pid, ctx, false, false);
 	basic_set_double_variable("PI#", 3.141592653589793238, ctx, false, false);
+	basic_set_double_variable("E#", 2.7182818284590451, ctx, false, false);
 }
 
 const char* auto_number(const char* program, uint64_t line, uint64_t increment)
@@ -1845,21 +1894,13 @@ bool valid_string_var(const char* name)
 	if (varLength < 2 || name[varLength - 1] != '$') {
 		return false;
 	}
-	int ofs = 0;
 	for (i = name; *i != '$'; i++) {
 		if (*i == '$' && *(i + 1) != 0) {
-		       return false;
-		}
-		if (ofs > 0 && isdigit(*i)) {
-			continue;
-		}
-		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
 			return false;
 		}
-		if (ofs > 60) {
+		if (!isalnum(*i)) {
 			return false;
 		}
-		ofs++;
 	}
 	return true;
 }
@@ -1871,21 +1912,13 @@ bool valid_double_var(const char* name)
 	if (varLength < 2 || name[varLength - 1] != '#') {
 		return false;
 	}
-	int ofs = 0;
 	for (i = name; *i != '#'; i++) {
 		if (*i == '#' && *(i + 1) != 0) {
 		       return false;
 		}
-		if (ofs > 0 && isdigit(*i)) {
-			continue;
-		}
-		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
 			return false;
 		}
-		if (ofs > 60) {
-			return false;
-		}
-		ofs++;
 	}
 	return true;
 }
@@ -1897,18 +1930,10 @@ bool valid_int_var(const char* name)
 	if (varLength < 1) {
 		return false;
 	}
-	int ofs = 0;
 	for (i = name; *i; i++) {
-		if (ofs > 0 && isdigit(*i)) {
-			continue;
-		}
-		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z') && *i != '_') {
+		if ((*i < 'A' || *i > 'Z') && (*i < 'a' || *i > 'z')) {
 			return false;
 		}
-		if (ofs > 60) {
-			return false;
-		}
-		ofs++;
 	}
 	return true;
 }
@@ -3050,4 +3075,167 @@ int64_t basic_get_numeric_int_variable(const char* var, struct basic_ctx* ctx)
 		return (int64_t)res;
 	}
 	return basic_get_int_variable(var, ctx);
+}
+
+void write_cpuid(struct basic_ctx* ctx, int leaf)
+{
+	__cpuid(
+		leaf,
+		ctx->last_cpuid_result.eax,
+		ctx->last_cpuid_result.ebx,
+		ctx->last_cpuid_result.ecx,
+		ctx->last_cpuid_result.edx);
+}
+
+void write_cpuidex(struct basic_ctx* ctx, int leaf, int subleaf)
+{
+	__cpuid_count(
+		leaf,
+		subleaf,
+		ctx->last_cpuid_result.eax,
+		ctx->last_cpuid_result.ebx,
+		ctx->last_cpuid_result.ecx,
+		ctx->last_cpuid_result.edx);
+}
+
+int64_t get_cpuid_reg(struct basic_ctx* ctx, int64_t reg)
+{
+	cpuid_result_t* res = &ctx->last_cpuid_result;
+	switch (reg) {
+	case 0:
+		return res->eax;
+	case 1:
+		return res->ebx;
+	case 2:
+		return res->ecx;
+	case 3:
+		return res->edx;
+	}
+	tokenizer_error_print(ctx, "Invaild register");
+	return 0;
+}
+
+int64_t basic_legacy_cpuid(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t leaf = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t subleaf = intval;
+	PARAMS_END("LEGACYCPUID", -1);
+	if (subleaf != -1) {
+		write_cpuidex(ctx, leaf, subleaf);
+		return 1;
+	}
+	write_cpuid(ctx, leaf);
+	return 0;
+}
+
+int64_t basic_legacy_getlastcpuid(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("LEGACYGETLASTCPUID", -1);
+	return get_cpuid_reg(ctx, intval);
+}
+
+char* basic_cpugetbrand(struct basic_ctx* ctx)
+{
+
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	bool trim = intval;
+	PARAMS_END("CPUGETBRAND$", "");
+	char buffer[50] = {0};
+	unsigned int* tmp = (unsigned int*) buffer;
+	__cpuid(
+		0x80000002,
+		tmp[0],
+		tmp[1],
+		tmp[2],
+		tmp[3]
+	);
+	__cpuid(
+		0x80000003,
+		tmp[4],
+		tmp[5],
+		tmp[6],
+		tmp[7]
+	);
+	__cpuid(
+		0x80000004,
+		tmp[8],
+		tmp[9],
+		tmp[10],
+		tmp[11]
+	);
+	buffer[48] = 0;
+	char* bufferp = (char*) buffer;
+	if (trim) {
+		while (*bufferp == ' ') {
+			++bufferp;
+		}
+	}
+	return gc_strdup(bufferp);
+}
+
+char* basic_cpugetvendor(struct basic_ctx* ctx)
+{
+	__cpuid(
+		0,
+		ctx->last_cpuid_result.eax,
+		ctx->last_cpuid_result.ebx,
+		ctx->last_cpuid_result.ecx,
+		ctx->last_cpuid_result.edx);
+	char buffer[13];
+	((unsigned int*) buffer)[0] = ctx->last_cpuid_result.ebx;
+	((unsigned int*) buffer)[1] = ctx->last_cpuid_result.edx;
+	((unsigned int*) buffer)[2] = ctx->last_cpuid_result.ecx;
+	buffer[12] = '\0';
+	return gc_strdup(buffer);
+}
+
+char* basic_intoasc(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t target = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t length = intval;
+	PARAMS_END("INTOASC$", "");
+	if (length < 0 || length > 8) {
+		tokenizer_error_print(ctx, "Invaild length");
+		return gc_strdup("");
+	}
+	char result[16] = {0};
+	(*(int64_t*) result) = target;
+	result[length] = '\0';
+	return gc_strdup(result);
+}
+
+int64_t basic_cpuid(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t leaf = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t subleaf = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t reg = intval;
+	PARAMS_END("CPUID", -1);
+	if (subleaf != -1) {
+		write_cpuidex(ctx, leaf, subleaf);
+	} else {
+		write_cpuid(ctx, leaf);
+	}
+	return get_cpuid_reg(ctx, reg);
+}
+
+void basic_sqrt(struct basic_ctx* ctx, double* res)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_DOUBLE);
+	double v = doubleval;
+	PARAMS_END_VOID("SQRT");
+	*res = sqrt(v);
 }

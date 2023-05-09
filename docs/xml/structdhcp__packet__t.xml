@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structdhcp__packet__t" kind="struct" language="C++" prot="public">
     <compoundname>dhcp_packet_t</compoundname>
     <includes local="no">dhcp.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint8_t dhcp_packet_t::op</definition>
         <argsstring></argsstring>
         <name>op</name>
+        <qualifiedname>dhcp_packet_t::op</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t dhcp_packet_t::hardware_type</definition>
         <argsstring></argsstring>
         <name>hardware_type</name>
+        <qualifiedname>dhcp_packet_t::hardware_type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t dhcp_packet_t::hardware_addr_len</definition>
         <argsstring></argsstring>
         <name>hardware_addr_len</name>
+        <qualifiedname>dhcp_packet_t::hardware_addr_len</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint8_t dhcp_packet_t::hops</definition>
         <argsstring></argsstring>
         <name>hops</name>
+        <qualifiedname>dhcp_packet_t::hops</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint32_t dhcp_packet_t::xid</definition>
         <argsstring></argsstring>
         <name>xid</name>
+        <qualifiedname>dhcp_packet_t::xid</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint16_t dhcp_packet_t::seconds</definition>
         <argsstring></argsstring>
         <name>seconds</name>
+        <qualifiedname>dhcp_packet_t::seconds</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint16_t dhcp_packet_t::flags</definition>
         <argsstring></argsstring>
         <name>flags</name>
+        <qualifiedname>dhcp_packet_t::flags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint32_t dhcp_packet_t::client_ip</definition>
         <argsstring></argsstring>
         <name>client_ip</name>
+        <qualifiedname>dhcp_packet_t::client_ip</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint32_t dhcp_packet_t::your_ip</definition>
         <argsstring></argsstring>
         <name>your_ip</name>
+        <qualifiedname>dhcp_packet_t::your_ip</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -126,6 +135,7 @@
         <definition>uint32_t dhcp_packet_t::server_ip</definition>
         <argsstring></argsstring>
         <name>server_ip</name>
+        <qualifiedname>dhcp_packet_t::server_ip</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -139,6 +149,7 @@
         <definition>uint32_t dhcp_packet_t::relay_agent_ip</definition>
         <argsstring></argsstring>
         <name>relay_agent_ip</name>
+        <qualifiedname>dhcp_packet_t::relay_agent_ip</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -152,6 +163,7 @@
         <definition>uint8_t dhcp_packet_t::client_hardware_addr[16]</definition>
         <argsstring>[16]</argsstring>
         <name>client_hardware_addr</name>
+        <qualifiedname>dhcp_packet_t::client_hardware_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -165,6 +177,7 @@
         <definition>uint8_t dhcp_packet_t::server_name[64]</definition>
         <argsstring>[64]</argsstring>
         <name>server_name</name>
+        <qualifiedname>dhcp_packet_t::server_name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -178,6 +191,7 @@
         <definition>uint8_t dhcp_packet_t::boot_file[128]</definition>
         <argsstring>[128]</argsstring>
         <name>boot_file</name>
+        <qualifiedname>dhcp_packet_t::boot_file</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -191,6 +205,7 @@
         <definition>uint8_t dhcp_packet_t::options[128]</definition>
         <argsstring>[128]</argsstring>
         <name>options</name>
+        <qualifiedname>dhcp_packet_t::options</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -210,17 +225,6 @@
         <label>dhcp_packet_t</label>
         <link refid="structdhcp__packet__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>flags</edgelabel>
-          <edgelabel>seconds</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>client_ip</edgelabel>
-          <edgelabel>relay_agent_ip</edgelabel>
-          <edgelabel>server_ip</edgelabel>
-          <edgelabel>xid</edgelabel>
-          <edgelabel>your_ip</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>boot_file</edgelabel>
           <edgelabel>client_hardware_addr</edgelabel>
           <edgelabel>hardware_addr_len</edgelabel>
@@ -230,14 +234,25 @@
           <edgelabel>options</edgelabel>
           <edgelabel>server_name</edgelabel>
         </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>client_ip</edgelabel>
+          <edgelabel>relay_agent_ip</edgelabel>
+          <edgelabel>server_ip</edgelabel>
+          <edgelabel>xid</edgelabel>
+          <edgelabel>your_ip</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>flags</edgelabel>
+          <edgelabel>seconds</edgelabel>
+        </childnode>
       </node>
-      <node id="2">
+      <node id="4">
         <label>uint16_t</label>
       </node>
       <node id="3">
         <label>uint32_t</label>
       </node>
-      <node id="4">
+      <node id="2">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>

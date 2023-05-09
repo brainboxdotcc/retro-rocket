@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structsdt__header__t" kind="struct" language="C++" prot="public">
     <compoundname>sdt_header_t</compoundname>
     <includes local="no">acpi.h</includes>
@@ -9,6 +9,7 @@
         <definition>char sdt_header_t::signature[4]</definition>
         <argsstring>[4]</argsstring>
         <name>signature</name>
+        <qualifiedname>sdt_header_t::signature</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint32_t sdt_header_t::length</definition>
         <argsstring></argsstring>
         <name>length</name>
+        <qualifiedname>sdt_header_t::length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t sdt_header_t::revision</definition>
         <argsstring></argsstring>
         <name>revision</name>
+        <qualifiedname>sdt_header_t::revision</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint8_t sdt_header_t::checksum</definition>
         <argsstring></argsstring>
         <name>checksum</name>
+        <qualifiedname>sdt_header_t::checksum</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>char sdt_header_t::oem_id[6]</definition>
         <argsstring>[6]</argsstring>
         <name>oem_id</name>
+        <qualifiedname>sdt_header_t::oem_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>char sdt_header_t::oem_table_id[8]</definition>
         <argsstring>[8]</argsstring>
         <name>oem_table_id</name>
+        <qualifiedname>sdt_header_t::oem_table_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint32_t sdt_header_t::oem_revision</definition>
         <argsstring></argsstring>
         <name>oem_revision</name>
+        <qualifiedname>sdt_header_t::oem_revision</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint32_t sdt_header_t::creator_id</definition>
         <argsstring></argsstring>
         <name>creator_id</name>
+        <qualifiedname>sdt_header_t::creator_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint32_t sdt_header_t::creator_revision</definition>
         <argsstring></argsstring>
         <name>creator_revision</name>
+        <qualifiedname>sdt_header_t::creator_revision</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -128,6 +137,9 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>char</label>
+      </node>
       <node id="1">
         <label>sdt_header_t</label>
         <link refid="structsdt__header__t"/>
@@ -152,9 +164,6 @@
       </node>
       <node id="4">
         <label>uint8_t</label>
-      </node>
-      <node id="2">
-        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/acpi.h" line="28" column="1" bodyfile="include/acpi.h" bodystart="28" bodyend="38"/>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.4" xml:lang="en-US">
   <compound refid="struct____attribute____" kind="struct"><name>__attribute__</name>
     <member refid="struct____attribute_____1a7b7d1a44b586f753e2a41f54453d2786" kind="variable"><name>year</name></member>
     <member refid="struct____attribute_____1a00027c4795e5b57bc0f993f5b403a43f" kind="variable"><name>month</name></member>
@@ -294,6 +294,7 @@
     <member refid="structbasic__ctx_1a6d93bbf399fba5da373879d9889fead3" kind="variable"><name>item_begin</name></member>
     <member refid="structbasic__ctx_1a207d939e27d0a1b25d4418971ddd34c3" kind="variable"><name>param</name></member>
     <member refid="structbasic__ctx_1a53852b59657aa0a3e65fa49357dbf7b0" kind="variable"><name>graphics_colour</name></member>
+    <member refid="structbasic__ctx_1a6bd1fa3ec2d3b4c0b2f33456296e715d" kind="variable"><name>last_cpuid_result</name></member>
     <member refid="structbasic__ctx_1a069084d2fc5fc7c6623473da3b0ff500" kind="variable"><name>lines</name></member>
     <member refid="structbasic__ctx_1af193438fa4fb81f516c57824e31f1da0" kind="variable"><name>if_nest_level</name></member>
     <member refid="structbasic__ctx_1a7e16bb3a99bcff493c581fab6757c88c" kind="variable"><name>highest_line</name></member>
@@ -325,6 +326,12 @@
     <member refid="structconsole_1a91d1627e8cdd4e8cd99dbe49b9240d4e" kind="variable"><name>internalbuffer</name></member>
     <member refid="structconsole_1aa45e29de771517b78d3637bb503f21ec" kind="variable"><name>buffer</name></member>
     <member refid="structconsole_1a3792de1a10e5002f78b3d3c7b8a9decb" kind="variable"><name>bufcnt</name></member>
+  </compound>
+  <compound refid="structcpuid__result__t" kind="struct"><name>cpuid_result_t</name>
+    <member refid="structcpuid__result__t_1a609a49c61f6fdc7187def91dfc9bf3c6" kind="variable"><name>eax</name></member>
+    <member refid="structcpuid__result__t_1a7cba61af568b8e7a04eca6a4be041b38" kind="variable"><name>ebx</name></member>
+    <member refid="structcpuid__result__t_1ad0d25fb5bc44e6d28a817ced9571adcc" kind="variable"><name>ecx</name></member>
+    <member refid="structcpuid__result__t_1aecf01b168c2ede04bcd5ec5b0014671f" kind="variable"><name>edx</name></member>
   </compound>
   <compound refid="structdatetime__t" kind="struct"><name>datetime_t</name>
     <member refid="structdatetime__t_1a47c95a965cf321c500654ef7303cc8b6" kind="variable"><name>century</name></member>
@@ -1049,7 +1056,7 @@
     <member refid="acpi_8h_1ab0b5c2612ca3de9e099f4f8652f5a6e7" kind="variable"><name>pointer_to_other_sdt</name></member>
     <member refid="acpi_8h_1a08df82d89767e6d89ca02f7a441a16a1" kind="function"><name>__attribute__</name></member>
     <member refid="acpi_8h_1a1994da1e5a421570132607aaad5afec9" kind="function"><name>init_cores</name></member>
-    <member refid="acpi_8h_1ae7164bbaa4c4e814bdeaf05f386103ba" kind="function"><name>get_lapic_ids</name></member>
+    <member refid="acpi_8h_1a880fc46c376ff5d20147c7cd3cfb9079" kind="function"><name>get_lapic_ids</name></member>
     <member refid="acpi_8h_1a1a6dfa32a21e7522a6094874a4c36e0c" kind="function"><name>get_cpu_count</name></member>
     <member refid="acpi_8h_1a9a09b0320ee05b488156e6a7f4be862b" kind="function"><name>get_local_apic</name></member>
     <member refid="acpi_8h_1ab3f0de3b6d0c93058d3615110a0c7f39" kind="function"><name>get_ioapic</name></member>
@@ -1222,7 +1229,7 @@
     <member refid="arp_8h_1a4c42cd0cf3334e17dba31d79df346b68" kind="function"><name>arp_lookup</name></member>
     <member refid="arp_8h_1adfb058efa1f5ac734b350159676020a4" kind="function"><name>arp_lookup_add</name></member>
     <member refid="arp_8h_1aa528ddf0081d9d95ec593c63fafacb31" kind="function"><name>arp_init</name></member>
-    <member refid="arp_8h_1a9b24f831029cf547ec81280840ce22fc" kind="function"><name>get_arp_entry</name></member>
+    <member refid="arp_8h_1a8eac105b735fca45ba172cbd0a01ca6d" kind="function"><name>get_arp_entry</name></member>
     <member refid="arp_8h_1a7dfc38da779cee71b7afacd4cca46eae" kind="function"><name>get_arp_table_size</name></member>
     <member refid="arp_8h_1a78fd40ebcc17873ff998879a3ca3ee3e" kind="function"><name>arp_prediscover</name></member>
   </compound>
@@ -1336,7 +1343,7 @@
     <member refid="basic_8h_1a6c0abde6f3447311fde5e92637f7d059a60a3bc81e662586f9588a11fdf5d1449" kind="enumvalue"><name>BIP_DOUBLE</name></member>
     <member refid="basic_8h_1a6c0abde6f3447311fde5e92637f7d059a23100c70927077e2746555cb5a3fac72" kind="enumvalue"><name>BIP_VARIABLE</name></member>
     <member refid="basic_8h_1aae35741221b4c2f3ba048b8d86d91365" kind="typedef"><name>builtin_int_fn</name></member>
-    <member refid="basic_8h_1aa5f5a13b3623e8b26ca39fc2d87efffe" kind="typedef"><name>builtin_str_fn</name></member>
+    <member refid="basic_8h_1a2b294ef7282418e3db28f726ca390fa2" kind="typedef"><name>builtin_str_fn</name></member>
     <member refid="basic_8h_1ab8104015746edc0f683c354654570dbd" kind="typedef"><name>builtin_double_fn</name></member>
     <member refid="basic_8h_1a9e892389dc272853d51b1bbbb49f4411" kind="function"><name>valid_int_var</name></member>
     <member refid="basic_8h_1ad783607ef9114bb476aec066a2d5e5eb" kind="function"><name>valid_string_var</name></member>
@@ -1370,23 +1377,29 @@
     <member refid="basic_8h_1a4b999614892e962bb89fcf30c78feadc" kind="function"><name>basic_altkey</name></member>
     <member refid="basic_8h_1a6f6eeff9a451f2f806478dc60db581a3" kind="function"><name>basic_capslock</name></member>
     <member refid="basic_8h_1a8ee3bc48d89dce6438a4567453e16c3b" kind="function"><name>basic_random</name></member>
-    <member refid="basic_8h_1a8226fac5478897a6c5b5762b56c3009d" kind="function"><name>basic_netinfo</name></member>
-    <member refid="basic_8h_1a440ee18643b7e1a2c277e784d4de7611" kind="function"><name>basic_left</name></member>
-    <member refid="basic_8h_1a44a755c93bf339a9ece32db5ed4306c1" kind="function"><name>basic_right</name></member>
-    <member refid="basic_8h_1a73a5228c7b32fcab2628398d65ffc519" kind="function"><name>basic_mid</name></member>
-    <member refid="basic_8h_1aff36033aabc5748fa65c76e9f00e3701" kind="function"><name>basic_chr</name></member>
-    <member refid="basic_8h_1a08232cbcbae6f711c1323daf3a0bbf2d" kind="function"><name>basic_readstring</name></member>
-    <member refid="basic_8h_1a59c0115ba915eb1edb88cac4a153954f" kind="function"><name>basic_getname</name></member>
-    <member refid="basic_8h_1a9c253e008eb28a6664411b3da229bcff" kind="function"><name>basic_getprocname</name></member>
-    <member refid="basic_8h_1a045e5dbdfcb4c88a964ebeccaf8d5344" kind="function"><name>basic_dns</name></member>
-    <member refid="basic_8h_1a800a5ab8dff8cabc71386253f3f9e0ff" kind="function"><name>basic_ramdisk_from_device</name></member>
-    <member refid="basic_8h_1a7d9af5dcf158f2d6b8f4fcf779de4863" kind="function"><name>basic_ramdisk_from_size</name></member>
-    <member refid="basic_8h_1a376039e4daac4d18aa94c2aac69924f8" kind="function"><name>basic_inkey</name></member>
-    <member refid="basic_8h_1adb77a2b4e41e8af4241cd9e6a49d9eea" kind="function"><name>basic_insocket</name></member>
-    <member refid="basic_8h_1a8eb7630027bebc74b952f5d878127e8d" kind="function"><name>basic_upper</name></member>
-    <member refid="basic_8h_1aecfafc809db0f1f2efe65bed9203a1e4" kind="function"><name>basic_lower</name></member>
-    <member refid="basic_8h_1a88b94fb7c2c754c122743c942be4a515" kind="function"><name>basic_tokenize</name></member>
-    <member refid="basic_8h_1a2297d2782fbc9999476091edb8db77b9" kind="function"><name>basic_csd</name></member>
+    <member refid="basic_8h_1afeefd46448bebfea73954e6b48448fbc" kind="function"><name>basic_legacy_getlastcpuid</name></member>
+    <member refid="basic_8h_1a988befdafcb2491d0f07b5f5ded58e0e" kind="function"><name>basic_legacy_cpuid</name></member>
+    <member refid="basic_8h_1aca68b975022b959caf87e20f9342144e" kind="function"><name>basic_cpuid</name></member>
+    <member refid="basic_8h_1a5733a8cbbf082da1ba38f54228780279" kind="function"><name>basic_netinfo</name></member>
+    <member refid="basic_8h_1a768d4c9a2c8cef079ffb7ce89f14c296" kind="function"><name>basic_left</name></member>
+    <member refid="basic_8h_1af4a724052d66df1b14583770a372b369" kind="function"><name>basic_right</name></member>
+    <member refid="basic_8h_1a1b6802b4abe7cf2d21586a2ae34c9142" kind="function"><name>basic_mid</name></member>
+    <member refid="basic_8h_1add91b1f71debbcbdc5568e4b4a853124" kind="function"><name>basic_chr</name></member>
+    <member refid="basic_8h_1a8966029e7c67f620555eda876d1f3f77" kind="function"><name>basic_readstring</name></member>
+    <member refid="basic_8h_1a605e7afdd98c250365cd8302c8d6c2a2" kind="function"><name>basic_getname</name></member>
+    <member refid="basic_8h_1a8c7b6f96530daab72f6c6291c07395a2" kind="function"><name>basic_getprocname</name></member>
+    <member refid="basic_8h_1acc647b6955a00a39c3af9cd94ba44b16" kind="function"><name>basic_dns</name></member>
+    <member refid="basic_8h_1affd1153268205dceeaa662a938d0fa7d" kind="function"><name>basic_ramdisk_from_device</name></member>
+    <member refid="basic_8h_1ae9065c04d3c15b07dd70ccd5c4e5e168" kind="function"><name>basic_ramdisk_from_size</name></member>
+    <member refid="basic_8h_1aa0afd7465756a54d5bed2636e5067c06" kind="function"><name>basic_inkey</name></member>
+    <member refid="basic_8h_1a3a6adb48db31be0a4aeb1d93b9723013" kind="function"><name>basic_insocket</name></member>
+    <member refid="basic_8h_1a7bb53929cd531cc136f1371627ba657e" kind="function"><name>basic_upper</name></member>
+    <member refid="basic_8h_1ac23b4db553c7a41e84727c3f41826a55" kind="function"><name>basic_lower</name></member>
+    <member refid="basic_8h_1a87bcf8c9bd538b10a704b3b794ff0255" kind="function"><name>basic_tokenize</name></member>
+    <member refid="basic_8h_1a52d62e0a64914757a552a20624d82e6c" kind="function"><name>basic_csd</name></member>
+    <member refid="basic_8h_1a044f4cf50ad0113ca27b52523c7effa0" kind="function"><name>basic_cpugetbrand</name></member>
+    <member refid="basic_8h_1a43115754a3c53796dedc7c88b28a7d33" kind="function"><name>basic_cpugetvendor</name></member>
+    <member refid="basic_8h_1a7e7c2dfe4c3f50628d35de4144a3ce56" kind="function"><name>basic_intoasc</name></member>
     <member refid="basic_8h_1ae59e663583d153bad2df75f78302030c" kind="function"><name>openin_statement</name></member>
     <member refid="basic_8h_1a9046714d009f572d4b7813dff7f87cc7" kind="function"><name>openup_statement</name></member>
     <member refid="basic_8h_1ac5e9f2f653de2c238d2bf738b210d19c" kind="function"><name>openout_statement</name></member>
@@ -1399,12 +1412,12 @@
     <member refid="basic_8h_1a63999c7a13c1755d9974a556083e0551" kind="function"><name>rmdir_statement</name></member>
     <member refid="basic_8h_1af57b4a8fdfd6fa8c2d840312244b51d2" kind="function"><name>write_statement</name></member>
     <member refid="basic_8h_1a130dcb9c4ac679f7776b7df221caefa8" kind="function"><name>chdir_statement</name></member>
-    <member refid="basic_8h_1ac867c766169d7e81816b209335d9b581" kind="function"><name>basic_filetype</name></member>
+    <member refid="basic_8h_1ac446b0ba3af7c03a847568d9b72adeed" kind="function"><name>basic_filetype</name></member>
     <member refid="basic_8h_1a61f2356862072ed0b26c976b2e0733b6" kind="function"><name>basic_sin</name></member>
     <member refid="basic_8h_1ae583990f38cdcad325bb10a589ee00c7" kind="function"><name>basic_cos</name></member>
     <member refid="basic_8h_1af7eedc0859b6885bde15748e74f976de" kind="function"><name>basic_tan</name></member>
     <member refid="basic_8h_1ac7132232b1580e3e51e1b6aea2d6b556" kind="function"><name>basic_pow</name></member>
-    <member refid="basic_8h_1aab15b37afdb180943e1fd31c41caa981" kind="function"><name>basic_init</name></member>
+    <member refid="basic_8h_1a6724a794d022c9884bf669821873b1f4" kind="function"><name>basic_init</name></member>
     <member refid="basic_8h_1af018882ffc2e5fc5f888c4dea3ecf17c" kind="function"><name>basic_destroy</name></member>
     <member refid="basic_8h_1a56b04c55856eb16c14cb74068a770ca3" kind="function"><name>basic_run</name></member>
     <member refid="basic_8h_1ab8aa7186bd4407c90642c4aef3288b7b" kind="function"><name>basic_finished</name></member>
@@ -1415,7 +1428,7 @@
     <member refid="basic_8h_1a0a686d90dc8901814770b867d85cd2dd" kind="function"><name>basic_parse_fn</name></member>
     <member refid="basic_8h_1aec48249fe094a7f73bc1c2bce802f6ec" kind="function"><name>basic_get_int_variable</name></member>
     <member refid="basic_8h_1a65166d979ee0726821cec844a6a05856" kind="function"><name>basic_get_double_variable</name></member>
-    <member refid="basic_8h_1ae636ca2f3ebb3b2d12929587b998bb21" kind="function"><name>basic_get_string_variable</name></member>
+    <member refid="basic_8h_1a03c742f9d706f4b8f919d3e6f8ee6be3" kind="function"><name>basic_get_string_variable</name></member>
     <member refid="basic_8h_1aa09a0d5b3cb727af7675a2b8ac2ba74a" kind="function"><name>basic_set_string_variable</name></member>
     <member refid="basic_8h_1af5c66412e1df2c2e20bf266bb4bbf72d" kind="function"><name>basic_set_double_variable</name></member>
     <member refid="basic_8h_1a3d66422a4fcb7d011bd9bdd6ce68c36b" kind="function"><name>basic_set_int_variable</name></member>
@@ -1426,7 +1439,7 @@
     <member refid="basic_8h_1a4a6c9643edeed2939eeaf0c24e4280a2" kind="function"><name>basic_set_double_array_variable</name></member>
     <member refid="basic_8h_1abccdcd1e3045d4f5d0e505cd313bf462" kind="function"><name>basic_get_double_array_variable</name></member>
     <member refid="basic_8h_1a7863b8c90f83b4180233241788b14767" kind="function"><name>basic_get_int_array_variable</name></member>
-    <member refid="basic_8h_1ac596e83e2171a5a03ad989d70419fc01" kind="function"><name>basic_get_string_array_variable</name></member>
+    <member refid="basic_8h_1ade733b26122731cddd442c8b63764c26" kind="function"><name>basic_get_string_array_variable</name></member>
     <member refid="basic_8h_1a25934e25b4f5b0f4b5895a4530450c87" kind="function"><name>basic_dim_string_array</name></member>
     <member refid="basic_8h_1ae72e525f34416ebcc88b46a501253ad7" kind="function"><name>basic_dim_int_array</name></member>
     <member refid="basic_8h_1a67da3dae6bdcde53d6f7d8a1d8b2e77a" kind="function"><name>basic_dim_double_array</name></member>
@@ -1455,9 +1468,9 @@
     <member refid="basic_8h_1a82b38ae80b08b12294c9bfc7f74ef707" kind="function"><name>relation</name></member>
     <member refid="basic_8h_1a74736577f6e6c03730accb1bf6609a30" kind="function"><name>double_expr</name></member>
     <member refid="basic_8h_1a8ee284d90bf47b74190b99f3ca1931f1" kind="function"><name>double_relation</name></member>
-    <member refid="basic_8h_1acaeec169031159bc49ecfbdd40db70db" kind="function"><name>str_expr</name></member>
+    <member refid="basic_8h_1a0dcee901e81d6ca3a8e584f2d04a3fa2" kind="function"><name>str_expr</name></member>
     <member refid="basic_8h_1a4727b05ac445c783f91c761aff40ffda" kind="function"><name>str_relation</name></member>
-    <member refid="basic_8h_1abe611781260b7e77b7926597565b2f2d" kind="function"><name>printable_syntax</name></member>
+    <member refid="basic_8h_1a0655a7535f7325ecdf8369c1df0eff45" kind="function"><name>printable_syntax</name></member>
     <member refid="basic_8h_1ad4bc068a37938522b9addf519de12756" kind="function"><name>library_statement</name></member>
     <member refid="basic_8h_1af0412313c94342985b8a8c2cb7e8808f" kind="function"><name>basic_free_defs</name></member>
     <member refid="basic_8h_1ae64f409fce646c35026a2f3c376601fc" kind="function"><name>begin_comma_list</name></member>
@@ -1466,6 +1479,12 @@
     <member refid="basic_8h_1a02cb6072b5475bea18fc8d39f54fa1b7" kind="function"><name>basic_int_variable_exists</name></member>
     <member refid="basic_8h_1ae9c342e06df1aa6a33395f385c46138b" kind="function"><name>basic_string_variable_exists</name></member>
     <member refid="basic_8h_1a4f4d220db2cd25e991803885926174ce" kind="function"><name>basic_double_variable_exists</name></member>
+    <member refid="basic_8h_1acec189e89abfedbc1303781f0f708e50" kind="function"><name>basic_val</name></member>
+    <member refid="basic_8h_1ab096fbf99da97d870adaaace45f99f7e" kind="function"><name>basic_hexval</name></member>
+    <member refid="basic_8h_1a325120ffce1738ef4a82e8d754d526d8" kind="function"><name>basic_octval</name></member>
+    <member refid="basic_8h_1a8d25e29c6b8d86342bf578d6e6386f18" kind="function"><name>basic_realval</name></member>
+    <member refid="basic_8h_1a417b4fa38e97281fb2d80e5cdc35ae55" kind="function"><name>basic_str</name></member>
+    <member refid="basic_8h_1a7ed9d573b2e1b1f86f048e576b3242ad" kind="function"><name>basic_bool</name></member>
   </compound>
   <compound refid="basic__tokenizer_8h" kind="file"><name>basic_tokenizer.h</name>
     <member refid="basic__tokenizer_8h_1ad004bd52426bd91bc9d41b6efb6ea35d" kind="define"><name>MAX_VARNAME</name></member>
@@ -1559,12 +1578,12 @@
     <member refid="basic__tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea72285f0e2e8529642eb0a6025b12e1e0" kind="enumvalue"><name>LIBRARY</name></member>
     <member refid="basic__tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfea094487780ed8c40e1a40978135ada67e" kind="enumvalue"><name>YIELD</name></member>
     <member refid="basic__tokenizer_8h_1a4ebc26c81c029670805b51af165f9cfeabe8c81f9db8320b327f4fe513a1a873b" kind="enumvalue"><name>MOUNT</name></member>
-    <member refid="basic__tokenizer_8h_1a67447b73d4ebd22e263ae4d8d7494a9b" kind="function"><name>tokenizer_init</name></member>
+    <member refid="basic__tokenizer_8h_1a9edc939763a538f69d90f30d7773882a" kind="function"><name>tokenizer_init</name></member>
     <member refid="basic__tokenizer_8h_1a00dbb52d768c7b1dc31776d51a4b0c6b" kind="function"><name>tokenizer_next</name></member>
     <member refid="basic__tokenizer_8h_1ad1bbf905fff7e37e6244ceb8ac31656b" kind="function"><name>tokenizer_token</name></member>
     <member refid="basic__tokenizer_8h_1ad40ac0288be0a9ef70c9cd31b66663de" kind="function"><name>tokenizer_num</name></member>
     <member refid="basic__tokenizer_8h_1a9a48b9685f151008f71e4346eb1cf68c" kind="function"><name>tokenizer_fnum</name></member>
-    <member refid="basic__tokenizer_8h_1aec506ea7f004aaa4d5cb3a9e4ed1e61e" kind="function"><name>tokenizer_variable_name</name></member>
+    <member refid="basic__tokenizer_8h_1ac74d1f65fc36fff20072c4e1dfa65645" kind="function"><name>tokenizer_variable_name</name></member>
     <member refid="basic__tokenizer_8h_1a749f588540db6d7cec847d658a9e6a8d" kind="function"><name>tokenizer_string</name></member>
     <member refid="basic__tokenizer_8h_1a7dd37ac7fb189bdb8e99de3ddff44444" kind="function"><name>tokenizer_finished</name></member>
     <member refid="basic__tokenizer_8h_1a6bb8f288ca3badb019539980d26250fc" kind="function"><name>tokenizer_error_print</name></member>
@@ -1576,81 +1595,12 @@
     <member refid="clock_8h_1a69ae2c8a40198aac3773362260014c21a6fe5cfee4adf90dfd38fd18914c5b986" kind="enumvalue"><name>CMOS_ADDR</name></member>
     <member refid="clock_8h_1a69ae2c8a40198aac3773362260014c21a5d0fad18a24a081df89af28de4d7c315" kind="enumvalue"><name>CMOS_DATA</name></member>
     <member refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kind="typedef"><name>time_t</name></member>
-    <member refid="clock_8h_1acaac299510c8ace6baf3848cf616de85" kind="function"><name>get_datetime_str</name></member>
+    <member refid="clock_8h_1a8d5924dcecc89f466debbf01acc10e7a" kind="function"><name>get_datetime_str</name></member>
     <member refid="clock_8h_1a5422fc453dd6b462d4bc1fc0df9e4bd8" kind="function"><name>get_datetime</name></member>
     <member refid="clock_8h_1aff93106d7e8609959f1bd8185a822def" kind="function"><name>init_realtime_clock</name></member>
     <member refid="clock_8h_1ae7841e681c8c9d59818568d39553642c" kind="function"><name>time</name></member>
     <member refid="clock_8h_1a0ed0af74b6ab22d8c7a1b7ba9733e12d" kind="function"><name>day_of_year</name></member>
     <member refid="clock_8h_1a8224f7fa51de1642e6634e72f2f06be2" kind="function"><name>get_weekday_from_date</name></member>
-  </compound>
-  <compound refid="cpuid_8h" kind="file"><name>cpuid.h</name>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377" kind="enum"><name>cpuid_flags</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9ec1c52e0b19a9532baa8ce4f80add58" kind="enumvalue"><name>CPUID_FEAT_ECX_SSE3</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aaa62b2a02d3829ace891eac7d1d8f746" kind="enumvalue"><name>CPUID_FEAT_ECX_PCLMUL</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aa84b899e336daf2d90cdab723a24d544" kind="enumvalue"><name>CPUID_FEAT_ECX_DTES64</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a6ffa8cdde16327f47b6a49aa5d676ee5" kind="enumvalue"><name>CPUID_FEAT_ECX_MONITOR</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a1be0388c15db5d77facac96d2efddc4f" kind="enumvalue"><name>CPUID_FEAT_ECX_DS_CPL</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a714125fa31dd21e46e385b8dc340214f" kind="enumvalue"><name>CPUID_FEAT_ECX_VMX</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab6deac61a50e0367b5475869e240ac06" kind="enumvalue"><name>CPUID_FEAT_ECX_SMX</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a150b3abab983011be08fc459b7b9b700" kind="enumvalue"><name>CPUID_FEAT_ECX_EST</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377acf4aa3ed6f11fc17b684281787f60949" kind="enumvalue"><name>CPUID_FEAT_ECX_TM2</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5957647e74d0eaea90bdb316e578e579" kind="enumvalue"><name>CPUID_FEAT_ECX_SSSE3</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377afb8bce29e8cfd07070b596f3912f608b" kind="enumvalue"><name>CPUID_FEAT_ECX_CID</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c1fd66e736f5d3d344e919b57483336" kind="enumvalue"><name>CPUID_FEAT_ECX_FMA</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ad30be7d0797e3aad723013154aa733d2" kind="enumvalue"><name>CPUID_FEAT_ECX_CX16</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a41b9888036ae940d974a544bed3f19c4" kind="enumvalue"><name>CPUID_FEAT_ECX_ETPRD</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a93ddbafd38f7a260286998ae9ddc8cad" kind="enumvalue"><name>CPUID_FEAT_ECX_PDCM</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a2b75568ac85063fb0a96418fa0bfb29d" kind="enumvalue"><name>CPUID_FEAT_ECX_DCA</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a63ddf183b299d2fc7686dac65e1a555a" kind="enumvalue"><name>CPUID_FEAT_ECX_SSE4_1</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac35d5255d2ef4728b73348db7087c1c7" kind="enumvalue"><name>CPUID_FEAT_ECX_SSE4_2</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac1613126920afb91d3d177c21e4f3dfe" kind="enumvalue"><name>CPUID_FEAT_ECX_x2APIC</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac67b97fbc629b276f5c13dbf88c4f709" kind="enumvalue"><name>CPUID_FEAT_ECX_MOVBE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a71e5348902e26fc6de23f4f5bd384f74" kind="enumvalue"><name>CPUID_FEAT_ECX_POPCNT</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c28569cd999d6cc2e9e0005b4fa6c9d" kind="enumvalue"><name>CPUID_FEAT_ECX_XSAVE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a56478550836d5fa258b03e9fd9eb8116" kind="enumvalue"><name>CPUID_FEAT_ECX_OSXSAVE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a749d00516968a015a4d8e15235bf07e6" kind="enumvalue"><name>CPUID_FEAT_ECX_AVX</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac07d767d714117e48c453b752f799610" kind="enumvalue"><name>CPUID_FEAT_EDX_FPU</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5d32075fb1cfd95910c1eff1f0f3d056" kind="enumvalue"><name>CPUID_FEAT_EDX_VME</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a69236c580bf3feddd4a57b3072a7b521" kind="enumvalue"><name>CPUID_FEAT_EDX_DE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a59bc828bc43010ac71793759e8011335" kind="enumvalue"><name>CPUID_FEAT_EDX_PSE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a2ae56cfb5a846822cc095b79bf74de10" kind="enumvalue"><name>CPUID_FEAT_EDX_TSC</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a6b8beb5908a936d7f00c848df0abe061" kind="enumvalue"><name>CPUID_FEAT_EDX_MSR</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a3a97eae0ba980bb5d9d9b10138d70aca" kind="enumvalue"><name>CPUID_FEAT_EDX_PAE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ade0ff2978a54bc0c96dd71a7a7177d0f" kind="enumvalue"><name>CPUID_FEAT_EDX_MCE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a431ed484886fa29e4a7d16ab99523350" kind="enumvalue"><name>CPUID_FEAT_EDX_CX8</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a7fa4170aae12fbc1642012ccba9855b0" kind="enumvalue"><name>CPUID_FEAT_EDX_APIC</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a674ec4ce4025c0f520a30d6e461ed47d" kind="enumvalue"><name>CPUID_FEAT_EDX_SEP</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5b30fec963effd4a0d2c8447028d0215" kind="enumvalue"><name>CPUID_FEAT_EDX_MTRR</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377afb0d4b99b2d0e98089be4ede2162eddf" kind="enumvalue"><name>CPUID_FEAT_EDX_PGE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac9e7b8e9c0e19bfe48a4bcd749aaaa4e" kind="enumvalue"><name>CPUID_FEAT_EDX_MCA</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c90442380d5125737f106c44afce64f" kind="enumvalue"><name>CPUID_FEAT_EDX_CMOV</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac0e40c6f57efc979712596770aab9f8a" kind="enumvalue"><name>CPUID_FEAT_EDX_PAT</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9718e0367b529df69ee7c9b7fd998b83" kind="enumvalue"><name>CPUID_FEAT_EDX_PSE36</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aac23260b012a04ea25d113844c631d44" kind="enumvalue"><name>CPUID_FEAT_EDX_PSN</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a80d53b7ac629e80940d02e38ad48414b" kind="enumvalue"><name>CPUID_FEAT_EDX_CLF</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a43682d6fe8589b4809e2c49bb55c1558" kind="enumvalue"><name>CPUID_FEAT_EDX_DTES</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aec94ddf1825bdde32627d9149beec9dc" kind="enumvalue"><name>CPUID_FEAT_EDX_ACPI</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac8185eb6b47dd2ef97a44cbb759f8e52" kind="enumvalue"><name>CPUID_FEAT_EDX_MMX</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a577b773d21178552d9d768da936479f6" kind="enumvalue"><name>CPUID_FEAT_EDX_FXSR</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab362f49f025f651238f57dcf8d5d281f" kind="enumvalue"><name>CPUID_FEAT_EDX_SSE</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab64ff1599bf88ab91782ee4f9152f3ce" kind="enumvalue"><name>CPUID_FEAT_EDX_SSE2</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aec6daa5351cf0b927f4fcbad3f0cfef1" kind="enumvalue"><name>CPUID_FEAT_EDX_SS</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac91c9cfc9f3165b25b10030ef82c491f" kind="enumvalue"><name>CPUID_FEAT_EDX_HTT</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5468113d56e2d06eb0e6d5c4f74af589" kind="enumvalue"><name>CPUID_FEAT_EDX_TM1</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a12ab79d3456f748b49340fa00e60c160" kind="enumvalue"><name>CPUID_FEAT_EDX_IA64</name></member>
-    <member refid="cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ae6cfc957052841ae578ddfb390f00a1a" kind="enumvalue"><name>CPUID_FEAT_EDX_PBE</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fd" kind="enum"><name>cpuid_requests</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fda287b9480159ff0790f83312fc0f35361" kind="enumvalue"><name>CPUID_GETVENDORSTRING</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fdae54d5cf464a4eaab14f5639ef57a5350" kind="enumvalue"><name>CPUID_GETFEATURES</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fda1844360ad06974a69963618af9fd7721" kind="enumvalue"><name>CPUID_GETTLB</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fdad206c016f6b1bf979bab7c632a2daaa4" kind="enumvalue"><name>CPUID_GETSERIAL</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fdab016d439747f36e0a2bdd34f8f26ecbe" kind="enumvalue"><name>CPUID_INTELEXTENDED</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fda6b1682619d4f05d42499c280f74ba7d0" kind="enumvalue"><name>CPUID_INTELFEATURES</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fda898f490021383393edca0741e4a3b8df" kind="enumvalue"><name>CPUID_INTELBRANDSTRING</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fda8585bcaf7fb2b6c52217566488dc3739" kind="enumvalue"><name>CPUID_INTELBRANDSTRINGMORE</name></member>
-    <member refid="cpuid_8h_1ab888571a1da93076da2f6f062641c3fdaf0e6c842bda49527a246dd9c85d6da6a" kind="enumvalue"><name>CPUID_INTELBRANDSTRINGEND</name></member>
-    <member refid="cpuid_8h_1adacb2a50c30267ac5314bfcb92ac1d85" kind="function"><name>cpuid</name></member>
-    <member refid="cpuid_8h_1a9091114e1347758f7e3cd993169a5764" kind="function"><name>cpuid_string</name></member>
   </compound>
   <compound refid="debugger_8h" kind="file"><name>debugger.h</name>
     <member refid="debugger_8h_1a1bf21df0929c1807b0dfc8b3d25d855a" kind="define"><name>SYM_ABSOLUTE</name></member>
@@ -1672,7 +1622,7 @@
     <member refid="debugger_8h_1a193f7f97cdb75d26f4009b5a3edf72ec" kind="function"><name>dump_hex</name></member>
     <member refid="debugger_8h_1a568e49ee3a2e0adab55fa38535e40835" kind="function"><name>init_debug</name></member>
     <member refid="debugger_8h_1a73b6618270491b1d78d378a62a5a52b1" kind="function"><name>backtrace</name></member>
-    <member refid="debugger_8h_1a4c007aba1c784ceaecb1b28bcc1663ab" kind="function"><name>get_sym_table</name></member>
+    <member refid="debugger_8h_1a238357918fb085302ef2bfd1b2525522" kind="function"><name>get_sym_table</name></member>
   </compound>
   <compound refid="devfs_8h" kind="file"><name>devfs.h</name>
     <member refid="devfs_8h_1a083dbd47759155f3cdf939a0a61ab6c2" kind="function"><name>init_devfs</name></member>
@@ -1733,7 +1683,7 @@
     <member refid="dhcp_8h_1af609d957a70f8b6388a2a1081cbabd4a" kind="function"><name>__attribute__</name></member>
     <member refid="dhcp_8h_1a6028f8888ed57058a2980fc21c62f42d" kind="function"><name>dhcp_discover</name></member>
     <member refid="dhcp_8h_1a109d6076d8a1bd76c747e255c695e811" kind="function"><name>dhcp_request</name></member>
-    <member refid="dhcp_8h_1a9668f2ab1536deb20757b3863bc72592" kind="function"><name>get_dhcp_options</name></member>
+    <member refid="dhcp_8h_1a7402d4b4085ec09a51986c3ca9c17138" kind="function"><name>get_dhcp_options</name></member>
     <member refid="dhcp_8h_1aecfb3a139afb70e5e481a6b79dd4e6cc" kind="function"><name>make_dhcp_packet</name></member>
   </compound>
   <compound refid="dns_8h" kind="file"><name>dns.h</name>
@@ -1985,7 +1935,7 @@
     <member refid="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3a81266c2a12fd55cac32299093ea2804c" kind="enumvalue"><name>file_output</name></member>
     <member refid="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3a5472096f60abca1be816da90d4062c3f" kind="enumvalue"><name>file_random</name></member>
     <member refid="filesystem_8h_1af456ddc19314d0bde5426f9027e96b05" kind="typedef"><name>mode_t</name></member>
-    <member refid="filesystem_8h_1ab18ebf0ec55a45b557b2d6e1bdb2ef4d" kind="typedef"><name>get_directory</name></member>
+    <member refid="filesystem_8h_1a554e72ed4366427b5b2c7369c8f5a019" kind="typedef"><name>get_directory</name></member>
     <member refid="filesystem_8h_1ad7b51a2acb80e5467b0e6fb6f0896f04" kind="typedef"><name>mount_volume</name></member>
     <member refid="filesystem_8h_1a36870a32a443e38c76e0b99c80cfca28" kind="typedef"><name>read_file</name></member>
     <member refid="filesystem_8h_1ad7fbb498b70c179339cf8354d37dce02" kind="typedef"><name>write_file</name></member>
@@ -1997,19 +1947,19 @@
     <member refid="filesystem_8h_1aedade13300b3b7656d01691660c3d275" kind="typedef"><name>block_read</name></member>
     <member refid="filesystem_8h_1afbf0a8246b98b1f4ddca666aeb3fae3d" kind="typedef"><name>block_write</name></member>
     <member refid="filesystem_8h_1a90ae435cc1f4e6cccba5cc179c2bd81c" kind="function"><name>register_filesystem</name></member>
-    <member refid="filesystem_8h_1a86db0085cc6c14e76ac68e70b79b3a32" kind="function"><name>find_filesystem</name></member>
+    <member refid="filesystem_8h_1a2c68053e2563afebf1fd418edb4331ff" kind="function"><name>find_filesystem</name></member>
     <member refid="filesystem_8h_1a1c947f6ecb49c4c29193dbfb80f48913" kind="function"><name>register_storage_device</name></member>
-    <member refid="filesystem_8h_1a1a11d52abe39eec5ff5057fb568abcaa" kind="function"><name>find_storage_device</name></member>
+    <member refid="filesystem_8h_1a2d44f355f5c3890515e153c920ee9d64" kind="function"><name>find_storage_device</name></member>
     <member refid="filesystem_8h_1a8261f6e5dfde2a376851ee5e1d60798a" kind="function"><name>read_storage_device</name></member>
     <member refid="filesystem_8h_1af0bd536bc656fb56dab8eb32e721375b" kind="function"><name>write_storage_device</name></member>
     <member refid="filesystem_8h_1a603ea722512b12288aaddd6081501dcf" kind="function"><name>attach_filesystem</name></member>
     <member refid="filesystem_8h_1a7277c11237470183b5d22fc977185169" kind="function"><name>filesystem_mount</name></member>
     <member refid="filesystem_8h_1a47cfa7087b707560af1b5a669dfc69b3" kind="function"><name>init_filesystem</name></member>
-    <member refid="filesystem_8h_1aeea14dbba6f8453923e288ece85cf6df" kind="function"><name>fs_get_items</name></member>
+    <member refid="filesystem_8h_1ad9c92a584255bed6a385178d6c6d3a0f" kind="function"><name>fs_get_items</name></member>
     <member refid="filesystem_8h_1aba196fffbbe3a92cf3d5d4c7372539ab" kind="function"><name>fs_is_directory</name></member>
-    <member refid="filesystem_8h_1a93b69bf53951ce16a8e648f238631696" kind="function"><name>fs_get_file_info</name></member>
-    <member refid="filesystem_8h_1af29b0affdc800f4d78ab5e9c60a1726a" kind="function"><name>fs_create_file</name></member>
-    <member refid="filesystem_8h_1ade4787d5728ce138b4f86eae5efe000b" kind="function"><name>fs_create_directory</name></member>
+    <member refid="filesystem_8h_1a350d2944f92964968603dabe5ab799ac" kind="function"><name>fs_get_file_info</name></member>
+    <member refid="filesystem_8h_1a32279bf53b5bf6110560af02afb4470b" kind="function"><name>fs_create_file</name></member>
+    <member refid="filesystem_8h_1a73fc02b56a1a9282c0ff77b79d78e73d" kind="function"><name>fs_create_directory</name></member>
     <member refid="filesystem_8h_1a3692a5983409c6e8f74cbe0c5c3435f4" kind="function"><name>fs_truncate_file</name></member>
     <member refid="filesystem_8h_1ab6174ea1e5338a32b45778cb26b7ebc4" kind="function"><name>fs_read_file</name></member>
     <member refid="filesystem_8h_1ab58b880337bae46decb3c6dd1ad1b285" kind="function"><name>_open</name></member>
@@ -2030,19 +1980,19 @@
     <member refid="fpu_8h_1ab9204093192759b009ac545acb116b0c" kind="function"><name>enable_fpu</name></member>
     <member refid="fpu_8h_1a35370f81c5837fad4faeebfdefc8062f" kind="function"><name>enable_sse</name></member>
     <member refid="fpu_8h_1af06d81941ccd1def50b5cb31471b26f9" kind="function"><name>double_determine_decimal_places</name></member>
-    <member refid="fpu_8h_1a37eb4f4e2722507e0a98aff05e5fb2c1" kind="function"><name>double_to_string</name></member>
+    <member refid="fpu_8h_1a3f82db06e594d6b1e79a0870d9d523e1" kind="function"><name>double_to_string</name></member>
   </compound>
   <compound refid="hashmap_8h" kind="file"><name>hashmap.h</name>
-    <member refid="hashmap_8h_1a5deb1768129efb6534fb02365b2da3e6" kind="function"><name>hashmap_new</name></member>
-    <member refid="hashmap_8h_1ab73d927a882f7da5131ce3ec050f2888" kind="function"><name>hashmap_new_with_allocator</name></member>
+    <member refid="hashmap_8h_1a78859f4f26764a430a99feb41b3c9256" kind="function"><name>hashmap_new</name></member>
+    <member refid="hashmap_8h_1a11d6f5e5c2a843e1b7520a47ed10be90" kind="function"><name>hashmap_new_with_allocator</name></member>
     <member refid="hashmap_8h_1a97ab64db6070065a0e8b5afc23793342" kind="function"><name>hashmap_free</name></member>
     <member refid="hashmap_8h_1ab09b4f126a08c1e716bac424b1927f19" kind="function"><name>hashmap_clear</name></member>
     <member refid="hashmap_8h_1acf2d7645190129fb4880ba452c6436ce" kind="function"><name>hashmap_count</name></member>
     <member refid="hashmap_8h_1ad07477cf9562c5c78b5dcde3ccf8aced" kind="function"><name>hashmap_oom</name></member>
-    <member refid="hashmap_8h_1a85a95e15442ce2e8101d4306119ca62f" kind="function"><name>hashmap_get</name></member>
-    <member refid="hashmap_8h_1a3f0cd71606aace704e5381aa88f5bf79" kind="function"><name>hashmap_set</name></member>
-    <member refid="hashmap_8h_1a996e7ad281b47f679925c5b32b5613b9" kind="function"><name>hashmap_delete</name></member>
-    <member refid="hashmap_8h_1aad3c9111f88493b810d832bb2e61b523" kind="function"><name>hashmap_probe</name></member>
+    <member refid="hashmap_8h_1ab86fd69c3571cdb60a62273ec66ff9a7" kind="function"><name>hashmap_get</name></member>
+    <member refid="hashmap_8h_1a3d4fd38fc6d5329398fbd1728afd56cc" kind="function"><name>hashmap_set</name></member>
+    <member refid="hashmap_8h_1a55d2892918542cae3dc833104a3f0f4a" kind="function"><name>hashmap_delete</name></member>
+    <member refid="hashmap_8h_1a94c8f5e9b1bdbd28f379f2ea90446a23" kind="function"><name>hashmap_probe</name></member>
     <member refid="hashmap_8h_1a43b4811046853d778bde1c2077b36f41" kind="function"><name>hashmap_scan</name></member>
     <member refid="hashmap_8h_1abc4cede290fdcdc96168de2c86373882" kind="function"><name>hashmap_iter</name></member>
     <member refid="hashmap_8h_1a9a8e35929f3fa17f10b93594e89e98ad" kind="function"><name>hashmap_sip</name></member>
@@ -2095,7 +2045,7 @@
     <member refid="icmp_8h_1a0fc168136ad71f038f4b5d68f48fee9f" kind="variable"><name>receive_timestamp</name></member>
     <member refid="icmp_8h_1a857541f63480cfb4fda4e941bbac12a0" kind="variable"><name>transmit_timestamp</name></member>
     <member refid="icmp_8h_1acfa58a246fcaaad03a0775959898ca27" kind="function"><name>__attribute__</name></member>
-    <member refid="icmp_8h_1a4afc474a5b445a43bca5a76dd13d18dc" kind="function"><name>icmp_handle_packet</name></member>
+    <member refid="icmp_8h_1a32f34305fa8edc3ebe966176444a9d5e" kind="function"><name>icmp_handle_packet</name></member>
     <member refid="icmp_8h_1a09fa01a48262e99d0bab6d3591999ded" kind="function"><name>icmp_send_echo</name></member>
   </compound>
   <compound refid="idt_8h" kind="file"><name>idt.h</name>
@@ -2114,7 +2064,7 @@
   <compound refid="input_8h" kind="file"><name>input.h</name>
     <member refid="input_8h_1ad1207d022962151b2b0d89c803dd5ae2" kind="function"><name>kinput</name></member>
     <member refid="input_8h_1a65464dd8cd9c0efddb97e19102b2482e" kind="function"><name>kfreeinput</name></member>
-    <member refid="input_8h_1a34b6b79a54527d752aa80ac4c25904b9" kind="function"><name>kgetinput</name></member>
+    <member refid="input_8h_1a3248625b4d0b7b30aba7182a8d01123f" kind="function"><name>kgetinput</name></member>
   </compound>
   <compound refid="interrupt_8h" kind="file"><name>interrupt.h</name>
     <member refid="interrupt_8h_1af6fa48603541cdb142bd4e154bf7637f" kind="enum"><name>irq_number_t</name></member>
@@ -2241,15 +2191,15 @@
   </compound>
   <compound refid="kmalloc_8h" kind="file"><name>kmalloc.h</name>
     <member refid="kmalloc_8h_1a604474f5c0892ea2c6c16b5e45c59f59" kind="define"><name>HEAP_MAGIC</name></member>
-    <member refid="kmalloc_8h_1aa6bcd5af56ca7ffbc761b010cbd70e39" kind="function"><name>kmalloc</name></member>
-    <member refid="kmalloc_8h_1adc6f21bbda2c71015c428920cf785abd" kind="function"><name>kmalloc_ext</name></member>
+    <member refid="kmalloc_8h_1a8a2bfb54d6ee1441a747a6e2102ffd9a" kind="function"><name>kmalloc</name></member>
+    <member refid="kmalloc_8h_1a25579765ee625ef151073b3d3484a1d7" kind="function"><name>kmalloc_ext</name></member>
     <member refid="kmalloc_8h_1ab78be9148ec4aacde543a359c126cba0" kind="function"><name>kfree</name></member>
-    <member refid="kmalloc_8h_1aba7ce08189c188afd939c2228c320421" kind="function"><name>create_heap</name></member>
+    <member refid="kmalloc_8h_1afec910ee5e0b49319508ae0633eacd12" kind="function"><name>create_heap</name></member>
     <member refid="kmalloc_8h_1a632fb5550678e7d65db823fb1adc2dd9" kind="function"><name>init_heap</name></member>
     <member refid="kmalloc_8h_1a56ae8e632dd1a93d76e4a9b9f265f3a2" kind="function"><name>print_heapinfo</name></member>
     <member refid="kmalloc_8h_1a48ed44cd60d7dd25dc396e20739a3a84" kind="function"><name>preboot_fail</name></member>
-    <member refid="kmalloc_8h_1a4af91afe377146f47af63dac6fb93fb9" kind="function"><name>kcalloc</name></member>
-    <member refid="kmalloc_8h_1aece282b3071af855886669942d53537a" kind="function"><name>krealloc</name></member>
+    <member refid="kmalloc_8h_1a7571e322a503f795e5c20b04a956bee4" kind="function"><name>kcalloc</name></member>
+    <member refid="kmalloc_8h_1a0f73b7f54ab799ec7fa6531eea9a2516" kind="function"><name>krealloc</name></member>
     <member refid="kmalloc_8h_1a2ae41a466ab6ea275ca1ebae81b56945" kind="function"><name>kmalloc_low</name></member>
     <member refid="kmalloc_8h_1ab1204bd1ce4097b381452452445b75f4" kind="function"><name>get_free_memory</name></member>
     <member refid="kmalloc_8h_1a3637eb65ed827e7cba29a4dc57273a37" kind="function"><name>get_used_memory</name></member>
@@ -2295,8 +2245,8 @@
   </compound>
   <compound refid="memcpy_8h" kind="file"><name>memcpy.h</name>
     <member refid="memcpy_8h_1a8588455c1987e4e8ca84ad4a73ebdca5" kind="function"><name>_memset</name></member>
-    <member refid="memcpy_8h_1a1edf84073dfe83cba6ece272cb42e11d" kind="function"><name>memcpy</name></member>
-    <member refid="memcpy_8h_1adcb64ec1925ec2daca841785cf77672f" kind="function"><name>memmove</name></member>
+    <member refid="memcpy_8h_1af4db4b9d977eb98b80977bd1a6f9bc96" kind="function"><name>memcpy</name></member>
+    <member refid="memcpy_8h_1a412141455dae87497e3f14ed64d87b13" kind="function"><name>memmove</name></member>
     <member refid="memcpy_8h_1ab3b483f8ac77e03edf84bc99394649eb" kind="function"><name>memcmp</name></member>
     <member refid="memcpy_8h_1a227d3cb4ac6a7be48a2eb19d5e9a50ba" kind="function"><name>memset</name></member>
   </compound>
@@ -2464,8 +2414,8 @@
     <member refid="printf_8h_1a571270f690c35549229075bb963eabe7" kind="function"><name>dprintf</name></member>
   </compound>
   <compound refid="ramdisk_8h" kind="file"><name>ramdisk.h</name>
-    <member refid="ramdisk_8h_1af84c012f7363b70081ad1db8212a3e24" kind="function"><name>init_ramdisk</name></member>
-    <member refid="ramdisk_8h_1acd0ea3e208dd91c4a5352db5f152a502" kind="function"><name>init_ramdisk_from_storage</name></member>
+    <member refid="ramdisk_8h_1a2338ab3c1c0d3bce36c530a7c0bbb8bd" kind="function"><name>init_ramdisk</name></member>
+    <member refid="ramdisk_8h_1a9f393ce6db46f3552a45fbbdf2dda2b6" kind="function"><name>init_ramdisk_from_storage</name></member>
   </compound>
   <compound refid="random_8h" kind="file"><name>random.h</name>
     <member refid="random_8h_1ac9774c4e8103044eeed77c6df7e4fb77" kind="define"><name>STATE_VECTOR_LENGTH</name></member>
@@ -2477,6 +2427,75 @@
     <member refid="random_8h_1a2ba413d21f47c72e34c941bcf28af42e" kind="function"><name>gen_rand_double</name></member>
     <member refid="random_8h_1aeab878bd50dff883741353ce05dcf788" kind="function"><name>gen_rand_64</name></member>
     <member refid="random_8h_1a59539226d3532537b1e741c2bc124a8e" kind="function"><name>mt_rand</name></member>
+  </compound>
+  <compound refid="rr-cpuid_8h" kind="file"><name>rr-cpuid.h</name>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377" kind="enum"><name>cpuid_flags</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9ec1c52e0b19a9532baa8ce4f80add58" kind="enumvalue"><name>CPUID_FEAT_ECX_SSE3</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aaa62b2a02d3829ace891eac7d1d8f746" kind="enumvalue"><name>CPUID_FEAT_ECX_PCLMUL</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aa84b899e336daf2d90cdab723a24d544" kind="enumvalue"><name>CPUID_FEAT_ECX_DTES64</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a6ffa8cdde16327f47b6a49aa5d676ee5" kind="enumvalue"><name>CPUID_FEAT_ECX_MONITOR</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a1be0388c15db5d77facac96d2efddc4f" kind="enumvalue"><name>CPUID_FEAT_ECX_DS_CPL</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a714125fa31dd21e46e385b8dc340214f" kind="enumvalue"><name>CPUID_FEAT_ECX_VMX</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab6deac61a50e0367b5475869e240ac06" kind="enumvalue"><name>CPUID_FEAT_ECX_SMX</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a150b3abab983011be08fc459b7b9b700" kind="enumvalue"><name>CPUID_FEAT_ECX_EST</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377acf4aa3ed6f11fc17b684281787f60949" kind="enumvalue"><name>CPUID_FEAT_ECX_TM2</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5957647e74d0eaea90bdb316e578e579" kind="enumvalue"><name>CPUID_FEAT_ECX_SSSE3</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377afb8bce29e8cfd07070b596f3912f608b" kind="enumvalue"><name>CPUID_FEAT_ECX_CID</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c1fd66e736f5d3d344e919b57483336" kind="enumvalue"><name>CPUID_FEAT_ECX_FMA</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ad30be7d0797e3aad723013154aa733d2" kind="enumvalue"><name>CPUID_FEAT_ECX_CX16</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a41b9888036ae940d974a544bed3f19c4" kind="enumvalue"><name>CPUID_FEAT_ECX_ETPRD</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a93ddbafd38f7a260286998ae9ddc8cad" kind="enumvalue"><name>CPUID_FEAT_ECX_PDCM</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a2b75568ac85063fb0a96418fa0bfb29d" kind="enumvalue"><name>CPUID_FEAT_ECX_DCA</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a63ddf183b299d2fc7686dac65e1a555a" kind="enumvalue"><name>CPUID_FEAT_ECX_SSE4_1</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac35d5255d2ef4728b73348db7087c1c7" kind="enumvalue"><name>CPUID_FEAT_ECX_SSE4_2</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac1613126920afb91d3d177c21e4f3dfe" kind="enumvalue"><name>CPUID_FEAT_ECX_x2APIC</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac67b97fbc629b276f5c13dbf88c4f709" kind="enumvalue"><name>CPUID_FEAT_ECX_MOVBE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a71e5348902e26fc6de23f4f5bd384f74" kind="enumvalue"><name>CPUID_FEAT_ECX_POPCNT</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c28569cd999d6cc2e9e0005b4fa6c9d" kind="enumvalue"><name>CPUID_FEAT_ECX_XSAVE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a56478550836d5fa258b03e9fd9eb8116" kind="enumvalue"><name>CPUID_FEAT_ECX_OSXSAVE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a749d00516968a015a4d8e15235bf07e6" kind="enumvalue"><name>CPUID_FEAT_ECX_AVX</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac07d767d714117e48c453b752f799610" kind="enumvalue"><name>CPUID_FEAT_EDX_FPU</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5d32075fb1cfd95910c1eff1f0f3d056" kind="enumvalue"><name>CPUID_FEAT_EDX_VME</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a69236c580bf3feddd4a57b3072a7b521" kind="enumvalue"><name>CPUID_FEAT_EDX_DE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a59bc828bc43010ac71793759e8011335" kind="enumvalue"><name>CPUID_FEAT_EDX_PSE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a2ae56cfb5a846822cc095b79bf74de10" kind="enumvalue"><name>CPUID_FEAT_EDX_TSC</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a6b8beb5908a936d7f00c848df0abe061" kind="enumvalue"><name>CPUID_FEAT_EDX_MSR</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a3a97eae0ba980bb5d9d9b10138d70aca" kind="enumvalue"><name>CPUID_FEAT_EDX_PAE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ade0ff2978a54bc0c96dd71a7a7177d0f" kind="enumvalue"><name>CPUID_FEAT_EDX_MCE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a431ed484886fa29e4a7d16ab99523350" kind="enumvalue"><name>CPUID_FEAT_EDX_CX8</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a7fa4170aae12fbc1642012ccba9855b0" kind="enumvalue"><name>CPUID_FEAT_EDX_APIC</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a674ec4ce4025c0f520a30d6e461ed47d" kind="enumvalue"><name>CPUID_FEAT_EDX_SEP</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5b30fec963effd4a0d2c8447028d0215" kind="enumvalue"><name>CPUID_FEAT_EDX_MTRR</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377afb0d4b99b2d0e98089be4ede2162eddf" kind="enumvalue"><name>CPUID_FEAT_EDX_PGE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac9e7b8e9c0e19bfe48a4bcd749aaaa4e" kind="enumvalue"><name>CPUID_FEAT_EDX_MCA</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c90442380d5125737f106c44afce64f" kind="enumvalue"><name>CPUID_FEAT_EDX_CMOV</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac0e40c6f57efc979712596770aab9f8a" kind="enumvalue"><name>CPUID_FEAT_EDX_PAT</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9718e0367b529df69ee7c9b7fd998b83" kind="enumvalue"><name>CPUID_FEAT_EDX_PSE36</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aac23260b012a04ea25d113844c631d44" kind="enumvalue"><name>CPUID_FEAT_EDX_PSN</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a80d53b7ac629e80940d02e38ad48414b" kind="enumvalue"><name>CPUID_FEAT_EDX_CLF</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a43682d6fe8589b4809e2c49bb55c1558" kind="enumvalue"><name>CPUID_FEAT_EDX_DTES</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aec94ddf1825bdde32627d9149beec9dc" kind="enumvalue"><name>CPUID_FEAT_EDX_ACPI</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac8185eb6b47dd2ef97a44cbb759f8e52" kind="enumvalue"><name>CPUID_FEAT_EDX_MMX</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a577b773d21178552d9d768da936479f6" kind="enumvalue"><name>CPUID_FEAT_EDX_FXSR</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab362f49f025f651238f57dcf8d5d281f" kind="enumvalue"><name>CPUID_FEAT_EDX_SSE</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab64ff1599bf88ab91782ee4f9152f3ce" kind="enumvalue"><name>CPUID_FEAT_EDX_SSE2</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aec6daa5351cf0b927f4fcbad3f0cfef1" kind="enumvalue"><name>CPUID_FEAT_EDX_SS</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac91c9cfc9f3165b25b10030ef82c491f" kind="enumvalue"><name>CPUID_FEAT_EDX_HTT</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5468113d56e2d06eb0e6d5c4f74af589" kind="enumvalue"><name>CPUID_FEAT_EDX_TM1</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a12ab79d3456f748b49340fa00e60c160" kind="enumvalue"><name>CPUID_FEAT_EDX_IA64</name></member>
+    <member refid="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ae6cfc957052841ae578ddfb390f00a1a" kind="enumvalue"><name>CPUID_FEAT_EDX_PBE</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fd" kind="enum"><name>cpuid_requests</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda287b9480159ff0790f83312fc0f35361" kind="enumvalue"><name>CPUID_GETVENDORSTRING</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdae54d5cf464a4eaab14f5639ef57a5350" kind="enumvalue"><name>CPUID_GETFEATURES</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda1844360ad06974a69963618af9fd7721" kind="enumvalue"><name>CPUID_GETTLB</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdad206c016f6b1bf979bab7c632a2daaa4" kind="enumvalue"><name>CPUID_GETSERIAL</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdab016d439747f36e0a2bdd34f8f26ecbe" kind="enumvalue"><name>CPUID_INTELEXTENDED</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda6b1682619d4f05d42499c280f74ba7d0" kind="enumvalue"><name>CPUID_INTELFEATURES</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda898f490021383393edca0741e4a3b8df" kind="enumvalue"><name>CPUID_INTELBRANDSTRING</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda8585bcaf7fb2b6c52217566488dc3739" kind="enumvalue"><name>CPUID_INTELBRANDSTRINGMORE</name></member>
+    <member refid="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdaf0e6c842bda49527a246dd9c85d6da6a" kind="enumvalue"><name>CPUID_INTELBRANDSTRINGEND</name></member>
+    <member refid="rr-cpuid_8h_1adacb2a50c30267ac5314bfcb92ac1d85" kind="function"><name>cpuid</name></member>
+    <member refid="rr-cpuid_8h_1a9091114e1347758f7e3cd993169a5764" kind="function"><name>cpuid_string</name></member>
   </compound>
   <compound refid="rtl8139_8h" kind="file"><name>rtl8139.h</name>
     <member refid="rtl8139_8h_1a3f195356e45805ccf74184a3616ba53a" kind="define"><name>RTL8139_VENDOR_ID</name></member>
@@ -2583,7 +2602,7 @@
     <member refid="rtl8139_8h_1aa8376ab52bb984dc5977fde84cc6ac20" kind="function"><name>rtl8139_send_packet</name></member>
     <member refid="rtl8139_8h_1afcf1f3ad1e43a154cdee3c48beae8a93" kind="function"><name>rtl8139_handler</name></member>
     <member refid="rtl8139_8h_1aaeab8345c9dcf11708bfa095299f408a" kind="function"><name>init_rtl8139</name></member>
-    <member refid="rtl8139_8h_1a6ffee74a1d59b89074475e3f63b90467" kind="function"><name>read_mac_addr</name></member>
+    <member refid="rtl8139_8h_1a38d4aeb3d3a6c3d8974301a88264fbad" kind="function"><name>read_mac_addr</name></member>
     <member refid="rtl8139_8h_1a2e3eda51e49f15540e2bff7ea40f05db" kind="function"><name>receive_packet</name></member>
     <member refid="rtl8139_8h_1a6afdb8e39171181fcfd0e49f28b10e3e" kind="function"><name>rtl8139_get_mac_addr</name></member>
   </compound>
@@ -2605,11 +2624,11 @@
     <member refid="string_8h_1a14a3b4483efde6e89ca889074842573b" kind="function"><name>isalnum</name></member>
     <member refid="string_8h_1acdeb19758d59ba889395c9236dfdee86" kind="function"><name>isspace</name></member>
     <member refid="string_8h_1a0906de3d7be040547209b648edb876cd" kind="function"><name>isalpha</name></member>
-    <member refid="string_8h_1a12871ed234858ef0e363d2b8aa572fc1" kind="function"><name>strchr</name></member>
+    <member refid="string_8h_1ad7c16a2447154107d5ecd28434993443" kind="function"><name>strchr</name></member>
     <member refid="string_8h_1a0e2ceb2e6b2122bc57c9a1ab47b15266" kind="function"><name>strlcat</name></member>
     <member refid="string_8h_1a21cdde3b342cc302afb0e4f4dd705c9d" kind="function"><name>strlcpy</name></member>
-    <member refid="string_8h_1a86e0df1bf9e434074f958434e0af7581" kind="function"><name>strdup</name></member>
-    <member refid="string_8h_1a2df8d3ced4363406be5bf4ba57dee02a" kind="function"><name>gc_strdup</name></member>
+    <member refid="string_8h_1ab70fc99f8c436a06f92db3757b0add04" kind="function"><name>strdup</name></member>
+    <member refid="string_8h_1a09db8cb55a1a49e29a0fc7ea602558bd" kind="function"><name>gc_strdup</name></member>
     <member refid="string_8h_1ac1a709dd8deca73c3568bd8adfb3ef29" kind="function"><name>gc</name></member>
     <member refid="string_8h_1a4c5eabfb109348ff270448b4ab2d0431" kind="function"><name>hextoint</name></member>
     <member refid="string_8h_1ab4f1fe6803e1a252aecb6341aac12b1e" kind="function"><name>isdigit</name></member>
@@ -2634,9 +2653,9 @@
     <member refid="taskswitch_8h_1aa7352f1065fe606194d792e2b292cf83" kind="typedef"><name>gid_t</name></member>
     <member refid="taskswitch_8h_1a66e2436dbfe8b3600c090f28627b621f" kind="typedef"><name>cpu_id_t</name></member>
     <member refid="taskswitch_8h_1a82c77e5c902b86503a57e02bb4314bad" kind="typedef"><name>proc_idle_timer_t</name></member>
-    <member refid="taskswitch_8h_1aa489f46acde8e80831f0432a1da6e695" kind="function"><name>proc_load</name></member>
-    <member refid="taskswitch_8h_1ab5a40192ac7fb47cf38c7e803ccd0efb" kind="function"><name>proc_find</name></member>
-    <member refid="taskswitch_8h_1a6d871c77c8a1a04420b1b09715d0b177" kind="function"><name>proc_cur</name></member>
+    <member refid="taskswitch_8h_1a9bc455a15b944c48a6b4e2eb3d00b7e1" kind="function"><name>proc_load</name></member>
+    <member refid="taskswitch_8h_1a6169b215513e2e18f97bba12e742c2f0" kind="function"><name>proc_find</name></member>
+    <member refid="taskswitch_8h_1ad93b39f1b7ce7a081b9c732cc0f81239" kind="function"><name>proc_cur</name></member>
     <member refid="taskswitch_8h_1a8b2b24e480bc2b9188e720c028795cee" kind="function"><name>proc_wait</name></member>
     <member refid="taskswitch_8h_1abb94173794194e3382dc5482b7e0aa62" kind="function"><name>proc_run</name></member>
     <member refid="taskswitch_8h_1a7844baa5edadb538de03bc3494e947cc" kind="function"><name>proc_ended</name></member>
@@ -2648,7 +2667,7 @@
     <member refid="taskswitch_8h_1a01a99ff8bacb9f2f0509b21f45fc7217" kind="function"><name>proc_total</name></member>
     <member refid="taskswitch_8h_1a98ea5946e6a5a7a69b87f081ddf0b1e4" kind="function"><name>proc_id</name></member>
     <member refid="taskswitch_8h_1ad2dd4ffab2aaabd37998ec3b3216af48" kind="function"><name>proc_register_idle</name></member>
-    <member refid="taskswitch_8h_1aa0340f929d97ebceb2e0d7eaa9d4d3ff" kind="function"><name>proc_set_csd</name></member>
+    <member refid="taskswitch_8h_1af5b76a256d5ab162a2323dabb528d59d" kind="function"><name>proc_set_csd</name></member>
     <member refid="taskswitch_8h_1ab25d44702b6e10e723714c368c4a7520" kind="function"><name>init_process</name></member>
   </compound>
   <compound refid="tcp_8h" kind="file"><name>tcp.h</name>
@@ -2726,14 +2745,14 @@
     <member refid="tcp_8h_1a15d570669f1585f18a87d277f1753027" kind="variable"><name>options</name></member>
     <member refid="tcp_8h_1a6f6c2642db097f0b28399640e13dd102" kind="variable"><name>payload</name></member>
     <member refid="tcp_8h_1a877d84e89e013415707bad5e9d8b99ae" kind="function"><name>__attribute__</name></member>
-    <member refid="tcp_8h_1a8d4611b68b5ca398ee9bc373573afab6" kind="function"><name>tcp_handle_packet</name></member>
+    <member refid="tcp_8h_1a89c5a86f5b611f2424db3c4046230f96" kind="function"><name>tcp_handle_packet</name></member>
     <member refid="tcp_8h_1a0e048a052cd5ec7a0bfe8734751990f1" kind="function"><name>tcp_init</name></member>
     <member refid="tcp_8h_1a4a95723a63184d3eb69a619853f560da" kind="function"><name>connect</name></member>
     <member refid="tcp_8h_1ad4725afcb96cfe437fd7a748129b1f33" kind="function"><name>closesocket</name></member>
     <member refid="tcp_8h_1a5787e23039c4a2243cbc968a48431d2e" kind="function"><name>send</name></member>
     <member refid="tcp_8h_1a6df7b901b1a9f3ec7046f958f9e7cf36" kind="function"><name>recv</name></member>
     <member refid="tcp_8h_1a39bac2a3c55fa01613ed4a5579a5ca67" kind="function"><name>is_connected</name></member>
-    <member refid="tcp_8h_1a0a5ac590e0a9088bc8ddf519e8e0967d" kind="function"><name>socket_error</name></member>
+    <member refid="tcp_8h_1ae1240004cf41ede2832742d9ef174ec9" kind="function"><name>socket_error</name></member>
     <member refid="tcp_8h_1a5505c46ddfafecad526d12d4d1666050" kind="function"><name>tcp_idle</name></member>
   </compound>
   <compound refid="timer_8h" kind="file"><name>timer.h</name>
@@ -2755,7 +2774,7 @@
     <member refid="udp_8h_1a3cb8ef3c5a6bb475182146b28911bb50" kind="function"><name>__attribute__</name></member>
     <member refid="udp_8h_1a3ab3a31e29e801cd07ce502415075043" kind="function"><name>udp_calculate_checksum</name></member>
     <member refid="udp_8h_1afbe2975055f76c672e3f5dfcea6567b8" kind="function"><name>udp_send_packet</name></member>
-    <member refid="udp_8h_1ad8049b7fb54880d34804b100fe422918" kind="function"><name>udp_handle_packet</name></member>
+    <member refid="udp_8h_1a1eff214eb3477b96d2baf30663265d81" kind="function"><name>udp_handle_packet</name></member>
     <member refid="udp_8h_1a49ae1f5dfe6fc5c2df642049290d1878" kind="function"><name>udp_register_daemon</name></member>
   </compound>
   <compound refid="video_8h" kind="file"><name>video.h</name>

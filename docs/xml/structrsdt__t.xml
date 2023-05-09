@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structrsdt__t" kind="struct" language="C++" prot="public">
     <compoundname>rsdt_t</compoundname>
     <includes local="no">acpi.h</includes>
@@ -9,6 +9,7 @@
         <definition>sdt_header_t rsdt_t::header</definition>
         <argsstring></argsstring>
         <name>header</name>
+        <qualifiedname>rsdt_t::header</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint32_t rsdt_t::pointer_to_other_sdt[]</definition>
         <argsstring>[]</argsstring>
         <name>pointer_to_other_sdt</name>
+        <qualifiedname>rsdt_t::pointer_to_other_sdt</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -38,14 +40,27 @@
     </detaileddescription>
     <collaborationgraph>
       <node id="3">
+        <label>char</label>
+      </node>
+      <node id="1">
+        <label>rsdt_t</label>
+        <link refid="structrsdt__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>header</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>pointer_to_other_sdt</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
         <label>sdt_header_t</label>
         <link refid="structsdt__header__t"/>
-        <childnode refid="4" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>oem_id</edgelabel>
           <edgelabel>oem_table_id</edgelabel>
           <edgelabel>signature</edgelabel>
         </childnode>
-        <childnode refid="2" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>creator_id</edgelabel>
           <edgelabel>creator_revision</edgelabel>
           <edgelabel>length</edgelabel>
@@ -56,24 +71,11 @@
           <edgelabel>revision</edgelabel>
         </childnode>
       </node>
-      <node id="2">
+      <node id="4">
         <label>uint32_t</label>
       </node>
       <node id="5">
         <label>uint8_t</label>
-      </node>
-      <node id="1">
-        <label>rsdt_t</label>
-        <link refid="structrsdt__t"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>pointer_to_other_sdt</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>header</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
-        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/acpi.h" line="43" column="1" bodyfile="include/acpi.h" bodystart="43" bodyend="47"/>

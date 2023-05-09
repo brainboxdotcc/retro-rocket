@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+  <compounddef id="structcpuid__result__t" kind="struct" language="C++" prot="public">
+    <compoundname>cpuid_result_t</compoundname>
+    <includes local="no">basic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcpuid__result__t_1a609a49c61f6fdc7187def91dfc9bf3c6" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int cpuid_result_t::eax</definition>
+        <argsstring></argsstring>
+        <name>eax</name>
+        <qualifiedname>cpuid_result_t::eax</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="193" column="14" bodyfile="include/basic.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcpuid__result__t_1a7cba61af568b8e7a04eca6a4be041b38" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int cpuid_result_t::ebx</definition>
+        <argsstring></argsstring>
+        <name>ebx</name>
+        <qualifiedname>cpuid_result_t::ebx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="194" column="14" bodyfile="include/basic.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcpuid__result__t_1ad0d25fb5bc44e6d28a817ced9571adcc" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int cpuid_result_t::ecx</definition>
+        <argsstring></argsstring>
+        <name>ecx</name>
+        <qualifiedname>cpuid_result_t::ecx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="195" column="14" bodyfile="include/basic.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcpuid__result__t_1aecf01b168c2ede04bcd5ec5b0014671f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int cpuid_result_t::edx</definition>
+        <argsstring></argsstring>
+        <name>edx</name>
+        <qualifiedname>cpuid_result_t::edx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="196" column="14" bodyfile="include/basic.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>CPUID instruction result. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>cpuid_result_t</label>
+        <link refid="structcpuid__result__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>eax</edgelabel>
+          <edgelabel>ebx</edgelabel>
+          <edgelabel>ecx</edgelabel>
+          <edgelabel>edx</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>int</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/basic.h" line="192" column="1" bodyfile="include/basic.h" bodystart="192" bodyend="197"/>
+    <listofallmembers>
+      <member refid="structcpuid__result__t_1a609a49c61f6fdc7187def91dfc9bf3c6" prot="public" virt="non-virtual"><scope>cpuid_result_t</scope><name>eax</name></member>
+      <member refid="structcpuid__result__t_1a7cba61af568b8e7a04eca6a4be041b38" prot="public" virt="non-virtual"><scope>cpuid_result_t</scope><name>ebx</name></member>
+      <member refid="structcpuid__result__t_1ad0d25fb5bc44e6d28a817ced9571adcc" prot="public" virt="non-virtual"><scope>cpuid_result_t</scope><name>ecx</name></member>
+      <member refid="structcpuid__result__t_1aecf01b168c2ede04bcd5ec5b0014671f" prot="public" virt="non-virtual"><scope>cpuid_result_t</scope><name>edx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

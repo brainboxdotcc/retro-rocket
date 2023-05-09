@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structarp__packet" kind="struct" language="C++" prot="public">
     <compoundname>arp_packet</compoundname>
     <includes local="no">arp.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint16_t arp_packet::hardware_type</definition>
         <argsstring></argsstring>
         <name>hardware_type</name>
+        <qualifiedname>arp_packet::hardware_type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint16_t arp_packet::protocol</definition>
         <argsstring></argsstring>
         <name>protocol</name>
+        <qualifiedname>arp_packet::protocol</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t arp_packet::hardware_addr_len</definition>
         <argsstring></argsstring>
         <name>hardware_addr_len</name>
+        <qualifiedname>arp_packet::hardware_addr_len</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint8_t arp_packet::protocol_addr_len</definition>
         <argsstring></argsstring>
         <name>protocol_addr_len</name>
+        <qualifiedname>arp_packet::protocol_addr_len</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint16_t arp_packet::opcode</definition>
         <argsstring></argsstring>
         <name>opcode</name>
+        <qualifiedname>arp_packet::opcode</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint8_t arp_packet::src_hardware_addr[6]</definition>
         <argsstring>[6]</argsstring>
         <name>src_hardware_addr</name>
+        <qualifiedname>arp_packet::src_hardware_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint8_t arp_packet::src_protocol_addr[4]</definition>
         <argsstring>[4]</argsstring>
         <name>src_protocol_addr</name>
+        <qualifiedname>arp_packet::src_protocol_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint8_t arp_packet::dst_hardware_addr[6]</definition>
         <argsstring>[6]</argsstring>
         <name>dst_hardware_addr</name>
+        <qualifiedname>arp_packet::dst_hardware_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint8_t arp_packet::dst_protocol_addr[4]</definition>
         <argsstring>[4]</argsstring>
         <name>dst_protocol_addr</name>
+        <qualifiedname>arp_packet::dst_protocol_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>

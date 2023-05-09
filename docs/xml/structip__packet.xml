@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structip__packet" kind="struct" language="C++" prot="public">
     <compoundname>ip_packet</compoundname>
     <includes local="no">ip.h</includes>
@@ -9,6 +9,7 @@
         <definition>char ip_packet::version_ihl_ptr[0]</definition>
         <argsstring>[0]</argsstring>
         <name>version_ihl_ptr</name>
+        <qualifiedname>ip_packet::version_ihl_ptr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t ip_packet::version</definition>
         <argsstring></argsstring>
         <name>version</name>
+        <qualifiedname>ip_packet::version</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -36,6 +38,7 @@
         <definition>uint8_t ip_packet::ihl</definition>
         <argsstring></argsstring>
         <name>ihl</name>
+        <qualifiedname>ip_packet::ihl</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -50,6 +53,7 @@
         <definition>tos_flags_t ip_packet::tos</definition>
         <argsstring></argsstring>
         <name>tos</name>
+        <qualifiedname>ip_packet::tos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -63,6 +67,7 @@
         <definition>uint16_t ip_packet::length</definition>
         <argsstring></argsstring>
         <name>length</name>
+        <qualifiedname>ip_packet::length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -76,6 +81,7 @@
         <definition>uint16_t ip_packet::id</definition>
         <argsstring></argsstring>
         <name>id</name>
+        <qualifiedname>ip_packet::id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -89,6 +95,7 @@
         <definition>char ip_packet::flags_fragment_ptr[0]</definition>
         <argsstring>[0]</argsstring>
         <name>flags_fragment_ptr</name>
+        <qualifiedname>ip_packet::flags_fragment_ptr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -102,6 +109,7 @@
         <definition>ip_frag_t ip_packet::frag</definition>
         <argsstring></argsstring>
         <name>frag</name>
+        <qualifiedname>ip_packet::frag</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -115,6 +123,7 @@
         <definition>uint8_t ip_packet::ttl</definition>
         <argsstring></argsstring>
         <name>ttl</name>
+        <qualifiedname>ip_packet::ttl</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -128,6 +137,7 @@
         <definition>uint8_t ip_packet::protocol</definition>
         <argsstring></argsstring>
         <name>protocol</name>
+        <qualifiedname>ip_packet::protocol</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -141,6 +151,7 @@
         <definition>uint16_t ip_packet::header_checksum</definition>
         <argsstring></argsstring>
         <name>header_checksum</name>
+        <qualifiedname>ip_packet::header_checksum</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -154,6 +165,7 @@
         <definition>uint8_t ip_packet::src_ip[4]</definition>
         <argsstring>[4]</argsstring>
         <name>src_ip</name>
+        <qualifiedname>ip_packet::src_ip</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -167,6 +179,7 @@
         <definition>uint8_t ip_packet::dst_ip[4]</definition>
         <argsstring>[4]</argsstring>
         <name>dst_ip</name>
+        <qualifiedname>ip_packet::dst_ip</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -180,6 +193,7 @@
         <definition>uint8_t ip_packet::options[0]</definition>
         <argsstring>[0]</argsstring>
         <name>options</name>
+        <qualifiedname>ip_packet::options</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -193,6 +207,7 @@
         <definition>uint8_t ip_packet::data[]</definition>
         <argsstring>[]</argsstring>
         <name>data</name>
+        <qualifiedname>ip_packet::data</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -208,31 +223,20 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>uint16_t</label>
-      </node>
-      <node id="5">
-        <label>uint8_t</label>
-      </node>
       <node id="2">
+        <label>char</label>
+      </node>
+      <node id="6">
         <label>ip_frag_t</label>
       </node>
       <node id="1">
         <label>ip_packet</label>
         <link refid="structip__packet"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>frag</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>header_checksum</edgelabel>
-          <edgelabel>id</edgelabel>
-          <edgelabel>length</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>flags_fragment_ptr</edgelabel>
           <edgelabel>version_ihl_ptr</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>data</edgelabel>
           <edgelabel>dst_ip</edgelabel>
           <edgelabel>ihl</edgelabel>
@@ -242,15 +246,26 @@
           <edgelabel>ttl</edgelabel>
           <edgelabel>version</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>tos</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>header_checksum</edgelabel>
+          <edgelabel>id</edgelabel>
+          <edgelabel>length</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>frag</edgelabel>
         </childnode>
       </node>
       <node id="4">
-        <label>char</label>
-      </node>
-      <node id="6">
         <label>tos_flags_t</label>
+      </node>
+      <node id="5">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ip.h" line="55" column="1" bodyfile="include/ip.h" bodystart="55" bodyend="71"/>

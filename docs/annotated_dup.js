@@ -21,6 +21,7 @@ var annotated_dup =
     [ "basic_str_fn", "structbasic__str__fn.html", "structbasic__str__fn" ],
     [ "channel", "structchannel.html", "structchannel" ],
     [ "console", "structconsole.html", "structconsole" ],
+    [ "cpuid_result_t", "structcpuid__result__t.html", "structcpuid__result__t" ],
     [ "datetime_t", "structdatetime__t.html", "structdatetime__t" ],
     [ "devname_prefix_t", "structdevname__prefix__t.html", "structdevname__prefix__t" ],
     [ "dhcp_packet_t", "structdhcp__packet__t.html", "structdhcp__packet__t" ],

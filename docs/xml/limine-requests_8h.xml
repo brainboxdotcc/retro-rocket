@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="limine-requests_8h" kind="file" language="C++">
     <compoundname>limine-requests.h</compoundname>
     <includes local="no">limine.h</includes>
@@ -16,7 +16,7 @@
     </incdepgraph>
       <sectiondef kind="var">
       <memberdef kind="variable" id="limine-requests_8h_1a4624470a935909a7014569fd8582e2e3" prot="public" static="no" mutable="no">
-        <type>struct limine_stack_size_request</type>
+        <type>volatile struct limine_stack_size_request</type>
         <definition>volatile struct limine_stack_size_request stack_size_request</definition>
         <argsstring></argsstring>
         <name>stack_size_request</name>
@@ -31,10 +31,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/limine-requests.h" line="1" column="0" bodyfile="include/limine-requests.h" bodystart="9" bodyend="-1"/>
+        <location file="include/limine-requests.h" line="9" column="41" bodyfile="include/limine-requests.h" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="limine-requests_8h_1a08d5e1b57aa49178a4e4642d021711ad" prot="public" static="no" mutable="no">
-        <type>struct limine_hhdm_request</type>
+        <type>volatile struct limine_hhdm_request</type>
         <definition>volatile struct limine_hhdm_request hhdm_request</definition>
         <argsstring></argsstring>
         <name>hhdm_request</name>
@@ -48,10 +48,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/limine-requests.h" line="1" column="0" bodyfile="include/limine-requests.h" bodystart="15" bodyend="-1"/>
+        <location file="include/limine-requests.h" line="15" column="35" bodyfile="include/limine-requests.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="limine-requests_8h_1a4f4ee3413be932e3ed9ceee166a6b910" prot="public" static="no" mutable="no">
-        <type>struct limine_kernel_address_request</type>
+        <type>volatile struct limine_kernel_address_request</type>
         <definition>volatile struct limine_kernel_address_request address_request</definition>
         <argsstring></argsstring>
         <name>address_request</name>
@@ -65,7 +65,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/limine-requests.h" line="1" column="0" bodyfile="include/limine-requests.h" bodystart="20" bodyend="-1"/>
+        <location file="include/limine-requests.h" line="20" column="45" bodyfile="include/limine-requests.h" bodystart="20" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

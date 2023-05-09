@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structresource__record" kind="struct" language="C++" prot="public">
     <compoundname>resource_record</compoundname>
     <includes local="no">dns.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint16_t resource_record::type</definition>
         <argsstring></argsstring>
         <name>type</name>
+        <qualifiedname>resource_record::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint16_t resource_record::rr_class</definition>
         <argsstring></argsstring>
         <name>rr_class</name>
+        <qualifiedname>resource_record::rr_class</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint32_t resource_record::ttl</definition>
         <argsstring></argsstring>
         <name>ttl</name>
+        <qualifiedname>resource_record::ttl</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint16_t resource_record::rdlength</definition>
         <argsstring></argsstring>
         <name>rdlength</name>
+        <qualifiedname>resource_record::rdlength</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
