@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structidle__timer__t" kind="struct" language="C++" prot="public">
     <compoundname>idle_timer_t</compoundname>
     <includes local="no">taskswitch.h</includes>
@@ -9,6 +9,7 @@
         <definition>proc_idle_timer_t idle_timer_t::func</definition>
         <argsstring></argsstring>
         <name>func</name>
+        <qualifiedname>idle_timer_t::func</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>struct idle_timer* idle_timer_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
+        <qualifiedname>idle_timer_t::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,21 +39,21 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>void(*)(void)</label>
-      </node>
-      <node id="2">
-        <label>struct idle_timer *</label>
-      </node>
       <node id="1">
         <label>idle_timer_t</label>
         <link refid="structidle__timer__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>func</edgelabel>
         </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>struct idle_timer *</label>
+      </node>
+      <node id="2">
+        <label>void(*)(void)</label>
       </node>
     </collaborationgraph>
     <location file="include/taskswitch.h" line="66" column="1" bodyfile="include/taskswitch.h" bodystart="66" bodyend="69"/>

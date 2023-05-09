@@ -97,10 +97,10 @@ var basic__tokenizer_8h =
     [ "tokenizer_error_print", "basic__tokenizer_8h.html#a6bb8f288ca3badb019539980d26250fc", null ],
     [ "tokenizer_finished", "basic__tokenizer_8h.html#a7dd37ac7fb189bdb8e99de3ddff44444", null ],
     [ "tokenizer_fnum", "basic__tokenizer_8h.html#a9a48b9685f151008f71e4346eb1cf68c", null ],
-    [ "tokenizer_init", "basic__tokenizer_8h.html#a67447b73d4ebd22e263ae4d8d7494a9b", null ],
+    [ "tokenizer_init", "basic__tokenizer_8h.html#a9edc939763a538f69d90f30d7773882a", null ],
     [ "tokenizer_next", "basic__tokenizer_8h.html#a00dbb52d768c7b1dc31776d51a4b0c6b", null ],
     [ "tokenizer_num", "basic__tokenizer_8h.html#ad40ac0288be0a9ef70c9cd31b66663de", null ],
     [ "tokenizer_string", "basic__tokenizer_8h.html#a749f588540db6d7cec847d658a9e6a8d", null ],
     [ "tokenizer_token", "basic__tokenizer_8h.html#ad1bbf905fff7e37e6244ceb8ac31656b", null ],
-    [ "tokenizer_variable_name", "basic__tokenizer_8h.html#aec506ea7f004aaa4d5cb3a9e4ed1e61e", null ]
+    [ "tokenizer_variable_name", "basic__tokenizer_8h.html#ac74d1f65fc36fff20072c4e1dfa65645", null ]
 ];

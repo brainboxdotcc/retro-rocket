@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structparameter__block__t" kind="struct" language="C++" prot="public">
     <compoundname>parameter_block_t</compoundname>
     <includes local="no">fat32.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint8_t parameter_block_t::code1</definition>
         <argsstring></argsstring>
         <name>code1</name>
+        <qualifiedname>parameter_block_t::code1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t parameter_block_t::code2</definition>
         <argsstring></argsstring>
         <name>code2</name>
+        <qualifiedname>parameter_block_t::code2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t parameter_block_t::code3</definition>
         <argsstring></argsstring>
         <name>code3</name>
+        <qualifiedname>parameter_block_t::code3</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>char parameter_block_t::oemidentifier[8]</definition>
         <argsstring>[8]</argsstring>
         <name>oemidentifier</name>
+        <qualifiedname>parameter_block_t::oemidentifier</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint16_t parameter_block_t::bytespersector</definition>
         <argsstring></argsstring>
         <name>bytespersector</name>
+        <qualifiedname>parameter_block_t::bytespersector</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint8_t parameter_block_t::sectorspercluster</definition>
         <argsstring></argsstring>
         <name>sectorspercluster</name>
+        <qualifiedname>parameter_block_t::sectorspercluster</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint16_t parameter_block_t::reservedsectors</definition>
         <argsstring></argsstring>
         <name>reservedsectors</name>
+        <qualifiedname>parameter_block_t::reservedsectors</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint8_t parameter_block_t::numberoffats</definition>
         <argsstring></argsstring>
         <name>numberoffats</name>
+        <qualifiedname>parameter_block_t::numberoffats</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint16_t parameter_block_t::numberofdirentries</definition>
         <argsstring></argsstring>
         <name>numberofdirentries</name>
+        <qualifiedname>parameter_block_t::numberofdirentries</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -126,6 +135,7 @@
         <definition>uint16_t parameter_block_t::totalsectors</definition>
         <argsstring></argsstring>
         <name>totalsectors</name>
+        <qualifiedname>parameter_block_t::totalsectors</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -139,6 +149,7 @@
         <definition>uint8_t parameter_block_t::mediatype</definition>
         <argsstring></argsstring>
         <name>mediatype</name>
+        <qualifiedname>parameter_block_t::mediatype</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -152,6 +163,7 @@
         <definition>uint16_t parameter_block_t::unusedsectorsperfat</definition>
         <argsstring></argsstring>
         <name>unusedsectorsperfat</name>
+        <qualifiedname>parameter_block_t::unusedsectorsperfat</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -165,6 +177,7 @@
         <definition>uint16_t parameter_block_t::sectorspertrack</definition>
         <argsstring></argsstring>
         <name>sectorspertrack</name>
+        <qualifiedname>parameter_block_t::sectorspertrack</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -178,6 +191,7 @@
         <definition>uint16_t parameter_block_t::numberofheads</definition>
         <argsstring></argsstring>
         <name>numberofheads</name>
+        <qualifiedname>parameter_block_t::numberofheads</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -191,6 +205,7 @@
         <definition>uint32_t parameter_block_t::hiddensectors</definition>
         <argsstring></argsstring>
         <name>hiddensectors</name>
+        <qualifiedname>parameter_block_t::hiddensectors</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -204,6 +219,7 @@
         <definition>uint32_t parameter_block_t::sectorsonmedia</definition>
         <argsstring></argsstring>
         <name>sectorsonmedia</name>
+        <qualifiedname>parameter_block_t::sectorsonmedia</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -217,6 +233,7 @@
         <definition>uint32_t parameter_block_t::sectorsperfat</definition>
         <argsstring></argsstring>
         <name>sectorsperfat</name>
+        <qualifiedname>parameter_block_t::sectorsperfat</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -230,6 +247,7 @@
         <definition>uint16_t parameter_block_t::flags</definition>
         <argsstring></argsstring>
         <name>flags</name>
+        <qualifiedname>parameter_block_t::flags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -243,6 +261,7 @@
         <definition>uint16_t parameter_block_t::fatversion</definition>
         <argsstring></argsstring>
         <name>fatversion</name>
+        <qualifiedname>parameter_block_t::fatversion</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -256,6 +275,7 @@
         <definition>uint32_t parameter_block_t::rootdircluster</definition>
         <argsstring></argsstring>
         <name>rootdircluster</name>
+        <qualifiedname>parameter_block_t::rootdircluster</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -269,6 +289,7 @@
         <definition>uint16_t parameter_block_t::fsinfocluster</definition>
         <argsstring></argsstring>
         <name>fsinfocluster</name>
+        <qualifiedname>parameter_block_t::fsinfocluster</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -282,6 +303,7 @@
         <definition>uint16_t parameter_block_t::backupbootsectorcluster</definition>
         <argsstring></argsstring>
         <name>backupbootsectorcluster</name>
+        <qualifiedname>parameter_block_t::backupbootsectorcluster</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -295,6 +317,7 @@
         <definition>char parameter_block_t::reserved[12]</definition>
         <argsstring>[12]</argsstring>
         <name>reserved</name>
+        <qualifiedname>parameter_block_t::reserved</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -308,6 +331,7 @@
         <definition>uint8_t parameter_block_t::drivenumber</definition>
         <argsstring></argsstring>
         <name>drivenumber</name>
+        <qualifiedname>parameter_block_t::drivenumber</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -321,6 +345,7 @@
         <definition>uint8_t parameter_block_t::ntflags</definition>
         <argsstring></argsstring>
         <name>ntflags</name>
+        <qualifiedname>parameter_block_t::ntflags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -334,6 +359,7 @@
         <definition>uint8_t parameter_block_t::signature</definition>
         <argsstring></argsstring>
         <name>signature</name>
+        <qualifiedname>parameter_block_t::signature</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -347,6 +373,7 @@
         <definition>uint32_t parameter_block_t::serialnumber</definition>
         <argsstring></argsstring>
         <name>serialnumber</name>
+        <qualifiedname>parameter_block_t::serialnumber</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -360,6 +387,7 @@
         <definition>char parameter_block_t::volumelabel[11]</definition>
         <argsstring>[11]</argsstring>
         <name>volumelabel</name>
+        <qualifiedname>parameter_block_t::volumelabel</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -373,6 +401,7 @@
         <definition>char parameter_block_t::systemid[9]</definition>
         <argsstring>[9]</argsstring>
         <name>systemid</name>
+        <qualifiedname>parameter_block_t::systemid</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -388,19 +417,30 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>uint16_t</label>
-      </node>
-      <node id="4">
-        <label>uint32_t</label>
-      </node>
-      <node id="5">
-        <label>uint8_t</label>
+      <node id="3">
+        <label>char</label>
       </node>
       <node id="1">
         <label>parameter_block_t</label>
         <link refid="structparameter__block__t"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>code1</edgelabel>
+          <edgelabel>code2</edgelabel>
+          <edgelabel>code3</edgelabel>
+          <edgelabel>drivenumber</edgelabel>
+          <edgelabel>mediatype</edgelabel>
+          <edgelabel>ntflags</edgelabel>
+          <edgelabel>numberoffats</edgelabel>
+          <edgelabel>sectorspercluster</edgelabel>
+          <edgelabel>signature</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>oemidentifier</edgelabel>
+          <edgelabel>reserved</edgelabel>
+          <edgelabel>systemid</edgelabel>
+          <edgelabel>volumelabel</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>backupbootsectorcluster</edgelabel>
           <edgelabel>bytespersector</edgelabel>
           <edgelabel>fatversion</edgelabel>
@@ -413,33 +453,22 @@
           <edgelabel>totalsectors</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>oemidentifier</edgelabel>
-          <edgelabel>reserved</edgelabel>
-          <edgelabel>systemid</edgelabel>
-          <edgelabel>volumelabel</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>hiddensectors</edgelabel>
           <edgelabel>rootdircluster</edgelabel>
           <edgelabel>sectorsonmedia</edgelabel>
           <edgelabel>sectorsperfat</edgelabel>
           <edgelabel>serialnumber</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>code1</edgelabel>
-          <edgelabel>code2</edgelabel>
-          <edgelabel>code3</edgelabel>
-          <edgelabel>drivenumber</edgelabel>
-          <edgelabel>mediatype</edgelabel>
-          <edgelabel>ntflags</edgelabel>
-          <edgelabel>numberoffats</edgelabel>
-          <edgelabel>sectorspercluster</edgelabel>
-          <edgelabel>signature</edgelabel>
-        </childnode>
       </node>
-      <node id="3">
-        <label>char</label>
+      <node id="4">
+        <label>uint16_t</label>
+      </node>
+      <node id="5">
+        <label>uint32_t</label>
+      </node>
+      <node id="2">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/fat32.h" line="98" column="1" bodyfile="include/fat32.h" bodystart="98" bodyend="129"/>

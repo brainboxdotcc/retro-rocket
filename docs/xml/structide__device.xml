@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structide__device" kind="struct" language="C++" prot="public">
     <compoundname>ide_device</compoundname>
     <includes local="no">ata.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint8_t ide_device::reserved</definition>
         <argsstring></argsstring>
         <name>reserved</name>
+        <qualifiedname>ide_device::reserved</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t ide_device::channel</definition>
         <argsstring></argsstring>
         <name>channel</name>
+        <qualifiedname>ide_device::channel</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t ide_device::drive</definition>
         <argsstring></argsstring>
         <name>drive</name>
+        <qualifiedname>ide_device::drive</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint16_t ide_device::type</definition>
         <argsstring></argsstring>
         <name>type</name>
+        <qualifiedname>ide_device::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint16_t ide_device::sign</definition>
         <argsstring></argsstring>
         <name>sign</name>
+        <qualifiedname>ide_device::sign</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint16_t ide_device::capabilities</definition>
         <argsstring></argsstring>
         <name>capabilities</name>
+        <qualifiedname>ide_device::capabilities</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint32_t ide_device::commandsets</definition>
         <argsstring></argsstring>
         <name>commandsets</name>
+        <qualifiedname>ide_device::commandsets</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint64_t ide_device::size</definition>
         <argsstring></argsstring>
         <name>size</name>
+        <qualifiedname>ide_device::size</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint8_t ide_device::model[41]</definition>
         <argsstring>[41]</argsstring>
         <name>model</name>
+        <qualifiedname>ide_device::model</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -131,7 +140,10 @@
         <label>ide_device</label>
         <link refid="structide__device"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>size</edgelabel>
+          <edgelabel>channel</edgelabel>
+          <edgelabel>drive</edgelabel>
+          <edgelabel>model</edgelabel>
+          <edgelabel>reserved</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>capabilities</edgelabel>
@@ -142,14 +154,8 @@
           <edgelabel>commandsets</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>channel</edgelabel>
-          <edgelabel>drive</edgelabel>
-          <edgelabel>model</edgelabel>
-          <edgelabel>reserved</edgelabel>
+          <edgelabel>size</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint64_t</label>
       </node>
       <node id="3">
         <label>uint16_t</label>
@@ -158,6 +164,9 @@
         <label>uint32_t</label>
       </node>
       <node id="5">
+        <label>uint64_t</label>
+      </node>
+      <node id="2">
         <label>uint8_t</label>
       </node>
     </collaborationgraph>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structfilesystem__t" kind="struct" language="C++" prot="public">
     <compoundname>filesystem_t</compoundname>
     <includes local="no">filesystem.h</includes>
@@ -9,6 +9,7 @@
         <definition>char filesystem_t::name[32]</definition>
         <argsstring>[32]</argsstring>
         <name>name</name>
+        <qualifiedname>filesystem_t::name</qualifiedname>
         <briefdescription>
 <para>Name of filesystem driver, e.g. &apos;fat32&apos;. </para>
         </briefdescription>
@@ -23,6 +24,7 @@
         <definition>mount_volume filesystem_t::mount</definition>
         <argsstring></argsstring>
         <name>mount</name>
+        <qualifiedname>filesystem_t::mount</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1a77609a9147050917f0fff5604dd14c36" kindref="member">mount()</ref> Mounts the filesystem to a storage device. </para>
         </briefdescription>
@@ -33,10 +35,11 @@
         <location file="include/filesystem.h" line="98" column="14" bodyfile="include/filesystem.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfilesystem__t_1a99ad863d03be29cf4ddbf592405f12a9" prot="public" static="no" mutable="no">
-        <type><ref refid="filesystem_8h_1ab18ebf0ec55a45b557b2d6e1bdb2ef4d" kindref="member">get_directory</ref></type>
+        <type><ref refid="filesystem_8h_1a554e72ed4366427b5b2c7369c8f5a019" kindref="member">get_directory</ref></type>
         <definition>get_directory filesystem_t::getdir</definition>
         <argsstring></argsstring>
         <name>getdir</name>
+        <qualifiedname>filesystem_t::getdir</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1a99ad863d03be29cf4ddbf592405f12a9" kindref="member">getdir()</ref> Retrieves a list of files in a directory. </para>
         </briefdescription>
@@ -51,6 +54,7 @@
         <definition>read_file filesystem_t::readfile</definition>
         <argsstring></argsstring>
         <name>readfile</name>
+        <qualifiedname>filesystem_t::readfile</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1ab20175c68487833f4f3f351aaf724326" kindref="member">readfile()</ref> Retrieves file contents from an arbitrary location in a file on the filesystem. Attempts to read any content outside of the files extent should be handled by returning only what is available. </para>
         </briefdescription>
@@ -65,6 +69,7 @@
         <definition>write_file filesystem_t::writefile</definition>
         <argsstring></argsstring>
         <name>writefile</name>
+        <qualifiedname>filesystem_t::writefile</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kindref="member">writefile()</ref> Writes data to arbitrary location in a file on the filesystem. The file must exist, and <ref refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kindref="member">writefile()</ref> should not create new files, this is the reponsibility of the <ref refid="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" kindref="member">createfile()</ref> endpoint. </para>
         </briefdescription>
@@ -80,6 +85,7 @@
         <definition>create_file filesystem_t::createfile</definition>
         <argsstring></argsstring>
         <name>createfile</name>
+        <qualifiedname>filesystem_t::createfile</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" kindref="member">createfile()</ref> Creates a new file filled with null bytes, of the requested size. The file size on the media may be larger, to account for slack, but the reported size must be that provided. </para>
         </briefdescription>
@@ -95,6 +101,7 @@
         <definition>truncate_file filesystem_t::truncatefile</definition>
         <argsstring></argsstring>
         <name>truncatefile</name>
+        <qualifiedname>filesystem_t::truncatefile</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1abe1dabfc1a3f49cfb4d52980c5ff5a0c" kindref="member">truncatefile()</ref> Truncates an existing file to a new length, discarding any data past the new size and freeing it for re-use. </para>
         </briefdescription>
@@ -110,6 +117,7 @@
         <definition>create_dir filesystem_t::createdir</definition>
         <argsstring></argsstring>
         <name>createdir</name>
+        <qualifiedname>filesystem_t::createdir</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1ac33d6d5bdd65541a546fab20594ab7bf" kindref="member">createdir()</ref> Create a new empty directory. The directory should not already exist within the given parent directory. </para>
         </briefdescription>
@@ -124,6 +132,7 @@
         <definition>delete_file filesystem_t::rm</definition>
         <argsstring></argsstring>
         <name>rm</name>
+        <qualifiedname>filesystem_t::rm</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1a5a53b5c090ad502a59b6f382f6a64111" kindref="member">rm()</ref> Remove an existing file. The file should already exist in the parent directory, and should not itself be a directory. </para>
         </briefdescription>
@@ -138,6 +147,7 @@
         <definition>delete_dir filesystem_t::rmdir</definition>
         <argsstring></argsstring>
         <name>rmdir</name>
+        <qualifiedname>filesystem_t::rmdir</qualifiedname>
         <briefdescription>
 <para>Function pointer for <ref refid="structfilesystem__t_1a85128ed0d4bda3d5431f4d44c7a4ccd5" kindref="member">rmdir()</ref> Remove an existing directory. The directory should already exist in the parent directory, and should be empty of all non-special entries (e.g. &apos;.&apos; and &apos;..&apos; are permitted to still exist) </para>
         </briefdescription>
@@ -152,6 +162,7 @@
         <definition>struct filesystem_t* filesystem_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
+        <qualifiedname>filesystem_t::next</qualifiedname>
         <briefdescription>
 <para>Pointer to next filesystem driver or NULL. </para>
         </briefdescription>
@@ -174,47 +185,47 @@
 </para>
     </detaileddescription>
     <collaborationgraph>
+      <node id="5">
+        <label>bool</label>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
       <node id="1">
         <label>filesystem_t</label>
         <link refid="structfilesystem__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>createdir</edgelabel>
-          <edgelabel>createfile</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>getdir</edgelabel>
-        </childnode>
-        <childnode refid="1" relation="usage">
-          <edgelabel>next</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>mount</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="4" relation="usage">
+          <edgelabel>getdir</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
           <edgelabel>readfile</edgelabel>
           <edgelabel>rm</edgelabel>
           <edgelabel>rmdir</edgelabel>
           <edgelabel>truncatefile</edgelabel>
           <edgelabel>writefile</edgelabel>
         </childnode>
-      </node>
-      <node id="2">
-        <label>uint64_t</label>
-      </node>
-      <node id="5">
-        <label>int</label>
+        <childnode refid="6" relation="usage">
+          <edgelabel>createdir</edgelabel>
+          <edgelabel>createfile</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
       </node>
       <node id="3">
-        <label>void *(*)(void *)</label>
+        <label>int</label>
       </node>
       <node id="6">
-        <label>bool</label>
+        <label>uint64_t</label>
       </node>
       <node id="4">
-        <label>char</label>
+        <label>void *(*)(void *)</label>
       </node>
     </collaborationgraph>
     <location file="include/filesystem.h" line="87" column="1" bodyfile="include/filesystem.h" bodystart="87" bodyend="178"/>

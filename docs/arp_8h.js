@@ -13,7 +13,7 @@ var arp_8h =
     [ "arp_lookup_add", "arp_8h.html#adfb058efa1f5ac734b350159676020a4", null ],
     [ "arp_prediscover", "arp_8h.html#a78fd40ebcc17873ff998879a3ca3ee3e", null ],
     [ "arp_send_packet", "arp_8h.html#a83c069ec5b715eb350264e6d71e27386", null ],
-    [ "get_arp_entry", "arp_8h.html#a9b24f831029cf547ec81280840ce22fc", null ],
+    [ "get_arp_entry", "arp_8h.html#a8eac105b735fca45ba172cbd0a01ca6d", null ],
     [ "get_arp_table_size", "arp_8h.html#a7dfc38da779cee71b7afacd4cca46eae", null ],
     [ "dst_hardware_addr", "arp_8h.html#a36c49b5abd4965e6c47e530d859d0042", null ],
     [ "dst_protocol_addr", "arp_8h.html#a18c92b51c04c4d12d5f3f7574a99d26a", null ],

@@ -22,6 +22,7 @@ var structbasic__ctx =
     [ "int_array_variables", "structbasic__ctx.html#a1127413b4863f8920fa6570589565116", null ],
     [ "int_variables", "structbasic__ctx.html#a7353606faa47b1bc7c83cdaf0f3fc80f", null ],
     [ "item_begin", "structbasic__ctx.html#a6d93bbf399fba5da373879d9889fead3", null ],
+    [ "last_cpuid_result", "structbasic__ctx.html#a6bd1fa3ec2d3b4c0b2f33456296e715d", null ],
     [ "lines", "structbasic__ctx.html#a069084d2fc5fc7c6623473da3b0ff500", null ],
     [ "local_double_variables", "structbasic__ctx.html#a76063404a2a2707560ed74747b1ba1a7", null ],
     [ "local_int_variables", "structbasic__ctx.html#aae42d9a7e61a7c9ee355e91ed10812a8", null ],

@@ -12,8 +12,8 @@
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="88.5,-0.5 88.5,-19.5 209.5,-19.5 209.5,-0.5 88.5,-0.5"/>
-<text text-anchor="middle" x="149" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">packet_queue_item_t</text>
+<polygon fill="#bfbfbf" stroke="black" points="89.5,-0.5 89.5,-19.5 210.5,-19.5 210.5,-0.5 89.5,-0.5"/>
+<text text-anchor="middle" x="150" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">packet_queue_item_t</text>
 </a>
 </g>
 </g>
@@ -21,55 +21,55 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="0,-73 0,-92 56,-92 56,-73 0,-73"/>
-<text text-anchor="middle" x="28" y="-80" font-family="Helvetica,sans-Serif" font-size="10.00">uint64_t</text>
+<polygon fill="none" stroke="black" points="0,-73 0,-92 72,-92 72,-73 0,-73"/>
+<text text-anchor="middle" x="36" y="-80" font-family="Helvetica,sans-Serif" font-size="10.00">ip_packet_t</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M43.44,-65.51C52.79,-56.51 65.33,-45.59 78,-38 90.9,-30.27 106.39,-24.08 119.6,-19.58"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="40.74,-63.26 36.12,-72.79 45.68,-68.22 40.74,-63.26"/>
-<text text-anchor="middle" x="99.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> last_arp</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M47.36,-64.74C54.18,-55.75 63.55,-45.1 74,-38 86.04,-29.81 100.84,-23.82 114.17,-19.59"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="44.44,-62.81 41.44,-72.97 50.12,-66.89 44.44,-62.81"/>
+<text text-anchor="middle" x="92" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> packet</text>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="74,-73 74,-92 146,-92 146,-73 74,-73"/>
-<text text-anchor="middle" x="110" y="-80" font-family="Helvetica,sans-Serif" font-size="10.00">ip_packet_t</text>
+<polygon fill="none" stroke="black" points="90,-73 90,-92 140,-92 140,-73 90,-73"/>
+<text text-anchor="middle" x="115" y="-80" font-family="Helvetica,sans-Serif" font-size="10.00">uint8_t</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node1 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M117.85,-63.84C121.58,-55.82 126.26,-46.29 131,-38 134.58,-31.74 139.08,-24.99 142.68,-19.8"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="114.64,-62.43 113.69,-72.98 121.02,-65.33 114.64,-62.43"/>
-<text text-anchor="middle" x="149" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> packet</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M113.14,-62.76C113.12,-54.74 114.18,-45.53 118,-38 121.81,-30.48 128.74,-24.23 135.18,-19.65"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="109.66,-63.18 113.71,-72.97 116.65,-62.79 109.66,-63.18"/>
+<text text-anchor="middle" x="141" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> arp_tries</text>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="164,-73 164,-92 214,-92 214,-73 164,-73"/>
-<text text-anchor="middle" x="189" y="-80" font-family="Helvetica,sans-Serif" font-size="10.00">uint8_t</text>
+<polygon fill="none" stroke="black" points="158,-73 158,-92 214,-92 214,-73 158,-73"/>
+<text text-anchor="middle" x="186" y="-80" font-family="Helvetica,sans-Serif" font-size="10.00">uint64_t</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node1 -->
 <g id="edge3" class="edge">
 <title>Node4&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M180.53,-63.57C176.63,-55.62 171.8,-46.22 167,-38 163.37,-31.77 158.87,-25.02 155.27,-19.83"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="177.42,-65.18 184.92,-72.67 183.73,-62.14 177.42,-65.18"/>
-<text text-anchor="middle" x="195" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> arp_tries</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M177.1,-63.81C173.11,-55.9 168.34,-46.47 164,-38 160.82,-31.8 157.2,-24.81 154.44,-19.5"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="174.02,-65.46 181.64,-72.82 180.27,-62.32 174.02,-65.46"/>
+<text text-anchor="middle" x="190.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> last_arp</text>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:title=" ">
-<polygon fill="none" stroke="#bfbfbf" points="232.5,-67.5 232.5,-97.5 347.5,-97.5 347.5,-67.5 232.5,-67.5"/>
+<polygon fill="none" stroke="black" points="232.5,-67.5 232.5,-97.5 347.5,-97.5 347.5,-67.5 232.5,-67.5"/>
 <text text-anchor="start" x="240.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">struct packet_queue</text>
 <text text-anchor="middle" x="290" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">_item *</text>
 </a>
@@ -78,9 +78,9 @@
 <!-- Node5&#45;&gt;Node1 -->
 <g id="edge4" class="edge">
 <title>Node5&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M261.81,-61.54C249.87,-53.6 235.6,-44.77 222,-38 207.36,-30.72 190.25,-24.29 176.28,-19.53"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="260.19,-64.67 270.43,-67.38 264.12,-58.87 260.19,-64.67"/>
-<text text-anchor="middle" x="253.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> next</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M259.18,-62.05C246.1,-54.15 230.54,-45.2 216,-38 202.13,-31.13 186.07,-24.53 173.27,-19.58"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="257.43,-65.09 267.79,-67.32 261.09,-59.11 257.43,-65.09"/>
+<text text-anchor="middle" x="246.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> next</text>
 </g>
 </g>
 </svg>

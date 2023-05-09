@@ -187,6 +187,16 @@ typedef struct ub_line_ref {
 #define STRINGIFY(x) AUX(x)
 
 /**
+ * @brief CPUID instruction result.
+ */
+typedef struct cpuid_result {
+	unsigned int eax;
+	unsigned int ebx;
+	unsigned int ecx;
+	unsigned int edx;
+} cpuid_result_t;
+
+/**
  * @brief BASIC program context.
  * Every instance of a BASIC program has one of these,* also certain structures
  * such as functions will clone the context and run on the clone until the function
@@ -356,6 +366,10 @@ typedef struct basic_ctx {
 	 * @brief Current graphics colour (GCOL) for graphics drawing commands
 	 */
 	int32_t graphics_colour;
+	/*
+	 * @brief Last CPUID instruction result
+	 */
+	cpuid_result_t last_cpuid_result;
 	/**
 	 * @brief Hashmap of lines for O(1) lookup of line numbers
 	 */
@@ -545,6 +559,9 @@ int64_t basic_shiftkey(struct basic_ctx* ctx);
 int64_t basic_altkey(struct basic_ctx* ctx);
 int64_t basic_capslock(struct basic_ctx* ctx);
 int64_t basic_random(struct basic_ctx* ctx);
+int64_t basic_legacy_getlastcpuid(struct basic_ctx* ctx);
+int64_t basic_legacy_cpuid(struct basic_ctx* ctx);
+int64_t basic_cpuid(struct basic_ctx* ctx);
 
 /*
  * Builtin string functions
@@ -566,6 +583,9 @@ char* basic_upper(struct basic_ctx* ctx);
 char* basic_lower(struct basic_ctx* ctx);
 char* basic_tokenize(struct basic_ctx* ctx);
 char* basic_csd(struct basic_ctx* ctx);
+char* basic_cpugetbrand(struct basic_ctx* ctx);
+char* basic_cpugetvendor(struct basic_ctx* ctx);
+char* basic_intoasc(struct basic_ctx* ctx);
 
 /*
  * File I/O functions

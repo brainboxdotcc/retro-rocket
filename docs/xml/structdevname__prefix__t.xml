@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structdevname__prefix__t" kind="struct" language="C++" prot="public">
     <compoundname>devname_prefix_t</compoundname>
     <includes local="no">devicename.h</includes>
@@ -9,6 +9,7 @@
         <definition>char devname_prefix_t::prefix[16]</definition>
         <argsstring>[16]</argsstring>
         <name>prefix</name>
+        <qualifiedname>devname_prefix_t::prefix</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t devname_prefix_t::increment</definition>
         <argsstring></argsstring>
         <name>increment</name>
+        <qualifiedname>devname_prefix_t::increment</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -36,6 +38,9 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>char</label>
+      </node>
       <node id="1">
         <label>devname_prefix_t</label>
         <link refid="structdevname__prefix__t"/>
@@ -48,9 +53,6 @@
       </node>
       <node id="3">
         <label>uint8_t</label>
-      </node>
-      <node id="2">
-        <label>char</label>
       </node>
     </collaborationgraph>
     <location file="include/devicename.h" line="10" column="1" bodyfile="include/devicename.h" bodystart="10" bodyend="13"/>

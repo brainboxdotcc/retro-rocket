@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structsymbol__t" kind="struct" language="C++" prot="public">
     <compoundname>symbol_t</compoundname>
     <includes local="no">debugger.h</includes>
@@ -9,6 +9,7 @@
         <definition>char* symbol_t::name</definition>
         <argsstring></argsstring>
         <name>name</name>
+        <qualifiedname>symbol_t::name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint64_t symbol_t::address</definition>
         <argsstring></argsstring>
         <name>address</name>
+        <qualifiedname>symbol_t::address</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t symbol_t::type</definition>
         <argsstring></argsstring>
         <name>type</name>
+        <qualifiedname>symbol_t::type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>struct symbol* symbol_t::next</definition>
         <argsstring></argsstring>
         <name>next</name>
+        <qualifiedname>symbol_t::next</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -63,32 +67,32 @@
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
-        <label>uint64_t</label>
+        <label>char</label>
       </node>
       <node id="5">
-        <label>uint8_t</label>
+        <label>struct symbol *</label>
       </node>
       <node id="1">
         <label>symbol_t</label>
         <link refid="structsymbol__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>address</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>next</edgelabel>
+        <childnode refid="3" relation="usage">
+          <edgelabel>address</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>type</edgelabel>
         </childnode>
-      </node>
-      <node id="4">
-        <label>struct symbol *</label>
+        <childnode refid="5" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
       </node>
       <node id="3">
-        <label>char</label>
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/debugger.h" line="26" column="1" bodyfile="include/debugger.h" bodystart="27" bodyend="32"/>

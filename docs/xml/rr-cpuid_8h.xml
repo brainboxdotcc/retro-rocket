@@ -1,0 +1,593 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
+  <compounddef id="rr-cpuid_8h" kind="file" language="C++">
+    <compoundname>rr-cpuid.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>rr-cpuid.h</label>
+        <link refid="rr-cpuid_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377" prot="public" static="no" strong="no">
+        <type>uint32_t</type>
+        <name>cpuid_flags</name>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9ec1c52e0b19a9532baa8ce4f80add58" prot="public">
+          <name>CPUID_FEAT_ECX_SSE3</name>
+          <initializer>= 1 &lt;&lt; 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aaa62b2a02d3829ace891eac7d1d8f746" prot="public">
+          <name>CPUID_FEAT_ECX_PCLMUL</name>
+          <initializer>= 1 &lt;&lt; 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aa84b899e336daf2d90cdab723a24d544" prot="public">
+          <name>CPUID_FEAT_ECX_DTES64</name>
+          <initializer>= 1 &lt;&lt; 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a6ffa8cdde16327f47b6a49aa5d676ee5" prot="public">
+          <name>CPUID_FEAT_ECX_MONITOR</name>
+          <initializer>= 1 &lt;&lt; 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a1be0388c15db5d77facac96d2efddc4f" prot="public">
+          <name>CPUID_FEAT_ECX_DS_CPL</name>
+          <initializer>= 1 &lt;&lt; 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a714125fa31dd21e46e385b8dc340214f" prot="public">
+          <name>CPUID_FEAT_ECX_VMX</name>
+          <initializer>= 1 &lt;&lt; 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab6deac61a50e0367b5475869e240ac06" prot="public">
+          <name>CPUID_FEAT_ECX_SMX</name>
+          <initializer>= 1 &lt;&lt; 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a150b3abab983011be08fc459b7b9b700" prot="public">
+          <name>CPUID_FEAT_ECX_EST</name>
+          <initializer>= 1 &lt;&lt; 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377acf4aa3ed6f11fc17b684281787f60949" prot="public">
+          <name>CPUID_FEAT_ECX_TM2</name>
+          <initializer>= 1 &lt;&lt; 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5957647e74d0eaea90bdb316e578e579" prot="public">
+          <name>CPUID_FEAT_ECX_SSSE3</name>
+          <initializer>= 1 &lt;&lt; 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377afb8bce29e8cfd07070b596f3912f608b" prot="public">
+          <name>CPUID_FEAT_ECX_CID</name>
+          <initializer>= 1 &lt;&lt; 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c1fd66e736f5d3d344e919b57483336" prot="public">
+          <name>CPUID_FEAT_ECX_FMA</name>
+          <initializer>= 1 &lt;&lt; 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ad30be7d0797e3aad723013154aa733d2" prot="public">
+          <name>CPUID_FEAT_ECX_CX16</name>
+          <initializer>= 1 &lt;&lt; 13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a41b9888036ae940d974a544bed3f19c4" prot="public">
+          <name>CPUID_FEAT_ECX_ETPRD</name>
+          <initializer>= 1 &lt;&lt; 14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a93ddbafd38f7a260286998ae9ddc8cad" prot="public">
+          <name>CPUID_FEAT_ECX_PDCM</name>
+          <initializer>= 1 &lt;&lt; 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a2b75568ac85063fb0a96418fa0bfb29d" prot="public">
+          <name>CPUID_FEAT_ECX_DCA</name>
+          <initializer>= 1 &lt;&lt; 18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a63ddf183b299d2fc7686dac65e1a555a" prot="public">
+          <name>CPUID_FEAT_ECX_SSE4_1</name>
+          <initializer>= 1 &lt;&lt; 19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac35d5255d2ef4728b73348db7087c1c7" prot="public">
+          <name>CPUID_FEAT_ECX_SSE4_2</name>
+          <initializer>= 1 &lt;&lt; 20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac1613126920afb91d3d177c21e4f3dfe" prot="public">
+          <name>CPUID_FEAT_ECX_x2APIC</name>
+          <initializer>= 1 &lt;&lt; 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac67b97fbc629b276f5c13dbf88c4f709" prot="public">
+          <name>CPUID_FEAT_ECX_MOVBE</name>
+          <initializer>= 1 &lt;&lt; 22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a71e5348902e26fc6de23f4f5bd384f74" prot="public">
+          <name>CPUID_FEAT_ECX_POPCNT</name>
+          <initializer>= 1 &lt;&lt; 23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c28569cd999d6cc2e9e0005b4fa6c9d" prot="public">
+          <name>CPUID_FEAT_ECX_XSAVE</name>
+          <initializer>= 1 &lt;&lt; 26</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a56478550836d5fa258b03e9fd9eb8116" prot="public">
+          <name>CPUID_FEAT_ECX_OSXSAVE</name>
+          <initializer>= 1 &lt;&lt; 27</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a749d00516968a015a4d8e15235bf07e6" prot="public">
+          <name>CPUID_FEAT_ECX_AVX</name>
+          <initializer>= 1 &lt;&lt; 28</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac07d767d714117e48c453b752f799610" prot="public">
+          <name>CPUID_FEAT_EDX_FPU</name>
+          <initializer>= 1 &lt;&lt; 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5d32075fb1cfd95910c1eff1f0f3d056" prot="public">
+          <name>CPUID_FEAT_EDX_VME</name>
+          <initializer>= 1 &lt;&lt; 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a69236c580bf3feddd4a57b3072a7b521" prot="public">
+          <name>CPUID_FEAT_EDX_DE</name>
+          <initializer>= 1 &lt;&lt; 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a59bc828bc43010ac71793759e8011335" prot="public">
+          <name>CPUID_FEAT_EDX_PSE</name>
+          <initializer>= 1 &lt;&lt; 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a2ae56cfb5a846822cc095b79bf74de10" prot="public">
+          <name>CPUID_FEAT_EDX_TSC</name>
+          <initializer>= 1 &lt;&lt; 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a6b8beb5908a936d7f00c848df0abe061" prot="public">
+          <name>CPUID_FEAT_EDX_MSR</name>
+          <initializer>= 1 &lt;&lt; 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a3a97eae0ba980bb5d9d9b10138d70aca" prot="public">
+          <name>CPUID_FEAT_EDX_PAE</name>
+          <initializer>= 1 &lt;&lt; 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ade0ff2978a54bc0c96dd71a7a7177d0f" prot="public">
+          <name>CPUID_FEAT_EDX_MCE</name>
+          <initializer>= 1 &lt;&lt; 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a431ed484886fa29e4a7d16ab99523350" prot="public">
+          <name>CPUID_FEAT_EDX_CX8</name>
+          <initializer>= 1 &lt;&lt; 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a7fa4170aae12fbc1642012ccba9855b0" prot="public">
+          <name>CPUID_FEAT_EDX_APIC</name>
+          <initializer>= 1 &lt;&lt; 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a674ec4ce4025c0f520a30d6e461ed47d" prot="public">
+          <name>CPUID_FEAT_EDX_SEP</name>
+          <initializer>= 1 &lt;&lt; 11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5b30fec963effd4a0d2c8447028d0215" prot="public">
+          <name>CPUID_FEAT_EDX_MTRR</name>
+          <initializer>= 1 &lt;&lt; 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377afb0d4b99b2d0e98089be4ede2162eddf" prot="public">
+          <name>CPUID_FEAT_EDX_PGE</name>
+          <initializer>= 1 &lt;&lt; 13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac9e7b8e9c0e19bfe48a4bcd749aaaa4e" prot="public">
+          <name>CPUID_FEAT_EDX_MCA</name>
+          <initializer>= 1 &lt;&lt; 14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9c90442380d5125737f106c44afce64f" prot="public">
+          <name>CPUID_FEAT_EDX_CMOV</name>
+          <initializer>= 1 &lt;&lt; 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac0e40c6f57efc979712596770aab9f8a" prot="public">
+          <name>CPUID_FEAT_EDX_PAT</name>
+          <initializer>= 1 &lt;&lt; 16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a9718e0367b529df69ee7c9b7fd998b83" prot="public">
+          <name>CPUID_FEAT_EDX_PSE36</name>
+          <initializer>= 1 &lt;&lt; 17</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aac23260b012a04ea25d113844c631d44" prot="public">
+          <name>CPUID_FEAT_EDX_PSN</name>
+          <initializer>= 1 &lt;&lt; 18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a80d53b7ac629e80940d02e38ad48414b" prot="public">
+          <name>CPUID_FEAT_EDX_CLF</name>
+          <initializer>= 1 &lt;&lt; 19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a43682d6fe8589b4809e2c49bb55c1558" prot="public">
+          <name>CPUID_FEAT_EDX_DTES</name>
+          <initializer>= 1 &lt;&lt; 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aec94ddf1825bdde32627d9149beec9dc" prot="public">
+          <name>CPUID_FEAT_EDX_ACPI</name>
+          <initializer>= 1 &lt;&lt; 22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac8185eb6b47dd2ef97a44cbb759f8e52" prot="public">
+          <name>CPUID_FEAT_EDX_MMX</name>
+          <initializer>= 1 &lt;&lt; 23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a577b773d21178552d9d768da936479f6" prot="public">
+          <name>CPUID_FEAT_EDX_FXSR</name>
+          <initializer>= 1 &lt;&lt; 24</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab362f49f025f651238f57dcf8d5d281f" prot="public">
+          <name>CPUID_FEAT_EDX_SSE</name>
+          <initializer>= 1 &lt;&lt; 25</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ab64ff1599bf88ab91782ee4f9152f3ce" prot="public">
+          <name>CPUID_FEAT_EDX_SSE2</name>
+          <initializer>= 1 &lt;&lt; 26</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377aec6daa5351cf0b927f4fcbad3f0cfef1" prot="public">
+          <name>CPUID_FEAT_EDX_SS</name>
+          <initializer>= 1 &lt;&lt; 27</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ac91c9cfc9f3165b25b10030ef82c491f" prot="public">
+          <name>CPUID_FEAT_EDX_HTT</name>
+          <initializer>= 1 &lt;&lt; 28</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a5468113d56e2d06eb0e6d5c4f74af589" prot="public">
+          <name>CPUID_FEAT_EDX_TM1</name>
+          <initializer>= 1 &lt;&lt; 29</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377a12ab79d3456f748b49340fa00e60c160" prot="public">
+          <name>CPUID_FEAT_EDX_IA64</name>
+          <initializer>= 1 &lt;&lt; 30</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1acf3863fa762be9bd2d1ccca8232cd377ae6cfc957052841ae578ddfb390f00a1a" prot="public">
+          <name>CPUID_FEAT_EDX_PBE</name>
+          <initializer>= (uint32_t)(1 &lt;&lt; 31)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rr-cpuid.h" line="11" column="1" bodyfile="include/rr-cpuid.h" bodystart="12" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="enum" id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fd" prot="public" static="no" strong="no">
+        <type>uint32_t</type>
+        <name>cpuid_requests</name>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda287b9480159ff0790f83312fc0f35361" prot="public">
+          <name>CPUID_GETVENDORSTRING</name>
+          <initializer>=0x00000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdae54d5cf464a4eaab14f5639ef57a5350" prot="public">
+          <name>CPUID_GETFEATURES</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda1844360ad06974a69963618af9fd7721" prot="public">
+          <name>CPUID_GETTLB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdad206c016f6b1bf979bab7c632a2daaa4" prot="public">
+          <name>CPUID_GETSERIAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdab016d439747f36e0a2bdd34f8f26ecbe" prot="public">
+          <name>CPUID_INTELEXTENDED</name>
+          <initializer>=0x80000000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda6b1682619d4f05d42499c280f74ba7d0" prot="public">
+          <name>CPUID_INTELFEATURES</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda898f490021383393edca0741e4a3b8df" prot="public">
+          <name>CPUID_INTELBRANDSTRING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fda8585bcaf7fb2b6c52217566488dc3739" prot="public">
+          <name>CPUID_INTELBRANDSTRINGMORE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rr-cpuid_8h_1ab888571a1da93076da2f6f062641c3fdaf0e6c842bda49527a246dd9c85d6da6a" prot="public">
+          <name>CPUID_INTELBRANDSTRINGEND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rr-cpuid.h" line="70" column="1" bodyfile="include/rr-cpuid.h" bodystart="71" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="rr-cpuid_8h_1adacb2a50c30267ac5314bfcb92ac1d85" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cpuid</definition>
+        <argsstring>(int code, uint32_t *a, uint32_t *d)</argsstring>
+        <name>cpuid</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rr-cpuid.h" line="84" column="20" bodyfile="include/rr-cpuid.h" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="rr-cpuid_8h_1a9091114e1347758f7e3cd993169a5764" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int cpuid_string</definition>
+        <argsstring>(int code, uint32_t where[4])</argsstring>
+        <name>cpuid_string</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>where</declname>
+          <array>[4]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/rr-cpuid.h" line="89" column="19" bodyfile="include/rr-cpuid.h" bodystart="89" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/rr-cpuid.h"/>
+  </compounddef>
+</doxygen>

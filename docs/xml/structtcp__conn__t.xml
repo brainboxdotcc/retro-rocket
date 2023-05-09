@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structtcp__conn__t" kind="struct" language="C++" prot="public">
     <compoundname>tcp_conn_t</compoundname>
     <includes local="no">tcp.h</includes>
@@ -9,6 +9,7 @@
         <definition>tcp_state_t tcp_conn_t::state</definition>
         <argsstring></argsstring>
         <name>state</name>
+        <qualifiedname>tcp_conn_t::state</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint32_t tcp_conn_t::local_addr</definition>
         <argsstring></argsstring>
         <name>local_addr</name>
+        <qualifiedname>tcp_conn_t::local_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint32_t tcp_conn_t::remote_addr</definition>
         <argsstring></argsstring>
         <name>remote_addr</name>
+        <qualifiedname>tcp_conn_t::remote_addr</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint16_t tcp_conn_t::local_port</definition>
         <argsstring></argsstring>
         <name>local_port</name>
+        <qualifiedname>tcp_conn_t::local_port</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint16_t tcp_conn_t::remote_port</definition>
         <argsstring></argsstring>
         <name>remote_port</name>
+        <qualifiedname>tcp_conn_t::remote_port</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint32_t tcp_conn_t::snd_una</definition>
         <argsstring></argsstring>
         <name>snd_una</name>
+        <qualifiedname>tcp_conn_t::snd_una</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint32_t tcp_conn_t::snd_nxt</definition>
         <argsstring></argsstring>
         <name>snd_nxt</name>
+        <qualifiedname>tcp_conn_t::snd_nxt</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint32_t tcp_conn_t::snd_wnd</definition>
         <argsstring></argsstring>
         <name>snd_wnd</name>
+        <qualifiedname>tcp_conn_t::snd_wnd</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint32_t tcp_conn_t::snd_up</definition>
         <argsstring></argsstring>
         <name>snd_up</name>
+        <qualifiedname>tcp_conn_t::snd_up</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -126,6 +135,7 @@
         <definition>uint32_t tcp_conn_t::snd_wl1</definition>
         <argsstring></argsstring>
         <name>snd_wl1</name>
+        <qualifiedname>tcp_conn_t::snd_wl1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -139,6 +149,7 @@
         <definition>uint32_t tcp_conn_t::snd_wl2</definition>
         <argsstring></argsstring>
         <name>snd_wl2</name>
+        <qualifiedname>tcp_conn_t::snd_wl2</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -152,6 +163,7 @@
         <definition>uint32_t tcp_conn_t::iss</definition>
         <argsstring></argsstring>
         <name>iss</name>
+        <qualifiedname>tcp_conn_t::iss</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -165,6 +177,7 @@
         <definition>uint32_t tcp_conn_t::snd_lst</definition>
         <argsstring></argsstring>
         <name>snd_lst</name>
+        <qualifiedname>tcp_conn_t::snd_lst</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -178,6 +191,7 @@
         <definition>uint32_t tcp_conn_t::rcv_lst</definition>
         <argsstring></argsstring>
         <name>rcv_lst</name>
+        <qualifiedname>tcp_conn_t::rcv_lst</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -191,6 +205,7 @@
         <definition>uint32_t tcp_conn_t::rcv_nxt</definition>
         <argsstring></argsstring>
         <name>rcv_nxt</name>
+        <qualifiedname>tcp_conn_t::rcv_nxt</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -204,6 +219,7 @@
         <definition>uint32_t tcp_conn_t::rcv_wnd</definition>
         <argsstring></argsstring>
         <name>rcv_wnd</name>
+        <qualifiedname>tcp_conn_t::rcv_wnd</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -217,6 +233,7 @@
         <definition>uint32_t tcp_conn_t::rcv_up</definition>
         <argsstring></argsstring>
         <name>rcv_up</name>
+        <qualifiedname>tcp_conn_t::rcv_up</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -230,6 +247,7 @@
         <definition>uint32_t tcp_conn_t::irs</definition>
         <argsstring></argsstring>
         <name>irs</name>
+        <qualifiedname>tcp_conn_t::irs</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -243,6 +261,7 @@
         <definition>int tcp_conn_t::fd</definition>
         <argsstring></argsstring>
         <name>fd</name>
+        <qualifiedname>tcp_conn_t::fd</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -256,6 +275,7 @@
         <definition>int tcp_conn_t::recv_eof_pos</definition>
         <argsstring></argsstring>
         <name>recv_eof_pos</name>
+        <qualifiedname>tcp_conn_t::recv_eof_pos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -269,6 +289,7 @@
         <definition>int tcp_conn_t::send_eof_pos</definition>
         <argsstring></argsstring>
         <name>send_eof_pos</name>
+        <qualifiedname>tcp_conn_t::send_eof_pos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -282,6 +303,7 @@
         <definition>uint8_t* tcp_conn_t::recv_buffer</definition>
         <argsstring></argsstring>
         <name>recv_buffer</name>
+        <qualifiedname>tcp_conn_t::recv_buffer</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -295,6 +317,7 @@
         <definition>size_t tcp_conn_t::recv_buffer_len</definition>
         <argsstring></argsstring>
         <name>recv_buffer_len</name>
+        <qualifiedname>tcp_conn_t::recv_buffer_len</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -308,6 +331,7 @@
         <definition>uint8_t* tcp_conn_t::send_buffer</definition>
         <argsstring></argsstring>
         <name>send_buffer</name>
+        <qualifiedname>tcp_conn_t::send_buffer</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -321,6 +345,7 @@
         <definition>size_t tcp_conn_t::send_buffer_len</definition>
         <argsstring></argsstring>
         <name>send_buffer_len</name>
+        <qualifiedname>tcp_conn_t::send_buffer_len</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -334,6 +359,7 @@
         <definition>spinlock tcp_conn_t::recv_buffer_spinlock</definition>
         <argsstring></argsstring>
         <name>recv_buffer_spinlock</name>
+        <qualifiedname>tcp_conn_t::recv_buffer_spinlock</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -347,6 +373,7 @@
         <definition>spinlock tcp_conn_t::send_buffer_spinlock</definition>
         <argsstring></argsstring>
         <name>send_buffer_spinlock</name>
+        <qualifiedname>tcp_conn_t::send_buffer_spinlock</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -360,6 +387,7 @@
         <definition>uint32_t tcp_conn_t::msl_time</definition>
         <argsstring></argsstring>
         <name>msl_time</name>
+        <qualifiedname>tcp_conn_t::msl_time</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -373,6 +401,7 @@
         <definition>tcp_ordered_list_t* tcp_conn_t::segment_list</definition>
         <argsstring></argsstring>
         <name>segment_list</name>
+        <qualifiedname>tcp_conn_t::segment_list</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -387,21 +416,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
+      <node id="5">
+        <label>int</label>
+      </node>
+      <node id="7">
         <label>size_t</label>
       </node>
       <node id="1">
         <label>tcp_conn_t</label>
         <link refid="structtcp__conn__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>local_port</edgelabel>
-          <edgelabel>remote_port</edgelabel>
+          <edgelabel>state</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>recv_buffer_len</edgelabel>
-          <edgelabel>send_buffer_len</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>irs</edgelabel>
           <edgelabel>iss</edgelabel>
           <edgelabel>local_addr</edgelabel>
@@ -414,6 +441,10 @@
           <edgelabel>remote_addr</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>local_port</edgelabel>
+          <edgelabel>remote_port</edgelabel>
+        </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>fd</edgelabel>
           <edgelabel>recv_eof_pos</edgelabel>
@@ -424,43 +455,41 @@
           <edgelabel>send_buffer</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
+          <edgelabel>recv_buffer_len</edgelabel>
+          <edgelabel>send_buffer_len</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
           <edgelabel>segment_list</edgelabel>
         </childnode>
+      </node>
+      <node id="8">
+        <label>tcp_ordered_list_t</label>
+        <link refid="structtcp__ordered__list__t"/>
         <childnode refid="9" relation="usage">
-          <edgelabel>state</edgelabel>
+          <edgelabel>segment</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>len</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>uint16_t</label>
+      <node id="9">
+        <label>tcp_segment_t *</label>
       </node>
-      <node id="5">
-        <label>int</label>
+      <node id="2">
+        <label>tcp_state_t</label>
       </node>
       <node id="4">
+        <label>uint16_t</label>
+      </node>
+      <node id="3">
         <label>uint32_t</label>
       </node>
       <node id="6">
         <label>uint8_t</label>
-      </node>
-      <node id="9">
-        <label>tcp_state_t</label>
-      </node>
-      <node id="8">
-        <label>tcp_segment_t *</label>
-      </node>
-      <node id="7">
-        <label>tcp_ordered_list_t</label>
-        <link refid="structtcp__ordered__list__t"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>len</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>segment</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>next</edgelabel>
-          <edgelabel>prev</edgelabel>
-        </childnode>
       </node>
     </collaborationgraph>
     <location file="include/tcp.h" line="102" column="1" bodyfile="include/tcp.h" bodystart="103" bodyend="144"/>

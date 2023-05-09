@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structfat32__t" kind="struct" language="C++" prot="public">
     <compoundname>fat32_t</compoundname>
     <includes local="no">fat32.h</includes>
@@ -9,6 +9,7 @@
         <definition>char fat32_t::device_name[16]</definition>
         <argsstring>[16]</argsstring>
         <name>device_name</name>
+        <qualifiedname>fat32_t::device_name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t fat32_t::partitionid</definition>
         <argsstring></argsstring>
         <name>partitionid</name>
+        <qualifiedname>fat32_t::partitionid</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>char* fat32_t::volume_name</definition>
         <argsstring></argsstring>
         <name>volume_name</name>
+        <qualifiedname>fat32_t::volume_name</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>uint64_t fat32_t::start</definition>
         <argsstring></argsstring>
         <name>start</name>
+        <qualifiedname>fat32_t::start</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -61,6 +65,7 @@
         <definition>uint64_t fat32_t::length</definition>
         <argsstring></argsstring>
         <name>length</name>
+        <qualifiedname>fat32_t::length</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -74,6 +79,7 @@
         <definition>uint32_t fat32_t::rootdircluster</definition>
         <argsstring></argsstring>
         <name>rootdircluster</name>
+        <qualifiedname>fat32_t::rootdircluster</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,6 +93,7 @@
         <definition>uint16_t fat32_t::reservedsectors</definition>
         <argsstring></argsstring>
         <name>reservedsectors</name>
+        <qualifiedname>fat32_t::reservedsectors</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -100,6 +107,7 @@
         <definition>uint32_t fat32_t::fsinfocluster</definition>
         <argsstring></argsstring>
         <name>fsinfocluster</name>
+        <qualifiedname>fat32_t::fsinfocluster</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,6 +121,7 @@
         <definition>uint8_t fat32_t::numberoffats</definition>
         <argsstring></argsstring>
         <name>numberoffats</name>
+        <qualifiedname>fat32_t::numberoffats</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -126,6 +135,7 @@
         <definition>uint32_t fat32_t::fatsize</definition>
         <argsstring></argsstring>
         <name>fatsize</name>
+        <qualifiedname>fat32_t::fatsize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -139,6 +149,7 @@
         <definition>uint32_t fat32_t::clustersize</definition>
         <argsstring></argsstring>
         <name>clustersize</name>
+        <qualifiedname>fat32_t::clustersize</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -152,6 +163,7 @@
         <definition>fat32_fs_info_t* fat32_t::info</definition>
         <argsstring></argsstring>
         <name>info</name>
+        <qualifiedname>fat32_t::info</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -168,62 +180,62 @@
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
-        <label>uint64_t</label>
+        <label>char</label>
       </node>
-      <node id="5">
+      <node id="7">
         <label>fat32_fs_info_t</label>
         <link refid="structfat32__fs__info__t"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>reserved1</edgelabel>
-          <edgelabel>reserved2</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>freecount</edgelabel>
           <edgelabel>nextfree</edgelabel>
           <edgelabel>signature1</edgelabel>
           <edgelabel>structsig</edgelabel>
           <edgelabel>trailsig</edgelabel>
         </childnode>
-      </node>
-      <node id="3">
-        <label>uint16_t</label>
-      </node>
-      <node id="6">
-        <label>uint32_t</label>
-      </node>
-      <node id="7">
-        <label>uint8_t</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>reserved1</edgelabel>
+          <edgelabel>reserved2</edgelabel>
+        </childnode>
       </node>
       <node id="1">
         <label>fat32_t</label>
         <link refid="structfat32__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>length</edgelabel>
-          <edgelabel>start</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>reservedsectors</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>device_name</edgelabel>
           <edgelabel>volume_name</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>info</edgelabel>
+        <childnode refid="3" relation="usage">
+          <edgelabel>numberoffats</edgelabel>
+          <edgelabel>partitionid</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="4" relation="usage">
+          <edgelabel>length</edgelabel>
+          <edgelabel>start</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
           <edgelabel>clustersize</edgelabel>
           <edgelabel>fatsize</edgelabel>
           <edgelabel>fsinfocluster</edgelabel>
           <edgelabel>rootdircluster</edgelabel>
         </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>reservedsectors</edgelabel>
+        </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>numberoffats</edgelabel>
-          <edgelabel>partitionid</edgelabel>
+          <edgelabel>info</edgelabel>
         </childnode>
       </node>
+      <node id="6">
+        <label>uint16_t</label>
+      </node>
+      <node id="5">
+        <label>uint32_t</label>
+      </node>
       <node id="4">
-        <label>char</label>
+        <label>uint64_t</label>
+      </node>
+      <node id="3">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/fat32.h" line="60" column="1" bodyfile="include/fat32.h" bodystart="60" bodyend="73"/>

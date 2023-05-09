@@ -20,6 +20,6 @@ var debugger_8h =
     [ "SYM_WEAK_SYMBOL", "debugger_8h.html#a4465c182ec3f22fa4a5ffd4af848b169", null ],
     [ "backtrace", "debugger_8h.html#a73b6618270491b1d78d378a62a5a52b1", null ],
     [ "dump_hex", "debugger_8h.html#a193f7f97cdb75d26f4009b5a3edf72ec", null ],
-    [ "get_sym_table", "debugger_8h.html#a4c007aba1c784ceaecb1b28bcc1663ab", null ],
+    [ "get_sym_table", "debugger_8h.html#a238357918fb085302ef2bfd1b2525522", null ],
     [ "init_debug", "debugger_8h.html#a568e49ee3a2e0adab55fa38535e40835", null ]
 ];

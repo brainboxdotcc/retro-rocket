@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structahci__fis__data__t" kind="struct" language="C++" prot="public">
     <compoundname>ahci_fis_data_t</compoundname>
     <includes local="no">ahci.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint8_t ahci_fis_data_t::fis_type</definition>
         <argsstring></argsstring>
         <name>fis_type</name>
+        <qualifiedname>ahci_fis_data_t::fis_type</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t ahci_fis_data_t::pmport</definition>
         <argsstring></argsstring>
         <name>pmport</name>
+        <qualifiedname>ahci_fis_data_t::pmport</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -36,6 +38,7 @@
         <definition>uint8_t ahci_fis_data_t::rsv0</definition>
         <argsstring></argsstring>
         <name>rsv0</name>
+        <qualifiedname>ahci_fis_data_t::rsv0</qualifiedname>
         <bitfield>4</bitfield>
         <briefdescription>
         </briefdescription>
@@ -50,6 +53,7 @@
         <definition>uint8_t ahci_fis_data_t::rsv1[2]</definition>
         <argsstring>[2]</argsstring>
         <name>rsv1</name>
+        <qualifiedname>ahci_fis_data_t::rsv1</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -63,6 +67,7 @@
         <definition>uint32_t ahci_fis_data_t::data[]</definition>
         <argsstring>[]</argsstring>
         <name>data</name>
+        <qualifiedname>ahci_fis_data_t::data</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -77,24 +82,24 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>uint32_t</label>
-      </node>
-      <node id="3">
-        <label>uint8_t</label>
-      </node>
       <node id="1">
         <label>ahci_fis_data_t</label>
         <link refid="structahci__fis__data__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>data</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>fis_type</edgelabel>
           <edgelabel>pmport</edgelabel>
           <edgelabel>rsv0</edgelabel>
           <edgelabel>rsv1</edgelabel>
         </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>data</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>uint32_t</label>
+      </node>
+      <node id="2">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ahci.h" line="88" column="1" bodyfile="include/ahci.h" bodystart="88" bodyend="99"/>

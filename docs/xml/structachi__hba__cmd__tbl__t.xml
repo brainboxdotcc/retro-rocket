@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="structachi__hba__cmd__tbl__t" kind="struct" language="C++" prot="public">
     <compoundname>achi_hba_cmd_tbl_t</compoundname>
     <includes local="no">ahci.h</includes>
@@ -9,6 +9,7 @@
         <definition>uint8_t achi_hba_cmd_tbl_t::cfis[64]</definition>
         <argsstring>[64]</argsstring>
         <name>cfis</name>
+        <qualifiedname>achi_hba_cmd_tbl_t::cfis</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +23,7 @@
         <definition>uint8_t achi_hba_cmd_tbl_t::acmd[16]</definition>
         <argsstring>[16]</argsstring>
         <name>acmd</name>
+        <qualifiedname>achi_hba_cmd_tbl_t::acmd</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -35,6 +37,7 @@
         <definition>uint8_t achi_hba_cmd_tbl_t::rsv[48]</definition>
         <argsstring>[48]</argsstring>
         <name>rsv</name>
+        <qualifiedname>achi_hba_cmd_tbl_t::rsv</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -48,6 +51,7 @@
         <definition>ahci_hba_prdt_entry_t achi_hba_cmd_tbl_t::prdt_entry[1]</definition>
         <argsstring>[1]</argsstring>
         <name>prdt_entry</name>
+        <qualifiedname>achi_hba_cmd_tbl_t::prdt_entry</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -66,24 +70,18 @@
         <label>achi_hba_cmd_tbl_t</label>
         <link refid="structachi__hba__cmd__tbl__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>prdt_entry</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
           <edgelabel>acmd</edgelabel>
           <edgelabel>cfis</edgelabel>
           <edgelabel>rsv</edgelabel>
         </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>prdt_entry</edgelabel>
+        </childnode>
       </node>
       <node id="3">
-        <label>uint32_t</label>
-      </node>
-      <node id="4">
-        <label>uint8_t</label>
-      </node>
-      <node id="2">
         <label>ahci_hba_prdt_entry_t</label>
         <link refid="structahci__hba__prdt__entry__t"/>
-        <childnode refid="3" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>dba</edgelabel>
           <edgelabel>dbau</edgelabel>
           <edgelabel>dbc</edgelabel>
@@ -91,6 +89,12 @@
           <edgelabel>rsv0</edgelabel>
           <edgelabel>rsv1</edgelabel>
         </childnode>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="2">
+        <label>uint8_t</label>
       </node>
     </collaborationgraph>
     <location file="include/ahci.h" line="291" column="1" bodyfile="include/ahci.h" bodystart="292" bodyend="304"/>
