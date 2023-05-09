@@ -766,3 +766,20 @@ void point_statement(struct basic_ctx* ctx);
 void draw_line_statement(struct basic_ctx* ctx);
 void gcol_statement(struct basic_ctx* ctx);
 void rectangle_statement(struct basic_ctx* ctx);
+
+/* Console functions */
+int64_t basic_get_text_max_x(struct basic_ctx* ctx);
+int64_t basic_get_text_max_y(struct basic_ctx* ctx);
+int64_t basic_get_text_cur_x(struct basic_ctx* ctx);
+int64_t basic_get_text_cur_y(struct basic_ctx* ctx);
+char* basic_inkey(struct basic_ctx* ctx);
+int64_t basic_ctrlkey(struct basic_ctx* ctx);
+int64_t basic_shiftkey(struct basic_ctx* ctx);
+int64_t basic_altkey(struct basic_ctx* ctx);
+int64_t basic_capslock(struct basic_ctx* ctx);
+void input_statement(struct basic_ctx* ctx);
+void cls_statement(struct basic_ctx* ctx);
+void gotoxy_statement(struct basic_ctx* ctx);
+void print_statement(struct basic_ctx* ctx);
+void colour_statement(struct basic_ctx* ctx, int tok);
+void background_statement(struct basic_ctx* ctx);
