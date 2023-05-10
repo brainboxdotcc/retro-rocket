@@ -591,6 +591,11 @@ char* basic_csd(struct basic_ctx* ctx);
 char* basic_cpugetbrand(struct basic_ctx* ctx);
 char* basic_cpugetvendor(struct basic_ctx* ctx);
 char* basic_intoasc(struct basic_ctx* ctx);
+char* basic_ljust(struct basic_ctx* ctx);
+char* basic_rjust(struct basic_ctx* ctx);
+char* basic_ltrim(struct basic_ctx* ctx);
+char* basic_rtrim(struct basic_ctx* ctx);
+char* basic_trim(struct basic_ctx* ctx);
 
 /*
  * File I/O functions

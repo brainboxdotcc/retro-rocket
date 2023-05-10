@@ -190,3 +190,98 @@ int64_t basic_len(struct basic_ctx* ctx)
 	return strlen(strval);
 }
 
+char* basic_ljust(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t width = intval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* fillString = strval;
+	PARAMS_END("LJUST$", "");
+	if (strlen(fillString) < 1) {
+		tokenizer_error_print(ctx, "No fill character");
+		return "";
+	}
+	char fillChar = fillString[0];
+	int64_t targetLength = strlen(target);
+	int64_t resultLength = width > targetLength ? width : targetLength;
+	char* mresult = kmalloc(resultLength);
+	memcpy(mresult, target, targetLength + 1);
+	memset(mresult + targetLength, fillChar, resultLength - targetLength);
+	mresult[resultLength] = '\0';
+	char* result = gc_strdup(mresult);
+	kfree(mresult);
+	return result;
+}
+
+char* basic_rjust(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t width = intval;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* fillString = strval;
+	PARAMS_END("RJUST$", "");
+	if (strlen(fillString) < 1) {
+		tokenizer_error_print(ctx, "No fill character");
+		return "";
+	}
+	char fillChar = fillString[0];
+	int64_t targetLength = strlen(target);
+	if (width <= targetLength) {
+		return gc_strdup(target);
+	}
+	int64_t resultLength = width > targetLength ? width : targetLength;
+	char* mresult = kmalloc(resultLength);
+	memset(mresult, fillChar, resultLength - targetLength);
+	memcpy(mresult + resultLength - targetLength, target, targetLength);
+	mresult[resultLength] = '\0';
+	char* result = gc_strdup(mresult);
+	kfree(mresult);
+	return result;
+}
+
+char* basic_ltrim(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = strval;
+	PARAMS_END("LTRIM$", "");
+	while (isspace(*target)) {
+		++target;
+	}
+	return gc_strdup(target);
+}
+
+char* basic_rtrim(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = gc_strdup(strval);
+	PARAMS_END("RTRIM$", "");
+	int64_t lastIndex;
+	while (isspace(target[lastIndex = strlen(target) - 1])) {
+		target[lastIndex] = '\0';
+	}
+	return target;
+}
+
+char* basic_trim(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = gc_strdup(strval);
+	PARAMS_END("TRIM$", "");
+	while (isspace(*target)) {
+		++target;
+	}
+	int64_t lastIndex;
+	while (isspace(target[lastIndex = strlen(target) - 1])) {
+		target[lastIndex] = '\0';
+	}
+	return target;
+}

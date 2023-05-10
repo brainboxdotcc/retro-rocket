@@ -85,6 +85,11 @@ struct basic_str_fn builtin_str[] =
 	{ basic_cpugetvendor,        "CPUGETVENDOR$" },
 	{ basic_intoasc,             "INTOASC$"      },
 	{ basic_getvar_string,       "GETVARS$"      },
+	{ basic_ljust,               "LJUST$"        },
+	{ basic_rjust,               "RJUST$"        },
+	{ basic_ltrim,               "LTRIM$"        },
+	{ basic_rtrim,               "RTRIM$"        },
+	{ basic_trim,                "TRIM$"         },
 	{ NULL,                      NULL            }
 };
 
