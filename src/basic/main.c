@@ -746,6 +746,12 @@ void statement(struct basic_ctx* ctx)
 			return library_statement(ctx);
 		case YIELD:
 			return yield_statement(ctx);
+		case SETVARI:
+			return setvari_statement(ctx);
+		case SETVARR:
+			return setvarr_statement(ctx);
+		case SETVARS:
+			return setvars_statement(ctx);
 		case LET:
 			accept_or_return(LET, ctx);
 			/* Fall through. */

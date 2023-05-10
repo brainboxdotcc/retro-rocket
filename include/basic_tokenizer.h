@@ -126,6 +126,9 @@
 	T(CHDIR) \
 	T(LIBRARY) \
 	T(YIELD) \
+	T(SETVARI) \
+	T(SETVARR) \
+	T(SETVARS) \
 	T(MOUNT)
 
 /*

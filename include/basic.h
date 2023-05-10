@@ -806,3 +806,16 @@ int64_t basic_getprocid(struct basic_ctx* ctx);
 char* basic_getprocname(struct basic_ctx* ctx);
 int64_t basic_getprocparent(struct basic_ctx* ctx);
 int64_t basic_getproccpuid(struct basic_ctx* ctx);
+
+/* Reflection stuff */
+int64_t basic_getvar_int(struct basic_ctx* ctx);
+void basic_getvar_real(struct basic_ctx* ctx, double* res);
+char* basic_getvar_string(struct basic_ctx* ctx);
+
+int64_t basic_existsvar_int(struct basic_ctx* ctx);
+int64_t basic_existsvar_real(struct basic_ctx* ctx);
+int64_t basic_existsvar_string(struct basic_ctx* ctx);
+
+void setvari_statement(struct basic_ctx* ctx);
+void setvarr_statement(struct basic_ctx* ctx);
+void setvars_statement(struct basic_ctx* ctx);
