@@ -43,7 +43,7 @@ char* strchr(const char *s, int c)
 {
 	for (; *s; ++s) {
 		if (*s == c) {
-			return (char *)s;
+			return (char*) s;
 		}
 	}
 	return NULL;
@@ -72,7 +72,7 @@ char tolower(char low) {
 int strnicmp(const char* s1, const char* s2, uint32_t n)
 {
 	if (n == 0)
-		return (0);
+		return 0;
 	do {
 		if (toupper(*s1) != toupper(*s2++))
 			return (*(const unsigned char *)s1 - *(const unsigned char *)(s2 - 1));
@@ -114,7 +114,7 @@ uint64_t hextoint(const char* n1)
 				} else {
 					result += (digit - 48) * fact;
 				}
-				fact = fact << 4;
+				fact <<= 4;
 			} else {
 				return 0;
 			}
@@ -178,7 +178,7 @@ uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
 		while (*s++);
 	}
 
-	return(s - src - 1); /* count does not include NUL */
+	return s - src - 1; /* count does not include NUL */
 }
 
 int isalnum(const char x)
@@ -198,19 +198,19 @@ bool isspace(const char x)
 
 char* strdup(const char* string)
 {
-	uint32_t siz = strlen(string) + 1;
-	char* result = kmalloc(siz);
-	strlcpy(result, string, siz);
-	*(result+siz) = 0;
+	uint32_t len = strlen(string) + 1;
+	char* result = kmalloc(len);
+	strlcpy(result, string, len);
+	*(result + len) = 0;
 	return result;
 }
 
 char* gc_strdup(const char* string)
 {
-	uint32_t siz = strlen(string) + 1;
-	char* result = kmalloc(siz);
-	strlcpy(result, string, siz);
-	*(result+siz) = 0;
+	uint32_t len = strlen(string) + 1;
+	char* result = kmalloc(len);
+	strlcpy(result, string, len);
+	*(result + len) = 0;
 
 	if (gc_list == NULL) {
 		gc_list = kmalloc(sizeof(struct gc_str));
@@ -231,7 +231,7 @@ int gc()
 	struct gc_str* cur = gc_list;
 	int n = 0;
 	for (; cur; cur = cur->next) {
-		n++;
+		++n;
 		kfree(cur->ptr);
 		kfree(cur);
 	}
@@ -247,12 +247,12 @@ bool atof(const char* s, double* a)
 	int e = 0;
 	int c;
 	while ((c = *s++) != '\0' && isdigit(c)) {
-		(*a) = (*a)*10.0 + (c - '0');
+		(*a) = (*a) * 10.0 + (c - '0');
 	}
 	if (c == '.') {
 		while ((c = *s++) != '\0' && isdigit(c)) {
-			(*a) = (*a)*10.0 + (c - '0');
-			e = e-1;
+			(*a) = (*a) * 10.0 + (c - '0');
+			--e;
 		}
 	}
 	if (c == 'e' || c == 'E') {
@@ -266,18 +266,18 @@ bool atof(const char* s, double* a)
 			sign = -1;
 		}
 		while (isdigit(c)) {
-			i = i*10 + (c - '0');
+			i = i * 10 + (c - '0');
 			c = *s++;
 		}
-		e += i*sign;
+		e += i * sign;
 	}
 	while (e > 0) {
 		(*a) *= 10.0;
-		e--;
+		--e;
 	}
 	while (e < 0) {
 		(*a) *= 0.1;
-		e++;
+		++e;
 	}
 	return true;
 }
@@ -289,7 +289,7 @@ int atoi(const char *s)
 	char neg = 0;	      /* set to true if we see a minus sign */
 
 	/* skip whitespace */
-	while (*s==' ' || *s=='\t') {
+	while (*s == ' ' || *s == '\t') {
 		s++;
 	}
 
@@ -379,7 +379,7 @@ int64_t atoll(const char *s, int radix)
 		val = val * radix + digit;
 
 		/* look at the next character */
-		s++;
+		++s;
 	}
        
 	/* handle negative numbers (decimal only) */
@@ -399,12 +399,12 @@ uint64_t atoull(const char *s)
 	uint64_t val=0;	 /* value we're accumulating */
 
 	/* skip whitespace */
-	while (*s==' ' || *s=='\t') {
-		s++;
+	while (*s == ' ' || *s == '\t') {
+		++s;
 	}
 
-	if (*s=='+') {
-		s++;
+	if (*s == '+') {
+		++s;
 	}
 
 	/* process each digit */
@@ -414,21 +414,21 @@ uint64_t atoull(const char *s)
 		
 		/* look for the digit in the list of digits */
 		where = strchr(digits, *s);
-		if (where==NULL) {
+		if (where == NULL) {
 			/* not found; not a digit, so stop */
 			break;
 		}
 
 		/* get the index into the digit list, which is the value */
-		digit = (where - digits);
+		digit = where - digits;
 
 		/* could (should?) check for overflow here */
 
 		/* shift the number over and add in the new digit */
-		val = val*10 + digit;
+		val = val * 10 + digit;
 
 		/* look at the next character */
-		s++;
+		++s;
 	}
        
 	/* done */
