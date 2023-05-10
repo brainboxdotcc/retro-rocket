@@ -9,17 +9,17 @@
  * and multiply it by this factor.
  */
 static int64_t mul[] = {
-        1,              // 0 decimals
-        10,             // 1 decimal
-        100,            // 2 decimals
-        1000,           // 3 decimals
-        10000,          // 4 decimals
-        100000,         // 5 decimals
-        1000000,        // 6 decimals
-        10000000,       // 7 decimals
-        100000000,      // 8 decimals
-        1000000000,     // 9 decimals
-        10000000000,    // 10 decimals
+	1,              // 0 decimals
+	10,             // 1 decimal
+	100,            // 2 decimals
+	1000,           // 3 decimals
+	10000,          // 4 decimals
+	100000,         // 5 decimals
+	1000000,        // 6 decimals
+	10000000,       // 7 decimals
+	100000000,      // 8 decimals
+	1000000000,     // 9 decimals
+	10000000000,    // 10 decimals
 };
 
 uint8_t double_determine_decimal_places(double f)
@@ -55,7 +55,7 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 		snprintf(buffer_part, 64, "%llu", integer_part);
 		int64_t whole_len = strlen(buffer);
 		int64_t integer_len = strlen(buffer_part);
-		bool move_decimal = whole == 0;
+		bool move_decimal = !whole;
 		index = buffer_part;
 		if (neg) *p++ = '-';
 		if (move_decimal) {
@@ -103,8 +103,8 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 			char* dec_ptr = decimal_pos + 1;
 			uint8_t number_decimals = 0;
 			while (*dec_ptr) {
-				number_decimals++;
-				dec_ptr++;
+				++number_decimals;
+				++dec_ptr;
 			}
 			if (number_decimals > precision) {
 				// more decimal than precision, cut it off
