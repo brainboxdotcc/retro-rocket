@@ -15,12 +15,12 @@ static uint32_t ioapic_gsi_base[256] = { 0 };
 static uint8_t ioapic_gsi_count[256] = { 0 };
 
 rsdp_t* get_rsdp() {
-	return (rsdp_t*)rsdp_request.response->address;
+	return (rsdp_t*) rsdp_request.response->address;
 }
 
 sdt_header_t* get_sdt_header() {
 	rsdp_t* rsdp = get_rsdp();
-	return (sdt_header_t*)(uint64_t)rsdp->rsdt_address;
+	return (sdt_header_t*) (uint64_t) rsdp->rsdt_address;
 }
 
 uint8_t* get_lapic_ids()
@@ -35,7 +35,7 @@ uint16_t get_cpu_count()
 
 uint64_t get_local_apic()
 {
-	return (uint64_t)lapic_ptr;
+	return (uint64_t) lapic_ptr;
 }
 
 uint16_t get_ioapic_count()
@@ -65,18 +65,18 @@ void init_cores()
 	numioapic = 0;
 
 	// Iterate on ACPI table pointers
-	for(len = *((uint32_t*)(rsdt + 4)), ptr2 = rsdt + 36; ptr2 < rsdt + len; ptr2 += rsdt[0]=='X' ? 8 : 4) {
+	for (len = *((uint32_t*)(rsdt + 4)), ptr2 = rsdt + 36; ptr2 < rsdt + len; ptr2 += rsdt[0]=='X' ? 8 : 4) {
 		ptr = (uint8_t*)(uint64_t)(rsdt[0]=='X' ? *((uint64_t*)ptr2) : *((uint32_t*)ptr2));
-		if(*ptr == 'A' && *(ptr + 1) == 'P' && *(ptr + 2) == 'I' && *(ptr + 3) == 'C') {
+		if (*ptr == 'A' && *(ptr + 1) == 'P' && *(ptr + 2) == 'I' && *(ptr + 3) == 'C') {
 			// found MADT
 			lapic_ptr = (uint64_t)(*((uint32_t*)(ptr + 0x24)));
 			kprintf("Detected: 32-Bit Local APIC [base: %llx]\n", lapic_ptr);
 			ptr2 = ptr + *((uint32_t*)(ptr + 4));
 			// iterate on variable length records
-			for(ptr += 44; ptr < ptr2; ptr += ptr[1]) {
-				switch(ptr[0]) {
+			for (ptr += 44; ptr < ptr2; ptr += ptr[1]) {
+				switch (ptr[0]) {
 					case 0:
-						if(ptr[4] & 1) {
+						if (ptr[4] & 1) {
 							lapic_ids[numcore++] = ptr[3];
 						}
 					break; // found Processor Local APIC

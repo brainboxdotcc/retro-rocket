@@ -25,9 +25,9 @@ static int64_t mul[] = {
 uint8_t double_determine_decimal_places(double f)
 {
         int prec = 0;
-        while (prec < 10 && ((f-(int64_t)f) != 0.0 || f < 1)) {
+        while (prec < 10 && ((f - (int64_t) f) != 0.0 || f < 1)) {
                 f *= 10.0;
-                prec++;
+                ++prec;
         }
         return prec + 1;
 }
@@ -38,7 +38,7 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 	char buffer[64], buffer_part[64];
 	char* index = buffer, *start = p, *decimal_pos = NULL;
 	if (x == 0) {
-		*(p++) = '0';
+		*p++ = '0';
 		*p = 0;
 	} else {
 		uint8_t decimals = double_determine_decimal_places(x);
@@ -55,34 +55,31 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 		snprintf(buffer_part, 64, "%llu", integer_part);
 		int64_t whole_len = strlen(buffer);
 		int64_t integer_len = strlen(buffer_part);
-		bool move_decimal = false;
-		if (whole == 0) {
-			move_decimal = true;
-		}
+		bool move_decimal = whole == 0;
 		index = buffer_part;
-		if (neg) *(p++) = '-';
+		if (neg) *p++ = '-';
 		if (move_decimal) {
-			*(p++) = '0';
+			*p++ = '0';
 			decimal_pos = p;
-			*(p++) = '.';
+			*p++ = '.';
 			for (int64_t n = 0; n < (decimals - integer_len > 0 ? decimals - integer_len : 0); ++n) {
-				*(p++) = '0';
+				*p++ = '0';
 			}
 			for (int64_t n = 0; *index && n < len - 1; ++index, ++n) {
-				*(p++) = *index;
+				*p++ = *index;
 			}
 		} else {
 			for (int64_t n = 0; n < integer_len && n < len - 1; ++index, ++n) {
-				*(p++) = *index;
+				*p++ = *index;
 				if (n == whole_len - 1) {
 					decimal_pos = p;
-					*(p++) = '.';
+					*p++ = '.';
 				}
 			}
 		}
 		*p = 0;
 		// Remove any trailing 0's
-		while (p != start && *(--p) == '0') {
+		while (p != start && *--p == '0') {
 			*p = 0;
 		}
 		// Remove trailing "."
@@ -96,9 +93,9 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 	if (precision > 0) {
 		if (decimal_pos == NULL) {
 			// No decimal part is in the number, add one with trailing zeroes
-			*(p++) = '.';
+			*p++ = '.';
 			for (int j = 0; j < precision; ++j) {
-				*(p++) = '0';
+				*p++ = '0';
 			}
 			*p = 0;
 		} else {
@@ -115,9 +112,8 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 			} else {
 				// Less decomals than precision, add more
 				while (number_decimals < precision) {
-					*dec_ptr = '0';
-					dec_ptr++;
-					number_decimals++;
+					*dec_ptr++ = '0';
+					++number_decimals;
 				}
 				*dec_ptr = 0;
 			}

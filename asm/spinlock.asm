@@ -8,20 +8,20 @@ global get_lapic_address
 
 ; Set the byte in the address pointed at by rdi (first integer param) to 0.
 init_spinlock:
-	mov dword [rdi], 0
+	and dword [rdi], 0
 	ret
 
 ; Lock the spinlock at address pointed to by rdi
 lock_spinlock:
-	lock bts dword [rdi],0        ;Attempt to acquire the lock (in case lock is uncontended)
+	lock bts dword [rdi], 0        ; Attempt to acquire the lock (in case lock is uncontended)
 	jnc .acquired
  
 .retest:
 	pause
-	test dword [rdi], 1      ;Is the lock free?
+	test dword [rdi], 1      ; Is the lock free?
 	je .retest               ; no, wait
  
-	lock bts dword [rdi],0        ;Attempt to acquire the lock
+	lock bts dword [rdi], 0        ; Attempt to acquire the lock
 	jc .retest
  
 .acquired:
@@ -29,7 +29,7 @@ lock_spinlock:
 
 ; Unlock the spinlock at address pointd to by rdi
 unlock_spinlock:
-	mov dword [rdi], 0
+	and dword [rdi], 0
 	ret
 
 get_lapic_address:
@@ -42,3 +42,6 @@ get_lapic_address:
     pop rax
     pop rcx
     ret
+
+; make linker silent
+section .note.GNU-stack

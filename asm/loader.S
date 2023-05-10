@@ -72,7 +72,7 @@ interrupt_gate_loop:
 
 	retq
 
-// These macros are based on JamesM's macros for 32 bit interrupt handlers.
+// "These macros are based on JamesM's macros for 32 bit interrupt handlers."
 // I have refactored them to use amd64 ABI instead of the stack for parameter passing.
 
 // An ISR with no error code
@@ -284,3 +284,4 @@ exception_handlers:
 .data
 
 
+.section .note.GNU-stack

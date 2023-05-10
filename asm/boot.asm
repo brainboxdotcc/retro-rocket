@@ -33,3 +33,5 @@ boot_bsp:
 
 section .data
 
+; make linker silent
+section .note.GNU-stack

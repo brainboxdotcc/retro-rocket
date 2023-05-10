@@ -136,7 +136,36 @@ void print_heapinfo()
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	kprintf("HEAP: ");
 	setforeground(current_console, COLOUR_WHITE);
-	kprintf("Best fit; start=0x%llx length=%ldMB\n", heapstart, heaplen / 1048576);
+	static const uint64_t unit_factor = 1024;
+	static const char* units[] = {
+		"B",
+		"K",
+		"M",
+		"G",
+		"T",
+		"P",
+		"E",
+		NULL
+	};
+	uint64_t fheaplen = heaplen;
+	const char* unit = "";
+	const char** unitp = &units[0];
+	while (*unitp != NULL) {
+		uint64_t new_fheaplen = fheaplen / unit_factor;
+		if (new_fheaplen == 0) {
+			unit = *unitp;
+			break;
+		}
+		fheaplen = new_fheaplen;
+		++unitp;
+	}
+	kprintf(
+		"Best fit; start=0x%llx length=%ld%s (%ld bytes, %ld MB)\n",
+		heapstart,
+		fheaplen,
+		unit,
+		heaplen,
+		heaplen / (unit_factor * unit_factor));
 }
 
 
@@ -683,21 +712,22 @@ void* kcalloc(size_t num, size_t size)
 void* krealloc(void* ptr, size_t new_size)
 {
 	void* new_ptr = kmalloc(new_size);
-	if (new_ptr) {
-		/* allocate a new memory block of size new_size bytes,
-		 * copy memory area from old to new, and free the old block.
-		 * It is faster to not obtain the old size, and safe to do so, as both addresses
-		 * fall within our heap and are safe to use if the new allocation succeeded.
-		 */
-		if (ptr) {
-			/* If NULL is passed in as the old ptr, this acts just like malloc */
-			memcpy(new_ptr, ptr, new_size);
-			kfree(ptr);
-		}
+	if (new_ptr == NULL) {
+		/* If there is not enough memory, the old memory block is not freed and null pointer is returned */
+		return NULL;
+	}
+	/* allocate a new memory block of size new_size bytes,
+	 * copy memory area from old to new, and free the old block.
+	 * It is faster to not obtain the old size, and safe to do so, as both addresses
+	 * fall within our heap and are safe to use if the new allocation succeeded.
+	 */
+	if (ptr == NULL) {
+		/* If NULL is passed in as the old ptr, this acts just like malloc */
 		return new_ptr;
 	}
-	/* If there is not enough memory, the old memory block is not freed and null pointer is returned */
-	return NULL;
+	memcpy(new_ptr, ptr, new_size);
+	kfree(ptr);
+	return new_ptr;
 }
 
 uint32_t kmalloc_low(uint32_t size)

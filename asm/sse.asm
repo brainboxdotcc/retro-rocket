@@ -21,11 +21,11 @@ enable_fpu:
 enable_sse:
 	mov eax, 0x1
 	cpuid
-	test edx, 1<<25
+	test edx, 1 << 25
 	jz no_sse
-	test edx, 1<<26
+	test edx, 1 << 26
 	jz no_sse
-	;SSE is available
+	; SSE is available
 	mov rax, cr4
 	bts rax, 9
 	bts rax, 10
@@ -38,3 +38,6 @@ no_sse:
 	mov al, 'F'
 	out 0xE9, al
 	ret
+
+; make linker silent
+section .note.GNU-stack
