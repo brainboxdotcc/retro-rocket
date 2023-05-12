@@ -195,6 +195,9 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	}
 	int i;
 
+	ctx->debug_status = 0;
+	ctx->debug_breakpoints = NULL;
+	ctx->debug_breakpoint_count = 0;
 	ctx->if_nest_level = 0;
 	ctx->errored = false;
 	ctx->current_token = ERROR;
@@ -380,14 +383,19 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->double_array_variables = old->double_array_variables;
 	ctx->lines = old->lines;
 	ctx->highest_line = old->highest_line;
+	ctx->debug_status = old->debug_status;
+	ctx->debug_breakpoints = old->debug_breakpoints;
+	ctx->debug_breakpoint_count = old->debug_breakpoint_count;
 
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
 		ctx->local_int_variables[i] = old->local_int_variables[i];
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
+	}
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
 		ctx->local_string_variables[i] = old->local_string_variables[i];
-	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
+	}
+	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
 		ctx->local_double_variables[i] = old->local_double_variables[i];
-
+	}
 	for (i = 0; i < MAX_LOOP_STACK_DEPTH; i++) {
 		ctx->for_stack[i] = old->for_stack[i];
 		ctx->repeat_stack[i] = old->repeat_stack[i];

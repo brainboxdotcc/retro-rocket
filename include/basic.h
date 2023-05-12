@@ -201,6 +201,11 @@ typedef struct g_cpuid_vendor {
 	char const* vendor;
 } g_cpuid_vendor_t;
 
+
+#define DEBUG_BREAK	1
+#define DEBUG_STEP	2
+#define DEBUG_TRACE	4
+
 /**
  * @brief BASIC program context.
  * Every instance of a BASIC program has one of these,* also certain structures
@@ -246,6 +251,18 @@ typedef struct basic_ctx {
 	 * unneccesary spacing etc.
 	 */
 	char* program_ptr;
+	/**
+	 * @brief Debug status, with values as of above, e.g. DEBUG_*
+	 */
+	uint8_t debug_status;
+	/**
+	 * @brief Active debug breakpoints (line numbers)
+	 */
+	uint64_t* debug_breakpoints;
+	/**
+	 * @brief Number of active breakpoints
+	 */
+	uint64_t debug_breakpoint_count;
 	/**
 	 * @brief A context-local string buffer used for parsing function/procedure
 	 * parameter lists.

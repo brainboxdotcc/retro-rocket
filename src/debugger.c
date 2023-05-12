@@ -51,22 +51,32 @@ void gdb_query(uint32_t src_ip, uint16_t src_port, const char* command)
 	dprintf("GDB qcmd: '%s' '%s'\n", cmd_first, rest);
 	if (strcmp(cmd_first, "qSupported") == 0) {
 		//gdb_send_packet(src_ip, src_port, "$QSupported:multiprocess+;qXfer:exec-file:read;swbreak+;hwbreak+;fork-events+;exec-events+;vContSupported+;no-resumed+;memory-tagging+;xmlRegisters=i386");
-		gdb_send_packet(src_ip, src_port, "$PacketSize=1000;qXfer:features:read+;qXfer:exec-file:read+;vContSupported+;multiprocess+");
+		gdb_send_packet(src_ip, src_port, "$PacketSize=1000;QNonStop-;QDisableRandomization+;qXfer:threads:read+;qXfer:features:read-;qXfer:exec-file:read+;vContSupported+;multiprocess+");
 	} else if (strcmp(cmd_first, "qTStatus") == 0) {
-		gdb_send_packet(src_ip, src_port, "$T0;tnotrun:0");
+		// Thread status
+		gdb_send_packet(src_ip, src_port, "$T0;tnotrun:0;tframes:0;tcreated:0;tfree:50*!;tsize:50*!;circular:0;disconn:0;starttime:0;stoptime:0;username:;notes::");
 	} else if (strcmp(cmd_first, "qTfV") == 0 || strcmp(cmd_first, "qTsV") == 0) {
-		// index:value:isbuiltin:name-hex
+		// get list of trace vars
+		gdb_send_packet(src_ip, src_port, "$l");
+	} else if (strcmp(cmd_first, "qTfP") == 0 || strcmp(cmd_first, "qTsP") == 0) {
+		// get list of tracepoints
 		gdb_send_packet(src_ip, src_port, "$l");
 	} else if (strcmp(cmd_first, "qfThreadInfo") == 0) {
 		/* Thread ID list */
 		gdb_send_packet(src_ip, src_port, "$m1,2,3,4,5");
 	} else if (strcmp(cmd_first, "qsThreadInfo") == 0) {
 		gdb_send_packet(src_ip, src_port, "$l");
+	} else if (strcmp(cmd_first, "qAttached") == 0) {
+		// 1 if attached successfully to process, 0 if started a new process, Exx on error
+		gdb_send_packet(src_ip, src_port, "$1");
+	} else if (strcmp(cmd_first, "qC") == 0) {
+		// Return current thread id
+		gdb_send_packet(src_ip, src_port, "$QCp1.1");
 	} else if (strcmp(cmd_first, "qXfer") == 0) {
 		if (!strncmp(rest, ":exec-file:read:", 16)) {
-			// :exec-file:read::0,ffb
-			//                 ^ PID or empty
 			gdb_send_packet(src_ip, src_port, "$l/programs/init");
+		} else if (!strncmp(rest, ":threads:read:", 14)) {
+			gdb_send_packet(src_ip, src_port, "$l<threads><thread id=\"p1.1\" core=\"0\" name=\"/programs/init\"/></threads>");
 		}
 	}
 }
@@ -77,13 +87,16 @@ void gdb_variable_command(uint32_t src_ip, uint16_t src_port, const char* comman
 	int x = 0;
 	const char* p = command;
 	const char* rest = NULL;
-	while (*p && *p != ';' && *p != '?') {
+	while (*p && *p != ';' && *p != '?' && *p != ':') {
 		cmd_first[x++] = *p++;
 	}
 	cmd_first[x] = 0;
 	rest = p;
 	dprintf("GDB vcmd: '%s' '%s'\n", cmd_first, rest);
 	if (strcmp(cmd_first, "vMustReplyEmpty") == 0) {
+		gdb_send_packet(src_ip, src_port, "$");
+	} else if (strcmp(cmd_first, "vFile") == 0) {
+		// Host I/O: Not currently supported as it tries to download current executable!
 		gdb_send_packet(src_ip, src_port, "$");
 	}
 }
@@ -99,7 +112,33 @@ void gdb_set_thread(uint32_t src_ip, uint16_t src_port, const char* command)
 
 void gdb_status_query(uint32_t src_ip, uint16_t src_port, const char* command)
 {
-	gdb_send_packet(src_ip, src_port, "$S02thread:p01.01");
+	gdb_send_packet(src_ip, src_port, "$S01thread:p1.1");
+}
+
+void gdb_regs(uint32_t src_ip, uint16_t src_port, const char* command)
+{
+	gdb_send_packet(src_ip, src_port, "$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+}
+
+void gdb_reg(uint32_t src_ip, uint16_t src_port, const char* command)
+{
+	if (*(command + 1) == '8') {
+		/* Program counter */
+		gdb_send_packet(src_ip, src_port, "$00000010");
+		return;
+	}
+	gdb_send_packet(src_ip, src_port, "$xxxxxxxx");
+}
+
+void gdb_mem(uint32_t src_ip, uint16_t src_port, const char* command)
+{
+	uint64_t count = hextoint(strchr(command + 1, ',') + 1);
+	char out[count * 2 + 2];
+	memset(out, '0', count * 2 + 2);
+	out[count * 2 + 1] = 0;
+	out[0] = '$';
+	dprintf("MEM (%d): %s\n", strlen(out), out);
+	gdb_send_packet(src_ip, src_port, out);
 }
 
 void gdb_command(uint32_t src_ip, uint16_t src_port, const char* command)
@@ -115,6 +154,12 @@ void gdb_command(uint32_t src_ip, uint16_t src_port, const char* command)
 			return gdb_set_thread(src_ip, src_port, command);
 		case '?':
 			return gdb_status_query(src_ip, src_port, command);
+		case 'g':
+			return gdb_regs(src_ip, src_port, command);
+		case 'p':
+			return gdb_reg(src_ip, src_port, command);
+		case 'm':
+			return gdb_mem(src_ip, src_port, command);
 	}
 }
 
