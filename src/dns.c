@@ -152,7 +152,7 @@ static int dns_make_payload(const char * const name, const uint8_t rr, const uns
  * @param data raw packet data
  * @param length length of packet
  */
-void dns_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, uint32_t length) {
+void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, uint32_t length) {
 	dns_header_t* packet = (dns_header_t*)data;
 	uint16_t inbound_id = ntohs(packet->id);
 	dns_request_t findrequest = { .id = inbound_id };

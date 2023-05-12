@@ -3,8 +3,7 @@
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @copyright Copyright (c) 2012-2023
  */
-#ifndef __DEBUGGER_H__
-#define __DEBUGGER_H__
+#pragma once
 
 #define SYM_ABSOLUTE 'A'
 #define SYM_BSS 'B'
@@ -36,6 +35,8 @@ typedef struct stack_frame {
 	void *addr;
 } stack_frame_t;
 
+#define DEBUG_DST_PORT 2000
+
 /**
  * @brief print the contents of the specified memory address in hexadecimal
  * format along with the corresponding ASCII characters. The function achieves
@@ -55,4 +56,5 @@ void backtrace();
 
 symbol_t* get_sym_table();
 
-#endif
+bool set_debug_signal(bool status);
+bool get_debug_signal();

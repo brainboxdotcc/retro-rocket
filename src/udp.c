@@ -25,14 +25,16 @@ void udp_send_packet(uint8_t * dst_ip, uint16_t src_port, uint16_t dst_port, voi
 void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t* packet, size_t len) {
 	//uint16_t src_port = ntohs(packet->src_port);
 	uint16_t dst_port = ntohs(packet->dst_port);
+	uint16_t src_port = ntohs(packet->src_port);
 	uint16_t length = ntohs(packet->length);
+	uint32_t src_ip = ntohl(*(uint32_t*)(encap_packet->src_ip));
 
 	void * data_ptr = (void*)packet + sizeof(udp_packet_t);
 	uint32_t data_len = length;
 	//dump_hex(packet, length + sizeof(udp_packet_t));
 
 	if (daemons[dst_port] != NULL) {
-		daemons[dst_port](dst_port, data_ptr, data_len);
+		daemons[dst_port](src_ip, src_port, dst_port, data_ptr, data_len);
 	}
 }
 

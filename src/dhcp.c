@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-void dhcp_handle_packet([[maybe_unused]] uint16_t dst_port, void* data, [[maybe_unused]] uint32_t length) {
+void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void* data, [[maybe_unused]] uint32_t length) {
 	dhcp_packet_t* packet = (dhcp_packet_t*)data;
 	if(packet->op == DHCP_REPLY) {
 		uint8_t* type = get_dhcp_options(packet, OPT_TYPE);

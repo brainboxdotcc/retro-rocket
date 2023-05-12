@@ -68,7 +68,7 @@ function(run TARGETFILE)
 	-boot d \
 	-vnc 0.0.0.0:2 \
 	-debugcon file:debug.log \
-	-netdev user,id=netuser,hostfwd=tcp::2000-:2000 \
+	-netdev user,id=netuser,hostfwd=udp::2000-:2000 \
 	-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
 	-device rtl8139,netdev=netuser" >${OUTNAME} && chmod ugo+x ${OUTNAME}
         DEPENDS ${FILENAME})

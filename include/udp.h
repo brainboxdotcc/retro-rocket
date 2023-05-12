@@ -8,7 +8,7 @@
 #include "kernel.h"
 
 // Interrupt handler definition
-typedef void (*udp_daemon_handler)(uint16_t, void*, uint32_t);
+typedef void (*udp_daemon_handler)(uint32_t, uint16_t, uint16_t, void*, uint32_t);
 
 /**
  * @brief Raw structure for UDP
