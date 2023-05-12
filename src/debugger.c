@@ -66,7 +66,7 @@ void gdb_query(uint32_t src_ip, uint16_t src_port, const char* command)
 		if (!strncmp(rest, ":exec-file:read:", 16)) {
 			// :exec-file:read::0,ffb
 			//                 ^ PID or empty
-			gdb_send_packet(src_ip, src_port, "$m$l/programs/init");
+			gdb_send_packet(src_ip, src_port, "$l/programs/init");
 		}
 	}
 }
