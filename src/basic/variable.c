@@ -42,7 +42,6 @@ void set_system_variables(struct basic_ctx* ctx, uint32_t pid)
 	const struct g_cpuid_vendor* p = &cpuid_vendors[0];
 	while (p->varname != NULL &&
 		   p->vendor != NULL) {
-		dprintf("'%s' -> '%s'\n", p->varname, p->vendor);
 		basic_set_string_variable(p->varname, p->vendor, ctx, false, false);
 		++p;
 	}

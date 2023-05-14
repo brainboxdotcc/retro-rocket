@@ -108,3 +108,51 @@ int64_t basic_octval(struct basic_ctx* ctx)
 	return atoll(strval, 8);
 }
 
+int64_t basic_atoi(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t radix = intval;
+	PARAMS_END("RADIX", 0);
+	int64_t res = 0;
+	int err = 0;
+	if ((err = do_atoi(&res, target, radix)) >= 0) {
+		return res;
+	}
+	switch (-err) {
+	case 1:
+		tokenizer_error_print(ctx, "Invalid character");
+		break;
+	case 2:
+		tokenizer_error_print(ctx, "Empty string");
+		break;
+	case 4:
+		tokenizer_error_print(ctx, "Invalid radix");
+		break;
+	}
+	return 0;
+}
+
+int64_t basic_shl(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t x = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t y = intval;
+	PARAMS_END("SHL", 0);
+	return x << y;
+}
+
+int64_t basic_shr(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t x = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t y = intval;
+	PARAMS_END("SHL", 0);
+	return x >> y;
+}

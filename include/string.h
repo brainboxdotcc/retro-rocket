@@ -55,4 +55,9 @@ bool atof(const char* s, double* a);
 int abs(int a);
 int64_t labs(int64_t a);
 
+size_t strrev(char* s);
+
+int do_atoi(int64_t* dst, char* target, unsigned radix);
+int do_itoa(int64_t target, char* buf, unsigned radix);
+
 #endif

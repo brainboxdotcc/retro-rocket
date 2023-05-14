@@ -285,3 +285,61 @@ char* basic_trim(struct basic_ctx* ctx)
 	}
 	return target;
 }
+
+char* basic_itoa(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t target = intval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t radix = intval;
+	PARAMS_END("RADIX$", "");
+	char buffer[128] = {0};
+	int err;
+	if ((err = do_itoa(target, buffer, radix)) >= 0) {
+		return gc_strdup(buffer);
+	}
+	switch (-err) {
+	case 1:
+		tokenizer_error_print(ctx, "Invalid radix (not in range between 2 and 36)");
+		return "";
+	}
+	sprintf(buffer, "Unknown `do_itoa` error: %d", -err);
+	tokenizer_error_print(ctx, buffer);
+	return "";
+}
+
+char* basic_reverse(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = gc_strdup(strval);
+	PARAMS_END("REVERSE$", "");
+	strrev(target);
+	return target;
+}
+
+char* basic_repeat(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_STRING);
+	char* target = strval;
+	PARAMS_GET_ITEM(BIP_INT);
+	int64_t count = intval;
+	PARAMS_END("REPEAT$", "");
+	if (count < 0) {
+		return gc_strdup("");
+	}
+	int64_t targetLength = strlen(target);
+	char* tmp = kmalloc(targetLength * count + 1);
+	int64_t i;
+	char* ptr = tmp;
+	for (i = 0; i < count; ++i) {
+		memcpy(ptr, target, targetLength);
+		ptr += targetLength;
+	}
+	*ptr = '\0';
+	char* res = gc_strdup(tmp);
+	kfree(tmp);
+	return res;
+}
