@@ -33,6 +33,8 @@ void local_apic_clear_interrupt()
 
 void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 {
+	uint8_t fx[512];
+	__builtin_ia32_fxsave64(&fx);
 	for (shared_interrupt_t* si = shared_interrupt[isrnumber]; si; si = si->next) {
 		/* There is no shared interrupt routing on these interrupts,
 		 * they are purely routed to interested non-pci handlers
@@ -50,10 +52,13 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 
 	//local_apic_clear_interrupt();
 	pic_eoi(isrnumber);
+	__builtin_ia32_fxrstor64(&fx);
 }
 
 void IRQ(uint64_t isrnumber, uint64_t irqnum)
 {
+	uint8_t fx[512];
+	__builtin_ia32_fxsave64(&fx);
 	for (shared_interrupt_t* si = shared_interrupt[isrnumber]; si; si = si->next) {
 		if (si->device.bits == 0 && si->interrupt_handler) {
 			/* Not a PCI device, we just dispatch to the handler */
@@ -72,5 +77,6 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum)
 		//local_apic_clear_interrupt();
 		pic_eoi(isrnumber);
 	}
+	__builtin_ia32_fxrstor64(&fx);
 }
 

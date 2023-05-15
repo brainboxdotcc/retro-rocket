@@ -343,6 +343,9 @@ void init_debug()
 
 const char* findsymbol(uint64_t address, uint64_t* offset)
 {
+	if (!symbol_table) {
+		return NULL;
+	}
 	/* Only the bottom 32 bits of any address is respected here, because the symbol in the
 	 * sym file might be relocated (higher half) from what is the real address.
 	 */
@@ -373,11 +376,6 @@ void backtrace()
 	uint64_t page = (uint64_t) frame & 0xFFFFFFFFFFFFF000ull;
 	uint64_t offset = 0;
 	const char* name = NULL;
-
-	if (!symbol_table) {
-		kprintf("No symbols available for backtrace\n");
-		return;
-	}
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
 	setforeground(current_console, COLOUR_LIGHTGREEN);

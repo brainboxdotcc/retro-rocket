@@ -83,9 +83,11 @@ void pic_eoi(int irq)
 void init_idt()
 {
 	/* Allocate memory for IDT */
-	idt64.base = kmalloc(sizeof(idt_entry_t) * 255);
+	uint32_t base_32 = kmalloc_low(sizeof(idt_entry_t) * 255);
+	uint64_t base_64 = (uint64_t)base_32;
+	idt64.base = (idt_entry_t*)base_64;
 
-	dprintf("Allocated idt64 at %llx\n", idt64.base);
+	dprintf("Allocated idt64 at %llx\n", base_64);
 
 	/* Fill the IDT with vector addresses */
 	idt_init((idt_entry_t*)idt64.base);
@@ -103,10 +105,6 @@ void init_idt()
 		dprintf("IOAPIC redirection set %d -> %d\n", in, in + 32);
 		ioapic_redir_set(in, in + 32, 0, 0, 1, 1, 0);
 	}*/
-	for (int in = 0; in < 24; in++) {
-		// Masked, Active low, level triggered, interrupt mapped to irq + 32
-		ioapic_redir_set(in, in + 32, 0, 0, 1, 1, 1);
-	}
 
 	/* PIT timer
 	 */
@@ -119,4 +117,8 @@ void init_idt()
 	pic_remap(0x20, 0x28);
 	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
 	pic_enable();
+
+	/* Now we are safe to enable interrupts */
+	interrupts_on();
+	dprintf("Interrupts enabled!\n");
 }
