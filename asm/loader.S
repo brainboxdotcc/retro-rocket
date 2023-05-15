@@ -46,7 +46,7 @@ exception_gate_loop:
 	dec %rcx
 	jnz exception_gate_loop
 
-	mov $(64-32), %rcx
+	mov $32, %rcx
 interrupt_gate_loop:
 	mov (%r10), %rax		// Get the gate jump-table address in r10 again
 	add $8, %r10

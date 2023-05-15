@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-volatile idt_ptr_t idt64 = { sizeof(idt_entry_t) * 255, NULL };
+volatile idt_ptr_t idt64 = { sizeof(idt_entry_t) * 64, NULL };
 
 #define PIC1		0x20		/* IO base address for master PIC */
 #define PIC2		0xA0		/* IO base address for slave PIC */
@@ -83,11 +83,17 @@ void pic_eoi(int irq)
 void init_idt()
 {
 	/* Allocate memory for IDT */
-	uint32_t base_32 = kmalloc_low(sizeof(idt_entry_t) * 255);
+	uint32_t base_32 = kmalloc_low(sizeof(idt_entry_t) * 64);
 	uint64_t base_64 = (uint64_t)base_32;
 	idt64.base = (idt_entry_t*)base_64;
 
 	dprintf("Allocated idt64 at %llx\n", base_64);
+
+	init_error_handler();
+	dprintf("Register timer handler\n");
+	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
+	dprintf("Register debug\n");
+	init_debug();
 
 	/* Fill the IDT with vector addresses */
 	idt_init((idt_entry_t*)idt64.base);
@@ -115,13 +121,6 @@ void init_idt()
 	outb(0x40, (uint8_t)microsecs_divisor >> 8);
 
 	pic_remap(0x20, 0x28);
-
-	init_error_handler();
-	dprintf("Register timer handler\n");
-	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
-	dprintf("Register debug\n");
-	init_debug();
-
 	pic_enable();
 
 	/* Now we are safe to enable interrupts */

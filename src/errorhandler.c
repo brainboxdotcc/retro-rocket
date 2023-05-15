@@ -46,14 +46,14 @@ void init_error_handler()
 	dprintf("Init error handlers\n");
 }
 
-void error_handler(uint8_t int_no, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq_no, void* opaque)
+void error_handler(uint8_t int_no, uint64_t errorcode, [[maybe_unused]] uint64_t irq_no, void* opaque)
 {
 	interrupts_off();
 	setforeground(current_console, COLOUR_LIGHTWHITE);
 	setbackground(current_console, COLOUR_BLACK);
 	PANIC_BANNER;
 	setforeground(current_console, COLOUR_LIGHTRED);
-	kprintf("Fatal exception %02X: %s\n", int_no, error_table[int_no]);
+	kprintf("Fatal exception %02X (Error code %016lx): %s\n", int_no, errorcode, error_table[int_no]);
 	setforeground(current_console, COLOUR_WHITE);
 	backtrace();
 	wait_forever();

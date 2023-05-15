@@ -257,8 +257,10 @@ void symbol_fail()
 
 void init_debug()
 {
-	assert(module_request.response, "No module response!");
-	assert(module_request.response->module_count > 0, "Debug symbol module not loaded in limine.cfg");
+	if (!module_request.response || module_request.response->module_count == 0) {
+		symbol_fail();
+		return;
+	}
 	uint64_t filesize = module_request.response->modules[0]->size;
 	unsigned char* filecontent = module_request.response->modules[0]->address;
 	unsigned char* ptr = filecontent;
