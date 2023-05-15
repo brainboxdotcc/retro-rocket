@@ -118,6 +118,8 @@ void init_idt()
 	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
 	pic_enable();
 
+	init_debug();
+
 	/* Now we are safe to enable interrupts */
 	interrupts_on();
 	dprintf("Interrupts enabled!\n");

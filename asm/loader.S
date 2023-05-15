@@ -157,11 +157,11 @@ isrs:
 	ISR_ERR 14
 	ISR_NOERR 15
 	ISR_NOERR 16
-	ISR_NOERR 17
+	ISR_ERR 17
 	ISR_NOERR 18
 	ISR_NOERR 19
 	ISR_NOERR 20
-	ISR_NOERR 21
+	ISR_ERR 21
 	ISR_NOERR 22
 	ISR_NOERR 23
 	ISR_NOERR 24
@@ -169,8 +169,8 @@ isrs:
 	ISR_NOERR 26
 	ISR_NOERR 27
 	ISR_NOERR 28
-	ISR_NOERR 29
-	ISR_NOERR 30
+	ISR_ERR 29
+	ISR_ERR 30
 	ISR_NOERR 31
 	IRQ 0, 32
 	IRQ 1, 33
@@ -206,14 +206,22 @@ isrs:
 	IRQ 29, 63
 
 irq_stub:
+	.cfi_startproc
+	.cfi_adjust_cfa_offset 8
+	.cfi_offset rbp, -120
 	call IRQ
 	MPOPA
 	iretq
+	.cfi_endproc
 
 interrupt_stub:
+	.cfi_startproc
+	.cfi_adjust_cfa_offset 8
+	.cfi_offset rbp, -120
 	call Interrupt
 	MPOPA
 	iretq
+	.cfi_endproc
 
 exception_handlers:
         .quad isr0

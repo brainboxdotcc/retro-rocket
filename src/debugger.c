@@ -4,6 +4,12 @@ static symbol_t* symbol_table = NULL;
 uint32_t trace_thread_id = 0;
 static bool debug_signal = false, debug_tracing = false;
 
+
+volatile struct limine_module_request module_request = {
+    .id = LIMINE_MODULE_REQUEST,
+    .revision = 0,
+};
+
 void gdb_send_ack(uint32_t src_ip, uint16_t src_port)
 {
 	src_ip = htonl(src_ip);
@@ -252,91 +258,73 @@ void symbol_fail()
 
 void init_debug()
 {
-	fs_directory_entry_t* symfile = fs_get_file_info("/kernel.sym");
-	if (!symfile) {
-		symbol_fail();
-		return;
-	}
-	uint32_t filesize = symfile->size;
-	if (filesize == 0) {
-		symbol_fail();
-		return;
-	} else {
-		unsigned char* filecontent = kmalloc(filesize);
-		if (!fs_read_file(symfile, 0, filesize, filecontent)) {
-			symbol_fail();
-			kfree(filecontent);
-			return;
+	assert(module_request.response->module_count > 0, "Debug symbol module not loaded in limine.cfg");
+	uint64_t filesize = module_request.response->modules[0]->size;
+	unsigned char* filecontent = module_request.response->modules[0]->address;
+	unsigned char* ptr = filecontent;
+	char symbol_address[32];
+	char type[2];
+	char symbol[1024];
+	uint32_t counter = 0;
+	uint32_t offset = 0;
+	uint32_t symcount = 0;
+	uint32_t sizebytes = 0;
+	symbol_table = kmalloc(sizeof(symbol_t));
+	symbol_t* thisentry = symbol_table;
+
+	while (offset < filesize) {
+		counter = 0;
+		while (offset < filesize && *ptr != ' ' && counter < sizeof(symbol_address) - 1) {
+			symbol_address[counter++] = *ptr++;
+			offset++;
 		}
-		/* We now have the symbols in the filecontent buffer. Parse them to linked list,
-		 * and free the buffer.
-		 */
-		unsigned char* ptr = filecontent;
-		char symbol_address[32];
-		char type[2];
-		char symbol[1024];
-		uint32_t counter = 0;
-		uint32_t offset = 0;
-		uint32_t symcount = 0;
-		uint32_t sizebytes = 0;
-		symbol_table = kmalloc(sizeof(symbol_t));
-		symbol_t* thisentry = symbol_table;
+		symbol_address[counter] = 0;
+		ptr++;
+		offset++;
 
-		while (offset < filesize) {
-			counter = 0;
-			while (offset < filesize && *ptr != ' ' && counter < sizeof(symbol_address) - 1) {
-				symbol_address[counter++] = *ptr++;
-				offset++;
-			}
-			symbol_address[counter] = 0;
-			ptr++;
+		counter = 0;
+		while (offset < filesize && *ptr != ' ' && counter < 2) {
+			type[counter++] = *ptr++;
 			offset++;
-
-			counter = 0;
-			while (offset < filesize && *ptr != ' ' && counter < 2) {
-				type[counter++] = *ptr++;
-				offset++;
-			}
-			type[1] = 0;
-			ptr++;
-			offset++;
-
-			counter = 0;
-			while (offset < filesize && *ptr != 0x0A && counter < sizeof(symbol) - 1) {
-				symbol[counter++] = *ptr++;
-				offset++;
-			}
-			symbol[counter] = 0;
-			ptr++;
-			offset++;
-
-			uint32_t length = strlen(symbol) + 1;
-
-			if (*type == 'T') {
-				thisentry->name = kmalloc(length);
-				memcpy(thisentry->name, symbol, length);
-				thisentry->address = hextoint(symbol_address);
-				thisentry->type = *type;
-				symbol_t* next = kmalloc(sizeof(symbol_t));
-				next->next = NULL;
-				thisentry->next = next;
-				thisentry = thisentry->next;
-			}
-			symcount++;
-			sizebytes += sizeof(symbol_t) + length;
 		}
+		type[1] = 0;
+		ptr++;
+		offset++;
 
-		kfree(filecontent);
-		kprintf("Read ");
-		setforeground(current_console, COLOUR_LIGHTYELLOW);
-		kprintf("%d ", symcount);
-		setforeground(current_console, COLOUR_WHITE);
-		kprintf("symbols from ");
-		setforeground(current_console, COLOUR_LIGHTYELLOW);
-		kprintf("/kernel.sym ");
-		setforeground(current_console, COLOUR_WHITE);
-		kprintf("(%d bytes)\n", filesize);
+		counter = 0;
+		while (offset < filesize && *ptr != 0x0A && counter < sizeof(symbol) - 1) {
+			symbol[counter++] = *ptr++;
+			offset++;
+		}
+		symbol[counter] = 0;
+		ptr++;
+		offset++;
+
+		uint32_t length = strlen(symbol) + 1;
+
+		if (*type == 'T') {
+			thisentry->name = kmalloc(length);
+			memcpy(thisentry->name, symbol, length);
+			thisentry->address = hextoint(symbol_address);
+			thisentry->type = *type;
+			symbol_t* next = kmalloc(sizeof(symbol_t));
+			next->next = NULL;
+			thisentry->next = next;
+			thisentry = thisentry->next;
+		}
+		symcount++;
+		sizebytes += sizeof(symbol_t) + length;
 	}
+
+	kprintf("Read ");
+	setforeground(current_console, COLOUR_LIGHTYELLOW);
+	kprintf("%d ", symcount);
+	setforeground(current_console, COLOUR_WHITE);
+	kprintf("symbols from ");
+	setforeground(current_console, COLOUR_LIGHTYELLOW);
+	kprintf("/kernel.sym ");
+	setforeground(current_console, COLOUR_WHITE);
+	kprintf("(%d bytes)\n", filesize);
 
 	udp_register_daemon(DEBUG_DST_PORT, &debug_handle_packet);
 }
@@ -381,7 +369,7 @@ void backtrace()
 	setforeground(current_console, COLOUR_LIGHTGREEN);
 	while (frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page) {
 		name = findsymbol((uint64_t)frame->addr, &offset);
-		if (!name || (name && strcmp(name, "idt_init") && strcmp(name, "Interrupt") && strcmp(name, "error_handler"))) {
+		if (!name || (name && strcmp(name, "pci_enable_msi") && strcmp(name, "vprintf") && strcmp(name, "printf"))) {
 			kprintf("\tat %s()+0%08x [0x%llx]\n",  name ? name : "[???]", offset, frame->addr);
 		}
 		frame = frame->next;
