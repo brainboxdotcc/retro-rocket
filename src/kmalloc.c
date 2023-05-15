@@ -740,6 +740,8 @@ uint32_t kmalloc_low(uint32_t size)
 		return 0;
 	}
 
+	assert(!invalid_frame(low_mem_cur), "Invalid kmalloc_low address!");
+
 	uint32_t allocated = low_mem_cur;
 	low_mem_cur += size;
 

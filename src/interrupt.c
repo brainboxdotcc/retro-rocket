@@ -37,7 +37,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 		/* There is no shared interrupt routing on these interrupts,
 		 * they are purely routed to interested non-pci handlers
 		 */
-		if (si->device.bits == 0) {
+		if (si->device.bits == 0 && si->interrupt_handler) {
 			si->interrupt_handler((uint8_t)isrnumber, errorcode, 0, si->opaque);
 		}
 	}
@@ -55,13 +55,13 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 void IRQ(uint64_t isrnumber, uint64_t irqnum)
 {
 	for (shared_interrupt_t* si = shared_interrupt[isrnumber]; si; si = si->next) {
-		if (si->device.bits == 0) {
+		if (si->device.bits == 0 && si->interrupt_handler) {
 			/* Not a PCI device, we just dispatch to the handler */
 			si->interrupt_handler((uint8_t)isrnumber, 0, irqnum, si->opaque);
 		} else {
 			/* PCI device, check if this device is signalled */
 			uint16_t status = pci_read(si->device, PCI_STATUS);
-			if (status & PCI_STATUS_INTERRUPT) {
+			if (status & PCI_STATUS_INTERRUPT && si->interrupt_handler) {
 				/* This device is signalled, dispatch to its handler */
 				si->interrupt_handler((uint8_t)isrnumber, 0, irqnum, si->opaque);
 			}

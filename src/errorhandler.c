@@ -8,6 +8,7 @@ void init_error_handler()
 	int interrupt = 0;
 	for (; interrupt < 19; ++interrupt)
 		register_interrupt_handler(interrupt, error_handler, dev_zero, NULL);
+	/* Now we are safe to enable interrupts */
 }
 
 void error_handler(uint8_t int_no, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq_no, void* opaque)

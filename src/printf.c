@@ -271,6 +271,7 @@ int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const
 int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
 	dput(c);
+	//put(current_console, c);
 	return 0;
 }
 
