@@ -8,6 +8,8 @@
  */
 shared_interrupt_t* shared_interrupt[256] = { 0 };
 
+extern const char* const error_table[];
+
 void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque)
 {
 	shared_interrupt_t* si = kmalloc(sizeof(shared_interrupt_t));
@@ -46,7 +48,7 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 
 	if (isrnumber < 32) {
 		/* This simple error handler is replaced by a more complex debugger once the system is up */
-		dprintf("CPU %d halted with exception %016lx, error code %016lx.\n", cpu_id(), isrnumber, errorcode);
+		kprintf("CPU %d halted with exception %016lx, error code %016lx: %s.\n", cpu_id(), isrnumber, errorcode, error_table[isrnumber]);
 		wait_forever();
 	}
 

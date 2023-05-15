@@ -4,12 +4,9 @@ static symbol_t* symbol_table = NULL;
 uint32_t trace_thread_id = 0;
 static bool debug_signal = false, debug_tracing = false;
 
-volatile struct limine_internal_module module[] = {{ .path = "boot:///kernel.sym", .cmdline = "Symbols", .flags = 0 }};
 volatile struct limine_module_request module_request = {
 	.id = LIMINE_MODULE_REQUEST,
 	.revision = 0,
-	.internal_module_count = 1,
-	.internal_modules = (struct limine_internal_module**)module,
 };
 
 void gdb_send_ack(uint32_t src_ip, uint16_t src_port)
@@ -260,6 +257,7 @@ void symbol_fail()
 
 void init_debug()
 {
+	assert(module_request.response, "No module response!");
 	assert(module_request.response->module_count > 0, "Debug symbol module not loaded in limine.cfg");
 	uint64_t filesize = module_request.response->modules[0]->size;
 	unsigned char* filecontent = module_request.response->modules[0]->address;

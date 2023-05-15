@@ -68,7 +68,7 @@
 #include "fpu.h"
 
 #define assert(expr, message) if (!(expr)) { \
-	kprintf("Assertion failure at %s:%s: %s", message, __FILE__,__LINE__); \
+	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \
 	__asm__ volatile("int3"); }
 
 void network_up();

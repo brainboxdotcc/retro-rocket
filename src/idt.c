@@ -115,10 +115,14 @@ void init_idt()
 	outb(0x40, (uint8_t)microsecs_divisor >> 8);
 
 	pic_remap(0x20, 0x28);
-	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
-	pic_enable();
 
+	init_error_handler();
+	dprintf("Register timer handler\n");
+	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
+	dprintf("Register debug\n");
 	init_debug();
+
+	pic_enable();
 
 	/* Now we are safe to enable interrupts */
 	interrupts_on();
