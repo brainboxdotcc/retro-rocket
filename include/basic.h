@@ -584,6 +584,9 @@ int64_t basic_random(struct basic_ctx* ctx);
 int64_t basic_legacy_getlastcpuid(struct basic_ctx* ctx);
 int64_t basic_legacy_cpuid(struct basic_ctx* ctx);
 int64_t basic_cpuid(struct basic_ctx* ctx);
+int64_t basic_atoi(struct basic_ctx* ctx);
+int64_t basic_shl(struct basic_ctx* ctx);
+int64_t basic_shr(struct basic_ctx* ctx);
 
 /*
  * Builtin string functions
@@ -613,6 +616,9 @@ char* basic_rjust(struct basic_ctx* ctx);
 char* basic_ltrim(struct basic_ctx* ctx);
 char* basic_rtrim(struct basic_ctx* ctx);
 char* basic_trim(struct basic_ctx* ctx);
+char* basic_itoa(struct basic_ctx* ctx);
+char* basic_repeat(struct basic_ctx* ctx);
+char* basic_reverse(struct basic_ctx* ctx);
 
 /*
  * File I/O functions

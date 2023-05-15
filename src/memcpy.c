@@ -65,3 +65,14 @@ int memcmp(const void *s1, const void *s2, uint64_t n) {
 
 	return 0;
 }
+
+size_t memrev(char* buf, size_t n)
+{
+	size_t i;
+	for (i = 0; i < n/2; ++i) {
+		const char x = buf[i];
+		buf[i] = buf[n - i - 1];
+		buf[n - i - 1] = x;
+	}
+	return i;
+}

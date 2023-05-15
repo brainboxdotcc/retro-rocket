@@ -9,7 +9,7 @@ unsigned int strlen(const char* str)
 	}
 	unsigned int len = 0;
 	for(; *str; ++str)
-		len++;
+		++len;
 	return len;
 }
 
@@ -433,4 +433,76 @@ uint64_t atoull(const char *s)
        
 	/* done */
 	return val;
+}
+
+
+size_t strrev(char* s)
+{
+	return memrev(s, strlen(s));
+}
+
+int do_atoi(int64_t* dst, char* target, unsigned radix)
+{
+	int64_t res = 0;
+	bool looped = false;
+	bool sign = false;
+	bool succ = false;
+	if (radix < 2 || radix > 36) {
+		return -4;
+	}
+	char* ptr = target;
+	char c;
+	static const char* alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	while ((c = *ptr++) != 0) {
+		if (c == '-') {
+			sign = true;
+			continue;
+		}
+		if (strchr("\t\n\v\f\r +_", c) != NULL) {
+			continue;
+		}
+		looped = true;
+		char* x = strchr(alphabet, toupper(c));
+		if (x == NULL) {
+			break;
+		}
+		size_t pos = x - alphabet;
+		if (pos >= radix) {
+			break;
+		}
+		succ = true;
+		res = res * radix + pos;
+	}
+	if (sign) {
+		res = -res;
+	}
+	*dst = res;
+	/* Errno 3 is reserved for overflow */
+	return !succ
+		? looped
+			? -2
+			: -1
+		: 0;
+}
+
+int do_itoa(int64_t target, char* buf, unsigned radix)
+{
+	if (radix < 2 || radix > 36) {
+		return -1;
+	}
+	int sign = 0;
+	if (target < 0) {
+		sign = 1;
+		target = -target;
+	}
+	char* low = buf;
+	do {
+		*buf++ = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"[target % radix];
+	} while (target /= radix);
+	if (sign) {
+		*buf++ = '-';
+	}
+	*buf++ = '\0';
+	strrev(low);
+	return 0;
 }
