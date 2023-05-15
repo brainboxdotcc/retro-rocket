@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-volatile idt_ptr_t idt64 = { sizeof(idt_entry_t) * 64, NULL };
+volatile idt_ptr_t idt64 = { .limit = sizeof(idt_entry_t) * 64, .base = NULL };
 
 #define PIC1		0x20		/* IO base address for master PIC */
 #define PIC2		0xA0		/* IO base address for slave PIC */
