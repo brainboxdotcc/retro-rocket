@@ -1,6 +1,6 @@
  #include <kernel.h>
 
- void get_lapic_address(uint64_t* lapic);
+void get_lapic_address(uint64_t* lapic);
 
 uint32_t apic_read(uint64_t reg)
 {
