@@ -760,8 +760,6 @@ void statement(struct basic_ctx* ctx)
 			return setvarr_statement(ctx);
 		case SETVARS:
 			return setvars_statement(ctx);
-		case PANIC:
-			return panic_statement(ctx);
 		case LET:
 			accept_or_return(LET, ctx);
 			/* Fall through. */

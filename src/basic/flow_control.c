@@ -272,13 +272,3 @@ void end_statement(struct basic_ctx* ctx)
 	}
 	ctx->ended = true;
 }
-
-void panic_statement(struct basic_ctx* ctx)
-{
-	accept_or_return(PANIC, ctx);
-	uint8_t intno = (uint8_t) expr(ctx);
-	accept_or_return(COMMA, ctx);
-	uint64_t err = (uint64_t) expr(ctx);
-	accept_or_return(NEWLINE, ctx);
-	error_handler(intno, err, 0, NULL);
-}

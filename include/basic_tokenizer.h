@@ -129,7 +129,6 @@
 	T(SETVARI) \
 	T(SETVARR) \
 	T(SETVARS) \
-	T(PANIC) \
 	T(MOUNT)
 
 /*
