@@ -10,10 +10,10 @@
               ___  _____ \n\
             .'/,-Y\"     \"~-. \n\
             l.Y             ^. \n\
-            /\\               _\\_      \"Yaaaaah! oh-my-GOD!\n\
-           i            ___/\"   \"\\     We're trapped inside some\n\
-           |          /\"   \"\\   o !    computer-dimension-\n\
-           l         ]     o !__./     something-or-another!\"\n\
+            /\\               _\\_      \"Oh\n\
+           i            ___/\"   \"\\     so they have internet on computers now!\"\n\
+           |          /\"   \"\\   o !    \n\
+           l         ]     o !__./     \n\
             \\ _  _    \\.___./    \"~\\ \n\
              X \\/ \\            ___./ \n\
             ( \\ ___.   _..--~~\"   ~`-. \n\
