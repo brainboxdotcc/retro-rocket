@@ -824,6 +824,7 @@ void repeat_statement(struct basic_ctx* ctx);
 void until_statement(struct basic_ctx* ctx);
 void endif_statement(struct basic_ctx* ctx);
 void end_statement(struct basic_ctx* ctx);
+void panic_statement(struct basic_ctx* ctx);
 
 /* Process/memory functions */
 int64_t basic_getproccount(struct basic_ctx* ctx);
@@ -847,3 +848,6 @@ int64_t basic_existsvar_string(struct basic_ctx* ctx);
 void setvari_statement(struct basic_ctx* ctx);
 void setvarr_statement(struct basic_ctx* ctx);
 void setvars_statement(struct basic_ctx* ctx);
+
+/* Games launcher */
+int64_t basic_game(struct basic_ctx* ctx);

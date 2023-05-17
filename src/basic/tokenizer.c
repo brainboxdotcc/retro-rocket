@@ -69,6 +69,7 @@ const int keywords[] = {
 	OPENOUT,
 	OPENUP,
 	OR,
+	PANIC,
 	POINT,
 	POP,
 	PRINT,

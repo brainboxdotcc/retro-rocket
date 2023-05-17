@@ -18,6 +18,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_existsvar_int,       "EXISTSVARI"    },
 	{ basic_existsvar_real,      "EXISTSVARR"    },
 	{ basic_existsvar_string,    "EXISTSVARS"    },
+	{ basic_game,                "GAME"          },
 	{ basic_getnamecount,        "GETNAMECOUNT"  },
 	{ basic_getproccount,        "GETPROCCOUNT"  },
 	{ basic_getproccpuid,        "GETPROCCPUID"  },
