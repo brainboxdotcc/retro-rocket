@@ -28,6 +28,7 @@
 #include "kmalloc.h"
 #include "pci.h"
 #include "maths.h"
+#include "../src/pngle/pngle.h"
 #include "devicename.h"
 #include "interrupt.h"
 #include "ahci.h"

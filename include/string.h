@@ -3,8 +3,9 @@
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @copyright Copyright (c) 2012-2023
  */
-#ifndef __STRING_H__
-#define __STRING_H__
+#pragma once
+#include <stdint.h>
+#include <stdbool.h>
 
 struct gc_str
 {
@@ -59,5 +60,3 @@ size_t strrev(char* s);
 
 int do_atoi(int64_t* dst, char* target, unsigned radix);
 int do_itoa(int64_t target, char* buf, unsigned radix);
-
-#endif

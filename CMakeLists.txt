@@ -19,6 +19,7 @@ set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-decl
 
 include_directories("include")
 include_directories("limine")
+include_directories("src/pngle")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/iso)
 
