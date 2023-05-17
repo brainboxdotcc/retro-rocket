@@ -11,7 +11,7 @@
             .'/,-Y\"     \"~-. \n\
             l.Y             ^. \n\
             /\\               _\\_      \"Oh\n\
-           i            ___/\"   \"\\     so they have internet on computers now!"\n\
+           i            ___/\"   \"\\     so they have internet on computers now!\"\n\
            |          /\"   \"\\   o !    \n\
            l         ]     o !__./     \n\
             \\ _  _    \\.___./    \"~\\ \n\
