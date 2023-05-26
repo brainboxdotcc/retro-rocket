@@ -810,6 +810,7 @@ void rectangle_statement(struct basic_ctx* ctx);
 void loadsprite_statement(struct basic_ctx* ctx);
 void freesprite_statement(struct basic_ctx* ctx);
 void plot_statement(struct basic_ctx* ctx);
+void free_sprite(struct basic_ctx* ctx, int64_t sprite_handle);
 
 /* Console functions */
 int64_t basic_get_text_max_x(struct basic_ctx* ctx);

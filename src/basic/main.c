@@ -454,6 +454,11 @@ void basic_destroy(struct basic_ctx* ctx)
 		}
 		kfree(ctx->string_array_variables);
 	}
+	for (uint32_t sprite_handle = 0; sprite_handle < MAX_SPRITES; ++sprite_handle) {
+		if (ctx->sprites[sprite_handle]) {
+			free_sprite(ctx, sprite_handle);
+		}
+	}
 	for (size_t x = 0; x < ctx->call_stack_ptr; x++) {
 		for (; ctx->local_int_variables[x]; ctx->local_int_variables[x] = ctx->local_int_variables[x]->next) {
 			kfree(ctx->local_int_variables[x]->varname);

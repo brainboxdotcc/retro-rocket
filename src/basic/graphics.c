@@ -4,9 +4,9 @@
  */
 #include <kernel.h>
 #define STBI_NO_STDIO
-#define STBI_ONLY_PNG
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_NO_SIMD
+#define STBI_NO_HDR
 #define STBI_NO_THREAD_LOCALS 
 #define STBI_MALLOC(sz)           kmalloc(sz)
 #define STBI_REALLOC(p,newsz)     krealloc(p,newsz)
@@ -17,11 +17,12 @@ void __assert_fail(const char * assertion, const char * file, unsigned int line,
 {
 	kprintf("%s at %s:%d (%s)\n", assertion, file, line, function);
 	wait_forever();
+	while(true);
 }
 
 int64_t alloc_sprite(struct basic_ctx* ctx)
 {
-	for (int64_t i = 0; i < MAX_SPRITES; ++i) {
+	for (uint64_t i = 0; i < MAX_SPRITES; ++i) {
 		if (ctx->sprites[i] == NULL) {
 			ctx->sprites[i] = kmalloc(sizeof(sprite_t));
 			ctx->sprites[i]->width = 0;
@@ -37,7 +38,7 @@ void free_sprite(struct basic_ctx* ctx, int64_t sprite_handle)
 {
 	if (sprite_handle >= 0 && sprite_handle < MAX_SPRITES && ctx->sprites[sprite_handle] != NULL) {
 		if (ctx->sprites[sprite_handle]->pixels) {
-			kfree(ctx->sprites[sprite_handle]->pixels);
+			stbi_image_free(ctx->sprites[sprite_handle]->pixels);
 		}
 		kfree(ctx->sprites[sprite_handle]);
 		ctx->sprites[sprite_handle] = NULL;
@@ -104,6 +105,12 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	sprite_t* s = get_sprite(ctx, sprite_handle);
 	int w, h, n;
 	s->pixels = (uint32_t*)stbi_load_from_memory((unsigned char*)buf, f->size, &w, &h, &n, STBI_rgb_alpha);
+	if (!s->pixels) {
+		tokenizer_error_print(ctx, stbi_failure_reason());
+		kfree(buf);
+		free_sprite(ctx, sprite_handle);
+		return;
+	}
 	s->width = w;
 	s->height = h;
 	dprintf("Width: %d Height: %d Comp: %d\n", w, h, n);

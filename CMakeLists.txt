@@ -39,6 +39,8 @@ copy_font(system.f16 system.f16)
 copy_font(system.f20 system.f20)
 
 copy_image(brainbox.png brainbox.png)
+copy_image(brainbox.gif brainbox.gif)
+copy_image(computer.jpg computer.jpg)
 
 symbols("kernel.sym" "kernel.bin")
 
