@@ -206,6 +206,14 @@ typedef struct g_cpuid_vendor {
 #define DEBUG_STEP	2
 #define DEBUG_TRACE	4
 
+#define MAX_SPRITES 1024
+
+typedef struct sprite_t {
+	uint32_t width;
+	uint32_t height;
+	uint32_t* pixels;
+} sprite_t;
+
 /**
  * @brief BASIC program context.
  * Every instance of a BASIC program has one of these,* also certain structures
@@ -404,6 +412,10 @@ typedef struct basic_ctx {
 	 * @brief highest line number in program
 	 */
 	int64_t highest_line;
+	/**
+	 * @brief Sprites
+	 */
+	sprite_t* sprites[MAX_SPRITES];
 } basic_ctx;
 
 /**
@@ -623,6 +635,7 @@ char* basic_reverse(struct basic_ctx* ctx);
 /*
  * File I/O functions
  */
+const char* make_full_path(const char* relative);
 void openin_statement(struct basic_ctx* ctx);
 void openup_statement(struct basic_ctx* ctx);
 void openout_statement(struct basic_ctx* ctx);
@@ -794,6 +807,9 @@ void point_statement(struct basic_ctx* ctx);
 void draw_line_statement(struct basic_ctx* ctx);
 void gcol_statement(struct basic_ctx* ctx);
 void rectangle_statement(struct basic_ctx* ctx);
+void loadsprite_statement(struct basic_ctx* ctx);
+void freesprite_statement(struct basic_ctx* ctx);
+void plot_statement(struct basic_ctx* ctx);
 
 /* Console functions */
 int64_t basic_get_text_max_x(struct basic_ctx* ctx);

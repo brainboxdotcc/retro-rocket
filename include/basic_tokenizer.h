@@ -129,6 +129,9 @@
 	T(SETVARI) \
 	T(SETVARR) \
 	T(SETVARS) \
+	T(SPRITELOAD) \
+	T(SPRITEFREE) \
+	T(PLOT) \
 	T(MOUNT)
 
 /*

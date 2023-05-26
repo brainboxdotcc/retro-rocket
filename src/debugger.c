@@ -2,7 +2,7 @@
 
 static symbol_t* symbol_table = NULL;
 uint32_t trace_thread_id = 0;
-static bool debug_signal = false, debug_tracing = false;
+static bool debug_signal = false;
 
 volatile struct limine_module_request module_request = {
 	.id = LIMINE_MODULE_REQUEST,

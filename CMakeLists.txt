@@ -38,6 +38,8 @@ copy_font(system.f08 system.f08)
 copy_font(system.f16 system.f16)
 copy_font(system.f20 system.f20)
 
+copy_image(brainbox.png brainbox.png)
+
 symbols("kernel.sym" "kernel.bin")
 
 run("run.sh")

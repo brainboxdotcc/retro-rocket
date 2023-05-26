@@ -35,6 +35,17 @@ function(copy_font TARGETFILE SOURCEFILE)
     add_dependencies(ISO font_${SOURCEFILE})
 endfunction()
 
+function(copy_image TARGETFILE SOURCEFILE)
+    set(FILENAME "${CMAKE_SOURCE_DIR}/os/images/${SOURCEFILE}")
+    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/images/${TARGETFILE}")
+    add_custom_command(OUTPUT ${OUTNAME}
+        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/images" && cp ${FILENAME} ${OUTNAME}
+        DEPENDS ${FILENAME})
+    add_custom_target(font_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
+    add_dependencies("kernel.bin" font_${SOURCEFILE})
+    add_dependencies(ISO font_${SOURCEFILE})
+endfunction()
+
 function(copy_config TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/${TARGETFILE}")

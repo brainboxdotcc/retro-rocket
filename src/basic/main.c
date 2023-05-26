@@ -202,6 +202,7 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	ctx->errored = false;
 	ctx->current_token = ERROR;
 	ctx->int_variables = NULL;
+	memset(ctx->sprites, 0, sizeof(ctx->sprites));
 	ctx->str_variables = NULL;
 	ctx->fn_type = RT_MAIN;
 	ctx->double_variables = NULL;
@@ -386,6 +387,7 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->debug_status = old->debug_status;
 	ctx->debug_breakpoints = old->debug_breakpoints;
 	ctx->debug_breakpoint_count = old->debug_breakpoint_count;
+	memcpy(ctx->sprites, old->sprites, sizeof(ctx->sprites));
 
 	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
 		ctx->local_int_variables[i] = old->local_int_variables[i];
@@ -760,6 +762,12 @@ void statement(struct basic_ctx* ctx)
 			return setvarr_statement(ctx);
 		case SETVARS:
 			return setvars_statement(ctx);
+		case PLOT:
+			return plot_statement(ctx);
+		case SPRITELOAD:
+			return loadsprite_statement(ctx);
+		case SPRITEFREE:
+			return freesprite_statement(ctx);
 		case LET:
 			accept_or_return(LET, ctx);
 			/* Fall through. */
