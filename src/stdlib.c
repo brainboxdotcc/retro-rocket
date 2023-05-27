@@ -435,8 +435,11 @@ static inline void swapfunc(char *a, char *b, size_t n, int swaptype)
 } while (0)
 
 #define vecswap(a, b, n) 	if ((n) > 0) swapfunc(a, b, n, swaptype)
-#define min(a, b)	(a) < (b) ? a : b
 
+static inline unsigned long min(unsigned long a, unsigned long b)
+{
+	return (a) < (b) ? a : b;
+}
 
 static inline char* med3(char *a, char *b, char *c, int (*cmp)(const void *, const void *))
 {
