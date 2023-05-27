@@ -25,6 +25,8 @@ int strnicmp(const char* s1, const char* s2, uint32_t n);
 
 char toupper(char low);
 
+int isupper(const char x);
+
 char tolower(char low);
 
 int isalnum(const char x);

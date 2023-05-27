@@ -186,6 +186,12 @@ int isalnum(const char x)
 	return ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z') || (x >= '0' && x <= '9'));
 }
 
+int isupper(const char x)
+{
+	return (x >= 'A' && x <= 'Z');
+}
+
+
 bool isalpha(const char x)
 {
 	return (x >= 'A' && x <= 'Z');
