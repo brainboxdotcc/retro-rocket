@@ -196,7 +196,7 @@ heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uin
 			preboot_fail("Internal error: (BUG) Initial heap overlays reserved RAM");
 	}
 
-	_memset((char*)heap, 0, sizeof(heap_t));	/* Nullify */
+	memset((char*)heap, 0, sizeof(heap_t));	/* Nullify */
 
 	dprintf("Initial heap cleared addr=%llx end=%llx\n", addr, end);
 
@@ -396,7 +396,7 @@ void expand_heap(uint64_t size, heap_t *heap)
 		size = heap->max_size - heap->end_addr;
 	}
 	/* We now define the pages */
-	_memset((char*)heap->end_addr, 0 , size);	/* Nullify */
+	memset((char*)heap->end_addr, 0 , size);	/* Nullify */
 	heap->end_addr += size;				/* Adjust to end */
 	fix_heap_list(heap);				/* Fix list */
 }
@@ -705,7 +705,7 @@ header_t* ord_list_get_last(header_t *list)
 void* kcalloc(size_t num, size_t size)
 {
 	void* ptr = kmalloc(num * size);
-	_memset(ptr, 0, num * size);
+	memset(ptr, 0, num * size);
 	return ptr;
 }
 

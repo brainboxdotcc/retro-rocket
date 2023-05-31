@@ -1048,7 +1048,7 @@ int read_fat(fat32_t* info)
 {
 	storage_device_t* sd = find_storage_device(info->device_name);
 	unsigned char* buffer = kmalloc(sd->block_size);
-	_memset(buffer, 0, sd->block_size);
+	memset(buffer, 0, sd->block_size);
 	if (!read_storage_device(info->device_name, info->start, sd->block_size, buffer)) {
 		kprintf("FAT32: Could not read FAT parameter block!\n");
 		kfree(buffer);

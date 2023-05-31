@@ -62,7 +62,7 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 	unsigned char* dirbuffer = kmalloc(lengthbytes);
 	int j;
 
-	_memset(dirbuffer, 0, lengthbytes);
+	memset(dirbuffer, 0, lengthbytes);
 
 	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer)) {
 		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
@@ -248,7 +248,7 @@ iso9660* iso_mount_volume(const char* name)
 
 	unsigned char* buffer = kmalloc(fs->block_size);
 	iso9660* info = kmalloc(sizeof(iso9660));
-	_memset(buffer, 0, 2048);
+	memset(buffer, 0, 2048);
 	uint32_t VolumeDescriptorPos = PVD_LBA;
 	info->device = fs;
 	while (1) {

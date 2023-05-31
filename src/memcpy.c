@@ -1,42 +1,51 @@
 #include <kernel.h>
 
-void _memset(void *dest, char val, uint64_t len)
+void memset(void* dest, char val, uint64_t len)
 {
 	char *temp = (char *)dest;
 	for ( ; len != 0; len--) *temp++ = val;
 }
 
-void memset(void* dest, char val, uint64_t len)
+static inline void* movsb(void* dst, const void* src, size_t size)
 {
-	 _memset(dest, val, len);
+	__asm__ volatile("rep movsb" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	return dst;
 }
 
-
-void *memcpy(void *dest, const void *src, uint64_t len)
+static inline void* movsl(void* dst, const void* src, size_t size)
 {
-	uint64_t i;
+	__asm__ volatile("rep movsl" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	return dst;
+}
 
-	/* 64-bit copy whatever we can. This works better on aligned memory areas */
-	if ((uint64_t)dest % sizeof(uint64_t) == 0 && (uint64_t)src % sizeof(uint64_t) == 0 && len % sizeof(uint64_t) == 0) {
-		uint64_t *d = dest;
-		const uint64_t *s = src;
-		for (i=0; i< len / sizeof(uint64_t); i++) {
-			d[i] = s[i];
-		}
+static inline void* movsw(void* dst, const void* src, size_t size)
+{
+	__asm__ volatile("rep movsw" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	return dst;
+}
+
+static inline void* movsq(void* dst, const void* src, size_t size)
+{
+	__asm__ volatile("rep movsq" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	return dst;
+}
+
+void* memcpy(void *dest, const void *src, uint64_t len)
+{
+	if (len == 0) {
+		return dest;
+	} else if ((((size_t)dest & 7) == 0) && (((size_t)src & 7) == 0) && ((len & 7) == 0)) {
+		return movsq(dest, src, len >> 3);
+	} else if ((((size_t)dest & 3) == 0) && (((size_t)src & 3) == 0) && ((len & 3) == 0)) {
+		return movsl(dest, src, len >> 2);
+	} else if ((((size_t)dest & 1) == 0) && (((size_t)src & 1) == 0) && ((len & 1) == 0)) {
+		return movsw(dest, src, len >> 1);
 	} else {
-		/* Byte-copy the remainder */
-		uint8_t *d = dest;
-		const uint8_t *s = src;
-
-		for (i=0; i < len; i++) {
-			d[i] = s[i];
-		}
+		return movsb(dest, src, len);
 	}
-
-	return dest;
 }
 
-void *memmove(void *dest, const void *src, uint64_t n) {
+void* memmove(void *dest, const void *src, uint64_t n) {
 	uint8_t *pdest = (uint8_t *)dest;
 	const uint8_t *psrc = (const uint8_t *)src;
 
