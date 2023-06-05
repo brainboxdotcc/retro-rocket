@@ -236,13 +236,13 @@ heap_t*	create_heap(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uin
 
 static void *alloc(uint64_t size,uint8_t palign, heap_t *heap)
 {
-	void *ret = NULL;	/* return address */
+	void *ret = NULL;		/* return address */
 	uint64_t b_total, b_new;	/* Helpful for split */
-	header_t *th = NULL;	/* pointer to block header */
-	footer_t *tf = NULL;	/* pointer to block footer */
+	header_t *th = NULL;		/* pointer to block header */
+	footer_t *tf = NULL;		/* pointer to block footer */
 
-	if (!heap) {
-		return NULL;	/* null heap */
+	if (!heap || size == 0) {
+		return NULL;	/* null heap, or size 0 */
 	}
 
 	/* We are looking for a free block that fits the size */
@@ -314,6 +314,11 @@ static void free_int(const void *addr, heap_t *heap)
 	header_t *th = NULL, *th_left = NULL, *th_right = NULL;
 	/* will use the prev and next to merge the list on deletion */
 	footer_t *tf = NULL, *tf_left = NULL, *tf_right = NULL;	
+
+	if (addr == NULL) {
+		/* Freeing NULL is a non-op */
+		return;
+	}
 
 	if (!heap) {
 		return;	/* null heap */
