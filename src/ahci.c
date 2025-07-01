@@ -77,13 +77,17 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 	// Command list maxim size = 32*32 = 1K per port
 	port->clb = (kmalloc_low(0x100000) & 0xFFFFFFFFFFFFF000) + 0x1000;
 	port->clbu = 0;
+	kprintf("Alloc: %08x\n", port->clb);
 	memset((void*)((uint64_t)port->clb), 0, 1024);
+	kprintf("After memset\n");
  
 	// FIS offset: 32K+256*portno
 	// FIS entry size = 256 bytes per port
 	port->fb = port->clb + (32 * 1024) + (portno << 8);
 	port->fbu = 0;
 	memset((void*)((uint64_t)port->fb), 0, 256);
+	
+	kprintf("After 2nd memset\n");
  
 	// Command table offset: 40K + 8K*portno
 	// Command table size = 256*32 = 8K per port
@@ -96,8 +100,11 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 		cmdheader[i].ctbau = 0;
 		memset((void*)(uint64_t)cmdheader[i].ctba, 0, 256);
 	}
+	kprintf("After table init\n");
  
 	start_cmd(port);	// Start command engine
+	
+	kprintf("After start_cmd\n");
 }
 
 int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buffer)
@@ -106,6 +113,7 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	if (!sd) {
 		return 0;
 	}
+	dprintf("storage_device_ahci_block_read bytes=%d\n", bytes);
 	uint32_t divided_length = bytes / sd->block_size;
 	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
@@ -118,9 +126,13 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	}
 
 	size_t max_per_read = AHCI_DEV_SATAPI ? 4 : 16;
+
+	dprintf("divided length: %d\n", divided_length);
+
 	if (divided_length < max_per_read) {
 		return check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
 	}
+
 	while (divided_length > 0) {
 		bool r = check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
 		start += divided_length > max_per_read ? max_per_read : divided_length;
@@ -308,6 +320,9 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	return true;
 }
 
+uint8_t* raw_buf = NULL;
+uint8_t* buf = NULL;
+
 uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 {
 	port->is = (uint32_t) -1;		// Clear pending interrupt bits
@@ -325,7 +340,11 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
 	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
  
-	uint8_t* buf = kmalloc(512);
+	if (!raw_buf && !buf) {
+		raw_buf = (uint8_t*)kmalloc_low(512 + 0x1000); // extra for alignment
+		buf = (uint8_t*)(((uintptr_t)raw_buf + 0xFFF) & ~0xFFF); // 4K align
+		kprintf("Allocated: %08x %08x", raw_buf, buf);
+	}
 
 	// 8K bytes (16 sectors) per PRDT
 	// Last entry
@@ -347,7 +366,6 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	}
 	if (spin == 1000000) {
 		dprintf("Port hung [read size]\n");
-		kfree(buf);
 		return 0;
 	}
  
@@ -361,7 +379,6 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 			break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
 			dprintf("Read disk error [read size]\n");
-			kfree(buf);
 			return 0;
 		}
 	}
@@ -369,7 +386,6 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
 		dprintf("Read disk error [read size]\n");
-		kfree(buf);
 		return 0;
 	}
 
@@ -378,7 +394,6 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 		size = ((uint64_t*)(buf + ATA_IDENT_MAX_LBA))[0] & (uint64_t)0xFFFFFFFFFFFFull;
 	}
 
-	kfree(buf);
 	return size;
 }
 

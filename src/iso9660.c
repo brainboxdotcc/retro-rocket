@@ -57,11 +57,13 @@ int parse_pvd(iso9660* info, unsigned char* buffer)
 	return info->root != 0;
 }
 
+#define MAX_REASONABLE_ISO_DIR_SIZE 1024 * 1024
+
 fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t start_lba, uint32_t lengthbytes)
 {
-	unsigned char* dirbuffer = kmalloc(lengthbytes);
-	int j;
+	kprintf("parse_directory lengthbytes=%d\n", lengthbytes);
 
+	unsigned char* dirbuffer = kmalloc(lengthbytes);
 	memset(dirbuffer, 0, lengthbytes);
 
 	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer)) {
@@ -73,48 +75,92 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 	uint32_t dir_items = 0;
 	fs_directory_entry_t* list = NULL;
 
-	// Iterate each of the entries in this directory, enumerating files
 	unsigned char* walkbuffer = dirbuffer;
 	int entrycount = 0;
+
+	if (lengthbytes > MAX_REASONABLE_ISO_DIR_SIZE) {
+		kprintf("ISO9660: Rejecting oversized directory: %u bytes\n", lengthbytes);
+		kfree(dirbuffer);
+		return NULL;
+	}
+
 	while (walkbuffer < dirbuffer + lengthbytes) {
-		entrycount++;
+
 		ISO9660_directory* fentry = (ISO9660_directory*)walkbuffer;
 
-		if (fentry->length == 0)
+		if (fentry->length == 0) {
+			dprintf("fentry of length 0, end of list\n");
 			break;
+		}
 
-		// Skip the first two entries, '.' and '..'
+		// Sanity: Does this entry stay within the buffer?
+		if (walkbuffer + fentry->length > dirbuffer + lengthbytes) {
+			kprintf("ISO9660: Directory entry overflows buffer\n");
+			break;
+		}
+
+		++entrycount;
+
+		// Only process past . and ..
 		if (entrycount > 2) {
 			fs_directory_entry_t* thisentry = kmalloc(sizeof(fs_directory_entry_t));
 
-			if (info->joliet == 0) {
-				thisentry->filename = kmalloc(fentry->filename_length + 1);
-				j = 0;
-				char* ptr = fentry->filename;
-				// Stop at end of string or at ; which seperates the version id from the filename.
-				// We don't want the version ids.
-				for (; j < fentry->filename_length && *ptr != ';'; ++ptr)
-					thisentry->filename[j++] = tolower(*ptr);
-				thisentry->filename[j] = 0;
+			// Calculate safe max filename length within this entry
+			uint8_t safe_filename_length = fentry->filename_length;
 
-				/* Filenames ending in '.' are not allowed */
-				if (thisentry->filename[j - 1] == '.')
-					thisentry->filename[j - 1] = 0;
-			} else {
-				// Parse joliet filename, 16-bit unicode UCS-2
-				thisentry->filename = kmalloc((fentry->filename_length / 2) + 1);
-				j = 0;
-				char* ptr = fentry->filename;
-				for (; j < fentry->filename_length / 2; ptr += 2) {
-					if (*ptr != 0) {
-						thisentry->filename[j++] = '?';
-					} else {
-						thisentry->filename[j++] = *(ptr + 1);
-					}
-				}
-				thisentry->filename[j] = 0;
-				//kprintf("'%s' ", thisentry->filename);
+			// The file identifier always starts at offset 33
+			uint8_t* fname_start = (uint8_t*)fentry + 33;
+
+			if (fname_start + safe_filename_length > walkbuffer + fentry->length) {
+				// Clamp filename length to stay within record
+				safe_filename_length = (walkbuffer + fentry->length) - fname_start;
+				kprintf("ISO9660: Clamped filename length to %u\n", safe_filename_length);
 			}
+
+			if (safe_filename_length == 0) {
+				kfree(thisentry);
+				walkbuffer += fentry->length;
+				continue;
+			}
+
+if (info->joliet == 0) {
+    uint32_t safe_len = fentry->filename_length;
+    thisentry->filename = kmalloc(safe_len + 1);
+    dprintf("filename alloc: %d bytes\n", safe_len + 1);
+
+    int j = 0;
+    char* ptr = fentry->filename;
+
+    for (; j < safe_len; ++ptr) {
+        if (*ptr == ';') break;
+        thisentry->filename[j++] = tolower(*ptr);
+    }
+
+    thisentry->filename[j] = 0;
+
+    if (j > 0 && thisentry->filename[j - 1] == '.')
+        thisentry->filename[j - 1] = 0;
+
+} else {
+    uint32_t safe_len = fentry->filename_length / 2;
+    thisentry->filename = kmalloc(safe_len + 1);
+    dprintf("filename alloc: %d bytes\n", safe_len + 1);
+
+    int j = 0;
+    char* ptr = fentry->filename;
+
+    for (; j < safe_len; ptr += 2) {
+        if (*ptr != 0) {
+            thisentry->filename[j++] = '?';
+        } else {
+            thisentry->filename[j++] = *(ptr + 1);
+        }
+    }
+
+    thisentry->filename[j] = 0;
+
+    dprintf("iso9660 parse dir entry '%s' ", thisentry->filename);
+}
 
 			thisentry->year = fentry->recording_date.years_since_1900 + 1900;
 			thisentry->month = fentry->recording_date.month;
@@ -131,26 +177,26 @@ fs_directory_entry_t* parse_directory(fs_tree_t* node, iso9660* info, uint32_t s
 
 			if (fentry->file_flags & 0x02)
 				thisentry->flags |= FS_DIRECTORY;
-			dir_items++;
 
-			//kprintf(" %d\n", thisentry->flags);
+			dprintf("%s: Flags %d\n", thisentry->filename, thisentry->flags);
 
 			thisentry->next = list;
 			list = thisentry;
-		}
-		walkbuffer += fentry->length;
 
+			++dir_items;
+		}
+
+		walkbuffer += fentry->length;
 	}
 
 	kfree(dirbuffer);
-
 	return list;
 }
 
 void parse_svd(iso9660* info, unsigned char* buffer)
 {
 	PVD* svd = (PVD*)buffer;
-        if (!VERIFY_ISO9660(svd)) {
+	if (!VERIFY_ISO9660(svd)) {
 		kprintf("ISO9660: Invalid SVD found, identifier is not 'CD001'\n");
 		return;
 	}
@@ -215,6 +261,8 @@ bool iso_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buff
 {
 	fs_directory_entry_t* file = (fs_directory_entry_t*)f;
 	storage_device_t* fs = find_storage_device(file->device_name);
+	
+	if (!fs) return false;
 
 	uint64_t sectors_size = length / fs->block_size;
 	uint64_t sectors_start = start / fs->block_size + file->lbapos;
@@ -223,6 +271,8 @@ bool iso_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buff
 	// and to make sure we read the remainder because this is an integer division,
 	// we must read one more than we asked for for safety.
 	sectors_size++;
+
+	dprintf("Reading %d sectors of size %d\n", sectors_size, length);
 
 	unsigned char* readbuf = kmalloc(sectors_size * fs->block_size);
 	if (!read_storage_device(file->device_name, sectors_start, length, readbuf)) {

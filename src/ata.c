@@ -185,6 +185,7 @@ int storage_device_ide_block_read(void* dev, uint64_t start, uint32_t bytes, uns
 	if (divided_length < 1) {
 		divided_length++;
 	}
+	dprintf("storage_device_ide_block_read %d sectors %d bytes\n", divided_length, bytes);
 	return ide_read_sectors((uint8_t)sd->opaque1, divided_length, start, (uint64_t)buffer);
 }
 

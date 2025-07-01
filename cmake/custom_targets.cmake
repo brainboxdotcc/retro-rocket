@@ -62,6 +62,7 @@ function(run TARGETFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND echo "qemu-system-x86_64 \
+	-machine q35,accel=kvm \
 	-s \
 	-monitor stdio \
 	-cpu host \

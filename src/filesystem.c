@@ -740,9 +740,15 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 	walk->next = NULL;
 	walk->name = strdup(last);
 	fs_tree_t* result = walk_to_node_internal(current_node, ds);
-	for(; ds; ds = ds->next) {
+	/*for(; ds; ds = ds->next) {
 		kfree(ds->name);
 		kfree(ds);
+	}*/
+	while (ds) {
+		dirstack_t* next = ds->next;
+		kfree(ds->name);
+		kfree(ds);
+		ds = next;
 	}
 	return result;
 }

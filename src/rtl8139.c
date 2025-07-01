@@ -1,5 +1,11 @@
 #include <kernel.h>
 
+#define RX_BUF_SIZE   (8192 + 16)
+#define TX_BUF_COUNT  4
+#define TX_BUF_SIZE   2048   // More than enough for Ethernet frame
+#define ALIGN_256(x)  (((x) + 255) & ~255)
+#define ALIGN_16(x)   (((x) + 15) & ~15)
+
 rtl8139_dev_t rtl8139_device;
 
 static bool in_interrupt = false;
@@ -172,12 +178,16 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 		dprintf("rtl8139: send packet on inactive device\n");
 		return;
 	}
+	
+	dprintf("rtl8139_send_packet(%08x, %d)\n", data, len);
 
 	interrupts_off();
 
 	// Static buffer below 4GB
 	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
+	
+	dprintf("transfer_data_p=%08x\n", transfer_data_p);
 
 	// 1: copy the packet to a physically continuous buffer in memory.
 	memcpy(transfer_data_p, data, len);
@@ -256,12 +266,17 @@ bool init_rtl8139() {
 	}
 
 	// Allocate receive buffer and send buffers, below 4GB boundary
-	rtl8139_device.rx_buffer = kmalloc_low(8192 + 16 + 1500);
-	rtl8139_device.tx_buffers = kmalloc_low((8192 + 16 + 1500) * 3);
-	memset((void*)(uint64_t)rtl8139_device.rx_buffer, 0x0, 8192 + 16 + 1500);
+	
+	// Save originals for kfree
+	uint8_t* tx_alloc = kmalloc_low((TX_BUF_SIZE + 16) * TX_BUF_COUNT * 2);
+	rtl8139_device.tx_buffers = (void*)ALIGN_16((uintptr_t)tx_alloc);
+
+	uint32_t raw = kmalloc_low(16384 + 256);
+	rtl8139_device.rx_buffer = (raw + 255) & ~255; // Align to 256-byte boundary
+
 	rtl_outl(RxBuf, rtl8139_device.rx_buffer);
 	for(int i=0; i < 4; i++) {
-		rtl_outl(TxAddr0 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 1500));
+		rtl_outl(TxAddr0 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 2048));
 	}
 
 	rtl_outw(IntrMask, INT_DEFAULT);
