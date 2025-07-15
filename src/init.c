@@ -10,10 +10,22 @@ init_func_t init_funcs[] = {
 	NULL,
 };
 
+char* init_funcs_names[] = {
+	"console",	"heap",			"cores",	"idt",
+	"pci",		"clock",
+	"devicenames",	"keyboard",		"ide",		"ahci",
+	"filesystem",	"iso9660",		"devfs",	"fat32",
+	NULL,
+};
+
+
 void init()
 {
+	uint32_t n = 0;
 	for (init_func_t* func = init_funcs; *func; ++func) {
+		dprintf("Bringing up %s...\n", init_funcs_names[n]);
 		(*func)();
+		dprintf("Initialisation of %s done!\n", init_funcs_names[n++]);
 	}
 
 }

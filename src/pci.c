@@ -247,7 +247,7 @@ uint32_t get_device_type(pci_dev_t dev) {
  * Get secondary bus from a PCI bridge device
  */
 uint32_t get_secondary_bus(pci_dev_t dev) {
-	return pci_read(dev, PCI_SECONDARY_BUS);
+	return (pci_read(dev, PCI_SECONDARY_BUS) >> 8) & 0xFF;
 }
 
 /*
@@ -308,8 +308,8 @@ void pci_display_device_list()
 {
 	pci_dev_t* list;
 	char* device_description = NULL;
+	kprintf("PCI device enumeration:\n");
 	size_t count = pci_get_device_list(&list);
-	dprintf("PCI device enumeration:\n");
 	for (size_t n = 0; n < count; ++n) {
 		uint32_t class = pci_read(list[n], PCI_CLASS);
 		uint32_t subclass = pci_read(list[n], PCI_SUBCLASS);
@@ -320,13 +320,15 @@ void pci_display_device_list()
 				device_description = (char*)sc->description;
 			}
 		}
-		dprintf(
-			"%02x:%02x:%02x: %s (%04x:%04x) [%02x:%02x:%02x]\n",
-			list[n].bus_num, list[n].device_num, list[n].function_num,
-			device_description,
-			pci_read(list[n], PCI_VENDOR_ID), pci_read(list[n], PCI_DEVICE_ID),
-			class, subclass, progif
-		);
+		if (class != 0x06 || subclass != 0x04) {
+			kprintf(
+				"%02x:%02x:%02x: %s (%04x:%04x) [%02x:%02x:%02x]\n",
+				list[n].bus_num, list[n].device_num, list[n].function_num,
+				device_description,
+				pci_read(list[n], PCI_VENDOR_ID), pci_read(list[n], PCI_DEVICE_ID),
+				class, subclass, progif
+			);
+		}
 	}
 }
 
@@ -365,12 +367,21 @@ pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, 
 /*
  * Scan bus
  */
+static bool visited_buses[256] = { false };
+
 pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int device_type) {
+
+	if (visited_buses[bus]) {
+		return dev_zero;
+	}
+	visited_buses[bus] = true;
+
 	for(int device = 0; device < DEVICE_PER_BUS; device++) {
 		pci_dev_t t = pci_scan_device(vendor_id, device_id, bus, device, device_type);
 		if(t.bits)
 			return t;
 	}
+
 	return dev_zero;
 }
 
@@ -379,6 +390,7 @@ pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int
  */
 pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type)
 {
+	memset(visited_buses, 0, sizeof(visited_buses));
 	device_total = 0;
 	pci_dev_t t = pci_scan_bus(vendor_id, device_id, 0, device_type);
 	if(t.bits)
@@ -389,7 +401,8 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
 		pci_dev_t dev = {0};
 		dev.function_num = function;
 
-		if(pci_read(dev, PCI_VENDOR_ID) == PCI_NONE)
+		uint32_t vendor = pci_read(dev, PCI_VENDOR_ID);
+		if (vendor == PCI_NONE)
 			break;
 		t = pci_scan_bus(vendor_id, device_id, function, device_type);
 		if(t.bits)
@@ -426,6 +439,7 @@ void init_pci() {
 	pci_size_map[PCI_MAX_LAT]		= 1;
 	pci_size_map[PCI_SECONDARY_BUS]		= 1;
 
+	memset(visited_buses, 0, sizeof(visited_buses));
 	pci_display_device_list();
 }
 
