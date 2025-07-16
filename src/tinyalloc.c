@@ -22,7 +22,7 @@ void ta_init(void* heap, size_t size, size_t alignment, size_t pagesize) {
     ta_head->next = 0;
 }
 
-static void* align_forward(void* ptr, size_t align) {
+[[maybe_unused]] static void* align_forward(void* ptr, size_t align) {
     uintptr_t p = (uintptr_t)ptr;
     uintptr_t mod = p % align;
     if (mod) p += (align - mod);

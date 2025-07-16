@@ -12,7 +12,7 @@
 #define RTL8139_DEVICE_ID	0x8139 // 8139
 
 // Receive buffer size
-#define RX_BUF_SIZE		8192
+#define RX_BUF_SIZE 		(8192 + 16)
 
 #define CAPR			0x38
 #define RX_READ_POINTER_MASK	(~3)

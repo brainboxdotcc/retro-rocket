@@ -4,6 +4,8 @@
  * 8086:2922 - 82801IR/IO/IH (ICH9R/DO/DH) 6 port SATA Controller [AHCI mode]
  */
 
+void* aligned_buf = NULL;
+
 bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
 bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
 bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
@@ -125,7 +127,7 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 		divided_length++;
 	}
 
-	size_t max_per_read = AHCI_DEV_SATAPI ? 4 : 16;
+	size_t max_per_read = AHCI_DEV_SATAPI ? 1 : 16;
 
 	dprintf("divided length: %d\n", divided_length);
 
@@ -201,7 +203,7 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				sd->blockwrite = storage_device_ahci_block_write;
 				sd->size = dt == AHCI_DEV_SATA ? ahci_read_size(&abar->ports[i], abar) : SIZE_MAX;
 				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name);
-				sd->block_size = dt == AHCI_DEV_SATA ? 512 : 2048;
+				sd->block_size = dt == AHCI_DEV_SATA ? HDD_SECTOR_SIZE : ATAPI_SECTOR_SIZE;
 				register_storage_device(sd);
 			}
 		}
@@ -262,7 +264,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	// Last entry
 	cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
 	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbc = count * 512 - 1;	// 512 bytes per sector
+	cmdtbl->prdt_entry[i].dbc = count * HDD_SECTOR_SIZE - 1;	// 512 bytes per sector
 	cmdtbl->prdt_entry[i].i = 1;
 
 	//dprintf("cmdheader->prdtl = %d i = %d\n", cmdheader->prdtl, i);
@@ -341,9 +343,8 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
  
 	if (!raw_buf && !buf) {
-		raw_buf = (uint8_t*)kmalloc_low(512 + 0x1000); // extra for alignment
+		raw_buf = (uint8_t*)kmalloc_low(HDD_SECTOR_SIZE + 0x1000); // extra for alignment
 		buf = (uint8_t*)(((uintptr_t)raw_buf + 0xFFF) & ~0xFFF); // 4K align
-		kprintf("Allocated: %08x %08x", raw_buf, buf);
 	}
 
 	// 8K bytes (16 sectors) per PRDT
@@ -399,6 +400,9 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 
 bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar)
 {
+	size_t sector_size = ATAPI_SECTOR_SIZE;
+	size_t total_bytes = count * sector_size;
+
 	port->is = (uint32_t)-1;
 	int spin = 0;
 	int slot = find_cmdslot(port, abar);
@@ -406,6 +410,8 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 		dprintf("No free command slots\n");
 		return false;
 	}
+
+	dprintf("ahci_atapi_read %d %d %016x\n", start, count, buf);
 
 	ahci_hba_cmd_header_t* cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)(port->clb);
 	cmdheader += slot;
@@ -418,20 +424,10 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	struct achi_hba_cmd_tbl_t* cmdtbl = (achi_hba_cmd_tbl_t*)(uint64_t)(cmdheader->ctba);
 	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl - 1) * sizeof(ahci_hba_prdt_entry_t));
 
-	// 8K bytes (16 sectors) per PRDT
 	int i = 0;
-	for (i=0; i<cmdheader->prdtl-1; i++) {
-		cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
-		cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
-		cmdtbl->prdt_entry[i].dbc = 4 * 2048-1;   // 8K bytes as 2048 byte sectors
-		cmdtbl->prdt_entry[i].i = 1;
-		buf += 4*1024;  // 4K words
-		count -= 4;	// 16 sectors
-	}
-	// Last entry
-	cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbc = count * 2048 - 1;	   // 512 bytes per sector
+	cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)aligned_buf  & 0xffffffff);
+	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(aligned_buf) >> 32) & 0xffffffff);
+	cmdtbl->prdt_entry[i].dbc = count * ATAPI_SECTOR_SIZE - 1;	   // 2048 bytes per sector
 	cmdtbl->prdt_entry[i].i = 1;
 
 	ahci_fis_reg_h2d_t* cmdfis = (ahci_fis_reg_h2d_t*)cmdtbl->cfis;
@@ -462,6 +458,7 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	while (port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ) && spin < 1000000) {
 		spin++;
 	};
+
 	if (spin == 1000000) {
 		dprintf("Port hung [atapi] (start %llx count %llx)\n", start, count);
 		return false;
@@ -481,6 +478,8 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 		dprintf("Read disk error [atapi] (start %llx count %llx)\n", start, count);
 		return false;
 	}
+
+	memcpy(buf, aligned_buf, total_bytes);
 
 	add_random_entropy(*buf);
 
@@ -574,6 +573,11 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 
 void init_ahci()
 {
+	uint8_t* raw = (uint8_t*)kmalloc_low(ATAPI_SECTOR_SIZE * 2);
+	uintptr_t raw_addr = (uintptr_t)raw;
+	uintptr_t aligned_addr = (raw_addr + (ATAPI_SECTOR_SIZE - 1)) & ~(ATAPI_SECTOR_SIZE - 1);
+	aligned_buf = (void*)aligned_addr;
+
 	pci_dev_t ahci_device = pci_get_device(0, 0, 0x0106);
 	if (!ahci_device.bits) {
 		dprintf("No AHCI devices found\n");

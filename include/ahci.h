@@ -342,4 +342,7 @@ typedef struct achi_hba_cmd_tbl_t
 #define ATA_DEV_BUSY 0x80
 #define ATA_DEV_DRQ 0x08
 
+#define HDD_SECTOR_SIZE 512
+#define ATAPI_SECTOR_SIZE 2048
+
 void init_ahci();

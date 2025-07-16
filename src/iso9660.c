@@ -22,14 +22,7 @@ bool iso_read_file(void *file, uint64_t start, uint32_t length, unsigned char *b
 
 static filesystem_t *iso9660_fs = NULL;
 
-void parse_boot([[maybe_unused]
-
-]
-iso9660 *info,
-[[maybe_unused]]
-unsigned char *buffer
-)
-{
+void parse_boot([[maybe_unused]] iso9660 *info, [[maybe_unused]] unsigned char *buffer) {
 }
 
 int parse_pvd(iso9660 *info, unsigned char *buffer) {
@@ -45,9 +38,9 @@ int parse_pvd(iso9660 *info, unsigned char *buffer) {
 			*ptr = 0;
 	}
 
-	int j = 0;
+	size_t j = 0;
 	info->volume_name = kmalloc(strlen(pvd->volumeidentifier) + 1);
-	for (ptr = pvd->volumeidentifier; *ptr; ++ptr) {
+	for (ptr = pvd->volumeidentifier; *ptr && j < strlen(pvd->volumeidentifier); ++ptr) {
 		info->volume_name[j++] = *ptr;
 	}
 	// Null-terminate volume name
@@ -57,8 +50,7 @@ int parse_pvd(iso9660 *info, unsigned char *buffer) {
 	info->pathtable_lba = pvd->lsb_pathtable_L_lba;
 	info->rootextent_lba = pvd->root_directory.extent_lba_lsb;
 	info->rootextent_len = pvd->root_directory.data_length_lsb;
-	info->root = parse_directory(NULL, info, pvd->root_directory.extent_lba_lsb,
-				     pvd->root_directory.data_length_lsb);
+	info->root = parse_directory(NULL, info, pvd->root_directory.extent_lba_lsb, pvd->root_directory.data_length_lsb);
 
 	return info->root != 0;
 }
@@ -66,14 +58,12 @@ int parse_pvd(iso9660 *info, unsigned char *buffer) {
 #define MAX_REASONABLE_ISO_DIR_SIZE 1024 * 1024
 
 fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t start_lba, uint32_t lengthbytes) {
-	kprintf("parse_directory lengthbytes=%d\n", lengthbytes);
 
 	unsigned char *dirbuffer = kmalloc(lengthbytes);
 	memset(dirbuffer, 0, lengthbytes);
 
 	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer)) {
-		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba,
-			lengthbytes / 2048);
+		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
 		kfree(dirbuffer);
 		return NULL;
 	}
@@ -85,7 +75,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 	int entrycount = 0;
 
 	if (lengthbytes > MAX_REASONABLE_ISO_DIR_SIZE) {
-		kprintf("ISO9660: Rejecting oversized directory: %u bytes\n", lengthbytes);
+		dprintf("ISO9660: Rejecting oversized directory: %u bytes\n", lengthbytes);
 		kfree(dirbuffer);
 		return NULL;
 	}
@@ -199,11 +189,11 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 	return list;
 }
 
-void parse_svd(iso9660 *info, unsigned char *buffer) {
+int parse_svd(iso9660 *info, unsigned char *buffer) {
 	PVD *svd = (PVD *) buffer;
 	if (!VERIFY_ISO9660(svd)) {
 		kprintf("ISO9660: Invalid SVD found, identifier is not 'CD001'\n");
-		return;
+		return 0;
 	}
 
 	int joliet = 0;
@@ -222,25 +212,17 @@ void parse_svd(iso9660 *info, unsigned char *buffer) {
 	}
 
 	if (joliet) {
-		//kprintf("Joliet extensions found on CD drive %s, UCS-2 Level %d\n", info->device->name, joliet);
+		kprintf("Joliet extensions found on CD drive %s, UCS-2 Level %d\n", info->device->name, joliet);
 		info->joliet = joliet;
 		info->pathtable_lba = svd->lsb_pathtable_L_lba;
 		info->rootextent_lba = svd->root_directory.extent_lba_lsb;
 		info->rootextent_len = svd->root_directory.data_length_lsb;
-		info->root = parse_directory(NULL, info, svd->root_directory.extent_lba_lsb,
-					     svd->root_directory.data_length_lsb);
+		info->root = parse_directory(NULL, info, svd->root_directory.extent_lba_lsb, svd->root_directory.data_length_lsb);
 	}
-	return;
+	return 1;
 }
 
-void parse_VPD([[maybe_unused]
-
-]
-iso9660 *info,
-[[maybe_unused]]
-unsigned char *buffer
-)
-{
+void parse_vpd([[maybe_unused]] iso9660 *info, [[maybe_unused]] unsigned char *buffer) {
 }
 
 fs_directory_entry_t *hunt_entry(iso9660 *info, const char *filename, uint32_t flags) {
@@ -283,8 +265,6 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 	// we must read one more than we asked for for safety.
 	sectors_size++;
 
-	dprintf("Reading %d sectors of size %d\n", sectors_size, length);
-
 	unsigned char *readbuf = kmalloc(sectors_size * fs->block_size);
 	if (!read_storage_device(file->device_name, sectors_start, length, readbuf)) {
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start,
@@ -309,15 +289,19 @@ iso9660 *iso_mount_volume(const char *name) {
 
 	unsigned char *buffer = kmalloc(fs->block_size);
 	iso9660 *info = kmalloc(sizeof(iso9660));
-	memset(buffer, 0, 2048);
-	uint32_t VolumeDescriptorPos = PVD_LBA;
+	memset(buffer, 0, fs->block_size);
+	uint32_t volume_descriptor_offset = PVD_LBA;
+	int found_pvd = 0, found_svd = 0;
 	info->device = fs;
 	while (1) {
-		if (!read_storage_device(name, VolumeDescriptorPos++, fs->block_size, buffer)) {
-			kprintf("ISO9660: Could not read LBA sector 0x%x from %s!\n", VolumeDescriptorPos, name);
+		if (!read_storage_device(name, volume_descriptor_offset++, fs->block_size, buffer)) {
+			kprintf("ISO9660: Could not read LBA sector 0x%x from %s!\n", volume_descriptor_offset, name);
 			kfree(info);
 			kfree(buffer);
 			return NULL;
+		}
+		if (volume_descriptor_offset - 1 < PVD_LBA + 5) {
+			dump_hex(buffer, 16);
 		}
 		unsigned char VolumeDescriptorID = buffer[0];
 		if (VolumeDescriptorID == 0xFF) {
@@ -325,23 +309,25 @@ iso9660 *iso_mount_volume(const char *name) {
 			break;
 		} else if (VolumeDescriptorID == 0x00) {
 			parse_boot(info, buffer);
-		} else if (VolumeDescriptorID == 0x01) {
+		} else if (VolumeDescriptorID == 0x01 && !found_pvd) {
 			// Primary volume descriptor
 			if (!parse_pvd(info, buffer)) {
 				kfree(info);
 				kfree(buffer);
 				return NULL;
 			}
-		} else if (VolumeDescriptorID == 0x02) {
+			found_pvd = 1;
+		} else if (VolumeDescriptorID == 0x02 && !found_svd) {
 			// Supplementary volume descriptor
-			parse_svd(info, buffer);
+			if (!parse_svd(info, buffer)) {
+				kfree(info);
+				kfree(buffer);
+				return NULL;
+			}
+			found_svd = 1;
 		} else if (VolumeDescriptorID == 0x03) {
 			// Volume partition descriptor
-			parse_VPD(info, buffer);
-		} else if (VolumeDescriptorID >= 0x04 && VolumeDescriptorID <= 0xFE) {
-			// Reserved and unknown ID
-			kprintf("ISO9660: WARNING: Unknown volume descriptor 0x%x at LBA 0x%x!\n", VolumeDescriptorID,
-				VolumeDescriptorPos);
+			parse_vpd(info, buffer);
 		}
 	}
 

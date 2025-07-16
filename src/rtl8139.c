@@ -1,6 +1,5 @@
 #include <kernel.h>
 
-#define RX_BUF_SIZE   (8192 + 16)
 #define TX_BUF_COUNT  4
 #define TX_BUF_SIZE   2048   // More than enough for Ethernet frame
 #define ALIGN_256(x)  (((x) + 255) & ~255)

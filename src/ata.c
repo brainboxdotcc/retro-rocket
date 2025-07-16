@@ -115,46 +115,46 @@ uint8_t ide_polling(uint8_t channel, uint32_t advanced_check)
 
 uint8_t ide_print_error(uint32_t drive, uint8_t err)
 {
-	kprintf("IDE drive %d error: ", drive);
+	dprintf("IDE drive %d error: ", drive);
 	if (err == 1) {
-		kprintf("Device Fault");
+		dprintf("Device Fault");
 		err = 19;
 	} else if (err == 2) {
 		uint8_t st = ide_read(ide_devices[drive].channel, ATA_REG_ERROR);
 		if (st & ATA_ER_AMNF) {
-			kprintf("No Address Mark Found");
+			dprintf("No Address Mark Found");
 			err = 7;
 		}
 		if ((st & ATA_ER_TK0NF) || (st & ATA_ER_MCR) || (st & ATA_ER_MC)) {
-			kprintf("No Media or Media Error");
+			dprintf("No Media or Media Error");
 			err = 3;
 		}
 		if (st & ATA_ER_ABRT) {
-			kprintf("Command Aborted");
+			dprintf("Command Aborted");
 			err = 20;
 		}
 		if (st & ATA_ER_IDNF) {
-			kprintf("ID mark not Found");
+			dprintf("ID mark not Found");
 			err = 21;
 		}
 		if (st & ATA_ER_UNC) {
-			kprintf("Uncorrectable Data Error");
+			dprintf("Uncorrectable Data Error");
 			err = 22;
 		}
 		if (st & ATA_ER_BBK) {
-			kprintf("Bad Sectors");
+			dprintf("Bad Sectors");
 			err = 13;
 		}
 	}
 	else if (err == 3) {
-		kprintf("Reads Nothing");
+		dprintf("Reads Nothing");
 		err = 23;
 	}
 	else if (err == 4) {
-		kprintf("Write Protected");
+		dprintf("Write Protected");
 		err = 8;
 	}
-	kprintf(" - [%s %s] %s\n",
+	dprintf(" - [%s %s] %s\n",
 		(const char *[]){"Primary","Secondary"}[ide_devices[drive].channel],
 		(const char *[]){"master", "slave"}[ide_devices[drive].drive],
 		ide_devices[drive].model);
@@ -185,7 +185,6 @@ int storage_device_ide_block_read(void* dev, uint64_t start, uint32_t bytes, uns
 	if (divided_length < 1) {
 		divided_length++;
 	}
-	dprintf("storage_device_ide_block_read %d sectors %d bytes\n", divided_length, bytes);
 	return ide_read_sectors((uint8_t)sd->opaque1, divided_length, start, (uint64_t)buffer);
 }
 
