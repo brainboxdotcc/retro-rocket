@@ -10,7 +10,8 @@ void kmain()
 		preboot_fail("Failed to mount boot drive to VFS!");
 	}
 
-	init_rtl8139();
+	//init_rtl8139();
+	init_e1000();
 
 	init_process();
 }

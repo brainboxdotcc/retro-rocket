@@ -63,9 +63,6 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 			return false;
 		}
 		gpt_entry_t* gpt = (gpt_entry_t*)gptbuf;
-		dump_hex(gpt->type_guid, 16);
-		dump_hex(partition_type, 16);
-		dprintf("\n");
 		if (!memcmp(gpt->type_guid, partition_type, 16)) {
 			/* Found matching partition */
 			dprintf("Found GPT entry at %d, start: %d end: %d\n", entry_number, gpt->start_lba, gpt->end_lba);

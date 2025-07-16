@@ -60,6 +60,12 @@ endfunction()
 function(run TARGETFILE)
     set(FILENAME "${CMAKE_BINARY_DIR}/iso/kernel.bin")
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
+    # Choose network device based on -DUSE_E1000
+    if(USE_E1000)
+        set(NET_DEVICE "-device e1000,netdev=netuser")
+    else()
+        set(NET_DEVICE "-device rtl8139,netdev=netuser")
+    endif()
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND echo "qemu-system-x86_64 \
 	-machine q35,accel=kvm \
@@ -82,7 +88,7 @@ function(run TARGETFILE)
 	-debugcon file:debug.log \
 	-netdev user,id=netuser,hostfwd=udp::2000-:2000 \
 	-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
-	-device rtl8139,netdev=netuser" >${OUTNAME} && chmod ugo+x ${OUTNAME}
+	${NET_DEVICE}" >${OUTNAME} && chmod ugo+x ${OUTNAME}
         DEPENDS ${FILENAME})
     add_custom_target(RUN_${TARGETFILE} ALL DEPENDS ${OUTNAME})
     add_dependencies(RUN_${TARGETFILE} "kernel.bin")

@@ -377,7 +377,6 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 			memcpy(clbuf + start_offset, buffer, to_write);
 			start_offset = 0;
 			dprintf("Amended cluster:\n");
-			dump_hex(clbuf, info->clustersize);
 			if (!write_cluster(info, cluster, clbuf)) {
 				dprintf("Write failure in fat32_write_file cluster=%08x\n", cluster);
 				kfree(clbuf);
@@ -436,7 +435,6 @@ bool fat32_truncate_file(void* f, size_t length)
 			if (this_file_cluster == file->lbapos && entry->name[0] != 0 && !(entry->name[0] & 0x80) && entry->attr != ATTR_LONG_NAME) {
 				entry->size = length;
 				file->size = length;
-				dump_hex(entry, 32);
 				write_cluster(info, cluster, buffer);
 				kfree(buffer);
 				return true;
@@ -541,7 +539,6 @@ bool fat32_extend_file(void* f, uint32_t size)
 			uint32_t this_file_cluster = (uint32_t)(((uint32_t)entry->first_cluster_hi << 16) | (uint32_t)entry->first_cluster_lo);
 			if (this_file_cluster == file->lbapos && entry->name[0] != 0 && !(entry->name[0] & 0x80) && entry->attr != ATTR_LONG_NAME) {
 				entry->size += size;
-				dump_hex(entry, 32);
 				write_cluster(info, cluster, buffer);
 				kfree(buffer);
 				dprintf("Directory info amended\n");
@@ -561,8 +558,6 @@ bool fat32_extend_file(void* f, uint32_t size)
 			cluster = nextcluster;
 		}
 	}
-	kfree(buffer);
-	return false;
 }
 
 void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t cluster, uint8_t* buffer, int bufferoffset, directory_entry_t* short_entry, directory_entry_t* new_entries, int entry_count)

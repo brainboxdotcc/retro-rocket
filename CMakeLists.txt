@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 project(retrorocket C ASM ASM_NASM)
 
+option(USE_E1000 "Use the e1000 NIC driver in QEMU instead of rtl8139" OFF)
+
 set(HARD_DISK_IMAGE "../../harddisk0" CACHE STRING "Path to hard disk image when running QEMU")
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
@@ -15,7 +17,7 @@ include("${CMAKE_SOURCE_DIR}/cmake/custom_targets.cmake")
 file(GLOB_RECURSE SOURCES "src/*.c")
 file(GLOB ASSEMBLY "asm/*")
 
-set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-declarations -Wno-unused-parameter -Wno-discarded-qualifiers -Wno-int-conversion -Wno-int-to-pointer-cast -nostdlib -mno-mmx -mno-3dnow -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=kernel -mno-red-zone -Wno-address-of-packed-member")
+set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-declarations -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-discarded-qualifiers -Wno-int-conversion -Wno-int-to-pointer-cast -nostdlib -mno-mmx -mno-3dnow -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=kernel -mno-red-zone -Wno-address-of-packed-member")
 
 include_directories("include")
 include_directories("limine")

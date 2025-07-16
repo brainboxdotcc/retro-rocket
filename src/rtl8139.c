@@ -267,8 +267,8 @@ bool init_rtl8139() {
 	// Allocate receive buffer and send buffers, below 4GB boundary
 	
 	// Save originals for kfree
-	uint8_t* tx_alloc = kmalloc_low((TX_BUF_SIZE + 16) * TX_BUF_COUNT * 2);
-	rtl8139_device.tx_buffers = (void*)ALIGN_16((uintptr_t)tx_alloc);
+	uint8_t* tx_alloc = (uint8_t*)kmalloc_low((TX_BUF_SIZE + 16) * TX_BUF_COUNT * 2);
+	rtl8139_device.tx_buffers = (uint32_t)(void*)ALIGN_16((uintptr_t)tx_alloc);
 
 	uint32_t raw = kmalloc_low(16384 + 256);
 	rtl8139_device.rx_buffer = (raw + 255) & ~255; // Align to 256-byte boundary

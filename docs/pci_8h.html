@@ -144,7 +144,7 @@ Macros</h2></td></tr>
 <tr class="separator:ac92507fba4c7755722bbe9b45f3536f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8beff8dcd21e35c86d181c0acaac92c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a8beff8dcd21e35c86d181c0acaac92c4">PCI_BAR5</a>&#160;&#160;&#160;0x24</td></tr>
 <tr class="separator:a8beff8dcd21e35c86d181c0acaac92c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a888b0de3c4aebe2c98b66a2aa0fd3ddd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a888b0de3c4aebe2c98b66a2aa0fd3ddd">PCI_CAPABILITIES</a>&#160;&#160;&#160;0x34</td></tr>
+<tr class="memitem:a888b0de3c4aebe2c98b66a2aa0fd3ddd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a888b0de3c4aebe2c98b66a2aa0fd3ddd">PCI_CAPABILITY_POINTER</a>&#160;&#160;&#160;0x34</td></tr>
 <tr class="separator:a888b0de3c4aebe2c98b66a2aa0fd3ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8116525040b6cde4a11b3aaaf5e40ec7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a8116525040b6cde4a11b3aaaf5e40ec7">PCI_INTERRUPT_LINE</a>&#160;&#160;&#160;0x3C</td></tr>
 <tr class="separator:a8116525040b6cde4a11b3aaaf5e40ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,7 +158,7 @@ Macros</h2></td></tr>
 <tr class="separator:a542c19851ef72dbe90bf3aa8cc275fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38e438de2cc1dff651461c4ee80dd117"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a38e438de2cc1dff651461c4ee80dd117">PCI_STATUS_INTERRUPT</a>&#160;&#160;&#160;(1 &lt;&lt; 3)</td></tr>
 <tr class="separator:a38e438de2cc1dff651461c4ee80dd117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b2f01589632fdeb18108c8a8f1d0a0d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a0b2f01589632fdeb18108c8a8f1d0a0d">PCI_STATUS_CAPABAILITIES_LIST</a>&#160;&#160;&#160;(1 &lt;&lt; 4)</td></tr>
+<tr class="memitem:a0b2f01589632fdeb18108c8a8f1d0a0d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a0b2f01589632fdeb18108c8a8f1d0a0d">PCI_STATUS_CAPABILITIES_LIST</a>&#160;&#160;&#160;(1 &lt;&lt; 4)</td></tr>
 <tr class="separator:a0b2f01589632fdeb18108c8a8f1d0a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a732880a7e90d5bcf5cb24bcf95fbc081"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pci_8h.html#a732880a7e90d5bcf5cb24bcf95fbc081">PCI_STATUS_66MHZ_CAPABLE</a>&#160;&#160;&#160;(1 &lt;&lt; 5)</td></tr>
 <tr class="separator:a732880a7e90d5bcf5cb24bcf95fbc081"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -452,13 +452,13 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a888b0de3c4aebe2c98b66a2aa0fd3ddd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a888b0de3c4aebe2c98b66a2aa0fd3ddd">&#9670;&nbsp;</a></span>PCI_CAPABILITIES</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a888b0de3c4aebe2c98b66a2aa0fd3ddd">&#9670;&nbsp;</a></span>PCI_CAPABILITY_POINTER</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PCI_CAPABILITIES&#160;&#160;&#160;0x34</td>
+          <td class="memname">#define PCI_CAPABILITY_POINTER&#160;&#160;&#160;0x34</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -984,13 +984,13 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a0b2f01589632fdeb18108c8a8f1d0a0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b2f01589632fdeb18108c8a8f1d0a0d">&#9670;&nbsp;</a></span>PCI_STATUS_CAPABAILITIES_LIST</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b2f01589632fdeb18108c8a8f1d0a0d">&#9670;&nbsp;</a></span>PCI_STATUS_CAPABILITIES_LIST</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PCI_STATUS_CAPABAILITIES_LIST&#160;&#160;&#160;(1 &lt;&lt; 4)</td>
+          <td class="memname">#define PCI_STATUS_CAPABILITIES_LIST&#160;&#160;&#160;(1 &lt;&lt; 4)</td>
         </tr>
       </table>
 </div><div class="memdoc">

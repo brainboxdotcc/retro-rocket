@@ -202,4 +202,4 @@ void receive_packet();
  */
 void rtl8139_get_mac_addr();
 
-#define get_mac_addr(x) rtl8139_get_mac_addr(x)
+//#define get_mac_addr(x) rtl8139_get_mac_addr(x)

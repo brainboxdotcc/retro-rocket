@@ -49,7 +49,7 @@ extern pci_dev_t dev_zero;
 #define PCI_BAR3                 0x1C
 #define PCI_BAR4                 0x20
 #define PCI_BAR5                 0x24
-#define PCI_CAPABILITIES         0x34
+#define PCI_CAPABILITY_POINTER   0x34
 #define PCI_INTERRUPT_LINE       0x3C
 #define PCI_INTERRUPT_PIN        0x3D
 #define PCI_MIN_GNT              0x3E
@@ -57,7 +57,7 @@ extern pci_dev_t dev_zero;
 #define PCI_SECONDARY_BUS        0x09
 
 #define PCI_STATUS_INTERRUPT			(1 << 3)
-#define PCI_STATUS_CAPABAILITIES_LIST		(1 << 4)
+#define PCI_STATUS_CAPABILITIES_LIST		(1 << 4)
 #define PCI_STATUS_66MHZ_CAPABLE		(1 << 5)
 #define PCI_STATUS_FAST_BACK_TO_BACK_CAPABLE	(1 << 7)
 #define PCI_STATUS_MASTER_DATA_PARITY_ERROR	(1 << 8)
@@ -117,7 +117,7 @@ uint16_t pci_io_base(uint32_t field);
 uint32_t pci_mem_base(uint32_t field);
 bool pci_not_found(pci_dev_t device);
 
-bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert);
+bool pci_enable_msi(pci_dev_t device, uint32_t vector);
 void pci_display_device_list();
 size_t pci_get_device_list(pci_dev_t** list);
 void pci_interrupt_enable(pci_dev_t device, bool enable);

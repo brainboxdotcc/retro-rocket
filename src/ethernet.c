@@ -3,19 +3,20 @@
 ethernet_protocol_t* protocol_handlers = NULL;
 
 int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t protocol) {
-    uint8_t src_mac_addr[6];
-    ethernet_frame_t * frame = kmalloc(sizeof(ethernet_frame_t) + len);
-    void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
+	uint8_t src_mac_addr[6];
+	ethernet_frame_t * frame = kmalloc(sizeof(ethernet_frame_t) + len);
+	void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
 
-    get_mac_addr(src_mac_addr);
-    memcpy(frame->src_mac_addr, src_mac_addr, 6);
-    memcpy(frame->dst_mac_addr, dst_mac_addr, 6);
-    memcpy(frame_data, data, len);
-    frame->type = htons(protocol);
+	get_mac_addr(src_mac_addr);
+	memcpy(frame->src_mac_addr, src_mac_addr, 6);
+	memcpy(frame->dst_mac_addr, dst_mac_addr, 6);
+	memcpy(frame_data, data, len);
+	frame->type = htons(protocol);
 	dprintf("ethernet_send_packet frame=%08x\n", frame);
-    rtl8139_send_packet(frame, sizeof(ethernet_frame_t) + len);
-    kfree(frame);
-    return len;
+	//rtl8139_send_packet(frame, sizeof(ethernet_frame_t) + len);
+	e1000_send_packet(frame, sizeof(ethernet_frame_t) + len);
+	kfree(frame);
+	return len;
 }
 
 void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
@@ -37,7 +38,6 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 		return;
 	}
 	dprintf("Unknown packet type %d\n", packet->type);
-	dump_hex(data, data_len);
 }
 
 bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol_t handler)

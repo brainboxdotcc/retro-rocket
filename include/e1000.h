@@ -14,11 +14,12 @@
  
  
 // I have gathered those from different Hobby online operating systems instead of getting them one by one from the manual
- 
+
 #define REG_CTRL        0x0000
 #define REG_STATUS      0x0008
 #define REG_EEPROM      0x0014
 #define REG_CTRL_EXT    0x0018
+#define REG_ICR		0x00C0
 #define REG_IMASK       0x00D0
 #define REG_RCTRL       0x0100
 #define REG_RXDESCLO    0x2800
@@ -33,14 +34,39 @@
 #define REG_TXDESCLEN   0x3808
 #define REG_TXDESCHEAD  0x3810
 #define REG_TXDESCTAIL  0x3818
- 
- 
+
+#define ICR_TXDW	1 << 0)
+#define ICR_TXQE	(1 << 1)
+#define ICR_LSC		(1 << 2)
+#define ICR_RXSEQ	(1 << 3)
+#define ICR_RXDMT0	(1 << 4)
+#define ICR_RXO		(1 << 6)
+#define ICR_RXT0	(1 << 7)
+
 #define REG_RDTR         0x2820 // RX Delay Timer Register
 #define REG_RXDCTL       0x3828 // RX Descriptor Control
 #define REG_RADV         0x282C // RX Int. Absolute Delay Timer
 #define REG_RSRPD        0x2C00 // RX Small Packet Detect Interrupt
- 
- 
+
+#define E1000_MAX_PKT_SIZE 2048
+#define E1000_TX_ALIGN 16
+
+#define TX_DD		0x1
+
+#define IMS_TXDW       (1 << 0)    // Transmit Descriptor Written Back
+#define IMS_TXQE       (1 << 1)    // Transmit Queue Empty
+#define IMS_LSC        (1 << 2)    // Link Status Change
+#define IMS_RXSEQ      (1 << 3)    // Receive Sequence Error
+#define IMS_RXDMT0     (1 << 4)    // Receive Descriptor Minimum Threshold Reached
+#define IMS_RXO        (1 << 6)    // Receiver Overrun
+#define IMS_RXT0       (1 << 7)    // Receiver Timer Interrupt
+#define IMS_MDAC       (1 << 9)    // MDIO Access Complete
+#define IMS_RXCFG      (1 << 10)   // Receive Configuration Interrupt
+#define IMS_GPI_EN0    (1 << 20)   // General Purpose Interrupt 0
+#define IMS_GPI_EN1    (1 << 21)   // General Purpose Interrupt 1
+#define IMS_INT_ASSERT (1 << 22)   // Interrupt Asserted (clears ICR)
+#define IMS_THSTAT     (1 << 24)   // Thermal Sensor Event
+#define IMS_TEMP       (1 << 25)   // Temperature Sensor Event
  
 #define REG_TIPG         0x0410      // Transmit Inter Packet Gap
 #define ECTRL_SLU        0x40        //set link up
@@ -66,6 +92,7 @@
 #define RCTL_CFI                        (1 << 20)   // Canonical Form Indicator Bit Value
 #define RCTL_DPF                        (1 << 22)   // Discard Pause Frames
 #define RCTL_PMCF                       (1 << 23)   // Pass MAC Control Frames
+#define RCTL_BSEX			(1 << 25)   // Big size extension
 #define RCTL_SECRC                      (1 << 26)   // Strip Ethernet CRC
  
 // Buffer Sizes
@@ -73,9 +100,9 @@
 #define RCTL_BSIZE_512                  (2 << 16)
 #define RCTL_BSIZE_1024                 (1 << 16)
 #define RCTL_BSIZE_2048                 (0 << 16)
-#define RCTL_BSIZE_4096                 ((3 << 16) | (1 << 25))
-#define RCTL_BSIZE_8192                 ((2 << 16) | (1 << 25))
-#define RCTL_BSIZE_16384                ((1 << 16) | (1 << 25))
+#define RCTL_BSIZE_4096                 ((3 << 16) | RCTL_BSEX)
+#define RCTL_BSIZE_8192                 ((2 << 16) | RCTL_BSEX)
+#define RCTL_BSIZE_16384                ((1 << 16) | RCTL_BSEX)
  
  
 // Transmit Command
@@ -133,4 +160,4 @@ int e1000_send_packet(const void * p_data, uint16_t p_len);
 
 bool init_e1000();
 
-//#define get_mac_addr(x) e1000_get_mac_addr(x)
+#define get_mac_addr(x) e1000_get_mac_addr(x)

@@ -300,9 +300,6 @@ iso9660 *iso_mount_volume(const char *name) {
 			kfree(buffer);
 			return NULL;
 		}
-		if (volume_descriptor_offset - 1 < PVD_LBA + 5) {
-			dump_hex(buffer, 16);
-		}
 		unsigned char VolumeDescriptorID = buffer[0];
 		if (VolumeDescriptorID == 0xFF) {
 			// Volume descriptor terminator

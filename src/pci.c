@@ -193,34 +193,28 @@ uint16_t pci_io_base(uint32_t field) {
 
 uint32_t pci_mem_base(uint32_t field) {
 	return field & (~0xf);
-}	
+}
 
 uint32_t pci_read(pci_dev_t dev, uint32_t field) {
-	// Only most significant 6 bits of the field
 	dev.field_num = (field & 0xFC) >> 2;
 	dev.enable = 1;
 	outl(PCI_CONFIG_ADDRESS, dev.bits);
 
-	// What size is this field supposed to be ?
 	uint32_t size = pci_size_map[field];
-	if(size == 1) {
-		// Get the first byte only, since it's in little endian, it's actually the 3rd byte
-		uint8_t t =inb(PCI_CONFIG_DATA + (field & 3));
-		return t;
-	}
-	else if(size == 2) {
-		uint16_t t = inw(PCI_CONFIG_DATA + (field & 2));
-		return t;
-	}
-	else if(size == 4){
-		// Read entire 4 bytes
-		uint32_t t = inl(PCI_CONFIG_DATA);
-		return t;
+	if (size == 1) {
+		return inb(PCI_CONFIG_DATA + (field & 3));
+	} else if (size == 2) {
+		return inw(PCI_CONFIG_DATA + (field & 2));
+	} else if (size == 4) {
+		if (field & 3) {
+			dprintf("Misaligned 4-byte PCI read at %x\n", field);
+			return 0xFFFFFFFF;
+		}
+		return inl(PCI_CONFIG_DATA);
 	} else {
-		uint32_t t = inl(PCI_CONFIG_DATA);
-		return t;
+		dprintf("Invalid PCI size %u at %x\n", size, field);
+		return 0xFFFFFFFF;
 	}
-	return 0xffff;
 }
 
 /*
@@ -229,10 +223,24 @@ uint32_t pci_read(pci_dev_t dev, uint32_t field) {
 void pci_write(pci_dev_t dev, uint32_t field, uint32_t value) {
 	dev.field_num = (field & 0xFC) >> 2;
 	dev.enable = 1;
-	// Tell where we want to write
 	outl(PCI_CONFIG_ADDRESS, dev.bits);
-	// Value to write
-	outl(PCI_CONFIG_DATA, value);
+
+	uint32_t size = pci_size_map[field];
+	uint16_t offset = field & 3;
+
+	if (size == 1) {
+		outb(PCI_CONFIG_DATA + offset, value & 0xFF);
+	} else if (size == 2) {
+		outw(PCI_CONFIG_DATA + offset, value & 0xFFFF);
+	} else if (size == 4) {
+		if (offset != 0) {
+			dprintf("Misaligned 4-byte PCI write at %x\n", field);
+			return;
+		}
+		outl(PCI_CONFIG_DATA, value);
+	} else {
+		dprintf("Invalid PCI write size %u at %x\n", size, field);
+	}
 }
 
 /*
@@ -432,7 +440,7 @@ void init_pci() {
 	pci_size_map[PCI_BAR3] 			= 4;
 	pci_size_map[PCI_BAR4] 			= 4;
 	pci_size_map[PCI_BAR5]			= 4;
-	pci_size_map[PCI_CAPABILITIES] 		= 4;
+	pci_size_map[PCI_CAPABILITY_POINTER] 	= 1;
 	pci_size_map[PCI_INTERRUPT_LINE]	= 1;
 	pci_size_map[PCI_INTERRUPT_PIN]		= 1;
 	pci_size_map[PCI_MIN_GNT]		= 1;
@@ -453,46 +461,50 @@ void pci_interrupt_enable(pci_dev_t device, bool enable)
 	}
 }
 
-bool pci_enable_msi(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert)
+bool pci_enable_msi(pci_dev_t device, uint32_t vector)
 {
 	uint32_t status = pci_read(device, PCI_STATUS);
 
 	/* Check for capabilities list */
-	if (!(status & PCI_STATUS_CAPABAILITIES_LIST)) {
+	if (!(status & PCI_STATUS_CAPABILITIES_LIST)) {
 		return false;
 	}
 
-	uint32_t capabilities_ptr = pci_read(device, PCI_CAPABILITIES);
+	uint8_t current = pci_read(device, PCI_CAPABILITY_POINTER);
 
-	uint32_t current = capabilities_ptr, config_space;
-	while ((config_space = pci_read(device, current))) {
-		uint8_t id = config_space & 0xFF;
-		uint16_t device_id = pci_read(device, PCI_DEVICE_ID);
-		uint16_t vendor_id = pci_read(device, PCI_VENDOR_ID);
-		uint32_t next_capability = (config_space & 0xFF00) >> 8;
+	while (current != 0) {
+		uint8_t id = pci_read(device, current + 0x00) & 0xFF;
+		uint8_t next = pci_read(device, current + 0x01) & 0xFF;
+
 		if (id == PCI_CAPABILITY_MSI) {
-			/* MSI capability */
-			interrupts_off();
-			uint32_t new_message_data = (vector & 0xFF) | (edgetrigger ? 0 : PCI_MSI_EDGETRIGGER) | (deassert ? 0 : PCI_MSI_DEASSERT);
-			uint32_t new_message_address = (0xFEE00000 | (cpu_id() << 12));
-			bool bits64cap = (config_space & PCI_MSI_64BIT);
-			dprintf("Enable MSI for %04x:%04x with data=%08x address=%08x vector %d\n", vendor_id, device_id, new_message_data, new_message_address, vector);
-			pci_write(device, current + 0x04, new_message_address);
-			pci_interrupt_enable(device, false);
-			if (bits64cap) {
-				pci_write(device, current + 0x08, 0);
-				pci_write(device, current + 0x0C, new_message_data);
+			uint16_t control = pci_read(device, current + 0x02) & 0xFFFF;
+			bool is_64bit = control & PCI_MSI_64BIT;
+
+			uint32_t address = 0xFEE00000 | (cpu_id() << 12);
+			uint32_t data = (vector & 0xFF);
+
+			dprintf("Enable MSI for %04x:%04x with data=%08x address=%08x vector %d\n",
+				pci_read(device, PCI_VENDOR_ID) & 0xFFFF,
+				pci_read(device, PCI_DEVICE_ID) & 0xFFFF,
+				data, address, vector);
+
+			pci_write(device, current + 0x04, address);
+
+			if (is_64bit) {
+				pci_write(device, current + 0x08, 0x0); // Upper 32-bit address (usually zero)
+				pci_write(device, current + 0x0C, data);
 			} else {
-				pci_write(device, current + 0x08, new_message_data);	
+				pci_write(device, current + 0x08, data);
 			}
-			pci_write(device, current + 0x00, config_space | PCI_MSI_ENABLE); // Mask in enable bit
-			interrupts_on();
+
+			control |= PCI_MSI_ENABLE; // This should be (1 << 0) - MSI enable bit
+			pci_write(device, current + 0x02, control);
+
+			pci_interrupt_enable(device, false); // Mask legacy INTx
 			return true;
 		}
-		current = next_capability;
-		if (next_capability == 0) {
-			break;
-		}
+
+		current = next;
 	}
 	return false;
 }
