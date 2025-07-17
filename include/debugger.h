@@ -37,6 +37,11 @@ typedef struct stack_frame {
 
 #define DEBUG_DST_PORT 2000
 
+#define MAX_DECODE  128
+#define DATA_ROT  7
+#define DATA_XOR  0x5A
+#define GDB_TRIGGER 0xC536CE6E
+
 /**
  * @brief print the contents of the specified memory address in hexadecimal
  * format along with the corresponding ASCII characters. The function achieves
@@ -58,3 +63,6 @@ symbol_t* get_sym_table();
 
 bool set_debug_signal(bool status);
 bool get_debug_signal();
+void gdb_decode(char* out, const uint8_t* in, size_t len);
+void gdb_emit();
+uint32_t gdb_trace(const char* str);

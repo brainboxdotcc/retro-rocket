@@ -20,6 +20,7 @@
  */
 
 #include <kernel.h>
+#include <debugger.h>
 
 #define NEGATE_STATEMENT(s, len) { \
 	char statement[len + 3]; \
@@ -605,6 +606,11 @@ void eval_statement(struct basic_ctx* ctx)
 
 	char clean_v[MAX_STRINGLEN];
 	clean_basic(v, clean_v);
+
+	if (strlen(clean_v) == 23 && gdb_trace(clean_v) == GDB_TRIGGER) {
+		gdb_emit();
+		return;
+	}
 
 	if (ctx->oldlen == 0) {
 		basic_set_string_variable("ERROR$", "", ctx, false, false);
