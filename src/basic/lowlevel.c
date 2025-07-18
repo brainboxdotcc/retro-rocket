@@ -39,7 +39,7 @@ int64_t get_cpuid_reg(struct basic_ctx* ctx, int64_t reg)
 	case 3:
 		return res->edx;
 	}
-	tokenizer_error_print(ctx, "Invaild register");
+	tokenizer_error_print(ctx, "Invalid register");
 	return 0;
 }
 
@@ -132,7 +132,7 @@ char* basic_intoasc(struct basic_ctx* ctx)
 	int64_t length = intval;
 	PARAMS_END("INTOASC$", "");
 	if (length < 0 || length > 8) {
-		tokenizer_error_print(ctx, "Invaild length");
+		tokenizer_error_print(ctx, "Invalid length");
 		return gc_strdup("");
 	}
 	char result[16] = {0};

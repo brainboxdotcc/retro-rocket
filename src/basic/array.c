@@ -507,9 +507,10 @@ bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 			if (cur->values[pop_pos]) {
 				kfree(cur->values[pop_pos]);
 			}
-			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount + 1; ++i) {
+			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
 				cur->values[i] = cur->values[i + 1];
 			}
+			cur->values[cur->itemcount - 1] = NULL;
 			return true;
 		}
 	}
@@ -530,9 +531,10 @@ bool basic_pop_int_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx
 				tokenizer_error_print(ctx, "Invalid array index");
 				return false;
 			}
-			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount + 1; ++i) {
+			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
 				cur->values[i] = cur->values[i + 1];
 			}
+			cur->values[cur->itemcount - 1] = 0;
 			return true;
 		}
 	}
@@ -553,9 +555,10 @@ bool basic_pop_double_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 				tokenizer_error_print(ctx, "Invalid array index");
 				return false;
 			}
-			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount + 1; ++i) {
+			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
 				cur->values[i] = cur->values[i + 1];
 			}
+			cur->values[cur->itemcount - 1] = 0;
 			return true;
 		}
 	}

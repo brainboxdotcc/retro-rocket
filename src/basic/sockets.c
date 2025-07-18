@@ -36,11 +36,12 @@ void sockread_statement(struct basic_ctx* ctx)
 			case '$':
 				basic_set_string_variable(var, input, ctx, false, false);
 			break;
-			case '#':
+			case '#': {
 				double f = 0;
 				atof(input, &f);
 				basic_set_double_variable(var, f, ctx, false, false);
-			break;
+				break;
+			}
 			default:
 				basic_set_int_variable(var, atoll(input, 10), ctx, false, false);
 			break;

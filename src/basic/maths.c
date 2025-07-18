@@ -153,6 +153,6 @@ int64_t basic_shr(struct basic_ctx* ctx)
 	int64_t x = intval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t y = intval;
-	PARAMS_END("SHL", 0);
+	PARAMS_END("SHR", 0);
 	return x >> y;
 }
