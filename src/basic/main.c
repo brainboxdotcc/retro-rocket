@@ -93,7 +93,6 @@ char* clean_basic(const char* program, char* output_buffer)
 	}
 	// Terminate output
 	*d = 0;
-	//dprintf("clean => %s\n", output_buffer);
 	return output_buffer;
 }
 
@@ -151,30 +150,27 @@ bool basic_hash_lines(struct basic_ctx* ctx, char** error)
 {
 	/* Build doubly linked list of line number references */
 	uint64_t last_line = 0xFFFFFFFF;
-	while (!tokenizer_finished(ctx)) {
-		uint64_t line = tokenizer_num(ctx, NUMBER);
+	char* program = ctx->ptr;
+	while (*program) {
+		uint64_t line = atoi(program);
 		if (last_line != 0xFFFFFFFF && (line <= last_line)) {
 			*error = "Misordered lines in BASIC program";
 			basic_destroy(ctx);
 			return false;
 		}
 		last_line = line;
-		if (hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = line, .ptr = ctx->ptr })) {
+		if (hashmap_set(ctx->lines, &(ub_line_ref){ .line_number = line, .ptr = program })) {
 			*error = "Line hashed twice in BASIC program (internal error)";
 			basic_destroy(ctx);
 			return false;
 		}
 		ctx->highest_line = line;
-		do {
-			do {
-				tokenizer_next(ctx);
-			}
-			while (tokenizer_token(ctx) != NEWLINE && !tokenizer_finished(ctx));
-			if (tokenizer_token(ctx) == NEWLINE) {
-				tokenizer_next(ctx);
-			}
+		while (*program && *program != '\n') {
+			program++;
 		}
-		while(tokenizer_token(ctx) != NUMBER && !tokenizer_finished(ctx));
+		while (*program == '\n') {
+			program++; // skip newline to start of next one
+		}
 	}
 	tokenizer_init(ctx->program_ptr, ctx);
 	return true;
@@ -245,10 +241,12 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 		return NULL;
 	}
 
+	tokenizer_init(ctx->program_ptr, ctx);
 	set_system_variables(ctx, pid);
 	basic_set_string_variable("PROGRAM$", file, ctx, false, false);
 
 	if (!basic_hash_lines(ctx, error)) {
+		dprintf("Failed to hash lines\n");
 		return NULL;
 	}
 
@@ -814,9 +812,6 @@ void basic_run(struct basic_ctx* ctx)
 		return;
 	}
 	line_statement(ctx);
-	/*if (ctx->fn_type == RT_NONE) {
-		dprintf("Line %d\n", ctx->current_linenum);
-	}*/
 	if (ctx->errored) {
 		ctx->errored = false;
 		if (ctx->call_stack_ptr > 0) {

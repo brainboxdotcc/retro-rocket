@@ -339,16 +339,16 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 bool basic_parse_fn(struct basic_ctx* ctx)
 {
 	int currentline = 0;
+	char* program = ctx->ptr;
 
 	while (true) {
-		currentline = tokenizer_num(ctx, NUMBER);
-		char const* linestart = ctx->ptr;
-		do {
-			do {
-				tokenizer_next(ctx);
-			} while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT && *ctx->ptr);
+		currentline = atoi(program);
+		char const* linestart = program;
+			while (*program != '\n' && *program != 0) {
+				++program;
+			}
 			
-			char const* lineend = ctx->ptr;
+			char const* lineend = program;
 			
 			char* linetext = kmalloc(lineend - linestart + 1);
 			strlcpy(linetext, linestart, lineend - linestart + 1);
@@ -403,6 +403,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				def->params = NULL;
 
 				if (*search == '(') {
+					dprintf("PROC has params\n");
 					search++;
 					// Parse parameters
 					char pname[MAX_STRINGLEN];
@@ -421,6 +422,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 
 							if (def->params == NULL) {
 								def->params = par;
+								dprintf("   PARAM: %s\n", par->name);
 							} else {
 								struct ub_param* cur = def->params;
 								for (; cur; cur = cur->next) {
@@ -442,22 +444,15 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				ctx->defs = def;
 			}
 
-			if (tokenizer_token(ctx) == NEWLINE) {
-				tokenizer_next(ctx);
+			if (*program == '\n') {
+				++program;
 			}
 			kfree(linetext);
-			if (tokenizer_token(ctx) == ENDOFINPUT) {
+			if (!*program) {
 				break;
 			}
-		}
-		while (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != ENDOFINPUT && *ctx->ptr);
-
-		if (tokenizer_token(ctx) == ENDOFINPUT || !*ctx->ptr) {
-			break;
-		}
 	}
-
-	tokenizer_init(ctx->program_ptr, ctx);
+	dprintf("Finished function forward scan\n");
 
 	ctx->ended = false;
 	return true;
