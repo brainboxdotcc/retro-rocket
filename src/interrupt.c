@@ -17,17 +17,15 @@ void remap_irqs_to_ioapic()
 	for (uint8_t irq = 0; irq < 16; ++irq) {
 		uint32_t gsi = irq_to_gsi(irq);
 		uint32_t vector = IRQ_VECTOR_BASE + irq;
-
-		// Delivery mode 0: fixed
-		// Dest mode 0: physical
-		// Polarity and trigger_mode based on override flags - for now assume edge/high
-		// Mask = 0 (unmasked)
-		ioapic_redir_set(gsi, vector,
-				 0,  // del_mode
-				 0,  // dest_mode
-				 0,  // intpol (0 = active high)
-				 0,  // trigger_mode (0 = edge)
-				 0); // unmasked
+		ioapic_redir_set(
+			gsi,
+			vector,
+			0,  // del_mode 0: fixed
+			0,  // dest_mode 0: physical
+			get_irq_polarity(irq),  // intpol (0 = active high)
+			get_irq_trigger_mode(irq),  // trigger_mode (0 = edge)
+			0 // unmasked
+		);
 	}
 }
 

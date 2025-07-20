@@ -107,3 +107,7 @@ ioapic_t get_ioapic(uint16_t index);
 uint16_t get_ioapic_count();
 
 uint32_t irq_to_gsi(uint8_t irq);
+
+uint8_t get_irq_polarity(uint8_t irq);
+
+uint8_t get_irq_trigger_mode(uint8_t irq);

@@ -1,3 +1,5 @@
 IF ARGS$ = "" THEN PRINT "Hostname not specified"
 IF ARGS$ = "" THEN END
-PRINT DNS$(ARGS$)
+HOST$ = DNS$(ARGS$)
+IF HOST$ = "0.0.0.0" THEN PRINT "Host not found"
+IF HOST$ <> "0.0.0.0" THEN PRINT HOST$

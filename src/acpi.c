@@ -13,6 +13,8 @@ static uint64_t lapic_ptr = 0;       // pointer to the Local APIC MMIO registers
 static uint64_t ioapic_ptr[256] = { 0 };      // pointer to the IO APIC MMIO registers
 static uint32_t ioapic_gsi_base[256] = { 0 };
 static uint8_t ioapic_gsi_count[256] = { 0 };
+static uint8_t irq_trigger_mode[256] = {0};  // 0 = edge, 1 = level
+static uint8_t irq_polarity[256]     = {0};  // 0 = high,  1 = low
 
 static uint32_t irq_override_map[256];
 
@@ -97,6 +99,8 @@ void init_cores()
 						madt_override_t* ovr = (madt_override_t*)ptr;
 						dprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n", ovr->irq_source, ovr->gsi, ovr->flags);
 						irq_override_map[ovr->irq_source] = ovr->gsi;
+						if (ovr->flags & 0x8) irq_trigger_mode[ovr->irq_source] = 1; // Bit 3 = trigger mode
+						if (ovr->flags & 0x2) irq_polarity[ovr->irq_source]     = 1; // Bit 1 = polarity
 						break;
 					}
 					case 5:
@@ -122,4 +126,12 @@ void init_cores()
 
 uint32_t irq_to_gsi(uint8_t irq) {
 	return irq_override_map[irq];
+}
+
+uint8_t get_irq_polarity(uint8_t irq) {
+	return irq_polarity[irq];
+}
+
+uint8_t get_irq_trigger_mode(uint8_t irq) {
+	return irq_trigger_mode[irq];
 }
