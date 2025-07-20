@@ -1,6 +1,16 @@
  #include <kernel.h>
 
-void get_lapic_address(uint64_t* lapic);
+uint64_t get_lapic_address() {
+	uint32_t eax, edx;
+	__asm__ volatile (
+		"rdmsr"
+		: "=a"(eax), "=d"(edx)
+		: "c"(APIC_BASE_MSR)
+	 );
+	uint64_t result = ((uint64_t)edx << 32) | eax;
+	result &= 0xFFFFFFFFFFFFF000ULL;
+	return result;
+}
 
 uint32_t apic_read(uint64_t reg)
 {

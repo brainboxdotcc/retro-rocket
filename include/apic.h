@@ -17,5 +17,6 @@
 uint32_t apic_read(uint64_t reg);
 void apic_write(uint64_t reg, uint32_t value);
 uint8_t cpu_id();
+uint64_t get_lapic_address();
 
 #endif

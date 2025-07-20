@@ -8,13 +8,28 @@
 
 typedef uint32_t spinlock;
 
-/* Function bodies for *_spinlock defined in asm/spinlock.asm */
+#include <stdint.h>
+#include <stdbool.h>
 
-void init_spinlock(spinlock* s);
-void lock_spinlock(spinlock* s);
-void unlock_spinlock(spinlock* s);
+typedef uint32_t spinlock_t;
 
-void get_ioapic_address(uint64_t* apic);
+static inline void init_spinlock(spinlock_t* lock) {
+	__atomic_store_n(lock, 0, __ATOMIC_RELAXED);
+}
+
+static inline void lock_spinlock(spinlock_t* lock) {
+	while (__atomic_test_and_set(lock, __ATOMIC_ACQUIRE)) {
+		while (__atomic_load_n(lock, __ATOMIC_RELAXED)) {
+			__builtin_ia32_pause(); // x86 "pause"
+		}
+	}
+}
+
+static inline void unlock_spinlock(spinlock_t* lock) {
+	__atomic_clear(lock, __ATOMIC_RELEASE);
+}
+
+
 
 #endif
 
