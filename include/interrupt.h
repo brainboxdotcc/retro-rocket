@@ -70,3 +70,4 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode);
  */
 void IRQ(uint64_t isrnumber, uint64_t errorcode);
 
+void remap_irqs_to_ioapic();

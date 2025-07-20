@@ -3,7 +3,8 @@
 
 #define IOAPIC_INT_UNMASK (1 << 16)
 
-#define GSI_OFFSET(gsi) (0x10 + gsi * 2)
+//#define GSI_OFFSET(gsi) (0x10 + gsi * 2)
+#define GSI_OFFSET(ioapic, gsi) (0x10 + ((gsi - ioapic->gsi_base) * 2))
 
 void ioapic_register_write(uint32_t index, uint32_t value, ioapic_t *ioapic)
 {
@@ -44,14 +45,14 @@ ioapic_t* ioapic_find(uint32_t gsi)
 
 void ioapic_write_gsi(ioapic_t* ioapic, uint32_t gsi, uint32_t lower, uint32_t upper)
 {
-	ioapic_register_write(GSI_OFFSET(gsi), lower, ioapic);
-	ioapic_register_write(GSI_OFFSET(gsi) + 1, upper, ioapic);
+	ioapic_register_write(GSI_OFFSET(ioapic, gsi), lower, ioapic);
+	ioapic_register_write(GSI_OFFSET(ioapic, gsi) + 1, upper, ioapic);
 }
 
 void ioapic_read_gsi(ioapic_t* ioapic, uint32_t gsi, uint32_t* lower, uint32_t* upper)
 {
-	*lower = ioapic_register_read(GSI_OFFSET(gsi), ioapic);
-        *upper = ioapic_register_read(GSI_OFFSET(gsi) + 1, ioapic);
+	*lower = ioapic_register_read(GSI_OFFSET(ioapic, gsi), ioapic);
+	*upper = ioapic_register_read(GSI_OFFSET(ioapic, gsi) + 1, ioapic);
 }
 
 void ioapic_redir_set_precalculated(uint32_t gsi, uint32_t upper, uint32_t lower)
@@ -63,8 +64,9 @@ void ioapic_redir_set_precalculated(uint32_t gsi, uint32_t upper, uint32_t lower
 	ioapic_write_gsi(ioapic, gsi, lower, upper);
 }
 
-void ioapic_redir_set(uint32_t gsi, uint32_t vector, uint32_t del_mode, uint32_t dest_mode, uint32_t intpol, uint32_t trigger_mode, uint32_t mask)
+void ioapic_redir_set(uint32_t irq, uint32_t vector, uint32_t del_mode, uint32_t dest_mode, uint32_t intpol, uint32_t trigger_mode, uint32_t mask)
 {
+	uint32_t gsi = irq_to_gsi(irq);
 	ioapic_t *ioapic = ioapic_find(gsi);
 	if (ioapic == NULL) {
 		return;
@@ -72,6 +74,7 @@ void ioapic_redir_set(uint32_t gsi, uint32_t vector, uint32_t del_mode, uint32_t
 	uint32_t lower = (vector & 0xff) | (del_mode << 8) | (dest_mode << 11) | (intpol << 13) | (trigger_mode << 15) | (mask << 16);
 	uint32_t upper = (dest_mode << 24);
 	ioapic_write_gsi(ioapic, gsi, lower, upper);
+	dprintf("Remapping IRQ %d -> GSI %d -> Vector %d\n", irq, gsi, vector);
 }
 
 // Unmask an interrupt on the IOAPIC

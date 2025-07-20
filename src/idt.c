@@ -87,7 +87,13 @@ void init_idt() {
 	outb(0x40, divisor >> 8);
 
 	pic_remap(0x20, 0x28);
+#ifdef USE_IOAPIC
+	pic_disable();
+	remap_irqs_to_ioapic();
+	get_lapic_address();
+#else
 	pic_enable();
+#endif
 
 	interrupts_on();
 

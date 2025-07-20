@@ -66,7 +66,7 @@ void kfree(const void* ptr) {
 
     uintptr_t a = (uintptr_t)ptr;
     if (a >= LOW_HEAP_START && a < LOW_HEAP_MAX) {
-        preboot_fail("kfree: tried to free low heap memory — use kfree_low instead!");
+        preboot_fail("kfree: tried to free low heap memory - use kfree_low instead!");
     }
 
     ta_free(ptr);

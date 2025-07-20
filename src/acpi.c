@@ -14,6 +14,8 @@ static uint64_t ioapic_ptr[256] = { 0 };      // pointer to the IO APIC MMIO reg
 static uint32_t ioapic_gsi_base[256] = { 0 };
 static uint8_t ioapic_gsi_count[256] = { 0 };
 
+static uint32_t irq_override_map[256];
+
 rsdp_t* get_rsdp() {
 	return (rsdp_t*) rsdp_request.response->address;
 }
@@ -91,6 +93,12 @@ void init_cores()
 						kprintf("Detected: IOAPIC [base: %llx; id: %d gsi base: %d gsi count: %d]\n", ioapic_ptr[numioapic], ioapic_ids[numioapic], ioapic_gsi_base[numioapic], count);
 						numioapic++;
 					break;  // found IOAPIC
+					case 2: {
+						madt_override_t* ovr = (madt_override_t*)ptr;
+						dprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n", ovr->irq_source, ovr->gsi, ovr->flags);
+						irq_override_map[ovr->irq_source] = ovr->gsi;
+						break;
+					}
 					case 5:
 						lapic_ptr = *((uint64_t*)(ptr + 4));
 						kprintf("Detected: 64-Bit Local APIC [base: %llx]\n", lapic_ptr);
@@ -100,7 +108,18 @@ void init_cores()
 			break;
 		}
 	}
+	for (int i = 0; i < 16; ++i) {
+		if (irq_override_map[i] == 0 && i != 0) // leave IRQ0 unmodified in case overridden
+			irq_override_map[i] = i;
+	}
 	if (numcore > 0) {
 		kprintf("SMP: %d cores, %d IOAPICs\n", numcore, numioapic);
 	}
+	for (int i = 0; i < 16; ++i) {
+		dprintf("IRQ %d maps to GSI %d\n", i, irq_to_gsi(i));
+	}
+}
+
+uint32_t irq_to_gsi(uint8_t irq) {
+	return irq_override_map[irq];
 }

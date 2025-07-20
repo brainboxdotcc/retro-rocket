@@ -56,6 +56,15 @@ typedef struct ioapic_t {
 	uint8_t gsi_count;	// The interrupt count.
 } ioapic_t;
 
+typedef struct {
+	uint8_t type;
+	uint8_t length;
+	uint8_t bus_source;
+	uint8_t irq_source;
+	uint32_t gsi;
+	uint16_t flags;
+} __attribute__((packed)) madt_override_t;
+
 /**
  * @brief Detect SMP cores, IOAPICs, Local APICs
  */
@@ -96,3 +105,5 @@ ioapic_t get_ioapic(uint16_t index);
  * @return uint16_t total number of IOAPICs
  */
 uint16_t get_ioapic_count();
+
+uint32_t irq_to_gsi(uint8_t irq);

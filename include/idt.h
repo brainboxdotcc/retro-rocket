@@ -7,6 +7,8 @@
 
 #include <kernel.h>
 
+#define USE_IOAPIC
+
 typedef struct idt_ptr_t {
 	uint16_t limit;
 	void* base;

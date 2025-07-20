@@ -8,7 +8,28 @@
  */
 shared_interrupt_t* shared_interrupt[256] = { 0 };
 
+#define IRQ_VECTOR_BASE 0x20 // IDT[32]–IDT[47] for IRQ0–IRQ15
+
 extern const char* const error_table[];
+
+void remap_irqs_to_ioapic()
+{
+	for (uint8_t irq = 0; irq < 16; ++irq) {
+		uint32_t gsi = irq_to_gsi(irq);
+		uint32_t vector = IRQ_VECTOR_BASE + irq;
+
+		// Delivery mode 0: fixed
+		// Dest mode 0: physical
+		// Polarity and trigger_mode based on override flags - for now assume edge/high
+		// Mask = 0 (unmasked)
+		ioapic_redir_set(gsi, vector,
+				 0,  // del_mode
+				 0,  // dest_mode
+				 0,  // intpol (0 = active high)
+				 0,  // trigger_mode (0 = edge)
+				 0); // unmasked
+	}
+}
 
 void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque)
 {
@@ -52,8 +73,11 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 		wait_forever();
 	}
 
-	//local_apic_clear_interrupt();
+#ifdef USE_IOAPIC
+	local_apic_clear_interrupt();
+#else
 	pic_eoi(isrnumber);
+#endif
 	__builtin_ia32_fxrstor64(&fx);
 }
 
@@ -76,8 +100,11 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum)
 	}
 	/* IRQ7 is the APIC spurious interrupt, we never acknowledge it */
 	if (irqnum != IRQ7) {
-		//local_apic_clear_interrupt();
+#ifdef USE_IOAPIC
+		local_apic_clear_interrupt();
+#else
 		pic_eoi(isrnumber);
+#endif
 	}
 	__builtin_ia32_fxrstor64(&fx);
 }
