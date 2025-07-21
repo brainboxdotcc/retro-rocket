@@ -1,20 +1,18 @@
 /**
  * @file e1000.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2023
+ * @copyright Copyright (c) 2012-2025
  */
 #pragma once
 
 #include "kernel.h"
 
-#define INTEL_VEND     0x8086  // Vendor ID for Intel 
-#define E1000_DEV      0x100E  // Device ID for the e1000 Qemu, Bochs, and VirtualBox emmulated NICs
-#define E1000_I217     0x153A  // Device ID for Intel I217
-#define E1000_82577LM  0x10EA  // Device ID for Intel 82577LM
+#define INTEL_VEND     (uint32_t)0x8086  // Vendor ID for Intel
+#define E1000_DEV      (uint32_t)0x100E  // Device ID for the e1000 Qemu, Bochs, and VirtualBox emulated NICs
+#define E1000_I217     (uint32_t)0x153A  // Device ID for Intel I217
+#define E1000_82577LM  (uint32_t)0x10EA  // Device ID for Intel 82577LM
  
  
-// I have gathered those from different Hobby online operating systems instead of getting them one by one from the manual
-
 #define REG_CTRL        0x0000
 #define REG_STATUS      0x0008
 #define REG_EEPROM      0x0014
@@ -156,8 +154,6 @@ typedef struct e1000_tx_desc {
 
 void e1000_get_mac_addr(uint8_t* src_mac_addr);
 
-int e1000_send_packet(const void * p_data, uint16_t p_len);
+bool e1000_send_packet(void * p_data, uint16_t p_len);
 
 bool init_e1000();
-
-#define get_mac_addr(x) e1000_get_mac_addr(x)

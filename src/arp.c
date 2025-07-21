@@ -37,7 +37,12 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 		}
 		if (memcmp(arp_packet->dst_protocol_addr, &my_ip, 4)) {
 
-			get_mac_addr(arp_packet->src_hardware_addr);
+			netdev_t* dev = get_active_network_device();
+			if (!dev) {
+				return;
+			}
+
+			dev->get_mac_addr(arp_packet->src_hardware_addr);
 			arp_packet->src_protocol_addr[0] = addr[0];
 			arp_packet->src_protocol_addr[1] = addr[1];
 			arp_packet->src_protocol_addr[2] = addr[2];
@@ -75,10 +80,14 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 }
 
 void arp_send_packet(uint8_t* dst_hardware_addr, uint8_t* dst_protocol_addr) {
+	netdev_t* dev = get_active_network_device();
+	if (!dev) {
+		return;
+	}
 	arp_packet_t * arp_packet = kmalloc(sizeof(arp_packet_t));
 	static const char broadcast_ip_address[4] = { 255, 255, 255, 255 };
 
-	get_mac_addr(arp_packet->src_hardware_addr);
+	dev->get_mac_addr(arp_packet->src_hardware_addr);
 	if (!gethostaddr(arp_packet->src_protocol_addr)) {
 		memcpy(&arp_packet->src_protocol_addr, &broadcast_ip_address, 4);
 	}

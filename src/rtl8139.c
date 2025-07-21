@@ -9,6 +9,8 @@ rtl8139_dev_t rtl8139_device;
 
 static bool in_interrupt = false;
 
+void rtl8139_get_mac_addr(uint8_t*);
+
 // IO Helper Functions
 
 static void rtl_outb(uint32_t io, uint8_t v) {
@@ -79,7 +81,10 @@ void receive_packet() {
 				if (packet_length) {
 					void* packet = kmalloc(packet_length);
 					memcpy(packet, t, packet_length);
-					ethernet_handle_packet(packet, packet_length);
+					netdev_t* dev = get_active_network_device();
+					if (dev && dev->deviceid == ((RTL8139_VENDOR_ID << 16) | RTL8139_DEVICE_ID)) {
+						ethernet_handle_packet(packet, packet_length);
+					}
 					kfree(packet);
 					memset(t, 0, packet_length);
 				} else {
@@ -116,9 +121,12 @@ void rtl8139_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t err
 	in_interrupt = true;
 	uint16_t status = rtl_inw(IntrStatus);
 
+	if (status)
+		kprintf("Nonzero rtl status %x\n", status);
+
 	// It is VERY important this write happens BEFORE attempting to receive packets,
 	// or interrupts break. The datasheet and online forums/wikis DO NOT (or did not,
-	// i fixed this) document this...
+	// I fixed this) document this...
 	
 	if(status & TOK) {
 		// Sent
@@ -134,6 +142,18 @@ void rtl8139_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t err
 void rtl8139_timer()
 {
 	/* For packet timeouts, unused at present */
+	//rtl8139_handler(rtl8139_device.irq + 32, 0, rtl8139_device.irq, &rtl8139_device);
+
+	static bool last_bufe = false;
+	bool bufe_now = rtl_inb(ChipCmd) & CR_BUFE;
+
+	if (bufe_now && !last_bufe) {
+		kprintf("RX buffer became empty\n");
+	}
+	if (!bufe_now && last_bufe) {
+		kprintf("RX buffer no longer empty\n");
+	}
+	last_bufe = bufe_now;
 }
 
 char* read_mac_addr() {
@@ -172,10 +192,10 @@ void rtl8139_get_mac_addr(uint8_t* src_mac_addr) {
  * @param data 
  * @param len 
  */
-void rtl8139_send_packet(void* data, uint32_t len) {
+bool rtl8139_send_packet(void* data, uint16_t len) {
 	if (!rtl8139_device.active) {
 		dprintf("rtl8139: send packet on inactive device\n");
-		return;
+		return false;
 	}
 	
 	dprintf("rtl8139_send_packet(%08x, %d)\n", data, len);
@@ -236,6 +256,7 @@ void rtl8139_send_packet(void* data, uint32_t len) {
 	}
 
 	interrupts_on();
+	return true;
 }
 
 bool init_rtl8139() {
@@ -250,23 +271,25 @@ bool init_rtl8139() {
 	rtl8139_device.mem_base = pci_mem_base(pci_read(pci_device, PCI_BAR1));
 	rtl8139_device.tx_cur = 0;
 
-	// Enable PCI Bus Mastering
-	pci_bus_master(pci_device);
+	if (rtl8139_device.bar_type == 0) {
+		kprintf("rtl8139: BAR0 not IO-mapped! Value: 0x%x\n", rtl8139_device.bar_type);
+	}
 
 	// Power on and reset
 	rtl_outb(Config1, 0x0);
 	rtl_outb(ChipCmd, CMDRESET);
 	time_t reset_start = time(NULL);
-	while((rtl_inb(ChipCmd) & CMDRESET) != 0) {
+	while ((rtl_inb(ChipCmd) & CMDRESET) != 0) {
 		if (time(NULL) - reset_start >= 3) {
 			kprintf("RTL8139: Device would not reset within 3 seconds. Faulty hardware? Not enabled.\n");
 			return false;
 		}
 	}
 
+	// Enable PCI Bus Mastering
+	pci_bus_master(pci_device);
+
 	// Allocate receive buffer and send buffers, below 4GB boundary
-	
-	// Save originals for kfree
 	uint8_t* tx_alloc = (uint8_t*)kmalloc_low((TX_BUF_SIZE + 16) * TX_BUF_COUNT * 2);
 	rtl8139_device.tx_buffers = (uint32_t)(void*)ALIGN_16((uintptr_t)tx_alloc);
 
@@ -274,30 +297,61 @@ bool init_rtl8139() {
 	rtl8139_device.rx_buffer = (raw + 255) & ~255; // Align to 256-byte boundary
 
 	rtl_outl(RxBuf, rtl8139_device.rx_buffer);
+
+	kprintf("RX buffer assigned at %08x\n", rtl8139_device.rx_buffer);
+
+	rtl_outb(RxEarlyThresh, 0x3C);
+
 	for(int i=0; i < 4; i++) {
 		rtl_outl(TxAddr0 + i * 4, rtl8139_device.tx_buffers + i * (8192 + 16 + 2048));
 	}
 
-	rtl_outw(IntrMask, INT_DEFAULT);
+	//rtl_outw(IntrMask, INT_DEFAULT);
+
 	rtl_outl(RxConfig, RX_ACCEPTALLPHYS | RX_ACCEPTMYPHYS | RX_ACCEPTMULTICAST | RX_ACCEPTBROADCAST | RX_CFGWRAP);
 	rtl_outb(ChipCmd, CMDRXENB | CMDTXENB);
+	rtl_outw(IntrMask, INT_DEFAULT);
+	rtl_outw(IntrStatus, 0xFFFF);
+
+	volatile uint8_t dummy = rtl_inb(ChipCmd);
+	(void)dummy;
 
 	rtl8139_device.current_packet_ptr = 0;
 
 	uint32_t irq_num = pci_read(pci_device, PCI_INTERRUPT_LINE);
 	uint32_t irq_pin = pci_read(pci_device, PCI_INTERRUPT_PIN);
+	rtl8139_device.irq = irq_num;
 	register_interrupt_handler(32 + irq_num, rtl8139_handler, pci_device, &rtl8139_device);
 
 	char* mac_address = read_mac_addr();
 	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x IRQ=%d (PIN#%c)\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base, irq_num, irq_pin + 'A' - 1);
 
-	proc_register_idle(rtl8139_timer, IDLE_BACKGROUND);
+	proc_register_idle(rtl8139_timer, IDLE_FOREGROUND);
 
 	rtl8139_device.active = true;
 
 	make_unique_device_name("net", rtl8139_device.name);
 
-	network_up();
-	
+	netdev_t* net = kmalloc(sizeof(netdev_t));
+	net->opaque = &rtl8139_device;
+	net->deviceid = (RTL8139_VENDOR_ID << 16) | RTL8139_DEVICE_ID;
+	strlcpy(net->name, rtl8139_device.name, 16);
+	net->description = "RTL8139 10/100";
+	net->flags = CONNECTED;
+	net->mtu = 0;
+	net->netproto = NULL;
+	net->num_netprotos = 0;
+	net->speed = 100;
+	net->get_mac_addr = rtl8139_get_mac_addr;
+	net->send_packet = rtl8139_send_packet;
+	net->next = NULL;
+	register_network_device(net);
+
+	dprintf("RTL8139 REGISTER DUMP:\n");
+	for (uint32_t i = 0; i <= 0x6C; i += 4) {
+		uint32_t val = rtl_inl(i);
+		dprintf("%02X: %08x\n", i, val);
+	}
+
 	return true;
 }

@@ -91,6 +91,7 @@ void init_idt() {
 	pic_disable();
 	remap_irqs_to_ioapic();
 	get_lapic_address();
+	init_lapic_timer();
 #else
 	pic_enable();
 #endif

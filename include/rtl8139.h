@@ -1,15 +1,15 @@
 /**
  * @file rtl8139.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2023
+ * @copyright Copyright (c) 2012-2025
  */
 #pragma once
 
 #include <kernel.h>
 
 // PCI vendor/device ID for RTL8139
-#define RTL8139_VENDOR_ID	0x10EC // Realtek
-#define RTL8139_DEVICE_ID	0x8139 // 8139
+#define RTL8139_VENDOR_ID	(uint32_t)0x10EC // Realtek
+#define RTL8139_DEVICE_ID	(uint32_t)0x8139 // 8139
 
 // Receive buffer size
 #define RX_BUF_SIZE 		(8192 + 16)
@@ -125,6 +125,7 @@ enum rtl8139_registers {
 	FIFOTMS		  	= 0x70,	// FIFO Control and test
 	CSCR			= 0x74,	// Chip Status and Configuration Register
 	PARA78		   	= 0x78,
+	RxEarlyThresh		= 0x7C,
 	PARA7c		   	= 0x7C,	// Magic transceiver parameter register
 };
 
@@ -148,6 +149,7 @@ typedef struct rtl8139_dev {
 	bool active;
 	char name[16];
 	uint8_t bar_type;
+	uint8_t irq;
 	uint16_t io_base;
 	uint32_t mem_base;
 	int eeprom_exist;
@@ -164,8 +166,9 @@ typedef struct rtl8139_dev {
  * 
  * @param data packet data
  * @param len packet length
+ * @return true on success
  */
-void rtl8139_send_packet(void* data, uint32_t len);
+bool rtl8139_send_packet(void* data, uint16_t len);
 
 /**
  * @brief Handle RTL8139 interrupt
@@ -196,10 +199,3 @@ char* read_mac_addr();
  * @brief Handle receipt of packet from ISR
  */
 void receive_packet();
-
-/**
- * @brief Get the mac address from the IO ports
- */
-void rtl8139_get_mac_addr();
-
-//#define get_mac_addr(x) rtl8139_get_mac_addr(x)

@@ -12,9 +12,8 @@ shared_interrupt_t* shared_interrupt[256] = { 0 };
 
 extern const char* const error_table[];
 
-void remap_irqs_to_ioapic()
-{
-	for (uint8_t irq = 0; irq < 16; ++irq) {
+void remap_irqs_to_ioapic() {
+	for (uint8_t irq = 0; irq < 24; ++irq) {
 		uint32_t gsi = irq_to_gsi(irq);
 		uint32_t vector = IRQ_VECTOR_BASE + irq;
 		ioapic_redir_set(
@@ -29,8 +28,7 @@ void remap_irqs_to_ioapic()
 	}
 }
 
-void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque)
-{
+void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque) {
 	shared_interrupt_t* si = kmalloc(sizeof(shared_interrupt_t));
 	si->device = device;
 	si->interrupt_handler = handler;

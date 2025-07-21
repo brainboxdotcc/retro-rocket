@@ -1,7 +1,7 @@
 /**
  * @file io.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2023
+ * @copyright Copyright (c) 2012-2025
  */
 #ifndef __IO_H__
 #define __IO_H__

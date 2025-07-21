@@ -2,7 +2,7 @@
  * @file taskswitch.h
  * @brief Handles processes and multitasking
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2023
+ * @copyright Copyright (c) 2012-2025
  */
 #pragma once
 
@@ -142,7 +142,7 @@ void proc_show_list();
  * @brief Run the process scheduling loop.
  * @note Does not return
  */
-void proc_loop();
+_Noreturn void proc_loop();
 
 /**
  * @brief Change to next scheduled process

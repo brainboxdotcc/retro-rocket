@@ -1,7 +1,7 @@
 /**
  * @file net.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2023
+ * @copyright Copyright (c) 2012-2025
  */
 #pragma once
 
@@ -44,6 +44,9 @@ enum netdev_flags_t {
 	CONNECTED = 2, // Device connected (has carrier)
 };
 
+typedef void (*net_get_mac)(uint8_t*);
+typedef bool (*net_send_packet)(void* data, uint16_t len);
+
 /**
  * @brief An ethernet network device, this relates directly to a physical
  * network card in the machine. A device may have zero or more attached
@@ -53,13 +56,18 @@ enum netdev_flags_t {
  * require it.
  */
 typedef struct netdev {
+	uint32_t deviceid; // uniquely identifies this device
 	char name[16]; // a device name such as rtl0
-	char* description; // Human readable description of the device type
+	char* description; // Human-readable description of the device type
+	void* opaque; // driver specific storage ptr
 	uint16_t speed; // Speed in megabytes per second
 	uint8_t flags; // Flags from netdev_flags_t
 	uint16_t mtu; // MTU of the device (this may filter down to protocols, or protocols may set their own)
 	uint8_t num_netprotos; // number of attached network protocols
 	netproto_t* netproto; // array of network protocols
+	net_get_mac get_mac_addr; // Retrieve mac address of device
+	net_send_packet send_packet; // Send packet via interface
+	struct netdev* next; // next in list
 } netdev_t;
 
 /**
@@ -115,3 +123,7 @@ uint32_t ntohl(uint32_t netlong);
 void network_up();
 
 void network_down();
+
+bool register_network_device(netdev_t* newdev);
+netdev_t* find_network_device(const char* name);
+netdev_t* get_active_network_device();

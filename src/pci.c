@@ -25,9 +25,11 @@ const pci_subclass pci_device_sub_class[] =
 {
 	{ 0x00, 0x00, 0x00, "Pre-2.0 PCI Non-VGA"} ,
 	{ 0x00, 0x01, 0x00, "Pre-2.0 PCI VGA Compatible"} ,
+
 	{ 0x01, 0x00, 0x00, "SCSI Controller"} ,
 	{ 0x01, 0x01, 0x00, "IDE Controller"} ,
 	{ 0x01, 0x01, 0x80, "PIIX4 IDE Controller" },
+	{ 0x01, 0x01, 0x8A, "AMD SB700 IDE Controller" },
 	{ 0x01, 0x02, 0x00, "Floppy Controller"} ,
 	{ 0x01, 0x03, 0x00, "IPI Mass Storage Controller"} ,
 	{ 0x01, 0x04, 0x00, "RAID Controller"} ,
@@ -37,12 +39,15 @@ const pci_subclass pci_device_sub_class[] =
 	{ 0x01, 0x06, 0x01, "SATA controller (AHCI 1.0)" } , 
 	{ 0x01, 0x06, 0x02, "SATA controller (Serial Storage Bus)" } , 
 	{ 0x01, 0x07, 0x00, "Serial Attached SCSI controller (SAS)" } , 
-	{ 0x01, 0x07, 0x01, "Serial Attached SCSI controller (Serial Storage Bus)" } , 
-	{ 0x01, 0x08, 0x01, "Non Volatile Memory Controller (NVMHCI)" } , 
-	{ 0x01, 0x08, 0x02, "Non Volatile Memory Controller (NVM Express)" } , 
+	{ 0x01, 0x07, 0x01, "Serial Attached SCSI controller (Serial Storage Bus)" } ,
+	{ 0x01, 0x08, 0x00, "Non Volatile Memory Controller (General)" },
+	{ 0x01, 0x08, 0x01, "Non Volatile Memory Controller (NVMHCI)" } ,
+	{ 0x01, 0x08, 0x02, "Non Volatile Memory Controller (NVM Express)" },
+	{ 0x01, 0x08, 0x03, "Non Volatile Memory Controller (Enterprise NVMHCI)" },
 	{ 0x01, 0x80, 0x00, "Other Mass Storage Controller"} ,
 
-	{ 0x02, 0x00, 0x00, "Ethernet Controller"} ,
+	{ 0x02, 0x00, 0x00, "Ethernet Controller" },
+	{ 0x02, 0x00, 0x01, "Ethernet Controller (Vendor-Specific)" },
 	{ 0x02, 0x01, 0x00, "Token Ring Controller"} ,
 	{ 0x02, 0x02, 0x00, "FDDI Controller"} ,
 	{ 0x02, 0x03, 0x00, "ATM Controller"} ,
@@ -75,6 +80,7 @@ const pci_subclass pci_device_sub_class[] =
 	{ 0x06, 0x03, 0x00, "PCI/MCA Bridge Device" } ,
 	{ 0x06, 0x04, 0x00, "PCI/PCI Bridge Device (Normal Mode)" } ,
 	{ 0x06, 0x04, 0x01, "PCI/PCI Bridge Device (Subtractive Mode)" } ,
+	{ 0x06, 0x04, 0x80, "PCIe/PCI Bridge Device (Vendor Specific)" } ,
 	{ 0x06, 0x05, 0x00, "PCI/PCMCIA Bridge Device" } ,
 	{ 0x06, 0x06, 0x00, "PCI/NuBus Bridge Device" } ,
 	{ 0x06, 0x07, 0x00, "PCI/CardBus Bridge Device" } ,
@@ -88,7 +94,6 @@ const pci_subclass pci_device_sub_class[] =
 	{ 0x07, 0x00, 0x00, "Serial Simple Comms Controller" } ,
 	{ 0x07, 0x00, 0x01, "Serial 16450 Simple Comms Controller" } ,
 	{ 0x07, 0x00, 0x02, "Serial 16550 Simple Comms Controller" } ,
-	{ 0x07, 0x01, 0x00, "Parallel Simple Comms Controller" } ,
 	{ 0x07, 0x01, 0x00, "Parallel Bi-Directional Simple Comms Controller" } ,
 	{ 0x07, 0x01, 0x01, "Parallel ECP Simple Comms Controller" } ,
 	{ 0x07, 0x80, 0x02, "Other Simple Comms Controller" } ,
@@ -136,11 +141,15 @@ const pci_subclass pci_device_sub_class[] =
 	{ 0x0C, 0x02, 0x00, "SSA Serial Bus Controller" } ,
 	{ 0x0C, 0x03, 0x00, "USB Controller (UHCI)" } ,
 	{ 0x0C, 0x03, 0x10, "USB Controller (OHCI)" } ,
-	{ 0x0C, 0x03, 0x20, "USB2 Host Controller (Intel EHCI)" },
-	{ 0x0C, 0x03, 0x20, "USB3 Host Controller (Intel XHCI)" },
-	{ 0x0C, 0x03, 0x80, "USB Host Controller (Intel EHCI)" },
+	{ 0x0C, 0x03, 0x00, "USB Controller (UHCI)" },
+	{ 0x0C, 0x03, 0x10, "USB Controller (OHCI)" },
+	{ 0x0C, 0x03, 0x20, "USB2 Host Controller (EHCI)" },
+	{ 0x0C, 0x03, 0x30, "USB3 Host Controller (XHCI)" },
+	{ 0x0C, 0x03, 0x80, "USB Host Controller (Vendor-Specific)" },
 	{ 0x0C, 0x03, 0xFE, "USB Device (Not Host Controller)" },
 	{ 0x0C, 0x04, 0x00, "Fibre Channel Serial Bus Controller" } ,
+	{ 0x0C, 0x09, 0x00, "Thunderbolt Controller" } ,
+	{ 0x0C, 0x0A, 0x00, "USB4 Host Interface" } ,
 	{ 0x0C, 0x05, 0x00, "SMBus Controller" },
 
 	{ 0x0D, 0x00, 0x00, "IRDA Compatible Controller" },
@@ -152,10 +161,13 @@ const pci_subclass pci_device_sub_class[] =
 	{ 0x0D, 0x21, 0x00, "Ethernet Controller (802.11b)" },
 	{ 0x0D, 0x80, 0x00, "Other Wireless Controller" },
 
+	{ 0x0F, 0x00, 0x00, "IOMMU Device" },
 	{ 0x0F, 0x01, 0x00, "Satellite TV Controller" },
 	{ 0x0F, 0x02, 0x00, "Satellite Audio Controller" },
 	{ 0x0F, 0x03, 0x00, "Satellite Voice Controller" },
 	{ 0x0F, 0x04, 0x00, "Satellite Data Controller" },
+	{ 0x0F, 0x10, 0x00, "Intel VT-d DMA Remapper" },
+	{ 0x0F, 0x20, 0x00, "AMD-Vi IOMMU" },
 
 	{ 0x10, 0x00, 0x00, "Network and Computing Encrpytion/Decryption" },
 	{ 0x10, 0x10, 0x00, "Entertainment Encryption/Decryption" },
@@ -378,20 +390,34 @@ pci_dev_t pci_scan_device(uint16_t vendor_id, uint16_t device_id, uint32_t bus, 
 static bool visited_buses[256] = { false };
 
 pci_dev_t pci_scan_bus(uint16_t vendor_id, uint16_t device_id, uint32_t bus, int device_type) {
-
 	if (visited_buses[bus]) {
 		return dev_zero;
 	}
 	visited_buses[bus] = true;
 
-	for(int device = 0; device < DEVICE_PER_BUS; device++) {
-		pci_dev_t t = pci_scan_device(vendor_id, device_id, bus, device, device_type);
-		if(t.bits)
-			return t;
+	pci_dev_t found = dev_zero;
+
+	for (int device = 0; device < DEVICE_PER_BUS; device++) {
+		pci_dev_t dev = pci_scan_device(vendor_id, device_id, bus, device, device_type);
+
+		// Track if this is the specific device being searched for
+		if (!pci_not_found(dev) &&
+		    (vendor_id != 0 || device_id != 0 || device_type != -1)) {
+			uint32_t vend = pci_read(dev, PCI_VENDOR_ID);
+			uint32_t devid = pci_read(dev, PCI_DEVICE_ID);
+			uint32_t type = get_device_type(dev);
+
+			if ((vendor_id == 0 || vend == vendor_id) &&
+			    (device_id == 0 || devid == device_id) &&
+			    (device_type == -1 || type == (uint32_t)device_type)) {
+				found = dev;
+			}
+		}
 	}
 
-	return dev_zero;
+	return found;
 }
+
 
 /*
  * Device driver use this function to get its device object(given unique vendor id and device id)
@@ -400,21 +426,22 @@ pci_dev_t pci_get_device(uint16_t vendor_id, uint16_t device_id, int device_type
 {
 	memset(visited_buses, 0, sizeof(visited_buses));
 	device_total = 0;
-	pci_dev_t t = pci_scan_bus(vendor_id, device_id, 0, device_type);
-	if(t.bits)
-		return t;
 
-	// Handle multiple pci host controllers
-	for(int function = 1; function < FUNCTION_PER_DEVICE; function++) {
-		pci_dev_t dev = {0};
-		dev.function_num = function;
+	for (int bus = 0; bus < 256; ++bus) {
+		pci_scan_bus(vendor_id, device_id, bus, -1);
+	}
 
-		uint32_t vendor = pci_read(dev, PCI_VENDOR_ID);
-		if (vendor == PCI_NONE)
-			break;
-		t = pci_scan_bus(vendor_id, device_id, function, device_type);
-		if(t.bits)
-			return t;
+	// Now loop through and find matching device
+	for (size_t i = 0; i < device_total; ++i) {
+		uint32_t vendid = pci_read(device_list[i], PCI_VENDOR_ID);
+		uint32_t devid = pci_read(device_list[i], PCI_DEVICE_ID);
+		uint32_t type = get_device_type(device_list[i]);
+
+		if ((vendor_id == 0 || vendor_id == vendid) &&
+		    (device_id == 0 || device_id == devid) &&
+		    (device_type == -1 || device_type == (int)type)) {
+			return device_list[i];
+		}
 	}
 	return dev_zero;
 }

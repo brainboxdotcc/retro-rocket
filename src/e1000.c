@@ -1,4 +1,5 @@
 #include <kernel.h>
+#include <mmio.h>
 
 uint8_t bar_type;         // Type of BAR0
 uint16_t io_base;         // IO Base Address
@@ -11,39 +12,6 @@ uint16_t rx_cur;          // Current Receive Descriptor Buffer
 uint16_t tx_cur;          // Current Transmit Descriptor Buffer
 
 static void *tx_buffers[E1000_NUM_TX_DESC];
-
-uint8_t mmio_read8(uint64_t p_address) {
-	return *((volatile uint8_t *) (p_address));
-}
-
-uint16_t mmio_read16(uint64_t p_address) {
-	return *((volatile uint16_t *) (p_address));
-}
-
-uint32_t mmio_read32(uint64_t p_address) {
-	return *((volatile uint32_t *) (p_address));
-}
-
-uint64_t mmio_read64(uint64_t p_address) {
-	return *((volatile uint64_t *) (p_address));
-}
-
-void mmio_write8(uint64_t p_address, uint8_t p_value) {
-	(*((volatile uint8_t *) (p_address))) = (p_value);
-}
-
-void mmio_write16(uint64_t p_address, uint16_t p_value) {
-	(*((volatile uint16_t *) (p_address))) = (p_value);
-}
-
-void mmio_write32(uint64_t p_address, uint32_t p_value) {
-	(*((volatile uint32_t *) (p_address))) = (p_value);
-
-}
-
-void mmio_write64(uint64_t p_address, uint64_t p_value) {
-	(*((volatile uint64_t *) (p_address))) = (p_value);
-}
 
 void e1000_write_command(uint16_t p_address, uint32_t p_value) {
 	if (bar_type == 0) {
@@ -192,7 +160,10 @@ void e1000_handle_receive() {
 		uint8_t *buf = (uint8_t *) rx_descs[rx_cur]->addr;
 		uint16_t len = rx_descs[rx_cur]->length;
 
-		ethernet_handle_packet((ethernet_frame_t *) buf, len);
+		netdev_t* dev = get_active_network_device();
+		if (dev && dev->deviceid == ((INTEL_VEND << 16) | E1000_DEV)) {
+			ethernet_handle_packet((ethernet_frame_t *) buf, len);
+		}
 
 		rx_descs[rx_cur]->status = 0;
 		old_cur = rx_cur;
@@ -206,16 +177,16 @@ void e1000_check_link() {
 	kprintf("e1000: link is %s\n", (status & 2) ? "up" : "down");
 }
 
-int e1000_send_packet(const void *p_data, uint16_t p_len) {
+bool e1000_send_packet(void *p_data, uint16_t p_len) {
 	if (p_len > E1000_MAX_PKT_SIZE) {
 		dprintf("e1000: packet too large\n");
-		return -1;
+		return false;
 	}
 
 	// Check if descriptor is available
 	if (!(tx_descs[tx_cur]->status & TX_DD)) {
 		dprintf("e1000: TX ring full, dropping packet\n");
-		return -1;
+		return false;
 	}
 
 	// Copy the data into the pre-allocated <4GiB DMA-safe buffer
@@ -242,7 +213,7 @@ int e1000_send_packet(const void *p_data, uint16_t p_len) {
 		}
 	}
 
-	return 0;
+	return true;
 }
 
 void e1000_up() {
@@ -345,7 +316,21 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	kprintf("e1000: MAC %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
-	network_up();
+	netdev_t* net = kmalloc(sizeof(netdev_t));
+	net->opaque = NULL;
+	net->deviceid = (INTEL_VEND << 16) | E1000_DEV;
+	make_unique_device_name("net", net->name);
+	net->description = "Intel e1000 Gigabit";
+	net->flags = CONNECTED;
+	net->mtu = 0;
+	net->netproto = NULL;
+	net->num_netprotos = 0;
+	net->speed = 1000;
+	net->get_mac_addr = e1000_get_mac_addr;
+	net->send_packet = e1000_send_packet;
+	net->next = NULL;
+	register_network_device(net);
+
 	return true;
 }
 

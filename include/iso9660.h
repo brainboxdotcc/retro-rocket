@@ -1,7 +1,7 @@
 /**
  * @file iso9660.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2023
+ * @copyright Copyright (c) 2012-2025
  */
 #ifndef __ISO9660_H__
 #define __ISO9660_H__

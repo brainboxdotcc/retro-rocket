@@ -309,6 +309,7 @@ int proc_ended(process_t* proc)
 
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type)
 {
+	dprintf("Register idler: %d\n", type);
 	idle_timer_t* newidle = kmalloc(sizeof(idle_timer_t));
 	newidle->func = handler;
 	if (type == IDLE_FOREGROUND) {	

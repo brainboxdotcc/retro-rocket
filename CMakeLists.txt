@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(retrorocket C ASM ASM_NASM)
 
-option(USE_E1000 "Use the e1000 NIC driver in QEMU instead of rtl8139" OFF)
+option(USE_E1000 "Use the e1000 NIC driver in QEMU instead of rtl8139" ON)
 
 set(HARD_DISK_IMAGE "../../harddisk0" CACHE STRING "Path to hard disk image when running QEMU")
 
@@ -21,7 +21,6 @@ set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-decl
 
 include_directories("include")
 include_directories("limine")
-include_directories("src/pngle")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/iso)
 

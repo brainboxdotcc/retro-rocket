@@ -1,6 +1,6 @@
 /**
  * @file stdlib.h
- * @author Craig Edwards
+ * @author Craig Edwards (craigedwards@brainbox.cc)
  * @brief Standard library stubs
  * @date 2023-05-27
  * @copyright Copyright (c) 2023

@@ -1,7 +1,7 @@
 /**
  * @file lapic_timer.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2023
+ * @copyright Copyright (c) 2012-2025
  */
 #ifndef __LAPIC_TIMER_H__
 #define __LAPIC_TIMER_H__

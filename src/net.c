@@ -1,6 +1,8 @@
 #include <kernel.h>
 #include <stdint.h>
 
+netdev_t* networkdevices = NULL;
+
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 
 uint16_t flip_short(uint16_t short_int) {
@@ -102,4 +104,27 @@ void network_up()
 
 void network_down()
 {
+}
+
+bool register_network_device(netdev_t* newdev) {
+	/* Add the new network device to the start of the list */
+	dprintf("Registered network device '%s'\n", newdev->name);
+	newdev->next = networkdevices;
+	networkdevices = newdev;
+	return true;
+}
+
+netdev_t* get_active_network_device() {
+	/* First in list, most recent to be detected */
+	return networkdevices;
+}
+
+netdev_t* find_network_device(const char* name) {
+	netdev_t* cur = networkdevices;
+	for(; cur; cur = cur->next) {
+		if (!strcmp(name, cur->name)) {
+			return cur;
+		}
+	}
+	return NULL;
 }

@@ -51,6 +51,9 @@ uint64_t get_ticks()
 	return ticks;
 }
 
+/**
+ * This is triggered either by the Local APIC timer interrupt, or by the PIT.
+ */
 void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque)
 {
 	ticks++;

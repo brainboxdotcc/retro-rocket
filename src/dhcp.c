@@ -91,7 +91,11 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	packet->client_ip = 0;
 	packet->server_ip = server_ip;
 	packet->your_ip = *((uint32_t*)request_ip);
-	get_mac_addr(packet->client_hardware_addr);
+	netdev_t* dev = get_active_network_device();
+	if (!dev) {
+		return 0;
+	}
+	dev->get_mac_addr(packet->client_hardware_addr);
 
 	uint8_t * options = packet->options;
 	*((uint32_t*)(options)) = htonl(0x63825363);
@@ -113,7 +117,7 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	*(options++) = OPT_CLIENT_MAC;
 	*(options++) = 7;
 	*(options++) = HARDWARE_TYPE_ETHERNET;
-	get_mac_addr(options);
+	dev->get_mac_addr(options);
 	options += 6;
 
 	// Requested IP address
