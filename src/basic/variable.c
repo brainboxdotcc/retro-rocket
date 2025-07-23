@@ -48,6 +48,12 @@ void set_system_variables(struct basic_ctx* ctx, uint32_t pid)
 	basic_set_int_variable("TRUE", 1, ctx, false, false);
 	basic_set_int_variable("FALSE", 0, ctx, false, false);
 	basic_set_int_variable("PID", pid, ctx, false, false);
+	basic_set_int_variable("GRAPHICS_WIDTH", screen_get_width(), ctx, false, false);
+	basic_set_int_variable("GRAPHICS_HEIGHT", screen_get_height(), ctx, false, false);
+	basic_set_int_variable("GRAPHICS_CENTRE_X", screen_get_width() / 2, ctx, false, false);
+	basic_set_int_variable("GRAPHICS_CENTRE_Y", screen_get_height() / 2, ctx, false, false);
+	basic_set_int_variable("GRAPHICS_CENTER_X", screen_get_width() / 2, ctx, false, false);
+	basic_set_int_variable("GRAPHICS_CENTER_Y", screen_get_height() / 2, ctx, false, false);
 	basic_set_double_variable("PI#", 3.141592653589793238, ctx, false, false);
 	basic_set_double_variable("E#", 2.7182818284590451, ctx, false, false);
 }
