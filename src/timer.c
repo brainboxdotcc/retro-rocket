@@ -65,4 +65,8 @@ void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque)
 	if (beep_end != 0 && ticks > beep_end) {
 		stopbeep();
 	}
+
+	if (ticks % 10) {
+		//rr_flip();
+	}
 }

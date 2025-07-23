@@ -13,6 +13,26 @@ static volatile struct limine_terminal_request terminal_request = {
     .callback = terminal_callback,
 };
 
+static struct limine_terminal *rr_term;
+static void *rr_fb_front;
+static void *rr_fb_back;
+static uint64_t rr_fb_pitch;
+static uint64_t rr_fb_height;
+static uint64_t rr_fb_bytes;
+
+void rr_console_init_from_limine(void) {
+	rr_term = terminal_request.response->terminals[0];
+	struct limine_framebuffer *fb = rr_term->framebuffer;
+	dprintf("fb front: %x\n", fb->address);
+	rr_fb_front  = fb->address;
+	rr_fb_pitch  = fb->pitch;
+	rr_fb_height = fb->height;
+	rr_fb_bytes  = rr_fb_pitch * rr_fb_height;  // full bytes, includes padding per row
+	rr_fb_back = kmalloc(rr_fb_bytes);
+	memset(rr_fb_back, 0, rr_fb_bytes);
+}
+
+
 static volatile struct limine_framebuffer_request framebuffer_request = {
     .id = LIMINE_FRAMEBUFFER_REQUEST,
     .revision = 0,
@@ -250,3 +270,15 @@ void setforeground(console* c, unsigned char foreground)
 	putstring(c, code);
 }
 
+void rr_terminal_draw_to_backbuffer(void) {
+	terminal_request.response->terminals[0]->framebuffer->address = rr_fb_back;
+	framebuffer_request.response->framebuffers[0]->address = rr_fb_back;
+}
+
+void rr_terminal_draw_to_frontbuffer(void) {
+	rr_term->framebuffer->address = rr_fb_front;
+}
+
+void rr_flip(void) {
+	memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
+}

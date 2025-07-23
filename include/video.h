@@ -89,5 +89,12 @@ void gotoxy(uint64_t x, uint64_t y);
 
 void get_text_position(uint64_t* x, uint64_t* y);
 
+void rr_console_init_from_limine();
+
 extern console* current_console;
 
+void rr_terminal_draw_to_backbuffer(void);
+
+void rr_terminal_draw_to_frontbuffer(void);
+
+void rr_flip(void);
