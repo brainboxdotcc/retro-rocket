@@ -258,7 +258,7 @@ DEF PROCtext
 	PROChideCursor
 	PROCdraw
 	CURSOR 1, 2
-	FOR l = top TO top + TERMHEIGHT - 2
+	FOR l = top TO top + TERMHEIGHT - 3
 		PROCclearLineFromCursor
 		IF l < SCROLLBACK THEN PROCprintLine(l)
 	NEXT
@@ -374,7 +374,7 @@ DEF PROCprocessCommand
 RETPROC
 
 DEF PROCiSupport
-	FOR x = 2 TO tokenIndex - 1
+	FOR x = 2 TO tokenIndex - 2
 		st$ = lineParts$(x)
 		IF st$ > "" THEN PROCprocessSupportToken(st$)
 	NEXT

@@ -71,7 +71,7 @@ DEF PROCtext
 	PROChideCursor
 	PROCdraw
 	CURSOR 1, 2
-	FOR l = top TO top + TERMHEIGHT - 2
+	FOR l = top TO top + TERMHEIGHT - 3
 		PROCclearLineFromCursor
 		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
 	NEXT
@@ -190,7 +190,7 @@ DEF PROCdoSave(saveFileName$)
 	IF FH < 0 THEN PROCsaveError(saveFileName$)
 	IF FH < 0 THEN RETPROC
 	REM write file line by line
-	FOR X = 0 TO lines
+	FOR X = 0 TO lines - 1
 		WRITE FH, content$(X)
 	NEXT
 	CLOSE FH

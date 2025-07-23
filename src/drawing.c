@@ -20,10 +20,10 @@ void clamp_range(int64_t* coordinate, coordinate_range_type_t type)
 
 void draw_line(int64_t from_x, int64_t from_y, int64_t to_x, int64_t to_y, uint32_t colour)
 {
-	if (from_y == to_y) {
+	/*if (from_y == to_y) {
 		draw_horizontal_line(from_x, to_x, from_y, colour);
 		return;
-	}
+	}*/
 
 	int64_t dx = labs(from_x - to_x);
 	int64_t sx = from_x < to_x ? 1 : -1;

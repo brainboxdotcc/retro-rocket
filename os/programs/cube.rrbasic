@@ -1,0 +1,137 @@
+REM =======================
+REM Rotating Wireframe Cube
+REM =======================
+
+CX# = 1920 / 2
+CY# = 1080 / 2
+SCALE# = 250
+DIST# = 3
+
+DIM VX#,8
+DIM VY#,8
+DIM VZ#,8
+DIM PX#,8
+DIM PY#,8
+DIM EA,12
+DIM EB,12
+
+REM Cube vertices
+VX#(0) = -1
+VY#(0) = -1
+VZ#(0) = -1
+
+VX#(1) =  1
+VY#(1) = -1
+VZ#(1) = -1
+
+VX#(2) =  1
+VY#(2) =  1
+VZ#(2) = -1
+
+VX#(3) = -1
+VY#(3) =  1
+VZ#(3) = -1
+
+VX#(4) = -1
+VY#(4) = -1
+VZ#(4) =  1
+
+VX#(5) =  1
+VY#(5) = -1
+VZ#(5) =  1
+
+VX#(6) =  1
+VY#(6) =  1
+VZ#(6) =  1
+
+VX#(7) = -1
+VY#(7) =  1
+VZ#(7) =  1
+
+REM Edges
+EA(0) = 0
+EB(0) = 1
+EA(1) = 1
+EB(1) = 2
+EA(2) = 2
+EB(2) = 3
+EA(3) = 3
+EB(3) = 0
+
+EA(4) = 4
+EB(4) = 5
+EA(5) = 5
+EB(5) = 6
+EA(6) = 6
+EB(6) = 7
+EA(7) = 7
+EB(7) = 4
+
+EA(8) = 0
+EB(8) = 4
+EA(9) = 1
+EB(9) = 5
+EA(10) = 2
+EB(10) = 6
+EA(11) = 3
+EB(11) = 7
+
+ANGLE# = 0
+
+CLS
+
+REPEAT
+
+  min_x# = PX#(0)
+  max_x# = PX#(0)
+  min_y# = PY#(0)
+  max_y# = PY#(0)
+
+  FOR I = 1 TO 7
+    IF PX#(I) < min_x# THEN min_x# = PX#(I) - 16
+    IF PX#(I) > max_x# THEN max_x# = PX#(I) + 16
+    IF PY#(I) < min_y# THEN min_y# = PY#(I) - 16
+    IF PY#(I) > max_y# THEN max_y# = PY#(I) + 16
+  NEXT
+
+  GCOL RGB(0,0,0)
+  RECTANGLE min_x#, min_y#, max_x#, max_y#
+
+  ANGLE# = ANGLE# + 0.04
+
+  SY# = SIN(ANGLE#)
+  CYR# = COS(ANGLE#)
+  SX# = SIN(ANGLE# * 0.7)
+  CXR# = COS(ANGLE# * 0.7)
+
+  FOR I = 0 TO 7
+    X# = VX#(I)
+    Y# = VY#(I)
+    Z# = VZ#(I)
+
+    X1# = X# * CYR# - Z# * SY#
+    Z1# = X# * SY# + Z# * CYR#
+
+    Y1# = Y# * CXR# - Z1# * SX#
+    Z2# = Y# * SX# + Z1# * CXR#
+
+    DEN# = Z2# + DIST#
+    IF DEN# = 0 THEN DEN# = 0.000001
+
+    PX#(I) = CX# + (X1# * SCALE# / DEN#)
+    PY#(I) = CY# + (Y1# * SCALE# / DEN#)
+  NEXT
+
+  GCOL RGB(255,255,255)
+  FOR E = 0 TO 11
+    V1 = EA(E)
+    V2 = EB(E)
+    LINE PX#(V1), PY#(V1), PX#(V2), PY#(V2)
+  NEXT
+
+  FOR D = 0 TO 10000
+  NEXT
+
+UNTIL INKEY$ <> ""
+
+CLS

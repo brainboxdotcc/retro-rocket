@@ -153,14 +153,14 @@ void next_statement(struct basic_ctx* ctx)
 			basic_get_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx, &incr);
 			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
 			basic_set_double_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
-			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
-			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr > ctx->for_stack[ctx->for_stack_ptr - 1].to));
+			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr <= ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
+			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr >= ctx->for_stack[ctx->for_stack_ptr - 1].to));
 		} else {
 			int64_t incr = basic_get_numeric_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, ctx);
 			incr += ctx->for_stack[ctx->for_stack_ptr - 1].step;
 			basic_set_int_variable(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable, incr, ctx, false, false);
-			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr < ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
-			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr > ctx->for_stack[ctx->for_stack_ptr - 1].to));
+			continue_loop = ((ctx->for_stack[ctx->for_stack_ptr - 1].step > 0 && incr <= ctx->for_stack[ctx->for_stack_ptr - 1].to) ||
+			    (ctx->for_stack[ctx->for_stack_ptr - 1].step < 0 && incr >= ctx->for_stack[ctx->for_stack_ptr - 1].to));
 		}
 		if (continue_loop) {
 			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
