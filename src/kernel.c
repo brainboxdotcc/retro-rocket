@@ -18,5 +18,8 @@ void kmain()
 		network_up();
 	}
 
+	void* p = kmalloc(12345);
+	kfree(p);
+
 	init_process();
 }
