@@ -143,3 +143,134 @@ double tan(double rads)
 	}
 	return sin(rads) / cos(rads);
 }
+
+double fabs(double x)
+{
+	return (x < 0) ? -x : x;
+}
+
+double floor(double x)
+{
+	int64_t i = (int64_t)x;
+	if (x < 0 && x != (double)i) {
+		return (double)(i - 1);
+	}
+	return (double)i;
+}
+
+double fmod(double x, double y)
+{
+	if (y == 0.0) {
+		return 0.0; // undefined, but safe return
+	}
+	double div = x / y;
+	int64_t q = (int64_t)div;
+	return x - (double)q * y;
+}
+
+double ceil(double x)
+{
+	int64_t i = (int64_t)x;
+	if (x > 0 && x != (double)i) {
+		return (double)(i + 1);
+	}
+	return (double)i;
+}
+
+double round(double x)
+{
+	int64_t i = (int64_t)x;
+	double frac = x - (double)i;
+	if (frac >= 0.5) {
+		return (double)(i + 1);
+	} else if (frac <= -0.5) {
+		return (double)(i - 1);
+	}
+	return (double)i;
+}
+
+double atan2(double y, double x)
+{
+	if (x > 0) {
+		return atan(y / x);
+	} else if (x < 0 && y >= 0) {
+		return atan(y / x) + PI;
+	} else if (x < 0 && y < 0) {
+		return atan(y / x) - PI;
+	} else if (x == 0 && y > 0) {
+		return PI / 2;
+	} else if (x == 0 && y < 0) {
+		return -PI / 2;
+	}
+	return 0.0; // undefined for x = 0 and y = 0
+}
+
+static inline double atan_core(double z)
+{
+	return z * (PI / 4) + 0.273 * z * (1 - fabs(z));
+}
+
+double atan(double x)
+{
+	if (x > 1.0) {
+		return (PI / 2) - atan_core(1.0 / x);
+	} else if (x < -1.0) {
+		return -(PI / 2) - atan_core(1.0 / x);
+	} else {
+		return atan_core(x);
+	}
+}
+
+double asin(double x)
+{
+	if (x > 1.0 || x < -1.0) {
+		return rr_nan(); // Outside domain
+	}
+	return atan(x / sqrt(1.0 - x * x)); // asin(x) = atan(x / sqrt(1 - x²))
+}
+
+double acos(double x)
+{
+	if (x > 1.0 || x < -1.0) {
+		return rr_nan(); // Outside domain
+	}
+	return (PI / 2) - asin(x); // acos(x) = π/2 - asin(x)
+}
+
+double exp(double x)
+{
+	// Use simple series approximation if needed, or fallback to x87 instruction if available
+	double result = 1.0;
+	double term = 1.0;
+	for (int i = 1; i < 20; i++) { // 20 terms ~ good precision
+		term *= x / i;
+		result += term;
+	}
+	return result;
+}
+
+double log(double x)
+{
+	if (x <= 0.0) {
+		return rr_nan(); // Undefined for x <= 0
+	}
+	// Newton-Raphson approximation for ln(x)
+	double y = 0.0;
+	double last;
+	do {
+		last = y;
+		y = last + 2 * (x - exp(last)) / (x + exp(last));
+	} while (fabs(y - last) > 1e-12);
+	return y;
+}
+
+double deg(double radians)
+{
+	return radians * (180.0 / PI);
+}
+
+double rad(double degrees)
+{
+	return degrees * (PI / 180.0);
+}
+

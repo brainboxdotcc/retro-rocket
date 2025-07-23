@@ -83,6 +83,16 @@ void read_statement(struct basic_ctx* ctx)
 	tokenizer_error_print(ctx, "READ is a function");
 }
 
+void data_statement(struct basic_ctx* ctx)
+{
+	tokenizer_error_print(ctx, "DATA statements are not supported in Retro Rocket BASIC. Use files instead.");
+}
+
+void restore_statement(struct basic_ctx* ctx)
+{
+	tokenizer_error_print(ctx, "Nothing to RESTORE. DATA statements are not supported.");
+}
+
 void close_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(CLOSE, ctx);

@@ -112,6 +112,8 @@
 	T(POINT) \
 	T(OPENOUT) \
 	T(OPENUP) \
+	T(DATA) \
+	T(RESTORE) \
 	T(WRITE) \
 	T(MKDIR) \
 	T(RMDIR) \

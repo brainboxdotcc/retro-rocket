@@ -48,6 +48,8 @@ struct basic_int_fn builtin_int[] =
 	{ basic_get_text_max_y,      "TERMHEIGHT"    },
 	{ basic_get_text_max_x,      "TERMWIDTH"     },
 	{ basic_val,                 "VAL"           },
+	{ basic_sgn,                 "SGN"           },
+	{ basic_int,                 "INT"           },
 	{ NULL,                      NULL            }
 };
 
@@ -59,6 +61,18 @@ struct basic_double_fn builtin_double[] = {
 	{ basic_sin,         "SIN"     },
 	{ basic_tan,         "TAN"     },
 	{ basic_sqrt,        "SQRT"    },
+	{ basic_sqrt,        "SQR"     },
+	{ basic_atan,        "ATAN"    },
+	{ basic_atan2,       "ATAN2"   },
+	{ basic_ceil,        "CEIL"    },
+	{ basic_round,       "ROUND"   },
+	{ basic_fmod,        "FMOD"    },
+	{ basic_asn,         "ASN"     },
+	{ basic_acs,         "ACS"     },
+	{ basic_exp,         "EXP"     },
+	{ basic_log,         "LOG"     },
+	{ basic_deg,         "DEG"     },
+	{ basic_rad,         "RAD"     },
 	{ NULL,              NULL      },
 };
 

@@ -685,6 +685,10 @@ void statement(struct basic_ctx* ctx)
 			return openup_statement(ctx);
 		case READ:
 			return read_statement(ctx);
+		case DATA:
+			return data_statement(ctx);
+		case RESTORE:
+			return restore_statement(ctx);
 		case CLOSE:
 			return close_statement(ctx);
 		case EOF:
