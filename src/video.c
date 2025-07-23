@@ -2,18 +2,17 @@
 #include <flanterm.h>
 #include <flanterm/fb.h>
 
-static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0;
+static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0, screen_graphics_x = 0, screen_graphics_y = 0;
 static console first_console;
 bool wait_state = false;
+bool video_flip_is_auto = true;
 console* current_console = NULL;
-
 
 static volatile struct limine_framebuffer_request framebuffer_request = {
 	.id = LIMINE_FRAMEBUFFER_REQUEST,
 	.revision = 0,
 };
 
-static struct limine_terminal *rr_term;
 static void *rr_fb_front;
 static void *rr_fb_back;
 static uint64_t rr_fb_pitch;
@@ -35,8 +34,7 @@ void rr_console_init_from_limine(void) {
 
 inline uint64_t framebuffer_address()
 {
-	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
-	return (uint64_t)fb->address;
+	return (uint64_t)rr_fb_back;
 }
 
 inline uint64_t pixel_address(int64_t x, int64_t y)
@@ -44,7 +42,7 @@ inline uint64_t pixel_address(int64_t x, int64_t y)
 	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
 	uint64_t pitch = fb->pitch;
 	uint64_t bytes_per_pixel = fb->bpp >> 3;
-	if (x >= 0 && y >= 0 && x < screen_x && y < screen_y) {
+	if (x >= 0 && y >= 0 && x < screen_graphics_x && y < screen_graphics_y) {
 		return (y * pitch) + (x * bytes_per_pixel);
 	}
 	return 0;
@@ -165,6 +163,7 @@ void init_console()
 		dprintf("No framebuffer offered\n");
 		wait_forever();
 	}
+	rr_console_init_from_limine();
 	clearscreen(c);
 
 	struct limine_framebuffer* fb = framebuffer_request.response->framebuffers[0];
@@ -174,7 +173,7 @@ void init_console()
 	ft_ctx = flanterm_fb_init(
 		NULL,
 		NULL,
-		fb->address, fb->width, fb->height, fb->pitch,
+		rr_fb_back, fb->width, fb->height, fb->pitch,
 		fb->red_mask_size, fb->red_mask_shift,
 		fb->green_mask_size, fb->green_mask_shift,
 		fb->blue_mask_size, fb->blue_mask_shift,
@@ -193,6 +192,8 @@ void init_console()
 	flanterm_get_dimensions(ft_ctx, &x, &y);
 	screen_x = x;
 	screen_y = y;
+	screen_graphics_x = fb->width;
+	screen_graphics_y = fb->height;
 	dprintf("Framebuffer address: %llx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
 
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
@@ -203,12 +204,12 @@ void init_console()
 
 int16_t screen_get_width()
 {
-	return screen_x;
+	return screen_graphics_x;
 }
 
 int16_t screen_get_height()
 {
-	return screen_y;
+	return screen_graphics_y;
 }
 
 /*
@@ -294,11 +295,15 @@ void setforeground(console* c, unsigned char foreground)
 	putstring(c, code);
 }
 
-void rr_terminal_draw_to_backbuffer(void) {
+bool video_flip_auto(void) {
+	return video_flip_is_auto;
 }
 
-void rr_terminal_draw_to_frontbuffer(void) {
+void set_video_auto_flip(bool flip) {
+	video_flip_is_auto = flip;
+	dprintf("VIDEO AUTO FLIP: %d\n", flip);
 }
 
 void rr_flip(void) {
+	memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
 }

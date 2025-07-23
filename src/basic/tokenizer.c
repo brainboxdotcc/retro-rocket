@@ -31,6 +31,7 @@
  */
 const int keywords[] = {
 	AND,
+	AUTOFLIP,
 	BACKGROUND,
 	CALL,
 	CHAIN,
@@ -51,6 +52,7 @@ const int keywords[] = {
 	EOF,
 	EOR,
 	EVAL,
+	FLIP,
 	FOR,
 	GCOL,
 	GLOBAL,
@@ -326,6 +328,9 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 	basic_set_int_variable("ERRORLINE", ctx->current_linenum, ctx, false, false);
 	if (ctx->eval_linenum == 0) {
 		if (ctx->ended == 0) {
+			if (ctx->claimed_flip) {
+				set_video_auto_flip(true);
+			}
 			setforeground(current_console, COLOUR_LIGHTRED);
 			kprintf("Error on line %d: %s\n", ctx->current_linenum, error);
 			setforeground(current_console, COLOUR_WHITE);

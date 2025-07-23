@@ -79,6 +79,7 @@ EB(11) = 7
 ANGLE# = 0
 
 CLS
+AUTOFLIP FALSE
 
 REPEAT
 
@@ -97,7 +98,7 @@ REPEAT
   GCOL RGB(0,0,0)
   RECTANGLE min_x#, min_y#, max_x#, max_y#
 
-  ANGLE# = ANGLE# + 0.04
+  ANGLE# = ANGLE# + 0.03
 
   SY# = SIN(ANGLE#)
   CYR# = COS(ANGLE#)
@@ -129,8 +130,7 @@ REPEAT
     LINE PX#(V1), PY#(V1), PX#(V2), PY#(V2)
   NEXT
 
-  FOR D = 0 TO 10000
-  NEXT
+  FLIP
 
 UNTIL INKEY$ <> ""
 

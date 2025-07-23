@@ -254,6 +254,10 @@ typedef struct basic_ctx {
 	 */
 	bool ended;
 	/**
+	 * @brief True if the program has claimed flipping
+	 */
+	bool claimed_flip;
+	/**
 	 * @brief The whole program text, untokenized.
 	 * May have been "cleaned" by an initial preprocessing phase which removes
 	 * unneccesary spacing etc.
@@ -825,6 +829,8 @@ void loadsprite_statement(struct basic_ctx* ctx);
 void freesprite_statement(struct basic_ctx* ctx);
 void plot_statement(struct basic_ctx* ctx);
 void free_sprite(struct basic_ctx* ctx, int64_t sprite_handle);
+void autoflip_statement(struct basic_ctx* ctx);
+void flip_statement(struct basic_ctx* ctx);
 
 /* Console functions */
 int64_t basic_get_text_max_x(struct basic_ctx* ctx);

@@ -66,7 +66,7 @@ void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque)
 		stopbeep();
 	}
 
-	if (ticks % 10) {
-		//rr_flip();
+	if (ticks % 10 && video_flip_auto()) {
+		rr_flip();
 	}
 }

@@ -197,6 +197,7 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	ctx->debug_breakpoint_count = 0;
 	ctx->if_nest_level = 0;
 	ctx->errored = false;
+	ctx->claimed_flip = false;
 	ctx->current_token = ERROR;
 	ctx->int_variables = NULL;
 	memset(ctx->sprites, 0, sizeof(ctx->sprites));
@@ -410,6 +411,7 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->call_stack_ptr = old->call_stack_ptr;
 	ctx->repeat_stack_ptr = old->repeat_stack_ptr;
 	ctx->defs = old->defs;
+	ctx->claimed_flip = old->claimed_flip;
 	ctx->ended = false;
 	ctx->errored = false;
 
@@ -777,6 +779,10 @@ void statement(struct basic_ctx* ctx)
 			return setvars_statement(ctx);
 		case PLOT:
 			return plot_statement(ctx);
+		case AUTOFLIP:
+			return autoflip_statement(ctx);
+		case FLIP:
+			return flip_statement(ctx);
 		case SPRITELOAD:
 			return loadsprite_statement(ctx);
 		case SPRITEFREE:

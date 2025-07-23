@@ -134,6 +134,8 @@
 	T(SPRITELOAD) \
 	T(SPRITEFREE) \
 	T(PLOT) \
+        T(AUTOFLIP) \
+        T(FLIP) \
 	T(MOUNT)
 
 /*

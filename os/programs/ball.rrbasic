@@ -3,6 +3,7 @@ X# = GRAPHICS_CENTRE_X
 Y# = GRAPHICS_CENTRE_Y
 DX# = 5
 DY# = 4
+AUTOFLIP FALSE
 REPEAT
     CURSOR 0, 0
     PRINT "                                      "
@@ -18,6 +19,7 @@ REPEAT
     IF X# < 50 THEN DX# = 5
     IF Y# > (GRAPHICS_HEIGHT - 50) THEN DY# = -5
     IF Y# < 50 THEN DY# = 5
+    FLIP
 UNTIL INKEY$ <> ""
 CLS
 END

@@ -254,6 +254,9 @@ void proc_run_next()
 	if (current != NULL) {
 		proc_run(current);
 		if (proc_ended(current)) {
+			if (current->code->claimed_flip) {
+				set_video_auto_flip(true);
+			}
 			proc_kill(current);
 		}
 	}

@@ -77,6 +77,25 @@ sprite_t* get_sprite(struct basic_ctx* ctx, int64_t sprite_handle)
 	return NULL;
 }
 
+void autoflip_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(AUTOFLIP, ctx);
+	int64_t enable = expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+	set_video_auto_flip(enable);
+	ctx->claimed_flip = !enable;
+}
+
+void flip_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(FLIP, ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (video_flip_auto()) {
+		tokenizer_error_print(ctx, "Video flipping is not set to manual mode");
+	}
+	rr_flip();
+}
+
 void loadsprite_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(SPRITELOAD, ctx);
