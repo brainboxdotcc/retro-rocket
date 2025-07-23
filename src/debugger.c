@@ -265,12 +265,25 @@ void symbol_fail()
 
 void init_debug()
 {
-	if (!module_request.response || module_request.response->module_count == 0) {
+	struct limine_module_response* mods = module_request.response;
+	if (!mods || module_request.response->module_count == 0) {
+		dprintf("SYMBOLS: No modules\n");
 		symbol_fail();
 		return;
 	}
-	uint64_t filesize = module_request.response->modules[0]->size;
-	unsigned char* filecontent = module_request.response->modules[0]->address;
+	int mod_index = -1;
+	for (size_t n = 0; n < mods->module_count; ++n) {
+		if (!strcmp(mods->modules[n]->path, "/kernel.sym")) {
+			mod_index = n;
+		}
+	}
+	if (mod_index == -1) {
+		dprintf("SYMBOLS: No module found called 'Symbols'\n");
+		symbol_fail();
+		return;
+	}
+	uint64_t filesize = mods->modules[mod_index]->size;
+	unsigned char* filecontent = mods->modules[mod_index]->address;
 	unsigned char* ptr = filecontent;
 	char symbol_address[32];
 	char type[2];

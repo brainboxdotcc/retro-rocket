@@ -8,6 +8,8 @@ bool wait_state = false;
 bool video_flip_is_auto = true;
 console* current_console = NULL;
 
+extern volatile struct limine_module_request module_request;
+
 static volatile struct limine_framebuffer_request framebuffer_request = {
 	.id = LIMINE_FRAMEBUFFER_REQUEST,
 	.revision = 0,
@@ -170,6 +172,19 @@ void init_console()
 
 	dprintf("Bringing up flanterm...\n");
 
+	struct limine_module_response* mods = module_request.response;
+	int mod_index = -1;
+	void* font_data = NULL;
+	if (mods && module_request.response->module_count) {
+		for (size_t n = 0; n < mods->module_count; ++n) {
+			if (!strcmp(mods->modules[n]->path, "/fonts/system.f16")) {
+				mod_index = n;
+			}
+		}
+		font_data = mods->modules[mod_index]->address;
+		dprintf("Found font module: %x\n", font_data);
+	}
+
 	ft_ctx = flanterm_fb_init(
 		NULL,
 		NULL,
@@ -181,8 +196,12 @@ void init_console()
 		NULL, NULL,
 		NULL, NULL,
 		NULL, NULL,
-		NULL, 0, 0, 1,
-		0, 0,
+		font_data,
+		font_data ? 8 : 0,
+		font_data ? 16 : 0,
+		1,
+		0,
+		0,
 		0
 	);
 	dprintf("Flanterm address: %x\n", ft_ctx);
