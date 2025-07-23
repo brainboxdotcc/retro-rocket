@@ -326,7 +326,7 @@ char* basic_repeat(struct basic_ctx* ctx)
 	char* target = strval;
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t count = intval;
-	PARAMS_END("REPEAT$", "");
+	PARAMS_END("REP$", "");
 	if (count < 0) {
 		return gc_strdup("");
 	}

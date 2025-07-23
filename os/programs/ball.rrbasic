@@ -1,0 +1,23 @@
+CLS
+X# = 300
+Y# = 300
+DX# = 5
+DY# = 4
+REPEAT
+    CURSOR 0, 0
+    PRINT "                                      "
+    CURSOR 0, 0
+    PRINT X#, Y#, DX#, DY#
+    GCOL RGB(0,0,0)
+    CIRCLE X#, Y#, 50, TRUE
+    X# = X# + DX#
+    Y# = Y# + DY#
+    GCOL RGB(0,255,0)
+    CIRCLE X#, Y#, 50, TRUE
+    IF X# > 1870 THEN DX# = -5
+    IF X# < 50 THEN DX# = 5
+    IF Y# > 1030 THEN DY# = -5
+    IF Y# < 50 THEN DY# = 5
+UNTIL INKEY$ <> ""
+CLS
+END
