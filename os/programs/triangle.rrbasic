@@ -1,0 +1,14 @@
+CLS
+ANGLE# = 0
+REPEAT
+    CLS
+    X1# = 960 + COS(ANGLE#) * 200
+    Y1# = 540 + SIN(ANGLE#) * 200
+    X2# = 960 + COS(ANGLE# + 2.094) * 200
+    Y2# = 540 + SIN(ANGLE# + 2.094) * 200
+    X3# = 960 + COS(ANGLE# + 4.188) * 200
+    Y3# = 540 + SIN(ANGLE# + 4.188) * 200
+    GCOL RGB(255,255,0)
+    TRIANGLE X1#, Y1#, X2#, Y2#, X3#, Y3#
+    ANGLE# = ANGLE# + 0.05
+UNTIL INKEY$ <> ""
