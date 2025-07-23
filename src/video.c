@@ -1,16 +1,16 @@
 #include <kernel.h>
+#include <flanterm.h>
+#include <flanterm/fb.h>
 
 static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0;
 static console first_console;
 bool wait_state = false;
 console* current_console = NULL;
 
-void terminal_callback(struct limine_terminal*, uint64_t, uint64_t, uint64_t, uint64_t);
 
-static volatile struct limine_terminal_request terminal_request = {
-    .id = LIMINE_TERMINAL_REQUEST,
-    .revision = 0,
-    .callback = terminal_callback,
+static volatile struct limine_framebuffer_request framebuffer_request = {
+	.id = LIMINE_FRAMEBUFFER_REQUEST,
+	.revision = 0,
 };
 
 static struct limine_terminal *rr_term;
@@ -20,9 +20,10 @@ static uint64_t rr_fb_pitch;
 static uint64_t rr_fb_height;
 static uint64_t rr_fb_bytes;
 
+struct flanterm_context *ft_ctx = NULL;
+
 void rr_console_init_from_limine(void) {
-	rr_term = terminal_request.response->terminals[0];
-	struct limine_framebuffer *fb = rr_term->framebuffer;
+	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
 	dprintf("fb front: %x\n", fb->address);
 	rr_fb_front  = fb->address;
 	rr_fb_pitch  = fb->pitch;
@@ -32,22 +33,17 @@ void rr_console_init_from_limine(void) {
 	memset(rr_fb_back, 0, rr_fb_bytes);
 }
 
-
-static volatile struct limine_framebuffer_request framebuffer_request = {
-    .id = LIMINE_FRAMEBUFFER_REQUEST,
-    .revision = 0,
-};
-
 inline uint64_t framebuffer_address()
 {
-	struct limine_framebuffer *fb = terminal_request.response->terminals[0]->framebuffer;
+	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
 	return (uint64_t)fb->address;
 }
 
 inline uint64_t pixel_address(int64_t x, int64_t y)
 {
-	uint64_t pitch = terminal_request.response->terminals[0]->framebuffer->pitch;
-	uint64_t bytes_per_pixel = terminal_request.response->terminals[0]->framebuffer->bpp >> 3;
+	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
+	uint64_t pitch = fb->pitch;
+	uint64_t bytes_per_pixel = fb->bpp >> 3;
 	if (x >= 0 && y >= 0 && x < screen_x && y < screen_y) {
 		return (y * pitch) + (x * bytes_per_pixel);
 	}
@@ -56,18 +52,24 @@ inline uint64_t pixel_address(int64_t x, int64_t y)
 
 uint64_t get_text_width()
 {
-	return terminal_request.response->terminals[0]->columns;
+	return screen_x;
 }
 
 uint64_t get_text_height()
 {
-	return terminal_request.response->terminals[0]->rows;
+	return screen_y;
+}
+
+void ft_write(struct flanterm_context *ctx, const char *buf, size_t count) {
+	if (!ctx || !buf || !count) {
+		return;
+	}
+	flanterm_write(ctx, buf, count);
 }
 
 void screenonly(console* c, const char* s)
 {
-	struct limine_terminal *terminal = terminal_request.response->terminals[0];
-	terminal_request.response->write(terminal, s, strlen(s));
+	ft_write(ft_ctx, s, strlen(s));
 }
 
 void get_text_position(uint64_t* x, uint64_t* y)
@@ -115,8 +117,7 @@ void dput(const char n)
 void put(console* c, const char n)
 {
 	dput(n);
-	struct limine_terminal *terminal = terminal_request.response->terminals[0];
-	terminal_request.response->write(terminal, &n, 1);
+	ft_write(ft_ctx, &n, 1);
 }
 
 void dputstring(const char* message)
@@ -138,17 +139,16 @@ void dputstring(const char* message)
 void putstring(console* c, const char* message)
 {
 	dputstring(message);
-	struct limine_terminal *terminal = terminal_request.response->terminals[0];
-	terminal_request.response->write(terminal, message, strlen(message));
+	ft_write(ft_ctx, message, strlen(message));
 }
 
-void terminal_callback(struct limine_terminal *terminal, uint64_t type, uint64_t x, uint64_t y, uint64_t z)
+void terminal_callback(struct flanterm_context *ctx, uint64_t type, uint64_t x, uint64_t y, uint64_t z)
 {
 	switch (type) {
-		case LIMINE_TERMINAL_CB_BELL:
+		case FLANTERM_CB_BELL:
 			beep(1000);
 		break;
-		case LIMINE_TERMINAL_CB_POS_REPORT:
+		case FLANTERM_CB_POS_REPORT:
 			current_x = x - 1;
 			current_y = y - 1;
 		break;
@@ -161,14 +161,38 @@ void init_console()
 	console* c = &first_console;
 	current_console = c;
 	c->internalbuffer = NULL;
-	if (terminal_request.response == NULL || terminal_request.response->terminal_count < 1) {
-		dprintf("No limine terminal offered\n");
+	if (framebuffer_request.response == NULL || framebuffer_request.response->framebuffer_count < 1) {
+		dprintf("No framebuffer offered\n");
 		wait_forever();
 	}
 	clearscreen(c);
-	dprintf("limine terminal write address=%016X\n", terminal_request.response->write);
-	screen_x = terminal_request.response->terminals[0]->framebuffer->width;
-	screen_y = terminal_request.response->terminals[0]->framebuffer->height;
+
+	struct limine_framebuffer* fb = framebuffer_request.response->framebuffers[0];
+
+	dprintf("Bringing up flanterm...\n");
+
+	ft_ctx = flanterm_fb_init(
+		NULL,
+		NULL,
+		fb->address, fb->width, fb->height, fb->pitch,
+		fb->red_mask_size, fb->red_mask_shift,
+		fb->green_mask_size, fb->green_mask_shift,
+		fb->blue_mask_size, fb->blue_mask_shift,
+		NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, 0, 0, 1,
+		0, 0,
+		0
+	);
+	dprintf("Flanterm address: %x\n", ft_ctx);
+	flanterm_set_autoflush(ft_ctx, true);
+	flanterm_set_callback(ft_ctx, terminal_callback);
+	size_t x, y;
+	flanterm_get_dimensions(ft_ctx, &x, &y);
+	screen_x = x;
+	screen_y = y;
 	dprintf("Framebuffer address: %llx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
 
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
@@ -271,14 +295,10 @@ void setforeground(console* c, unsigned char foreground)
 }
 
 void rr_terminal_draw_to_backbuffer(void) {
-	terminal_request.response->terminals[0]->framebuffer->address = rr_fb_back;
-	framebuffer_request.response->framebuffers[0]->address = rr_fb_back;
 }
 
 void rr_terminal_draw_to_frontbuffer(void) {
-	rr_term->framebuffer->address = rr_fb_front;
 }
 
 void rr_flip(void) {
-	memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
 }

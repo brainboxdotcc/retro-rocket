@@ -1,9 +1,10 @@
 #include <kernel.h>
 
-void memset(void* dest, char val, uint64_t len)
+void* memset(void* dest, char val, uint64_t len)
 {
 	char *temp = (char *)dest;
 	for ( ; len != 0; len--) *temp++ = val;
+	return dest;
 }
 
 static inline void* movsb(void* dst, const void* src, size_t size)
