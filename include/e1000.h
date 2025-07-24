@@ -8,9 +8,10 @@
 #include "kernel.h"
 
 #define INTEL_VEND     (uint32_t)0x8086  // Vendor ID for Intel
-#define E1000_DEV      (uint32_t)0x100E  // Device ID for the e1000 Qemu, Bochs, and VirtualBox emulated NICs
+#define E1000_82540EM  (uint32_t)0x100E  // Device ID for the e1000 Qemu, Bochs, and VirtualBox emulated NICs
 #define E1000_I217     (uint32_t)0x153A  // Device ID for Intel I217
 #define E1000_82577LM  (uint32_t)0x10EA  // Device ID for Intel 82577LM
+#define E1000_82541PI  (uint32_t)0x107C  // Device ID for Intel 82541PI
  
  
 #define REG_CTRL        0x0000

@@ -13,6 +13,8 @@ uint16_t tx_cur;          // Current Transmit Descriptor Buffer
 
 static void *tx_buffers[E1000_NUM_TX_DESC];
 
+static uint16_t e1000_device_id = 0;
+
 void e1000_write_command(uint16_t p_address, uint32_t p_value) {
 	if (bar_type == 0) {
 		mmio_write32(mem_base + p_address, p_value);
@@ -37,7 +39,8 @@ bool e1000_detect_eeprom() {
 
 	for (int i = 0; i < 1000 && !eerprom_exists; i++) {
 		val = e1000_read_command(REG_EEPROM);
-		if (val & 0x10) {
+		// Support both detection modes (original 0x10 and 82541PI's 0x100)
+		if ((val & 0x10) || (val & 0x100)) {
 			eerprom_exists = true;
 		} else {
 			eerprom_exists = false;
@@ -46,15 +49,21 @@ bool e1000_detect_eeprom() {
 	return eerprom_exists;
 }
 
+
+
 uint32_t e1000_read_eeprom(uint8_t addr) {
 	uint16_t data = 0;
 	uint32_t tmp = 0;
+	time_t now = time(NULL);
 	if (eerprom_exists) {
 		e1000_write_command(REG_EEPROM, (1) | ((uint32_t) (addr) << 8));
-		while (!((tmp = e1000_read_command(REG_EEPROM)) & (1 << 4)));
+		while (now == time(NULL) && !((tmp = e1000_read_command(REG_EEPROM)) & (1 << 4)));
 	} else {
 		e1000_write_command(REG_EEPROM, (1) | ((uint32_t) (addr) << 2));
-		while (!((tmp = e1000_read_command(REG_EEPROM)) & (1 << 1)));
+		while (now == time(NULL) && !((tmp = e1000_read_command(REG_EEPROM)) & (1 << 1)));
+	}
+	if (time(NULL) > now) {
+		kprintf("e1000: eeprom read timeout on %02x\n", addr);
 	}
 	data = (uint16_t) ((tmp >> 16) & 0xFFFF);
 	return data;
@@ -161,7 +170,7 @@ void e1000_handle_receive() {
 		uint16_t len = rx_descs[rx_cur]->length;
 
 		netdev_t* dev = get_active_network_device();
-		if (dev && dev->deviceid == ((INTEL_VEND << 16) | E1000_DEV)) {
+		if (dev && dev->deviceid == ((INTEL_VEND << 16) | e1000_device_id)) {
 			ethernet_handle_packet((ethernet_frame_t *) buf, len);
 		}
 
@@ -225,6 +234,7 @@ void e1000_up() {
  */
 void e1000_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque) {
 	uint32_t status = e1000_read_command(REG_ICR);
+
 	if (status & ICR_TXQE) {
 		dprintf("Transmit queue empty\n");
 	}
@@ -268,49 +278,72 @@ void e1000_enable_interrupts() {
 	e1000_read_command(REG_ICR);
 }
 
+void e1000_idle() {
+	//e1000_handler(32 + 10, 0, 10, NULL);
+}
+
 bool e1000_start(pci_dev_t *pci_device) {
 
-	e1000_detect_eeprom();
-	if (!e1000_read_mac_address()) {
+	// Cache actual detected device ID
+	e1000_device_id = pci_read(*pci_device, PCI_DEVICE_ID);
+
+	// Reject unsupported devices
+	if (e1000_device_id != E1000_82540EM && e1000_device_id != E1000_82541PI) {
 		return false;
 	}
+
+	if (e1000_detect_eeprom()) {
+		if (!e1000_read_mac_address()) {
+			return false;
+		}
+	} else {
+		uint8_t *mem_base_mac = (uint8_t *)(mem_base + 0x5400);
+		for (int i = 0; i < 6; ++i) {
+			mac[i] = mem_base_mac[i];
+		}
+	}
+
 	e1000_up();
 
 	for (int i = 0; i < 0x80; i++) {
 		e1000_write_command(0x5200 + i * 4, 0);
 	}
 
-	uint8_t vector = 0x20 + 0x0F; // Pick a safe, unused IRQ vector
-	bool msi_ok = pci_enable_msi(*pci_device, vector);
+	if (e1000_device_id == E1000_82540EM) {
+		uint8_t vector = 0x20 + 0x0F; // Pick a safe, unused IRQ vector
+		bool msi_ok = pci_enable_msi(*pci_device, vector);
 
-	if (msi_ok) {
-		kprintf("e1000: MSI enabled on vector 0x%x\n", vector);
-		register_interrupt_handler(vector, e1000_handler, *pci_device, NULL);
+		if (msi_ok) {
+			kprintf("e1000: MSI enabled on vector 0x%x\n", vector);
+			register_interrupt_handler(vector, e1000_handler, *pci_device, NULL);
+		} else {
+			uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
+			register_interrupt_handler(32 + irq_num, e1000_handler, *pci_device, NULL);
+		}
 	} else {
 		uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
-		kprintf("e1000: MSI not available, falling back to legacy IRQ %u\n", irq_num);
 		register_interrupt_handler(32 + irq_num, e1000_handler, *pci_device, NULL);
-	}
 
+	}
 
 	e1000_enable_interrupts();
 	e1000_receive_init();
 	e1000_transmit_init();
 
 	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
-		// Allocate slightly more than needed
 		uint8_t *raw = (uint8_t *) kmalloc_low(E1000_MAX_PKT_SIZE + E1000_TX_ALIGN);
 		uintptr_t aligned_addr = ((uintptr_t) raw + E1000_TX_ALIGN - 1) & ~(E1000_TX_ALIGN - 1);
 		tx_buffers[i] = (void *) aligned_addr;
-
-		// Set descriptor
 		tx_descs[i]->addr = (uint64_t) (uintptr_t) tx_buffers[i];
 		tx_descs[i]->status = 1; // Mark available
 	}
 
+	// Set link up and speed detection enable - required for PI series, non-op on original e1000
+	e1000_write_command(REG_CTRL, 0x20 | ECTRL_SLU);
 
-	//set link up
-	e1000_write_command(REG_CTRL, 0x20 | ECTRL_SLU); //set link up, activate auto-speed detection
+	if (e1000_device_id == E1000_82541PI) {
+		sleep(10); // Delay required after CTRL write on 82541PI
+	}
 
 	e1000_check_link();
 
@@ -318,7 +351,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	netdev_t* net = kmalloc(sizeof(netdev_t));
 	net->opaque = NULL;
-	net->deviceid = (INTEL_VEND << 16) | E1000_DEV;
+	net->deviceid = (INTEL_VEND << 16) | e1000_device_id;
 	make_unique_device_name("net", net->name);
 	net->description = "Intel e1000 Gigabit";
 	net->flags = CONNECTED;
@@ -331,25 +364,35 @@ bool e1000_start(pci_dev_t *pci_device) {
 	net->next = NULL;
 	register_network_device(net);
 
+	proc_register_idle(e1000_idle, IDLE_FOREGROUND);
+
 	return true;
 }
 
 bool init_e1000() {
-	pci_dev_t pci_device = pci_get_device(INTEL_VEND, E1000_DEV, -1);
-	if (pci_not_found(pci_device)) {
+	pci_dev_t pci_device;
+	bool found = false;
+
+	// Try supported devices only
+	const uint16_t supported[] = { E1000_82540EM, E1000_82541PI };
+	for (size_t i = 0; i < sizeof(supported) / sizeof(supported[0]); i++) {
+		pci_device = pci_get_device(INTEL_VEND, supported[i], -1);
+		if (!pci_not_found(pci_device)) {
+			found = true;
+			break;
+		}
+	}
+	if (!found) {
 		return false;
 	}
 	uint32_t ret = pci_read(pci_device, PCI_BAR0);
-	// Get BAR0 type, io_base address and MMIO base address
 	bar_type = pci_bar_type(ret);
 	io_base = pci_io_base(ret);
 	mem_base = pci_mem_base(ret);
 
 	kprintf("e1000: mmio base %llx\n", mem_base);
 
-	// Enable bus mastering
 	pci_bus_master(pci_device);
-
 	eerprom_exists = false;
 
 	return e1000_start(&pci_device);

@@ -340,15 +340,17 @@ void pci_display_device_list()
 				device_description = (char*)sc->description;
 			}
 		}
-		if (class != 0x06 || subclass != 0x04) {
-			kprintf(
-				"%02x:%02x:%02x: %s (%04x:%04x) [%02x:%02x:%02x]\n",
-				list[n].bus_num, list[n].device_num, list[n].function_num,
-				device_description,
-				pci_read(list[n], PCI_VENDOR_ID), pci_read(list[n], PCI_DEVICE_ID),
-				class, subclass, progif
-			);
+		if (class == 0x06 && (subclass == 0x00 || subclass == 0x01)) {
+			// Don't list bridges
+			continue;
 		}
+		kprintf(
+			"%02x:%02x:%02x: %s (%04x:%04x) [%02x:%02x:%02x]\n",
+			list[n].bus_num, list[n].device_num, list[n].function_num,
+			device_description,
+			pci_read(list[n], PCI_VENDOR_ID), pci_read(list[n], PCI_DEVICE_ID),
+			class, subclass, progif
+		);
 	}
 }
 

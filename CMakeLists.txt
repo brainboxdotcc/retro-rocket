@@ -21,10 +21,15 @@ set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-decl
 
 include_directories("include")
 include_directories("limine")
+include_directories(${UACPI_INCLUDES})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/iso)
 
-add_executable("kernel.bin" ${SOURCES} ${ASSEMBLY})
+include(uacpi/uacpi.cmake)
+
+add_executable(kernel.bin ${SOURCES} ${ASSEMBLY})
+target_sources(kernel.bin PRIVATE ${UACPI_SOURCES})
+target_include_directories(kernel.bin PRIVATE ${UACPI_INCLUDES})
 
 add_link_options("-m elf_x86_64 -nostdlib -no-pie -T buildtools/linker.ld")
 

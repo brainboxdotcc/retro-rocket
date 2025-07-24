@@ -65,6 +65,9 @@ typedef struct {
 	uint16_t flags;
 } __attribute__((packed)) madt_override_t;
 
+#define IRQ_DEFAULT_POLARITY 0 // active high
+#define IRQ_DEFAULT_TRIGGER  0 // edge
+
 /**
  * @brief Detect SMP cores, IOAPICs, Local APICs
  */
