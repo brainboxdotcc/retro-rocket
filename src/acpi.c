@@ -27,10 +27,22 @@ static uint32_t irq_override_map[256] = {
 pci_irq_route_t pci_irq_routes[MAX_PCI_ROUTES];
 int pci_irq_route_count = 0;
 
+uint64_t mhz = 0, tsc_per_sec = 1;
+
 void enumerate_all_gsis(void);
 
 void init_uacpi(void) {
 	uacpi_status st;
+
+	time_t start_time = time(NULL);
+	while (time(NULL) == start_time); // settle
+	uint64_t start_tsc = rdtsc();
+	start_time = time(NULL);
+	while (time(NULL) == start_time); // spin
+	uint64_t end_tsc = rdtsc();
+	tsc_per_sec = end_tsc - start_tsc;
+	mhz = tsc_per_sec / 1000000;
+	dprintf("mhz = %llu, tsc_per_sec = %llu\n", mhz, tsc_per_sec);
 
 	dprintf("init_uacpi uacpi_initialize(0)\n");
 	st = uacpi_initialize(0);
@@ -52,6 +64,16 @@ void init_uacpi(void) {
 		preboot_fail("uACPI namespace init failed");
 	}
 	dprintf("init_uacpi uacpi_namespace_initialize() done\n");
+}
+
+void delay_ns(uint64_t ns) {
+	uint64_t ticks = (tsc_per_sec * ns) / 1e9;
+	uint64_t start = rdtsc();
+	while (rdtsc() - start < ticks);
+}
+
+uint64_t uacpi_kernel_get_nanoseconds_since_boot(void) {
+	return (rdtsc() * 1000000000ULL) / tsc_per_sec;
 }
 
 rsdp_t *get_rsdp() {
@@ -211,13 +233,11 @@ void uacpi_kernel_unmap(void *addr, uacpi_size len) {
 }
 
 void uacpi_kernel_stall(uacpi_u8 usec) {
-	uint64_t then = uacpi_kernel_get_nanoseconds_since_boot();
-	while (uacpi_kernel_get_nanoseconds_since_boot() - then < usec);
+	delay_ns(usec * 1000);
 }
 
 void uacpi_kernel_sleep(uacpi_u64 msec) {
-	io_wait();
-	uacpi_kernel_stall(msec / 100000);
+	delay_ns(msec * 1000000);
 }
 
 uacpi_status uacpi_kernel_pci_device_open(uacpi_pci_address address, uacpi_handle *out_handle) {
@@ -430,7 +450,7 @@ static uacpi_iteration_decision resource_callback(void *user, uacpi_resource *re
 	if (res->type == UACPI_RESOURCE_TYPE_EXTENDED_IRQ) {
 		uacpi_resource_extended_irq *irq = &res->extended_irq;
 		for (uacpi_u32 i = 0; i < irq->num_irqs; ++i) {
-			dprintf("[%s] GSI (EXT_IRQ): %u | Trigger: %s | Polarity: %s | Sharing: %s | Wake: %u | Source: %s\n",
+			dprintf("GSI (EXT_IRQ): %u | Trigger: %s | Polarity: %s | Sharing: %s | Wake: %u | Source: %s\n",
 				irq->irqs[i],
 				triggering_str(irq->triggering),
 				polarity_str(irq->polarity),
