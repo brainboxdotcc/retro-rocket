@@ -6,6 +6,10 @@ volatile uint64_t beep_end = 0;
 
 extern idle_timer_t* timer_idles;
 
+uint64_t uacpi_kernel_get_nanoseconds_since_boot(void) {
+	return rdtsc();
+}
+
 void beep(uint32_t pitch)
 {
 	uint32_t Div;

@@ -1,59 +1,86 @@
 #include <kernel.h>
-#include <mmio.h>
 #include <uacpi/uacpi.h>
+#include <uacpi/namespace.h>
+#include "uacpi/utilities.h"
+#include "uacpi/resources.h"
 
 volatile struct limine_rsdp_request rsdp_request = {
-    .id = LIMINE_RSDP_REQUEST,
-    .revision = 0,
+	.id = LIMINE_RSDP_REQUEST,
+	.revision = 0,
 };
 
-static uint8_t lapic_ids[256] = { 0 }; // CPU core Local APIC IDs
-static uint8_t ioapic_ids[256] = { 0 }; // CPU core Local APIC IDs
+static uint8_t lapic_ids[256] = {0}; // CPU core Local APIC IDs
+static uint8_t ioapic_ids[256] = {0}; // CPU core Local APIC IDs
 static uint16_t numcore = 0;         // number of cores detected
 static uint16_t numioapic = 0;
 static uint64_t lapic_ptr = 0;       // pointer to the Local APIC MMIO registers
-static uint64_t ioapic_ptr[256] = { 0 };      // pointer to the IO APIC MMIO registers
-static uint32_t ioapic_gsi_base[256] = { 0 };
-static uint8_t ioapic_gsi_count[256] = { 0 };
+static uint64_t ioapic_ptr[256] = {0};      // pointer to the IO APIC MMIO registers
+static uint32_t ioapic_gsi_base[256] = {0};
+static uint8_t ioapic_gsi_count[256] = {0};
 static uint8_t irq_trigger_mode[256] = {0};  // 0 = edge, 1 = level
-static uint8_t irq_polarity[256]     = {0};  // 0 = high,  1 = low
+static uint8_t irq_polarity[256] = {0};  // 0 = high,  1 = low
 
 static uint32_t irq_override_map[256] = {
 	[0 ... 255] = 0xFFFFFFFF
 };
 
-rsdp_t* get_rsdp() {
-	return (rsdp_t*) rsdp_request.response->address;
+pci_irq_route_t pci_irq_routes[MAX_PCI_ROUTES];
+int pci_irq_route_count = 0;
+
+void enumerate_all_gsis(void);
+
+void init_uacpi(void) {
+	uacpi_status st;
+
+	dprintf("init_uacpi uacpi_initialize(0)\n");
+	st = uacpi_initialize(0);
+	dprintf("init_uacpi uacpi_initialize(0) done\n");
+	if (uacpi_unlikely_error(st)) {
+		preboot_fail("uACPI init failed");
+	}
+
+	dprintf("init_uacpi uacpi_namespace_load()\n");
+	st = uacpi_namespace_load();
+	if (uacpi_unlikely_error(st)) {
+		preboot_fail("uACPI namespace load failed");
+	}
+	dprintf("init_uacpi uacpi_namespace_load() done\n");
+
+	dprintf("init_uacpi uacpi_namespace_initialize()\n");
+	st = uacpi_namespace_initialize();
+	if (uacpi_unlikely_error(st)) {
+		preboot_fail("uACPI namespace init failed");
+	}
+	dprintf("init_uacpi uacpi_namespace_initialize() done\n");
 }
 
-sdt_header_t* get_sdt_header() {
-	rsdp_t* rsdp = get_rsdp();
-	return (sdt_header_t*) (uint64_t) rsdp->rsdt_address;
+rsdp_t *get_rsdp() {
+	return (rsdp_t *) rsdp_request.response->address;
 }
 
-uint8_t* get_lapic_ids()
-{
+sdt_header_t *get_sdt_header() {
+	rsdp_t *rsdp = get_rsdp();
+	return (sdt_header_t *) (uint64_t) rsdp->rsdt_address;
+}
+
+uint8_t *get_lapic_ids() {
 	return lapic_ids;
 }
 
-uint16_t get_cpu_count()
-{
+uint16_t get_cpu_count() {
 	return numcore;
 }
 
-uint64_t get_local_apic()
-{
+uint64_t get_local_apic() {
 	return (uint64_t) lapic_ptr;
 }
 
-uint16_t get_ioapic_count()
-{
+uint16_t get_ioapic_count() {
 	return numioapic;
 }
 
-ioapic_t get_ioapic(uint16_t index)
-{
-	ioapic_t ioapic = { 0 };
+ioapic_t get_ioapic(uint16_t index) {
+	ioapic_t ioapic = {0};
 	if (index >= numioapic) {
 		return ioapic;
 	}
@@ -64,22 +91,23 @@ ioapic_t get_ioapic(uint16_t index)
 	return ioapic;
 }
 
-void init_cores()
-{
+void init_cores() {
 	uint8_t *ptr, *ptr2;
 	uint32_t len;
-	uint8_t* rsdt = (uint8_t*)get_sdt_header();
+	uint8_t *rsdt = (uint8_t *) get_sdt_header();
 	numcore = 0;
 	numioapic = 0;
 
+	init_uacpi();
+
 	// Iterate on ACPI table pointers
-	for (len = *((uint32_t*)(rsdt + 4)), ptr2 = rsdt + 36; ptr2 < rsdt + len; ptr2 += rsdt[0]=='X' ? 8 : 4) {
-		ptr = (uint8_t*)(uint64_t)(rsdt[0]=='X' ? *((uint64_t*)ptr2) : *((uint32_t*)ptr2));
+	for (len = *((uint32_t *) (rsdt + 4)), ptr2 = rsdt + 36; ptr2 < rsdt + len; ptr2 += rsdt[0] == 'X' ? 8 : 4) {
+		ptr = (uint8_t *) (uint64_t) (rsdt[0] == 'X' ? *((uint64_t *) ptr2) : *((uint32_t *) ptr2));
 		if (*ptr == 'A' && *(ptr + 1) == 'P' && *(ptr + 2) == 'I' && *(ptr + 3) == 'C') {
 			// found MADT
-			lapic_ptr = (uint64_t)(*((uint32_t*)(ptr + 0x24)));
+			lapic_ptr = (uint64_t) (*((uint32_t *) (ptr + 0x24)));
 			kprintf("Detected: 32-Bit Local APIC [base: %llx]\n", lapic_ptr);
-			ptr2 = ptr + *((uint32_t*)(ptr + 4));
+			ptr2 = ptr + *((uint32_t *) (ptr + 4));
 			// iterate on variable length records
 			for (ptr += 44; ptr < ptr2; ptr += ptr[1]) {
 				switch (ptr[0]) {
@@ -87,30 +115,35 @@ void init_cores()
 						if (ptr[4] & 1) {
 							lapic_ids[numcore++] = ptr[3];
 						}
-					break; // found Processor Local APIC
+						break; // found Processor Local APIC
 					case 1:
-						ioapic_ptr[numioapic] = (uint64_t)*((uint32_t*)(ptr + 4));
+						ioapic_ptr[numioapic] = (uint64_t) *((uint32_t *) (ptr + 4));
 						ioapic_ids[numioapic] = ptr[2];
-						ioapic_gsi_base[numioapic] = (uint32_t)*((uint32_t*)(ptr + 8));
-						uint32_t *mmio = (uint32_t*)ioapic_ptr[numioapic];
+						ioapic_gsi_base[numioapic] = (uint32_t) *((uint32_t *) (ptr + 8));
+						uint32_t *mmio = (uint32_t *) ioapic_ptr[numioapic];
 						mmio[0] = 0x01;
 						uint32_t count = ((mmio[0x10 / 4]) & 0xFF) + 1;
 						ioapic_gsi_count[numioapic] = count;
-						kprintf("Detected: IOAPIC [base: %llx; id: %d gsi base: %d gsi count: %d]\n", ioapic_ptr[numioapic], ioapic_ids[numioapic], ioapic_gsi_base[numioapic], count);
+						kprintf("Detected: IOAPIC [base: %llx; id: %d gsi base: %d gsi count: %d]\n",
+							ioapic_ptr[numioapic], ioapic_ids[numioapic],
+							ioapic_gsi_base[numioapic], count);
 						numioapic++;
-					break;  // found IOAPIC
+						break;  // found IOAPIC
 					case 2: {
-						madt_override_t* ovr = (madt_override_t*)ptr;
-						kprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n", ovr->irq_source, ovr->gsi, ovr->flags);
+						madt_override_t *ovr = (madt_override_t *) ptr;
+						kprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n",
+							ovr->irq_source, ovr->gsi, ovr->flags);
 						irq_override_map[ovr->irq_source] = ovr->gsi;
-						if (ovr->flags & 0x8) irq_trigger_mode[ovr->irq_source] = 1; // Bit 3 = trigger mode
-						if (ovr->flags & 0x2) irq_polarity[ovr->irq_source]     = 1; // Bit 1 = polarity
+						if (ovr->flags & 0x8)
+							irq_trigger_mode[ovr->irq_source] = 1; // Bit 3 = trigger mode
+						if (ovr->flags & 0x2)
+							irq_polarity[ovr->irq_source] = 1; // Bit 1 = polarity
 						break;
 					}
 					case 5:
-						lapic_ptr = *((uint64_t*)(ptr + 4));
+						lapic_ptr = *((uint64_t *) (ptr + 4));
 						kprintf("Detected: 64-Bit Local APIC [base: %llx]\n", lapic_ptr);
-					break;             // found 64 bit LAPIC
+						break;             // found 64 bit LAPIC
 				}
 			}
 			break;
@@ -128,6 +161,7 @@ void init_cores()
 	for (int i = 0; i < 16; ++i) {
 		dprintf("IRQ %d maps to GSI %d\n", i, irq_to_gsi(i));
 	}
+	enumerate_all_gsis();
 }
 
 uint32_t irq_to_gsi(uint8_t irq) {
@@ -155,7 +189,7 @@ typedef struct {
 
 // Logging
 void uacpi_kernel_log(uacpi_log_level level, const uacpi_char *msg) {
-	dprintf("[uACPI] %s\n", msg);
+	dprintf("[uACPI] %s", msg);
 }
 
 // Memory allocation
@@ -169,7 +203,7 @@ void uacpi_kernel_free(void *ptr) {
 
 // Physical memory mapping (flat model)
 void *uacpi_kernel_map(uacpi_phys_addr addr, uacpi_size len) {
-	return (void *)(uintptr_t)addr; // identity-mapped
+	return (void *) (uintptr_t) addr; // identity-mapped
 }
 
 void uacpi_kernel_unmap(void *addr, uacpi_size len) {
@@ -177,11 +211,13 @@ void uacpi_kernel_unmap(void *addr, uacpi_size len) {
 }
 
 void uacpi_kernel_stall(uacpi_u8 usec) {
-
+	uint64_t then = uacpi_kernel_get_nanoseconds_since_boot();
+	while (uacpi_kernel_get_nanoseconds_since_boot() - then < usec);
 }
 
 void uacpi_kernel_sleep(uacpi_u64 msec) {
-
+	io_wait();
+	uacpi_kernel_stall(msec / 100000);
 }
 
 uacpi_status uacpi_kernel_pci_device_open(uacpi_pci_address address, uacpi_handle *out_handle) {
@@ -198,36 +234,43 @@ uacpi_status uacpi_kernel_pci_device_open(uacpi_pci_address address, uacpi_handl
 }
 
 uacpi_status uacpi_kernel_io_map(uacpi_io_addr base, uacpi_size len, uacpi_handle *out_handle) {
+	// For I/O ports, mapping isn't needed — just pass the base through.
+	*out_handle = (uacpi_handle) base;
 	return UACPI_STATUS_OK;
 }
 
-void uacpi_kernel_io_unmap(uacpi_handle handle) { }
+void uacpi_kernel_io_unmap(uacpi_handle handle) {
+	// No-op for I/O ports
+	(void) handle;
+}
 
-uacpi_status uacpi_kernel_io_read8(uacpi_handle, uacpi_size offset, uacpi_u8 *out_value) {
-	*out_value = mmio_read8(offset);
-	return UACPI_STATUS_OK;
-}
-uacpi_status uacpi_kernel_io_read16(uacpi_handle, uacpi_size offset, uacpi_u16 *out_value) {
-	*out_value = mmio_read16(offset);
-	return UACPI_STATUS_OK;
-}
-uacpi_status uacpi_kernel_io_read32(uacpi_handle, uacpi_size offset, uacpi_u32 *out_value) {
-	*out_value = mmio_read32(offset);
+uacpi_status uacpi_kernel_io_read8(uacpi_handle handle, uacpi_size offset, uacpi_u8 *out_value) {
+	*out_value = inb((uintptr_t) handle + offset);
 	return UACPI_STATUS_OK;
 }
 
-uacpi_status uacpi_kernel_io_write8(uacpi_handle, uacpi_size offset, uacpi_u8 in_value) {
-	mmio_write8(offset, in_value);
+uacpi_status uacpi_kernel_io_read16(uacpi_handle handle, uacpi_size offset, uacpi_u16 *out_value) {
+	*out_value = inw((uintptr_t) handle + offset);
 	return UACPI_STATUS_OK;
 }
 
-uacpi_status uacpi_kernel_io_write16(uacpi_handle, uacpi_size offset, uacpi_u16 in_value) {
-	mmio_write16(offset, in_value);
+uacpi_status uacpi_kernel_io_read32(uacpi_handle handle, uacpi_size offset, uacpi_u32 *out_value) {
+	*out_value = inl((uintptr_t) handle + offset);
 	return UACPI_STATUS_OK;
 }
 
-uacpi_status uacpi_kernel_io_write32(uacpi_handle, uacpi_size offset, uacpi_u32 in_value) {
-	mmio_write32(offset, in_value);
+uacpi_status uacpi_kernel_io_write8(uacpi_handle handle, uacpi_size offset, uacpi_u8 value) {
+	outb((uintptr_t) handle + offset, value);
+	return UACPI_STATUS_OK;
+}
+
+uacpi_status uacpi_kernel_io_write16(uacpi_handle handle, uacpi_size offset, uacpi_u16 value) {
+	outw((uintptr_t) handle + offset, value);
+	return UACPI_STATUS_OK;
+}
+
+uacpi_status uacpi_kernel_io_write32(uacpi_handle handle, uacpi_size offset, uacpi_u32 value) {
+	outl((uintptr_t) handle + offset, value);
 	return UACPI_STATUS_OK;
 }
 
@@ -236,59 +279,71 @@ void uacpi_kernel_pci_device_close(uacpi_handle handle) {
 }
 
 uacpi_status uacpi_kernel_pci_read8(uacpi_handle handle, uacpi_size offset, uacpi_u8 *value) {
-	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *)handle;
-	*value = (uacpi_u8)(pci_read(wrapper->dev, offset));
+	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
+	*value = (uacpi_u8) (pci_read(wrapper->dev, offset));
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_read16(uacpi_handle handle, uacpi_size offset, uacpi_u16 *value) {
-	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *)handle;
-	*value = (uacpi_u16)(pci_read(wrapper->dev, offset));
+	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
+	*value = (uacpi_u16) (pci_read(wrapper->dev, offset));
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_read32(uacpi_handle handle, uacpi_size offset, uacpi_u32 *value) {
-	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *)handle;
-	*value = (uacpi_u32)(pci_read(wrapper->dev, offset));
+	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
+	*value = (uacpi_u32) (pci_read(wrapper->dev, offset));
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_write8(uacpi_handle handle, uacpi_size offset, uacpi_u8 value) {
-	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *)handle;
+	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
 	pci_write(wrapper->dev, offset, value);
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_write16(uacpi_handle handle, uacpi_size offset, uacpi_u16 value) {
-	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *)handle;
+	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
 	pci_write(wrapper->dev, offset, value);
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_pci_write32(uacpi_handle handle, uacpi_size offset, uacpi_u32 value) {
-	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *)handle;
+	uacpi_pci_dev_wrapper_t *wrapper = (uacpi_pci_dev_wrapper_t *) handle;
 	pci_write(wrapper->dev, offset, value);
 	return UACPI_STATUS_OK;
 }
 
+static uacpi_handle last_handle = 1;
+
 // Stub mutex/event/threading
-uacpi_handle uacpi_kernel_create_mutex(void) { return (uacpi_handle)1; }
+uacpi_handle uacpi_kernel_create_mutex(void) { return (uacpi_handle) last_handle++; }
+
 void uacpi_kernel_free_mutex(uacpi_handle h) {}
+
 uacpi_status uacpi_kernel_acquire_mutex(uacpi_handle, uacpi_u16) { return UACPI_STATUS_OK; }
+
 void uacpi_kernel_release_mutex(uacpi_handle) {}
 
-uacpi_handle uacpi_kernel_create_event(void) { return (uacpi_handle)1; }
+uacpi_handle uacpi_kernel_create_event(void) { return (uacpi_handle) last_handle++; }
+
 void uacpi_kernel_free_event(uacpi_handle h) {}
+
 uacpi_bool uacpi_kernel_wait_for_event(uacpi_handle, uacpi_u16) { return true; }
+
 void uacpi_kernel_signal_event(uacpi_handle) {}
+
 void uacpi_kernel_reset_event(uacpi_handle) {}
 
 uacpi_thread_id uacpi_kernel_get_thread_id(void) { return 1; }
 
 // Optional no-op spinlock support
-uacpi_handle uacpi_kernel_create_spinlock(void) { return (uacpi_handle)1; }
+uacpi_handle uacpi_kernel_create_spinlock(void) { return (uacpi_handle) last_handle++; }
+
 void uacpi_kernel_free_spinlock(uacpi_handle) {}
+
 uacpi_cpu_flags uacpi_kernel_lock_spinlock(uacpi_handle) { return 0; }
+
 void uacpi_kernel_unlock_spinlock(uacpi_handle, uacpi_cpu_flags) {}
 
 // RSDP (you already have this)
@@ -297,19 +352,16 @@ uacpi_status uacpi_kernel_get_rsdp(uacpi_phys_addr *out_rsdp_address) {
 	return UACPI_STATUS_OK;
 }
 
-uacpi_u64 uacpi_kernel_get_nanoseconds_since_boot(void) { return 0; };
-
 uacpi_status uacpi_kernel_install_interrupt_handler(
 	uacpi_u32 irq,
 	uacpi_interrupt_handler handler,
 	uacpi_handle ctx,
 	uacpi_handle *out_irq_handle
 ) {
-	(void)irq;
-	(void)handler;
-	(void)ctx;
-	static int dummy;
-	*out_irq_handle = &dummy;
+	(void) irq;
+	(void) handler;
+	(void) ctx;
+	*out_irq_handle = last_handle++;
 	return UACPI_STATUS_OK;
 }
 
@@ -317,18 +369,30 @@ uacpi_status uacpi_kernel_uninstall_interrupt_handler(
 	uacpi_interrupt_handler handler,
 	uacpi_handle irq_handle
 ) {
-	(void)handler;
-	(void)irq_handle;
+	(void) handler;
+	(void) irq_handle;
 	return UACPI_STATUS_OK;
 }
 
 uacpi_status uacpi_kernel_handle_firmware_request(uacpi_firmware_request *req) {
-	dprintf("uACPI firmware request: type=%u\n", req->type);
+	switch (req->type) {
+		case UACPI_FIRMWARE_REQUEST_TYPE_BREAKPOINT:
+			dprintf("uACPI breakpoint: AML requested a breakpoint\n");
+			return UACPI_STATUS_OK;
+
+		case UACPI_FIRMWARE_REQUEST_TYPE_FATAL:
+			preboot_fail("uACPI fatal AML error");
+			break;
+
+		default:
+			return UACPI_STATUS_INTERNAL_ERROR;
+	}
 	return UACPI_STATUS_OK;
 }
 
+
 void async_run_gpe_handler(uacpi_handle gpe) {
-	(void)gpe;
+	(void) gpe;
 	// No GPE support yet
 }
 
@@ -337,8 +401,8 @@ uacpi_status uacpi_kernel_schedule_work(
 	uacpi_work_handler handler,
 	uacpi_handle ctx
 ) {
-	(void)type;
-	(void)ctx;
+	(void) type;
+	(void) ctx;
 
 	// Synchronously call it immediately (not technically correct, but fine for now)
 	handler(ctx);
@@ -350,3 +414,66 @@ uacpi_status uacpi_kernel_wait_for_work_completion(void) {
 	return UACPI_STATUS_OK;
 }
 
+const char *triggering_str(uacpi_u8 trig) {
+	return trig == 0 ? "Edge" : "Level";
+}
+
+const char *polarity_str(uacpi_u8 pol) {
+	return pol == 0 ? "High" : "Low";
+}
+
+const char *sharing_str(uacpi_u8 share) {
+	return share == 0 ? "Exclusive" : "Shared";
+}
+
+static uacpi_iteration_decision resource_callback(void *user, uacpi_resource *res) {
+	if (res->type == UACPI_RESOURCE_TYPE_EXTENDED_IRQ) {
+		uacpi_resource_extended_irq *irq = &res->extended_irq;
+		for (uacpi_u32 i = 0; i < irq->num_irqs; ++i) {
+			dprintf("[%s] GSI (EXT_IRQ): %u | Trigger: %s | Polarity: %s | Sharing: %s | Wake: %u | Source: %s\n",
+				irq->irqs[i],
+				triggering_str(irq->triggering),
+				polarity_str(irq->polarity),
+				sharing_str(irq->sharing),
+				irq->wake_capability,
+				irq->source.length ? irq->source.string : "<none>");
+		}
+	} else if (res->type == UACPI_RESOURCE_TYPE_IRQ) {
+		uacpi_resource_irq *irq = &res->irq;
+		for (uacpi_u32 i = 0; i < irq->num_irqs; ++i) {
+			dprintf("IRQ (Legacy): %u | Trigger: %s | Polarity: %s | Sharing: %s | Wake: %u\n",
+				irq->irqs[i],
+				triggering_str(irq->triggering),
+				polarity_str(irq->polarity),
+				sharing_str(irq->sharing),
+				irq->wake_capability);
+		}
+	}
+
+	return UACPI_ITERATION_DECISION_CONTINUE;
+}
+
+static uacpi_iteration_decision device_callback(void *user, uacpi_namespace_node *node, uacpi_u32 depth) {
+	(void)user;
+	(void)depth;
+
+	uacpi_resources *resources = NULL;
+	if (uacpi_get_current_resources(node, &resources) != UACPI_STATUS_OK || !resources)
+		return UACPI_ITERATION_DECISION_CONTINUE;
+
+	uacpi_for_each_resource(resources, resource_callback, NULL);
+
+	uacpi_free_resources(resources);
+	return UACPI_ITERATION_DECISION_CONTINUE;
+}
+
+void enumerate_all_gsis(void) {
+	uacpi_namespace_for_each_child(
+		uacpi_namespace_root(),
+		device_callback,
+		NULL,
+		UACPI_OBJECT_DEVICE_BIT,
+		UACPI_MAX_DEPTH_ANY,
+		NULL
+	);
+}

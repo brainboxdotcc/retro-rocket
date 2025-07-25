@@ -213,6 +213,9 @@ uint32_t pci_read(pci_dev_t dev, uint32_t field) {
 	outl(PCI_CONFIG_ADDRESS, dev.bits);
 
 	uint32_t size = pci_size_map[field];
+	if (size == 0) {
+		size = 1;
+	}
 	if (size == 1) {
 		return inb(PCI_CONFIG_DATA + (field & 3));
 	} else if (size == 2) {
@@ -239,7 +242,9 @@ void pci_write(pci_dev_t dev, uint32_t field, uint32_t value) {
 
 	uint32_t size = pci_size_map[field];
 	uint16_t offset = field & 3;
-
+	if (size == 0) {
+		size = 1;
+	}
 	if (size == 1) {
 		outb(PCI_CONFIG_DATA + offset, value & 0xFF);
 	} else if (size == 2) {

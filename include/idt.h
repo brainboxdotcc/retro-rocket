@@ -32,3 +32,5 @@ void init_idt();
 void idt_init(void* idt);
 
 void pic_eoi(int irq);
+
+void io_wait();
