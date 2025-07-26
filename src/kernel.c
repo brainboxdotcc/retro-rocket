@@ -1,5 +1,4 @@
 #include <kernel.h>
-#include <limine-requests.h>
 #include <initialisation-functions.h>
 
 void kmain()
@@ -17,9 +16,6 @@ void kmain()
 		kprintf("Active network card: %s\n", network->description);
 		network_up();
 	}
-
-	void* p = kmalloc(12345);
-	kfree(p);
 
 	init_process();
 }

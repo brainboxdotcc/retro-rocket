@@ -3,15 +3,15 @@
 typedef void (*init_func_t)(void);
 
 init_func_t init_funcs[] = {
-	init_heap,		init_console,
-	init_cores,		init_idt,		init_pci,		init_realtime_clock,
-	init_devicenames,	init_keyboard,		init_ide,		init_ahci,
-	init_filesystem,	init_iso9660,		init_devfs,		init_fat32,
+	init_heap, validate_limine_page_tables_and_gdt, init_console,
+	init_cores, init_idt, init_pci, init_realtime_clock,
+	init_devicenames, init_keyboard, init_ide, init_ahci,
+	init_filesystem, init_iso9660, init_devfs, init_fat32,
 	NULL,
 };
 
 char* init_funcs_names[] = {
-	"heap",		"console",		"cores",
+	"heap",		"gdt",			"console",	"cores",
 	"idt",		"pci",			"clock",
 	"devicenames",	"keyboard",		"ide",		"ahci",
 	"filesystem",	"iso9660",		"devfs",	"fat32",

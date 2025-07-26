@@ -10,7 +10,7 @@ console* current_console = NULL;
 
 extern volatile struct limine_module_request module_request;
 
-static volatile struct limine_framebuffer_request framebuffer_request = {
+volatile struct limine_framebuffer_request framebuffer_request = {
 	.id = LIMINE_FRAMEBUFFER_REQUEST,
 	.revision = 0,
 };

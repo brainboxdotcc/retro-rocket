@@ -9,9 +9,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <limits.h>
-
 #define kprintf printf
-
 #include <limine.h>
 #include "idt.h"
 #include "spinlock.h"
@@ -59,11 +57,6 @@
 #include "icmp.h"
 #include "udp.h"
 #include "dhcp.h"
-/**
- * @file kernel.h
- * @author Craig Edwards (craigedwards@brainbox.cc)
- * @copyright Copyright (c) 2012-2025
- */
 #include "dns.h"
 #include "drawing.h"
 #include "fpu.h"
@@ -74,3 +67,4 @@
 
 void network_up();
 void network_down();
+void validate_limine_page_tables_and_gdt(void);
