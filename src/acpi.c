@@ -1,8 +1,7 @@
 #include <kernel.h>
 #include <uacpi/uacpi.h>
 #include <uacpi/namespace.h>
-#include "uacpi/utilities.h"
-#include "uacpi/resources.h"
+#include <uacpi/resources.h>
 
 volatile struct limine_rsdp_request rsdp_request = {
 	.id = LIMINE_RSDP_REQUEST,
@@ -17,15 +16,9 @@ static uint64_t lapic_ptr = 0;       // pointer to the Local APIC MMIO registers
 static uint64_t ioapic_ptr[256] = {0};      // pointer to the IO APIC MMIO registers
 static uint32_t ioapic_gsi_base[256] = {0};
 static uint8_t ioapic_gsi_count[256] = {0};
-static uint8_t irq_trigger_mode[256] = {0};  // 0 = edge, 1 = level
-static uint8_t irq_polarity[256] = {0};  // 0 = high,  1 = low
 
-static uint32_t irq_override_map[256] = {
-	[0 ... 255] = 0xFFFFFFFF
-};
+pci_irq_route_t pci_irq_routes[MAX_PCI_ROUTES] = {};
 
-pci_irq_route_t pci_irq_routes[MAX_PCI_ROUTES];
-int pci_irq_route_count = 0;
 
 uint64_t mhz = 0, tsc_per_sec = 1;
 
@@ -155,11 +148,13 @@ void init_cores() {
 						madt_override_t *ovr = (madt_override_t *) ptr;
 						kprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n",
 							ovr->irq_source, ovr->gsi, ovr->flags);
-						irq_override_map[ovr->irq_source] = ovr->gsi;
-						if (ovr->flags & 0x8)
-							irq_trigger_mode[ovr->irq_source] = 1; // Bit 3 = trigger mode
-						if (ovr->flags & 0x2)
-							irq_polarity[ovr->irq_source] = 1; // Bit 1 = polarity
+						pci_irq_route_t * r = &pci_irq_routes[ovr->irq_source];
+						r->exists = true;
+						r->int_pin = 0;
+						r->gsi = ovr->gsi;
+						r->polarity = (ovr->flags & 0x2) ? 1 : 0;
+						r->trigger = (ovr->flags & 0x8) ? 1 : 0;
+						r->detected_from = FROM_MADT;
 						break;
 					}
 					case 5:
@@ -171,10 +166,25 @@ void init_cores() {
 			break;
 		}
 	}
-	for (int i = 0; i < 16; ++i) {
-		if (irq_override_map[i] == 0xFFFFFFFF) {
-			// leave IRQ0 unmodified in case overridden
-			irq_override_map[i] = i;
+	enumerate_all_gsis();
+	/* Fallback to just irq == gsi for anything not detected in MADT or _PRT */
+	dprintf("Full IRQ->GSI MAP\n");
+	for (int i = 0; i < 256; ++i) {
+		pci_irq_route_t * r = &pci_irq_routes[i];
+		if (r->exists == false) {
+			r->exists = true;
+			r->int_pin = 0;
+			r->gsi = i;
+			r->polarity = 0;
+			r->trigger = 0;
+			r->detected_from = FROM_FALLBACK;
+		}
+		if (r->exists && i > 0 && r->gsi == 0) {
+			r->gsi = i;
+		}
+		if (i < 24) {
+			dprintf("IRQ %d GSI %d PIN %d POLARITY %d TRIGGER %d FROM: %s\n", i, r->gsi, r->int_pin, r->polarity, r->trigger,
+				(r->detected_from == FROM_MADT ? "_MADT" : (r->detected_from == FROM_PRT ? "_PRT" : "FALLBACK")));
 		}
 	}
 	if (numcore > 0) {
@@ -183,26 +193,21 @@ void init_cores() {
 	for (int i = 0; i < 16; ++i) {
 		dprintf("IRQ %d maps to GSI %d\n", i, irq_to_gsi(i));
 	}
-	enumerate_all_gsis();
 }
 
 uint32_t irq_to_gsi(uint8_t irq) {
-	if (irq_override_map[irq] == 0xFFFFFFFF) {
-		return irq; // fallback: identity mapping
-	}
-	return irq_override_map[irq];
+	pci_irq_route_t * r = &pci_irq_routes[irq];
+	return r->gsi;
 }
 
 uint8_t get_irq_polarity(uint8_t irq) {
-	return (irq_override_map[irq] == 0xFFFFFFFF)
-	       ? IRQ_DEFAULT_POLARITY
-	       : irq_polarity[irq];
+	pci_irq_route_t * r = &pci_irq_routes[irq];
+	return r->polarity;
 }
 
 uint8_t get_irq_trigger_mode(uint8_t irq) {
-	return (irq_override_map[irq] == 0xFFFFFFFF)
-	       ? IRQ_DEFAULT_TRIGGER
-	       : irq_trigger_mode[irq];
+	pci_irq_route_t * r = &pci_irq_routes[irq];
+	return r->trigger;
 }
 
 typedef struct {
@@ -434,15 +439,15 @@ uacpi_status uacpi_kernel_wait_for_work_completion(void) {
 	return UACPI_STATUS_OK;
 }
 
-const char *triggering_str(uacpi_u8 trig) {
+const char *triggering_str(uint8_t trig) {
 	return trig == 0 ? "Edge" : "Level";
 }
 
-const char *polarity_str(uacpi_u8 pol) {
+const char *polarity_str(uint8_t pol) {
 	return pol == 0 ? "High" : "Low";
 }
 
-const char *sharing_str(uacpi_u8 share) {
+const char *sharing_str(uint8_t share) {
 	return share == 0 ? "Exclusive" : "Shared";
 }
 
@@ -451,22 +456,27 @@ static uacpi_iteration_decision resource_callback(void *user, uacpi_resource *re
 		uacpi_resource_extended_irq *irq = &res->extended_irq;
 		for (uacpi_u32 i = 0; i < irq->num_irqs; ++i) {
 			dprintf("GSI (EXT_IRQ): %u | Trigger: %s | Polarity: %s | Sharing: %s | Wake: %u | Source: %s\n",
-				irq->irqs[i],
-				triggering_str(irq->triggering),
-				polarity_str(irq->polarity),
-				sharing_str(irq->sharing),
-				irq->wake_capability,
-				irq->source.length ? irq->source.string : "<none>");
+				irq->irqs[i], triggering_str(irq->triggering), polarity_str(irq->polarity), sharing_str(irq->sharing),
+				irq->wake_capability, irq->source.length ? irq->source.string : "<none>"
+			);
+			pci_irq_route_t * r = &pci_irq_routes[irq->irqs[i]];
+			r->exists = true;
+			r->polarity = irq->polarity;
+			r->trigger = irq->triggering;
+			r->detected_from = FROM_PRT;
 		}
 	} else if (res->type == UACPI_RESOURCE_TYPE_IRQ) {
 		uacpi_resource_irq *irq = &res->irq;
 		for (uacpi_u32 i = 0; i < irq->num_irqs; ++i) {
 			dprintf("IRQ (Legacy): %u | Trigger: %s | Polarity: %s | Sharing: %s | Wake: %u\n",
-				irq->irqs[i],
-				triggering_str(irq->triggering),
-				polarity_str(irq->polarity),
-				sharing_str(irq->sharing),
-				irq->wake_capability);
+				irq->irqs[i], triggering_str(irq->triggering), polarity_str(irq->polarity), sharing_str(irq->sharing), irq->wake_capability
+			);
+			pci_irq_route_t * r = &pci_irq_routes[irq->irqs[i]];
+			r->exists = true;
+			r->gsi = irq->irqs[i];
+			r->polarity = irq->polarity;
+			r->trigger = irq->triggering;
+			r->detected_from = FROM_PRT;
 		}
 	}
 
@@ -489,11 +499,7 @@ static uacpi_iteration_decision device_callback(void *user, uacpi_namespace_node
 
 void enumerate_all_gsis(void) {
 	uacpi_namespace_for_each_child(
-		uacpi_namespace_root(),
-		device_callback,
-		NULL,
-		UACPI_OBJECT_DEVICE_BIT,
-		UACPI_MAX_DEPTH_ANY,
-		NULL
+		uacpi_namespace_root(), device_callback,
+		NULL, UACPI_OBJECT_DEVICE_BIT, UACPI_MAX_DEPTH_ANY, NULL
 	);
 }

@@ -98,15 +98,18 @@ void e1000_get_mac_addr(uint8_t *src_mac_addr) {
 }
 
 void e1000_receive_init() {
-	uint8_t *ptr;
+
 	struct e1000_rx_desc *descs;
 
-	ptr = (uint8_t *) (kmalloc_low(sizeof(e1000_rx_desc_t) * E1000_NUM_RX_DESC + 16));
+	uint8_t *ptr = (uint8_t *) kmalloc_low(sizeof(e1000_rx_desc_t) * E1000_NUM_RX_DESC + 16);
+	uintptr_t aligned = ((uintptr_t) ptr + 15) & ~(uintptr_t)0x0F;
+	descs = (struct e1000_rx_desc *) aligned;
 
-	descs = (struct e1000_rx_desc *) ptr;
 	for (int i = 0; i < E1000_NUM_RX_DESC; i++) {
 		rx_descs[i] = (e1000_rx_desc_t *) ((uint8_t *) descs + i * 16);
-		rx_descs[i]->addr = (uint64_t) (uint8_t *) (kmalloc_low(8192 + 16));
+		void *raw_buf = kmalloc_low(8192 + 16);
+		uintptr_t aligned_buf = ((uintptr_t)raw_buf + 15) & ~((uintptr_t)15);
+		rx_descs[i]->addr = (uint64_t)aligned_buf;
 		rx_descs[i]->status = 0;
 	}
 
@@ -128,11 +131,11 @@ void e1000_receive_init() {
 }
 
 void e1000_transmit_init() {
-	uint8_t *ptr;
 	e1000_tx_desc_t *descs;
-	ptr = (uint8_t *) (kmalloc_low(sizeof(e1000_tx_desc_t) * E1000_NUM_TX_DESC + 16));
+	uint8_t *ptr = (uint8_t *) kmalloc_low(sizeof(e1000_tx_desc_t) * E1000_NUM_TX_DESC + 16);
+	uintptr_t aligned = ((uintptr_t) ptr + 15) & ~((uintptr_t) 15);
+	descs = (e1000_tx_desc_t *) aligned;
 
-	descs = (e1000_tx_desc_t *) ptr;
 	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
 		tx_descs[i] = (e1000_tx_desc_t *) ((uint8_t *) descs + i * 16);
 		tx_descs[i]->addr = 0;

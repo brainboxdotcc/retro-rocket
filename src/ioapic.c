@@ -74,7 +74,8 @@ void ioapic_redir_set(uint32_t irq, uint32_t vector, uint32_t del_mode, uint32_t
 	uint32_t lower = (vector & 0xff) | (del_mode << 8) | (dest_mode << 11) | (intpol << 13) | (trigger_mode << 15) | (mask << 16);
 	uint32_t upper = (dest_mode << 24);
 	ioapic_write_gsi(ioapic, gsi, lower, upper);
-	dprintf("Remapping IRQ %d -> GSI %d -> Vector %d\n", irq, gsi, vector);
+	dprintf("Remapping IRQ %d -> GSI %d -> Vector %d (trigger mode: %s, polarity: %s)\n", irq, gsi, vector,
+		triggering_str(trigger_mode), polarity_str(trigger_mode));
 }
 
 // Unmask an interrupt on the IOAPIC

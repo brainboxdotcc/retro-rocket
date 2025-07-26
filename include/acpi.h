@@ -6,20 +6,6 @@
 #pragma once
 
 #include <kernel.h>
-#include <uacpi/uacpi.h>
-#include <uacpi/namespace.h>
-#include <uacpi/resources.h>
-#include <uacpi/utilities.h>
-
-struct acpi_driver {
-	const char *device_name;
-	const char *const *pnp_ids;
-	int (*device_probe)(uacpi_namespace_node *node, uacpi_namespace_node_info *info);
-	struct acpi_driver *next;
-};
-
-void acpi_register_driver(struct acpi_driver *drv);
-void acpi_enumerate_devices(void);
 
 /**
  * @brief ACPI Root System Description Pointer (RSDP)
@@ -82,16 +68,22 @@ typedef struct {
 #define IRQ_DEFAULT_POLARITY 0 // active high
 #define IRQ_DEFAULT_TRIGGER  0 // edge
 
-typedef struct {
-	uint8_t bus;
-	uint8_t device;
-	uint8_t function;
-	uint8_t int_pin;   // 0 = INTA#, 1 = INTB#...
+typedef enum detected_from {
+	FROM_MADT,
+	FROM_PRT,
+	FROM_FALLBACK,
+} detected_from_t;
+
+typedef struct pci_irq_route {
+	bool exists;
+	uint8_t int_pin;
 	uint32_t gsi;
-	uint16_t flags;    // Polarity and trigger mode
+	int polarity; // 0 = high,  1 = low
+	int trigger; // 0 = edge, 1 = level
+	detected_from_t detected_from;
 } pci_irq_route_t;
 
-#define MAX_PCI_ROUTES 64
+#define MAX_PCI_ROUTES 256
 
 /**
  * @brief Detect SMP cores, IOAPICs, Local APICs
@@ -139,3 +131,9 @@ uint32_t irq_to_gsi(uint8_t irq);
 uint8_t get_irq_polarity(uint8_t irq);
 
 uint8_t get_irq_trigger_mode(uint8_t irq);
+
+const char *triggering_str(uint8_t trig);
+
+const char *polarity_str(uint8_t pol);
+
+const char *sharing_str(uint8_t share);

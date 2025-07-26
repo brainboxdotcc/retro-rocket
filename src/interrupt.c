@@ -14,10 +14,9 @@ extern const char* const error_table[];
 
 void remap_irqs_to_ioapic() {
 	for (uint8_t irq = 0; irq < 24; ++irq) {
-		uint32_t gsi = irq_to_gsi(irq);
 		uint32_t vector = IRQ_VECTOR_BASE + irq;
 		ioapic_redir_set(
-			gsi,
+			irq,
 			vector,
 			0,  // del_mode 0: fixed
 			0,  // dest_mode 0: physical
