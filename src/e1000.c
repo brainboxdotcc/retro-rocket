@@ -329,9 +329,9 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	}
 
-	e1000_enable_interrupts();
 	e1000_receive_init();
 	e1000_transmit_init();
+	e1000_enable_interrupts();
 
 	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
 		uint8_t *raw = (uint8_t *) kmalloc_low(E1000_MAX_PKT_SIZE + E1000_TX_ALIGN);
