@@ -157,4 +157,4 @@ void e1000_get_mac_addr(uint8_t* src_mac_addr);
 
 bool e1000_send_packet(void * p_data, uint16_t p_len);
 
-bool init_e1000();
+void init_e1000();

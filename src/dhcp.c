@@ -7,12 +7,12 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 		if (*type == DHCPOFFER) {
 			uint32_t* server_ip = get_dhcp_options(packet, OPT_SERVER_IP);
 			if (!server_ip) {
-				kfree(type);
-				kfree(server_ip);
+				kfree_null(&type);
+				kfree_null(&server_ip);
 				return;
 			}
 			dhcp_request((uint8_t*)&packet->your_ip, packet->xid, *server_ip);
-			kfree(server_ip);
+			kfree_null(&server_ip);
 		} else if (*type == DHCPACK) {
 			sethostaddr((const unsigned char*)&packet->your_ip);
 			uint32_t* dns = get_dhcp_options(packet, OPT_DNS);
@@ -22,25 +22,25 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 			if (subnet) {
 				setnetmask(*subnet);
 				get_ip_str(ip, (uint8_t*)subnet);
-				kfree(subnet);
+				kfree_null(&subnet);
 				dprintf("DHCP: Received subnet mask: %s\n", ip);
 			}
 			if (dns) {
 				setdnsaddr(*dns);
 				get_ip_str(ip, (uint8_t*)dns);
-				kfree(dns);
+				kfree_null(&dns);
 				dprintf("DHCP: Received DNS address: %s\n", ip);
 			}
 			if (gateway) {
 				setgatewayaddr(*gateway);
 				get_ip_str(ip, (uint8_t*)gateway);
-				kfree(gateway);
+				kfree_null(&gateway);
 				dprintf("DHCP: Received gateway address: %s\n", ip);
 			}
 		} else if (*type == DHCPNAK) {
 			/* Negative ack, to be implemented */
 		}
-		kfree(type);
+		kfree_null(&type);
 	}
 }
 
@@ -53,7 +53,7 @@ void dhcp_discover() {
 	memset(packet, 0, sizeof(dhcp_packet_t));
 	uint16_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
-	kfree(packet);
+	kfree_null(&packet);
 }
 
 void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
@@ -62,7 +62,7 @@ void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	memset(packet, 0, sizeof(dhcp_packet_t));
 	uint16_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
-	kfree(packet);
+	kfree_null(&packet);
 }
 
 void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
@@ -73,7 +73,9 @@ void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
 		uint8_t len = *(options + 1);
 		if (curr_type == type) {
 			void* ret = kmalloc(len);
-			memcpy(ret, options + 2, len);
+			if (ret) {
+				memcpy(ret, options + 2, len);
+			}
 			return ret;
 		}
 		options += (2 + len);

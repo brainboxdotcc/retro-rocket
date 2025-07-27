@@ -184,9 +184,8 @@ void rtl8139_handler(uint8_t isr, uint64_t error, uint64_t irq, void* opaque);
  * @brief Initialise RTL8139
  * 
  * @return true card detected and initialised
- * @return false card not detected, or would not reset
  */
-bool init_rtl8139();
+void init_rtl8139();
 
 /**
  * @brief Get the MAC address of the card in display format

@@ -372,7 +372,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 	return true;
 }
 
-bool init_e1000() {
+void init_e1000() {
 	pci_dev_t pci_device;
 	bool found = false;
 
@@ -386,7 +386,7 @@ bool init_e1000() {
 		}
 	}
 	if (!found) {
-		return false;
+		return;
 	}
 	uint32_t ret = pci_read(pci_device, PCI_BAR0);
 	bar_type = pci_bar_type(ret);
@@ -398,5 +398,5 @@ bool init_e1000() {
 	pci_bus_master(pci_device);
 	eerprom_exists = false;
 
-	return e1000_start(&pci_device);
+	e1000_start(&pci_device);
 }

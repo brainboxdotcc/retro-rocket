@@ -91,7 +91,7 @@ uint16_t ip_calculate_checksum(ip_packet_t * packet) {
 }
 
 void dequeue_packet(packet_queue_item_t* cur, packet_queue_item_t* last) {
-	kfree(cur->packet);
+	kfree_null(&cur->packet);
 	/* Remove queue entry */
 	if (cur == packet_queue) {
 		packet_queue = cur->next;
@@ -107,7 +107,7 @@ void dequeue_packet(packet_queue_item_t* cur, packet_queue_item_t* last) {
 	} else {
 		last->next = cur->next;
 	}
-	kfree(cur);
+	kfree_null(&cur);
 }
 
 void ip_idle()
@@ -118,7 +118,7 @@ void ip_idle()
 		packet_queue_item_t* last = NULL;
 		for (; cur; cur = cur->next) {
 
-			/* Here we determine if the packet is desined for the local net or the
+			/* Here we determine if the packet is destined for the local net or the
 			 * internet at large. The calculation is actually very easy, we just AND
 			 * the source ip against our network mask, and then do the same to the
 			 * destination ip address and if both values match, then this packet is for
@@ -155,7 +155,7 @@ void ip_idle()
 				arp_send_packet(zero_hardware_addr, arp_dest);
 			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 10) {
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
-				 * Packet still didnt get an ARP reply. Dequeue it as a lost packet.
+				 * Packet still didn't get an ARP reply. Dequeue it as a lost packet.
 				 */
 				dprintf("Failed ARP resolution after 3 tries to %08x at %d\n", arp_dest, current_time);
 				dequeue_packet(cur, last);
@@ -168,6 +168,9 @@ void ip_idle()
 void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]] uint16_t len) {
 	if (packet_queue == NULL) {
 		packet_queue = kmalloc(sizeof(packet_queue_item_t));
+		if (!packet_queue) {
+			return;
+		}
 		packet_queue_end = packet_queue;
 		packet_queue_end->packet = (ip_packet_t*)data;
 		packet_queue_end->next = NULL;
@@ -175,6 +178,9 @@ void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]]
 		packet_queue_end->arp_tries = 0;
 	} else {
 		packet_queue_end->next = kmalloc(sizeof(packet_queue_item_t));
+		if (!packet_queue_end->next) {
+			return;
+		}
 		packet_queue_end->next->packet = (ip_packet_t*)data;
 		packet_queue_end->next->next = NULL;
 		packet_queue_end->next->arp_tries = 0;
@@ -186,6 +192,9 @@ void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]]
 void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol) {
 	uint8_t dst_hardware_addr[6] = { 0, 0, 0, 0, 0, 0 };
 	ip_packet_t* packet = kmalloc(sizeof(ip_packet_t) + len);
+	if (!packet) {
+		return;
+	}
 	memset(packet, 0, sizeof(ip_packet_t));
 	packet->version = IP_IPV4;
 	packet->ihl = sizeof(ip_packet_t) / sizeof(uint32_t); // header length is in 32 bit words
@@ -237,7 +246,7 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 	}
 	ethernet_send_packet(dst_hardware_addr, (uint8_t*)packet, htons(packet->length), ETHERNET_TYPE_IP);
 	// Remember to free the packet!
-	kfree(packet);
+	kfree_null(&packet);
 }
 
 /**
@@ -350,8 +359,15 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					}
 					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL };
 					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
+					if (!fragment) {
+						return;
+					}
 					fragment->offset = frag_offset;
 					fragment->packet = kmalloc(ntohs(packet->length));
+					if (!fragment->packet) {
+						kfree_null(&fragment);
+						return;
+					}
 					memcpy(fragment->packet, packet, ntohs(packet->length));
 					frag_list_insert(fragment, fragmented.ordered_list);
 					hashmap_set(frag_map, &fragmented);
@@ -365,9 +381,16 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 						return;
 					}
 					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
+					if (!fragment) {
+						return;
+					}
 					fragmented->size += data_len;
 					fragment->offset = frag_offset;
 					fragment->packet = kmalloc(ntohs(packet->length));
+					if (!fragment->packet) {
+						kfree_null(&fragment);
+						return;
+					}
 					memcpy(fragment->packet, packet, ntohs(packet->length));
 					frag_list_insert(fragment, fragmented->ordered_list);
 				}
@@ -385,9 +408,16 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					return;
 				}
 				ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
+				if (!fragment) {
+					return;
+				}
 				fragmented->size += data_len;
 				fragment->offset = frag_offset;
 				fragment->packet = kmalloc(ntohs(packet->length));
+				if (!fragment->packet) {
+					kfree_null(&fragment->packet);
+					return;
+				}
 				memcpy(fragment->packet, packet, ntohs(packet->length));
 				frag_list_insert(fragment, fragmented->ordered_list);
 
@@ -398,7 +428,8 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 				/* Set flag to indicate we need to free the data_ptr later */
 				fragment_to_free = true;
 
-				for (; cur; cur = cur->next) {
+				for (; cur; ) {
+					void* next = cur->next;
 					size_t this_packet_size = ntohs(cur->packet->length) - (cur->packet->ihl * 4);
 					if (cur->offset + this_packet_size < data_len) {
 						void * copy_from = (void*)cur->packet + cur->packet->ihl * 4;
@@ -406,8 +437,9 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					} else {
 						dprintf("*** WARN *** Fragmented packet id %d has fragment with offset %08x and length %08d >= data length of %08x", fragmented->id, cur->offset, this_packet_size, data_len);
 					}
-					kfree(cur->packet);
-					kfree(cur);
+					kfree_null(&cur->packet);
+					kfree_null(&cur);
+					cur = next;
 				}
 
 				dprintf("Removing list from frag_map\n");
@@ -425,7 +457,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 		}
 
 		if (fragment_to_free) {
-			kfree(data_ptr);
+			kfree_null(&data_ptr);
 		}
 	} else {
 		dprintf("Unknown IP packet type %04X\n", packet->version);

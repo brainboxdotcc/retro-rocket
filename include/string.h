@@ -7,11 +7,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-struct gc_str
+typedef struct gc_str
 {
 	const char* ptr;
-	struct gc_str* next;
-};
+	struct gc_str_t* next;
+} gc_str_t;
 
 unsigned int strlen(const char* str);
 

@@ -101,7 +101,7 @@ void arp_send_packet(uint8_t* dst_hardware_addr, uint8_t* dst_protocol_addr) {
 
 	ethernet_send_packet(broadcast_mac_address, (uint8_t*)arp_packet, sizeof(arp_packet_t), ETHERNET_TYPE_ARP);
 
-	kfree(arp_packet);
+	kfree_null(&arp_packet);
 }
 
 void arp_prediscover(uint8_t* protocol_addr) {

@@ -75,7 +75,7 @@ void receive_packet() {
 				// Skip packet header, get packet length
 				uint16_t packet_length = *(t + 1);
 
-				// Skip, packet header and packet length, now t points to the packet data
+				// Skip packet header and packet length, now t points to the packet data
 				t += 2;
 
 				if (packet_length) {
@@ -85,7 +85,7 @@ void receive_packet() {
 					if (dev && dev->deviceid == ((RTL8139_VENDOR_ID << 16) | RTL8139_DEVICE_ID)) {
 						ethernet_handle_packet(packet, packet_length);
 					}
-					kfree(packet);
+					kfree_null(&packet);
 					memset(t, 0, packet_length);
 				} else {
 					dprintf("*** Zero length packet NOT passed to ethernet handler ***\n");
@@ -259,10 +259,10 @@ bool rtl8139_send_packet(void* data, uint16_t len) {
 	return true;
 }
 
-bool init_rtl8139() {
+void init_rtl8139() {
 	pci_dev_t pci_device = pci_get_device(RTL8139_VENDOR_ID, RTL8139_DEVICE_ID, -1);
 	if (pci_not_found(pci_device)) {
-		return false;
+		return;
 	}
 
 	uint32_t ret = pci_read(pci_device, PCI_BAR0);
@@ -282,7 +282,7 @@ bool init_rtl8139() {
 	while ((rtl_inb(ChipCmd) & CMDRESET) != 0) {
 		if (time(NULL) - reset_start >= 3) {
 			kprintf("RTL8139: Device would not reset within 3 seconds. Faulty hardware? Not enabled.\n");
-			return false;
+			return;
 		}
 	}
 
@@ -352,6 +352,4 @@ bool init_rtl8139() {
 		uint32_t val = rtl_inl(i);
 		dprintf("%02X: %08x\n", i, val);
 	}
-
-	return true;
 }

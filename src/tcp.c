@@ -115,8 +115,8 @@ void tcp_free(tcp_conn_t* conn)
 {
 	// Delete any outstanding segments
 	for (tcp_ordered_list_t* t = conn->segment_list; t; t = t->next) {
-		kfree(t->segment);
-		kfree(t);
+		kfree_null(&t->segment);
+		kfree_null(&t);
 	}
 	conn->segment_list = NULL;
 	// Remove the TCB
@@ -149,8 +149,8 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	sum = (sum & 0xffff) + (sum >> 16);
 	sum += (sum >> 16);
 
-	kfree(pseudo);
 	add_random_entropy(sum ^ (uint64_t)pseudo);
+	kfree_null(&pseudo);
 	return ~sum;
 }
 
@@ -380,7 +380,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	tcp_byte_order_in(packet);
 	tcp_dump_segment(false, conn, &encap, packet, &options, length, packet->checksum);
 
-	kfree(packet);
+	kfree_null(&packet);
 
 	return conn;
 }
@@ -456,8 +456,8 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 	if (segment->flags.fin && cur != NULL) {
 		while (cur) {
 			next_ord = cur->next;
-			kfree(cur->segment);
-			kfree(cur);
+			kfree_null(&cur->segment);
+			kfree_null(&cur);
 			cur = next_ord;
 		}
 	}
@@ -488,8 +488,8 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 		} else if (cur != NULL && cur == conn->segment_list) {
 			conn->segment_list = cur->next;
 		}
-		kfree(cur->segment);
-		kfree(cur);
+		kfree_null(&cur->segment);
+		kfree_null(&cur);
 
 		cur = next_ord;
 	}
@@ -569,8 +569,8 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 		} else if (cur != NULL && cur == conn->segment_list) {
 			conn->segment_list = cur->next;
 		}
-		kfree(cur->segment);
-		kfree(cur);
+		kfree_null(&cur->segment);
+		kfree_null(&cur);
 	}
 }
 
@@ -1004,7 +1004,7 @@ void tcp_idle()
 				tcp_write(conn, conn->send_buffer, amount_to_send);
 				/* Resize send buffer down */
 				if (conn->send_buffer_len - amount_to_send <= 0) {
-					kfree(conn->send_buffer);
+					kfree_null(&conn->send_buffer);
 					conn->send_buffer = NULL;
 				} else {
 					conn->send_buffer = krealloc(conn->send_buffer + amount_to_send, conn->send_buffer_len - amount_to_send);
@@ -1259,7 +1259,7 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 		memcpy(buffer, conn->recv_buffer, amount_to_recv);
 		/* Resize recv buffer down */
 		if (conn->recv_buffer_len - amount_to_recv <= 0) {
-			kfree(conn->recv_buffer);
+			kfree_null(&conn->recv_buffer);
 			conn->recv_buffer = NULL;
 		} else {
 			conn->recv_buffer = krealloc(conn->recv_buffer + amount_to_recv, conn->recv_buffer_len - amount_to_recv);

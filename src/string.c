@@ -1,6 +1,6 @@
 #include <kernel.h>
 
-struct gc_str* gc_list = NULL;
+gc_str_t* gc_list = NULL;
 
 unsigned int strlen(const char* str)
 {
@@ -219,12 +219,12 @@ char* gc_strdup(const char* string)
 	*(result + len) = 0;
 
 	if (gc_list == NULL) {
-		gc_list = kmalloc(sizeof(struct gc_str));
+		gc_list = kmalloc(sizeof(gc_str_t));
 		gc_list->next = NULL;
 		gc_list->ptr = result;
 	} else {
-		struct gc_str* new = kmalloc(sizeof(struct gc_str));
-		new->next = gc_list;
+		gc_str_t* new = kmalloc(sizeof(gc_str_t));
+		new->next = (struct gc_str_t*)gc_list;
 		new->ptr = result;
 		gc_list = new;
 	}
@@ -234,14 +234,14 @@ char* gc_strdup(const char* string)
 
 int gc()
 {
-	struct gc_str* cur = gc_list;
 	int n = 0;
-	for (; cur; cur = cur->next) {
+	for (gc_str_t* cur = gc_list; cur; ) {
+		void* next = cur->next;
 		++n;
-		kfree(cur->ptr);
-		kfree(cur);
+		kfree_null(&cur->ptr);
+		kfree_null(&cur);
+		cur = next;
 	}
-
 	gc_list = NULL;
 
 	return n;
