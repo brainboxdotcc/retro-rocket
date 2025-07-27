@@ -1037,14 +1037,12 @@ fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		kfree(pathname);
+		kfree(filename);
 		return NULL;
 	}
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
-	if (!fileinfo) {
-		kfree(pathname);
-		return NULL;
-	}
 	kfree(pathname);
+	kfree(filename);
 	return fileinfo;
 }
 

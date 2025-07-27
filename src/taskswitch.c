@@ -44,62 +44,70 @@ idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
-	if (fsi != NULL && !(fsi->flags & FS_DIRECTORY)) {
-		unsigned char* programtext = kmalloc(fsi->size + 1);
-		*(programtext + fsi->size) = 0;
-		if (fs_read_file(fsi, 0, fsi->size, programtext)) {
-			process_t* newproc = kmalloc(sizeof(process_t));
-			char* error = "Unknown error";
-			newproc->code = basic_init((const char*)programtext, (console*)cons, nextid, fullpath, &error);
-			if (!newproc->code) {
-				kfree(newproc);
-				kfree(programtext);
-				kprintf("Fatal error parsing program: %s\n", error);
-				return NULL;
-			}
-			newproc->waitpid = 0;
-			newproc->name = strdup(fsi->filename);
-			newproc->pid = nextid++;
-			newproc->directory = strdup(fullpath);
-			newproc->csd = strdup(csd);
-			newproc->size = fsi->size;
-			newproc->start_time = time(NULL);
-			newproc->state = PROC_RUNNING;
-			newproc->ppid = parent_pid;
-			newproc->cons = cons;
-			newproc->cpu = 0;
-			kfree(programtext);
-
-			if (proc_list == NULL) {
-				/* First process */
-				proc_list = newproc;
-				newproc->next = NULL;
-				newproc->prev = NULL;
-			} else {
-				/* Any other process */
-				newproc->next = proc_list;
-				newproc->prev = NULL;
-				proc_list->prev = newproc;
-				proc_list = newproc;
-			}
-
-			// No current proc? Make it the only proc.
-			if (proc_current == NULL) {
-				proc_current = proc_list;
-			}
-
-			process_count++;
-			hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
-
-			return newproc;
-		} else {
-			kfree(programtext);
-		}
-
+	if (fsi == NULL || (fsi->flags & FS_DIRECTORY)) {
+		kprintf("File does not exist or is a directory\n");
 		return NULL;
 	}
+	unsigned char* programtext = kmalloc(fsi->size + 1);
+	if (!programtext) {
+		kprintf("Out of memory starting new process\n");
+		return NULL;
+	}
+	*(programtext + fsi->size) = 0;
+	if (!fs_read_file(fsi, 0, fsi->size, programtext)) {
+		kfree_null(&programtext);
+		kprintf("Failed to read program file for new process\n");
+		return NULL;
+	}
+	process_t* newproc = kmalloc(sizeof(process_t));
+	if (!newproc) {
+		kfree_null(&programtext);
+		kprintf("Out of memory starting new process\n");
+		return NULL;
+	}
+	char* error = "Unknown error";
+	newproc->code = basic_init((const char*)programtext, (console*)cons, nextid, fullpath, &error);
+	if (!newproc->code) {
+		kfree_null(&newproc);
+		kfree_null(&programtext);
+		kprintf("Fatal error parsing program: %s\n", error);
+		return NULL;
+	}
+	newproc->waitpid = 0;
+	newproc->name = strdup(fsi->filename);
+	newproc->pid = nextid++;
+	newproc->directory = strdup(fullpath);
+	newproc->csd = strdup(csd);
+	newproc->size = fsi->size;
+	newproc->start_time = time(NULL);
+	newproc->state = PROC_RUNNING;
+	newproc->ppid = parent_pid;
+	newproc->cons = cons;
+	newproc->cpu = 0;
+	kfree_null(&programtext);
 
-	return NULL;
+	if (proc_list == NULL) {
+		/* First process */
+		proc_list = newproc;
+		newproc->next = NULL;
+		newproc->prev = NULL;
+	} else {
+		/* Any other process */
+		newproc->next = proc_list;
+		newproc->prev = NULL;
+		proc_list->prev = newproc;
+		proc_list = newproc;
+	}
+
+	// No current proc? Make it the only proc.
+	if (proc_current == NULL) {
+		proc_current = proc_list;
+	}
+
+	process_count++;
+	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
+
+	return newproc;
 }
 
 process_t* proc_cur()
