@@ -9,25 +9,29 @@ void* memset(void* dest, char val, uint64_t len)
 
 static inline void* movsb(void* dst, const void* src, size_t size)
 {
-	__asm__ volatile("rep movsb" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	void *copy = dst;
+	__asm__ volatile("rep movsb" : "+D"(copy), "+S"(src), "+c"(size) : : "memory");
 	return dst;
 }
 
 static inline void* movsl(void* dst, const void* src, size_t size)
 {
-	__asm__ volatile("rep movsl" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	void *copy = dst;
+	__asm__ volatile("rep movsl" : "+D"(copy), "+S"(src), "+c"(size) : : "memory");
 	return dst;
 }
 
 static inline void* movsw(void* dst, const void* src, size_t size)
 {
-	__asm__ volatile("rep movsw" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	void *copy = dst;
+	__asm__ volatile("rep movsw" : "+D"(copy), "+S"(src), "+c"(size) : : "memory");
 	return dst;
 }
 
 static inline void* movsq(void* dst, const void* src, size_t size)
 {
-	__asm__ volatile("rep movsq" : "+D"(dst), "+S"(src), "+c"(size) : : "memory");
+	void *copy = dst;
+	__asm__ volatile("rep movsq" : "+D"(copy), "+S"(src), "+c"(size) : : "memory");
 	return dst;
 }
 
