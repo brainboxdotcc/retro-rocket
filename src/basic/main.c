@@ -292,12 +292,12 @@ void library_statement(struct basic_ctx* ctx)
 
 	/* Load the library file from VFS */
 	size_t library_len = file_info->size;
-	char* temp_library = kmalloc(library_len);
+	char* temp_library = kmalloc(library_len + 1);
 	if (!temp_library) {
 		tokenizer_error_print(ctx, "Not enough memory to load library file");
 		return;
 	}
-	char* clean_library = kmalloc(library_len);
+	char* clean_library = kmalloc(library_len + 1);
 	if (!clean_library) {
 		kfree_null(&temp_library);
 		tokenizer_error_print(ctx, "Not enough memory to load library file");
