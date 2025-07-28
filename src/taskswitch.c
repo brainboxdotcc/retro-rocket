@@ -163,7 +163,7 @@ const char* proc_set_csd(process_t* proc, const char* csd)
 	size_t len = strlen(proc->csd), csdlen = strlen(csd);
 
 	if (*csd == '/') {
-		kfree(proc->csd);
+		kfree_null(&proc->csd);
 		proc->csd = strdup(csd);
 		dprintf("Process %d CSD set to: '%s'\n", proc->pid, proc->csd);
 		return proc->csd;
@@ -188,6 +188,7 @@ const char* proc_get_csd(process_t* proc)
 
 void proc_kill(process_t* proc)
 {
+	dprintf("proc_kill %llx\n", proc);
 	for (process_t* cur = proc_list; cur; cur = cur->next) {
 		if (cur->pid == proc->pid) {
 			if (proc->next == NULL && proc->prev == NULL) {
@@ -212,12 +213,18 @@ void proc_kill(process_t* proc)
 
 	proc_current = proc_list;
 
+	dprintf("Destroy BASIC instance\n");
 	basic_destroy(proc->code);
-	kfree(proc->name);
-	kfree(proc->directory);
-	kfree(proc->csd);
+	dprintf("Destroy proc name\n");
+	kfree_null(&proc->name);
+	dprintf("Destroy proc directory string\n");
+	kfree_null(&proc->directory);
+	dprintf("Destroy proc csd\n");
+	kfree_null(&proc->csd);
+	dprintf("Hashmap delete\n");
 	hashmap_delete(process_by_pid, &(proc_id_t){ .id = proc->pid });
-	kfree(proc);
+	dprintf("Destroy proc\n");
+	kfree_null(&proc);
 	process_count--;
 
 	/* Killed the last process? */

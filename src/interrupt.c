@@ -46,6 +46,32 @@ bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
 	return true;
 }
 
+bool deregister_interrupt_handler(uint8_t n, isr_t handler) {
+	shared_interrupt_t* current = shared_interrupt[n];
+	shared_interrupt_t* prev = NULL;
+
+	while (current) {
+		if (current->interrupt_handler == handler) {
+			if (prev) {
+				prev->next = current->next;
+			} else {
+				shared_interrupt[n] = current->next;
+			}
+			kfree_null(&current);
+
+			// If this was the last handler, mask the IRQ again
+			if (!shared_interrupt[n] && n >= 32) {
+				ioapic_mask_set(n - 32, true);
+			}
+			return true;
+		}
+		prev = current;
+		current = current->next;
+	}
+	return false; // Handler not found
+}
+
+
 /**
  * @brief Clear local APIC interrupt
  */

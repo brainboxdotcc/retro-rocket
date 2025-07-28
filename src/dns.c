@@ -399,7 +399,7 @@ uint8_t dns_collect_request(uint16_t id, char* result, size_t max)
 	if (request && request->result_length != 0) {
 		uint8_t len = request->result_length;
 		memcpy(result, request->result, max > request->result_length ? max : request->result_length);
-		kfree(request->orig);
+		kfree_null(&request->orig);
 		hashmap_delete(dns_replies, request);
 		return len;
 	}
@@ -418,7 +418,7 @@ void dns_delete_request(uint16_t id)
 	dns_request_t findrequest = { .id = id };
 	dns_request_t* request = (dns_request_t*)hashmap_get(dns_replies, &findrequest);
 	if (request) {
-		kfree(request->orig);
+		kfree_null(&request->orig);
 		hashmap_delete(dns_replies, request);
 	}
 }

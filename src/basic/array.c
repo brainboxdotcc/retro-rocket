@@ -255,9 +255,7 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
 			if ((uint64_t)size < cur->itemcount) {
 				/* If string array is being reduced in size, free strings that fall in the freed area */
 				for (uint64_t x = size; x < (uint64_t)cur->itemcount; ++x) {
-					if (cur->values[x]) {
-						kfree(cur->values[x]);
-					}
+					kfree_null(&cur->values[x]);
 				}
 			}
 			cur->values = krealloc(cur->values, sizeof(char*) * size);
@@ -320,9 +318,7 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
 				tokenizer_error_print(ctx, "Array index out of bounds");
 				return;
 			}
-			if (cur->values[index]) {
-				kfree(cur->values[index]);
-			}
+			kfree_null(&cur->values[index]);
 			cur->values[index] = strdup(value);
 			return;
 		}
@@ -340,9 +336,7 @@ void basic_set_string_array(const char* var, const char* value, struct basic_ctx
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			for (uint64_t x = 0; x < cur->itemcount; ++x) {
-				if (cur->values[x]) {
-					kfree(cur->values[x]);
-				}
+				kfree_null(&cur->values[x]);
 				cur->values[x] = strdup(value);
 			}
 		}
@@ -507,9 +501,7 @@ bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 				tokenizer_error_print(ctx, "Invalid array index");
 				return false;
 			}
-			if (cur->values[pop_pos]) {
-				kfree(cur->values[pop_pos]);
-			}
+			kfree_null(&cur->values[pop_pos]);
 			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
 				cur->values[i] = cur->values[i + 1];
 			}
@@ -587,7 +579,7 @@ bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx
 				return false;
 			}
 			if (cur->values[cur->itemcount - 1]) {
-				kfree(cur->values[cur->itemcount - 1]);
+				kfree_null(&cur->values[cur->itemcount - 1]);
 			}
 			for (int64_t i = (int64_t)cur->itemcount - 2; i >= push_pos; --i) {
 				cur->values[i + 1] = cur->values[i];

@@ -198,21 +198,21 @@ char* basic_ljust(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t width = intval;
 	PARAMS_GET_ITEM(BIP_STRING);
-	char* fillString = strval;
+	char* fill_string = strval;
 	PARAMS_END("LJUST$", "");
-	if (strlen(fillString) < 1) {
+	if (strlen(fill_string) < 1) {
 		tokenizer_error_print(ctx, "No fill character");
 		return "";
 	}
-	char fillChar = fillString[0];
-	int64_t targetLength = strlen(target);
-	int64_t resultLength = width > targetLength ? width : targetLength;
-	char* mresult = kmalloc(resultLength);
-	memcpy(mresult, target, targetLength + 1);
-	memset(mresult + targetLength, fillChar, resultLength - targetLength);
-	mresult[resultLength] = '\0';
+	char fill_char = fill_string[0];
+	int64_t target_length = strlen(target);
+	int64_t result_length = width > target_length ? width : target_length;
+	char* mresult = kmalloc(result_length);
+	memcpy(mresult, target, target_length + 1);
+	memset(mresult + target_length, fill_char, result_length - target_length);
+	mresult[result_length] = '\0';
 	char* result = gc_strdup(mresult);
-	kfree(mresult);
+	kfree_null(&mresult);
 	return result;
 }
 
@@ -224,24 +224,24 @@ char* basic_rjust(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t width = intval;
 	PARAMS_GET_ITEM(BIP_STRING);
-	char* fillString = strval;
+	char* fill_string = strval;
 	PARAMS_END("RJUST$", "");
-	if (strlen(fillString) < 1) {
+	if (strlen(fill_string) < 1) {
 		tokenizer_error_print(ctx, "No fill character");
 		return "";
 	}
-	char fillChar = fillString[0];
-	int64_t targetLength = strlen(target);
-	if (width <= targetLength) {
+	char fill_char = fill_string[0];
+	int64_t target_length = strlen(target);
+	if (width <= target_length) {
 		return gc_strdup(target);
 	}
-	int64_t resultLength = width > targetLength ? width : targetLength;
-	char* mresult = kmalloc(resultLength);
-	memset(mresult, fillChar, resultLength - targetLength);
-	memcpy(mresult + resultLength - targetLength, target, targetLength);
-	mresult[resultLength] = '\0';
+	int64_t result_length = width > target_length ? width : target_length;
+	char* mresult = kmalloc(result_length);
+	memset(mresult, fill_char, result_length - target_length);
+	memcpy(mresult + result_length - target_length, target, target_length);
+	mresult[result_length] = '\0';
 	char* result = gc_strdup(mresult);
-	kfree(mresult);
+	kfree_null(&mresult);
 	return result;
 }
 
@@ -340,6 +340,6 @@ char* basic_repeat(struct basic_ctx* ctx)
 	}
 	*ptr = '\0';
 	char* res = gc_strdup(tmp);
-	kfree(tmp);
+	kfree_null(&tmp);
 	return res;
 }

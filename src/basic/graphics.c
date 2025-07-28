@@ -40,8 +40,7 @@ void free_sprite(struct basic_ctx* ctx, int64_t sprite_handle)
 		if (ctx->sprites[sprite_handle]->pixels) {
 			stbi_image_free(ctx->sprites[sprite_handle]->pixels);
 		}
-		kfree(ctx->sprites[sprite_handle]);
-		ctx->sprites[sprite_handle] = NULL;
+		kfree_null(&ctx->sprites[sprite_handle]);
 	}
 }
 
@@ -120,20 +119,24 @@ void loadsprite_statement(struct basic_ctx* ctx)
 		return;
 	}
 	char* buf = kmalloc(f->size);
+	if (!buf) {
+		tokenizer_error_print(ctx, "Not enough memory to load sprite file");
+		return;
+	}
 	fs_read_file(f, 0, f->size, (unsigned char*)buf);
 	sprite_t* s = get_sprite(ctx, sprite_handle);
 	int w, h, n;
 	s->pixels = (uint32_t*)stbi_load_from_memory((unsigned char*)buf, f->size, &w, &h, &n, STBI_rgb_alpha);
 	if (!s->pixels) {
 		tokenizer_error_print(ctx, stbi_failure_reason());
-		kfree(buf);
+		kfree_null(&buf);
 		free_sprite(ctx, sprite_handle);
 		return;
 	}
 	s->width = w;
 	s->height = h;
 	dprintf("Width: %d Height: %d Comp: %d\n", w, h, n);
-	kfree(buf);
+	kfree_null(&buf);
 }
 
 void freesprite_statement(struct basic_ctx* ctx)

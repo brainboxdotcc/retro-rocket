@@ -31,23 +31,30 @@ const char* make_full_path(const char* relative)
 
 char* basic_readstring(struct basic_ctx* ctx)
 {
-	char* res = kmalloc(MAX_STRINGLEN);
 	int ofs = 0;
-	*res = 0;
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("READ$", "");
+	char* res = kmalloc(MAX_STRINGLEN);
+	if (!res) {
+		tokenizer_error_print(ctx, "Error allocating string buffer");
+		return "";
+	}
+	*res = 0;
 	while (!_eof(intval) && ofs < MAX_STRINGLEN) {
-		if (_read(intval, res + ofs, 1) != 1)
+		if (_read(intval, res + ofs, 1) != 1) {
 			tokenizer_error_print(ctx, "Error reading from file");
-		if (*(res + ofs) == '\n')
+			return "";
+		}
+		if (*(res + ofs) == '\n') {
 			break;
-		else
+		} else {
 			ofs++;
+		}
 	}
 	*(res+ofs) = 0;
 	char* ret = gc_strdup(res);
-	kfree(res);
+	kfree_null(&res);
 	return ret;
 }
 
@@ -313,18 +320,16 @@ void chdir_statement(struct basic_ctx* ctx)
 	const char* old = strdup(proc_cur()->csd);
 	const char* new = proc_set_csd(proc_cur(), csd);
 	if (new && fs_is_directory(new)) {
-		kfree(old);
+		kfree_null(&old);
 		return;
 	}
-
 	if (!new) {
 		tokenizer_error_print(ctx, "Invalid directory");
-	}
-	if (!fs_is_directory(new)) {
+	} else if (!fs_is_directory(new)) {
 		tokenizer_error_print(ctx, "Not a directory");
 	}
 
 	proc_set_csd(proc_cur(), old);
-	kfree(old);
+	kfree_null(&old);
 }
 

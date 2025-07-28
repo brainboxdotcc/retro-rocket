@@ -331,7 +331,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 	}
 
 	if (e1000_device_id == E1000_82540EM) {
-		uint8_t vector = 0x20 + 0x0F; // Pick a safe, unused IRQ vector
+		uint8_t vector = IRQ_START + 0x0F; // Pick a safe, unused IRQ vector
 		bool msi_ok = pci_enable_msi(*pci_device, vector);
 
 		if (msi_ok) {
@@ -339,11 +339,11 @@ bool e1000_start(pci_dev_t *pci_device) {
 			register_interrupt_handler(vector, e1000_handler, *pci_device, NULL);
 		} else {
 			uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
-			register_interrupt_handler(32 + irq_num, e1000_handler, *pci_device, NULL);
+			register_interrupt_handler(IRQ_START + irq_num, e1000_handler, *pci_device, NULL);
 		}
 	} else {
 		uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
-		register_interrupt_handler(32 + irq_num, e1000_handler, *pci_device, NULL);
+		register_interrupt_handler(IRQ_START + irq_num, e1000_handler, *pci_device, NULL);
 
 	}
 

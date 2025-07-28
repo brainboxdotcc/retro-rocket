@@ -72,7 +72,10 @@ void init_idt() {
 	memset(idt_entries, 0, sizeof(idt_entries));
 
 	init_error_handler();
+#ifndef USE_IOAPIC
+	// We only care about IRQ0 for timer if we aren't using APIC
 	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
+#endif
 
 	// Fill the IDT with handler pointers (in loader.S)
 	idt_init(idt_entries);

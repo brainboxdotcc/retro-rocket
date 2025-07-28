@@ -176,10 +176,10 @@ void parse_short_name(directory_entry_t* entry, char* name, char* dotless)
 void free_fat32_directory(fs_directory_entry_t* list)
 {
 	while (list) {
-		kfree(list->filename);
-		kfree(list->alt_filename);
+		kfree_null(&list->filename);
+		kfree_null(&list->alt_filename);
 		fs_directory_entry_t* next = list->next;
-		kfree(list);
+		kfree_null(&list);
 		list = next;
 	}
 }

@@ -60,11 +60,14 @@ int parse_pvd(iso9660 *info, unsigned char *buffer) {
 fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t start_lba, uint32_t lengthbytes) {
 
 	unsigned char *dirbuffer = kmalloc(lengthbytes);
+	if (!dirbuffer) {
+		return NULL;
+	}
 	memset(dirbuffer, 0, lengthbytes);
 
 	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer)) {
 		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
-		kfree(dirbuffer);
+		kfree_null(&dirbuffer);
 		return NULL;
 	}
 
@@ -76,7 +79,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 
 	if (lengthbytes > MAX_REASONABLE_ISO_DIR_SIZE) {
 		dprintf("ISO9660: Rejecting oversized directory: %u bytes\n", lengthbytes);
-		kfree(dirbuffer);
+		kfree_null(&dirbuffer);
 		return NULL;
 	}
 
@@ -100,6 +103,10 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 		// Only process past . and ..
 		if (entrycount > 2) {
 			fs_directory_entry_t *thisentry = kmalloc(sizeof(fs_directory_entry_t));
+			if (!thisentry) {
+				entrycount--;
+				break;
+			}
 
 			// Calculate safe max filename length within this entry
 			uint8_t safe_filename_length = fentry->filename_length;
@@ -114,7 +121,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 			}
 
 			if (safe_filename_length == 0) {
-				kfree(thisentry);
+				kfree_null(&thisentry);
 				walkbuffer += fentry->length;
 				continue;
 			}
@@ -185,7 +192,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 		walkbuffer += fentry->length;
 	}
 
-	kfree(dirbuffer);
+	kfree_null(&dirbuffer);
 	return list;
 }
 
@@ -255,7 +262,9 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 	fs_directory_entry_t *file = (fs_directory_entry_t *) f;
 	storage_device_t *fs = find_storage_device(file->device_name);
 
-	if (!fs) return false;
+	if (!fs) {
+		return false;
+	}
 
 	uint64_t sectors_size = length / fs->block_size;
 	uint64_t sectors_start = start / fs->block_size + file->lbapos;
@@ -266,17 +275,20 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 	sectors_size++;
 
 	unsigned char *readbuf = kmalloc(sectors_size * fs->block_size);
+	if (!readbuf) {
+		return false;
+	}
 	if (!read_storage_device(file->device_name, sectors_start, length, readbuf)) {
 		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start,
 			sectors_start + sectors_size);
-		kfree(readbuf);
+		kfree_null(&readbuf);
 		return false;
 	}
 	memcpy(buffer, readbuf + (start % fs->block_size), length);
 
 	add_random_entropy(*(uint64_t *) readbuf);
 
-	kfree(readbuf);
+	kfree_null(&readbuf);
 	return true;
 }
 
@@ -288,7 +300,14 @@ iso9660 *iso_mount_volume(const char *name) {
 	}
 
 	unsigned char *buffer = kmalloc(fs->block_size);
+	if (!buffer) {
+		return NULL;
+	}
 	iso9660 *info = kmalloc(sizeof(iso9660));
+	if (!info) {
+		kfree_null(&buffer);
+		return NULL;
+	}
 	memset(buffer, 0, fs->block_size);
 	uint32_t volume_descriptor_offset = PVD_LBA;
 	int found_pvd = 0, found_svd = 0;
@@ -296,8 +315,8 @@ iso9660 *iso_mount_volume(const char *name) {
 	while (1) {
 		if (!read_storage_device(name, volume_descriptor_offset++, fs->block_size, buffer)) {
 			kprintf("ISO9660: Could not read LBA sector 0x%x from %s!\n", volume_descriptor_offset, name);
-			kfree(info);
-			kfree(buffer);
+			kfree_null(&info);
+			kfree_null(&buffer);
 			return NULL;
 		}
 		unsigned char VolumeDescriptorID = buffer[0];
@@ -309,16 +328,16 @@ iso9660 *iso_mount_volume(const char *name) {
 		} else if (VolumeDescriptorID == 0x01 && !found_pvd) {
 			// Primary volume descriptor
 			if (!parse_pvd(info, buffer)) {
-				kfree(info);
-				kfree(buffer);
+				kfree_null(&info);
+				kfree_null(&buffer);
 				return NULL;
 			}
 			found_pvd = 1;
 		} else if (VolumeDescriptorID == 0x02 && !found_svd) {
 			// Supplementary volume descriptor
 			if (!parse_svd(info, buffer)) {
-				kfree(info);
-				kfree(buffer);
+				kfree_null(&info);
+				kfree_null(&buffer);
 				return NULL;
 			}
 			found_svd = 1;
@@ -328,7 +347,7 @@ iso9660 *iso_mount_volume(const char *name) {
 		}
 	}
 
-	kfree(buffer);
+	kfree_null(&buffer);
 	return info;
 }
 
@@ -354,4 +373,3 @@ void init_iso9660() {
 	iso9660_fs->rm = NULL;
 	register_filesystem(iso9660_fs);
 }
-

@@ -42,13 +42,13 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 	guid_to_binary(partition_type_guid, partition_type);
 	if (!read_storage_device(sd->name, 1, sd->block_size, buffer)) {
 		dprintf("GPT: Couldn't read second sector\n");
-		kfree(buffer);
+		kfree_null(&buffer);
 		return false;
 	}
 	gpt_header_t* header = (gpt_header_t*)buffer;
-	if (memcmp(header->signature, "EFI PART", 8)) {
+	if (memcmp(header->signature, "EFI PART", 8) != 0) {
 		dprintf("GPT: No GPT signature found\n");
-		kfree(buffer);
+		kfree_null(&buffer);
 		return false;
 	}
 	dprintf(
@@ -58,11 +58,15 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 		header->lba_of_partition_entries
 	);
 	uint8_t* gptbuf = kmalloc(sd->block_size);
+	if (!gptbuf) {
+		kfree_null(&buffer);
+		return false;
+	}
 	do {
 		if (!read_storage_device(sd->name, header->lba_of_partition_entries + entry_number, sd->block_size, gptbuf)) {
 			*found_guid = 0;
-			kfree(gptbuf);
-			kfree(buffer);
+			kfree_null(&gptbuf);
+			kfree_null(&buffer);
 			return false;
 		}
 		gpt_entry_t* gpt = (gpt_entry_t*)gptbuf;
@@ -73,15 +77,15 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 			*length = gpt->end_lba - gpt->start_lba;
 			*partition_id = 0xFF;
 			binary_to_guid(gpt->unique_id, found_guid);
-			kfree(gptbuf);
-			kfree(buffer);
+			kfree_null(&gptbuf);
+			kfree_null(&buffer);
 			return true;
 		}
 		entry_number++;
 	} while (entry_number < header->number_partition_entries);
 	*found_guid = 0;
-	kfree(gptbuf);
-	kfree(buffer);
+	kfree_null(&gptbuf);
+	kfree_null(&buffer);
 	return false;
 }
 
@@ -91,21 +95,24 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, cha
 		return false;
 	}
 	storage_device_t* sd = find_storage_device(device_name);
-	if (!sd && sd->block_size < sizeof(partition_table_t)) {
+	if (!sd || sd->block_size < sizeof(partition_table_t)) {
 		dprintf("Couldn't find '%s' or its block size is less than the size of a partition table\n", device_name);
 		return false;
 	}
 	unsigned char* buffer = kmalloc(sd->block_size);
+	if (!buffer) {
+		return false;
+	}
 	if (!read_storage_device(device_name, 0, sd->block_size, buffer)) {
 		dprintf("Couldn't read boot sector of device '%s'\n", device_name);
-		kfree(buffer);
+		kfree_null(&buffer);
 		return false;
 	}
 
 	partition_table_t* ptab = (partition_table_t*)(buffer + PARTITION_TABLE_OFFSET);
 
 	if (ptab->p_entry[0].bootable == 0 && ptab->p_entry[0].systemid == PARTITON_GPT_PROTECTIVE && ptab->p_entry[0].startlba == 1) {
-		kfree(buffer);
+		kfree_null(&buffer);
 		return scan_gpt_entries(sd, partition_type_guid, partition_id, start, length, found_guid);
 	}
 
@@ -116,10 +123,10 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, cha
 			*start = p->startlba;
 			*length = p->length;
 			*found_guid = 0;
-			kfree(buffer);
+			kfree_null(&buffer);
 			return true;
 		}
 	}
-	kfree(buffer);
+	kfree_null(&buffer);
 	return false;
 }

@@ -209,7 +209,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		}
 
 		/* Only free the base struct! */
-		kfree(atomic);
+		kfree_null(&atomic);
 
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
@@ -301,7 +301,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		}
 
 		/* Only free the base struct! */
-		kfree(atomic);
+		kfree_null(&atomic);
 
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
@@ -338,7 +338,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		}
 
 		/* Only free the base struct! */
-		kfree(atomic);
+		kfree_null(&atomic);
 
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
@@ -461,7 +461,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 			if (*program == '\n') {
 				++program;
 			}
-			kfree(linetext);
+			kfree_null(&linetext);
 			if (!*program) {
 				break;
 			}
@@ -485,12 +485,17 @@ struct ub_proc_fn_def* basic_find_fn(const char* name, struct basic_ctx* ctx)
 
 void basic_free_defs(struct basic_ctx* ctx)
 {
-	for (; ctx->defs; ctx->defs = ctx->defs->next) {
-		kfree(ctx->defs->name);
-		for (; ctx->defs->params; ctx->defs->params = ctx->defs->params->next) {
-			kfree(ctx->defs->params->name);
-			kfree(ctx->defs->params);
+	for (; ctx->defs; ) {
+		for (; ctx->defs->params; ) {
+			void* next = ctx->defs->params->next;
+			kfree_null(&ctx->defs->params->name);
+			kfree_null(&ctx->defs->params);
+			ctx->defs->params = next;
 		}
+		void* next = ctx->defs->next;
+		kfree_null(&ctx->defs->name);
+		kfree_null(&ctx->defs);
+		ctx->defs = next;
 	}
 	ctx->defs = NULL;
 }

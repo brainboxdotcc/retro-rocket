@@ -64,7 +64,7 @@ size_t kinput(size_t maxlen, console* cons)
 
 void kfreeinput(console* cons)
 {
-	kfree(cons->internalbuffer);
+	kfree_null(&cons->internalbuffer);
 	cons->internalbuffer = cons->buffer = NULL;
 	cons->bufcnt = 0;
 }

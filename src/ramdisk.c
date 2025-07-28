@@ -109,17 +109,23 @@ const char* init_ramdisk(size_t blocks, size_t blocksize)
 const char* init_ramdisk_from_storage(const char* storage)
 {
 	storage_device_t* sd_src = find_storage_device(storage);
+	if (!sd_src) {
+		return NULL;
+	}
 	const char* rd = init_ramdisk(sd_src->size, sd_src->block_size);
 	if (!rd) {
 		return NULL;
 	}
 	storage_device_t* sd_dst = find_storage_device(rd);
-	if (!sd_src || !sd_dst) {
+	if (!sd_dst) {
 		return NULL;
 	}
 	uint32_t blocks = 1024;
 	uint32_t buffer_size = sd_src->block_size * blocks;
 	uint8_t* buffer = kmalloc(buffer_size);
+	if (!buffer) {
+		return NULL;
+	}
 	uint32_t blocks_left = sd_src->size;
 	uint64_t n = 0;
 	while (blocks_left > 0) {
@@ -132,6 +138,6 @@ const char* init_ramdisk_from_storage(const char* storage)
 		n += to_read;
 		blocks_left -= to_read;
 	}
-	kfree(buffer);
+	kfree_null(&buffer);
 	return sd_dst->name;
 }

@@ -846,7 +846,7 @@ void delete_tree_node(fs_tree_t** head_ref, const char* name)
 
 	if (temp != NULL && !strcmp(temp->name, name)) {
 		*head_ref = temp->next;
-		kfree(temp);
+		kfree_null(&temp);
 		return;
 	}
 

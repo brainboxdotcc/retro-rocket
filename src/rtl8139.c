@@ -324,7 +324,7 @@ void init_rtl8139() {
 	uint32_t irq_num = pci_read(pci_device, PCI_INTERRUPT_LINE);
 	uint32_t irq_pin = pci_read(pci_device, PCI_INTERRUPT_PIN);
 	rtl8139_device.irq = irq_num;
-	register_interrupt_handler(32 + irq_num, rtl8139_handler, pci_device, &rtl8139_device);
+	register_interrupt_handler(IRQ_START + irq_num, rtl8139_handler, pci_device, &rtl8139_device);
 
 	char* mac_address = read_mac_addr();
 	kprintf("RTL8139: MAC=%s IO=%04x MMIO=%08x IRQ=%d (PIN#%c)\n", mac_address, rtl8139_device.io_base, rtl8139_device.mem_base, irq_num, irq_pin + 'A' - 1);

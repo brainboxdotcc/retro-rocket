@@ -227,7 +227,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 				} else if (error_set) {
 					dprintf("Set ERROR$ to: '%s'\n", value);
 				}
-				kfree(cur->value);
+				kfree_null(&cur->value);
 				cur->value = strdup(value);
 				cur->global = global;
 				return;

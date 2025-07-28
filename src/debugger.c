@@ -337,6 +337,10 @@ void init_debug()
 			thisentry->address = hextoint(symbol_address);
 			thisentry->type = *type;
 			symbol_t* next = kmalloc(sizeof(symbol_t));
+			if (!next) {
+				kfree_null(&thisentry->name);
+				break;
+			}
 			next->next = NULL;
 			thisentry->next = next;
 			thisentry = thisentry->next;

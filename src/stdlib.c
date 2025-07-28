@@ -353,8 +353,8 @@ int heapsort(void *vbase, size_t nmemb, size_t size, int (*compar)(const void *,
 		--nmemb;
 		SELECT(i, j, nmemb, t, p, size, k, cnt, tmp1, tmp2);
 	}
-	kfree(k);
-	return (0);
+	kfree_null(&k);
+	return 0;
 }
 
 static inline char	*med3(char *, char *, char *, int (*)(const void *, const void *));

@@ -185,7 +185,7 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 		/* Program is not line numbered! Auto-number it. */
 		const char* numbered = auto_number(program, 10, 10);
 		struct basic_ctx* c = basic_init(numbered, cons, pid, file, error);
-		kfree(numbered);
+		kfree_null(&numbered);
 		return c;
 	}
 	struct basic_ctx* ctx = kmalloc(sizeof(struct basic_ctx));
@@ -223,7 +223,7 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	// as EVAL appends to the program on lines EVAL_LINE and EVAL_LINE + 1.
 	ctx->program_ptr = kmalloc(strlen(program) + 5000);
 	if (ctx->program_ptr == NULL) {
-		kfree(ctx);
+		kfree_null(&ctx);
 		*error = "Out of memory";
 		return NULL;
 	}
@@ -279,10 +279,11 @@ void library_statement(struct basic_ctx* ctx)
 
 	/* Validate the file exists and is not a directory */
 	fs_directory_entry_t* file_info = fs_get_file_info(lib_file);
+	accept_or_return(NEWLINE, ctx);
 	if (!file_info || fs_is_directory(lib_file)) {
 		tokenizer_error_print(ctx, "Not a library file");
+		return;
 	}
-	accept_or_return(NEWLINE, ctx);
 	/* Calculate the next line we will continue from after loading the library
 	 * (we need to look ahead and take note of this because the entire program
 	 * pointer structure will be rebuilt and any old ctx->ptr will be invalid!)
@@ -292,21 +293,30 @@ void library_statement(struct basic_ctx* ctx)
 	/* Load the library file from VFS */
 	size_t library_len = file_info->size;
 	char* temp_library = kmalloc(library_len);
+	if (!temp_library) {
+		tokenizer_error_print(ctx, "Not enough memory to load library file");
+		return;
+	}
 	char* clean_library = kmalloc(library_len);
+	if (!clean_library) {
+		kfree_null(&temp_library);
+		tokenizer_error_print(ctx, "Not enough memory to load library file");
+		return;
+	}
 	if (!fs_read_file(file_info, 0, library_len, (uint8_t*)temp_library)) {
 		tokenizer_error_print(ctx, "Error reading library file");
-		kfree(temp_library);
-		kfree(clean_library);
+		kfree_null(&temp_library);
+		kfree_null(&clean_library);
 		return;
 	}
 	*(temp_library + library_len) = 0;
 
 	/* Clean the BASIC code and check it is not numbered code */
 	clean_library = clean_basic(temp_library, clean_library);
-	kfree(temp_library);
+	kfree_null(&temp_library);
 	if (isdigit(*clean_library)) {
 		tokenizer_error_print(ctx, "Library files cannot contain line numbers");
-		kfree(clean_library);
+		kfree_null(&clean_library);
 		return;
 	}
 
@@ -319,13 +329,18 @@ void library_statement(struct basic_ctx* ctx)
 	 * must be reinitailised and the line hash rebuilt)
 	 */
 	ctx->program_ptr = krealloc(ctx->program_ptr, strlen(ctx->program_ptr) + 5000 + library_len);
+	if (!ctx->program_ptr) {
+		tokenizer_error_print(ctx, "Not enough memory to load library file");
+		kfree_null(&numbered);
+		return;
+	}
 	char last = ctx->program_ptr[strlen(ctx->program_ptr) - 2];
 	if (last > 13) {
 		strlcat(ctx->program_ptr, "\n", strlen(ctx->program_ptr) + 5000 + library_len);
 	}
 	strlcpy(ctx->program_ptr + strlen(ctx->program_ptr) - 1, numbered, strlen(ctx->program_ptr) + 5000 + library_len);
-	kfree(clean_library);
-	kfree(numbered);
+	kfree_null(&clean_library);
+	kfree_null(&numbered);
 
 	/* Reinitialise token parser and scan for new functions/procedures now the
 	 * library is included in the program. Frees old list of DEFs.
@@ -426,62 +441,90 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 
 void basic_destroy(struct basic_ctx* ctx)
 {
-	for (; ctx->int_variables; ctx->int_variables = ctx->int_variables->next) {
-		kfree(ctx->int_variables->varname);
-		kfree(ctx->int_variables);
+	dprintf("BASIC: destroy int vars\n");
+	for (; ctx->int_variables; ) {
+		void* next = ctx->int_variables->next;
+		kfree_null(&ctx->int_variables->varname);
+		kfree_null(&ctx->int_variables);
+		ctx->int_variables = next;
 	}
-	for (; ctx->double_variables; ctx->double_variables = ctx->double_variables->next) {
-		kfree(ctx->double_variables->varname);
-		kfree(ctx->double_variables);
+	dprintf("BASIC: destroy double vars\n");
+	for (; ctx->double_variables; ) {
+		void* next = ctx->double_variables->next;
+		kfree_null(&ctx->double_variables->varname);
+		kfree_null(&ctx->double_variables);
+		ctx->double_variables = next;
 	}
-	for (; ctx->str_variables; ctx->str_variables = ctx->str_variables->next) {
-		kfree(ctx->str_variables->varname);
-		kfree(ctx->str_variables->value);
-		kfree(ctx->str_variables);
+	dprintf("BASIC: destroy string vars\n");
+	for (; ctx->str_variables; ) {
+		void* next = ctx->str_variables->next;
+		kfree_null(&ctx->str_variables->varname);
+		kfree_null(&ctx->str_variables->value);
+		kfree_null(&ctx->str_variables);
+		ctx->str_variables = next;
 	}
-	for (; ctx->int_array_variables; ctx->int_array_variables = ctx->int_array_variables->next) {
-		kfree(ctx->int_array_variables->varname);
-		kfree(ctx->int_array_variables->values);
-		kfree(ctx->int_array_variables);
+	dprintf("BASIC: destroy int array vars\n");
+	for (; ctx->int_array_variables; ) {
+		void* next = ctx->int_array_variables->next;
+		kfree_null(&ctx->int_array_variables->varname);
+		kfree_null(&ctx->int_array_variables->values);
+		kfree_null(&ctx->int_array_variables);
+		ctx->int_array_variables = next;
 	}
-	for (; ctx->double_array_variables; ctx->double_array_variables = ctx->double_array_variables->next) {
-		kfree(ctx->double_array_variables->varname);
-		kfree(ctx->double_array_variables->values);
-		kfree(ctx->double_array_variables);
+	dprintf("BASIC: destroy double array vars\n");
+	for (; ctx->double_array_variables; ) {
+		void* next = ctx->double_array_variables->next;
+		kfree_null(&ctx->double_array_variables->varname);
+		kfree_null(&ctx->double_array_variables->values);
+		kfree_null(&ctx->double_array_variables);
+		ctx->double_array_variables = next;
 	}
-	for (; ctx->string_array_variables; ctx->string_array_variables = ctx->string_array_variables->next) {
-		kfree(ctx->string_array_variables->varname);
+	dprintf("BASIC: destroy string array vars\n");
+	for (; ctx->string_array_variables; ) {
+		void* next = ctx->string_array_variables->next;
+		kfree_null(&ctx->string_array_variables->varname);
 		for (size_t f = 0; f < ctx->string_array_variables->itemcount; ++f) {
-			if (ctx->string_array_variables->values[f]) {
-				kfree(ctx->string_array_variables->values[f]);
-			}
+			kfree_null(&ctx->string_array_variables->values[f]);
 		}
-		kfree(ctx->string_array_variables);
+		kfree_null(&ctx->string_array_variables);
+		ctx->string_array_variables = next;
 	}
+	dprintf("BASIC: destroy sprites\n");
 	for (uint32_t sprite_handle = 0; sprite_handle < MAX_SPRITES; ++sprite_handle) {
 		if (ctx->sprites[sprite_handle]) {
 			free_sprite(ctx, sprite_handle);
 		}
 	}
+	dprintf("BASIC: destroy locals\n");
 	for (size_t x = 0; x < ctx->call_stack_ptr; x++) {
-		for (; ctx->local_int_variables[x]; ctx->local_int_variables[x] = ctx->local_int_variables[x]->next) {
-			kfree(ctx->local_int_variables[x]->varname);
-			kfree(ctx->local_int_variables[x]);
+		for (; ctx->local_int_variables[x]; ) {
+			void* next = ctx->local_int_variables[x]->next;
+			kfree_null(&ctx->local_int_variables[x]->varname);
+			kfree_null(&ctx->local_int_variables[x]);
+			ctx->local_int_variables[x] = next;
 		}
-		for (; ctx->local_double_variables[x]; ctx->local_double_variables[x] = ctx->local_double_variables[x]->next) {
-			kfree(ctx->local_double_variables[x]->varname);
-			kfree(ctx->local_double_variables[x]);
+		for (; ctx->local_double_variables[x]; ) {
+			void* next = ctx->local_double_variables[x]->next;
+			kfree_null(&ctx->local_double_variables[x]->varname);
+			kfree_null(&ctx->local_double_variables[x]);
+			ctx->local_double_variables[x] = next;
 		}
-		for (; ctx->local_string_variables[x]; ctx->local_string_variables[x] = ctx->local_string_variables[x]->next) {
-			kfree(ctx->local_string_variables[x]->varname);
-			kfree(ctx->local_string_variables[x]->value);
-			kfree(ctx->local_string_variables[x]);
+		for (; ctx->local_string_variables[x]; ) {
+			void* next = ctx->local_string_variables[x]->next;
+			kfree_null(&ctx->local_string_variables[x]->varname);
+			kfree_null(&ctx->local_string_variables[x]->value);
+			kfree_null(&ctx->local_string_variables[x]);
+			ctx->local_string_variables[x] = next;
 		}
 	}
+	dprintf("BASIC: destroy line map\n");
 	hashmap_free(ctx->lines);
+	dprintf("BASIC: destroy defs\n");
 	basic_free_defs(ctx);
-	kfree((char*)ctx->program_ptr);
-	kfree(ctx);
+	dprintf("BASIC: destroy code\n");
+	kfree_null(&ctx->program_ptr);
+	dprintf("BASIC: destroy context\n");
+	kfree_null(&ctx);
 }
 
 bool accept(int token, struct basic_ctx* ctx)
@@ -526,21 +569,21 @@ void free_local_heap(struct basic_ctx* ctx)
 {
 	while (ctx->local_string_variables[ctx->call_stack_ptr]) {
 		struct ub_var_string* next = ctx->local_string_variables[ctx->call_stack_ptr]->next;
-		kfree(ctx->local_string_variables[ctx->call_stack_ptr]->value);
-		kfree(ctx->local_string_variables[ctx->call_stack_ptr]->varname);
-		kfree(ctx->local_string_variables[ctx->call_stack_ptr]);
+		kfree_null(&ctx->local_string_variables[ctx->call_stack_ptr]->value);
+		kfree_null(&ctx->local_string_variables[ctx->call_stack_ptr]->varname);
+		kfree_null(&ctx->local_string_variables[ctx->call_stack_ptr]);
 		ctx->local_string_variables[ctx->call_stack_ptr] = next;
 	}
 	while (ctx->local_int_variables[ctx->call_stack_ptr]) {
 		struct ub_var_int* next = ctx->local_int_variables[ctx->call_stack_ptr]->next;
-		kfree(ctx->local_int_variables[ctx->call_stack_ptr]->varname);
-		kfree(ctx->local_int_variables[ctx->call_stack_ptr]);
+		kfree_null(&ctx->local_int_variables[ctx->call_stack_ptr]->varname);
+		kfree_null(&ctx->local_int_variables[ctx->call_stack_ptr]);
 		ctx->local_int_variables[ctx->call_stack_ptr] = next;
 	}
 	while (ctx->local_double_variables[ctx->call_stack_ptr]) {
 		struct ub_var_double* next = ctx->local_double_variables[ctx->call_stack_ptr]->next;
-		kfree(ctx->local_double_variables[ctx->call_stack_ptr]->varname);
-		kfree(ctx->local_double_variables[ctx->call_stack_ptr]);
+		kfree_null(&ctx->local_double_variables[ctx->call_stack_ptr]->varname);
+		kfree_null(&ctx->local_double_variables[ctx->call_stack_ptr]);
 		ctx->local_double_variables[ctx->call_stack_ptr] = next;
 	}
 	ctx->local_int_variables[ctx->call_stack_ptr] = NULL;

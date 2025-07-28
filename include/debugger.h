@@ -51,7 +51,6 @@ typedef struct stack_frame {
  * @param address a pointer to some memory address
  * @param length represents the number of bytes of memory that should be dumped.
  */
-
 void dump_hex(void* address, uint64_t length);
 
 // Initialise debugger, read symbols from boot device. These are used for backtraces.

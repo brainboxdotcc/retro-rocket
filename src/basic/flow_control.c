@@ -165,7 +165,7 @@ void next_statement(struct basic_ctx* ctx)
 		if (continue_loop) {
 			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
 		} else {
-			kfree(ctx->for_stack[ctx->for_stack_ptr - 1].for_variable);
+			kfree_null(&ctx->for_stack[ctx->for_stack_ptr - 1].for_variable);
 			ctx->for_stack_ptr--;
 			accept_or_return(NEWLINE, ctx);
 		}
