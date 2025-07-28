@@ -234,9 +234,9 @@ char* strdup(const char* string)
 	if (!string) {
 		return NULL;
 	}
-	uint32_t len = strlen(string) + 1;
-	char* result = kmalloc(len);
-	strlcpy(result, string, len);
+	uint32_t len = strlen(string);
+	char* result = kmalloc(len + 1);
+	strlcpy(result, string, len + 1);
 	*(result + len) = 0;
 	return result;
 }
@@ -246,9 +246,9 @@ char* gc_strdup(const char* string)
 	if (!string) {
 		return NULL;
 	}
-	uint32_t len = strlen(string) + 1;
-	char* result = kmalloc(len);
-	strlcpy(result, string, len);
+	uint32_t len = strlen(string);
+	char* result = kmalloc(len + 1);
+	strlcpy(result, string, len + 1);
 	*(result + len) = 0;
 
 	if (gc_list == NULL) {
