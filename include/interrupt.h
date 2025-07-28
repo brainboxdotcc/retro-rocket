@@ -51,8 +51,9 @@ typedef struct shared_interrupt_t {
  * @param device For PCI devices, specify the device node in this parameter.
  * This is to allow for IRQ sharing.
  * @param opaque An opaque pointer that can be passed back to your interrupt handler
+ * @return false if unable to register handler
  */
-void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque);
+bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque);
 
 /**
  * @brief Global routing function for interrupts (ISR number < 32)

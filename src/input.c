@@ -16,6 +16,9 @@ size_t kinput(size_t maxlen, console* cons)
 
 	if (cons->buffer == NULL) {
 		cons->internalbuffer = kmalloc(maxlen + 1);
+		if (!cons->internalbuffer) {
+			return 0;
+		}
 		cons->buffer = cons->internalbuffer;
 		cons->bufcnt = 0;
 	}

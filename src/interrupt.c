@@ -27,10 +27,10 @@ void remap_irqs_to_ioapic() {
 	}
 }
 
-void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque) {
+bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque) {
 	shared_interrupt_t* si = kmalloc(sizeof(shared_interrupt_t));
 	if (!si) {
-		return;
+		return false;
 	}
 	si->device = device;
 	si->interrupt_handler = handler;
@@ -40,6 +40,7 @@ void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
 	if (si->next) {
 		dprintf("NOTE: %s %d is shared!\n", n < 32 ? "ISR" : "IRQ", n < 32 ? n : n - 32);
 	}
+	return true;
 }
 
 /**
@@ -96,14 +97,14 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum)
 			}
 		}
 	}
-	/* IRQ7 is the APIC spurious interrupt, we never acknowledge it */
-	if (irqnum != IRQ7) {
 #ifdef USE_IOAPIC
-		local_apic_clear_interrupt();
+	local_apic_clear_interrupt();
 #else
+	/* IRQ7 is the PIC spurious interrupt, we never acknowledge it */
+	if (irqnum != IRQ7) {
 		pic_eoi(isrnumber);
-#endif
 	}
+#endif
 	__builtin_ia32_fxrstor64(&fx);
 }
 

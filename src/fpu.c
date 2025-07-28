@@ -34,6 +34,9 @@ uint8_t double_determine_decimal_places(double f)
 
 char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 {
+	if (!p) {
+		return NULL;
+	}
 	bool neg = x < 0.0;
 	char buffer[64], buffer_part[64];
 	char* index = buffer, *start = p, *decimal_pos = NULL;
