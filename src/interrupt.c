@@ -22,7 +22,7 @@ void remap_irqs_to_ioapic() {
 			0,  // dest_mode 0: physical
 			get_irq_polarity(irq),  // intpol (0 = active high)
 			get_irq_trigger_mode(irq),  // trigger_mode (0 = edge)
-			0 // unmasked
+			1 // masked
 		);
 	}
 }
@@ -39,6 +39,9 @@ bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
 	shared_interrupt[n] = si;
 	if (si->next) {
 		dprintf("NOTE: %s %d is shared!\n", n < 32 ? "ISR" : "IRQ", n < 32 ? n : n - 32);
+	}
+	if (n >= 32) {
+		ioapic_mask_set(n - 32, false); // Unmask
 	}
 	return true;
 }

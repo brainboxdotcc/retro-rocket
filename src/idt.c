@@ -73,7 +73,6 @@ void init_idt() {
 
 	init_error_handler();
 	register_interrupt_handler(IRQ0, timer_callback, dev_zero, NULL);
-	init_debug();
 
 	// Fill the IDT with handler pointers (in loader.S)
 	idt_init(idt_entries);

@@ -15,11 +15,11 @@ volatile struct limine_framebuffer_request framebuffer_request = {
 	.revision = 0,
 };
 
-static void *rr_fb_front;
-static void *rr_fb_back;
-static uint64_t rr_fb_pitch;
-static uint64_t rr_fb_height;
-static uint64_t rr_fb_bytes;
+static void *rr_fb_front = NULL;
+static void *rr_fb_back = NULL;
+static uint64_t rr_fb_pitch = 0;
+static uint64_t rr_fb_height = 0;
+static uint64_t rr_fb_bytes = 0;
 
 struct flanterm_context *ft_ctx = NULL;
 
@@ -219,6 +219,8 @@ void init_console()
 	printf("Retro-Rocket ");
 	setforeground(current_console, COLOUR_WHITE);
 	printf("64-bit SMP kernel booting\n");
+
+	init_debug();
 }
 
 int16_t screen_get_width()

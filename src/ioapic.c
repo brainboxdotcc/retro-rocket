@@ -55,6 +55,20 @@ void ioapic_read_gsi(ioapic_t* ioapic, uint32_t gsi, uint32_t* lower, uint32_t* 
 	*upper = ioapic_register_read(GSI_OFFSET(ioapic, gsi) + 1, ioapic);
 }
 
+void ioapic_mask_set(uint32_t gsi, bool masked) {
+	uint32_t lower, upper;
+	ioapic_t *ioapic = ioapic_find(gsi);
+	ioapic_read_gsi(ioapic, gsi, &lower, &upper);
+
+	if (masked) {
+		lower |= (1 << 16);  // Set mask bit
+	} else {
+		lower &= ~(1 << 16); // Clear mask bit
+	}
+
+	ioapic_write_gsi(ioapic, gsi, lower, upper);
+}
+
 void ioapic_redir_set_precalculated(uint32_t gsi, uint32_t upper, uint32_t lower)
 {
 	ioapic_t *ioapic = ioapic_find(gsi);

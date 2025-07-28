@@ -1,15 +1,15 @@
 #include <kernel.h>
 #include <mmio.h>
 
-uint8_t bar_type;         // Type of BAR0
-uint16_t io_base;         // IO Base Address
-uint64_t mem_base;   // MMIO Base Address
-bool eerprom_exists;  // A flag indicating if eeprom exists
-uint8_t mac[6];          // A buffer for storing the mack address
-e1000_rx_desc_t *rx_descs[E1000_NUM_RX_DESC]; // Receive Descriptor Buffers
-e1000_tx_desc_t *tx_descs[E1000_NUM_TX_DESC]; // Transmit Descriptor Buffers
-uint16_t rx_cur;          // Current Receive Descriptor Buffer
-uint16_t tx_cur;          // Current Transmit Descriptor Buffer
+uint8_t bar_type = 0;		// Type of BAR0
+uint16_t io_base = 0;		// IO Base Address
+uint64_t mem_base = 0;		// MMIO Base Address
+bool eerprom_exists = false;	// A flag indicating if eeprom exists
+uint8_t mac[6] = {0};		// A buffer for storing the mack address
+e1000_rx_desc_t *rx_descs[E1000_NUM_RX_DESC] = {NULL}; // Receive Descriptor Buffers
+e1000_tx_desc_t *tx_descs[E1000_NUM_TX_DESC] = {NULL}; // Transmit Descriptor Buffers
+uint16_t rx_cur = 0;		// Current Receive Descriptor Buffer
+uint16_t tx_cur = 0;		// Current Transmit Descriptor Buffer
 
 static void *tx_buffers[E1000_NUM_TX_DESC];
 
@@ -143,6 +143,14 @@ void e1000_transmit_init() {
 		tx_descs[i]->status = TSTA_DD;
 	}
 
+	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
+		uint8_t *raw = (uint8_t *) kmalloc_low(E1000_MAX_PKT_SIZE + E1000_TX_ALIGN);
+		uintptr_t aligned_addr = ((uintptr_t) raw + E1000_TX_ALIGN - 1) & ~(E1000_TX_ALIGN - 1);
+		tx_buffers[i] = (void *) aligned_addr;
+		tx_descs[i]->addr = (uint64_t) (uintptr_t) tx_buffers[i];
+		tx_descs[i]->status = 1; // Mark available
+	}
+
 	e1000_write_command(REG_TXDESCHI, (uint32_t) ((uint64_t) ptr >> 32));
 	e1000_write_command(REG_TXDESCLO, (uint32_t) ((uint64_t) ptr & 0xFFFFFFFF));
 
@@ -166,19 +174,28 @@ void e1000_transmit_init() {
 }
 
 void e1000_handle_receive() {
-	uint16_t old_cur;
 
-	while ((rx_descs[rx_cur]->status & 0x1)) {
+	if (!rx_descs[rx_cur]) {
+		kprintf("No rx_desc[rx_cur]\n");
+		return;
+	}
+	netdev_t* dev = get_active_network_device();
+	if (!dev && dev->deviceid != ((INTEL_VEND << 16) | e1000_device_id)) {
+		return;
+	}
+
+	while (rx_descs[rx_cur]->status & 0x1) {
 		uint8_t *buf = (uint8_t *) rx_descs[rx_cur]->addr;
 		uint16_t len = rx_descs[rx_cur]->length;
-
-		netdev_t* dev = get_active_network_device();
-		if (dev && dev->deviceid == ((INTEL_VEND << 16) | e1000_device_id)) {
-			ethernet_handle_packet((ethernet_frame_t *) buf, len);
+		if (!buf) {
+			kprintf("No buf\n");
+			return;
 		}
 
+		ethernet_handle_packet((ethernet_frame_t *) buf, len);
+
 		rx_descs[rx_cur]->status = 0;
-		old_cur = rx_cur;
+		uint16_t old_cur = rx_cur;
 		rx_cur = (rx_cur + 1) % E1000_NUM_RX_DESC;
 		e1000_write_command(REG_RXDESCTAIL, old_cur);
 	}
@@ -306,6 +323,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 		}
 	}
 
+	interrupts_off();
 	e1000_up();
 
 	for (int i = 0; i < 0x80; i++) {
@@ -333,14 +351,6 @@ bool e1000_start(pci_dev_t *pci_device) {
 	e1000_transmit_init();
 	e1000_enable_interrupts();
 
-	for (int i = 0; i < E1000_NUM_TX_DESC; i++) {
-		uint8_t *raw = (uint8_t *) kmalloc_low(E1000_MAX_PKT_SIZE + E1000_TX_ALIGN);
-		uintptr_t aligned_addr = ((uintptr_t) raw + E1000_TX_ALIGN - 1) & ~(E1000_TX_ALIGN - 1);
-		tx_buffers[i] = (void *) aligned_addr;
-		tx_descs[i]->addr = (uint64_t) (uintptr_t) tx_buffers[i];
-		tx_descs[i]->status = 1; // Mark available
-	}
-
 	// Set link up and speed detection enable - required for PI series, non-op on original e1000
 	e1000_write_command(REG_CTRL, 0x20 | ECTRL_SLU);
 
@@ -354,6 +364,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	netdev_t* net = kmalloc(sizeof(netdev_t));
 	if (!net) {
+		interrupts_on();
 		return false;
 	}
 	net->opaque = NULL;
@@ -369,6 +380,8 @@ bool e1000_start(pci_dev_t *pci_device) {
 	net->send_packet = e1000_send_packet;
 	net->next = NULL;
 	register_network_device(net);
+
+	interrupts_on();
 
 	proc_register_idle(e1000_idle, IDLE_FOREGROUND);
 

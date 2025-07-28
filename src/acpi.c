@@ -2,6 +2,7 @@
 #include <uacpi/uacpi.h>
 #include <uacpi/namespace.h>
 #include <uacpi/resources.h>
+#include "uacpi/context.h"
 
 volatile struct limine_rsdp_request rsdp_request = {
 	.id = LIMINE_RSDP_REQUEST,
@@ -38,6 +39,7 @@ void init_uacpi(void) {
 	dprintf("mhz = %llu, tsc_per_sec = %llu\n", mhz, tsc_per_sec);
 
 	dprintf("init_uacpi uacpi_initialize(0)\n");
+	uacpi_context_set_log_level(UACPI_LOG_INFO);
 	st = uacpi_initialize(0);
 	dprintf("init_uacpi uacpi_initialize(0) done\n");
 	if (uacpi_unlikely_error(st)) {
