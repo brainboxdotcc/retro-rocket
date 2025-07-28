@@ -303,6 +303,7 @@ int dprintf(const char *fmt, ...)
 
 	va_start(args, fmt);
 	rv = dvprintf(fmt, args);
+	//rv = vprintf(fmt, args);
 	va_end(args);
 	return rv;
 }

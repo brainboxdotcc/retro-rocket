@@ -52,7 +52,6 @@ void dhcp_discover() {
 		return;
 	}
 	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet);
-	kprintf("Configuring network via DHCP\n");
 	memset(packet, 0, sizeof(dhcp_packet_t));
 	uint16_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);

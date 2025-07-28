@@ -180,7 +180,7 @@ void e1000_handle_receive() {
 		return;
 	}
 	netdev_t* dev = get_active_network_device();
-	if (!dev && dev->deviceid != ((INTEL_VEND << 16) | e1000_device_id)) {
+	if (!dev || dev->deviceid != ((INTEL_VEND << 16) | e1000_device_id)) {
 		return;
 	}
 
@@ -209,6 +209,10 @@ void e1000_check_link() {
 bool e1000_send_packet(void *p_data, uint16_t p_len) {
 	if (p_len > E1000_MAX_PKT_SIZE) {
 		dprintf("e1000: packet too large\n");
+		return false;
+	}
+
+	if (!tx_descs[tx_cur]) {
 		return false;
 	}
 
@@ -255,18 +259,6 @@ void e1000_up() {
 void e1000_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque) {
 	uint32_t status = e1000_read_command(REG_ICR);
 
-	if (status & ICR_TXQE) {
-		dprintf("Transmit queue empty\n");
-	}
-	if (status & ICR_RXSEQ) {
-		dprintf("Recv sequence error\n");
-	}
-	if (status & ICR_LSC) {
-		e1000_up();
-	}
-	if (status & ICR_RXDMT0) {
-		// RX threshold met
-	}
 	if (status & ICR_RXT0) {
 		e1000_handle_receive();
 	}
@@ -296,10 +288,6 @@ void e1000_enable_interrupts() {
 
 	// Read ICR to acknowledge any pending IRQs
 	e1000_read_command(REG_ICR);
-}
-
-void e1000_idle() {
-	//e1000_handler(32 + 10, 0, 10, NULL);
 }
 
 bool e1000_start(pci_dev_t *pci_device) {
@@ -382,8 +370,6 @@ bool e1000_start(pci_dev_t *pci_device) {
 	register_network_device(net);
 
 	interrupts_on();
-
-	proc_register_idle(e1000_idle, IDLE_FOREGROUND);
 
 	return true;
 }

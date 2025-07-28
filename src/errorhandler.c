@@ -56,6 +56,7 @@ void error_handler(uint8_t int_no, uint64_t errorcode, [[maybe_unused]] uint64_t
 	kprintf("Fatal exception %02X (Error code %016lx): %s\n", int_no, errorcode, error_table[int_no]);
 	setforeground(current_console, COLOUR_WHITE);
 	backtrace();
+	rr_flip();
 	wait_forever();
 }
 

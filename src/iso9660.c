@@ -59,6 +59,10 @@ int parse_pvd(iso9660 *info, unsigned char *buffer) {
 
 fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t start_lba, uint32_t lengthbytes) {
 
+	if (lengthbytes < 2048) {
+		lengthbytes *= 2048;
+	}
+
 	unsigned char *dirbuffer = kmalloc(lengthbytes);
 	if (!dirbuffer) {
 		return NULL;
@@ -94,7 +98,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 
 		// Sanity: Does this entry stay within the buffer?
 		if (walkbuffer + fentry->length > dirbuffer + lengthbytes) {
-			kprintf("ISO9660: Directory entry overflows buffer\n");
+			kprintf("ISO9660: Directory entry overflows buffer. fentry->length=%d lengthbytes=%d\n", fentry->length, lengthbytes);
 			break;
 		}
 
@@ -104,7 +108,6 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 		if (entrycount > 2) {
 			fs_directory_entry_t *thisentry = kmalloc(sizeof(fs_directory_entry_t));
 			if (!thisentry) {
-				entrycount--;
 				break;
 			}
 
@@ -129,8 +132,6 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 			if (info->joliet == 0) {
 				uint32_t safe_len = fentry->filename_length;
 				thisentry->filename = kmalloc(safe_len + 1);
-				dprintf("filename alloc: %d bytes\n", safe_len + 1);
-
 				uint32_t j = 0;
 				char *ptr = fentry->filename;
 
@@ -147,8 +148,6 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 			} else {
 				uint32_t safe_len = fentry->filename_length / 2;
 				thisentry->filename = kmalloc(safe_len + 1);
-				dprintf("filename alloc: %d bytes\n", safe_len + 1);
-
 				uint32_t j = 0;
 				char *ptr = fentry->filename;
 
@@ -249,9 +248,10 @@ void *iso_get_directory(void *t) {
 	fs_tree_t *treeitem = (fs_tree_t *) t;
 	if (treeitem) {
 		iso9660 *info = (iso9660 *) treeitem->opaque;
+		dprintf("iso_get_directory size: %d %d %d\n", treeitem->size, info->rootextent_len, treeitem->size ? treeitem->size : info->rootextent_len);
 		return (void *) parse_directory(treeitem, (iso9660 *) treeitem->opaque,
 						treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba,
-						treeitem->size ? treeitem->size : info->rootextent_len);
+						treeitem->size ? treeitem->size : info->rootextent_len * 2048);
 	} else {
 		kprintf("*** BUG *** iso_get_directory: null fs_tree_t*!\n");
 		return NULL;
