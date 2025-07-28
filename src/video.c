@@ -166,9 +166,13 @@ void init_console()
 		wait_forever();
 	}
 	rr_console_init_from_limine();
-	clearscreen(c);
 
 	struct limine_framebuffer* fb = framebuffer_request.response->framebuffers[0];
+
+	screen_graphics_x = fb->width;
+	screen_graphics_y = fb->height;
+
+	clearscreen(c);
 
 	dprintf("Bringing up flanterm...\n");
 
@@ -211,8 +215,6 @@ void init_console()
 	flanterm_get_dimensions(ft_ctx, &x, &y);
 	screen_x = x;
 	screen_y = y;
-	screen_graphics_x = fb->width;
-	screen_graphics_y = fb->height;
 	dprintf("Framebuffer address: %llx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
 
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
