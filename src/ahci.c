@@ -197,6 +197,9 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				port_rebase(&abar->ports[i], i);
 				storage_device_t* sd = NULL;
 				sd = kmalloc(sizeof(storage_device_t));
+				if (!sd) {
+					return;
+				}
 				sd->opaque1 = i;
 				sd->opaque2 = (void*)abar;
 				sd->blockread = storage_device_ahci_block_read;

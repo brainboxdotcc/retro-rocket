@@ -29,6 +29,9 @@ void remap_irqs_to_ioapic() {
 
 void register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void* opaque) {
 	shared_interrupt_t* si = kmalloc(sizeof(shared_interrupt_t));
+	if (!si) {
+		return;
+	}
 	si->device = device;
 	si->interrupt_handler = handler;
 	si->next = shared_interrupt[n];

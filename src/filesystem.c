@@ -86,6 +86,9 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 		if (filehandles[fd_last] == NULL) {
 			/* Initialise fs_handle_t struct */
 			filehandles[fd_last] = kmalloc(sizeof(fs_handle_t));
+			if (!filehandles[fd_last]) {
+				return -1;
+			}
 			filehandles[fd_last]->type = type;
 			filehandles[fd_last]->file = file;
 			filehandles[fd_last]->seekpos = 0;
@@ -106,14 +109,16 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 			}
 
 			fd_alloc++;
+			int ret = (int)fd_last;
 			fd_last++;
-			return fd_last - 1;
+			return ret;
 		} else {
 			fd_last++;
 
 			/* Reached the end of the list? loop back around */
-			if (fd_last >= FD_MAX)
+			if (fd_last >= FD_MAX) {
 				fd_last = 0;
+			}
 		}
 	}
 	return -1;
@@ -130,15 +135,12 @@ uint32_t destroy_filehandle(uint32_t descriptor)
 		filehandles[descriptor]->file = NULL;
 		filehandles[descriptor]->seekpos = 0;
 		if (filehandles[descriptor]->inbuf) {
-			kfree(filehandles[descriptor]->inbuf);
-			filehandles[descriptor]->inbuf = NULL;
+			kfree_null(&filehandles[descriptor]->inbuf);
 		}
 		if (filehandles[descriptor]->outbuf) {
-			kfree(filehandles[descriptor]->outbuf);
-			filehandles[descriptor]->outbuf = NULL;
+			kfree_null(&filehandles[descriptor]->outbuf);
 		}
-		kfree(filehandles[descriptor]);
-		filehandles[descriptor] = NULL;
+		kfree_null(&filehandles[descriptor]);
 		/* Make the search faster for the next process to ask
 		 * for an fd, and try to keep some semblence of POSIX
 		 * compliance by making this fd immediately available
@@ -155,6 +157,9 @@ uint32_t destroy_filehandle(uint32_t descriptor)
 fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 {
 	fs_directory_entry_t* new_entry = NULL;
+	if (!pathandfile) {
+		return NULL;
+	}
 
 	dprintf("fs_create_file '%s'\n", pathandfile);
 
@@ -176,7 +181,7 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 			break;
 		}
 	}
-	kfree(pathinfo);
+	kfree_null(&pathinfo);
 
 	dprintf("vfs create: filename: %s pathname: %s\n", filename, pathname);
 
@@ -185,14 +190,14 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 	}
 	if (*pathname == 0) {
 		/* A file located on the root directory -- special case */
-		kfree(pathname);
+		kfree_null(&pathname);
 		pathname = strdup("/");
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		dprintf("vfs create: no such path: %s\n", pathname);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 
@@ -200,8 +205,8 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 
 	if (fileinfo) {
 		dprintf("vfs create: file in %s already exists: %s\n", pathname, filename);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 	
@@ -210,6 +215,11 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 		/* Remove the deleted file from the fs_tree_t */
 		if (lbapos) {
 			new_entry = kmalloc(sizeof(fs_directory_entry_t));
+			if (!new_entry) {
+				kfree_null(&pathname);
+				kfree_null(&filename);
+				return false;
+			}
 			datetime_t dt;
 			get_datetime(&dt);
 			get_weekday_from_date(&dt);
@@ -231,8 +241,8 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 			directory->files = new_entry;
 		}
 	}
-	kfree(pathname);
-	kfree(filename);
+	kfree_null(&pathname);
+	kfree_null(&filename);
 	return new_entry;
 }
 
@@ -258,21 +268,21 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 			break;
 		}
 	}
-	kfree(pathinfo);
+	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
 		return false;
 	}
 	if (*pathname == 0) {
 		/* A file located on the root directory -- special case */
-		kfree(pathname);
+		kfree_null(&pathname);
 		pathname = strdup("/");
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		dprintf("vfs create dir: no such path: %s\n", pathname);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 
@@ -280,8 +290,8 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 
 	if (fileinfo) {
 		dprintf("vfs create dir: file in %s already exists: %s\n", pathname, filename);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 	
@@ -326,8 +336,8 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 			directory->child_dirs = new_dir;
 		}
 	}
-	kfree(pathname);
-	kfree(filename);
+	kfree_null(&pathname);
+	kfree_null(&filename);
 	return new_entry;
 }
 
@@ -651,6 +661,9 @@ void retrieve_node_from_driver(fs_tree_t* node)
 			 * from the parent dir
 			 */
 			fs_tree_t* newnode = kmalloc(sizeof(fs_tree_t));
+			if (!newnode) {
+				return;
+			}
 
 			newnode->name = x->filename;
 			newnode->lbapos = x->lbapos;
@@ -676,24 +689,26 @@ typedef struct dirstack_t
 
 fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 {
-	if (current_node != NULL && current_node->dirty != 0) {
+	if (!current_node) {
+		return NULL;
+	}
+
+	if (current_node->dirty != 0) {
 		retrieve_node_from_driver(current_node);
 	}
 	
-	if (current_node != NULL && dir_stack && current_node->name != NULL && dir_stack->name != NULL && !strcmp(current_node->name, dir_stack->name)) {
+	if (dir_stack && current_node->name != NULL && dir_stack->name != NULL && !strcmp(current_node->name, dir_stack->name)) {
 		dir_stack = dir_stack->next;
 		if (!dir_stack) {
 			return current_node;
 		}
 	}
 
-	if (current_node != NULL) {
-		fs_tree_t* dirs = current_node->child_dirs;
-		for (; dirs; dirs = dirs->next) {
-			fs_tree_t* result = walk_to_node_internal(dirs, dir_stack);
-			if (result != NULL) {
-				return result;
-			}
+	fs_tree_t* dirs = current_node->child_dirs;
+	for (; dirs; dirs = dirs->next) {
+		fs_tree_t* result = walk_to_node_internal(dirs, dir_stack);
+		if (result != NULL) {
+			return result;
 		}
 	}
 
@@ -702,6 +717,9 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 
 uint8_t verify_path(const char* path)
 {
+	if (!path || !*path) {
+		return 0;
+	}
 	/* Valid paths must start with a / and not end with a / */
 	/* The filesystem internals all work with fully qualified
 	 * pathnames. Client processes must represent 'current'
@@ -719,6 +737,9 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 		return fs_tree;
 	/* First build the dir stack */
 	dirstack_t* ds = kmalloc(sizeof(dirstack_t));
+	if (!ds) {
+		return NULL;
+	}
 	dirstack_t* walk = ds;
 	char* copy = strdup(path);
 	char* parse;
@@ -731,6 +752,9 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 			last = parse + 1;
 
                         dirstack_t* next = kmalloc(sizeof(dirstack_t));
+			if (!next) {
+				break;
+			}
 			walk->next = next;
 			next->next = 0;
 			next->name = NULL;
@@ -740,14 +764,10 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 	walk->next = NULL;
 	walk->name = strdup(last);
 	fs_tree_t* result = walk_to_node_internal(current_node, ds);
-	/*for(; ds; ds = ds->next) {
-		kfree(ds->name);
-		kfree(ds);
-	}*/
 	while (ds) {
 		dirstack_t* next = ds->next;
-		kfree(ds->name);
-		kfree(ds);
+		kfree_null(&ds->name);
+		kfree_null(&ds);
 		ds = next;
 	}
 	return result;
@@ -755,15 +775,16 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 
 fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename)
 {
-	if (!directory) {
+	if (!directory || !filename) {
 		return NULL;
 	}
 
 	fs_directory_entry_t* entry = (fs_directory_entry_t*)directory->files;
 	for (; entry; entry = entry->next) {
 		/* Don't find directories, only files */
-		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcmp(filename, entry->filename)))
+		if (((entry->flags & FS_DIRECTORY) == 0) && (!strcmp(filename, entry->filename))) {
 			return entry;
+		}
 	}
 	return NULL;
 }
@@ -817,11 +838,11 @@ int fs_truncate_file(fs_directory_entry_t* file, uint32_t length)
 
 void delete_tree_node(fs_tree_t** head_ref, const char* name)
 {
-	fs_tree_t *temp = *head_ref, *prev = NULL;
-
 	if (head_ref == NULL) {
 		return;
 	}
+
+	fs_tree_t *temp = *head_ref, *prev = NULL;
 
 	if (temp != NULL && !strcmp(temp->name, name)) {
 		*head_ref = temp->next;
@@ -829,7 +850,7 @@ void delete_tree_node(fs_tree_t** head_ref, const char* name)
 		return;
 	}
 
-	while (temp != NULL && strcmp(temp->name, name)) {
+	while (temp != NULL && strcmp(temp->name, name) != 0) {
 		prev = temp;
 		temp = temp->next;
 	}
@@ -837,26 +858,27 @@ void delete_tree_node(fs_tree_t** head_ref, const char* name)
 	if (temp == NULL) {
 		return;
 	}
-
-	prev->next = temp->next;
-	kfree(temp);
+	if (prev) {
+		prev->next = temp->next;
+	}
+	kfree_null(&temp);
 }
 
 void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 {
-	fs_directory_entry_t *temp = *head_ref, *prev = NULL;
-
 	if (head_ref == NULL) {
 		return;
 	}
 
+	fs_directory_entry_t *temp = *head_ref, *prev = NULL;
+
 	if (temp != NULL && !strcmp(temp->filename, name)) {
 		*head_ref = temp->next;
-		kfree(temp);
+		kfree_null(&temp);
 		return;
 	}
 
-	while (temp != NULL && strcmp(temp->filename, name)) {
+	while (temp != NULL && strcmp(temp->filename, name) != 0) {
 		prev = temp;
 		temp = temp->next;
 	}
@@ -865,8 +887,10 @@ void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 		return;
 	}
 
-	prev->next = temp->next;
-	kfree(temp);
+	if (prev) {
+		prev->next = temp->next;
+	}
+	kfree_null(&temp);
 }
 
 bool fs_delete_file(const char* pathandfile)
@@ -889,29 +913,29 @@ bool fs_delete_file(const char* pathandfile)
 			break;
 		}
 	}
-	kfree(pathinfo);
+	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
 		return false;
 	}
 	if (*pathname == 0) {
 		/* A file located on the root directory -- special case */
-		kfree(pathname);
+		kfree_null(&pathname);
 		pathname = strdup("/");
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		dprintf("vfs unlink: no such path: %s\n", pathname);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
 
 	if (!fileinfo) {
 		dprintf("vfs unlink: no file in %s: %s\n", pathname, filename);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 	
@@ -923,8 +947,8 @@ bool fs_delete_file(const char* pathandfile)
 			delete_file_node(&(directory->files), filename);
 		}
 	}
-	kfree(pathname);
-	kfree(filename);
+	kfree_null(&pathname);
+	kfree_null(&filename);
 	return rv;
 }
 
@@ -948,28 +972,28 @@ bool fs_delete_directory(const char* pathandfile)
 			break;
 		}
 	}
-	kfree(pathinfo);
+	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
 		return false;
 	}
 	if (*pathname == 0) {
 		/* A file located on the root directory -- special case */
-		kfree(pathname);
+		kfree_null(&pathname);
 		pathname = strdup("/");
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		dprintf("vfs rmdir: no such path: %s\n", pathname);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 	fs_directory_entry_t* fileinfo = find_dir_in_dir(directory, filename);
 	if (!fileinfo) {
 		dprintf("vfs rmdir: no such dir in %s: %s\n", pathname, filename);
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return false;
 	}
 	
@@ -988,8 +1012,8 @@ bool fs_delete_directory(const char* pathandfile)
 			dprintf("Deletion done\n");
 		}
 	}
-	kfree(pathname);
-	kfree(filename);
+	kfree_null(&pathname);
+	kfree_null(&filename);
 	return rv;
 }
 
@@ -1024,25 +1048,25 @@ fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 			break;
 		}
 	}
-	kfree(pathinfo);
+	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
 		return NULL;
 	}
 	if (*pathname == 0) {
 		/* A file located on the root directory -- special case */
-		kfree(pathname);
+		kfree_null(&pathname);
 		pathname = strdup("/");
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
-		kfree(pathname);
-		kfree(filename);
+		kfree_null(&pathname);
+		kfree_null(&filename);
 		return NULL;
 	}
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
-	kfree(pathname);
-	kfree(filename);
+	kfree_null(&pathname);
+	kfree_null(&filename);
 	return fileinfo;
 }
 
@@ -1065,7 +1089,13 @@ int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 void init_filesystem()
 {
 	filesystems = kmalloc(sizeof(filesystem_t));
+	if (!filesystems) {
+		preboot_fail("Unable to allocate memory for filesystem list");
+	}
 	fs_tree = kmalloc(sizeof(fs_tree_t));
+	if (!fs_tree) {
+		preboot_fail("Unable to allocate memory for vfs tree");
+	}
 
 	strlcpy(filesystems->name, "DummyFS", 31);
 	filesystems->mount = NULL;

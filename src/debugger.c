@@ -294,6 +294,9 @@ void init_debug()
 	uint32_t sizebytes = 0;
 	symbol_table = kmalloc(sizeof(symbol_t));
 	symbol_t* thisentry = symbol_table;
+	if (!symbol_table) {
+		return;
+	}
 
 	while (offset < filesize) {
 		counter = 0;
@@ -327,6 +330,9 @@ void init_debug()
 
 		if (*type == 'T') {
 			thisentry->name = kmalloc(length);
+			if (!thisentry->name) {
+				break;
+			}
 			memcpy(thisentry->name, symbol, length);
 			thisentry->address = hextoint(symbol_address);
 			thisentry->type = *type;

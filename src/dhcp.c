@@ -48,6 +48,9 @@ void dhcp_discover() {
 	uint8_t request_ip[4] = { 0, 0, 0, 0 };
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
 	dhcp_packet_t* packet = kmalloc(sizeof(dhcp_packet_t));
+	if (!packet) {
+		return;
+	}
 	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet);
 	kprintf("Configuring network via DHCP\n");
 	memset(packet, 0, sizeof(dhcp_packet_t));
@@ -59,6 +62,9 @@ void dhcp_discover() {
 void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
 	dhcp_packet_t* packet = kmalloc(sizeof(dhcp_packet_t));
+	if (!packet) {
+		return;
+	}
 	memset(packet, 0, sizeof(dhcp_packet_t));
 	uint16_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
 	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);

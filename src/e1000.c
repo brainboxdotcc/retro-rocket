@@ -353,6 +353,9 @@ bool e1000_start(pci_dev_t *pci_device) {
 	kprintf("e1000: MAC %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
 	netdev_t* net = kmalloc(sizeof(netdev_t));
+	if (!net) {
+		return false;
+	}
 	net->opaque = NULL;
 	net->deviceid = (INTEL_VEND << 16) | e1000_device_id;
 	make_unique_device_name("net", net->name);

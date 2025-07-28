@@ -85,6 +85,9 @@ void arp_send_packet(uint8_t* dst_hardware_addr, uint8_t* dst_protocol_addr) {
 		return;
 	}
 	arp_packet_t * arp_packet = kmalloc(sizeof(arp_packet_t));
+	if (!arp_packet) {
+		return;
+	}
 	static const char broadcast_ip_address[4] = { 255, 255, 255, 255 };
 
 	dev->get_mac_addr(arp_packet->src_hardware_addr);

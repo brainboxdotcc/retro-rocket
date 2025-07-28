@@ -10,6 +10,9 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t
 	}
 
 	ethernet_frame_t * frame = kmalloc(sizeof(ethernet_frame_t) + len);
+	if (!frame) {
+		return 0;
+	}
 	void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
 
 	dev->get_mac_addr(src_mac_addr);
@@ -48,6 +51,9 @@ bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol
 {
 	if (protocol_handlers == NULL) {
 		protocol_handlers = kmalloc(sizeof(void*) * UINT16_MAX);
+		if (!protocol_handlers) {
+			return false;
+		}
 	}
 	if (protocol_handlers[protocol_number] == NULL) {
 		protocol_handlers[protocol_number] = handler;

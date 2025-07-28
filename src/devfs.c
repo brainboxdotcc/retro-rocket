@@ -23,6 +23,9 @@ int devfs_attach([[maybe_unused]] const char* device, const char* path)
 void init_devfs()
 {
 	devfs = kmalloc(sizeof(filesystem_t));
+	if (!devfs) {
+		return;
+	}
 	strlcpy(devfs->name, "devfs", 31);
 	devfs->mount = devfs_attach;
 	devfs->getdir = devfs_get_directory;
@@ -35,6 +38,10 @@ void init_devfs()
 	devfs->rm = NULL;
 	register_filesystem(devfs);
 	devfs_entries = kmalloc(sizeof(fs_directory_entry_t));
+	if (!devfs_entries) {
+		kfree_null(&devfs);
+		return;
+	}
 	devfs_entries->next = NULL;
 	devfs_entries->size = 0;
 	devfs_entries->flags = 0;

@@ -103,6 +103,9 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 	char line_buffer[MAX_STRINGLEN];
 	char* line_ptr = line_buffer;
 	bool insert_line = true, ended = false;
+	if (!newprog) {
+		return NULL;
+	}
 	*newprog = 0;
 	while (true) {
 		if (insert_line) {
@@ -131,7 +134,7 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 	}
 	strlcat(newprog, "\n", new_size_max);
 	const char* corrected = strdup(newprog);
-	kfree(newprog);
+	kfree_null(&newprog);
 	return corrected;
 }
 

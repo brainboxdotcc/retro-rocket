@@ -25,6 +25,9 @@ unsigned char isxdigit(const char x)
 
 int strcmp(const char* s1, const char* s2)
 {
+	if (!s1 || !s2) {
+		return (int)s1 - (int)s2;
+	}
 	while (*s1 == *s2++)
 		if (*s1++ == 0)
 			return 0;
@@ -33,6 +36,9 @@ int strcmp(const char* s1, const char* s2)
 
 int stricmp(const char* s1, const char* s2)
 {
+	if (!s1 || !s2) {
+		return (int)s1 - (int)s2;
+	}
 	while (toupper(*s1) == toupper(*s2++))
 		if (*s1++ == 0)
 			return 0;
@@ -41,6 +47,9 @@ int stricmp(const char* s1, const char* s2)
 
 char* strchr(const char *s, int c)
 {
+	if (!s) {
+		return NULL;
+	}
 	for (; *s; ++s) {
 		if (*s == c) {
 			return (char*) s;
@@ -71,6 +80,9 @@ char tolower(char low) {
 
 int strnicmp(const char* s1, const char* s2, uint32_t n)
 {
+	if (!s1 || !s2) {
+		return (int)s1 - (int)s2;
+	}
 	if (n == 0)
 		return 0;
 	do {
@@ -84,6 +96,9 @@ int strnicmp(const char* s1, const char* s2, uint32_t n)
 
 int strncmp(const char* s1, const char* s2, uint32_t n)
 {
+	if (!s1 || !s2) {
+		return (int)s1 - (int)s2;
+	}
 	if (n == 0)
 		return (0);
 	do {
@@ -97,6 +112,10 @@ int strncmp(const char* s1, const char* s2, uint32_t n)
 
 uint64_t hextoint(const char* n1)
 {
+	if (!n1) {
+		return 0;
+	}
+
 	uint32_t length = strlen(n1);
 	uint64_t result = 0;
 	int i = 0, fact = 1;
@@ -127,6 +146,10 @@ uint64_t hextoint(const char* n1)
 
 uint32_t strlcat(char *dst, const char *src, uint32_t siz)
 {
+	if (!src || !dst) {
+		return 0;
+	}
+
 	char *d = dst;
 	const char *s = src;
 	uint32_t n = siz, dlen;
@@ -157,6 +180,10 @@ uint32_t strlcat(char *dst, const char *src, uint32_t siz)
 
 uint32_t strlcpy(char *dst, const char *src, uint32_t siz)
 {
+	if (!src || !dst) {
+		return 0;
+	}
+
 	char *d = dst;
 	const char *s = src;
 	uint32_t n = siz;
@@ -204,6 +231,9 @@ bool isspace(const char x)
 
 char* strdup(const char* string)
 {
+	if (!string) {
+		return NULL;
+	}
 	uint32_t len = strlen(string) + 1;
 	char* result = kmalloc(len);
 	strlcpy(result, string, len);
@@ -213,6 +243,9 @@ char* strdup(const char* string)
 
 char* gc_strdup(const char* string)
 {
+	if (!string) {
+		return NULL;
+	}
 	uint32_t len = strlen(string) + 1;
 	char* result = kmalloc(len);
 	strlcpy(result, string, len);
@@ -249,6 +282,10 @@ int gc()
 
 bool atof(const char* s, double* a)
 {
+	if (!s || !a) {
+		return false;
+	}
+
 	*a = 0.0f;
 	int e = 0;
 	int c;
@@ -290,6 +327,10 @@ bool atof(const char* s, double* a)
 
 int atoi(const char *s)
 {
+	if (!s) {
+		return 0;
+	}
+
 	static const char digits[] = "0123456789";  /* legal digits in order */
 	int val = 0;	 /* value we're accumulating */
 	char neg = 0;	      /* set to true if we see a minus sign */
@@ -343,6 +384,10 @@ int atoi(const char *s)
 
 int64_t atoll(const char *s, int radix)
 {
+	if (!s) {
+		return 0;
+	}
+
 	static const char ddigits[] = "0123456789";  /* legal digits in order */
 	static const char xdigits[] = "0123456789ABCDEF";  /* legal digits in order */
 	const char* digits = radix == 16 ? xdigits : ddigits;
@@ -401,6 +446,10 @@ int64_t atoll(const char *s, int radix)
 
 uint64_t atoull(const char *s)
 {
+	if (!s) {
+		return 0;
+	}
+
 	static const char digits[] = "0123456789";  /* legal digits in order */
 	uint64_t val=0;	 /* value we're accumulating */
 
@@ -444,11 +493,18 @@ uint64_t atoull(const char *s)
 
 size_t strrev(char* s)
 {
+	if (!s) {
+		return 0;
+	}
 	return memrev(s, strlen(s));
 }
 
 int do_atoi(int64_t* dst, char* target, unsigned radix)
 {
+	if (!dst || !target) {
+		return -1;
+	}
+
 	int64_t res = 0;
 	bool looped = false;
 	bool sign = false;
@@ -493,6 +549,10 @@ int do_atoi(int64_t* dst, char* target, unsigned radix)
 
 int do_itoa(int64_t target, char* buf, unsigned radix)
 {
+	if (!buf) {
+		return -1;
+	}
+
 	if (radix < 2 || radix > 36) {
 		return -1;
 	}

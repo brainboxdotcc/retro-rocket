@@ -34,6 +34,9 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 {
 	dprintf("*** scanning gpt entries ***\n");
 	uint8_t* buffer = kmalloc(sd->block_size);
+	if (!buffer) {
+		return false;
+	}
 	uint32_t entry_number = 0;
 	uint8_t partition_type[16];
 	guid_to_binary(partition_type_guid, partition_type);
