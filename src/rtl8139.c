@@ -275,6 +275,8 @@ void init_rtl8139() {
 		kprintf("rtl8139: BAR0 not IO-mapped! Value: 0x%x\n", rtl8139_device.bar_type);
 	}
 
+	interrupts_off();
+
 	// Power on and reset
 	rtl_outb(Config1, 0x0);
 	rtl_outb(ChipCmd, CMDRESET);
@@ -282,6 +284,7 @@ void init_rtl8139() {
 	while ((rtl_inb(ChipCmd) & CMDRESET) != 0) {
 		if (time(NULL) - reset_start >= 3) {
 			kprintf("RTL8139: Device would not reset within 3 seconds. Faulty hardware? Not enabled.\n");
+			interrupts_on();
 			return;
 		}
 	}
@@ -347,9 +350,5 @@ void init_rtl8139() {
 	net->next = NULL;
 	register_network_device(net);
 
-	dprintf("RTL8139 REGISTER DUMP:\n");
-	for (uint32_t i = 0; i <= 0x6C; i += 4) {
-		uint32_t val = rtl_inl(i);
-		dprintf("%02X: %08x\n", i, val);
-	}
+	interrupts_on();
 }

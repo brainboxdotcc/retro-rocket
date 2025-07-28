@@ -57,8 +57,6 @@ void kmain()
         preboot_fail("Failed to mount boot drive to VFS!");
     }
 
-    init_rtl8139();
-    init_e1000();
     netdev_t* network = get_active_network_device();
     if (network) {
         kprintf("Active network card: %s\n", network->description);
@@ -95,6 +93,8 @@ init_func_t init_funcs[] = {
     init_iso9660,
     init_devfs,
     init_fat32,
+    init_rtl8139,
+    init_e1000,
     NULL,
 };
 ```
@@ -120,6 +120,8 @@ Each function is executed in sequence with logging.
 | 13    | `init_iso9660`                 | ISO9660 read-only FS                     |
 | 14    | `init_devfs`                   | /devices virtual filesystem              |
 | 15    | `init_fat32`                   | FAT32 support                            |
+| 16    | `init_rtl8139`                 | Realtek RTL8139 network driver           |
+| 17    | `init_e1000`                   | Intel e1000 network driver               |
 
 ---
 
