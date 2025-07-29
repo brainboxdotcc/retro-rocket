@@ -347,16 +347,16 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 		 */
 		uint16_t frag_offset = ((uint16_t)packet->frag.fragment_offset_low | ((uint16_t)packet->frag.fragment_offset_high << 8));
 		if (!packet->frag.dont_fragment) {
+			if (frag_map == NULL) {
+				/* First time we see a fragmented packet, make the hashmap to hold them */
+				frag_map = hashmap_new(sizeof(ip_fragmented_packet_parts_t), 0, 564364368549036, 67545346834, ip_frag_hash, ip_frag_compare, NULL, NULL);
+			}
 			if (packet->frag.more_fragments_follow) {
 				dprintf("Fragment is one of set (MF)\n");
 				/* Packet is part of a fragmented set */
 				if (frag_offset == 0) {
 					dprintf("First fragment\n");
 					/* First fragment */
-					if (frag_map == NULL) {
-						/* First time we see a fragmented packet, make the hashmap to hold them */
-						frag_map = hashmap_new(sizeof(ip_fragmented_packet_parts_t), 0, 564364368549036, 67545346834, ip_frag_hash, ip_frag_compare, NULL, NULL);
-					}
 					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL };
 					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
 					if (!fragment) {

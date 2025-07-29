@@ -105,3 +105,13 @@ typedef struct icmp_timestamp_packet {
 void icmp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len);
 
 void icmp_send_echo(uint32_t destination, uint16_t id, uint16_t seq);
+
+void icmp_send_time_exceeded(ip_packet_t* original_ip, uint8_t code);
+
+void icmp_send_destination_unreachable(ip_packet_t* original_ip, uint8_t code);
+
+void icmp_send_parameter_problem(ip_packet_t* original_ip, uint8_t pointer_offset);
+
+void icmp_send_redirect(ip_packet_t* original_ip, uint8_t code, uint32_t new_gateway_ip);
+
+void icmp_send_fragmentation_needed(ip_packet_t* original_ip, uint16_t mtu);

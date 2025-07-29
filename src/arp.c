@@ -35,7 +35,7 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 		if (gethostaddr(addr)) {
 			my_ip = *(uint32_t*)addr;
 		}
-		if (memcmp(arp_packet->dst_protocol_addr, &my_ip, 4)) {
+		if (memcmp(arp_packet->dst_protocol_addr, &my_ip, 4) == 0) {
 
 			netdev_t* dev = get_active_network_device();
 			if (!dev) {
@@ -61,8 +61,7 @@ void arp_handle_packet(arp_packet_t* arp_packet, [[maybe_unused]] int len) {
 
 			ethernet_send_packet(dst_hardware_addr, (uint8_t*)arp_packet, sizeof(arp_packet_t), ETHERNET_TYPE_ARP);
 		}
-	}
-	else if(ntohs(arp_packet->opcode) == ARP_REPLY) {
+	} else if(ntohs(arp_packet->opcode) == ARP_REPLY) {
 	}
 
 	uint8_t dummy[6];
