@@ -2,32 +2,25 @@
 
 uint16_t icmp_calculate_checksum(void* packet, size_t len)
 {
+	int array_size = len / 2;
+	uint16_t * array = (uint16_t*)packet; // XXX: Alignment!
 	uint32_t sum = 0;
-	uint8_t* bytes = (uint8_t*)packet;
-
-	for (size_t i = 0; i + 1 < len; i += 2) {
-		uint16_t word = (bytes[i] << 8) | bytes[i + 1];
-		sum += word;
+	for(int i = 0; i < array_size; i++) {
+		sum += htons(array[i]);
 	}
-
-	if (len & 1) {
-		uint16_t last = bytes[len - 1] << 8;
-		sum += last;
-	}
-
-	while (sum >> 16)
-		sum = (sum & 0xFFFF) + (sum >> 16);
-
-	return ~sum;
+	uint32_t carry = sum >> 16;
+	sum = sum & 0x0000ffff;
+	sum = sum + carry;
+	uint16_t ret = ~sum;
+	return ret;
 }
 
-void icmp_send(uint32_t destination, void* icmp, uint16_t size)
+void icmp_send(uint8_t* destination, void* icmp, uint16_t size)
 {
-	dump_hex(icmp, size);
-	ip_send_packet((uint8_t*)&destination, icmp, size, PROTOCOL_ICMP);
+	ip_send_packet(destination, icmp, size, PROTOCOL_ICMP);
 }
 
-void icmp_send_echo(uint32_t destination, uint16_t id, uint16_t seq)
+void icmp_send_echo(uint8_t* destination, uint16_t id, uint16_t seq)
 {
 	icmp_echo_packet_t echo = {
 		.type = ICMP_ECHO,
@@ -104,7 +97,6 @@ void icmp_send_fragmentation_needed(ip_packet_t* original_ip, uint16_t mtu)
 void icmp_send_echo_reply(ip_packet_t* encap_packet, icmp_echo_packet_t* req, size_t len)
 {
 	if (len < sizeof(icmp_echo_packet_t)) {
-		kprintf("Echo packet too small\n");
 		return;
 	}
 	// Reuse original request buffer for reply
@@ -124,7 +116,6 @@ void icmp_send_echo_reply(ip_packet_t* encap_packet, icmp_echo_packet_t* req, si
 
 	char src_ip[20];
 	get_ip_str(src_ip, encap_packet->src_ip);
-	kprintf("ICMP TX: to IP %s len=%d id=%04x seq=%04x sum=%04x\n", src_ip, len, ntohs(reply->id), ntohs(reply->seq), sum);
 	icmp_send(encap_packet->src_ip, reply_buf, (uint16_t)len);
 }
 
@@ -303,10 +294,12 @@ void icmp_handle_packet(ip_packet_t* encap_packet, icmp_packet_t* packet, size_t
 {
 	uint16_t received_sum = packet->checksum;      // Save the existing checksum
 	packet->checksum = 0;                          // Zero it for calculation
-	uint16_t calc_sum = icmp_calculate_checksum(packet, len);
+	uint16_t calc_sum = htons(icmp_calculate_checksum(packet, len));
 	packet->checksum = received_sum;               // Restore it
-
-	kprintf("ICMP RX: type=%d code=%d received_sum=%04x calculated_sum=%04x\n", packet->type, packet->code, received_sum, calc_sum);
+	if (calc_sum != received_sum) {
+		// Invalid checksum, drop ICMP packet
+		return;
+	}
 
 	switch (packet->type) {
 		case ICMP_ECHO_REPLY:

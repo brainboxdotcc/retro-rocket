@@ -104,7 +104,7 @@ typedef struct icmp_timestamp_packet {
  */
 void icmp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len);
 
-void icmp_send_echo(uint32_t destination, uint16_t id, uint16_t seq);
+void icmp_send_echo(uint8_t* destination, uint16_t id, uint16_t seq);
 
 void icmp_send_time_exceeded(ip_packet_t* original_ip, uint8_t code);
 
