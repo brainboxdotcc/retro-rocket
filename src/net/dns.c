@@ -3,6 +3,7 @@
 static uint16_t id = 1;
 uint16_t dns_query_port = 0;
 static struct hashmap* dns_replies = NULL;
+static struct hashmap* dns_cache = NULL;
 
 void dns_result_ready(dns_header_t* header, dns_request_t* request, unsigned length, char** error, char* res, uint8_t* outlength);
 uint8_t dns_collect_request(uint16_t id, char* result, size_t max);
@@ -21,6 +22,12 @@ static int dns_request_compare(const void *a, const void *b, [[maybe_unused]] vo
     return fa->id == fb->id ? 0 : (fa->id < fb->id ? -1 : 1);
 }
 
+static int dns_cache_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
+	const dns_cache_entry_t* fa = a;
+	const dns_cache_entry_t* fb = b;
+	return strcmp(fa->host, fb->host);
+}
+
 /**
  * @brief Hash two DNS requests by ID
  * 
@@ -32,6 +39,15 @@ static int dns_request_compare(const void *a, const void *b, [[maybe_unused]] vo
 static uint64_t dns_request_hash(const void *item, uint64_t seed0, uint64_t seed1) {
     const dns_request_t* header = item;
     return (uint64_t)header->id * seed0 * seed1;
+}
+
+static uint64_t dns_cache_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+	const dns_cache_entry_t* header = item;
+	uint64_t seed = 0, pos = 0;
+	for (const char* x = header->host; *x; ++x) {
+		seed += *x * pos++;
+	}
+	return (uint64_t)seed * seed0 * seed1;
 }
 
 /**
@@ -102,7 +118,7 @@ static int dns_send_request(const char * const name, uint32_t resolver_ip, dns_r
 
 /**
  * @brief Build a binary payload for a request for a specific type of DNS entry
- * 
+ *
  * @param name name to resolve. Even reverse DNS uses these label-separated names
  * @param rr Resource record - identifies the type of record, e.g. A, AAAA, PTR, CNAME
  * @param rr_class Resource record class
@@ -174,14 +190,14 @@ void dns_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, vo
 				}
 			}  else if (request->callback_aaaa && request->type == DNS_QUERY_AAAA) {
 				dprintf("Query result AAAA\n");
-				uint8_t result[16];
+				uint8_t result[16] = { 0 };
 				if (dns_collect_request(inbound_id, (char*)&result, 16)) {
 					dprintf("dns AAAA result collected\n");
 					request->callback_aaaa(result, (const char*)request->orig, inbound_id);
 				}
 			} else if (request->callback_ptr && request->type == DNS_QUERY_PTR4) {
 				dprintf("Query result PTR4\n");
-				char result[256];
+				char result[256] = { 0 };
 				if (dns_collect_request(inbound_id, (char*)&result, sizeof(result))) {
 					dprintf("dns PTR4 result collected: %s\n", result);
 					request->callback_ptr(result, 0, inbound_id);
@@ -399,6 +415,17 @@ uint8_t dns_collect_request(uint16_t id, char* result, size_t max)
 	if (request && request->result_length != 0) {
 		uint8_t len = request->result_length;
 		memcpy(result, request->result, max > request->result_length ? max : request->result_length);
+
+		if (request->type == DNS_QUERY_A) {
+			char ip[16] = { 0 };
+			get_ip_str(ip, (const uint8_t*)result);
+			dprintf("Cached result '%s' -> '%s'\n", request->orig, ip);
+			dns_cache_entry_t cache_entry = {
+				.host = strdup((const char *) request->orig),
+				.result = strdup(ip),
+			};
+			hashmap_set(dns_cache, &cache_entry);
+		}
 		kfree_null(&request->orig);
 		hashmap_delete(dns_replies, request);
 		return len;
@@ -423,15 +450,33 @@ void dns_delete_request(uint16_t id)
 	}
 }
 
-uint16_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint32_t timeout, dns_reply_callback_a callback)
+bool is_cached(uint32_t* ip, const char* hostname)
+{
+	if (!ip) {
+		return false;
+	}
+	dns_cache_entry_t find_cache = {
+		.host = hostname,
+	};
+	dns_cache_entry_t* cached = (dns_cache_entry_t*)hashmap_get(dns_cache, &find_cache);
+	if (cached) {
+		dprintf("Returned cached DNS %s -> %s\n", hostname, cached->result);
+		*ip = str_to_ip(cached->result);
+		return true;
+	}
+	*ip = 0;
+	return false;
+}
+
+uint32_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint32_t* ip, dns_reply_callback_a callback)
 {
 	dns_request_t request;
 	dns_header_t h;
 	int length;
 
-	if (timeout == 0) {
-		timeout = 5;
-	}
+	if (ip && is_cached(ip, hostname)) {
+		return DNS_RESULT_CACHED;
+	};
 
 	if ((length = dns_make_payload(hostname, DNS_QUERY_A, 1, (unsigned char*)&h.payload)) == -1) {
 		return 0;
@@ -447,54 +492,47 @@ uint16_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint3
 
 	dns_send_request(hostname, resolver_ip, &request, &h, length, DNS_QUERY_A);
 
-	return ntohs(h.id);
+	return h.id;
 
 }
 
-uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t timeout)
+uint32_t dns_blocking_wait_for_result(uint32_t request_id, uint32_t timeout_ms)
 {
-	dns_request_t request;
-	dns_header_t h;
-	int length;
 	uint32_t result = 0;
-
-	if (timeout == 0) {
-		timeout = 5;
+	if (timeout_ms == 0) {
+		timeout_ms = 5000;
 	}
+	timeout_ms /= 10; // Timer is only 1 centi-second resolution, not 1ms
+	time_t now = get_ticks();
 
-	if ((length = dns_make_payload(hostname, DNS_QUERY_A, 1, (unsigned char*)&h.payload)) == -1) {
-		return 0;
-	}
-
-	h.flags1 = FLAGS_MASK_RD;
-	h.flags2 = 0;
-	h.qdcount = 1;
-	h.ancount = h.nscount = h.arcount = 0;
-	request.callback_a = NULL;
-	request.callback_aaaa = NULL;
-	request.callback_ptr = NULL;
-
-	dns_send_request(hostname, resolver_ip, &request, &h, length, DNS_QUERY_A);
-	time_t now = time(NULL);
-
-	while (!dns_request_is_completed(h.id)) {
+	while (!dns_request_is_completed(request_id)) {
 		__asm__ volatile("hlt");
-		if (time(NULL) - now > timeout) {
+		if (get_ticks() - now > timeout_ms) {
 			/* Request timed out */
-			dns_delete_request(h.id);
+			dns_delete_request(request_id);
 			return 0;
 		}
 	}
-	if (dns_collect_request(h.id, (char*)&result, sizeof(uint32_t))) {
+	if (dns_collect_request(request_id, (char*)&result, sizeof(uint32_t))) {
 		return result;
 	}
 
 	return 0;
 }
 
+uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t timeout_ms)
+{
+	uint32_t ip = 0, request_id = dns_lookup_host_async(resolver_ip, hostname, &ip,  NULL);
+	if (request_id == DNS_RESULT_CACHED) {
+		return ip;
+	}
+	return dns_blocking_wait_for_result(request_id, timeout_ms);
+}
+
 void init_dns()
 {
 	dns_replies = hashmap_new(sizeof(dns_request_t), 0, 6453563734, 7645356235, dns_request_hash, dns_request_compare, NULL, NULL);
+	dns_cache = hashmap_new(sizeof(dns_cache_entry_t), 0, 6453563734, 7645356235, dns_cache_hash, dns_cache_compare, NULL, NULL);
 	/* Let the IP stack decide on the port number to use */
 	dns_query_port = udp_register_daemon(0, &dns_handle_packet);
 	if (dns_query_port == 0) {

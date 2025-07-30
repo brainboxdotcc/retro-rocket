@@ -22,6 +22,12 @@
 #define FLAGS_MASK_Z 0x70
 #define FLAGS_MASK_RA 0x80
 
+/**
+ * Returned by dns_lookup_host_async() if the result is immediately
+ * available in the ip parameter, and the ip parameter was non-NULL.
+ */
+#define DNS_RESULT_CACHED 0xFFFFFFFF
+
 enum query_type_t {
 	/** Uninitialized Query */
 	DNS_QUERY_NONE	= 0,
@@ -38,16 +44,6 @@ enum query_type_t {
 	DNS_QUERY_PTR4	= 0xFFFD,
 	/** Force 'PTR' to use IPV6 scemantics */
 	DNS_QUERY_PTR6	= 0xFFFE
-};
-
-/** Represents a dns resource record (rr)
- */
-struct ResourceRecord
-{
-	uint8_t type;		/* Record type */
-	uint32_t rr_class;	/* Record class */
-	uint32_t ttl;		/* Time to live */
-	uint32_t rdlength;	/* Record length */
 };
 
 /** Represents a dns request/reply header, and its payload as opaque data.
@@ -80,6 +76,11 @@ typedef struct dns_request {
 	dns_reply_callback_ptr callback_ptr; /* For later */
 } dns_request_t;
 
+typedef struct dns_cache_entry_t {
+	const char* host;
+	const char* result;
+} dns_cache_entry_t;
+
 typedef struct resource_record {
 	uint16_t type;		/* Record type */
 	uint16_t rr_class;	/* Record class */
@@ -100,11 +101,11 @@ struct dns_result_t {
  * 
  * @param resolver_ip The IP of the resolver to use, in network byte order
  * @param hostname Host address to resolve
- * @param timeout Timeout in seconds
+ * @param timeout_ms Timeout in millisseconds
  * @return uint32_t Resolved IP address. On error or timeout, the return value is 0,
  * which translates to 0.0.0.0.
  */
-uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t timeout);
+uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t timeout_ms);
 
 /**
  * @brief Look up an IPV4 hostname to IP address, with timeout
@@ -113,13 +114,15 @@ uint32_t dns_lookup_host(uint32_t resolver_ip, const char* hostname, uint32_t ti
  * 
  * @param resolver_ip The IP of the resolver to use, in network byte order
  * @param hostname Host address to resolve
- * @param timeout Timeout in seconds
+ * @param ip Pointer to uint32_t IP address to immediately return if the result is cached
  * @param dns_reply_callback_a Callback to receive the resolved IP address.
  * If an error occured during resolution, the received IP address will be 0,
  * which is a representation of 0.0.0.0.
- * @return uint16_t Request ID that was submitted, or 0 on error
+ * @return uint16_t Request ID that was submitted, or 0 on error.
+ * a special value DNS_RESULT_CACHED (0xffffffff) is returned if the result was immediately
+ * filled from the DNS cache.
  */
-uint16_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint32_t timeout, dns_reply_callback_a callback);
+uint32_t dns_lookup_host_async(uint32_t resolver_ip, const char* hostname, uint32_t* ip, dns_reply_callback_a callback);
 
 /**
  * @brief Initialise DNS protocol.

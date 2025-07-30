@@ -188,7 +188,7 @@ char* basic_dns(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("DNS$","");
 	char ip[16] = { 0 };
-	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2);
+	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
 	get_ip_str(ip, (uint8_t*)&addr);
 	return gc_strdup(ip);
 }
