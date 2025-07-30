@@ -116,7 +116,10 @@ void ip_idle()
 		time_t current_time = time(NULL);
 		packet_queue_item_t* cur = packet_queue;
 		packet_queue_item_t* last = NULL;
-		for (; cur; cur = cur->next) {
+
+		for (; cur; ) {
+			/* Save next pointer early, because cur may be freed */
+			packet_queue_item_t* next = cur->next;
 
 			/* Here we determine if the packet is destined for the local net or the
 			 * internet at large. The calculation is actually very easy, we just AND
@@ -129,7 +132,7 @@ void ip_idle()
 			 * is the IP address of the target machine otherwise is the IP of the
 			 * router. This is then used in arp_lookup() to decide which mac address
 			 * we send the packet to.
-			 * 
+			 *
 			 * Note that if we have no gateway address everything is considered local.
 			 *
 			 * These addresses are all in network byte order - it doesn't matter, so
@@ -148,19 +151,25 @@ void ip_idle()
 				/* The ARP for this MAC has come back now, we can send the packet! */
 				ethernet_send_packet(dst_hardware_addr, (uint8_t*)cur->packet, htons(cur->packet->length), ETHERNET_TYPE_IP);
 				dequeue_packet(cur, last);
+				/* do not advance last, because cur was freed */
 			} else if (is_local && cur->arp_tries < 2 && current_time - cur->last_arp > 0) {
 				/* After one second, ARP didn't come back, try it again up to 3 times */
 				cur->arp_tries++;
 				cur->last_arp = current_time;
 				arp_send_packet(zero_hardware_addr, arp_dest);
+				last = cur; /* safe to advance last, we kept cur */
 			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 10) {
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
 				 * Packet still didn't get an ARP reply. Dequeue it as a lost packet.
 				 */
 				dprintf("Failed ARP resolution after 3 tries to %08x at %d\n", arp_dest, current_time);
 				dequeue_packet(cur, last);
+				/* again, don't advance last */
+			} else {
+				last = cur; /* still alive, advance last */
 			}
-			last = cur;
+
+			cur = next; /* always advance from saved next pointer */
 		}
 	}
 }

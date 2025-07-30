@@ -251,7 +251,7 @@ void *iso_get_directory(void *t) {
 		dprintf("iso_get_directory size: %d %d %d\n", treeitem->size, info->rootextent_len, treeitem->size ? treeitem->size : info->rootextent_len);
 		return (void *) parse_directory(treeitem, (iso9660 *) treeitem->opaque,
 						treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba,
-						treeitem->size ? treeitem->size : info->rootextent_len * 2048);
+						treeitem->size ? treeitem->size : (info->rootextent_len == 1 ? 2048 : info->rootextent_len));
 	} else {
 		kprintf("*** BUG *** iso_get_directory: null fs_tree_t*!\n");
 		return NULL;

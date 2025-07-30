@@ -99,6 +99,18 @@ typedef struct tcp_ordered_list_t {
 	struct tcp_ordered_list_t* next;
 } tcp_ordered_list_t;
 
+typedef struct tcp_conn_t tcp_conn_t;
+
+typedef struct pending_node {
+	tcp_conn_t *conn;
+	struct pending_node *next;
+} pending_node_t;
+
+typedef struct {
+	pending_node_t *head;
+	pending_node_t *tail;
+} queue_t;
+
 typedef struct tcp_conn_t
 {
 	tcp_state_t state;
@@ -141,6 +153,10 @@ typedef struct tcp_conn_t
 	uint32_t msl_time;	// Maximum socket lifetime timeout or 0
 
 	tcp_ordered_list_t* segment_list;
+
+	int backlog;
+
+	queue_t* pending;
 } tcp_conn_t;
 
 /**
@@ -166,6 +182,8 @@ typedef enum tcp_error_code_t {
 	TCP_ERROR_INVALID_SOCKET = -9,
 	TCP_ERROR_CONNECTION_FAILED = -10,
 	TCP_LAST_ERROR = -11,
+	TCP_ERROR_NOT_LISTENING = -12,
+	TCP_ERROR_WOULD_BLOCK = -13,
 } tcp_error_code_t;
 
 /**
@@ -247,3 +265,109 @@ const char* socket_error(int error_code);
  * @brief Idle loop ran from timer ISR
  */
 void tcp_idle();
+
+/**
+ * @brief Allocate a new empty queue
+ *
+ * @return queue_t* newly allocated queue, or NULL on failure
+ */
+queue_t* queue_new(void);
+
+/**
+ * @brief Push a tcp_conn_t into the queue
+ *
+ * @param q queue
+ * @param conn TCP connection to enqueue
+ */
+void queue_push(queue_t *q, tcp_conn_t *conn);
+
+/**
+ * @brief Pop the oldest tcp_conn_t from the queue
+ *
+ * @param q queue
+ * @return tcp_conn_t* dequeued connection, or NULL if empty
+ */
+tcp_conn_t* queue_pop(queue_t *q);
+
+/**
+ * @brief Return true if queue is empty
+ *
+ * @param q queue
+ * @return true if empty, false otherwise
+ */
+bool queue_empty(queue_t *q);
+
+/**
+ * @brief Free all nodes in the queue and the queue itself
+ *
+ * @param q queue
+ */
+void queue_free(queue_t *q);
+
+/**
+ * @brief Allocate a new file descriptor for a TCP connection.
+ * @note O(n) time
+ *
+ * @param conn Pointer to the TCP connection.
+ * @return File descriptor number on success, or -1 on failure.
+ */
+int tcp_allocate_fd(tcp_conn_t* conn);
+
+/**
+ * @brief Free a previously allocated TCP file descriptor.
+ * @note O(1) time
+ *
+ * @param x File descriptor number to free.
+ */
+void tcp_free_fd(int x);
+
+/**
+ * @brief Find a TCP connection by its file descriptor.
+ * @note O(1) time
+ *
+ * @param x File descriptor number.
+ * @return Pointer to the TCP connection if found, or NULL if not found.
+ */
+tcp_conn_t* tcp_find_by_fd(int x);
+
+/**
+ * @brief Dump debug info for a TCP segment
+ *
+ * @param encap_packet encapsulating IP packet
+ * @param segment TCP segment
+ * @param options TCP options
+ * @param len TCP length
+ * @param our_checksum calculated checksum
+ */
+void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum);
+
+/**
+ * @brief Create a listening TCP socket.
+ *
+ * Binds a TCP connection control block (TCB) to the given local address
+ * and port, and transitions it into the LISTEN state. A pending connection
+ * queue is created to hold half‑open connections until they are accepted.
+ *
+ * @param addr    Local IPv4 address to bind to (network byte order).
+ * @param port    Local TCP port to listen on (host byte order).
+ * @param backlog Maximum number of pending connections that may be queued.
+ *
+ * @return File descriptor for the listening socket on success, or a
+ *         negative TCP_ERROR code on failure.
+ */
+int tcp_listen(uint32_t addr, uint16_t port, int backlog);
+
+/**
+ * @brief Accept an incoming connection on a listening socket.
+ *
+ * Removes one pending connection from the listening socket’s queue and
+ * allocates a new file descriptor for it. The connection will be in the
+ * ESTABLISHED state upon return.
+ *
+ * @param socket File descriptor of a socket previously placed in the
+ *               LISTEN state using tcp_listen().
+ *
+ * @return File descriptor for the accepted connection on success, or a
+ *         negative TCP_ERROR code on failure.
+ */
+int tcp_accept(int socket);

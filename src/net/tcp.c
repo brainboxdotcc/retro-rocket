@@ -1,7 +1,6 @@
 #include <kernel.h>
 
 static struct hashmap* tcb = NULL;
-static tcp_conn_t* fd[FD_MAX] = { 0 };
 
 /* Must match up with order and amount of error messages in tcp_error_code_t */
 static const char* error_messages[] = {
@@ -36,33 +35,7 @@ uint32_t get_isn()
 	return (time(NULL) * 1000) - (get_ticks() % 1000);
 }
 
-int tcp_allocate_fd(tcp_conn_t* conn)
-{
-	for (size_t x = 0; x < FD_MAX; ++x) {
-		if (fd[x] == NULL) {
-			fd[x] = conn;
-			return x;
-		}
-	}
-	return -1;
-}
-
-void tcp_free_fd(int x)
-{
-	if (x >= 0 && x < FD_MAX) {
-		fd[x] = NULL;
-	}
-}
-
-tcp_conn_t* tcp_find_by_fd(int x)
-{
-	if (x >= 0 && x < FD_MAX) {
-		return fd[x];
-	}
-	return NULL;
-}
-
-bool seq_lt(uint32_t x, uint32_t y) 
+bool seq_lt(uint32_t x, uint32_t y)
 {
 	return ((int)(x - y) < 0);
 }
@@ -114,11 +87,21 @@ uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1)
 void tcp_free(tcp_conn_t* conn)
 {
 	// Delete any outstanding segments
-	for (tcp_ordered_list_t* t = conn->segment_list; t; t = t->next) {
+	for (tcp_ordered_list_t* t = conn->segment_list; t; ) {
+		tcp_ordered_list_t* next = t->next;
 		kfree_null(&t->segment);
 		kfree_null(&t);
+		t = next;
 	}
 	conn->segment_list = NULL;
+
+	// Free pending queue if it exists
+	if (conn->pending) {
+		queue_free(conn->pending);
+		conn->pending = NULL;
+	}
+	conn->backlog = 0;
+
 	// Remove the TCB
 	hashmap_delete(tcb, conn);
 }
@@ -152,55 +135,6 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	add_random_entropy(sum ^ (uint64_t)pseudo);
 	kfree_null(&pseudo);
 	return ~sum;
-}
-
-/**
- * @brief Dump debug info for a TCP segment
- * 
- * @param encap_packet encapsulating IP packet
- * @param segment TCP segment
- * @param options TCP options
- * @param len TCP length
- * @param our_checksum calculated checksum
- */
-void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum)
-{
-#if (TCP_TRACE != 1)
-	return;
-#endif
-	const char *states[] = { "LISTEN","SYN-SENT","SYN-RECEIVED","ESTABLISHED","FIN-WAIT-1","FIN-WAIT-2","CLOSE-WAIT","CLOSING","LAST-ACK","TIME-WAIT" };
-	char source_ip[15] = { 0 }, dest_ip[15] = { 0 };
-	get_ip_str(source_ip, encap_packet->src_ip);
-	get_ip_str(dest_ip, encap_packet->dst_ip);
-	dprintf(
-		"TCP %s: %s %s:%d->%s:%d len=%ld seq=%d ack=%d off=%d flags[%c%c%c%c%c%c%c%c] win=%d, sum=%04x/%04x, urg=%d",
-		in ? "IN" : "OUT",
-		conn ? states[conn->state] : "CLOSED",
-		source_ip,
-		segment->src_port,
-		dest_ip,
-		segment->dst_port,
-		len,
-		segment->seq,
-		segment->ack,
-		segment->flags.off,
-		segment->flags.fin ? 'F' : '-',
-		segment->flags.syn ? 'S' : '-',
-		segment->flags.rst ? 'R' : '-',
-		segment->flags.psh ? 'P' : '-',
-		segment->flags.ack ? 'A' : '-',
-		segment->flags.urg ? 'U' : '-',
-		segment->flags.ece ? 'E' : '-',
-		segment->flags.cwr ? 'C' : '-',
-		segment->window_size,
-		segment->checksum,
-		our_checksum,
-		segment->urgent
-	);
-	if (options && options->mss) {
-		dprintf(" [opt.mss=%d]", options->mss);
-	}
-	dprintf("\n");
 }
 
 /**
@@ -431,94 +365,85 @@ int tcp_write(tcp_conn_t* conn, const void* data, size_t count)
  */
 tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 {
-	tcp_ordered_list_t* cur = NULL, *next_ord = NULL;
-	tcp_segment_t *prev = NULL;
+	tcp_ordered_list_t *cur = conn->segment_list;
+	tcp_ordered_list_t *next_ord = NULL;
 
-	for (cur = conn->segment_list; cur; cur = cur->next) {
-		if (seq_lte(segment->seq, cur->segment->seq)) {
-			break;
-		}
+	// find insertion point
+	while (cur && seq_lt(cur->segment->seq, segment->seq)) {
+		cur = cur->next;
 	}
 
-	if (cur != NULL && cur->prev != NULL) {
-		prev = cur->prev->segment;
+	// check overlap with previous
+	if (cur && cur->prev) {
+		tcp_segment_t *prev = cur->prev->segment;
 		size_t prev_end = prev->seq + cur->prev->len;
-		if (seq_gte(prev_end, segment->seq + len)) {
-			// Packet overlaps this packet, drop this packet
+
+		if (segment->seq == prev->seq && len == cur->prev->len) {
+			// exact duplicate → drop
 			return NULL;
-		} else if (seq_gt(prev_end, segment->seq)) {
-			// cut off end to fit segments together, this partially overwrites the other
-			cur->prev->len -= prev_end + segment->seq;
+		}
+
+		if (seq_gt(prev_end, segment->seq)) {
+			// overlap: shrink the previous segment so this one overwrites
+			cur->prev->len = segment->seq - prev->seq;
 		}
 	}
 
-	// If we receive a FIN, clear the list of any packets after this one and free memory
-	if (segment->flags.fin && cur != NULL) {
-		while (cur) {
+	// remove any existing segments fully covered by the new one
+	while (cur) {
+		size_t new_end = segment->seq + len;
+		size_t cur_end = cur->segment->seq + cur->len;
+
+		if (seq_gte(new_end, cur_end)) {
+			// new completely covers cur → remove cur
 			next_ord = cur->next;
+			if (cur->prev) cur->prev->next = cur->next;
+			if (cur->next) cur->next->prev = cur->prev;
+			if (conn->segment_list == cur) conn->segment_list = next_ord;
 			kfree_null(&cur->segment);
 			kfree_null(&cur);
 			cur = next_ord;
+			continue;
 		}
+
+		if (seq_gt(new_end, cur->segment->seq)) {
+			// partial overlap → shrink cur from the left
+			size_t overlap = new_end - cur->segment->seq;
+			cur->segment->seq += overlap;
+			cur->len -= overlap;
+		}
+
+		break; // no further overlaps possible
 	}
 
-	while (cur) {
-		size_t seg_end = segment->seq + len;
-		size_t cur_end = cur->segment->seq + cur->len;
-
-		if (seq_lt(seg_end, cur->segment->seq)) {
-			// No overlap
-			break;
-		}
-
-		if (seq_lt(seg_end, cur_end)) {
-			len -= seg_end - cur->segment->seq;
-		}
-
-		/* Remove element */
-		next_ord = cur->next;
-		if (cur->prev != NULL) {
-			cur->prev->next = cur->next;
-		}
-		if (cur->next != NULL) {
-			cur->next->prev = cur->prev;
-		}
-		if (cur->next == NULL && cur->prev == NULL) {
-			conn->segment_list = NULL;
-		} else if (cur != NULL && cur == conn->segment_list) {
-			conn->segment_list = cur->next;
-		}
-		kfree_null(&cur->segment);
-		kfree_null(&cur);
-
-		cur = next_ord;
-	}
-
-	tcp_ordered_list_t* new = kmalloc(sizeof(tcp_ordered_list_t));
+	// allocate new node
+	tcp_ordered_list_t *new = kmalloc(sizeof(tcp_ordered_list_t));
 	new->segment = kmalloc(len + tcp_header_size(segment));
 	memcpy(new->segment, segment, len + tcp_header_size(segment));
 	new->len = len;
-	new->next = NULL;
 	new->prev = NULL;
+	new->next = NULL;
 
+	// insert before cur
 	if (cur) {
-		if (cur->prev != NULL) {
-			// Not first item
-			cur->prev->next = new;
-			new->prev = cur->prev;
-		}
-		if (cur->next != NULL) {
-			// Not last item
-			cur->next->prev = new;
-			new->next = cur->next;
-		}
-		if (new->prev == NULL) {
-			// First item, replace list ptr
+		new->next = cur;
+		new->prev = cur->prev;
+		cur->prev = new;
+		if (new->prev) {
+			new->prev->next = new;
+		} else {
 			conn->segment_list = new;
 		}
 	} else {
-		// Only item
-		conn->segment_list = new;
+		// end of list
+		if (conn->segment_list) {
+			tcp_ordered_list_t *tail = conn->segment_list;
+			while (tail->next) tail = tail->next;
+			tail->next = new;
+			new->prev = tail;
+		} else {
+			conn->segment_list = new;
+		}
 	}
 
 	return new->segment;
@@ -533,44 +458,58 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
  */
 void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 {
-	tcp_ordered_list_t* cur;
-	for (cur = conn->segment_list; cur; cur = cur->next) {
+	tcp_ordered_list_t* cur = conn->segment_list;
+
+	while (cur) {
+		// If this segment isn't the next expected, stop
 		if (conn->rcv_nxt != cur->segment->seq) {
 			break;
 		}
-		// This is now received data, accounting for options
+
+		// Adjust for options
 		uint8_t* payload = cur->segment->payload;
 		size_t payload_len = cur->len;
 		if (cur->segment->flags.off > TCP_PACKET_SIZE_OFF) {
-			size_t options_len = ((cur->segment->flags.off - TCP_PACKET_SIZE_OFF) * 4);
-			payload += options_len;
-			payload_len -= options_len;
+			size_t options_len = (cur->segment->flags.off - TCP_PACKET_SIZE_OFF) * 4;
+			if (options_len < payload_len) {
+				payload += options_len;
+				payload_len -= options_len;
+			} else {
+				payload_len = 0; // corrupt options length safeguard
+			}
 		}
 
 		// increment what we have received in our connection state
 		conn->rcv_nxt += payload_len;
 
+		// Append to recv buffer
 		if (payload_len > 0) {
-			// Add received data to the high level receive buffer
-			conn->recv_buffer = krealloc(conn->recv_buffer, payload_len + conn->recv_buffer_len);
-			memcpy(conn->recv_buffer + conn->recv_buffer_len, payload, payload_len);
+			conn->recv_buffer = krealloc(conn->recv_buffer,
+						     conn->recv_buffer_len + payload_len);
+			memcpy(conn->recv_buffer + conn->recv_buffer_len,
+			       payload, payload_len);
 			conn->recv_buffer_len += payload_len;
 		}
 
+		// Save next before freeing
+		tcp_ordered_list_t* next = cur->next;
+
 		// Remove from doubly linked list
-		if (cur->prev != NULL) {
+		if (cur->prev) {
 			cur->prev->next = cur->next;
 		}
-		if (cur->next != NULL) {
+		if (cur->next) {
 			cur->next->prev = cur->prev;
 		}
-		if (cur->next == NULL && cur->prev == NULL) {
-			conn->segment_list = NULL;
-		} else if (cur != NULL && cur == conn->segment_list) {
+		if (cur == conn->segment_list) {
 			conn->segment_list = cur->next;
 		}
+
 		kfree_null(&cur->segment);
 		kfree_null(&cur);
+
+		// Advance
+		cur = next;
 	}
 }
 
@@ -1123,6 +1062,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.send_buffer_len = 0;
 	conn.recv_buffer_spinlock = 0;
 	conn.send_buffer_spinlock = 0;
+	conn.pending = NULL;
+	conn.backlog = 0;
 
 	tcp_set_state(&conn, TCP_SYN_SENT);
 	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
@@ -1269,4 +1210,94 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 		return amount_to_recv;
 	}
 	return 0;
+}
+
+int tcp_listen(uint32_t addr, uint16_t port, int backlog)
+{
+	if (tcp_port_in_use(addr, port, TCP_PORT_LOCAL)) {
+		return TCP_ERROR_PORT_IN_USE;
+	}
+
+	tcp_conn_t conn;
+	memset(&conn, 0, sizeof(conn));
+
+	unsigned char ip[4] = { 0 };
+	gethostaddr(ip);
+
+	conn.local_addr = *((uint32_t*)&ip);
+	conn.local_port = tcp_alloc_port(conn.local_addr, port, TCP_PORT_LOCAL);
+	conn.remote_addr = 0;
+	conn.remote_port = 0;
+
+	tcp_set_state(&conn, TCP_LISTEN);
+
+	conn.backlog = backlog;
+	conn.pending = queue_new();
+	if (!conn.pending) {
+		return TCP_ERROR_OUT_OF_MEMORY;
+	}
+
+	hashmap_set(tcb, &conn);
+
+	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr,
+					conn.local_port, conn.remote_port);
+	if (!new_conn) {
+		queue_free(conn.pending);
+		return TCP_ERROR_OUT_OF_MEMORY;
+	}
+
+	new_conn->fd = tcp_allocate_fd(new_conn);
+	if (new_conn->fd == -1) {
+		queue_free(new_conn->pending);
+		tcp_free(new_conn);
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	return new_conn->fd;
+}
+
+int tcp_accept(int socket)
+{
+	tcp_conn_t* listener = tcp_find_by_fd(socket);
+	if (!listener) {
+		return TCP_ERROR_INVALID_SOCKET;
+	}
+	if (listener->state != TCP_LISTEN) {
+		return TCP_ERROR_NOT_LISTENING;
+	}
+
+	if (queue_empty(listener->pending)) {
+		return TCP_ERROR_WOULD_BLOCK;
+	}
+
+	tcp_conn_t* conn = queue_pop(listener->pending);
+	if (!conn) {
+		return TCP_ERROR_CONNECTION_FAILED;
+	}
+
+	/* Defensive initialisation (mirror tcp_connect defaults) */
+	conn->fd = -1;
+	conn->segment_list = NULL;
+	conn->recv_eof_pos = -1;
+	conn->send_eof_pos = -1;
+	conn->recv_buffer = NULL;
+	conn->send_buffer = NULL;
+	conn->recv_buffer_len = 0;
+	conn->send_buffer_len = 0;
+	conn->recv_buffer_spinlock = 0;
+	conn->send_buffer_spinlock = 0;
+	conn->pending = NULL;
+	conn->backlog = 0;
+
+	conn->snd_wnd = TCP_WINDOW_SIZE;
+	conn->rcv_wnd = TCP_WINDOW_SIZE;
+
+	conn->fd = tcp_allocate_fd(conn);
+	if (conn->fd == -1) {
+		tcp_free(conn);
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+	tcp_set_state(conn, TCP_SYN_RECEIVED);
+
+	return conn->fd;
 }

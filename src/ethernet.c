@@ -54,6 +54,7 @@ bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol
 		if (!protocol_handlers) {
 			return false;
 		}
+		memset(protocol_handlers, 0, sizeof(void*) * UINT16_MAX);
 	}
 	if (protocol_handlers[protocol_number] == NULL) {
 		protocol_handlers[protocol_number] = handler;
