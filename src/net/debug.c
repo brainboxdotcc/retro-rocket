@@ -2,9 +2,7 @@
 
 void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet, const tcp_segment_t* segment, const tcp_options_t* options, size_t len, uint16_t our_checksum)
 {
-#if (TCP_TRACE != 1)
-	return;
-#endif
+#ifdef TCP_TRACE
 	const char *states[] = { "LISTEN","SYN-SENT","SYN-RECEIVED","ESTABLISHED","FIN-WAIT-1","FIN-WAIT-2","CLOSE-WAIT","CLOSING","LAST-ACK","TIME-WAIT" };
 	char source_ip[15] = { 0 }, dest_ip[15] = { 0 };
 	get_ip_str(source_ip, encap_packet->src_ip);
@@ -12,7 +10,7 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 	dprintf(
 		"TCP %s: %s %s:%d->%s:%d len=%ld seq=%d ack=%d off=%d flags[%c%c%c%c%c%c%c%c] win=%d, sum=%04x/%04x, urg=%d",
 		in ? "IN" : "OUT",
-		conn ? states[conn->state] : "CLOSED",
+		conn ? states[conn->state] : "<invalid>",
 		source_ip,
 		segment->src_port,
 		dest_ip,
@@ -38,4 +36,5 @@ void tcp_dump_segment(bool in, tcp_conn_t* conn, const ip_packet_t* encap_packet
 		dprintf(" [opt.mss=%d]", options->mss);
 	}
 	dprintf("\n");
+#endif
 }

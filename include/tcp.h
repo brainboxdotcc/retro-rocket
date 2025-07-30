@@ -10,6 +10,9 @@
 #define TCP_WINDOW_SIZE		65535
 #define TCP_PACKET_SIZE_OFF	5
 
+/* Set this to output or record a trace of the TCP I/O. This is very noisy! */
+#define TCP_TRACE
+
 // checksummed part of ip segment
 typedef struct tcp_ip_pseudo_header_t
 {
@@ -181,9 +184,10 @@ typedef enum tcp_error_code_t {
 	TCP_ERROR_OUT_OF_MEMORY = -8,
 	TCP_ERROR_INVALID_SOCKET = -9,
 	TCP_ERROR_CONNECTION_FAILED = -10,
-	TCP_LAST_ERROR = -11,
-	TCP_ERROR_NOT_LISTENING = -12,
-	TCP_ERROR_WOULD_BLOCK = -13,
+	TCP_ERROR_NOT_LISTENING = -11,
+	TCP_ERROR_WOULD_BLOCK = -12,
+	TCP_CONNECTION_TIMED_OUT = -13,
+	TCP_LAST_ERROR = -14,
 } tcp_error_code_t;
 
 /**

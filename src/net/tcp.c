@@ -2,6 +2,10 @@
 
 static struct hashmap* tcb = NULL;
 
+static uint32_t isn_rand_base = 0;
+static uint32_t isn_tick_base = 0;
+static int isn_init = 0;
+
 /* Must match up with order and amount of error messages in tcp_error_code_t */
 static const char* error_messages[] = {
 	"Socket is already closing",
@@ -14,10 +18,10 @@ static const char* error_messages[] = {
 	"Out of memory",
 	"Invalid socket descriptor",
 	"Connection failed",
+	"Socket not listening",
+	"Accept would block",
+	"Connection timed out",
 };
-
-/* Set this to output or record a trace of the TCP I/O. This is very noisy! */
-#define TCP_TRACE 0
 
 bool tcp_state_receive_fin(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len);
 
@@ -32,27 +36,38 @@ const char* socket_error(int error_code)
 
 uint32_t get_isn()
 {
-	return (time(NULL) * 1000) - (get_ticks() % 1000);
+	if (!isn_init) {
+		isn_rand_base = (uint32_t)(mt_rand() & 0xffffffffULL);
+		isn_tick_base = get_ticks();
+		isn_init = 1;
+	}
+
+	// delta since init
+	uint32_t delta = (get_ticks() - isn_tick_base) * 2500; // 250k/sec
+
+	return isn_rand_base + delta;
 }
+
+
 
 bool seq_lt(uint32_t x, uint32_t y)
 {
-	return ((int)(x - y) < 0);
+	return ((int32_t)(x - y) < 0);
 }
 
 bool seq_lte(uint32_t x, uint32_t y)
 {
-	return ((int)(x - y) <= 0);
+	return ((int32_t)(x - y) <= 0);
 }
 
 bool seq_gt(uint32_t x, uint32_t y)
 {
-	return ((int)(x - y) > 0);
+	return ((int32_t)(x - y) > 0);
 }
 
 bool seq_gte(uint32_t x, uint32_t y)
 {
-	return ((int)(x - y) >= 0);
+	return ((int32_t)(x - y) >= 0);
 }
 
 /**
@@ -304,15 +319,19 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	memcpy((void*)packet->payload + (flags & TCP_SYN ? 4 : 0), data, count);
 
 	packet->checksum = htons(tcp_calculate_checksum(&encap, packet, length));
+
+#ifdef TCP_TRACE
+	tcp_byte_order_in(packet);
+	tcp_dump_segment(false, conn, &encap, packet, &options, length, packet->checksum);
+	tcp_byte_order_out(packet);
+#endif
+
 	ip_send_packet(encap.dst_ip, packet, length, PROTOCOL_TCP);
 
 	conn->snd_nxt += count;
 	if (flags & (TCP_SYN | TCP_FIN)) {
 		++conn->snd_nxt;
 	}
-
-	tcp_byte_order_in(packet);
-	tcp_dump_segment(false, conn, &encap, packet, &options, length, packet->checksum);
 
 	kfree_null(&packet);
 
@@ -546,21 +565,39 @@ bool tcp_send_ack(tcp_conn_t* conn)
  * @param len length of segment
  * @return true if we are to continue processing
  */
-bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
+bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment,
+			tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
+	dprintf("SYN_SENT: iss=%u snd_nxt=%u seg.ack=%u\n",
+		conn->iss, conn->snd_nxt, segment->ack);
+
 	if (segment->flags.ack) {
-		if (seq_lte(segment->ack, conn->iss) || seq_gt(segment->ack, conn->snd_nxt)) {
+		// RFC 793: acceptable if ISS < SEG.ACK <= SND.NXT
+		if (!(seq_gt(segment->ack, conn->iss) && seq_lte(segment->ack, conn->snd_nxt + 1))) {
 			if (!segment->flags.rst) {
+				dprintf(
+					"rejecting with RST: iss=%u snd_nxt=%u seg.ack=%u, "
+					"seq_gt(seg.ack, iss)=%d seq_lte(seg.ack, snd_nxt)=%d\n",
+					conn->iss, conn->snd_nxt, segment->ack,
+					seq_gt(segment->ack, conn->iss),
+					seq_lte(segment->ack, conn->snd_nxt + 1)
+				);
 				tcp_send_segment(conn, segment->ack, TCP_RST, NULL, 0);
 			}
+			dprintf(
+				"unacceptable ACK, dropping connection: iss=%u snd_nxt=%u seg.ack=%u\n",
+				conn->iss, conn->snd_nxt, segment->ack
+			);
+			return true; // unacceptable ACK, drop/abort
 		}
 	}
 
+
 	if (segment->flags.rst) {
 		if (segment->flags.ack) {
-			// TOD: Connection reset
+			// TODO: Connection reset (propagate upwards)
+			dprintf("TODO: Connection reset, propogate into conn_t\n");
 		}
-
 		return true;
 	}
 
@@ -588,8 +625,10 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_c
 			tcp_send_segment(conn, conn->snd_nxt, TCP_SYN | TCP_ACK, NULL, 0);
 		}
 	}
+
 	return true;
 }
+
 
 /**
  * @brief Called when state is SYN-RECEIVED
@@ -910,15 +949,10 @@ void tcp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, tcp_segment_t
 	uint16_t our_checksum = tcp_calculate_checksum(encap_packet, segment, len);
 	tcp_byte_order_in(segment);
 	tcp_parse_options(segment, &options);
-	if (our_checksum == segment->checksum) {
-		tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
-		if (conn) {
-			//tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
-			tcp_state_machine(encap_packet, segment, conn, &options, len);
-		}
-	} else {
-		dprintf("tcp packet with invalid checksum\n");
-		//tcp_dump_segment(true, NULL, encap_packet, segment, &options, len, our_checksum);
+	tcp_conn_t* conn = tcp_find(*((uint32_t*)(&encap_packet->dst_ip)), *((uint32_t*)(&encap_packet->src_ip)), segment->dst_port, segment->src_port);
+	tcp_dump_segment(true, conn, encap_packet, segment, &options, len, our_checksum);
+	if (conn && our_checksum == segment->checksum) {
+		tcp_state_machine(encap_packet, segment, conn, &options, len);
 	}
 }
 
@@ -1023,6 +1057,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	uint32_t isn = get_isn();
 	unsigned char ip[4] = { 0 };
 
+	dprintf("tcp_connect isn: %u\n", isn);
+
 	gethostaddr(ip);
 
 	conn.remote_addr = target_addr;
@@ -1041,7 +1077,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 
 	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
 	conn.snd_una = isn;
-	conn.snd_nxt = isn;
+	conn.snd_nxt = isn + 1;
 	conn.snd_lst = conn.rcv_lst = 0;
 	conn.iss = isn;
 	conn.snd_wnd = TCP_WINDOW_SIZE;
@@ -1066,7 +1102,6 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.backlog = 0;
 
 	tcp_set_state(&conn, TCP_SYN_SENT);
-	tcp_send_segment(&conn, conn.snd_nxt, TCP_SYN, NULL, 0);
 	hashmap_set(tcb, &conn);
 
 	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
@@ -1077,6 +1112,7 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 			tcp_free(new_conn);
 			return TCP_ERROR_OUT_OF_DESCRIPTORS;
 		}
+		tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN, NULL, 0);
 		return new_conn->fd;
 	} else {
 		return TCP_ERROR_OUT_OF_MEMORY;
@@ -1146,8 +1182,8 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 	time_t start = get_ticks();
 	while (conn && conn->state < TCP_ESTABLISHED) {
 		__asm__ volatile("hlt");
-		if (get_ticks() - start > 100) {
-			return TCP_ERROR_CONNECTION_FAILED;
+		if (get_ticks() - start > 300) {
+			return TCP_CONNECTION_TIMED_OUT;
 		}
 	};
 	return conn->state == TCP_ESTABLISHED ? result : TCP_ERROR_CONNECTION_FAILED;
