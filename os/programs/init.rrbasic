@@ -9,6 +9,8 @@ PRINT "..."
 MOUNT "/devices", "", "devfs"
 MOUNT "/harddisk", "hd0", "fat32"
 
+KEYMAP "qemu"
+
 REPEAT
 	PRINT "Launching ";
 	COLOR 14

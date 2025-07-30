@@ -60,6 +60,7 @@ const int keywords[] = {
 	GOTO,
 	IF,
 	INPUT,
+	KEYMAP,
 	LET,
 	LIBRARY,
 	LINE,

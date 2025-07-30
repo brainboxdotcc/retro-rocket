@@ -829,6 +829,8 @@ void statement(struct basic_ctx* ctx)
 			return autoflip_statement(ctx);
 		case FLIP:
 			return flip_statement(ctx);
+		case KEYMAP:
+			return keymap_statement(ctx);
 		case SPRITELOAD:
 			return loadsprite_statement(ctx);
 		case SPRITEFREE:

@@ -135,7 +135,8 @@
 	T(SPRITEFREE) \
 	T(PLOT) \
         T(AUTOFLIP) \
-        T(FLIP) \
+        T(FLIP)  \
+        T(KEYMAP) \
 	T(MOUNT)
 
 /*

@@ -221,6 +221,7 @@ void init_console()
 	printf("Retro-Rocket ");
 	setforeground(current_console, COLOUR_WHITE);
 	printf("64-bit SMP kernel booting\n");
+	rr_flip();
 
 	init_debug();
 }

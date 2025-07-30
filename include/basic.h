@@ -848,6 +848,7 @@ void gotoxy_statement(struct basic_ctx* ctx);
 void print_statement(struct basic_ctx* ctx);
 void colour_statement(struct basic_ctx* ctx, int tok);
 void background_statement(struct basic_ctx* ctx);
+void keymap_statement(struct basic_ctx* ctx);
 
 /* Flow control */
 bool conditional(struct basic_ctx* ctx);

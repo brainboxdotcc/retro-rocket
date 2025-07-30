@@ -81,6 +81,7 @@ typedef struct ip_fragmented_packet_parts {
 	uint16_t id;
 	uint32_t size;
 	ip_packet_frag_t* ordered_list;
+	uint64_t last_seen_ticks;
 } ip_fragmented_packet_parts_t;
 
 typedef struct packet_queue_item {

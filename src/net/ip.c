@@ -4,6 +4,11 @@
  * Reference: https://datatracker.ietf.org/doc/html/rfc791
  */
 
+#define MAX_REASSEMBLIES 64
+#define FRAG_TIMEOUT_TICKS 300 // ~30s at 100Hz
+#define FRAG_GC_INTERVAL 150 // ~15s at 100Hz
+#define FRAG_MEM_LIMIT (2 * 1024 * 1024)
+
 uint16_t last_id;
 uint8_t my_ip[4] = {0, 0, 0, 0};
 uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
@@ -13,7 +18,7 @@ char ip_addr[4] = { 0, 0, 0, 0 };
 int is_ip_allocated = 0;
 uint32_t dns_addr = 0, gateway_addr = 0, netmask = 0;
 struct hashmap *frag_map = NULL;
-
+static size_t frag_mem_total = 0;
 
 void get_ip_str(char* ip_str, const uint8_t* ip)
 {
@@ -74,6 +79,45 @@ uint32_t getnetmask() {
 	return netmask;
 }
 
+static void free_frag_list(ip_packet_frag_t *list) {
+	ip_packet_frag_t *cur = list;
+	while (cur) {
+		ip_packet_frag_t *next = cur->next;
+		if (cur->packet) {
+			kfree_null(&cur->packet);
+		}
+		kfree_null(&cur);
+		cur = next;
+	}
+}
+
+
+void ip_frag_gc(void) {
+	size_t i = 0;
+	void *item;
+	uint64_t ticks = get_ticks();
+
+	interrupts_off();
+	while (hashmap_iter(frag_map, &i, &item)) {
+		ip_fragmented_packet_parts_t *frag = item;
+
+		if ((ticks - frag->last_seen_ticks > FRAG_TIMEOUT_TICKS) ||
+		    (frag_mem_total > FRAG_MEM_LIMIT)) {
+			// free fragments & adjust memory usage
+			free_frag_list(frag->ordered_list);
+			frag_mem_total -= frag->size;
+
+			// Important: deleting while iterating invalidates the iterator.
+			// The docs say you *must* reset `i=0` after.
+			hashmap_delete(frag_map, frag);
+			i = 0; // restart iteration
+		}
+	}
+	interrupts_on();
+}
+
+
+
 uint16_t ip_calculate_checksum(ip_packet_t * packet) {
 	// Treat the packet header as a 2-byte-integer array
 	// Sum all integers switch to network byte order
@@ -110,6 +154,9 @@ void dequeue_packet(packet_queue_item_t* cur, packet_queue_item_t* last) {
 	kfree_null(&cur);
 }
 
+/**
+ * @brief 100Hz background task hooked to local APIC timer
+ */
 void ip_idle()
 {
 	if (packet_queue) {
@@ -171,6 +218,15 @@ void ip_idle()
 
 			cur = next; /* always advance from saved next pointer */
 		}
+	}
+}
+
+/**
+ * @brief Indeterminate frequency foreground task that steals cycles from idle
+ */
+void ip_foreground() {
+	if ((get_ticks() % FRAG_GC_INTERVAL) == 0) {
+		ip_frag_gc();
 	}
 }
 
@@ -343,16 +399,23 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 		size_t data_len = ntohs(packet->length) - (packet->ihl * 4);
 		bool fragment_to_free = false;
 
-		/* For fragmented packets, we store up the fragments into an ordered list, sorted by frag offset.
-		 * Once we receive the very last fragment, we can deliver it all as one. We store each list of packet
-		 * waiting to be reassembled into a hashmap keyed by id, so they can be accessed in O(n) time.
-		 * 
-		 * Lists of fragments are stored in offset order, so that higher offsets overwrite lower ones, if there
-		 * is some kind of bug in the remote system or an intentional exploit pointed at us.
-		 * 
-		 * BUG, FIXME: If we never receive the ending fragment for a fragmented group of packets, the memory
-		 * used stays used! This could be abused, and must be fixed:
-		 * https://en.wikipedia.org/wiki/IP_fragmentation_attack#Exploits
+		/* For fragmented packets, we store the fragments in an ordered list,
+		 * sorted by fragment offset. Higher offsets overwrite lower ones to
+		 * defend against duplicate or malicious fragments.
+		 *
+		 * Each fragmented set is tracked in a hashmap keyed by the packet ID.
+		 * Fragments are appended as they arrive. Once the final fragment is
+		 * received, the full packet is reassembled and the entries removed
+		 * from the hashmap.
+		 *
+		 * To prevent resource abuse (e.g. incomplete sets never finishing),
+		 * each fragmented set records a last_seen_ticks timestamp. A
+		 * background GC routine runs periodically (from the scheduler idle
+		 * loop or timer tick) and reaps any sets that have exceeded the
+		 * timeout window, releasing their memory safely.
+		 *
+		 * This closes the long‑standing DoS hole where attackers could leak
+		 * memory by sending endless partial fragment sets.
 		 */
 		uint16_t frag_offset = ((uint16_t)packet->frag.fragment_offset_low | ((uint16_t)packet->frag.fragment_offset_high << 8));
 		if (!packet->frag.dont_fragment) {
@@ -366,8 +429,8 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 				if (frag_offset == 0) {
 					dprintf("First fragment\n");
 					/* First fragment */
-					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL };
-					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
+					ip_fragmented_packet_parts_t fragmented = { .id = packet->id, .size = data_len, .ordered_list = NULL, .last_seen_ticks = get_ticks() };
+					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t));
 					if (!fragment) {
 						return;
 					}
@@ -389,7 +452,8 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 						dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
 						return;
 					}
-					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
+					fragmented->last_seen_ticks = get_ticks();
+					ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t));
 					if (!fragment) {
 						return;
 					}
@@ -416,7 +480,8 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
 					return;
 				}
-				ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t*));
+				fragmented->last_seen_ticks = get_ticks();
+				ip_packet_frag_t* fragment = kmalloc(sizeof(ip_packet_frag_t));
 				if (!fragment) {
 					return;
 				}
@@ -483,4 +548,5 @@ void ip_init()
 	ethernet_register_iee802_number(ETHERNET_TYPE_IP, (ethernet_protocol_t)ip_handle_packet);
 	ethernet_register_iee802_number(ETHERNET_TYPE_IP6, (ethernet_protocol_t)ip6_handle_packet);
 	proc_register_idle(ip_idle, IDLE_BACKGROUND);
+	proc_register_idle(ip_foreground, IDLE_BACKGROUND);
 }

@@ -35,6 +35,18 @@ function(copy_font TARGETFILE SOURCEFILE)
     add_dependencies(ISO font_${SOURCEFILE})
 endfunction()
 
+function(copy_system_keymap SOURCEFILE)
+    set(FILENAME "${CMAKE_SOURCE_DIR}/os/system/keymaps/${SOURCEFILE}")
+    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/system/keymaps/${SOURCEFILE}")
+    add_custom_command(OUTPUT ${OUTNAME}
+            COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/system/keymaps" && cp ${FILENAME} ${OUTNAME}
+            DEPENDS ${FILENAME})
+    add_custom_target(keymap_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
+    add_dependencies("kernel.bin" keymap_${SOURCEFILE})
+    add_dependencies(ISO keymap_${SOURCEFILE})
+endfunction()
+
+
 function(copy_image TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/images/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/images/${TARGETFILE}")
@@ -118,6 +130,6 @@ function(iso TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND xorriso -as mkisofs --quiet -b limine-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso"
-        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list})
+        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${keymap_list})
     add_dependencies(ISO SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh")
 endfunction()

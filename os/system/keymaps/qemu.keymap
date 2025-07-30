@@ -1,0 +1,112 @@
+# Keymap matching built‑in en‑GB arrays (printables only)
+
+# Number row
+&02  1 !
+&03  2 @
+&04  3 ~
+&05  4 $
+&06  5 %
+&07  6 ^
+&08  7 &
+&09  8 *
+&0A  9 (
+&0B  0 )
+&0C  - _
+&0D  = +
+
+# Top row
+&10  q Q
+&11  w W
+&12  e E
+&13  r R
+&14  t T
+&15  y Y
+&16  u U
+&17  i I
+&18  o O
+&19  p P
+&1A  [ {
+&1B  ] }
+&1C  &0D &0D # Enter
+
+# Left block
+&1E  a A
+&1F  s S
+&20  d D
+&21  f F
+&22  g G
+&23  h H
+&24  j J
+&25  k K
+&26  l L
+&27  ; :
+&28  ' "
+&29  &23 ~
+&2B  \ |
+
+# Lower row
+&2C  z Z
+&2D  x X
+&2E  c C
+&2F  v V
+&30  b B
+&31  n N
+&32  m M
+&33  , <
+&34  . >
+&35  / ?
+
+# Space and modifiers
+&39   &20   &20      # space
+&0F   &09   &09      # Tab
+&01   &1B   &1B      # Esc
+&0E   &08   &08      # Backspace
+&3A   0 0      # Caps Lock
+&2A   0 0      # Left Shift
+&36   0 0      # Right Shift
+&1D   0 0      # Ctrl
+&38   0 0      # Alt
+
+# Function keys
+&3B 0 0    # F1
+&3C 0 0    # F2
+&3D 0 0    # F3
+&3E 0 0    # F4
+&3F 0 0    # F5
+&40 0 0    # F6
+&41 0 0    # F7
+&42 0 0    # F8
+&43 0 0    # F9
+&44 0 0    # F10
+&57 0 0    # F11
+&58 0 0    # F12
+
+# Navigation keys
+&47 &07 &07   # Home
+&48 0 0       # Up
+&49 &0B &0B   # Page Up
+&4B 0 0       # Left
+&4D 0 0       # Right
+&4F &23 &23   # End
+&50 0 0       # Down
+&51 &22 &22   # Page Down
+&52 &7F &7F   # Insert
+&53 &08 &08   # Delete
+
+# Numpad
+&45 0 0       # Num Lock
+&37 * *
+&4A - -
+&4E + +
+&35 / /
+&47 7 7
+&48 8 8
+&49 9 9
+&4B 4 4
+&4C 5 5
+&4D 6 6
+&4F 1 1
+&50 2 2
+&51 3 3
+&52 0 0
+&53 . .

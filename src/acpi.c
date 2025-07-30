@@ -114,8 +114,10 @@ void init_cores() {
 	uint8_t *rsdt = (uint8_t *) get_sdt_header();
 	numcore = 0;
 	numioapic = 0;
+	rr_flip();
 
 	init_uacpi();
+	rr_flip();
 
 	// Iterate on ACPI table pointers
 	for (len = *((uint32_t *) (rsdt + 4)), ptr2 = rsdt + 36; ptr2 < rsdt + len; ptr2 += rsdt[0] == 'X' ? 8 : 4) {
@@ -169,6 +171,7 @@ void init_cores() {
 		}
 	}
 	enumerate_all_gsis();
+	rr_flip();
 	/* Fallback to just irq == gsi for anything not detected in MADT or _PRT */
 	dprintf("Full IRQ->GSI MAP\n");
 	for (int i = 0; i < 256; ++i) {
@@ -195,6 +198,7 @@ void init_cores() {
 	for (int i = 0; i < 16; ++i) {
 		dprintf("IRQ %d maps to GSI %d\n", i, irq_to_gsi(i));
 	}
+	rr_flip();
 }
 
 uint32_t irq_to_gsi(uint8_t irq) {

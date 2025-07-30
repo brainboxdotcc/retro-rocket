@@ -215,3 +215,34 @@ char* printable_syntax(struct basic_ctx* ctx)
 	}
 	return gc_strdup(out);
 }
+
+void keymap_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(KEYMAP, ctx);
+	const char* filename = str_expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+
+	char path[1024];
+	snprintf(path, sizeof(path), "/system/keymaps/%s.keymap", filename);
+
+	fs_directory_entry_t* fsi = fs_get_file_info(path);
+	if (!fsi || fsi->flags & FS_DIRECTORY) {
+		tokenizer_error_print(ctx, "Keymap file not found");
+		return;
+	}
+
+	unsigned char* keymap = kmalloc(fsi->size + 1);
+	if (!keymap) {
+		tokenizer_error_print(ctx, "Out of memory");
+		return;
+	}
+	keymap[fsi->size] = 0;
+
+	if (fs_read_file(fsi, 0, fsi->size, keymap)) {
+		load_keymap_from_string((const char*)keymap);
+	} else {
+		tokenizer_error_print(ctx, "Failed to read keymap file");
+	}
+
+	kfree_null(&keymap);
+}
