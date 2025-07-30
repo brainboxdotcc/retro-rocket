@@ -1143,10 +1143,10 @@ int connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port, bo
 		return result;
 	}
 	tcp_conn_t* conn = tcp_find_by_fd(result);
-	time_t start = time(NULL);
+	time_t start = get_ticks();
 	while (conn && conn->state < TCP_ESTABLISHED) {
 		__asm__ volatile("hlt");
-		if (time(NULL) - start > 10) {
+		if (get_ticks() - start > 100) {
 			return TCP_ERROR_CONNECTION_FAILED;
 		}
 	};
@@ -1186,9 +1186,9 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 	}
 
 	if (blocking) {
-		time_t now = time(NULL);
+		time_t now = get_ticks();
 		while (conn->recv_buffer_len == 0 || conn->recv_buffer == NULL) {
-			if (time(NULL) - now > timeout || conn->state != TCP_ESTABLISHED) {
+			if (get_ticks() - now > timeout || conn->state != TCP_ESTABLISHED) {
 				return TCP_ERROR_CONNECTION_FAILED;
 			}
 		}

@@ -50,11 +50,11 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol_t handler)
 {
 	if (protocol_handlers == NULL) {
-		protocol_handlers = kmalloc(sizeof(void*) * UINT16_MAX);
+		protocol_handlers = kmalloc(sizeof(void*) * (UINT16_MAX + 1));
 		if (!protocol_handlers) {
 			return false;
 		}
-		memset(protocol_handlers, 0, sizeof(void*) * UINT16_MAX);
+		memset(protocol_handlers, 0, sizeof(void*) * (UINT16_MAX + 1));
 	}
 	if (protocol_handlers[protocol_number] == NULL) {
 		protocol_handlers[protocol_number] = handler;

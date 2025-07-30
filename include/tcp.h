@@ -371,3 +371,5 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog);
  *         negative TCP_ERROR code on failure.
  */
 int tcp_accept(int socket);
+
+int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port);

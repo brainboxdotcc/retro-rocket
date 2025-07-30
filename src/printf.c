@@ -271,7 +271,6 @@ int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const
 int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
 	dput(c);
-	//put(current_console, c);
 	return 0;
 }
 
@@ -282,6 +281,11 @@ int vprintf(const char *fmt, va_list args)
 
 int dvprintf(const char *fmt, va_list args)
 {
+	char counter[25];
+	do_itoa(get_ticks(), counter, 10);
+	dput('[');
+	dputstring(counter);
+	dputstring("]: ");
 	return do_printf(fmt, SIZE_MAX, args, dvprintf_help, NULL);
 }
 
@@ -303,7 +307,6 @@ int dprintf(const char *fmt, ...)
 
 	va_start(args, fmt);
 	rv = dvprintf(fmt, args);
-	//rv = vprintf(fmt, args);
 	va_end(args);
 	return rv;
 }

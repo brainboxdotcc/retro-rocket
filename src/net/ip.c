@@ -113,7 +113,7 @@ void dequeue_packet(packet_queue_item_t* cur, packet_queue_item_t* last) {
 void ip_idle()
 {
 	if (packet_queue) {
-		time_t current_time = time(NULL);
+		time_t current_time = get_ticks();
 		packet_queue_item_t* cur = packet_queue;
 		packet_queue_item_t* last = NULL;
 
@@ -152,13 +152,13 @@ void ip_idle()
 				ethernet_send_packet(dst_hardware_addr, (uint8_t*)cur->packet, htons(cur->packet->length), ETHERNET_TYPE_IP);
 				dequeue_packet(cur, last);
 				/* do not advance last, because cur was freed */
-			} else if (is_local && cur->arp_tries < 2 && current_time - cur->last_arp > 0) {
+			} else if (is_local && cur->arp_tries < 2 && current_time - cur->last_arp > 10) {
 				/* After one second, ARP didn't come back, try it again up to 3 times */
 				cur->arp_tries++;
 				cur->last_arp = current_time;
 				arp_send_packet(zero_hardware_addr, arp_dest);
 				last = cur; /* safe to advance last, we kept cur */
-			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 10) {
+			} else if (cur->arp_tries == 3 && current_time - cur->last_arp >= 100) {
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
 				 * Packet still didn't get an ARP reply. Dequeue it as a lost packet.
 				 */
@@ -183,7 +183,7 @@ void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]]
 		packet_queue_end = packet_queue;
 		packet_queue_end->packet = (ip_packet_t*)data;
 		packet_queue_end->next = NULL;
-		packet_queue_end->last_arp = time(NULL);
+		packet_queue_end->last_arp = get_ticks();
 		packet_queue_end->arp_tries = 0;
 	} else {
 		packet_queue_end->next = kmalloc(sizeof(packet_queue_item_t));
@@ -193,7 +193,7 @@ void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]]
 		packet_queue_end->next->packet = (ip_packet_t*)data;
 		packet_queue_end->next->next = NULL;
 		packet_queue_end->next->arp_tries = 0;
-		packet_queue_end->next->last_arp = time(NULL);
+		packet_queue_end->next->last_arp = get_ticks();
 		packet_queue_end = packet_queue_end->next;
 	}
 }
