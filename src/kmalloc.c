@@ -13,6 +13,8 @@ static uint64_t allocated = 0;
 
 static uint32_t low_mem_cur = LOW_HEAP_START;
 
+static spinlock_t allocator_lock = 0;
+
 volatile struct limine_memmap_request memory_map_request = {
 	.id = LIMINE_MEMMAP_REQUEST,
 	.revision = 0,
@@ -28,6 +30,8 @@ void preboot_fail(const char* msg) {
 void init_heap() {
 	uint64_t best_len = 0;
 	uint64_t best_addr = 0;
+
+	init_spinlock(&allocator_lock);
 
 	for (uint64_t i = 0; i < memory_map_request.response->entry_count; ++i) {
 		struct limine_memmap_entry* entry = memory_map_request.response->entries[i];
@@ -54,8 +58,10 @@ void print_heapinfo() {
 }
 
 void* kmalloc(uint64_t size) {
+	lock_spinlock(&allocator_lock);
 	void* p = ta_alloc(size);
 	allocated += ta_usable_size((void*)p);
+	unlock_spinlock(&allocator_lock);
 	return p;
 }
 
@@ -63,20 +69,24 @@ void kfree(const void* ptr) {
 	if (!ptr) {
 		return;
 	}
+	lock_spinlock(&allocator_lock);
 	uintptr_t a = (uintptr_t)ptr;
 	if (a >= LOW_HEAP_START && a < LOW_HEAP_MAX) {
 		preboot_fail("kfree: tried to free low heap memory - use kfree_low instead!");
 	}
 	allocated -= ta_usable_size((void*)ptr);
 	ta_free((void*)ptr);
+	unlock_spinlock(&allocator_lock);
 }
 
 uint32_t kmalloc_low(uint32_t size) {
+	lock_spinlock(&allocator_lock);
 	uint32_t ret = low_mem_cur;
 	if (ret + size >= LOW_HEAP_MAX) {
 		preboot_fail("kmalloc_low exhausted");
 	}
 	low_mem_cur += size;
+	unlock_spinlock(&allocator_lock);
 	return ret;
 }
 

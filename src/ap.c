@@ -13,8 +13,8 @@ void kmain_ap(struct limine_smp_info *info)
 	 * @todo Insert cpu-local scheduler loop here.
 	 * Each AP will run its own list of executing BASIC processes. Accessing
 	 * the list of other APs and the BSP will be strictly controlled via a
-	 * marshalled lookup system using a spinlock, e.g. if AP 1 wants to check if
-	 * PID X on AP 2 is still running.
+	 * marshalled lookup system using a spinlock, e.g. if AP 1 wants to start a new
+	 * process on AP 2, it signals via this system.
 	 *
 	 * This will be done as follows:
 	 *
@@ -24,5 +24,8 @@ void kmain_ap(struct limine_smp_info *info)
 	 * 4) Initially AP's will wait for a start command in their queue,
 	 *    they won't run their scheduler until they receive this command. This allows them all to
 	 *    gracefully wait until the first BASIC process is ready to be loaded (/programs/init).
+	 * 5) A shared process list will be used for enumerating processes and checking process
+	 *    state, so we dont have to peek at another scheduler instance's command queue to
+	 *    see if a process ours is waiting on still lives.
 	 */
 }
