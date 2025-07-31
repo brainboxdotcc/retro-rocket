@@ -319,17 +319,36 @@ bool e1000_start(pci_dev_t *pci_device) {
 	}
 
 	if (e1000_device_id == E1000_82540EM) {
-		uint8_t vector = alloc_msi_vector();
-		bool msi_ok = pci_enable_msi(*pci_device, vector);
-		if (msi_ok) {
-			kprintf("e1000: MSI enabled, INT %d\n", vector);
-			register_interrupt_handler(vector, e1000_handler, *pci_device, NULL);
-		} else {
-			free_msi_vector(vector);
-			uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
-			register_interrupt_handler(IRQ_START + irq_num, e1000_handler, *pci_device, NULL);
-		}
+		/* Attempting MSI setup is safe here */
+		pci_setup_interrupt("e1000", *pci_device, cpu_id(), e1000_handler, NULL);
 	} else {
+		/* But not here! The 82541PI actively torpedoes the system if you enable MSI, see its errata:
+		 *
+		 * 82541PI GIGABIT ETHERNET CONTROLLER SPECIFICATION UPDATE
+		 *
+		 * 7. Message Signaled Interrupt Feature May Corrupt Write Transactions
+		 *
+		 * Problem: The problem is with the implementation of the Message Signaled Interrupt (MSI) feature in the Ethernet
+		 * controllers. During MSI writes, the controller incorrectly accesses the write data FIFO. If there are pending write
+		 * transactions when this occurs, these transactions may become corrupted, which may cause the network
+		 * controller to lock up and become unresponsive.
+		 *
+		 * For a normal PCI write transaction, the controller’s PCI logic receives data to be written from an internal FIFO.
+		 * Once the controller is given bus ownership, the PCI logic pulls the data out of this FIFO and performs the write
+		 * transaction.
+		 *
+		 * For systems using MSI writes, the data, which is constant, should be pulled from the controller’s PCI
+		 * Configuration Space rather than the internal FIFO. The affected devices are not pulling this data from PCI
+		 * Configuration Space. Instead, they are pulling data from the internal FIFO.
+		 *
+		 * Implication: If the affected products are used with a future OS that uses Message Signal Interrupts and no accommodations
+		 * are made to mitigate the use of these interrupts, data integrity issues may occur.
+		 *
+		 * Workaround: For PCI systems, advertisement of the MSI capability can be turned off by setting the MSI Disable bit in the
+		 * EEPROM (Init Control Word 2, bit 7).
+		 *
+		 * Status: Intel does not plan to resolve this erratum in the 82541 Gigabit Ethernet controller.
+		 */
 		uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
 		register_interrupt_handler(IRQ_START + irq_num, e1000_handler, *pci_device, NULL);
 

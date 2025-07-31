@@ -495,7 +495,7 @@ void pci_interrupt_enable(pci_dev_t device, bool enable)
 	}
 }
 
-bool pci_enable_msi(pci_dev_t device, uint32_t vector)
+bool pci_enable_msi(pci_dev_t device, uint32_t vector, uint32_t lapic_id)
 {
 	uint32_t status = pci_read(device, PCI_STATUS);
 
@@ -507,20 +507,20 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector)
 	uint8_t current = pci_read(device, PCI_CAPABILITY_POINTER);
 
 	while (current != 0) {
-		uint8_t id = pci_read(device, current + 0x00) & 0xFF;
+		uint8_t id   = pci_read(device, current + 0x00) & 0xFF;
 		uint8_t next = pci_read(device, current + 0x01) & 0xFF;
 
 		if (id == PCI_CAPABILITY_MSI) {
 			uint16_t control = pci_read(device, current + 0x02) & 0xFFFF;
-			bool is_64bit = control & PCI_MSI_64BIT;
+			bool is_64bit    = control & PCI_MSI_64BIT;
 
-			uint32_t address = 0xFEE00000 | (cpu_id() << 12);
-			uint32_t data = (vector & 0xFF);
+			uint32_t address = 0xFEE00000 | (lapic_id << 12);
+			uint32_t data    = (vector & 0xFF);
 
-			dprintf("Enable MSI for %04x:%04x with data=%08x address=%08x vector %d\n",
+			dprintf("Enable MSI for %04x:%04x with data=%08x address=%08x vector %d lapic %d\n",
 				pci_read(device, PCI_VENDOR_ID) & 0xFFFF,
 				pci_read(device, PCI_DEVICE_ID) & 0xFFFF,
-				data, address, vector);
+				data, address, vector, lapic_id);
 
 			pci_write(device, current + 0x04, address);
 
@@ -531,7 +531,7 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector)
 				pci_write(device, current + 0x08, data);
 			}
 
-			control |= PCI_MSI_ENABLE; // This should be (1 << 0) - MSI enable bit
+			control |= PCI_MSI_ENABLE;
 			pci_write(device, current + 0x02, control);
 
 			pci_interrupt_enable(device, false); // Mask legacy INTx
@@ -541,4 +541,90 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector)
 		current = next;
 	}
 	return false;
+}
+
+bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t lapic_id)
+{
+	uint32_t status = pci_read(device, PCI_STATUS);
+
+	if (!(status & PCI_STATUS_CAPABILITIES_LIST)) {
+		return false;
+	}
+
+	uint8_t current = pci_read(device, PCI_CAPABILITY_POINTER);
+
+	while (current != 0) {
+		uint8_t id   = pci_read(device, current + 0x00) & 0xFF;
+		uint8_t next = pci_read(device, current + 0x01) & 0xFF;
+
+		if (id == PCI_CAPABILITY_MSIX) {
+			uint16_t control    = pci_read(device, current + 0x02) & 0xFFFF;
+			uint16_t table_size = (control & 0x07FF) + 1;
+
+			if (entry >= table_size) {
+				dprintf("MSI-X entry %d out of range (max %d)\n", entry, table_size);
+				return false;
+			}
+
+			/* Table info (BAR + offset) */
+			uint32_t table  = pci_read(device, current + 0x04);
+			uint8_t  bir    = table & 0x7;
+			uint32_t offset = table & ~0x7;
+
+			uintptr_t bar = pci_read(device, PCI_BAR0 + bir * 4);
+			bar &= ~0xF;  // Mask off flag bits
+
+			volatile uint8_t *msix_table = (volatile uint8_t *)(bar + offset);
+
+			/* Each entry = 16 bytes */
+			volatile uint32_t *entry_ptr = (volatile uint32_t *)(msix_table + entry * 16);
+
+			uint32_t address_lo = 0xFEE00000 | (lapic_id << 12);
+			uint32_t address_hi = 0x0;
+			uint32_t data       = (vector & 0xFF);
+
+			dprintf("Enable MSI-X for %04x:%04x entry=%d data=%08x address=%08x vector %d lapic %d\n",
+				pci_read(device, PCI_VENDOR_ID) & 0xFFFF,
+				pci_read(device, PCI_DEVICE_ID) & 0xFFFF,
+				entry, data, address_lo, vector, lapic_id);
+
+			entry_ptr[0] = address_lo;
+			entry_ptr[1] = address_hi;
+			entry_ptr[2] = data;
+			entry_ptr[3] &= ~1;  // Clear mask bit
+
+			control |= PCI_MSIX_ENABLE;
+			pci_write(device, current + 0x02, control);
+
+			pci_interrupt_enable(device, false); // Mask legacy INTx
+			return true;
+		}
+
+		current = next;
+	}
+
+	return false;
+}
+
+uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t lapic_id, isr_t handler, void *context)
+{
+	uint32_t irq_line = pci_read(dev, PCI_INTERRUPT_LINE);
+	int vector = alloc_msi_vector(lapic_id);
+	if (vector >= 0 && pci_enable_msi(dev, vector, lapic_id)) {
+		register_interrupt_handler(vector, handler, dev, context);
+		kprintf("%s: MSI enabled for %04x:%04x, vector %d on APIC %d\n",
+			name,
+			pci_read(dev, PCI_VENDOR_ID),
+			pci_read(dev, PCI_DEVICE_ID),
+			vector, lapic_id);
+		return vector;
+		free_msi_vector(lapic_id, vector);
+	}
+
+	// fallback: legacy INTx
+	uint32_t irq = IRQ_START + irq_line;
+	register_interrupt_handler(irq, handler, dev, context);
+	pci_interrupt_enable(dev, true);
+	kprintf("%s: MSI not available, using legacy IRQ %d\n", name, irq);
+	return irq;
 }

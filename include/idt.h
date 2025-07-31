@@ -27,6 +27,25 @@ typedef struct idt_entry_t {
 extern volatile idt_ptr_t idt64;
 
 /**
+ * @brief Function pointer type for interrupt and IRQ handlers.
+ *
+ * This defines the signature of an interrupt service routine (ISR) that may be
+ * registered via `register_interrupt_handler`. It will be called whenever a
+ * matching interrupt or IRQ occurs.
+ *
+ * All handlers receive the interrupt vector number, error code (if any),
+ * the IRQ number (for hardware IRQs, this is `isrnumber - 32`), and a user-defined
+ * opaque pointer that was passed during registration. This allows for stateful
+ * or device-specific behaviour in shared or reentrant interrupt contexts.
+ *
+ * @param isrnumber The IDT entry number (0–255), corresponding to the triggered interrupt vector.
+ * @param errorcode A CPU-generated error code for certain exceptions (e.g. page faults). Always 0 for IRQs.
+ * @param irqnumber For IRQs, this is typically `isrnumber - 32`; otherwise 0.
+ * @param opaque The same pointer that was passed to `register_interrupt_handler`; used for context or state.
+ */
+typedef void (*isr_t)(uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber, void* opaque);
+
+/**
  * @brief Initialise the IDT and enable interrupts.
  *
  * Sets up the full 256-entry Interrupt Descriptor Table (IDT),
@@ -77,31 +96,38 @@ void pic_eoi(int irq);
 void io_wait(void);
 
 /**
- * @brief Allocate a free MSI interrupt vector.
+ * @brief Allocate a free MSI interrupt vector on a given CPU.
  *
  * Allocates an IDT vector in the range 64–255 for use with
- * Message Signalled Interrupts (MSI/MSI-X).
+ * Message Signalled Interrupts (MSI/MSI-X), associated with
+ * the specified Local APIC ID.
+ *
+ * @param cpu Local APIC ID of the target CPU.
  *
  * @return Vector number (64–255) on success,
- *         -1 if no free vector is available.
+ *         -1 if no free vector is available on that CPU.
  *
  * @note After allocation, the driver must program the device’s
- *       MSI capability structure and register an interrupt
- *       handler for the vector.
+ *       MSI/MSI-X capability structure with the returned vector
+ *       and Local APIC ID, and register an interrupt handler
+ *       for the vector on the specified CPU.
  */
-int alloc_msi_vector(void);
+int alloc_msi_vector(uint8_t cpu);
 
 /**
- * @brief Free a previously allocated MSI interrupt vector.
+ * @brief Free a previously allocated MSI interrupt vector on a given CPU.
  *
- * Marks the given MSI vector as available for reuse.
+ * Marks the given MSI vector as available for reuse on the specified
+ * Local APIC ID.
  *
- * @param vec The MSI vector to free (64–255).
+ * @param cpu Local APIC ID of the CPU that the vector belongs to.
+ * @param vec    The MSI vector to free (64–255).
  *
  * @warning Behaviour is undefined if freeing a vector that
- *          was never allocated or is still in use.
+ *          was never allocated on the given CPU, or is still in use.
  *
  * @note Drivers should call this during teardown to avoid
- *       leaking interrupt vectors.
+ *       leaking interrupt vectors on that CPU.
  */
-void free_msi_vector(int vec);
+void free_msi_vector(uint8_t cpu, int vec);
+

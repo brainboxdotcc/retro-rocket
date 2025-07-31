@@ -38,27 +38,6 @@ enum irq_number_t {
 	IRQ16 = 50,  ///< Local APIC timer vector (used instead of IRQ0 in APIC mode)
 };
 
-
-/**
- * @brief Function pointer type for interrupt and IRQ handlers.
- *
- * This defines the signature of an interrupt service routine (ISR) that may be
- * registered via `register_interrupt_handler`. It will be called whenever a
- * matching interrupt or IRQ occurs.
- *
- * All handlers receive the interrupt vector number, error code (if any),
- * the IRQ number (for hardware IRQs, this is `isrnumber - 32`), and a user-defined
- * opaque pointer that was passed during registration. This allows for stateful
- * or device-specific behaviour in shared or reentrant interrupt contexts.
- *
- * @param isrnumber The IDT entry number (0–255), corresponding to the triggered interrupt vector.
- * @param errorcode A CPU-generated error code for certain exceptions (e.g. page faults). Always 0 for IRQs.
- * @param irqnumber For IRQs, this is typically `isrnumber - 32`; otherwise 0.
- * @param opaque The same pointer that was passed to `register_interrupt_handler`; used for context or state.
- */
-typedef void (*isr_t)(uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber, void* opaque);
-
-
 /**
  * @brief Represents a single handler in a chain of handlers attached to a shared ISR.
  *

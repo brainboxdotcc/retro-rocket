@@ -594,21 +594,8 @@ void init_ahci()
 	}
 
 	ahci_base = pci_mem_base(ahci_base);
-
-	uint32_t irq_num = pci_read(ahci_device, PCI_INTERRUPT_LINE);
-	uint32_t irq_pin = pci_read(ahci_device, PCI_INTERRUPT_PIN);
-	uint32_t vector = alloc_msi_vector();
-	bool msi_ok = pci_enable_msi(ahci_device, vector);
-	if (msi_ok) {
-		register_interrupt_handler(vector, ahci_handler, ahci_device, (void *) ahci_base);
-		kprintf("AHCI: MSI on, INT %d\n", vector);
-	} else {
-		free_msi_vector(vector);
-		register_interrupt_handler(IRQ_START + irq_num, ahci_handler, ahci_device, (void *) ahci_base);
-		kprintf("AHCI: MSI off, INT %d\n", irq_num);
-	}
-	pci_interrupt_enable(ahci_device, true);
-	dprintf("AHCI base MMIO: %08x INT %d PIN#%c\n", ahci_base, irq_num, irq_pin + 'A' - 1);
+	uint32_t irq_num = pci_setup_interrupt("AHCI", ahci_device, cpu_id(), ahci_handler, ahci_base);
+	dprintf("AHCI base MMIO: %08x INT %d\n", ahci_base, irq_num);
 
 	probe_port((ahci_hba_mem_t*)ahci_base, ahci_device);
 }

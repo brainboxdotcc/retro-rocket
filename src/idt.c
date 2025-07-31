@@ -15,13 +15,15 @@
 
 #define MSI_VECTORS 256
 #define FIRST_MSI_VECTOR 64
-#define MSI_WORDS   (MSI_VECTORS / 64)
+#define MSI_WORDS (MSI_VECTORS / 64U)
+#define MAX_CPUS 256
 
-static uint64_t msi_bitmap[4] = {
-	0xffffffffffffffffULL,	// vectors 0–63 reserved
-	0,			// 64–255 free
-	0,
-	0
+/* Precompute reserved mask for the first word */
+#define MSI_RESERVED_MASK ((FIRST_MSI_VECTOR == 64) ? ~0ULL : ((1ULL << FIRST_MSI_VECTOR) - 1ULL))
+
+/* One bitmap per CPU, initialised with 0..63 reserved */
+static uint64_t msi_bitmap[MAX_CPUS][MSI_WORDS] = {
+	[0 ... MAX_CPUS-1] = { MSI_RESERVED_MASK, 0, 0, 0 }
 };
 
 // Full IDT with 256 entries
@@ -114,24 +116,23 @@ void init_idt() {
 	dprintf("Interrupts enabled!\n");
 }
 
-/**
- * @todo On an SMP system we need a bitmap of vectors per CPU
- */
-int alloc_msi_vector(void) {
-	for (int w = 0; w < MSI_WORDS; w++) {
-		uint64_t free = ~msi_bitmap[w];
+/* Allocate a free vector on a given CPU (lapic_id) */
+int alloc_msi_vector(uint8_t cpu) {
+	for (uint8_t w = 0; w < MSI_WORDS; w++) {
+		uint64_t free = ~msi_bitmap[cpu][w];
 		if (free) {
-			int bit = __builtin_ctzll(free);   // find first zero bit
-			msi_bitmap[w] |= (1ULL << bit);
-			return w * 64 + bit;              // global vector index
+			int bit = __builtin_ctzll(free);
+			msi_bitmap[cpu][w] |= (1ULL << bit);
+			return w * 64 + bit;
 		}
 	}
-	return -1; // none free
+	return -1; /* none free */
 }
 
-void free_msi_vector(int vec) {
-	if (vec < FIRST_MSI_VECTOR || vec >= MSI_VECTORS) return;
-	int w = vec / 64;
+void free_msi_vector(uint8_t cpu, int vec) {
+	if (vec < FIRST_MSI_VECTOR || vec >= MSI_VECTORS)
+		return;
+	int w   = vec / 64;
 	int bit = vec % 64;
-	msi_bitmap[w] &= ~(1ULL << bit);
+	msi_bitmap[cpu][w] &= ~(1ULL << bit);
 }
