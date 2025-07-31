@@ -1,6 +1,9 @@
 #include <kernel.h>
 #include <string.h>
 
+extern spinlock_t console_spinlock;
+extern spinlock_t debug_console_spinlock;
+
 static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void *ptr)
 {
 	unsigned flags = 0, actual_wd = 0, count = 0, given_wd = 0;
@@ -276,17 +279,23 @@ int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] cons
 
 int vprintf(const char *fmt, va_list args)
 {
-	return do_printf(fmt, SIZE_MAX, args, vprintf_help, NULL);
+	lock_spinlock(&console_spinlock);
+	int r = do_printf(fmt, SIZE_MAX, args, vprintf_help, NULL);
+	unlock_spinlock(&console_spinlock);
+	return r;
 }
 
 int dvprintf(const char *fmt, va_list args)
 {
 	char counter[25];
+	lock_spinlock(&debug_console_spinlock);
 	do_itoa(get_ticks(), counter, 10);
 	dput('[');
 	dputstring(counter);
 	dputstring("]: ");
-	return do_printf(fmt, SIZE_MAX, args, dvprintf_help, NULL);
+	int r = do_printf(fmt, SIZE_MAX, args, dvprintf_help, NULL);
+	unlock_spinlock(&debug_console_spinlock);
+	return r;
 }
 
 int printf(const char *fmt, ...)

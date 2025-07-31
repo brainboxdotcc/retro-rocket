@@ -1,6 +1,28 @@
 #include <kernel.h>
 
-void kmain_ap()
+volatile struct limine_smp_request smp_request = {
+	.id = LIMINE_SMP_REQUEST,
+	.revision = 0
+};
+
+void kmain_ap(struct limine_smp_info *info)
 {
+	kprintf("CPU: %u online; ID: %u\n", info->processor_id, info->lapic_id);
 	wait_forever();
+	/**
+	 * @todo Insert cpu-local scheduler loop here.
+	 * Each AP will run its own list of executing BASIC processes. Accessing
+	 * the list of other APs and the BSP will be strictly controlled via a
+	 * marshalled lookup system using a spinlock, e.g. if AP 1 wants to check if
+	 * PID X on AP 2 is still running.
+	 *
+	 * This will be done as follows:
+	 *
+	 * 1) Each AP can be instructed via a command queue to launch, query or kill a process.
+	 * 2) Each AP will have its own command queue
+	 * 3) Any AP can push a command onto the command queue for one or more other APs to action
+	 * 4) Initially AP's will wait for a start command in their queue,
+	 *    they won't run their scheduler until they receive this command. This allows them all to
+	 *    gracefully wait until the first BASIC process is ready to be loaded (/programs/init).
+	 */
 }

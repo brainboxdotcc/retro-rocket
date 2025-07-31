@@ -2,6 +2,9 @@
 
 typedef void (*init_func_t)(void);
 
+spinlock_t console_spinlock = 0;
+spinlock_t debug_console_spinlock = 0;
+
 init_func_t init_funcs[] = {
 	init_heap, validate_limine_page_tables_and_gdt, init_console,
 	init_cores, init_idt, init_pci, init_realtime_clock,
@@ -23,6 +26,8 @@ char* init_funcs_names[] = {
 
 void init()
 {
+	init_spinlock(&debug_console_spinlock);
+	init_spinlock(&console_spinlock);
 	uint32_t n = 0;
 	for (init_func_t* func = init_funcs; *func; ++func) {
 		dprintf("Bringing up %s...\n", init_funcs_names[n]);

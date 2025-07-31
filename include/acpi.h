@@ -207,3 +207,5 @@ const char *polarity_str(uint8_t pol);
  * @return Descriptive string of the IRQ sharing status
  */
 const char *sharing_str(uint8_t share);
+
+void kmain_ap(struct limine_smp_info *info);
