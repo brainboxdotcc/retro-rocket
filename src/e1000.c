@@ -319,13 +319,13 @@ bool e1000_start(pci_dev_t *pci_device) {
 	}
 
 	if (e1000_device_id == E1000_82540EM) {
-		uint8_t vector = IRQ_START + 0x0F; // Pick a safe, unused IRQ vector
+		uint8_t vector = alloc_msi_vector();
 		bool msi_ok = pci_enable_msi(*pci_device, vector);
-
 		if (msi_ok) {
-			kprintf("e1000: MSI enabled on vector 0x%x\n", vector);
+			kprintf("e1000: MSI enabled, INT %d\n", vector);
 			register_interrupt_handler(vector, e1000_handler, *pci_device, NULL);
 		} else {
+			free_msi_vector(vector);
 			uint32_t irq_num = pci_read(*pci_device, PCI_INTERRUPT_LINE);
 			register_interrupt_handler(IRQ_START + irq_num, e1000_handler, *pci_device, NULL);
 		}

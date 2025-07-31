@@ -13,6 +13,17 @@
 #define ICW1_ICW4    0x01
 #define ICW4_8086    0x01
 
+#define MSI_VECTORS 256
+#define FIRST_MSI_VECTOR 64
+#define MSI_WORDS   (MSI_VECTORS / 64)
+
+static uint64_t msi_bitmap[4] = {
+	0xffffffffffffffffULL,	// vectors 0–63 reserved
+	0,			// 64–255 free
+	0,
+	0
+};
+
 // Full IDT with 256 entries
 __attribute__((aligned(16)))
 idt_entry_t idt_entries[256];
@@ -101,4 +112,26 @@ void init_idt() {
 	interrupts_on();
 
 	dprintf("Interrupts enabled!\n");
+}
+
+/**
+ * @todo On an SMP system we need a bitmap of vectors per CPU
+ */
+int alloc_msi_vector(void) {
+	for (int w = 0; w < MSI_WORDS; w++) {
+		uint64_t free = ~msi_bitmap[w];
+		if (free) {
+			int bit = __builtin_ctzll(free);   // find first zero bit
+			msi_bitmap[w] |= (1ULL << bit);
+			return w * 64 + bit;              // global vector index
+		}
+	}
+	return -1; // none free
+}
+
+void free_msi_vector(int vec) {
+	if (vec < FIRST_MSI_VECTOR || vec >= MSI_VECTORS) return;
+	int w = vec / 64;
+	int bit = vec % 64;
+	msi_bitmap[w] &= ~(1ULL << bit);
 }
