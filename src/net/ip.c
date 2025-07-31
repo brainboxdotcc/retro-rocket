@@ -98,6 +98,10 @@ void ip_frag_gc(void) {
 	uint64_t ticks = get_ticks();
 
 	interrupts_off();
+	if (!frag_map) {
+		interrupts_on();
+		return;
+	}
 	while (hashmap_iter(frag_map, &i, &item)) {
 		ip_fragmented_packet_parts_t *frag = item;
 
@@ -548,5 +552,5 @@ void ip_init()
 	ethernet_register_iee802_number(ETHERNET_TYPE_IP, (ethernet_protocol_t)ip_handle_packet);
 	ethernet_register_iee802_number(ETHERNET_TYPE_IP6, (ethernet_protocol_t)ip6_handle_packet);
 	proc_register_idle(ip_idle, IDLE_BACKGROUND);
-	proc_register_idle(ip_foreground, IDLE_BACKGROUND);
+	proc_register_idle(ip_foreground, IDLE_FOREGROUND);
 }

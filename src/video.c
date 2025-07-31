@@ -6,6 +6,7 @@ static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0, screen_
 static console first_console;
 bool wait_state = false;
 bool video_flip_is_auto = true;
+bool video_dirty = true;
 console* current_console = NULL;
 
 extern volatile struct limine_module_request module_request;
@@ -65,6 +66,7 @@ void ft_write(struct flanterm_context *ctx, const char *buf, size_t count) {
 		return;
 	}
 	flanterm_write(ctx, buf, count);
+	video_dirty = true;
 }
 
 void screenonly(console* c, const char* s)
@@ -86,12 +88,14 @@ void gotoxy(uint64_t x, uint64_t y)
 	char cursor_command[32];
 	snprintf(cursor_command, 32, "\033[%d;%dH", y % (get_text_height() + 1), x % (get_text_width() + 1));
 	screenonly(current_console, cursor_command);
+	video_dirty = true;
 }
 
 void putpixel(int64_t x, int64_t y, uint32_t rgb)
 {
 	volatile uint32_t* addr = (volatile uint32_t*)(framebuffer_address() + pixel_address(x, y));
 	*addr = rgb;
+	video_dirty = true;
 }
 
 uint32_t getpixel(int64_t x, int64_t y)
@@ -102,8 +106,9 @@ uint32_t getpixel(int64_t x, int64_t y)
 /* Clear the screen - note this does not send the ansi to the debug console */
 void clearscreen(console* c)
 {
-	draw_horizontal_rectangle(0, 0, screen_get_width() - 1, screen_get_height() - 1, 0x000000);
+	memset(rr_fb_front, 0, rr_fb_bytes);
 	screenonly(c, "\033[2J\033[0;0H");
+	video_dirty = true;
 }
 
 void dput(const char n)
@@ -329,5 +334,8 @@ void set_video_auto_flip(bool flip) {
 }
 
 void rr_flip(void) {
-	memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
+	if (video_dirty) {
+		memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
+		video_dirty = false;
+	}
 }

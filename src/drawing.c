@@ -1,5 +1,7 @@
 #include <kernel.h>
 
+extern bool video_dirty;
+
 void swap(int64_t* first, int64_t* second)
 {
 	*first += *second;
@@ -20,11 +22,6 @@ void clamp_range(int64_t* coordinate, coordinate_range_type_t type)
 
 void draw_line(int64_t from_x, int64_t from_y, int64_t to_x, int64_t to_y, uint32_t colour)
 {
-	/*if (from_y == to_y) {
-		draw_horizontal_line(from_x, to_x, from_y, colour);
-		return;
-	}*/
-
 	int64_t dx = labs(from_x - to_x);
 	int64_t sx = from_x < to_x ? 1 : -1;
 	int64_t dy = -(labs(from_y - to_y));
@@ -61,6 +58,7 @@ void draw_horizontal_line(int64_t from_x, int64_t to_x, int64_t y, uint32_t colo
 		*addr = colour;
 		addr++;
 	}
+	video_dirty = true;
 }
 
 void draw_horizontal_rectangle(int64_t from_x, int64_t from_y, int64_t to_x, int64_t to_y, uint32_t colour)
@@ -146,6 +144,7 @@ void draw_triangle(int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, i
 			}
 		}
 	}
+	video_dirty = true;
 }
 
 
