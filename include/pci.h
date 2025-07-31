@@ -283,6 +283,11 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
  * @param handler  Interrupt service routine to register.
  * @param context  Opaque pointer passed to the ISR when the interrupt fires.
  *
+ * @warning The lapic_id parameter must be a valid Local APIC ID
+ *          corresponding to an online CPU. Passing an invalid or
+ *          offline APIC ID will result in undefined behaviour and
+ *          may cause interrupts to be lost.
+ *
  * @return The assigned interrupt vector (64–255 if MSI/MSI-X was used,
  *         or IRQ_START + line if falling back to legacy INTx).
  *
