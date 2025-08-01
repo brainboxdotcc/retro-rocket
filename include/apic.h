@@ -117,3 +117,5 @@ uint32_t get_lapic_id_from_cpu_id(uint8_t cpu_id);
  *                 or 255 if unmapped.
  */
 uint8_t get_cpu_id_from_lapic_id(uint32_t lapic_id);
+
+void boot_aps();

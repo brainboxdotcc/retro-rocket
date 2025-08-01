@@ -1,14 +1,27 @@
 #include <kernel.h>
+#include <stdatomic.h>
 
 volatile struct limine_smp_request smp_request = {
 	.id = LIMINE_SMP_REQUEST,
 	.revision = 0
 };
 
+extern volatile idt_ptr_t idt64;
+
+atomic_size_t aps_online = 0;
+
 void kmain_ap(struct limine_smp_info *info)
 {
+	// Load the shared IDT
+	__asm__ volatile("lidtq (%0)" :: "r"(&idt64));
+	interrupts_on();
+
 	kprintf("CPU: %u online; ID: %u\n", info->processor_id, info->lapic_id);
-	wait_forever();
+	atomic_fetch_add(&aps_online, 1);
+
+	for(;;) {
+		_mm_pause();
+	}
 	/**
 	 * @todo Insert cpu-local scheduler loop here.
 	 * Each AP will run its own list of executing BASIC processes. Accessing

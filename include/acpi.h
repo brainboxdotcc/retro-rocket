@@ -128,14 +128,7 @@ typedef struct pci_irq_route {
  *
  * This function parses the MADT (APIC table) and sets up CPU topology and IOAPIC data.
  */
-void init_cores();
-
-/**
- * @brief Get an array of Local APIC IDs.
- *
- * @return Pointer to array of LAPIC IDs (size = get_cpu_count()).
- */
-uint8_t* get_lapic_ids();
+void init_acpi();
 
 /**
  * @brief Get total number of CPUs detected via ACPI.

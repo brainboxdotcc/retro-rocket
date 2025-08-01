@@ -104,7 +104,6 @@ void init_idt() {
 #ifdef USE_IOAPIC
 	pic_disable();
 	remap_irqs_to_ioapic();
-	get_lapic_address();
 	init_lapic_timer();
 #else
 	pic_enable();

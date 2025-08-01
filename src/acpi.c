@@ -2,6 +2,7 @@
 #include <uacpi/uacpi.h>
 #include <uacpi/namespace.h>
 #include <uacpi/resources.h>
+#include <stdatomic.h>
 #include "uacpi/context.h"
 
 volatile struct limine_rsdp_request rsdp_request = {
@@ -10,6 +11,8 @@ volatile struct limine_rsdp_request rsdp_request = {
 };
 
 extern volatile struct limine_smp_request smp_request;
+
+extern atomic_size_t aps_online;
 
 static uint8_t lapic_ids[256] = {0}; // CPU core Local APIC IDs
 static uint8_t ioapic_ids[256] = {0}; // CPU core Local APIC IDs
@@ -128,7 +131,7 @@ ioapic_t get_ioapic(uint16_t index) {
 	return ioapic;
 }
 
-void init_cores() {
+void init_acpi() {
 	uint8_t *ptr, *ptr2;
 	uint32_t len;
 	uint8_t *rsdt = (uint8_t *) get_sdt_header();
@@ -212,6 +215,13 @@ void init_cores() {
 				(r->detected_from == FROM_MADT ? "_MADT" : (r->detected_from == FROM_PRT ? "_PRT" : "FALLBACK")));
 		}
 	}
+	for (int i = 0; i < 16; ++i) {
+		dprintf("IRQ %d maps to GSI %d\n", i, irq_to_gsi(i));
+	}
+	rr_flip();
+}
+
+void boot_aps() {
 	if (numcore > 0) {
 		kprintf("SMP: %d cores, %d IOAPICs\n", numcore, numioapic);
 		if (!smp_request.response) {
@@ -230,18 +240,18 @@ void init_cores() {
 				set_lapic_id_for_cpu_id(cpu->processor_id, cpu->lapic_id);
 			}
 			if (cpu->lapic_id == smp_request.response->bsp_lapic_id || cpu->processor_id > 254) {
+				if (cpu->lapic_id == smp_request.response->bsp_lapic_id) {
+					kprintf("CPU: %d online; ID: %d\n", cpu->processor_id, cpu->lapic_id);
+				}
 				// Skip BSP and IDs over 254 (255 is broadcast, 256+ are too big for our array)
 				continue;
-			} else if (cpu->lapic_id == smp_request.response->bsp_lapic_id) {
-				kprintf("CPU: %d online; ID: %d\n", cpu->processor_id, cpu->lapic_id);
 			}
 			cpu->goto_address = kmain_ap;
 		}
+		while (atomic_load(&aps_online) < limit - 1) {
+			_mm_pause();
+		}
 	}
-	for (int i = 0; i < 16; ++i) {
-		dprintf("IRQ %d maps to GSI %d\n", i, irq_to_gsi(i));
-	}
-	rr_flip();
 }
 
 uint32_t irq_to_gsi(uint8_t irq) {

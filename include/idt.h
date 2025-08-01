@@ -121,7 +121,7 @@ void io_wait(void);
  * Message Signalled Interrupts (MSI/MSI-X), associated with
  * the specified Local APIC ID.
  *
- * @param cpu Local APIC ID of the target CPU.
+ * @param cpu Logical CPU ID of the target CPU.
  *
  * @return Vector number (64–255) on success,
  *         -1 if no free vector is available on that CPU.
@@ -139,7 +139,7 @@ int alloc_msi_vector(uint8_t cpu);
  * Marks the given MSI vector as available for reuse on the specified
  * Local APIC ID.
  *
- * @param cpu Local APIC ID of the CPU that the vector belongs to.
+ * @param cpu Logical CPU ID of the CPU that the vector belongs to.
  * @param vec    The MSI vector to free (64–255).
  *
  * @warning Behaviour is undefined if freeing a vector that

@@ -4,12 +4,7 @@
 #define IA32_APIC_BASE_MSR 0x1B
 #define APIC_BASE_X2APIC_ENABLE (1ULL << 10)
 
- static uint64_t saved_lapic = 0;
-
- uint64_t get_lapic_address() {
-	if (saved_lapic) {
-		return saved_lapic;
-	}
+uint64_t get_lapic_address() {
 	uint32_t eax, edx;
 	__asm__ volatile (
 		"rdmsr"
@@ -18,7 +13,6 @@
 		);
 	uint64_t result = ((uint64_t)edx << 32) | eax;
 	result &= 0xFFFFFFFFFFFFF000ULL;
-	saved_lapic = result;
 	return result;
 }
 
