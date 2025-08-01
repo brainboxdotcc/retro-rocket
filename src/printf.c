@@ -141,9 +141,14 @@ static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void
 				[[fallthrough]];
 
 			case STATE_MODIFIERS:
-				if (*fmt == 'N') { break; }
-				if (*fmt == 'l') { flags |= PR_INT64; break; }
-				if (*fmt == 'h') { flags |= PR_INT32; break; }
+				if (*fmt == 'l' || *fmt == 'z') {
+					flags |= PR_INT64;
+					break;
+				}
+				if (*fmt == 'h') {
+					flags |= PR_INT32;
+					break;
+				}
 				state = STATE_CONVERSION;
 				[[fallthrough]];
 

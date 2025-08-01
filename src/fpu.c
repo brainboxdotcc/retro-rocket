@@ -22,6 +22,25 @@ static int64_t mul[] = {
 	10000000000,    // 10 decimals
 };
 
+/**
+ * @brief Convert an unsigned 64-bit integer into a decimal string.
+ * Returns a pointer into the provided buffer (writes backwards).
+ */
+static char* uint64_to_str(uint64_t val, char *buf, size_t buflen)
+{
+	char *end = buf + buflen - 1; // leave room for null
+	*end = '\0';
+	if (val == 0) {
+		*--end = '0';
+		return end;
+	}
+	while (val > 0 && end > buf) {
+		*--end = '0' + (val % 10);
+		val /= 10;
+	}
+	return end;
+}
+
 uint8_t double_determine_decimal_places(double f)
 {
         int prec = 0;
@@ -54,12 +73,15 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 		// We use the mul[] array rather than repeated multiplication,
 		// because it is faster and does not cause a loss of accuracy.
 		int64_t integer_part = labs((int64_t)(x * (double)mul[decimals]));
-		snprintf(buffer, 64, "%llu", whole);
-		snprintf(buffer_part, 64, "%llu", integer_part);
-		int64_t whole_len = strlen(buffer);
-		int64_t integer_len = strlen(buffer_part);
+
+		// replaced snprintf with uint64_to_str
+		char *whole_str = uint64_to_str((uint64_t)whole, buffer, sizeof(buffer));
+		char *part_str  = uint64_to_str((uint64_t)integer_part, buffer_part, sizeof(buffer_part));
+
+		int64_t whole_len = strlen(whole_str);
+		int64_t integer_len = strlen(part_str);
 		bool move_decimal = !whole;
-		index = buffer_part;
+		index = part_str;
 		if (neg) *p++ = '-';
 		if (move_decimal) {
 			*p++ = '0';
@@ -124,4 +146,3 @@ char* double_to_string(double x, char *p, int64_t len, uint8_t precision)
 	}
 	return start;
 }
-
