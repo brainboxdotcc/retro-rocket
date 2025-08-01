@@ -77,7 +77,7 @@ int rd_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned cha
 const char* init_ramdisk(size_t blocks, size_t blocksize)
 {
 	char name[16];
-	if (make_unique_device_name("ram", name)) {
+	if (make_unique_device_name("ram", name, sizeof(name))) {
 		uint8_t* data = kmalloc(blocks * blocksize);
 		if (data == NULL) {
 			dprintf("Not enough memory to allocate a ramdisk of size %d\n", blocks * blocksize);

@@ -376,7 +376,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 	}
 	net->opaque = NULL;
 	net->deviceid = (INTEL_VEND << 16) | e1000_device_id;
-	make_unique_device_name("net", net->name);
+	make_unique_device_name("net", net->name, sizeof(net->name));
 	net->description = "Intel e1000 Gigabit";
 	net->flags = CONNECTED;
 	net->mtu = 0;

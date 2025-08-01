@@ -333,7 +333,7 @@ void init_rtl8139() {
 
 	rtl8139_device.active = true;
 
-	make_unique_device_name("net", rtl8139_device.name);
+	make_unique_device_name("net", rtl8139_device.name, sizeof(rtl8139_device.name));
 
 	netdev_t* net = kmalloc(sizeof(netdev_t));
 	net->opaque = &rtl8139_device;

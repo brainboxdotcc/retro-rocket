@@ -22,7 +22,7 @@ static size_t frag_mem_total = 0;
 
 void get_ip_str(char* ip_str, const uint8_t* ip)
 {
-	sprintf(ip_str, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
+	snprintf(ip_str, 16, "%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
 }
 
 uint32_t str_to_ip(const char* ip_str)

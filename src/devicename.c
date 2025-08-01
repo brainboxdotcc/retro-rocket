@@ -14,7 +14,7 @@ uint64_t string_hash(const void *item, uint64_t seed0, uint64_t seed1) {
 	return hashmap_sip(a->prefix, strlen(a->prefix), seed0, seed1);
 }
 
-bool make_unique_device_name(const char* prefix, char* buffer)
+bool make_unique_device_name(const char* prefix, char* buffer, size_t buffer_len)
 {
 	if (prefix == NULL || buffer == NULL) {
 		return false;
@@ -31,7 +31,7 @@ bool make_unique_device_name(const char* prefix, char* buffer)
 		hashmap_set(prefix_hash, &find);
 		exists = &find;
 	}
-	sprintf(buffer, "%s%d", prefix, prefix_increment);
+	snprintf(buffer, buffer_len, "%s%d", prefix, prefix_increment);
 	dprintf("Registered new device name: %s\n", buffer);
 	add_random_entropy((uint64_t)buffer); // NOTE: *address* used as entropy!
 	hashmap_set(prefix_hash, exists);

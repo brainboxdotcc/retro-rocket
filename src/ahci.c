@@ -205,7 +205,7 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				sd->blockread = storage_device_ahci_block_read;
 				sd->blockwrite = storage_device_ahci_block_write;
 				sd->size = dt == AHCI_DEV_SATA ? ahci_read_size(&abar->ports[i], abar) : SIZE_MAX;
-				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name);
+				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name, sizeof(sd->name));
 				sd->block_size = dt == AHCI_DEV_SATA ? HDD_SECTOR_SIZE : ATAPI_SECTOR_SIZE;
 				register_storage_device(sd);
 			}

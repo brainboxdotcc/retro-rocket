@@ -294,7 +294,7 @@ char* basic_itoa(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	int64_t radix = intval;
 	PARAMS_END("RADIX$", "");
-	char buffer[128] = {0};
+	char buffer[MAX_STRINGLEN] = {0};
 	int err;
 	if ((err = do_itoa(target, buffer, radix)) >= 0) {
 		return gc_strdup(buffer);
@@ -304,7 +304,7 @@ char* basic_itoa(struct basic_ctx* ctx)
 		tokenizer_error_print(ctx, "Invalid radix (not in range between 2 and 36)");
 		return "";
 	}
-	sprintf(buffer, "Unknown `do_itoa` error: %d", -err);
+	snprintf(buffer, MAX_STRINGLEN, "Unknown `do_itoa` error: %d", -err);
 	tokenizer_error_print(ctx, buffer);
 	return "";
 }

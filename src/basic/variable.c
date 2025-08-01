@@ -418,8 +418,8 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 		}
 	}
 
-	char err[1024];
-	sprintf(err, "No such string variable '%s'", var);
+	char err[MAX_STRINGLEN];
+	snprintf(err, MAX_STRINGLEN, "No such string variable '%s'", var);
 	tokenizer_error_print(ctx, err);
 	return "";
 }
@@ -566,9 +566,9 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 	}
 
 
-	char err[1024];
+	char err[MAX_STRINGLEN];
 	if (var[strlen(var) - 1] == '#') {
-		sprintf(err, "No such real variable '%s'", var);
+		snprintf(err, MAX_STRINGLEN, "No such real variable '%s'", var);
 		tokenizer_error_print(ctx, err);
 	}
 	*res = 0.0; /* No such variable */

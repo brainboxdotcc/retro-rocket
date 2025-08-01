@@ -532,7 +532,7 @@ bool accept(int token, struct basic_ctx* ctx)
 	if (token != tokenizer_token(ctx)) {
 		char err[MAX_STRINGLEN];
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
-		sprintf(err, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
+		snprintf(err, MAX_STRINGLEN, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
 		tokenizer_error_print(ctx, err);
 		return false;
 	}

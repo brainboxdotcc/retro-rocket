@@ -131,20 +131,6 @@ typedef struct pci_irq_route {
 void init_acpi();
 
 /**
- * @brief Get total number of CPUs detected via ACPI.
- *
- * @return Number of CPUs detected.
- */
-uint16_t get_cpu_count();
-
-/**
- * @brief Retrieve the physical address of the Local APIC MMIO.
- *
- * @return 64-bit physical address of LAPIC base.
- */
-uint64_t get_local_apic();
-
-/**
  * @brief Retrieve the IOAPIC structure by index.
  *
  * @param index IOAPIC index in internal array

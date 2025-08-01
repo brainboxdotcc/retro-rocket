@@ -4,210 +4,192 @@
 extern spinlock_t console_spinlock;
 extern spinlock_t debug_console_spinlock;
 
+typedef enum {
+	STATE_NORMAL,     /* awaiting '%' */
+	STATE_FLAGS,      /* parsing %-0 */
+	STATE_WIDTH,      /* parsing field width */
+	STATE_MODIFIERS,  /* parsing l, h, etc */
+	STATE_CONVERSION  /* final conversion character */
+} printf_state_t;
+
+/* Helper: fetch integer argument according to size/signedness flags */
+static inline long long fetch_number(va_list args, unsigned flags)
+{
+	if (flags & PR_INT64) {
+		if (flags & PR_SIGNED) {
+			return va_arg(args, long long);
+		} else {
+			return (long long)va_arg(args, unsigned long long);
+		}
+	} else if (flags & PR_INT32) {
+		if (flags & PR_SIGNED) {
+			return va_arg(args, int);
+		} else {
+			return (long long)va_arg(args, unsigned int);
+		}
+	} else {
+		if (flags & PR_SIGNED) {
+			return va_arg(args, int);
+		} else {
+			return (long long)va_arg(args, unsigned int);
+		}
+	}
+}
+
+/* Helper: emit string with padding/flags */
+static size_t emit_string(const unsigned char *s, unsigned flags, unsigned given_wd, fnptr_t fn, void **ptr, const char *end)
+{
+	size_t count = 0;
+	size_t actual_wd = strlen((const char *)s);
+
+	if (flags & PR_WAS_NEG) actual_wd++;
+
+	if ((flags & (PR_WAS_NEG | PR_LEFT_ZEROES)) == (PR_WAS_NEG | PR_LEFT_ZEROES)) {
+		if (fn('-', ptr, end)) return count;
+		count++;
+	}
+
+	if ((flags & PR_LEFT_JUSTIFY) == 0) {
+		while (given_wd > actual_wd) {
+			if (fn(flags & PR_LEFT_ZEROES ? '0' : ' ', ptr, end)) return count;
+			count++;
+			given_wd--;
+		}
+	}
+
+	if ((flags & (PR_WAS_NEG | PR_LEFT_ZEROES)) == PR_WAS_NEG) {
+		if (fn('-', ptr, end)) return count;
+		count++;
+	}
+
+	while (*s != '\0') {
+		if (fn(*s++, ptr, end)) return count;
+		count++;
+	}
+
+	if (given_wd < actual_wd) given_wd = 0;
+	else given_wd -= actual_wd;
+
+	while (given_wd--) {
+		if (fn(' ', ptr, end)) return count;
+		count++;
+	}
+
+	return count;
+}
+
+/* Helper: emit integer */
+static size_t emit_number(long long num, unsigned radix, unsigned flags, unsigned given_wd, fnptr_t fn, void **ptr, const char *end)
+{
+	unsigned char buf[PR_BUFLEN];
+	unsigned char *where = buf + PR_BUFLEN - 1;
+
+	*where = '\0';
+
+	if ((flags & PR_SIGNED) && num < 0) {
+		flags |= PR_WAS_NEG;
+		num = -num;
+	}
+
+	do {
+		unsigned long temp = (unsigned long)num % radix;
+		*--where = (temp < 10) ? temp + '0'
+			: (flags & PR_UPPER_HEX) ? temp - 10 + 'A' : temp - 10 + 'a';
+		num = (unsigned long)num / radix;
+	} while (num != 0);
+
+	return emit_string(where, flags, given_wd, fn, ptr, end);
+}
+
+/* Core formatter */
 static int do_printf(const char *fmt, size_t max, va_list args, fnptr_t fn, void *ptr)
 {
-	unsigned flags = 0, actual_wd = 0, count = 0, given_wd = 0;
-	unsigned char *where, buf[PR_BUFLEN];
-	unsigned char state = 0, radix = 10;
-	long long num = 0;
-	const char* end = (max == SIZE_MAX ? (const char*)SIZE_MAX : ptr + max);
+	unsigned flags = 0, given_wd = 0, count = 0;
+	printf_state_t state = STATE_NORMAL;
+	const char* end = (max == SIZE_MAX ? (const char*)SIZE_MAX : (const char*)ptr + max);
 
-	/* begin scanning format specifier list */
-	for(; *fmt; fmt++) {
-		switch(state) {
-			/* STATE 0: AWAITING % */
-			case 0:
-				if(*fmt != '%')	{/* not %... */
-					if (fn(*fmt, &ptr, end)) return count;	/* ...just echo it */
-					count++;
-					break;
-				}
-				/* found %, get next char and advance state to check if next char is a flag */
-				state++;
-				fmt++;
-				/* FALL THROUGH */
-				/* STATE 1: AWAITING FLAGS (%-0) */
-			case 1:
-				if(*fmt == '%')	{
+	for (; *fmt; fmt++) {
+		switch (state) {
+			case STATE_NORMAL:
+				if (*fmt != '%') {
 					if (fn(*fmt, &ptr, end)) return count;
 					count++;
-					state = flags = given_wd = 0;
 					break;
 				}
-				if(*fmt == '-') {
-					if(flags & PR_LJ)/* %-- is illegal */
-						state = flags = given_wd = 0;
-					else
-						flags |= PR_LJ;
-					break;
-				}
-				/* not a flag char: advance state to check if it's field width */
-				state++;
-				/* check now for '%0...' */
-				if(*fmt == '0') {
-					flags |= PR_LZ;
-					fmt++;
-				}
-				/* FALL THROUGH */
-				/* STATE 2: AWAITING (NUMERIC) FIELD WIDTH */
-			case 2:
-				if(*fmt >= '0' && *fmt <= '9') {
-					given_wd = 10 * given_wd +
-						(*fmt - '0');
-					break;
-				}
-				/* not field width: advance state to check if it's a modifier */
-				state++;
-				/* FALL THROUGH */
-				/* STATE 3: AWAITING MODIFIER CHARS (FNlh) */
-			case 3:
-				if(*fmt == 'F') {
-					flags |= PR_FP;
-					break;
-				}
-				if(*fmt == 'N') {
-					break;
-				}
-				if(*fmt == 'l') {
-					flags |= PR_32;
-					break;
-				}
-				if(*fmt == 'h') {
-					flags |= PR_16;
-					break;
-				}
-				/* not modifier: advance state to check if it's a conversion char */
-				state++;
-				/* STATE 4: AWAITING CONVERSION CHARS (Xxpndiuocs) */
-				__attribute__((fallthrough));
-			case 4:
-				where = buf + PR_BUFLEN - 1;
-				*where = '\0';
-				switch(*fmt) {
-				case 'X':
-					flags |= PR_CA;
-					/* xxx - far pointers (%Fp, %Fn) not yet supported */
-					__attribute__((fallthrough));
-				case 'x':
-				case 'p':
-				case 'n':
-					radix = 16;
-					goto DO_NUM;
-				case 'd':
-				case 'i':
-					flags |= PR_SG;
-					__attribute__((fallthrough));
-				case 'u':
-					radix = 10;
-					goto DO_NUM;
-				case 'o':
-					radix = 8;
-					/* load the value to be printed. l=long=32 bits: */
-				DO_NUM:
-					if(flags & PR_32) {
-						if(flags & PR_SG) {
-							num = va_arg(args, long long);
-						} else {
-							num = va_arg(args, unsigned long long);
-						}
-					} else if(flags & PR_16) {
-						/* h=short=16 bits (signed or unsigned) */
-						if(flags & PR_SG) {
-							num = va_arg(args, int);
-						} else {
-							num = va_arg(args, unsigned int);
-						}
-					} else {
-						/* no h nor l: sizeof(int) bits (signed or unsigned) */
-						if(flags & PR_SG) {
-							num = va_arg(args, int);
-						} else {
-							num = va_arg(args, unsigned int);
-						}
-					}
-					/* take care of sign */
-					if(flags & PR_SG) {
-						if(num < 0) {
-							flags |= PR_WS;
-							num = -num;
-						}
-					}
-					/* convert binary to octal/decimal/hex ASCII */
-					do {
-						unsigned long temp;
+				state = STATE_FLAGS;
+				continue;
 
-						temp = (unsigned long)num % radix;
-						where--;
-						if(temp < 10)
-							*where = temp + '0';
-						else if(flags & PR_CA)
-							*where = temp - 10 + 'A';
-						else
-							*where = temp - 10 + 'a';
-						num = (unsigned long)num / radix;
-					} while(num != 0);
-					goto EMIT;
-				case 'c':
-					/* disallow pad-left-with-zeroes for %c */
-					flags &= ~PR_LZ;
-					where--;
-					*where = (unsigned char)va_arg(args, int);
-					actual_wd = 1;
-					goto EMIT2;
-				case 's':
-					/* disallow pad-left-with-zeroes for %s */
-					flags &= ~PR_LZ;
-					where = va_arg(args, unsigned char *);
-				EMIT:
-					actual_wd = strlen((const char*)where);
-					if (flags & PR_WS)
-						actual_wd++;
-					/* if we pad left with ZEROES, do the sign now */
-					if ((flags & (PR_WS | PR_LZ)) == (PR_WS | PR_LZ)) {
-						if (fn('-', &ptr, end)) return count;
-						count++;
-					}
-					/* pad on left with spaces or zeroes (for right justify) */
-				EMIT2:
-					if ((flags & PR_LJ) == 0) {
-						while(given_wd > actual_wd) {
-							if (fn(flags & PR_LZ ? '0' : ' ', &ptr, end)) return count;
-							count++;
-							given_wd--;
-						}
-					}
-					/* if we pad left with SPACES, do the sign now */
-					if ((flags & (PR_WS | PR_LZ)) == PR_WS) {
-						if (fn('-', &ptr, end)) return count;
-						count++;
-					}
-					/* emit string/char/converted number */
-					while (*where != '\0') {
-						if (fn(*where++, &ptr, end)) return count;
-						count++;
-					}
-					/* pad on right with spaces (for left justify) */
-					if (given_wd < actual_wd)
-						given_wd = 0;
-					else
-						given_wd -= actual_wd;
-					for (; given_wd; given_wd--) {
-						if (fn(' ', &ptr, end)) return count;
-						count++;
-					}
-					break;
-				default:
+			case STATE_FLAGS:
+				if (*fmt == '%') {
+					if (fn('%', &ptr, end)) return count;
+					count++;
+					state = STATE_NORMAL;
+					flags = given_wd = 0;
 					break;
 				}
-				__attribute__((fallthrough));
-			default:
-				state = flags = given_wd = 0;
+				if (*fmt == '-') { flags |= PR_LEFT_JUSTIFY; break; }
+				if (*fmt == '0') { flags |= PR_LEFT_ZEROES; break; }
+				state = STATE_WIDTH;
+				[[fallthrough]];
+
+			case STATE_WIDTH:
+				if (*fmt >= '0' && *fmt <= '9') {
+					given_wd = 10 * given_wd + (*fmt - '0');
+					break;
+				}
+				state = STATE_MODIFIERS;
+				[[fallthrough]];
+
+			case STATE_MODIFIERS:
+				if (*fmt == 'N') { break; }
+				if (*fmt == 'l') { flags |= PR_INT64; break; }
+				if (*fmt == 'h') { flags |= PR_INT32; break; }
+				state = STATE_CONVERSION;
+				[[fallthrough]];
+
+			case STATE_CONVERSION: {
+				switch (*fmt) {
+					case 'X': flags |= PR_UPPER_HEX;
+						count += emit_number(fetch_number(args, flags), 16, flags, given_wd, fn, &ptr, end);
+						break;
+					case 'x': case 'p': case 'n':
+						count += emit_number(fetch_number(args, flags), 16, flags, given_wd, fn, &ptr, end);
+						break;
+					case 'd': case 'i':
+						flags |= PR_SIGNED;
+						count += emit_number(fetch_number(args, flags), 10, flags, given_wd, fn, &ptr, end);
+						break;
+					case 'u':
+						count += emit_number(fetch_number(args, flags), 10, flags, given_wd, fn, &ptr, end);
+						break;
+					case 'o':
+						count += emit_number(fetch_number(args, flags), 8, flags, given_wd, fn, &ptr, end);
+						break;
+					case 'c': {
+						unsigned char cbuf[2] = { (unsigned char)va_arg(args, int), 0 };
+						flags &= ~PR_LEFT_ZEROES;
+						count += emit_string(cbuf, flags, given_wd, fn, &ptr, end);
+						break;
+					}
+					case 's': {
+						unsigned char *s = va_arg(args, unsigned char *);
+						flags &= ~PR_LEFT_ZEROES;
+						count += emit_string(s, flags, given_wd, fn, &ptr, end);
+						break;
+					}
+					default:
+						break;
+				}
+				state = STATE_NORMAL;
+				flags = given_wd = 0;
 				break;
+			}
 		}
 	}
 	return count;
 }
 
+/* Output helpers */
 static int vsprintf_help(unsigned c, void **ptr, const void* max)
 {
 	char *dst = *ptr;
@@ -217,38 +199,29 @@ static int vsprintf_help(unsigned c, void **ptr, const void* max)
 		*ptr = dst;
 		return 0;
 	}
-	/* Reached maximum of buffer, terminate string and exit
-	 * with error state
-	 */
 	*dst++ = 0;
 	return 1;
 }
 
-int vsprintf(char *buf, const char *fmt, va_list args)
+static int vsprintf(char *buf, const char *fmt, va_list args)
 {
-	int rv;
-
-	rv = do_printf(fmt, SIZE_MAX, args, vsprintf_help, (void *)buf);
+	int rv = do_printf(fmt, SIZE_MAX, args, vsprintf_help, (void *)buf);
 	buf[rv] = '\0';
 	return rv;
 }
 
 int vsnprintf(char *buf, size_t max, const char *fmt, va_list args)
 {
-	int rv;
-
-	rv = do_printf(fmt, max, args, vsprintf_help, (void *)buf);
+	int rv = do_printf(fmt, max, args, vsprintf_help, (void *)buf);
 	buf[rv] = '\0';
 	return rv;
 }
 
-int sprintf(char *buf, const char *fmt, ...)
+static int sprintf(char *buf, const char *fmt, ...)
 {
 	va_list args;
-	int rv;
-
 	va_start(args, fmt);
-	rv = vsprintf(buf, fmt, args);
+	int rv = vsprintf(buf, fmt, args);
 	va_end(args);
 	return rv;
 }
@@ -256,14 +229,11 @@ int sprintf(char *buf, const char *fmt, ...)
 int snprintf(char *buf, size_t max, const char *fmt, ...)
 {
 	va_list args;
-	int rv;
-
 	va_start(args, fmt);
-	rv = vsnprintf(buf, max, fmt, args);
+	int rv = vsnprintf(buf, max, fmt, args);
 	va_end(args);
 	return rv;
 }
-
 
 int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
@@ -292,9 +262,7 @@ int dvprintf(const char *fmt, va_list args)
 	char counter[25];
 	lock_spinlock(&debug_console_spinlock);
 	do_itoa(get_ticks(), counter, 10);
-	dput('[');
-	dputstring(counter);
-	dputstring("]: ");
+	dput('['); dputstring(counter); dputstring("]: ");
 	int r = do_printf(fmt, SIZE_MAX, args, dvprintf_help, NULL);
 	unlock_spinlock(&debug_console_spinlock);
 	return r;
@@ -303,10 +271,8 @@ int dvprintf(const char *fmt, va_list args)
 int printf(const char *fmt, ...)
 {
 	va_list args;
-	int rv;
-
 	va_start(args, fmt);
-	rv = vprintf(fmt, args);
+	int rv = vprintf(fmt, args);
 	va_end(args);
 	return rv;
 }
@@ -314,11 +280,8 @@ int printf(const char *fmt, ...)
 int dprintf(const char *fmt, ...)
 {
 	va_list args;
-	int rv;
-
 	va_start(args, fmt);
-	rv = dvprintf(fmt, args);
+	int rv = dvprintf(fmt, args);
 	va_end(args);
 	return rv;
 }
-

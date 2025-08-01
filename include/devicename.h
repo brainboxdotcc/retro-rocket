@@ -12,7 +12,7 @@ typedef struct devname_prefix_t {
 	uint8_t increment;
 } devname_prefix_t;
 
-bool make_unique_device_name(const char* prefix, char* buffer);
+bool make_unique_device_name(const char* prefix, char* buffer, size_t buffer_len);
 
 void init_devicenames();
 
