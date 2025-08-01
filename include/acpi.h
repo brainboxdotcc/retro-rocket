@@ -93,6 +93,12 @@ typedef struct {
 #define IRQ_DEFAULT_TRIGGER  0
 
 /**
+ * @brief Returned from @ref get_cpu_id_from_lapic_id if the CPUid
+ * passed in does not map to a logical CPU id.
+ */
+#define INVALID_CPU_ID 255
+
+/**
  * @brief Indicates the source of a PCI IRQ route.
  */
 typedef enum detected_from {
@@ -208,4 +214,8 @@ const char *polarity_str(uint8_t pol);
  */
 const char *sharing_str(uint8_t share);
 
+/**
+ * Main entrypoint for an SMP AP
+ * @param info limine CPU info
+ */
 void kmain_ap(struct limine_smp_info *info);

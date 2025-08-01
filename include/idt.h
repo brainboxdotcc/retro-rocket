@@ -5,8 +5,6 @@
  */
 #pragma once
 
-#include <kernel.h>
-
 #define USE_IOAPIC
 
 typedef struct idt_ptr_t {
@@ -25,6 +23,27 @@ typedef struct idt_entry_t {
 } __attribute__((packed)) idt_entry_t;
 
 extern volatile idt_ptr_t idt64;
+
+/**
+ * @note MAX_CPUS is set to 256 (not the expected physical core count).
+ *
+ * Local APIC IDs in xAPIC mode are 8-bit fields (0–255). These IDs are not
+ * guaranteed to be sequential, zero-based, or densely packed. Some systems
+ * leave gaps in the LAPIC ID space, and the bootstrap processor (BSP) may
+ * not be assigned LAPIC ID 0.
+ *
+ * In x2APIC mode, APIC IDs extend to 32 bits. If firmware enables x2APIC
+ * before handoff, we accept it and operate in that mode, but we currently
+ * only initialise CPUs whose LAPIC IDs are <= 254. LAPIC ID 255 is reserved
+ * for broadcast and never used. Any CPUs with IDs above 254 are ignored.
+ *
+ * By sizing arrays to 256, we can index directly by LAPIC ID without needing
+ * a LAPIC→OS CPU remapping table. This simplifies per‑CPU structures at the
+ * cost of a small amount of extra memory. Future support for >254 LAPIC IDs
+ * may require remapping or dynamic allocation.
+ */
+#define MAX_CPUS 256
+
 
 /**
  * @brief Function pointer type for interrupt and IRQ handlers.

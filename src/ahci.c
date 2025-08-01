@@ -594,7 +594,7 @@ void init_ahci()
 	}
 
 	ahci_base = pci_mem_base(ahci_base);
-	uint32_t irq_num = pci_setup_interrupt("AHCI", ahci_device, cpu_id(), ahci_handler, ahci_base);
+	uint32_t irq_num = pci_setup_interrupt("AHCI", ahci_device, logical_cpu_id(), ahci_handler, ahci_base);
 	dprintf("AHCI base MMIO: %08x INT %d\n", ahci_base, irq_num);
 
 	probe_port((ahci_hba_mem_t*)ahci_base, ahci_device);

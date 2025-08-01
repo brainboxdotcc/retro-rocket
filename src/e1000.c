@@ -320,7 +320,7 @@ bool e1000_start(pci_dev_t *pci_device) {
 
 	if (e1000_device_id == E1000_82540EM) {
 		/* Attempting MSI setup is safe here */
-		pci_setup_interrupt("e1000", *pci_device, cpu_id(), e1000_handler, NULL);
+		pci_setup_interrupt("e1000", *pci_device, logical_cpu_id(), e1000_handler, NULL);
 	} else {
 		/* But not here! The 82541PI actively torpedoes the system if you enable MSI, see its errata:
 		 *

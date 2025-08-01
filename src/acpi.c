@@ -22,10 +22,28 @@ static uint8_t ioapic_gsi_count[256] = {0};
 
 pci_irq_route_t pci_irq_routes[MAX_PCI_ROUTES] = {};
 
+uint32_t cpu_id_mapping[MAX_CPUS] = { 0 };
 
 uint64_t mhz = 0, tsc_per_sec = 1;
 
 void enumerate_all_gsis(void);
+
+uint32_t get_lapic_id_from_cpu_id(uint8_t cpu_id) {
+	return cpu_id_mapping[cpu_id];
+}
+
+uint8_t get_cpu_id_from_lapic_id(uint32_t lapic_id) {
+	for (uint8_t x = 0; x < MAX_CPUS - 1; ++x) {
+		if (cpu_id_mapping[x] == lapic_id) {
+			return x;
+		}
+	}
+	return INVALID_CPU_ID;
+}
+
+void set_lapic_id_for_cpu_id(uint8_t cpu_id, uint32_t lapic_id) {
+	cpu_id_mapping[cpu_id] = lapic_id;
+}
 
 void init_uacpi(void) {
 	uacpi_status st;
@@ -201,10 +219,21 @@ void init_cores() {
 			return;
 		}
 
-		for (uint64_t i = 0; i < smp_request.response->cpu_count; i++) {
+		uint64_t limit = smp_request.response->cpu_count;
+		if (limit > MAX_CPUS - 1) {
+			kprintf("WARNING: Your system has more than 254 CPUs; only 254 will be enabled\n");
+			limit = MAX_CPUS - 1;
+		}
+		for (uint64_t i = 0; i < limit; i++) {
 			struct limine_smp_info *cpu = smp_request.response->cpus[i];
-			if (cpu->lapic_id == smp_request.response->bsp_lapic_id) {
-				continue; // Skip BSP
+			if (cpu->processor_id < 255) {
+				set_lapic_id_for_cpu_id(cpu->processor_id, cpu->lapic_id);
+			}
+			if (cpu->lapic_id == smp_request.response->bsp_lapic_id || cpu->processor_id > 254) {
+				// Skip BSP and IDs over 254 (255 is broadcast, 256+ are too big for our array)
+				continue;
+			} else if (cpu->lapic_id == smp_request.response->bsp_lapic_id) {
+				kprintf("CPU: %d online; ID: %d\n", cpu->processor_id, cpu->lapic_id);
 			}
 			cpu->goto_address = kmain_ap;
 		}

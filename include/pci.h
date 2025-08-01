@@ -278,14 +278,13 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
  *
  * @param name     Human-readable device name (used in logs/debug output).
  * @param dev      The PCI device handle.
- * @param lapic_id Local APIC ID of the target CPU that should receive the
- *                 interrupt.
+ * @param logical_cpu_id Logical CPU ID of the target CPU that should receive the interrupt.
  * @param handler  Interrupt service routine to register.
  * @param context  Opaque pointer passed to the ISR when the interrupt fires.
  *
- * @warning The lapic_id parameter must be a valid Local APIC ID
+ * @warning The lapic_id parameter must be a valid logical ID
  *          corresponding to an online CPU. Passing an invalid or
- *          offline APIC ID will result in undefined behaviour and
+ *          offline CPU ID will result in undefined behaviour and
  *          may cause interrupts to be lost.
  *
  * @return The assigned interrupt vector (64–255 if MSI/MSI-X was used,
@@ -294,4 +293,4 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
  * @note Drivers should always check the returned vector to confirm which
  *       interrupt mechanism was actually configured.
  */
-uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t lapic_id, isr_t handler, void *context);
+uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t logical_cpu_id, isr_t handler, void *context);

@@ -17,19 +17,6 @@
 #define FIRST_MSI_VECTOR 64
 #define MSI_WORDS (MSI_VECTORS / 64)
 
-/**
- * @note MAX_CPUS is set to 256 (not the expected physical core count).
- *
- * Local APIC IDs are 8-bit fields (0–255) and are not guaranteed to be
- * sequential, zero-based, or densely packed. Some systems leave gaps
- * in the LAPIC ID space or assign non-zero IDs to the bootstrap CPU.
- *
- * By sizing arrays to 256, we can index directly by LAPIC ID without
- * needing an LAPIC->OS CPU remapping table. This avoids subtle bugs on
- * odd hardware at the cost of a small amount of extra memory.
- */
-#define MAX_CPUS 256
-
 /* Precompute reserved mask for the first word */
 #define MSI_RESERVED_MASK ((FIRST_MSI_VECTOR == 64) ? ~0ULL : ((1ULL << FIRST_MSI_VECTOR) - 1ULL))
 
