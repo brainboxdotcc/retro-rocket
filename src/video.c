@@ -106,7 +106,7 @@ uint32_t getpixel(int64_t x, int64_t y)
 /* Clear the screen - note this does not send the ansi to the debug console */
 void clearscreen(console* c)
 {
-	memset(rr_fb_front, 0, rr_fb_bytes);
+	memset(rr_fb_back, 0, rr_fb_bytes);
 	screenonly(c, "\033[2J\033[0;0H");
 	video_dirty = true;
 }

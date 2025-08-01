@@ -88,9 +88,9 @@ void Interrupt(uint64_t isrnumber, uint64_t errorcode)
 	__builtin_ia32_fxsave64(&fx);
 	for (shared_interrupt_t* si = shared_interrupt[isrnumber]; si; si = si->next) {
 		/* There is no shared interrupt routing on these interrupts,
-		 * they are purely routed to interested non-pci handlers
+		 * they are purely routed to interested handlers
 		 */
-		if (si->device.bits == 0 && si->interrupt_handler) {
+		if (si->interrupt_handler) {
 			si->interrupt_handler((uint8_t)isrnumber, errorcode, 0, si->opaque);
 		}
 	}
