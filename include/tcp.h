@@ -150,8 +150,8 @@ typedef struct tcp_conn_t
 	uint8_t* send_buffer;	// High level send buffer
 	size_t send_buffer_len;	// High level send buffer length
 
-	spinlock recv_buffer_spinlock;
-	spinlock send_buffer_spinlock;
+	spinlock_t recv_buffer_spinlock;
+	spinlock_t send_buffer_spinlock;
 
 	uint32_t msl_time;	// Maximum socket lifetime timeout or 0
 

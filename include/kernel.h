@@ -13,6 +13,7 @@
 #include <limine.h>
 #include "idt.h"
 #include "spinlock.h"
+#include "rwlock.h"
 #include "printf.h"
 #include "hashmap.h"
 #include "random.h"
