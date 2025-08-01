@@ -280,8 +280,10 @@ int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] cons
 int vprintf(const char *fmt, va_list args)
 {
 	lock_spinlock(&console_spinlock);
+	lock_spinlock(&debug_console_spinlock);
 	int r = do_printf(fmt, SIZE_MAX, args, vprintf_help, NULL);
 	unlock_spinlock(&console_spinlock);
+	unlock_spinlock(&debug_console_spinlock);
 	return r;
 }
 
