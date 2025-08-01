@@ -53,6 +53,13 @@ typedef __builtin_va_list va_list;
 #define va_end(ap) __builtin_va_end(ap)
 
 /**
+ * GCC/Clang printf-like checking macro.
+ * fmt_index = 2 means format string is the 2nd parameter,
+ * first_arg = 3 means variadic args start at 3rd param.
+ */
+#define PRINTF_LIKE(fmt_index, first_arg) __attribute__((format(printf, fmt_index, first_arg)))
+
+/**
  * @brief Format Flags
  *
  * These flags are set during format string parsing and affect the
@@ -95,7 +102,7 @@ typedef int (*fnptr_t)(unsigned c, void **helper, const void* end);
  * @param args Variadic argument list
  * @return Number of characters written (excluding NUL terminator)
  */
-int vsnprintf(char *buf, size_t max, const char *fmt, va_list args);
+int vsnprintf(char *buf, size_t max, const char *fmt, va_list args) PRINTF_LIKE(3, 0);
 
 /**
  * @brief Write formatted output to a string buffer with max size.
@@ -105,7 +112,7 @@ int vsnprintf(char *buf, size_t max, const char *fmt, va_list args);
  * @param ... Format arguments
  * @return Number of characters written (excluding NUL terminator)
  */
-int snprintf(char *buf, size_t max, const char *fmt, ...);
+int snprintf(char *buf, size_t max, const char *fmt, ...) PRINTF_LIKE(3, 4);
 
 /**
  * @brief Write formatted output to the active console.
@@ -114,7 +121,7 @@ int snprintf(char *buf, size_t max, const char *fmt, ...);
  * @param args Variadic argument list
  * @return Number of characters written
  */
-int vprintf(const char *fmt, va_list args);
+int vprintf(const char *fmt, va_list args) PRINTF_LIKE(1, 0);
 
 /**
  * @brief Write formatted output to the active console.
@@ -123,7 +130,7 @@ int vprintf(const char *fmt, va_list args);
  * @param ... Format arguments
  * @return Number of characters written
  */
-int printf(const char *fmt, ...);
+int printf(const char *fmt, ...) PRINTF_LIKE(1, 2);
 
 /**
  * @brief Debug output only (I/O port 0xE9).
@@ -135,4 +142,4 @@ int printf(const char *fmt, ...);
  * @param ... Format arguments
  * @return Number of characters written
  */
-int dprintf(const char *fmt, ...);
+int dprintf(const char *fmt, ...) PRINTF_LIKE(1, 2);

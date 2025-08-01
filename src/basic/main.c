@@ -113,7 +113,7 @@ const char* auto_number(const char* program, uint64_t line, uint64_t increment)
 				*line_ptr++ = '\n';
 				program++;
 			}
-			snprintf(line_buffer, MAX_STRINGLEN, "%d ", line);
+			snprintf(line_buffer, MAX_STRINGLEN, "%lu ", line);
 			line += increment;
 			insert_line = false;
 			line_ptr = line_buffer + strlen(line_buffer);
@@ -370,7 +370,7 @@ void library_statement(struct basic_ctx* ctx)
 	/* Look for constructor PROC with same name as library */
 	struct ub_proc_fn_def* def = basic_find_fn(file_info->filename, ctx);
 	if (def) {
-		dprintf("Calling initialisation constructor '%s' on line %d with return to line %d\n", file_info->filename, def->line, next_line);
+		dprintf("Calling initialisation constructor '%s' on line %ld with return to line %ld\n", file_info->filename, def->line, next_line);
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->call_stack[ctx->call_stack_ptr] = next_line;
 			init_local_heap(ctx);
@@ -382,7 +382,7 @@ void library_statement(struct basic_ctx* ctx)
 		}
 		return;
 	} else {
-		dprintf("Library '%s' has no initialisation constructor, continue at line %d\n", file_info->filename, next_line);
+		dprintf("Library '%s' has no initialisation constructor, continue at line %ld\n", file_info->filename, next_line);
 		jump_linenum(next_line, ctx);
 	}
 }
@@ -545,7 +545,7 @@ bool jump_linenum(int64_t linenum, struct basic_ctx* ctx)
 	ub_line_ref* line = hashmap_get(ctx->lines, &(ub_line_ref){ .line_number = linenum });
 	if (!line) {
 		char err[MAX_STRINGLEN];
-		snprintf(err, MAX_STRINGLEN, "No such line %d", linenum);
+		snprintf(err, MAX_STRINGLEN, "No such line %ld", linenum);
 		tokenizer_error_print(ctx, err);
 		return false;
 	}

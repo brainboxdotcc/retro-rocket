@@ -203,26 +203,10 @@ static int vsprintf_help(unsigned c, void **ptr, const void* max)
 	return 1;
 }
 
-static int vsprintf(char *buf, const char *fmt, va_list args)
-{
-	int rv = do_printf(fmt, SIZE_MAX, args, vsprintf_help, (void *)buf);
-	buf[rv] = '\0';
-	return rv;
-}
-
 int vsnprintf(char *buf, size_t max, const char *fmt, va_list args)
 {
 	int rv = do_printf(fmt, max, args, vsprintf_help, (void *)buf);
 	buf[rv] = '\0';
-	return rv;
-}
-
-static int sprintf(char *buf, const char *fmt, ...)
-{
-	va_list args;
-	va_start(args, fmt);
-	int rv = vsprintf(buf, fmt, args);
-	va_end(args);
 	return rv;
 }
 
