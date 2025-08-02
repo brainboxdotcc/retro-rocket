@@ -1,129 +1,165 @@
 /**
  * @file net.h
- * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @author Craig Edwards
+ * @brief Networking device and protocol definitions.
  * @copyright Copyright (c) 2012-2025
  */
+
 #pragma once
 
 #include "kernel.h"
 
+/* ------------------------------------------------------------------------- */
+/* Address and protocol structures                                            */
+/* ------------------------------------------------------------------------- */
+
 /**
- * @brief Represents an address that is bound to a protocol on an interface.
- * This is kept as flexible as possible, to represent potentially different
- * protocol's forms of addresses, e.g. IPv4, IPv6, IPX, Econet etc. The length
- * indicates the number of bytes in the address, and the bytes field contains
- * the actual address in host byte order. For example in IPv4, length would
- * be 4 and bytes would essentially point at a uint32_t. The name is purely
- * a human readable label for use in commands. The label might be 'ip.address',
- * 'ip.gateway' etc.
+ * @brief Represents an address bound to a protocol on an interface.
+ *
+ * Designed to be flexible for different protocols (e.g. IPv4, IPv6, IPX,
+ * Econet). The @p length specifies the number of bytes in the address,
+ * and @p bytes holds the address in host byte order.
+ *
+ * Example: for IPv4, @p length is 4 and @p bytes points to a `uint32_t`.
+ * The @p name is a human‑readable label such as "ip.address" or "ip.gateway".
  */
 typedef struct net_address {
-	char name[16]; // name of net address, e.g. 'ip.address', 'econet.broadcast' etc
-	uint8_t length; // address length
-	uint8_t* bytes; // address bytes
+	char name[16];     /**< Human‑readable label for the address. */
+	uint8_t length;    /**< Length of the address in bytes. */
+	uint8_t* bytes;    /**< Address bytes (host byte order). */
 } net_address_t;
 
 /**
- * @brief Represents a protocol, or group of related protocols, that can be attached
- * to an interface and can have addresses. At present only ethernet devices are
- * supported, this covers 99% of the scenarios we might see in the wild on consumer
- * machines.
+ * @brief Represents a protocol, or group of related protocols, that can be
+ * attached to an interface and have addresses.
+ *
+ * Currently only Ethernet devices are supported, covering the majority of
+ * consumer hardware. Protocols may have dependencies (e.g. ARP required by IPv4),
+ * which are added automatically when needed.
  */
 typedef struct netproto {
-	char name[16]; // human readable name, e.g. 'ip', 'ipx', 'econet'
-	uint16_t ethernet_protocol_id; // ethernet id for identifying the protocol
-	uint16_t num_addresses; // number of bound and related addresses
-	net_address_t* addresses; // array of bound and related addresses
+	char name[16];             /**< Human‑readable name (e.g. "ip", "ipx"). */
+	uint16_t ethernet_protocol_id; /**< Ethernet protocol ID. */
+	uint16_t num_addresses;    /**< Number of bound addresses. */
+	net_address_t* addresses;  /**< Array of bound addresses. */
 } netproto_t;
 
 /**
- * @brief Potential flags for the state of a network device
+ * @brief Flags for the state of a network device.
  */
 enum netdev_flags_t {
-	ADMINISTRATIVELY_DOWN = 1, // Device marked as down by the user
-	CONNECTED = 2, // Device connected (has carrier)
+	ADMINISTRATIVELY_DOWN = 1, /**< Device marked down by the user. */
+	CONNECTED              = 2 /**< Device has carrier and is connected. */
 };
 
+/* ------------------------------------------------------------------------- */
+/* Device abstraction                                                         */
+/* ------------------------------------------------------------------------- */
+
+/** @brief Callback to retrieve MAC address. */
 typedef void (*net_get_mac)(uint8_t*);
+
+/** @brief Callback to send a packet through the device. */
 typedef bool (*net_send_packet)(void* data, uint16_t len);
 
 /**
- * @brief An ethernet network device, this relates directly to a physical
- * network card in the machine. A device may have zero or more attached
- * protocols, each protocol intercepts an ethernet id number. Where a
- * protocol requires another protocol to be of use, e.g. ARP with IPv4,
- * the dependency will be added automatically by other protocols that
- * require it.
+ * @brief Represents a physical Ethernet network device.
+ *
+ * Each device may have zero or more attached protocols. Each protocol
+ * intercepts traffic by its Ethernet ID. Some protocols depend on others,
+ * which are attached automatically.
  */
 typedef struct netdev {
-	uint32_t deviceid; // uniquely identifies this device
-	char name[16]; // a device name such as rtl0
-	char* description; // Human-readable description of the device type
-	void* opaque; // driver specific storage ptr
-	uint16_t speed; // Speed in megabytes per second
-	uint8_t flags; // Flags from netdev_flags_t
-	uint16_t mtu; // MTU of the device (this may filter down to protocols, or protocols may set their own)
-	uint8_t num_netprotos; // number of attached network protocols
-	netproto_t* netproto; // array of network protocols
-	net_get_mac get_mac_addr; // Retrieve mac address of device
-	net_send_packet send_packet; // Send packet via interface
-	struct netdev* next; // next in list
+	uint32_t deviceid;          /**< Unique device identifier. */
+	char name[16];              /**< Device name (e.g. "rtl0"). */
+	char* description;          /**< Human‑readable description of the device. */
+	void* opaque;               /**< Driver‑specific storage pointer. */
+	uint16_t speed;             /**< Speed in megabytes per second. */
+	uint8_t flags;              /**< Flags from ::netdev_flags_t. */
+	uint16_t mtu;               /**< Maximum transmission unit. */
+	uint8_t num_netprotos;      /**< Number of attached protocols. */
+	netproto_t* netproto;       /**< Array of attached protocols. */
+	net_get_mac get_mac_addr;   /**< Retrieve MAC address. */
+	net_send_packet send_packet;/**< Send a packet via the interface. */
+	struct netdev* next;        /**< Next device in the linked list. */
 } netdev_t;
 
+/* ------------------------------------------------------------------------- */
+/* Byte order conversion                                                      */
+/* ------------------------------------------------------------------------- */
+
 /**
- * @brief Host to network byte
- * 
- * @param byte input
- * @param num_bits number of bits of high nibble
- * @return uint8_t network byte order
+ * @brief Host‑to‑network conversion for sub‑byte fields.
+ * @param byte Input byte.
+ * @param num_bits Number of bits in the high nibble.
+ * @return Byte in network order.
  */
 uint8_t htonb(uint8_t byte, int num_bits);
 
 /**
- * @brief Network to host byte
- * 
- * @param byte input
- * @param num_bits number of bits of high nibble
- * @return uint8_t host byte order
+ * @brief Network‑to‑host conversion for sub‑byte fields.
+ * @param byte Input byte.
+ * @param num_bits Number of bits in the high nibble.
+ * @return Byte in host order.
  */
 uint8_t ntohb(uint8_t byte, int num_bits);
 
 /**
- * @brief Host to network short
- * 
- * @param hostshort input
- * @return uint16_t network order
+ * @brief Convert 16‑bit value from host to network byte order.
  */
 uint16_t htons(uint16_t hostshort);
 
 /**
- * @brief Host to network long
- * 
- * @param hostlong input
- * @return uint32_t network order
+ * @brief Convert 32‑bit value from host to network byte order.
  */
 uint32_t htonl(uint32_t hostlong);
 
 /**
- * @brief Network to host short
- * 
- * @param netshort input
- * @return uint16_t host order
+ * @brief Convert 16‑bit value from network to host byte order.
  */
 uint16_t ntohs(uint16_t netshort);
 
 /**
- * @brief Network to host long
- * 
- * @param netlong input
- * @return uint32_t host order
+ * @brief Convert 32‑bit value from network to host byte order.
  */
 uint32_t ntohl(uint32_t netlong);
 
-void network_up();
+/* ------------------------------------------------------------------------- */
+/* Network stack control                                                      */
+/* ------------------------------------------------------------------------- */
 
-void network_down();
+/**
+ * @brief Bring the network stack online.
+ *
+ * Initialises ARP, IP, TCP, DHCP, and DNS subsystems.
+ */
+void network_up(void);
 
+/**
+ * @brief Shut the network stack down.
+ */
+void network_down(void);
+
+/* ------------------------------------------------------------------------- */
+/* Device management                                                          */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * @brief Register a new network device.
+ * @param newdev Pointer to the device structure.
+ * @return true on success.
+ */
 bool register_network_device(netdev_t* newdev);
+
+/**
+ * @brief Find a network device by name.
+ * @param name Device name.
+ * @return Pointer to the device, or NULL if not found.
+ */
 netdev_t* find_network_device(const char* name);
-netdev_t* get_active_network_device();
+
+/**
+ * @brief Get the most recently registered network device.
+ * @return Pointer to the active device, or NULL if none exist.
+ */
+netdev_t* get_active_network_device(void);

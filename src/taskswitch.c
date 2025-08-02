@@ -98,6 +98,7 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 	newproc->ppid = parent_pid;
 	newproc->cons = cons;
 	newproc->cpu = logical_cpu_id();
+	newproc->start_time = time(NULL);
 	kfree_null(&programtext);
 
 	lock_spinlock(&combined_proc_lock);

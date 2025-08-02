@@ -1,184 +1,218 @@
 /**
  * @file taskswitch.h
- * @brief Handles processes and multitasking
- * @author Craig Edwards (craigedwards@brainbox.cc)
+ * @brief Handles process management, multitasking, and scheduling
+ * @author Craig Edwards
  * @copyright Copyright (c) 2012-2025
  */
 #pragma once
 
+#include <kernel.h>
+
 /**
- * @brief Represents the current state of a process
+ * @brief Represents the current state of a process.
  */
 typedef enum process_state_t {
-	PROC_RUNNING,
-	PROC_IDLE,
-	PROC_DELET,
+	PROC_RUNNING,  /**< Process is currently running */
+	PROC_IDLE,     /**< Process is idle and waiting for CPU time */
+	PROC_DELETE,    /**< Process is marked for deletion */
 } process_state_t;
 
-typedef uint32_t pid_t;		// Process ID
-typedef uint32_t uid_t;		// User ID
-typedef uint32_t gid_t;		// Group ID
-typedef uint8_t cpu_id_t;	// CPU ID
+/**
+ * @brief Process ID type (unique identifier for a process).
+ */
+typedef uint32_t pid_t;
 
+/**
+ * @brief User ID type (reserved for future use).
+ */
+typedef uint32_t uid_t;
+
+/**
+ * @brief Group ID type (reserved for future use).
+ */
+typedef uint32_t gid_t;
+
+/**
+ * @brief Logical CPU ID type.
+ */
+typedef uint8_t cpu_id_t;
+
+/**
+ * @brief Represents a process in the system.
+ *
+ * Each process has its own PID, optional parent PID, execution state,
+ * associated console, and BASIC execution context. Processes are linked
+ * in a global doubly-linked list for scheduling.
+ */
 typedef struct process_t {
-	pid_t			pid;		/* Process ID */
-	pid_t			ppid;		/* Parent Process ID */
-	uid_t			uid;		/* User id - Future use */
-	gid_t			gid;		/* Group id - Future use */
-	process_state_t		state;		/* Running state */
-	time_t			start_time;	/* Start time (UNIX epoch)*/
-	pid_t			waitpid;	/* PID we are waiting on compltion of */
-	cpu_id_t		cpu;		/* CPU ID */
-	const char*		directory;	/* Directory of program */
-	const char*		name;		/* Filename of program */
-	uint64_t		size;		/* Size of program in bytes */
-	const char*		csd;		/* Current selected directory */
-	struct console*		cons;		/* Program's console */
-	struct basic_ctx*	code;		/* BASIC context */
-	struct process_t*	prev;		/* Prev process in doubly linked list */
-	struct process_t*	next;		/* Next process in doubly linked list */
+	pid_t			pid;        /**< Unique process ID */
+	pid_t			ppid;       /**< Parent process ID */
+	uid_t			uid;        /**< User ID (future use) */
+	gid_t			gid;        /**< Group ID (future use) */
+	process_state_t		state;      /**< Running state */
+	time_t			start_time; /**< Start time (UNIX epoch) */
+	pid_t			waitpid;    /**< PID being waited on */
+	cpu_id_t		cpu;        /**< Logical CPU this process is assigned to */
+	const char*		directory;  /**< Directory of program */
+	const char*		name;       /**< Filename of program */
+	uint64_t		size;       /**< Size of program in bytes */
+	const char*		csd;        /**< Current selected directory */
+	struct console*		cons;       /**< Associated console */
+	struct basic_ctx*	code;       /**< BASIC interpreter context */
+	struct process_t*	prev;       /**< Previous process in doubly linked list */
+	struct process_t*	next;       /**< Next process in doubly linked list */
 } process_t;
 
 /**
  * @brief Process identifier struct.
- * Used to identify processes by ID in the hash map only,
- * contains the id and a pointer to the actual process_t struct
+ *
+ * Used only in the process hash map for quick lookup by ID.
  */
 typedef struct proc_id_t {
-	uint32_t id;		// Process ID
-	process_t* proc;	// Process detail
+	uint32_t id;       /**< Process ID */
+	process_t* proc;   /**< Pointer to process detail */
 } proc_id_t;
 
 /**
- * @brief Types of idle task
+ * @brief Types of idle task.
  */
 typedef enum idle_type_t {
-	IDLE_FOREGROUND, // A foreground idle task that runs in the task switch loop between context switches
-	IDLE_BACKGROUND, // A background idle task that runs via the LAPIC timer ISR
+	IDLE_FOREGROUND, /**< Idle task running in main task loop between switches */
+	IDLE_BACKGROUND, /**< Idle task running via LAPIC timer ISR */
 } idle_type_t;
 
-// Timer that drivers may register to be called during the idle time
+/**
+ * @brief Function pointer type for an idle timer callback.
+ *
+ * Functions registered here are periodically invoked
+ * during idle time, depending on idle type.
+ */
 typedef void (*proc_idle_timer_t)(void);
 
 /**
- * @brief An idle timer
+ * @brief Represents an idle timer callback.
  */
 typedef struct idle_timer {
-	proc_idle_timer_t func;
-	struct idle_timer* next;
+	proc_idle_timer_t func;       /**< Function pointer for callback */
+	struct idle_timer* next;      /**< Next idle timer in list */
 } idle_timer_t;
 
 /**
- * @brief Load a new BASIC process
- * 
- * @param fullpath fully qualified path to file
- * @param cons console
- * @param parent_pid parent PID, or 0
- * @param csd Currently selected directory
- * @return process_t* new process details
+ * @brief Load and start a new BASIC process.
+ *
+ * @param fullpath Fully qualified path to file
+ * @param cons Associated console
+ * @param parent_pid Parent PID, or 0 for none
+ * @param csd Current selected directory
+ * @return process_t* Pointer to new process details
  */
 process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd);
 
 /**
- * @brief Find a process by ID
- * 
- * @param pid process ID
- * @return process_t* process detail or NULL if not found
+ * @brief Find a process by PID.
+ *
+ * @param pid Process ID
+ * @return process_t* Pointer to process detail or NULL if not found
  */
 process_t* proc_find(pid_t pid);
 
 /**
- * @brief Return detail of current process
- * 
- * @return process_t* process detail or NULL if no current process
+ * @brief Get current process for a logical CPU.
+ *
+ * @param logical_cpu CPU ID
+ * @return process_t* Current process or NULL if none
  */
 process_t* proc_cur(uint8_t logical_cpu);
 
 /**
- * @brief Mark a process as waiting for another process to complete
- * 
- * @param proc process to mark as waiting
- * @param otherpid other process ID to wait on, must exist.
+ * @brief Mark a process as waiting for another to complete.
+ *
+ * @param proc Process to mark as waiting
+ * @param otherpid PID to wait on (must exist)
  */
 void proc_wait(process_t* proc, pid_t otherpid);
 
 /**
- * @brief Run BASIC program for one atomic cycle
- * 
- * @param proc process to execute
+ * @brief Execute one atomic BASIC cycle for a process.
+ *
+ * @param proc Process to run
  */
 void proc_run(process_t* proc);
 
 /**
- * @brief Returns true if the program has ended
- * 
- * @param proc process
- * @return int true if ended
+ * @brief Determine if a program has ended.
+ *
+ * @param proc Process to check
+ * @return int Non-zero if ended, zero otherwise
  */
 int proc_ended(process_t* proc);
 
 /**
- * @brief Kill a process
- * 
- * @param proc process to kill
+ * @brief Kill a process immediately.
+ *
+ * @param proc Process to terminate
  */
 void proc_kill(process_t* proc);
 
 /**
- * @brief Kill a process by ID
- * 
- * @note Cannot be used to kill the current process from itself!
- * @param id Process ID to kill
- * @return true if found and killed
+ * @brief Kill a process by PID.
+ *
+ * @note Cannot be used to kill the current process from itself.
+ * @param id Process ID
+ * @return true if process found and killed, false otherwise
  */
 bool proc_kill_id(pid_t id);
 
 /**
  * @brief Run the process scheduling loop.
- * Each AP and the BSP all have a proc_loop().
- * @note Does not return
+ *
+ * Each logical CPU has its own scheduling loop.
+ * @note This function does not return.
  */
 _Noreturn void proc_loop();
 
 /**
- * @brief Change to next scheduled process
- * @note Uses the round robin scheduling algorithm
+ * @brief Switch to the next scheduled process.
+ *
+ * Implements a round-robin scheduling algorithm.
  */
 void proc_timer();
 
 /**
- * @brief Returns the total number of running processes
- * 
- * @return int64_t number of running processes
+ * @brief Get total number of running processes.
+ *
+ * @return int64_t Number of running processes
  */
 int64_t proc_total();
 
 /**
- * @brief Returns the id of a process by index number
- * 
- * @param index index number of process to find between 0 and proc_total()
- * @return pid_t process id
+ * @brief Get the PID of a process by index.
+ *
+ * @param index Process index, between 0 and proc_total()
+ * @return pid_t Process ID
  */
 pid_t proc_id(int64_t index);
 
 /**
- * @brief Register a function to be called periodically during idle time
- * 
- * @param handler handler function, void(void)
- * @param type type of idle to register
+ * @brief Register an idle callback function.
+ *
+ * @param handler Function pointer, void(void)
+ * @param type Foreground or background idle type
  */
 void proc_register_idle(proc_idle_timer_t handler, idle_type_t type);
 
 /**
- * @brief Change CSD (currently selected directory) of process
- * 
- * @note No validation of the path is peformed, this must be done
- * extnerally to this function by validating the file information on VFS.
- * @param proc Process struct
- * @param csd current directory
- * @return const char* new current directory
+ * @brief Change the CSD (current selected directory) of a process.
+ *
+ * @note No validation of the path is performed here; external VFS
+ *       checks must be applied before calling.
+ * @param proc Process to update
+ * @param csd New current directory
+ * @return const char* Updated current directory
  */
 const char* proc_set_csd(process_t* proc, const char* csd);
 
+/**
+ * @brief Initialise the process subsystem.
+ */
 void init_process();
-

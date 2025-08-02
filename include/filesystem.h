@@ -117,7 +117,7 @@ typedef struct filesystem_t {
 	 * @brief Function pointer for writefile()
 	 * Writes data to arbitrary location in a file on the filesystem.
 	 * The file must exist, and writefile() should not create new
-	 * files, this is the reponsibility of the createfile() endpoint.
+	 * files, this is the responsibility of the createfile() endpoint.
 	 * 
 	 * The writefile() endpoint should extend the length of existing
 	 * files where required however, without error and without any

@@ -30,6 +30,8 @@
  * SUCH DAMAGE.
  */
 
+static unsigned long rand_state = 1;  /* default seed */
+
 double strtod(const char *str, char **endptr)
 {
 	double out;
@@ -574,43 +576,77 @@ ldiv_t ldiv(long int numer, long int denom)
 	};
 }
 
-int rand(void)
-{
-	kprintf("Invalid stdlib stub: rand()");
-	return 0;
-}
-
 void srand(unsigned int seed)
 {
-		kprintf("Invalid stdlib stub: srand()");
+	if (seed == 0) {
+		seed = 1;  // avoid a locked zero state
+	}
+	rand_state = seed;
 }
+
+int rand(void)
+{
+	rand_state = rand_state * 1103515245UL + 12345UL;
+	return (int)(rand_state >> 1);
+}
+
+#include <wchar.h>
 
 int mblen(const char *str, size_t n)
 {
-	return 0;
+	if (str == NULL || n == 0)
+		return 0;
+	return *str != '\0' ? 1 : 0;
 }
 
-size_t mbstowcs(schar_t *pwcs, const char *str, size_t n)
+size_t mbstowcs(wchar_t *pwcs, const char *str, size_t n)
 {
-	kprintf("Invalid stdlib stub: mbstowcs()");
-	return 0;
+	size_t count = 0;
+	if (!str)
+		return 0;
+
+	while (*str && count < n) {
+		if (pwcs)
+			pwcs[count] = (unsigned char)*str;
+		str++;
+		count++;
+	}
+
+	return count;
 }
 
 int mbtowc(wchar_t *pwc, const char *str, size_t n)
 {
-	kprintf("Invalid stdlib stub: mbtowc()");
-	return 0;
+	if (!str || n == 0)
+		return 0;
+	if (*str == '\0')
+		return 0;
+
+	if (pwc)
+		*pwc = (unsigned char)*str;
+	return 1;
 }
 
 size_t wcstombs(char *str, const wchar_t *pwcs, size_t n)
 {
-	kprintf("Invalid stdlib stub: wcstombs()");
-	return 0;
+	size_t count = 0;
+	if (!pwcs)
+		return 0;
+
+	while (*pwcs && count < n) {
+		if (str)
+			str[count] = (char)(*pwcs & 0xff);
+		pwcs++;
+		count++;
+	}
+
+	return count;
 }
 
 int wctomb(char *str, wchar_t wchar)
 {
-	kprintf("Invalid stdlib stub: wctomb()");
-	return 0;
+	if (!str)
+		return 0;
+	str[0] = (char)(wchar & 0xff);
+	return 1;
 }
-

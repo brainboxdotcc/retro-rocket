@@ -967,11 +967,11 @@ void tcp_idle()
 
 	void *item;
 	size_t iter = 0;
+	interrupts_off();
 	while (hashmap_iter(tcb, &iter, &item)) {
 		tcp_conn_t *conn = item;
 		if (conn->state == TCP_ESTABLISHED) {
 			if (conn->send_buffer_len > 0 && conn->send_buffer != NULL) {
-				interrupts_off();
 				/* There is buffered data to send from high level functions */
 				size_t amount_to_send = conn->send_buffer_len > 1460 ? 1460 : conn->send_buffer_len;
 				tcp_write(conn, conn->send_buffer, amount_to_send);
@@ -983,13 +983,13 @@ void tcp_idle()
 					conn->send_buffer = krealloc(conn->send_buffer + amount_to_send, conn->send_buffer_len - amount_to_send);
 				}
 				conn->send_buffer_len -= amount_to_send;
-				interrupts_on();
 			}
 		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
 			tcp_free(conn);
 			break;
 		}
 	}
+	interrupts_on();
 }
 
 /**

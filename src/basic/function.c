@@ -410,14 +410,11 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				def->line = currentline;
 				def->next = ctx->defs;
 
-				dprintf("PROC: %s (line %d)\n", def->name, currentline);
-
 				/* Parse parameters */
 
 				def->params = NULL;
 
 				if (*search == '(') {
-					dprintf("PROC has params\n");
 					search++;
 					// Parse parameters
 					char pname[MAX_STRINGLEN];
@@ -436,13 +433,11 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 
 							if (def->params == NULL) {
 								def->params = par;
-								dprintf("   PARAM: %s\n", par->name);
 							} else {
 								struct ub_param* cur = def->params;
 								for (; cur; cur = cur->next) {
 									if (cur->next == NULL) {
 										cur->next = par;
-										dprintf("   PARAM: %s\n", cur->name);
 										break;
 									}
 								}
@@ -466,7 +461,6 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				break;
 			}
 	}
-	dprintf("Finished function forward scan\n");
 
 	ctx->ended = false;
 	return true;

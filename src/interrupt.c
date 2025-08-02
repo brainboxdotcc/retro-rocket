@@ -38,11 +38,12 @@ bool register_interrupt_handler(uint8_t n, isr_t handler, pci_dev_t device, void
 	si->opaque = opaque;
 	shared_interrupt[n] = si;
 	if (si->next) {
-		dprintf("NOTE: %s %d is shared!\n", n < 32 ? "ISR" : "IRQ", n < 32 ? n : n - 32);
+		dprintf("NOTE: %s %d is shared!\n", n < IRQ_START ? "ISR" : "IRQ", n < IRQ_START ? n : n - IRQ_START);
 	}
-	if (n >= 32) {
-		ioapic_mask_set(n - 32, false); // Unmask
+	if (n >= IRQ_START) {
+		ioapic_mask_set(n - IRQ_START, false); // Unmask
 	}
+	dprintf("Register ISR %d CPU %d\n", n, logical_cpu_id());
 	return true;
 }
 

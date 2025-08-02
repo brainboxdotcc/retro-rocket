@@ -36,8 +36,7 @@ char* basic_inkey(struct basic_ctx* ctx)
 	const uint8_t key[2] = { kgetc((console*)ctx->cons), 0 };
 	
 	if (*key == 255) {
-		// hlt stops busy waiting for INKEY$
-		__asm__ volatile("hlt");
+		_mm_pause();
 		return "";
 	} else {
 		return gc_strdup((const char*)key);
@@ -100,6 +99,7 @@ void input_statement(struct basic_ctx* ctx)
 		accept_or_return(NEWLINE, ctx);
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
+		_mm_pause();
 	}
 }
 

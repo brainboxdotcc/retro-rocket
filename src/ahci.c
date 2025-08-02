@@ -79,18 +79,14 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 	// Command list maxim size = 32*32 = 1K per port
 	port->clb = (kmalloc_low(0x100000) & 0xFFFFFFFFFFFFF000) + 0x1000;
 	port->clbu = 0;
-	dprintf("Alloc: %08x\n", port->clb);
 	memset((void*)((uint64_t)port->clb), 0, 1024);
-	dprintf("After memset\n");
- 
+
 	// FIS offset: 32K+256*portno
 	// FIS entry size = 256 bytes per port
 	port->fb = port->clb + (32 * 1024) + (portno << 8);
 	port->fbu = 0;
 	memset((void*)((uint64_t)port->fb), 0, 256);
-	
-	dprintf("After 2nd memset\n");
- 
+
 	// Command table offset: 40K + 8K*portno
 	// Command table size = 256*32 = 8K per port
 	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)((uint64_t)port->clb);
@@ -102,11 +98,7 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 		cmdheader[i].ctbau = 0;
 		memset((void*)(uint64_t)cmdheader[i].ctba, 0, 256);
 	}
-	dprintf("After table init\n");
- 
 	start_cmd(port);	// Start command engine
-	
-	dprintf("After start_cmd\n");
 }
 
 int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buffer)

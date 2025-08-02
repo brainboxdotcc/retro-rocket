@@ -30,7 +30,7 @@ extern void enable_sse();
 uint8_t double_determine_decimal_places(double f);
 
 /**
- * @brief Convert a doubleing point number to char* string,
+ * @brief Convert a double number to char* string,
  * with a specified decimal precision.
  *
  * This function retains accuraccy by converting to 64 bit

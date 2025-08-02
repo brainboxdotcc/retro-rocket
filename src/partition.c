@@ -111,7 +111,7 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, cha
 
 	partition_table_t* ptab = (partition_table_t*)(buffer + PARTITION_TABLE_OFFSET);
 
-	if (ptab->p_entry[0].bootable == 0 && ptab->p_entry[0].systemid == PARTITON_GPT_PROTECTIVE && ptab->p_entry[0].startlba == 1) {
+	if (ptab->p_entry[0].bootable == 0 && ptab->p_entry[0].systemid == PARTITION_GPT_PROTECTIVE && ptab->p_entry[0].startlba == 1) {
 		kfree_null(&buffer);
 		return scan_gpt_entries(sd, partition_type_guid, partition_id, start, length, found_guid);
 	}
