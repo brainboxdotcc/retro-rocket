@@ -5,15 +5,16 @@
  */
 #pragma once
 
+#define kprintf printf
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <limits.h>
-#define kprintf printf
 #include <limine.h>
 #include "idt.h"
 #include "spinlock.h"
 #include "rwlock.h"
+#include "cv.h"
 #include "printf.h"
 #include "hashmap.h"
 #include "random.h"

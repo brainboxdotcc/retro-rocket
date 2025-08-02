@@ -198,7 +198,7 @@ bool rtl8139_send_packet(void* data, uint16_t len) {
 		return false;
 	}
 	
-	dprintf("rtl8139_send_packet(%08x, %d)\n", data, len);
+	dprintf("rtl8139_send_packet(%08lx, %d)\n", (uint64_t)data, len);
 
 	interrupts_off();
 
@@ -206,7 +206,7 @@ bool rtl8139_send_packet(void* data, uint16_t len) {
 	uint32_t transfer_data = rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur;
 	void* transfer_data_p = (void*)((uint64_t)rtl8139_device.tx_buffers + 8192 * rtl8139_device.tx_cur);
 	
-	dprintf("transfer_data_p=%08x\n", transfer_data_p);
+	dprintf("transfer_data_p=%08lx\n", (uint64_t)transfer_data_p);
 
 	// 1: copy the packet to a physically continuous buffer in memory.
 	memcpy(transfer_data_p, data, len);

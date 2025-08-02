@@ -24,9 +24,12 @@ static uint64_t rr_fb_bytes = 0;
 
 struct flanterm_context *ft_ctx = NULL;
 
+extern spinlock_t console_spinlock;
+extern spinlock_t debug_console_spinlock;
+
 void rr_console_init_from_limine(void) {
 	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
-	dprintf("fb front: %x\n", fb->address);
+	dprintf("fb front: %lx\n", (uint64_t)fb->address);
 	rr_fb_front  = fb->address;
 	rr_fb_pitch  = fb->pitch;
 	rr_fb_height = fb->height;
@@ -86,8 +89,12 @@ void get_text_position(uint64_t* x, uint64_t* y)
 void gotoxy(uint64_t x, uint64_t y)
 {
 	char cursor_command[32];
-	snprintf(cursor_command, 32, "\033[%d;%dH", y % (get_text_height() + 1), x % (get_text_width() + 1));
+	snprintf(cursor_command, 32, "\033[%ld;%ldH", y % (get_text_height() + 1), x % (get_text_width() + 1));
+	lock_spinlock(&console_spinlock);
+	lock_spinlock(&debug_console_spinlock);
 	screenonly(current_console, cursor_command);
+	unlock_spinlock(&console_spinlock);
+	unlock_spinlock(&debug_console_spinlock);
 	video_dirty = true;
 }
 
@@ -191,7 +198,7 @@ void init_console()
 			}
 		}
 		font_data = mods->modules[mod_index]->address;
-		dprintf("Found font module: %x\n", font_data);
+		dprintf("Found font module: %x\n", (uint8_t)font_data);
 	}
 
 	ft_ctx = flanterm_fb_init(
@@ -213,14 +220,14 @@ void init_console()
 		0,
 		0
 	);
-	dprintf("Flanterm address: %x\n", ft_ctx);
+	dprintf("Flanterm address: %lx\n", (uint64_t)ft_ctx);
 	flanterm_set_autoflush(ft_ctx, true);
 	flanterm_set_callback(ft_ctx, terminal_callback);
 	size_t x, y;
 	flanterm_get_dimensions(ft_ctx, &x, &y);
 	screen_x = x;
 	screen_y = y;
-	dprintf("Framebuffer address: %llx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
+	dprintf("Framebuffer address: %lx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
 
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	printf("Retro-Rocket ");
@@ -314,14 +321,23 @@ void setbackground(console* c, unsigned char background)
 {
 	char code[100];
 	snprintf(code, 100, "%c[%dm", 27, background + 40);
+	lock_spinlock(&console_spinlock);
+	lock_spinlock(&debug_console_spinlock);
 	putstring(c, code);
+	unlock_spinlock(&console_spinlock);
+	unlock_spinlock(&debug_console_spinlock);
 }
 
 void setforeground(console* c, unsigned char foreground)
 {
 	char code[100];
+
 	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi(foreground));
+	lock_spinlock(&console_spinlock);
+	lock_spinlock(&debug_console_spinlock);
 	putstring(c, code);
+	unlock_spinlock(&console_spinlock);
+	unlock_spinlock(&debug_console_spinlock);
 }
 
 bool video_flip_auto(void) {

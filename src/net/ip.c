@@ -213,7 +213,6 @@ void ip_idle()
 				/* 3 ARPs have been tried over 3 seconds, and then we waited another ten.
 				 * Packet still didn't get an ARP reply. Dequeue it as a lost packet.
 				 */
-				dprintf("Failed ARP resolution after 3 tries to %08x at %d\n", arp_dest, current_time);
 				dequeue_packet(cur, last);
 				/* again, don't advance last */
 			} else {
@@ -453,7 +452,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 					ip_packet_t findpacket = { .id = packet->id };
 					ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 					if (fragmented == NULL) {
-						dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
+						dprintf("*** WARN *** Fragmented packet id %u has no entry in hash map", packet->id);
 						return;
 					}
 					fragmented->last_seen_ticks = get_ticks();
@@ -481,7 +480,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 				ip_packet_t findpacket = { .id = packet->id };
 				ip_fragmented_packet_parts_t* fragmented = (ip_fragmented_packet_parts_t*)hashmap_get(frag_map, &findpacket);
 				if (fragmented == NULL) {
-					dprintf("*** WARN *** Fragmented packet id %d has no entry in hash map", fragmented);
+					dprintf("*** WARN *** Fragmented packet id %u has no entry in hash map", packet->id);
 					return;
 				}
 				fragmented->last_seen_ticks = get_ticks();
@@ -513,7 +512,7 @@ void ip_handle_packet(ip_packet_t* packet, [[maybe_unused]] int n_len) {
 						void * copy_from = (void*)cur->packet + cur->packet->ihl * 4;
 						memcpy(data_ptr + cur->offset, copy_from, this_packet_size);
 					} else {
-						dprintf("*** WARN *** Fragmented packet id %d has fragment with offset %08x and length %08d >= data length of %08x", fragmented->id, cur->offset, this_packet_size, data_len);
+						dprintf("*** WARN *** Fragmented packet id %d has fragment with offset %08x and length %08ld >= data length of %08lx", fragmented->id, cur->offset, this_packet_size, data_len);
 					}
 					kfree_null(&cur->packet);
 					kfree_null(&cur);

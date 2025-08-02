@@ -29,7 +29,7 @@ struct {
 static void dump_mapping(uint64_t virt, uint64_t phys, uint64_t flags, int level) {
 	const char *sizes[] = { "4K", "2M", "1G" };
 	if (3 - level == 2) {
-		dprintf("VA 0x%llx -> PA 0x%llx [%s%s%s%s] (%s)\n",
+		dprintf("VA 0x%lx -> PA 0x%lx [%s%s%s%s] (%s)\n",
 			virt, phys,
 			flags & PRESENT ? "P" : "-",
 			flags & WRITE ? "W" : "-",

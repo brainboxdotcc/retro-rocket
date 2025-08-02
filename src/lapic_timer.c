@@ -33,7 +33,7 @@ void init_lapic_timer()
 
 	add_random_entropy(ticks_per_second);
 
-	dprintf("ticks_per_second = %d; ticks_per_quantum = %d; quantum = %d\n", ticks_per_second, ticks_per_quantum, quantum);
+	dprintf("ticks_per_second = %lu; ticks_per_quantum = %lu; quantum = %lu\n", ticks_per_second, ticks_per_quantum, quantum);
 
 	apic_write(APIC_TMRINITCNT, ticks_per_quantum);
 	apic_write(APIC_LVT_TMR, IRQ16 | TMR_PERIODIC);

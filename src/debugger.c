@@ -32,7 +32,7 @@ void gdb_send_packet(uint32_t src_ip, uint16_t src_port, const char* packet)
 		checksum += *ptr++;
 	}
 	char p[strlen(packet) + 5];
-	snprintf(p, strlen(packet) + 5, "%s#%02x", packet, checksum % 256);
+	snprintf(p, strlen(packet) + 5, "%s#%02x", packet, (uint8_t)checksum % 256);
 	udp_send_packet((uint8_t*)&src_ip, DEBUG_DST_PORT, src_port, p, strlen(p));
 }
 
@@ -194,7 +194,7 @@ void gdb_data(uint32_t src_ip, uint16_t src_port, uint8_t* data, uint32_t length
 		strlcpy(commands, (const char*)data, n + 1);
 		gdb_command(src_ip, src_port, commands);
 	} else {
-		dprintf("GDB packet with invalid checksum: %02x vs %02x", their_sum, checksum);
+		dprintf("GDB packet with invalid checksum: %lx vs %lx", their_sum, checksum);
 	}
 }
 
@@ -233,7 +233,7 @@ void dump_hex(void* addr, uint64_t length)
 	unsigned char* address = addr;
 	uint64_t index = 0;
 	for(; index < length; index += 16) {
-		kprintf("%04x: ", index);
+		kprintf("%04lx: ", index);
 		size_t hex = 0;
 		for (; hex < 16; ++hex) {
 			if (index + hex < length) {
@@ -357,7 +357,7 @@ void init_debug()
 	setforeground(current_console, COLOUR_LIGHTYELLOW);
 	kprintf("/kernel.sym ");
 	setforeground(current_console, COLOUR_WHITE);
-	kprintf("(%d bytes)\n", filesize);
+	kprintf("(%ld bytes)\n", filesize);
 
 	udp_register_daemon(DEBUG_DST_PORT, &debug_handle_packet);
 }
@@ -402,8 +402,8 @@ void backtrace()
 	setforeground(current_console, COLOUR_LIGHTGREEN);
 	while (frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page) {
 		name = findsymbol((uint64_t)frame->addr, &offset);
-		if (!name || (name && strcmp(name, "pci_enable_msi") && strcmp(name, "vprintf") && strcmp(name, "printf"))) {
-			kprintf("\tat %s()+0%08x [0x%llx]\n",  name ? name : "[???]", offset, frame->addr);
+		if (!name || (strcmp(name, "pci_enable_msi") != 0 && strcmp(name, "vprintf") != 0 && strcmp(name, "printf") != 0)) {
+			kprintf("\tat %s()+0%08lx [0x%lx]\n",  name ? name : "[???]", offset, (uint64_t)frame->addr);
 		}
 		frame = frame->next;
 	}

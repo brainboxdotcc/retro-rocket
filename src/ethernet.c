@@ -20,7 +20,7 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t
 	memcpy(frame->dst_mac_addr, dst_mac_addr, 6);
 	memcpy(frame_data, data, len);
 	frame->type = htons(protocol);
-	dprintf("ethernet_send_packet frame=%08x\n", frame);
+	dprintf("ethernet_send_packet frame=%08lx\n", (uint64_t)frame);
 	dev->send_packet(frame, sizeof(ethernet_frame_t) + len);
 	kfree_null(&frame);
 	return len;

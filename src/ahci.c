@@ -115,7 +115,6 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	if (!sd) {
 		return 0;
 	}
-	dprintf("storage_device_ahci_block_read bytes=%d\n", bytes);
 	uint32_t divided_length = bytes / sd->block_size;
 	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
@@ -128,8 +127,6 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	}
 
 	size_t max_per_read = AHCI_DEV_SATAPI ? 1 : 16;
-
-	dprintf("divided length: %d\n", divided_length);
 
 	if (divided_length < max_per_read) {
 		return check_type(port) == AHCI_DEV_SATAPI ? ahci_atapi_read(port, start, divided_length, (uint16_t*)buffer, abar) : ahci_read(port, start, divided_length, (uint16_t*)buffer, abar);
@@ -296,7 +293,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 		spin++;
 	}
 	if (spin == 1000000) {
-		dprintf("Port hung (start %llx count %llx)\n", start, count);
+		dprintf("Port hung (start %lx count %x)\n", start, count);
 		return false;
 	}
  
@@ -309,14 +306,14 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 		if ((port->ci & (1<<slot)) == 0) 
 			break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
-			dprintf("Read disk error (start %llx count %llx)\n", start, count);
+			dprintf("Read disk error (start %lx count %x)\n", start, count);
 			return false;
 		}
 	}
  
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Read disk error (start %llx count %llx)\n", start, count);
+		dprintf("Read disk error (start %lx count %x)\n", start, count);
 		return false;
 	}
 
@@ -414,8 +411,6 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 		return false;
 	}
 
-	dprintf("ahci_atapi_read %d %d %016x\n", start, count, buf);
-
 	ahci_hba_cmd_header_t* cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)(port->clb);
 	cmdheader += slot;
 
@@ -463,7 +458,7 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	};
 
 	if (spin == 1000000) {
-		dprintf("Port hung [atapi] (start %llx count %llx)\n", start, count);
+		dprintf("Port hung [atapi] (start %lx count %x)\n", start, count);
 		return false;
 	}
 
@@ -472,13 +467,13 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	while(true) {
 		if ((port->ci & (1<<slot)) == 0) break;
 		if (port->is & HBA_PxIS_TFES) {
-			dprintf("Read disk error [atapi] (start %llx count %llx)\n", start, count);
+			dprintf("Read disk error [atapi] (start %lx count %x)\n", start, count);
 			return false;
 		}
 	}
 
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Read disk error [atapi] (start %llx count %llx)\n", start, count);
+		dprintf("Read disk error [atapi] (start %lx count %x)\n", start, count);
 		return false;
 	}
 
@@ -548,7 +543,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 		spin++;
 	}
 	if (spin == 1000000) {
-		dprintf("Port hung [write] (start %llx count %llx)\n", start, count);
+		dprintf("Port hung [write] (start %lx count %x)\n", start, count);
 		return false;
 	}
 
@@ -559,14 +554,14 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 		if ((port->ci & (1<<slot)) == 0)
 		break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
-			dprintf("Write disk error (start %llx count %llx)\n", start, count);
+			dprintf("Write disk error (start %lx count %x)\n", start, count);
 			return false;
 		}
 	}
 
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Write disk error (start %llx count %llx)\n", start, count);
+		dprintf("Write disk error (start %lx count %x)\n", start, count);
 		return false;
 	}
 
@@ -595,7 +590,7 @@ void init_ahci()
 
 	ahci_base = pci_mem_base(ahci_base);
 	uint32_t irq_num = pci_setup_interrupt("AHCI", ahci_device, logical_cpu_id(), ahci_handler, ahci_base);
-	dprintf("AHCI base MMIO: %08x INT %d\n", ahci_base, irq_num);
+	dprintf("AHCI base MMIO: %lx INT %d\n", ahci_base, irq_num);
 
 	probe_port((ahci_hba_mem_t*)ahci_base, ahci_device);
 }

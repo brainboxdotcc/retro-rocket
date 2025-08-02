@@ -19,7 +19,7 @@ char* basic_str(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("STR$","");
 	char res[MAX_STRINGLEN];
-	snprintf(res, MAX_STRINGLEN, "%lld", intval);
+	snprintf(res, MAX_STRINGLEN, "%ld", intval);
 	return gc_strdup(res);
 }
 

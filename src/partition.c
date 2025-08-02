@@ -52,7 +52,7 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 		return false;
 	}
 	dprintf(
-		"GPT: Revision: %d, size: %d, number of entries: %d starting at: %d\n",
+		"GPT: Revision: %d, size: %d, number of entries: %d starting at: %ld\n",
 		header->gpt_revision, header->header_size,
 		header->number_partition_entries,
 		header->lba_of_partition_entries
@@ -72,7 +72,7 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 		gpt_entry_t* gpt = (gpt_entry_t*)gptbuf;
 		if (!memcmp(gpt->type_guid, partition_type, 16)) {
 			/* Found matching partition */
-			dprintf("Found GPT entry at %d, start: %d end: %d\n", entry_number, gpt->start_lba, gpt->end_lba);
+			dprintf("Found GPT entry at %d, start: %ld end: %ld\n", entry_number, gpt->start_lba, gpt->end_lba);
 			*start = gpt->start_lba;
 			*length = gpt->end_lba - gpt->start_lba;
 			*partition_id = 0xFF;

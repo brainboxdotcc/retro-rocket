@@ -248,7 +248,7 @@ void *iso_get_directory(void *t) {
 	fs_tree_t *treeitem = (fs_tree_t *) t;
 	if (treeitem) {
 		iso9660 *info = (iso9660 *) treeitem->opaque;
-		dprintf("iso_get_directory size: %d %d %d\n", treeitem->size, info->rootextent_len, treeitem->size ? treeitem->size : info->rootextent_len);
+		dprintf("iso_get_directory size: %ld %d %ld\n", treeitem->size, info->rootextent_len, treeitem->size ? treeitem->size : info->rootextent_len);
 		return (void *) parse_directory(treeitem, (iso9660 *) treeitem->opaque,
 						treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba,
 						treeitem->size ? treeitem->size : (info->rootextent_len == 1 ? 2048 : info->rootextent_len));
@@ -279,7 +279,7 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 		return false;
 	}
 	if (!read_storage_device(file->device_name, sectors_start, length, readbuf)) {
-		kprintf("ISO9660: Could not read LBA sectors 0x%x-0x%x!\n", sectors_start,
+		kprintf("ISO9660: Could not read LBA sectors 0x%lx-0x%lx!\n", sectors_start,
 			sectors_start + sectors_size);
 		kfree_null(&readbuf);
 		return false;

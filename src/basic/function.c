@@ -283,7 +283,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		while (extract_comma_list(def, ctx));
 		struct basic_ctx* atomic = basic_clone(ctx);
 		atomic->fn_type = RT_INT;
-		dprintf("Function eval, jump to line %d\n", def->line);
+		dprintf("Function eval, jump to line %ld\n", def->line);
 		jump_linenum(def->line, atomic);
 
 		while (!basic_finished(atomic)) {

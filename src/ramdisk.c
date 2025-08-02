@@ -37,7 +37,7 @@ int rd_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buff
 			divided_length++;
 		}
 		if (start + divided_length > disk->blocks) {
-			dprintf("Requested sector %llx plus len %llx is greater than ramdisk size of %llx sectors\n", start, divided_length, disk->blocks);
+			dprintf("Requested sector %lx plus len %x is greater than ramdisk size of %lx sectors\n", start, divided_length, disk->blocks);
 			return 0;
 		}
 		divided_length *= sd->block_size;
@@ -64,7 +64,7 @@ int rd_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned cha
 			divided_length++;
 		}
 		if (start + divided_length > disk->blocks) {
-			dprintf("Requested sector %llx plus len %llx is greater than ramdisk size of %llx sectors\n", start, divided_length, disk->blocks);
+			dprintf("Requested sector %lx plus len %x is greater than ramdisk size of %lx sectors\n", start, divided_length, disk->blocks);
 			return 0;
 		}
 		divided_length *= sd->block_size;
@@ -80,7 +80,7 @@ const char* init_ramdisk(size_t blocks, size_t blocksize)
 	if (make_unique_device_name("ram", name, sizeof(name))) {
 		uint8_t* data = kmalloc(blocks * blocksize);
 		if (data == NULL) {
-			dprintf("Not enough memory to allocate a ramdisk of size %d\n", blocks * blocksize);
+			dprintf("Not enough memory to allocate a ramdisk of size %ld\n", blocks * blocksize);
 			return NULL;
 		}
 		ramdisk_t rd;

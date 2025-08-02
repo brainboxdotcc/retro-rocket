@@ -41,6 +41,8 @@ uint32_t process_count = 0;
  */
 idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 
+extern simple_cv_t boot_condition;
+
 process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
@@ -188,7 +190,7 @@ const char* proc_get_csd(process_t* proc)
 
 void proc_kill(process_t* proc)
 {
-	dprintf("proc_kill %llx\n", proc);
+	dprintf("proc_kill id %u\n", proc->pid);
 	for (process_t* cur = proc_list; cur; cur = cur->next) {
 		if (cur->pid == proc->pid) {
 			if (proc->next == NULL && proc->prev == NULL) {
@@ -300,6 +302,10 @@ void init_process()
 
 void proc_loop()
 {
+	if (logical_cpu_id() == 0) {
+		/* BSP signals APs to start their proc_loops too */
+		simple_cv_broadcast(&boot_condition);
+	}
 	while (true) {
 		proc_timer();
 		proc_run_next();

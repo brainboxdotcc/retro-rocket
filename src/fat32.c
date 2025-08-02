@@ -372,10 +372,10 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 
 	uint64_t start_offset = start % info->clustersize;
 
-	dprintf("Start: %d length %d cluster %08x\n", start, length, cluster);
+	dprintf("Start: %ld length %d cluster %08x\n", start, length, cluster);
 
 	while (cluster < CLUSTER_BAD) {
-		dprintf("Current pos: %d cluster %08x\n", current_pos, cluster);
+		dprintf("Current pos: %ld cluster %08x\n", current_pos, cluster);
 		uint64_t start_of_block = current_pos;
 		uint64_t end_of_block = current_pos + info->clustersize;
 		uint64_t start_of_write = start;
@@ -403,7 +403,7 @@ bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* b
 		}
 		cluster = get_fat_entry(info, cluster);
 		current_pos += info->clustersize;
-		dprintf("New current pos: %d new cluster %08x\n", current_pos, cluster);
+		dprintf("New current pos: %ld new cluster %08x\n", current_pos, cluster);
 	}
 	kfree_null(&clbuf);
 	return true;
@@ -445,7 +445,7 @@ bool fat32_truncate_file(void* f, size_t length)
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			dprintf("couldnt read directory cluster %d in fat32_truncate_file\n", cluster_to_lba(info, cluster));
+			dprintf("couldnt read directory cluster %ld in fat32_truncate_file\n", cluster_to_lba(info, cluster));
 			kfree_null(&buffer);
 			return false;
 		}
@@ -556,7 +556,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			dprintf("couldnt read directory cluster %d in fat32_extend_file\n", cluster_to_lba(info, cluster));
+			dprintf("couldnt read directory cluster %ld in fat32_extend_file\n", cluster_to_lba(info, cluster));
 			kfree_null(&buffer);
 			return false;
 		}
@@ -929,7 +929,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 							/* Found the directory entry we are removing, mark its entry as deleted */
 							*(entry->name) = DELETED_ENTRY;
 							/* Mark related lfn entries as deleted */
-							while (entry_lfn_start < entry) {
+							while (entry_lfn_start && entry_lfn_start < entry) {
 								*(entry_lfn_start->name) = DELETED_ENTRY;
 								entry_lfn_start += sizeof(directory_entry_t);					
 							}
@@ -1043,7 +1043,7 @@ uint32_t find_next_free_fat_entry(fat32_t* info)
 
 	while (offset < info->fatsize) {
 		if (!read_storage_device(info->device_name, fat_entry_sector + offset, sd->block_size, (uint8_t*)buffer)) {
-			dprintf("Failed to read sector %llx\n", fat_entry_sector + offset);
+			dprintf("Failed to read sector %x\n", fat_entry_sector + offset);
 			kfree_null(&buffer);
 			return CLUSTER_END;
 		}
@@ -1146,7 +1146,7 @@ int read_fat(fat32_t* info)
 
 	parameter_block_t* par = (parameter_block_t*)buffer;
 	if (par->signature != 0x28 && par->signature != 0x29) {
-		kprintf("FAT32: Invalid extended bios paramter block signature\n");
+		kprintf("FAT32: Invalid extended bios parameter block signature\n");
 		kfree_null(&buffer);
 		return 0;
 	}

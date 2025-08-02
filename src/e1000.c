@@ -414,7 +414,7 @@ void init_e1000() {
 	io_base = pci_io_base(ret);
 	mem_base = pci_mem_base(ret);
 
-	kprintf("e1000: mmio base %llx\n", mem_base);
+	kprintf("e1000: mmio base %lx\n", mem_base);
 
 	pci_bus_master(pci_device);
 	eerprom_exists = false;

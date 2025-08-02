@@ -54,7 +54,7 @@ void init_heap() {
 }
 
 void print_heapinfo() {
-	kprintf("Heap start: 0x%llx size: %llu bytes\n", heapstart, heaplen);
+	kprintf("Heap start: 0x%lx size: %lu bytes\n", heapstart, heaplen);
 }
 
 void* kmalloc(uint64_t size) {

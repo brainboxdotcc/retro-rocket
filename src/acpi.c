@@ -59,7 +59,7 @@ void init_uacpi(void) {
 	uint64_t end_tsc = rdtsc();
 	tsc_per_sec = end_tsc - start_tsc;
 	mhz = tsc_per_sec / 1000000;
-	dprintf("mhz = %llu, tsc_per_sec = %llu\n", mhz, tsc_per_sec);
+	dprintf("mhz = %lu, tsc_per_sec = %lu\n", mhz, tsc_per_sec);
 
 	dprintf("init_uacpi uacpi_initialize(0)\n");
 	uacpi_context_set_log_level(UACPI_LOG_INFO);
@@ -148,7 +148,7 @@ void init_acpi() {
 		if (*ptr == 'A' && *(ptr + 1) == 'P' && *(ptr + 2) == 'I' && *(ptr + 3) == 'C') {
 			// found MADT
 			lapic_ptr = (uint64_t) (*((uint32_t *) (ptr + 0x24)));
-			kprintf("Detected: 32-Bit Local APIC [base: %llx]\n", lapic_ptr);
+			kprintf("Detected: 32-Bit Local APIC [base: %lx]\n", lapic_ptr);
 			ptr2 = ptr + *((uint32_t *) (ptr + 4));
 			// iterate on variable length records
 			for (ptr += 44; ptr < ptr2; ptr += ptr[1]) {
@@ -166,7 +166,7 @@ void init_acpi() {
 						mmio[0] = 0x01;
 						uint32_t count = ((mmio[0x10 / 4]) & 0xFF) + 1;
 						ioapic_gsi_count[numioapic] = count;
-						kprintf("Detected: IOAPIC [base: %llx; id: %d gsi base: %d gsi count: %d]\n",
+						kprintf("Detected: IOAPIC [base: %lx; id: %d gsi base: %d gsi count: %d]\n",
 							ioapic_ptr[numioapic], ioapic_ids[numioapic],
 							ioapic_gsi_base[numioapic], count);
 						numioapic++;
@@ -186,7 +186,7 @@ void init_acpi() {
 					}
 					case 5:
 						lapic_ptr = *((uint64_t *) (ptr + 4));
-						kprintf("Detected: 64-Bit Local APIC [base: %llx]\n", lapic_ptr);
+						kprintf("Detected: 64-Bit Local APIC [base: %lx]\n", lapic_ptr);
 						break;             // found 64 bit LAPIC
 				}
 			}

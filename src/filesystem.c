@@ -395,7 +395,7 @@ int _open(const char* filename, int oflag)
 
 	filehandles[fd]->cached = 0;
 	if (type == file_random || type == file_input) {
-		dprintf("read into buffer pos=%d sz=%d buf=%llx\n", filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, filehandles[fd]->inbuf);
+		dprintf("read into buffer pos=%ld sz=%ld buf=%lx\n", filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, (uint64_t)filehandles[fd]->inbuf);
 		/* Read an initial buffer into the structure up to fd->inbufsize in size */
 		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
 			file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
@@ -590,14 +590,14 @@ int _write(int fd, void *buffer, unsigned int count)
 		return -1;
 	}
 
-	dprintf("_write() fs_write_file %d\n", count);
+	dprintf("_write() fs_write_file %u\n", count);
 	if (!fs_write_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, buffer)) {
 		return -1;
 	}
 
 	if (filehandles[fd]->seekpos >= filehandles[fd]->file->size) {
 		/* Underlying driver will extend file too */
-		dprintf("_write growing file from %d to %d\n", filehandles[fd]->file->size, filehandles[fd]->seekpos + count);
+		dprintf("_write growing file from %lu to %lu\n", filehandles[fd]->file->size, filehandles[fd]->seekpos + count);
 		filehandles[fd]->file->size = filehandles[fd]->seekpos + count;
 	}
 
@@ -628,14 +628,11 @@ void retrieve_node_from_driver(fs_tree_t* node)
 		return;
 	}
 
-	//kprintf("drv=%08x getdir=%08x\n", driver, driver->getdir);
 	if (driver == NULL || driver->getdir == NULL) {
 		/* Driver does not implement getdir() */
-		kprintf("*** BUG *** Driver %08x on node '%s' is null or does not support getdir()! (getdir=%08x)\n", driver, node->name, driver->getdir);
+		kprintf("*** BUG *** Driver '%s' on node '%s' is null or does not support getdir()!\n", driver ? driver->name : "NULL", node->name);
 		return;
 	}
-
-	//kprintf("call getdir, node->lbapos=%d node->name=%s\n", node->lbapos, node->name);
 
 	node->files = driver->getdir(node);
 	node->dirty = 0;
@@ -1002,12 +999,10 @@ bool fs_delete_directory(const char* pathandfile)
 		rv = directory->responsible_driver->rmdir(directory, filename);
 		/* Remove the deleted file from the fs_tree_t */
 		if (rv) {
-			dprintf("Deleting from directory files %llx %llx\n", directory, directory->files);
 			for (fs_directory_entry_t* f = directory->files; f; f = f->next) {
 				dprintf("File: %s\n", f->filename);
 			}
 			delete_file_node(&(directory->files), filename);
-			dprintf("Deleting from directory child dirs %llx %llx\n", directory, directory->child_dirs);
 			delete_tree_node(&(directory->child_dirs), filename);
 			dprintf("Deletion done\n");
 		}

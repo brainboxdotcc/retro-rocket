@@ -9,6 +9,7 @@ volatile struct limine_smp_request smp_request = {
 extern volatile idt_ptr_t idt64;
 
 atomic_size_t aps_online = 0;
+simple_cv_t boot_condition;
 
 void kmain_ap(struct limine_smp_info *info)
 {
@@ -19,9 +20,7 @@ void kmain_ap(struct limine_smp_info *info)
 	kprintf("CPU: %u online; ID: %u\n", info->processor_id, info->lapic_id);
 	atomic_fetch_add(&aps_online, 1);
 
-	for(;;) {
-		_mm_pause();
-	}
+	simple_cv_wait(&boot_condition);
 	/**
 	 * @todo Insert cpu-local scheduler loop here.
 	 * Each AP will run its own list of executing BASIC processes. Accessing
@@ -41,4 +40,6 @@ void kmain_ap(struct limine_smp_info *info)
 	 *    state, so we dont have to peek at another scheduler instance's command queue to
 	 *    see if a process ours is waiting on still lives.
 	 */
+	 dprintf("Got start signal on cpu #%d\n", info->processor_id);
+	 wait_forever();
 }

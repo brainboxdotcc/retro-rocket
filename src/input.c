@@ -1,5 +1,8 @@
 #include <kernel.h>
 
+extern spinlock_t console_spinlock;
+extern spinlock_t debug_console_spinlock;
+
 /* Return values:
  * 0: Not finished entering a line
  * 1: Line complete
@@ -23,6 +26,8 @@ size_t kinput(size_t maxlen, console* cons)
 		cons->bufcnt = 0;
 	}
 
+	lock_spinlock(&console_spinlock);
+	lock_spinlock(&debug_console_spinlock);
 	switch (cons->last) {
 		case KEY_UP:
 		case KEY_DOWN:
@@ -56,6 +61,8 @@ size_t kinput(size_t maxlen, console* cons)
 			}
 		break;
 	}
+	unlock_spinlock(&console_spinlock);
+	unlock_spinlock(&debug_console_spinlock);
 	/* Terminate string */
 	*cons->buffer = 0;
 

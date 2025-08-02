@@ -61,7 +61,7 @@ const char* basic_get_string_array_variable(const char* var, int64_t index, stru
 			return "";
 		}
 	}
-	dprintf("Invalid string array variable '%s' index '%d'\n", var, index);
+	dprintf("Invalid string array variable '%s' index '%ld'\n", var, index);
 	tokenizer_error_print(ctx, "No such array variable");
 	return "";
 }
@@ -82,7 +82,7 @@ int64_t basic_get_int_array_variable(const char* var, int64_t index, struct basi
 			return cur->values[index];
 		}
 	}
-	dprintf("Invalid int array variable '%s' index '%d'\n", var, index);
+	dprintf("Invalid int array variable '%s' index '%ld'\n", var, index);
 	tokenizer_error_print(ctx, "No such array variable");
 	return 0;
 }
@@ -105,7 +105,7 @@ bool basic_get_double_array_variable(const char* var, int64_t index, struct basi
 			return true;
 		}
 	}
-	dprintf("Invalid float array variable '%s' index '%d'\n", var, index);
+	dprintf("Invalid float array variable '%s' index '%ld'\n", var, index);
 	tokenizer_error_print(ctx, "No such array variable");
 	*ret = 0;
 	return false;

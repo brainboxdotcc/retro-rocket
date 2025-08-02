@@ -4,6 +4,9 @@
  */
 #include <kernel.h>
 
+extern spinlock_t console_spinlock;
+extern spinlock_t debug_console_spinlock;
+
 int64_t basic_get_text_max_x(struct basic_ctx* ctx)
 {
 	return get_text_width();
@@ -122,7 +125,11 @@ void print_statement(struct basic_ctx* ctx)
 	accept_or_return(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
+		lock_spinlock(&console_spinlock);
+		lock_spinlock(&debug_console_spinlock);
 		putstring((console*)ctx->cons, out);
+		unlock_spinlock(&console_spinlock);
+		unlock_spinlock(&debug_console_spinlock);
 	}
 }
 
