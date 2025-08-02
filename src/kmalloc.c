@@ -58,10 +58,11 @@ void print_heapinfo() {
 }
 
 void* kmalloc(uint64_t size) {
-	lock_spinlock(&allocator_lock);
+	uint64_t flags;
+	lock_spinlock_irq(&allocator_lock, &flags);
 	void* p = ta_alloc(size);
 	allocated += ta_usable_size((void*)p);
-	unlock_spinlock(&allocator_lock);
+	unlock_spinlock_irq(&allocator_lock, flags);
 	return p;
 }
 
@@ -69,24 +70,26 @@ void kfree(const void* ptr) {
 	if (!ptr) {
 		return;
 	}
-	lock_spinlock(&allocator_lock);
+	uint64_t flags;
+	lock_spinlock_irq(&allocator_lock, &flags);
 	uintptr_t a = (uintptr_t)ptr;
 	if (a >= LOW_HEAP_START && a < LOW_HEAP_MAX) {
 		preboot_fail("kfree: tried to free low heap memory - use kfree_low instead!");
 	}
 	allocated -= ta_usable_size((void*)ptr);
 	ta_free((void*)ptr);
-	unlock_spinlock(&allocator_lock);
+	unlock_spinlock_irq(&allocator_lock, flags);
 }
 
 uint32_t kmalloc_low(uint32_t size) {
-	lock_spinlock(&allocator_lock);
+	uint64_t flags;
+	lock_spinlock_irq(&allocator_lock, &flags);
 	uint32_t ret = low_mem_cur;
 	if (ret + size >= LOW_HEAP_MAX) {
 		preboot_fail("kmalloc_low exhausted");
 	}
 	low_mem_cur += size;
-	unlock_spinlock(&allocator_lock);
+	unlock_spinlock_irq(&allocator_lock, flags);
 	return ret;
 }
 

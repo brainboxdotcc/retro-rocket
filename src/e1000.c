@@ -176,7 +176,7 @@ void e1000_transmit_init() {
 void e1000_handle_receive() {
 
 	if (!rx_descs[rx_cur]) {
-		kprintf("No rx_desc[rx_cur]\n");
+		dprintf("No rx_desc[rx_cur]\n");
 		return;
 	}
 	netdev_t* dev = get_active_network_device();
@@ -188,7 +188,7 @@ void e1000_handle_receive() {
 		uint8_t *buf = (uint8_t *) rx_descs[rx_cur]->addr;
 		uint16_t len = rx_descs[rx_cur]->length;
 		if (!buf) {
-			kprintf("No buf\n");
+			dprintf("No buf\n");
 			return;
 		}
 

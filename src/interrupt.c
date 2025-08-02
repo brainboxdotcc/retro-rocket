@@ -83,36 +83,33 @@ void local_apic_clear_interrupt()
 
 /* Both the Interrupt() and ISR() functions are dispatched from the assembly code trampoline via a pre-set IDT */
 
-void Interrupt(uint64_t isrnumber, uint64_t errorcode)
-{
-	uint8_t fx[512];
+void Interrupt(uint64_t isrnumber, uint64_t errorcode) {
+	__attribute__((aligned(16))) uint8_t fx[512];
 	__builtin_ia32_fxsave64(&fx);
-	for (shared_interrupt_t* si = shared_interrupt[isrnumber]; si; si = si->next) {
+
+	for (shared_interrupt_t *si = shared_interrupt[isrnumber]; si; si = si->next) {
 		/* There is no shared interrupt routing on these interrupts,
 		 * they are purely routed to interested handlers
 		 */
 		if (si->interrupt_handler) {
-			si->interrupt_handler((uint8_t)isrnumber, errorcode, 0, si->opaque);
+			si->interrupt_handler((uint8_t) isrnumber, errorcode, 0, si->opaque);
 		}
 	}
 
 	if (isrnumber < 32) {
 		/* This simple error handler is replaced by a more complex debugger once the system is up */
-		kprintf("CPU %d halted with exception %016lx, error code %016lx: %s.\n", logical_cpu_id(), isrnumber, errorcode, error_table[isrnumber]);
+		kprintf("CPU %d halted with exception %016lx, error code %016lx: %s.\n", logical_cpu_id(), isrnumber,
+			errorcode, error_table[isrnumber]);
 		wait_forever();
 	}
 
-#ifdef USE_IOAPIC
 	local_apic_clear_interrupt();
-#else
-	pic_eoi(isrnumber);
-#endif
 	__builtin_ia32_fxrstor64(&fx);
 }
 
 void IRQ(uint64_t isrnumber, uint64_t irqnum)
 {
-	uint8_t fx[512];
+	__attribute__((aligned(16))) uint8_t fx[512];
 	__builtin_ia32_fxsave64(&fx);
 	for (shared_interrupt_t* si = shared_interrupt[isrnumber]; si; si = si->next) {
 		if (si->device.bits == 0 && si->interrupt_handler) {
@@ -127,14 +124,7 @@ void IRQ(uint64_t isrnumber, uint64_t irqnum)
 			}
 		}
 	}
-#ifdef USE_IOAPIC
+
 	local_apic_clear_interrupt();
-#else
-	/* IRQ7 is the PIC spurious interrupt, we never acknowledge it */
-	if (irqnum != IRQ7) {
-		pic_eoi(isrnumber);
-	}
-#endif
 	__builtin_ia32_fxrstor64(&fx);
 }
-

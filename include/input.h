@@ -1,5 +1,5 @@
 /**
- * @file kinput.h
+ * @file input.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
  * @brief Console line input API for Retro Rocket.
  *

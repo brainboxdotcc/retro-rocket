@@ -90,11 +90,12 @@ void gotoxy(uint64_t x, uint64_t y)
 {
 	char cursor_command[32];
 	snprintf(cursor_command, 32, "\033[%ld;%ldH", y % (get_text_height() + 1), x % (get_text_width() + 1));
-	lock_spinlock(&console_spinlock);
+	uint64_t flags;
+	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
 	screenonly(current_console, cursor_command);
-	unlock_spinlock(&console_spinlock);
 	unlock_spinlock(&debug_console_spinlock);
+	unlock_spinlock_irq(&console_spinlock, flags);
 	video_dirty = true;
 }
 
@@ -320,24 +321,25 @@ unsigned char map_vga_to_ansi(unsigned char colour)
 void setbackground(console* c, unsigned char background)
 {
 	char code[100];
+	uint64_t flags;
 	snprintf(code, 100, "%c[%dm", 27, background + 40);
-	lock_spinlock(&console_spinlock);
+	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
 	putstring(c, code);
-	unlock_spinlock(&console_spinlock);
 	unlock_spinlock(&debug_console_spinlock);
+	unlock_spinlock_irq(&console_spinlock, flags);
 }
 
 void setforeground(console* c, unsigned char foreground)
 {
 	char code[100];
-
+	uint64_t flags;
 	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi(foreground));
-	lock_spinlock(&console_spinlock);
+	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
 	putstring(c, code);
-	unlock_spinlock(&console_spinlock);
 	unlock_spinlock(&debug_console_spinlock);
+	unlock_spinlock_irq(&console_spinlock, flags);
 }
 
 bool video_flip_auto(void) {

@@ -94,7 +94,7 @@ struct hashmap *hashmap_new_with_allocator(
 	}
 	// hashmap + spare + edata
 	size_t size = sizeof(struct hashmap)+bucketsz*2;
-	struct hashmap *map = _malloc(size);
+	struct hashmap *map = kmalloc(size);
 	if (!map) {
 		return NULL;
 	}
@@ -120,10 +120,10 @@ struct hashmap *hashmap_new_with_allocator(
 	memset(map->buckets, 0, map->bucketsz*map->nbuckets);
 	map->growat = map->nbuckets*0.75;
 	map->shrinkat = map->nbuckets*0.10;
-    	map->malloc = _malloc;
-	map->realloc = _realloc;
-	map->free = _free;
-	return map;  
+    	map->malloc = kmalloc;
+	map->realloc = krealloc;
+	map->free = kfree;
+	return map;
 }
 
 
@@ -144,14 +144,7 @@ struct hashmap *hashmap_new_with_allocator(
 // The hashmap must be freed with hashmap_free(). 
 // Param `elfree` is a function that frees a specific item. This should be NULL
 // unless you're storing some kind of reference data in the hash.
-struct hashmap *hashmap_new(size_t elsize, size_t cap, 
-							uint64_t seed0, uint64_t seed1,
-							uint64_t (*hash)(const void *item, 
-											 uint64_t seed0, uint64_t seed1),
-							int (*compare)(const void *a, const void *b, 
-										   void *udata),
-							void (*elfree)(const void *item),
-							void *udata)
+struct hashmap *hashmap_new(size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, uint64_t (*hash)(const void *item, uint64_t seed0, uint64_t seed1), int (*compare)(const void *a, const void *b, void *udata), void (*elfree)(const void *item), void *udata)
 {
 	return hashmap_new_with_allocator(
 		(_malloc?_malloc:kmalloc),

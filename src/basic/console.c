@@ -125,11 +125,12 @@ void print_statement(struct basic_ctx* ctx)
 	accept_or_return(PRINT, ctx);
 	const char* out = printable_syntax(ctx);
 	if (out) {
-		lock_spinlock(&console_spinlock);
+		uint64_t flags;
+		lock_spinlock_irq(&console_spinlock, &flags);
 		lock_spinlock(&debug_console_spinlock);
 		putstring((console*)ctx->cons, out);
-		unlock_spinlock(&console_spinlock);
 		unlock_spinlock(&debug_console_spinlock);
+		unlock_spinlock_irq(&console_spinlock, flags);
 	}
 }
 

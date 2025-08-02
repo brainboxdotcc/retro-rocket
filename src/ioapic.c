@@ -86,7 +86,8 @@ void ioapic_redir_set(uint32_t irq, uint32_t vector, uint32_t del_mode, uint32_t
 		return;
 	}
 	uint32_t lower = (vector & 0xff) | (del_mode << 8) | (dest_mode << 11) | (intpol << 13) | (trigger_mode << 15) | (mask << 16);
-	uint32_t upper = (dest_mode << 24);
+	uint32_t bsp_apic_id = get_lapic_id_from_cpu_id(logical_cpu_id());
+	uint32_t upper = (bsp_apic_id << 24);
 	ioapic_write_gsi(ioapic, gsi, lower, upper);
 	dprintf("Remapping IRQ %d -> GSI %d -> Vector %d (trigger mode: %s, polarity: %s)\n", irq, gsi, vector,
 		triggering_str(trigger_mode), polarity_str(trigger_mode));

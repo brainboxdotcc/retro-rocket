@@ -238,22 +238,24 @@ int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] cons
 
 int vprintf(const char *fmt, va_list args)
 {
-	lock_spinlock(&console_spinlock);
+	uint64_t flags;
+	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
 	int r = do_printf(fmt, SIZE_MAX, args, vprintf_help, NULL);
-	unlock_spinlock(&console_spinlock);
 	unlock_spinlock(&debug_console_spinlock);
+	unlock_spinlock_irq(&console_spinlock, flags);
 	return r;
 }
 
 int dvprintf(const char *fmt, va_list args)
 {
 	char counter[25];
-	lock_spinlock(&debug_console_spinlock);
+	uint64_t flags;
+	lock_spinlock_irq(&debug_console_spinlock, &flags);
 	do_itoa(get_ticks(), counter, 10);
 	dput('['); dputstring(counter); dputstring("]: ");
 	int r = do_printf(fmt, SIZE_MAX, args, dvprintf_help, NULL);
-	unlock_spinlock(&debug_console_spinlock);
+	unlock_spinlock_irq(&debug_console_spinlock, flags);
 	return r;
 }
 

@@ -103,8 +103,12 @@ void init_idt() {
 	pic_remap(0x20, 0x28);
 #ifdef USE_IOAPIC
 	pic_disable();
+	cpu_serialise();
 	remap_irqs_to_ioapic();
+	cpu_serialise();
 	init_lapic_timer(100);
+	cpu_serialise();
+	apic_setup_ap();
 #else
 	pic_enable();
 #endif

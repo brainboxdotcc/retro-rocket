@@ -26,7 +26,8 @@ size_t kinput(size_t maxlen, console* cons)
 		cons->bufcnt = 0;
 	}
 
-	lock_spinlock(&console_spinlock);
+	uint64_t flags;
+	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
 	switch (cons->last) {
 		case KEY_UP:
@@ -61,8 +62,8 @@ size_t kinput(size_t maxlen, console* cons)
 			}
 		break;
 	}
-	unlock_spinlock(&console_spinlock);
 	unlock_spinlock(&debug_console_spinlock);
+	unlock_spinlock_irq(&console_spinlock, flags);
 	/* Terminate string */
 	*cons->buffer = 0;
 

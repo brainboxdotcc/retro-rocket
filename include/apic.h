@@ -250,3 +250,34 @@ void wake_cpu(uint8_t logical_cpu_id);
  * @see APIC_TPR
  */
 void apic_setup_ap();
+
+/**
+ * @brief Serialises all pending CPU operations.
+ *
+ * This function enforces a strict ordering of all memory, I/O, and MSR
+ * operations issued by the CPU prior to the call. It ensures that all writes
+ * and reads complete and are globally visible before any instructions issued
+ * after the call are allowed to execute.
+ *
+ * Implementation details:
+ * - `mfence` is used to flush and order all pending memory operations,
+ *   including MMIO writes to devices such as the LAPIC or IOAPIC.
+ * - `cpuid` is a serialising instruction which drains the CPU pipeline,
+ *   guaranteeing that no later instructions are executed until all earlier
+ *   ones have fully completed. It also serves as a convenient barrier in
+ *   emulators such as QEMU, which may otherwise defer committing MMIO state.
+ *
+ * This is particularly important when programming interrupt controllers
+ * (APIC, IOAPIC, PIC), as their state machines may lose or misroute
+ * interrupts if configuration writes have not yet taken effect before
+ * enabling interrupts with `sti`.
+ *
+ * @note This function clobbers the general-purpose registers EAX, EBX, ECX,
+ *       and EDX as required by the `cpuid` instruction. It does not return
+ *       any values.
+ */
+static inline void cpu_serialise(void)
+{
+	__asm__ volatile("mfence; cpuid"
+		::: "eax", "ebx", "ecx", "edx");
+}
