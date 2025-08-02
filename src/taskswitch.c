@@ -151,7 +151,10 @@ void proc_run(process_t* proc)
 {
 	if (proc->waitpid == 0) {
 		basic_run(proc->code);
-	} else if (proc_find(proc->waitpid) == NULL) {
+		return;
+	}
+	_mm_pause();
+	if (proc_find(proc->waitpid) == NULL) {
 		proc->waitpid = 0;
 		basic_run(proc->code);
 	}
@@ -337,8 +340,13 @@ int process_compare(const void *a, const void *b, void *udata) {
 	return pa->pid == pb->pid ? 0 : (pa->pid < pb->pid ? -1 : 1);
 }
 
+void wakeup_callback([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void* opaque)
+{
+}
+
 void init_process()
 {
+	register_interrupt_handler(APIC_WAKE_IPI, wakeup_callback, dev_zero, NULL);
 	init_spinlock(&combined_proc_lock);
 	for (size_t x = 0; x < MAX_CPUS; ++x) {
 		init_spinlock(&proc_lock[x]);
@@ -359,9 +367,14 @@ void proc_loop()
 		simple_cv_broadcast(&boot_condition);
 	}
 	while (true) {
+		if (proc_list[cpu] == NULL) {
+			/* This CPU has nothing to do; prevent busy spin */
+			__asm__("hlt");
+			continue;
+		}
 		proc_timer();
 		proc_run_next();
-		if (cpu == 0) {
+		if (cpu == 0 && task_idles) {
 			/* Idle foreground tasks only run on BSP */
 			for (idle_timer_t *i = task_idles; i; i = i->next) {
 				i->func();

@@ -56,6 +56,11 @@ uint64_t get_ticks()
  */
 void timer_callback(uint8_t isr, uint64_t errorcode, uint64_t irq, void* opaque)
 {
+	if (logical_cpu_id() != 0) {
+		/* Right now we do nothing on the APs, it's just to wake up HLT */
+		return;
+	}
+
 	ticks++;
 
 	for (idle_timer_t* i = timer_idles; i; i = i->next) {

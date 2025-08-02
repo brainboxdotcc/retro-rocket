@@ -104,7 +104,7 @@ void init_idt() {
 #ifdef USE_IOAPIC
 	pic_disable();
 	remap_irqs_to_ioapic();
-	init_lapic_timer();
+	init_lapic_timer(100);
 #else
 	pic_enable();
 #endif
@@ -133,4 +133,9 @@ void free_msi_vector(uint8_t cpu, int vec) {
 	int w   = vec / 64;
 	int bit = vec % 64;
 	msi_bitmap[cpu][w] &= ~(1ULL << bit);
+}
+
+void load_ap_shared_idt() {
+	__asm__ volatile("lidtq (%0)" :: "r"(&idt64));
+	interrupts_on();
 }

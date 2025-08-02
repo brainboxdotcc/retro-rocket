@@ -1,14 +1,17 @@
 #include <kernel.h>
 
-static const uint64_t quantum = 100;
-
-void init_lapic_timer()
+void init_lapic_timer(uint64_t quantum)
 {
 	if (quantum == 0) {
 		return;
 	}
 
-	register_interrupt_handler(IRQ16, timer_callback, dev_zero, NULL);
+	uint8_t cpu = logical_cpu_id();
+
+	if (cpu == 0) {
+		/* Only do this once */
+		register_interrupt_handler(IRQ16, timer_callback, dev_zero, NULL);
+	}
 
 	// Divisor = 16
 	apic_write(APIC_TMRDIV, 0x3);
@@ -18,7 +21,7 @@ void init_lapic_timer()
 	uint8_t secs = t.second;
 
 	// Busy-loop to calculate number of APIC timer ticks per second
-	kprintf("APIC timer calibration... ");
+	dprintf("CPU#%d APIC timer calibration...\n", cpu);
 	while (t.second == secs) {
 		get_datetime(&t);
 	}
@@ -27,7 +30,6 @@ void init_lapic_timer()
 	while (t.second == secs) {
 		get_datetime(&t);
 	}
-	kprintf("Done!\n");
 	uint64_t ticks_per_second = 0xFFFFFFFF - apic_read(APIC_TMRCURRCNT);
 	uint64_t ticks_per_quantum = ticks_per_second / quantum;
 

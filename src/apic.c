@@ -68,17 +68,48 @@ uint64_t rdmsr(uint32_t msr) {
 int x2apic_supported(void) {
 	unsigned int eax, ebx, ecx, edx;
 
-	if (!__get_cpuid(1, &eax, &ebx, &ecx, &edx))
+	if (!__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
 		return 0;
+	}
 
 	return (ecx & (1u << 21)) != 0; // Bit 21 of ECX = x2APIC support
 }
 
 int x2apic_enabled(void) {
-	 if (!x2apic_supported()) {
-		 return 0; // CPU doesn't even support x2APIC
-	 }
-	 // Read APIC base MSR to see if x2APIC mode is active
-	 uint64_t apic_base = rdmsr(IA32_APIC_BASE_MSR);
-	 return (apic_base & APIC_BASE_X2APIC_ENABLE) != 0;
- }
+	if (!x2apic_supported()) {
+		return 0; // CPU doesn't even support x2APIC
+	}
+	// Read APIC base MSR to see if x2APIC mode is active
+	uint64_t apic_base = rdmsr(IA32_APIC_BASE_MSR);
+	return (apic_base & APIC_BASE_X2APIC_ENABLE) != 0;
+}
+
+void apic_send_ipi(uint32_t lapic_id, uint8_t vector) {
+	if (x2apic_enabled()) {
+		uint64_t icr = 0;
+		icr |= vector;                  // vector
+		icr |= (0ULL << 8);             // delivery mode = fixed
+		icr |= (0ULL << 11);            // physical dest
+		icr |= (1ULL << 14);            // level = assert
+		icr |= ((uint64_t)lapic_id << 32);
+		wrmsr(IA32_X2APIC_ICR, icr);
+	} else {
+		apic_write(APIC_ICR_HIGH, ((uint32_t) lapic_id) << 24);
+		apic_write(APIC_ICR_LOW,
+			   vector | APIC_DM_FIXED | APIC_DEST_NO_SHORTHAND |
+			   APIC_DEST_PHYSICAL | APIC_LEVEL_ASSERT | APIC_TRIGGER_EDGE);
+		// Wait for delivery to complete (bit 12 = Delivery Status)
+		while (apic_read(APIC_ICR_LOW) & (1 << 12)) {
+			__builtin_ia32_pause();
+		}
+	}
+}
+
+void wake_cpu(uint8_t logical_cpu_id) {
+	apic_send_ipi(get_lapic_id_from_cpu_id(logical_cpu_id), APIC_WAKE_IPI);
+}
+
+void apic_setup_ap() {
+	apic_write(APIC_SVR, apic_read(APIC_SVR) | 0x100); // Set APIC enable bit
+	apic_write(APIC_TPR, 0);
+}

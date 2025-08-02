@@ -150,3 +150,17 @@ int alloc_msi_vector(uint8_t cpu);
  */
 void free_msi_vector(uint8_t cpu, int vec);
 
+/**
+ * @brief Load the shared IDT and enable interrupts on an Application Processor (AP).
+ *
+ * This function loads the global Interrupt Descriptor Table (IDT) pointer into
+ * the AP's IDTR register using the `lidt` instruction. After the IDT is loaded,
+ * it enables external interrupts via `sti` (wrapped by interrupts_on()).
+ *
+ * It is typically called during AP startup before entering the scheduler loop,
+ * ensuring that the AP can handle interrupts using the same IDT as the BSP.
+ *
+ * @note All APs share the same IDT (idt64) in this design.
+ * @see lidt, interrupts_on
+ */
+void load_ap_shared_idt();

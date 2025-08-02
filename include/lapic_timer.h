@@ -6,6 +6,7 @@
 #ifndef __LAPIC_TIMER_H__
 #define __LAPIC_TIMER_H__
 
+#define APIC_SVR         0xF0
 #define APIC_TASKPRIOR	 0x80
 #define APIC_EOI	 0x0B0
 #define APIC_LDR	 0x0D0
@@ -30,6 +31,6 @@
 #define TMR_PERIODIC	 0x20000
 #define TMR_BASEDIV	 (1<<20)
 
-void init_lapic_timer();
+void init_lapic_timer(uint64_t quantum);
 
 #endif
