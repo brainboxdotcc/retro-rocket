@@ -12,7 +12,7 @@ volatile struct limine_rsdp_request rsdp_request = {
 
 extern volatile struct limine_smp_request smp_request;
 
-extern atomic_size_t aps_online;
+extern size_t aps_online;
 
 static uint8_t lapic_ids[256] = {0}; // CPU core Local APIC IDs
 static uint8_t ioapic_ids[256] = {0}; // CPU core Local APIC IDs

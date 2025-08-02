@@ -6,9 +6,7 @@ volatile struct limine_smp_request smp_request = {
 	.revision = 0
 };
 
-extern volatile idt_ptr_t idt64;
-
-atomic_size_t aps_online = 0;
+size_t aps_online = 0;
 simple_cv_t boot_condition;
 
 void kmain_ap(struct limine_smp_info *info)
