@@ -6,12 +6,13 @@
 
 const char* make_full_path(const char* relative)
 {
+	uint8_t cpu = logical_cpu_id();
 	if (*relative == '/') {
 		dprintf("make_full_path %s -> %s\n", relative, relative);
 		return relative;
 	}
 
-	const char* csd = proc_cur()->csd;
+	const char* csd = proc_cur(cpu)->csd;
 	char qualified_path[MAX_STRINGLEN];
 
 	if (*relative == 0) {
@@ -309,7 +310,7 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 
 char* basic_csd(struct basic_ctx* ctx)
 {
-	return gc_strdup(proc_cur()->csd);
+	return gc_strdup(proc_cur(logical_cpu_id())->csd);
 }
 
 void chdir_statement(struct basic_ctx* ctx)
@@ -317,8 +318,10 @@ void chdir_statement(struct basic_ctx* ctx)
 	accept_or_return(CHDIR, ctx);
 	const char* csd = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	const char* old = strdup(proc_cur()->csd);
-	const char* new = proc_set_csd(proc_cur(), csd);
+	uint8_t cpu = logical_cpu_id();
+	process_t* proc = proc_cur(cpu);
+	const char* old = strdup(proc->csd);
+	const char* new = proc_set_csd(proc, csd);
 	if (new && fs_is_directory(new)) {
 		kfree_null(&old);
 		return;
@@ -329,7 +332,7 @@ void chdir_statement(struct basic_ctx* ctx)
 		tokenizer_error_print(ctx, "Not a directory");
 	}
 
-	proc_set_csd(proc_cur(), old);
+	proc_set_csd(proc, old);
 	kfree_null(&old);
 }
 

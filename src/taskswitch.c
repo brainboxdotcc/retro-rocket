@@ -1,23 +1,35 @@
 #include <kernel.h>
 
 /**
- * @brief The currently running process
+ * @brief The currently running process on each CPU
  */
-process_t* proc_current = NULL;
+process_t* proc_current[MAX_CPUS] = { NULL };
 /**
- * @brief Doubly linked list of processes.
+ * @brief Doubly linked list of processes running on each CPU.
  * We store the doubly linked list for fast iteration from one process
  * to the next for the round robin scheduler of processes.
  */
-process_t* proc_list = NULL;
+process_t* proc_list[MAX_CPUS] = { NULL };
 /**
- * @brief A hash map of processes by PID.
+ * @brief Combined process list for all CPUs
+ */
+process_t* combined_proc_list = NULL;
+/**
+ * @brief spinlock to guard the combined list
+ */
+spinlock_t combined_proc_lock = 0;
+/**
+ * @brief Spinlocks for each CPU to protect its lists
+ */
+spinlock_t proc_lock[MAX_CPUS] = { 0 };
+/**
+ * @brief A hash map of processes by PID on all CPUs.
  * We use this when we want to find a process by PID (which we do quite often
  * whenever a process waits on another process). This makes it faster to look
  * up a process by PID instead of having to iteate the doubly linked list we
  * use for scheduling.
  */
-struct hashmap* process_by_pid = NULL;
+struct hashmap* process_by_pid;
 /**
  * @brief Next process ID number we will give out for the next process.
  * This increments by one, but will not reuse "holes", so it behaves in
@@ -85,36 +97,54 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 	newproc->state = PROC_RUNNING;
 	newproc->ppid = parent_pid;
 	newproc->cons = cons;
-	newproc->cpu = 0;
+	newproc->cpu = logical_cpu_id();
 	kfree_null(&programtext);
 
-	if (proc_list == NULL) {
+	lock_spinlock(&combined_proc_lock);
+	lock_spinlock(&proc_lock[newproc->cpu]);
+	if (proc_list[newproc->cpu] == NULL) {
 		/* First process */
-		proc_list = newproc;
+		proc_list[newproc->cpu] = newproc;
 		newproc->next = NULL;
 		newproc->prev = NULL;
 	} else {
 		/* Any other process */
-		newproc->next = proc_list;
+		newproc->next = proc_list[newproc->cpu];
 		newproc->prev = NULL;
-		proc_list->prev = newproc;
-		proc_list = newproc;
+		proc_list[newproc->cpu]->prev = newproc;
+		proc_list[newproc->cpu] = newproc;
 	}
-
+	if (combined_proc_list == NULL) {
+		/* First process */
+		combined_proc_list = newproc;
+		newproc->next = NULL;
+		newproc->prev = NULL;
+	} else {
+		/* Any other process */
+		newproc->next = combined_proc_list;
+		newproc->prev = NULL;
+		combined_proc_list->prev = newproc;
+		combined_proc_list = newproc;
+	}
 	// No current proc? Make it the only proc.
-	if (proc_current == NULL) {
-		proc_current = proc_list;
+	if (proc_current[newproc->cpu] == NULL) {
+		proc_current[newproc->cpu] = proc_list[newproc->cpu];
 	}
 
 	process_count++;
 	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
+	unlock_spinlock(&combined_proc_lock);
+	unlock_spinlock(&proc_lock[newproc->cpu]);
 
 	return newproc;
 }
 
-process_t* proc_cur()
+process_t* proc_cur(uint8_t logical_cpu)
 {
-	return proc_current;
+	lock_spinlock(&proc_lock[logical_cpu]);
+	process_t* cur = proc_current[logical_cpu];
+	unlock_spinlock(&proc_lock[logical_cpu]);
+	return cur;
 }
 
 void proc_run(process_t* proc)
@@ -129,22 +159,24 @@ void proc_run(process_t* proc)
 
 process_t* proc_find(pid_t pid)
 {
+	lock_spinlock(&combined_proc_lock);
 	proc_id_t* id = hashmap_get(process_by_pid, &(proc_id_t){ .id = pid });
+	unlock_spinlock(&combined_proc_lock);
 	return id ? id->proc : NULL;
 }
 
 bool proc_kill_id(pid_t id)
 {
-	process_t* cur = proc_cur();
 	process_t* proc = proc_find(id);
+	if (!proc) {
+		return false;
+	}
+	process_t* cur = proc_cur(proc->cpu);
 	if (cur->pid == id) {
 		return false;
 	}
-	if (proc) {
-		proc_kill(proc);
-		return true;
-	}
-	return false;
+	proc_kill(proc);
+	return true;
 }
 
 void proc_wait(process_t* proc, pid_t otherpid)
@@ -190,16 +222,40 @@ const char* proc_get_csd(process_t* proc)
 
 void proc_kill(process_t* proc)
 {
-	dprintf("proc_kill id %u\n", proc->pid);
-	for (process_t* cur = proc_list; cur; cur = cur->next) {
+	uint8_t cpu = proc->cpu;
+	dprintf("proc_kill id %u on cpu %d\n", proc->pid, cpu);
+	lock_spinlock(&proc_lock[cpu]);
+	lock_spinlock(&combined_proc_lock);
+	for (process_t* cur = proc_list[cpu]; cur; cur = cur->next) {
 		if (cur->pid == proc->pid) {
 			if (proc->next == NULL && proc->prev == NULL) {
 				// the only process!
-				proc_list = NULL;
+				proc_list[cpu] = NULL;
 			} else if (proc->prev == NULL && proc->next != NULL) {
 				// first item
-				proc_list = proc->next;
-				proc_list->prev = NULL;
+				proc_list[cpu] = proc->next;
+				proc_list[cpu]->prev = NULL;
+			} else if (proc->prev != NULL && proc->next == NULL) {
+				// last item
+				proc->prev->next = NULL;
+			} else {
+				// middle item
+				proc->prev->next = proc->next;
+				proc->next->prev = proc->prev;
+			}
+
+			break;
+		}
+	}
+	for (process_t* cur = combined_proc_list; cur; cur = cur->next) {
+		if (cur->pid == proc->pid) {
+			if (proc->next == NULL && proc->prev == NULL) {
+				// the only process!
+				combined_proc_list = NULL;
+			} else if (proc->prev == NULL && proc->next != NULL) {
+				// first item
+				combined_proc_list = proc->next;
+				combined_proc_list->prev = NULL;
 			} else if (proc->prev != NULL && proc->next == NULL) {
 				// last item
 				proc->prev->next = NULL;
@@ -213,37 +269,25 @@ void proc_kill(process_t* proc)
 		}
 	}
 
-	proc_current = proc_list;
+	proc_current[cpu] = proc_list[cpu];
 
-	dprintf("Destroy BASIC instance\n");
 	basic_destroy(proc->code);
-	dprintf("Destroy proc name\n");
 	kfree_null(&proc->name);
-	dprintf("Destroy proc directory string\n");
 	kfree_null(&proc->directory);
-	dprintf("Destroy proc csd\n");
 	kfree_null(&proc->csd);
-	dprintf("Hashmap delete\n");
 	hashmap_delete(process_by_pid, &(proc_id_t){ .id = proc->pid });
-	dprintf("Destroy proc\n");
 	kfree_null(&proc);
 	process_count--;
 
 	/* Killed the last process? */
-	if (proc_list == NULL) {
+	if (combined_proc_list == NULL) {
 		setforeground(current_console, COLOUR_LIGHTRED);
 		kprintf("\nSystem halted.");
 		interrupts_off();
 		wait_forever();
 	}
-}
-
-void proc_show_list()
-{
-	process_t* cur = proc_list;
-	for (; cur; cur = cur->next) {
-		kprintf("PID %d CPU %d name %s\n", cur->pid, cur->cpu, cur->name);
-	}
+	unlock_spinlock(&proc_lock[cpu]);
+	unlock_spinlock(&combined_proc_lock);
 }
 
 int64_t proc_total()
@@ -254,28 +298,31 @@ int64_t proc_total()
 pid_t proc_id(int64_t index)
 {
 	int64_t tot = 0;
-	for (process_t* cur = proc_list; cur; cur = cur->next) {
+	lock_spinlock(&combined_proc_lock);
+	for (process_t* cur = combined_proc_list; cur; cur = cur->next) {
 		if (tot == index) {
+			unlock_spinlock(&combined_proc_lock);
 			return cur->pid;
 		}
 		tot++;
 	}
+	unlock_spinlock(&combined_proc_lock);
 	return 0;
 }
 
 void proc_run_next()
 {
-	process_t* current;
-	current = proc_current;
-
-	if (current != NULL) {
-		proc_run(current);
-		if (proc_ended(current)) {
-			if (current->code->claimed_flip) {
-				set_video_auto_flip(true);
-			}
-			proc_kill(current);
+	process_t* current = proc_current[logical_cpu_id()];
+	if (current == NULL) {
+		_mm_pause();
+		return;
+	}
+	proc_run(current);
+	if (proc_ended(current)) {
+		if (current->code->claimed_flip) {
+			set_video_auto_flip(true);
 		}
+		proc_kill(current);
 	}
 }
 
@@ -292,6 +339,10 @@ int process_compare(const void *a, const void *b, void *udata) {
 
 void init_process()
 {
+	init_spinlock(&combined_proc_lock);
+	for (size_t x = 0; x < MAX_CPUS; ++x) {
+		init_spinlock(&proc_lock[x]);
+	}
 	process_by_pid = hashmap_new(sizeof(proc_id_t), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
 	process_t* init = proc_load("/programs/init", (struct console*)current_console, 0, "/");
 	if (!init) {
@@ -302,28 +353,39 @@ void init_process()
 
 void proc_loop()
 {
-	if (logical_cpu_id() == 0) {
+	uint8_t cpu = logical_cpu_id();
+	if (cpu == 0) {
 		/* BSP signals APs to start their proc_loops too */
 		simple_cv_broadcast(&boot_condition);
 	}
 	while (true) {
 		proc_timer();
 		proc_run_next();
-		for (idle_timer_t* i = task_idles; i; i = i->next) {
-			i->func();
+		if (cpu == 0) {
+			/* Idle foreground tasks only run on BSP */
+			for (idle_timer_t *i = task_idles; i; i = i->next) {
+				i->func();
+			}
 		}
 	}
 }
 
 void proc_timer()
 {
-	if (proc_list == NULL)
+	uint8_t cpu = logical_cpu_id();
+	lock_spinlock(&proc_lock[cpu]);
+	if (proc_list[cpu] == NULL || proc_current[cpu] == NULL) {
+		unlock_spinlock(&proc_lock[cpu]);
 		return;
+	}
 
-	if (proc_current->next == NULL)
-		proc_current = proc_list;
-	else
-		proc_current = proc_current->next;
+	if (proc_current[cpu]->next == NULL) {
+		proc_current[cpu] = proc_list[cpu];
+	} else {
+		proc_current[cpu] = proc_current[cpu]->next;
+	}
+
+	unlock_spinlock(&proc_lock[cpu]);
 }
 
 int proc_ended(process_t* proc)

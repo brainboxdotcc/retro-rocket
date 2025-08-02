@@ -92,7 +92,7 @@ process_t* proc_find(pid_t pid);
  * 
  * @return process_t* process detail or NULL if no current process
  */
-process_t* proc_cur();
+process_t* proc_cur(uint8_t logical_cpu);
 
 /**
  * @brief Mark a process as waiting for another process to complete
@@ -134,12 +134,8 @@ void proc_kill(process_t* proc);
 bool proc_kill_id(pid_t id);
 
 /**
- * @brief Display a diagnostic list of all processes
- */
-void proc_show_list();
-
-/**
  * @brief Run the process scheduling loop.
+ * Each AP and the BSP all have a proc_loop().
  * @note Does not return
  */
 _Noreturn void proc_loop();

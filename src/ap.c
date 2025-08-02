@@ -39,5 +39,6 @@ void kmain_ap(struct limine_smp_info *info)
 	 *    see if a process ours is waiting on still lives.
 	 */
 	 dprintf("Got start signal on cpu #%d\n", info->processor_id);
-	 wait_forever();
+
+	 proc_loop();
 }

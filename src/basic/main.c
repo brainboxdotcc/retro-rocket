@@ -605,9 +605,11 @@ void init_local_heap(struct basic_ctx* ctx)
 
 void chain_statement(struct basic_ctx* ctx)
 {
+	uint32_t cpu = logical_cpu_id();
+	process_t* proc = proc_cur(cpu);
 	accept_or_return(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
-	process_t* p = proc_load(pn, ctx->cons, proc_cur()->pid, proc_cur()->csd);
+	process_t* p = proc_load(pn, ctx->cons, proc->pid, proc->csd);
 	if (p == NULL) {
 		accept_or_return(NEWLINE, ctx);
 		return;
@@ -634,7 +636,7 @@ void chain_statement(struct basic_ctx* ctx)
 		}
 	}
 
-	proc_wait(proc_cur(), p->pid);
+	proc_wait(proc, p->pid);
 	accept_or_return(NEWLINE, ctx);
 }
 
