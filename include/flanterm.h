@@ -73,6 +73,9 @@ void flanterm_set_callback(struct flanterm_context *ctx, void (*callback)(struct
 uint64_t flanterm_get_oob_output(struct flanterm_context *ctx);
 void flanterm_set_oob_output(struct flanterm_context *ctx, uint64_t oob_output);
 
+int64_t flanterm_ex_get_bounding_min_y();
+int64_t flanterm_ex_get_bounding_max_y();
+
 #ifdef __cplusplus
 }
 #endif

@@ -72,7 +72,7 @@ void ft_write(struct flanterm_context *ctx, const char *buf, size_t count) {
 		return;
 	}
 	flanterm_write(ctx, buf, count);
-	set_video_dirty_area(0, screen_graphics_y);
+	set_video_dirty_area(flanterm_ex_get_bounding_min_y(), flanterm_ex_get_bounding_max_y());
 }
 
 void screenonly(console* c, const char* s)

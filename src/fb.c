@@ -58,6 +58,9 @@
 static uint8_t bump_alloc_pool[FLANTERM_FB_BUMP_ALLOC_POOL_SIZE];
 static size_t bump_alloc_ptr = 0;
 
+static int64_t ft_min_y = -1;
+static int64_t ft_max_y = -1;
+
 static void *bump_alloc(size_t s) {
     static bool base_offset_added = false;
     if (!base_offset_added) {
@@ -547,6 +550,14 @@ static void plot_char_unscaled_canvas(struct flanterm_context *_ctx, struct flan
     }
 }
 
+int64_t flanterm_ex_get_bounding_min_y() {
+	return ft_min_y;
+}
+
+int64_t flanterm_ex_get_bounding_max_y() {
+	return ft_max_y;
+}
+
 static void plot_char_unscaled_uncanvas(struct flanterm_context *_ctx, struct flanterm_fb_char *c, size_t x, size_t y) {
     struct flanterm_fb_context *ctx = (void *)_ctx;
 
@@ -564,6 +575,12 @@ static void plot_char_unscaled_uncanvas(struct flanterm_context *_ctx, struct fl
 
     bool *glyph = &ctx->font_bool[c->c * ctx->font_height * ctx->font_width];
     // naming: fx,fy for font coordinates, gx,gy for glyph coordinates
+    if (ft_min_y == -1 || ft_min_y > (int64_t)y) {
+	    ft_min_y = (int64_t)y;
+    }
+    if (ft_max_y == -1 || ft_max_y < (int64_t)(y + ctx->glyph_height)) {
+	    ft_max_y = (int64_t)(y + ctx->glyph_height);
+    }
     for (size_t gy = 0; gy < ctx->glyph_height; gy++) {
         volatile uint32_t *fb_line = ctx->framebuffer + x + (y + gy) * (ctx->pitch / 4);
         bool *glyph_pointer = glyph + (gy * ctx->font_width);
@@ -808,6 +825,9 @@ static void draw_cursor(struct flanterm_context *_ctx) {
 
 static void flanterm_fb_double_buffer_flush(struct flanterm_context *_ctx) {
     struct flanterm_fb_context *ctx = (void *)_ctx;
+
+    ft_min_y = -1;
+    ft_max_y = -1;
 
     if (_ctx->cursor_enabled) {
         draw_cursor(_ctx);
