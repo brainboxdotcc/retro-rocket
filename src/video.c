@@ -2,11 +2,13 @@
 #include <flanterm.h>
 #include <flanterm/fb.h>
 
-static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0, screen_graphics_x = 0, screen_graphics_y = 0;
+static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0, screen_graphics_x = 0, screen_graphics_y = 0, screen_graphics_stride = 1;
 static console first_console;
 bool wait_state = false;
 bool video_flip_is_auto = true;
 bool video_dirty = true;
+int64_t video_dirty_start = -1;
+int64_t video_dirty_end = -1;
 console* current_console = NULL;
 
 extern volatile struct limine_module_request module_request;
@@ -33,6 +35,7 @@ void rr_console_init_from_limine(void) {
 	rr_fb_front  = fb->address;
 	rr_fb_pitch  = fb->pitch;
 	rr_fb_height = fb->height;
+	screen_graphics_stride = fb->pitch;
 	rr_fb_bytes  = rr_fb_pitch * rr_fb_height;  // full bytes, includes padding per row
 	rr_fb_back = kmalloc(rr_fb_bytes);
 	memset(rr_fb_back, 0, rr_fb_bytes);
@@ -69,7 +72,7 @@ void ft_write(struct flanterm_context *ctx, const char *buf, size_t count) {
 		return;
 	}
 	flanterm_write(ctx, buf, count);
-	video_dirty = true;
+	set_video_dirty_area(0, screen_graphics_y);
 }
 
 void screenonly(console* c, const char* s)
@@ -96,14 +99,14 @@ void gotoxy(uint64_t x, uint64_t y)
 	screenonly(current_console, cursor_command);
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
-	video_dirty = true;
+	set_video_dirty_area(0, screen_graphics_y);
 }
 
 void putpixel(int64_t x, int64_t y, uint32_t rgb)
 {
 	volatile uint32_t* addr = (volatile uint32_t*)(framebuffer_address() + pixel_address(x, y));
 	*addr = rgb;
-	video_dirty = true;
+	set_video_dirty_area(y, y);
 }
 
 uint32_t getpixel(int64_t x, int64_t y)
@@ -116,7 +119,7 @@ void clearscreen(console* c)
 {
 	memset(rr_fb_back, 0, rr_fb_bytes);
 	screenonly(c, "\033[2J\033[0;0H");
-	video_dirty = true;
+	set_video_dirty_area(0, screen_graphics_y);
 }
 
 void dput(const char n)
@@ -353,7 +356,28 @@ void set_video_auto_flip(bool flip) {
 
 void rr_flip(void) {
 	if (video_dirty) {
-		memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
+		if (video_dirty_start != -1 && video_dirty_end != -1) {
+			uint64_t lines = video_dirty_end - video_dirty_start;
+			uint64_t start_offset = (video_dirty_start * screen_graphics_stride);
+			uint64_t end_amount = (lines * screen_graphics_stride);
+			memcpy(rr_fb_front + start_offset, rr_fb_back + start_offset, end_amount);
+		} else {
+			memcpy(rr_fb_front, rr_fb_back, rr_fb_bytes);
+		}
 		video_dirty = false;
+		video_dirty_start = -1;
+		video_dirty_end = -1;
 	}
+}
+
+void set_video_dirty_area(int64_t start, int64_t end)
+{
+	video_dirty = true;
+	if (video_dirty_start == -1 || start < video_dirty_start) {
+		video_dirty_start = start;
+	}
+	if (video_dirty_end == -1 || end > video_dirty_end) {
+		video_dirty_end = end;
+	}
+
 }

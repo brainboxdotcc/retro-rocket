@@ -234,6 +234,8 @@ bool video_flip_auto(void);
  */
 void set_video_auto_flip(bool flip);
 
+void set_video_dirty_area(int64_t start, int64_t end);
+
 /* -------------------------------------------------------------------------- */
 /* Globals                                                                    */
 /* -------------------------------------------------------------------------- */

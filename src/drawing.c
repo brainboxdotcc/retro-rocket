@@ -1,7 +1,5 @@
 #include <kernel.h>
 
-extern bool video_dirty;
-
 void swap(int64_t* first, int64_t* second)
 {
 	*first += *second;
@@ -58,7 +56,7 @@ void draw_horizontal_line(int64_t from_x, int64_t to_x, int64_t y, uint32_t colo
 		*addr = colour;
 		addr++;
 	}
-	video_dirty = true;
+	set_video_dirty_area(y, y);
 }
 
 void draw_horizontal_rectangle(int64_t from_x, int64_t from_y, int64_t to_x, int64_t to_y, uint32_t colour)
@@ -144,7 +142,7 @@ void draw_triangle(int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, i
 			}
 		}
 	}
-	video_dirty = true;
+	set_video_dirty_area(by1, by2);
 }
 
 
