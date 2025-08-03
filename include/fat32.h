@@ -34,7 +34,7 @@
 /**
  * @brief EFI system partition GUID
  */
-#define GPT_EFI_SYSTEM			"28732AC1-1FF8-D211-BA4B-00A0C93EC93B"
+#define GPT_EFI_SYSTEM			"C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
 /**
  * @brief Microsoft basic data partition GUID
  */

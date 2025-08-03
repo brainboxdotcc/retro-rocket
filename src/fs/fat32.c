@@ -1248,5 +1248,8 @@ void init_fat32()
 	fat32_fs->rm = fat32_unlink_file;
 	fat32_fs->rmdir = fat32_unlink_dir;
 	register_filesystem(fat32_fs);
+
+
+
 }
 

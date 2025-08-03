@@ -62,7 +62,7 @@ function(copy_config TARGETFILE SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
-        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/harddisk" && mkdir -p "${CMAKE_BINARY_DIR}/iso/devices" && mkdir -p "${CMAKE_BINARY_DIR}/iso" && cp ${FILENAME} ${OUTNAME}
+        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/harddisk" && mkdir -p "${CMAKE_BINARY_DIR}/iso/boot" && mkdir -p "${CMAKE_BINARY_DIR}/iso/devices" && mkdir -p "${CMAKE_BINARY_DIR}/iso" && cp ${FILENAME} ${OUTNAME}
         DEPENDS ${FILENAME})
     add_custom_target(config_${TARGETFILE} ALL DEPENDS ${OUTNAME})
     add_dependencies("kernel.bin" config_${TARGETFILE})

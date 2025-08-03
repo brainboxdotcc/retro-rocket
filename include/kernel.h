@@ -62,6 +62,7 @@
 #include "dns.h"
 #include "drawing.h"
 #include "fpu.h"
+#include "retrofs.h"
 
 #define assert(expr, message) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \

@@ -7,7 +7,8 @@ COLOR 7
 PRINT "..."
 
 MOUNT "/devices", "", "devfs"
-MOUNT "/harddisk", "hd0", "fat32"
+MOUNT "/boot", "hd0", "fat32"
+MOUNT "/harddisk", "hd0", "rfs"
 
 KEYMAP "qemu"
 

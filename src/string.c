@@ -415,7 +415,7 @@ int64_t atoll(const char *s, int radix)
 		int64_t digit;
 		
 		/* look for the digit in the list of digits */
-		where = strchr(digits, *s);
+		where = strchr(digits, toupper(*s));
 		if (where == NULL) {
 			/* not found; not a digit, so stop */
 			break;
