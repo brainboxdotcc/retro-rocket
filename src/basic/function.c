@@ -401,6 +401,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 					char error[MAX_STRINGLEN];
 					snprintf(error, MAX_STRINGLEN, "Duplicate function name '%s'", name);
 					tokenizer_error_print(ctx, error);
+					kfree_null(&linetext);
 					return false;
 				}
 

@@ -3,7 +3,7 @@
 #include <stdatomic.h>
 
 typedef struct simple_cv {
-	atomic_int waiting;
+	int waiting;
 } simple_cv_t;
 
 static inline void simple_cv_init(simple_cv_t *cv) {

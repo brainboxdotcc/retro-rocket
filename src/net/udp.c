@@ -1,6 +1,8 @@
 #include <kernel.h>
 
 static udp_daemon_handler daemons[USHRT_MAX] = { 0 };
+spinlock_t udp_lock = 0;
+#define UDP_MAX_PACKET (65536 + sizeof(udp_packet_t))
 
 uint16_t udp_calculate_checksum(udp_packet_t * packet) {
 	// UDP checksum is optional in IPv4
@@ -8,9 +10,15 @@ uint16_t udp_calculate_checksum(udp_packet_t * packet) {
 }
 
 void udp_send_packet(uint8_t * dst_ip, uint16_t src_port, uint16_t dst_port, void * data, uint16_t len) {
+	uint64_t flags;
+	lock_spinlock_irq(&udp_lock, &flags);
+	static udp_packet_t * packet = NULL;
+	if (packet == NULL) {
+		packet = kmalloc(UDP_MAX_PACKET);
+	}
 	uint16_t length = sizeof(udp_packet_t) + len;
-	udp_packet_t * packet = kmalloc(length);
 	if (!packet) {
+		unlock_spinlock_irq(&udp_lock, flags);
 		return;
 	}
 	memset(packet, 0, sizeof(udp_packet_t));
@@ -22,7 +30,7 @@ void udp_send_packet(uint8_t * dst_ip, uint16_t src_port, uint16_t dst_port, voi
 	// Copy data over
 	memcpy((void*)packet + sizeof(udp_packet_t), data, len);
 	ip_send_packet(dst_ip, packet, length, PROTOCOL_UDP);
-	kfree_null(&packet);
+	unlock_spinlock_irq(&udp_lock, flags);
 }
 
 void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t* packet, size_t len) {
@@ -33,7 +41,6 @@ void udp_handle_packet([[maybe_unused]] ip_packet_t* encap_packet, udp_packet_t*
 
 	void * data_ptr = (void*)packet + sizeof(udp_packet_t);
 	uint32_t data_len = length;
-	//dump_hex(packet, length + sizeof(udp_packet_t));
 
 	if (daemons[dst_port] != NULL) {
 		daemons[dst_port](src_ip, src_port, dst_port, data_ptr, data_len);

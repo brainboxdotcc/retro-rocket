@@ -1,16 +1,28 @@
 #include <kernel.h>
 
 ethernet_protocol_t* protocol_handlers = NULL;
+spinlock_t ethernet_lock = 0;
 
-int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t protocol) {
+#define ETHERNET_MAX_FRAME (65536 + sizeof(ethernet_frame_t))
+
+int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uint16_t protocol) {
+	if (len + sizeof(ethernet_frame_t) > ETHERNET_MAX_FRAME) {
+		return 0;
+	}
 	uint8_t src_mac_addr[6];
 	netdev_t* dev = get_active_network_device();
+	uint64_t flags;
 	if (!dev) {
 		return 0;
 	}
+	lock_spinlock_irq(&ethernet_lock, &flags);
 
-	ethernet_frame_t * frame = kmalloc(sizeof(ethernet_frame_t) + len);
+	static ethernet_frame_t * frame = NULL;
+	if (frame == NULL) {
+		frame = kmalloc(ETHERNET_MAX_FRAME);
+	}
 	if (!frame) {
+		unlock_spinlock_irq(&ethernet_lock, flags);
 		return 0;
 	}
 	void * frame_data = (void*)frame + sizeof(ethernet_frame_t);
@@ -22,15 +34,15 @@ int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t
 	frame->type = htons(protocol);
 	dprintf("ethernet_send_packet frame=%08lx\n", (uint64_t)frame);
 	dev->send_packet(frame, sizeof(ethernet_frame_t) + len);
-	kfree_null(&frame);
+	unlock_spinlock_irq(&ethernet_lock, flags);
 	return len;
 }
 
 void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 	void * data = (void*) packet + sizeof(ethernet_frame_t);
-	int data_len = len - sizeof(ethernet_frame_t);
+	int data_len = len - (int)sizeof(ethernet_frame_t);
 
-	if (len <= 0) {
+	if (len < 0) {
 		dprintf("Ethernet handler got packet of <0 size");
 		return;
 	}

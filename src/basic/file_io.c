@@ -45,6 +45,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 	while (!_eof(intval) && ofs < MAX_STRINGLEN) {
 		if (_read(intval, res + ofs, 1) != 1) {
 			tokenizer_error_print(ctx, "Error reading from file");
+			kfree_null(&res);
 			return "";
 		}
 		if (*(res + ofs) == '\n') {

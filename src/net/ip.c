@@ -8,7 +8,9 @@
 #define FRAG_TIMEOUT_TICKS 300 // ~30s at 100Hz
 #define FRAG_GC_INTERVAL 150 // ~15s at 100Hz
 #define FRAG_MEM_LIMIT (2 * 1024 * 1024)
+#define TCP_MAX_PACKET_SIZE (65536 + sizeof(ip_packet_t))
 
+spinlock_t tcp_send_spinlock = 0;
 uint16_t last_id;
 uint8_t my_ip[4] = {0, 0, 0, 0};
 uint8_t zero_hardware_addr[6] = {0, 0, 0, 0, 0, 0};
@@ -258,9 +260,15 @@ void queue_packet([[maybe_unused]] uint8_t* dst_ip, void* data, [[maybe_unused]]
 }
 
 void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol) {
+	uint64_t flags;
+	lock_spinlock_irq(&tcp_send_spinlock, &flags);
 	uint8_t dst_hardware_addr[6] = { 0, 0, 0, 0, 0, 0 };
-	ip_packet_t* packet = kmalloc(sizeof(ip_packet_t) + len);
+	static ip_packet_t* packet = NULL;
+	if (packet == NULL) {
+		packet = kmalloc(TCP_MAX_PACKET_SIZE + 1);
+	}
 	if (!packet) {
+		unlock_spinlock_irq(&tcp_send_spinlock, flags);
 		return;
 	}
 	memset(packet, 0, sizeof(ip_packet_t));
@@ -301,6 +309,8 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 		if (!arp_lookup(dst_hardware_addr, (uint8_t*)&our_gateway)) {
 			queue_packet(dst_ip, packet, packet->length);
 			arp_send_packet(zero_hardware_addr, (uint8_t*)&our_gateway);
+			packet = NULL; // ensures another is allocated next time we enter the function
+			unlock_spinlock_irq(&tcp_send_spinlock, flags);
 			return;
 		}
 		redirected = true;
@@ -310,11 +320,12 @@ void ip_send_packet(uint8_t* dst_ip, void* data, uint16_t len, uint8_t protocol)
 		/* Send ARP packet, and add to queue for this mac address */
 		queue_packet(dst_ip, packet, packet->length);
 		arp_send_packet(zero_hardware_addr, dst_ip);
+		packet = NULL; // ensures another is allocated next time we enter the function
+		unlock_spinlock_irq(&tcp_send_spinlock, flags);
 		return;
 	}
 	ethernet_send_packet(dst_hardware_addr, (uint8_t*)packet, htons(packet->length), ETHERNET_TYPE_IP);
-	// Remember to free the packet!
-	kfree_null(&packet);
+	unlock_spinlock_irq(&tcp_send_spinlock, flags);
 }
 
 /**

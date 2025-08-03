@@ -5,6 +5,7 @@ static struct hashmap* tcb = NULL;
 static uint32_t isn_rand_base = 0;
 static uint32_t isn_tick_base = 0;
 static int isn_init = 0;
+static spinlock_t lock = 0;
 
 /* Must match up with order and amount of error messages in tcp_error_code_t */
 static const char* error_messages[] = {
@@ -101,6 +102,9 @@ uint64_t tcp_conn_hash(const void *item, uint64_t seed0, uint64_t seed1)
 
 void tcp_free(tcp_conn_t* conn)
 {
+	uint64_t flags;
+
+	lock_spinlock_irq(&lock, &flags);
 	// Delete any outstanding segments
 	for (tcp_ordered_list_t* t = conn->segment_list; t; ) {
 		tcp_ordered_list_t* next = t->next;
@@ -119,6 +123,7 @@ void tcp_free(tcp_conn_t* conn)
 
 	// Remove the TCB
 	hashmap_delete(tcb, conn);
+	unlock_spinlock_irq(&lock, flags);
 }
 
 uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, size_t len)
@@ -596,7 +601,7 @@ bool tcp_state_syn_sent(ip_packet_t* encap_packet, tcp_segment_t* segment,
 	if (segment->flags.rst) {
 		if (segment->flags.ack) {
 			// TODO: Connection reset (propagate upwards)
-			dprintf("TODO: Connection reset, propogate into conn_t\n");
+			dprintf("TODO: Connection reset, propagate into conn_t\n");
 		}
 		return true;
 	}
@@ -967,7 +972,9 @@ void tcp_idle()
 
 	void *item;
 	size_t iter = 0;
-	interrupts_off();
+	uint64_t flags;
+
+	lock_spinlock_irq(&lock, &flags);
 	while (hashmap_iter(tcb, &iter, &item)) {
 		tcp_conn_t *conn = item;
 		if (conn->state == TCP_ESTABLISHED) {
@@ -989,7 +996,7 @@ void tcp_idle()
 			break;
 		}
 	}
-	interrupts_on();
+	unlock_spinlock_irq(&lock, flags);
 }
 
 /**
@@ -1011,14 +1018,19 @@ void tcp_init()
  */
 bool tcp_port_in_use(uint32_t addr, uint16_t port, tcp_port_type_t type)
 {
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
+
 	void *item;
 	size_t iter = 0;
 	while (hashmap_iter(tcb, &iter, &item)) {
 		const tcp_conn_t *conn = item;
 		if (conn->local_addr == addr && ((type == TCP_PORT_LOCAL && conn->local_port == port) || (type == TCP_PORT_REMOTE && conn->remote_port == port))) {
+			unlock_spinlock_irq(&lock, flags);
 			return true;
 		}
 	}
+	unlock_spinlock_irq(&lock, flags);
 	return false;
 }
 
@@ -1075,6 +1087,8 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 		return TCP_ERROR_NETWORK_DOWN;
 	}
 
+	dprintf("Setup conn\n");
+
 	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
 	conn.snd_una = isn;
 	conn.snd_nxt = isn + 1;
@@ -1102,6 +1116,11 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	conn.backlog = 0;
 
 	tcp_set_state(&conn, TCP_SYN_SENT);
+
+	dprintf("Enter spinlock\n");
+
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
 	hashmap_set(tcb, &conn);
 
 	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
@@ -1110,11 +1129,14 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 		if (new_conn->fd == -1) {
 			dprintf("tcp_connect() allocation of fd failed\n");
 			tcp_free(new_conn);
+			unlock_spinlock_irq(&lock, flags);
 			return TCP_ERROR_OUT_OF_DESCRIPTORS;
 		}
 		tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN, NULL, 0);
+		unlock_spinlock_irq(&lock, flags);
 		return new_conn->fd;
 	} else {
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_MEMORY;
 	}
 }
@@ -1124,48 +1146,58 @@ int tcp_close(tcp_conn_t* conn)
 	if (conn == NULL) {
 		return TCP_ERROR_INVALID_CONNECTION;
 	}
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
 	switch (conn->state) {
 		case TCP_LISTEN:
 		case TCP_SYN_SENT:
 			tcp_free(conn);
+			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		case TCP_SYN_RECEIVED:
 			// TODO - if segments have been queued, wait for ESTABLISHED
 			// before entering FIN-WAIT-1
 			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
 			tcp_set_state(conn, TCP_FIN_WAIT_1);
+			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		case TCP_ESTABLISHED:
 			// TODO - queue FIN after any outstanding segments
 			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
 			tcp_set_state(conn, TCP_FIN_WAIT_1);
+			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		case TCP_CLOSE_WAIT:
 			// queue FIN and state transition after sends
 			tcp_send_segment(conn, conn->snd_nxt, TCP_FIN | TCP_ACK, NULL, 0);
 			tcp_set_state(conn, TCP_LAST_ACK);
+			unlock_spinlock_irq(&lock, flags);
 			return 0;
 		default:
 			// connection error, already closing
+			unlock_spinlock_irq(&lock, flags);
 			return TCP_ERROR_ALREADY_CLOSING;
 	}
 }
 
 int send(int socket, const void* buffer, uint32_t length)
 {
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
 	tcp_conn_t* conn = tcp_find_by_fd(socket);
 	if (conn == NULL) {
 		dprintf("send(): invalid socket %d\n", socket);
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_INVALID_SOCKET;
 	} else if (conn->state != TCP_ESTABLISHED) {
 		dprintf("send(): not connected %d\n", socket);
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_NOT_CONNECTED;
 	}
-	interrupts_off();
 	conn->send_buffer = krealloc(conn->send_buffer, length + conn->send_buffer_len);
 	memcpy(conn->send_buffer + conn->send_buffer_len, buffer, length);
 	conn->send_buffer_len += length;
-	interrupts_on();
+	unlock_spinlock_irq(&lock, flags);
 	return (int)length;
 }
 
@@ -1230,7 +1262,8 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 		}
 	}
 	if (conn->recv_buffer_len > 0 && conn->recv_buffer != NULL) {
-		interrupts_off();
+		uint64_t flags;
+		lock_spinlock_irq(&lock, &flags);
 		/* There is buffered data to receive  */
 		size_t amount_to_recv = conn->recv_buffer_len > maxlen ? maxlen : conn->recv_buffer_len;
 		memcpy(buffer, conn->recv_buffer, amount_to_recv);
@@ -1242,7 +1275,7 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 			conn->recv_buffer = krealloc(conn->recv_buffer + amount_to_recv, conn->recv_buffer_len - amount_to_recv);
 		}
 		conn->recv_buffer_len -= amount_to_recv;
-		interrupts_on();
+		unlock_spinlock_irq(&lock, flags);
 		return amount_to_recv;
 	}
 	return 0;
@@ -1273,12 +1306,15 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 		return TCP_ERROR_OUT_OF_MEMORY;
 	}
 
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
 	hashmap_set(tcb, &conn);
 
 	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr,
 					conn.local_port, conn.remote_port);
 	if (!new_conn) {
 		queue_free(conn.pending);
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_MEMORY;
 	}
 
@@ -1286,9 +1322,11 @@ int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 	if (new_conn->fd == -1) {
 		queue_free(new_conn->pending);
 		tcp_free(new_conn);
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 
+	unlock_spinlock_irq(&lock, flags);
 	return new_conn->fd;
 }
 
@@ -1302,12 +1340,17 @@ int tcp_accept(int socket)
 		return TCP_ERROR_NOT_LISTENING;
 	}
 
+	uint64_t flags;
+	lock_spinlock_irq(&lock, &flags);
+
 	if (queue_empty(listener->pending)) {
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_WOULD_BLOCK;
 	}
 
 	tcp_conn_t* conn = queue_pop(listener->pending);
 	if (!conn) {
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_CONNECTION_FAILED;
 	}
 
@@ -1331,9 +1374,10 @@ int tcp_accept(int socket)
 	conn->fd = tcp_allocate_fd(conn);
 	if (conn->fd == -1) {
 		tcp_free(conn);
+		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_DESCRIPTORS;
 	}
 	tcp_set_state(conn, TCP_SYN_RECEIVED);
-
+	unlock_spinlock_irq(&lock, flags);
 	return conn->fd;
 }

@@ -36,7 +36,7 @@ typedef struct ethernet_frame {
  * @param protocol protocol type
  * @return int nonzero on successful queue of packet
  */
-int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, int len, uint16_t protocol);
+int ethernet_send_packet(uint8_t* dst_mac_addr, uint8_t* data, uint32_t len, uint16_t protocol);
 
 /**
  * @brief Handle inbound packet via interrupt from network card driver
