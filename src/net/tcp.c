@@ -560,6 +560,18 @@ bool tcp_send_ack(tcp_conn_t* conn)
 	return tcp_send_segment(conn, conn->snd_nxt, TCP_ACK, NULL, 0);
 }
 
+bool tcp_send_fin_ack(tcp_conn_t*conn)
+{
+	/* Check for duplicate ACKs (same rcv_nxt as the previous) and drop them */
+	if (conn->rcv_nxt == conn->rcv_lst) {
+		return true;
+	}
+	conn->snd_lst = conn->snd_nxt;
+	conn->rcv_lst = conn->rcv_nxt;
+	return tcp_send_segment(conn, conn->snd_nxt, TCP_ACK | TCP_FIN, NULL, 0);
+}
+
+
 /**
  * @brief Called when state is SYN-SENT
  * 
@@ -819,6 +831,20 @@ bool tcp_state_established(ip_packet_t* encap_packet, tcp_segment_t* segment, tc
 bool tcp_state_fin_wait_1(ip_packet_t* encap_packet, tcp_segment_t* segment, tcp_conn_t* conn, const tcp_options_t* options, size_t len)
 {
 	tcp_handle_data_in(encap_packet, segment, conn, options, len);
+	// Did we get a FIN?
+	if (segment->flags.fin) {
+		conn->rcv_nxt = segment->seq + len - tcp_header_size(segment) + 1; // step over FIN
+		tcp_send_fin_ack(conn);
+
+		if (segment->flags.ack && seq_lte(conn->snd_una, segment->ack) && seq_lte(segment->ack, conn->snd_nxt)) {
+			// our FIN was acknowledged
+			tcp_set_state(conn, TCP_TIME_WAIT);
+		} else {
+			// simultaneous FIN
+			tcp_set_state(conn, TCP_CLOSING);
+		}
+	}
+
 	return true;
 }
 
@@ -1069,8 +1095,6 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 	uint32_t isn = get_isn();
 	unsigned char ip[4] = { 0 };
 
-	dprintf("tcp_connect isn: %u\n", isn);
-
 	gethostaddr(ip);
 
 	conn.remote_addr = target_addr;
@@ -1086,8 +1110,6 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 		dprintf("tcp_connect() net down\n");
 		return TCP_ERROR_NETWORK_DOWN;
 	}
-
-	dprintf("Setup conn\n");
 
 	conn.local_port = tcp_alloc_port(conn.local_addr, source_port, TCP_PORT_LOCAL);
 	conn.snd_una = isn;
@@ -1117,28 +1139,27 @@ int tcp_connect(uint32_t target_addr, uint16_t target_port, uint16_t source_port
 
 	tcp_set_state(&conn, TCP_SYN_SENT);
 
-	dprintf("Enter spinlock\n");
-
 	uint64_t flags;
 	lock_spinlock_irq(&lock, &flags);
 	hashmap_set(tcb, &conn);
 
 	tcp_conn_t* new_conn = tcp_find(conn.local_addr, conn.remote_addr, conn.local_port, conn.remote_port);
-	if (new_conn) {
-		new_conn->fd = tcp_allocate_fd(new_conn);
-		if (new_conn->fd == -1) {
-			dprintf("tcp_connect() allocation of fd failed\n");
-			tcp_free(new_conn);
-			unlock_spinlock_irq(&lock, flags);
-			return TCP_ERROR_OUT_OF_DESCRIPTORS;
-		}
-		tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN, NULL, 0);
-		unlock_spinlock_irq(&lock, flags);
-		return new_conn->fd;
-	} else {
+	if (!new_conn) {
 		unlock_spinlock_irq(&lock, flags);
 		return TCP_ERROR_OUT_OF_MEMORY;
 	}
+
+	new_conn->fd = tcp_allocate_fd(new_conn);
+	if (new_conn->fd == -1) {
+		dprintf("tcp_connect() allocation of fd failed\n");
+		tcp_free(new_conn);
+		unlock_spinlock_irq(&lock, flags);
+		return TCP_ERROR_OUT_OF_DESCRIPTORS;
+	}
+
+	tcp_send_segment(new_conn, new_conn->snd_nxt, TCP_SYN, NULL, 0);
+	unlock_spinlock_irq(&lock, flags);
+	return new_conn->fd;
 }
 
 int tcp_close(tcp_conn_t* conn)
