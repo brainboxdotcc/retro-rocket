@@ -196,7 +196,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 	}
 
 	if (!valid_string_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 	if (list[local] == NULL) {
@@ -254,7 +254,7 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 	};
 
 	if (!valid_int_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 
@@ -304,7 +304,7 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 	//char buffer[MAX_STRINGLEN];
 
 	if (!valid_double_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 
@@ -418,9 +418,7 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 		}
 	}
 
-	char err[MAX_STRINGLEN];
-	snprintf(err, MAX_STRINGLEN, "No such string variable '%s'", var);
-	tokenizer_error_print(ctx, err);
+	tokenizer_error_printf(ctx, "No such string variable '%s'", var);
 	return "";
 }
 
@@ -524,10 +522,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 		}
 	}
 
-
-	char err[MAX_STRINGLEN];
-	snprintf(err, MAX_STRINGLEN, "No such integer variable '%s'", var);
-	tokenizer_error_print(ctx, err);
+	tokenizer_error_printf(ctx, "No such integer variable '%s'", var);
 	return 0; /* No such variable */
 }
 
@@ -566,10 +561,8 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 	}
 
 
-	char err[MAX_STRINGLEN];
 	if (var[strlen(var) - 1] == '#') {
-		snprintf(err, MAX_STRINGLEN, "No such real variable '%s'", var);
-		tokenizer_error_print(ctx, err);
+		tokenizer_error_printf(ctx, "No such real variable '%s'", var);
 	}
 	*res = 0.0; /* No such variable */
 	return false;

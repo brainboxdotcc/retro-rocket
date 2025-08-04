@@ -304,8 +304,7 @@ char* basic_itoa(struct basic_ctx* ctx)
 		tokenizer_error_print(ctx, "Invalid radix (not in range between 2 and 36)");
 		return "";
 	}
-	snprintf(buffer, MAX_STRINGLEN, "Unknown `do_itoa` error: %d", -err);
-	tokenizer_error_print(ctx, buffer);
+	tokenizer_error_printf(ctx, "Unknown `do_itoa` error: %d", -err);
 	return "";
 }
 

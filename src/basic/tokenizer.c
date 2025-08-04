@@ -322,6 +322,18 @@ bool tokenizer_string(char *dest, int len, struct basic_ctx* ctx)
 	return true;
 }
 
+
+void tokenizer_error_printf(struct basic_ctx* ctx, const char* fmt, ...)
+{
+	char error[MAX_STRINGLEN];
+	va_list args;
+	va_start(args, fmt);
+	vsnprintf(error, MAX_STRINGLEN - 1, fmt, args);
+	va_end(args);
+	tokenizer_error_print(ctx, error);
+}
+
+
 void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 {
 	basic_set_string_variable("ERROR$", error, ctx, false, false);
@@ -372,9 +384,7 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx)
 	varname[count] = 0;
 	for (int n = 0; n < count - 1; ++n) {
 		if (varname[n] == '$' || varname[n] == '#') {
-			char error[MAX_STRINGLEN];
-			snprintf(error, MAX_STRINGLEN, "Invalid variable name '%s'", varname);
-			tokenizer_error_print(ctx, error);
+			tokenizer_error_printf(ctx, "Invalid variable name '%s'", varname);
 			return "";
 		}
 	}

@@ -398,9 +398,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				name[ni] = 0;
 				struct ub_proc_fn_def* exist_def = basic_find_fn(name, ctx);
 				if (exist_def) {
-					char error[MAX_STRINGLEN];
-					snprintf(error, MAX_STRINGLEN, "Duplicate function name '%s'", name);
-					tokenizer_error_print(ctx, error);
+					tokenizer_error_printf(ctx, "Duplicate function name '%s'", name);
 					kfree_null(&linetext);
 					return false;
 				}

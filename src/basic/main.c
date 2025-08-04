@@ -281,7 +281,7 @@ void library_statement(struct basic_ctx* ctx)
 	fs_directory_entry_t* file_info = fs_get_file_info(lib_file);
 	accept_or_return(NEWLINE, ctx);
 	if (!file_info || fs_is_directory(lib_file)) {
-		tokenizer_error_print(ctx, "Not a library file");
+		tokenizer_error_printf(ctx, "Not a library file: '%s'", lib_file);
 		return;
 	}
 	/* Calculate the next line we will continue from after loading the library
@@ -294,17 +294,17 @@ void library_statement(struct basic_ctx* ctx)
 	size_t library_len = file_info->size;
 	char* temp_library = kmalloc(library_len + 1);
 	if (!temp_library) {
-		tokenizer_error_print(ctx, "Not enough memory to load library file");
+		tokenizer_error_printf(ctx, "Not enough memory to load library file '%s'", lib_file);
 		return;
 	}
 	char* clean_library = kmalloc(library_len + 1);
 	if (!clean_library) {
 		kfree_null(&temp_library);
-		tokenizer_error_print(ctx, "Not enough memory to load library file");
+		tokenizer_error_printf(ctx, "Not enough memory to load library file '%s'", lib_file);
 		return;
 	}
 	if (!fs_read_file(file_info, 0, library_len, (uint8_t*)temp_library)) {
-		tokenizer_error_print(ctx, "Error reading library file");
+		tokenizer_error_printf(ctx, "Error reading library file '%s'", lib_file);
 		kfree_null(&temp_library);
 		kfree_null(&clean_library);
 		return;
@@ -315,7 +315,7 @@ void library_statement(struct basic_ctx* ctx)
 	clean_library = clean_basic(temp_library, clean_library);
 	kfree_null(&temp_library);
 	if (isdigit(*clean_library)) {
-		tokenizer_error_print(ctx, "Library files cannot contain line numbers");
+		tokenizer_error_printf(ctx, "Library '%s': Library files cannot contain line numbers", lib_file);
 		kfree_null(&clean_library);
 		return;
 	}
@@ -330,7 +330,7 @@ void library_statement(struct basic_ctx* ctx)
 	 */
 	ctx->program_ptr = krealloc(ctx->program_ptr, strlen(ctx->program_ptr) + 5000 + library_len);
 	if (!ctx->program_ptr) {
-		tokenizer_error_print(ctx, "Not enough memory to load library file");
+		tokenizer_error_printf(ctx, "Not enough memory to load library file '%s'", lib_file);
 		kfree_null(&numbered);
 		return;
 	}
@@ -378,7 +378,7 @@ void library_statement(struct basic_ctx* ctx)
 			ctx->fn_type = RT_NONE;
 			jump_linenum(def->line, ctx);
 		} else {
-			tokenizer_error_print(ctx, "LIBRARY: Call stack exhausted when calling constructor PROC");
+			tokenizer_error_printf(ctx, "Call stack exhausted when calling constructor PROC for library '%s'", lib_file);
 		}
 		return;
 	} else {
@@ -441,21 +441,18 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 
 void basic_destroy(struct basic_ctx* ctx)
 {
-	dprintf("BASIC: destroy int vars\n");
 	for (; ctx->int_variables; ) {
 		void* next = ctx->int_variables->next;
 		kfree_null(&ctx->int_variables->varname);
 		kfree_null(&ctx->int_variables);
 		ctx->int_variables = next;
 	}
-	dprintf("BASIC: destroy double vars\n");
 	for (; ctx->double_variables; ) {
 		void* next = ctx->double_variables->next;
 		kfree_null(&ctx->double_variables->varname);
 		kfree_null(&ctx->double_variables);
 		ctx->double_variables = next;
 	}
-	dprintf("BASIC: destroy string vars\n");
 	for (; ctx->str_variables; ) {
 		void* next = ctx->str_variables->next;
 		kfree_null(&ctx->str_variables->varname);
@@ -463,7 +460,6 @@ void basic_destroy(struct basic_ctx* ctx)
 		kfree_null(&ctx->str_variables);
 		ctx->str_variables = next;
 	}
-	dprintf("BASIC: destroy int array vars\n");
 	for (; ctx->int_array_variables; ) {
 		void* next = ctx->int_array_variables->next;
 		kfree_null(&ctx->int_array_variables->varname);
@@ -471,7 +467,6 @@ void basic_destroy(struct basic_ctx* ctx)
 		kfree_null(&ctx->int_array_variables);
 		ctx->int_array_variables = next;
 	}
-	dprintf("BASIC: destroy double array vars\n");
 	for (; ctx->double_array_variables; ) {
 		void* next = ctx->double_array_variables->next;
 		kfree_null(&ctx->double_array_variables->varname);
@@ -479,7 +474,6 @@ void basic_destroy(struct basic_ctx* ctx)
 		kfree_null(&ctx->double_array_variables);
 		ctx->double_array_variables = next;
 	}
-	dprintf("BASIC: destroy string array vars\n");
 	for (; ctx->string_array_variables; ) {
 		void* next = ctx->string_array_variables->next;
 		kfree_null(&ctx->string_array_variables->varname);
@@ -489,13 +483,11 @@ void basic_destroy(struct basic_ctx* ctx)
 		kfree_null(&ctx->string_array_variables);
 		ctx->string_array_variables = next;
 	}
-	dprintf("BASIC: destroy sprites\n");
 	for (uint32_t sprite_handle = 0; sprite_handle < MAX_SPRITES; ++sprite_handle) {
 		if (ctx->sprites[sprite_handle]) {
 			free_sprite(ctx, sprite_handle);
 		}
 	}
-	dprintf("BASIC: destroy locals\n");
 	for (size_t x = 0; x < ctx->call_stack_ptr; x++) {
 		for (; ctx->local_int_variables[x]; ) {
 			void* next = ctx->local_int_variables[x]->next;
@@ -517,23 +509,17 @@ void basic_destroy(struct basic_ctx* ctx)
 			ctx->local_string_variables[x] = next;
 		}
 	}
-	dprintf("BASIC: destroy line map\n");
 	hashmap_free(ctx->lines);
-	dprintf("BASIC: destroy defs\n");
 	basic_free_defs(ctx);
-	dprintf("BASIC: destroy code\n");
 	kfree_null(&ctx->program_ptr);
-	dprintf("BASIC: destroy context\n");
 	kfree_null(&ctx);
 }
 
 bool accept(int token, struct basic_ctx* ctx)
 {
 	if (token != tokenizer_token(ctx)) {
-		char err[MAX_STRINGLEN];
 		GENERATE_ENUM_STRING_NAMES(TOKEN, token_names)
-		snprintf(err, MAX_STRINGLEN, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
-		tokenizer_error_print(ctx, err);
+		tokenizer_error_printf(ctx, "Expected %s got %s", token_names[token], token_names[tokenizer_token(ctx)]);
 		return false;
 	}
 	tokenizer_next(ctx);
@@ -544,9 +530,7 @@ bool jump_linenum(int64_t linenum, struct basic_ctx* ctx)
 {
 	ub_line_ref* line = hashmap_get(ctx->lines, &(ub_line_ref){ .line_number = linenum });
 	if (!line) {
-		char err[MAX_STRINGLEN];
-		snprintf(err, MAX_STRINGLEN, "No such line %ld", linenum);
-		tokenizer_error_print(ctx, err);
+		tokenizer_error_printf(ctx, "No such line %ld", linenum);
 		return false;
 	}
 	ctx->ptr = line->ptr;

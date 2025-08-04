@@ -235,7 +235,7 @@ void keymap_statement(struct basic_ctx* ctx)
 
 	fs_directory_entry_t* fsi = fs_get_file_info(path);
 	if (!fsi || fsi->flags & FS_DIRECTORY) {
-		tokenizer_error_print(ctx, "Keymap file not found");
+		tokenizer_error_printf(ctx, "Keymap file '%s' not found", path);
 		return;
 	}
 
@@ -249,7 +249,7 @@ void keymap_statement(struct basic_ctx* ctx)
 	if (fs_read_file(fsi, 0, fsi->size, keymap)) {
 		load_keymap_from_string((const char*)keymap);
 	} else {
-		tokenizer_error_print(ctx, "Failed to read keymap file");
+		tokenizer_error_printf(ctx, "Failed to read keymap file '%s'", path);
 	}
 
 	kfree_null(&keymap);

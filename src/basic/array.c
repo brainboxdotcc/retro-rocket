@@ -45,14 +45,14 @@ int64_t arr_variable_index(struct basic_ctx* ctx)
 const char* basic_get_string_array_variable(const char* var, int64_t index, struct basic_ctx* ctx)
 {
 	if (index < 0) {
-		tokenizer_error_print(ctx, "Array index out of bounds");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
 		return "";
 	}
 	struct ub_var_string_array* cur = ctx->string_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)index >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Array index out of bounds");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return "";
 			}
 			if (cur->values[index]) {
@@ -61,36 +61,34 @@ const char* basic_get_string_array_variable(const char* var, int64_t index, stru
 			return "";
 		}
 	}
-	dprintf("Invalid string array variable '%s' index '%ld'\n", var, index);
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return "";
 }
 
 int64_t basic_get_int_array_variable(const char* var, int64_t index, struct basic_ctx* ctx)
 {
 	if (index < 0) {
-		tokenizer_error_print(ctx, "Array index out of bounds");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
 		return 0;
 	}
 	struct ub_var_int_array* cur = ctx->int_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)index >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Array index out of bounds");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return 0;
 			}
 			return cur->values[index];
 		}
 	}
-	dprintf("Invalid int array variable '%s' index '%ld'\n", var, index);
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return 0;
 }
 
 bool basic_get_double_array_variable(const char* var, int64_t index, struct basic_ctx* ctx, double* ret)
 {
 	if (index < 0) {
-		tokenizer_error_print(ctx, "Array index out of bounds");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
 		*ret = 0;
 		return false;
 	}
@@ -98,15 +96,14 @@ bool basic_get_double_array_variable(const char* var, int64_t index, struct basi
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)index >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Array index out of bounds");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return false;
 			}
 			*ret = cur->values[index];
 			return true;
 		}
 	}
-	dprintf("Invalid float array variable '%s' index '%ld'\n", var, index);
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	*ret = 0;
 	return false;
 }
@@ -114,22 +111,22 @@ bool basic_get_double_array_variable(const char* var, int64_t index, struct basi
 bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (basic_int_variable_exists(var, ctx)) {
-		tokenizer_error_print(ctx, "Variable already exists as non-array type");
+		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
 		return false;
 	}
 	if (!valid_int_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return false;
 	}
 	if (size < 1) {
-		tokenizer_error_print(ctx, "Invalid array size");
+		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
 		return false;
 	}
 
 	struct ub_var_int_array* cur = ctx->int_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
-			tokenizer_error_print(ctx, "Array already dimensioned");
+			tokenizer_error_printf(ctx, "Array '%s' already dimensioned", var);
 			return false;
 		}
 	}
@@ -148,22 +145,22 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (basic_string_variable_exists(var, ctx)) {
-		tokenizer_error_print(ctx, "Variable already exists as non-array type");
+		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
 		return false;
 	}
 	if (!valid_string_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return false;
 	}
 	if (size < 1) {
-		tokenizer_error_print(ctx, "Invalid array size");
+		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
 		return false;
 	}
 
 	struct ub_var_string_array* cur = ctx->string_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
-			tokenizer_error_print(ctx, "Array already dimensioned");
+			tokenizer_error_printf(ctx, "Array '%s' already dimensioned", var);
 			return false;
 		}
 	}
@@ -182,22 +179,22 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (basic_double_variable_exists(var, ctx)) {
-		tokenizer_error_print(ctx, "Variable already exists as non-array type");
+		tokenizer_error_printf(ctx, "Variable '%s' already exists as non-array type", var);
 		return false;
 	}
 	if (!valid_double_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return false;
 	}
 	if (size < 1) {
-		tokenizer_error_print(ctx, "Invalid array size");
+		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
 		return false;
 	}
 
 	struct ub_var_double_array* cur = ctx->double_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
-			tokenizer_error_print(ctx, "Array already dimensioned");
+			tokenizer_error_printf(ctx, "Array '%s' already dimensioned", var);
 			return false;
 		}
 	}
@@ -216,7 +213,7 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (size < 1) {
-		tokenizer_error_print(ctx, "Invalid array size");
+		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
 		return false;
 	}
 	struct ub_var_int_array* cur = ctx->int_array_variables;
@@ -236,14 +233,14 @@ bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;
 }
 
 bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (size < 1) {
-		tokenizer_error_print(ctx, "Invalid array size");
+		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
 		return false;
 	}
 	struct ub_var_string_array* cur = ctx->string_array_variables;
@@ -269,14 +266,14 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 
 bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* ctx)
 {
 	if (size < 1) {
-		tokenizer_error_print(ctx, "Invalid array size");
+		tokenizer_error_printf(ctx, "Invalid array size %ld", size);
 		return false;
 	}
 	struct ub_var_double_array* cur = ctx->double_array_variables;
@@ -296,18 +293,18 @@ bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* c
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 
 void basic_set_string_array_variable(const char* var, int64_t index, const char* value, struct basic_ctx* ctx)
 {
 	if (!valid_string_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 	if (index < 0) {
-		tokenizer_error_print(ctx, "Array index out of bounds");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
 		return;
 	}
 
@@ -315,7 +312,7 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)index >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Array index out of bounds");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return;
 			}
 			kfree_null(&cur->values[index]);
@@ -323,13 +320,13 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
 			return;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 }
 
 void basic_set_string_array(const char* var, const char* value, struct basic_ctx* ctx)
 {
 	if (!valid_string_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 	struct ub_var_string_array* cur = ctx->string_array_variables;
@@ -346,7 +343,7 @@ void basic_set_string_array(const char* var, const char* value, struct basic_ctx
 void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx)
 {
 	if (!valid_int_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 	struct ub_var_int_array* cur = ctx->int_array_variables;
@@ -362,7 +359,7 @@ void basic_set_int_array(const char* var, int64_t value, struct basic_ctx* ctx)
 void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx)
 {
 	if (!valid_double_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 	struct ub_var_double_array* cur = ctx->double_array_variables;
@@ -378,11 +375,11 @@ void basic_set_double_array(const char* var, double value, struct basic_ctx* ctx
 void basic_set_double_array_variable(const char* var, int64_t index, double value, struct basic_ctx* ctx)
 {
 	if (!valid_double_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 	if (index < 0) {
-		tokenizer_error_print(ctx, "Array index out of bounds");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
 		return;
 	}
 
@@ -390,24 +387,24 @@ void basic_set_double_array_variable(const char* var, int64_t index, double valu
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)index >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Array index out of bounds");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return;
 			}
 			cur->values[index] = value;
 			return;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 }
 
 void basic_set_int_array_variable(const char* var, int64_t index, int64_t value, struct basic_ctx* ctx)
 {
 	if (!valid_int_var(var)) {
-		tokenizer_error_print(ctx, "Malformed variable name");
+		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 	if (index < 0) {
-		tokenizer_error_print(ctx, "Array index out of bounds");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", index);
 		return;
 	}
 
@@ -415,14 +412,14 @@ void basic_set_int_array_variable(const char* var, int64_t index, int64_t value,
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)index >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Array index out of bounds");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return;
 			}
 			cur->values[index] = value;
 			return;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 }
 
 
@@ -479,7 +476,7 @@ int64_t arr_expr_set_index(struct basic_ctx* ctx, const char* varname)
 	ctx->ptr++;
 	ctx->current_token = get_next_token(ctx);
 	if (*ctx->ptr == '-') {
-		tokenizer_error_print(ctx, "Array index out of bounds");
+		tokenizer_error_print(ctx, "Array subscripts cannot be negative");
 		return 0;
 	}
 	int64_t index = expr(ctx);
@@ -491,14 +488,14 @@ int64_t arr_expr_set_index(struct basic_ctx* ctx, const char* varname)
 bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx)
 {
 	if (pop_pos < 0) {
-		tokenizer_error_print(ctx, "Invalid array index");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", pop_pos);
 		return false;
 	}
 	struct ub_var_string_array* cur = ctx->string_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)pop_pos >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Invalid array index");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", pop_pos, cur->itemcount - 1);
 				return false;
 			}
 			kfree_null(&cur->values[pop_pos]);
@@ -509,21 +506,21 @@ bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 
 bool basic_pop_int_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx)
 {
 	if (pop_pos < 0) {
-		tokenizer_error_print(ctx, "Invalid array index");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", pop_pos);
 		return false;
 	}
 	struct ub_var_int_array* cur = ctx->int_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)pop_pos >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Invalid array index");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", pop_pos, cur->itemcount - 1);
 				return false;
 			}
 			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
@@ -533,21 +530,21 @@ bool basic_pop_int_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 
 bool basic_pop_double_array(const char* var, int64_t pop_pos, struct basic_ctx* ctx)
 {
 	if (pop_pos < 0) {
-		tokenizer_error_print(ctx, "Invalid array index");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", pop_pos);
 		return false;
 	}
 	struct ub_var_double_array* cur = ctx->double_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)pop_pos >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Invalid array index");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", pop_pos, cur->itemcount - 1);
 				return false;
 			}
 			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
@@ -557,25 +554,25 @@ bool basic_pop_double_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 
 bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx* ctx)
 {
 	if (push_pos < 0) {
-		tokenizer_error_print(ctx, "Invalid array index");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", push_pos);
 		return false;
 	}
 	struct ub_var_string_array* cur = ctx->string_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)push_pos >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Invalid array index");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", push_pos, cur->itemcount - 1);
 				return false;
 			}
 			if (cur->itemcount < 2) {
-				tokenizer_error_print(ctx, "Array too small for PUSH");
+				tokenizer_error_printf(ctx, "Array too small for PUSH [0..%ld]", cur->itemcount - 1);
 				return false;
 			}
 			if (cur->values[cur->itemcount - 1]) {
@@ -589,25 +586,25 @@ bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 
 bool basic_push_int_array(const char* var, int64_t push_pos, struct basic_ctx* ctx)
 {
 	if (push_pos < 0) {
-		tokenizer_error_print(ctx, "Invalid array index");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", push_pos);
 		return false;
 	}
 	struct ub_var_int_array* cur = ctx->int_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)push_pos >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Invalid array index");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", push_pos, cur->itemcount - 1);
 				return false;
 			}
 			if (cur->itemcount < 2) {
-				tokenizer_error_print(ctx, "Array too small for PUSH");
+				tokenizer_error_printf(ctx, "Array too small for PUSH [0..%ld]", cur->itemcount - 1);
 				return false;
 			}
 			for (int64_t i = (int64_t)cur->itemcount - 2; i >= push_pos; --i) {
@@ -617,25 +614,25 @@ bool basic_push_int_array(const char* var, int64_t push_pos, struct basic_ctx* c
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 
 bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx* ctx)
 {
 	if (push_pos < 0) {
-		tokenizer_error_print(ctx, "Invalid array index");
+		tokenizer_error_printf(ctx, "Array index %ld out of bounds", push_pos);
 		return false;
 	}
 	struct ub_var_double_array* cur = ctx->double_array_variables;
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			if ((uint64_t)push_pos >= cur->itemcount) {
-				tokenizer_error_print(ctx, "Invalid array index");
+				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", push_pos, cur->itemcount - 1);
 				return false;
 			}
 			if (cur->itemcount < 2) {
-				tokenizer_error_print(ctx, "Array too small for PUSH");
+				tokenizer_error_printf(ctx, "Array too small for PUSH [0..%ld]", cur->itemcount - 1);
 				return false;
 			}
 			for (int64_t i = (int64_t)cur->itemcount - 2; i >= push_pos; --i) {
@@ -645,7 +642,7 @@ bool basic_push_double_array(const char* var, int64_t push_pos, struct basic_ctx
 			return true;
 		}
 	}
-	tokenizer_error_print(ctx, "No such array variable");
+	tokenizer_error_printf(ctx, "No such array variable '%s'", var);
 	return false;	
 }
 

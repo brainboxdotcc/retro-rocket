@@ -115,12 +115,12 @@ void loadsprite_statement(struct basic_ctx* ctx)
 
 	fs_directory_entry_t* f = fs_get_file_info(file);
 	if (!f || fs_is_directory(file) || f->size == 0) {
-		tokenizer_error_print(ctx, "Unable to open sprite file");
+		tokenizer_error_printf(ctx, "Unable to open sprite file '%s'", file);
 		return;
 	}
 	char* buf = kmalloc(f->size);
 	if (!buf) {
-		tokenizer_error_print(ctx, "Not enough memory to load sprite file");
+		tokenizer_error_printf(ctx, "Not enough memory to load sprite file '%s'", file);
 		return;
 	}
 	fs_read_file(f, 0, f->size, (unsigned char*)buf);
@@ -128,7 +128,7 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	int w, h, n;
 	s->pixels = (uint32_t*)stbi_load_from_memory((unsigned char*)buf, f->size, &w, &h, &n, STBI_rgb_alpha);
 	if (!s->pixels) {
-		tokenizer_error_print(ctx, stbi_failure_reason());
+		tokenizer_error_printf(ctx, "Error loading sprite file '%s': %s", file, stbi_failure_reason());
 		kfree_null(&buf);
 		free_sprite(ctx, sprite_handle);
 		return;

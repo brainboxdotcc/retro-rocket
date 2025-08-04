@@ -121,11 +121,10 @@ int64_t basic_open_func(struct basic_ctx* ctx, int oflag)
 	PARAMS_END("OPEN", 0);
 	const char* file = make_full_path(strval);
 	if (fs_is_directory(file)) {
-		tokenizer_error_print(ctx, "Not a file");
+		tokenizer_error_printf(ctx, "Not a file: '%s'", file);
 		return 0;
 	}
 	int fd = _open(file, oflag);
-	dprintf("basic_open_func(\"%s\") = %d\n", strval, fd);
 	return fd;
 }
 
@@ -151,7 +150,7 @@ int64_t basic_getnamecount(struct basic_ctx* ctx)
 	PARAMS_END("GETNAMECOUNT", 0);
 	const char* dir = make_full_path(strval);
 	if (!fs_is_directory(dir)) {
-		tokenizer_error_print(ctx, "Not a directory");
+		tokenizer_error_printf(ctx, "Not a directory: '%s'", dir);
 		return 0;
 	}
 	fs_directory_entry_t* fsl = fs_get_items(dir);
@@ -171,7 +170,7 @@ char* basic_getname(struct basic_ctx* ctx)
 	PARAMS_END("GETNAME$", "");
 	const char* dir = make_full_path(strval);
 	if (!fs_is_directory(dir)) {
-		tokenizer_error_print(ctx, "Not a directory");
+		tokenizer_error_printf(ctx, "Not a directory: '%s'", dir);
 		return 0;
 	}
 	fs_directory_entry_t* fsl = fs_get_items(dir);
@@ -227,7 +226,7 @@ void mkdir_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 	const char* dir = make_full_path(name);
 	if (!fs_create_directory(dir)) {
-		tokenizer_error_print(ctx, "Unable to create directory");
+		tokenizer_error_printf(ctx, "Unable to create directory '%s'", dir);
 	}
 }
 
@@ -249,7 +248,7 @@ void rmdir_statement(struct basic_ctx* ctx)
 	const char* name = make_full_path(str_expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_directory(name)) {
-		tokenizer_error_print(ctx, "Unable to delete directory");
+		tokenizer_error_printf(ctx, "Unable to delete directory '%s'", name);
 	}
 }
 
@@ -260,7 +259,7 @@ void delete_statement(struct basic_ctx* ctx)
 	const char* name = make_full_path(str_expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_file(name)) {
-		tokenizer_error_print(ctx, "Unable to delete file");
+		tokenizer_error_printf(ctx, "Unable to delete file '%s'", name);
 	}
 }
 
@@ -328,9 +327,9 @@ void chdir_statement(struct basic_ctx* ctx)
 		return;
 	}
 	if (!new) {
-		tokenizer_error_print(ctx, "Invalid directory");
+		tokenizer_error_printf(ctx, "Invalid directory '%s'", csd);
 	} else if (!fs_is_directory(new)) {
-		tokenizer_error_print(ctx, "Not a directory");
+		tokenizer_error_printf(ctx, "Not a directory '%s'", csd);
 	}
 
 	proc_set_csd(proc, old);

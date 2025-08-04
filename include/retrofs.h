@@ -27,6 +27,10 @@
 
 #define RFS_ID			(uint64_t)0x3153466f72746552ULL // "RetroFS1"
 
+/**
+ * @brief RetroFS GPT Partition Type GUID
+ * UUID v4 reserved for Retro Rocket RetroFS partitions
+ */
 #define RFS_GPT_GUID		"4DEC1156-FEC8-4495-854B-20D888E21AF0"
 
 typedef struct rfs_description_block_t {
