@@ -115,11 +115,13 @@ void loadsprite_statement(struct basic_ctx* ctx)
 
 	fs_directory_entry_t* f = fs_get_file_info(file);
 	if (!f || fs_is_directory(file) || f->size == 0) {
+		free_sprite(ctx, sprite_handle);
 		tokenizer_error_printf(ctx, "Unable to open sprite file '%s'", file);
 		return;
 	}
 	char* buf = kmalloc(f->size);
 	if (!buf) {
+		free_sprite(ctx, sprite_handle);
 		tokenizer_error_printf(ctx, "Not enough memory to load sprite file '%s'", file);
 		return;
 	}

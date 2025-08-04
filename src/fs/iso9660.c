@@ -63,15 +63,11 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 		lengthbytes *= 2048;
 	}
 
-	unsigned char *dirbuffer = kmalloc(lengthbytes);
-	if (!dirbuffer) {
-		return NULL;
-	}
+	unsigned char dirbuffer[lengthbytes + 1];
 	memset(dirbuffer, 0, lengthbytes);
 
 	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer)) {
 		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
-		kfree_null(&dirbuffer);
 		return NULL;
 	}
 
@@ -83,7 +79,6 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 
 	if (lengthbytes > MAX_REASONABLE_ISO_DIR_SIZE) {
 		dprintf("ISO9660: Rejecting oversized directory: %u bytes\n", lengthbytes);
-		kfree_null(&dirbuffer);
 		return NULL;
 	}
 
@@ -184,8 +179,6 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 
 		walkbuffer += fentry->length;
 	}
-
-	kfree_null(&dirbuffer);
 	return list;
 }
 

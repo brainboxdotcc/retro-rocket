@@ -47,27 +47,19 @@ void dhcp_handle_packet(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, v
 void dhcp_discover() {
 	uint8_t request_ip[4] = { 0, 0, 0, 0 };
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
-	dhcp_packet_t* packet = kmalloc(sizeof(dhcp_packet_t));
-	if (!packet) {
-		return;
-	}
+	dhcp_packet_t packet;
 	udp_register_daemon(DHCP_DST_PORT, &dhcp_handle_packet);
-	memset(packet, 0, sizeof(dhcp_packet_t));
-	uint16_t optsize = make_dhcp_packet(packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
-	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
-	kfree_null(&packet);
+	memset(&packet, 0, sizeof(dhcp_packet_t));
+	uint16_t optsize = make_dhcp_packet(&packet, DHCPDISCOVER, request_ip, DHCP_TRANSACTION_IDENTIFIER, 0);
+	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, &packet, optsize);
 }
 
 void dhcp_request(uint8_t* request_ip, uint32_t xid, uint32_t server_ip) {
 	uint8_t dst_ip[4] = { 0xff, 0xff, 0xff, 0xff };
-	dhcp_packet_t* packet = kmalloc(sizeof(dhcp_packet_t));
-	if (!packet) {
-		return;
-	}
-	memset(packet, 0, sizeof(dhcp_packet_t));
-	uint16_t optsize = make_dhcp_packet(packet, DHCPREQUEST, request_ip, xid, server_ip);
-	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, packet, optsize);
-	kfree_null(&packet);
+	dhcp_packet_t packet;
+	memset(&packet, 0, sizeof(dhcp_packet_t));
+	uint16_t optsize = make_dhcp_packet(&packet, DHCPREQUEST, request_ip, xid, server_ip);
+	udp_send_packet(dst_ip, DHCP_DST_PORT, DHCP_SRC_PORT, &packet, optsize);
 }
 
 void* get_dhcp_options(dhcp_packet_t* packet, uint8_t type) {
