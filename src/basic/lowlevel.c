@@ -104,7 +104,7 @@ char* basic_cpugetbrand(struct basic_ctx* ctx)
 			++bufferp;
 		}
 	}
-	return gc_strdup(bufferp);
+	return gc_strdup(ctx, bufferp);
 }
 
 char* basic_cpugetvendor(struct basic_ctx* ctx)
@@ -120,7 +120,7 @@ char* basic_cpugetvendor(struct basic_ctx* ctx)
 	((unsigned int*) buffer)[1] = ctx->last_cpuid_result.edx;
 	((unsigned int*) buffer)[2] = ctx->last_cpuid_result.ecx;
 	buffer[12] = '\0';
-	return gc_strdup(buffer);
+	return gc_strdup(ctx, buffer);
 }
 
 char* basic_intoasc(struct basic_ctx* ctx)
@@ -133,12 +133,12 @@ char* basic_intoasc(struct basic_ctx* ctx)
 	PARAMS_END("INTOASC$", "");
 	if (length < 0 || length > 8) {
 		tokenizer_error_print(ctx, "Invalid length");
-		return gc_strdup("");
+		return gc_strdup(ctx, "");
 	}
 	char result[16] = {0};
 	(*(int64_t*) result) = target;
 	result[length] = '\0';
-	return gc_strdup(result);
+	return gc_strdup(ctx, result);
 }
 
 int64_t basic_cpuid(struct basic_ctx* ctx)

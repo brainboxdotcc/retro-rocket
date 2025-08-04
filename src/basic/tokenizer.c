@@ -389,7 +389,7 @@ const char* tokenizer_variable_name(struct basic_ctx* ctx)
 		}
 	}
 	/* TODO: Validate variable name, weed out e.g. TEST$$ or $TEST$ which are not valid. */
-	return gc_strdup(varname);
+	return gc_strdup(ctx, varname);
 }
 
 bool tokenizer_decimal_number(struct basic_ctx* ctx)

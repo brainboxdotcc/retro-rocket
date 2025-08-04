@@ -56,7 +56,7 @@ const char* basic_get_string_array_variable(const char* var, int64_t index, stru
 				return "";
 			}
 			if (cur->values[index]) {
-				return gc_strdup(cur->values[index]);
+				return gc_strdup(ctx, cur->values[index]);
 			}
 			return "";
 		}

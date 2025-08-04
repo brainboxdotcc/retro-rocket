@@ -205,7 +205,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		if (atomic->fn_return == NULL) {
 			tokenizer_error_print(ctx, "End of function without returning value");
 		} else {
-			rv = gc_strdup((const char*)atomic->fn_return);
+			rv = gc_strdup(ctx, (const char*)atomic->fn_return);
 		}
 
 		/* Only free the base struct! */

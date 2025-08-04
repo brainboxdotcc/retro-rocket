@@ -127,7 +127,7 @@ char* basic_insocket(struct basic_ctx* ctx)
 
 	if (rv > 0) {
 		input[1] = 0;
-		return gc_strdup((const char*)input);
+		return gc_strdup(ctx, (const char*)input);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
 	} else {
@@ -160,26 +160,26 @@ char* basic_netinfo(struct basic_ctx* ctx)
 		unsigned char raw[4];
 		if (gethostaddr(raw)) {
 			get_ip_str(ip, (uint8_t*)&raw);
-			return gc_strdup(ip);
+			return gc_strdup(ctx, ip);
 		}
-		return gc_strdup("0.0.0.0");
+		return gc_strdup(ctx, "0.0.0.0");
 	}
 	if (!stricmp(strval, "gw")) {
 		uint32_t raw = getgatewayaddr();
 		get_ip_str(ip, (uint8_t*)&raw);
-		return gc_strdup(ip);
+		return gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "mask")) {
 		uint32_t raw = getnetmask();
 		get_ip_str(ip, (uint8_t*)&raw);
-		return gc_strdup(ip);
+		return gc_strdup(ctx, ip);
 	}
 	if (!stricmp(strval, "dns")) {
 		uint32_t raw = getdnsaddr();
 		get_ip_str(ip, (uint8_t*)&raw);
-		return gc_strdup(ip);
+		return gc_strdup(ctx, ip);
 	}
-	return gc_strdup("0.0.0.0");
+	return gc_strdup(ctx, "0.0.0.0");
 }
 
 char* basic_dns(struct basic_ctx* ctx)
@@ -190,7 +190,7 @@ char* basic_dns(struct basic_ctx* ctx)
 	char ip[16] = { 0 };
 	uint32_t addr = dns_lookup_host(getdnsaddr(), strval, 2000);
 	get_ip_str(ip, (uint8_t*)&addr);
-	return gc_strdup(ip);
+	return gc_strdup(ctx, ip);
 }
 
 void sockwrite_statement(struct basic_ctx* ctx)

@@ -104,5 +104,5 @@ const char* str_expr(struct basic_ctx* ctx)
 		}
 		op = tokenizer_token(ctx);
 	}
-	return gc_strdup(tmp);
+	return gc_strdup(ctx, tmp);
 }

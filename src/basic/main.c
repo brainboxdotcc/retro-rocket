@@ -227,6 +227,16 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 		*error = "Out of memory";
 		return NULL;
 	}
+	ctx->string_gc_storage = kmalloc(STRING_GC_AREA_SIZE);
+	if (!ctx->string_gc_storage) {
+		kfree_null(&ctx);
+		kfree_null(&ctx->program_ptr);
+		*error = "Out of memory";
+		return NULL;
+	}
+	/* Special for empty string storage */
+	*ctx->string_gc_storage = 0;
+	ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
 	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
 
 	// Clean extra whitespace from the program
@@ -400,6 +410,8 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->int_array_variables = old->int_array_variables;
 	ctx->string_array_variables = old->string_array_variables;
 	ctx->double_array_variables = old->double_array_variables;
+	ctx->string_gc_storage = old->string_gc_storage;
+	ctx->string_gc_storage_next = old->string_gc_storage_next;
 	ctx->lines = old->lines;
 	ctx->highest_line = old->highest_line;
 	ctx->debug_status = old->debug_status;
@@ -509,6 +521,8 @@ void basic_destroy(struct basic_ctx* ctx)
 			ctx->local_string_variables[x] = next;
 		}
 	}
+	kfree_null(&ctx->string_gc_storage);
+	ctx->string_gc_storage_next = NULL;
 	hashmap_free(ctx->lines);
 	basic_free_defs(ctx);
 	kfree_null(&ctx->program_ptr);
@@ -866,7 +880,7 @@ void basic_run(struct basic_ctx* ctx)
 			}
 		}
 	}
-	gc();
+	gc(ctx);
 }
 
 bool basic_finished(struct basic_ctx* ctx)

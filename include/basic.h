@@ -420,6 +420,14 @@ typedef struct basic_ctx {
 	 * @brief Sprites
 	 */
 	sprite_t* sprites[MAX_SPRITES];
+	/**
+	 * @brief Storage for GC'd strings
+	 */
+	char* string_gc_storage;
+	/**
+	 * @brief Next ptr for GC'd strings
+	 */
+	 char* string_gc_storage_next;
 } basic_ctx;
 
 /**
@@ -641,7 +649,7 @@ char* basic_reverse(struct basic_ctx* ctx);
 /*
  * File I/O functions
  */
-const char* make_full_path(const char* relative);
+const char* make_full_path(struct basic_ctx* ctx, const char* relative);
 void openin_statement(struct basic_ctx* ctx);
 void openup_statement(struct basic_ctx* ctx);
 void openout_statement(struct basic_ctx* ctx);

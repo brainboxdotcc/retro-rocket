@@ -10,7 +10,7 @@ char* basic_chr(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("CHR$","");
 	char res[2] = {(unsigned char)intval, 0};
-	return gc_strdup(res);
+	return gc_strdup(ctx, res);
 }
 
 char* basic_str(struct basic_ctx* ctx)
@@ -20,7 +20,7 @@ char* basic_str(struct basic_ctx* ctx)
 	PARAMS_END("STR$","");
 	char res[MAX_STRINGLEN];
 	snprintf(res, MAX_STRINGLEN, "%ld", intval);
-	return gc_strdup(res);
+	return gc_strdup(ctx, res);
 }
 
 char* basic_bool(struct basic_ctx* ctx)
@@ -30,7 +30,7 @@ char* basic_bool(struct basic_ctx* ctx)
 	PARAMS_END("BOOL$","");
 	char res[MAX_STRINGLEN];
 	snprintf(res, MAX_STRINGLEN, "%s", intval ? "TRUE" : "FALSE");
-	return gc_strdup(res);
+	return gc_strdup(ctx, res);
 }
 
 int64_t basic_instr(struct basic_ctx* ctx)
@@ -57,7 +57,7 @@ char* basic_upper(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("UPPER$","");
-	char* modified = gc_strdup(strval);
+	char* modified = gc_strdup(ctx, strval);
 	for (char* m = modified; *m; ++m) {
 		*m = toupper(*m);
 	}
@@ -69,7 +69,7 @@ char* basic_lower(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("LOWER$","");
-	char* modified = gc_strdup(strval);
+	char* modified = gc_strdup(ctx, strval);
 	for (char* m = modified; *m; ++m) {
 		*m = tolower(*m);
 	}
@@ -99,7 +99,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 			strlcpy(return_value, old_value, ofs + split_len);
 			strlcpy(new_value, old_value + ofs + split_len, MAX_STRINGLEN);
 			basic_set_string_variable(varname, new_value, ctx, false, false);
-			return gc_strdup(return_value);
+			return gc_strdup(ctx, return_value);
 		}
 		current_value++;
 		ofs++;
@@ -107,7 +107,7 @@ char* basic_tokenize(struct basic_ctx* ctx)
 	char return_value[MAX_STRINGLEN];
 	strlcpy(return_value, old_value, MAX_STRINGLEN);
 	basic_set_string_variable(varname, "", ctx, false, false);
-	return gc_strdup(return_value);
+	return gc_strdup(ctx, return_value);
 }
 
 
@@ -127,7 +127,7 @@ char* basic_left(struct basic_ctx* ctx)
 	if (intval > len) {
 		intval = len;
 	}
-	char* cut = gc_strdup(strval);
+	char* cut = gc_strdup(ctx, strval);
 	*(cut + intval) = 0;
 	return cut;
 }
@@ -148,7 +148,7 @@ char* basic_right(struct basic_ctx* ctx)
 	if (intval > len) {
 		intval = len;
 	}
-	return gc_strdup(strval + len - intval);
+	return gc_strdup(ctx, strval + len - intval);
 }
 
 char* basic_mid(struct basic_ctx* ctx)
@@ -177,7 +177,7 @@ char* basic_mid(struct basic_ctx* ctx)
 	if (end > len) {
 		end = len;
 	}
-	char* cut = gc_strdup(strval);
+	char* cut = gc_strdup(ctx, strval);
 	*(cut + end) = 0;
 	return cut + start;
 }
@@ -211,7 +211,7 @@ char* basic_ljust(struct basic_ctx* ctx)
 	memcpy(mresult, target, target_length + 1);
 	memset(mresult + target_length, fill_char, result_length - target_length);
 	mresult[result_length] = '\0';
-	char* result = gc_strdup(mresult);
+	char* result = gc_strdup(ctx, mresult);
 	kfree_null(&mresult);
 	return result;
 }
@@ -233,14 +233,14 @@ char* basic_rjust(struct basic_ctx* ctx)
 	char fill_char = fill_string[0];
 	int64_t target_length = strlen(target);
 	if (width <= target_length) {
-		return gc_strdup(target);
+		return gc_strdup(ctx, target);
 	}
 	int64_t result_length = width > target_length ? width : target_length;
 	char* mresult = kmalloc(result_length);
 	memset(mresult, fill_char, result_length - target_length);
 	memcpy(mresult + result_length - target_length, target, target_length);
 	mresult[result_length] = '\0';
-	char* result = gc_strdup(mresult);
+	char* result = gc_strdup(ctx, mresult);
 	kfree_null(&mresult);
 	return result;
 }
@@ -254,14 +254,14 @@ char* basic_ltrim(struct basic_ctx* ctx)
 	while (isspace(*target)) {
 		++target;
 	}
-	return gc_strdup(target);
+	return gc_strdup(ctx, target);
 }
 
 char* basic_rtrim(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	char* target = gc_strdup(strval);
+	char* target = gc_strdup(ctx, strval);
 	PARAMS_END("RTRIM$", "");
 	int64_t lastIndex;
 	while (isspace(target[lastIndex = strlen(target) - 1])) {
@@ -274,7 +274,7 @@ char* basic_trim(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	char* target = gc_strdup(strval);
+	char* target = gc_strdup(ctx, strval);
 	PARAMS_END("TRIM$", "");
 	while (isspace(*target)) {
 		++target;
@@ -297,7 +297,7 @@ char* basic_itoa(struct basic_ctx* ctx)
 	char buffer[MAX_STRINGLEN] = {0};
 	int err;
 	if ((err = do_itoa(target, buffer, radix)) >= 0) {
-		return gc_strdup(buffer);
+		return gc_strdup(ctx, buffer);
 	}
 	switch (-err) {
 	case 1:
@@ -312,7 +312,7 @@ char* basic_reverse(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	char* target = gc_strdup(strval);
+	char* target = gc_strdup(ctx, strval);
 	PARAMS_END("REVERSE$", "");
 	strrev(target);
 	return target;
@@ -327,7 +327,7 @@ char* basic_repeat(struct basic_ctx* ctx)
 	int64_t count = intval;
 	PARAMS_END("REP$", "");
 	if (count < 0) {
-		return gc_strdup("");
+		return gc_strdup(ctx, "");
 	}
 	int64_t targetLength = strlen(target);
 	char* tmp = kmalloc(targetLength * count + 1);
@@ -338,7 +338,7 @@ char* basic_repeat(struct basic_ctx* ctx)
 		ptr += targetLength;
 	}
 	*ptr = '\0';
-	char* res = gc_strdup(tmp);
+	char* res = gc_strdup(ctx, tmp);
 	kfree_null(&tmp);
 	return res;
 }

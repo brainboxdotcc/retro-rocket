@@ -241,43 +241,34 @@ char* strdup(const char* string)
 	return result;
 }
 
-char* gc_strdup(const char* string)
+const char* gc_strdup(basic_ctx* ctx, const char* string)
 {
-	if (!string) {
+	if (!string || !ctx) {
 		return NULL;
 	}
-	uint32_t len = strlen(string);
-	char* result = kmalloc(len + 1);
-	strlcpy(result, string, len + 1);
-	*(result + len) = 0;
-
-	if (gc_list == NULL) {
-		gc_list = kmalloc(sizeof(gc_str_t));
-		gc_list->next = NULL;
-		gc_list->ptr = result;
-	} else {
-		gc_str_t* new = kmalloc(sizeof(gc_str_t));
-		new->next = (struct gc_str_t*)gc_list;
-		new->ptr = result;
-		gc_list = new;
+	if (!*string) {
+		/* For empty strings, the string_gc_storage ptr always starts with a single NULL char */
+		return ctx->string_gc_storage;
 	}
-
+	uint32_t len = strlen(string);
+	if (ctx->string_gc_storage_next + len + 1 > ctx->string_gc_storage + STRING_GC_AREA_SIZE) {
+		tokenizer_error_printf(ctx, "Out of string area allocator space storing '%s'", string);
+		return NULL;
+	}
+	const char* result = ctx->string_gc_storage_next;
+	memcpy(ctx->string_gc_storage_next, string, len);
+	ctx->string_gc_storage_next[len] = '\0';
+	ctx->string_gc_storage_next += len + 1;
 	return result;
 }
 
-int gc()
+int gc(basic_ctx* ctx)
 {
-	int n = 0;
-	for (gc_str_t* cur = gc_list; cur; ) {
-		void* next = cur->next;
-		++n;
-		kfree_null(&cur->ptr);
-		kfree_null(&cur);
-		cur = next;
+	if (ctx->string_gc_storage && ctx->string_gc_storage_next) {
+		/* Strings start at +1 as the base ptr is for empties */
+		ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
 	}
-	gc_list = NULL;
-
-	return n;
+	return 1;
 }
 
 bool atof(const char* s, double* a)

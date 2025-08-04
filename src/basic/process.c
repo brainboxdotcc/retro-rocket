@@ -38,7 +38,7 @@ char* basic_getprocname(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("GETPROCNAME$","");
 	process_t* process = proc_find(proc_id(intval));
-	return process && process->name ? gc_strdup(process->name) : "";
+	return process && process->name ? gc_strdup(ctx, process->name) : "";
 }
 
 int64_t basic_getprocparent(struct basic_ctx* ctx)

@@ -4,7 +4,7 @@
  */
 #include <kernel.h>
 
-const char* make_full_path(const char* relative)
+const char* make_full_path(struct basic_ctx* ctx, const char* relative)
 {
 	uint8_t cpu = logical_cpu_id();
 	if (*relative == '/') {
@@ -23,11 +23,11 @@ const char* make_full_path(const char* relative)
 	if (*csd == '/' && *(csd+1) == 0) {
 		snprintf(qualified_path, MAX_STRINGLEN, "%s%s", csd, relative);
 		dprintf("make_full_path %s -> %s\n", relative, qualified_path);
-		return gc_strdup(qualified_path);
+		return gc_strdup(ctx, qualified_path);
 	}
 	snprintf(qualified_path, MAX_STRINGLEN, "%s/%s", csd, relative);
 	dprintf("make_full_path %s -> %s\n", relative, qualified_path);
-	return gc_strdup(qualified_path);
+	return gc_strdup(ctx, qualified_path);
 }
 
 char* basic_readstring(struct basic_ctx* ctx)
@@ -55,7 +55,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 		}
 	}
 	*(res+ofs) = 0;
-	char* ret = gc_strdup(res);
+	char* ret = gc_strdup(ctx, res);
 	kfree_null(&res);
 	return ret;
 }
@@ -119,7 +119,7 @@ int64_t basic_open_func(struct basic_ctx* ctx, int oflag)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("OPEN", 0);
-	const char* file = make_full_path(strval);
+	const char* file = make_full_path(ctx, strval);
 	if (fs_is_directory(file)) {
 		tokenizer_error_printf(ctx, "Not a file: '%s'", file);
 		return 0;
@@ -148,7 +148,7 @@ int64_t basic_getnamecount(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_END("GETNAMECOUNT", 0);
-	const char* dir = make_full_path(strval);
+	const char* dir = make_full_path(ctx, strval);
 	if (!fs_is_directory(dir)) {
 		tokenizer_error_printf(ctx, "Not a directory: '%s'", dir);
 		return 0;
@@ -168,7 +168,7 @@ char* basic_getname(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("GETNAME$", "");
-	const char* dir = make_full_path(strval);
+	const char* dir = make_full_path(ctx, strval);
 	if (!fs_is_directory(dir)) {
 		tokenizer_error_printf(ctx, "Not a directory: '%s'", dir);
 		return 0;
@@ -177,7 +177,7 @@ char* basic_getname(struct basic_ctx* ctx)
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
-			return gc_strdup(fsl->filename);
+			return gc_strdup(ctx, fsl->filename);
 		}
 		fsl = fsl->next;
 	}
@@ -188,7 +188,7 @@ char* basic_filetype(struct basic_ctx* ctx)
 {
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	const char* dir = make_full_path(strval);
+	const char* dir = make_full_path(ctx, strval);
 	PARAMS_END("FILETYPE$", "");
 	return fs_is_directory(dir) ? "directory" : "file";
 }
@@ -199,7 +199,7 @@ int64_t basic_getsize(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("GETSIZE", 0);
-	const char* dir = make_full_path(strval);
+	const char* dir = make_full_path(ctx, strval);
 	fs_directory_entry_t* fsl = fs_get_items(dir);
 	int count = 0;
 	while (fsl) {
@@ -224,7 +224,7 @@ void mkdir_statement(struct basic_ctx* ctx)
 	accept_or_return(MKDIR, ctx);
 	const char* name = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
-	const char* dir = make_full_path(name);
+	const char* dir = make_full_path(ctx, name);
 	if (!fs_create_directory(dir)) {
 		tokenizer_error_printf(ctx, "Unable to create directory '%s'", dir);
 	}
@@ -233,7 +233,7 @@ void mkdir_statement(struct basic_ctx* ctx)
 void mount_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(MOUNT, ctx);
-	const char* path = make_full_path(str_expr(ctx));
+	const char* path = make_full_path(ctx, str_expr(ctx));
 	accept_or_return(COMMA, ctx);
 	const char* device = str_expr(ctx);
 	accept_or_return(COMMA, ctx);
@@ -245,7 +245,7 @@ void mount_statement(struct basic_ctx* ctx)
 void rmdir_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(RMDIR, ctx);
-	const char* name = make_full_path(str_expr(ctx));
+	const char* name = make_full_path(ctx, str_expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_directory(name)) {
 		tokenizer_error_printf(ctx, "Unable to delete directory '%s'", name);
@@ -256,7 +256,7 @@ void rmdir_statement(struct basic_ctx* ctx)
 void delete_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(DELETE, ctx);
-	const char* name = make_full_path(str_expr(ctx));
+	const char* name = make_full_path(ctx, str_expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_file(name)) {
 		tokenizer_error_printf(ctx, "Unable to delete file '%s'", name);
@@ -289,7 +289,7 @@ char* basic_ramdisk_from_device(struct basic_ctx* ctx)
 	if (!rd) {
 		return "";
 	}
-	return gc_strdup(rd);
+	return gc_strdup(ctx, rd);
 }
 
 char* basic_ramdisk_from_size(struct basic_ctx* ctx)
@@ -304,13 +304,13 @@ char* basic_ramdisk_from_size(struct basic_ctx* ctx)
 	if (!rd) {
 		return "";
 	}
-	return gc_strdup(rd);
+	return gc_strdup(ctx, rd);
 }
 
 
 char* basic_csd(struct basic_ctx* ctx)
 {
-	return gc_strdup(proc_cur(logical_cpu_id())->csd);
+	return gc_strdup(ctx, proc_cur(logical_cpu_id())->csd);
 }
 
 void chdir_statement(struct basic_ctx* ctx)

@@ -104,7 +104,7 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	const char* filename = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
 
-	const char* file = make_full_path(filename);
+	const char* file = make_full_path(ctx, filename);
 	int64_t sprite_handle = alloc_sprite(ctx);
 	if (sprite_handle == -1) {
 		tokenizer_error_print(ctx, "No more sprites available");

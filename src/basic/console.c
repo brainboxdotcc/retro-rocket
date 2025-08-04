@@ -39,7 +39,7 @@ char* basic_inkey(struct basic_ctx* ctx)
 		_mm_pause();
 		return "";
 	} else {
-		return gc_strdup((const char*)key);
+		return gc_strdup(ctx, (const char*)key);
 	}
 }
 
@@ -221,7 +221,7 @@ char* printable_syntax(struct basic_ctx* ctx)
 	if (ctx->errored) {
 		return NULL;
 	}
-	return gc_strdup(out);
+	return gc_strdup(ctx, out);
 }
 
 void keymap_statement(struct basic_ctx* ctx)

@@ -29,7 +29,7 @@ char* basic_getvar_string(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_STRING);
 	const char* var = strval;
 	PARAMS_END("GETVARS", 0);
-	return gc_strdup(basic_get_string_variable(var, ctx));
+	return gc_strdup(ctx, basic_get_string_variable(var, ctx));
 }
 
 int64_t basic_existsvar_int(struct basic_ctx* ctx)

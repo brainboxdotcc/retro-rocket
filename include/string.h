@@ -5,8 +5,9 @@
  * @copyright Copyright (c) 2012-2025
  */
 #pragma once
-#include <stdint.h>
-#include <stdbool.h>
+#include "basic.h"
+
+#define STRING_GC_AREA_SIZE (64 * 1024 * 1024)
 
 /**
  * @brief Linked list node for garbage-collected strings.
@@ -151,26 +152,42 @@ uint32_t strlcpy(char *dst, const char *src, uint32_t siz);
 char* strdup(const char* string);
 
 /**
- * @brief Duplicate a string with garbage collection tracking.
+ * @brief Duplicate a string into the BASIC temporary string arena.
  *
- * Works like strdup(), but tracks the allocated string in a linked list
- * for later release by gc(). Used by the BASIC interpreter for temporary
- * allocations during single-line execution.
+ * Allocates storage for the given string inside the BASIC interpreter's
+ * fixed-size string arena. The returned pointer remains valid until
+ * the next call to gc(), which resets the arena.
  *
- * @param string String to duplicate
- * @return char* Newly allocated copy of string
+ * Unlike kmalloc(), this allocator never frees individual strings;
+ * all strings are discarded together when gc() is invoked.
+ *
+ * @warning
+ * - The returned string is immutable. Modifying it (e.g. appending
+ *   with strlcat or writing past the terminator) will corrupt
+ *   the string arena and cause undefined behaviour.
+ * - Empty strings are interned: all calls with "" return the same
+ *   canonical pointer.
+ *
+ * @param ctx    BASIC interpreter context containing arena state.
+ * @param string NUL-terminated source string to duplicate.
+ * @return const char* Pointer to the arena-allocated copy, or NULL on error.
  */
-char* gc_strdup(const char* string);
+const char* gc_strdup(basic_ctx* ctx, const char* string);
 
 /**
- * @brief Free all strings allocated with gc_strdup().
+ * @brief Reset the BASIC temporary string arena.
  *
- * This is called automatically by BASIC at the end of line execution
- * to reclaim temporary allocations.
+ * Reclaims all strings allocated with gc_strdup() by resetting the arena
+ * pointer back to its initial position. This does not free memory back
+ * to the system; it simply makes the entire arena available for reuse.
  *
- * @return int Number of freed strings
+ * Called automatically at the end of each line execution in the BASIC
+ * interpreter.
+ *
+ * @param ctx BASIC interpreter context containing arena state.
+ * @return int Always returns 1.
  */
-int gc();
+int gc(basic_ctx* ctx);
 
 /**
  * @brief Convert a hex string to integer.
