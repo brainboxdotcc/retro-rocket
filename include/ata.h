@@ -6,8 +6,8 @@
 #pragma once
 #define		ATA_CMD_PACKET		0xA0
 #define		ATA_CMD_IDENTIFY	0xEC
-
-#define		ATAPI_CMD_READ		0xA8
+#define		ATAPI_CMD_READ10	0x28
+#define		ATAPI_CMD_READ12	0xA8
 #define		ATA_IDENT_MAX_LBA	120
 #define		ATA_IDENT_MAX_LBA_EXT	200
 

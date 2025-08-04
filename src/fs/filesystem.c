@@ -66,6 +66,7 @@ int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes,
 {
 	storage_device_t* cur = find_storage_device(name);
 	if (!cur || !cur->blockwrite) {
+		dprintf("Write to device '%s' not supported\n", name);
 		return 0;
 	}
 

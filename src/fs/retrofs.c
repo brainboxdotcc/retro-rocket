@@ -7,8 +7,144 @@ int rfs_read_device(rfs_t* rfs, uint64_t start, uint64_t size, void* buffer)
 	if (!rfs || size > rfs->length) {
 		return 0;
 	}
-	return read_storage_device(rfs->dev->name, rfs->start + start, size, buffer);
+	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
+	dprintf("rfs_read_device(%lu,%lu)\n", cluster_start, size / RFS_SECTOR_SIZE);
+	return read_storage_device(rfs->dev->name, cluster_start + start, size, buffer);
 }
+
+int rfs_write_device(rfs_t* rfs, uint64_t start, uint64_t size, void* buffer)
+{
+	if (!rfs || size > rfs->length) {
+		return 0;
+	}
+	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
+	dprintf("rfs_write_device(%lu,%lu)\n", cluster_start, size / RFS_SECTOR_SIZE);
+	return write_storage_device(rfs->dev->name, cluster_start + start, size, buffer);
+}
+
+bool rfs_reserve_in_fs_map(rfs_t* info, uint64_t start, uint64_t length)
+{
+	if (!info || !info->desc) {
+		return false;
+	}
+
+	uint64_t map_start_sector = info->desc->free_space_map_start;
+	uint64_t map_length_sectors = info->desc->free_space_map_length;
+	uint64_t total_bits = (map_length_sectors * RFS_SECTOR_SIZE) * 8ULL;
+
+	if (start + length > total_bits) {
+		dprintf("rfs_reserve_in_fs_map: out of range (start=%lu len=%lu total=%lu)\n",
+			start, length, total_bits);
+		return false;
+	}
+
+	// We may touch multiple map sectors
+	uint64_t bit_index = start;
+	uint64_t end_bit   = start + length;
+
+	while (bit_index < end_bit) {
+		// Which sector of the map holds this bit?
+		uint64_t sector_offset = (bit_index / (RFS_SECTOR_SIZE * 8ULL));
+		uint64_t sector_lba = map_start_sector + sector_offset;
+
+		// Load that sector of the map
+		uint8_t buf[RFS_SECTOR_SIZE];
+		if (!rfs_read_device(info, sector_lba, RFS_SECTOR_SIZE, buf)) {
+			dprintf("rfs_reserve_in_fs_map: failed to read map sector %lu\n", sector_lba);
+			return false;
+		}
+
+		// Modify bits within this sector
+		uint64_t first_bit_in_sector = sector_offset * RFS_SECTOR_SIZE * 8ULL;
+		uint64_t last_bit_in_sector  = first_bit_in_sector + (RFS_SECTOR_SIZE * 8ULL);
+
+		uint64_t local_start = bit_index - first_bit_in_sector;
+		uint64_t local_end   = (end_bit > last_bit_in_sector)
+				       ? (RFS_SECTOR_SIZE * 8ULL)
+				       : (end_bit - first_bit_in_sector);
+
+		for (uint64_t b = local_start; b < local_end; b++) {
+			buf[b / 8] |= (1 << (b % 8));
+		}
+
+		// Write it back
+		if (!rfs_write_device(info, sector_lba, RFS_SECTOR_SIZE, buf)) {
+			dprintf("rfs_reserve_in_fs_map: failed to write map sector %lu\n", sector_lba);
+			return false;
+		}
+
+		// Advance to next sector if needed
+		bit_index = first_bit_in_sector + local_end;
+	}
+
+	return true;
+}
+
+
+bool rfs_format(rfs_t* info) {
+	if (!info) {
+		return false;
+	}
+
+	uint64_t size_sectors = info->length / RFS_SECTOR_SIZE;
+
+	rfs_description_block_padded_t description_block = { 0 };
+	description_block.desc.identifier = RFS_ID;
+	description_block.desc.sequence = 1;
+	description_block.desc.creation_time = time(NULL);
+	description_block.desc.free_space_map_checksum = 0;
+
+	// Free space map: 1 bit per sector
+	uint64_t map_bits   = size_sectors;
+	uint64_t map_bytes  = (map_bits + 7) / 8;
+	uint64_t map_sectors = (map_bytes + RFS_SECTOR_SIZE - 1) / RFS_SECTOR_SIZE;
+
+	description_block.desc.free_space_map_length = map_sectors;
+	description_block.desc.free_space_map_start  = size_sectors - map_sectors;
+	description_block.desc.root_directory = 1;
+
+	// Write description block (LBA 0)
+	if (!rfs_write_device(info, 0, sizeof(description_block), &description_block.raw)) {
+		dprintf("Failed to write RFS description block\n");
+		return false;
+	}
+
+	// Write root directory entry (LBA 1)
+	rfs_directory_entry_t dirent = { 0 };
+	dirent.start.flags = RFS_FLAG_DIR_START;
+	dirent.start.continuation = 0;
+	dirent.start.parent = 0;
+	dirent.start.sectors = 64;   // root dir cluster size
+	if (!rfs_write_device(info, 1, sizeof(dirent), &dirent)) {
+		dprintf("Failed to write RFS root directory entry\n");
+		return false;
+	}
+
+	// e.g. 128 sectors per write = 64 KiB
+	const size_t chunk = 128;
+	uint8_t zerobuf[RFS_SECTOR_SIZE * 128] = { 0 };
+	for (uint64_t i = 0; i < map_sectors; i += chunk) {
+		size_t this_write = (map_sectors - i > chunk) ? chunk : (map_sectors - i);
+		if (!rfs_write_device(info,
+				      description_block.desc.free_space_map_start + i,
+				      this_write * RFS_SECTOR_SIZE,
+				      zerobuf)) {
+			dprintf("Failed to clear free space map sector %lu\n", i);
+			return false;
+		}
+	}
+
+
+	// Save description block in memory
+	info->desc = kmalloc(sizeof(rfs_description_block_padded_t));
+	memcpy(info->desc, &description_block, sizeof(rfs_description_block_padded_t));
+
+	// Mark first 65 sectors as used (desc block + root directory cluster)
+	rfs_reserve_in_fs_map(info, 0, 65);
+
+	return true;
+}
+
 
 bool read_rfs_description_block(rfs_t* info)
 {

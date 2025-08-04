@@ -208,7 +208,7 @@ typedef volatile struct ahci_hba_mem_t {
 	uint8_t  vendor[0x100-0xA0];
  
 	// 0x100 - 0x10FF, Port control registers
-	ahci_hba_port_t	ports[1];	// 1 ~ 32
+	ahci_hba_port_t	ports[32];	// 1 ~ 32
 } __attribute__((packed)) ahci_hba_mem_t;
  
 typedef struct ahci_fis_dev_bits_t {

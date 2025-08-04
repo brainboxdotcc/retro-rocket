@@ -232,6 +232,57 @@ uint32_t pci_read(pci_dev_t dev, uint32_t field) {
 	}
 }
 
+uint8_t pci_read8(pci_dev_t dev, uint32_t field) {
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
+	return inb(PCI_CONFIG_DATA + (field & 3));
+}
+
+uint16_t pci_read16(pci_dev_t dev, uint32_t field) {
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
+	return inw(PCI_CONFIG_DATA + (field & 2));
+}
+
+uint32_t pci_read32(pci_dev_t dev, uint32_t field) {
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
+	if (field & 3) {
+		dprintf("Misaligned 4-byte PCI read at %x\n", field);
+		return 0xFFFFFFFF;
+	}
+	return inl(PCI_CONFIG_DATA);
+}
+
+void pci_write8(pci_dev_t dev, uint32_t field, uint8_t value) {
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
+	outb(PCI_CONFIG_DATA + (field & 3), value);
+}
+
+void pci_write16(pci_dev_t dev, uint32_t field, uint16_t value) {
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
+	outw(PCI_CONFIG_DATA + (field & 2), value);
+}
+
+void pci_write32(pci_dev_t dev, uint32_t field, uint32_t value) {
+	dev.field_num = (field & 0xFC) >> 2;
+	dev.enable = 1;
+	outl(PCI_CONFIG_ADDRESS, dev.bits);
+	if (field & 3) {
+		dprintf("Misaligned 4-byte PCI write at %x\n", field);
+		return;
+	}
+	outl(PCI_CONFIG_DATA, value);
+}
+
+
 /*
  * Write pci field
  */
@@ -497,26 +548,26 @@ void pci_interrupt_enable(pci_dev_t device, bool enable)
 
 bool pci_enable_msi(pci_dev_t device, uint32_t vector, uint32_t lapic_id)
 {
-	uint32_t status = pci_read(device, PCI_STATUS);
+	uint16_t status = pci_read16(device, PCI_STATUS);
 
 	/* Check for capabilities list */
 	if (!(status & PCI_STATUS_CAPABILITIES_LIST)) {
 		return false;
 	}
 
-	uint8_t current = pci_read(device, PCI_CAPABILITY_POINTER);
+	uint8_t current = pci_read8(device, PCI_CAPABILITY_POINTER);
 
 	while (current != 0) {
-		uint8_t id   = pci_read(device, current + 0x00) & 0xFF;
-		uint8_t next = pci_read(device, current + 0x01) & 0xFF;
+		uint8_t id   = pci_read8(device, current + 0x00);
+		uint8_t next = pci_read8(device, current + 0x01);
 
 		if (id == PCI_CAPABILITY_MSI) {
-			uint16_t control = pci_read(device, current + 0x02) & 0xFFFF;
+			uint16_t control = pci_read16(device, current + 0x02);
 			bool is_64bit    = control & PCI_MSI_64BIT;
 
 			uint32_t addr_low  = 0xFEE00000;
 			uint32_t addr_high = 0;
-			uint32_t data      = (vector & 0xFF);
+			uint16_t data      = (vector & 0xFF);
 
 			if (!x2apic_enabled()) {
 				addr_low |= (lapic_id << 12);
@@ -524,24 +575,34 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, uint32_t lapic_id)
 				addr_high = lapic_id; /* LAPIC ID in upper 32 bits */
 			}
 
-			dprintf("Enable MSI for %04x:%04x with data=%08x addr_low=%08x addr_high=%08x vector %d lapic %d\n",
-				pci_read(device, PCI_VENDOR_ID) & 0xFFFF,
-				pci_read(device, PCI_DEVICE_ID) & 0xFFFF,
+			dprintf("Enable MSI for %04x:%04x with data=%04x addr_low=%08x addr_high=%08x vector %d lapic %d\n",
+				pci_read16(device, PCI_VENDOR_ID),
+				pci_read16(device, PCI_DEVICE_ID),
 				data, addr_low, addr_high, vector, lapic_id);
 
-			pci_write(device, current + 0x04, addr_low);
+			/* Program Message Address (low + optional high) */
+			pci_write32(device, current + 0x04, addr_low);
 
 			if (is_64bit) {
-				pci_write(device, current + 0x08, addr_high);
-				pci_write(device, current + 0x0C, data);
+				pci_write32(device, current + 0x08, addr_high);
+				pci_write16(device, current + 0x0C, data);
 			} else {
-				pci_write(device, current + 0x08, data);
+				pci_write16(device, current + 0x08, data);
 			}
 
+			/* Enable MSI (bit 0) and clear MME bits */
+			control &= ~0x0070;
 			control |= PCI_MSI_ENABLE;
-			pci_write(device, current + 0x02, control);
+			pci_write16(device, current + 0x02, control);
 
-			pci_interrupt_enable(device, false); // Mask legacy INTx
+			uint16_t check = pci_read16(device, current + 0x02);
+			if (!(check & PCI_MSI_ENABLE)) {
+				dprintf("MSI enable failed: control=%04x\n", check);
+				return false;  // bit 0 didn’t latch, device won’t generate MSIs
+			}
+
+			/* Disable legacy INTx */
+			pci_interrupt_enable(device, false);
 			return true;
 		}
 
@@ -552,20 +613,20 @@ bool pci_enable_msi(pci_dev_t device, uint32_t vector, uint32_t lapic_id)
 
 bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t lapic_id)
 {
-	uint32_t status = pci_read(device, PCI_STATUS);
+	uint16_t status = pci_read16(device, PCI_STATUS);
 
 	if (!(status & PCI_STATUS_CAPABILITIES_LIST)) {
 		return false;
 	}
 
-	uint8_t current = pci_read(device, PCI_CAPABILITY_POINTER);
+	uint8_t current = pci_read8(device, PCI_CAPABILITY_POINTER);
 
 	while (current != 0) {
-		uint8_t id   = pci_read(device, current + 0x00) & 0xFF;
-		uint8_t next = pci_read(device, current + 0x01) & 0xFF;
+		uint8_t id   = pci_read8(device, current + 0x00);
+		uint8_t next = pci_read8(device, current + 0x01);
 
 		if (id == PCI_CAPABILITY_MSIX) {
-			uint16_t control    = pci_read(device, current + 0x02) & 0xFFFF;
+			uint16_t control    = pci_read16(device, current + 0x02);
 			uint16_t table_size = (control & 0x07FF) + 1;
 
 			if (entry >= table_size) {
@@ -574,16 +635,14 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
 			}
 
 			/* Table info (BAR + offset) */
-			uint32_t table  = pci_read(device, current + 0x04);
+			uint32_t table  = pci_read32(device, current + 0x04);
 			uint8_t  bir    = table & 0x7;
 			uint32_t offset = table & ~0x7;
 
-			uintptr_t bar = pci_read(device, PCI_BAR0 + bir * 4);
+			uintptr_t bar = pci_read32(device, PCI_BAR0 + bir * 4);
 			bar &= ~0xF;  // Mask off flag bits
 
 			volatile uint8_t *msix_table = (volatile uint8_t *)(bar + offset);
-
-			/* Each entry = 16 bytes */
 			volatile uint32_t *entry_ptr = (volatile uint32_t *)(msix_table + entry * 16);
 
 			uint32_t addr_low  = 0xFEE00000;
@@ -597,17 +656,25 @@ bool pci_enable_msix(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t
 			}
 
 			dprintf("Enable MSI-X for %04x:%04x entry=%d data=%08x addr_low=%08x addr_high=%08x vector %d lapic %d\n",
-				pci_read(device, PCI_VENDOR_ID) & 0xFFFF,
-				pci_read(device, PCI_DEVICE_ID) & 0xFFFF,
+				pci_read16(device, PCI_VENDOR_ID),
+				pci_read16(device, PCI_DEVICE_ID),
 				entry, data, addr_low, addr_high, vector, lapic_id);
 
+			/* Program the table entry */
 			entry_ptr[0] = addr_low;
 			entry_ptr[1] = addr_high;
 			entry_ptr[2] = data;
-			entry_ptr[3] &= ~1;  // Clear mask bit
+			entry_ptr[3] &= ~1;  // clear mask bit
 
+			/* Set the MSI-X Enable bit */
 			control |= PCI_MSIX_ENABLE;
-			pci_write(device, current + 0x02, control);
+			pci_write16(device, current + 0x02, control);
+
+			uint16_t check = pci_read16(device, current + 0x02);
+			if (!(check & PCI_MSIX_ENABLE)) {
+				dprintf("MSI-X enable failed: control=%04x\n", check);
+				return false;
+			}
 
 			pci_interrupt_enable(device, false); // Mask legacy INTx
 			return true;
@@ -626,15 +693,16 @@ uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t logical_cp
 	uint32_t irq_line = pci_read(dev, PCI_INTERRUPT_LINE);
 	int vector = alloc_msi_vector(logical_cpu_id);
 	if (vector >= 0 && pci_enable_msi(dev, vector, lapic_id)) {
-		register_interrupt_handler(vector, handler, dev, context);
-		kprintf("%s: MSI enabled for %04x:%04x, vector %d on CPU#%d (ID %d)\n",
-			name,
-			pci_read(dev, PCI_VENDOR_ID),
-			pci_read(dev, PCI_DEVICE_ID),
-			vector, logical_cpu_id, lapic_id);
-		return vector;
+		if (register_interrupt_handler(vector, handler, dev, context)) {
+			kprintf("%s: MSI enabled for %04x:%04x, vector %d on CPU#%d (ID %d)\n",
+				name,
+				pci_read(dev, PCI_VENDOR_ID),
+				pci_read(dev, PCI_DEVICE_ID),
+				vector, logical_cpu_id, lapic_id);
+			return vector;
+		}
+		kprintf("Failed to register MSI handler\n");
 	}
-
 	// fallback: legacy INTx
 	free_msi_vector(logical_cpu_id, vector);
 	uint32_t irq = IRQ_START + irq_line;
