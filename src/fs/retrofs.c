@@ -4,7 +4,10 @@ filesystem_t* rfs_fs = NULL;
 
 int rfs_read_device(rfs_t* rfs, uint64_t start, uint64_t size, void* buffer)
 {
-	return read_storage_device(rfs->dev->name, start, size, buffer);
+	if (!rfs || size > rfs->length) {
+		return 0;
+	}
+	return read_storage_device(rfs->dev->name, rfs->start + start, size, buffer);
 }
 
 bool read_rfs_description_block(rfs_t* info)
@@ -16,7 +19,7 @@ bool read_rfs_description_block(rfs_t* info)
 	if (!description_block) {
 		return 0;
 	}
-	if (!rfs_read_device(info, info->start, RFS_SECTOR_SIZE, description_block)) {
+	if (!rfs_read_device(info, 0, RFS_SECTOR_SIZE, description_block)) {
 		kprintf("RFS: Could not read RFS description block!\n");
 		kfree_null(&description_block);
 		return false;
