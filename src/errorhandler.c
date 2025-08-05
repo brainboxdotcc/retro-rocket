@@ -57,6 +57,9 @@ void error_handler(uint8_t int_no, uint64_t errorcode, [[maybe_unused]] uint64_t
 	setforeground(current_console, COLOUR_WHITE);
 	backtrace();
 	rr_flip();
+#ifdef PROFILE_KERNEL
+	profile_dump();
+#endif
 	wait_forever();
 }
 

@@ -23,7 +23,6 @@ char* init_funcs_names[] = {
 	NULL,
 };
 
-
 void init()
 {
 	init_spinlock(&debug_console_spinlock);
@@ -34,4 +33,13 @@ void init()
 		(*func)();
 		dprintf("Initialisation of %s done!\n", init_funcs_names[n++]);
 	}
+#ifdef PROFILE_KERNEL
+	setforeground(current_console, COLOUR_ORANGE);
+	kprintf("THIS IS A PROFILING BUILD - Expect things to run slower!\n");
+	setforeground(current_console, COLOUR_WHITE);
+	serial_init(COM1);
+	profile_init(kmalloc(sizeof(profile_entry) * PROFILE_MAX_FUNCS));
+	dprintf("Initialising profiler done!\n");
+#endif
+
 }

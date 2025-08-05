@@ -362,8 +362,7 @@ void init_debug()
 	udp_register_daemon(DEBUG_DST_PORT, &debug_handle_packet);
 }
 
-const char* findsymbol(uint64_t address, uint64_t* offset)
-{
+const char* findsymbol(uint64_t address, uint64_t* offset) {
 	if (!symbol_table) {
 		return NULL;
 	}

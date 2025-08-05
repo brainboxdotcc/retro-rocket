@@ -268,6 +268,13 @@ bool caps_lock_on()
 }
 
 static void push_to_buffer(char x) {
+#ifdef PROFILE_KERNEL
+	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
+		dprintf("Dumping callgrind.out to serial port...\n");
+		profile_dump();
+		return;
+	}
+#endif
 	if (buffer_read_ptr > buffer_write_ptr) {
 		beep(1000); // buffer overflow signal
 	} else {

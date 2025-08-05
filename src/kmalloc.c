@@ -24,6 +24,9 @@ void preboot_fail(const char* msg) {
 	setforeground(current_console, COLOUR_LIGHTRED);
 	kprintf("PANIC: %s\n", msg);
 	backtrace();   // show stack trace
+#ifdef PROFILE_KERNEL
+	profile_dump();
+#endif
 	wait_forever();
 }
 

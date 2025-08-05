@@ -64,6 +64,7 @@
 #include "fpu.h"
 #include "buddy_allocator.h"
 #include "retrofs.h"
+#include "serial.h"
 
 #define assert(expr, message) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \
@@ -72,3 +73,16 @@
 void network_up();
 void network_down();
 void validate_limine_page_tables_and_gdt(void);
+
+#ifdef PROFILE_KERNEL
+	typedef struct profile_entry {
+		void *fn;
+		uint64_t total_cycles;
+		uint64_t calls;
+	} profile_entry;
+
+	#define PROFILE_MAX_FUNCS   8192
+
+	void profile_dump(void);
+	void profile_init(uint8_t* pre_allocated);
+#endif

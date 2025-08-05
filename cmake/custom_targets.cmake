@@ -78,6 +78,11 @@ function(run TARGETFILE)
     else()
         set(NET_DEVICE "-device rtl8139,netdev=netuser")
     endif()
+    if (PROFILE_KERNEL)
+        set(PROFILE "-serial file:callgrind.out")
+    else()
+        set(PROFILE "")
+    endif()
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND echo "qemu-system-x86_64 \
 	-machine q35,accel=kvm \
@@ -100,7 +105,7 @@ function(run TARGETFILE)
 	-debugcon file:debug.log \
 	-netdev user,id=netuser,hostfwd=udp::2000-:2000 \
 	-object filter-dump,id=dump,netdev=netuser,file=dump.dat \
-	${NET_DEVICE}" >${OUTNAME} && chmod ugo+x ${OUTNAME}
+	${NET_DEVICE} ${PROFILE}" >${OUTNAME} && chmod ugo+x ${OUTNAME}
         DEPENDS ${FILENAME})
     add_custom_target(RUN_${TARGETFILE} ALL DEPENDS ${OUTNAME})
     add_dependencies(RUN_${TARGETFILE} "kernel.bin")
