@@ -1,5 +1,5 @@
 /**
- * @file buddy.h
+ * @file buddy_allocator.h
  * @author Craig Edwards
  * @brief Growable multi-region buddy allocator for Retro Rocket subsystems.
  *
