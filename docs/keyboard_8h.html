@@ -85,13 +85,38 @@ $(document).ready(function(){initNavTree('keyboard_8h.html',''); initResizable()
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">keyboard.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Low-level keyboard input driver for Retro Rocket.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkey__state.html">key_state</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal structure for key state tracking.  <a href="structkey__state.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a449ccc57026c5272a583c9bc04ed3acb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a449ccc57026c5272a583c9bc04ed3acb">REPEAT_DELAY_TICKS</a>&#160;&#160;&#160;25</td></tr>
+<tr class="memdesc:a449ccc57026c5272a583c9bc04ed3acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay before held keys begin to auto-repeat.  <a href="keyboard_8h.html#a449ccc57026c5272a583c9bc04ed3acb">More...</a><br /></td></tr>
+<tr class="separator:a449ccc57026c5272a583c9bc04ed3acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4712beea8d600e863ebd00c72c770b8e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a4712beea8d600e863ebd00c72c770b8e">REPEAT_RATE_TICKS</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a4712beea8d600e863ebd00c72c770b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval between auto-repeats once a key is held down.  <a href="keyboard_8h.html#a4712beea8d600e863ebd00c72c770b8e">More...</a><br /></td></tr>
+<tr class="separator:a4712beea8d600e863ebd00c72c770b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c28e05d04961202172037075ea93d40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a5c28e05d04961202172037075ea93d40">KEYBOARD_BUFFER_SIZE</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:a5c28e05d04961202172037075ea93d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the circular keyboard buffer in bytes.  <a href="keyboard_8h.html#a5c28e05d04961202172037075ea93d40">More...</a><br /></td></tr>
+<tr class="separator:a5c28e05d04961202172037075ea93d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90b389e53b75437df6d8405238c807da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a90b389e53b75437df6d8405238c807da">MAX_SCANCODE</a>&#160;&#160;&#160;128</td></tr>
+<tr class="separator:a90b389e53b75437df6d8405238c807da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a28ea8f371588faf8c0f361fd56c0db0b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0b">extended_key_t</a> { <br />
@@ -109,34 +134,112 @@ Enumerations</h2></td></tr>
 , <a class="el" href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0bad5b83418c285e43af5d3a87b4d4049d7">KEY_HOME</a> = 254
 <br />
  }</td></tr>
-<tr class="memdesc:a28ea8f371588faf8c0f361fd56c0db0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended keys. BASIC reports these keypresses directly via INKEY$.  <a href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0b">More...</a><br /></td></tr>
+<tr class="memdesc:a28ea8f371588faf8c0f361fd56c0db0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended (non-ASCII) keys.  <a href="keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0b">More...</a><br /></td></tr>
 <tr class="separator:a28ea8f371588faf8c0f361fd56c0db0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac3a72156d4bbba013e4d62801992794d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">init_keyboard</a> ()</td></tr>
-<tr class="memdesc:ac3a72156d4bbba013e4d62801992794d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Claim keyboard interrupt.  <a href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">More...</a><br /></td></tr>
+<tr class="memdesc:ac3a72156d4bbba013e4d62801992794d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialises the keyboard driver.  <a href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">More...</a><br /></td></tr>
 <tr class="separator:ac3a72156d4bbba013e4d62801992794d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af186c1d48613bd858b7f774e5bd47935"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">kgetc</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="memdesc:af186c1d48613bd858b7f774e5bd47935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns next key in circular buffer, or 255 if no key available.  <a href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">More...</a><br /></td></tr>
+<tr class="memdesc:af186c1d48613bd858b7f774e5bd47935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the next key from the keyboard buffer.  <a href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">More...</a><br /></td></tr>
 <tr class="separator:af186c1d48613bd858b7f774e5bd47935"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdb02475d45b894eb5ec2a57b4100eea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea">ctrl_held</a> ()</td></tr>
-<tr class="memdesc:afdb02475d45b894eb5ec2a57b4100eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the CTRL key is held down.  <a href="keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea">More...</a><br /></td></tr>
+<tr class="memdesc:afdb02475d45b894eb5ec2a57b4100eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests if the CTRL key is currently held down.  <a href="keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea">More...</a><br /></td></tr>
 <tr class="separator:afdb02475d45b894eb5ec2a57b4100eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91e9663f1e43e4aca8439739c3b10c69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a91e9663f1e43e4aca8439739c3b10c69">shift_held</a> ()</td></tr>
-<tr class="memdesc:a91e9663f1e43e4aca8439739c3b10c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the SHIFT key is held down.  <a href="keyboard_8h.html#a91e9663f1e43e4aca8439739c3b10c69">More...</a><br /></td></tr>
+<tr class="memdesc:a91e9663f1e43e4aca8439739c3b10c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests if the SHIFT key is currently held down.  <a href="keyboard_8h.html#a91e9663f1e43e4aca8439739c3b10c69">More...</a><br /></td></tr>
 <tr class="separator:a91e9663f1e43e4aca8439739c3b10c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7d5ba52d15d8a0066ee06b39399411f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#ac7d5ba52d15d8a0066ee06b39399411f">alt_held</a> ()</td></tr>
-<tr class="memdesc:ac7d5ba52d15d8a0066ee06b39399411f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the ALT key is held down.  <a href="keyboard_8h.html#ac7d5ba52d15d8a0066ee06b39399411f">More...</a><br /></td></tr>
+<tr class="memdesc:ac7d5ba52d15d8a0066ee06b39399411f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests if the ALT key is currently held down.  <a href="keyboard_8h.html#ac7d5ba52d15d8a0066ee06b39399411f">More...</a><br /></td></tr>
 <tr class="separator:ac7d5ba52d15d8a0066ee06b39399411f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af491f52ce63929279d3733c13ba771d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#af491f52ce63929279d3733c13ba771d2">caps_lock_on</a> ()</td></tr>
-<tr class="memdesc:af491f52ce63929279d3733c13ba771d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the CAPS LOCK key is enganged.  <a href="keyboard_8h.html#af491f52ce63929279d3733c13ba771d2">More...</a><br /></td></tr>
+<tr class="memdesc:af491f52ce63929279d3733c13ba771d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests if CAPS LOCK is currently engaged.  <a href="keyboard_8h.html#af491f52ce63929279d3733c13ba771d2">More...</a><br /></td></tr>
 <tr class="separator:af491f52ce63929279d3733c13ba771d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5cfd80e1528c2d400a6833d10d8c364"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#ab5cfd80e1528c2d400a6833d10d8c364">load_keymap_from_string</a> (const char *text)</td></tr>
+<tr class="memdesc:ab5cfd80e1528c2d400a6833d10d8c364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a keymap from a null-terminated text string.  <a href="keyboard_8h.html#ab5cfd80e1528c2d400a6833d10d8c364">More...</a><br /></td></tr>
+<tr class="separator:ab5cfd80e1528c2d400a6833d10d8c364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<div class="textblock"><p>Low-level keyboard input driver for Retro Rocket. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025</dd></dl>
+<p>This module handles:</p><ul>
+<li>PS/2 scan code to ASCII translation (UK layout by default).</li>
+<li>Modifier key state tracking (Shift, Ctrl, Alt, Caps Lock).</li>
+<li>Buffered keypress input for use by the console/OS.</li>
+<li>Extended keycodes for non-ASCII keys (arrows, paging, etc).</li>
+<li>Key repeat timing control.</li>
+</ul>
+<p>BASIC programs see input via INKEY$, which may return ASCII characters or extended key constants defined here. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a5c28e05d04961202172037075ea93d40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c28e05d04961202172037075ea93d40">&#9670;&nbsp;</a></span>KEYBOARD_BUFFER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEYBOARD_BUFFER_SIZE&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of the circular keyboard buffer in bytes. </p>
+<p>All translated keypresses are queued here. When the buffer fills, new input will overwrite oldest unread characters. </p>
+
+</div>
+</div>
+<a id="a90b389e53b75437df6d8405238c807da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90b389e53b75437df6d8405238c807da">&#9670;&nbsp;</a></span>MAX_SCANCODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_SCANCODE&#160;&#160;&#160;128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a449ccc57026c5272a583c9bc04ed3acb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a449ccc57026c5272a583c9bc04ed3acb">&#9670;&nbsp;</a></span>REPEAT_DELAY_TICKS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REPEAT_DELAY_TICKS&#160;&#160;&#160;25</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delay before held keys begin to auto-repeat. </p>
+<p>Measured in scheduler ticks (centi-seconds, i.e. 1/100 s). A value of 25 = 250 ms delay before repeat starts. </p>
+
+</div>
+</div>
+<a id="a4712beea8d600e863ebd00c72c770b8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4712beea8d600e863ebd00c72c770b8e">&#9670;&nbsp;</a></span>REPEAT_RATE_TICKS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REPEAT_RATE_TICKS&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interval between auto-repeats once a key is held down. </p>
+<p>Measured in scheduler ticks (centi-seconds, i.e. 1/100 s). A value of 5 = 50 ms between repeats (~20 chars/sec). </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a28ea8f371588faf8c0f361fd56c0db0b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a28ea8f371588faf8c0f361fd56c0db0b">&#9670;&nbsp;</a></span>extended_key_t</h2>
 
@@ -149,7 +252,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Extended keys. BASIC reports these keypresses directly via INKEY$. </p>
+<p>Extended (non-ASCII) keys. </p>
+<p>These are returned by <a class="el" href="keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935">kgetc()</a> when pressed. BASIC exposes them directly via INKEY$. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba5d9c9ba1d8f2c6f6737db37d3f449071"></a>KEY_PAGEUP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a28ea8f371588faf8c0f361fd56c0db0ba5996c34d86df2b3c1be741aeb35bdbc4"></a>KEY_PAGEDOWN&#160;</td><td class="fielddoc"></td></tr>
@@ -181,8 +285,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if the ALT key is held down. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if ALT key held </dd></dl>
+<p>Tests if the ALT key is currently held down. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if ALT is held, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -201,8 +305,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if the CAPS LOCK key is enganged. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if CAPS LOCK is on </dd></dl>
+<p>Tests if CAPS LOCK is currently engaged. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if CAPS LOCK is on, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -221,8 +325,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if the CTRL key is held down. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if CTRL key held </dd></dl>
+<p>Tests if the CTRL key is currently held down. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if CTRL is held, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -241,7 +345,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Claim keyboard interrupt. </p>
+<p>Initialises the keyboard driver. </p>
+<p>Claims IRQ1, sets up the scan code map, and clears the keyboard buffer ready for use. </p>
 
 </div>
 </div>
@@ -261,14 +366,41 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns next key in circular buffer, or 255 if no key available. </p>
+<p>Reads the next key from the keyboard buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cons</td><td>current console </td></tr>
+    <tr><td class="paramname">cons</td><td>Current console (unused, reserved for future use). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>unsigned char key from circular buffer </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ASCII character or extended key constant, or 255 if no input is available. </dd></dl>
+
+</div>
+</div>
+<a id="ab5cfd80e1528c2d400a6833d10d8c364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5cfd80e1528c2d400a6833d10d8c364">&#9670;&nbsp;</a></span>load_keymap_from_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void load_keymap_from_string </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load a keymap from a null-terminated text string. </p>
+<p>Format: &amp;1E a A # scancode &amp;1E produces 'a' and 'A' &amp;02 1 ! # scancode &amp;02 produces '1' and '!' &amp;1C &amp;0D # scancode &amp;1C is Enter (hex 0D)</p>
+<ul>
+<li>Lines starting with '#' are comments.</li>
+<li>First field must be scancode prefixed with &amp; (hexadecimal).</li>
+<li>Two tokens may follow: normal (unshifted) and shifted.</li>
+<li>If only one token is given, shifted = normal. </li>
+</ul>
 
 </div>
 </div>
@@ -287,8 +419,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if the SHIFT key is held down. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if SHIFT key held </dd></dl>
+<p>Tests if the SHIFT key is currently held down. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if SHIFT is held, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -298,7 +430,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="keyboard_8h.html">keyboard.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

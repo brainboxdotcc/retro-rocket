@@ -90,6 +90,8 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>c
 : <a class="el" href="structahci__fis__reg__h2d__t.html#a4eb4942aff8816b983c8ee2d8e817244">ahci_fis_reg_h2d_t</a>
 , <a class="el" href="structahci__hba__cmd__header__t.html#a646175d325e505b0f15245f1c5a7e2d8">ahci_hba_cmd_header_t</a>
+, <a class="el" href="structflanterm__fb__char.html#a4e0bdd2a252c22675e95adf8b74b8a00">flanterm_fb_char</a>
+, <a class="el" href="structflanterm__fb__queue__item.html#a25daa4b7d7137ffa82fc10ca1a62fb60">flanterm_fb_queue_item</a>
 </li>
 <li>cached
 : <a class="el" href="structfs__handle__t.html#acf904278cf871b15b0f66d874ed84a69">fs_handle_t</a>
@@ -100,6 +102,9 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>call_stack_ptr
 : <a class="el" href="structbasic__ctx.html#ac00d4e20a54a8dbf694b3d4b5b3ea4fa">basic_ctx</a>
 </li>
+<li>callback
+: <a class="el" href="structflanterm__context.html#a69d03c3103b82d68ded80bc1ed63a214">flanterm_context</a>
+</li>
 <li>callback_a
 : <a class="el" href="structdns__request__t.html#a9d089986bfa2caace7149616e5be019a">dns_request_t</a>
 </li>
@@ -109,14 +114,18 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>callback_ptr
 : <a class="el" href="structdns__request__t.html#aff105f76ee6ec115fb3948ab56a69841">dns_request_t</a>
 </li>
+<li>canvas
+: <a class="el" href="structflanterm__fb__context.html#aa6b92dff0eecaeededf58c4f5ec4bc65">flanterm_fb_context</a>
+</li>
+<li>canvas_size
+: <a class="el" href="structflanterm__fb__context.html#a5dd29cd8cfde503e1d5203c6978ea737">flanterm_fb_context</a>
+</li>
 <li>cap
 : <a class="el" href="structahci__hba__mem__t.html#a134246ca01a8e970a57f4df6c25ffe7d">ahci_hba_mem_t</a>
+, <a class="el" href="structhashmap.html#a80f6c06e49a6e1eeaf4c54f4b0dd54a3">hashmap</a>
 </li>
 <li>cap2
 : <a class="el" href="structahci__hba__mem__t.html#ad123e740e2e0c205a755307997413471">ahci_hba_mem_t</a>
-</li>
-<li>capabilities
-: <a class="el" href="structide__device.html#a5a4ab5bb083ceb835e9e46314ccf0c81">ide_device</a>
 </li>
 <li>ccc_ctl
 : <a class="el" href="structahci__hba__mem__t.html#acf4d9682c526b36230d3d729bd40498d">ahci_hba_mem_t</a>
@@ -133,8 +142,8 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>cfl
 : <a class="el" href="structahci__hba__cmd__header__t.html#ac9fb87ffb611456dc95c5981e8005515">ahci_hba_cmd_header_t</a>
 </li>
-<li>channel
-: <a class="el" href="structide__device.html#a61344fd894b5d17521d978d57d67783c">ide_device</a>
+<li>charsets
+: <a class="el" href="structflanterm__context.html#a39d4218970a43297c0d2cff1ad0cbabd">flanterm_context</a>
 </li>
 <li>checksum
 : <a class="el" href="structe1000__rx__desc.html#a704cdde2d72b6d60adfaedc351f308ab">e1000_rx_desc</a>
@@ -156,11 +165,17 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>ci
 : <a class="el" href="structahci__hba__port__t.html#a9a5e1d32502e70ec703210c032133ff7">ahci_hba_port_t</a>
 </li>
+<li>claimed_flip
+: <a class="el" href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">basic_ctx</a>
+</li>
 <li>clb
 : <a class="el" href="structahci__hba__port__t.html#a35e474d5235395e130271f1f205df531">ahci_hba_port_t</a>
 </li>
 <li>clbu
 : <a class="el" href="structahci__hba__port__t.html#af937d2a5de60e64505b37e3441bc963f">ahci_hba_port_t</a>
+</li>
+<li>clear
+: <a class="el" href="structflanterm__context.html#a3e26b03a9057492a774b796e5b688f87">flanterm_context</a>
 </li>
 <li>client_hardware_addr
 : <a class="el" href="structdhcp__packet__t.html#a7334f797a114a44d53e038af4a3a6900">dhcp_packet_t</a>
@@ -193,21 +208,39 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>code3
 : <a class="el" href="structparameter__block__t.html#ac263746f1caa4aa0b94f1d67e7e52e0e">parameter_block_t</a>
 </li>
+<li>code_point
+: <a class="el" href="structflanterm__context.html#a616abafd531a9094d3260197d375df3f">flanterm_context</a>
+</li>
+<li>cols
+: <a class="el" href="structflanterm__context.html#a0f7bc11da5ad84d869151f6e25ade6d3">flanterm_context</a>
+</li>
 <li>command
 : <a class="el" href="structahci__fis__reg__h2d__t.html#a4721186df542dfa550f87b9f27a8e196">ahci_fis_reg_h2d_t</a>
 </li>
-<li>commandsets
-: <a class="el" href="structide__device.html#a77f109caad41856181875d5dfacfa2e1">ide_device</a>
+<li>compare
+: <a class="el" href="structhashmap.html#a023a3383985392db1060c3f521f18cc4">hashmap</a>
+</li>
+<li>conn
+: <a class="el" href="structpending__node__t.html#a7ea02ccfc13ba658124e320612fd806b">pending_node_t</a>
 </li>
 <li>cons
 : <a class="el" href="structbasic__ctx.html#a5db8745b7e7112b990a61ebdebb165b8">basic_ctx</a>
 , <a class="el" href="structprocess__t.html#a80a803afc53644e36db504d3dc22b3f4">process_t</a>
 </li>
+<li>continuation
+: <a class="el" href="structrfs__directory__start__t.html#aa62b28276a1926465e6d0bdfc8a282cb">rfs_directory_start_t</a>
+</li>
 <li>control
 : <a class="el" href="structahci__fis__reg__h2d__t.html#aa5940e7504da9d5a4b4f6d2f1f92ad1e">ahci_fis_reg_h2d_t</a>
 </li>
+<li>control_sequence
+: <a class="el" href="structflanterm__context.html#a65fb55c5e04729b93d3127f3a0bc3d81">flanterm_context</a>
+</li>
 <li>copyright_file
 : <a class="el" href="struct____attribute____.html#a8d04be746e10282788a4a1a531e8822d">__attribute__</a>
+</li>
+<li>count
+: <a class="el" href="structhashmap.html#a83401730a6fa4c715c7abee57143a072">hashmap</a>
 </li>
 <li>counth
 : <a class="el" href="structahci__fis__pio__setup__t.html#a51046aed694dbbdf97d5753ad4ec6491">ahci_fis_pio_setup_t</a>
@@ -237,11 +270,17 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>create_time_tenths
 : <a class="el" href="structdirectory__entry__t.html#ae891b442c6c24f563d21afd54ffcca8b">directory_entry_t</a>
 </li>
+<li>created
+: <a class="el" href="structrfs__directory__entry__inner__t.html#a6404b300f8fd48c1e6ccd83468d71bd7">rfs_directory_entry_inner_t</a>
+</li>
 <li>createdir
 : <a class="el" href="structfilesystem__t.html#ac33d6d5bdd65541a546fab20594ab7bf">filesystem_t</a>
 </li>
 <li>createfile
 : <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8">filesystem_t</a>
+</li>
+<li>creation_time
+: <a class="el" href="structrfs__description__block__t.html#a9b47de5d2cf4eb0b706d933b939c00fc">rfs_description_block_t</a>
 </li>
 <li>creator_id
 : <a class="el" href="structsdt__header__t.html#a2c5951f2b6e6e98fc2301c32be64a891">sdt_header_t</a>
@@ -264,8 +303,17 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>ctbau
 : <a class="el" href="structahci__hba__cmd__header__t.html#ab8363928d1136a2f6474d11fc54c313e">ahci_hba_cmd_header_t</a>
 </li>
-<li>ctrl
-: <a class="el" href="structchannel.html#ac1972bc8a7c4dd21234e8c4ec265e315">channel</a>
+<li>ctx
+: <a class="el" href="structpngle__user__data__t.html#aeed1313064dd5806ccc610b255ff744d">pngle_user_data_t</a>
+</li>
+<li>current_bg
+: <a class="el" href="structflanterm__context.html#a88cdb1ea744ea03f3041cf82fb3e157b">flanterm_context</a>
+</li>
+<li>current_bytes
+: <a class="el" href="structbuddy__allocator__t.html#adacf0708f80118fb8fbb20b26600846f">buddy_allocator_t</a>
+</li>
+<li>current_charset
+: <a class="el" href="structflanterm__context.html#a2c84cbaa0a4c54a12fa2a0d7f87f60c8">flanterm_context</a>
 </li>
 <li>current_linenum
 : <a class="el" href="structbasic__ctx.html#aa9c6cb436ab16d8036eb779e01556bc8">basic_ctx</a>
@@ -273,8 +321,20 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <li>current_packet_ptr
 : <a class="el" href="structrtl8139__dev__t.html#a2f1421d991b25a0bea8673480d14e028">rtl8139_dev_t</a>
 </li>
+<li>current_primary
+: <a class="el" href="structflanterm__context.html#a0437468c50ffffdf02fae6b5ccc4456b">flanterm_context</a>
+</li>
 <li>current_token
 : <a class="el" href="structbasic__ctx.html#a8c3d193580956e83adf2c7af95168a2d">basic_ctx</a>
+</li>
+<li>cursor_enabled
+: <a class="el" href="structflanterm__context.html#a83616891d9f657fde5f1fb85a3b22ef5">flanterm_context</a>
+</li>
+<li>cursor_x
+: <a class="el" href="structflanterm__fb__context.html#a41523b5d869674536939e15d6fe3da1c">flanterm_fb_context</a>
+</li>
+<li>cursor_y
+: <a class="el" href="structflanterm__fb__context.html#a741377d741e959aa17d01a0f3d844c12">flanterm_fb_context</a>
 </li>
 <li>cwr
 : <a class="el" href="uniontcp__segment__flags__t.html#a044c1ac14538f73bb7bb94e5cac199aa">tcp_segment_flags_t</a>
@@ -285,7 +345,7 @@ $(document).ready(function(){initNavTree('functions_vars_c.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

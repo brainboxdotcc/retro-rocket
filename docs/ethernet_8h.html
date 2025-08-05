@@ -119,9 +119,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abd439f48f5572e7f9f62992839f6a64e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structethernet__frame.html">ethernet_frame</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethernet_8h.html#abd439f48f5572e7f9f62992839f6a64e">__attribute__</a> ((packed)) ethernet_frame_t</td></tr>
 <tr class="memdesc:abd439f48f5572e7f9f62992839f6a64e"><td class="mdescLeft">&#160;</td><td class="mdescRight">There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.  <a href="ethernet_8h.html#abd439f48f5572e7f9f62992839f6a64e">More...</a><br /></td></tr>
 <tr class="separator:abd439f48f5572e7f9f62992839f6a64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93988b3b6c8456162f8abd0df1c80ee0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethernet_8h.html#a93988b3b6c8456162f8abd0df1c80ee0">ethernet_send_packet</a> (uint8_t *<a class="el" href="ethernet_8h.html#aaf0ea99b22242179264d82a68ea202e6">dst_mac_addr</a>, uint8_t *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, int <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint16_t <a class="el" href="tcp_8h.html#ad124d3d2e02c729afa303c775295278e">protocol</a>)</td></tr>
-<tr class="memdesc:a93988b3b6c8456162f8abd0df1c80ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a raw ethernet packet to the network card driver.  <a href="ethernet_8h.html#a93988b3b6c8456162f8abd0df1c80ee0">More...</a><br /></td></tr>
-<tr class="separator:a93988b3b6c8456162f8abd0df1c80ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec8a7cad77e728ad1bd44fd0765150dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethernet_8h.html#aec8a7cad77e728ad1bd44fd0765150dd">ethernet_send_packet</a> (uint8_t *<a class="el" href="ethernet_8h.html#aaf0ea99b22242179264d82a68ea202e6">dst_mac_addr</a>, uint8_t *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, uint32_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint16_t <a class="el" href="tcp_8h.html#ad124d3d2e02c729afa303c775295278e">protocol</a>)</td></tr>
+<tr class="memdesc:aec8a7cad77e728ad1bd44fd0765150dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a raw ethernet packet to the network card driver.  <a href="ethernet_8h.html#aec8a7cad77e728ad1bd44fd0765150dd">More...</a><br /></td></tr>
+<tr class="separator:aec8a7cad77e728ad1bd44fd0765150dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d8eaa2e235bddb40c6edca8927105ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethernet_8h.html#a9d8eaa2e235bddb40c6edca8927105ce">ethernet_handle_packet</a> (ethernet_frame_t *packet, int <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
 <tr class="memdesc:a9d8eaa2e235bddb40c6edca8927105ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle inbound packet via interrupt from network card driver.  <a href="ethernet_8h.html#a9d8eaa2e235bddb40c6edca8927105ce">More...</a><br /></td></tr>
 <tr class="separator:a9d8eaa2e235bddb40c6edca8927105ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,7 +142,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a50ead53c7b24b03a4cc1d28f5a9631d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a50ead53c7b24b03a4cc1d28f5a9631d3">&#9670;&nbsp;</a></span>HARDWARE_TYPE_ETHERNET</h2>
@@ -193,6 +193,14 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software. </p>
+<p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
+<p>Definition of a DHCP packet.</p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
 
 </div>
 </div>
@@ -271,8 +279,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a93988b3b6c8456162f8abd0df1c80ee0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93988b3b6c8456162f8abd0df1c80ee0">&#9670;&nbsp;</a></span>ethernet_send_packet()</h2>
+<a id="aec8a7cad77e728ad1bd44fd0765150dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec8a7cad77e728ad1bd44fd0765150dd">&#9670;&nbsp;</a></span>ethernet_send_packet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,7 +300,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>len</em>, </td>
         </tr>
         <tr>
@@ -386,7 +394,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="ethernet_8h.html">ethernet.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -5,62 +5,89 @@
     <includes refid="kernel_8h" local="yes">kernel.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <incdepgraph>
-      <node id="26">
+      <node id="32">
         <label>ata.h</label>
         <link refid="ata_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
       </node>
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="39">
+      <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
       </node>
-      <node id="29">
+      <node id="35">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="51">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="60">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="38">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="36">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="9">
         <label>spinlock.h</label>
         <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>tcp.h</label>
@@ -68,7 +95,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="29">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -77,31 +104,40 @@
       <node id="8">
         <label>idt.h</label>
         <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="53">
+      <node id="58">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="45">
         <label>basic_tokenizer.h</label>
         <link refid="basic__tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="49">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
@@ -111,78 +147,88 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="35">
+      <node id="41">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
-      <node id="15">
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
         <label>io.h</label>
         <link refid="io_8h"/>
       </node>
-      <node id="10">
+      <node id="15">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="50">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="44">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="36">
+      <node id="42">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="54">
+      <node id="59">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="18">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="49">
+      <node id="54">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="47">
+      <node id="52">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="33">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="22">
+      <node id="27">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="37">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
       </node>
-      <node id="34">
+      <node id="40">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="48">
+      <node id="53">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -207,15 +253,9 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
@@ -227,7 +267,7 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
@@ -277,6 +317,8 @@
         </childnode>
         <childnode refid="44" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
         <childnode refid="45" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
@@ -284,8 +326,6 @@
         <childnode refid="47" relation="include">
         </childnode>
         <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="49" relation="include">
         </childnode>
@@ -297,32 +337,50 @@
         </childnode>
         <childnode refid="53" relation="include">
         </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
         <childnode refid="54" relation="include">
         </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
       </node>
-      <node id="16">
+      <node id="21">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="34">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="17">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="41">
+      <node id="46">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="11">
+      <node id="16">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
@@ -334,61 +392,69 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="48">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="24">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="39">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="24">
+      <node id="30">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="25">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="26">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="22">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
-      <node id="14">
+      <node id="19">
         <label>string.h</label>
         <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
-      <node id="25">
+      <node id="31">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="56">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="61">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -398,11 +464,43 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="28">
+      <node id="93">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="54">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="66">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="70">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="75">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="39">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="82">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="71">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="85">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -410,28 +508,56 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="107">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="101">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="47">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="59">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -440,23 +566,37 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="111">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="102">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="88">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="109">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -464,57 +604,261 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="64">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="99">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="42">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="100">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="90">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="55">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="96">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="67">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="113">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="48">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="60">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="92">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="73">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="56">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="112">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="81">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="61">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="38">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="95">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="53">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="94">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="79">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="89">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="45">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="86">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="97">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="62">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="52">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="69">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="46">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="108">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="58">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="87">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="80">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="84">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="44">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="103">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="104">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="78">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -549,74 +893,290 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
         <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="51">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="36">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="40">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="72">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="50">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="83">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="43">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="68">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="63">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="76">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="98">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="49">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="37">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -628,9 +1188,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="91">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="74">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="41">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -646,6 +1224,8 @@
     <innerclass refid="structtcp__segment" prot="public">tcp_segment</innerclass>
     <innerclass refid="structtcp__options__t" prot="public">tcp_options_t</innerclass>
     <innerclass refid="structtcp__ordered__list__t" prot="public">tcp_ordered_list_t</innerclass>
+    <innerclass refid="structpending__node__t" prot="public">pending_node_t</innerclass>
+    <innerclass refid="structqueue__t" prot="public">queue_t</innerclass>
     <innerclass refid="structtcp__conn__t" prot="public">tcp_conn_t</innerclass>
       <sectiondef kind="define">
       <memberdef kind="define" id="tcp_8h_1a01dac0d554ac51ae8e96c00baa5b21be" prot="public" static="no">
@@ -669,6 +1249,16 @@
         <inbodydescription>
         </inbodydescription>
         <location file="include/tcp.h" line="11" column="9" bodyfile="include/tcp.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="tcp_8h_1a304f45dd94169719e49a5404e2f3ddb0" prot="public" static="no">
+        <name>TCP_TRACE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="14" column="9" bodyfile="include/tcp.h" bodystart="14" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -745,7 +1335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="41" column="1" bodyfile="include/tcp.h" bodystart="41" bodyend="50"/>
+        <location file="include/tcp.h" line="44" column="1" bodyfile="include/tcp.h" bodystart="44" bodyend="53"/>
       </memberdef>
       <memberdef kind="enum" id="tcp_8h_1a60a5a207acb5e708bf37736360c3001f" prot="public" static="no" strong="no">
         <type></type>
@@ -780,7 +1370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="66" column="1" bodyfile="include/tcp.h" bodystart="66" bodyend="70"/>
+        <location file="include/tcp.h" line="69" column="1" bodyfile="include/tcp.h" bodystart="69" bodyend="73"/>
       </memberdef>
       <memberdef kind="enum" id="tcp_8h_1a30a6f4a8caaf05f882c7c7ecb1e8d83f" prot="public" static="no" strong="no">
         <type></type>
@@ -871,7 +1461,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="76" column="1" bodyfile="include/tcp.h" bodystart="76" bodyend="87"/>
+        <location file="include/tcp.h" line="79" column="1" bodyfile="include/tcp.h" bodystart="79" bodyend="90"/>
       </memberdef>
       <memberdef kind="enum" id="tcp_8h_1aaf511b41b755c1d7f9222a29a88a11a7" prot="public" static="no" strong="no">
         <type></type>
@@ -906,7 +1496,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="89" column="1" bodyfile="include/tcp.h" bodystart="89" bodyend="93"/>
+        <location file="include/tcp.h" line="92" column="1" bodyfile="include/tcp.h" bodystart="92" bodyend="96"/>
       </memberdef>
       <memberdef kind="enum" id="tcp_8h_1aee0c1c2ac9ad5818e178340cf8812c8e" prot="public" static="no" strong="no">
         <type></type>
@@ -932,7 +1522,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="149" column="1" bodyfile="include/tcp.h" bodystart="149" bodyend="152"/>
+        <location file="include/tcp.h" line="168" column="1" bodyfile="include/tcp.h" bodystart="168" bodyend="171"/>
       </memberdef>
       <memberdef kind="enum" id="tcp_8h_1a0e8857463897e2e9a825c6702298cebe" prot="public" static="no" strong="no">
         <type></type>
@@ -1017,9 +1607,33 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea6919b1b32792461459b1f7dac923e394" prot="public">
+          <name>TCP_ERROR_NOT_LISTENING</name>
+          <initializer>= -11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea0e5469f41a61d918e85b002081b04238" prot="public">
+          <name>TCP_ERROR_WOULD_BLOCK</name>
+          <initializer>= -12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea6373bcaf57c0371c8c9d5302020f6035" prot="public">
+          <name>TCP_CONNECTION_TIMED_OUT</name>
+          <initializer>= -13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="tcp_8h_1a0e8857463897e2e9a825c6702298cebea8725e7020b4927eb9233b5358d62b56e" prot="public">
           <name>TCP_LAST_ERROR</name>
-          <initializer>= -11</initializer>
+          <initializer>= -14</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1032,7 +1646,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="157" column="1" bodyfile="include/tcp.h" bodystart="157" bodyend="169"/>
+        <location file="include/tcp.h" line="176" column="1" bodyfile="include/tcp.h" bodystart="176" bodyend="191"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -1042,19 +1656,23 @@
         <argsstring></argsstring>
         <name>__attribute__</name>
         <briefdescription>
-<para>System Description Table Header. </para>
+<para>Generic ACPI System Description Table Header. </para>
         </briefdescription>
         <detaileddescription>
-<para>A disk partition table consisiting of four <ref refid="structpartition__t" kindref="compound">partition_t</ref>.</para>
+<para>A single GPT partition entry.</para>
+<para>The GPT (GUID Partition Table) header.</para>
+<para>A disk partition table consisting of four MBR partition entries.</para>
 <para>Structure for an IP packet.</para>
 <para>Long filename entry, overlays a <ref refid="structdirectory__entry__t" kindref="compound">directory_entry_t</ref>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the &apos;order&apos; attribute indicates which order they go in.</para>
 <para>FAT32 BIOS parameter block (BPB), stored in the boot sector of the drive.</para>
 <para>A directory entry, e.g. file, volume label, directory, long filename entry.</para>
-<para>Root System Description Table. </para>
+<para>Root System Description Table (RSDT)</para>
+<para>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</para>
+<para>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="50" column="1"/>
+        <location file="include/tcp.h" line="53" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="tcp_8h_1a0d6d2cdb1162c6355e40ab772fa5debc" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -1277,11 +1895,11 @@
         </inbodydescription>
         <location file="include/tcp.h" line="12" column="9" bodyfile="include/tcp.h" bodystart="12" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="tcp_8h_1a00a4007d7c5663b3ad74afbcd47ddcc8" prot="public" static="no" mutable="no">
-        <type>struct @12</type>
-        <definition>struct @12</definition>
+      <memberdef kind="variable" id="tcp_8h_1a1ded146b0e253100d88c0d6b58dc26d4" prot="public" static="no" mutable="no">
+        <type>struct @13</type>
+        <definition>struct @13</definition>
         <argsstring></argsstring>
-        <name>@13</name>
+        <name>@14</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -1418,12 +2036,24 @@
           <type>(packed)</type>
         </param>
         <briefdescription>
+<para>ACPI Root System Description Pointer (RSDP) </para>
         </briefdescription>
         <detaileddescription>
+<para>A disk partition entry within the MBR.</para>
+<para>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t.</para>
+<para>FAT32 FSINFO structure.</para>
+<para>There is actually more to an ethernet frame than this (see the STD documents!) but we don&apos;t have access to it from the software.</para>
+<para>Definition of a DHCP packet.</para>
+<para>Format of an ARP packet (per RFC 826)</para>
+<para>Root System Description Table (RSDT)</para>
+<para>Generic ACPI System Description Table Header.</para>
+<para>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</para>
+<para>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</para>
+<para>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="1" column="0" declfile="include/tcp.h" declline="1" declcolumn="0"/>
+        <location file="include/tcp.h" line="1" column="0" bodyfile="src/gdt.c" bodystart="27" bodyend="40" declfile="include/tcp.h" declline="1" declcolumn="0"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a8d4611b68b5ca398ee9bc373573afab6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1468,7 +2098,33 @@
 <parametername>len</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>length of TCP segment including header </para>
+<para>length of TCP segment including header</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+TCP handler called by the IP layer.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>encap_packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>encapsulating IP packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>segment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TCP segment </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of segment </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -1476,7 +2132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="178" column="6" declfile="include/tcp.h" declline="178" declcolumn="6"/>
+        <location file="include/tcp.h" line="200" column="6" bodyfile="src/net/tcp.c" bodystart="977" bodyend="988" declfile="include/tcp.h" declline="200" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a0e048a052cd5ec7a0bfe8734751990f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1487,10 +2143,11 @@
 <para>Initialise TCP protocol, must happen after IP. </para>
         </briefdescription>
         <detaileddescription>
+<para>Initialise TCP protocol, must happen after IP. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="183" column="6" declfile="include/tcp.h" declline="183" declcolumn="6"/>
+        <location file="include/tcp.h" line="205" column="6" bodyfile="src/net/tcp.c" bodystart="1031" bodyend="1035" declfile="include/tcp.h" declline="205" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a4a95723a63184d3eb69a619853f560da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1556,7 +2213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="194" column="5" declfile="include/tcp.h" declline="194" declcolumn="5"/>
+        <location file="include/tcp.h" line="216" column="5" bodyfile="src/net/tcp.c" bodystart="1225" bodyend="1243" declfile="include/tcp.h" declline="216" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1ad4725afcb96cfe437fd7a748129b1f33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1586,7 +2243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="202" column="5" declfile="include/tcp.h" declline="202" declcolumn="5"/>
+        <location file="include/tcp.h" line="224" column="5" bodyfile="src/net/tcp.c" bodystart="1245" bodyend="1253" declfile="include/tcp.h" declline="224" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a5787e23039c4a2243cbc968a48431d2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1640,7 +2297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="212" column="5" declfile="include/tcp.h" declline="212" declcolumn="5"/>
+        <location file="include/tcp.h" line="234" column="5" bodyfile="src/net/tcp.c" bodystart="1204" bodyend="1223" declfile="include/tcp.h" declline="234" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a6df7b901b1a9f3ec7046f958f9e7cf36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1718,7 +2375,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="226" column="5" declfile="include/tcp.h" declline="226" declcolumn="5"/>
+        <location file="include/tcp.h" line="248" column="5" bodyfile="src/net/tcp.c" bodystart="1266" bodyend="1303" declfile="include/tcp.h" declline="248" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a39bac2a3c55fa01613ed4a5579a5ca67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1748,7 +2405,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="234" column="6" declfile="include/tcp.h" declline="234" declcolumn="6"/>
+        <location file="include/tcp.h" line="256" column="6" bodyfile="src/net/tcp.c" bodystart="1255" bodyend="1264" declfile="include/tcp.h" declline="256" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a0a5ac590e0a9088bc8ddf519e8e0967d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -1780,7 +2437,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="243" column="12" declfile="include/tcp.h" declline="243" declcolumn="12"/>
+        <location file="include/tcp.h" line="265" column="12" bodyfile="src/net/tcp.c" bodystart="29" bodyend="36" declfile="include/tcp.h" declline="265" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8h_1a5505c46ddfafecad526d12d4d1666050" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1791,10 +2448,448 @@
 <para>Idle loop ran from timer ISR. </para>
         </briefdescription>
         <detaileddescription>
+<para>Idle loop ran from timer ISR. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/tcp.h" line="249" column="6" declfile="include/tcp.h" declline="249" declcolumn="6"/>
+        <location file="include/tcp.h" line="271" column="6" bodyfile="src/net/tcp.c" bodystart="993" bodyend="1026" declfile="include/tcp.h" declline="271" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a8abaa184ec3841668b169f330e0f34cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structqueue__t" kindref="compound">queue_t</ref> *</type>
+        <definition>queue_t* queue_new</definition>
+        <argsstring>(void)</argsstring>
+        <name>queue_new</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Allocate a new empty queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>queue_t* newly allocated queue, or NULL on failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="278" column="9" bodyfile="src/net/queue.c" bodystart="3" bodyend="8" declfile="include/tcp.h" declline="278" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a0a273902c052c7f2beef288432bcf713" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void queue_push</definition>
+        <argsstring>(queue_t *q, tcp_conn_t *conn)</argsstring>
+        <name>queue_push</name>
+        <param>
+          <type><ref refid="structqueue__t" kindref="compound">queue_t</ref> *</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type><ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref> *</type>
+          <declname>conn</declname>
+        </param>
+        <briefdescription>
+<para>Push a <ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref> into the queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>queue </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>conn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TCP connection to enqueue </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="286" column="6" bodyfile="src/net/queue.c" bodystart="10" bodyend="18" declfile="include/tcp.h" declline="286" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a0d0a6c6ad6dcfd463720575a51581d17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref> *</type>
+        <definition>tcp_conn_t* queue_pop</definition>
+        <argsstring>(queue_t *q)</argsstring>
+        <name>queue_pop</name>
+        <param>
+          <type><ref refid="structqueue__t" kindref="compound">queue_t</ref> *</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+<para>Pop the oldest <ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref> from the queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>queue </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tcp_conn_t* dequeued connection, or NULL if empty </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="294" column="12" bodyfile="src/net/queue.c" bodystart="20" bodyend="28" declfile="include/tcp.h" declline="294" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a82bddaec8925f76a813782cb23ef7ca9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool queue_empty</definition>
+        <argsstring>(queue_t *q)</argsstring>
+        <name>queue_empty</name>
+        <param>
+          <type><ref refid="structqueue__t" kindref="compound">queue_t</ref> *</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+<para>Return true if queue is empty. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>queue </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if empty, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="302" column="6" bodyfile="src/net/queue.c" bodystart="30" bodyend="32" declfile="include/tcp.h" declline="302" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1aa13034dd0decdb0faf1b863383560be2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void queue_free</definition>
+        <argsstring>(queue_t *q)</argsstring>
+        <name>queue_free</name>
+        <param>
+          <type><ref refid="structqueue__t" kindref="compound">queue_t</ref> *</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+<para>Free all nodes in the queue and the queue itself. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>queue </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="309" column="6" bodyfile="src/net/queue.c" bodystart="34" bodyend="39" declfile="include/tcp.h" declline="309" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1ae2f65a066df4023de8b2507bf2554fa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int tcp_allocate_fd</definition>
+        <argsstring>(tcp_conn_t *conn)</argsstring>
+        <name>tcp_allocate_fd</name>
+        <param>
+          <type><ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref> *</type>
+          <declname>conn</declname>
+        </param>
+        <briefdescription>
+<para>Allocate a new file descriptor for a TCP connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>O(n) time</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>conn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the TCP connection. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>File descriptor number on success, or -1 on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="318" column="5" bodyfile="src/net/descriptor.c" bodystart="5" bodyend="14" declfile="include/tcp.h" declline="318" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a92504094d883720e92c536c1737b8f1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tcp_free_fd</definition>
+        <argsstring>(int x)</argsstring>
+        <name>tcp_free_fd</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Free a previously allocated TCP file descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>O(1) time</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor number to free. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="326" column="6" bodyfile="src/net/descriptor.c" bodystart="16" bodyend="21" declfile="include/tcp.h" declline="326" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a6cf9c0b477fc56fe87b438cfdb802d0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref> *</type>
+        <definition>tcp_conn_t* tcp_find_by_fd</definition>
+        <argsstring>(int x)</argsstring>
+        <name>tcp_find_by_fd</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Find a TCP connection by its file descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>O(1) time</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor number. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the TCP connection if found, or NULL if not found. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="335" column="12" bodyfile="src/net/descriptor.c" bodystart="23" bodyend="29" declfile="include/tcp.h" declline="335" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1a8916516f078eb7a9accac0a27a411784" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tcp_dump_segment</definition>
+        <argsstring>(bool in, tcp_conn_t *conn, const ip_packet_t *encap_packet, const tcp_segment_t *segment, const tcp_options_t *options, size_t len, uint16_t our_checksum)</argsstring>
+        <name>tcp_dump_segment</name>
+        <param>
+          <type>bool</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type><ref refid="structtcp__conn__t" kindref="compound">tcp_conn_t</ref> *</type>
+          <declname>conn</declname>
+        </param>
+        <param>
+          <type>const ip_packet_t *</type>
+          <declname>encap_packet</declname>
+        </param>
+        <param>
+          <type>const tcp_segment_t *</type>
+          <declname>segment</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structtcp__options__t" kindref="compound">tcp_options_t</ref> *</type>
+          <declname>options</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>our_checksum</declname>
+        </param>
+        <briefdescription>
+<para>Dump debug info for a TCP segment. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>encap_packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>encapsulating IP packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>segment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TCP segment </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TCP options </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TCP length </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>our_checksum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>calculated checksum </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="346" column="6" bodyfile="src/net/debug.c" bodystart="3" bodyend="40" declfile="include/tcp.h" declline="346" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1ab30a0d5f82ac8f116897d82578ae25eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int tcp_listen</definition>
+        <argsstring>(uint32_t addr, uint16_t port, int backlog)</argsstring>
+        <name>tcp_listen</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>backlog</declname>
+        </param>
+        <briefdescription>
+<para>Create a listening TCP socket. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Binds a TCP connection control block (TCB) to the given local address and port, and transitions it into the LISTEN state. A pending connection queue is created to hold half‑open connections until they are accepted.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Local IPv4 address to bind to (network byte order). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Local TCP port to listen on (host byte order). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>backlog</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of pending connections that may be queued.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>File descriptor for the listening socket on success, or a negative TCP_ERROR code on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="362" column="5" bodyfile="src/net/tcp.c" bodystart="1305" bodyend="1352" declfile="include/tcp.h" declline="362" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1aeb880bf940312acdf8a48c4d4dfa0b72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int tcp_accept</definition>
+        <argsstring>(int socket)</argsstring>
+        <name>tcp_accept</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <briefdescription>
+<para>Accept an incoming connection on a listening socket. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes one pending connection from the listening socket’s queue and allocates a new file descriptor for it. The connection will be in the ESTABLISHED state upon return.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>socket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor of a socket previously placed in the LISTEN state using <ref refid="tcp_8h_1ab30a0d5f82ac8f116897d82578ae25eb" kindref="member">tcp_listen()</ref>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>File descriptor for the accepted connection on success, or a negative TCP_ERROR code on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="377" column="5" bodyfile="src/net/tcp.c" bodystart="1354" bodyend="1404" declfile="include/tcp.h" declline="377" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8h_1ac4ed2cdd1c291c5083404950e916c98f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int tcp_connect</definition>
+        <argsstring>(uint32_t target_addr, uint16_t target_port, uint16_t source_port)</argsstring>
+        <name>tcp_connect</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>target_addr</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>target_port</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>source_port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/tcp.h" line="379" column="5" bodyfile="src/net/tcp.c" bodystart="1092" bodyend="1163" declfile="include/tcp.h" declline="379" declcolumn="5"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1802,7 +2897,7 @@
     <detaileddescription>
 <para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
 </simplesect>
 </para>
     </detaileddescription>

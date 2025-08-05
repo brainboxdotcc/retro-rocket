@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structsdt__header__t.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
-<p>System Description Table Header.  
+<p>Generic ACPI System Description Table Header.  
  <a href="structsdt__header__t.html#details">More...</a></p>
 
 <p><code>#include &lt;acpi.h&gt;</code></p>
@@ -107,26 +107,36 @@ $(document).ready(function(){initNavTree('structsdt__header__t.html',''); initRe
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a61e330810bd36057bf09649bc366fad0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#a61e330810bd36057bf09649bc366fad0">signature</a> [4]</td></tr>
+<tr class="memdesc:a61e330810bd36057bf09649bc366fad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table identifier (e.g. "APIC", "DSDT", etc.)  <a href="structsdt__header__t.html#a61e330810bd36057bf09649bc366fad0">More...</a><br /></td></tr>
 <tr class="separator:a61e330810bd36057bf09649bc366fad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe57e83b002ec9c735441cdf583c2a85"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#abe57e83b002ec9c735441cdf583c2a85">length</a></td></tr>
+<tr class="memdesc:abe57e83b002ec9c735441cdf583c2a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total length of the table, including this header.  <a href="structsdt__header__t.html#abe57e83b002ec9c735441cdf583c2a85">More...</a><br /></td></tr>
 <tr class="separator:abe57e83b002ec9c735441cdf583c2a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ca1eb8b50d806ab4cd2e354b7029bff"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#a7ca1eb8b50d806ab4cd2e354b7029bff">revision</a></td></tr>
+<tr class="memdesc:a7ca1eb8b50d806ab4cd2e354b7029bff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table version.  <a href="structsdt__header__t.html#a7ca1eb8b50d806ab4cd2e354b7029bff">More...</a><br /></td></tr>
 <tr class="separator:a7ca1eb8b50d806ab4cd2e354b7029bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa299d8aed090e515ea3d0a6615e6f13b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#aa299d8aed090e515ea3d0a6615e6f13b">checksum</a></td></tr>
+<tr class="memdesc:aa299d8aed090e515ea3d0a6615e6f13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entire table checksum.  <a href="structsdt__header__t.html#aa299d8aed090e515ea3d0a6615e6f13b">More...</a><br /></td></tr>
 <tr class="separator:aa299d8aed090e515ea3d0a6615e6f13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a617232300a3a39c41cd8af74b9c3c660"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#a617232300a3a39c41cd8af74b9c3c660">oem_id</a> [6]</td></tr>
+<tr class="memdesc:a617232300a3a39c41cd8af74b9c3c660"><td class="mdescLeft">&#160;</td><td class="mdescRight">OEM identifier string.  <a href="structsdt__header__t.html#a617232300a3a39c41cd8af74b9c3c660">More...</a><br /></td></tr>
 <tr class="separator:a617232300a3a39c41cd8af74b9c3c660"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80ae2966dc905c4d6afef8d39c558a06"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#a80ae2966dc905c4d6afef8d39c558a06">oem_table_id</a> [8]</td></tr>
+<tr class="memdesc:a80ae2966dc905c4d6afef8d39c558a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">OEM-defined table identifier.  <a href="structsdt__header__t.html#a80ae2966dc905c4d6afef8d39c558a06">More...</a><br /></td></tr>
 <tr class="separator:a80ae2966dc905c4d6afef8d39c558a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab45624493b14b1ec7a7b00243f6ae1c0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#ab45624493b14b1ec7a7b00243f6ae1c0">oem_revision</a></td></tr>
+<tr class="memdesc:ab45624493b14b1ec7a7b00243f6ae1c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">OEM table revision.  <a href="structsdt__header__t.html#ab45624493b14b1ec7a7b00243f6ae1c0">More...</a><br /></td></tr>
 <tr class="separator:ab45624493b14b1ec7a7b00243f6ae1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c5951f2b6e6e98fc2301c32be64a891"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#a2c5951f2b6e6e98fc2301c32be64a891">creator_id</a></td></tr>
+<tr class="memdesc:a2c5951f2b6e6e98fc2301c32be64a891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vendor ID of utility that created the table.  <a href="structsdt__header__t.html#a2c5951f2b6e6e98fc2301c32be64a891">More...</a><br /></td></tr>
 <tr class="separator:a2c5951f2b6e6e98fc2301c32be64a891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ef1914f5362f7775b8eeb9f6691da2d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdt__header__t.html#a2ef1914f5362f7775b8eeb9f6691da2d">creator_revision</a></td></tr>
+<tr class="memdesc:a2ef1914f5362f7775b8eeb9f6691da2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version of utility that created the table.  <a href="structsdt__header__t.html#a2ef1914f5362f7775b8eeb9f6691da2d">More...</a><br /></td></tr>
 <tr class="separator:a2ef1914f5362f7775b8eeb9f6691da2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>System Description Table Header. </p>
+<div class="textblock"><p>Generic ACPI System Description Table Header. </p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="aa299d8aed090e515ea3d0a6615e6f13b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa299d8aed090e515ea3d0a6615e6f13b">&#9670;&nbsp;</a></span>checksum</h2>
@@ -139,6 +149,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Entire table checksum. </p>
 
 </div>
 </div>
@@ -154,6 +166,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Vendor ID of utility that created the table. </p>
+
 </div>
 </div>
 <a id="a2ef1914f5362f7775b8eeb9f6691da2d"></a>
@@ -167,6 +181,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Version of utility that created the table. </p>
 
 </div>
 </div>
@@ -182,6 +198,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Total length of the table, including this header. </p>
+
 </div>
 </div>
 <a id="a617232300a3a39c41cd8af74b9c3c660"></a>
@@ -195,6 +213,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>OEM identifier string. </p>
 
 </div>
 </div>
@@ -210,6 +230,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>OEM table revision. </p>
+
 </div>
 </div>
 <a id="a80ae2966dc905c4d6afef8d39c558a06"></a>
@@ -223,6 +245,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>OEM-defined table identifier. </p>
 
 </div>
 </div>
@@ -238,6 +262,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Table version. </p>
+
 </div>
 </div>
 <a id="a61e330810bd36057bf09649bc366fad0"></a>
@@ -252,6 +278,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Table identifier (e.g. "APIC", "DSDT", etc.) </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -260,7 +288,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structsdt__header__t.html">sdt_header_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

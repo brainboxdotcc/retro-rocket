@@ -134,6 +134,16 @@ Macros</h2></td></tr>
 <tr class="separator:af1dbca97cde78a24e4101e03005d4007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13ebb37cd7e67e5653e2d75d9e3dbea8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#a13ebb37cd7e67e5653e2d75d9e3dbea8">SYM_UNKNOWN</a>&#160;&#160;&#160;'?'</td></tr>
 <tr class="separator:a13ebb37cd7e67e5653e2d75d9e3dbea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae53029ffe581df20293a810c40f9745d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#ae53029ffe581df20293a810c40f9745d">DEBUG_DST_PORT</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="separator:ae53029ffe581df20293a810c40f9745d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f86cd0c080e0e5e6c74c3c78b71cbe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#a18f86cd0c080e0e5e6c74c3c78b71cbe">MAX_DECODE</a>&#160;&#160;&#160;128</td></tr>
+<tr class="separator:a18f86cd0c080e0e5e6c74c3c78b71cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4d0d0a35b850a74b00e587f525b449d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#af4d0d0a35b850a74b00e587f525b449d">DATA_ROT</a>&#160;&#160;&#160;7</td></tr>
+<tr class="separator:af4d0d0a35b850a74b00e587f525b449d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff73b043f5ee952cb342abf36ceae01d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#aff73b043f5ee952cb342abf36ceae01d">DATA_XOR</a>&#160;&#160;&#160;0x5A</td></tr>
+<tr class="separator:aff73b043f5ee952cb342abf36ceae01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a400b3c5d3ee1ab3790ac78d0ab58408e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#a400b3c5d3ee1ab3790ac78d0ab58408e">GDB_TRIGGER</a>&#160;&#160;&#160;0xC536CE6E</td></tr>
+<tr class="separator:a400b3c5d3ee1ab3790ac78d0ab58408e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -146,11 +156,91 @@ Functions</h2></td></tr>
 <tr class="separator:a73b6618270491b1d78d378a62a5a52b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c007aba1c784ceaecb1b28bcc1663ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsymbol__t.html">symbol_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#a4c007aba1c784ceaecb1b28bcc1663ab">get_sym_table</a> ()</td></tr>
 <tr class="separator:a4c007aba1c784ceaecb1b28bcc1663ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5120629e00130e505645001e8106e9b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#ad5120629e00130e505645001e8106e9b">set_debug_signal</a> (bool <a class="el" href="e1000_8h.html#afea475b453c81c5b3f5a31abb861edfb">status</a>)</td></tr>
+<tr class="separator:ad5120629e00130e505645001e8106e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85eed162f35cd2ef9f0101d3b1179362"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#a85eed162f35cd2ef9f0101d3b1179362">get_debug_signal</a> ()</td></tr>
+<tr class="separator:a85eed162f35cd2ef9f0101d3b1179362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f9e4634158b9a7d25a0bbdfdbea787d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#a7f9e4634158b9a7d25a0bbdfdbea787d">gdb_decode</a> (char *out, const uint8_t *in, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
+<tr class="separator:a7f9e4634158b9a7d25a0bbdfdbea787d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02262c30dd504c7b86c22e7fc5de8e1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#a02262c30dd504c7b86c22e7fc5de8e1f">gdb_emit</a> ()</td></tr>
+<tr class="separator:a02262c30dd504c7b86c22e7fc5de8e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa823fd560cc51c292eba9f1112b32323"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html#aa823fd560cc51c292eba9f1112b32323">gdb_trace</a> (const char *str)</td></tr>
+<tr class="separator:aa823fd560cc51c292eba9f1112b32323"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="af4d0d0a35b850a74b00e587f525b449d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4d0d0a35b850a74b00e587f525b449d">&#9670;&nbsp;</a></span>DATA_ROT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DATA_ROT&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aff73b043f5ee952cb342abf36ceae01d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff73b043f5ee952cb342abf36ceae01d">&#9670;&nbsp;</a></span>DATA_XOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DATA_XOR&#160;&#160;&#160;0x5A</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae53029ffe581df20293a810c40f9745d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae53029ffe581df20293a810c40f9745d">&#9670;&nbsp;</a></span>DEBUG_DST_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEBUG_DST_PORT&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a400b3c5d3ee1ab3790ac78d0ab58408e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400b3c5d3ee1ab3790ac78d0ab58408e">&#9670;&nbsp;</a></span>GDB_TRIGGER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GDB_TRIGGER&#160;&#160;&#160;0xC536CE6E</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18f86cd0c080e0e5e6c74c3c78b71cbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18f86cd0c080e0e5e6c74c3c78b71cbe">&#9670;&nbsp;</a></span>MAX_DECODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_DECODE&#160;&#160;&#160;128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1bf21df0929c1807b0dfc8b3d25d855a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1bf21df0929c1807b0dfc8b3d25d855a">&#9670;&nbsp;</a></span>SYM_ABSOLUTE</h2>
 
@@ -430,6 +520,92 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7f9e4634158b9a7d25a0bbdfdbea787d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f9e4634158b9a7d25a0bbdfdbea787d">&#9670;&nbsp;</a></span>gdb_decode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gdb_decode </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02262c30dd504c7b86c22e7fc5de8e1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02262c30dd504c7b86c22e7fc5de8e1f">&#9670;&nbsp;</a></span>gdb_emit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gdb_emit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa823fd560cc51c292eba9f1112b32323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa823fd560cc51c292eba9f1112b32323">&#9670;&nbsp;</a></span>gdb_trace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t gdb_trace </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85eed162f35cd2ef9f0101d3b1179362"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85eed162f35cd2ef9f0101d3b1179362">&#9670;&nbsp;</a></span>get_debug_signal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool get_debug_signal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4c007aba1c784ceaecb1b28bcc1663ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4c007aba1c784ceaecb1b28bcc1663ab">&#9670;&nbsp;</a></span>get_sym_table()</h2>
 
@@ -464,13 +640,31 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad5120629e00130e505645001e8106e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5120629e00130e505645001e8106e9b">&#9670;&nbsp;</a></span>set_debug_signal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool set_debug_signal </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>status</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="debugger_8h.html">debugger.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

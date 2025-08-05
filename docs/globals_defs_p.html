@@ -102,11 +102,11 @@ $(document).ready(function(){initNavTree('globals_defs_p.html',''); initResizabl
 <li>PARAMS_START
 : <a class="el" href="basic_8h.html#adc2a689c60d5146f9e0fe59050f5227b">basic.h</a>
 </li>
+<li>PARTITION_GPT_PROTECTIVE
+: <a class="el" href="partition_8h.html#ab00ae5bc076986270564a046959c4705">partition.h</a>
+</li>
 <li>PARTITION_TABLE_OFFSET
 : <a class="el" href="partition_8h.html#a18bdcefc7008fc3d9e21f70f6ad0cc2f">partition.h</a>
-</li>
-<li>PARTITON_GPT_PROTECTIVE
-: <a class="el" href="partition_8h.html#ab5cc28c1d5f52c3a7e1eefefa1a123d6">partition.h</a>
 </li>
 <li>PCI_BAR0
 : <a class="el" href="pci_8h.html#a178d44cd6a809bca6a3e73c331390983">pci.h</a>
@@ -138,11 +138,14 @@ $(document).ready(function(){initNavTree('globals_defs_p.html',''); initResizabl
 <li>PCI_CACHE_LINE_SIZE
 : <a class="el" href="pci_8h.html#ab0714901b1972ad6700d98d11d683f04">pci.h</a>
 </li>
-<li>PCI_CAPABILITY_POINTER
-: <a class="el" href="pci_8h.html#a888b0de3c4aebe2c98b66a2aa0fd3ddd">pci.h</a>
-</li>
 <li>PCI_CAPABILITY_MSI
 : <a class="el" href="pci_8h.html#ada978bb00a43851015de923e0af1ec02">pci.h</a>
+</li>
+<li>PCI_CAPABILITY_MSIX
+: <a class="el" href="pci_8h.html#a86c7613d8dae6662401ba10250c6957f">pci.h</a>
+</li>
+<li>PCI_CAPABILITY_POINTER
+: <a class="el" href="pci_8h.html#a52a8dd2d2ae82a3ffb8d0fe6f8a98606">pci.h</a>
 </li>
 <li>PCI_CLASS
 : <a class="el" href="pci_8h.html#ac14335441eedc270b16a9a47d1eab372">pci.h</a>
@@ -234,6 +237,12 @@ $(document).ready(function(){initNavTree('globals_defs_p.html',''); initResizabl
 <li>PCI_MSI_ENABLE
 : <a class="el" href="pci_8h.html#af0f4adb484694e2f8e32c34772cccdcf">pci.h</a>
 </li>
+<li>PCI_MSIX_ENABLE
+: <a class="el" href="pci_8h.html#a3d4b2687b1ba0ff11a538153c6bcbaf4">pci.h</a>
+</li>
+<li>PCI_MSIX_FUNCTION_MASK
+: <a class="el" href="pci_8h.html#a85c71c008443fc1e01893d367b34f34d">pci.h</a>
+</li>
 <li>PCI_NONE
 : <a class="el" href="pci_8h.html#a6e719bea36ac98073329ee789f7a8f67">pci.h</a>
 </li>
@@ -253,7 +262,7 @@ $(document).ready(function(){initNavTree('globals_defs_p.html',''); initResizabl
 : <a class="el" href="pci_8h.html#a732880a7e90d5bcf5cb24bcf95fbc081">pci.h</a>
 </li>
 <li>PCI_STATUS_CAPABILITIES_LIST
-: <a class="el" href="pci_8h.html#a0b2f01589632fdeb18108c8a8f1d0a0d">pci.h</a>
+: <a class="el" href="pci_8h.html#aa33fb5e8a7251724645eb3e092ab1686">pci.h</a>
 </li>
 <li>PCI_STATUS_DETECTED_PARITY_ERROR
 : <a class="el" href="pci_8h.html#aa3e2e3727696f2fcd9e1990aac27ceab">pci.h</a>
@@ -294,35 +303,62 @@ $(document).ready(function(){initNavTree('globals_defs_p.html',''); initResizabl
 <li>PCI_VENDOR_ID
 : <a class="el" href="pci_8h.html#ae01a383ed97f2fef624e91dadb388637">pci.h</a>
 </li>
-<li>PR_16
-: <a class="el" href="printf_8h.html#a9ba20e5608915357a50d9878e9b62be7">printf.h</a>
+<li>PI
+: <a class="el" href="maths_8c.html#a598a3330b3c21701223ee0ca14316eca">maths.c</a>
 </li>
-<li>PR_32
-: <a class="el" href="printf_8h.html#ab2ab9635a6b1f89f07c09f33eced0928">printf.h</a>
+<li>PIC1
+: <a class="el" href="idt_8c.html#a6b115109e4a0d3c5fb6252d091e86bfe">idt.c</a>
 </li>
-<li>PR_64
-: <a class="el" href="printf_8h.html#a2f851168a74b6087267ee40b76495a3a">printf.h</a>
+<li>PIC1_COMMAND
+: <a class="el" href="idt_8c.html#ad1ba81484ab03e762d2e09f851c0901f">idt.c</a>
+</li>
+<li>PIC1_DATA
+: <a class="el" href="idt_8c.html#af27e966ec947ca1172f30ae301c5f24b">idt.c</a>
+</li>
+<li>PIC2
+: <a class="el" href="idt_8c.html#ac90003f52c8d736193efc954ece08e58">idt.c</a>
+</li>
+<li>PIC2_COMMAND
+: <a class="el" href="idt_8c.html#a11d8793812c9d340e9a64cce26ee0570">idt.c</a>
+</li>
+<li>PIC2_DATA
+: <a class="el" href="idt_8c.html#ab6d3b9f6f427357310896adf176145f1">idt.c</a>
+</li>
+<li>PIC_EOI
+: <a class="el" href="idt_8c.html#a170d8eebdb48c16cfcd60cbd46760cb2">idt.c</a>
 </li>
 <li>PR_BUFLEN
 : <a class="el" href="printf_8h.html#a47e3daf525535345268f705184476c08">printf.h</a>
 </li>
-<li>PR_CA
-: <a class="el" href="printf_8h.html#a187c80647031ea48ca18b8f7b0ab271d">printf.h</a>
+<li>PR_INT32
+: <a class="el" href="printf_8h.html#a1eec091ed1fc9f1c8c6bab32cd0b0b3e">printf.h</a>
 </li>
-<li>PR_FP
-: <a class="el" href="printf_8h.html#a404b10cffb9700bbfeb3c7ab69bdad3a">printf.h</a>
+<li>PR_INT64
+: <a class="el" href="printf_8h.html#a422a11c40865dc17f34852fa140bd0e2">printf.h</a>
 </li>
-<li>PR_LJ
-: <a class="el" href="printf_8h.html#ae3124ee3c53519252288890e8cd9add4">printf.h</a>
+<li>PR_LEFT_JUSTIFY
+: <a class="el" href="printf_8h.html#ae642ea4696d1e192ec44d19396afdbd0">printf.h</a>
 </li>
-<li>PR_LZ
-: <a class="el" href="printf_8h.html#aea306aaa364d93dd3df1bace774b5142">printf.h</a>
+<li>PR_LEFT_ZEROES
+: <a class="el" href="printf_8h.html#a1654b2ff7a99a1731ff91b36174de488">printf.h</a>
 </li>
-<li>PR_SG
-: <a class="el" href="printf_8h.html#a023a0723b50fff5266865a146ebc2bfc">printf.h</a>
+<li>PR_SIGNED
+: <a class="el" href="printf_8h.html#a08cb5dbd36e636094080e3ecd5128a1a">printf.h</a>
 </li>
-<li>PR_WS
-: <a class="el" href="printf_8h.html#ae16cba700bfdce27f0239b062a9d72dc">printf.h</a>
+<li>PR_UPPER_HEX
+: <a class="el" href="printf_8h.html#ad4620a35b57415387cdbe1f1a2272fa7">printf.h</a>
+</li>
+<li>PR_WAS_NEG
+: <a class="el" href="printf_8h.html#a0041ed408d46184c97f6d8f7f4312049">printf.h</a>
+</li>
+<li>PRESENT
+: <a class="el" href="gdt_8c.html#a762815cf6b58d4b92bcf9a904f8270d9">gdt.c</a>
+</li>
+<li>PRINTF_LIKE
+: <a class="el" href="printf_8h.html#a875d3a11797eeea02bdd633626209f1d">printf.h</a>
+</li>
+<li>PS
+: <a class="el" href="gdt_8c.html#ad7f630556c2cd30d8d8976e0f6e7f749">gdt.c</a>
 </li>
 <li>PVD_LBA
 : <a class="el" href="iso9660_8h.html#aca5c75554d8731ab9e4bcceba2341749">iso9660.h</a>
@@ -333,7 +369,7 @@ $(document).ready(function(){initNavTree('globals_defs_p.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:13 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

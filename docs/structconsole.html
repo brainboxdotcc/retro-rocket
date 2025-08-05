@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('structconsole.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 
+<p>Represents a text-mode console buffer.  
+ <a href="structconsole.html#details">More...</a></p>
+
 <p><code>#include &lt;video.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for console:</div>
@@ -120,7 +123,10 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a3792de1a10e5002f78b3d3c7b8a9decb"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structconsole.html#a3792de1a10e5002f78b3d3c7b8a9decb">bufcnt</a></td></tr>
 <tr class="separator:a3792de1a10e5002f78b3d3c7b8a9decb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a text-mode console buffer. </p>
+<p>Low-level output functions (e.g. <a class="el" href="video_8h.html#a6aa3e180e6074ca3376aae3fe2521967" title="Write a single character to the console.">put()</a>, <a class="el" href="video_8h.html#a998a88c58c530407ae8b304a306b74fe" title="Write a null-terminated string to the console.">putstring()</a>) operate against a console instance. Only one console is active at a time. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a51ddcfb73f1f549d1ef15bee3c97a50b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a51ddcfb73f1f549d1ef15bee3c97a50b">&#9670;&nbsp;</a></span>attributes</h2>
 
@@ -132,6 +138,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Text attributes (e.g. colours). </p>
 
 </div>
 </div>
@@ -146,6 +153,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Buffer size or counter. </p>
 
 </div>
 </div>
@@ -160,6 +168,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>External buffer, if used. </p>
 
 </div>
 </div>
@@ -174,6 +183,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Marks console as modified (needs redraw). </p>
 
 </div>
 </div>
@@ -188,6 +198,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Optional backing buffer for console text. </p>
 
 </div>
 </div>
@@ -202,6 +213,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Last character written. </p>
 
 </div>
 </div>
@@ -216,6 +228,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Current cursor X position. </p>
 
 </div>
 </div>
@@ -230,6 +243,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Current cursor Y position. </p>
 
 </div>
 </div>
@@ -239,7 +253,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structconsole.html">console</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('structiso9660.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 
+<p>High-level ISO9660 volume mapping.  
+ <a href="structiso9660.html#details">More...</a></p>
+
 <p><code>#include &lt;iso9660.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for iso9660:</div>
@@ -118,7 +121,10 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a3b9054f8346b22a70d432ba82abbe092"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstorage__device__t.html">storage_device_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiso9660.html#a3b9054f8346b22a70d432ba82abbe092">device</a></td></tr>
 <tr class="separator:a3b9054f8346b22a70d432ba82abbe092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>High-level ISO9660 volume mapping. </p>
+<p>Wraps an ISO9660 filesystem into a linked list of VFS entries usable by the kernel's virtual filesystem layer. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a3b9054f8346b22a70d432ba82abbe092"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b9054f8346b22a70d432ba82abbe092">&#9670;&nbsp;</a></span>device</h2>
 
@@ -130,6 +136,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Underlying storage device </p>
 
 </div>
 </div>
@@ -144,6 +151,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Non-zero if Joliet extensions are in use </p>
 
 </div>
 </div>
@@ -158,6 +166,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA of the path table </p>
 
 </div>
 </div>
@@ -172,6 +181,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Pointer to root directory in VFS </p>
 
 </div>
 </div>
@@ -186,6 +196,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>LBA of the root directory extent </p>
 
 </div>
 </div>
@@ -200,6 +211,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Length of the root directory extent </p>
 
 </div>
 </div>
@@ -214,6 +226,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume name string </p>
 
 </div>
 </div>
@@ -223,7 +236,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structiso9660.html">iso9660</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

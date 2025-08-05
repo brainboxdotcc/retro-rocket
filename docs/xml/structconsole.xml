@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Marks console as modified (needs redraw). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="35" column="6" bodyfile="include/video.h" bodystart="35" bodyend="-1"/>
+        <location file="include/video.h" line="43" column="6" bodyfile="include/video.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structconsole_1acdabb6d09ff37db3aa529a457b51dc51" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -25,10 +26,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Current cursor X position. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="36" column="9" bodyfile="include/video.h" bodystart="36" bodyend="-1"/>
+        <location file="include/video.h" line="44" column="9" bodyfile="include/video.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structconsole_1a1e4d9fbe95f48cfbcca68b597f0952f4" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -38,10 +40,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Current cursor Y position. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="37" column="9" bodyfile="include/video.h" bodystart="37" bodyend="-1"/>
+        <location file="include/video.h" line="45" column="9" bodyfile="include/video.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structconsole_1a51ddcfb73f1f549d1ef15bee3c97a50b" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -51,10 +54,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Text attributes (e.g. colours). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="38" column="9" bodyfile="include/video.h" bodystart="38" bodyend="-1"/>
+        <location file="include/video.h" line="46" column="9" bodyfile="include/video.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structconsole_1aa6fec9b1069d77d705298d419cfbc5f1" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -64,10 +68,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Last character written. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="39" column="9" bodyfile="include/video.h" bodystart="39" bodyend="-1"/>
+        <location file="include/video.h" line="47" column="9" bodyfile="include/video.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structconsole_1a91d1627e8cdd4e8cd99dbe49b9240d4e" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -77,10 +82,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Optional backing buffer for console text. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="40" column="6" bodyfile="include/video.h" bodystart="40" bodyend="-1"/>
+        <location file="include/video.h" line="48" column="6" bodyfile="include/video.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structconsole_1aa45e29de771517b78d3637bb503f21ec" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -90,10 +96,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>External buffer, if used. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="41" column="6" bodyfile="include/video.h" bodystart="41" bodyend="-1"/>
+        <location file="include/video.h" line="49" column="6" bodyfile="include/video.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structconsole_1a3792de1a10e5002f78b3d3c7b8a9decb" prot="public" static="no" mutable="no">
         <type>size_t</type>
@@ -103,15 +110,18 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Buffer size or counter. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/video.h" line="42" column="8" bodyfile="include/video.h" bodystart="42" bodyend="-1"/>
+        <location file="include/video.h" line="50" column="8" bodyfile="include/video.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Represents a text-mode console buffer. </para>
     </briefdescription>
     <detaileddescription>
+<para>Low-level output functions (e.g. <ref refid="video_8h_1a6aa3e180e6074ca3376aae3fe2521967" kindref="member">put()</ref>, <ref refid="video_8h_1a998a88c58c530407ae8b304a306b74fe" kindref="member">putstring()</ref>) operate against a console instance. Only one console is active at a time. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="3">
@@ -142,7 +152,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/video.h" line="33" column="1" bodyfile="include/video.h" bodystart="34" bodyend="43"/>
+    <location file="include/video.h" line="42" column="1" bodyfile="include/video.h" bodystart="42" bodyend="51"/>
     <listofallmembers>
       <member refid="structconsole_1a51ddcfb73f1f549d1ef15bee3c97a50b" prot="public" virt="non-virtual"><scope>console</scope><name>attributes</name></member>
       <member refid="structconsole_1a3792de1a10e5002f78b3d3c7b8a9decb" prot="public" virt="non-virtual"><scope>console</scope><name>bufcnt</name></member>

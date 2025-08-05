@@ -154,12 +154,23 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:acfa58a246fcaaad03a0775959898ca27"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structicmp__packet.html">icmp_packet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#acfa58a246fcaaad03a0775959898ca27">__attribute__</a> ((packed)) icmp_packet_t</td></tr>
+<tr class="memdesc:acfa58a246fcaaad03a0775959898ca27"><td class="mdescLeft">&#160;</td><td class="mdescRight">ACPI Root System Description Pointer (RSDP)  <a href="icmp_8h.html#acfa58a246fcaaad03a0775959898ca27">More...</a><br /></td></tr>
 <tr class="separator:acfa58a246fcaaad03a0775959898ca27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4afc474a5b445a43bca5a76dd13d18dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#a4afc474a5b445a43bca5a76dd13d18dc">icmp_handle_packet</a> ([[maybe_unused]] ip_packet_t *encap_packet, icmp_packet_t *packet, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
 <tr class="memdesc:a4afc474a5b445a43bca5a76dd13d18dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle ICMP packet from the IP driver.  <a href="icmp_8h.html#a4afc474a5b445a43bca5a76dd13d18dc">More...</a><br /></td></tr>
 <tr class="separator:a4afc474a5b445a43bca5a76dd13d18dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09fa01a48262e99d0bab6d3591999ded"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#a09fa01a48262e99d0bab6d3591999ded">icmp_send_echo</a> (uint32_t destination, uint16_t <a class="el" href="ip_8h.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>, uint16_t <a class="el" href="tcp_8h.html#aaf1b939170b82732448a965a5b33ad4e">seq</a>)</td></tr>
-<tr class="separator:a09fa01a48262e99d0bab6d3591999ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad55e8c71d3411f3d12192ee464921b16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#ad55e8c71d3411f3d12192ee464921b16">icmp_send_echo</a> (uint8_t *destination, uint16_t <a class="el" href="dns_8c.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>, uint16_t <a class="el" href="tcp_8h.html#aaf1b939170b82732448a965a5b33ad4e">seq</a>)</td></tr>
+<tr class="separator:ad55e8c71d3411f3d12192ee464921b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62934a6282501a76d9e90953c4920a00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#a62934a6282501a76d9e90953c4920a00">icmp_send_time_exceeded</a> (ip_packet_t *original_ip, uint8_t <a class="el" href="icmp_8h.html#a966576744a473fafb7687f8e5649941f">code</a>)</td></tr>
+<tr class="separator:a62934a6282501a76d9e90953c4920a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ed2c25161f2e0746821fd226f236d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#a32ed2c25161f2e0746821fd226f236d6">icmp_send_destination_unreachable</a> (ip_packet_t *original_ip, uint8_t <a class="el" href="icmp_8h.html#a966576744a473fafb7687f8e5649941f">code</a>)</td></tr>
+<tr class="separator:a32ed2c25161f2e0746821fd226f236d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e72f4ce94ed353a2a53e989d56b9a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#a01e72f4ce94ed353a2a53e989d56b9a8">icmp_send_parameter_problem</a> (ip_packet_t *original_ip, uint8_t pointer_offset)</td></tr>
+<tr class="separator:a01e72f4ce94ed353a2a53e989d56b9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40027800f414193334e999cadd995468"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#a40027800f414193334e999cadd995468">icmp_send_redirect</a> (ip_packet_t *original_ip, uint8_t <a class="el" href="icmp_8h.html#a966576744a473fafb7687f8e5649941f">code</a>, uint32_t new_gateway_ip)</td></tr>
+<tr class="separator:a40027800f414193334e999cadd995468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27ee854d8b9dc3e3ff45adfac06ae358"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icmp_8h.html#a27ee854d8b9dc3e3ff45adfac06ae358">icmp_send_fragmentation_needed</a> (ip_packet_t *original_ip, uint16_t mtu)</td></tr>
+<tr class="separator:a27ee854d8b9dc3e3ff45adfac06ae358"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -194,7 +205,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="adc205b18eb097cd005b12767b92d1d06"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc205b18eb097cd005b12767b92d1d06">&#9670;&nbsp;</a></span>icmp_redirect_code_t</h2>
@@ -300,6 +311,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>ACPI Root System Description Pointer (RSDP) </p>
+<p>FAT32 FSINFO structure.</p>
+<p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
+<p>Definition of a DHCP packet.</p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
+
 </div>
 </div>
 <a id="a4afc474a5b445a43bca5a76dd13d18dc"></a>
@@ -346,8 +368,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a09fa01a48262e99d0bab6d3591999ded"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09fa01a48262e99d0bab6d3591999ded">&#9670;&nbsp;</a></span>icmp_send_echo()</h2>
+<a id="a32ed2c25161f2e0746821fd226f236d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ed2c25161f2e0746821fd226f236d6">&#9670;&nbsp;</a></span>icmp_send_destination_unreachable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void icmp_send_destination_unreachable </td>
+          <td>(</td>
+          <td class="paramtype">ip_packet_t *&#160;</td>
+          <td class="paramname"><em>original_ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>code</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad55e8c71d3411f3d12192ee464921b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad55e8c71d3411f3d12192ee464921b16">&#9670;&nbsp;</a></span>icmp_send_echo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -355,7 +405,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void icmp_send_echo </td>
           <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
@@ -369,6 +419,124 @@ Variables</h2></td></tr>
           <td></td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>seq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27ee854d8b9dc3e3ff45adfac06ae358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27ee854d8b9dc3e3ff45adfac06ae358">&#9670;&nbsp;</a></span>icmp_send_fragmentation_needed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void icmp_send_fragmentation_needed </td>
+          <td>(</td>
+          <td class="paramtype">ip_packet_t *&#160;</td>
+          <td class="paramname"><em>original_ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>mtu</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a01e72f4ce94ed353a2a53e989d56b9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e72f4ce94ed353a2a53e989d56b9a8">&#9670;&nbsp;</a></span>icmp_send_parameter_problem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void icmp_send_parameter_problem </td>
+          <td>(</td>
+          <td class="paramtype">ip_packet_t *&#160;</td>
+          <td class="paramname"><em>original_ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pointer_offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a40027800f414193334e999cadd995468"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40027800f414193334e999cadd995468">&#9670;&nbsp;</a></span>icmp_send_redirect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void icmp_send_redirect </td>
+          <td>(</td>
+          <td class="paramtype">ip_packet_t *&#160;</td>
+          <td class="paramname"><em>original_ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>code</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>new_gateway_ip</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62934a6282501a76d9e90953c4920a00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62934a6282501a76d9e90953c4920a00">&#9670;&nbsp;</a></span>icmp_send_time_exceeded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void icmp_send_time_exceeded </td>
+          <td>(</td>
+          <td class="paramtype">ip_packet_t *&#160;</td>
+          <td class="paramname"><em>original_ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>code</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -583,7 +751,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="icmp_8h.html">icmp.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structioapic__t.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of an IOAPIC.  
+<p>Describes a detected IOAPIC from the MADT table.  
  <a href="structioapic__t.html#details">More...</a></p>
 
 <p><code>#include &lt;acpi.h&gt;</code></p>
@@ -107,16 +107,20 @@ $(document).ready(function(){initNavTree('structioapic__t.html',''); initResizab
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a9715af343d97df90aab7b1b586c68813"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structioapic__t.html#a9715af343d97df90aab7b1b586c68813">id</a></td></tr>
+<tr class="memdesc:a9715af343d97df90aab7b1b586c68813"><td class="mdescLeft">&#160;</td><td class="mdescRight">IOAPIC ID as reported by MADT.  <a href="structioapic__t.html#a9715af343d97df90aab7b1b586c68813">More...</a><br /></td></tr>
 <tr class="separator:a9715af343d97df90aab7b1b586c68813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71d2c52794b3140666604d3daf756e52"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structioapic__t.html#a71d2c52794b3140666604d3daf756e52">paddr</a></td></tr>
+<tr class="memdesc:a71d2c52794b3140666604d3daf756e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Physical address of the IOAPIC's MMIO region.  <a href="structioapic__t.html#a71d2c52794b3140666604d3daf756e52">More...</a><br /></td></tr>
 <tr class="separator:a71d2c52794b3140666604d3daf756e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd813ec1d4e2d0dc276f7ff9b930ac50"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structioapic__t.html#acd813ec1d4e2d0dc276f7ff9b930ac50">gsi_base</a></td></tr>
+<tr class="memdesc:acd813ec1d4e2d0dc276f7ff9b930ac50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global System Interrupt (GSI) base for this IOAPIC.  <a href="structioapic__t.html#acd813ec1d4e2d0dc276f7ff9b930ac50">More...</a><br /></td></tr>
 <tr class="separator:acd813ec1d4e2d0dc276f7ff9b930ac50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a941f899ca4efd9af4c97436a14ee2ae9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structioapic__t.html#a941f899ca4efd9af4c97436a14ee2ae9">gsi_count</a></td></tr>
+<tr class="memdesc:a941f899ca4efd9af4c97436a14ee2ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of GSIs this IOAPIC handles.  <a href="structioapic__t.html#a941f899ca4efd9af4c97436a14ee2ae9">More...</a><br /></td></tr>
 <tr class="separator:a941f899ca4efd9af4c97436a14ee2ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of an IOAPIC. </p>
+<div class="textblock"><p>Describes a detected IOAPIC from the MADT table. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="acd813ec1d4e2d0dc276f7ff9b930ac50"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acd813ec1d4e2d0dc276f7ff9b930ac50">&#9670;&nbsp;</a></span>gsi_base</h2>
@@ -129,6 +133,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Global System Interrupt (GSI) base for this IOAPIC. </p>
 
 </div>
 </div>
@@ -144,6 +150,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Number of GSIs this IOAPIC handles. </p>
+
 </div>
 </div>
 <a id="a9715af343d97df90aab7b1b586c68813"></a>
@@ -157,6 +165,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>IOAPIC ID as reported by MADT. </p>
 
 </div>
 </div>
@@ -172,6 +182,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Physical address of the IOAPIC's MMIO region. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -180,7 +192,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structioapic__t.html">ioapic_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

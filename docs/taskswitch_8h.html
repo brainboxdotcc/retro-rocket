@@ -94,38 +94,45 @@ $(document).ready(function(){initNavTree('taskswitch_8h.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 
-<p>Handles processes and multitasking.  
+<p>Handles process management, multitasking, and scheduling.  
 <a href="#details">More...</a></p>
-<table class="memberdecls">
+<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html">process_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a process in the system.  <a href="structprocess__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structproc__id__t.html">proc_id_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process identifier struct. Used to identify processes by ID in the hash map only, contains the id and a pointer to the actual <a class="el" href="structprocess__t.html">process_t</a> struct.  <a href="structproc__id__t.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process identifier struct.  <a href="structproc__id__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidle__timer__t.html">idle_timer_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An idle timer.  <a href="structidle__timer__t.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an idle timer callback.  <a href="structidle__timer__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a7a26cb7f5678736cec66712d6df1d4ed"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a></td></tr>
+<tr class="memdesc:a7a26cb7f5678736cec66712d6df1d4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process ID type (unique identifier for a process).  <a href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">More...</a><br /></td></tr>
 <tr class="separator:a7a26cb7f5678736cec66712d6df1d4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2306308627701b66dc6f3babe821ab4"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#af2306308627701b66dc6f3babe821ab4">uid_t</a></td></tr>
+<tr class="memdesc:af2306308627701b66dc6f3babe821ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">User ID type (reserved for future use).  <a href="taskswitch_8h.html#af2306308627701b66dc6f3babe821ab4">More...</a><br /></td></tr>
 <tr class="separator:af2306308627701b66dc6f3babe821ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7352f1065fe606194d792e2b292cf83"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#aa7352f1065fe606194d792e2b292cf83">gid_t</a></td></tr>
+<tr class="memdesc:aa7352f1065fe606194d792e2b292cf83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Group ID type (reserved for future use).  <a href="taskswitch_8h.html#aa7352f1065fe606194d792e2b292cf83">More...</a><br /></td></tr>
 <tr class="separator:aa7352f1065fe606194d792e2b292cf83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66e2436dbfe8b3600c090f28627b621f"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a66e2436dbfe8b3600c090f28627b621f">cpu_id_t</a></td></tr>
+<tr class="memdesc:a66e2436dbfe8b3600c090f28627b621f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logical CPU ID type.  <a href="taskswitch_8h.html#a66e2436dbfe8b3600c090f28627b621f">More...</a><br /></td></tr>
 <tr class="separator:a66e2436dbfe8b3600c090f28627b621f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82c77e5c902b86503a57e02bb4314bad"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">proc_idle_timer_t</a>) (void)</td></tr>
+<tr class="memdesc:a82c77e5c902b86503a57e02bb4314bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer type for an idle timer callback.  <a href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">More...</a><br /></td></tr>
 <tr class="separator:a82c77e5c902b86503a57e02bb4314bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ab97efa0d1c4aeaf55ff756bf16685854"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854">process_state_t</a> { <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857">PROC_RUNNING</a>
 , <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c">PROC_IDLE</a>
-, <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a36e1fd61daba444bb9738105db8d59b9">PROC_DELET</a>
+, <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a4740dbae0b209f4840c2b83e57363a36">PROC_DELETE</a>
  }</td></tr>
 <tr class="memdesc:ab97efa0d1c4aeaf55ff756bf16685854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the current state of a process.  <a href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854">More...</a><br /></td></tr>
 <tr class="separator:ab97efa0d1c4aeaf55ff756bf16685854"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,57 +145,55 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa489f46acde8e80831f0432a1da6e695"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#aa489f46acde8e80831f0432a1da6e695">proc_load</a> (const char *fullpath, struct <a class="el" href="structconsole.html">console</a> *cons, <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> parent_pid, const char *csd)</td></tr>
-<tr class="memdesc:aa489f46acde8e80831f0432a1da6e695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a new BASIC process.  <a href="taskswitch_8h.html#aa489f46acde8e80831f0432a1da6e695">More...</a><br /></td></tr>
+<tr class="memdesc:aa489f46acde8e80831f0432a1da6e695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load and start a new BASIC process.  <a href="taskswitch_8h.html#aa489f46acde8e80831f0432a1da6e695">More...</a><br /></td></tr>
 <tr class="separator:aa489f46acde8e80831f0432a1da6e695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5a40192ac7fb47cf38c7e803ccd0efb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ab5a40192ac7fb47cf38c7e803ccd0efb">proc_find</a> (<a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> pid)</td></tr>
-<tr class="memdesc:ab5a40192ac7fb47cf38c7e803ccd0efb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a process by ID.  <a href="taskswitch_8h.html#ab5a40192ac7fb47cf38c7e803ccd0efb">More...</a><br /></td></tr>
+<tr class="memdesc:ab5a40192ac7fb47cf38c7e803ccd0efb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a process by PID.  <a href="taskswitch_8h.html#ab5a40192ac7fb47cf38c7e803ccd0efb">More...</a><br /></td></tr>
 <tr class="separator:ab5a40192ac7fb47cf38c7e803ccd0efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d871c77c8a1a04420b1b09715d0b177"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a6d871c77c8a1a04420b1b09715d0b177">proc_cur</a> ()</td></tr>
-<tr class="memdesc:a6d871c77c8a1a04420b1b09715d0b177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return detail of current process.  <a href="taskswitch_8h.html#a6d871c77c8a1a04420b1b09715d0b177">More...</a><br /></td></tr>
-<tr class="separator:a6d871c77c8a1a04420b1b09715d0b177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8769acde79d259426e68e9e4fba6544"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#aa8769acde79d259426e68e9e4fba6544">proc_cur</a> (uint8_t logical_cpu)</td></tr>
+<tr class="memdesc:aa8769acde79d259426e68e9e4fba6544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current process for a logical CPU.  <a href="taskswitch_8h.html#aa8769acde79d259426e68e9e4fba6544">More...</a><br /></td></tr>
+<tr class="separator:aa8769acde79d259426e68e9e4fba6544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b2b24e480bc2b9188e720c028795cee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a8b2b24e480bc2b9188e720c028795cee">proc_wait</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc, <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> otherpid)</td></tr>
-<tr class="memdesc:a8b2b24e480bc2b9188e720c028795cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark a process as waiting for another process to complete.  <a href="taskswitch_8h.html#a8b2b24e480bc2b9188e720c028795cee">More...</a><br /></td></tr>
+<tr class="memdesc:a8b2b24e480bc2b9188e720c028795cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark a process as waiting for another to complete.  <a href="taskswitch_8h.html#a8b2b24e480bc2b9188e720c028795cee">More...</a><br /></td></tr>
 <tr class="separator:a8b2b24e480bc2b9188e720c028795cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb94173794194e3382dc5482b7e0aa62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#abb94173794194e3382dc5482b7e0aa62">proc_run</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc)</td></tr>
-<tr class="memdesc:abb94173794194e3382dc5482b7e0aa62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run BASIC program for one atomic cycle.  <a href="taskswitch_8h.html#abb94173794194e3382dc5482b7e0aa62">More...</a><br /></td></tr>
+<tr class="memdesc:abb94173794194e3382dc5482b7e0aa62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute one atomic BASIC cycle for a process.  <a href="taskswitch_8h.html#abb94173794194e3382dc5482b7e0aa62">More...</a><br /></td></tr>
 <tr class="separator:abb94173794194e3382dc5482b7e0aa62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7844baa5edadb538de03bc3494e947cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a7844baa5edadb538de03bc3494e947cc">proc_ended</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc)</td></tr>
-<tr class="memdesc:a7844baa5edadb538de03bc3494e947cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the program has ended.  <a href="taskswitch_8h.html#a7844baa5edadb538de03bc3494e947cc">More...</a><br /></td></tr>
+<tr class="memdesc:a7844baa5edadb538de03bc3494e947cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a program has ended.  <a href="taskswitch_8h.html#a7844baa5edadb538de03bc3494e947cc">More...</a><br /></td></tr>
 <tr class="separator:a7844baa5edadb538de03bc3494e947cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8951b9dab6452cf831a751d0cda64a5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a8951b9dab6452cf831a751d0cda64a5d">proc_kill</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc)</td></tr>
-<tr class="memdesc:a8951b9dab6452cf831a751d0cda64a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a process.  <a href="taskswitch_8h.html#a8951b9dab6452cf831a751d0cda64a5d">More...</a><br /></td></tr>
+<tr class="memdesc:a8951b9dab6452cf831a751d0cda64a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a process immediately.  <a href="taskswitch_8h.html#a8951b9dab6452cf831a751d0cda64a5d">More...</a><br /></td></tr>
 <tr class="separator:a8951b9dab6452cf831a751d0cda64a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b25ff76590322d996a0cb108665cedc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a7b25ff76590322d996a0cb108665cedc">proc_kill_id</a> (<a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> <a class="el" href="ip_8h.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>)</td></tr>
-<tr class="memdesc:a7b25ff76590322d996a0cb108665cedc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a process by ID.  <a href="taskswitch_8h.html#a7b25ff76590322d996a0cb108665cedc">More...</a><br /></td></tr>
+<tr class="memitem:a7b25ff76590322d996a0cb108665cedc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a7b25ff76590322d996a0cb108665cedc">proc_kill_id</a> (<a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> <a class="el" href="dns_8c.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>)</td></tr>
+<tr class="memdesc:a7b25ff76590322d996a0cb108665cedc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a process by PID.  <a href="taskswitch_8h.html#a7b25ff76590322d996a0cb108665cedc">More...</a><br /></td></tr>
 <tr class="separator:a7b25ff76590322d996a0cb108665cedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae5fc9e36c6eef167c4207ed63cf17be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#aae5fc9e36c6eef167c4207ed63cf17be">proc_show_list</a> ()</td></tr>
-<tr class="memdesc:aae5fc9e36c6eef167c4207ed63cf17be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display a diagnostic list of all processes.  <a href="taskswitch_8h.html#aae5fc9e36c6eef167c4207ed63cf17be">More...</a><br /></td></tr>
-<tr class="separator:aae5fc9e36c6eef167c4207ed63cf17be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af57a1ba1649626d231502d6c23bbac49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#af57a1ba1649626d231502d6c23bbac49">proc_loop</a> ()</td></tr>
-<tr class="memdesc:af57a1ba1649626d231502d6c23bbac49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the process scheduling loop.  <a href="taskswitch_8h.html#af57a1ba1649626d231502d6c23bbac49">More...</a><br /></td></tr>
-<tr class="separator:af57a1ba1649626d231502d6c23bbac49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85615075496bba1788714ffe2b8eb472"><td class="memItemLeft" align="right" valign="top">_Noreturn void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a85615075496bba1788714ffe2b8eb472">proc_loop</a> ()</td></tr>
+<tr class="memdesc:a85615075496bba1788714ffe2b8eb472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the process scheduling loop.  <a href="taskswitch_8h.html#a85615075496bba1788714ffe2b8eb472">More...</a><br /></td></tr>
+<tr class="separator:a85615075496bba1788714ffe2b8eb472"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ec64ff3e1bbf088a6611d7304cf72e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a1ec64ff3e1bbf088a6611d7304cf72e2">proc_timer</a> ()</td></tr>
-<tr class="memdesc:a1ec64ff3e1bbf088a6611d7304cf72e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change to next scheduled process.  <a href="taskswitch_8h.html#a1ec64ff3e1bbf088a6611d7304cf72e2">More...</a><br /></td></tr>
+<tr class="memdesc:a1ec64ff3e1bbf088a6611d7304cf72e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to the next scheduled process.  <a href="taskswitch_8h.html#a1ec64ff3e1bbf088a6611d7304cf72e2">More...</a><br /></td></tr>
 <tr class="separator:a1ec64ff3e1bbf088a6611d7304cf72e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01a99ff8bacb9f2f0509b21f45fc7217"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a01a99ff8bacb9f2f0509b21f45fc7217">proc_total</a> ()</td></tr>
-<tr class="memdesc:a01a99ff8bacb9f2f0509b21f45fc7217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of running processes.  <a href="taskswitch_8h.html#a01a99ff8bacb9f2f0509b21f45fc7217">More...</a><br /></td></tr>
+<tr class="memdesc:a01a99ff8bacb9f2f0509b21f45fc7217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get total number of running processes.  <a href="taskswitch_8h.html#a01a99ff8bacb9f2f0509b21f45fc7217">More...</a><br /></td></tr>
 <tr class="separator:a01a99ff8bacb9f2f0509b21f45fc7217"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98ea5946e6a5a7a69b87f081ddf0b1e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a98ea5946e6a5a7a69b87f081ddf0b1e4">proc_id</a> (int64_t index)</td></tr>
-<tr class="memdesc:a98ea5946e6a5a7a69b87f081ddf0b1e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of a process by index number.  <a href="taskswitch_8h.html#a98ea5946e6a5a7a69b87f081ddf0b1e4">More...</a><br /></td></tr>
+<tr class="memdesc:a98ea5946e6a5a7a69b87f081ddf0b1e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the PID of a process by index.  <a href="taskswitch_8h.html#a98ea5946e6a5a7a69b87f081ddf0b1e4">More...</a><br /></td></tr>
 <tr class="separator:a98ea5946e6a5a7a69b87f081ddf0b1e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ad2dd4ffab2aaabd37998ec3b3216af48">proc_register_idle</a> (<a class="el" href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">proc_idle_timer_t</a> handler, <a class="el" href="taskswitch_8h.html#ab6c8a1a3016b13baf9af7476cceac7d4">idle_type_t</a> <a class="el" href="icmp_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a>)</td></tr>
-<tr class="memdesc:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a function to be called periodically during idle time.  <a href="taskswitch_8h.html#ad2dd4ffab2aaabd37998ec3b3216af48">More...</a><br /></td></tr>
+<tr class="memdesc:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an idle callback function.  <a href="taskswitch_8h.html#ad2dd4ffab2aaabd37998ec3b3216af48">More...</a><br /></td></tr>
 <tr class="separator:ad2dd4ffab2aaabd37998ec3b3216af48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0340f929d97ebceb2e0d7eaa9d4d3ff"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff">proc_set_csd</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc, const char *csd)</td></tr>
-<tr class="memdesc:aa0340f929d97ebceb2e0d7eaa9d4d3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change CSD (currently selected directory) of process.  <a href="taskswitch_8h.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff">More...</a><br /></td></tr>
+<tr class="memdesc:aa0340f929d97ebceb2e0d7eaa9d4d3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the CSD (current selected directory) of a process.  <a href="taskswitch_8h.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff">More...</a><br /></td></tr>
 <tr class="separator:aa0340f929d97ebceb2e0d7eaa9d4d3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab25d44702b6e10e723714c368c4a7520"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520">init_process</a> ()</td></tr>
+<tr class="memdesc:ab25d44702b6e10e723714c368c4a7520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the process subsystem.  <a href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520">More...</a><br /></td></tr>
 <tr class="separator:ab25d44702b6e10e723714c368c4a7520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handles processes and multitasking. </p>
-<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Handles process management, multitasking, and scheduling. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a66e2436dbfe8b3600c090f28627b621f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66e2436dbfe8b3600c090f28627b621f">&#9670;&nbsp;</a></span>cpu_id_t</h2>
@@ -201,6 +206,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Logical CPU ID type. </p>
 
 </div>
 </div>
@@ -216,6 +223,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Group ID type (reserved for future use). </p>
+
 </div>
 </div>
 <a id="a7a26cb7f5678736cec66712d6df1d4ed"></a>
@@ -229,6 +238,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Process ID type (unique identifier for a process). </p>
 
 </div>
 </div>
@@ -244,6 +255,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Function pointer type for an idle timer callback. </p>
+<p>Functions registered here are periodically invoked during idle time, depending on idle type. </p>
+
 </div>
 </div>
 <a id="af2306308627701b66dc6f3babe821ab4"></a>
@@ -257,6 +271,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>User ID type (reserved for future use). </p>
 
 </div>
 </div>
@@ -275,8 +291,10 @@ Functions</h2></td></tr>
 
 <p>Types of idle task. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab6c8a1a3016b13baf9af7476cceac7d4a170f38abe527a71ef15f1d6fd1ba9677"></a>IDLE_FOREGROUND&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab6c8a1a3016b13baf9af7476cceac7d4a875e3a3a86598eb910bc4405a16e8a99"></a>IDLE_BACKGROUND&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab6c8a1a3016b13baf9af7476cceac7d4a170f38abe527a71ef15f1d6fd1ba9677"></a>IDLE_FOREGROUND&#160;</td><td class="fielddoc"><p>Idle task running in main task loop between switches </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab6c8a1a3016b13baf9af7476cceac7d4a875e3a3a86598eb910bc4405a16e8a99"></a>IDLE_BACKGROUND&#160;</td><td class="fielddoc"><p>Idle task running via LAPIC timer ISR </p>
+</td></tr>
 </table>
 
 </div>
@@ -295,9 +313,12 @@ Functions</h2></td></tr>
 
 <p>Represents the current state of a process. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857"></a>PROC_RUNNING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c"></a>PROC_IDLE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a36e1fd61daba444bb9738105db8d59b9"></a>PROC_DELET&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857"></a>PROC_RUNNING&#160;</td><td class="fielddoc"><p>Process is currently running </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c"></a>PROC_IDLE&#160;</td><td class="fielddoc"><p>Process is idle and waiting for CPU time </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a4740dbae0b209f4840c2b83e57363a36"></a>PROC_DELETE&#160;</td><td class="fielddoc"><p>Process is marked for deletion </p>
+</td></tr>
 </table>
 
 </div>
@@ -318,10 +339,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Initialise the process subsystem. </p>
+
 </div>
 </div>
-<a id="a6d871c77c8a1a04420b1b09715d0b177"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d871c77c8a1a04420b1b09715d0b177">&#9670;&nbsp;</a></span>proc_cur()</h2>
+<a id="aa8769acde79d259426e68e9e4fba6544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8769acde79d259426e68e9e4fba6544">&#9670;&nbsp;</a></span>proc_cur()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,14 +352,21 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structprocess__t.html">process_t</a>* proc_cur </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>logical_cpu</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return detail of current process. </p>
-<dl class="section return"><dt>Returns</dt><dd>process_t* process detail or NULL if no current process </dd></dl>
+<p>Get current process for a logical CPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logical_cpu</td><td>CPU ID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>process_t* Current process or NULL if none </dd></dl>
 
 </div>
 </div>
@@ -356,14 +386,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if the program has ended. </p>
+<p>Determine if a program has ended. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proc</td><td>process </td></tr>
+    <tr><td class="paramname">proc</td><td>Process to check </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int true if ended </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int Non-zero if ended, zero otherwise </dd></dl>
 
 </div>
 </div>
@@ -383,14 +413,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Find a process by ID. </p>
+<p>Find a process by PID. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pid</td><td>process ID </td></tr>
+    <tr><td class="paramname">pid</td><td>Process ID </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>process_t* process detail or NULL if not found </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>process_t* Pointer to process detail or NULL if not found </dd></dl>
 
 </div>
 </div>
@@ -410,14 +440,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the id of a process by index number. </p>
+<p>Get the PID of a process by index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>index number of process to find between 0 and <a class="el" href="taskswitch_8h.html#a01a99ff8bacb9f2f0509b21f45fc7217" title="Returns the total number of running processes.">proc_total()</a> </td></tr>
+    <tr><td class="paramname">index</td><td>Process index, between 0 and <a class="el" href="taskswitch_8h.html#a01a99ff8bacb9f2f0509b21f45fc7217" title="Get total number of running processes.">proc_total()</a> </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>pid_t process id </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>pid_t Process ID </dd></dl>
 
 </div>
 </div>
@@ -437,10 +467,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Kill a process. </p>
+<p>Kill a process immediately. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proc</td><td>process to kill </td></tr>
+    <tr><td class="paramname">proc</td><td>Process to terminate </td></tr>
   </table>
   </dd>
 </dl>
@@ -463,15 +493,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Kill a process by ID. </p>
-<dl class="section note"><dt>Note</dt><dd>Cannot be used to kill the current process from itself! </dd></dl>
+<p>Kill a process by PID. </p>
+<dl class="section note"><dt>Note</dt><dd>Cannot be used to kill the current process from itself. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>Process ID to kill </td></tr>
+    <tr><td class="paramname">id</td><td>Process ID </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if found and killed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if process found and killed, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -513,28 +543,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Load a new BASIC process. </p>
+<p>Load and start a new BASIC process. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fullpath</td><td>fully qualified path to file </td></tr>
-    <tr><td class="paramname">cons</td><td>console </td></tr>
-    <tr><td class="paramname">parent_pid</td><td>parent PID, or 0 </td></tr>
-    <tr><td class="paramname">csd</td><td>Currently selected directory </td></tr>
+    <tr><td class="paramname">fullpath</td><td>Fully qualified path to file </td></tr>
+    <tr><td class="paramname">cons</td><td>Associated console </td></tr>
+    <tr><td class="paramname">parent_pid</td><td>Parent PID, or 0 for none </td></tr>
+    <tr><td class="paramname">csd</td><td>Current selected directory </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>process_t* new process details </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>process_t* Pointer to new process details </dd></dl>
 
 </div>
 </div>
-<a id="af57a1ba1649626d231502d6c23bbac49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af57a1ba1649626d231502d6c23bbac49">&#9670;&nbsp;</a></span>proc_loop()</h2>
+<a id="a85615075496bba1788714ffe2b8eb472"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85615075496bba1788714ffe2b8eb472">&#9670;&nbsp;</a></span>proc_loop()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void proc_loop </td>
+          <td class="memname">_Noreturn void proc_loop </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -543,7 +573,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Run the process scheduling loop. </p>
-<dl class="section note"><dt>Note</dt><dd>Does not return </dd></dl>
+<p>Each logical CPU has its own scheduling loop. </p><dl class="section note"><dt>Note</dt><dd>This function does not return. </dd></dl>
 
 </div>
 </div>
@@ -573,11 +603,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Register a function to be called periodically during idle time. </p>
+<p>Register an idle callback function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">handler</td><td>handler function, void(void) </td></tr>
-    <tr><td class="paramname">type</td><td>type of idle to register </td></tr>
+    <tr><td class="paramname">handler</td><td>Function pointer, void(void) </td></tr>
+    <tr><td class="paramname">type</td><td>Foreground or background idle type </td></tr>
   </table>
   </dd>
 </dl>
@@ -600,10 +630,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Run BASIC program for one atomic cycle. </p>
+<p>Execute one atomic BASIC cycle for a process. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proc</td><td>process to execute </td></tr>
+    <tr><td class="paramname">proc</td><td>Process to run </td></tr>
   </table>
   </dd>
 </dl>
@@ -636,35 +666,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Change CSD (currently selected directory) of process. </p>
-<dl class="section note"><dt>Note</dt><dd>No validation of the path is peformed, this must be done extnerally to this function by validating the file information on VFS. </dd></dl>
+<p>Change the CSD (current selected directory) of a process. </p>
+<dl class="section note"><dt>Note</dt><dd>No validation of the path is performed here; external VFS checks must be applied before calling. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proc</td><td>Process struct </td></tr>
-    <tr><td class="paramname">csd</td><td>current directory </td></tr>
+    <tr><td class="paramname">proc</td><td>Process to update </td></tr>
+    <tr><td class="paramname">csd</td><td>New current directory </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>const char* new current directory </dd></dl>
-
-</div>
-</div>
-<a id="aae5fc9e36c6eef167c4207ed63cf17be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae5fc9e36c6eef167c4207ed63cf17be">&#9670;&nbsp;</a></span>proc_show_list()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void proc_show_list </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Display a diagnostic list of all processes. </p>
+<dl class="section return"><dt>Returns</dt><dd>const char* Updated current directory </dd></dl>
 
 </div>
 </div>
@@ -683,8 +694,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Change to next scheduled process. </p>
-<dl class="section note"><dt>Note</dt><dd>Uses the round robin scheduling algorithm </dd></dl>
+<p>Switch to the next scheduled process. </p>
+<p>Implements a round-robin scheduling algorithm. </p>
 
 </div>
 </div>
@@ -703,8 +714,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the total number of running processes. </p>
-<dl class="section return"><dt>Returns</dt><dd>int64_t number of running processes </dd></dl>
+<p>Get total number of running processes. </p>
+<dl class="section return"><dt>Returns</dt><dd>int64_t Number of running processes </dd></dl>
 
 </div>
 </div>
@@ -734,11 +745,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Mark a process as waiting for another process to complete. </p>
+<p>Mark a process as waiting for another to complete. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proc</td><td>process to mark as waiting </td></tr>
-    <tr><td class="paramname">otherpid</td><td>other process ID to wait on, must exist. </td></tr>
+    <tr><td class="paramname">proc</td><td>Process to mark as waiting </td></tr>
+    <tr><td class="paramname">otherpid</td><td>PID to wait on (must exist) </td></tr>
   </table>
   </dd>
 </dl>
@@ -751,7 +762,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="taskswitch_8h.html">taskswitch.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

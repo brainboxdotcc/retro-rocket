@@ -16,11 +16,43 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="28">
+      <node id="94">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="55">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="67">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="71">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="76">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="39">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="83">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="72">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="86">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -28,53 +60,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="108">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="102">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="48">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="107">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="60">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="112">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="103">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="89">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="110">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -82,57 +156,261 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="65">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="100">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="42">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="101">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="91">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="56">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="58">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="97">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="68">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="114">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="49">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="61">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="93">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="74">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="113">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="82">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="62">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="38">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="96">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="54">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="95">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="80">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="90">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="46">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="87">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="98">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="63">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="53">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="70">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="47">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="109">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="59">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="88">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="81">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="85">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="45">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="104">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="105">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="79">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -167,27 +445,15 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -197,32 +463,238 @@
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="52">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="36">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="40">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="73">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="51">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="84">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="43">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="69">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
@@ -234,13 +706,35 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="64">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="77">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="99">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="50">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="37">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -252,9 +746,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="92">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="75">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="41">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -266,31 +778,44 @@
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
-      <memberdef kind="function" id="timer_8h_1a47b9d70be3022fd0b5687d9794ca47bc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="timer_8h_1a64eba85413970674e0e6e03af9e9d0f4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint64_t</type>
         <definition>static uint64_t rdtsc</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>rdtsc</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Read the current Time Stamp Counter. </para>
         </briefdescription>
         <detaileddescription>
+<para>Uses the RDTSC instruction to obtain the raw CPU cycle counter. This value is CPU-local and not synchronised across cores.</para>
+<para><simplesect kind="return"><para>Current TSC value. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/timer.h" line="10" column="24" bodyfile="include/timer.h" bodystart="10" bodyend="15"/>
+        <location file="include/timer.h" line="29" column="24" bodyfile="include/timer.h" bodystart="29" bodyend="33"/>
       </memberdef>
-      <memberdef kind="function" id="timer_8h_1a6dbbb4d2fda3aef6312d0e7623acbb2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="timer_8h_1a7e343ed8cd22fe7e2cbf29c2033d53bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void sleep_one_tick</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>sleep_one_tick</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Sleep until the next timer tick. </para>
         </briefdescription>
         <detaileddescription>
+<para>Returns once the global tick counter advances by at least one. This is approximately a 10 ms delay at 100 Hz. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/timer.h" line="17" column="6" declfile="include/timer.h" declline="17" declcolumn="6"/>
+        <location file="include/timer.h" line="41" column="6" bodyfile="src/timer.c" bodystart="35" bodyend="39" declfile="include/timer.h" declline="41" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="timer_8h_1a99325999034be84a6abdf6741fe803d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -302,25 +827,46 @@
           <declname>pitch</declname>
         </param>
         <briefdescription>
+<para>Generate a short PC speaker beep at the given pitch. </para>
         </briefdescription>
         <detaileddescription>
+<para>The tone automatically stops after ~0.5 seconds, controlled by the timer interrupt.</para>
+<para><simplesect kind="note"><para>This only works if PIT channel 2 is wired to a physical speaker, which is not the case on many modern systems. Reliable only in QEMU/Bochs and older PCs.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pitch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Frequency in Hz. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/timer.h" line="18" column="6" declfile="include/timer.h" declline="18" declcolumn="6"/>
+        <location file="include/timer.h" line="55" column="6" bodyfile="src/timer.c" bodystart="9" bodyend="26" declfile="include/timer.h" declline="55" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="timer_8h_1a3ab66fa3b556221f1a269253ad20e597" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="timer_8h_1ae87c54f5044780f84a243e43d31cdf89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void stopbeep</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>stopbeep</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Immediately stop any ongoing PC speaker beep. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="note"><para>This only works if PIT channel 2 is wired to a physical speaker, which is not the case on many modern systems. Reliable only in QEMU/Bochs and older PCs. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/timer.h" line="19" column="6" declfile="include/timer.h" declline="19" declcolumn="6"/>
+        <location file="include/timer.h" line="64" column="6" bodyfile="src/timer.c" bodystart="28" bodyend="33" declfile="include/timer.h" declline="64" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="timer_8h_1af35c4d193fc8597d8ac55d9a75412987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -332,25 +878,45 @@
           <declname>secs</declname>
         </param>
         <briefdescription>
+<para>Sleep for the specified number of seconds. </para>
         </briefdescription>
         <detaileddescription>
+<para>Uses the global tick counter to wait until the required number of seconds has elapsed. CPU executes HLT while waiting.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>secs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of seconds to sleep. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/timer.h" line="20" column="6" declfile="include/timer.h" declline="20" declcolumn="6"/>
+        <location file="include/timer.h" line="74" column="6" bodyfile="src/timer.c" bodystart="41" bodyend="47" declfile="include/timer.h" declline="74" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="timer_8h_1aa3fa09dedf9b10b08a0434283bb38c3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="timer_8h_1a3686b92a0667e9774993808f4d2ac2b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
         <definition>uint64_t get_ticks</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>get_ticks</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Get the current global tick count. </para>
         </briefdescription>
         <detaileddescription>
+<para>Incremented by the Local APIC timer interrupt at 100 Hz.</para>
+<para><simplesect kind="return"><para>Number of ticks since timer initialisation. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/timer.h" line="21" column="10" declfile="include/timer.h" declline="21" declcolumn="10"/>
+        <location file="include/timer.h" line="83" column="10" bodyfile="src/timer.c" bodystart="49" bodyend="52" declfile="include/timer.h" declline="83" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="timer_8h_1a428b3ed0f25a149f0d4d96789451cc49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -374,20 +940,60 @@
           <declname>opaque</declname>
         </param>
         <briefdescription>
+<para>Timer interrupt callback. </para>
         </briefdescription>
         <detaileddescription>
+<para>Invoked by the Local APIC (or PIT fallback) at 100 Hz. Increments the global tick counter, executes registered idle timer callbacks, auto-flips the framebuffer if enabled, and handles PC speaker timeouts.</para>
+<para>This should not normally be called by user code.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>isr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt vector number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errorcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Error code pushed by CPU (if any). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>irq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRQ number (APIC routing). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opaque</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Opaque pointer for ISR framework use.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+This is triggered either by the Local APIC timer interrupt, or by the PIT. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/timer.h" line="22" column="6" declfile="include/timer.h" declline="22" declcolumn="6"/>
+        <location file="include/timer.h" line="99" column="6" bodyfile="src/timer.c" bodystart="57" bodyend="77" declfile="include/timer.h" declline="99" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Timer and delay functions (APIC-driven, 100 Hz tick rate). </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
+<para>Timers are based on the Local APIC timer, running at a fixed resolution of 1/100th of a second (10 ms). A global tick counter is incremented on each timer interrupt, and can be queried via <ref refid="timer_8h_1a3686b92a0667e9774993808f4d2ac2b4" kindref="member">get_ticks()</ref>. Sleep functions busy-wait or HLT until the tick counter advances.</para>
+<para>The PIT (8253/8254) is also configured to support PC speaker tone generation for <ref refid="timer_8h_1a99325999034be84a6abdf6741fe803d3" kindref="member">beep()</ref>.</para>
+<para><simplesect kind="author"><para>Craig Edwards </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
 </simplesect>
 </para>
     </detaileddescription>

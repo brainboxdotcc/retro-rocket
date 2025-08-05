@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('structgpt__entry__t.html',''); initRes
 </div><!--header-->
 <div class="contents">
 
+<p>A single GPT partition entry.  
+ <a href="structgpt__entry__t.html#details">More...</a></p>
+
 <p><code>#include &lt;partition.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for gpt_entry_t:</div>
@@ -104,19 +107,27 @@ $(document).ready(function(){initNavTree('structgpt__entry__t.html',''); initRes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a2db53fd581a4591553720d89c00b7e5d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__entry__t.html#a2db53fd581a4591553720d89c00b7e5d">type_guid</a> [16]</td></tr>
+<tr class="memdesc:a2db53fd581a4591553720d89c00b7e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition type GUID.  <a href="structgpt__entry__t.html#a2db53fd581a4591553720d89c00b7e5d">More...</a><br /></td></tr>
 <tr class="separator:a2db53fd581a4591553720d89c00b7e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab33bc82d762c5c72532d9234b6a9dd0e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__entry__t.html#ab33bc82d762c5c72532d9234b6a9dd0e">unique_id</a> [16]</td></tr>
+<tr class="memdesc:ab33bc82d762c5c72532d9234b6a9dd0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique GUID for this partition.  <a href="structgpt__entry__t.html#ab33bc82d762c5c72532d9234b6a9dd0e">More...</a><br /></td></tr>
 <tr class="separator:ab33bc82d762c5c72532d9234b6a9dd0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e0fe1119be865efd92ad63be4855983"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__entry__t.html#a7e0fe1119be865efd92ad63be4855983">start_lba</a></td></tr>
+<tr class="memdesc:a7e0fe1119be865efd92ad63be4855983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA of the partition.  <a href="structgpt__entry__t.html#a7e0fe1119be865efd92ad63be4855983">More...</a><br /></td></tr>
 <tr class="separator:a7e0fe1119be865efd92ad63be4855983"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada4573b77b257d223aabdb54782fcb1a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__entry__t.html#ada4573b77b257d223aabdb54782fcb1a">end_lba</a></td></tr>
+<tr class="memdesc:ada4573b77b257d223aabdb54782fcb1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ending LBA of the partition.  <a href="structgpt__entry__t.html#ada4573b77b257d223aabdb54782fcb1a">More...</a><br /></td></tr>
 <tr class="separator:ada4573b77b257d223aabdb54782fcb1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e301f9875b8a13d8bbb4cab19795ab8"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__entry__t.html#a5e301f9875b8a13d8bbb4cab19795ab8">attributes</a></td></tr>
+<tr class="memdesc:a5e301f9875b8a13d8bbb4cab19795ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition attributes (bit flags).  <a href="structgpt__entry__t.html#a5e301f9875b8a13d8bbb4cab19795ab8">More...</a><br /></td></tr>
 <tr class="separator:a5e301f9875b8a13d8bbb4cab19795ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5beda8d83837344bf274890f08ec83d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__entry__t.html#af5beda8d83837344bf274890f08ec83d">name</a> [72]</td></tr>
+<tr class="memdesc:af5beda8d83837344bf274890f08ec83d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition name (UTF-16LE, up to 36 characters).  <a href="structgpt__entry__t.html#af5beda8d83837344bf274890f08ec83d">More...</a><br /></td></tr>
 <tr class="separator:af5beda8d83837344bf274890f08ec83d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A single GPT partition entry. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a5e301f9875b8a13d8bbb4cab19795ab8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e301f9875b8a13d8bbb4cab19795ab8">&#9670;&nbsp;</a></span>attributes</h2>
 
@@ -128,6 +139,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Partition attributes (bit flags). </p>
 
 </div>
 </div>
@@ -143,6 +156,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Ending LBA of the partition. </p>
+
 </div>
 </div>
 <a id="af5beda8d83837344bf274890f08ec83d"></a>
@@ -156,6 +171,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Partition name (UTF-16LE, up to 36 characters). </p>
 
 </div>
 </div>
@@ -171,6 +188,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Starting LBA of the partition. </p>
+
 </div>
 </div>
 <a id="a2db53fd581a4591553720d89c00b7e5d"></a>
@@ -184,6 +203,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Partition type GUID. </p>
 
 </div>
 </div>
@@ -199,6 +220,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Unique GUID for this partition. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -207,7 +230,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structgpt__entry__t.html">gpt_entry_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

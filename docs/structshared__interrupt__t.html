@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structshared__interrupt__t.html',''); 
 </div><!--header-->
 <div class="contents">
 
-<p>An entry in a linked list of handlers attached to an ISR.  
+<p>Represents a single handler in a chain of handlers attached to a shared ISR.  
  <a href="structshared__interrupt__t.html#details">More...</a></p>
 
 <p><code>#include &lt;interrupt.h&gt;</code></p>
@@ -106,17 +106,22 @@ $(document).ready(function(){initNavTree('structshared__interrupt__t.html',''); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ac6fced04f32e114bbf9d69582b5d1156"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshared__interrupt__t.html#ac6fced04f32e114bbf9d69582b5d1156">interrupt_handler</a></td></tr>
+<tr class="memitem:ac6fced04f32e114bbf9d69582b5d1156"><td class="memItemLeft" align="right" valign="top"><a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshared__interrupt__t.html#ac6fced04f32e114bbf9d69582b5d1156">interrupt_handler</a></td></tr>
+<tr class="memdesc:ac6fced04f32e114bbf9d69582b5d1156"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to the registered interrupt handler.  <a href="structshared__interrupt__t.html#ac6fced04f32e114bbf9d69582b5d1156">More...</a><br /></td></tr>
 <tr class="separator:ac6fced04f32e114bbf9d69582b5d1156"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7e76fc930c7cbd3be9d0caf9f4eeeca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="unionpci__dev__t.html">pci_dev_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshared__interrupt__t.html#af7e76fc930c7cbd3be9d0caf9f4eeeca">device</a></td></tr>
+<tr class="memdesc:af7e76fc930c7cbd3be9d0caf9f4eeeca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated PCI device for shared IRQ identification.  <a href="structshared__interrupt__t.html#af7e76fc930c7cbd3be9d0caf9f4eeeca">More...</a><br /></td></tr>
 <tr class="separator:af7e76fc930c7cbd3be9d0caf9f4eeeca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc6ce3f7ffccf94e1f5f34e7f647d959"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshared__interrupt__t.html#adc6ce3f7ffccf94e1f5f34e7f647d959">opaque</a></td></tr>
+<tr class="memdesc:adc6ce3f7ffccf94e1f5f34e7f647d959"><td class="mdescLeft">&#160;</td><td class="mdescRight">User-defined pointer passed to the handler.  <a href="structshared__interrupt__t.html#adc6ce3f7ffccf94e1f5f34e7f647d959">More...</a><br /></td></tr>
 <tr class="separator:adc6ce3f7ffccf94e1f5f34e7f647d959"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65c2b0190a13c775cc010245c95db9d9"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structshared__interrupt__t.html">shared_interrupt_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshared__interrupt__t.html#a65c2b0190a13c775cc010245c95db9d9">next</a></td></tr>
+<tr class="memdesc:a65c2b0190a13c775cc010245c95db9d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Next handler in the linked list (if multiple handlers share this ISR)  <a href="structshared__interrupt__t.html#a65c2b0190a13c775cc010245c95db9d9">More...</a><br /></td></tr>
 <tr class="separator:a65c2b0190a13c775cc010245c95db9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An entry in a linked list of handlers attached to an ISR. </p>
+<div class="textblock"><p>Represents a single handler in a chain of handlers attached to a shared ISR. </p>
+<p>Some IRQ lines may be shared between multiple devices (especially in legacy or MSI-less systems). This structure forms a linked list of handlers associated with a given interrupt vector. Each node contains the handler function, the originating PCI device (used to support IRQ sharing), and an opaque pointer passed to the handler at runtime. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="af7e76fc930c7cbd3be9d0caf9f4eeeca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7e76fc930c7cbd3be9d0caf9f4eeeca">&#9670;&nbsp;</a></span>device</h2>
@@ -130,6 +135,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Associated PCI device for shared IRQ identification. </p>
+
 </div>
 </div>
 <a id="ac6fced04f32e114bbf9d69582b5d1156"></a>
@@ -139,10 +146,12 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> shared_interrupt_t::interrupt_handler</td>
+          <td class="memname"><a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> shared_interrupt_t::interrupt_handler</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Function pointer to the registered interrupt handler. </p>
 
 </div>
 </div>
@@ -158,6 +167,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Next handler in the linked list (if multiple handlers share this ISR) </p>
+
 </div>
 </div>
 <a id="adc6ce3f7ffccf94e1f5f34e7f647d959"></a>
@@ -172,6 +183,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>User-defined pointer passed to the handler. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -180,7 +193,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structshared__interrupt__t.html">shared_interrupt_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

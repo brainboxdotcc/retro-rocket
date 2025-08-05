@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structnet__address__t.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>Represents an address that is bound to a protocol on an interface. This is kept as flexible as possible, to represent potentially different protocol's forms of addresses, e.g. IPv4, IPv6, IPX, Econet etc. The length indicates the number of bytes in the address, and the bytes field contains the actual address in host byte order. For example in IPv4, length would be 4 and bytes would essentially point at a uint32_t. The name is purely a human readable label for use in commands. The label might be 'ip.address', 'ip.gateway' etc.  
+<p>Represents an address bound to a protocol on an interface.  
  <a href="structnet__address__t.html#details">More...</a></p>
 
 <p><code>#include &lt;net.h&gt;</code></p>
@@ -114,7 +114,9 @@ Data Fields</h2></td></tr>
 <tr class="separator:af655e2acc5cc6f2c183acb33d87e4b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents an address that is bound to a protocol on an interface. This is kept as flexible as possible, to represent potentially different protocol's forms of addresses, e.g. IPv4, IPv6, IPX, Econet etc. The length indicates the number of bytes in the address, and the bytes field contains the actual address in host byte order. For example in IPv4, length would be 4 and bytes would essentially point at a uint32_t. The name is purely a human readable label for use in commands. The label might be 'ip.address', 'ip.gateway' etc. </p>
+<div class="textblock"><p>Represents an address bound to a protocol on an interface. </p>
+<p>Designed to be flexible for different protocols (e.g. IPv4, IPv6, IPX, Econet). The <code>length</code> specifies the number of bytes in the address, and <code>bytes</code> holds the address in host byte order.</p>
+<p>Example: for IPv4, <code>length</code> is 4 and <code>bytes</code> points to a <code>uint32_t</code>. The <code>name</code> is a human‑readable label such as "ip.address" or "ip.gateway". </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="af655e2acc5cc6f2c183acb33d87e4b59"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af655e2acc5cc6f2c183acb33d87e4b59">&#9670;&nbsp;</a></span>bytes</h2>
@@ -127,6 +129,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Address bytes (host byte order). </p>
 
 </div>
 </div>
@@ -141,6 +144,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Length of the address in bytes. </p>
 
 </div>
 </div>
@@ -155,6 +159,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Human‑readable label for the address. </p>
 
 </div>
 </div>
@@ -164,7 +169,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structnet__address__t.html">net_address_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

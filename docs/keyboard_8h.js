@@ -1,5 +1,10 @@
 var keyboard_8h =
 [
+    [ "key_state", "structkey__state.html", "structkey__state" ],
+    [ "KEYBOARD_BUFFER_SIZE", "keyboard_8h.html#a5c28e05d04961202172037075ea93d40", null ],
+    [ "MAX_SCANCODE", "keyboard_8h.html#a90b389e53b75437df6d8405238c807da", null ],
+    [ "REPEAT_DELAY_TICKS", "keyboard_8h.html#a449ccc57026c5272a583c9bc04ed3acb", null ],
+    [ "REPEAT_RATE_TICKS", "keyboard_8h.html#a4712beea8d600e863ebd00c72c770b8e", null ],
     [ "extended_key_t", "keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0b", [
       [ "KEY_PAGEUP", "keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba5d9c9ba1d8f2c6f6737db37d3f449071", null ],
       [ "KEY_PAGEDOWN", "keyboard_8h.html#a28ea8f371588faf8c0f361fd56c0db0ba5996c34d86df2b3c1be741aeb35bdbc4", null ],
@@ -17,5 +22,6 @@ var keyboard_8h =
     [ "ctrl_held", "keyboard_8h.html#afdb02475d45b894eb5ec2a57b4100eea", null ],
     [ "init_keyboard", "keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d", null ],
     [ "kgetc", "keyboard_8h.html#af186c1d48613bd858b7f774e5bd47935", null ],
+    [ "load_keymap_from_string", "keyboard_8h.html#ab5cfd80e1528c2d400a6833d10d8c364", null ],
     [ "shift_held", "keyboard_8h.html#a91e9663f1e43e4aca8439739c3b10c69", null ]
 ];

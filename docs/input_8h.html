@@ -90,19 +90,47 @@ $(document).ready(function(){initNavTree('input_8h.html',''); initResizable(); }
 <div class="title">input.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Console line input API for Retro Rocket.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad1207d022962151b2b0d89c803dd5ae2"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2">kinput</a> (size_t maxlen, <a class="el" href="structconsole.html">console</a> *cons)</td></tr>
+<tr class="memdesc:ad1207d022962151b2b0d89c803dd5ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a character into the console input buffer.  <a href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2">More...</a><br /></td></tr>
 <tr class="separator:ad1207d022962151b2b0d89c803dd5ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65464dd8cd9c0efddb97e19102b2482e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#a65464dd8cd9c0efddb97e19102b2482e">kfreeinput</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
+<tr class="memdesc:a65464dd8cd9c0efddb97e19102b2482e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the internal console input buffer.  <a href="input_8h.html#a65464dd8cd9c0efddb97e19102b2482e">More...</a><br /></td></tr>
 <tr class="separator:a65464dd8cd9c0efddb97e19102b2482e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34b6b79a54527d752aa80ac4c25904b9"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8h.html#a34b6b79a54527d752aa80ac4c25904b9">kgetinput</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
+<tr class="memdesc:a34b6b79a54527d752aa80ac4c25904b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the accumulated input string for a console.  <a href="input_8h.html#a34b6b79a54527d752aa80ac4c25904b9">More...</a><br /></td></tr>
 <tr class="separator:a34b6b79a54527d752aa80ac4c25904b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Console line input API for Retro Rocket. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>)</dd></dl>
+<p>This interface provides buffered, line-based input for consoles. It handles character input, backspace editing, line completion detection, and safe buffer allocation. The functions in this header are backed by the implementation in <a class="el" href="input_8c.html">input.c</a>.</p>
+<h2><a class="anchor" id="autotoc_md0"></a>
+Usage Lifecycle</h2>
+<ol type="1">
+<li>Call <code>kinput(maxlen, cons)</code> repeatedly until it returns <code>1</code> (line complete).</li>
+<li>Retrieve the full line with <code>kgetinput(cons)</code>.</li>
+<li>Process the string as needed.</li>
+<li>Call <code>kfreeinput(cons)</code> when finished to release the internal buffer.</li>
+</ol>
+<p>The buffer is lazily allocated by <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Read a character into the console input buffer.">kinput()</a></code> when the first character arrives, so you must not call <code><a class="el" href="input_8h.html#a34b6b79a54527d752aa80ac4c25904b9" title="Retrieve the accumulated input string for a console.">kgetinput()</a></code> until after at least one successful call to <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Read a character into the console input buffer.">kinput()</a></code>.</p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Behaviour</h2>
+<ul>
+<li>Input is null-terminated automatically.</li>
+<li>Carriage return (&lsquo;&rsquo;\r'<code>) signals end-of-line and is echoed as newline (</code>'<br  />
+'<code>).</code></li>
+<li><code>Backspace (</code>8`) removes the previous character (with console cursor handling).</li>
+<li>Arrow keys (↑ ↓ ← →) are recognised but ignored.</li>
+<li>If the buffer limit is reached, no more characters are added and a beep is emitted as feedback.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>This input API is retained primarily to support the BASIC INPUT statement and similar minimal line-reading requirements. Modern interactive shells and tools use the ANSI console library, which provides line editing, history, and richer input handling.</dd></dl>
+<p><code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Read a character into the console input buffer.">kinput()</a></code> is intentionally simple and blocking; it does not support advanced editing or multiple input sources. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a65464dd8cd9c0efddb97e19102b2482e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65464dd8cd9c0efddb97e19102b2482e">&#9670;&nbsp;</a></span>kfreeinput()</h2>
@@ -119,6 +147,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Free the internal console input buffer. </p>
+<p>Resets the console’s input state and releases memory allocated by <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Read a character into the console input buffer.">kinput()</a></code>. Safe to call even if no buffer was allocated.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cons</td><td>Pointer to the console whose buffer should be freed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -137,6 +174,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieve the accumulated input string for a console. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cons</td><td>Pointer to the console. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the null-terminated input string, or NULL if no buffer exists.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Do not free the returned pointer directly; use <a class="el" href="input_8h.html#a65464dd8cd9c0efddb97e19102b2482e">kfreeinput()</a>. </dd></dl>
 
 </div>
 </div>
@@ -166,6 +213,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Read a character into the console input buffer. </p>
+<ul>
+<li>Allocates a buffer on first use (<code>maxlen + 1</code> bytes).</li>
+<li>Appends typed characters to the buffer.</li>
+<li>Null-terminates the string after each call.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxlen</td><td>Maximum buffer size (excluding null terminator). </td></tr>
+    <tr><td class="paramname">cons</td><td>Pointer to the console structure receiving input. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><code>0</code> if input is still ongoing,</li>
+<li><code>1</code> if the line is complete (terminated with carriage return). </li>
+</ul>
+</dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -174,7 +240,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="input_8h.html">input.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

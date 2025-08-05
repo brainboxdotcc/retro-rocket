@@ -93,120 +93,153 @@ $(document).ready(function(){initNavTree('partition_8h.html',''); initResizable(
 <div class="title">partition.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Definitions and structures for working with MBR and GPT partitions.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="kernel_8h.html">kernel.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html">partition_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A disk partition on a storage device.  <a href="structpartition__t.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A disk partition entry within the MBR.  <a href="structpartition__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__table__t.html">partition_table_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A disk partition table consisiting of four <a class="el" href="structpartition__t.html" title="A disk partition on a storage device.">partition_t</a>.  <a href="structpartition__table__t.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A disk partition table consisting of four MBR partition entries.  <a href="structpartition__table__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html">gpt_header_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The GPT (GUID Partition Table) header.  <a href="structgpt__header__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__entry__t.html">gpt_entry_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single GPT partition entry.  <a href="structgpt__entry__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a18bdcefc7008fc3d9e21f70f6ad0cc2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a18bdcefc7008fc3d9e21f70f6ad0cc2f">PARTITION_TABLE_OFFSET</a>&#160;&#160;&#160;0x1BE</td></tr>
+<tr class="memdesc:a18bdcefc7008fc3d9e21f70f6ad0cc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset of the partition table in the MBR.  <a href="partition_8h.html#a18bdcefc7008fc3d9e21f70f6ad0cc2f">More...</a><br /></td></tr>
 <tr class="separator:a18bdcefc7008fc3d9e21f70f6ad0cc2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5cc28c1d5f52c3a7e1eefefa1a123d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#ab5cc28c1d5f52c3a7e1eefefa1a123d6">PARTITON_GPT_PROTECTIVE</a>&#160;&#160;&#160;0xEE</td></tr>
-<tr class="separator:ab5cc28c1d5f52c3a7e1eefefa1a123d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab00ae5bc076986270564a046959c4705"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#ab00ae5bc076986270564a046959c4705">PARTITION_GPT_PROTECTIVE</a>&#160;&#160;&#160;0xEE</td></tr>
+<tr class="memdesc:ab00ae5bc076986270564a046959c4705"><td class="mdescLeft">&#160;</td><td class="mdescRight">ID of a GPT protective partition entry.  <a href="partition_8h.html#ab00ae5bc076986270564a046959c4705">More...</a><br /></td></tr>
+<tr class="separator:ab00ae5bc076986270564a046959c4705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ad51c88cfa9fff1324d7d57a0205d55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a7ad51c88cfa9fff1324d7d57a0205d55">GUID_ASCII_LEN</a>&#160;&#160;&#160;36</td></tr>
+<tr class="memdesc:a7ad51c88cfa9fff1324d7d57a0205d55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of a GUID in ASCII (including dashes, excluding null terminator).  <a href="partition_8h.html#a7ad51c88cfa9fff1324d7d57a0205d55">More...</a><br /></td></tr>
 <tr class="separator:a7ad51c88cfa9fff1324d7d57a0205d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac305cd9c03512d6423fb939b69471284"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#ac305cd9c03512d6423fb939b69471284">GUID_BINARY_LEN</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ac305cd9c03512d6423fb939b69471284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of a GUID in binary form.  <a href="partition_8h.html#ac305cd9c03512d6423fb939b69471284">More...</a><br /></td></tr>
 <tr class="separator:ac305cd9c03512d6423fb939b69471284"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa0cf2023d79beae7b86b452e250987ce"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structpartition__t.html">partition_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#aa0cf2023d79beae7b86b452e250987ce">__attribute__</a> ((packed)) <a class="el" href="structpartition__t.html">partition_t</a></td></tr>
-<tr class="memdesc:aa0cf2023d79beae7b86b452e250987ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">A disk partition on a storage device.  <a href="partition_8h.html#aa0cf2023d79beae7b86b452e250987ce">More...</a><br /></td></tr>
+<tr class="memdesc:aa0cf2023d79beae7b86b452e250987ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">A disk partition entry within the MBR.  <a href="partition_8h.html#aa0cf2023d79beae7b86b452e250987ce">More...</a><br /></td></tr>
 <tr class="separator:aa0cf2023d79beae7b86b452e250987ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b43d0539bc7d0d61324a5687201ed18"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a0b43d0539bc7d0d61324a5687201ed18">find_partition_of_type</a> (const char *device_name, uint8_t partition_type, char *found_guid, const char *partition_type_guid, uint8_t *partition_id, uint64_t *start, uint64_t *<a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
-<tr class="memdesc:a0b43d0539bc7d0d61324a5687201ed18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a device name and partition type ID, find the start and length of that partition on the device. Returns false if the partition could not be found.  <a href="partition_8h.html#a0b43d0539bc7d0d61324a5687201ed18">More...</a><br /></td></tr>
+<tr class="memitem:a0b43d0539bc7d0d61324a5687201ed18"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a0b43d0539bc7d0d61324a5687201ed18">find_partition_of_type</a> (const char *device_name, uint8_t partition_type, char *found_guid, const char *partition_type_guid, uint8_t *partition_id, uint64_t *<a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint64_t *<a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
+<tr class="memdesc:a0b43d0539bc7d0d61324a5687201ed18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a partition of a given type on a device.  <a href="partition_8h.html#a0b43d0539bc7d0d61324a5687201ed18">More...</a><br /></td></tr>
 <tr class="separator:a0b43d0539bc7d0d61324a5687201ed18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad1cdc38bf44771f80d27453aacca2f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#aad1cdc38bf44771f80d27453aacca2f4">guid_to_binary</a> (const char *guid, void *binary)</td></tr>
+<tr class="memdesc:aad1cdc38bf44771f80d27453aacca2f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a GUID from ASCII to binary format.  <a href="partition_8h.html#aad1cdc38bf44771f80d27453aacca2f4">More...</a><br /></td></tr>
 <tr class="separator:aad1cdc38bf44771f80d27453aacca2f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a707f3fea510bdc555d95030825220680"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a707f3fea510bdc555d95030825220680">binary_to_guid</a> (const void *binary, char *guid)</td></tr>
+<tr class="memdesc:a707f3fea510bdc555d95030825220680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a binary GUID to ASCII format.  <a href="partition_8h.html#a707f3fea510bdc555d95030825220680">More...</a><br /></td></tr>
 <tr class="separator:a707f3fea510bdc555d95030825220680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a473a1483ecee72b5fb823dd28190cef8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a473a1483ecee72b5fb823dd28190cef8">bootable</a></td></tr>
-<tr class="memdesc:a473a1483ecee72b5fb823dd28190cef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition is bootable.  <a href="partition_8h.html#a473a1483ecee72b5fb823dd28190cef8">More...</a><br /></td></tr>
+<tr class="memdesc:a473a1483ecee72b5fb823dd28190cef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition is bootable (0x80 = bootable, 0x00 = non-bootable).  <a href="partition_8h.html#a473a1483ecee72b5fb823dd28190cef8">More...</a><br /></td></tr>
 <tr class="separator:a473a1483ecee72b5fb823dd28190cef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cdb5260eb161d003ce2974a9b640ed0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a5cdb5260eb161d003ce2974a9b640ed0">starthead</a></td></tr>
-<tr class="memdesc:a5cdb5260eb161d003ce2974a9b640ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting head.  <a href="partition_8h.html#a5cdb5260eb161d003ce2974a9b640ed0">More...</a><br /></td></tr>
+<tr class="memdesc:a5cdb5260eb161d003ce2974a9b640ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting head of the partition.  <a href="partition_8h.html#a5cdb5260eb161d003ce2974a9b640ed0">More...</a><br /></td></tr>
 <tr class="separator:a5cdb5260eb161d003ce2974a9b640ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2790b60a9dc7a559a168e41d3007ed0"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#ad2790b60a9dc7a559a168e41d3007ed0">startcylsect</a></td></tr>
-<tr class="memdesc:ad2790b60a9dc7a559a168e41d3007ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting cylinder and sector.  <a href="partition_8h.html#ad2790b60a9dc7a559a168e41d3007ed0">More...</a><br /></td></tr>
+<tr class="memdesc:ad2790b60a9dc7a559a168e41d3007ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting cylinder and sector of the partition.  <a href="partition_8h.html#ad2790b60a9dc7a559a168e41d3007ed0">More...</a><br /></td></tr>
 <tr class="separator:ad2790b60a9dc7a559a168e41d3007ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8890279a93a70c5488f262967b45665e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a8890279a93a70c5488f262967b45665e">systemid</a></td></tr>
-<tr class="memdesc:a8890279a93a70c5488f262967b45665e"><td class="mdescLeft">&#160;</td><td class="mdescRight">partition type id  <a href="partition_8h.html#a8890279a93a70c5488f262967b45665e">More...</a><br /></td></tr>
+<tr class="memdesc:a8890279a93a70c5488f262967b45665e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition type identifier.  <a href="partition_8h.html#a8890279a93a70c5488f262967b45665e">More...</a><br /></td></tr>
 <tr class="separator:a8890279a93a70c5488f262967b45665e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03172afffeef76e5e22fdecb0e454988"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a03172afffeef76e5e22fdecb0e454988">endhead</a></td></tr>
-<tr class="memdesc:a03172afffeef76e5e22fdecb0e454988"><td class="mdescLeft">&#160;</td><td class="mdescRight">End head.  <a href="partition_8h.html#a03172afffeef76e5e22fdecb0e454988">More...</a><br /></td></tr>
+<tr class="memdesc:a03172afffeef76e5e22fdecb0e454988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ending head of the partition.  <a href="partition_8h.html#a03172afffeef76e5e22fdecb0e454988">More...</a><br /></td></tr>
 <tr class="separator:a03172afffeef76e5e22fdecb0e454988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bdaaaf2bf933b1e06f23191f8f9265d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a0bdaaaf2bf933b1e06f23191f8f9265d">endcylsect</a></td></tr>
-<tr class="memdesc:a0bdaaaf2bf933b1e06f23191f8f9265d"><td class="mdescLeft">&#160;</td><td class="mdescRight">End cylinder and sector.  <a href="partition_8h.html#a0bdaaaf2bf933b1e06f23191f8f9265d">More...</a><br /></td></tr>
+<tr class="memdesc:a0bdaaaf2bf933b1e06f23191f8f9265d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ending cylinder and sector of the partition.  <a href="partition_8h.html#a0bdaaaf2bf933b1e06f23191f8f9265d">More...</a><br /></td></tr>
 <tr class="separator:a0bdaaaf2bf933b1e06f23191f8f9265d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425e545755bed66a7dee3f0644ce3fa0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a425e545755bed66a7dee3f0644ce3fa0">startlba</a></td></tr>
-<tr class="memdesc:a425e545755bed66a7dee3f0644ce3fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA.  <a href="partition_8h.html#a425e545755bed66a7dee3f0644ce3fa0">More...</a><br /></td></tr>
+<tr class="memdesc:a425e545755bed66a7dee3f0644ce3fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA (Logical Block Address) of the partition.  <a href="partition_8h.html#a425e545755bed66a7dee3f0644ce3fa0">More...</a><br /></td></tr>
 <tr class="separator:a425e545755bed66a7dee3f0644ce3fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebb70c2aab3407a9f05334c47131a43b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#aebb70c2aab3407a9f05334c47131a43b">length</a></td></tr>
-<tr class="memdesc:aebb70c2aab3407a9f05334c47131a43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">LBA length.  <a href="partition_8h.html#aebb70c2aab3407a9f05334c47131a43b">More...</a><br /></td></tr>
+<tr class="memdesc:aebb70c2aab3407a9f05334c47131a43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the partition in sectors.  <a href="partition_8h.html#aebb70c2aab3407a9f05334c47131a43b">More...</a><br /></td></tr>
 <tr class="separator:aebb70c2aab3407a9f05334c47131a43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbc7f7a079bfdfcb4f87f46d9b062fc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpartition__t.html">partition_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#acbc7f7a079bfdfcb4f87f46d9b062fc6">p_entry</a> [4]</td></tr>
-<tr class="memdesc:acbc7f7a079bfdfcb4f87f46d9b062fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition entries.  <a href="partition_8h.html#acbc7f7a079bfdfcb4f87f46d9b062fc6">More...</a><br /></td></tr>
+<tr class="memdesc:acbc7f7a079bfdfcb4f87f46d9b062fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of four partition entries.  <a href="partition_8h.html#acbc7f7a079bfdfcb4f87f46d9b062fc6">More...</a><br /></td></tr>
 <tr class="separator:acbc7f7a079bfdfcb4f87f46d9b062fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a409860617743ad808a1ef99e3766a904"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a409860617743ad808a1ef99e3766a904">signature</a> [8]</td></tr>
+<tr class="memdesc:a409860617743ad808a1ef99e3766a904"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPT signature, should be "EFI PART".  <a href="partition_8h.html#a409860617743ad808a1ef99e3766a904">More...</a><br /></td></tr>
 <tr class="separator:a409860617743ad808a1ef99e3766a904"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e06912314636e4ff50fd8e3da458dd2"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a1e06912314636e4ff50fd8e3da458dd2">gpt_revision</a></td></tr>
+<tr class="memdesc:a1e06912314636e4ff50fd8e3da458dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPT revision number.  <a href="partition_8h.html#a1e06912314636e4ff50fd8e3da458dd2">More...</a><br /></td></tr>
 <tr class="separator:a1e06912314636e4ff50fd8e3da458dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a841923a20e6dda97c59351c8e97c9be6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a841923a20e6dda97c59351c8e97c9be6">header_size</a></td></tr>
+<tr class="memdesc:a841923a20e6dda97c59351c8e97c9be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the GPT header in bytes.  <a href="partition_8h.html#a841923a20e6dda97c59351c8e97c9be6">More...</a><br /></td></tr>
 <tr class="separator:a841923a20e6dda97c59351c8e97c9be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accce3e3321fb0fcd1202856a0e0d056e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#accce3e3321fb0fcd1202856a0e0d056e">crc_checksum</a></td></tr>
+<tr class="memdesc:accce3e3321fb0fcd1202856a0e0d056e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC32 checksum of the GPT header.  <a href="partition_8h.html#accce3e3321fb0fcd1202856a0e0d056e">More...</a><br /></td></tr>
 <tr class="separator:accce3e3321fb0fcd1202856a0e0d056e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed93283265f941dc1d2bf8d634164493"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#aed93283265f941dc1d2bf8d634164493">reserved0</a></td></tr>
+<tr class="memdesc:aed93283265f941dc1d2bf8d634164493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field, must be zero.  <a href="partition_8h.html#aed93283265f941dc1d2bf8d634164493">More...</a><br /></td></tr>
 <tr class="separator:aed93283265f941dc1d2bf8d634164493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35792aa8137d652e0e802cfdcda74a8a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a35792aa8137d652e0e802cfdcda74a8a">lba_of_this_header</a></td></tr>
+<tr class="memdesc:a35792aa8137d652e0e802cfdcda74a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">LBA of this GPT header.  <a href="partition_8h.html#a35792aa8137d652e0e802cfdcda74a8a">More...</a><br /></td></tr>
 <tr class="separator:a35792aa8137d652e0e802cfdcda74a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb3035921f4b9390ac9e17340508e41e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#adb3035921f4b9390ac9e17340508e41e">lba_of_alternative_header</a></td></tr>
+<tr class="memdesc:adb3035921f4b9390ac9e17340508e41e"><td class="mdescLeft">&#160;</td><td class="mdescRight">LBA of the alternative (backup) GPT header.  <a href="partition_8h.html#adb3035921f4b9390ac9e17340508e41e">More...</a><br /></td></tr>
 <tr class="separator:adb3035921f4b9390ac9e17340508e41e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44705ae441023dea5e7d060865a028aa"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a44705ae441023dea5e7d060865a028aa">first_usable_block</a></td></tr>
+<tr class="memdesc:a44705ae441023dea5e7d060865a028aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">First usable LBA for partitions.  <a href="partition_8h.html#a44705ae441023dea5e7d060865a028aa">More...</a><br /></td></tr>
 <tr class="separator:a44705ae441023dea5e7d060865a028aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d5ebdae78a94d8ec0b4ba190d2fba8c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a6d5ebdae78a94d8ec0b4ba190d2fba8c">last_usable_block</a></td></tr>
+<tr class="memdesc:a6d5ebdae78a94d8ec0b4ba190d2fba8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last usable LBA for partitions.  <a href="partition_8h.html#a6d5ebdae78a94d8ec0b4ba190d2fba8c">More...</a><br /></td></tr>
 <tr class="separator:a6d5ebdae78a94d8ec0b4ba190d2fba8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8f5885773fe004162f78f331ae6b18c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#af8f5885773fe004162f78f331ae6b18c">disk_guid</a> [16]</td></tr>
+<tr class="memdesc:af8f5885773fe004162f78f331ae6b18c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disk GUID in binary form.  <a href="partition_8h.html#af8f5885773fe004162f78f331ae6b18c">More...</a><br /></td></tr>
 <tr class="separator:af8f5885773fe004162f78f331ae6b18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57f44e195aed45152e201d8d644abc1b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a57f44e195aed45152e201d8d644abc1b">lba_of_partition_entries</a></td></tr>
+<tr class="memdesc:a57f44e195aed45152e201d8d644abc1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA of the partition entries array.  <a href="partition_8h.html#a57f44e195aed45152e201d8d644abc1b">More...</a><br /></td></tr>
 <tr class="separator:a57f44e195aed45152e201d8d644abc1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae26f01f15d548e277f4deea7b2450f14"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#ae26f01f15d548e277f4deea7b2450f14">number_partition_entries</a></td></tr>
+<tr class="memdesc:ae26f01f15d548e277f4deea7b2450f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of partition entries.  <a href="partition_8h.html#ae26f01f15d548e277f4deea7b2450f14">More...</a><br /></td></tr>
 <tr class="separator:ae26f01f15d548e277f4deea7b2450f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29a1c9bc88ae80b8118c23b89403da47"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a29a1c9bc88ae80b8118c23b89403da47">size_of_each_entry</a></td></tr>
+<tr class="memdesc:a29a1c9bc88ae80b8118c23b89403da47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of each partition entry in bytes.  <a href="partition_8h.html#a29a1c9bc88ae80b8118c23b89403da47">More...</a><br /></td></tr>
 <tr class="separator:a29a1c9bc88ae80b8118c23b89403da47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98bd70a6f58a0ab95d188bbc46660d4d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a98bd70a6f58a0ab95d188bbc46660d4d">crc_32_of_entries</a></td></tr>
+<tr class="memdesc:a98bd70a6f58a0ab95d188bbc46660d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC32 checksum of the partition entries array.  <a href="partition_8h.html#a98bd70a6f58a0ab95d188bbc46660d4d">More...</a><br /></td></tr>
 <tr class="separator:a98bd70a6f58a0ab95d188bbc46660d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b144b4e44dff41a4cc5a393fd4e5c00"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a4b144b4e44dff41a4cc5a393fd4e5c00">reserved1</a> []</td></tr>
+<tr class="memdesc:a4b144b4e44dff41a4cc5a393fd4e5c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved space, must be zero.  <a href="partition_8h.html#a4b144b4e44dff41a4cc5a393fd4e5c00">More...</a><br /></td></tr>
 <tr class="separator:a4b144b4e44dff41a4cc5a393fd4e5c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a467ad5483ce7f16e673810fb40cecd2e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a467ad5483ce7f16e673810fb40cecd2e">type_guid</a> [16]</td></tr>
+<tr class="memdesc:a467ad5483ce7f16e673810fb40cecd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition type GUID.  <a href="partition_8h.html#a467ad5483ce7f16e673810fb40cecd2e">More...</a><br /></td></tr>
 <tr class="separator:a467ad5483ce7f16e673810fb40cecd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b57b6229a4dd09dc6ad650dc932163e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a1b57b6229a4dd09dc6ad650dc932163e">unique_id</a> [16]</td></tr>
+<tr class="memdesc:a1b57b6229a4dd09dc6ad650dc932163e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique GUID for this partition.  <a href="partition_8h.html#a1b57b6229a4dd09dc6ad650dc932163e">More...</a><br /></td></tr>
 <tr class="separator:a1b57b6229a4dd09dc6ad650dc932163e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fad24c3f957bb760204fa4f93ade61c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a1fad24c3f957bb760204fa4f93ade61c">start_lba</a></td></tr>
+<tr class="memdesc:a1fad24c3f957bb760204fa4f93ade61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA of the partition.  <a href="partition_8h.html#a1fad24c3f957bb760204fa4f93ade61c">More...</a><br /></td></tr>
 <tr class="separator:a1fad24c3f957bb760204fa4f93ade61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc12d24bf34ead2a6acec10c07c41216"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#adc12d24bf34ead2a6acec10c07c41216">end_lba</a></td></tr>
+<tr class="memdesc:adc12d24bf34ead2a6acec10c07c41216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ending LBA of the partition.  <a href="partition_8h.html#adc12d24bf34ead2a6acec10c07c41216">More...</a><br /></td></tr>
 <tr class="separator:adc12d24bf34ead2a6acec10c07c41216"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2477a97f3d64421167ca09818993a8d"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#af2477a97f3d64421167ca09818993a8d">attributes</a></td></tr>
+<tr class="memdesc:af2477a97f3d64421167ca09818993a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition attributes (bit flags).  <a href="partition_8h.html#af2477a97f3d64421167ca09818993a8d">More...</a><br /></td></tr>
 <tr class="separator:af2477a97f3d64421167ca09818993a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01407fb88d72f1334e349771e1a3a44d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a> [72]</td></tr>
+<tr class="memdesc:a01407fb88d72f1334e349771e1a3a44d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition name (UTF-16LE, up to 36 characters).  <a href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">More...</a><br /></td></tr>
 <tr class="separator:a01407fb88d72f1334e349771e1a3a44d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Definitions and structures for working with MBR and GPT partitions. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a7ad51c88cfa9fff1324d7d57a0205d55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ad51c88cfa9fff1324d7d57a0205d55">&#9670;&nbsp;</a></span>GUID_ASCII_LEN</h2>
@@ -219,6 +252,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Length of a GUID in ASCII (including dashes, excluding null terminator). </p>
 
 </div>
 </div>
@@ -234,6 +269,24 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Length of a GUID in binary form. </p>
+
+</div>
+</div>
+<a id="ab00ae5bc076986270564a046959c4705"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab00ae5bc076986270564a046959c4705">&#9670;&nbsp;</a></span>PARTITION_GPT_PROTECTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARTITION_GPT_PROTECTIVE&#160;&#160;&#160;0xEE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ID of a GPT protective partition entry. </p>
+
 </div>
 </div>
 <a id="a18bdcefc7008fc3d9e21f70f6ad0cc2f"></a>
@@ -248,19 +301,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="ab5cc28c1d5f52c3a7e1eefefa1a123d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5cc28c1d5f52c3a7e1eefefa1a123d6">&#9670;&nbsp;</a></span>PARTITON_GPT_PROTECTIVE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PARTITON_GPT_PROTECTIVE&#160;&#160;&#160;0xEE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Offset of the partition table in the MBR. </p>
 
 </div>
 </div>
@@ -281,8 +322,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A disk partition on a storage device. </p>
-<p>A disk partition table consisiting of four <a class="el" href="structpartition__t.html" title="A disk partition on a storage device.">partition_t</a>. </p>
+<p>A disk partition entry within the MBR. </p>
+<p>A single GPT partition entry.</p>
+<p>The GPT (GUID Partition Table) header.</p>
+<p>A disk partition table consisting of four MBR partition entries.</p>
+<p>A disk partition entry within the MBR.</p>
+<p>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t.</p>
+<p>FAT32 FSINFO structure.</p>
+<p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
+<p>Definition of a DHCP packet.</p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
 
 </div>
 </div>
@@ -311,6 +365,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Convert a binary GUID to ASCII format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">binary</td><td>Binary GUID (16 bytes). </td></tr>
+    <tr><td class="paramname">guid</td><td>Output buffer for ASCII GUID (37 bytes including null terminator). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if conversion succeeded, false on error. </dd></dl>
 
 </div>
 </div>
@@ -370,21 +434,23 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Given a device name and partition type ID, find the start and length of that partition on the device. Returns false if the partition could not be found. </p>
+<p>Find a partition of a given type on a device. </p>
+<p>Given a device name and partition type ID, searches for a matching partition and fills the provided output parameters with information about it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device_name</td><td>Device name </td></tr>
-    <tr><td class="paramname">partition_type</td><td>Partition type ID to find </td></tr>
-    <tr><td class="paramname">found_guid</td><td>filled with the guid of the found partition, if found on a GPT partition </td></tr>
-    <tr><td class="paramname">partition_id</td><td>Partition ID of found partition, filled if found, or 0xFF if found on a GPT partition </td></tr>
-    <tr><td class="paramname">start</td><td>Start of found partition, filled if found </td></tr>
-    <tr><td class="paramname">length</td><td>Length of found partition, filled if found </td></tr>
+    <tr><td class="paramname">device_name</td><td>Name of the device to search. </td></tr>
+    <tr><td class="paramname">partition_type</td><td>MBR partition type ID to look for. </td></tr>
+    <tr><td class="paramname">found_guid</td><td>Buffer to store the GUID of the found partition (if GPT). </td></tr>
+    <tr><td class="paramname">partition_type_guid</td><td>GUID string of the partition type to match (if GPT). </td></tr>
+    <tr><td class="paramname">partition_id</td><td>Filled with the MBR partition index, or 0xFF if GPT. </td></tr>
+    <tr><td class="paramname">start</td><td>Filled with the start LBA if found. </td></tr>
+    <tr><td class="paramname">length</td><td>Filled with the length in sectors if found. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if partition found, partition_id, start and length will be set </dd>
+<dl class="section return"><dt>Returns</dt><dd>true if partition found and output parameters are filled. </dd>
 <dd>
-false if partition not found, partition_id, start and length will be unchanged </dd></dl>
+false if no matching partition was found. </dd></dl>
 
 </div>
 </div>
@@ -414,6 +480,16 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Convert a GUID from ASCII to binary format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">guid</td><td>ASCII string representation of the GUID. </td></tr>
+    <tr><td class="paramname">binary</td><td>Output buffer for binary GUID (16 bytes). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if conversion succeeded, false on error. </dd></dl>
+
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
@@ -429,6 +505,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Partition attributes (bit flags). </p>
+
 </div>
 </div>
 <a id="a473a1483ecee72b5fb823dd28190cef8"></a>
@@ -443,7 +521,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>Partition is bootable. </p>
+<p>Partition is bootable (0x80 = bootable, 0x00 = non-bootable). </p>
 
 </div>
 </div>
@@ -459,6 +537,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>CRC32 checksum of the partition entries array. </p>
+
 </div>
 </div>
 <a id="accce3e3321fb0fcd1202856a0e0d056e"></a>
@@ -472,6 +552,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>CRC32 checksum of the GPT header. </p>
 
 </div>
 </div>
@@ -487,6 +569,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Disk GUID in binary form. </p>
+
 </div>
 </div>
 <a id="adc12d24bf34ead2a6acec10c07c41216"></a>
@@ -500,6 +584,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Ending LBA of the partition. </p>
 
 </div>
 </div>
@@ -515,7 +601,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>End cylinder and sector. </p>
+<p>Ending cylinder and sector of the partition. </p>
 
 </div>
 </div>
@@ -531,7 +617,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>End head. </p>
+<p>Ending head of the partition. </p>
 
 </div>
 </div>
@@ -547,6 +633,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>First usable LBA for partitions. </p>
+
 </div>
 </div>
 <a id="a1e06912314636e4ff50fd8e3da458dd2"></a>
@@ -560,6 +648,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>GPT revision number. </p>
 
 </div>
 </div>
@@ -575,6 +665,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Size of the GPT header in bytes. </p>
+
 </div>
 </div>
 <a id="a6d5ebdae78a94d8ec0b4ba190d2fba8c"></a>
@@ -588,6 +680,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Last usable LBA for partitions. </p>
 
 </div>
 </div>
@@ -603,6 +697,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>LBA of the alternative (backup) GPT header. </p>
+
 </div>
 </div>
 <a id="a57f44e195aed45152e201d8d644abc1b"></a>
@@ -616,6 +712,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Starting LBA of the partition entries array. </p>
 
 </div>
 </div>
@@ -631,6 +729,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>LBA of this GPT header. </p>
+
 </div>
 </div>
 <a id="aebb70c2aab3407a9f05334c47131a43b"></a>
@@ -645,7 +745,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>LBA length. </p>
+<p>Length of the partition in sectors. </p>
 
 </div>
 </div>
@@ -661,6 +761,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Partition name (UTF-16LE, up to 36 characters). </p>
+
 </div>
 </div>
 <a id="ae26f01f15d548e277f4deea7b2450f14"></a>
@@ -674,6 +776,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Number of partition entries. </p>
 
 </div>
 </div>
@@ -689,7 +793,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>Partition entries. </p>
+<p>Array of four partition entries. </p>
 
 </div>
 </div>
@@ -705,6 +809,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Reserved field, must be zero. </p>
+
 </div>
 </div>
 <a id="a4b144b4e44dff41a4cc5a393fd4e5c00"></a>
@@ -718,6 +824,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reserved space, must be zero. </p>
 
 </div>
 </div>
@@ -733,6 +841,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>GPT signature, should be "EFI PART". </p>
+
 </div>
 </div>
 <a id="a29a1c9bc88ae80b8118c23b89403da47"></a>
@@ -746,6 +856,8 @@ false if partition not found, partition_id, start and length will be unchanged <
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Size of each partition entry in bytes. </p>
 
 </div>
 </div>
@@ -761,6 +873,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Starting LBA of the partition. </p>
+
 </div>
 </div>
 <a id="ad2790b60a9dc7a559a168e41d3007ed0"></a>
@@ -775,7 +889,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>Starting cylinder and sector. </p>
+<p>Starting cylinder and sector of the partition. </p>
 
 </div>
 </div>
@@ -791,7 +905,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>Starting head. </p>
+<p>Starting head of the partition. </p>
 
 </div>
 </div>
@@ -807,7 +921,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>Starting LBA. </p>
+<p>Starting LBA (Logical Block Address) of the partition. </p>
 
 </div>
 </div>
@@ -823,7 +937,7 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
-<p>partition type id </p>
+<p>Partition type identifier. </p>
 
 </div>
 </div>
@@ -839,6 +953,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Partition type GUID. </p>
+
 </div>
 </div>
 <a id="a1b57b6229a4dd09dc6ad650dc932163e"></a>
@@ -853,6 +969,8 @@ false if partition not found, partition_id, start and length will be unchanged <
       </table>
 </div><div class="memdoc">
 
+<p>Unique GUID for this partition. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -861,7 +979,7 @@ false if partition not found, partition_id, start and length will be unchanged <
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="partition_8h.html">partition.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

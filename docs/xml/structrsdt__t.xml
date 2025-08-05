@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>header</name>
         <briefdescription>
+<para>Standard ACPI header. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="44" column="14" bodyfile="include/acpi.h" bodystart="44" bodyend="-1"/>
+        <location file="include/acpi.h" line="57" column="14" bodyfile="include/acpi.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrsdt__t_1a4d70b93c02daf9f247eb80bb4d5712b2" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -23,18 +24,20 @@
         <argsstring>[]</argsstring>
         <name>pointer_to_other_sdt</name>
         <briefdescription>
+<para>Array of 32-bit physical addresses to other tables. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="45" column="10" bodyfile="include/acpi.h" bodystart="45" bodyend="-1"/>
+        <location file="include/acpi.h" line="58" column="10" bodyfile="include/acpi.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Root System Description Table. </para>
+<para>Root System Description Table (RSDT) </para>
     </briefdescription>
     <detaileddescription>
+<para>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="3">
@@ -76,7 +79,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/acpi.h" line="43" column="1" bodyfile="include/acpi.h" bodystart="43" bodyend="47"/>
+    <location file="include/acpi.h" line="56" column="1" bodyfile="include/acpi.h" bodystart="56" bodyend="59"/>
     <listofallmembers>
       <member refid="structrsdt__t_1a67ae0a8956225068c22bc714b47f4dc5" prot="public" virt="non-virtual"><scope>rsdt_t</scope><name>header</name></member>
       <member refid="structrsdt__t_1a4d70b93c02daf9f247eb80bb4d5712b2" prot="public" virt="non-virtual"><scope>rsdt_t</scope><name>pointer_to_other_sdt</name></member>

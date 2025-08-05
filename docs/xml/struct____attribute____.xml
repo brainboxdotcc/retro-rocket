@@ -4,6 +4,91 @@
     <compoundname>__attribute__</compoundname>
     <includes local="no">iso9660.h</includes>
       <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct____attribute_____1a30e60959661cf2e3b2dcc52e5d3e9249" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t __attribute__::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>Entry type (always 2 for overrides) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="77" column="9" bodyfile="include/acpi.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct____attribute_____1a3ddd0091402d85a50cf9eb63ff2c7d71" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t __attribute__::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+<para>Length of this entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Length of this directory entry </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="78" column="9" bodyfile="include/acpi.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct____attribute_____1af18b9f54665e6b18eca185d3a7c0f1e8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t __attribute__::bus_source</definition>
+        <argsstring></argsstring>
+        <name>bus_source</name>
+        <briefdescription>
+<para>Typically 0 (ISA bus) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="79" column="9" bodyfile="include/acpi.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct____attribute_____1a8445075c394563f1703d0888823265a7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t __attribute__::irq_source</definition>
+        <argsstring></argsstring>
+        <name>irq_source</name>
+        <briefdescription>
+<para>Original IRQ number. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="80" column="9" bodyfile="include/acpi.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct____attribute_____1a9701a1cffb62bc2664cf3fd20fd42a08" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t __attribute__::gsi</definition>
+        <argsstring></argsstring>
+        <name>gsi</name>
+        <briefdescription>
+<para>New GSI mapping. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="81" column="10" bodyfile="include/acpi.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct____attribute_____1aa0943b75cfebf20ce431adfbedf9f8c4" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t __attribute__::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>Bitmask defining polarity and trigger mode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/acpi.h" line="82" column="10" bodyfile="include/acpi.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a7b7d1a44b586f753e2a41f54453d2786" prot="public" static="no" mutable="no">
         <type>char</type>
         <definition>char __attribute__::year[4]</definition>
@@ -12,10 +97,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Year (ASCII, 4 digits) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="29" column="6" bodyfile="include/iso9660.h" bodystart="29" bodyend="-1"/>
+        <location file="include/iso9660.h" line="47" column="6" bodyfile="include/iso9660.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a00027c4795e5b57bc0f993f5b403a43f" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -25,10 +111,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Month (01–12) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="30" column="6" bodyfile="include/iso9660.h" bodystart="30" bodyend="-1"/>
+        <location file="include/iso9660.h" line="48" column="6" bodyfile="include/iso9660.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1adb7ff11080d9e14e80f1254093c8e78f" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -38,10 +125,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Day (01–31) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="31" column="6" bodyfile="include/iso9660.h" bodystart="31" bodyend="-1"/>
+        <location file="include/iso9660.h" line="49" column="6" bodyfile="include/iso9660.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a3af95c7f7dd41f426452947bbf1ef3ad" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -51,10 +139,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Hour (00–23) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="32" column="6" bodyfile="include/iso9660.h" bodystart="32" bodyend="-1"/>
+        <location file="include/iso9660.h" line="50" column="6" bodyfile="include/iso9660.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a3206a663c708e6e1f7519680fae3d544" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -64,10 +153,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Minute (00–59) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="33" column="6" bodyfile="include/iso9660.h" bodystart="33" bodyend="-1"/>
+        <location file="include/iso9660.h" line="51" column="6" bodyfile="include/iso9660.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1afc0e3a8d592994bf466263601eef2c12" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -77,10 +167,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Second (00–59) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="34" column="6" bodyfile="include/iso9660.h" bodystart="34" bodyend="-1"/>
+        <location file="include/iso9660.h" line="52" column="6" bodyfile="include/iso9660.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a0cc8074b132bce694d3ffeafb06b4211" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -90,10 +181,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Hundredths of a second </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="35" column="6" bodyfile="include/iso9660.h" bodystart="35" bodyend="-1"/>
+        <location file="include/iso9660.h" line="53" column="6" bodyfile="include/iso9660.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1af0630e5d73101d6d23c0bab616d963af" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -103,10 +195,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Timezone offset from GMT in 15-minute intervals </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="36" column="6" bodyfile="include/iso9660.h" bodystart="36" bodyend="-1"/>
+        <location file="include/iso9660.h" line="54" column="6" bodyfile="include/iso9660.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a00ace6d37f44d66f779bf7ebea45a062" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -116,10 +209,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Years since 1900 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="42" column="9" bodyfile="include/iso9660.h" bodystart="42" bodyend="-1"/>
+        <location file="include/iso9660.h" line="61" column="9" bodyfile="include/iso9660.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a1ddb6c7a40c593998c32d91c8618ef17" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -129,10 +223,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Month (1–12) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="43" column="9" bodyfile="include/iso9660.h" bodystart="43" bodyend="-1"/>
+        <location file="include/iso9660.h" line="62" column="9" bodyfile="include/iso9660.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a2a4f859c1d056da438ce0002b99c13df" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -142,10 +237,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Day (1–31) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="44" column="9" bodyfile="include/iso9660.h" bodystart="44" bodyend="-1"/>
+        <location file="include/iso9660.h" line="63" column="9" bodyfile="include/iso9660.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a71e693706579ad2249a892ba9c2b5869" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -155,10 +251,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Hour (0–23) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="45" column="9" bodyfile="include/iso9660.h" bodystart="45" bodyend="-1"/>
+        <location file="include/iso9660.h" line="64" column="9" bodyfile="include/iso9660.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a1a418055cfd85d67a926314afb0567f8" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -168,10 +265,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Minute (0–59) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="46" column="9" bodyfile="include/iso9660.h" bodystart="46" bodyend="-1"/>
+        <location file="include/iso9660.h" line="65" column="9" bodyfile="include/iso9660.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a75d7a0b0d2fd7eebd440ac1a0b5f97d2" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -181,23 +279,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Second (0–59) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="47" column="9" bodyfile="include/iso9660.h" bodystart="47" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="struct____attribute_____1a3ddd0091402d85a50cf9eb63ff2c7d71" prot="public" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t __attribute__::length</definition>
-        <argsstring></argsstring>
-        <name>length</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/iso9660.h" line="54" column="9" bodyfile="include/iso9660.h" bodystart="54" bodyend="-1"/>
+        <location file="include/iso9660.h" line="66" column="9" bodyfile="include/iso9660.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1abbe8bc7f2cda92b0a211610d06f6585c" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -207,10 +293,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Length of extended attributes </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="55" column="9" bodyfile="include/iso9660.h" bodystart="55" bodyend="-1"/>
+        <location file="include/iso9660.h" line="79" column="9" bodyfile="include/iso9660.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1acb79cb292bdd3c077c5f0ce46a640ec9" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -220,10 +307,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File extent LBA (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="56" column="10" bodyfile="include/iso9660.h" bodystart="56" bodyend="-1"/>
+        <location file="include/iso9660.h" line="80" column="10" bodyfile="include/iso9660.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a4613b745c8832e7c39470fb4dcd44115" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -233,10 +321,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File extent LBA (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="57" column="10" bodyfile="include/iso9660.h" bodystart="57" bodyend="-1"/>
+        <location file="include/iso9660.h" line="81" column="10" bodyfile="include/iso9660.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a1604181dafc8bfabc6473ab6646a4f40" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -246,10 +335,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Data length (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="58" column="10" bodyfile="include/iso9660.h" bodystart="58" bodyend="-1"/>
+        <location file="include/iso9660.h" line="82" column="10" bodyfile="include/iso9660.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1ace263315c4809c60745002ecbbdba429" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -259,10 +349,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Data length (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="59" column="10" bodyfile="include/iso9660.h" bodystart="59" bodyend="-1"/>
+        <location file="include/iso9660.h" line="83" column="10" bodyfile="include/iso9660.h" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1abc4717651c27f9c95ecee108aae75d16" prot="public" static="no" mutable="no">
         <type>DIRECTORY_date</type>
@@ -272,10 +363,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Recording timestamp </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="60" column="16" bodyfile="include/iso9660.h" bodystart="60" bodyend="-1"/>
+        <location file="include/iso9660.h" line="84" column="16" bodyfile="include/iso9660.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a04754a8f973f64bb817084dbbed2e8ac" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -285,10 +377,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File flags (e.g., directory, hidden) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="61" column="9" bodyfile="include/iso9660.h" bodystart="61" bodyend="-1"/>
+        <location file="include/iso9660.h" line="85" column="9" bodyfile="include/iso9660.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1ae625cef972ea0f1f1ec8b507760c4ef3" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -298,10 +391,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Interleave unit size (rarely used) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="62" column="10" bodyfile="include/iso9660.h" bodystart="62" bodyend="-1"/>
+        <location file="include/iso9660.h" line="86" column="10" bodyfile="include/iso9660.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a94548ac3ac76ee25371cce6194c6af06" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -311,10 +405,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File sequence number (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="63" column="10" bodyfile="include/iso9660.h" bodystart="63" bodyend="-1"/>
+        <location file="include/iso9660.h" line="87" column="10" bodyfile="include/iso9660.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a7c4673dd44192369c2732fb730f9059e" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -324,10 +419,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File sequence number (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="64" column="10" bodyfile="include/iso9660.h" bodystart="64" bodyend="-1"/>
+        <location file="include/iso9660.h" line="88" column="10" bodyfile="include/iso9660.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a03776a3cffc3e362d88156906170c067" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -337,10 +433,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Length of filename in bytes </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="65" column="9" bodyfile="include/iso9660.h" bodystart="65" bodyend="-1"/>
+        <location file="include/iso9660.h" line="89" column="9" bodyfile="include/iso9660.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a36d195c8bf72bd28757e63ad4bdc0b62" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -350,10 +447,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Truncated filename (see note above) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="72" column="6" bodyfile="include/iso9660.h" bodystart="72" bodyend="-1"/>
+        <location file="include/iso9660.h" line="90" column="6" bodyfile="include/iso9660.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1acb8c7ea6040e0db31981cf56fa56dc04" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -363,10 +461,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Descriptor type (should be 1 for PVD) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="78" column="9" bodyfile="include/iso9660.h" bodystart="78" bodyend="-1"/>
+        <location file="include/iso9660.h" line="100" column="9" bodyfile="include/iso9660.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1ae32e86f84358e7502cc9d09b9cf790e4" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -376,10 +475,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>&quot;CD001&quot; identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="79" column="6" bodyfile="include/iso9660.h" bodystart="79" bodyend="-1"/>
+        <location file="include/iso9660.h" line="101" column="6" bodyfile="include/iso9660.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a2e226654212aebfb764a8df90d66b006" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -389,10 +489,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Version (always 1) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="80" column="9" bodyfile="include/iso9660.h" bodystart="80" bodyend="-1"/>
+        <location file="include/iso9660.h" line="102" column="9" bodyfile="include/iso9660.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a9438874b0dc75626a1f6515c8dec8d90" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -405,7 +506,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="81" column="9" bodyfile="include/iso9660.h" bodystart="81" bodyend="-1"/>
+        <location file="include/iso9660.h" line="103" column="9" bodyfile="include/iso9660.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a3f6d91f34be90cc8328cd167b70f700c" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -415,10 +516,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>System identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="82" column="6" bodyfile="include/iso9660.h" bodystart="82" bodyend="-1"/>
+        <location file="include/iso9660.h" line="104" column="6" bodyfile="include/iso9660.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a6489ab3cf0120cc05964c7b8cd207a7f" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -428,10 +530,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="83" column="6" bodyfile="include/iso9660.h" bodystart="83" bodyend="-1"/>
+        <location file="include/iso9660.h" line="105" column="6" bodyfile="include/iso9660.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1ac25fec6922fa9e13ee0ae88278587933" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -444,7 +547,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="84" column="6" bodyfile="include/iso9660.h" bodystart="84" bodyend="-1"/>
+        <location file="include/iso9660.h" line="106" column="6" bodyfile="include/iso9660.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a3a3d06abd60a7068312779bb8b613ad0" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -454,10 +557,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume space size (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="85" column="10" bodyfile="include/iso9660.h" bodystart="85" bodyend="-1"/>
+        <location file="include/iso9660.h" line="107" column="10" bodyfile="include/iso9660.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a434f8342c5b494ed278fdf37e4ae78f2" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -467,10 +571,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume space size (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="86" column="10" bodyfile="include/iso9660.h" bodystart="86" bodyend="-1"/>
+        <location file="include/iso9660.h" line="108" column="10" bodyfile="include/iso9660.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1ac413f7aa5f115b456983e7775f4f57f3" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -480,23 +585,25 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Escape sequences for Joliet </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="88" column="6" bodyfile="include/iso9660.h" bodystart="88" bodyend="-1"/>
+        <location file="include/iso9660.h" line="109" column="6" bodyfile="include/iso9660.h" bodystart="109" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="struct____attribute_____1a939c1cdac5cb1aacf2d2f83311e0aa3b" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct____attribute_____1a4f88eb0860406447f522b3dc52ec52c9" prot="public" static="no" mutable="no">
         <type>char</type>
-        <definition>char __attribute__::unused3[32-8]</definition>
-        <argsstring>[32-8]</argsstring>
+        <definition>char __attribute__::unused3[24]</definition>
+        <argsstring>[24]</argsstring>
         <name>unused3</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Padding </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="89" column="6" bodyfile="include/iso9660.h" bodystart="89" bodyend="-1"/>
+        <location file="include/iso9660.h" line="110" column="6" bodyfile="include/iso9660.h" bodystart="110" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1af426c51648e44d3221cc17ae1779a9eb" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -506,10 +613,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume set size (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="90" column="10" bodyfile="include/iso9660.h" bodystart="90" bodyend="-1"/>
+        <location file="include/iso9660.h" line="111" column="10" bodyfile="include/iso9660.h" bodystart="111" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a57993796e8cb664feffd721fbf0a0455" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -519,10 +627,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume set size (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="91" column="10" bodyfile="include/iso9660.h" bodystart="91" bodyend="-1"/>
+        <location file="include/iso9660.h" line="112" column="10" bodyfile="include/iso9660.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a7090e215ba38c11f9a1ffe9864ec4b5f" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -532,10 +641,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume sequence number (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="92" column="10" bodyfile="include/iso9660.h" bodystart="92" bodyend="-1"/>
+        <location file="include/iso9660.h" line="113" column="10" bodyfile="include/iso9660.h" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a2c4f31fdc0cc29a777978984237627aa" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -545,10 +655,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume sequence number (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="93" column="10" bodyfile="include/iso9660.h" bodystart="93" bodyend="-1"/>
+        <location file="include/iso9660.h" line="114" column="10" bodyfile="include/iso9660.h" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a7148a5d83c6a7e3649b14dfdfa6558ac" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -558,10 +669,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Logical block size (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="94" column="10" bodyfile="include/iso9660.h" bodystart="94" bodyend="-1"/>
+        <location file="include/iso9660.h" line="115" column="10" bodyfile="include/iso9660.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1adf3f5342e2e0187041c179522eb54483" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -571,10 +683,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Logical block size (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="95" column="10" bodyfile="include/iso9660.h" bodystart="95" bodyend="-1"/>
+        <location file="include/iso9660.h" line="116" column="10" bodyfile="include/iso9660.h" bodystart="116" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a9397f71558a524f870324b52362ba317" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -584,10 +697,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Path table size (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="100" column="10" bodyfile="include/iso9660.h" bodystart="100" bodyend="-1"/>
+        <location file="include/iso9660.h" line="117" column="10" bodyfile="include/iso9660.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1af983e2f39dcbd61992326dce5a891241" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -597,10 +711,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Path table size (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="101" column="10" bodyfile="include/iso9660.h" bodystart="101" bodyend="-1"/>
+        <location file="include/iso9660.h" line="118" column="10" bodyfile="include/iso9660.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1abf453d049454249883e52314c8ec2c8a" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -610,10 +725,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Path table L (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="102" column="10" bodyfile="include/iso9660.h" bodystart="102" bodyend="-1"/>
+        <location file="include/iso9660.h" line="119" column="10" bodyfile="include/iso9660.h" bodystart="119" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a6b3118207633eab54a38bad16cd89e62" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -623,10 +739,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Optional path table L (LSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="103" column="10" bodyfile="include/iso9660.h" bodystart="103" bodyend="-1"/>
+        <location file="include/iso9660.h" line="120" column="10" bodyfile="include/iso9660.h" bodystart="120" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a45082fd2d8060089cffb14b1d998ca18" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -636,10 +753,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Path table M (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="104" column="10" bodyfile="include/iso9660.h" bodystart="104" bodyend="-1"/>
+        <location file="include/iso9660.h" line="121" column="10" bodyfile="include/iso9660.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a78654f07504f5ffcf068a30a0fb9d3e4" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -649,10 +767,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Optional path table M (MSB) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="105" column="10" bodyfile="include/iso9660.h" bodystart="105" bodyend="-1"/>
+        <location file="include/iso9660.h" line="122" column="10" bodyfile="include/iso9660.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a89b2037d73b9ec60f293d2cbc0c01afa" prot="public" static="no" mutable="no">
         <type>ISO9660_directory</type>
@@ -662,10 +781,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Root directory entry </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="106" column="19" bodyfile="include/iso9660.h" bodystart="106" bodyend="-1"/>
+        <location file="include/iso9660.h" line="123" column="19" bodyfile="include/iso9660.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a9d51a4ee3c46b604365659f354d20a50" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -675,10 +795,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume set identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="107" column="6" bodyfile="include/iso9660.h" bodystart="107" bodyend="-1"/>
+        <location file="include/iso9660.h" line="124" column="6" bodyfile="include/iso9660.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a8cbb5c82eb30a89b53eee623083dfc23" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -688,10 +809,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Publisher identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="108" column="6" bodyfile="include/iso9660.h" bodystart="108" bodyend="-1"/>
+        <location file="include/iso9660.h" line="125" column="6" bodyfile="include/iso9660.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a931a61216ec4be0a5723a606bedcff56" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -701,10 +823,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Data preparer identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="109" column="6" bodyfile="include/iso9660.h" bodystart="109" bodyend="-1"/>
+        <location file="include/iso9660.h" line="126" column="6" bodyfile="include/iso9660.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a6bd09dff8cfab1f58909a47ae449cbb5" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -714,10 +837,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Application identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="110" column="6" bodyfile="include/iso9660.h" bodystart="110" bodyend="-1"/>
+        <location file="include/iso9660.h" line="127" column="6" bodyfile="include/iso9660.h" bodystart="127" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a8d04be746e10282788a4a1a531e8822d" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -727,10 +851,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Copyright file identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="111" column="6" bodyfile="include/iso9660.h" bodystart="111" bodyend="-1"/>
+        <location file="include/iso9660.h" line="128" column="6" bodyfile="include/iso9660.h" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a6cd6d627e8dc6fac12226f320643428a" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -740,10 +865,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Abstract file identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="112" column="6" bodyfile="include/iso9660.h" bodystart="112" bodyend="-1"/>
+        <location file="include/iso9660.h" line="129" column="6" bodyfile="include/iso9660.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a4aabb2414edcd619cb932e1bd7316ccb" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -753,10 +879,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Bibliographic file identifier </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="113" column="6" bodyfile="include/iso9660.h" bodystart="113" bodyend="-1"/>
+        <location file="include/iso9660.h" line="130" column="6" bodyfile="include/iso9660.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a58ec3d12c07e67860f9e49dbb8e5301a" prot="public" static="no" mutable="no">
         <type>PVD_date</type>
@@ -766,10 +893,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume creation time </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="114" column="10" bodyfile="include/iso9660.h" bodystart="114" bodyend="-1"/>
+        <location file="include/iso9660.h" line="131" column="10" bodyfile="include/iso9660.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a9fd7fe89bfb11fc399f2d3ace17acc67" prot="public" static="no" mutable="no">
         <type>PVD_date</type>
@@ -779,10 +907,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume modification time </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="115" column="10" bodyfile="include/iso9660.h" bodystart="115" bodyend="-1"/>
+        <location file="include/iso9660.h" line="132" column="10" bodyfile="include/iso9660.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a4323d07c8fa41051199f92c93ab431c8" prot="public" static="no" mutable="no">
         <type>PVD_date</type>
@@ -792,10 +921,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume expiry time </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="116" column="10" bodyfile="include/iso9660.h" bodystart="116" bodyend="-1"/>
+        <location file="include/iso9660.h" line="133" column="10" bodyfile="include/iso9660.h" bodystart="133" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a86fae2cdfbf37c6d23ad4bf0bd14f1bf" prot="public" static="no" mutable="no">
         <type>PVD_date</type>
@@ -805,10 +935,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Volume effective time </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="117" column="10" bodyfile="include/iso9660.h" bodystart="117" bodyend="-1"/>
+        <location file="include/iso9660.h" line="134" column="10" bodyfile="include/iso9660.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1aa6446a04be8762884bc3b7ffd9c5e2ef" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -818,10 +949,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File structure version (1) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="118" column="9" bodyfile="include/iso9660.h" bodystart="118" bodyend="-1"/>
+        <location file="include/iso9660.h" line="135" column="9" bodyfile="include/iso9660.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1ad10652ce4ec7894bdc3afa7dabd23942" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -834,7 +966,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="119" column="6" bodyfile="include/iso9660.h" bodystart="119" bodyend="-1"/>
+        <location file="include/iso9660.h" line="136" column="6" bodyfile="include/iso9660.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a87c40fcf582e54e8cd447f8b235958a7" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -844,10 +976,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Application-specific use </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="120" column="9" bodyfile="include/iso9660.h" bodystart="120" bodyend="-1"/>
+        <location file="include/iso9660.h" line="137" column="9" bodyfile="include/iso9660.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct____attribute_____1a3db63ed0ea99f23e390aea70c411d940" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -857,21 +990,32 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved / padding </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/iso9660.h" line="121" column="9" bodyfile="include/iso9660.h" bodystart="121" bodyend="-1"/>
+        <location file="include/iso9660.h" line="138" column="9" bodyfile="include/iso9660.h" bodystart="138" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Describes an IRQ override from the MADT table. </para>
     </briefdescription>
     <detaileddescription>
+<para>Supplementary Volume Descriptor (SVD).</para>
+<para>Primary Volume Descriptor (PVD).</para>
+<para>Directory entry (file or subdirectory).</para>
+<para>Compact per-file date entry format (differs from PVD_date).</para>
+<para>Date structure as defined in the Primary Volume Descriptor (PVD).</para>
+<para>Used to override the default IRQ to GSI mapping, and specify trigger mode and polarity.</para>
+<para>Filenames may exceed the fixed <computeroutput>filename[12]</computeroutput> buffer. Walk the list of entries using <computeroutput>length</computeroutput>, which accounts for variable-length names.</para>
+<para>Defines the metadata for the filesystem. Contains dual-endian fields (LSB/MSB) for cross-platform compatibility.</para>
+<para>Placeholder for Joliet or other extensions. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="7">
         <label>DIRECTORY_date</label>
       </node>
-      <node id="2">
+      <node id="3">
         <label>uint16_t</label>
       </node>
       <node id="4">
@@ -887,17 +1031,6 @@
         <label>__attribute__</label>
         <link refid="struct____attribute____"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>interleave_unit_size</edgelabel>
-          <edgelabel>lsb_blocksize</edgelabel>
-          <edgelabel>lsb_volumeseqno</edgelabel>
-          <edgelabel>lsb_volumesetsize</edgelabel>
-          <edgelabel>msb_blocksize</edgelabel>
-          <edgelabel>msb_volumeseqno</edgelabel>
-          <edgelabel>msb_volumesetsize</edgelabel>
-          <edgelabel>sequence_number_lsb</edgelabel>
-          <edgelabel>sequence_number_msb</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>abstract_file</edgelabel>
           <edgelabel>application_id</edgelabel>
           <edgelabel>bibliographic_file</edgelabel>
@@ -910,30 +1043,43 @@
           <edgelabel>millisecond</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>flags</edgelabel>
+          <edgelabel>interleave_unit_size</edgelabel>
+          <edgelabel>lsb_blocksize</edgelabel>
+          <edgelabel>lsb_volumeseqno</edgelabel>
+          <edgelabel>lsb_volumesetsize</edgelabel>
+          <edgelabel>msb_blocksize</edgelabel>
+          <edgelabel>msb_volumeseqno</edgelabel>
+          <edgelabel>msb_volumesetsize</edgelabel>
+          <edgelabel>sequence_number_lsb</edgelabel>
+          <edgelabel>sequence_number_msb</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>data_length_lsb</edgelabel>
           <edgelabel>data_length_msb</edgelabel>
           <edgelabel>extent_lba_lsb</edgelabel>
           <edgelabel>extent_lba_msb</edgelabel>
+          <edgelabel>gsi</edgelabel>
           <edgelabel>lsb_optpathtable_L_lba</edgelabel>
           <edgelabel>lsb_optpathtable_M_lba</edgelabel>
           <edgelabel>lsb_pathtable_L_lba</edgelabel>
           <edgelabel>lsb_pathtable_M_lba</edgelabel>
           <edgelabel>lsb_pathtablesize</edgelabel>
-          <edgelabel>lsb_volumespacesize</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>application_use</edgelabel>
           <edgelabel>attribute_length</edgelabel>
+          <edgelabel>bus_source</edgelabel>
           <edgelabel>day</edgelabel>
           <edgelabel>file_flags</edgelabel>
           <edgelabel>file_structure_version</edgelabel>
           <edgelabel>filename_length</edgelabel>
           <edgelabel>hour</edgelabel>
+          <edgelabel>irq_source</edgelabel>
           <edgelabel>length</edgelabel>
-          <edgelabel>minute</edgelabel>
-          <edgelabel>month</edgelabel>
           <edgelabel>...</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
@@ -949,20 +1095,21 @@
           <edgelabel>volume_modification_date</edgelabel>
         </childnode>
       </node>
-      <node id="3">
+      <node id="2">
         <label>char</label>
       </node>
       <node id="6">
         <label>ISO9660_directory</label>
       </node>
     </collaborationgraph>
-    <location file="include/iso9660.h" line="27" column="1" bodyfile="include/iso9660.h" bodystart="28" bodyend="37"/>
+    <location file="include/acpi.h" line="76" column="1" bodyfile="include/acpi.h" bodystart="76" bodyend="83"/>
     <listofallmembers>
       <member refid="struct____attribute_____1a6cd6d627e8dc6fac12226f320643428a" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>abstract_file</name></member>
       <member refid="struct____attribute_____1a6bd09dff8cfab1f58909a47ae449cbb5" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>application_id</name></member>
       <member refid="struct____attribute_____1a87c40fcf582e54e8cd447f8b235958a7" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>application_use</name></member>
       <member refid="struct____attribute_____1abbe8bc7f2cda92b0a211610d06f6585c" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>attribute_length</name></member>
       <member refid="struct____attribute_____1a4aabb2414edcd619cb932e1bd7316ccb" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>bibliographic_file</name></member>
+      <member refid="struct____attribute_____1af18b9f54665e6b18eca185d3a7c0f1e8" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>bus_source</name></member>
       <member refid="struct____attribute_____1a8d04be746e10282788a4a1a531e8822d" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>copyright_file</name></member>
       <member refid="struct____attribute_____1a1604181dafc8bfabc6473ab6646a4f40" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>data_length_lsb</name></member>
       <member refid="struct____attribute_____1ace263315c4809c60745002ecbbdba429" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>data_length_msb</name></member>
@@ -976,9 +1123,12 @@
       <member refid="struct____attribute_____1aa6446a04be8762884bc3b7ffd9c5e2ef" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>file_structure_version</name></member>
       <member refid="struct____attribute_____1a36d195c8bf72bd28757e63ad4bdc0b62" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>filename</name></member>
       <member refid="struct____attribute_____1a03776a3cffc3e362d88156906170c067" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>filename_length</name></member>
+      <member refid="struct____attribute_____1aa0943b75cfebf20ce431adfbedf9f8c4" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>flags</name></member>
+      <member refid="struct____attribute_____1a9701a1cffb62bc2664cf3fd20fd42a08" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>gsi</name></member>
       <member refid="struct____attribute_____1a3af95c7f7dd41f426452947bbf1ef3ad" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>hour</name></member>
       <member refid="struct____attribute_____1a71e693706579ad2249a892ba9c2b5869" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>hour</name></member>
       <member refid="struct____attribute_____1ae625cef972ea0f1f1ec8b507760c4ef3" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>interleave_unit_size</name></member>
+      <member refid="struct____attribute_____1a8445075c394563f1703d0888823265a7" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>irq_source</name></member>
       <member refid="struct____attribute_____1a3ddd0091402d85a50cf9eb63ff2c7d71" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>length</name></member>
       <member refid="struct____attribute_____1a7148a5d83c6a7e3649b14dfdfa6558ac" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>lsb_blocksize</name></member>
       <member refid="struct____attribute_____1a6b3118207633eab54a38bad16cd89e62" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>lsb_optpathtable_L_lba</name></member>
@@ -1009,11 +1159,12 @@
       <member refid="struct____attribute_____1a7c4673dd44192369c2732fb730f9059e" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>sequence_number_msb</name></member>
       <member refid="struct____attribute_____1ae32e86f84358e7502cc9d09b9cf790e4" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>standardidentifier</name></member>
       <member refid="struct____attribute_____1a3f6d91f34be90cc8328cd167b70f700c" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>systemidentifier</name></member>
+      <member refid="struct____attribute_____1a30e60959661cf2e3b2dcc52e5d3e9249" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>type</name></member>
       <member refid="struct____attribute_____1acb8c7ea6040e0db31981cf56fa56dc04" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>typecode</name></member>
       <member refid="struct____attribute_____1af0630e5d73101d6d23c0bab616d963af" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>tz_offset</name></member>
       <member refid="struct____attribute_____1a9438874b0dc75626a1f6515c8dec8d90" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>unused</name></member>
       <member refid="struct____attribute_____1ac25fec6922fa9e13ee0ae88278587933" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>unused2</name></member>
-      <member refid="struct____attribute_____1a939c1cdac5cb1aacf2d2f83311e0aa3b" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>unused3</name></member>
+      <member refid="struct____attribute_____1a4f88eb0860406447f522b3dc52ec52c9" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>unused3</name></member>
       <member refid="struct____attribute_____1ad10652ce4ec7894bdc3afa7dabd23942" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>unused4</name></member>
       <member refid="struct____attribute_____1a2e226654212aebfb764a8df90d66b006" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>version</name></member>
       <member refid="struct____attribute_____1a58ec3d12c07e67860f9e49dbb8e5301a" prot="public" virt="non-virtual"><scope>__attribute__</scope><name>volume_creation_date</name></member>

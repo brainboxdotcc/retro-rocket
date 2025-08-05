@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['va_5flist_3349',['va_list',['../printf_8h.html#af53f622e3b6c080daeb167c1955d7ec1',1,'printf.h']]]
+  ['udp_5fdaemon_5fhandler_5734',['udp_daemon_handler',['../udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337',1,'udp.h']]],
+  ['uid_5ft_5735',['uid_t',['../taskswitch_8h.html#af2306308627701b66dc6f3babe821ab4',1,'taskswitch.h']]]
 ];

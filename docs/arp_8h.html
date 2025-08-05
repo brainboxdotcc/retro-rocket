@@ -94,18 +94,24 @@ $(document).ready(function(){initNavTree('arp_8h.html',''); initResizable(); });
 <div class="title">arp.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>ARP (Address Resolution Protocol) implementation for Retro Rocket.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="kernel_8h.html">kernel.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html">arp_packet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of an ARP packet (per RFC 826)  <a href="structarp__packet.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__table__entry__t.html">arp_table_entry_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single ARP table entry.  <a href="structarp__table__entry__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a4c4f153799e067ed950a33e35590cf48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a4c4f153799e067ed950a33e35590cf48">ETHERNET_TYPE_ARP</a>&#160;&#160;&#160;0x0806</td></tr>
+<tr class="memdesc:a4c4f153799e067ed950a33e35590cf48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet frame type for ARP.  <a href="arp_8h.html#a4c4f153799e067ed950a33e35590cf48">More...</a><br /></td></tr>
 <tr class="separator:a4c4f153799e067ed950a33e35590cf48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -113,58 +119,70 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a54b168c1808c891a5f770f8e8f31277e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a54b168c1808c891a5f770f8e8f31277e">arp_packet_type_t</a> { <a class="el" href="arp_8h.html#a54b168c1808c891a5f770f8e8f31277eafb58ccf8b7b11505ff2117a10bf6ff61">ARP_REQUEST</a> = 1
 , <a class="el" href="arp_8h.html#a54b168c1808c891a5f770f8e8f31277ea8bb24a026264a5b22435864179f874d9">ARP_REPLY</a> = 2
  }</td></tr>
+<tr class="memdesc:a54b168c1808c891a5f770f8e8f31277e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opcode values for ARP packets.  <a href="arp_8h.html#a54b168c1808c891a5f770f8e8f31277e">More...</a><br /></td></tr>
 <tr class="separator:a54b168c1808c891a5f770f8e8f31277e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a61ae48c115f16fa51d6c4284aacb78d9"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structarp__packet.html">arp_packet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a61ae48c115f16fa51d6c4284aacb78d9">__attribute__</a> ((packed)) arp_packet_t</td></tr>
+<tr class="memdesc:a61ae48c115f16fa51d6c4284aacb78d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of an ARP packet (per RFC 826)  <a href="arp_8h.html#a61ae48c115f16fa51d6c4284aacb78d9">More...</a><br /></td></tr>
 <tr class="separator:a61ae48c115f16fa51d6c4284aacb78d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83c069ec5b715eb350264e6d71e27386"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a83c069ec5b715eb350264e6d71e27386">arp_send_packet</a> (uint8_t *<a class="el" href="arp_8h.html#a36c49b5abd4965e6c47e530d859d0042">dst_hardware_addr</a>, uint8_t *<a class="el" href="arp_8h.html#a18c92b51c04c4d12d5f3f7574a99d26a">dst_protocol_addr</a>)</td></tr>
-<tr class="memdesc:a83c069ec5b715eb350264e6d71e27386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send an ARP packet to the ethernet driver.  <a href="arp_8h.html#a83c069ec5b715eb350264e6d71e27386">More...</a><br /></td></tr>
+<tr class="memdesc:a83c069ec5b715eb350264e6d71e27386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send an ARP packet via the Ethernet driver.  <a href="arp_8h.html#a83c069ec5b715eb350264e6d71e27386">More...</a><br /></td></tr>
 <tr class="separator:a83c069ec5b715eb350264e6d71e27386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c42cd0cf3334e17dba31d79df346b68"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a4c42cd0cf3334e17dba31d79df346b68">arp_lookup</a> (uint8_t *ret_hardware_addr, uint8_t *ip_addr)</td></tr>
-<tr class="memdesc:a4c42cd0cf3334e17dba31d79df346b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lookup a MAC address for an IP address via a blocking ARP request.  <a href="arp_8h.html#a4c42cd0cf3334e17dba31d79df346b68">More...</a><br /></td></tr>
+<tr class="memitem:a4c42cd0cf3334e17dba31d79df346b68"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a4c42cd0cf3334e17dba31d79df346b68">arp_lookup</a> (uint8_t *ret_hardware_addr, uint8_t *<a class="el" href="ip_8c.html#a9bccf5c44f19ed32be16e03df2bc2fa3">ip_addr</a>)</td></tr>
+<tr class="memdesc:a4c42cd0cf3334e17dba31d79df346b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a blocking ARP lookup to resolve an IP address.  <a href="arp_8h.html#a4c42cd0cf3334e17dba31d79df346b68">More...</a><br /></td></tr>
 <tr class="separator:a4c42cd0cf3334e17dba31d79df346b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfb058efa1f5ac734b350159676020a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#adfb058efa1f5ac734b350159676020a4">arp_lookup_add</a> (uint8_t *ret_hardware_addr, uint8_t *ip_addr)</td></tr>
-<tr class="memdesc:adfb058efa1f5ac734b350159676020a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache and ARP entry in the ARP cache.  <a href="arp_8h.html#adfb058efa1f5ac734b350159676020a4">More...</a><br /></td></tr>
+<tr class="memitem:adfb058efa1f5ac734b350159676020a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#adfb058efa1f5ac734b350159676020a4">arp_lookup_add</a> (uint8_t *ret_hardware_addr, uint8_t *<a class="el" href="ip_8c.html#a9bccf5c44f19ed32be16e03df2bc2fa3">ip_addr</a>)</td></tr>
+<tr class="memdesc:adfb058efa1f5ac734b350159676020a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually add an ARP entry to the local cache.  <a href="arp_8h.html#adfb058efa1f5ac734b350159676020a4">More...</a><br /></td></tr>
 <tr class="separator:adfb058efa1f5ac734b350159676020a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa528ddf0081d9d95ec593c63fafacb31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#aa528ddf0081d9d95ec593c63fafacb31">arp_init</a> ()</td></tr>
-<tr class="memdesc:aa528ddf0081d9d95ec593c63fafacb31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the ARP protocol.  <a href="arp_8h.html#aa528ddf0081d9d95ec593c63fafacb31">More...</a><br /></td></tr>
+<tr class="memdesc:aa528ddf0081d9d95ec593c63fafacb31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the ARP subsystem.  <a href="arp_8h.html#aa528ddf0081d9d95ec593c63fafacb31">More...</a><br /></td></tr>
 <tr class="separator:aa528ddf0081d9d95ec593c63fafacb31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b24f831029cf547ec81280840ce22fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarp__table__entry__t.html">arp_table_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a9b24f831029cf547ec81280840ce22fc">get_arp_entry</a> (size_t index)</td></tr>
-<tr class="memdesc:a9b24f831029cf547ec81280840ce22fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an arp entry object, used by the BASIC interpreter.  <a href="arp_8h.html#a9b24f831029cf547ec81280840ce22fc">More...</a><br /></td></tr>
+<tr class="memdesc:a9b24f831029cf547ec81280840ce22fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a pointer to an ARP table entry by index.  <a href="arp_8h.html#a9b24f831029cf547ec81280840ce22fc">More...</a><br /></td></tr>
 <tr class="separator:a9b24f831029cf547ec81280840ce22fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dfc38da779cee71b7afacd4cca46eae"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a7dfc38da779cee71b7afacd4cca46eae">get_arp_table_size</a> ()</td></tr>
-<tr class="memdesc:a7dfc38da779cee71b7afacd4cca46eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the arp table size, used by the BASIC interpreter.  <a href="arp_8h.html#a7dfc38da779cee71b7afacd4cca46eae">More...</a><br /></td></tr>
+<tr class="memdesc:a7dfc38da779cee71b7afacd4cca46eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current number of ARP table entries.  <a href="arp_8h.html#a7dfc38da779cee71b7afacd4cca46eae">More...</a><br /></td></tr>
 <tr class="separator:a7dfc38da779cee71b7afacd4cca46eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78fd40ebcc17873ff998879a3ca3ee3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a78fd40ebcc17873ff998879a3ca3ee3e">arp_prediscover</a> (uint8_t *protocol_addr)</td></tr>
-<tr class="memdesc:a78fd40ebcc17873ff998879a3ca3ee3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precache a local network IP address, to save on doing an ARP lookup later when the user wants to access the resource. Used for the DNS server and gateway addresses.  <a href="arp_8h.html#a78fd40ebcc17873ff998879a3ca3ee3e">More...</a><br /></td></tr>
+<tr class="memdesc:a78fd40ebcc17873ff998879a3ca3ee3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-cache a likely-to-be-used IP address in the ARP table.  <a href="arp_8h.html#a78fd40ebcc17873ff998879a3ca3ee3e">More...</a><br /></td></tr>
 <tr class="separator:a78fd40ebcc17873ff998879a3ca3ee3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a735a525959a7de8d59c0d9d58e453762"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a735a525959a7de8d59c0d9d58e453762">hardware_type</a></td></tr>
+<tr class="memdesc:a735a525959a7de8d59c0d9d58e453762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of hardware (1 = Ethernet)  <a href="arp_8h.html#a735a525959a7de8d59c0d9d58e453762">More...</a><br /></td></tr>
 <tr class="separator:a735a525959a7de8d59c0d9d58e453762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab551400c74271f35d0c79f81d29cffbb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#ab551400c74271f35d0c79f81d29cffbb">protocol</a></td></tr>
+<tr class="memdesc:ab551400c74271f35d0c79f81d29cffbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protocol type (0x0800 = IPv4)  <a href="arp_8h.html#ab551400c74271f35d0c79f81d29cffbb">More...</a><br /></td></tr>
 <tr class="separator:ab551400c74271f35d0c79f81d29cffbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b6b06607261b860332af4cbe9316bdd"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a2b6b06607261b860332af4cbe9316bdd">hardware_addr_len</a></td></tr>
+<tr class="memdesc:a2b6b06607261b860332af4cbe9316bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of hardware address (6 for MAC)  <a href="arp_8h.html#a2b6b06607261b860332af4cbe9316bdd">More...</a><br /></td></tr>
 <tr class="separator:a2b6b06607261b860332af4cbe9316bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21d549e10ff2415bad7ec221deec07fa"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a21d549e10ff2415bad7ec221deec07fa">protocol_addr_len</a></td></tr>
+<tr class="memdesc:a21d549e10ff2415bad7ec221deec07fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of protocol address (4 for IPv4)  <a href="arp_8h.html#a21d549e10ff2415bad7ec221deec07fa">More...</a><br /></td></tr>
 <tr class="separator:a21d549e10ff2415bad7ec221deec07fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb39438c0aa5ad494c96060b00351545"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#aeb39438c0aa5ad494c96060b00351545">opcode</a></td></tr>
+<tr class="memdesc:aeb39438c0aa5ad494c96060b00351545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operation code (ARP_REQUEST or ARP_REPLY)  <a href="arp_8h.html#aeb39438c0aa5ad494c96060b00351545">More...</a><br /></td></tr>
 <tr class="separator:aeb39438c0aa5ad494c96060b00351545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8dc0dc76aad4a5ef13801998c8dcde3a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a8dc0dc76aad4a5ef13801998c8dcde3a">src_hardware_addr</a> [6]</td></tr>
+<tr class="memdesc:a8dc0dc76aad4a5ef13801998c8dcde3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sender MAC address.  <a href="arp_8h.html#a8dc0dc76aad4a5ef13801998c8dcde3a">More...</a><br /></td></tr>
 <tr class="separator:a8dc0dc76aad4a5ef13801998c8dcde3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34cf72f5fe7b4928d49a606236581207"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a34cf72f5fe7b4928d49a606236581207">src_protocol_addr</a> [4]</td></tr>
+<tr class="memdesc:a34cf72f5fe7b4928d49a606236581207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sender IP address.  <a href="arp_8h.html#a34cf72f5fe7b4928d49a606236581207">More...</a><br /></td></tr>
 <tr class="separator:a34cf72f5fe7b4928d49a606236581207"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36c49b5abd4965e6c47e530d859d0042"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a36c49b5abd4965e6c47e530d859d0042">dst_hardware_addr</a> [6]</td></tr>
+<tr class="memdesc:a36c49b5abd4965e6c47e530d859d0042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target MAC address.  <a href="arp_8h.html#a36c49b5abd4965e6c47e530d859d0042">More...</a><br /></td></tr>
 <tr class="separator:a36c49b5abd4965e6c47e530d859d0042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18c92b51c04c4d12d5f3f7574a99d26a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arp_8h.html#a18c92b51c04c4d12d5f3f7574a99d26a">dst_protocol_addr</a> [4]</td></tr>
+<tr class="memdesc:a18c92b51c04c4d12d5f3f7574a99d26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target IP address.  <a href="arp_8h.html#a18c92b51c04c4d12d5f3f7574a99d26a">More...</a><br /></td></tr>
 <tr class="separator:a18c92b51c04c4d12d5f3f7574a99d26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>ARP (Address Resolution Protocol) implementation for Retro Rocket. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a4c4f153799e067ed950a33e35590cf48"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4c4f153799e067ed950a33e35590cf48">&#9670;&nbsp;</a></span>ETHERNET_TYPE_ARP</h2>
@@ -177,6 +195,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Ethernet frame type for ARP. </p>
 
 </div>
 </div>
@@ -192,9 +212,13 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Opcode values for ARP packets. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a54b168c1808c891a5f770f8e8f31277eafb58ccf8b7b11505ff2117a10bf6ff61"></a>ARP_REQUEST&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a54b168c1808c891a5f770f8e8f31277ea8bb24a026264a5b22435864179f874d9"></a>ARP_REPLY&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a54b168c1808c891a5f770f8e8f31277eafb58ccf8b7b11505ff2117a10bf6ff61"></a>ARP_REQUEST&#160;</td><td class="fielddoc"><p>ARP Request. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a54b168c1808c891a5f770f8e8f31277ea8bb24a026264a5b22435864179f874d9"></a>ARP_REPLY&#160;</td><td class="fielddoc"><p>ARP Reply. </p>
+</td></tr>
 </table>
 
 </div>
@@ -216,6 +240,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Format of an ARP packet (per RFC 826) </p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
+
 </div>
 </div>
 <a id="aa528ddf0081d9d95ec593c63fafacb31"></a>
@@ -233,7 +265,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialise the ARP protocol. </p>
+<p>Initialise the ARP subsystem. </p>
 
 </div>
 </div>
@@ -263,15 +295,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Lookup a MAC address for an IP address via a blocking ARP request. </p>
+<p>Perform a blocking ARP lookup to resolve an IP address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ret_hardware_addr</td><td>MAC address (filled on return) </td></tr>
-    <tr><td class="paramname">ip_addr</td><td>IP address to request </td></tr>
+    <tr><td class="paramname">ret_hardware_addr</td><td>Output buffer for resolved MAC address </td></tr>
+    <tr><td class="paramname">ip_addr</td><td>IPv4 address to resolve </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int nonzero if ARP request succeeded </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int Non-zero on success, zero on failure or timeout </dd></dl>
 
 </div>
 </div>
@@ -301,11 +333,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Cache and ARP entry in the ARP cache. </p>
+<p>Manually add an ARP entry to the local cache. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ret_hardware_addr</td><td>MAC address </td></tr>
-    <tr><td class="paramname">ip_addr</td><td>IP address </td></tr>
+    <tr><td class="paramname">ret_hardware_addr</td><td>MAC address to associate </td></tr>
+    <tr><td class="paramname">ip_addr</td><td>IPv4 address to associate </td></tr>
   </table>
   </dd>
 </dl>
@@ -328,7 +360,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Precache a local network IP address, to save on doing an ARP lookup later when the user wants to access the resource. Used for the DNS server and gateway addresses. </p>
+<p>Pre-cache a likely-to-be-used IP address in the ARP table. </p>
+<p>Used to resolve IPs such as the gateway or DNS server early, avoiding runtime lookup delays.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">protocol_addr</td><td>IP address to resolve and cache </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -358,11 +397,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Send an ARP packet to the ethernet driver. </p>
+<p>Send an ARP packet via the Ethernet driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dst_hardware_addr</td><td>destination MAC address </td></tr>
-    <tr><td class="paramname">dst_protocol_addr</td><td>destination IP address </td></tr>
+    <tr><td class="paramname">dst_hardware_addr</td><td>Destination MAC address </td></tr>
+    <tr><td class="paramname">dst_protocol_addr</td><td>Destination IPv4 address </td></tr>
   </table>
   </dd>
 </dl>
@@ -385,14 +424,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get an arp entry object, used by the BASIC interpreter. </p>
+<p>Retrieve a pointer to an ARP table entry by index. </p>
+<p>Primarily used by the BASIC interpreter for table enumeration.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>index to find </td></tr>
+    <tr><td class="paramname">index</td><td>Table index </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>arp_table_entry_t* ARP entry </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>arp_table_entry_t* Pointer to ARP entry, or NULL if out of range </dd></dl>
 
 </div>
 </div>
@@ -411,8 +451,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the arp table size, used by the BASIC interpreter. </p>
-<dl class="section return"><dt>Returns</dt><dd>size_t the highest index in the ARP cache plus one </dd></dl>
+<p>Get the current number of ARP table entries. </p>
+<p>Used by the BASIC interpreter to determine iteration limits.</p>
+<dl class="section return"><dt>Returns</dt><dd>size_t Number of valid entries in the ARP table </dd></dl>
 
 </div>
 </div>
@@ -429,6 +470,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Target MAC address. </p>
+
 </div>
 </div>
 <a id="a18c92b51c04c4d12d5f3f7574a99d26a"></a>
@@ -442,6 +485,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Target IP address. </p>
 
 </div>
 </div>
@@ -457,6 +502,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Length of hardware address (6 for MAC) </p>
+
 </div>
 </div>
 <a id="a735a525959a7de8d59c0d9d58e453762"></a>
@@ -470,6 +517,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Type of hardware (1 = Ethernet) </p>
 
 </div>
 </div>
@@ -485,6 +534,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Operation code (ARP_REQUEST or ARP_REPLY) </p>
+
 </div>
 </div>
 <a id="ab551400c74271f35d0c79f81d29cffbb"></a>
@@ -498,6 +549,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Protocol type (0x0800 = IPv4) </p>
 
 </div>
 </div>
@@ -513,6 +566,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Length of protocol address (4 for IPv4) </p>
+
 </div>
 </div>
 <a id="a8dc0dc76aad4a5ef13801998c8dcde3a"></a>
@@ -526,6 +581,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sender MAC address. </p>
 
 </div>
 </div>
@@ -541,6 +598,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sender IP address. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -549,7 +608,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="arp_8h.html">arp.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

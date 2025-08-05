@@ -5,17 +5,18 @@
     <includes local="no">interrupt.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structshared__interrupt__t_1ac6fced04f32e114bbf9d69582b5d1156" prot="public" static="no" mutable="no">
-        <type><ref refid="interrupt_8h_1a7a3af27140adcc73f278f9d9c9dcd4bc" kindref="member">isr_t</ref></type>
+        <type><ref refid="idt_8h_1a7a3af27140adcc73f278f9d9c9dcd4bc" kindref="member">isr_t</ref></type>
         <definition>isr_t shared_interrupt_t::interrupt_handler</definition>
         <argsstring></argsstring>
         <name>interrupt_handler</name>
         <briefdescription>
+<para>Function pointer to the registered interrupt handler. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="40" column="7" bodyfile="include/interrupt.h" bodystart="40" bodyend="-1"/>
+        <location file="include/interrupt.h" line="51" column="7" bodyfile="include/interrupt.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structshared__interrupt__t_1af7e76fc930c7cbd3be9d0caf9f4eeeca" prot="public" static="no" mutable="no">
         <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>device</name>
         <briefdescription>
+<para>Associated PCI device for shared IRQ identification. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="41" column="11" bodyfile="include/interrupt.h" bodystart="41" bodyend="-1"/>
+        <location file="include/interrupt.h" line="52" column="11" bodyfile="include/interrupt.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structshared__interrupt__t_1adc6ce3f7ffccf94e1f5f34e7f647d959" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>opaque</name>
         <briefdescription>
+<para>User-defined pointer passed to the handler. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="42" column="6" bodyfile="include/interrupt.h" bodystart="42" bodyend="-1"/>
+        <location file="include/interrupt.h" line="53" column="6" bodyfile="include/interrupt.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structshared__interrupt__t_1a65c2b0190a13c775cc010245c95db9d9" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structshared__interrupt__t" kindref="compound">shared_interrupt_t</ref> *</type>
@@ -49,18 +52,20 @@
         <argsstring></argsstring>
         <name>next</name>
         <briefdescription>
+<para>Next handler in the linked list (if multiple handlers share this ISR) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/interrupt.h" line="43" column="26" bodyfile="include/interrupt.h" bodystart="43" bodyend="-1"/>
+        <location file="include/interrupt.h" line="54" column="26" bodyfile="include/interrupt.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>An entry in a linked list of handlers attached to an ISR. </para>
+<para>Represents a single handler in a chain of handlers attached to a shared ISR. </para>
     </briefdescription>
     <detaileddescription>
+<para>Some IRQ lines may be shared between multiple devices (especially in legacy or MSI-less systems). This structure forms a linked list of handlers associated with a given interrupt vector. Each node contains the handler function, the originating PCI device (used to support IRQ sharing), and an opaque pointer passed to the handler at runtime. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="6">
@@ -109,7 +114,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/interrupt.h" line="39" column="1" bodyfile="include/interrupt.h" bodystart="39" bodyend="44"/>
+    <location file="include/interrupt.h" line="50" column="1" bodyfile="include/interrupt.h" bodystart="50" bodyend="55"/>
     <listofallmembers>
       <member refid="structshared__interrupt__t_1af7e76fc930c7cbd3be9d0caf9f4eeeca" prot="public" virt="non-virtual"><scope>shared_interrupt_t</scope><name>device</name></member>
       <member refid="structshared__interrupt__t_1ac6fced04f32e114bbf9d69582b5d1156" prot="public" virt="non-virtual"><scope>shared_interrupt_t</scope><name>interrupt_handler</name></member>

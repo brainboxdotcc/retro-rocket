@@ -2,6 +2,11 @@ var debugger_8h =
 [
     [ "symbol_t", "structsymbol__t.html", "structsymbol__t" ],
     [ "stack_frame_t", "structstack__frame__t.html", "structstack__frame__t" ],
+    [ "DATA_ROT", "debugger_8h.html#af4d0d0a35b850a74b00e587f525b449d", null ],
+    [ "DATA_XOR", "debugger_8h.html#aff73b043f5ee952cb342abf36ceae01d", null ],
+    [ "DEBUG_DST_PORT", "debugger_8h.html#ae53029ffe581df20293a810c40f9745d", null ],
+    [ "GDB_TRIGGER", "debugger_8h.html#a400b3c5d3ee1ab3790ac78d0ab58408e", null ],
+    [ "MAX_DECODE", "debugger_8h.html#a18f86cd0c080e0e5e6c74c3c78b71cbe", null ],
     [ "SYM_ABSOLUTE", "debugger_8h.html#a1bf21df0929c1807b0dfc8b3d25d855a", null ],
     [ "SYM_BSS", "debugger_8h.html#acc4bf6347f7faef5efbb304cee50a19c", null ],
     [ "SYM_COMMON", "debugger_8h.html#a474ac90349555dfbd0bfef704a4e590a", null ],
@@ -20,6 +25,11 @@ var debugger_8h =
     [ "SYM_WEAK_SYMBOL", "debugger_8h.html#a4465c182ec3f22fa4a5ffd4af848b169", null ],
     [ "backtrace", "debugger_8h.html#a73b6618270491b1d78d378a62a5a52b1", null ],
     [ "dump_hex", "debugger_8h.html#a193f7f97cdb75d26f4009b5a3edf72ec", null ],
+    [ "gdb_decode", "debugger_8h.html#a7f9e4634158b9a7d25a0bbdfdbea787d", null ],
+    [ "gdb_emit", "debugger_8h.html#a02262c30dd504c7b86c22e7fc5de8e1f", null ],
+    [ "gdb_trace", "debugger_8h.html#aa823fd560cc51c292eba9f1112b32323", null ],
+    [ "get_debug_signal", "debugger_8h.html#a85eed162f35cd2ef9f0101d3b1179362", null ],
     [ "get_sym_table", "debugger_8h.html#a4c007aba1c784ceaecb1b28bcc1663ab", null ],
-    [ "init_debug", "debugger_8h.html#a568e49ee3a2e0adab55fa38535e40835", null ]
+    [ "init_debug", "debugger_8h.html#a568e49ee3a2e0adab55fa38535e40835", null ],
+    [ "set_debug_signal", "debugger_8h.html#ad5120629e00130e505645001e8106e9b", null ]
 ];

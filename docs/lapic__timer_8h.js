@@ -16,6 +16,7 @@ var lapic__timer_8h =
     [ "APIC_LVT_TMR", "lapic__timer_8h.html#ab86953be12b1ea69915d46e95e850f35", null ],
     [ "APIC_NMI", "lapic__timer_8h.html#a03f37028071acfb2ff897aa0cb4431e0", null ],
     [ "APIC_SPURIOUS", "lapic__timer_8h.html#a0fcfd9182fca82fede8f5963d372b123", null ],
+    [ "APIC_SVR", "lapic__timer_8h.html#abad6e91426bdfd1f569bf2cfbe386e49", null ],
     [ "APIC_SW_ENABLE", "lapic__timer_8h.html#a0107bf356679a45e14b0ba63cc66d62f", null ],
     [ "APIC_TASKPRIOR", "lapic__timer_8h.html#af0dcf61cef039a03256058a024e729c5", null ],
     [ "APIC_TMRCURRCNT", "lapic__timer_8h.html#aa35d02412fb9c738a0409249a0c4e3e9", null ],
@@ -23,5 +24,5 @@ var lapic__timer_8h =
     [ "APIC_TMRINITCNT", "lapic__timer_8h.html#a773813e0ad5c99819787d753239ef8ef", null ],
     [ "TMR_BASEDIV", "lapic__timer_8h.html#a06288a57cca2484097a813e9b645ff62", null ],
     [ "TMR_PERIODIC", "lapic__timer_8h.html#a4e5c411ab9319b34198f65045fc831a7", null ],
-    [ "init_lapic_timer", "lapic__timer_8h.html#a59ea126de3ba6eca010bb13579d59901", null ]
+    [ "init_lapic_timer", "lapic__timer_8h.html#a600cc0b39c3ec08ab9e848813e23180d", null ]
 ];

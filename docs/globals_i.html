@@ -90,8 +90,17 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 <li>i
 : <a class="el" href="ahci_8h.html#a752abcfe7ce5874cd9e8012a0346a37b">ahci.h</a>
 </li>
+<li>IA32_APIC_BASE_MSR
+: <a class="el" href="apic_8c.html#a3dac42d568d070ca6f076841c4ef835a">apic.c</a>
+</li>
+<li>IA32_X2APIC_ICR
+: <a class="el" href="apic_8h.html#afbfcd47e179fc1a4c675d8a1c6a123e8">apic.h</a>
+</li>
 <li>icc
 : <a class="el" href="ahci_8h.html#a8617e0fef3725e58934abede60a1c969">ahci.h</a>
+</li>
+<li>icmp_calculate_checksum()
+: <a class="el" href="icmp_8c.html#a2b310e31a8f006acac67488d74652020">icmp.c</a>
 </li>
 <li>ICMP_DESTINATION_UNREACHABLE
 : <a class="el" href="icmp_8h.html#ae2040117230bb1e026f1d73560c471e3a3fdf41118f21173da27f0001f4c37535">icmp.h</a>
@@ -108,8 +117,42 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 <li>ICMP_FRAGMENTATION_NEEDED
 : <a class="el" href="icmp_8h.html#a5a7198400ea81fcece1c8a588d963b22a28795d07e81acea310f4d94f4801e7d5">icmp.h</a>
 </li>
+<li>icmp_handle_destination_unreachable_packet()
+: <a class="el" href="icmp_8c.html#ac53cd71d9366e2d148862df27504fdb7">icmp.c</a>
+</li>
+<li>icmp_handle_echo_packet()
+: <a class="el" href="icmp_8c.html#aede1076fd23d5e921c6070105cc35165">icmp.c</a>
+</li>
+<li>icmp_handle_echo_reply_packet()
+: <a class="el" href="icmp_8c.html#a2b1e7f3dd65f63ab43dccaaeef3d4b7c">icmp.c</a>
+</li>
+<li>icmp_handle_information_reply_packet()
+: <a class="el" href="icmp_8c.html#aed47352ebf8ca202c20b6a4d5243095c">icmp.c</a>
+</li>
+<li>icmp_handle_information_request_packet()
+: <a class="el" href="icmp_8c.html#a06a93be3e1228e935fa5e8d35b6d2c42">icmp.c</a>
+</li>
 <li>icmp_handle_packet()
 : <a class="el" href="icmp_8h.html#a4afc474a5b445a43bca5a76dd13d18dc">icmp.h</a>
+, <a class="el" href="icmp_8c.html#a32f34305fa8edc3ebe966176444a9d5e">icmp.c</a>
+</li>
+<li>icmp_handle_parameter_problem_packet()
+: <a class="el" href="icmp_8c.html#a5022c39f416ef89a1f24f7941ad5da2f">icmp.c</a>
+</li>
+<li>icmp_handle_redirect_packet()
+: <a class="el" href="icmp_8c.html#a9ac97fe10861be473b299b35ccb63d36">icmp.c</a>
+</li>
+<li>icmp_handle_source_quench_packet()
+: <a class="el" href="icmp_8c.html#ad34e02f7ea0db192d39df47b88caaa7f">icmp.c</a>
+</li>
+<li>icmp_handle_time_exceeded_packet()
+: <a class="el" href="icmp_8c.html#a38b9ef43d011b22ceb97de3314548eed">icmp.c</a>
+</li>
+<li>icmp_handle_timestamp_packet()
+: <a class="el" href="icmp_8c.html#a9f590fdb23ba64df1061c7b5f129fea9">icmp.c</a>
+</li>
+<li>icmp_handle_timestamp_reply_packet()
+: <a class="el" href="icmp_8c.html#ac50464fd8e16ed139c9ce8a098920914">icmp.c</a>
 </li>
 <li>ICMP_HOST_UNREACHABLE
 : <a class="el" href="icmp_8h.html#a5a7198400ea81fcece1c8a588d963b22a5d850d4562080c5dd5eec278daeacf39">icmp.h</a>
@@ -150,8 +193,35 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 <li>ICMP_REDIRECT_TOS_NETWORK
 : <a class="el" href="icmp_8h.html#adc205b18eb097cd005b12767b92d1d06af3e2ddbebdb8cb02e00593d3a4ca966e">icmp.h</a>
 </li>
+<li>icmp_send()
+: <a class="el" href="icmp_8c.html#a7daecf00cb5224e93b66a91844d0fff8">icmp.c</a>
+</li>
+<li>icmp_send_destination_unreachable()
+: <a class="el" href="icmp_8h.html#a32ed2c25161f2e0746821fd226f236d6">icmp.h</a>
+, <a class="el" href="icmp_8c.html#a32ed2c25161f2e0746821fd226f236d6">icmp.c</a>
+</li>
 <li>icmp_send_echo()
-: <a class="el" href="icmp_8h.html#a09fa01a48262e99d0bab6d3591999ded">icmp.h</a>
+: <a class="el" href="icmp_8h.html#ad55e8c71d3411f3d12192ee464921b16">icmp.h</a>
+, <a class="el" href="icmp_8c.html#ad55e8c71d3411f3d12192ee464921b16">icmp.c</a>
+</li>
+<li>icmp_send_echo_reply()
+: <a class="el" href="icmp_8c.html#a989a78b0017e4b20694b5f016f6e9a4b">icmp.c</a>
+</li>
+<li>icmp_send_fragmentation_needed()
+: <a class="el" href="icmp_8h.html#a27ee854d8b9dc3e3ff45adfac06ae358">icmp.h</a>
+, <a class="el" href="icmp_8c.html#a27ee854d8b9dc3e3ff45adfac06ae358">icmp.c</a>
+</li>
+<li>icmp_send_parameter_problem()
+: <a class="el" href="icmp_8h.html#a01e72f4ce94ed353a2a53e989d56b9a8">icmp.h</a>
+, <a class="el" href="icmp_8c.html#a01e72f4ce94ed353a2a53e989d56b9a8">icmp.c</a>
+</li>
+<li>icmp_send_redirect()
+: <a class="el" href="icmp_8h.html#a40027800f414193334e999cadd995468">icmp.h</a>
+, <a class="el" href="icmp_8c.html#a40027800f414193334e999cadd995468">icmp.c</a>
+</li>
+<li>icmp_send_time_exceeded()
+: <a class="el" href="icmp_8h.html#a62934a6282501a76d9e90953c4920a00">icmp.h</a>
+, <a class="el" href="icmp_8c.html#a62934a6282501a76d9e90953c4920a00">icmp.c</a>
 </li>
 <li>ICMP_SOURCE_QUENCH
 : <a class="el" href="icmp_8h.html#ae2040117230bb1e026f1d73560c471e3a9482e19785a9717d473cc2226756d4d3">icmp.h</a>
@@ -180,34 +250,44 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 <li>icmp_unreachable_code_t
 : <a class="el" href="icmp_8h.html#a5a7198400ea81fcece1c8a588d963b22">icmp.h</a>
 </li>
+<li>ICR_LSC
+: <a class="el" href="e1000_8h.html#a3e0d1ac0ecf1bfc4e301bdea15c9520d">e1000.h</a>
+</li>
+<li>ICR_RXDMT0
+: <a class="el" href="e1000_8h.html#af89728b5a6c4de9bf4b5aed4686f65f7">e1000.h</a>
+</li>
+<li>ICR_RXO
+: <a class="el" href="e1000_8h.html#a48bbebe35b70c7ee55923109aff3f102">e1000.h</a>
+</li>
+<li>ICR_RXSEQ
+: <a class="el" href="e1000_8h.html#abdc35e4aa95cd3f00048619eee211431">e1000.h</a>
+</li>
+<li>ICR_RXT0
+: <a class="el" href="e1000_8h.html#ad759ade83d2a7ba7ca97f00ca60108db">e1000.h</a>
+</li>
+<li>ICR_TXDW
+: <a class="el" href="e1000_8h.html#ad2461ac55fa5a530a49123c6d5937e0b">e1000.h</a>
+</li>
+<li>ICR_TXQE
+: <a class="el" href="e1000_8h.html#a8e9d32d95b854b889fb11a426dd4d6db">e1000.h</a>
+</li>
+<li>ICW1_ICW4
+: <a class="el" href="idt_8c.html#a964d12193d2b36e8a7ec7fa57438e313">idt.c</a>
+</li>
+<li>ICW1_INIT
+: <a class="el" href="idt_8c.html#a286dc251f3d73c08e08a53a4696f31ef">idt.c</a>
+</li>
+<li>ICW4_8086
+: <a class="el" href="idt_8c.html#a42803c5ddcec9e120a6dbf7bc5c1b7af">idt.c</a>
+</li>
 <li>id
-: <a class="el" href="dns_8h.html#a4fc3a0c58dfbd1e68224521185cb9384">dns.h</a>
+: <a class="el" href="dns_8c.html#a4fc3a0c58dfbd1e68224521185cb9384">dns.c</a>
 , <a class="el" href="icmp_8h.html#a4fc3a0c58dfbd1e68224521185cb9384">icmp.h</a>
+, <a class="el" href="dns_8h.html#a4fc3a0c58dfbd1e68224521185cb9384">dns.h</a>
 , <a class="el" href="ip_8h.html#a4fc3a0c58dfbd1e68224521185cb9384">ip.h</a>
 </li>
-<li>IDE_ATA
-: <a class="el" href="ata_8h.html#a3046279f2a25227c121b69f4cf855bf8">ata.h</a>
-</li>
-<li>IDE_ATAPI
-: <a class="el" href="ata_8h.html#a6513ee2a4da2c6aaa691b9d4c639a53e">ata.h</a>
-</li>
-<li>ide_atapi_eject()
-: <a class="el" href="ata_8h.html#a88616d7522277d13b1b3fe09dfd06664">ata.h</a>
-</li>
-<li>ide_irq()
-: <a class="el" href="ata_8h.html#a291be4904771fb4b45334dafdbbbc7df">ata.h</a>
-</li>
-<li>ide_read()
-: <a class="el" href="ata_8h.html#acb52766b0d624203211cbfcf4a05edb2">ata.h</a>
-</li>
-<li>ide_read_sectors()
-: <a class="el" href="ata_8h.html#a0df21c6405226c938e2c18033c2f41e6">ata.h</a>
-</li>
-<li>ide_write()
-: <a class="el" href="ata_8h.html#a7994497eba58387a8f165604a3db2e7e">ata.h</a>
-</li>
-<li>ide_write_sectors()
-: <a class="el" href="ata_8h.html#a3e00ee2429dfceccd1e2595efeaef63f">ata.h</a>
+<li>identifier
+: <a class="el" href="retrofs_8h.html#ad1813f451cfaf8c9700e6329c5ea2f2b">retrofs.h</a>
 </li>
 <li>IDLE_BACKGROUND
 : <a class="el" href="taskswitch_8h.html#ab6c8a1a3016b13baf9af7476cceac7d4a875e3a3a86598eb910bc4405a16e8a99">taskswitch.h</a>
@@ -232,90 +312,183 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 </li>
 <li>if_statement()
 : <a class="el" href="basic_8h.html#ab14de683d192b4d11f91a47deea7fc7f">basic.h</a>
+, <a class="el" href="flow__control_8c.html#ab14de683d192b4d11f91a47deea7fc7f">flow_control.c</a>
 </li>
 <li>ihl
 : <a class="el" href="ip_8h.html#a40d51e3f9b609f60f860859a0cc300a5">ip.h</a>
+</li>
+<li>IMS_GPI_EN0
+: <a class="el" href="e1000_8h.html#a4a45284f99f72f3a20a8d689da660fe2">e1000.h</a>
+</li>
+<li>IMS_GPI_EN1
+: <a class="el" href="e1000_8h.html#ab6d439c394ca0581f5985e007f1257c9">e1000.h</a>
+</li>
+<li>IMS_INT_ASSERT
+: <a class="el" href="e1000_8h.html#a2fc03d09413fb18a41d6eaf07d2233dd">e1000.h</a>
+</li>
+<li>IMS_LSC
+: <a class="el" href="e1000_8h.html#a8cf8ac239cf0674329d1765c586dbc73">e1000.h</a>
+</li>
+<li>IMS_MDAC
+: <a class="el" href="e1000_8h.html#a7b54f9dbaf8732b3344cfa6589eeec82">e1000.h</a>
+</li>
+<li>IMS_RXCFG
+: <a class="el" href="e1000_8h.html#a341d11d44cbf9484dc53ccb44b1bf8da">e1000.h</a>
+</li>
+<li>IMS_RXDMT0
+: <a class="el" href="e1000_8h.html#af869a4e186aac42e1ed894ea003e1538">e1000.h</a>
+</li>
+<li>IMS_RXO
+: <a class="el" href="e1000_8h.html#a4b6e7ecf2c644b7e5f3379bc1b2733a4">e1000.h</a>
+</li>
+<li>IMS_RXSEQ
+: <a class="el" href="e1000_8h.html#a920a61c42d803030d7e011f9b88bd84e">e1000.h</a>
+</li>
+<li>IMS_RXT0
+: <a class="el" href="e1000_8h.html#adc602ea2364c37fc5b41a444671335ae">e1000.h</a>
+</li>
+<li>IMS_TEMP
+: <a class="el" href="e1000_8h.html#a4c4cf9fbc7414e556905b888a980f86e">e1000.h</a>
+</li>
+<li>IMS_THSTAT
+: <a class="el" href="e1000_8h.html#a1631124d0be072c2ef2d13d06648b098">e1000.h</a>
+</li>
+<li>IMS_TXDW
+: <a class="el" href="e1000_8h.html#a2d99b6c1871a28ffec98a1ec86522da2">e1000.h</a>
+</li>
+<li>IMS_TXQE
+: <a class="el" href="e1000_8h.html#ac2fa4fb36d41d4a4ad37748a4fc564b3">e1000.h</a>
+</li>
+<li>in_interrupt
+: <a class="el" href="rtl8139_8c.html#ad10fdc4933c2050c204e462940cee690">rtl8139.c</a>
+</li>
+<li>in_viewport()
+: <a class="el" href="drawing_8c.html#abe43142d701fbefcea92b44bdf8d8a19">drawing.c</a>
 </li>
 <li>inb()
 : <a class="el" href="io_8h.html#a0223c8898dfec29069879dc51076e28a">io.h</a>
 </li>
 <li>init()
 : <a class="el" href="initialisation-functions_8h.html#a02fd73d861ef2e4aabb38c0c9ff82947">initialisation-functions.h</a>
+, <a class="el" href="init_8c.html#a02fd73d861ef2e4aabb38c0c9ff82947">init.c</a>
+</li>
+<li>init_acpi()
+: <a class="el" href="acpi_8h.html#a6a7b623715d2b82f4a870d1e7c2b9d60">acpi.h</a>
+, <a class="el" href="acpi_8c.html#a6a7b623715d2b82f4a870d1e7c2b9d60">acpi.c</a>
 </li>
 <li>init_ahci()
 : <a class="el" href="ahci_8h.html#aee21823366d10636044f5358d4c6e527">ahci.h</a>
+, <a class="el" href="ahci_8c.html#aee21823366d10636044f5358d4c6e527">ahci.c</a>
 </li>
 <li>init_console()
 : <a class="el" href="video_8h.html#ab9c32270380ee4550fa848647b745f39">video.h</a>
-</li>
-<li>init_cores()
-: <a class="el" href="acpi_8h.html#a1994da1e5a421570132607aaad5afec9">acpi.h</a>
+, <a class="el" href="video_8c.html#ab9c32270380ee4550fa848647b745f39">video.c</a>
 </li>
 <li>init_debug()
 : <a class="el" href="debugger_8h.html#a568e49ee3a2e0adab55fa38535e40835">debugger.h</a>
+, <a class="el" href="debugger_8c.html#a568e49ee3a2e0adab55fa38535e40835">debugger.c</a>
 </li>
 <li>init_devfs()
 : <a class="el" href="devfs_8h.html#a083dbd47759155f3cdf939a0a61ab6c2">devfs.h</a>
+, <a class="el" href="devfs_8c.html#a083dbd47759155f3cdf939a0a61ab6c2">devfs.c</a>
 </li>
 <li>init_devicenames()
 : <a class="el" href="devicename_8h.html#a82c1ef772588c7cc11fd325be15fdda4">devicename.h</a>
+, <a class="el" href="devicename_8c.html#a82c1ef772588c7cc11fd325be15fdda4">devicename.c</a>
 </li>
 <li>init_dns()
 : <a class="el" href="dns_8h.html#adeed35e725749afd93cc14d1d25eecd5">dns.h</a>
+, <a class="el" href="dns_8c.html#adeed35e725749afd93cc14d1d25eecd5">dns.c</a>
 </li>
 <li>init_e1000()
-: <a class="el" href="e1000_8h.html#aafc8975ad387d777a7a6bdf1bb3b71ab">e1000.h</a>
+: <a class="el" href="e1000_8h.html#aa480cf0389af41f842ef8389a1a086c8">e1000.h</a>
+, <a class="el" href="e1000_8c.html#aa480cf0389af41f842ef8389a1a086c8">e1000.c</a>
 </li>
 <li>init_error_handler()
 : <a class="el" href="errorhandler_8h.html#aa5d2aed1d5146c54dd38e2d4bb75ad86">errorhandler.h</a>
+, <a class="el" href="errorhandler_8c.html#aa5d2aed1d5146c54dd38e2d4bb75ad86">errorhandler.c</a>
 </li>
 <li>init_fat32()
-: <a class="el" href="fat32_8h.html#a3fac5992ed8111e2a4da081700d74a3e">fat32.h</a>
+: <a class="el" href="fat32_8c.html#a3fac5992ed8111e2a4da081700d74a3e">fat32.c</a>
+, <a class="el" href="fat32_8h.html#a3fac5992ed8111e2a4da081700d74a3e">fat32.h</a>
 </li>
 <li>init_filesystem()
 : <a class="el" href="filesystem_8h.html#a47cfa7087b707560af1b5a669dfc69b3">filesystem.h</a>
+, <a class="el" href="filesystem_8c.html#a47cfa7087b707560af1b5a669dfc69b3">filesystem.c</a>
+</li>
+<li>init_func_t
+: <a class="el" href="init_8c.html#abcfc5207c5152ac36be24fd03cfda4bb">init.c</a>
+</li>
+<li>init_funcs
+: <a class="el" href="init_8c.html#a180493f9c29b8c2d83faf80e2a3f404b">init.c</a>
+</li>
+<li>init_funcs_names
+: <a class="el" href="init_8c.html#ad8476dcb4e0c013691e9e5727c816280">init.c</a>
 </li>
 <li>init_heap()
-: <a class="el" href="kmalloc_8h.html#a632fb5550678e7d65db823fb1adc2dd9">kmalloc.h</a>
+: <a class="el" href="kmalloc_8h.html#ae9571189e4229763c03dbf08f551f33f">kmalloc.h</a>
+, <a class="el" href="kmalloc_8c.html#a632fb5550678e7d65db823fb1adc2dd9">kmalloc.c</a>
 </li>
 <li>init_ide()
 : <a class="el" href="ata_8h.html#abc751c8edfc3a3daf8243d8837f89bc1">ata.h</a>
+, <a class="el" href="ata_8c.html#abc751c8edfc3a3daf8243d8837f89bc1">ata.c</a>
 </li>
 <li>init_idt()
-: <a class="el" href="idt_8h.html#a35fe413107af682030ab7a4b6dff19b8">idt.h</a>
+: <a class="el" href="idt_8h.html#a42ea541423c53a479403b58384e19df7">idt.h</a>
+, <a class="el" href="idt_8c.html#a35fe413107af682030ab7a4b6dff19b8">idt.c</a>
 </li>
 <li>init_iso9660()
 : <a class="el" href="iso9660_8h.html#ac9e6298d87cc76eb304147b2e2bdefc0">iso9660.h</a>
+, <a class="el" href="iso9660_8c.html#ac9e6298d87cc76eb304147b2e2bdefc0">iso9660.c</a>
 </li>
 <li>init_keyboard()
 : <a class="el" href="keyboard_8h.html#ac3a72156d4bbba013e4d62801992794d">keyboard.h</a>
+, <a class="el" href="keyboard_8c.html#ac3a72156d4bbba013e4d62801992794d">keyboard.c</a>
 </li>
 <li>init_lapic_timer()
-: <a class="el" href="lapic__timer_8h.html#a59ea126de3ba6eca010bb13579d59901">lapic_timer.h</a>
+: <a class="el" href="lapic__timer_8h.html#a600cc0b39c3ec08ab9e848813e23180d">lapic_timer.h</a>
+, <a class="el" href="lapic__timer_8c.html#a600cc0b39c3ec08ab9e848813e23180d">lapic_timer.c</a>
 </li>
 <li>init_local_heap()
 : <a class="el" href="basic_8h.html#a98b976193c080a9fea36c2368f929c86">basic.h</a>
+, <a class="el" href="main_8c.html#a98b976193c080a9fea36c2368f929c86">main.c</a>
 </li>
 <li>init_pci()
 : <a class="el" href="pci_8h.html#ac1163b8d93711c6fa01dfbffd2b4f0bf">pci.h</a>
+, <a class="el" href="pci_8c.html#ac1163b8d93711c6fa01dfbffd2b4f0bf">pci.c</a>
 </li>
 <li>init_process()
 : <a class="el" href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520">taskswitch.h</a>
+, <a class="el" href="taskswitch_8c.html#ab25d44702b6e10e723714c368c4a7520">taskswitch.c</a>
 </li>
 <li>init_ramdisk()
 : <a class="el" href="ramdisk_8h.html#af84c012f7363b70081ad1db8212a3e24">ramdisk.h</a>
+, <a class="el" href="ramdisk_8c.html#af84c012f7363b70081ad1db8212a3e24">ramdisk.c</a>
 </li>
 <li>init_ramdisk_from_storage()
 : <a class="el" href="ramdisk_8h.html#acd0ea3e208dd91c4a5352db5f152a502">ramdisk.h</a>
+, <a class="el" href="ramdisk_8c.html#acd0ea3e208dd91c4a5352db5f152a502">ramdisk.c</a>
 </li>
 <li>init_realtime_clock()
 : <a class="el" href="clock_8h.html#aff93106d7e8609959f1bd8185a822def">clock.h</a>
+, <a class="el" href="clock_8c.html#aff93106d7e8609959f1bd8185a822def">clock.c</a>
+</li>
+<li>init_rfs()
+: <a class="el" href="retrofs_8h.html#a77ee899b72553734d6c2814efccddb22">retrofs.h</a>
+, <a class="el" href="retrofs_8c.html#a77ee899b72553734d6c2814efccddb22">retrofs.c</a>
 </li>
 <li>init_rtl8139()
-: <a class="el" href="rtl8139_8h.html#aaeab8345c9dcf11708bfa095299f408a">rtl8139.h</a>
+: <a class="el" href="rtl8139_8h.html#afb381866b5dc5f09b132f63c9abc142b">rtl8139.h</a>
+, <a class="el" href="rtl8139_8c.html#afb381866b5dc5f09b132f63c9abc142b">rtl8139.c</a>
+</li>
+<li>init_rwlock()
+: <a class="el" href="rwlock_8h.html#a3f92081ca7b1bcbd2be4b3744f2b4229">rwlock.h</a>
 </li>
 <li>init_spinlock()
-: <a class="el" href="spinlock_8h.html#a04fcf45b4f6f8b491b41cc146e78f6ec">spinlock.h</a>
+: <a class="el" href="spinlock_8h.html#a1e57129f9b2e06feee0541b08b30a64d">spinlock.h</a>
+</li>
+<li>init_uacpi()
+: <a class="el" href="acpi_8c.html#a817cd41e353b16e3f4416ff20a502661">acpi.c</a>
 </li>
 <li>inl()
 : <a class="el" href="io_8h.html#a9c1c3745e8a1005612597adc3d7d5e47">io.h</a>
@@ -325,6 +498,10 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 </li>
 <li>input_statement()
 : <a class="el" href="basic_8h.html#a141ef8feeaeb6e4d2e77039ba4a3164e">basic.h</a>
+, <a class="el" href="console_8c.html#a141ef8feeaeb6e4d2e77039ba4a3164e">console.c</a>
+</li>
+<li>insert_entries_at()
+: <a class="el" href="fat32_8c.html#a58bb3f0bd0c3e900d51c7cbef552ee97">fat32.c</a>
 </li>
 <li>insl()
 : <a class="el" href="io_8h.html#a3085dfe0e360b8e5df685ef28dafca8a">io.h</a>
@@ -340,6 +517,7 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 </li>
 <li>Interrupt()
 : <a class="el" href="interrupt_8h.html#a1e0b1516a8ed04e2e7d7a1b2a330e6af">interrupt.h</a>
+, <a class="el" href="interrupt_8c.html#a1e0b1516a8ed04e2e7d7a1b2a330e6af">interrupt.c</a>
 </li>
 <li>interrupts_off()
 : <a class="el" href="io_8h.html#a2c582d1cb52de82f2eff17fad06174bb">io.h</a>
@@ -350,35 +528,110 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 <li>IntrMask
 : <a class="el" href="rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611a14336485406a8fb54bb61c9bae9d4b69">rtl8139.h</a>
 </li>
+<li>introsort()
+: <a class="el" href="stdlib_8c.html#a60cea9141ca389f74bbeeac2e0f7a076">stdlib.c</a>
+</li>
 <li>IntrStatus
 : <a class="el" href="rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611a297921d217fc433cfc0b915295dfe807">rtl8139.h</a>
+</li>
+<li>INVALID_CPU_ID
+: <a class="el" href="acpi_8h.html#aa60b105ab59fdb7d459675eb2d42c44d">acpi.h</a>
 </li>
 <li>inw()
 : <a class="el" href="io_8h.html#ab2f39bde7b2e87793f55352c72d07ebe">io.h</a>
 </li>
+<li>io_base
+: <a class="el" href="e1000_8c.html#a8c7ffafb9b37de2904e1c9b8b254d99f">e1000.c</a>
+</li>
+<li>io_wait()
+: <a class="el" href="idt_8h.html#aaaf4b3f918fbda500ebf08c8b17dfb46">idt.h</a>
+, <a class="el" href="idt_8c.html#a6024a6afd45d551f30762531766a185a">idt.c</a>
+</li>
+<li>ioapic_find()
+: <a class="el" href="ioapic_8c.html#ac32195be2cddd33592f818a35b28d90d">ioapic.c</a>
+</li>
+<li>ioapic_gsi_base
+: <a class="el" href="acpi_8c.html#a62dc9779e2c658b17e24f3054ba2b3e7">acpi.c</a>
+</li>
+<li>ioapic_gsi_count
+: <a class="el" href="acpi_8c.html#a5d830e6265449143593f6b84643f0f36">acpi.c</a>
+</li>
+<li>ioapic_ids
+: <a class="el" href="acpi_8c.html#a215ea614853f95ef6ea155c8eb4084c9">acpi.c</a>
+</li>
+<li>IOAPIC_INT_UNMASK
+: <a class="el" href="ioapic_8c.html#a96579b6c58796ee56292cdabbda5a6c8">ioapic.c</a>
+</li>
+<li>ioapic_mask_set()
+: <a class="el" href="ioapic_8h.html#a44976865e18e91ad0c952b4e88d74e76">ioapic.h</a>
+, <a class="el" href="ioapic_8c.html#a44976865e18e91ad0c952b4e88d74e76">ioapic.c</a>
+</li>
+<li>ioapic_ptr
+: <a class="el" href="acpi_8c.html#a6401e102970009b2858f67f5d5b91df5">acpi.c</a>
+</li>
+<li>ioapic_read_gsi()
+: <a class="el" href="ioapic_8c.html#a28b79405710e00a55668e2422c682892">ioapic.c</a>
+</li>
 <li>ioapic_redir_get()
 : <a class="el" href="ioapic_8h.html#ac9c076ac827e229f57617389706f1e72">ioapic.h</a>
+, <a class="el" href="ioapic_8c.html#ac9c076ac827e229f57617389706f1e72">ioapic.c</a>
 </li>
 <li>ioapic_redir_set()
-: <a class="el" href="ioapic_8h.html#a8b1efda0e77ff627df469d29b68a0009">ioapic.h</a>
+: <a class="el" href="ioapic_8h.html#a3af04f015bde166dc22bbbdb591e77a9">ioapic.h</a>
+, <a class="el" href="ioapic_8c.html#a3af04f015bde166dc22bbbdb591e77a9">ioapic.c</a>
 </li>
 <li>ioapic_redir_set_precalculated()
 : <a class="el" href="ioapic_8h.html#a3574e36c20cd71e8e68e0ca15ea1b426">ioapic.h</a>
+, <a class="el" href="ioapic_8c.html#a3574e36c20cd71e8e68e0ca15ea1b426">ioapic.c</a>
 </li>
 <li>ioapic_redir_unmask()
 : <a class="el" href="ioapic_8h.html#a5c004d39dec23c06b0a3d56049174045">ioapic.h</a>
+, <a class="el" href="ioapic_8c.html#a5c004d39dec23c06b0a3d56049174045">ioapic.c</a>
+</li>
+<li>ioapic_register_read()
+: <a class="el" href="ioapic_8c.html#ab811cfad3abd61d3882ef8a5703f80bd">ioapic.c</a>
+</li>
+<li>ioapic_register_write()
+: <a class="el" href="ioapic_8c.html#a5a98632dab46b7e872b333a23fbd465c">ioapic.c</a>
+</li>
+<li>ioapic_write_gsi()
+: <a class="el" href="ioapic_8c.html#a7fb74de836c943b6f593423b61f78de7">ioapic.c</a>
 </li>
 <li>IOBUFSZ
 : <a class="el" href="filesystem_8h.html#afa125c2bcf72549ba6ccf3e4811c120f">filesystem.h</a>
 </li>
+<li>ip6_handle_packet()
+: <a class="el" href="ip_8c.html#a1438927b122b1b407d305c669151a681">ip.c</a>
+</li>
+<li>ip_addr
+: <a class="el" href="ip_8c.html#a9bccf5c44f19ed32be16e03df2bc2fa3">ip.c</a>
+</li>
 <li>ip_calculate_checksum()
 : <a class="el" href="ip_8h.html#a0c6727c035a1b0fb8d80502c051d0ef3">ip.h</a>
+, <a class="el" href="ip_8c.html#a0c6727c035a1b0fb8d80502c051d0ef3">ip.c</a>
+</li>
+<li>ip_foreground()
+: <a class="el" href="ip_8c.html#a6ba282dea8ed3e36959997e46f834d9a">ip.c</a>
+</li>
+<li>ip_frag_compare()
+: <a class="el" href="ip_8c.html#a1a242a25989e7f23738ef023e7d95999">ip.c</a>
+</li>
+<li>ip_frag_gc()
+: <a class="el" href="ip_8c.html#a172bebdd9b7c7ddf045053ddeba377c7">ip.c</a>
+</li>
+<li>ip_frag_hash()
+: <a class="el" href="ip_8c.html#aca404934771fcaf1671f5d2f30f6e1cb">ip.c</a>
+</li>
+<li>ip_handle_packet()
+: <a class="el" href="ip_8c.html#a35526355cf134e4370369f17f839cf79">ip.c</a>
 </li>
 <li>ip_idle()
-: <a class="el" href="ip_8h.html#ac14f37ff566957e2932615943bd6578a">ip.h</a>
+: <a class="el" href="ip_8c.html#ac14f37ff566957e2932615943bd6578a">ip.c</a>
+, <a class="el" href="ip_8h.html#ac14f37ff566957e2932615943bd6578a">ip.h</a>
 </li>
 <li>ip_init()
 : <a class="el" href="ip_8h.html#a7cf4dd66490d6812fcbba8acbb2533bd">ip.h</a>
+, <a class="el" href="ip_8c.html#a7cf4dd66490d6812fcbba8acbb2533bd">ip.c</a>
 </li>
 <li>IP_IPV4
 : <a class="el" href="ip_8h.html#a71c6a62eb0101db3e9200f27f7f3e2edaffc020ad6f364104ca45849b467ea84f">ip.h</a>
@@ -388,12 +641,14 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 </li>
 <li>ip_send_packet()
 : <a class="el" href="ip_8h.html#a5c4e2905c23bb53cf128a3912f8ddaea">ip.h</a>
+, <a class="el" href="ip_8c.html#a5c4e2905c23bb53cf128a3912f8ddaea">ip.c</a>
 </li>
 <li>ip_type_t
 : <a class="el" href="ip_8h.html#a71c6a62eb0101db3e9200f27f7f3e2ed">ip.h</a>
 </li>
 <li>IRQ()
 : <a class="el" href="interrupt_8h.html#ac12ed84cb143bb64d5b2b631d7764e1a">interrupt.h</a>
+, <a class="el" href="interrupt_8c.html#a4c63eca37378895b250978c41360b097">interrupt.c</a>
 </li>
 <li>IRQ0
 : <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637facdb333eeb7aa4b08f250af6b077e1892">interrupt.h</a>
@@ -446,35 +701,101 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 <li>IRQ9
 : <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa5bdfd2d1de7dd4f7cc3119ada3c1b8b2">interrupt.h</a>
 </li>
+<li>IRQ_DEFAULT_POLARITY
+: <a class="el" href="acpi_8h.html#ab3e0f0b6bec9343feea20481ca76225f">acpi.h</a>
+</li>
+<li>IRQ_DEFAULT_TRIGGER
+: <a class="el" href="acpi_8h.html#a335c54d0f1854599af52df2c7695e538">acpi.h</a>
+</li>
 <li>irq_number_t
 : <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637f">interrupt.h</a>
+</li>
+<li>IRQ_START
+: <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637faa8b39d29c4db1769cddbe70f5efba08f">interrupt.h</a>
+</li>
+<li>irq_to_gsi()
+: <a class="el" href="acpi_8h.html#afcb9e82e010b2f0c39229ccbaf3e81bf">acpi.h</a>
+, <a class="el" href="acpi_8c.html#afcb9e82e010b2f0c39229ccbaf3e81bf">acpi.c</a>
+</li>
+<li>IRQ_VECTOR_BASE
+: <a class="el" href="interrupt_8c.html#a13e5bcde00f3dd39f1a0b1d9ce617e97">interrupt.c</a>
 </li>
 <li>is
 : <a class="el" href="ahci_8h.html#ab21fab504791fdabfb4441c735452afb">ahci.h</a>
 </li>
 <li>is_builtin_double_fn()
 : <a class="el" href="basic_8h.html#a18b719731b4f7ffbad27ebf12e1ec348">basic.h</a>
+, <a class="el" href="function_8c.html#a18b719731b4f7ffbad27ebf12e1ec348">function.c</a>
+</li>
+<li>is_cached()
+: <a class="el" href="dns_8c.html#ac3b4af185a2535f0e64717041ef4003e">dns.c</a>
 </li>
 <li>is_connected()
 : <a class="el" href="tcp_8h.html#a39bac2a3c55fa01613ed4a5579a5ca67">tcp.h</a>
+, <a class="el" href="tcp_8c.html#a39bac2a3c55fa01613ed4a5579a5ca67">tcp.c</a>
+</li>
+<li>is_ip_allocated
+: <a class="el" href="ip_8c.html#af35b683b49f96e5686f99b329f768b99">ip.c</a>
+</li>
+<li>is_leap_year()
+: <a class="el" href="clock_8c.html#a06107a6d2df55301644f98a80ef0517a">clock.c</a>
+</li>
+<li>is_updating_rtc()
+: <a class="el" href="clock_8c.html#aecb80e3a98cb51b2ce406daf24d2f26c">clock.c</a>
 </li>
 <li>isalnum()
 : <a class="el" href="string_8h.html#a14a3b4483efde6e89ca889074842573b">string.h</a>
+, <a class="el" href="string_8c.html#a14a3b4483efde6e89ca889074842573b">string.c</a>
 </li>
 <li>isalpha()
 : <a class="el" href="string_8h.html#a0906de3d7be040547209b648edb876cd">string.h</a>
+, <a class="el" href="string_8c.html#a0906de3d7be040547209b648edb876cd">string.c</a>
 </li>
 <li>isdigit()
-: <a class="el" href="string_8h.html#ab4f1fe6803e1a252aecb6341aac12b1e">string.h</a>
+: <a class="el" href="string_8c.html#ab4f1fe6803e1a252aecb6341aac12b1e">string.c</a>
+, <a class="el" href="string_8h.html#ab4f1fe6803e1a252aecb6341aac12b1e">string.h</a>
+</li>
+<li>isn_init
+: <a class="el" href="tcp_8c.html#a0c9b5d9f7b9b8b0360a9cc2a9db5a904">tcp.c</a>
+</li>
+<li>isn_rand_base
+: <a class="el" href="tcp_8c.html#a81e9011a484999b346bdd1c85e26ba97">tcp.c</a>
+</li>
+<li>isn_tick_base
+: <a class="el" href="tcp_8c.html#a18d0f3d97e3f13b56d8ce3c40d73f5ed">tcp.c</a>
+</li>
+<li>iso9660_attach()
+: <a class="el" href="iso9660_8c.html#a2f03d41fdc36dd9a0fb4a3f0d10836f9">iso9660.c</a>
+</li>
+<li>iso9660_fs
+: <a class="el" href="iso9660_8c.html#a6f069de2f65bc6b74ab090f85df2df46">iso9660.c</a>
+</li>
+<li>iso_get_directory()
+: <a class="el" href="iso9660_8c.html#a4ac75459e000cee9b69625445e3faefc">iso9660.c</a>
+</li>
+<li>iso_mount_volume()
+: <a class="el" href="iso9660_8c.html#a4fc7f27e860d86239b2a1a06d5c77dd3">iso9660.c</a>
+</li>
+<li>iso_read_file()
+: <a class="el" href="iso9660_8c.html#a9d75868b40cec962bdb13b743c7d6b08">iso9660.c</a>
 </li>
 <li>isr_t
-: <a class="el" href="interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">interrupt.h</a>
+: <a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">idt.h</a>
 </li>
 <li>isspace()
 : <a class="el" href="string_8h.html#acdeb19758d59ba889395c9236dfdee86">string.h</a>
+, <a class="el" href="string_8c.html#acdeb19758d59ba889395c9236dfdee86">string.c</a>
+</li>
+<li>ist
+: <a class="el" href="idt_8h.html#a254d5bd1552992f9c17e038f363987ec">idt.h</a>
+</li>
+<li>isupper()
+: <a class="el" href="string_8h.html#a06cba797125caea031638f02f524258e">string.h</a>
+, <a class="el" href="string_8c.html#a06cba797125caea031638f02f524258e">string.c</a>
 </li>
 <li>isxdigit()
 : <a class="el" href="string_8h.html#a9ea6fd19878abf6f8919e901b7db5c74">string.h</a>
+, <a class="el" href="string_8c.html#a9ea6fd19878abf6f8919e901b7db5c74">string.c</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -482,7 +803,7 @@ $(document).ready(function(){initNavTree('globals_i.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:13 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

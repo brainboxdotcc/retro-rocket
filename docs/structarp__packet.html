@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('structarp__packet.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 
+<p>Format of an ARP packet (per RFC 826)  
+ <a href="structarp__packet.html#details">More...</a></p>
+
 <p><code>#include &lt;arp.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for arp_packet:</div>
@@ -104,25 +107,36 @@ $(document).ready(function(){initNavTree('structarp__packet.html',''); initResiz
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a8c349e9f75149c0327d22326bb3f8171"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#a8c349e9f75149c0327d22326bb3f8171">hardware_type</a></td></tr>
+<tr class="memdesc:a8c349e9f75149c0327d22326bb3f8171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of hardware (1 = Ethernet)  <a href="structarp__packet.html#a8c349e9f75149c0327d22326bb3f8171">More...</a><br /></td></tr>
 <tr class="separator:a8c349e9f75149c0327d22326bb3f8171"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a428cf3879bd55fde6519f0e954e6654d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#a428cf3879bd55fde6519f0e954e6654d">protocol</a></td></tr>
+<tr class="memdesc:a428cf3879bd55fde6519f0e954e6654d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protocol type (0x0800 = IPv4)  <a href="structarp__packet.html#a428cf3879bd55fde6519f0e954e6654d">More...</a><br /></td></tr>
 <tr class="separator:a428cf3879bd55fde6519f0e954e6654d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49ea35230c81ebe373d429ffd77f9237"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#a49ea35230c81ebe373d429ffd77f9237">hardware_addr_len</a></td></tr>
+<tr class="memdesc:a49ea35230c81ebe373d429ffd77f9237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of hardware address (6 for MAC)  <a href="structarp__packet.html#a49ea35230c81ebe373d429ffd77f9237">More...</a><br /></td></tr>
 <tr class="separator:a49ea35230c81ebe373d429ffd77f9237"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa40e1082a2dee5ccf6e82ee9d610e82"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#afa40e1082a2dee5ccf6e82ee9d610e82">protocol_addr_len</a></td></tr>
+<tr class="memdesc:afa40e1082a2dee5ccf6e82ee9d610e82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of protocol address (4 for IPv4)  <a href="structarp__packet.html#afa40e1082a2dee5ccf6e82ee9d610e82">More...</a><br /></td></tr>
 <tr class="separator:afa40e1082a2dee5ccf6e82ee9d610e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa952f2a3fe8ea79fa44ea9e6acbe2d65"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#aa952f2a3fe8ea79fa44ea9e6acbe2d65">opcode</a></td></tr>
+<tr class="memdesc:aa952f2a3fe8ea79fa44ea9e6acbe2d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operation code (ARP_REQUEST or ARP_REPLY)  <a href="structarp__packet.html#aa952f2a3fe8ea79fa44ea9e6acbe2d65">More...</a><br /></td></tr>
 <tr class="separator:aa952f2a3fe8ea79fa44ea9e6acbe2d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ba7afca48a41b957dd159cad3aa600b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#a9ba7afca48a41b957dd159cad3aa600b">src_hardware_addr</a> [6]</td></tr>
+<tr class="memdesc:a9ba7afca48a41b957dd159cad3aa600b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sender MAC address.  <a href="structarp__packet.html#a9ba7afca48a41b957dd159cad3aa600b">More...</a><br /></td></tr>
 <tr class="separator:a9ba7afca48a41b957dd159cad3aa600b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeec2669963dc9e85cf4b76cdf680615"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#aeeec2669963dc9e85cf4b76cdf680615">src_protocol_addr</a> [4]</td></tr>
+<tr class="memdesc:aeeec2669963dc9e85cf4b76cdf680615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sender IP address.  <a href="structarp__packet.html#aeeec2669963dc9e85cf4b76cdf680615">More...</a><br /></td></tr>
 <tr class="separator:aeeec2669963dc9e85cf4b76cdf680615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d97a18f11bf7098ebe1d42ed0bcf878"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#a8d97a18f11bf7098ebe1d42ed0bcf878">dst_hardware_addr</a> [6]</td></tr>
+<tr class="memdesc:a8d97a18f11bf7098ebe1d42ed0bcf878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target MAC address.  <a href="structarp__packet.html#a8d97a18f11bf7098ebe1d42ed0bcf878">More...</a><br /></td></tr>
 <tr class="separator:a8d97a18f11bf7098ebe1d42ed0bcf878"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa95c7e1b07c268657df62f46924ffff3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarp__packet.html#aa95c7e1b07c268657df62f46924ffff3">dst_protocol_addr</a> [4]</td></tr>
+<tr class="memdesc:aa95c7e1b07c268657df62f46924ffff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target IP address.  <a href="structarp__packet.html#aa95c7e1b07c268657df62f46924ffff3">More...</a><br /></td></tr>
 <tr class="separator:aa95c7e1b07c268657df62f46924ffff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Format of an ARP packet (per RFC 826) </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a8d97a18f11bf7098ebe1d42ed0bcf878"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d97a18f11bf7098ebe1d42ed0bcf878">&#9670;&nbsp;</a></span>dst_hardware_addr</h2>
 
@@ -134,6 +148,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Target MAC address. </p>
 
 </div>
 </div>
@@ -149,6 +165,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Target IP address. </p>
+
 </div>
 </div>
 <a id="a49ea35230c81ebe373d429ffd77f9237"></a>
@@ -162,6 +180,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Length of hardware address (6 for MAC) </p>
 
 </div>
 </div>
@@ -177,6 +197,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Type of hardware (1 = Ethernet) </p>
+
 </div>
 </div>
 <a id="aa952f2a3fe8ea79fa44ea9e6acbe2d65"></a>
@@ -190,6 +212,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Operation code (ARP_REQUEST or ARP_REPLY) </p>
 
 </div>
 </div>
@@ -205,6 +229,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Protocol type (0x0800 = IPv4) </p>
+
 </div>
 </div>
 <a id="afa40e1082a2dee5ccf6e82ee9d610e82"></a>
@@ -218,6 +244,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Length of protocol address (4 for IPv4) </p>
 
 </div>
 </div>
@@ -233,6 +261,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sender MAC address. </p>
+
 </div>
 </div>
 <a id="aeeec2669963dc9e85cf4b76cdf680615"></a>
@@ -247,6 +277,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sender IP address. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -255,7 +287,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structarp__packet.html">arp_packet</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -10,12 +10,13 @@
         <argsstring>[16]</argsstring>
         <name>type_guid</name>
         <briefdescription>
+<para>Partition type GUID. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="72" column="9" bodyfile="include/partition.h" bodystart="72" bodyend="-1"/>
+        <location file="include/partition.h" line="122" column="9" bodyfile="include/partition.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1ab33bc82d762c5c72532d9234b6a9dd0e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -23,12 +24,13 @@
         <argsstring>[16]</argsstring>
         <name>unique_id</name>
         <briefdescription>
+<para>Unique GUID for this partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="73" column="9" bodyfile="include/partition.h" bodystart="73" bodyend="-1"/>
+        <location file="include/partition.h" line="125" column="9" bodyfile="include/partition.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1a7e0fe1119be865efd92ad63be4855983" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>start_lba</name>
         <briefdescription>
+<para>Starting LBA of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="74" column="10" bodyfile="include/partition.h" bodystart="74" bodyend="-1"/>
+        <location file="include/partition.h" line="128" column="10" bodyfile="include/partition.h" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1ada4573b77b257d223aabdb54782fcb1a" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -49,12 +52,13 @@
         <argsstring></argsstring>
         <name>end_lba</name>
         <briefdescription>
+<para>Ending LBA of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="75" column="10" bodyfile="include/partition.h" bodystart="75" bodyend="-1"/>
+        <location file="include/partition.h" line="131" column="10" bodyfile="include/partition.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1a5e301f9875b8a13d8bbb4cab19795ab8" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -62,12 +66,13 @@
         <argsstring></argsstring>
         <name>attributes</name>
         <briefdescription>
+<para>Partition attributes (bit flags). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="76" column="10" bodyfile="include/partition.h" bodystart="76" bodyend="-1"/>
+        <location file="include/partition.h" line="134" column="10" bodyfile="include/partition.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structgpt__entry__t_1af5beda8d83837344bf274890f08ec83d" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -75,15 +80,17 @@
         <argsstring>[72]</argsstring>
         <name>name</name>
         <briefdescription>
+<para>Partition name (UTF-16LE, up to 36 characters). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="77" column="6" bodyfile="include/partition.h" bodystart="77" bodyend="-1"/>
+        <location file="include/partition.h" line="137" column="6" bodyfile="include/partition.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>A single GPT partition entry. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -114,7 +121,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/partition.h" line="71" column="1" bodyfile="include/partition.h" bodystart="71" bodyend="78"/>
+    <location file="include/partition.h" line="120" column="1" bodyfile="include/partition.h" bodystart="120" bodyend="138"/>
     <listofallmembers>
       <member refid="structgpt__entry__t_1a5e301f9875b8a13d8bbb4cab19795ab8" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>attributes</name></member>
       <member refid="structgpt__entry__t_1ada4573b77b257d223aabdb54782fcb1a" prot="public" virt="non-virtual"><scope>gpt_entry_t</scope><name>end_lba</name></member>

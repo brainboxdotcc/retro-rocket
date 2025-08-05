@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('struct____attribute____.html',''); ini
 </div><!--header-->
 <div class="contents">
 
+<p>Describes an IRQ override from the MADT table.  
+ <a href="struct____attribute____.html#details">More...</a></p>
+
 <p><code>#include &lt;iso9660.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for __attribute__:</div>
@@ -103,6 +106,24 @@ $(document).ready(function(){initNavTree('struct____attribute____.html',''); ini
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a30e60959661cf2e3b2dcc52e5d3e9249"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a30e60959661cf2e3b2dcc52e5d3e9249">type</a></td></tr>
+<tr class="memdesc:a30e60959661cf2e3b2dcc52e5d3e9249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry type (always 2 for overrides)  <a href="struct____attribute____.html#a30e60959661cf2e3b2dcc52e5d3e9249">More...</a><br /></td></tr>
+<tr class="separator:a30e60959661cf2e3b2dcc52e5d3e9249"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ddd0091402d85a50cf9eb63ff2c7d71"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a3ddd0091402d85a50cf9eb63ff2c7d71">length</a></td></tr>
+<tr class="memdesc:a3ddd0091402d85a50cf9eb63ff2c7d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of this entry.  <a href="struct____attribute____.html#a3ddd0091402d85a50cf9eb63ff2c7d71">More...</a><br /></td></tr>
+<tr class="separator:a3ddd0091402d85a50cf9eb63ff2c7d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af18b9f54665e6b18eca185d3a7c0f1e8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#af18b9f54665e6b18eca185d3a7c0f1e8">bus_source</a></td></tr>
+<tr class="memdesc:af18b9f54665e6b18eca185d3a7c0f1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typically 0 (ISA bus)  <a href="struct____attribute____.html#af18b9f54665e6b18eca185d3a7c0f1e8">More...</a><br /></td></tr>
+<tr class="separator:af18b9f54665e6b18eca185d3a7c0f1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8445075c394563f1703d0888823265a7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a8445075c394563f1703d0888823265a7">irq_source</a></td></tr>
+<tr class="memdesc:a8445075c394563f1703d0888823265a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original IRQ number.  <a href="struct____attribute____.html#a8445075c394563f1703d0888823265a7">More...</a><br /></td></tr>
+<tr class="separator:a8445075c394563f1703d0888823265a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9701a1cffb62bc2664cf3fd20fd42a08"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a9701a1cffb62bc2664cf3fd20fd42a08">gsi</a></td></tr>
+<tr class="memdesc:a9701a1cffb62bc2664cf3fd20fd42a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">New GSI mapping.  <a href="struct____attribute____.html#a9701a1cffb62bc2664cf3fd20fd42a08">More...</a><br /></td></tr>
+<tr class="separator:a9701a1cffb62bc2664cf3fd20fd42a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0943b75cfebf20ce431adfbedf9f8c4"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#aa0943b75cfebf20ce431adfbedf9f8c4">flags</a></td></tr>
+<tr class="memdesc:aa0943b75cfebf20ce431adfbedf9f8c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmask defining polarity and trigger mode.  <a href="struct____attribute____.html#aa0943b75cfebf20ce431adfbedf9f8c4">More...</a><br /></td></tr>
+<tr class="separator:aa0943b75cfebf20ce431adfbedf9f8c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b7d1a44b586f753e2a41f54453d2786"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a7b7d1a44b586f753e2a41f54453d2786">year</a> [4]</td></tr>
 <tr class="separator:a7b7d1a44b586f753e2a41f54453d2786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00027c4795e5b57bc0f993f5b403a43f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a00027c4795e5b57bc0f993f5b403a43f">month</a> [2]</td></tr>
@@ -131,8 +152,6 @@ Data Fields</h2></td></tr>
 <tr class="separator:a1a418055cfd85d67a926314afb0567f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d7a0b0d2fd7eebd440ac1a0b5f97d2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a75d7a0b0d2fd7eebd440ac1a0b5f97d2">second</a></td></tr>
 <tr class="separator:a75d7a0b0d2fd7eebd440ac1a0b5f97d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ddd0091402d85a50cf9eb63ff2c7d71"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a3ddd0091402d85a50cf9eb63ff2c7d71">length</a></td></tr>
-<tr class="separator:a3ddd0091402d85a50cf9eb63ff2c7d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbe8bc7f2cda92b0a211610d06f6585c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#abbe8bc7f2cda92b0a211610d06f6585c">attribute_length</a></td></tr>
 <tr class="separator:abbe8bc7f2cda92b0a211610d06f6585c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb79cb292bdd3c077c5f0ce46a640ec9"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#acb79cb292bdd3c077c5f0ce46a640ec9">extent_lba_lsb</a></td></tr>
@@ -177,8 +196,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a434f8342c5b494ed278fdf37e4ae78f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac413f7aa5f115b456983e7775f4f57f3"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#ac413f7aa5f115b456983e7775f4f57f3">escape_seq</a> [8]</td></tr>
 <tr class="separator:ac413f7aa5f115b456983e7775f4f57f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a939c1cdac5cb1aacf2d2f83311e0aa3b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a939c1cdac5cb1aacf2d2f83311e0aa3b">unused3</a> [32-8]</td></tr>
-<tr class="separator:a939c1cdac5cb1aacf2d2f83311e0aa3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f88eb0860406447f522b3dc52ec52c9"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a4f88eb0860406447f522b3dc52ec52c9">unused3</a> [24]</td></tr>
+<tr class="separator:a4f88eb0860406447f522b3dc52ec52c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af426c51648e44d3221cc17ae1779a9eb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#af426c51648e44d3221cc17ae1779a9eb">lsb_volumesetsize</a></td></tr>
 <tr class="separator:af426c51648e44d3221cc17ae1779a9eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57993796e8cb664feffd721fbf0a0455"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a57993796e8cb664feffd721fbf0a0455">msb_volumesetsize</a></td></tr>
@@ -236,7 +255,18 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a3db63ed0ea99f23e390aea70c411d940"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html#a3db63ed0ea99f23e390aea70c411d940">reserved</a> [653]</td></tr>
 <tr class="separator:a3db63ed0ea99f23e390aea70c411d940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Describes an IRQ override from the MADT table. </p>
+<p>Supplementary Volume Descriptor (SVD).</p>
+<p>Primary Volume Descriptor (PVD).</p>
+<p>Directory entry (file or subdirectory).</p>
+<p>Compact per-file date entry format (differs from PVD_date).</p>
+<p>Date structure as defined in the Primary Volume Descriptor (PVD).</p>
+<p>Used to override the default IRQ to GSI mapping, and specify trigger mode and polarity.</p>
+<p>Filenames may exceed the fixed <code>filename[12]</code> buffer. Walk the list of entries using <code>length</code>, which accounts for variable-length names.</p>
+<p>Defines the metadata for the filesystem. Contains dual-endian fields (LSB/MSB) for cross-platform compatibility.</p>
+<p>Placeholder for Joliet or other extensions. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a6cd6d627e8dc6fac12226f320643428a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6cd6d627e8dc6fac12226f320643428a">&#9670;&nbsp;</a></span>abstract_file</h2>
 
@@ -248,6 +278,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Abstract file identifier </p>
 
 </div>
 </div>
@@ -262,6 +293,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Application identifier </p>
 
 </div>
 </div>
@@ -276,6 +308,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Application-specific use </p>
 
 </div>
 </div>
@@ -290,6 +323,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Length of extended attributes </p>
 
 </div>
 </div>
@@ -304,6 +338,23 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Bibliographic file identifier </p>
+
+</div>
+</div>
+<a id="af18b9f54665e6b18eca185d3a7c0f1e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af18b9f54665e6b18eca185d3a7c0f1e8">&#9670;&nbsp;</a></span>bus_source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t __attribute__::bus_source</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Typically 0 (ISA bus) </p>
 
 </div>
 </div>
@@ -318,6 +369,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Copyright file identifier </p>
 
 </div>
 </div>
@@ -332,6 +384,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Data length (LSB) </p>
 
 </div>
 </div>
@@ -346,6 +399,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Data length (MSB) </p>
 
 </div>
 </div>
@@ -360,6 +414,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Data preparer identifier </p>
 
 </div>
 </div>
@@ -374,6 +429,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Day (01–31) </p>
 
 </div>
 </div>
@@ -388,6 +444,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Day (1–31) </p>
 
 </div>
 </div>
@@ -402,6 +459,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Escape sequences for Joliet </p>
 
 </div>
 </div>
@@ -416,6 +474,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File extent LBA (LSB) </p>
 
 </div>
 </div>
@@ -430,6 +489,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File extent LBA (MSB) </p>
 
 </div>
 </div>
@@ -444,6 +504,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File flags (e.g., directory, hidden) </p>
 
 </div>
 </div>
@@ -458,6 +519,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File structure version (1) </p>
 
 </div>
 </div>
@@ -472,6 +534,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Truncated filename (see note above) </p>
 
 </div>
 </div>
@@ -486,6 +549,39 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Length of filename in bytes </p>
+
+</div>
+</div>
+<a id="aa0943b75cfebf20ce431adfbedf9f8c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0943b75cfebf20ce431adfbedf9f8c4">&#9670;&nbsp;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t __attribute__::flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bitmask defining polarity and trigger mode. </p>
+
+</div>
+</div>
+<a id="a9701a1cffb62bc2664cf3fd20fd42a08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9701a1cffb62bc2664cf3fd20fd42a08">&#9670;&nbsp;</a></span>gsi</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t __attribute__::gsi</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>New GSI mapping. </p>
 
 </div>
 </div>
@@ -500,6 +596,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Hour (00–23) </p>
 
 </div>
 </div>
@@ -514,6 +611,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Hour (0–23) </p>
 
 </div>
 </div>
@@ -528,6 +626,23 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interleave unit size (rarely used) </p>
+
+</div>
+</div>
+<a id="a8445075c394563f1703d0888823265a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8445075c394563f1703d0888823265a7">&#9670;&nbsp;</a></span>irq_source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t __attribute__::irq_source</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Original IRQ number. </p>
 
 </div>
 </div>
@@ -543,6 +658,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Length of this entry. </p>
+<p>Length of this directory entry </p>
+
 </div>
 </div>
 <a id="a7148a5d83c6a7e3649b14dfdfa6558ac"></a>
@@ -556,6 +674,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Logical block size (LSB) </p>
 
 </div>
 </div>
@@ -570,6 +689,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Optional path table L (LSB) </p>
 
 </div>
 </div>
@@ -584,6 +704,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Optional path table M (MSB) </p>
 
 </div>
 </div>
@@ -598,6 +719,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Path table L (LSB) </p>
 
 </div>
 </div>
@@ -612,6 +734,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Path table M (MSB) </p>
 
 </div>
 </div>
@@ -626,6 +749,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Path table size (LSB) </p>
 
 </div>
 </div>
@@ -640,6 +764,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume sequence number (LSB) </p>
 
 </div>
 </div>
@@ -654,6 +779,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume set size (LSB) </p>
 
 </div>
 </div>
@@ -668,6 +794,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume space size (LSB) </p>
 
 </div>
 </div>
@@ -682,6 +809,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Hundredths of a second </p>
 
 </div>
 </div>
@@ -696,6 +824,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Minute (00–59) </p>
 
 </div>
 </div>
@@ -710,6 +839,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Minute (0–59) </p>
 
 </div>
 </div>
@@ -724,6 +854,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Month (01–12) </p>
 
 </div>
 </div>
@@ -738,6 +869,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Month (1–12) </p>
 
 </div>
 </div>
@@ -752,6 +884,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Logical block size (MSB) </p>
 
 </div>
 </div>
@@ -766,6 +899,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Path table size (MSB) </p>
 
 </div>
 </div>
@@ -780,6 +914,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume sequence number (MSB) </p>
 
 </div>
 </div>
@@ -794,6 +929,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume set size (MSB) </p>
 
 </div>
 </div>
@@ -808,6 +944,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume space size (MSB) </p>
 
 </div>
 </div>
@@ -822,6 +959,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Publisher identifier </p>
 
 </div>
 </div>
@@ -836,6 +974,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Recording timestamp </p>
 
 </div>
 </div>
@@ -850,6 +989,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved / padding </p>
 
 </div>
 </div>
@@ -864,6 +1004,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Root directory entry </p>
 
 </div>
 </div>
@@ -878,6 +1019,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Second (00–59) </p>
 
 </div>
 </div>
@@ -892,6 +1034,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Second (0–59) </p>
 
 </div>
 </div>
@@ -906,6 +1049,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File sequence number (LSB) </p>
 
 </div>
 </div>
@@ -920,6 +1064,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File sequence number (MSB) </p>
 
 </div>
 </div>
@@ -934,6 +1079,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>"CD001" identifier </p>
 
 </div>
 </div>
@@ -948,6 +1094,23 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>System identifier </p>
+
+</div>
+</div>
+<a id="a30e60959661cf2e3b2dcc52e5d3e9249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30e60959661cf2e3b2dcc52e5d3e9249">&#9670;&nbsp;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t __attribute__::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Entry type (always 2 for overrides) </p>
 
 </div>
 </div>
@@ -962,6 +1125,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Descriptor type (should be 1 for PVD) </p>
 
 </div>
 </div>
@@ -976,6 +1140,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Timezone offset from GMT in 15-minute intervals </p>
 
 </div>
 </div>
@@ -1007,17 +1172,18 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a939c1cdac5cb1aacf2d2f83311e0aa3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a939c1cdac5cb1aacf2d2f83311e0aa3b">&#9670;&nbsp;</a></span>unused3</h2>
+<a id="a4f88eb0860406447f522b3dc52ec52c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f88eb0860406447f522b3dc52ec52c9">&#9670;&nbsp;</a></span>unused3</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char __attribute__::unused3[32-8]</td>
+          <td class="memname">char __attribute__::unused3[24]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Padding </p>
 
 </div>
 </div>
@@ -1046,6 +1212,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Version (always 1) </p>
 
 </div>
 </div>
@@ -1060,6 +1227,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume creation time </p>
 
 </div>
 </div>
@@ -1074,6 +1242,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume effective time </p>
 
 </div>
 </div>
@@ -1088,6 +1257,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume expiry time </p>
 
 </div>
 </div>
@@ -1102,6 +1272,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume modification time </p>
 
 </div>
 </div>
@@ -1116,6 +1287,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume set identifier </p>
 
 </div>
 </div>
@@ -1130,6 +1302,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Volume identifier </p>
 
 </div>
 </div>
@@ -1144,6 +1317,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Year (ASCII, 4 digits) </p>
 
 </div>
 </div>
@@ -1158,6 +1332,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Years since 1900 </p>
 
 </div>
 </div>
@@ -1167,7 +1342,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct____attribute____.html">__attribute__</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -10,13 +10,13 @@
         <argsstring></argsstring>
         <name>bootable</name>
         <briefdescription>
-<para>Partition is bootable. </para>
+<para>Partition is bootable (0x80 = bootable, 0x00 = non-bootable). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="28" column="9" bodyfile="include/partition.h" bodystart="28" bodyend="-1"/>
+        <location file="include/partition.h" line="35" column="9" bodyfile="include/partition.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpartition__t_1a3e25a719ac40ee7bce35a9287eab818d" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -24,13 +24,13 @@
         <argsstring></argsstring>
         <name>starthead</name>
         <briefdescription>
-<para>Starting head. </para>
+<para>Starting head of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="30" column="9" bodyfile="include/partition.h" bodystart="30" bodyend="-1"/>
+        <location file="include/partition.h" line="38" column="9" bodyfile="include/partition.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpartition__t_1a538d9cdd9d12ea7b4c6730e3f9e8ed5f" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -38,13 +38,13 @@
         <argsstring></argsstring>
         <name>startcylsect</name>
         <briefdescription>
-<para>Starting cylinder and sector. </para>
+<para>Starting cylinder and sector of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="32" column="10" bodyfile="include/partition.h" bodystart="32" bodyend="-1"/>
+        <location file="include/partition.h" line="41" column="10" bodyfile="include/partition.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpartition__t_1ab59cfb3e84da908a96cab4ab4c1af0da" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -52,13 +52,13 @@
         <argsstring></argsstring>
         <name>systemid</name>
         <briefdescription>
-<para>partition type id </para>
+<para>Partition type identifier. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="34" column="9" bodyfile="include/partition.h" bodystart="34" bodyend="-1"/>
+        <location file="include/partition.h" line="44" column="9" bodyfile="include/partition.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpartition__t_1a1ed9a76ac12341935e919877fa003051" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -66,13 +66,13 @@
         <argsstring></argsstring>
         <name>endhead</name>
         <briefdescription>
-<para>End head. </para>
+<para>Ending head of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="36" column="9" bodyfile="include/partition.h" bodystart="36" bodyend="-1"/>
+        <location file="include/partition.h" line="47" column="9" bodyfile="include/partition.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpartition__t_1a4be6901182a34286c7b8f55d2adf64b1" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -80,13 +80,13 @@
         <argsstring></argsstring>
         <name>endcylsect</name>
         <briefdescription>
-<para>End cylinder and sector. </para>
+<para>Ending cylinder and sector of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="38" column="10" bodyfile="include/partition.h" bodystart="38" bodyend="-1"/>
+        <location file="include/partition.h" line="50" column="10" bodyfile="include/partition.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpartition__t_1a98196469e7c6ff383eaa9b243b8a98fc" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -94,13 +94,13 @@
         <argsstring></argsstring>
         <name>startlba</name>
         <briefdescription>
-<para>Starting LBA. </para>
+<para>Starting LBA (Logical Block Address) of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="40" column="10" bodyfile="include/partition.h" bodystart="40" bodyend="-1"/>
+        <location file="include/partition.h" line="53" column="10" bodyfile="include/partition.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpartition__t_1afdda3a9c88bfd7ba74bbb2290ef83743" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -108,17 +108,17 @@
         <argsstring></argsstring>
         <name>length</name>
         <briefdescription>
-<para>LBA length. </para>
+<para>Length of the partition in sectors. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="42" column="10" bodyfile="include/partition.h" bodystart="42" bodyend="-1"/>
+        <location file="include/partition.h" line="56" column="10" bodyfile="include/partition.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>A disk partition on a storage device. </para>
+<para>A disk partition entry within the MBR. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -151,7 +151,7 @@
         <label>uint8_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/partition.h" line="26" column="1" bodyfile="include/partition.h" bodystart="26" bodyend="43"/>
+    <location file="include/partition.h" line="33" column="1" bodyfile="include/partition.h" bodystart="33" bodyend="57"/>
     <listofallmembers>
       <member refid="structpartition__t_1ab01c8d7cfc6427c47cbe89bdde5733d2" prot="public" virt="non-virtual"><scope>partition_t</scope><name>bootable</name></member>
       <member refid="structpartition__t_1a4be6901182a34286c7b8f55d2adf64b1" prot="public" virt="non-virtual"><scope>partition_t</scope><name>endcylsect</name></member>

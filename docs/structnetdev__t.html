@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structnetdev__t.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 
-<p>An ethernet network device, this relates directly to a physical network card in the machine. A device may have zero or more attached protocols, each protocol intercepts an ethernet id number. Where a protocol requires another protocol to be of use, e.g. ARP with IPv4, the dependency will be added automatically by other protocols that require it.  
+<p>Represents a physical Ethernet network device.  
  <a href="structnetdev__t.html#details">More...</a></p>
 
 <p><code>#include &lt;net.h&gt;</code></p>
@@ -100,16 +100,20 @@ $(document).ready(function(){initNavTree('structnetdev__t.html',''); initResizab
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structnetdev__t__coll__graph.svg" width="628" height="338"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structnetdev__t__coll__graph.svg" width="100%" height="564"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:ad8e08b139bf36e1fb825d4dcd86377aa"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#ad8e08b139bf36e1fb825d4dcd86377aa">deviceid</a></td></tr>
+<tr class="separator:ad8e08b139bf36e1fb825d4dcd86377aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5414e10d1ac4886a720ab53b5ec4d61"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#ac5414e10d1ac4886a720ab53b5ec4d61">name</a> [16]</td></tr>
 <tr class="separator:ac5414e10d1ac4886a720ab53b5ec4d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb86af76b81051a7f5a51c5cf3fb9c5a"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#abb86af76b81051a7f5a51c5cf3fb9c5a">description</a></td></tr>
 <tr class="separator:abb86af76b81051a7f5a51c5cf3fb9c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84be9197a45e58db5bcc7147df1a1117"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#a84be9197a45e58db5bcc7147df1a1117">opaque</a></td></tr>
+<tr class="separator:a84be9197a45e58db5bcc7147df1a1117"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0f57b1c29286d4dc2dc23bf7b3ff228"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#ad0f57b1c29286d4dc2dc23bf7b3ff228">speed</a></td></tr>
 <tr class="separator:ad0f57b1c29286d4dc2dc23bf7b3ff228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec987a0487a82c232aedaa6c07074c64"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#aec987a0487a82c232aedaa6c07074c64">flags</a></td></tr>
@@ -120,9 +124,16 @@ Data Fields</h2></td></tr>
 <tr class="separator:a699f50d657a9b4094222da4429528dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f95831169bcca38d95fe43c133139e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnetproto__t.html">netproto_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#a9f95831169bcca38d95fe43c133139e1">netproto</a></td></tr>
 <tr class="separator:a9f95831169bcca38d95fe43c133139e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a674a970f6b58804a10a592f3024ef5e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="net_8h.html#a06c1490a805db8501048d3b019628214">net_get_mac</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#a674a970f6b58804a10a592f3024ef5e3">get_mac_addr</a></td></tr>
+<tr class="separator:a674a970f6b58804a10a592f3024ef5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86c930d87553354d429a2415c72b3315"><td class="memItemLeft" align="right" valign="top"><a class="el" href="net_8h.html#a40c2873d3b8225afed868de2ebc79538">net_send_packet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#a86c930d87553354d429a2415c72b3315">send_packet</a></td></tr>
+<tr class="separator:a86c930d87553354d429a2415c72b3315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a071b95bac8885a8dd57ab35712b99244"><td class="memItemLeft" align="right" valign="top">struct netdev *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnetdev__t.html#a071b95bac8885a8dd57ab35712b99244">next</a></td></tr>
+<tr class="separator:a071b95bac8885a8dd57ab35712b99244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An ethernet network device, this relates directly to a physical network card in the machine. A device may have zero or more attached protocols, each protocol intercepts an ethernet id number. Where a protocol requires another protocol to be of use, e.g. ARP with IPv4, the dependency will be added automatically by other protocols that require it. </p>
+<div class="textblock"><p>Represents a physical Ethernet network device. </p>
+<p>Each device may have zero or more attached protocols. Each protocol intercepts traffic by its Ethernet ID. Some protocols depend on others, which are attached automatically. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="abb86af76b81051a7f5a51c5cf3fb9c5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb86af76b81051a7f5a51c5cf3fb9c5a">&#9670;&nbsp;</a></span>description</h2>
@@ -135,6 +146,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Human‑readable description of the device. </p>
+
+</div>
+</div>
+<a id="ad8e08b139bf36e1fb825d4dcd86377aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e08b139bf36e1fb825d4dcd86377aa">&#9670;&nbsp;</a></span>deviceid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t netdev_t::deviceid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Unique device identifier. </p>
 
 </div>
 </div>
@@ -149,6 +176,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Flags from <a class="el" href="net_8h.html#a100979a19424dac7612a6ddbfbe6393a" title="Flags for the state of a network device.">netdev_flags_t</a>. </p>
+
+</div>
+</div>
+<a id="a674a970f6b58804a10a592f3024ef5e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a674a970f6b58804a10a592f3024ef5e3">&#9670;&nbsp;</a></span>get_mac_addr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="net_8h.html#a06c1490a805db8501048d3b019628214">net_get_mac</a> netdev_t::get_mac_addr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retrieve MAC address. </p>
 
 </div>
 </div>
@@ -163,6 +206,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Maximum transmission unit. </p>
 
 </div>
 </div>
@@ -177,6 +221,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Device name (e.g. "rtl0"). </p>
 
 </div>
 </div>
@@ -191,6 +236,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Array of attached protocols. </p>
+
+</div>
+</div>
+<a id="a071b95bac8885a8dd57ab35712b99244"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a071b95bac8885a8dd57ab35712b99244">&#9670;&nbsp;</a></span>next</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct netdev* netdev_t::next</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Next device in the linked list. </p>
 
 </div>
 </div>
@@ -205,6 +266,37 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of attached protocols. </p>
+
+</div>
+</div>
+<a id="a84be9197a45e58db5bcc7147df1a1117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84be9197a45e58db5bcc7147df1a1117">&#9670;&nbsp;</a></span>opaque</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* netdev_t::opaque</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Driver‑specific storage pointer. </p>
+
+</div>
+</div>
+<a id="a86c930d87553354d429a2415c72b3315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86c930d87553354d429a2415c72b3315">&#9670;&nbsp;</a></span>send_packet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="net_8h.html#a40c2873d3b8225afed868de2ebc79538">net_send_packet</a> netdev_t::send_packet</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Send a packet via the interface. </p>
 
 </div>
 </div>
@@ -219,6 +311,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Speed in megabytes per second. </p>
 
 </div>
 </div>
@@ -228,7 +321,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structnetdev__t.html">netdev_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

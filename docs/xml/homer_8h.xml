@@ -2,12 +2,25 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="homer_8h" kind="file" language="C++">
     <compoundname>homer.h</compoundname>
+    <includedby refid="errorhandler_8c" local="no">errorhandler.c</includedby>
+    <invincdepgraph>
+      <node id="1">
+        <label>homer.h</label>
+        <link refid="homer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+    </invincdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="homer_8h_1aa715c7b4dfcfdbbd5dabf65eadd4c835" prot="public" static="no">
         <name>PANIC_BANNER</name>
-        <initializer>      <ref refid="video_8h_1a9eb30d97afe44a6d0a2063f701c13ca6" kindref="member">setforeground</ref>(<ref refid="video_8h_1a43d9b652336a0df72765cc74cb497381" kindref="member">current_console</ref>, <ref refid="video_8h_1ae4bed0367e7a42e2db0ecf1f18e12585" kindref="member">COLOUR_LIGHTYELLOW</ref>); \
-      <ref refid="kernel_8h_1a5ada4cbc64c5890562caafafffb06d12" kindref="member">kprintf</ref>(&quot;\n\              ___  _____ \n\            .&apos;/,-Y\&quot;     \&quot;~-. \n\            l.Y             ^. \n\            /\\               _\\_      \&quot;Yaaaaah! oh-my-GOD!\n\           <ref refid="ahci_8h_1a752abcfe7ce5874cd9e8012a0346a37b" kindref="member">i</ref>            ___/\&quot;   \&quot;\\     We&apos;re trapped inside some\n\           |          /\&quot;   \&quot;\\   o !    computer-dimension-\n\           l         ]     o !__./     something-or-another!\&quot;\n\            \\ _  _    \\.___./    \&quot;~\\ \n\             X \\/ \\            ___./ \n\            ( \\ ___.   _..--~~\&quot;   ~`-. \n\             ` Z,--   /               \\ \n\               \\__.  (   /       ______) \n\                 \\   l  /-----~~\&quot; / \n\                  Y   \\          /\n\                  |    \&quot;x______.^ \n\                  |           \\ \<ref refid="ahci_8h_1a5a648f5ec00c526b0dfa2df7a272c6c0" kindref="member">n\\n</ref>&quot;); setforeground(<ref refid="video_8h_1a43d9b652336a0df72765cc74cb497381" kindref="member">current_console</ref>, <ref refid="video_8h_1ab27909818cd91c3572fdd8e3d37fe8d3" kindref="member">COLOUR_LIGHTWHITE</ref>);\
-<ref refid="kernel_8h_1a5ada4cbc64c5890562caafafffb06d12" kindref="member">kprintf</ref>(&quot;This <ref refid="ahci_8h_1ab21fab504791fdabfb4441c735452afb" kindref="member">is</ref> <ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref> fatal system <ref refid="ahci_8h_1adc64ccb7538429fe78e3fe0139267370" kindref="member">error</ref> and your system has been halted.\n\&quot;); setforeground(<ref refid="video_8h_1a43d9b652336a0df72765cc74cb497381" kindref="member">current_console</ref>, <ref refid="video_8h_1a9a5956770d980f07b7b6bbd77741d872" kindref="member">COLOUR_LIGHTRED</ref>);</initializer>
+        <initializer>      <ref refid="video_8c_1a9eb30d97afe44a6d0a2063f701c13ca6" kindref="member">setforeground</ref>(<ref refid="video_8c_1a43d9b652336a0df72765cc74cb497381" kindref="member">current_console</ref>, <ref refid="video_8h_1ae4bed0367e7a42e2db0ecf1f18e12585" kindref="member">COLOUR_LIGHTYELLOW</ref>); \
+      <ref refid="kernel_8h_1a5ada4cbc64c5890562caafafffb06d12" kindref="member">kprintf</ref>(&quot;\n\              ___  _____ \n\            .&apos;/,-Y\&quot;     \&quot;~-. \n\            l.Y             ^. \n\            /\\               _\\_      \&quot;Oh\n\           <ref refid="ahci_8h_1a752abcfe7ce5874cd9e8012a0346a37b" kindref="member">i</ref>            ___/\&quot;   \&quot;\\     so they have internet on computers now!\&quot;\n\           |          /\&quot;   \&quot;\\   o !    \n\           l         ]     o !__./     \n\            \\ _  _    \\.___./    \&quot;~\\ \n\             X \\/ \\            ___./ \n\            ( \\ ___.   _..--~~\&quot;   ~`-. \n\             ` Z,--   /               \\ \n\               \\__.  (   /       ______) \n\                 \\   l  /-----~~\&quot; / \n\                  Y   \\          /\n\                  |    \&quot;x______.^ \n\                  |           \\ \<ref refid="ahci_8h_1a5a648f5ec00c526b0dfa2df7a272c6c0" kindref="member">n\\n</ref>&quot;); setforeground(<ref refid="video_8c_1a43d9b652336a0df72765cc74cb497381" kindref="member">current_console</ref>, <ref refid="video_8h_1ab27909818cd91c3572fdd8e3d37fe8d3" kindref="member">COLOUR_LIGHTWHITE</ref>);\
+<ref refid="kernel_8h_1a5ada4cbc64c5890562caafafffb06d12" kindref="member">kprintf</ref>(&quot;This <ref refid="ahci_8h_1ab21fab504791fdabfb4441c735452afb" kindref="member">is</ref> <ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref> fatal <ref refid="stdlib_8c_1a8b0abd498c08f782b325e8532254e962" kindref="member">system</ref> <ref refid="ahci_8h_1adc64ccb7538429fe78e3fe0139267370" kindref="member">error</ref> and your <ref refid="stdlib_8c_1a8b0abd498c08f782b325e8532254e962" kindref="member">system</ref> has been halted.\n\&quot;); setforeground(<ref refid="video_8c_1a43d9b652336a0df72765cc74cb497381" kindref="member">current_console</ref>, <ref refid="video_8h_1a9a5956770d980f07b7b6bbd77741d872" kindref="member">COLOUR_LIGHTRED</ref>);</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,7 +35,7 @@
     <detaileddescription>
 <para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
 </simplesect>
 </para>
     </detaileddescription>

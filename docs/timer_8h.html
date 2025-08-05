@@ -90,28 +90,41 @@ $(document).ready(function(){initNavTree('timer_8h.html',''); initResizable(); }
 <div class="title">timer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Timer and delay functions (APIC-driven, 100 Hz tick rate).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a47b9d70be3022fd0b5687d9794ca47bc"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a47b9d70be3022fd0b5687d9794ca47bc">rdtsc</a> ()</td></tr>
-<tr class="separator:a47b9d70be3022fd0b5687d9794ca47bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dbbb4d2fda3aef6312d0e7623acbb2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a6dbbb4d2fda3aef6312d0e7623acbb2c">sleep_one_tick</a> ()</td></tr>
-<tr class="separator:a6dbbb4d2fda3aef6312d0e7623acbb2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64eba85413970674e0e6e03af9e9d0f4"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a64eba85413970674e0e6e03af9e9d0f4">rdtsc</a> (void)</td></tr>
+<tr class="memdesc:a64eba85413970674e0e6e03af9e9d0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the current Time Stamp Counter.  <a href="timer_8h.html#a64eba85413970674e0e6e03af9e9d0f4">More...</a><br /></td></tr>
+<tr class="separator:a64eba85413970674e0e6e03af9e9d0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e343ed8cd22fe7e2cbf29c2033d53bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a7e343ed8cd22fe7e2cbf29c2033d53bb">sleep_one_tick</a> (void)</td></tr>
+<tr class="memdesc:a7e343ed8cd22fe7e2cbf29c2033d53bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sleep until the next timer tick.  <a href="timer_8h.html#a7e343ed8cd22fe7e2cbf29c2033d53bb">More...</a><br /></td></tr>
+<tr class="separator:a7e343ed8cd22fe7e2cbf29c2033d53bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99325999034be84a6abdf6741fe803d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a99325999034be84a6abdf6741fe803d3">beep</a> (uint32_t pitch)</td></tr>
+<tr class="memdesc:a99325999034be84a6abdf6741fe803d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a short PC speaker beep at the given pitch.  <a href="timer_8h.html#a99325999034be84a6abdf6741fe803d3">More...</a><br /></td></tr>
 <tr class="separator:a99325999034be84a6abdf6741fe803d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ab66fa3b556221f1a269253ad20e597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a3ab66fa3b556221f1a269253ad20e597">stopbeep</a> ()</td></tr>
-<tr class="separator:a3ab66fa3b556221f1a269253ad20e597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae87c54f5044780f84a243e43d31cdf89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#ae87c54f5044780f84a243e43d31cdf89">stopbeep</a> (void)</td></tr>
+<tr class="memdesc:ae87c54f5044780f84a243e43d31cdf89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immediately stop any ongoing PC speaker beep.  <a href="timer_8h.html#ae87c54f5044780f84a243e43d31cdf89">More...</a><br /></td></tr>
+<tr class="separator:ae87c54f5044780f84a243e43d31cdf89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af35c4d193fc8597d8ac55d9a75412987"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#af35c4d193fc8597d8ac55d9a75412987">sleep</a> (uint64_t secs)</td></tr>
+<tr class="memdesc:af35c4d193fc8597d8ac55d9a75412987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sleep for the specified number of seconds.  <a href="timer_8h.html#af35c4d193fc8597d8ac55d9a75412987">More...</a><br /></td></tr>
 <tr class="separator:af35c4d193fc8597d8ac55d9a75412987"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3fa09dedf9b10b08a0434283bb38c3a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#aa3fa09dedf9b10b08a0434283bb38c3a">get_ticks</a> ()</td></tr>
-<tr class="separator:aa3fa09dedf9b10b08a0434283bb38c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3686b92a0667e9774993808f4d2ac2b4"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a3686b92a0667e9774993808f4d2ac2b4">get_ticks</a> (void)</td></tr>
+<tr class="memdesc:a3686b92a0667e9774993808f4d2ac2b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current global tick count.  <a href="timer_8h.html#a3686b92a0667e9774993808f4d2ac2b4">More...</a><br /></td></tr>
+<tr class="separator:a3686b92a0667e9774993808f4d2ac2b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a428b3ed0f25a149f0d4d96789451cc49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a428b3ed0f25a149f0d4d96789451cc49">timer_callback</a> (uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaque)</td></tr>
+<tr class="memdesc:a428b3ed0f25a149f0d4d96789451cc49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer interrupt callback.  <a href="timer_8h.html#a428b3ed0f25a149f0d4d96789451cc49">More...</a><br /></td></tr>
 <tr class="separator:a428b3ed0f25a149f0d4d96789451cc49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Timer and delay functions (APIC-driven, 100 Hz tick rate). </p>
+<p>Timers are based on the Local APIC timer, running at a fixed resolution of 1/100th of a second (10 ms). A global tick counter is incremented on each timer interrupt, and can be queried via <a class="el" href="timer_8h.html#a3686b92a0667e9774993808f4d2ac2b4" title="Get the current global tick count.">get_ticks()</a>. Sleep functions busy-wait or HLT until the tick counter advances.</p>
+<p>The PIT (8253/8254) is also configured to support PC speaker tone generation for <a class="el" href="timer_8h.html#a99325999034be84a6abdf6741fe803d3" title="Generate a short PC speaker beep at the given pitch.">beep()</a>.</p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a99325999034be84a6abdf6741fe803d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99325999034be84a6abdf6741fe803d3">&#9670;&nbsp;</a></span>beep()</h2>
@@ -129,10 +142,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Generate a short PC speaker beep at the given pitch. </p>
+<p>The tone automatically stops after ~0.5 seconds, controlled by the timer interrupt.</p>
+<dl class="section note"><dt>Note</dt><dd>This only works if PIT channel 2 is wired to a physical speaker, which is not the case on many modern systems. Reliable only in QEMU/Bochs and older PCs.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pitch</td><td>Frequency in Hz. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="aa3fa09dedf9b10b08a0434283bb38c3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3fa09dedf9b10b08a0434283bb38c3a">&#9670;&nbsp;</a></span>get_ticks()</h2>
+<a id="a3686b92a0667e9774993808f4d2ac2b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3686b92a0667e9774993808f4d2ac2b4">&#9670;&nbsp;</a></span>get_ticks()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,16 +163,21 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">uint64_t get_ticks </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get the current global tick count. </p>
+<p>Incremented by the Local APIC timer interrupt at 100 Hz.</p>
+<dl class="section return"><dt>Returns</dt><dd>Number of ticks since timer initialisation. </dd></dl>
+
 </div>
 </div>
-<a id="a47b9d70be3022fd0b5687d9794ca47bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47b9d70be3022fd0b5687d9794ca47bc">&#9670;&nbsp;</a></span>rdtsc()</h2>
+<a id="a64eba85413970674e0e6e03af9e9d0f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64eba85413970674e0e6e03af9e9d0f4">&#9670;&nbsp;</a></span>rdtsc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,6 +188,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">static uint64_t rdtsc </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -170,6 +199,10 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Read the current Time Stamp Counter. </p>
+<p>Uses the RDTSC instruction to obtain the raw CPU cycle counter. This value is CPU-local and not synchronised across cores.</p>
+<dl class="section return"><dt>Returns</dt><dd>Current TSC value. </dd></dl>
 
 </div>
 </div>
@@ -189,10 +222,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sleep for the specified number of seconds. </p>
+<p>Uses the global tick counter to wait until the required number of seconds has elapsed. CPU executes HLT while waiting.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">secs</td><td>Number of seconds to sleep. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a6dbbb4d2fda3aef6312d0e7623acbb2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dbbb4d2fda3aef6312d0e7623acbb2c">&#9670;&nbsp;</a></span>sleep_one_tick()</h2>
+<a id="a7e343ed8cd22fe7e2cbf29c2033d53bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e343ed8cd22fe7e2cbf29c2033d53bb">&#9670;&nbsp;</a></span>sleep_one_tick()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,16 +242,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void sleep_one_tick </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sleep until the next timer tick. </p>
+<p>Returns once the global tick counter advances by at least one. This is approximately a 10 ms delay at 100 Hz. </p>
+
 </div>
 </div>
-<a id="a3ab66fa3b556221f1a269253ad20e597"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ab66fa3b556221f1a269253ad20e597">&#9670;&nbsp;</a></span>stopbeep()</h2>
+<a id="ae87c54f5044780f84a243e43d31cdf89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae87c54f5044780f84a243e43d31cdf89">&#9670;&nbsp;</a></span>stopbeep()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,11 +263,15 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void stopbeep </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Immediately stop any ongoing PC speaker beep. </p>
+<dl class="section note"><dt>Note</dt><dd>This only works if PIT channel 2 is wired to a physical speaker, which is not the case on many modern systems. Reliable only in QEMU/Bochs and older PCs. </dd></dl>
 
 </div>
 </div>
@@ -263,6 +313,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Timer interrupt callback. </p>
+<p>Invoked by the Local APIC (or PIT fallback) at 100 Hz. Increments the global tick counter, executes registered idle timer callbacks, auto-flips the framebuffer if enabled, and handles PC speaker timeouts.</p>
+<p>This should not normally be called by user code.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isr</td><td>Interrupt vector number. </td></tr>
+    <tr><td class="paramname">errorcode</td><td>Error code pushed by CPU (if any). </td></tr>
+    <tr><td class="paramname">irq</td><td>IRQ number (APIC routing). </td></tr>
+    <tr><td class="paramname">opaque</td><td>Opaque pointer for ISR framework use.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This is triggered either by the Local APIC timer interrupt, or by the PIT. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -271,7 +335,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="timer_8h.html">timer.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

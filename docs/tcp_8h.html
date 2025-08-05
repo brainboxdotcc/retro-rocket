@@ -108,6 +108,10 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__ordered__list__t.html">tcp_ordered_list_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpending__node__t.html">pending_node_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqueue__t.html">queue_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -117,6 +121,8 @@ Macros</h2></td></tr>
 <tr class="separator:a01dac0d554ac51ae8e96c00baa5b21be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8dbfcfddb84ac6b6fef8ad6c0323f11e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a8dbfcfddb84ac6b6fef8ad6c0323f11e">TCP_PACKET_SIZE_OFF</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:a8dbfcfddb84ac6b6fef8ad6c0323f11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304f45dd94169719e49a5404e2f3ddb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a304f45dd94169719e49a5404e2f3ddb0">TCP_TRACE</a></td></tr>
+<tr class="separator:a304f45dd94169719e49a5404e2f3ddb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -177,7 +183,11 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebeab1d56d3fa027373ca46a0d30b1613da5">TCP_ERROR_INVALID_SOCKET</a> = -9
 , <a class="el" href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebeabaef579be40183314ff45883eb3812cc">TCP_ERROR_CONNECTION_FAILED</a> = -10
-, <a class="el" href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebea8725e7020b4927eb9233b5358d62b56e">TCP_LAST_ERROR</a> = -11
+, <a class="el" href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebea6919b1b32792461459b1f7dac923e394">TCP_ERROR_NOT_LISTENING</a> = -11
+, <a class="el" href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebea0e5469f41a61d918e85b002081b04238">TCP_ERROR_WOULD_BLOCK</a> = -12
+, <br />
+&#160;&#160;<a class="el" href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebea6373bcaf57c0371c8c9d5302020f6035">TCP_CONNECTION_TIMED_OUT</a> = -13
+, <a class="el" href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebea8725e7020b4927eb9233b5358d62b56e">TCP_LAST_ERROR</a> = -14
 <br />
  }</td></tr>
 <tr class="memdesc:a0e8857463897e2e9a825c6702298cebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error codes which can be returned by socket functions.  <a href="tcp_8h.html#a0e8857463897e2e9a825c6702298cebe">More...</a><br /></td></tr>
@@ -186,6 +196,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a877d84e89e013415707bad5e9d8b99ae"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structtcp__ip__pseudo__header__t.html">tcp_ip_pseudo_header_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a877d84e89e013415707bad5e9d8b99ae">__attribute__</a> ((packed)) <a class="el" href="structtcp__ip__pseudo__header__t.html">tcp_ip_pseudo_header_t</a></td></tr>
+<tr class="memdesc:a877d84e89e013415707bad5e9d8b99ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">ACPI Root System Description Pointer (RSDP)  <a href="tcp_8h.html#a877d84e89e013415707bad5e9d8b99ae">More...</a><br /></td></tr>
 <tr class="separator:a877d84e89e013415707bad5e9d8b99ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d4611b68b5ca398ee9bc373573afab6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a8d4611b68b5ca398ee9bc373573afab6">tcp_handle_packet</a> ([[maybe_unused]] ip_packet_t *encap_packet, tcp_segment_t *segment, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>)</td></tr>
 <tr class="memdesc:a8d4611b68b5ca398ee9bc373573afab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP handler called by the IP layer.  <a href="tcp_8h.html#a8d4611b68b5ca398ee9bc373573afab6">More...</a><br /></td></tr>
@@ -214,11 +225,46 @@ Functions</h2></td></tr>
 <tr class="memitem:a5505c46ddfafecad526d12d4d1666050"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a5505c46ddfafecad526d12d4d1666050">tcp_idle</a> ()</td></tr>
 <tr class="memdesc:a5505c46ddfafecad526d12d4d1666050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Idle loop ran from timer ISR.  <a href="tcp_8h.html#a5505c46ddfafecad526d12d4d1666050">More...</a><br /></td></tr>
 <tr class="separator:a5505c46ddfafecad526d12d4d1666050"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8abaa184ec3841668b169f330e0f34cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structqueue__t.html">queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a8abaa184ec3841668b169f330e0f34cb">queue_new</a> (void)</td></tr>
+<tr class="memdesc:a8abaa184ec3841668b169f330e0f34cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a new empty queue.  <a href="tcp_8h.html#a8abaa184ec3841668b169f330e0f34cb">More...</a><br /></td></tr>
+<tr class="separator:a8abaa184ec3841668b169f330e0f34cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a273902c052c7f2beef288432bcf713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a0a273902c052c7f2beef288432bcf713">queue_push</a> (<a class="el" href="structqueue__t.html">queue_t</a> *q, <a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn)</td></tr>
+<tr class="memdesc:a0a273902c052c7f2beef288432bcf713"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push a <a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> into the queue.  <a href="tcp_8h.html#a0a273902c052c7f2beef288432bcf713">More...</a><br /></td></tr>
+<tr class="separator:a0a273902c052c7f2beef288432bcf713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d0a6c6ad6dcfd463720575a51581d17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a0d0a6c6ad6dcfd463720575a51581d17">queue_pop</a> (<a class="el" href="structqueue__t.html">queue_t</a> *q)</td></tr>
+<tr class="memdesc:a0d0a6c6ad6dcfd463720575a51581d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop the oldest <a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> from the queue.  <a href="tcp_8h.html#a0d0a6c6ad6dcfd463720575a51581d17">More...</a><br /></td></tr>
+<tr class="separator:a0d0a6c6ad6dcfd463720575a51581d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82bddaec8925f76a813782cb23ef7ca9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a82bddaec8925f76a813782cb23ef7ca9">queue_empty</a> (<a class="el" href="structqueue__t.html">queue_t</a> *q)</td></tr>
+<tr class="memdesc:a82bddaec8925f76a813782cb23ef7ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if queue is empty.  <a href="tcp_8h.html#a82bddaec8925f76a813782cb23ef7ca9">More...</a><br /></td></tr>
+<tr class="separator:a82bddaec8925f76a813782cb23ef7ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa13034dd0decdb0faf1b863383560be2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#aa13034dd0decdb0faf1b863383560be2">queue_free</a> (<a class="el" href="structqueue__t.html">queue_t</a> *q)</td></tr>
+<tr class="memdesc:aa13034dd0decdb0faf1b863383560be2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free all nodes in the queue and the queue itself.  <a href="tcp_8h.html#aa13034dd0decdb0faf1b863383560be2">More...</a><br /></td></tr>
+<tr class="separator:aa13034dd0decdb0faf1b863383560be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2f65a066df4023de8b2507bf2554fa7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ae2f65a066df4023de8b2507bf2554fa7">tcp_allocate_fd</a> (<a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn)</td></tr>
+<tr class="memdesc:ae2f65a066df4023de8b2507bf2554fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a new file descriptor for a TCP connection.  <a href="tcp_8h.html#ae2f65a066df4023de8b2507bf2554fa7">More...</a><br /></td></tr>
+<tr class="separator:ae2f65a066df4023de8b2507bf2554fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92504094d883720e92c536c1737b8f1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a92504094d883720e92c536c1737b8f1d">tcp_free_fd</a> (int x)</td></tr>
+<tr class="memdesc:a92504094d883720e92c536c1737b8f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a previously allocated TCP file descriptor.  <a href="tcp_8h.html#a92504094d883720e92c536c1737b8f1d">More...</a><br /></td></tr>
+<tr class="separator:a92504094d883720e92c536c1737b8f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cf9c0b477fc56fe87b438cfdb802d0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a6cf9c0b477fc56fe87b438cfdb802d0d">tcp_find_by_fd</a> (int x)</td></tr>
+<tr class="memdesc:a6cf9c0b477fc56fe87b438cfdb802d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a TCP connection by its file descriptor.  <a href="tcp_8h.html#a6cf9c0b477fc56fe87b438cfdb802d0d">More...</a><br /></td></tr>
+<tr class="separator:a6cf9c0b477fc56fe87b438cfdb802d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8916516f078eb7a9accac0a27a411784"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a8916516f078eb7a9accac0a27a411784">tcp_dump_segment</a> (bool in, <a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn, const ip_packet_t *encap_packet, const tcp_segment_t *segment, const <a class="el" href="structtcp__options__t.html">tcp_options_t</a> *<a class="el" href="tcp_8h.html#a15d570669f1585f18a87d277f1753027">options</a>, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint16_t our_checksum)</td></tr>
+<tr class="memdesc:a8916516f078eb7a9accac0a27a411784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump debug info for a TCP segment.  <a href="tcp_8h.html#a8916516f078eb7a9accac0a27a411784">More...</a><br /></td></tr>
+<tr class="separator:a8916516f078eb7a9accac0a27a411784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab30a0d5f82ac8f116897d82578ae25eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ab30a0d5f82ac8f116897d82578ae25eb">tcp_listen</a> (uint32_t <a class="el" href="e1000_8h.html#a2cf6caf45728e5af959628648c2116fc">addr</a>, uint16_t port, int backlog)</td></tr>
+<tr class="memdesc:ab30a0d5f82ac8f116897d82578ae25eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a listening TCP socket.  <a href="tcp_8h.html#ab30a0d5f82ac8f116897d82578ae25eb">More...</a><br /></td></tr>
+<tr class="separator:ab30a0d5f82ac8f116897d82578ae25eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb880bf940312acdf8a48c4d4dfa0b72"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#aeb880bf940312acdf8a48c4d4dfa0b72">tcp_accept</a> (int socket)</td></tr>
+<tr class="memdesc:aeb880bf940312acdf8a48c4d4dfa0b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accept an incoming connection on a listening socket.  <a href="tcp_8h.html#aeb880bf940312acdf8a48c4d4dfa0b72">More...</a><br /></td></tr>
+<tr class="separator:aeb880bf940312acdf8a48c4d4dfa0b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ed2cdd1c291c5083404950e916c98f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ac4ed2cdd1c291c5083404950e916c98f">tcp_connect</a> (uint32_t target_addr, uint16_t target_port, uint16_t source_port)</td></tr>
+<tr class="separator:ac4ed2cdd1c291c5083404950e916c98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a0b51a7a10cbdd813247a0febf4b89d6d"><td class="memItemLeft" align="right" valign="top">typedef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a0b51a7a10cbdd813247a0febf4b89d6d">__attribute__</a></td></tr>
-<tr class="memdesc:a0b51a7a10cbdd813247a0febf4b89d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">System Description Table Header.  <a href="tcp_8h.html#a0b51a7a10cbdd813247a0febf4b89d6d">More...</a><br /></td></tr>
+<tr class="memdesc:a0b51a7a10cbdd813247a0febf4b89d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic ACPI System Description Table Header.  <a href="tcp_8h.html#a0b51a7a10cbdd813247a0febf4b89d6d">More...</a><br /></td></tr>
 <tr class="separator:a0b51a7a10cbdd813247a0febf4b89d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d6d2cdb1162c6355e40ab772fa5debc"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a0d6d2cdb1162c6355e40ab772fa5debc">src</a></td></tr>
 <tr class="separator:a0d6d2cdb1162c6355e40ab772fa5debc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,29 +282,29 @@ Variables</h2></td></tr>
 <tr class="separator:a930b8af71e65676a79c0305e85f6afb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25a251c7c0f741bd8f0e75df6b508554"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a25a251c7c0f741bd8f0e75df6b508554">bits2</a></td></tr>
 <tr class="separator:a25a251c7c0f741bd8f0e75df6b508554"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00a4007d7c5663b3ad74afbcd47ddcc8"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a3e3d96941774aa363ccd5369f27b95ce"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#acb7bc06bed6f6408d719334fc41698c7">reserved</a>:4</td></tr>
-<tr class="separator:a3e3d96941774aa363ccd5369f27b95ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9e18e0ec5feef7bfe11c8b46609bdd6"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a2765e58b2af2f95eff3a9cc58d3457cd">off</a>:4</td></tr>
-<tr class="separator:ac9e18e0ec5feef7bfe11c8b46609bdd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad14b2753fa40cb068e47f01918b7fe23"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a48dcf0f2005f7f1028d2cbbc2c6cde85">fin</a>:1</td></tr>
-<tr class="separator:ad14b2753fa40cb068e47f01918b7fe23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a92a0bc30076297a245d369133cd0c"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a6d4faeeef4a9d0ef93ef5f82d55c81c4">syn</a>:1</td></tr>
-<tr class="separator:a97a92a0bc30076297a245d369133cd0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa15e23c4957516d8465375b9086cc43"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#ae3c5671ace344f0a71df58053220460c">rst</a>:1</td></tr>
-<tr class="separator:afa15e23c4957516d8465375b9086cc43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a5e20ed8647b53bcd43d7177c39fd03"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa57f85f2cd7e7dfaf63771983d255949">psh</a>:1</td></tr>
-<tr class="separator:a3a5e20ed8647b53bcd43d7177c39fd03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4cc543e6b09626bb43fc1301c27b2ae"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa533772dce834aeb2548cfc69927771a">ack</a>:1</td></tr>
-<tr class="separator:ad4cc543e6b09626bb43fc1301c27b2ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a576998f94d8a5c3f0965a9c0441e71eb"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a56ba4bc84a66f0341227909ace888133">urg</a>:1</td></tr>
-<tr class="separator:a576998f94d8a5c3f0965a9c0441e71eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f6fbb1f889b4315586665df7581a435"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa04063153ef1fa465f5ac9ef8fd310b8">ece</a>:1</td></tr>
-<tr class="separator:a2f6fbb1f889b4315586665df7581a435"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3900f27f57ea212cd4fa37768e411197"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#abfb13dc43f3ea474fa8e87816e50e34d">cwr</a>:1</td></tr>
-<tr class="separator:a3900f27f57ea212cd4fa37768e411197"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00a4007d7c5663b3ad74afbcd47ddcc8"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a00a4007d7c5663b3ad74afbcd47ddcc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ded146b0e253100d88c0d6b58dc26d4"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a1f83daad97bda2c360e389653cb7049d"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#acb7bc06bed6f6408d719334fc41698c7">reserved</a>:4</td></tr>
+<tr class="separator:a1f83daad97bda2c360e389653cb7049d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe1d977e27d5f0986a30b291438136a"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a2765e58b2af2f95eff3a9cc58d3457cd">off</a>:4</td></tr>
+<tr class="separator:a7fe1d977e27d5f0986a30b291438136a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a64283aeb89f3a44e33ea95f17faf9"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a48dcf0f2005f7f1028d2cbbc2c6cde85">fin</a>:1</td></tr>
+<tr class="separator:af7a64283aeb89f3a44e33ea95f17faf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdcc5b9e6f45f6000f5978460ee837b4"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a6d4faeeef4a9d0ef93ef5f82d55c81c4">syn</a>:1</td></tr>
+<tr class="separator:abdcc5b9e6f45f6000f5978460ee837b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bdc66370236db722492f343268f610e"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#ae3c5671ace344f0a71df58053220460c">rst</a>:1</td></tr>
+<tr class="separator:a9bdc66370236db722492f343268f610e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab92c4c90c378656b34b82c57fe17d9f"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa57f85f2cd7e7dfaf63771983d255949">psh</a>:1</td></tr>
+<tr class="separator:aab92c4c90c378656b34b82c57fe17d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a591ca55f984b7a68dfa88f37f55fd05e"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa533772dce834aeb2548cfc69927771a">ack</a>:1</td></tr>
+<tr class="separator:a591ca55f984b7a68dfa88f37f55fd05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab930d95942bb2f7ea5275d3f8b9208cc"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#a56ba4bc84a66f0341227909ace888133">urg</a>:1</td></tr>
+<tr class="separator:ab930d95942bb2f7ea5275d3f8b9208cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b09cb66bfd8b4c7be643d41dfef3dd1"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#aa04063153ef1fa465f5ac9ef8fd310b8">ece</a>:1</td></tr>
+<tr class="separator:a8b09cb66bfd8b4c7be643d41dfef3dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a4b3231ae54949158ceed9ab63965dd"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="tcp_8h.html#abfb13dc43f3ea474fa8e87816e50e34d">cwr</a>:1</td></tr>
+<tr class="separator:a4a4b3231ae54949158ceed9ab63965dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ded146b0e253100d88c0d6b58dc26d4"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a1ded146b0e253100d88c0d6b58dc26d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab98974981cf4c143fcee028643f313e6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ab98974981cf4c143fcee028643f313e6">src_port</a></td></tr>
 <tr class="separator:ab98974981cf4c143fcee028643f313e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae18defed4756b8c15e34718f51e86e55"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ae18defed4756b8c15e34718f51e86e55">dst_port</a></td></tr>
@@ -280,7 +326,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a8dbfcfddb84ac6b6fef8ad6c0323f11e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8dbfcfddb84ac6b6fef8ad6c0323f11e">&#9670;&nbsp;</a></span>TCP_PACKET_SIZE_OFF</h2>
@@ -290,6 +336,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define TCP_PACKET_SIZE_OFF&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a304f45dd94169719e49a5404e2f3ddb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a304f45dd94169719e49a5404e2f3ddb0">&#9670;&nbsp;</a></span>TCP_TRACE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TCP_TRACE</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -335,6 +395,9 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a0e8857463897e2e9a825c6702298cebea2e2741424ad64c46531ac4bc073b37e7"></a>TCP_ERROR_OUT_OF_MEMORY&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e8857463897e2e9a825c6702298cebeab1d56d3fa027373ca46a0d30b1613da5"></a>TCP_ERROR_INVALID_SOCKET&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e8857463897e2e9a825c6702298cebeabaef579be40183314ff45883eb3812cc"></a>TCP_ERROR_CONNECTION_FAILED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e8857463897e2e9a825c6702298cebea6919b1b32792461459b1f7dac923e394"></a>TCP_ERROR_NOT_LISTENING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e8857463897e2e9a825c6702298cebea0e5469f41a61d918e85b002081b04238"></a>TCP_ERROR_WOULD_BLOCK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e8857463897e2e9a825c6702298cebea6373bcaf57c0371c8c9d5302020f6035"></a>TCP_CONNECTION_TIMED_OUT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e8857463897e2e9a825c6702298cebea8725e7020b4927eb9233b5358d62b56e"></a>TCP_LAST_ERROR&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -465,6 +528,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>ACPI Root System Description Pointer (RSDP) </p>
+<p>A disk partition entry within the MBR.</p>
+<p>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t.</p>
+<p>FAT32 FSINFO structure.</p>
+<p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
+<p>Definition of a DHCP packet.</p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
+
 </div>
 </div>
 <a id="ad4725afcb96cfe437fd7a748129b1f33"></a>
@@ -570,6 +646,184 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if socket is connected, false if not. This will return false if <a class="el" href="tcp_8h.html#a4a95723a63184d3eb69a619853f560da" title="Connect to a TCP port at a given IPv4 address.">connect()</a> hasn't succeeded yet. </dd></dl>
+
+</div>
+</div>
+<a id="a82bddaec8925f76a813782cb23ef7ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82bddaec8925f76a813782cb23ef7ca9">&#9670;&nbsp;</a></span>queue_empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool queue_empty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structqueue__t.html">queue_t</a> *&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return true if queue is empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q</td><td>queue </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if empty, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="aa13034dd0decdb0faf1b863383560be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa13034dd0decdb0faf1b863383560be2">&#9670;&nbsp;</a></span>queue_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void queue_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structqueue__t.html">queue_t</a> *&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Free all nodes in the queue and the queue itself. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q</td><td>queue </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8abaa184ec3841668b169f330e0f34cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8abaa184ec3841668b169f330e0f34cb">&#9670;&nbsp;</a></span>queue_new()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structqueue__t.html">queue_t</a>* queue_new </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocate a new empty queue. </p>
+<dl class="section return"><dt>Returns</dt><dd>queue_t* newly allocated queue, or NULL on failure </dd></dl>
+
+</div>
+</div>
+<a id="a0d0a6c6ad6dcfd463720575a51581d17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d0a6c6ad6dcfd463720575a51581d17">&#9670;&nbsp;</a></span>queue_pop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a>* queue_pop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structqueue__t.html">queue_t</a> *&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pop the oldest <a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> from the queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q</td><td>queue </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>tcp_conn_t* dequeued connection, or NULL if empty </dd></dl>
+
+</div>
+</div>
+<a id="a0a273902c052c7f2beef288432bcf713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a273902c052c7f2beef288432bcf713">&#9670;&nbsp;</a></span>queue_push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void queue_push </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structqueue__t.html">queue_t</a> *&#160;</td>
+          <td class="paramname"><em>q</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *&#160;</td>
+          <td class="paramname"><em>conn</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Push a <a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> into the queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q</td><td>queue </td></tr>
+    <tr><td class="paramname">conn</td><td>TCP connection to enqueue </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -705,6 +959,221 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aeb880bf940312acdf8a48c4d4dfa0b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb880bf940312acdf8a48c4d4dfa0b72">&#9670;&nbsp;</a></span>tcp_accept()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tcp_accept </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>socket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Accept an incoming connection on a listening socket. </p>
+<p>Removes one pending connection from the listening socket’s queue and allocates a new file descriptor for it. The connection will be in the ESTABLISHED state upon return.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">socket</td><td>File descriptor of a socket previously placed in the LISTEN state using <a class="el" href="tcp_8h.html#ab30a0d5f82ac8f116897d82578ae25eb" title="Create a listening TCP socket.">tcp_listen()</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>File descriptor for the accepted connection on success, or a negative TCP_ERROR code on failure. </dd></dl>
+
+</div>
+</div>
+<a id="ae2f65a066df4023de8b2507bf2554fa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2f65a066df4023de8b2507bf2554fa7">&#9670;&nbsp;</a></span>tcp_allocate_fd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tcp_allocate_fd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *&#160;</td>
+          <td class="paramname"><em>conn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate a new file descriptor for a TCP connection. </p>
+<dl class="section note"><dt>Note</dt><dd>O(n) time</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">conn</td><td>Pointer to the TCP connection. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>File descriptor number on success, or -1 on failure. </dd></dl>
+
+</div>
+</div>
+<a id="ac4ed2cdd1c291c5083404950e916c98f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ed2cdd1c291c5083404950e916c98f">&#9670;&nbsp;</a></span>tcp_connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tcp_connect </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>target_addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>target_port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>source_port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8916516f078eb7a9accac0a27a411784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8916516f078eb7a9accac0a27a411784">&#9670;&nbsp;</a></span>tcp_dump_segment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tcp_dump_segment </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *&#160;</td>
+          <td class="paramname"><em>conn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ip_packet_t *&#160;</td>
+          <td class="paramname"><em>encap_packet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const tcp_segment_t *&#160;</td>
+          <td class="paramname"><em>segment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structtcp__options__t.html">tcp_options_t</a> *&#160;</td>
+          <td class="paramname"><em>options</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>our_checksum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dump debug info for a TCP segment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">encap_packet</td><td>encapsulating IP packet </td></tr>
+    <tr><td class="paramname">segment</td><td>TCP segment </td></tr>
+    <tr><td class="paramname">options</td><td>TCP options </td></tr>
+    <tr><td class="paramname">len</td><td>TCP length </td></tr>
+    <tr><td class="paramname">our_checksum</td><td>calculated checksum </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6cf9c0b477fc56fe87b438cfdb802d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cf9c0b477fc56fe87b438cfdb802d0d">&#9670;&nbsp;</a></span>tcp_find_by_fd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a>* tcp_find_by_fd </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find a TCP connection by its file descriptor. </p>
+<dl class="section note"><dt>Note</dt><dd>O(1) time</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>File descriptor number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the TCP connection if found, or NULL if not found. </dd></dl>
+
+</div>
+</div>
+<a id="a92504094d883720e92c536c1737b8f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92504094d883720e92c536c1737b8f1d">&#9670;&nbsp;</a></span>tcp_free_fd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tcp_free_fd </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free a previously allocated TCP file descriptor. </p>
+<dl class="section note"><dt>Note</dt><dd>O(1) time</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>File descriptor number to free. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a8d4611b68b5ca398ee9bc373573afab6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d4611b68b5ca398ee9bc373573afab6">&#9670;&nbsp;</a></span>tcp_handle_packet()</h2>
 
@@ -742,7 +1211,16 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">encap_packet</td><td>encapsulating IP packet </td></tr>
     <tr><td class="paramname">segment</td><td>TCP segment </td></tr>
-    <tr><td class="paramname">len</td><td>length of TCP segment including header </td></tr>
+    <tr><td class="paramname">len</td><td>length of TCP segment including header</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>TCP handler called by the IP layer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">encap_packet</td><td>encapsulating IP packet </td></tr>
+    <tr><td class="paramname">segment</td><td>TCP segment </td></tr>
+    <tr><td class="paramname">len</td><td>length of segment </td></tr>
   </table>
   </dd>
 </dl>
@@ -765,6 +1243,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Idle loop ran from timer ISR. </p>
+<p>Idle loop ran from timer ISR. </p>
 
 </div>
 </div>
@@ -784,12 +1263,59 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialise TCP protocol, must happen after IP. </p>
+<p>Initialise TCP protocol, must happen after IP. </p>
+
+</div>
+</div>
+<a id="ab30a0d5f82ac8f116897d82578ae25eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30a0d5f82ac8f116897d82578ae25eb">&#9670;&nbsp;</a></span>tcp_listen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tcp_listen </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>backlog</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a listening TCP socket. </p>
+<p>Binds a TCP connection control block (TCB) to the given local address and port, and transitions it into the LISTEN state. A pending connection queue is created to hold half‑open connections until they are accepted.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>Local IPv4 address to bind to (network byte order). </td></tr>
+    <tr><td class="paramname">port</td><td>Local TCP port to listen on (host byte order). </td></tr>
+    <tr><td class="paramname">backlog</td><td>Maximum number of pending connections that may be queued.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>File descriptor for the listening socket on success, or a negative TCP_ERROR code on failure. </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a00a4007d7c5663b3ad74afbcd47ddcc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00a4007d7c5663b3ad74afbcd47ddcc8">&#9670;&nbsp;</a></span></h2>
+<a id="a1ded146b0e253100d88c0d6b58dc26d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ded146b0e253100d88c0d6b58dc26d4">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -814,13 +1340,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>System Description Table Header. </p>
-<p>A disk partition table consisiting of four <a class="el" href="structpartition__t.html" title="A disk partition on a storage device.">partition_t</a>.</p>
+<p>Generic ACPI System Description Table Header. </p>
+<p>A single GPT partition entry.</p>
+<p>The GPT (GUID Partition Table) header.</p>
+<p>A disk partition table consisting of four MBR partition entries.</p>
 <p>Structure for an IP packet.</p>
 <p>Long filename entry, overlays a <a class="el" href="structdirectory__entry__t.html" title="A directory entry, e.g. file, volume label, directory, long filename entry.">directory_entry_t</a>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the 'order' attribute indicates which order they go in.</p>
 <p>FAT32 BIOS parameter block (BPB), stored in the boot sector of the drive.</p>
 <p>A directory entry, e.g. file, volume label, directory, long filename entry.</p>
-<p>Root System Description Table. </p>
+<p>Root System Description Table (RSDT)</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
 
 </div>
 </div>
@@ -1194,7 +1724,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="tcp_8h.html">tcp.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -91,32 +91,124 @@ $(document).ready(function(){initNavTree('apic_8h.html',''); initResizable(); })
 <div class="title">apic.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Local APIC (Advanced Programmable Interrupt Controller) interface.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ae0be7a7a47453fcde8b01d24e3466ae1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ae0be7a7a47453fcde8b01d24e3466ae1">APIC_ADDRESS</a>&#160;&#160;&#160;0x4000</td></tr>
+<tr class="memdesc:ae0be7a7a47453fcde8b01d24e3466ae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default virtual memory mapping address for the Local APIC MMIO page.  <a href="apic_8h.html#ae0be7a7a47453fcde8b01d24e3466ae1">More...</a><br /></td></tr>
 <tr class="separator:ae0be7a7a47453fcde8b01d24e3466ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96bccef7658e28a44636ba3a66ff1fe1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a96bccef7658e28a44636ba3a66ff1fe1">APIC_BASE_MSR</a>&#160;&#160;&#160;0x1B</td></tr>
+<tr class="memdesc:a96bccef7658e28a44636ba3a66ff1fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model Specific Register (MSR) index for LAPIC base address (IA32_APIC_BASE).  <a href="apic_8h.html#a96bccef7658e28a44636ba3a66ff1fe1">More...</a><br /></td></tr>
 <tr class="separator:a96bccef7658e28a44636ba3a66ff1fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac41d667f86d1c94403420c6ff4a3c5de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ac41d667f86d1c94403420c6ff4a3c5de">APIC_BASE_MSR_ENABLE</a>&#160;&#160;&#160;0x800</td></tr>
+<tr class="memdesc:ac41d667f86d1c94403420c6ff4a3c5de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmask in IA32_APIC_BASE MSR to enable the Local APIC.  <a href="apic_8h.html#ac41d667f86d1c94403420c6ff4a3c5de">More...</a><br /></td></tr>
 <tr class="separator:ac41d667f86d1c94403420c6ff4a3c5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad97a7d2b89d63e06c3e5e9e081dd9194"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ad97a7d2b89d63e06c3e5e9e081dd9194">APIC_ID</a>&#160;&#160;&#160;0x0020</td></tr>
+<tr class="memdesc:ad97a7d2b89d63e06c3e5e9e081dd9194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local APIC ID Register (read-only).  <a href="apic_8h.html#ad97a7d2b89d63e06c3e5e9e081dd9194">More...</a><br /></td></tr>
 <tr class="separator:ad97a7d2b89d63e06c3e5e9e081dd9194"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1a256486b56b5660f30be7a7c352672"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ab1a256486b56b5660f30be7a7c352672">APIC_VERSION</a>&#160;&#160;&#160;0x0030</td></tr>
+<tr class="memdesc:ab1a256486b56b5660f30be7a7c352672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local APIC Version Register (read-only).  <a href="apic_8h.html#ab1a256486b56b5660f30be7a7c352672">More...</a><br /></td></tr>
 <tr class="separator:ab1a256486b56b5660f30be7a7c352672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2545c1ddec7ab80d2de4699ac7f50233"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a2545c1ddec7ab80d2de4699ac7f50233">APIC_TPR</a>&#160;&#160;&#160;0x0080</td></tr>
+<tr class="memdesc:a2545c1ddec7ab80d2de4699ac7f50233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task Priority Register (TPR). Controls interrupt priority threshold.  <a href="apic_8h.html#a2545c1ddec7ab80d2de4699ac7f50233">More...</a><br /></td></tr>
+<tr class="separator:a2545c1ddec7ab80d2de4699ac7f50233"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4881a5cd4ac835ee7067833dd11dd0fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a4881a5cd4ac835ee7067833dd11dd0fb">APIC_ICR_LOW</a>&#160;&#160;&#160;0x0300</td></tr>
+<tr class="memdesc:a4881a5cd4ac835ee7067833dd11dd0fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Command Register (ICR), low dword (vector + control flags).  <a href="apic_8h.html#a4881a5cd4ac835ee7067833dd11dd0fb">More...</a><br /></td></tr>
+<tr class="separator:a4881a5cd4ac835ee7067833dd11dd0fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72955b951b6ac22fb4103193ed4c6015"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a72955b951b6ac22fb4103193ed4c6015">APIC_ICR_HIGH</a>&#160;&#160;&#160;0x0310</td></tr>
+<tr class="memdesc:a72955b951b6ac22fb4103193ed4c6015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Command Register (ICR), high dword (destination LAPIC ID).  <a href="apic_8h.html#a72955b951b6ac22fb4103193ed4c6015">More...</a><br /></td></tr>
+<tr class="separator:a72955b951b6ac22fb4103193ed4c6015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e55c5f0681888a658d7b115ccc50aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a36e55c5f0681888a658d7b115ccc50aa">APIC_DM_FIXED</a>&#160;&#160;&#160;0x000</td></tr>
+<tr class="memdesc:a36e55c5f0681888a658d7b115ccc50aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed delivery mode: deliver interrupt using vector field.  <a href="apic_8h.html#a36e55c5f0681888a658d7b115ccc50aa">More...</a><br /></td></tr>
+<tr class="separator:a36e55c5f0681888a658d7b115ccc50aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a229473e86a744bc818fd06ea9c10e5a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a229473e86a744bc818fd06ea9c10e5a7">APIC_DM_NMI</a>&#160;&#160;&#160;0x400</td></tr>
+<tr class="memdesc:a229473e86a744bc818fd06ea9c10e5a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-Maskable Interrupt (NMI) delivery mode.  <a href="apic_8h.html#a229473e86a744bc818fd06ea9c10e5a7">More...</a><br /></td></tr>
+<tr class="separator:a229473e86a744bc818fd06ea9c10e5a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1534bf5d476038b479b989ea594194d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a1534bf5d476038b479b989ea594194d5">APIC_DM_INIT</a>&#160;&#160;&#160;0x500</td></tr>
+<tr class="memdesc:a1534bf5d476038b479b989ea594194d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">INIT delivery mode: reset target CPU to INIT state.  <a href="apic_8h.html#a1534bf5d476038b479b989ea594194d5">More...</a><br /></td></tr>
+<tr class="separator:a1534bf5d476038b479b989ea594194d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32e9fbec28e1b0407b81f4a6e4824831"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a32e9fbec28e1b0407b81f4a6e4824831">APIC_DM_STARTUP</a>&#160;&#160;&#160;0x600</td></tr>
+<tr class="memdesc:a32e9fbec28e1b0407b81f4a6e4824831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Startup IPI delivery mode: start target CPU at specified vector.  <a href="apic_8h.html#a32e9fbec28e1b0407b81f4a6e4824831">More...</a><br /></td></tr>
+<tr class="separator:a32e9fbec28e1b0407b81f4a6e4824831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbfcd47e179fc1a4c675d8a1c6a123e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#afbfcd47e179fc1a4c675d8a1c6a123e8">IA32_X2APIC_ICR</a>&#160;&#160;&#160;0x830</td></tr>
+<tr class="memdesc:afbfcd47e179fc1a4c675d8a1c6a123e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">MSR index for the x2APIC Interrupt Command Register (ICR).  <a href="apic_8h.html#afbfcd47e179fc1a4c675d8a1c6a123e8">More...</a><br /></td></tr>
+<tr class="separator:afbfcd47e179fc1a4c675d8a1c6a123e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ca56cb53496206005761273c662d1ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a4ca56cb53496206005761273c662d1ca">APIC_WAKE_IPI</a>&#160;&#160;&#160;240</td></tr>
+<tr class="memdesc:a4ca56cb53496206005761273c662d1ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector number used for custom AP wake-up IPIs.  <a href="apic_8h.html#a4ca56cb53496206005761273c662d1ca">More...</a><br /></td></tr>
+<tr class="separator:a4ca56cb53496206005761273c662d1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89f18338ba3503e7c23be7a02638d478"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a89f18338ba3503e7c23be7a02638d478">APIC_DEST_NO_SHORTHAND</a>&#160;&#160;&#160;(0 &lt;&lt; 18)</td></tr>
+<tr class="memdesc:a89f18338ba3503e7c23be7a02638d478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination shorthand: no shorthand, use explicit LAPIC ID.  <a href="apic_8h.html#a89f18338ba3503e7c23be7a02638d478">More...</a><br /></td></tr>
+<tr class="separator:a89f18338ba3503e7c23be7a02638d478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb6babc16752ee74afc9970e9966de5c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#acb6babc16752ee74afc9970e9966de5c">APIC_DEST_PHYSICAL</a>&#160;&#160;&#160;(0 &lt;&lt; 11)</td></tr>
+<tr class="memdesc:acb6babc16752ee74afc9970e9966de5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination mode: physical addressing.  <a href="apic_8h.html#acb6babc16752ee74afc9970e9966de5c">More...</a><br /></td></tr>
+<tr class="separator:acb6babc16752ee74afc9970e9966de5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5c68bd04677ad376321cb9c336c750c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ad5c68bd04677ad376321cb9c336c750c">APIC_LEVEL_ASSERT</a>&#160;&#160;&#160;(1 &lt;&lt; 14)</td></tr>
+<tr class="memdesc:ad5c68bd04677ad376321cb9c336c750c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert level for IPI (used to trigger delivery).  <a href="apic_8h.html#ad5c68bd04677ad376321cb9c336c750c">More...</a><br /></td></tr>
+<tr class="separator:ad5c68bd04677ad376321cb9c336c750c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebd8dff6576005e6c14bced32a8de05c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#aebd8dff6576005e6c14bced32a8de05c">APIC_TRIGGER_EDGE</a>&#160;&#160;&#160;(0 &lt;&lt; 15)</td></tr>
+<tr class="memdesc:aebd8dff6576005e6c14bced32a8de05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edge-triggered delivery mode for IPI.  <a href="apic_8h.html#aebd8dff6576005e6c14bced32a8de05c">More...</a><br /></td></tr>
+<tr class="separator:aebd8dff6576005e6c14bced32a8de05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1f511a07dc31003992395be20746b519"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a1f511a07dc31003992395be20746b519">apic_read</a> (uint64_t reg)</td></tr>
+<tr class="memdesc:a1f511a07dc31003992395be20746b519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a Local APIC register.  <a href="apic_8h.html#a1f511a07dc31003992395be20746b519">More...</a><br /></td></tr>
 <tr class="separator:a1f511a07dc31003992395be20746b519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ba83fbfa8fda429adf009e0bfb6a02a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a7ba83fbfa8fda429adf009e0bfb6a02a">apic_write</a> (uint64_t reg, uint32_t value)</td></tr>
+<tr class="memdesc:a7ba83fbfa8fda429adf009e0bfb6a02a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to a Local APIC register.  <a href="apic_8h.html#a7ba83fbfa8fda429adf009e0bfb6a02a">More...</a><br /></td></tr>
 <tr class="separator:a7ba83fbfa8fda429adf009e0bfb6a02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02715a39c4320f513fcecee66a032837"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a02715a39c4320f513fcecee66a032837">cpu_id</a> ()</td></tr>
-<tr class="separator:a02715a39c4320f513fcecee66a032837"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae432e81c207ce0b8e9c880bd3c89eb33"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ae432e81c207ce0b8e9c880bd3c89eb33">cpu_id</a> (void)</td></tr>
+<tr class="memdesc:ae432e81c207ce0b8e9c880bd3c89eb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Local APIC ID of the current CPU.  <a href="apic_8h.html#ae432e81c207ce0b8e9c880bd3c89eb33">More...</a><br /></td></tr>
+<tr class="separator:ae432e81c207ce0b8e9c880bd3c89eb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b661f6d8fb7bf5b98900736716e6957"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a4b661f6d8fb7bf5b98900736716e6957">logical_cpu_id</a> (void)</td></tr>
+<tr class="memdesc:a4b661f6d8fb7bf5b98900736716e6957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OS-assigned logical CPU ID of the current CPU.  <a href="apic_8h.html#a4b661f6d8fb7bf5b98900736716e6957">More...</a><br /></td></tr>
+<tr class="separator:a4b661f6d8fb7bf5b98900736716e6957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a507b74424d63988396ff06870f49eb71"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a507b74424d63988396ff06870f49eb71">get_lapic_address</a> (void)</td></tr>
+<tr class="memdesc:a507b74424d63988396ff06870f49eb71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the physical address of the Local APIC MMIO region.  <a href="apic_8h.html#a507b74424d63988396ff06870f49eb71">More...</a><br /></td></tr>
+<tr class="separator:a507b74424d63988396ff06870f49eb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe067e3cf6c101bb76e395bd916e2d9d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#abe067e3cf6c101bb76e395bd916e2d9d">x2apic_enabled</a> (void)</td></tr>
+<tr class="memdesc:abe067e3cf6c101bb76e395bd916e2d9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if x2APIC mode is enabled.  <a href="apic_8h.html#abe067e3cf6c101bb76e395bd916e2d9d">More...</a><br /></td></tr>
+<tr class="separator:abe067e3cf6c101bb76e395bd916e2d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abce401f079aedc55879daff1d981fe74"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#abce401f079aedc55879daff1d981fe74">rdmsr</a> (uint32_t msr)</td></tr>
+<tr class="memdesc:abce401f079aedc55879daff1d981fe74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a 64-bit Model Specific Register (MSR).  <a href="apic_8h.html#abce401f079aedc55879daff1d981fe74">More...</a><br /></td></tr>
+<tr class="separator:abce401f079aedc55879daff1d981fe74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3908f9ca99543c3c668cfc94b5ede08c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a3908f9ca99543c3c668cfc94b5ede08c">get_lapic_id_from_cpu_id</a> (uint8_t <a class="el" href="apic_8c.html#ae432e81c207ce0b8e9c880bd3c89eb33">cpu_id</a>)</td></tr>
+<tr class="memdesc:a3908f9ca99543c3c668cfc94b5ede08c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map a logical CPU ID to its LAPIC ID.  <a href="apic_8h.html#a3908f9ca99543c3c668cfc94b5ede08c">More...</a><br /></td></tr>
+<tr class="separator:a3908f9ca99543c3c668cfc94b5ede08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc467223ecf45e6cc5ea3c90a5d3d210"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#acc467223ecf45e6cc5ea3c90a5d3d210">get_cpu_id_from_lapic_id</a> (uint32_t lapic_id)</td></tr>
+<tr class="memdesc:acc467223ecf45e6cc5ea3c90a5d3d210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map a LAPIC ID to its logical CPU ID.  <a href="apic_8h.html#acc467223ecf45e6cc5ea3c90a5d3d210">More...</a><br /></td></tr>
+<tr class="separator:acc467223ecf45e6cc5ea3c90a5d3d210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9263bf02ae52585b8ab22b22e9601aaf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a9263bf02ae52585b8ab22b22e9601aaf">boot_aps</a> ()</td></tr>
+<tr class="memdesc:a9263bf02ae52585b8ab22b22e9601aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise and bring Application Processors (APs) online via Limine SMP.  <a href="apic_8h.html#a9263bf02ae52585b8ab22b22e9601aaf">More...</a><br /></td></tr>
+<tr class="separator:a9263bf02ae52585b8ab22b22e9601aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ed383d44eb512de5ffda7e40b60dd54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a4ed383d44eb512de5ffda7e40b60dd54">apic_send_ipi</a> (uint32_t lapic_id, uint8_t vector)</td></tr>
+<tr class="memdesc:a4ed383d44eb512de5ffda7e40b60dd54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send an Inter-Processor Interrupt (IPI) to a specific LAPIC ID.  <a href="apic_8h.html#a4ed383d44eb512de5ffda7e40b60dd54">More...</a><br /></td></tr>
+<tr class="separator:a4ed383d44eb512de5ffda7e40b60dd54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e5a39ff990b4f143ec56a9915f97c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ab9e5a39ff990b4f143ec56a9915f97c1">wake_cpu</a> (uint8_t <a class="el" href="apic_8c.html#a4b661f6d8fb7bf5b98900736716e6957">logical_cpu_id</a>)</td></tr>
+<tr class="memdesc:ab9e5a39ff990b4f143ec56a9915f97c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a wake-up IPI to a target logical CPU.  <a href="apic_8h.html#ab9e5a39ff990b4f143ec56a9915f97c1">More...</a><br /></td></tr>
+<tr class="separator:ab9e5a39ff990b4f143ec56a9915f97c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f4cf430c05d00d25c8c5fb5b030bf8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#ad7f4cf430c05d00d25c8c5fb5b030bf8">apic_setup_ap</a> ()</td></tr>
+<tr class="memdesc:ad7f4cf430c05d00d25c8c5fb5b030bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the Local APIC on an Application Processor (AP).  <a href="apic_8h.html#ad7f4cf430c05d00d25c8c5fb5b030bf8">More...</a><br /></td></tr>
+<tr class="separator:ad7f4cf430c05d00d25c8c5fb5b030bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a975abbcb07823f32d9aeedc9ed677a9f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apic_8h.html#a975abbcb07823f32d9aeedc9ed677a9f">cpu_serialise</a> (void)</td></tr>
+<tr class="memdesc:a975abbcb07823f32d9aeedc9ed677a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialises all pending CPU operations.  <a href="apic_8h.html#a975abbcb07823f32d9aeedc9ed677a9f">More...</a><br /></td></tr>
+<tr class="separator:a975abbcb07823f32d9aeedc9ed677a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Local APIC (Advanced Programmable Interrupt Controller) interface. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025</dd></dl>
+<p>This header provides low-level routines and register definitions to interface with the Local APIC (LAPIC) on x86_64 systems. It allows for reading and writing LAPIC registers, detecting the current CPU's LAPIC ID, sending inter-processor interrupts (IPIs), and querying the LAPIC base address.</p>
+<p>The LAPIC is a per-core interrupt controller responsible for:</p><ul>
+<li>Handling local interrupts (e.g., timer, thermal, performance counters).</li>
+<li>Providing per-core programmable timer functionality.</li>
+<li>Supporting Inter-Processor Interrupts (IPIs) for SMP coordination.</li>
+<li>Forwarding external interrupts via the I/O APIC.</li>
+</ul>
+<p>Both xAPIC (MMIO) and x2APIC (MSR-based) modes are supported by this interface. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ae0be7a7a47453fcde8b01d24e3466ae1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0be7a7a47453fcde8b01d24e3466ae1">&#9670;&nbsp;</a></span>APIC_ADDRESS</h2>
@@ -129,6 +221,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Default virtual memory mapping address for the Local APIC MMIO page. </p>
 
 </div>
 </div>
@@ -144,6 +238,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Model Specific Register (MSR) index for LAPIC base address (IA32_APIC_BASE). </p>
+
 </div>
 </div>
 <a id="ac41d667f86d1c94403420c6ff4a3c5de"></a>
@@ -157,6 +253,136 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Bitmask in IA32_APIC_BASE MSR to enable the Local APIC. </p>
+
+</div>
+</div>
+<a id="a89f18338ba3503e7c23be7a02638d478"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89f18338ba3503e7c23be7a02638d478">&#9670;&nbsp;</a></span>APIC_DEST_NO_SHORTHAND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_DEST_NO_SHORTHAND&#160;&#160;&#160;(0 &lt;&lt; 18)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destination shorthand: no shorthand, use explicit LAPIC ID. </p>
+
+</div>
+</div>
+<a id="acb6babc16752ee74afc9970e9966de5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb6babc16752ee74afc9970e9966de5c">&#9670;&nbsp;</a></span>APIC_DEST_PHYSICAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_DEST_PHYSICAL&#160;&#160;&#160;(0 &lt;&lt; 11)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destination mode: physical addressing. </p>
+
+</div>
+</div>
+<a id="a36e55c5f0681888a658d7b115ccc50aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36e55c5f0681888a658d7b115ccc50aa">&#9670;&nbsp;</a></span>APIC_DM_FIXED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_DM_FIXED&#160;&#160;&#160;0x000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fixed delivery mode: deliver interrupt using vector field. </p>
+
+</div>
+</div>
+<a id="a1534bf5d476038b479b989ea594194d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1534bf5d476038b479b989ea594194d5">&#9670;&nbsp;</a></span>APIC_DM_INIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_DM_INIT&#160;&#160;&#160;0x500</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>INIT delivery mode: reset target CPU to INIT state. </p>
+
+</div>
+</div>
+<a id="a229473e86a744bc818fd06ea9c10e5a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a229473e86a744bc818fd06ea9c10e5a7">&#9670;&nbsp;</a></span>APIC_DM_NMI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_DM_NMI&#160;&#160;&#160;0x400</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Non-Maskable Interrupt (NMI) delivery mode. </p>
+
+</div>
+</div>
+<a id="a32e9fbec28e1b0407b81f4a6e4824831"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32e9fbec28e1b0407b81f4a6e4824831">&#9670;&nbsp;</a></span>APIC_DM_STARTUP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_DM_STARTUP&#160;&#160;&#160;0x600</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Startup IPI delivery mode: start target CPU at specified vector. </p>
+
+</div>
+</div>
+<a id="a72955b951b6ac22fb4103193ed4c6015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72955b951b6ac22fb4103193ed4c6015">&#9670;&nbsp;</a></span>APIC_ICR_HIGH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_ICR_HIGH&#160;&#160;&#160;0x0310</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt Command Register (ICR), high dword (destination LAPIC ID). </p>
+
+</div>
+</div>
+<a id="a4881a5cd4ac835ee7067833dd11dd0fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4881a5cd4ac835ee7067833dd11dd0fb">&#9670;&nbsp;</a></span>APIC_ICR_LOW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_ICR_LOW&#160;&#160;&#160;0x0300</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt Command Register (ICR), low dword (vector + control flags). </p>
 
 </div>
 </div>
@@ -172,6 +398,56 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Local APIC ID Register (read-only). </p>
+
+</div>
+</div>
+<a id="ad5c68bd04677ad376321cb9c336c750c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5c68bd04677ad376321cb9c336c750c">&#9670;&nbsp;</a></span>APIC_LEVEL_ASSERT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_LEVEL_ASSERT&#160;&#160;&#160;(1 &lt;&lt; 14)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assert level for IPI (used to trigger delivery). </p>
+
+</div>
+</div>
+<a id="a2545c1ddec7ab80d2de4699ac7f50233"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2545c1ddec7ab80d2de4699ac7f50233">&#9670;&nbsp;</a></span>APIC_TPR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_TPR&#160;&#160;&#160;0x0080</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Task Priority Register (TPR). Controls interrupt priority threshold. </p>
+
+</div>
+</div>
+<a id="aebd8dff6576005e6c14bced32a8de05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd8dff6576005e6c14bced32a8de05c">&#9670;&nbsp;</a></span>APIC_TRIGGER_EDGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_TRIGGER_EDGE&#160;&#160;&#160;(0 &lt;&lt; 15)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Edge-triggered delivery mode for IPI. </p>
+
 </div>
 </div>
 <a id="ab1a256486b56b5660f30be7a7c352672"></a>
@@ -185,6 +461,40 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Local APIC Version Register (read-only). </p>
+
+</div>
+</div>
+<a id="a4ca56cb53496206005761273c662d1ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca56cb53496206005761273c662d1ca">&#9670;&nbsp;</a></span>APIC_WAKE_IPI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_WAKE_IPI&#160;&#160;&#160;240</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vector number used for custom AP wake-up IPIs. </p>
+
+</div>
+</div>
+<a id="afbfcd47e179fc1a4c675d8a1c6a123e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbfcd47e179fc1a4c675d8a1c6a123e8">&#9670;&nbsp;</a></span>IA32_X2APIC_ICR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IA32_X2APIC_ICR&#160;&#160;&#160;0x830</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MSR index for the x2APIC Interrupt Command Register (ICR). </p>
 
 </div>
 </div>
@@ -204,6 +514,84 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Read a Local APIC register. </p>
+<p>Works in both xAPIC and x2APIC modes:</p><ul>
+<li>In xAPIC mode, the register is memory‑mapped at the LAPIC base address.</li>
+<li>In x2APIC mode, registers are accessed via MSRs at 0x800 + (reg &gt;&gt; 4).</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>Register offset (e.g. APIC_TPR = 0x80). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t Value read from the register. </dd></dl>
+
+</div>
+</div>
+<a id="a4ed383d44eb512de5ffda7e40b60dd54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ed383d44eb512de5ffda7e40b60dd54">&#9670;&nbsp;</a></span>apic_send_ipi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void apic_send_ipi </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>lapic_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>vector</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send an Inter-Processor Interrupt (IPI) to a specific LAPIC ID. </p>
+<p>Supports both xAPIC (ICR registers) and x2APIC (IA32_X2APIC_ICR MSR).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lapic_id</td><td>Destination LAPIC ID. </td></tr>
+    <tr><td class="paramname">vector</td><td>Interrupt vector to deliver. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad7f4cf430c05d00d25c8c5fb5b030bf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7f4cf430c05d00d25c8c5fb5b030bf8">&#9670;&nbsp;</a></span>apic_setup_ap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void apic_setup_ap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialise the Local APIC on an Application Processor (AP). </p>
+<p>This function enables the Local APIC by setting the spurious interrupt vector register's enable bit, and lowers the Task Priority Register (TPR) to zero so that the AP can receive all interrupts.</p>
+<p>It is typically invoked during AP startup after IDT installation, allowing the processor to handle interrupts and inter-processor IPIs.</p>
+<dl class="section note"><dt>Note</dt><dd>This does not configure LAPIC timers or IPI handlers; it only ensures that the APIC is enabled and accepting interrupts.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="apic_8h.html#a7ba83fbfa8fda429adf009e0bfb6a02a" title="Write to a Local APIC register.">apic_write</a> </dd>
+<dd>
+<a class="el" href="lapic__timer_8h.html#abad6e91426bdfd1f569bf2cfbe386e49">APIC_SVR</a> </dd>
+<dd>
+<a class="el" href="apic_8h.html#a2545c1ddec7ab80d2de4699ac7f50233" title="Task Priority Register (TPR). Controls interrupt priority threshold.">APIC_TPR</a> </dd></dl>
 
 </div>
 </div>
@@ -233,22 +621,275 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Write to a Local APIC register. </p>
+<p>Works in both xAPIC and x2APIC modes:</p><ul>
+<li>In xAPIC mode, the register is memory‑mapped at the LAPIC base address.</li>
+<li>In x2APIC mode, registers are written via MSRs at 0x800 + (reg &gt;&gt; 4).</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>Register offset (e.g. APIC_TPR = 0x80). </td></tr>
+    <tr><td class="paramname">value</td><td>Value to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a02715a39c4320f513fcecee66a032837"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02715a39c4320f513fcecee66a032837">&#9670;&nbsp;</a></span>cpu_id()</h2>
+<a id="a9263bf02ae52585b8ab22b22e9601aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9263bf02ae52585b8ab22b22e9601aaf">&#9670;&nbsp;</a></span>boot_aps()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t cpu_id </td>
+          <td class="memname">void boot_aps </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialise and bring Application Processors (APs) online via Limine SMP. </p>
+<p>This function uses the Limine SMP response to discover all CPUs in the system, map their LAPIC IDs to logical CPU IDs, and assign each AP an entry point (<code>kmain_ap</code>). The Bootstrap Processor (BSP) is detected and skipped, as are CPUs with processor IDs &gt;= 255 (reserved for broadcast or outside kernel limits).</p>
+<p>Once all eligible APs are assigned their startup entry point, this function spins until each AP reports online by incrementing <a class="el" href="ap_8c.html#af56323875051578c0d3a96a0b539b550">aps_online</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>This does not directly issue INIT/SIPI IPIs; Limine handles the actual startup of APs. The kernel only assigns the entry function and waits. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Systems with more than 254 CPUs are truncated to 254 usable cores.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ap_8c.html#a028e57710817ce6fbaac2cb51db61d2e">kmain_ap</a>, <a class="el" href="ap_8c.html#af56323875051578c0d3a96a0b539b550">aps_online</a>, <a class="el" href="acpi_8c.html#a91ebfd207f8030a1983a6c1ffe1647a0">set_lapic_id_for_cpu_id</a> </dd></dl>
+
+</div>
+</div>
+<a id="ae432e81c207ce0b8e9c880bd3c89eb33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae432e81c207ce0b8e9c880bd3c89eb33">&#9670;&nbsp;</a></span>cpu_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t cpu_id </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Local APIC ID of the current CPU. </p>
+<p>In xAPIC mode this is an 8-bit value read from the LAPIC ID register. In x2APIC mode this is a 32-bit value read from MSR 0x802.</p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t LAPIC ID of the current CPU. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>LAPIC IDs are assigned by hardware/firmware and may be sparse, non-contiguous, or not zero-based. </dd></dl>
+
+</div>
+</div>
+<a id="a975abbcb07823f32d9aeedc9ed677a9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a975abbcb07823f32d9aeedc9ed677a9f">&#9670;&nbsp;</a></span>cpu_serialise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void cpu_serialise </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serialises all pending CPU operations. </p>
+<p>This function enforces a strict ordering of all memory, I/O, and MSR operations issued by the CPU prior to the call. It ensures that all writes and reads complete and are globally visible before any instructions issued after the call are allowed to execute.</p>
+<p>Implementation details:</p><ul>
+<li><code>mfence</code> is used to flush and order all pending memory operations, including MMIO writes to devices such as the LAPIC or IOAPIC.</li>
+<li><code>cpuid</code> is a serialising instruction which drains the CPU pipeline, guaranteeing that no later instructions are executed until all earlier ones have fully completed. It also serves as a convenient barrier in emulators such as QEMU, which may otherwise defer committing MMIO state.</li>
+</ul>
+<p>This is particularly important when programming interrupt controllers (APIC, IOAPIC, PIC), as their state machines may lose or misroute interrupts if configuration writes have not yet taken effect before enabling interrupts with <code>sti</code>.</p>
+<dl class="section note"><dt>Note</dt><dd>This function clobbers the general-purpose registers EAX, EBX, ECX, and EDX as required by the <code>cpuid</code> instruction. It does not return any values. </dd></dl>
+
+</div>
+</div>
+<a id="acc467223ecf45e6cc5ea3c90a5d3d210"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc467223ecf45e6cc5ea3c90a5d3d210">&#9670;&nbsp;</a></span>get_cpu_id_from_lapic_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t get_cpu_id_from_lapic_id </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>lapic_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Map a LAPIC ID to its logical CPU ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lapic_id</td><td>LAPIC ID as reported by hardware. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t Logical CPU ID assigned to this LAPIC ID, or 255 if unmapped. </dd></dl>
+
+</div>
+</div>
+<a id="a507b74424d63988396ff06870f49eb71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a507b74424d63988396ff06870f49eb71">&#9670;&nbsp;</a></span>get_lapic_address()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t get_lapic_address </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the physical address of the Local APIC MMIO region. </p>
+<p>This is only valid when xAPIC mode is active. In x2APIC mode, LAPIC registers are accessed via MSRs instead of MMIO.</p>
+<dl class="section return"><dt>Returns</dt><dd>uint64_t Physical address of the LAPIC MMIO base. </dd></dl>
+
+</div>
+</div>
+<a id="a3908f9ca99543c3c668cfc94b5ede08c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3908f9ca99543c3c668cfc94b5ede08c">&#9670;&nbsp;</a></span>get_lapic_id_from_cpu_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t get_lapic_id_from_cpu_id </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>cpu_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Map a logical CPU ID to its LAPIC ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu_id</td><td>Logical CPU ID (zero-based, kernel-assigned). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t LAPIC ID for the given logical CPU ID. </dd></dl>
+
+</div>
+</div>
+<a id="a4b661f6d8fb7bf5b98900736716e6957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b661f6d8fb7bf5b98900736716e6957">&#9670;&nbsp;</a></span>logical_cpu_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t logical_cpu_id </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the OS-assigned logical CPU ID of the current CPU. </p>
+<p>Logical CPU IDs are zero-based, contiguous indices used internally by the kernel. They are mapped to LAPIC IDs via cpu_id_mapping[].</p>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t Logical CPU ID of the current CPU. </dd></dl>
+
+</div>
+</div>
+<a id="abce401f079aedc55879daff1d981fe74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce401f079aedc55879daff1d981fe74">&#9670;&nbsp;</a></span>rdmsr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rdmsr </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>msr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read a 64-bit Model Specific Register (MSR). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msr</td><td>The MSR address to read. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint64_t The value read from the MSR. </dd></dl>
+
+</div>
+</div>
+<a id="ab9e5a39ff990b4f143ec56a9915f97c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e5a39ff990b4f143ec56a9915f97c1">&#9670;&nbsp;</a></span>wake_cpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wake_cpu </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>logical_cpu_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a wake-up IPI to a target logical CPU. </p>
+<p>This function is used to wake an Application Processor (AP) from a halted or waiting state. It resolves the kernel-assigned logical CPU ID into the hardware LAPIC ID and then sends a fixed-mode IPI using the predefined wake-up vector (APIC_WAKE_IPI).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logical_cpu_id</td><td>Logical CPU ID (zero-based, contiguous index assigned by the kernel).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The Local APIC on the target CPU must already be enabled for the wake-up IPI to be accepted. This function assumes that LAPIC initialisation has been performed during CPU bring-up. </dd></dl>
+
+</div>
+</div>
+<a id="abe067e3cf6c101bb76e395bd916e2d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe067e3cf6c101bb76e395bd916e2d9d">&#9670;&nbsp;</a></span>x2apic_enabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int x2apic_enabled </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determine if x2APIC mode is enabled. </p>
+<p>Checks both CPUID feature flags and the IA32_APIC_BASE MSR to confirm whether x2APIC is active.</p>
+<dl class="section return"><dt>Returns</dt><dd>int Non-zero if x2APIC mode is enabled, zero otherwise. </dd></dl>
 
 </div>
 </div>
@@ -258,7 +899,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="apic_8h.html">apic.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -124,9 +124,21 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a4996c445c7fe37e6a9a5d9fc8930eac7">ended</a></td></tr>
 <tr class="memdesc:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has ended, e.g. it reached an explicit END statement, or fell off the end of the program to the terminating null char.  <a href="structbasic__ctx.html#a4996c445c7fe37e6a9a5d9fc8930eac7">More...</a><br /></td></tr>
 <tr class="separator:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2f7c0563bf30f810cd6d22cfa414674"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">claimed_flip</a></td></tr>
+<tr class="memdesc:af2f7c0563bf30f810cd6d22cfa414674"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has claimed flipping.  <a href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">More...</a><br /></td></tr>
+<tr class="separator:af2f7c0563bf30f810cd6d22cfa414674"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0675a0370047966ece4a370a7022ec21"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a0675a0370047966ece4a370a7022ec21">program_ptr</a></td></tr>
 <tr class="memdesc:a0675a0370047966ece4a370a7022ec21"><td class="mdescLeft">&#160;</td><td class="mdescRight">The whole program text, untokenized. May have been "cleaned" by an initial preprocessing phase which removes unneccesary spacing etc.  <a href="structbasic__ctx.html#a0675a0370047966ece4a370a7022ec21">More...</a><br /></td></tr>
 <tr class="separator:a0675a0370047966ece4a370a7022ec21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f23433564f0ebd5d9d719a967fe2107"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a2f23433564f0ebd5d9d719a967fe2107">debug_status</a></td></tr>
+<tr class="memdesc:a2f23433564f0ebd5d9d719a967fe2107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug status, with values as of above, e.g. DEBUG_*.  <a href="structbasic__ctx.html#a2f23433564f0ebd5d9d719a967fe2107">More...</a><br /></td></tr>
+<tr class="separator:a2f23433564f0ebd5d9d719a967fe2107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c495401b2705b3c0ce8835d155e89b6"><td class="memItemLeft" align="right" valign="top">uint64_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a6c495401b2705b3c0ce8835d155e89b6">debug_breakpoints</a></td></tr>
+<tr class="memdesc:a6c495401b2705b3c0ce8835d155e89b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active debug breakpoints (line numbers)  <a href="structbasic__ctx.html#a6c495401b2705b3c0ce8835d155e89b6">More...</a><br /></td></tr>
+<tr class="separator:a6c495401b2705b3c0ce8835d155e89b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bb6169f8c460df638920ba7982a42b9"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a2bb6169f8c460df638920ba7982a42b9">debug_breakpoint_count</a></td></tr>
+<tr class="memdesc:a2bb6169f8c460df638920ba7982a42b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of active breakpoints.  <a href="structbasic__ctx.html#a2bb6169f8c460df638920ba7982a42b9">More...</a><br /></td></tr>
+<tr class="separator:a2bb6169f8c460df638920ba7982a42b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84557325a29c400fcad0d769dee1217d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a84557325a29c400fcad0d769dee1217d">string</a> [1024]</td></tr>
 <tr class="memdesc:a84557325a29c400fcad0d769dee1217d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A context-local string buffer used for parsing function/procedure parameter lists.  <a href="structbasic__ctx.html#a84557325a29c400fcad0d769dee1217d">More...</a><br /></td></tr>
 <tr class="separator:a84557325a29c400fcad0d769dee1217d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,7 +219,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a53852b59657aa0a3e65fa49357dbf7b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bd1fa3ec2d3b4c0b2f33456296e715d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcpuid__result__t.html">cpuid_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a6bd1fa3ec2d3b4c0b2f33456296e715d">last_cpuid_result</a></td></tr>
 <tr class="separator:a6bd1fa3ec2d3b4c0b2f33456296e715d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a069084d2fc5fc7c6623473da3b0ff500"><td class="memItemLeft" align="right" valign="top">struct hashmap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a069084d2fc5fc7c6623473da3b0ff500">lines</a></td></tr>
+<tr class="memitem:a069084d2fc5fc7c6623473da3b0ff500"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a069084d2fc5fc7c6623473da3b0ff500">lines</a></td></tr>
 <tr class="memdesc:a069084d2fc5fc7c6623473da3b0ff500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashmap of lines for O(1) lookup of line numbers.  <a href="structbasic__ctx.html#a069084d2fc5fc7c6623473da3b0ff500">More...</a><br /></td></tr>
 <tr class="separator:a069084d2fc5fc7c6623473da3b0ff500"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af193438fa4fb81f516c57824e31f1da0"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af193438fa4fb81f516c57824e31f1da0">if_nest_level</a></td></tr>
@@ -216,6 +228,15 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a7e16bb3a99bcff493c581fab6757c88c"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a7e16bb3a99bcff493c581fab6757c88c">highest_line</a></td></tr>
 <tr class="memdesc:a7e16bb3a99bcff493c581fab6757c88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">highest line number in program  <a href="structbasic__ctx.html#a7e16bb3a99bcff493c581fab6757c88c">More...</a><br /></td></tr>
 <tr class="separator:a7e16bb3a99bcff493c581fab6757c88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac06a5cd423d5f1f1aad3d4051f797e93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsprite__t.html">sprite_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#ac06a5cd423d5f1f1aad3d4051f797e93">sprites</a> [1024]</td></tr>
+<tr class="memdesc:ac06a5cd423d5f1f1aad3d4051f797e93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sprites.  <a href="structbasic__ctx.html#ac06a5cd423d5f1f1aad3d4051f797e93">More...</a><br /></td></tr>
+<tr class="separator:ac06a5cd423d5f1f1aad3d4051f797e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d0caf2137b596b061c15bfa7788441c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a1d0caf2137b596b061c15bfa7788441c">string_gc_storage</a></td></tr>
+<tr class="memdesc:a1d0caf2137b596b061c15bfa7788441c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for GC'd strings.  <a href="structbasic__ctx.html#a1d0caf2137b596b061c15bfa7788441c">More...</a><br /></td></tr>
+<tr class="separator:a1d0caf2137b596b061c15bfa7788441c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40047b898748b53fc546db5b73115ab9"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a40047b898748b53fc546db5b73115ab9">string_gc_storage_next</a></td></tr>
+<tr class="memdesc:a40047b898748b53fc546db5b73115ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Next ptr for GC'd strings.  <a href="structbasic__ctx.html#a40047b898748b53fc546db5b73115ab9">More...</a><br /></td></tr>
+<tr class="separator:a40047b898748b53fc546db5b73115ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BASIC program context. Every instance of a BASIC program has one of these,* also certain structures such as functions will clone the context and run on the clone until the function completes. Cloned contexts share variables and you should never call <a class="el" href="basic_8h.html#af018882ffc2e5fc5f888c4dea3ecf17c">basic_destroy()</a> on them! </p>
@@ -268,6 +289,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="af2f7c0563bf30f810cd6d22cfa414674"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2f7c0563bf30f810cd6d22cfa414674">&#9670;&nbsp;</a></span>claimed_flip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool basic_ctx::claimed_flip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True if the program has claimed flipping. </p>
+
+</div>
+</div>
 <a id="a5db8745b7e7112b990a61ebdebb165b8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5db8745b7e7112b990a61ebdebb165b8">&#9670;&nbsp;</a></span>cons</h2>
 
@@ -313,6 +350,54 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Numeric form of the token between ptr and nextptr. Should always be a value within the enum token_t. </p>
+
+</div>
+</div>
+<a id="a2bb6169f8c460df638920ba7982a42b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bb6169f8c460df638920ba7982a42b9">&#9670;&nbsp;</a></span>debug_breakpoint_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t basic_ctx::debug_breakpoint_count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of active breakpoints. </p>
+
+</div>
+</div>
+<a id="a6c495401b2705b3c0ce8835d155e89b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c495401b2705b3c0ce8835d155e89b6">&#9670;&nbsp;</a></span>debug_breakpoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t* basic_ctx::debug_breakpoints</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Active debug breakpoints (line numbers) </p>
+
+</div>
+</div>
+<a id="a2f23433564f0ebd5d9d719a967fe2107"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f23433564f0ebd5d9d719a967fe2107">&#9670;&nbsp;</a></span>debug_status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t basic_ctx::debug_status</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Debug status, with values as of above, e.g. DEBUG_*. </p>
 
 </div>
 </div>
@@ -593,7 +678,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct hashmap* basic_ctx::lines</td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* basic_ctx::lines</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -762,6 +847,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="ac06a5cd423d5f1f1aad3d4051f797e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac06a5cd423d5f1f1aad3d4051f797e93">&#9670;&nbsp;</a></span>sprites</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsprite__t.html">sprite_t</a>* basic_ctx::sprites[1024]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sprites. </p>
+
+</div>
+</div>
 <a id="a1984d27dcc6d88275a5ee10bbcdb5441"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1984d27dcc6d88275a5ee10bbcdb5441">&#9670;&nbsp;</a></span>str_variables</h2>
 
@@ -810,13 +911,45 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a1d0caf2137b596b061c15bfa7788441c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d0caf2137b596b061c15bfa7788441c">&#9670;&nbsp;</a></span>string_gc_storage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* basic_ctx::string_gc_storage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Storage for GC'd strings. </p>
+
+</div>
+</div>
+<a id="a40047b898748b53fc546db5b73115ab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40047b898748b53fc546db5b73115ab9">&#9670;&nbsp;</a></span>string_gc_storage_next</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* basic_ctx::string_gc_storage_next</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Next ptr for GC'd strings. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structbasic__ctx.html">basic_ctx</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -5,6 +5,7 @@ var structrtl8139__dev__t =
     [ "current_packet_ptr", "structrtl8139__dev__t.html#a2f1421d991b25a0bea8673480d14e028", null ],
     [ "eeprom_exist", "structrtl8139__dev__t.html#ac0146e242667f0ef1e8af8dc615c5dba", null ],
     [ "io_base", "structrtl8139__dev__t.html#a7ca99bafca485c1c433d57d8e860b2ef", null ],
+    [ "irq", "structrtl8139__dev__t.html#afa2071951fa1f4b281fdddd05acb8c0b", null ],
     [ "mac_addr", "structrtl8139__dev__t.html#a31de80003d4dcf0cb722c4ca1021bb7a", null ],
     [ "mac_addr_str", "structrtl8139__dev__t.html#a88a562f77fc4846b091ab1734fbc7003", null ],
     [ "mem_base", "structrtl8139__dev__t.html#ad718412416576382d86c872bf1ab11e9", null ],

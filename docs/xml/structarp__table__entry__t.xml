@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>ip_addr</name>
         <briefdescription>
+<para>IPv4 address (in host byte order) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="30" column="10" bodyfile="include/arp.h" bodystart="30" bodyend="-1"/>
+        <location file="include/arp.h" line="40" column="10" bodyfile="include/arp.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__table__entry__t_1ab7d98ed80451a9d02c4b41759ef16ec4" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -23,15 +24,17 @@
         <argsstring></argsstring>
         <name>mac_addr</name>
         <briefdescription>
+<para>MAC address (6-byte value stored in low 48 bits) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="31" column="10" bodyfile="include/arp.h" bodystart="31" bodyend="-1"/>
+        <location file="include/arp.h" line="41" column="10" bodyfile="include/arp.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>A single ARP table entry. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -53,7 +56,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="include/arp.h" line="29" column="1" bodyfile="include/arp.h" bodystart="29" bodyend="32"/>
+    <location file="include/arp.h" line="39" column="1" bodyfile="include/arp.h" bodystart="39" bodyend="42"/>
     <listofallmembers>
       <member refid="structarp__table__entry__t_1ae7ab67b6bc15ab399d2ad26451181a5c" prot="public" virt="non-virtual"><scope>arp_table_entry_t</scope><name>ip_addr</name></member>
       <member refid="structarp__table__entry__t_1ab7d98ed80451a9d02c4b41759ef16ec4" prot="public" virt="non-virtual"><scope>arp_table_entry_t</scope><name>mac_addr</name></member>

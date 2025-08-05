@@ -3,9 +3,13 @@ var structbasic__ctx =
     [ "bracket_depth", "structbasic__ctx.html#a2b20d6976e19478de0616f6a6eb18c0c", null ],
     [ "call_stack", "structbasic__ctx.html#a45b690756bd8742294c3a9dc2f0edba0", null ],
     [ "call_stack_ptr", "structbasic__ctx.html#ac00d4e20a54a8dbf694b3d4b5b3ea4fa", null ],
+    [ "claimed_flip", "structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674", null ],
     [ "cons", "structbasic__ctx.html#a5db8745b7e7112b990a61ebdebb165b8", null ],
     [ "current_linenum", "structbasic__ctx.html#aa9c6cb436ab16d8036eb779e01556bc8", null ],
     [ "current_token", "structbasic__ctx.html#a8c3d193580956e83adf2c7af95168a2d", null ],
+    [ "debug_breakpoint_count", "structbasic__ctx.html#a2bb6169f8c460df638920ba7982a42b9", null ],
+    [ "debug_breakpoints", "structbasic__ctx.html#a6c495401b2705b3c0ce8835d155e89b6", null ],
+    [ "debug_status", "structbasic__ctx.html#a2f23433564f0ebd5d9d719a967fe2107", null ],
     [ "defs", "structbasic__ctx.html#a157282323b4469c50186c57519abbfea", null ],
     [ "double_array_variables", "structbasic__ctx.html#a1d891d5892b28d38c0aa4363a071069b", null ],
     [ "double_variables", "structbasic__ctx.html#a4195c623115051bc81d4a9572a324ea5", null ],
@@ -34,7 +38,10 @@ var structbasic__ctx =
     [ "ptr", "structbasic__ctx.html#a5aa7876a4b91f966f52107b47de39ef0", null ],
     [ "repeat_stack", "structbasic__ctx.html#a918a01877bff7a7e20e3cb6d757ed841", null ],
     [ "repeat_stack_ptr", "structbasic__ctx.html#af0df0c483df2af35521a6ef256685c2c", null ],
+    [ "sprites", "structbasic__ctx.html#ac06a5cd423d5f1f1aad3d4051f797e93", null ],
     [ "str_variables", "structbasic__ctx.html#a1984d27dcc6d88275a5ee10bbcdb5441", null ],
     [ "string", "structbasic__ctx.html#a84557325a29c400fcad0d769dee1217d", null ],
-    [ "string_array_variables", "structbasic__ctx.html#ac600d49d85d3ea90a651b8048e75671c", null ]
+    [ "string_array_variables", "structbasic__ctx.html#ac600d49d85d3ea90a651b8048e75671c", null ],
+    [ "string_gc_storage", "structbasic__ctx.html#a1d0caf2137b596b061c15bfa7788441c", null ],
+    [ "string_gc_storage_next", "structbasic__ctx.html#a40047b898748b53fc546db5b73115ab9", null ]
 ];

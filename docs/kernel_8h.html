@@ -98,6 +98,8 @@ $(document).ready(function(){initNavTree('kernel_8h.html',''); initResizable(); 
 <code>#include &lt;limine.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="idt_8h.html">idt.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="spinlock_8h.html">spinlock.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rwlock_8h.html">rwlock.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cv_8h.html">cv.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="printf_8h.html">printf.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="hashmap_8h.html">hashmap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="random_8h.html">random.h</a>&quot;</code><br />
@@ -111,6 +113,7 @@ $(document).ready(function(){initNavTree('kernel_8h.html',''); initResizable(); 
 <code>#include &quot;<a class="el" href="kmalloc_8h.html">kmalloc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pci_8h.html">pci.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="maths_8h.html">maths.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="stdlib_8h.html">stdlib.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="devicename_8h.html">devicename.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="interrupt_8h.html">interrupt.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ahci_8h.html">ahci.h</a>&quot;</code><br />
@@ -144,12 +147,14 @@ $(document).ready(function(){initNavTree('kernel_8h.html',''); initResizable(); 
 <code>#include &quot;<a class="el" href="dns_8h.html">dns.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="drawing_8h.html">drawing.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="fpu_8h.html">fpu.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="buddy__allocator_8h.html">buddy_allocator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="retrofs_8h.html">retrofs.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a5ada4cbc64c5890562caafafffb06d12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kernel_8h.html#a5ada4cbc64c5890562caafafffb06d12">kprintf</a>&#160;&#160;&#160;<a class="el" href="printf_8h.html#a55f3d956bb2ba20b5059e9e25484a47f">printf</a></td></tr>
+<tr class="memitem:a5ada4cbc64c5890562caafafffb06d12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kernel_8h.html#a5ada4cbc64c5890562caafafffb06d12">kprintf</a>&#160;&#160;&#160;<a class="el" href="printf_8c.html#a55f3d956bb2ba20b5059e9e25484a47f">printf</a></td></tr>
 <tr class="separator:a5ada4cbc64c5890562caafafffb06d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7108e563e4bb1f38bed9816e940b6a56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kernel_8h.html#a7108e563e4bb1f38bed9816e940b6a56">assert</a>(<a class="el" href="basic_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a>,  message)</td></tr>
+<tr class="memitem:a7108e563e4bb1f38bed9816e940b6a56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kernel_8h.html#a7108e563e4bb1f38bed9816e940b6a56">assert</a>(<a class="el" href="int__expression_8c.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a>,  message)</td></tr>
 <tr class="separator:a7108e563e4bb1f38bed9816e940b6a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -158,10 +163,12 @@ Functions</h2></td></tr>
 <tr class="separator:a14896c0faf293bb030b48d13a1edb050"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5223ee9f88fe7e81690f051742972f40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kernel_8h.html#a5223ee9f88fe7e81690f051742972f40">network_down</a> ()</td></tr>
 <tr class="separator:a5223ee9f88fe7e81690f051742972f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac7f84c8c96bc36b1ca1335048e80f11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kernel_8h.html#aac7f84c8c96bc36b1ca1335048e80f11">validate_limine_page_tables_and_gdt</a> (void)</td></tr>
+<tr class="separator:aac7f84c8c96bc36b1ca1335048e80f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a7108e563e4bb1f38bed9816e940b6a56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7108e563e4bb1f38bed9816e940b6a56">&#9670;&nbsp;</a></span>assert</h2>
@@ -173,7 +180,7 @@ Functions</h2></td></tr>
           <td class="memname">#define assert</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><a class="el" href="basic_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a>, </td>
+          <td class="paramname"><a class="el" href="int__expression_8c.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -189,9 +196,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!(<a class="code" href="basic_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a>)) { \</div>
-<div class="line">    kprintf(<span class="stringliteral">&quot;Assertion failure at %s:%s: %s&quot;</span>, message, __FILE__,__LINE__); \</div>
+<div class="line">    kprintf(<span class="stringliteral">&quot;Assertion failure at %s:%d: %s\n&quot;</span>, __FILE__, __LINE__, message); \</div>
 <div class="line">    __asm__ <span class="keyword">volatile</span>(<span class="stringliteral">&quot;int3&quot;</span>); }</div>
-<div class="ttc" id="abasic_8h_html_acac5d55e8d22685e55efef4b6737f5cb"><div class="ttname"><a href="basic_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a></div><div class="ttdeci">int64_t expr(struct basic_ctx *ctx)</div></div>
+<div class="ttc" id="abasic_8h_html_acac5d55e8d22685e55efef4b6737f5cb"><div class="ttname"><a href="basic_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a></div><div class="ttdeci">int64_t expr(struct basic_ctx *ctx)</div><div class="ttdef"><b>Definition:</b> int_expression.c:119</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -202,7 +209,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define kprintf&#160;&#160;&#160;<a class="el" href="printf_8h.html#a55f3d956bb2ba20b5059e9e25484a47f">printf</a></td>
+          <td class="memname">#define kprintf&#160;&#160;&#160;<a class="el" href="printf_8c.html#a55f3d956bb2ba20b5059e9e25484a47f">printf</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -244,13 +251,31 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aac7f84c8c96bc36b1ca1335048e80f11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac7f84c8c96bc36b1ca1335048e80f11">&#9670;&nbsp;</a></span>validate_limine_page_tables_and_gdt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void validate_limine_page_tables_and_gdt </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="kernel_8h.html">kernel.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

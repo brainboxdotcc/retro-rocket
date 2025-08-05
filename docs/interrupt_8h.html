@@ -86,7 +86,6 @@ $(document).ready(function(){initNavTree('interrupt_8h.html',''); initResizable(
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -98,76 +97,61 @@ $(document).ready(function(){initNavTree('interrupt_8h.html',''); initResizable(
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshared__interrupt__t.html">shared_interrupt_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An entry in a linked list of handlers attached to an ISR.  <a href="structshared__interrupt__t.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single handler in a chain of handlers attached to a shared ISR.  <a href="structshared__interrupt__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a7a3af27140adcc73f278f9d9c9dcd4bc"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a>) (uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber, void *opaque)</td></tr>
-<tr class="memdesc:a7a3af27140adcc73f278f9d9c9dcd4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">A definition for an interrupt handler.  <a href="interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">More...</a><br /></td></tr>
-<tr class="separator:a7a3af27140adcc73f278f9d9c9dcd4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:af6fa48603541cdb142bd4e154bf7637f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637f">irq_number_t</a> { <br />
-&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637facdb333eeb7aa4b08f250af6b077e1892">IRQ0</a> = 32
+&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637faa8b39d29c4db1769cddbe70f5efba08f">IRQ_START</a> = 32
+, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637facdb333eeb7aa4b08f250af6b077e1892">IRQ0</a> = 32
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fac5ab150ecac8b24a9825dbc97d223429">IRQ1</a> = 33
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fac2d7e94fa1e9eeeed752b5a8aa8f2482">IRQ2</a> = 34
-, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa9feb5810fd385003d1ad490de9599b66">IRQ3</a> = 35
 , <br />
-&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fadcc90e81e1fb0bc641771e6fb35059c7">IRQ4</a> = 36
+&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa9feb5810fd385003d1ad490de9599b66">IRQ3</a> = 35
+, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fadcc90e81e1fb0bc641771e6fb35059c7">IRQ4</a> = 36
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa189542e3df2c715842257e13a5896dd4">IRQ5</a> = 37
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa9f2ba75b271784bfa6654bde1b602ff5">IRQ6</a> = 38
-, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa196f7e427318da1a844f20bef540b96b">IRQ7</a> = 39
 , <br />
-&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa58ec17955960845f4a64abee343bbfc0">IRQ8</a> = 40
+&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa196f7e427318da1a844f20bef540b96b">IRQ7</a> = 39
+, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa58ec17955960845f4a64abee343bbfc0">IRQ8</a> = 40
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa5bdfd2d1de7dd4f7cc3119ada3c1b8b2">IRQ9</a> = 41
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa24d49daca07580d6bbe646e61a4382cb">IRQ10</a> = 42
-, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa02363888b0bc9fbdffe82dce4374341b">IRQ11</a> = 43
 , <br />
-&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa185fbc756208a61a3462000a5ee41a45">IRQ12</a> = 44
+&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa02363888b0bc9fbdffe82dce4374341b">IRQ11</a> = 43
+, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa185fbc756208a61a3462000a5ee41a45">IRQ12</a> = 44
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa294dad2c91d477ff81089467ff7b4902">IRQ13</a> = 45
 , <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fa4f0a2a6a52e9200cab2b6cca9a75378c">IRQ14</a> = 46
-, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fabdd1d431f5bafa9d36984e2af6ed842b">IRQ15</a> = 47
 , <br />
-&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637faba4f53f24e658cc7831d104622ccede2">IRQ16</a> = 50
+&#160;&#160;<a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fabdd1d431f5bafa9d36984e2af6ed842b">IRQ15</a> = 47
+, <a class="el" href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637faba4f53f24e658cc7831d104622ccede2">IRQ16</a> = 50
 <br />
  }</td></tr>
+<tr class="memdesc:af6fa48603541cdb142bd4e154bf7637f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mappings of hardware IRQ lines to remapped IDT interrupt vectors.  <a href="interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637f">More...</a><br /></td></tr>
 <tr class="separator:af6fa48603541cdb142bd4e154bf7637f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac87a1da59a9138c3bb0750ca7ea75c20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#ac87a1da59a9138c3bb0750ca7ea75c20">register_interrupt_handler</a> (uint8_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, <a class="el" href="interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> handler, <a class="el" href="unionpci__dev__t.html">pci_dev_t</a> <a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>, void *opaque)</td></tr>
-<tr class="memdesc:ac87a1da59a9138c3bb0750ca7ea75c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an interrupt handler.  <a href="interrupt_8h.html#ac87a1da59a9138c3bb0750ca7ea75c20">More...</a><br /></td></tr>
-<tr class="separator:ac87a1da59a9138c3bb0750ca7ea75c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3eb7f114423d53a7d7f47c250a0987a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#ac3eb7f114423d53a7d7f47c250a0987a">register_interrupt_handler</a> (uint8_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, <a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> handler, <a class="el" href="unionpci__dev__t.html">pci_dev_t</a> <a class="el" href="ahci_8h.html#a2376f17d1e7367401184b2a3978bcd3a">device</a>, void *opaque)</td></tr>
+<tr class="memdesc:ac3eb7f114423d53a7d7f47c250a0987a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an interrupt handler for a given ISR or IRQ line.  <a href="interrupt_8h.html#ac3eb7f114423d53a7d7f47c250a0987a">More...</a><br /></td></tr>
+<tr class="separator:ac3eb7f114423d53a7d7f47c250a0987a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e0b1516a8ed04e2e7d7a1b2a330e6af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#a1e0b1516a8ed04e2e7d7a1b2a330e6af">Interrupt</a> (uint64_t isrnumber, uint64_t errorcode)</td></tr>
-<tr class="memdesc:a1e0b1516a8ed04e2e7d7a1b2a330e6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global routing function for interrupts (ISR number &lt; 32)  <a href="interrupt_8h.html#a1e0b1516a8ed04e2e7d7a1b2a330e6af">More...</a><br /></td></tr>
+<tr class="memdesc:a1e0b1516a8ed04e2e7d7a1b2a330e6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global entry point for CPU exceptions and software ISRs (ISR &lt; 32).  <a href="interrupt_8h.html#a1e0b1516a8ed04e2e7d7a1b2a330e6af">More...</a><br /></td></tr>
 <tr class="separator:a1e0b1516a8ed04e2e7d7a1b2a330e6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac12ed84cb143bb64d5b2b631d7764e1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#ac12ed84cb143bb64d5b2b631d7764e1a">IRQ</a> (uint64_t isrnumber, uint64_t errorcode)</td></tr>
-<tr class="memdesc:ac12ed84cb143bb64d5b2b631d7764e1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global routing function for IRQs (ISR number &gt;= 32)  <a href="interrupt_8h.html#ac12ed84cb143bb64d5b2b631d7764e1a">More...</a><br /></td></tr>
+<tr class="memdesc:ac12ed84cb143bb64d5b2b631d7764e1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global entry point for hardware IRQs (ISR ≥ 32, remapped).  <a href="interrupt_8h.html#ac12ed84cb143bb64d5b2b631d7764e1a">More...</a><br /></td></tr>
 <tr class="separator:ac12ed84cb143bb64d5b2b631d7764e1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80dd45c30be406207765a89f1b22c9c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#a80dd45c30be406207765a89f1b22c9c4">deregister_interrupt_handler</a> (uint8_t <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>, <a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a> handler)</td></tr>
+<tr class="memdesc:a80dd45c30be406207765a89f1b22c9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister an interrupt handler for a specific ISR or IRQ.  <a href="interrupt_8h.html#a80dd45c30be406207765a89f1b22c9c4">More...</a><br /></td></tr>
+<tr class="separator:a80dd45c30be406207765a89f1b22c9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a670ec8bbbbed6279a82cb12244e8c52e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interrupt_8h.html#a670ec8bbbbed6279a82cb12244e8c52e">remap_irqs_to_ioapic</a> (void)</td></tr>
+<tr class="memdesc:a670ec8bbbbed6279a82cb12244e8c52e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remap legacy IRQs 0–23 to IOAPIC redirection entries.  <a href="interrupt_8h.html#a670ec8bbbbed6279a82cb12244e8c52e">More...</a><br /></td></tr>
+<tr class="separator:a670ec8bbbbed6279a82cb12244e8c52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a7a3af27140adcc73f278f9d9c9dcd4bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a3af27140adcc73f278f9d9c9dcd4bc">&#9670;&nbsp;</a></span>isr_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef void(* isr_t) (uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber, void *opaque)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>A definition for an interrupt handler. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="af6fa48603541cdb142bd4e154bf7637f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6fa48603541cdb142bd4e154bf7637f">&#9670;&nbsp;</a></span>irq_number_t</h2>
 
@@ -179,29 +163,90 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Mappings of hardware IRQ lines to remapped IDT interrupt vectors. </p>
+<p>IRQs are remapped to avoid conflicts with CPU exceptions (0–31). This enum provides named constants for common hardware IRQs, starting at interrupt vector 32. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637facdb333eeb7aa4b08f250af6b077e1892"></a>IRQ0&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fac5ab150ecac8b24a9825dbc97d223429"></a>IRQ1&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fac2d7e94fa1e9eeeed752b5a8aa8f2482"></a>IRQ2&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa9feb5810fd385003d1ad490de9599b66"></a>IRQ3&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fadcc90e81e1fb0bc641771e6fb35059c7"></a>IRQ4&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa189542e3df2c715842257e13a5896dd4"></a>IRQ5&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa9f2ba75b271784bfa6654bde1b602ff5"></a>IRQ6&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa196f7e427318da1a844f20bef540b96b"></a>IRQ7&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa58ec17955960845f4a64abee343bbfc0"></a>IRQ8&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa5bdfd2d1de7dd4f7cc3119ada3c1b8b2"></a>IRQ9&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa24d49daca07580d6bbe646e61a4382cb"></a>IRQ10&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa02363888b0bc9fbdffe82dce4374341b"></a>IRQ11&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa185fbc756208a61a3462000a5ee41a45"></a>IRQ12&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa294dad2c91d477ff81089467ff7b4902"></a>IRQ13&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa4f0a2a6a52e9200cab2b6cca9a75378c"></a>IRQ14&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fabdd1d431f5bafa9d36984e2af6ed842b"></a>IRQ15&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637faba4f53f24e658cc7831d104622ccede2"></a>IRQ16&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637faa8b39d29c4db1769cddbe70f5efba08f"></a>IRQ_START&#160;</td><td class="fielddoc"><p>Base offset for remapped IRQs. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637facdb333eeb7aa4b08f250af6b077e1892"></a>IRQ0&#160;</td><td class="fielddoc"><p>System timer (PIT) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fac5ab150ecac8b24a9825dbc97d223429"></a>IRQ1&#160;</td><td class="fielddoc"><p>Keyboard controller. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fac2d7e94fa1e9eeeed752b5a8aa8f2482"></a>IRQ2&#160;</td><td class="fielddoc"><p>Cascade for IRQs 8–15 (used internally by PIC) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa9feb5810fd385003d1ad490de9599b66"></a>IRQ3&#160;</td><td class="fielddoc"><p>Serial port COM2. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fadcc90e81e1fb0bc641771e6fb35059c7"></a>IRQ4&#160;</td><td class="fielddoc"><p>Serial port COM1. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa189542e3df2c715842257e13a5896dd4"></a>IRQ5&#160;</td><td class="fielddoc"><p>Sound card or other devices. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa9f2ba75b271784bfa6654bde1b602ff5"></a>IRQ6&#160;</td><td class="fielddoc"><p>Floppy disk controller. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa196f7e427318da1a844f20bef540b96b"></a>IRQ7&#160;</td><td class="fielddoc"><p>Parallel port or spurious IRQ. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa58ec17955960845f4a64abee343bbfc0"></a>IRQ8&#160;</td><td class="fielddoc"><p>Real-time clock (RTC) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa5bdfd2d1de7dd4f7cc3119ada3c1b8b2"></a>IRQ9&#160;</td><td class="fielddoc"><p>ACPI, network, or SCSI. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa24d49daca07580d6bbe646e61a4382cb"></a>IRQ10&#160;</td><td class="fielddoc"><p>Available for devices (network, SCSI, etc.) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa02363888b0bc9fbdffe82dce4374341b"></a>IRQ11&#160;</td><td class="fielddoc"><p>Available for devices (network, SCSI, etc.) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa185fbc756208a61a3462000a5ee41a45"></a>IRQ12&#160;</td><td class="fielddoc"><p>PS/2 mouse. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa294dad2c91d477ff81089467ff7b4902"></a>IRQ13&#160;</td><td class="fielddoc"><p>x87 Floating Point Unit </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fa4f0a2a6a52e9200cab2b6cca9a75378c"></a>IRQ14&#160;</td><td class="fielddoc"><p>Primary ATA/IDE channel. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637fabdd1d431f5bafa9d36984e2af6ed842b"></a>IRQ15&#160;</td><td class="fielddoc"><p>Secondary ATA/IDE channel. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6fa48603541cdb142bd4e154bf7637faba4f53f24e658cc7831d104622ccede2"></a>IRQ16&#160;</td><td class="fielddoc"><p>Local APIC timer vector (used instead of IRQ0 in APIC mode) </p>
+</td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a80dd45c30be406207765a89f1b22c9c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80dd45c30be406207765a89f1b22c9c4">&#9670;&nbsp;</a></span>deregister_interrupt_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool deregister_interrupt_handler </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a>&#160;</td>
+          <td class="paramname"><em>handler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deregister an interrupt handler for a specific ISR or IRQ. </p>
+<p>Removes the first matching handler function for the given interrupt vector. If the interrupt vector corresponds to an IRQ (n ≥ 32) and no more handlers remain, the interrupt is masked again using the IOAPIC.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>The interrupt vector number (0–255). Values ≥ 32 represent IRQs. </td></tr>
+    <tr><td class="paramname">handler</td><td>The handler function to deregister. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the handler was found and removed, false if not found. </dd></dl>
+
+</div>
+</div>
 <a id="a1e0b1516a8ed04e2e7d7a1b2a330e6af"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e0b1516a8ed04e2e7d7a1b2a330e6af">&#9670;&nbsp;</a></span>Interrupt()</h2>
 
@@ -228,11 +273,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Global routing function for interrupts (ISR number &lt; 32) </p>
+<p>Global entry point for CPU exceptions and software ISRs (ISR &lt; 32). </p>
+<p>This function is the common handler for processor-generated exceptions (such as divide-by-zero, page faults, general protection faults, etc.) and any custom software ISRs within the reserved range 0–31.</p>
+<p>It is invoked directly from the IDT when an exception occurs. The <code>errorcode</code> parameter is provided by the CPU and may contain relevant fault information depending on the exception type.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">isrnumber</td><td>ISR number </td></tr>
-    <tr><td class="paramname">errorcode</td><td>Error code </td></tr>
+    <tr><td class="paramname">isrnumber</td><td>The interrupt service routine number (0–31). </td></tr>
+    <tr><td class="paramname">errorcode</td><td>The associated CPU-generated error code (or zero if unused). </td></tr>
   </table>
   </dd>
 </dl>
@@ -265,25 +312,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Global routing function for IRQs (ISR number &gt;= 32) </p>
+<p>Global entry point for hardware IRQs (ISR ≥ 32, remapped). </p>
+<p>This function is invoked by the interrupt dispatcher when a hardware interrupt request (IRQ) occurs. The ISR number corresponds to the remapped IRQ vector, typically starting at 32 (e.g., IRQ0 = ISR32).</p>
+<p>These interrupts originate from external devices and are routed through the IOAPIC to the local APIC. All hardware IRQs provide an error code of zero by convention.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">isrnumber</td><td>ISR number </td></tr>
-    <tr><td class="paramname">errorcode</td><td>Error code (always zero) </td></tr>
+    <tr><td class="paramname">isrnumber</td><td>The remapped interrupt vector number (≥ 32). </td></tr>
+    <tr><td class="paramname">errorcode</td><td>Always zero for hardware IRQs. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ac87a1da59a9138c3bb0750ca7ea75c20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac87a1da59a9138c3bb0750ca7ea75c20">&#9670;&nbsp;</a></span>register_interrupt_handler()</h2>
+<a id="ac3eb7f114423d53a7d7f47c250a0987a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3eb7f114423d53a7d7f47c250a0987a">&#9670;&nbsp;</a></span>register_interrupt_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void register_interrupt_handler </td>
+          <td class="memname">bool register_interrupt_handler </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>n</em>, </td>
@@ -291,7 +340,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a>&#160;</td>
           <td class="paramname"><em>handler</em>, </td>
         </tr>
         <tr>
@@ -314,16 +363,42 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Register an interrupt handler. </p>
+<p>Register an interrupt handler for a given ISR or IRQ line. </p>
+<p>This function attaches a handler to an interrupt vector <code>n</code>, allowing multiple devices to share the same IRQ line via a linked list of handlers. The handler will be invoked when the interrupt occurs, with the given <code>opaque</code> pointer passed back as context.</p>
+<p>If the interrupt number <code>n</code> is 32 or higher, it is assumed to be an IRQ (as per the <code>irq_number_t</code> scheme), and the corresponding I/O APIC input line is unmasked automatically. This enables delivery of the IRQ to the local APIC once registered.</p>
+<p>For IRQ sharing, you must provide the <code>device</code> field correctly so that handlers for multiple PCI devices on the same line can be tracked and dispatched safely. This is a requirement of shared interrupt delivery.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td>Interrupt number, IRQs start at 32 as per irq_number_t </td></tr>
-    <tr><td class="paramname">handler</td><td>IRQ handler function </td></tr>
-    <tr><td class="paramname">device</td><td>For PCI devices, specify the device node in this parameter. This is to allow for IRQ sharing. </td></tr>
-    <tr><td class="paramname">opaque</td><td>An opaque pointer that can be passed back to your interrupt handler </td></tr>
+    <tr><td class="paramname">n</td><td>Interrupt number — 0–31 are reserved ISRs; 32+ are IRQs. </td></tr>
+    <tr><td class="paramname">handler</td><td>Function pointer to the interrupt handler. </td></tr>
+    <tr><td class="paramname">device</td><td>For PCI devices, specify the device node responsible. Used to manage IRQ sharing. </td></tr>
+    <tr><td class="paramname">opaque</td><td>A user-defined pointer passed to the handler on invocation. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><code>false</code> if memory allocation failed or registration was unsuccessful; <code>true</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a670ec8bbbbed6279a82cb12244e8c52e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a670ec8bbbbed6279a82cb12244e8c52e">&#9670;&nbsp;</a></span>remap_irqs_to_ioapic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void remap_irqs_to_ioapic </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remap legacy IRQs 0–23 to IOAPIC redirection entries. </p>
+<p>This function configures the IOAPIC to handle all standard IRQs (0 through 23) by setting up redirection table entries with appropriate vector numbers, polarity, and trigger modes. All entries are initially remapped in a masked (disabled) state to prevent spurious interrupts.</p>
+<p>The actual unmasking of IRQs should be done later by calling <code>ioapic_mask_set(gsi, false)</code> once an appropriate handler is installed. Calling <code><a class="el" href="interrupt_8h.html#ac3eb7f114423d53a7d7f47c250a0987a" title="Register an interrupt handler for a given ISR or IRQ line.">register_interrupt_handler()</a></code> does this automatically. </p>
 
 </div>
 </div>
@@ -333,7 +408,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="interrupt_8h.html">interrupt.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>hardware_type</name>
         <briefdescription>
+<para>Type of hardware (1 = Ethernet) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="18" column="10" bodyfile="include/arp.h" bodystart="18" bodyend="-1"/>
+        <location file="include/arp.h" line="25" column="10" bodyfile="include/arp.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1a428cf3879bd55fde6519f0e954e6654d" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>protocol</name>
         <briefdescription>
+<para>Protocol type (0x0800 = IPv4) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="19" column="10" bodyfile="include/arp.h" bodystart="19" bodyend="-1"/>
+        <location file="include/arp.h" line="26" column="10" bodyfile="include/arp.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1a49ea35230c81ebe373d429ffd77f9237" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>hardware_addr_len</name>
         <briefdescription>
+<para>Length of hardware address (6 for MAC) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="20" column="9" bodyfile="include/arp.h" bodystart="20" bodyend="-1"/>
+        <location file="include/arp.h" line="27" column="10" bodyfile="include/arp.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1afa40e1082a2dee5ccf6e82ee9d610e82" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -49,12 +52,13 @@
         <argsstring></argsstring>
         <name>protocol_addr_len</name>
         <briefdescription>
+<para>Length of protocol address (4 for IPv4) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="21" column="9" bodyfile="include/arp.h" bodystart="21" bodyend="-1"/>
+        <location file="include/arp.h" line="28" column="10" bodyfile="include/arp.h" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1aa952f2a3fe8ea79fa44ea9e6acbe2d65" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -62,12 +66,13 @@
         <argsstring></argsstring>
         <name>opcode</name>
         <briefdescription>
+<para>Operation code (ARP_REQUEST or ARP_REPLY) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="22" column="10" bodyfile="include/arp.h" bodystart="22" bodyend="-1"/>
+        <location file="include/arp.h" line="29" column="10" bodyfile="include/arp.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1a9ba7afca48a41b957dd159cad3aa600b" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -75,12 +80,13 @@
         <argsstring>[6]</argsstring>
         <name>src_hardware_addr</name>
         <briefdescription>
+<para>Sender MAC address. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="23" column="9" bodyfile="include/arp.h" bodystart="23" bodyend="-1"/>
+        <location file="include/arp.h" line="30" column="10" bodyfile="include/arp.h" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1aeeec2669963dc9e85cf4b76cdf680615" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -88,12 +94,13 @@
         <argsstring>[4]</argsstring>
         <name>src_protocol_addr</name>
         <briefdescription>
+<para>Sender IP address. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="24" column="9" bodyfile="include/arp.h" bodystart="24" bodyend="-1"/>
+        <location file="include/arp.h" line="31" column="10" bodyfile="include/arp.h" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1a8d97a18f11bf7098ebe1d42ed0bcf878" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -101,12 +108,13 @@
         <argsstring>[6]</argsstring>
         <name>dst_hardware_addr</name>
         <briefdescription>
+<para>Target MAC address. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="25" column="9" bodyfile="include/arp.h" bodystart="25" bodyend="-1"/>
+        <location file="include/arp.h" line="32" column="10" bodyfile="include/arp.h" bodystart="32" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structarp__packet_1aa95c7e1b07c268657df62f46924ffff3" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -114,15 +122,17 @@
         <argsstring>[4]</argsstring>
         <name>dst_protocol_addr</name>
         <briefdescription>
+<para>Target IP address. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/arp.h" line="26" column="9" bodyfile="include/arp.h" bodystart="26" bodyend="-1"/>
+        <location file="include/arp.h" line="33" column="10" bodyfile="include/arp.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Format of an ARP packet (per RFC 826) </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -151,7 +161,7 @@
         <label>uint8_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/arp.h" line="17" column="1" bodyfile="include/arp.h" bodystart="17" bodyend="27"/>
+    <location file="include/arp.h" line="24" column="1" bodyfile="include/arp.h" bodystart="24" bodyend="34"/>
     <listofallmembers>
       <member refid="structarp__packet_1a8d97a18f11bf7098ebe1d42ed0bcf878" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>dst_hardware_addr</name></member>
       <member refid="structarp__packet_1aa95c7e1b07c268657df62f46924ffff3" prot="public" virt="non-virtual"><scope>arp_packet</scope><name>dst_protocol_addr</name></member>

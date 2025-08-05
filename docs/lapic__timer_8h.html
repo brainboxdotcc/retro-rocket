@@ -91,10 +91,16 @@ $(document).ready(function(){initNavTree('lapic__timer_8h.html',''); initResizab
 <div class="title">lapic_timer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
+
+<p>Definitions and helpers for the Local APIC timer.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:af0dcf61cef039a03256058a024e729c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#af0dcf61cef039a03256058a024e729c5">APIC_TASKPRIOR</a>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memitem:abad6e91426bdfd1f569bf2cfbe386e49"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#abad6e91426bdfd1f569bf2cfbe386e49">APIC_SVR</a>&#160;&#160;&#160;0x0F0</td></tr>
+<tr class="separator:abad6e91426bdfd1f569bf2cfbe386e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0dcf61cef039a03256058a024e729c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#af0dcf61cef039a03256058a024e729c5">APIC_TASKPRIOR</a>&#160;&#160;&#160;0x080</td></tr>
 <tr class="separator:af0dcf61cef039a03256058a024e729c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32114b4d0dc42bb6666d90759bd04a6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a32114b4d0dc42bb6666d90759bd04a6b">APIC_EOI</a>&#160;&#160;&#160;0x0B0</td></tr>
 <tr class="separator:a32114b4d0dc42bb6666d90759bd04a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,25 +136,28 @@ Macros</h2></td></tr>
 <tr class="separator:aee9007621eb6f2bce7b9823f4a8b096f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacba913b14ff2c1e14fbce91f2c7c5c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#aacba913b14ff2c1e14fbce91f2c7c5c8">APIC_DISABLE</a>&#160;&#160;&#160;0x10000</td></tr>
 <tr class="separator:aacba913b14ff2c1e14fbce91f2c7c5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0107bf356679a45e14b0ba63cc66d62f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a0107bf356679a45e14b0ba63cc66d62f">APIC_SW_ENABLE</a>&#160;&#160;&#160;0x100</td></tr>
+<tr class="memitem:a0107bf356679a45e14b0ba63cc66d62f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a0107bf356679a45e14b0ba63cc66d62f">APIC_SW_ENABLE</a>&#160;&#160;&#160;0x00100</td></tr>
 <tr class="separator:a0107bf356679a45e14b0ba63cc66d62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc8875cf135441068aaf2f9586a8d833"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#acc8875cf135441068aaf2f9586a8d833">APIC_CPUFOCUS</a>&#160;&#160;&#160;0x200</td></tr>
+<tr class="memitem:acc8875cf135441068aaf2f9586a8d833"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#acc8875cf135441068aaf2f9586a8d833">APIC_CPUFOCUS</a>&#160;&#160;&#160;0x00200</td></tr>
 <tr class="separator:acc8875cf135441068aaf2f9586a8d833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03f37028071acfb2ff897aa0cb4431e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a03f37028071acfb2ff897aa0cb4431e0">APIC_NMI</a>&#160;&#160;&#160;(4&lt;&lt;8)</td></tr>
+<tr class="memitem:a03f37028071acfb2ff897aa0cb4431e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a03f37028071acfb2ff897aa0cb4431e0">APIC_NMI</a>&#160;&#160;&#160;(4 &lt;&lt; 8)</td></tr>
 <tr class="separator:a03f37028071acfb2ff897aa0cb4431e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e5c411ab9319b34198f65045fc831a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a4e5c411ab9319b34198f65045fc831a7">TMR_PERIODIC</a>&#160;&#160;&#160;0x20000</td></tr>
 <tr class="separator:a4e5c411ab9319b34198f65045fc831a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06288a57cca2484097a813e9b645ff62"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a06288a57cca2484097a813e9b645ff62">TMR_BASEDIV</a>&#160;&#160;&#160;(1&lt;&lt;20)</td></tr>
+<tr class="memitem:a06288a57cca2484097a813e9b645ff62"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a06288a57cca2484097a813e9b645ff62">TMR_BASEDIV</a>&#160;&#160;&#160;(1 &lt;&lt; 20)</td></tr>
 <tr class="separator:a06288a57cca2484097a813e9b645ff62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a59ea126de3ba6eca010bb13579d59901"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a59ea126de3ba6eca010bb13579d59901">init_lapic_timer</a> ()</td></tr>
-<tr class="separator:a59ea126de3ba6eca010bb13579d59901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a600cc0b39c3ec08ab9e848813e23180d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a600cc0b39c3ec08ab9e848813e23180d">init_lapic_timer</a> (uint64_t quantum)</td></tr>
+<tr class="memdesc:a600cc0b39c3ec08ab9e848813e23180d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the LAPIC timer.  <a href="lapic__timer_8h.html#a600cc0b39c3ec08ab9e848813e23180d">More...</a><br /></td></tr>
+<tr class="separator:a600cc0b39c3ec08ab9e848813e23180d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Definitions and helpers for the Local APIC timer. </p>
+<p>Provides register offsets and configuration flags for the Local Advanced Programmable Interrupt Controller (LAPIC) timer, as well as an initialisation routine for setting up timer ticks.</p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="acc8875cf135441068aaf2f9586a8d833"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc8875cf135441068aaf2f9586a8d833">&#9670;&nbsp;</a></span>APIC_CPUFOCUS</h2>
@@ -157,10 +166,11 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define APIC_CPUFOCUS&#160;&#160;&#160;0x200</td>
+          <td class="memname">#define APIC_CPUFOCUS&#160;&#160;&#160;0x00200</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>CPU focus (for broadcast IPIs) </p>
 
 </div>
 </div>
@@ -175,6 +185,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Destination Format Register </p>
 
 </div>
 </div>
@@ -189,6 +200,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Disable a given APIC function </p>
 
 </div>
 </div>
@@ -203,6 +215,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>End of Interrupt Register </p>
 
 </div>
 </div>
@@ -217,6 +230,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Error Status Register </p>
 
 </div>
 </div>
@@ -231,6 +245,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interrupt Command Register (high) </p>
 
 </div>
 </div>
@@ -245,6 +260,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Interrupt Command Register (low) </p>
 
 </div>
 </div>
@@ -259,6 +275,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Last valid APIC register index </p>
 
 </div>
 </div>
@@ -273,6 +290,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Logical Destination Register </p>
 
 </div>
 </div>
@@ -287,6 +305,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Local Vector Table (Error) </p>
 
 </div>
 </div>
@@ -301,6 +320,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Local Vector Table (LINT0) </p>
 
 </div>
 </div>
@@ -315,6 +335,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Local Vector Table (LINT1) </p>
 
 </div>
 </div>
@@ -329,6 +350,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Local Vector Table (Performance Counter) </p>
 
 </div>
 </div>
@@ -343,6 +365,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Local Vector Table (Timer) </p>
 
 </div>
 </div>
@@ -353,10 +376,11 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define APIC_NMI&#160;&#160;&#160;(4&lt;&lt;8)</td>
+          <td class="memname">#define APIC_NMI&#160;&#160;&#160;(4 &lt;&lt; 8)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Non-Maskable Interrupt vector </p>
 
 </div>
 </div>
@@ -371,6 +395,22 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Spurious Interrupt Vector Register </p>
+
+</div>
+</div>
+<a id="abad6e91426bdfd1f569bf2cfbe386e49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abad6e91426bdfd1f569bf2cfbe386e49">&#9670;&nbsp;</a></span>APIC_SVR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APIC_SVR&#160;&#160;&#160;0x0F0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Spurious Interrupt Vector Register </p>
 
 </div>
 </div>
@@ -381,10 +421,11 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define APIC_SW_ENABLE&#160;&#160;&#160;0x100</td>
+          <td class="memname">#define APIC_SW_ENABLE&#160;&#160;&#160;0x00100</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enable APIC in software </p>
 
 </div>
 </div>
@@ -395,10 +436,11 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define APIC_TASKPRIOR&#160;&#160;&#160;0x80</td>
+          <td class="memname">#define APIC_TASKPRIOR&#160;&#160;&#160;0x080</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Task Priority Register </p>
 
 </div>
 </div>
@@ -413,6 +455,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Current Count Register (Timer) </p>
 
 </div>
 </div>
@@ -427,6 +470,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Divide Configuration Register </p>
 
 </div>
 </div>
@@ -441,6 +485,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initial Count Register (Timer) </p>
 
 </div>
 </div>
@@ -451,10 +496,11 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TMR_BASEDIV&#160;&#160;&#160;(1&lt;&lt;20)</td>
+          <td class="memname">#define TMR_BASEDIV&#160;&#160;&#160;(1 &lt;&lt; 20)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Base divider for timer frequency </p>
 
 </div>
 </div>
@@ -469,12 +515,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Timer operates in periodic mode </p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a59ea126de3ba6eca010bb13579d59901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ea126de3ba6eca010bb13579d59901">&#9670;&nbsp;</a></span>init_lapic_timer()</h2>
+<a id="a600cc0b39c3ec08ab9e848813e23180d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a600cc0b39c3ec08ab9e848813e23180d">&#9670;&nbsp;</a></span>init_lapic_timer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -482,11 +529,21 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void init_lapic_timer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>quantum</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialise the LAPIC timer. </p>
+<p>Configures the Local APIC timer to generate interrupts at a regular interval defined by the specified quantum.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">quantum</td><td>Time slice quantum in ticks per second. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -496,7 +553,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="lapic__timer_8h.html">lapic_timer.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

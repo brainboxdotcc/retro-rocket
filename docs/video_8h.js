@@ -32,10 +32,15 @@ var video_8h =
     [ "put", "video_8h.html#a6aa3e180e6074ca3376aae3fe2521967", null ],
     [ "putpixel", "video_8h.html#aa8c0a74e65d6a428468b771eda6f4ddf", null ],
     [ "putstring", "video_8h.html#a998a88c58c530407ae8b304a306b74fe", null ],
+    [ "rr_console_init_from_limine", "video_8h.html#a496b11428ffec32894ee8edd2d52a366", null ],
+    [ "rr_flip", "video_8h.html#a6b5bc99f337a44e893732a08f1d734f6", null ],
     [ "screen_get_height", "video_8h.html#aead8dda978d0b4180262e4091be3d4d6", null ],
     [ "screen_get_width", "video_8h.html#a2df69cac6f9d6324e3c872532ee4088d", null ],
+    [ "set_video_auto_flip", "video_8h.html#ae9b6b12d0a2f6561f268660987f9ad66", null ],
+    [ "set_video_dirty_area", "video_8h.html#ae061019f3a09b999de9296c92cddd74a", null ],
     [ "setbackground", "video_8h.html#a3a4f10379412dfac7b7326c608b0ba1c", null ],
     [ "setcursor", "video_8h.html#ae71c2439af390bbb8d7ea3f59226983d", null ],
     [ "setforeground", "video_8h.html#a9eb30d97afe44a6d0a2063f701c13ca6", null ],
+    [ "video_flip_auto", "video_8h.html#a7b94ff9b6be3b686d6f060b060722902", null ],
     [ "current_console", "video_8h.html#a43d9b652336a0df72765cc74cb497381", null ]
 ];

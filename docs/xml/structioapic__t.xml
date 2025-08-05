@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>id</name>
         <briefdescription>
+<para>IOAPIC ID as reported by MADT. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="53" column="9" bodyfile="include/acpi.h" bodystart="53" bodyend="-1"/>
+        <location file="include/acpi.h" line="65" column="9" bodyfile="include/acpi.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structioapic__t_1a71d2c52794b3140666604d3daf756e52" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>paddr</name>
         <briefdescription>
+<para>Physical address of the IOAPIC&apos;s MMIO region. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="54" column="10" bodyfile="include/acpi.h" bodystart="54" bodyend="-1"/>
+        <location file="include/acpi.h" line="66" column="10" bodyfile="include/acpi.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structioapic__t_1acd813ec1d4e2d0dc276f7ff9b930ac50" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>gsi_base</name>
         <briefdescription>
+<para>Global System Interrupt (GSI) base for this IOAPIC. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="55" column="10" bodyfile="include/acpi.h" bodystart="55" bodyend="-1"/>
+        <location file="include/acpi.h" line="67" column="10" bodyfile="include/acpi.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structioapic__t_1a941f899ca4efd9af4c97436a14ee2ae9" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -49,16 +52,17 @@
         <argsstring></argsstring>
         <name>gsi_count</name>
         <briefdescription>
+<para>Number of GSIs this IOAPIC handles. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="56" column="9" bodyfile="include/acpi.h" bodystart="56" bodyend="-1"/>
+        <location file="include/acpi.h" line="68" column="9" bodyfile="include/acpi.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Definition of an IOAPIC. </para>
+<para>Describes a detected IOAPIC from the MADT table. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -87,7 +91,7 @@
         <label>uint8_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/acpi.h" line="52" column="1" bodyfile="include/acpi.h" bodystart="52" bodyend="57"/>
+    <location file="include/acpi.h" line="64" column="1" bodyfile="include/acpi.h" bodystart="64" bodyend="69"/>
     <listofallmembers>
       <member refid="structioapic__t_1acd813ec1d4e2d0dc276f7ff9b930ac50" prot="public" virt="non-virtual"><scope>ioapic_t</scope><name>gsi_base</name></member>
       <member refid="structioapic__t_1a941f899ca4efd9af4c97436a14ee2ae9" prot="public" virt="non-virtual"><scope>ioapic_t</scope><name>gsi_count</name></member>

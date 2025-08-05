@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Human‑readable label for the address. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/net.h" line="21" column="6" bodyfile="include/net.h" bodystart="21" bodyend="-1"/>
+        <location file="include/net.h" line="27" column="6" bodyfile="include/net.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structnet__address__t_1aa401bda571cf681d03b42debfc49203f" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -25,10 +26,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Length of the address in bytes. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/net.h" line="22" column="9" bodyfile="include/net.h" bodystart="22" bodyend="-1"/>
+        <location file="include/net.h" line="28" column="9" bodyfile="include/net.h" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structnet__address__t_1af655e2acc5cc6f2c183acb33d87e4b59" prot="public" static="no" mutable="no">
         <type>uint8_t *</type>
@@ -38,16 +40,19 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Address bytes (host byte order). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/net.h" line="23" column="9" bodyfile="include/net.h" bodystart="23" bodyend="-1"/>
+        <location file="include/net.h" line="29" column="9" bodyfile="include/net.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Represents an address that is bound to a protocol on an interface. This is kept as flexible as possible, to represent potentially different protocol&apos;s forms of addresses, e.g. IPv4, IPv6, IPX, Econet etc. The length indicates the number of bytes in the address, and the bytes field contains the actual address in host byte order. For example in IPv4, length would be 4 and bytes would essentially point at a uint32_t. The name is purely a human readable label for use in commands. The label might be &apos;ip.address&apos;, &apos;ip.gateway&apos; etc. </para>
+<para>Represents an address bound to a protocol on an interface. </para>
     </briefdescription>
     <detaileddescription>
+<para>Designed to be flexible for different protocols (e.g. IPv4, IPv6, IPX, Econet). The <computeroutput>length</computeroutput> specifies the number of bytes in the address, and <computeroutput>bytes</computeroutput> holds the address in host byte order.</para>
+<para>Example: for IPv4, <computeroutput>length</computeroutput> is 4 and <computeroutput>bytes</computeroutput> points to a <computeroutput>uint32_t</computeroutput>. The <computeroutput>name</computeroutput> is a human‑readable label such as &quot;ip.address&quot; or &quot;ip.gateway&quot;. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -68,7 +73,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/net.h" line="20" column="1" bodyfile="include/net.h" bodystart="20" bodyend="24"/>
+    <location file="include/net.h" line="26" column="1" bodyfile="include/net.h" bodystart="26" bodyend="30"/>
     <listofallmembers>
       <member refid="structnet__address__t_1af655e2acc5cc6f2c183acb33d87e4b59" prot="public" virt="non-virtual"><scope>net_address_t</scope><name>bytes</name></member>
       <member refid="structnet__address__t_1aa401bda571cf681d03b42debfc49203f" prot="public" virt="non-virtual"><scope>net_address_t</scope><name>length</name></member>

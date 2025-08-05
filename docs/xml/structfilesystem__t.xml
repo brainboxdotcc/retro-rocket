@@ -66,7 +66,7 @@
         <argsstring></argsstring>
         <name>writefile</name>
         <briefdescription>
-<para>Function pointer for <ref refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kindref="member">writefile()</ref> Writes data to arbitrary location in a file on the filesystem. The file must exist, and <ref refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kindref="member">writefile()</ref> should not create new files, this is the reponsibility of the <ref refid="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" kindref="member">createfile()</ref> endpoint. </para>
+<para>Function pointer for <ref refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kindref="member">writefile()</ref> Writes data to arbitrary location in a file on the filesystem. The file must exist, and <ref refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kindref="member">writefile()</ref> should not create new files, this is the responsibility of the <ref refid="structfilesystem__t_1ab7d2e44b34d97365125949fe2ca300e8" kindref="member">createfile()</ref> endpoint. </para>
         </briefdescription>
         <detaileddescription>
 <para>The <ref refid="structfilesystem__t_1aba266bd5449616e92bb1706f8c408d9f" kindref="member">writefile()</ref> endpoint should extend the length of existing files where required however, without error and without any special requirements having to be met, hardware permitting. </para>

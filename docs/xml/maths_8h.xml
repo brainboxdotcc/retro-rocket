@@ -5,70 +5,97 @@
     <includes refid="kernel_8h" local="yes">kernel.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <incdepgraph>
-      <node id="25">
+      <node id="31">
         <label>ata.h</label>
         <link refid="ata_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
       </node>
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="38">
+      <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
       </node>
-      <node id="28">
+      <node id="34">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="41">
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="46">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="50">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="60">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="37">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="35">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="9">
         <label>spinlock.h</label>
         <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
-      <node id="48">
+      <node id="53">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="28">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -77,31 +104,40 @@
       <node id="8">
         <label>idt.h</label>
         <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="53">
+      <node id="58">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="44">
         <label>basic_tokenizer.h</label>
         <link refid="basic__tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="48">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="27">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
@@ -111,60 +147,70 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="34">
+      <node id="40">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
-      <node id="15">
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
         <label>io.h</label>
         <link refid="io_8h"/>
       </node>
-      <node id="10">
+      <node id="15">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="49">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="43">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="35">
+      <node id="41">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="54">
+      <node id="59">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="18">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="49">
+      <node id="54">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="51">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="32">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
@@ -174,15 +220,15 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="36">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
       </node>
-      <node id="33">
+      <node id="39">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="47">
+      <node id="52">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -207,15 +253,9 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
@@ -227,11 +267,9 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
@@ -242,6 +280,8 @@
         <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
@@ -277,6 +317,8 @@
         </childnode>
         <childnode refid="43" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
         <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
@@ -299,30 +341,46 @@
         </childnode>
         <childnode refid="54" relation="include">
         </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
       </node>
-      <node id="16">
+      <node id="21">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="33">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="17">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="45">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="11">
+      <node id="16">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
@@ -334,61 +392,69 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="47">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="24">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="38">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="23">
+      <node id="29">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="25">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="26">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="22">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
-      <node id="14">
+      <node id="19">
         <label>string.h</label>
         <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="30">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="56">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="61">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -398,11 +464,43 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="27">
+      <node id="93">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="54">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="66">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="70">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="75">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="38">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="82">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="71">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="85">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -410,53 +508,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="107">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="101">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="47">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="106">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="59">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="111">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="102">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="88">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="109">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -464,45 +604,209 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="64">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="99">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="41">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="100">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="90">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="55">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="96">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="67">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="113">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="48">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="60">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="92">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="32">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="73">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="56">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="112">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="81">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="61">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="37">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="95">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="53">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="94">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="79">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="89">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="45">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="86">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="33">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="97">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="31">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="62">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="52">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="69">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="46">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="108">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="58">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
       </node>
       <node id="1">
         <label>maths.h</label>
@@ -510,11 +814,51 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="87">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="80">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="84">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="44">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="103">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="104">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="78">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -549,74 +893,290 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
         <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
       </node>
-      <node id="22">
+      <node id="51">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="30">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="39">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="72">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="50">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="83">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="42">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="68">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="34">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="63">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="25">
+      <node id="76">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="98">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="49">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="36">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -628,9 +1188,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="91">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="74">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="40">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -642,6 +1220,22 @@
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
+      <memberdef kind="function" id="maths_8h_1ab05e1aa36c921e3d93e9dbee9b70a018" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>static double rr_nan</definition>
+        <argsstring>(void)</argsstring>
+        <name>rr_nan</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="10" column="22" bodyfile="include/maths.h" bodystart="10" bodyend="13"/>
+      </memberdef>
       <memberdef kind="function" id="maths_8h_1ae09fae943b521903337acf54ffda37c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
         <definition>double pow</definition>
@@ -682,7 +1276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/maths.h" line="17" column="8" declfile="include/maths.h" declline="17" declcolumn="8"/>
+        <location file="include/maths.h" line="22" column="8" bodyfile="src/maths.c" bodystart="83" bodyend="106" declfile="include/maths.h" declline="22" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="maths_8h_1a73776fd605fa19612cdeaa699c517cf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -714,7 +1308,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/maths.h" line="28" column="8" declfile="include/maths.h" declline="28" declcolumn="8"/>
+        <location file="include/maths.h" line="33" column="8" bodyfile="src/maths.c" bodystart="108" bodyend="115" declfile="include/maths.h" declline="33" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="maths_8h_1a9a6d3351dcbcb2fff9de9a5eee71f2f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -744,7 +1338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/maths.h" line="36" column="8" declfile="include/maths.h" declline="36" declcolumn="8"/>
+        <location file="include/maths.h" line="41" column="8" bodyfile="src/maths.c" bodystart="117" bodyend="126" declfile="include/maths.h" declline="41" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="maths_8h_1aac5313cac48210093754d3983c7b89cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -774,7 +1368,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/maths.h" line="44" column="8" declfile="include/maths.h" declline="44" declcolumn="8"/>
+        <location file="include/maths.h" line="49" column="8" bodyfile="src/maths.c" bodystart="128" bodyend="137" declfile="include/maths.h" declline="49" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="maths_8h_1a8fa539b5bacf3bc6038e3fe91cc243cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -804,7 +1398,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/maths.h" line="52" column="8" declfile="include/maths.h" declline="52" declcolumn="8"/>
+        <location file="include/maths.h" line="57" column="8" bodyfile="src/maths.c" bodystart="139" bodyend="145" declfile="include/maths.h" declline="57" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="maths_8h_1ab87521a75ef827a85807f89a6c10629a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -834,7 +1428,424 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/maths.h" line="60" column="8" declfile="include/maths.h" declline="60" declcolumn="8"/>
+        <location file="include/maths.h" line="65" column="8" declfile="include/maths.h" declline="65" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a8fb5c0b9b43a108724b355136d29d2f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double fabs</definition>
+        <argsstring>(double x)</argsstring>
+        <name>fabs</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Returns the absolute value of a floating point number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The absolute value of x (|x|). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="73" column="8" bodyfile="src/maths.c" bodystart="147" bodyend="150" declfile="include/maths.h" declline="73" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a6de60a3e907dcf0bfe3ea8d64f1e8873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double floor</definition>
+        <argsstring>(double x)</argsstring>
+        <name>floor</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Rounds a floating point number down to the nearest integer value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The largest integer value less than or equal to x, as a double. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="81" column="8" bodyfile="src/maths.c" bodystart="152" bodyend="159" declfile="include/maths.h" declline="81" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a537296d1a8f9fb621676038b99ba7edf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double fmod</definition>
+        <argsstring>(double x, double y)</argsstring>
+        <name>fmod</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Computes the floating-point remainder of x / y. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The result is x - n * y, where n is the integer quotient of x / y, truncated toward zero.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dividend. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Divisor (must not be zero). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The remainder of x divided by y. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="93" column="8" bodyfile="src/maths.c" bodystart="161" bodyend="169" declfile="include/maths.h" declline="93" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a1ea6d7b591132268abc2e843ababd084" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double ceil</definition>
+        <argsstring>(double x)</argsstring>
+        <name>ceil</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Rounds a floating-point value up to the nearest integer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The smallest integer value not less than x. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="101" column="8" bodyfile="src/maths.c" bodystart="171" bodyend="178" declfile="include/maths.h" declline="101" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a7df19cf730447c00150569250a4b5e1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double round</definition>
+        <argsstring>(double x)</argsstring>
+        <name>round</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Rounds a floating-point value to the nearest integer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Values halfway between two integers are rounded away from zero.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The nearest integer as a double. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="111" column="8" bodyfile="src/maths.c" bodystart="180" bodyend="190" declfile="include/maths.h" declline="111" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a349377202ca14f79eb335b1a421fe4d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double atan2</definition>
+        <argsstring>(double y, double x)</argsstring>
+        <name>atan2</name>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Computes the arc tangent of y/x using the signs of both arguments to determine the correct quadrant of the result. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>y-coordinate (numerator). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>x-coordinate (denominator). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The angle in radians between -PI and PI. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="121" column="8" bodyfile="src/maths.c" bodystart="192" bodyend="206" declfile="include/maths.h" declline="121" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a1e2f8f6d64eaa95131bc63fee34970ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double atan</definition>
+        <argsstring>(double x)</argsstring>
+        <name>atan</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Computes the arc tangent of x (inverse tangent). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The result is in radians, between -PI/2 and PI/2.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The arc tangent of x. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="131" column="8" bodyfile="src/maths.c" bodystart="213" bodyend="222" declfile="include/maths.h" declline="131" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1aa9528d92a3ae44ad6484da0774604454" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double asin</definition>
+        <argsstring>(double x)</argsstring>
+        <name>asin</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Returns the arc sine (inverse sine) of x. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input value (must be between -1 and 1). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The arcsin of x in radians. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="138" column="8" bodyfile="src/maths.c" bodystart="224" bodyend="230" declfile="include/maths.h" declline="138" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1ae93afe22ff34c79ee97ea3eaf77557db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double acos</definition>
+        <argsstring>(double x)</argsstring>
+        <name>acos</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Returns the arc cosine (inverse cosine) of x. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input value (must be between -1 and 1). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The arccos of x in radians. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="145" column="8" bodyfile="src/maths.c" bodystart="232" bodyend="238" declfile="include/maths.h" declline="145" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1ae09128febbbe6372cde4fa0c65608a42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double exp</definition>
+        <argsstring>(double x)</argsstring>
+        <name>exp</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Calculates e raised to the power of x. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>e^x. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="152" column="8" bodyfile="src/maths.c" bodystart="240" bodyend="250" declfile="include/maths.h" declline="152" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1adb302c9aafbaa5e180d9f60ee954bb82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double log</definition>
+        <argsstring>(double x)</argsstring>
+        <name>log</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Computes the natural logarithm (ln) of x. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input value (must be &gt; 0). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ln(x). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="159" column="8" bodyfile="src/maths.c" bodystart="252" bodyend="265" declfile="include/maths.h" declline="159" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1adc47e72e9f51e6660258c949cb43b086" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double deg</definition>
+        <argsstring>(double radians)</argsstring>
+        <name>deg</name>
+        <param>
+          <type>double</type>
+          <declname>radians</declname>
+        </param>
+        <briefdescription>
+<para>Converts radians to degrees. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>radians</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value in radians. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value in degrees. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="166" column="8" bodyfile="src/maths.c" bodystart="267" bodyend="270" declfile="include/maths.h" declline="166" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="maths_8h_1a266fec9c23e4fa6433b51294c0218430" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double rad</definition>
+        <argsstring>(double degrees)</argsstring>
+        <name>rad</name>
+        <param>
+          <type>double</type>
+          <declname>degrees</declname>
+        </param>
+        <briefdescription>
+<para>Converts degrees to radians. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>degrees</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value in degrees. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value in radians. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/maths.h" line="173" column="8" bodyfile="src/maths.c" bodystart="272" bodyend="275" declfile="include/maths.h" declline="173" declcolumn="8"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -842,7 +1853,7 @@
     <detaileddescription>
 <para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
 </simplesect>
 </para>
     </detaileddescription>

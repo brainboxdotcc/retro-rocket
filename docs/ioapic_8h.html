@@ -90,22 +90,70 @@ $(document).ready(function(){initNavTree('ioapic_8h.html',''); initResizable(); 
 <div class="title">ioapic.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Provides functions for manipulating the I/O APIC redirection table.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8b1efda0e77ff627df469d29b68a0009"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8h.html#a8b1efda0e77ff627df469d29b68a0009">ioapic_redir_set</a> (uint32_t gsi, uint32_t vector, uint32_t del_mode, uint32_t dest_mode, uint32_t intpol, uint32_t trigger_mode, uint32_t mask)</td></tr>
-<tr class="separator:a8b1efda0e77ff627df469d29b68a0009"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af04f015bde166dc22bbbdb591e77a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8h.html#a3af04f015bde166dc22bbbdb591e77a9">ioapic_redir_set</a> (uint32_t irq, uint32_t vector, uint32_t del_mode, uint32_t dest_mode, uint32_t intpol, uint32_t trigger_mode, uint32_t mask)</td></tr>
+<tr class="memdesc:a3af04f015bde166dc22bbbdb591e77a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure a redirection entry in the I/O APIC.  <a href="ioapic_8h.html#a3af04f015bde166dc22bbbdb591e77a9">More...</a><br /></td></tr>
+<tr class="separator:a3af04f015bde166dc22bbbdb591e77a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9c076ac827e229f57617389706f1e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8h.html#ac9c076ac827e229f57617389706f1e72">ioapic_redir_get</a> (uint32_t gsi, uint32_t *vector, uint32_t *del_mode, uint32_t *dest_mode, uint32_t *intpol, uint32_t *trigger_mode, uint32_t *mask, uint32_t *destination)</td></tr>
+<tr class="memdesc:ac9c076ac827e229f57617389706f1e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a redirection entry from the I/O APIC.  <a href="ioapic_8h.html#ac9c076ac827e229f57617389706f1e72">More...</a><br /></td></tr>
 <tr class="separator:ac9c076ac827e229f57617389706f1e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c004d39dec23c06b0a3d56049174045"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8h.html#a5c004d39dec23c06b0a3d56049174045">ioapic_redir_unmask</a> (uint32_t gsi)</td></tr>
+<tr class="memdesc:a5c004d39dec23c06b0a3d56049174045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmask (enable) a redirection entry for a given GSI.  <a href="ioapic_8h.html#a5c004d39dec23c06b0a3d56049174045">More...</a><br /></td></tr>
 <tr class="separator:a5c004d39dec23c06b0a3d56049174045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3574e36c20cd71e8e68e0ca15ea1b426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8h.html#a3574e36c20cd71e8e68e0ca15ea1b426">ioapic_redir_set_precalculated</a> (uint32_t gsi, uint32_t upper, uint32_t lower)</td></tr>
+<tr class="memdesc:a3574e36c20cd71e8e68e0ca15ea1b426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a redirection entry using pre‑calculated 64‑bit values.  <a href="ioapic_8h.html#a3574e36c20cd71e8e68e0ca15ea1b426">More...</a><br /></td></tr>
 <tr class="separator:a3574e36c20cd71e8e68e0ca15ea1b426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44976865e18e91ad0c952b4e88d74e76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ioapic_8h.html#a44976865e18e91ad0c952b4e88d74e76">ioapic_mask_set</a> (uint32_t gsi, bool masked)</td></tr>
+<tr class="memdesc:a44976865e18e91ad0c952b4e88d74e76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear the mask bit for a redirection entry.  <a href="ioapic_8h.html#a44976865e18e91ad0c952b4e88d74e76">More...</a><br /></td></tr>
+<tr class="separator:a44976865e18e91ad0c952b4e88d74e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Provides functions for manipulating the I/O APIC redirection table. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a44976865e18e91ad0c952b4e88d74e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44976865e18e91ad0c952b4e88d74e76">&#9670;&nbsp;</a></span>ioapic_mask_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ioapic_mask_set </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>gsi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>masked</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set or clear the mask bit for a redirection entry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gsi</td><td>Global System Interrupt number to update. </td></tr>
+    <tr><td class="paramname">masked</td><td>True to mask (disable), false to unmask (enable). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ac9c076ac827e229f57617389706f1e72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9c076ac827e229f57617389706f1e72">&#9670;&nbsp;</a></span>ioapic_redir_get()</h2>
 
@@ -168,10 +216,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Read a redirection entry from the I/O APIC. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gsi</td><td>Global System Interrupt number to query. </td></tr>
+    <tr><td class="paramname">vector</td><td>Out: interrupt vector. </td></tr>
+    <tr><td class="paramname">del_mode</td><td>Out: delivery mode. </td></tr>
+    <tr><td class="paramname">dest_mode</td><td>Out: destination mode. </td></tr>
+    <tr><td class="paramname">intpol</td><td>Out: polarity. </td></tr>
+    <tr><td class="paramname">trigger_mode</td><td>Out: trigger mode. </td></tr>
+    <tr><td class="paramname">mask</td><td>Out: mask state. </td></tr>
+    <tr><td class="paramname">destination</td><td>Out: APIC ID of the destination CPU. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a8b1efda0e77ff627df469d29b68a0009"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b1efda0e77ff627df469d29b68a0009">&#9670;&nbsp;</a></span>ioapic_redir_set()</h2>
+<a id="a3af04f015bde166dc22bbbdb591e77a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3af04f015bde166dc22bbbdb591e77a9">&#9670;&nbsp;</a></span>ioapic_redir_set()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +243,7 @@ Functions</h2></td></tr>
           <td class="memname">void ioapic_redir_set </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>gsi</em>, </td>
+          <td class="paramname"><em>irq</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -226,6 +289,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Configure a redirection entry in the I/O APIC. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">irq</td><td>The IRQ line to configure (relative to the IOAPIC). </td></tr>
+    <tr><td class="paramname">vector</td><td>The interrupt vector to deliver to the CPU. </td></tr>
+    <tr><td class="paramname">del_mode</td><td>Delivery mode (e.g. fixed, lowest priority, NMI). </td></tr>
+    <tr><td class="paramname">dest_mode</td><td>Destination mode (physical or logical). </td></tr>
+    <tr><td class="paramname">intpol</td><td>Interrupt polarity (active high or low). </td></tr>
+    <tr><td class="paramname">trigger_mode</td><td>Trigger mode (edge or level triggered). </td></tr>
+    <tr><td class="paramname">mask</td><td>Whether to mask (disable) this interrupt line. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a3574e36c20cd71e8e68e0ca15ea1b426"></a>
@@ -260,6 +337,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Write a redirection entry using pre‑calculated 64‑bit values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gsi</td><td>Global System Interrupt number to set. </td></tr>
+    <tr><td class="paramname">upper</td><td>Upper 32 bits of the redirection entry. </td></tr>
+    <tr><td class="paramname">lower</td><td>Lower 32 bits of the redirection entry. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a5c004d39dec23c06b0a3d56049174045"></a>
@@ -278,6 +365,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Unmask (enable) a redirection entry for a given GSI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gsi</td><td>The Global System Interrupt number to unmask. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -286,7 +381,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="ioapic_8h.html">ioapic.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

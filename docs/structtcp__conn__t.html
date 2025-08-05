@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('structtcp__conn__t.html',''); initResi
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structtcp__conn__t__coll__graph.svg" width="100%" height="585"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structtcp__conn__t__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -153,16 +153,34 @@ Data Fields</h2></td></tr>
 <tr class="separator:ad79d52e25f5afe41b3ee7d69a5393a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a784b043c9765b200d1df6e227e733489"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a784b043c9765b200d1df6e227e733489">send_buffer_len</a></td></tr>
 <tr class="separator:a784b043c9765b200d1df6e227e733489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e391305d27894e9021565865fa8900d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a7e391305d27894e9021565865fa8900d">recv_buffer_spinlock</a></td></tr>
-<tr class="separator:a7e391305d27894e9021565865fa8900d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3af22b08d7f2deba80b1efeb4c3dc21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#ad3af22b08d7f2deba80b1efeb4c3dc21">send_buffer_spinlock</a></td></tr>
-<tr class="separator:ad3af22b08d7f2deba80b1efeb4c3dc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae179a537928e40fc0dd0917088842a46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#ae179a537928e40fc0dd0917088842a46">recv_buffer_spinlock</a></td></tr>
+<tr class="separator:ae179a537928e40fc0dd0917088842a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07824b4a77edd04b100f075693334732"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a07824b4a77edd04b100f075693334732">send_buffer_spinlock</a></td></tr>
+<tr class="separator:a07824b4a77edd04b100f075693334732"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2803242afb4331b26910c5271f958f61"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#a2803242afb4331b26910c5271f958f61">msl_time</a></td></tr>
 <tr class="separator:a2803242afb4331b26910c5271f958f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e8b6507b87ac3f2574b69239c17a0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtcp__ordered__list__t.html">tcp_ordered_list_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#ae8e8b6507b87ac3f2574b69239c17a0f">segment_list</a></td></tr>
 <tr class="separator:ae8e8b6507b87ac3f2574b69239c17a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd85d0a65cdf13c4adb2b90d1e86eb6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#abd85d0a65cdf13c4adb2b90d1e86eb6e">backlog</a></td></tr>
+<tr class="separator:abd85d0a65cdf13c4adb2b90d1e86eb6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece3e2b40525078c3f3cd4021ee2998b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structqueue__t.html">queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtcp__conn__t.html#aece3e2b40525078c3f3cd4021ee2998b">pending</a></td></tr>
+<tr class="separator:aece3e2b40525078c3f3cd4021ee2998b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
+<a id="abd85d0a65cdf13c4adb2b90d1e86eb6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd85d0a65cdf13c4adb2b90d1e86eb6e">&#9670;&nbsp;</a></span>backlog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tcp_conn_t::backlog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a24e74b3dfa2af7aa3bcbdfa0f3799730"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24e74b3dfa2af7aa3bcbdfa0f3799730">&#9670;&nbsp;</a></span>fd</h2>
 
@@ -241,6 +259,20 @@ Data Fields</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">uint32_t tcp_conn_t::msl_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aece3e2b40525078c3f3cd4021ee2998b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aece3e2b40525078c3f3cd4021ee2998b">&#9670;&nbsp;</a></span>pending</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structqueue__t.html">queue_t</a>* tcp_conn_t::pending</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -331,14 +363,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a7e391305d27894e9021565865fa8900d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e391305d27894e9021565865fa8900d">&#9670;&nbsp;</a></span>recv_buffer_spinlock</h2>
+<a id="ae179a537928e40fc0dd0917088842a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae179a537928e40fc0dd0917088842a46">&#9670;&nbsp;</a></span>recv_buffer_spinlock</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a> tcp_conn_t::recv_buffer_spinlock</td>
+          <td class="memname"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a> tcp_conn_t::recv_buffer_spinlock</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -429,14 +461,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="ad3af22b08d7f2deba80b1efeb4c3dc21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3af22b08d7f2deba80b1efeb4c3dc21">&#9670;&nbsp;</a></span>send_buffer_spinlock</h2>
+<a id="a07824b4a77edd04b100f075693334732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07824b4a77edd04b100f075693334732">&#9670;&nbsp;</a></span>send_buffer_spinlock</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="spinlock_8h.html#a2755b28d0f2d03d909ff34a55bf898f5">spinlock</a> tcp_conn_t::send_buffer_spinlock</td>
+          <td class="memname"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a> tcp_conn_t::send_buffer_spinlock</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -575,7 +607,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

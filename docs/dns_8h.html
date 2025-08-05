@@ -99,11 +99,11 @@ $(document).ready(function(){initNavTree('dns_8h.html',''); initResizable(); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_resource_record.html">ResourceRecord</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__header.html">dns_header</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__request__t.html">dns_request_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__cache__entry__t.html">dns_cache_entry_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structresource__record.html">resource_record</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +132,8 @@ Macros</h2></td></tr>
 <tr class="separator:a817476de86375f7e2726118fc9aa1353"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a271fdff5358a16abbe512db2bf4e198a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#a271fdff5358a16abbe512db2bf4e198a">FLAGS_MASK_RA</a>&#160;&#160;&#160;0x80</td></tr>
 <tr class="separator:a271fdff5358a16abbe512db2bf4e198a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78ae0c85451ab6602e6b51e31c5602c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#a78ae0c85451ab6602e6b51e31c5602c3">DNS_RESULT_CACHED</a>&#160;&#160;&#160;0xFFFFFFFF</td></tr>
+<tr class="separator:a78ae0c85451ab6602e6b51e31c5602c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2db807ffd39a189e6b55b508c203c5f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#a2db807ffd39a189e6b55b508c203c5f8">DNS_DST_PORT</a>&#160;&#160;&#160;53</td></tr>
 <tr class="separator:a2db807ffd39a189e6b55b508c203c5f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -162,13 +164,14 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad05d982975af295a9f3a31ae3964b998"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdns__header.html">dns_header</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#ad05d982975af295a9f3a31ae3964b998">__attribute__</a> ((packed)) dns_header_t</td></tr>
+<tr class="memdesc:ad05d982975af295a9f3a31ae3964b998"><td class="mdescLeft">&#160;</td><td class="mdescRight">ACPI Root System Description Pointer (RSDP)  <a href="dns_8h.html#ad05d982975af295a9f3a31ae3964b998">More...</a><br /></td></tr>
 <tr class="separator:ad05d982975af295a9f3a31ae3964b998"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c4cb2a86ebfa992571640d0631aee77"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#a5c4cb2a86ebfa992571640d0631aee77">dns_lookup_host</a> (uint32_t resolver_ip, const char *hostname, uint32_t timeout)</td></tr>
-<tr class="memdesc:a5c4cb2a86ebfa992571640d0631aee77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up an IPV4 hostname to IP address, with timeout.  <a href="dns_8h.html#a5c4cb2a86ebfa992571640d0631aee77">More...</a><br /></td></tr>
-<tr class="separator:a5c4cb2a86ebfa992571640d0631aee77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b02fede60933bcfb097e726854d2aa6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#a1b02fede60933bcfb097e726854d2aa6">dns_lookup_host_async</a> (uint32_t resolver_ip, const char *hostname, uint32_t timeout, <a class="el" href="dns_8h.html#ab9639695b38bed3782b421d7131e6050">dns_reply_callback_a</a> callback)</td></tr>
-<tr class="memdesc:a1b02fede60933bcfb097e726854d2aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up an IPV4 hostname to IP address, with timeout.  <a href="dns_8h.html#a1b02fede60933bcfb097e726854d2aa6">More...</a><br /></td></tr>
-<tr class="separator:a1b02fede60933bcfb097e726854d2aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cedf2ac9e164672c69b6c5253085490"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#a7cedf2ac9e164672c69b6c5253085490">dns_lookup_host</a> (uint32_t resolver_ip, const char *hostname, uint32_t timeout_ms)</td></tr>
+<tr class="memdesc:a7cedf2ac9e164672c69b6c5253085490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up an IPV4 hostname to IP address, with timeout.  <a href="dns_8h.html#a7cedf2ac9e164672c69b6c5253085490">More...</a><br /></td></tr>
+<tr class="separator:a7cedf2ac9e164672c69b6c5253085490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a376e9c65e585b4864a61f437bab2f49d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#a376e9c65e585b4864a61f437bab2f49d">dns_lookup_host_async</a> (uint32_t resolver_ip, const char *hostname, uint32_t *ip, <a class="el" href="dns_8h.html#ab9639695b38bed3782b421d7131e6050">dns_reply_callback_a</a> callback)</td></tr>
+<tr class="memdesc:a376e9c65e585b4864a61f437bab2f49d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up an IPV4 hostname to IP address, with timeout.  <a href="dns_8h.html#a376e9c65e585b4864a61f437bab2f49d">More...</a><br /></td></tr>
+<tr class="separator:a376e9c65e585b4864a61f437bab2f49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adeed35e725749afd93cc14d1d25eecd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns_8h.html#adeed35e725749afd93cc14d1d25eecd5">init_dns</a> ()</td></tr>
 <tr class="memdesc:adeed35e725749afd93cc14d1d25eecd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise DNS protocol. This binds a UDP port for use with replies.  <a href="dns_8h.html#adeed35e725749afd93cc14d1d25eecd5">More...</a><br /></td></tr>
 <tr class="separator:adeed35e725749afd93cc14d1d25eecd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,7 +207,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a9f2aecc6a47afa74b56373db4fd54e64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f2aecc6a47afa74b56373db4fd54e64">&#9670;&nbsp;</a></span>DN_COMP_BITMASK</h2>
@@ -231,6 +234,21 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a78ae0c85451ab6602e6b51e31c5602c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78ae0c85451ab6602e6b51e31c5602c3">&#9670;&nbsp;</a></span>DNS_RESULT_CACHED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_RESULT_CACHED&#160;&#160;&#160;0xFFFFFFFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returned by <a class="el" href="dns_8h.html#a376e9c65e585b4864a61f437bab2f49d" title="Look up an IPV4 hostname to IP address, with timeout.">dns_lookup_host_async()</a> if the result is immediately available in the ip parameter, and the ip parameter was non-NULL. </p>
 
 </div>
 </div>
@@ -450,12 +468,21 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Represents a dns request/reply header, and its payload as opaque data. </p>
+
+<p>ACPI Root System Description Pointer (RSDP) </p>
+<p>Represents a dns request/reply header, and its payload as opaque data.</p>
+<p>Definition of a DHCP packet.</p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
 
 </div>
 </div>
-<a id="a5c4cb2a86ebfa992571640d0631aee77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c4cb2a86ebfa992571640d0631aee77">&#9670;&nbsp;</a></span>dns_lookup_host()</h2>
+<a id="a7cedf2ac9e164672c69b6c5253085490"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cedf2ac9e164672c69b6c5253085490">&#9670;&nbsp;</a></span>dns_lookup_host()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,7 +503,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>timeout</em>&#160;</td>
+          <td class="paramname"><em>timeout_ms</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -492,7 +519,7 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">resolver_ip</td><td>The IP of the resolver to use, in network byte order </td></tr>
     <tr><td class="paramname">hostname</td><td>Host address to resolve </td></tr>
-    <tr><td class="paramname">timeout</td><td>Timeout in seconds </td></tr>
+    <tr><td class="paramname">timeout_ms</td><td>Timeout in millisseconds </td></tr>
   </table>
   </dd>
 </dl>
@@ -500,14 +527,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a1b02fede60933bcfb097e726854d2aa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b02fede60933bcfb097e726854d2aa6">&#9670;&nbsp;</a></span>dns_lookup_host_async()</h2>
+<a id="a376e9c65e585b4864a61f437bab2f49d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a376e9c65e585b4864a61f437bab2f49d">&#9670;&nbsp;</a></span>dns_lookup_host_async()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t dns_lookup_host_async </td>
+          <td class="memname">uint32_t dns_lookup_host_async </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>resolver_ip</em>, </td>
@@ -521,8 +548,8 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>timeout</em>, </td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>ip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -544,12 +571,12 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">resolver_ip</td><td>The IP of the resolver to use, in network byte order </td></tr>
     <tr><td class="paramname">hostname</td><td>Host address to resolve </td></tr>
-    <tr><td class="paramname">timeout</td><td>Timeout in seconds </td></tr>
+    <tr><td class="paramname">ip</td><td>Pointer to uint32_t IP address to immediately return if the result is cached </td></tr>
     <tr><td class="paramname">dns_reply_callback_a</td><td>Callback to receive the resolved IP address. If an error occured during resolution, the received IP address will be 0, which is a representation of 0.0.0.0. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>uint16_t Request ID that was submitted, or 0 on error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>uint16_t Request ID that was submitted, or 0 on error. a special value DNS_RESULT_CACHED (0xffffffff) is returned if the result was immediately filled from the DNS cache. </dd></dl>
 
 </div>
 </div>
@@ -761,7 +788,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dns_8h.html">dns.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

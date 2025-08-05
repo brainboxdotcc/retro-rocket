@@ -1,12 +1,13 @@
 var dns_8h =
 [
-    [ "ResourceRecord", "struct_resource_record.html", "struct_resource_record" ],
     [ "dns_header", "structdns__header.html", "structdns__header" ],
     [ "dns_request_t", "structdns__request__t.html", "structdns__request__t" ],
+    [ "dns_cache_entry_t", "structdns__cache__entry__t.html", "structdns__cache__entry__t" ],
     [ "resource_record", "structresource__record.html", "structresource__record" ],
     [ "dns_result_t", "structdns__result__t.html", "structdns__result__t" ],
     [ "DN_COMP_BITMASK", "dns_8h.html#a9f2aecc6a47afa74b56373db4fd54e64", null ],
     [ "DNS_DST_PORT", "dns_8h.html#a2db807ffd39a189e6b55b508c203c5f8", null ],
+    [ "DNS_RESULT_CACHED", "dns_8h.html#a78ae0c85451ab6602e6b51e31c5602c3", null ],
     [ "ERROR_MASK", "dns_8h.html#a10916ab21f8ba06e447e898790ef6a4b", null ],
     [ "FLAGS_MASK_AA", "dns_8h.html#ab902cbb3bb78d776519066fb8aaea06f", null ],
     [ "FLAGS_MASK_OPCODE", "dns_8h.html#ac9d22cdfae18f0989b9f32c26eac8df7", null ],
@@ -29,8 +30,8 @@ var dns_8h =
       [ "DNS_QUERY_PTR6", "dns_8h.html#a18ae2404ae955cb139247220b8806669aa8ce26c3d9ab02dd791476f7d778e5b6", null ]
     ] ],
     [ "__attribute__", "dns_8h.html#ad05d982975af295a9f3a31ae3964b998", null ],
-    [ "dns_lookup_host", "dns_8h.html#a5c4cb2a86ebfa992571640d0631aee77", null ],
-    [ "dns_lookup_host_async", "dns_8h.html#a1b02fede60933bcfb097e726854d2aa6", null ],
+    [ "dns_lookup_host", "dns_8h.html#a7cedf2ac9e164672c69b6c5253085490", null ],
+    [ "dns_lookup_host_async", "dns_8h.html#a376e9c65e585b4864a61f437bab2f49d", null ],
     [ "init_dns", "dns_8h.html#adeed35e725749afd93cc14d1d25eecd5", null ],
     [ "__attribute__", "dns_8h.html#a61dd0e3207cfd5ebae0e673f3d946341", null ],
     [ "ancount", "dns_8h.html#a2a5577b198ba758438292038bbab5437", null ],

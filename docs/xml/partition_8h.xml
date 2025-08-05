@@ -5,70 +5,97 @@
     <includes refid="kernel_8h" local="yes">kernel.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <incdepgraph>
-      <node id="26">
+      <node id="32">
         <label>ata.h</label>
         <link refid="ata_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
       </node>
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="38">
+      <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
       </node>
-      <node id="28">
+      <node id="34">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="41">
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="46">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="50">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="60">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="37">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="35">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="9">
         <label>spinlock.h</label>
         <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
-      <node id="48">
+      <node id="53">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="29">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -77,31 +104,40 @@
       <node id="8">
         <label>idt.h</label>
         <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="53">
+      <node id="58">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="44">
         <label>basic_tokenizer.h</label>
         <link refid="basic__tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="48">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
@@ -111,78 +147,88 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="34">
+      <node id="40">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
-      <node id="15">
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
         <label>io.h</label>
         <link refid="io_8h"/>
       </node>
-      <node id="10">
+      <node id="15">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="49">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="43">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="35">
+      <node id="41">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="54">
+      <node id="59">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="18">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="49">
+      <node id="54">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="51">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="33">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="22">
+      <node id="27">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="36">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
       </node>
-      <node id="33">
+      <node id="39">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="47">
+      <node id="52">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -207,15 +253,9 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
@@ -227,7 +267,7 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
@@ -243,8 +283,6 @@
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
@@ -256,6 +294,8 @@
         <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="34" relation="include">
         </childnode>
@@ -276,6 +316,8 @@
         <childnode refid="42" relation="include">
         </childnode>
         <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
         </childnode>
@@ -299,8 +341,22 @@
         </childnode>
         <childnode refid="54" relation="include">
         </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
       </node>
-      <node id="16">
+      <node id="21">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
@@ -312,17 +368,19 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="17">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="45">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="11">
+      <node id="16">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
@@ -334,61 +392,69 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="47">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="24">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="38">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="24">
+      <node id="30">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="25">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="26">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="22">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
-      <node id="14">
+      <node id="19">
         <label>string.h</label>
         <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
-      <node id="25">
+      <node id="31">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="56">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="61">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -398,11 +464,43 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="27">
+      <node id="93">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="54">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="66">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="70">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="75">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="38">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="82">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="71">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="85">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -410,53 +508,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="107">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="101">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="47">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="106">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="59">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="111">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="102">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="88">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="109">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -464,57 +604,261 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="64">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="99">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="41">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="100">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="90">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="55">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="96">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="67">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="113">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="48">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="60">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="92">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="73">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="56">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="112">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="81">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="61">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="37">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="95">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="53">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="94">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="79">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="89">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="45">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="86">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="97">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="62">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="52">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="69">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="46">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="108">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="58">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="87">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="80">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="84">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="44">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="103">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="104">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="78">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -549,29 +893,15 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -579,8 +909,182 @@
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="51">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
@@ -592,31 +1096,87 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="39">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="72">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="50">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="83">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="42">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="68">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="63">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="25">
+      <node id="76">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="98">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="49">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="36">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -628,9 +1188,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="91">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="74">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="40">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -650,17 +1228,7 @@
         <name>PARTITION_TABLE_OFFSET</name>
         <initializer>0x1BE</initializer>
         <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="10" column="9" bodyfile="include/partition.h" bodystart="10" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="partition_8h_1ab5cc28c1d5f52c3a7e1eefefa1a123d6" prot="public" static="no">
-        <name>PARTITON_GPT_PROTECTIVE</name>
-        <initializer>0xEE</initializer>
-        <briefdescription>
+<para>Offset of the partition table in the MBR. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -668,27 +1236,41 @@
         </inbodydescription>
         <location file="include/partition.h" line="13" column="9" bodyfile="include/partition.h" bodystart="13" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="define" id="partition_8h_1a7ad51c88cfa9fff1324d7d57a0205d55" prot="public" static="no">
-        <name>GUID_ASCII_LEN</name>
-        <initializer>36</initializer>
+      <memberdef kind="define" id="partition_8h_1ab00ae5bc076986270564a046959c4705" prot="public" static="no">
+        <name>PARTITION_GPT_PROTECTIVE</name>
+        <initializer>0xEE</initializer>
         <briefdescription>
+<para>ID of a GPT protective partition entry. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="16" column="9" bodyfile="include/partition.h" bodystart="16" bodyend="-1"/>
+        <location file="include/partition.h" line="18" column="9" bodyfile="include/partition.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="partition_8h_1a7ad51c88cfa9fff1324d7d57a0205d55" prot="public" static="no">
+        <name>GUID_ASCII_LEN</name>
+        <initializer>36</initializer>
+        <briefdescription>
+<para>Length of a GUID in ASCII (including dashes, excluding null terminator). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="23" column="9" bodyfile="include/partition.h" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="partition_8h_1ac305cd9c03512d6423fb939b69471284" prot="public" static="no">
         <name>GUID_BINARY_LEN</name>
         <initializer>16</initializer>
         <briefdescription>
+<para>Length of a GUID in binary form. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="19" column="9" bodyfile="include/partition.h" bodystart="19" bodyend="-1"/>
+        <location file="include/partition.h" line="28" column="9" bodyfile="include/partition.h" bodystart="28" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -698,7 +1280,7 @@
         <argsstring></argsstring>
         <name>bootable</name>
         <briefdescription>
-<para>Partition is bootable. </para>
+<para>Partition is bootable (0x80 = bootable, 0x00 = non-bootable). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -712,13 +1294,13 @@
         <argsstring></argsstring>
         <name>starthead</name>
         <briefdescription>
-<para>Starting head. </para>
+<para>Starting head of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="3" column="9" bodyfile="include/partition.h" bodystart="3" bodyend="-1"/>
+        <location file="include/partition.h" line="4" column="9" bodyfile="include/partition.h" bodystart="4" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1ad2790b60a9dc7a559a168e41d3007ed0" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -726,13 +1308,13 @@
         <argsstring></argsstring>
         <name>startcylsect</name>
         <briefdescription>
-<para>Starting cylinder and sector. </para>
+<para>Starting cylinder and sector of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="5" column="10" bodyfile="include/partition.h" bodystart="5" bodyend="-1"/>
+        <location file="include/partition.h" line="7" column="10" bodyfile="include/partition.h" bodystart="7" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a8890279a93a70c5488f262967b45665e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -740,13 +1322,13 @@
         <argsstring></argsstring>
         <name>systemid</name>
         <briefdescription>
-<para>partition type id </para>
+<para>Partition type identifier. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="7" column="9" bodyfile="include/partition.h" bodystart="7" bodyend="-1"/>
+        <location file="include/partition.h" line="10" column="9" bodyfile="include/partition.h" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a03172afffeef76e5e22fdecb0e454988" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -754,13 +1336,13 @@
         <argsstring></argsstring>
         <name>endhead</name>
         <briefdescription>
-<para>End head. </para>
+<para>Ending head of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="9" column="9" bodyfile="include/partition.h" bodystart="9" bodyend="-1"/>
+        <location file="include/partition.h" line="13" column="9" bodyfile="include/partition.h" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a0bdaaaf2bf933b1e06f23191f8f9265d" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -768,13 +1350,13 @@
         <argsstring></argsstring>
         <name>endcylsect</name>
         <briefdescription>
-<para>End cylinder and sector. </para>
+<para>Ending cylinder and sector of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="11" column="10" bodyfile="include/partition.h" bodystart="11" bodyend="-1"/>
+        <location file="include/partition.h" line="16" column="10" bodyfile="include/partition.h" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a425e545755bed66a7dee3f0644ce3fa0" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -782,13 +1364,13 @@
         <argsstring></argsstring>
         <name>startlba</name>
         <briefdescription>
-<para>Starting LBA. </para>
+<para>Starting LBA (Logical Block Address) of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="13" column="10" bodyfile="include/partition.h" bodystart="13" bodyend="-1"/>
+        <location file="include/partition.h" line="19" column="10" bodyfile="include/partition.h" bodystart="19" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1aebb70c2aab3407a9f05334c47131a43b" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -796,13 +1378,13 @@
         <argsstring></argsstring>
         <name>length</name>
         <briefdescription>
-<para>LBA length. </para>
+<para>Length of the partition in sectors. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="15" column="10" bodyfile="include/partition.h" bodystart="15" bodyend="-1"/>
+        <location file="include/partition.h" line="22" column="10" bodyfile="include/partition.h" bodystart="22" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1acbc7f7a079bfdfcb4f87f46d9b062fc6" prot="public" static="no" mutable="no">
         <type><ref refid="structpartition__t" kindref="compound">partition_t</ref></type>
@@ -810,7 +1392,7 @@
         <argsstring>[4]</argsstring>
         <name>p_entry</name>
         <briefdescription>
-<para>Partition entries. </para>
+<para>Array of four partition entries. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -824,12 +1406,13 @@
         <argsstring>[8]</argsstring>
         <name>signature</name>
         <briefdescription>
+<para>GPT signature, should be &quot;EFI PART&quot;. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="0" column="6" bodyfile="include/partition.h" bodystart="0" bodyend="-1"/>
+        <location file="include/partition.h" line="1" column="6" bodyfile="include/partition.h" bodystart="1" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a1e06912314636e4ff50fd8e3da458dd2" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -837,12 +1420,13 @@
         <argsstring></argsstring>
         <name>gpt_revision</name>
         <briefdescription>
+<para>GPT revision number. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="1" column="10" bodyfile="include/partition.h" bodystart="1" bodyend="-1"/>
+        <location file="include/partition.h" line="4" column="10" bodyfile="include/partition.h" bodystart="4" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a841923a20e6dda97c59351c8e97c9be6" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -850,71 +1434,7 @@
         <argsstring></argsstring>
         <name>header_size</name>
         <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="2" column="10" bodyfile="include/partition.h" bodystart="2" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1accce3e3321fb0fcd1202856a0e0d056e" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t crc_checksum</definition>
-        <argsstring></argsstring>
-        <name>crc_checksum</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="3" column="10" bodyfile="include/partition.h" bodystart="3" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1aed93283265f941dc1d2bf8d634164493" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t reserved0</definition>
-        <argsstring></argsstring>
-        <name>reserved0</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="4" column="10" bodyfile="include/partition.h" bodystart="4" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1a35792aa8137d652e0e802cfdcda74a8a" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t lba_of_this_header</definition>
-        <argsstring></argsstring>
-        <name>lba_of_this_header</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="5" column="10" bodyfile="include/partition.h" bodystart="5" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1adb3035921f4b9390ac9e17340508e41e" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t lba_of_alternative_header</definition>
-        <argsstring></argsstring>
-        <name>lba_of_alternative_header</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="6" column="10" bodyfile="include/partition.h" bodystart="6" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1a44705ae441023dea5e7d060865a028aa" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t first_usable_block</definition>
-        <argsstring></argsstring>
-        <name>first_usable_block</name>
-        <briefdescription>
+<para>Size of the GPT header in bytes. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -922,38 +1442,13 @@
         </inbodydescription>
         <location file="include/partition.h" line="7" column="10" bodyfile="include/partition.h" bodystart="7" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="partition_8h_1a6d5ebdae78a94d8ec0b4ba190d2fba8c" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t last_usable_block</definition>
+      <memberdef kind="variable" id="partition_8h_1accce3e3321fb0fcd1202856a0e0d056e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t crc_checksum</definition>
         <argsstring></argsstring>
-        <name>last_usable_block</name>
+        <name>crc_checksum</name>
         <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="8" column="10" bodyfile="include/partition.h" bodystart="8" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1af8f5885773fe004162f78f331ae6b18c" prot="public" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t disk_guid[16]</definition>
-        <argsstring>[16]</argsstring>
-        <name>disk_guid</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="9" column="9" bodyfile="include/partition.h" bodystart="9" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1a57f44e195aed45152e201d8d644abc1b" prot="public" static="no" mutable="no">
-        <type>uint64_t</type>
-        <definition>uint64_t lba_of_partition_entries</definition>
-        <argsstring></argsstring>
-        <name>lba_of_partition_entries</name>
-        <briefdescription>
+<para>CRC32 checksum of the GPT header. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -961,38 +1456,13 @@
         </inbodydescription>
         <location file="include/partition.h" line="10" column="10" bodyfile="include/partition.h" bodystart="10" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="partition_8h_1ae26f01f15d548e277f4deea7b2450f14" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="partition_8h_1aed93283265f941dc1d2bf8d634164493" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t number_partition_entries</definition>
+        <definition>uint32_t reserved0</definition>
         <argsstring></argsstring>
-        <name>number_partition_entries</name>
+        <name>reserved0</name>
         <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="11" column="10" bodyfile="include/partition.h" bodystart="11" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1a29a1c9bc88ae80b8118c23b89403da47" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t size_of_each_entry</definition>
-        <argsstring></argsstring>
-        <name>size_of_each_entry</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="12" column="10" bodyfile="include/partition.h" bodystart="12" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1a98bd70a6f58a0ab95d188bbc46660d4d" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t crc_32_of_entries</definition>
-        <argsstring></argsstring>
-        <name>crc_32_of_entries</name>
-        <briefdescription>
+<para>Reserved field, must be zero. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -1000,18 +1470,145 @@
         </inbodydescription>
         <location file="include/partition.h" line="13" column="10" bodyfile="include/partition.h" bodystart="13" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a35792aa8137d652e0e802cfdcda74a8a" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t lba_of_this_header</definition>
+        <argsstring></argsstring>
+        <name>lba_of_this_header</name>
+        <briefdescription>
+<para>LBA of this GPT header. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="16" column="10" bodyfile="include/partition.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1adb3035921f4b9390ac9e17340508e41e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t lba_of_alternative_header</definition>
+        <argsstring></argsstring>
+        <name>lba_of_alternative_header</name>
+        <briefdescription>
+<para>LBA of the alternative (backup) GPT header. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="19" column="10" bodyfile="include/partition.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a44705ae441023dea5e7d060865a028aa" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t first_usable_block</definition>
+        <argsstring></argsstring>
+        <name>first_usable_block</name>
+        <briefdescription>
+<para>First usable LBA for partitions. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="22" column="10" bodyfile="include/partition.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a6d5ebdae78a94d8ec0b4ba190d2fba8c" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t last_usable_block</definition>
+        <argsstring></argsstring>
+        <name>last_usable_block</name>
+        <briefdescription>
+<para>Last usable LBA for partitions. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="25" column="10" bodyfile="include/partition.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1af8f5885773fe004162f78f331ae6b18c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t disk_guid[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>disk_guid</name>
+        <briefdescription>
+<para>Disk GUID in binary form. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="28" column="9" bodyfile="include/partition.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a57f44e195aed45152e201d8d644abc1b" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t lba_of_partition_entries</definition>
+        <argsstring></argsstring>
+        <name>lba_of_partition_entries</name>
+        <briefdescription>
+<para>Starting LBA of the partition entries array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="31" column="10" bodyfile="include/partition.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1ae26f01f15d548e277f4deea7b2450f14" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t number_partition_entries</definition>
+        <argsstring></argsstring>
+        <name>number_partition_entries</name>
+        <briefdescription>
+<para>Number of partition entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="34" column="10" bodyfile="include/partition.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a29a1c9bc88ae80b8118c23b89403da47" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t size_of_each_entry</definition>
+        <argsstring></argsstring>
+        <name>size_of_each_entry</name>
+        <briefdescription>
+<para>Size of each partition entry in bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="37" column="10" bodyfile="include/partition.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a98bd70a6f58a0ab95d188bbc46660d4d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t crc_32_of_entries</definition>
+        <argsstring></argsstring>
+        <name>crc_32_of_entries</name>
+        <briefdescription>
+<para>CRC32 checksum of the partition entries array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="40" column="10" bodyfile="include/partition.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="partition_8h_1a4b144b4e44dff41a4cc5a393fd4e5c00" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t reserved1[]</definition>
         <argsstring>[]</argsstring>
         <name>reserved1</name>
         <briefdescription>
+<para>Reserved space, must be zero. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="14" column="9" bodyfile="include/partition.h" bodystart="14" bodyend="-1"/>
+        <location file="include/partition.h" line="43" column="9" bodyfile="include/partition.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a467ad5483ce7f16e673810fb40cecd2e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -1019,19 +1616,7 @@
         <argsstring>[16]</argsstring>
         <name>type_guid</name>
         <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/partition.h" line="0" column="9" bodyfile="include/partition.h" bodystart="0" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="partition_8h_1a1b57b6229a4dd09dc6ad650dc932163e" prot="public" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t unique_id[16]</definition>
-        <argsstring>[16]</argsstring>
-        <name>unique_id</name>
-        <briefdescription>
+<para>Partition type GUID. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -1039,18 +1624,33 @@
         </inbodydescription>
         <location file="include/partition.h" line="1" column="9" bodyfile="include/partition.h" bodystart="1" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="partition_8h_1a1b57b6229a4dd09dc6ad650dc932163e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t unique_id[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>unique_id</name>
+        <briefdescription>
+<para>Unique GUID for this partition. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/partition.h" line="4" column="9" bodyfile="include/partition.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="partition_8h_1a1fad24c3f957bb760204fa4f93ade61c" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
         <definition>uint64_t start_lba</definition>
         <argsstring></argsstring>
         <name>start_lba</name>
         <briefdescription>
+<para>Starting LBA of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="2" column="10" bodyfile="include/partition.h" bodystart="2" bodyend="-1"/>
+        <location file="include/partition.h" line="7" column="10" bodyfile="include/partition.h" bodystart="7" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1adc12d24bf34ead2a6acec10c07c41216" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -1058,12 +1658,13 @@
         <argsstring></argsstring>
         <name>end_lba</name>
         <briefdescription>
+<para>Ending LBA of the partition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="3" column="10" bodyfile="include/partition.h" bodystart="3" bodyend="-1"/>
+        <location file="include/partition.h" line="10" column="10" bodyfile="include/partition.h" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1af2477a97f3d64421167ca09818993a8d" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -1071,12 +1672,13 @@
         <argsstring></argsstring>
         <name>attributes</name>
         <briefdescription>
+<para>Partition attributes (bit flags). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="4" column="10" bodyfile="include/partition.h" bodystart="4" bodyend="-1"/>
+        <location file="include/partition.h" line="13" column="10" bodyfile="include/partition.h" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="partition_8h_1a01407fb88d72f1334e349771e1a3a44d" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -1084,12 +1686,13 @@
         <argsstring>[72]</argsstring>
         <name>name</name>
         <briefdescription>
+<para>Partition name (UTF-16LE, up to 36 characters). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="5" column="6" bodyfile="include/partition.h" bodystart="5" bodyend="-1"/>
+        <location file="include/partition.h" line="16" column="6" bodyfile="include/partition.h" bodystart="16" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1102,14 +1705,27 @@
           <type>(packed)</type>
         </param>
         <briefdescription>
-<para>A disk partition on a storage device. </para>
+<para>A disk partition entry within the MBR. </para>
         </briefdescription>
         <detaileddescription>
-<para>A disk partition table consisiting of four <ref refid="structpartition__t" kindref="compound">partition_t</ref>. </para>
+<para>A single GPT partition entry.</para>
+<para>The GPT (GUID Partition Table) header.</para>
+<para>A disk partition table consisting of four MBR partition entries.</para>
+<para>A disk partition entry within the MBR.</para>
+<para>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t.</para>
+<para>FAT32 FSINFO structure.</para>
+<para>There is actually more to an ethernet frame than this (see the STD documents!) but we don&apos;t have access to it from the software.</para>
+<para>Definition of a DHCP packet.</para>
+<para>Format of an ARP packet (per RFC 826)</para>
+<para>Root System Description Table (RSDT)</para>
+<para>Generic ACPI System Description Table Header.</para>
+<para>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</para>
+<para>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</para>
+<para>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="1" column="0" declfile="include/partition.h" declline="1" declcolumn="0"/>
+        <location file="include/partition.h" line="1" column="0" bodyfile="src/gdt.c" bodystart="27" bodyend="40" declfile="include/partition.h" declline="1" declcolumn="0"/>
       </memberdef>
       <memberdef kind="function" id="partition_8h_1a0b43d0539bc7d0d61324a5687201ed18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1145,15 +1761,16 @@
           <declname>length</declname>
         </param>
         <briefdescription>
-<para>Given a device name and partition type ID, find the start and length of that partition on the device. Returns false if the partition could not be found. </para>
+<para>Find a partition of a given type on a device. </para>
         </briefdescription>
         <detaileddescription>
+<para>Given a device name and partition type ID, searches for a matching partition and fills the provided output parameters with information about it.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>device_name</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Device name </para>
+<para>Name of the device to search. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1161,7 +1778,7 @@
 <parametername>partition_type</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Partition type ID to find </para>
+<para>MBR partition type ID to look for. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1169,7 +1786,15 @@
 <parametername>found_guid</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>filled with the guid of the found partition, if found on a GPT partition </para>
+<para>Buffer to store the GUID of the found partition (if GPT). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>partition_type_guid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GUID string of the partition type to match (if GPT). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1177,7 +1802,7 @@
 <parametername>partition_id</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Partition ID of found partition, filled if found, or 0xFF if found on a GPT partition </para>
+<para>Filled with the MBR partition index, or 0xFF if GPT. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1185,7 +1810,7 @@
 <parametername>start</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Start of found partition, filled if found </para>
+<para>Filled with the start LBA if found. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1193,19 +1818,19 @@
 <parametername>length</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Length of found partition, filled if found </para>
+<para>Filled with the length in sectors if found. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>true if partition found, partition_id, start and length will be set </para>
+<simplesect kind="return"><para>true if partition found and output parameters are filled. </para>
 </simplesect>
-<simplesect kind="return"><para>false if partition not found, partition_id, start and length will be unchanged </para>
+<simplesect kind="return"><para>false if no matching partition was found. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="93" column="6" declfile="include/partition.h" declline="93" declcolumn="6"/>
+        <location file="include/partition.h" line="156" column="6" bodyfile="src/fs/partition.c" bodystart="144" bodyend="184" declfile="include/partition.h" declline="156" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="partition_8h_1aad1cdc38bf44771f80d27453aacca2f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1221,12 +1846,33 @@
           <declname>binary</declname>
         </param>
         <briefdescription>
+<para>Convert a GUID from ASCII to binary format. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>guid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ASCII string representation of the GUID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>binary</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output buffer for binary GUID (16 bytes). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if conversion succeeded, false on error. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="95" column="6" declfile="include/partition.h" declline="95" declcolumn="6"/>
+        <location file="include/partition.h" line="165" column="6" bodyfile="src/fs/partition.c" bodystart="14" bodyend="46" declfile="include/partition.h" declline="165" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="partition_8h_1a707f3fea510bdc555d95030825220680" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1242,20 +1888,42 @@
           <declname>guid</declname>
         </param>
         <briefdescription>
+<para>Convert a binary GUID to ASCII format. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>binary</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Binary GUID (16 bytes). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>guid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output buffer for ASCII GUID (37 bytes including null terminator). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if conversion succeeded, false on error. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/partition.h" line="97" column="6" declfile="include/partition.h" declline="97" declcolumn="6"/>
+        <location file="include/partition.h" line="174" column="6" bodyfile="src/fs/partition.c" bodystart="48" bodyend="63" declfile="include/partition.h" declline="174" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Definitions and structures for working with MBR and GPT partitions. </para>
     </briefdescription>
     <detaileddescription>
 <para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
 </simplesect>
 </para>
     </detaileddescription>

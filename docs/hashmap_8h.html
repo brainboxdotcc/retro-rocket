@@ -97,29 +97,29 @@ $(document).ready(function(){initNavTree('hashmap_8h.html',''); initResizable();
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5deb1768129efb6534fb02365b2da3e6"><td class="memItemLeft" align="right" valign="top">struct hashmap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a5deb1768129efb6534fb02365b2da3e6">hashmap_new</a> (size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
+<tr class="memitem:a5deb1768129efb6534fb02365b2da3e6"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a5deb1768129efb6534fb02365b2da3e6">hashmap_new</a> (size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
 <tr class="separator:a5deb1768129efb6534fb02365b2da3e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab73d927a882f7da5131ce3ec050f2888"><td class="memItemLeft" align="right" valign="top">struct hashmap *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ab73d927a882f7da5131ce3ec050f2888">hashmap_new_with_allocator</a> (void *(*malloc)(size_t), void *(*realloc)(void *, size_t), void(*free)(const void *), size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
+<tr class="memitem:ab73d927a882f7da5131ce3ec050f2888"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ab73d927a882f7da5131ce3ec050f2888">hashmap_new_with_allocator</a> (void *(*malloc)(size_t), void *(*realloc)(void *, size_t), void(*free)(const void *), size_t elsize, size_t <a class="el" href="ahci_8h.html#a8de1478f7db47c6c3a1f9587ef382579">cap</a>, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>, const void *<a class="el" href="ahci_8h.html#a4313c9563516f94387762ab05763456b">b</a>, void *udata), void(*elfree)(const void *item), void *udata)</td></tr>
 <tr class="separator:ab73d927a882f7da5131ce3ec050f2888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97ab64db6070065a0e8b5afc23793342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a97ab64db6070065a0e8b5afc23793342">hashmap_free</a> (struct hashmap *map)</td></tr>
+<tr class="memitem:a97ab64db6070065a0e8b5afc23793342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a97ab64db6070065a0e8b5afc23793342">hashmap_free</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map)</td></tr>
 <tr class="separator:a97ab64db6070065a0e8b5afc23793342"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab09b4f126a08c1e716bac424b1927f19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ab09b4f126a08c1e716bac424b1927f19">hashmap_clear</a> (struct hashmap *map, bool update_cap)</td></tr>
+<tr class="memitem:ab09b4f126a08c1e716bac424b1927f19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ab09b4f126a08c1e716bac424b1927f19">hashmap_clear</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, bool update_cap)</td></tr>
 <tr class="separator:ab09b4f126a08c1e716bac424b1927f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf2d7645190129fb4880ba452c6436ce"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#acf2d7645190129fb4880ba452c6436ce">hashmap_count</a> (struct hashmap *map)</td></tr>
+<tr class="memitem:acf2d7645190129fb4880ba452c6436ce"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#acf2d7645190129fb4880ba452c6436ce">hashmap_count</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map)</td></tr>
 <tr class="separator:acf2d7645190129fb4880ba452c6436ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad07477cf9562c5c78b5dcde3ccf8aced"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ad07477cf9562c5c78b5dcde3ccf8aced">hashmap_oom</a> (struct hashmap *map)</td></tr>
+<tr class="memitem:ad07477cf9562c5c78b5dcde3ccf8aced"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#ad07477cf9562c5c78b5dcde3ccf8aced">hashmap_oom</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map)</td></tr>
 <tr class="separator:ad07477cf9562c5c78b5dcde3ccf8aced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85a95e15442ce2e8101d4306119ca62f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a85a95e15442ce2e8101d4306119ca62f">hashmap_get</a> (struct hashmap *map, const void *item)</td></tr>
+<tr class="memitem:a85a95e15442ce2e8101d4306119ca62f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a85a95e15442ce2e8101d4306119ca62f">hashmap_get</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, const void *item)</td></tr>
 <tr class="separator:a85a95e15442ce2e8101d4306119ca62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f0cd71606aace704e5381aa88f5bf79"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a3f0cd71606aace704e5381aa88f5bf79">hashmap_set</a> (struct hashmap *map, const void *item)</td></tr>
+<tr class="memitem:a3f0cd71606aace704e5381aa88f5bf79"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a3f0cd71606aace704e5381aa88f5bf79">hashmap_set</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, const void *item)</td></tr>
 <tr class="separator:a3f0cd71606aace704e5381aa88f5bf79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a996e7ad281b47f679925c5b32b5613b9"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a996e7ad281b47f679925c5b32b5613b9">hashmap_delete</a> (struct hashmap *map, void *item)</td></tr>
+<tr class="memitem:a996e7ad281b47f679925c5b32b5613b9"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a996e7ad281b47f679925c5b32b5613b9">hashmap_delete</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, void *item)</td></tr>
 <tr class="separator:a996e7ad281b47f679925c5b32b5613b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad3c9111f88493b810d832bb2e61b523"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#aad3c9111f88493b810d832bb2e61b523">hashmap_probe</a> (struct hashmap *map, uint64_t position)</td></tr>
+<tr class="memitem:aad3c9111f88493b810d832bb2e61b523"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#aad3c9111f88493b810d832bb2e61b523">hashmap_probe</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, uint64_t position)</td></tr>
 <tr class="separator:aad3c9111f88493b810d832bb2e61b523"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43b4811046853d778bde1c2077b36f41"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a43b4811046853d778bde1c2077b36f41">hashmap_scan</a> (struct hashmap *map, bool(*iter)(const void *item, void *udata), void *udata)</td></tr>
+<tr class="memitem:a43b4811046853d778bde1c2077b36f41"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a43b4811046853d778bde1c2077b36f41">hashmap_scan</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, bool(*iter)(const void *item, void *udata), void *udata)</td></tr>
 <tr class="separator:a43b4811046853d778bde1c2077b36f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc4cede290fdcdc96168de2c86373882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#abc4cede290fdcdc96168de2c86373882">hashmap_iter</a> (struct hashmap *map, size_t *<a class="el" href="ahci_8h.html#a752abcfe7ce5874cd9e8012a0346a37b">i</a>, void **item)</td></tr>
+<tr class="memitem:abc4cede290fdcdc96168de2c86373882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#abc4cede290fdcdc96168de2c86373882">hashmap_iter</a> (struct <a class="el" href="structhashmap.html">hashmap</a> *map, size_t *<a class="el" href="ahci_8h.html#a752abcfe7ce5874cd9e8012a0346a37b">i</a>, void **item)</td></tr>
 <tr class="separator:abc4cede290fdcdc96168de2c86373882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a8e35929f3fa17f10b93594e89e98ad"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashmap_8h.html#a9a8e35929f3fa17f10b93594e89e98ad">hashmap_sip</a> (const void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, size_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint64_t seed0, uint64_t seed1)</td></tr>
 <tr class="separator:a9a8e35929f3fa17f10b93594e89e98ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,7 +138,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void hashmap_clear </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
@@ -166,7 +166,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">size_t hashmap_count </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em></td><td>)</td>
           <td></td>
         </tr>
@@ -184,7 +184,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void* hashmap_delete </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
@@ -212,7 +212,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void hashmap_free </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em></td><td>)</td>
           <td></td>
         </tr>
@@ -230,7 +230,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void* hashmap_get </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
@@ -258,7 +258,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool hashmap_iter </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
@@ -330,7 +330,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct hashmap* hashmap_new </td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* hashmap_new </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>elsize</em>, </td>
@@ -394,7 +394,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct hashmap* hashmap_new_with_allocator </td>
+          <td class="memname">struct <a class="el" href="structhashmap.html">hashmap</a>* hashmap_new_with_allocator </td>
           <td>(</td>
           <td class="paramtype">void *(*)(size_t)&#160;</td>
           <td class="paramname"><em>malloc</em>, </td>
@@ -478,7 +478,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool hashmap_oom </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em></td><td>)</td>
           <td></td>
         </tr>
@@ -496,7 +496,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void* hashmap_probe </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
@@ -524,7 +524,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool hashmap_scan </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
@@ -558,7 +558,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void* hashmap_set </td>
           <td>(</td>
-          <td class="paramtype">struct hashmap *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
@@ -651,7 +651,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="hashmap_8h.html">hashmap.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

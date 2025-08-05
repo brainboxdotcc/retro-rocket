@@ -1,8 +1,8 @@
 var interrupt_8h =
 [
     [ "shared_interrupt_t", "structshared__interrupt__t.html", "structshared__interrupt__t" ],
-    [ "isr_t", "interrupt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc", null ],
     [ "irq_number_t", "interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637f", [
+      [ "IRQ_START", "interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637faa8b39d29c4db1769cddbe70f5efba08f", null ],
       [ "IRQ0", "interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637facdb333eeb7aa4b08f250af6b077e1892", null ],
       [ "IRQ1", "interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fac5ab150ecac8b24a9825dbc97d223429", null ],
       [ "IRQ2", "interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fac2d7e94fa1e9eeeed752b5a8aa8f2482", null ],
@@ -21,7 +21,9 @@ var interrupt_8h =
       [ "IRQ15", "interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637fabdd1d431f5bafa9d36984e2af6ed842b", null ],
       [ "IRQ16", "interrupt_8h.html#af6fa48603541cdb142bd4e154bf7637faba4f53f24e658cc7831d104622ccede2", null ]
     ] ],
+    [ "deregister_interrupt_handler", "interrupt_8h.html#a80dd45c30be406207765a89f1b22c9c4", null ],
     [ "Interrupt", "interrupt_8h.html#a1e0b1516a8ed04e2e7d7a1b2a330e6af", null ],
     [ "IRQ", "interrupt_8h.html#ac12ed84cb143bb64d5b2b631d7764e1a", null ],
-    [ "register_interrupt_handler", "interrupt_8h.html#ac87a1da59a9138c3bb0750ca7ea75c20", null ]
+    [ "register_interrupt_handler", "interrupt_8h.html#ac3eb7f114423d53a7d7f47c250a0987a", null ],
+    [ "remap_irqs_to_ioapic", "interrupt_8h.html#a670ec8bbbbed6279a82cb12244e8c52e", null ]
 ];

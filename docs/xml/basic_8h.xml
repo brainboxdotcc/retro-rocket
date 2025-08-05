@@ -3,18 +3,53 @@
   <compounddef id="basic_8h" kind="file" language="C++">
     <compoundname>basic.h</compoundname>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <includedby refid="string_8h" local="yes">string.h</includedby>
     <invincdepgraph>
+      <node id="94">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="55">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="67">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
       <node id="1">
         <label>basic.h</label>
         <link refid="basic_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
       </node>
-      <node id="28">
+      <node id="71">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="76">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="39">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="83">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="72">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="86">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -22,53 +57,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="108">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="102">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="48">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="107">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="60">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="112">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="103">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="89">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="110">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -76,57 +153,261 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="65">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="100">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="42">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="101">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="91">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="56">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="58">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="97">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="68">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="114">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="49">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="61">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="93">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="74">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="113">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="82">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="62">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="38">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="96">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="54">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="95">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="80">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="90">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="46">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="87">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="98">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="63">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="53">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="70">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="47">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="109">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="59">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="88">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="81">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="85">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="45">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="104">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="105">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="79">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -161,27 +442,15 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -191,47 +460,283 @@
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="52">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="36">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="40">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="73">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="51">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="84">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="43">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="69">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="64">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="77">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="99">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="50">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="37">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="115">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -240,9 +745,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="92">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="75">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="41">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -266,6 +789,7 @@
     <innerclass refid="structub__line__ref" prot="public">ub_line_ref</innerclass>
     <innerclass refid="structcpuid__result__t" prot="public">cpuid_result_t</innerclass>
     <innerclass refid="structg__cpuid__vendor__t" prot="public">g_cpuid_vendor_t</innerclass>
+    <innerclass refid="structsprite__t" prot="public">sprite_t</innerclass>
     <innerclass refid="structbasic__ctx" prot="public">basic_ctx</innerclass>
     <innerclass refid="structbasic__int__fn" prot="public">basic_int_fn</innerclass>
     <innerclass refid="structbasic__double__fn" prot="public">basic_double_fn</innerclass>
@@ -355,6 +879,50 @@
         </inbodydescription>
         <location file="include/basic.h" line="187" column="9" bodyfile="include/basic.h" bodystart="187" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="define" id="basic_8h_1a3d93354890ac62b45842cac3737212c4" prot="public" static="no">
+        <name>DEBUG_BREAK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="205" column="9" bodyfile="include/basic.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="basic_8h_1a9313e0837a51cfb3a8b3bf799095caac" prot="public" static="no">
+        <name>DEBUG_STEP</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="206" column="9" bodyfile="include/basic.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="basic_8h_1a1a14f2ab6e23e263754ecca29d5114f1" prot="public" static="no">
+        <name>DEBUG_TRACE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="207" column="9" bodyfile="include/basic.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="basic_8h_1aeb21c7ac080eea985b7701df626d9cf4" prot="public" static="no">
+        <name>MAX_SPRITES</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="209" column="9" bodyfile="include/basic.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="define" id="basic_8h_1adc2a689c60d5146f9e0fe59050f5227b" prot="public" static="no">
         <name>PARAMS_START</name>
         <initializer>	[[maybe_unused]] int itemtype = <ref refid="basic_8h_1a6c0abde6f3447311fde5e92637f7d059a6cf123ea5240cfadbed2b15283cc98ea" kindref="member">BIP_INT</ref>; \
@@ -375,7 +943,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="444" column="9" bodyfile="include/basic.h" bodystart="444" bodyend="-1"/>
+        <location file="include/basic.h" line="485" column="9" bodyfile="include/basic.h" bodystart="485" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="basic_8h_1a2a18e363a2e01dbde04f5098ff9ec26b" prot="public" static="no">
         <name>PARAMS_GET_ITEM</name>
@@ -397,7 +965,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="462" column="9" bodyfile="include/basic.h" bodystart="462" bodyend="-1"/>
+        <location file="include/basic.h" line="503" column="9" bodyfile="include/basic.h" bodystart="503" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="basic_8h_1aede713e1611b7039a1c0b2d7fb076372" prot="public" static="no">
         <name>PARAMS_END</name>
@@ -405,7 +973,7 @@
         <param><defname>returnval</defname></param>
         <initializer>	{ \
 	if (*(ctx-&gt;ptr - 1) != &apos;)&apos;) { \
-		<ref refid="basic__tokenizer_8h_1a6bb8f288ca3badb019539980d26250fc" kindref="member">tokenizer_error_print</ref>(ctx, &quot;Invalid number of parameters for &quot; NAME); \
+		<ref refid="tokenizer_8c_1a6bb8f288ca3badb019539980d26250fc" kindref="member">tokenizer_error_print</ref>(ctx, &quot;Invalid number of parameters for &quot; NAME); \
 		return returnval; \
 	} \
 }</initializer>
@@ -416,14 +984,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="514" column="9" bodyfile="include/basic.h" bodystart="514" bodyend="-1"/>
+        <location file="include/basic.h" line="555" column="9" bodyfile="include/basic.h" bodystart="555" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="basic_8h_1a0739b5f58752ee50c4402e13ca2374ee" prot="public" static="no">
         <name>PARAMS_END_VOID</name>
         <param><defname>NAME</defname></param>
         <initializer>	{ \
 	if (*(ctx-&gt;ptr - 1) != &apos;)&apos;) { \
-		<ref refid="basic__tokenizer_8h_1a6bb8f288ca3badb019539980d26250fc" kindref="member">tokenizer_error_print</ref>(ctx, &quot;Invalid number of parameters for &quot; NAME); \
+		<ref refid="tokenizer_8c_1a6bb8f288ca3badb019539980d26250fc" kindref="member">tokenizer_error_print</ref>(ctx, &quot;Invalid number of parameters for &quot; NAME); \
 		return; \
 	} \
 }</initializer>
@@ -433,13 +1001,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="521" column="9" bodyfile="include/basic.h" bodystart="521" bodyend="-1"/>
+        <location file="include/basic.h" line="562" column="9" bodyfile="include/basic.h" bodystart="562" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="basic_8h_1aef9ed76b78e983fde723b8a189712d81" prot="public" static="no">
         <name>accept_or_return</name>
         <param><defname>token</defname></param>
         <param><defname>ctx</defname></param>
-        <initializer>	if (!<ref refid="basic_8h_1ad9ce2b562c925c1acc36a9d05208a478" kindref="member">accept</ref>(token, ctx)) { \
+        <initializer>	if (!<ref refid="main_8c_1ad9ce2b562c925c1acc36a9d05208a478" kindref="member">accept</ref>(token, ctx)) { \
 		return; \
 	}</initializer>
         <briefdescription>
@@ -448,7 +1016,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="637" column="9" bodyfile="include/basic.h" bodystart="637" bodyend="-1"/>
+        <location file="include/basic.h" line="704" column="9" bodyfile="include/basic.h" bodystart="704" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -562,7 +1130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="434" column="1" bodyfile="include/basic.h" bodystart="434" bodyend="439"/>
+        <location file="include/basic.h" line="475" column="1" bodyfile="include/basic.h" bodystart="475" bodyend="480"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -578,7 +1146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="395" column="9" bodyfile="include/basic.h" bodystart="395" bodyend="-1"/>
+        <location file="include/basic.h" line="436" column="9" bodyfile="include/basic.h" bodystart="436" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="basic_8h_1aa5f5a13b3623e8b26ca39fc2d87efffe" prot="public" static="no">
         <type>char *(*</type>
@@ -592,7 +1160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="400" column="9" bodyfile="include/basic.h" bodystart="400" bodyend="-1"/>
+        <location file="include/basic.h" line="441" column="9" bodyfile="include/basic.h" bodystart="441" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="basic_8h_1ab8104015746edc0f683c354654570dbd" prot="public" static="no">
         <type>void(*</type>
@@ -606,7 +1174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="405" column="9" bodyfile="include/basic.h" bodystart="405" bodyend="-1"/>
+        <location file="include/basic.h" line="446" column="9" bodyfile="include/basic.h" bodystart="446" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -625,7 +1193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="531" column="6" declfile="include/basic.h" declline="531" declcolumn="6"/>
+        <location file="include/basic.h" line="572" column="6" bodyfile="src/basic/variable.c" bodystart="181" bodyend="184" declfile="include/basic.h" declline="572" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ad783607ef9114bb476aec066a2d5e5eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -642,7 +1210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="532" column="6" declfile="include/basic.h" declline="532" declcolumn="6"/>
+        <location file="include/basic.h" line="573" column="6" bodyfile="src/basic/variable.c" bodystart="171" bodyend="174" declfile="include/basic.h" declline="573" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af12fcb4c5efc346a3a296505dce0a74f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -659,7 +1227,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="533" column="6" declfile="include/basic.h" declline="533" declcolumn="6"/>
+        <location file="include/basic.h" line="574" column="6" bodyfile="src/basic/variable.c" bodystart="176" bodyend="179" declfile="include/basic.h" declline="574" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa170566763878c35148ea9f2638e9b4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -676,7 +1244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="538" column="9" declfile="include/basic.h" declline="538" declcolumn="9"/>
+        <location file="include/basic.h" line="579" column="9" bodyfile="src/basic/maths.c" bodystart="7" bodyend="13" declfile="include/basic.h" declline="579" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1afa246b19a4a83a2f7aea99990bbe00a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -693,7 +1261,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="539" column="9" declfile="include/basic.h" declline="539" declcolumn="9"/>
+        <location file="include/basic.h" line="580" column="9" bodyfile="src/basic/string.c" bodystart="185" bodyend="191" declfile="include/basic.h" declline="580" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a5f0edecae129eb20b8a5c14ce17d060a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -710,7 +1278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="540" column="9" declfile="include/basic.h" declline="540" declcolumn="9"/>
+        <location file="include/basic.h" line="581" column="9" bodyfile="src/basic/file_io.c" bodystart="131" bodyend="134" declfile="include/basic.h" declline="581" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a66cbfa93d4571f811e91c489fb6c4065" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -727,7 +1295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="541" column="9" declfile="include/basic.h" declline="541" declcolumn="9"/>
+        <location file="include/basic.h" line="582" column="9" bodyfile="src/basic/file_io.c" bodystart="136" bodyend="139" declfile="include/basic.h" declline="582" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4ef74f88dc9c44ddd080bb0445ba4346" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -744,7 +1312,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="542" column="9" declfile="include/basic.h" declline="542" declcolumn="9"/>
+        <location file="include/basic.h" line="583" column="9" bodyfile="src/basic/file_io.c" bodystart="141" bodyend="144" declfile="include/basic.h" declline="583" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a24faeda0979f002fc502ba616616aaf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -761,7 +1329,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="543" column="9" declfile="include/basic.h" declline="543" declcolumn="9"/>
+        <location file="include/basic.h" line="584" column="9" bodyfile="src/basic/file_io.c" bodystart="214" bodyend="220" declfile="include/basic.h" declline="584" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aca563edd05c3fb8634a5b5da6faf6957" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -778,7 +1346,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="544" column="9" declfile="include/basic.h" declline="544" declcolumn="9"/>
+        <location file="include/basic.h" line="585" column="9" bodyfile="src/basic/file_io.c" bodystart="63" bodyend="73" declfile="include/basic.h" declline="585" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aeb68d58dad0ebf48c1d8dd789f99ba64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -795,7 +1363,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="545" column="9" declfile="include/basic.h" declline="545" declcolumn="9"/>
+        <location file="include/basic.h" line="586" column="9" bodyfile="src/basic/string.c" bodystart="36" bodyend="53" declfile="include/basic.h" declline="586" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ad33e406d64edc962d069ffeecb518e38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -812,7 +1380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="546" column="9" declfile="include/basic.h" declline="546" declcolumn="9"/>
+        <location file="include/basic.h" line="587" column="9" bodyfile="src/basic/maths.c" bodystart="130" bodyend="136" declfile="include/basic.h" declline="587" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ab103cf02c19e401cd40a687e915427f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -829,7 +1397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="547" column="9" declfile="include/basic.h" declline="547" declcolumn="9"/>
+        <location file="include/basic.h" line="588" column="9" bodyfile="src/basic/file_io.c" bodystart="146" bodyend="163" declfile="include/basic.h" declline="588" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a3a5ebc509dc778eb8156d399d7ff5275" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -846,7 +1414,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="548" column="9" declfile="include/basic.h" declline="548" declcolumn="9"/>
+        <location file="include/basic.h" line="589" column="9" bodyfile="src/basic/file_io.c" bodystart="196" bodyend="212" declfile="include/basic.h" declline="589" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a5c98872e18d0340326d67d9118135325" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -863,7 +1431,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="549" column="9" declfile="include/basic.h" declline="549" declcolumn="9"/>
+        <location file="include/basic.h" line="590" column="9" bodyfile="src/basic/console.c" bodystart="10" bodyend="13" declfile="include/basic.h" declline="590" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1abf7fba182ee692bd56914e5c3f78672c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -880,7 +1448,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="550" column="9" declfile="include/basic.h" declline="550" declcolumn="9"/>
+        <location file="include/basic.h" line="591" column="9" bodyfile="src/basic/console.c" bodystart="15" bodyend="18" declfile="include/basic.h" declline="591" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4d2dd7d8cdaa07e0fb506abaa0f33534" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -897,7 +1465,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="551" column="9" declfile="include/basic.h" declline="551" declcolumn="9"/>
+        <location file="include/basic.h" line="592" column="9" bodyfile="src/basic/console.c" bodystart="20" bodyend="25" declfile="include/basic.h" declline="592" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae0f318e0f96b6c6a72ec6b2e6294ddc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -914,7 +1482,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="552" column="9" declfile="include/basic.h" declline="552" declcolumn="9"/>
+        <location file="include/basic.h" line="593" column="9" bodyfile="src/basic/console.c" bodystart="27" bodyend="32" declfile="include/basic.h" declline="593" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a9da3e6f13581eb7e1ef444fd2a676f60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -931,7 +1499,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="553" column="9" declfile="include/basic.h" declline="553" declcolumn="9"/>
+        <location file="include/basic.h" line="594" column="9" bodyfile="src/basic/process.c" bodystart="7" bodyend="10" declfile="include/basic.h" declline="594" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1acb352170788fe4cafe1e06154907ed2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -948,7 +1516,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="554" column="9" declfile="include/basic.h" declline="554" declcolumn="9"/>
+        <location file="include/basic.h" line="595" column="9" bodyfile="src/basic/process.c" bodystart="27" bodyend="33" declfile="include/basic.h" declline="595" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a58a96c01d5976a1b3761d291acdfb858" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -965,7 +1533,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="555" column="9" declfile="include/basic.h" declline="555" declcolumn="9"/>
+        <location file="include/basic.h" line="596" column="9" bodyfile="src/basic/process.c" bodystart="44" bodyend="51" declfile="include/basic.h" declline="596" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1affe153f3596c0f6980d005e45d65cdf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -982,7 +1550,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="556" column="9" declfile="include/basic.h" declline="556" declcolumn="9"/>
+        <location file="include/basic.h" line="597" column="9" bodyfile="src/basic/process.c" bodystart="53" bodyend="60" declfile="include/basic.h" declline="597" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a598143e2745c97b0a2e5cffc74dd3a43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -999,7 +1567,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="557" column="9" declfile="include/basic.h" declline="557" declcolumn="9"/>
+        <location file="include/basic.h" line="598" column="9" bodyfile="src/basic/graphics.c" bodystart="244" bodyend="256" declfile="include/basic.h" declline="598" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a9069dc76ed3a0f76c1ea2b7e6dc6f5a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1016,7 +1584,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="558" column="9" declfile="include/basic.h" declline="558" declcolumn="9"/>
+        <location file="include/basic.h" line="599" column="9" bodyfile="src/basic/process.c" bodystart="12" bodyend="15" declfile="include/basic.h" declline="599" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a91c85f5bd71d2e44a415436dc0097fe3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1033,7 +1601,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="559" column="9" declfile="include/basic.h" declline="559" declcolumn="9"/>
+        <location file="include/basic.h" line="600" column="9" bodyfile="src/basic/process.c" bodystart="17" bodyend="20" declfile="include/basic.h" declline="600" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a0e97771baabdda5f01d4a5c9c0a5a792" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1050,7 +1618,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="560" column="9" declfile="include/basic.h" declline="560" declcolumn="9"/>
+        <location file="include/basic.h" line="601" column="9" bodyfile="src/basic/process.c" bodystart="22" bodyend="25" declfile="include/basic.h" declline="601" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aac6ae9f61fd4e475b5d2898fec1590f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1067,7 +1635,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="561" column="9" declfile="include/basic.h" declline="561" declcolumn="9"/>
+        <location file="include/basic.h" line="602" column="9" bodyfile="src/basic/sockets.c" bodystart="139" bodyend="151" declfile="include/basic.h" declline="602" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a960906e3c99518691d7436fb9e89fc0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1084,7 +1652,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="562" column="9" declfile="include/basic.h" declline="562" declcolumn="9"/>
+        <location file="include/basic.h" line="603" column="9" bodyfile="src/basic/console.c" bodystart="46" bodyend="49" declfile="include/basic.h" declline="603" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa9dd52b60d188a55633447b3582b9b87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1101,7 +1669,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="563" column="9" declfile="include/basic.h" declline="563" declcolumn="9"/>
+        <location file="include/basic.h" line="604" column="9" bodyfile="src/basic/console.c" bodystart="51" bodyend="54" declfile="include/basic.h" declline="604" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4b999614892e962bb89fcf30c78feadc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1118,7 +1686,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="564" column="9" declfile="include/basic.h" declline="564" declcolumn="9"/>
+        <location file="include/basic.h" line="605" column="9" bodyfile="src/basic/console.c" bodystart="56" bodyend="59" declfile="include/basic.h" declline="605" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a6f6eeff9a451f2f806478dc60db581a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1135,7 +1703,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="565" column="9" declfile="include/basic.h" declline="565" declcolumn="9"/>
+        <location file="include/basic.h" line="606" column="9" bodyfile="src/basic/console.c" bodystart="61" bodyend="64" declfile="include/basic.h" declline="606" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a8ee3bc48d89dce6438a4567453e16c3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1152,7 +1720,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="566" column="9" declfile="include/basic.h" declline="566" declcolumn="9"/>
+        <location file="include/basic.h" line="607" column="9" bodyfile="src/basic/maths.c" bodystart="118" bodyend="128" declfile="include/basic.h" declline="607" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1afeefd46448bebfea73954e6b48448fbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1169,7 +1737,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="567" column="9" declfile="include/basic.h" declline="567" declcolumn="9"/>
+        <location file="include/basic.h" line="608" column="9" bodyfile="src/basic/lowlevel.c" bodystart="62" bodyend="68" declfile="include/basic.h" declline="608" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a988befdafcb2491d0f07b5f5ded58e0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1186,7 +1754,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="568" column="9" declfile="include/basic.h" declline="568" declcolumn="9"/>
+        <location file="include/basic.h" line="609" column="9" bodyfile="src/basic/lowlevel.c" bodystart="46" bodyend="60" declfile="include/basic.h" declline="609" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aca68b975022b959caf87e20f9342144e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -1203,7 +1771,92 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="569" column="9" declfile="include/basic.h" declline="569" declcolumn="9"/>
+        <location file="include/basic.h" line="610" column="9" bodyfile="src/basic/lowlevel.c" bodystart="144" bodyend="160" declfile="include/basic.h" declline="610" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a52632225eca3987ad4aff7a73fceaefe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_atoi</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_atoi</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="611" column="9" bodyfile="src/basic/maths.c" bodystart="162" bodyend="187" declfile="include/basic.h" declline="611" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a30a4d506eac9bb85bb7e80bcad066bd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_shl</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_shl</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="612" column="9" bodyfile="src/basic/maths.c" bodystart="189" bodyend="198" declfile="include/basic.h" declline="612" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1af5e91bf7cb23f7c2741bf52afc7cc03c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_shr</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_shr</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="613" column="9" bodyfile="src/basic/maths.c" bodystart="200" bodyend="209" declfile="include/basic.h" declline="613" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a0b282667da9f85ea7db8555a46c7135e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_sgn</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_sgn</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="614" column="9" bodyfile="src/basic/maths.c" bodystart="274" bodyend="284" declfile="include/basic.h" declline="614" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a71e8aa72c0bb2df1c1b105c36026cee9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_int</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_int</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="615" column="9" bodyfile="src/basic/maths.c" bodystart="286" bodyend="294" declfile="include/basic.h" declline="615" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a5733a8cbbf082da1ba38f54228780279" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1220,7 +1873,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="574" column="6" declfile="include/basic.h" declline="574" declcolumn="6"/>
+        <location file="include/basic.h" line="620" column="6" bodyfile="src/basic/sockets.c" bodystart="153" bodyend="183" declfile="include/basic.h" declline="620" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a440ee18643b7e1a2c277e784d4de7611" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1237,7 +1890,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="575" column="6" declfile="include/basic.h" declline="575" declcolumn="6"/>
+        <location file="include/basic.h" line="621" column="6" bodyfile="src/basic/string.c" bodystart="114" bodyend="133" declfile="include/basic.h" declline="621" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a44a755c93bf339a9ece32db5ed4306c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1254,7 +1907,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="576" column="6" declfile="include/basic.h" declline="576" declcolumn="6"/>
+        <location file="include/basic.h" line="622" column="6" bodyfile="src/basic/string.c" bodystart="135" bodyend="152" declfile="include/basic.h" declline="622" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a73a5228c7b32fcab2628398d65ffc519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1271,7 +1924,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="577" column="6" declfile="include/basic.h" declline="577" declcolumn="6"/>
+        <location file="include/basic.h" line="623" column="6" bodyfile="src/basic/string.c" bodystart="154" bodyend="183" declfile="include/basic.h" declline="623" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aff36033aabc5748fa65c76e9f00e3701" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1288,7 +1941,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="578" column="6" declfile="include/basic.h" declline="578" declcolumn="6"/>
+        <location file="include/basic.h" line="624" column="6" bodyfile="src/basic/string.c" bodystart="7" bodyend="14" declfile="include/basic.h" declline="624" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a08232cbcbae6f711c1323daf3a0bbf2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1305,7 +1958,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="579" column="6" declfile="include/basic.h" declline="579" declcolumn="6"/>
+        <location file="include/basic.h" line="625" column="6" bodyfile="src/basic/file_io.c" bodystart="33" bodyend="61" declfile="include/basic.h" declline="625" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a59c0115ba915eb1edb88cac4a153954f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1322,7 +1975,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="580" column="6" declfile="include/basic.h" declline="580" declcolumn="6"/>
+        <location file="include/basic.h" line="626" column="6" bodyfile="src/basic/file_io.c" bodystart="165" bodyend="185" declfile="include/basic.h" declline="626" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a8c7b6f96530daab72f6c6291c07395a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1339,7 +1992,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="581" column="6" declfile="include/basic.h" declline="581" declcolumn="6"/>
+        <location file="include/basic.h" line="627" column="6" bodyfile="src/basic/process.c" bodystart="35" bodyend="42" declfile="include/basic.h" declline="627" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1acc647b6955a00a39c3af9cd94ba44b16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1356,7 +2009,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="582" column="6" declfile="include/basic.h" declline="582" declcolumn="6"/>
+        <location file="include/basic.h" line="628" column="6" bodyfile="src/basic/sockets.c" bodystart="185" bodyend="194" declfile="include/basic.h" declline="628" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a800a5ab8dff8cabc71386253f3f9e0ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1373,7 +2026,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="583" column="6" declfile="include/basic.h" declline="583" declcolumn="6"/>
+        <location file="include/basic.h" line="629" column="6" bodyfile="src/basic/file_io.c" bodystart="283" bodyend="293" declfile="include/basic.h" declline="629" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a7d9af5dcf158f2d6b8f4fcf779de4863" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1390,7 +2043,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="584" column="6" declfile="include/basic.h" declline="584" declcolumn="6"/>
+        <location file="include/basic.h" line="630" column="6" bodyfile="src/basic/file_io.c" bodystart="295" bodyend="308" declfile="include/basic.h" declline="630" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa0afd7465756a54d5bed2636e5067c06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1407,7 +2060,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="585" column="6" declfile="include/basic.h" declline="585" declcolumn="6"/>
+        <location file="include/basic.h" line="631" column="6" bodyfile="src/basic/console.c" bodystart="34" bodyend="44" declfile="include/basic.h" declline="631" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a3a6adb48db31be0a4aeb1d93b9723013" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1424,7 +2077,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="586" column="6" declfile="include/basic.h" declline="586" declcolumn="6"/>
+        <location file="include/basic.h" line="632" column="6" bodyfile="src/basic/sockets.c" bodystart="112" bodyend="137" declfile="include/basic.h" declline="632" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a8eb7630027bebc74b952f5d878127e8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1441,7 +2094,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="587" column="6" declfile="include/basic.h" declline="587" declcolumn="6"/>
+        <location file="include/basic.h" line="633" column="6" bodyfile="src/basic/string.c" bodystart="55" bodyend="65" declfile="include/basic.h" declline="633" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aecfafc809db0f1f2efe65bed9203a1e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1458,7 +2111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="588" column="6" declfile="include/basic.h" declline="588" declcolumn="6"/>
+        <location file="include/basic.h" line="634" column="6" bodyfile="src/basic/string.c" bodystart="67" bodyend="77" declfile="include/basic.h" declline="634" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a88b94fb7c2c754c122743c942be4a515" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1475,7 +2128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="589" column="6" declfile="include/basic.h" declline="589" declcolumn="6"/>
+        <location file="include/basic.h" line="635" column="6" bodyfile="src/basic/string.c" bodystart="79" bodyend="111" declfile="include/basic.h" declline="635" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a2297d2782fbc9999476091edb8db77b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1492,7 +2145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="590" column="6" declfile="include/basic.h" declline="590" declcolumn="6"/>
+        <location file="include/basic.h" line="636" column="6" bodyfile="src/basic/file_io.c" bodystart="311" bodyend="314" declfile="include/basic.h" declline="636" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a044f4cf50ad0113ca27b52523c7effa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1509,7 +2162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="591" column="6" declfile="include/basic.h" declline="591" declcolumn="6"/>
+        <location file="include/basic.h" line="637" column="6" bodyfile="src/basic/lowlevel.c" bodystart="70" bodyend="108" declfile="include/basic.h" declline="637" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a43115754a3c53796dedc7c88b28a7d33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1526,7 +2179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="592" column="6" declfile="include/basic.h" declline="592" declcolumn="6"/>
+        <location file="include/basic.h" line="638" column="6" bodyfile="src/basic/lowlevel.c" bodystart="110" bodyend="124" declfile="include/basic.h" declline="638" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a7e7c2dfe4c3f50628d35de4144a3ce56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1543,7 +2196,164 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="593" column="6" declfile="include/basic.h" declline="593" declcolumn="6"/>
+        <location file="include/basic.h" line="639" column="6" bodyfile="src/basic/lowlevel.c" bodystart="126" bodyend="142" declfile="include/basic.h" declline="639" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a15682f97cd5ad3ce3ec6536e513300f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_ljust</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_ljust</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="640" column="6" bodyfile="src/basic/string.c" bodystart="193" bodyend="215" declfile="include/basic.h" declline="640" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a91be56bff069562489b80f93c096ad0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_rjust</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_rjust</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="641" column="6" bodyfile="src/basic/string.c" bodystart="217" bodyend="242" declfile="include/basic.h" declline="641" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a4d81f2ff20724ca43dfb55e70e2437ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_ltrim</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_ltrim</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="642" column="6" bodyfile="src/basic/string.c" bodystart="244" bodyend="254" declfile="include/basic.h" declline="642" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a24583595e3edd139057f8f83247c6cba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_rtrim</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_rtrim</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="643" column="6" bodyfile="src/basic/string.c" bodystart="256" bodyend="267" declfile="include/basic.h" declline="643" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1abd2ecc46b314f97883de63933a3a2d59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_trim</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_trim</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="644" column="6" bodyfile="src/basic/string.c" bodystart="269" bodyend="283" declfile="include/basic.h" declline="644" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a29c02461ba8680be4a29e3d80815dd8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_itoa</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_itoa</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="645" column="6" bodyfile="src/basic/string.c" bodystart="285" bodyend="305" declfile="include/basic.h" declline="645" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a2fdfb80287c32fbf5dbf3f1c69af4379" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_repeat</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_repeat</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="646" column="6" bodyfile="src/basic/string.c" bodystart="317" bodyend="338" declfile="include/basic.h" declline="646" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1abd5e9796bf884ad61e586d269f4c2631" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_reverse</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_reverse</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="647" column="6" bodyfile="src/basic/string.c" bodystart="307" bodyend="315" declfile="include/basic.h" declline="647" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a8e02f462865c772b3a164973da8d8e7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* make_full_path</definition>
+        <argsstring>(struct basic_ctx *ctx, const char *relative)</argsstring>
+        <name>make_full_path</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>relative</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="652" column="12" bodyfile="src/basic/file_io.c" bodystart="7" bodyend="31" declfile="include/basic.h" declline="652" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae59e663583d153bad2df75f78302030c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1560,7 +2370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="598" column="6" declfile="include/basic.h" declline="598" declcolumn="6"/>
+        <location file="include/basic.h" line="653" column="6" bodyfile="src/basic/file_io.c" bodystart="75" bodyend="78" declfile="include/basic.h" declline="653" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a9046714d009f572d4b7813dff7f87cc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1577,7 +2387,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="599" column="6" declfile="include/basic.h" declline="599" declcolumn="6"/>
+        <location file="include/basic.h" line="654" column="6" bodyfile="src/basic/file_io.c" bodystart="80" bodyend="83" declfile="include/basic.h" declline="654" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ac5e9f2f653de2c238d2bf738b210d19c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1594,7 +2404,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="600" column="6" declfile="include/basic.h" declline="600" declcolumn="6"/>
+        <location file="include/basic.h" line="655" column="6" bodyfile="src/basic/file_io.c" bodystart="85" bodyend="88" declfile="include/basic.h" declline="655" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae8be40ae1c294bdbb7df5053faff1269" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1611,7 +2421,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="601" column="6" declfile="include/basic.h" declline="601" declcolumn="6"/>
+        <location file="include/basic.h" line="656" column="6" bodyfile="src/basic/file_io.c" bodystart="90" bodyend="93" declfile="include/basic.h" declline="656" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a5240841a9b6eea5a3803c79408d1ead3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1628,7 +2438,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="602" column="6" declfile="include/basic.h" declline="602" declcolumn="6"/>
+        <location file="include/basic.h" line="657" column="6" bodyfile="src/basic/file_io.c" bodystart="105" bodyend="110" declfile="include/basic.h" declline="657" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa8ddd1cb8f38f7ba7a946ac3ccfb20ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1645,7 +2455,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="603" column="6" declfile="include/basic.h" declline="603" declcolumn="6"/>
+        <location file="include/basic.h" line="658" column="6" bodyfile="src/basic/file_io.c" bodystart="112" bodyend="115" declfile="include/basic.h" declline="658" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a58014a7741d8ade41b9a360bf2855982" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1662,7 +2472,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="604" column="6" declfile="include/basic.h" declline="604" declcolumn="6"/>
+        <location file="include/basic.h" line="659" column="6" bodyfile="src/basic/file_io.c" bodystart="256" bodyend="264" declfile="include/basic.h" declline="659" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a9a4238a28d16613ad1821c092c68b9ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1679,7 +2489,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="605" column="6" declfile="include/basic.h" declline="605" declcolumn="6"/>
+        <location file="include/basic.h" line="660" column="6" bodyfile="src/basic/file_io.c" bodystart="222" bodyend="231" declfile="include/basic.h" declline="660" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a6cca92514a9ec98d46e6f4504eba6c51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1696,7 +2506,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="606" column="6" declfile="include/basic.h" declline="606" declcolumn="6"/>
+        <location file="include/basic.h" line="661" column="6" bodyfile="src/basic/file_io.c" bodystart="233" bodyend="243" declfile="include/basic.h" declline="661" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a63999c7a13c1755d9974a556083e0551" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1713,7 +2523,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="607" column="6" declfile="include/basic.h" declline="607" declcolumn="6"/>
+        <location file="include/basic.h" line="662" column="6" bodyfile="src/basic/file_io.c" bodystart="245" bodyend="253" declfile="include/basic.h" declline="662" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af57b4a8fdfd6fa8c2d840312244b51d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1730,7 +2540,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="608" column="6" declfile="include/basic.h" declline="608" declcolumn="6"/>
+        <location file="include/basic.h" line="663" column="6" bodyfile="src/basic/file_io.c" bodystart="267" bodyend="281" declfile="include/basic.h" declline="663" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a130dcb9c4ac679f7776b7df221caefa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1747,7 +2557,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="609" column="6" declfile="include/basic.h" declline="609" declcolumn="6"/>
+        <location file="include/basic.h" line="664" column="6" bodyfile="src/basic/file_io.c" bodystart="316" bodyend="337" declfile="include/basic.h" declline="664" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ac867c766169d7e81816b209335d9b581" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -1764,7 +2574,41 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="610" column="6" declfile="include/basic.h" declline="610" declcolumn="6"/>
+        <location file="include/basic.h" line="665" column="6" bodyfile="src/basic/file_io.c" bodystart="187" bodyend="194" declfile="include/basic.h" declline="665" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1ae5e890c98fad30c57a967bbf6faf1f56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void data_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>data_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="666" column="6" bodyfile="src/basic/file_io.c" bodystart="95" bodyend="98" declfile="include/basic.h" declline="666" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1ab1aec6bc86c6b84ca41847127e05344e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void restore_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>restore_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="667" column="6" bodyfile="src/basic/file_io.c" bodystart="100" bodyend="103" declfile="include/basic.h" declline="667" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a61f2356862072ed0b26c976b2e0733b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1785,7 +2629,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="615" column="6" declfile="include/basic.h" declline="615" declcolumn="6"/>
+        <location file="include/basic.h" line="672" column="6" bodyfile="src/basic/maths.c" bodystart="15" bodyend="21" declfile="include/basic.h" declline="672" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae583990f38cdcad325bb10a589ee00c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1806,7 +2650,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="616" column="6" declfile="include/basic.h" declline="616" declcolumn="6"/>
+        <location file="include/basic.h" line="673" column="6" bodyfile="src/basic/maths.c" bodystart="23" bodyend="29" declfile="include/basic.h" declline="673" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af7eedc0859b6885bde15748e74f976de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1827,7 +2671,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="617" column="6" declfile="include/basic.h" declline="617" declcolumn="6"/>
+        <location file="include/basic.h" line="674" column="6" bodyfile="src/basic/maths.c" bodystart="40" bodyend="46" declfile="include/basic.h" declline="674" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ac7132232b1580e3e51e1b6aea2d6b556" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1848,7 +2692,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="618" column="6" declfile="include/basic.h" declline="618" declcolumn="6"/>
+        <location file="include/basic.h" line="675" column="6" bodyfile="src/basic/maths.c" bodystart="48" bodyend="56" declfile="include/basic.h" declline="675" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ac0b3fe5de59d555eb2668a20a4522593" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1869,7 +2713,238 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="619" column="6" declfile="include/basic.h" declline="619" declcolumn="6"/>
+        <location file="include/basic.h" line="676" column="6" bodyfile="src/basic/maths.c" bodystart="58" bodyend="65" declfile="include/basic.h" declline="676" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1aab70c7cf93798e7ce936951f77ff9f83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_atan</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_atan</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="677" column="6" bodyfile="src/basic/maths.c" bodystart="67" bodyend="73" declfile="include/basic.h" declline="677" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a83866626b0d2fedc0ed86732bae578ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_atan2</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_atan2</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="678" column="6" bodyfile="src/basic/maths.c" bodystart="75" bodyend="84" declfile="include/basic.h" declline="678" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a24897bfbdacceb149cb19a6e555ddea1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_ceil</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_ceil</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="679" column="6" bodyfile="src/basic/maths.c" bodystart="86" bodyend="92" declfile="include/basic.h" declline="679" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a6433f720cf8717a2c8760bb41f5b71ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_round</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_round</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="680" column="6" bodyfile="src/basic/maths.c" bodystart="94" bodyend="100" declfile="include/basic.h" declline="680" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a28cf0f4b46614c79b75bb449ee813353" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_fmod</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_fmod</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="681" column="6" bodyfile="src/basic/maths.c" bodystart="102" bodyend="116" declfile="include/basic.h" declline="681" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a05c1ce1d07b993636317a96f4665c45d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_asn</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_asn</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="682" column="6" bodyfile="src/basic/maths.c" bodystart="211" bodyend="222" declfile="include/basic.h" declline="682" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a9344d8d2343696d240546e2a02659876" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_acs</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_acs</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="683" column="6" bodyfile="src/basic/maths.c" bodystart="224" bodyend="235" declfile="include/basic.h" declline="683" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1afae2ebe74ce61e54c688baca6001a974" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_exp</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_exp</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="684" column="6" bodyfile="src/basic/maths.c" bodystart="237" bodyend="243" declfile="include/basic.h" declline="684" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a4b3e264a2092d7cc83562d60ff36da5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_log</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_log</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="685" column="6" bodyfile="src/basic/maths.c" bodystart="245" bodyend="256" declfile="include/basic.h" declline="685" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a4945e524c1f5b43ac3974a6b0ebe77a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_deg</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_deg</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="686" column="6" bodyfile="src/basic/maths.c" bodystart="258" bodyend="264" declfile="include/basic.h" declline="686" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a285d946013d6a6b13a28820366e0ae70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_rad</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_rad</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="687" column="6" bodyfile="src/basic/maths.c" bodystart="266" bodyend="272" declfile="include/basic.h" declline="687" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aab15b37afdb180943e1fd31c41caa981" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
@@ -1902,7 +2977,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="625" column="17" declfile="include/basic.h" declline="625" declcolumn="17"/>
+        <location file="include/basic.h" line="692" column="17" bodyfile="src/basic/main.c" bodystart="182" bodyend="268" declfile="include/basic.h" declline="692" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af018882ffc2e5fc5f888c4dea3ecf17c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1919,7 +2994,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="626" column="6" declfile="include/basic.h" declline="626" declcolumn="6"/>
+        <location file="include/basic.h" line="693" column="6" bodyfile="src/basic/main.c" bodystart="454" bodyend="530" declfile="include/basic.h" declline="693" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a56b04c55856eb16c14cb74068a770ca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1936,7 +3011,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="627" column="6" declfile="include/basic.h" declline="627" declcolumn="6"/>
+        <location file="include/basic.h" line="694" column="6" bodyfile="src/basic/main.c" bodystart="867" bodyend="884" declfile="include/basic.h" declline="694" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ab8aa7186bd4407c90642c4aef3288b7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1953,7 +3028,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="628" column="6" declfile="include/basic.h" declline="628" declcolumn="6"/>
+        <location file="include/basic.h" line="695" column="6" bodyfile="src/basic/main.c" bodystart="886" bodyend="889" declfile="include/basic.h" declline="695" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa2c73bceaa056ea01125ef6fdfce922e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1974,7 +3049,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="629" column="6" declfile="include/basic.h" declline="629" declcolumn="6"/>
+        <location file="include/basic.h" line="696" column="6" bodyfile="src/basic/main.c" bodystart="543" bodyend="553" declfile="include/basic.h" declline="696" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a2b822df8abb6e9bec6bd0033f1a60e17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1991,7 +3066,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="630" column="6" declfile="include/basic.h" declline="630" declcolumn="6"/>
+        <location file="include/basic.h" line="697" column="6" bodyfile="src/basic/main.c" bodystart="856" bodyend="865" declfile="include/basic.h" declline="697" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4af325fda4cf09dde88a6f61d3f11b46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2008,7 +3083,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="631" column="6" declfile="include/basic.h" declline="631" declcolumn="6"/>
+        <location file="include/basic.h" line="698" column="6" bodyfile="src/basic/main.c" bodystart="709" bodyend="854" declfile="include/basic.h" declline="698" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ad9ce2b562c925c1acc36a9d05208a478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2029,11 +3104,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="632" column="6" declfile="include/basic.h" declline="632" declcolumn="6"/>
+        <location file="include/basic.h" line="699" column="6" bodyfile="src/basic/main.c" bodystart="532" bodyend="541" declfile="include/basic.h" declline="699" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="basic_8h_1a0a686d90dc8901814770b867d85cd2dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void basic_parse_fn</definition>
+      <memberdef kind="function" id="basic_8h_1a4c1e9351254f2acdf056b70fb6683f27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool basic_parse_fn</definition>
         <argsstring>(struct basic_ctx *ctx)</argsstring>
         <name>basic_parse_fn</name>
         <param>
@@ -2046,7 +3121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="633" column="6" declfile="include/basic.h" declline="633" declcolumn="6"/>
+        <location file="include/basic.h" line="700" column="6" bodyfile="src/basic/function.c" bodystart="353" bodyend="466" declfile="include/basic.h" declline="700" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a6b1deaef88f7495c4c736cd527d350f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
@@ -2063,7 +3138,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="634" column="17" declfile="include/basic.h" declline="634" declcolumn="17"/>
+        <location file="include/basic.h" line="701" column="17" bodyfile="src/basic/main.c" bodystart="400" bodyend="451" declfile="include/basic.h" declline="701" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aec48249fe094a7f73bc1c2bce802f6ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2084,7 +3159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="645" column="9" declfile="include/basic.h" declline="645" declcolumn="9"/>
+        <location file="include/basic.h" line="712" column="9" bodyfile="src/basic/variable.c" bodystart="488" bodyend="527" declfile="include/basic.h" declline="712" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a65166d979ee0726821cec844a6a05856" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2109,7 +3184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="646" column="6" declfile="include/basic.h" declline="646" declcolumn="6"/>
+        <location file="include/basic.h" line="713" column="6" bodyfile="src/basic/variable.c" bodystart="529" bodyend="569" declfile="include/basic.h" declline="713" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae636ca2f3ebb3b2d12929587b998bb21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -2130,7 +3205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="647" column="12" declfile="include/basic.h" declline="647" declcolumn="12"/>
+        <location file="include/basic.h" line="714" column="12" bodyfile="src/basic/variable.c" bodystart="388" bodyend="423" declfile="include/basic.h" declline="714" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa09a0d5b3cb727af7675a2b8ac2ba74a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2163,7 +3238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="648" column="6" declfile="include/basic.h" declline="648" declcolumn="6"/>
+        <location file="include/basic.h" line="715" column="6" bodyfile="src/basic/variable.c" bodystart="186" bodyend="247" declfile="include/basic.h" declline="715" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af5c66412e1df2c2e20bf266bb4bbf72d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2196,7 +3271,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="649" column="6" declfile="include/basic.h" declline="649" declcolumn="6"/>
+        <location file="include/basic.h" line="716" column="6" bodyfile="src/basic/variable.c" bodystart="298" bodyend="348" declfile="include/basic.h" declline="716" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a3d66422a4fcb7d011bd9bdd6ce68c36b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2229,7 +3304,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="650" column="6" declfile="include/basic.h" declline="650" declcolumn="6"/>
+        <location file="include/basic.h" line="717" column="6" bodyfile="src/basic/variable.c" bodystart="249" bodyend="296" declfile="include/basic.h" declline="717" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a46cef0a6e745ef1947f3666ef18e2c99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="basic_8h_1a2279cec37b8a81d5f18e78d7335b1966" kindref="member">ub_return_type</ref></type>
@@ -2254,7 +3329,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="651" column="16" declfile="include/basic.h" declline="651" declcolumn="16"/>
+        <location file="include/basic.h" line="718" column="16" bodyfile="src/basic/variable.c" bodystart="571" bodyend="578" declfile="include/basic.h" declline="718" declcolumn="16"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4dc306b4f5e91e66b4871cd792f321bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2275,7 +3350,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="652" column="9" declfile="include/basic.h" declline="652" declcolumn="9"/>
+        <location file="include/basic.h" line="719" column="9" bodyfile="src/basic/variable.c" bodystart="580" bodyend="587" declfile="include/basic.h" declline="719" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a2c7e8b624897fda4d3e346c294d8756e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2304,7 +3379,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="657" column="6" declfile="include/basic.h" declline="657" declcolumn="6"/>
+        <location file="include/basic.h" line="724" column="6" bodyfile="src/basic/array.c" bodystart="400" bodyend="423" declfile="include/basic.h" declline="724" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ad2084194c3d68a69b9b61744e440906e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2333,7 +3408,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="658" column="6" declfile="include/basic.h" declline="658" declcolumn="6"/>
+        <location file="include/basic.h" line="725" column="6" bodyfile="src/basic/array.c" bodystart="300" bodyend="324" declfile="include/basic.h" declline="725" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4a6c9643edeed2939eeaf0c24e4280a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2362,7 +3437,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="659" column="6" declfile="include/basic.h" declline="659" declcolumn="6"/>
+        <location file="include/basic.h" line="726" column="6" bodyfile="src/basic/array.c" bodystart="375" bodyend="398" declfile="include/basic.h" declline="726" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1abccdcd1e3045d4f5d0e505cd313bf462" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2391,7 +3466,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="660" column="6" declfile="include/basic.h" declline="660" declcolumn="6"/>
+        <location file="include/basic.h" line="727" column="6" bodyfile="src/basic/array.c" bodystart="88" bodyend="109" declfile="include/basic.h" declline="727" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a7863b8c90f83b4180233241788b14767" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2416,7 +3491,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="661" column="9" declfile="include/basic.h" declline="661" declcolumn="9"/>
+        <location file="include/basic.h" line="728" column="9" bodyfile="src/basic/array.c" bodystart="68" bodyend="86" declfile="include/basic.h" declline="728" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ac596e83e2171a5a03ad989d70419fc01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -2441,7 +3516,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="662" column="12" declfile="include/basic.h" declline="662" declcolumn="12"/>
+        <location file="include/basic.h" line="729" column="12" bodyfile="src/basic/array.c" bodystart="45" bodyend="66" declfile="include/basic.h" declline="729" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a25934e25b4f5b0f4b5895a4530450c87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2466,7 +3541,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="663" column="6" declfile="include/basic.h" declline="663" declcolumn="6"/>
+        <location file="include/basic.h" line="730" column="6" bodyfile="src/basic/array.c" bodystart="145" bodyend="177" declfile="include/basic.h" declline="730" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae72e525f34416ebcc88b46a501253ad7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2491,7 +3566,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="664" column="6" declfile="include/basic.h" declline="664" declcolumn="6"/>
+        <location file="include/basic.h" line="731" column="6" bodyfile="src/basic/array.c" bodystart="111" bodyend="143" declfile="include/basic.h" declline="731" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a67da3dae6bdcde53d6f7d8a1d8b2e77a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2516,7 +3591,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="665" column="6" declfile="include/basic.h" declline="665" declcolumn="6"/>
+        <location file="include/basic.h" line="732" column="6" bodyfile="src/basic/array.c" bodystart="179" bodyend="211" declfile="include/basic.h" declline="732" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4c7df6167cbfa1fb880e7e0470dbe8e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2541,7 +3616,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="666" column="6" declfile="include/basic.h" declline="666" declcolumn="6"/>
+        <location file="include/basic.h" line="733" column="6" bodyfile="src/basic/array.c" bodystart="240" bodyend="271" declfile="include/basic.h" declline="733" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af5b9b9fa3784b8937f62820378805ea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2566,7 +3641,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="667" column="6" declfile="include/basic.h" declline="667" declcolumn="6"/>
+        <location file="include/basic.h" line="734" column="6" bodyfile="src/basic/array.c" bodystart="213" bodyend="238" declfile="include/basic.h" declline="734" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a9d9998859d4e3cc07e2c116ab107c94c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2591,7 +3666,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="668" column="6" declfile="include/basic.h" declline="668" declcolumn="6"/>
+        <location file="include/basic.h" line="735" column="6" bodyfile="src/basic/array.c" bodystart="273" bodyend="298" declfile="include/basic.h" declline="735" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a76d8e16ca87f547f2794e39069cd9722" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2612,7 +3687,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="669" column="6" declfile="include/basic.h" declline="669" declcolumn="6"/>
+        <location file="include/basic.h" line="736" column="6" bodyfile="src/basic/array.c" bodystart="7" bodyend="15" declfile="include/basic.h" declline="736" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af49472afededf4675531cdcba461948a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2633,7 +3708,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="670" column="6" declfile="include/basic.h" declline="670" declcolumn="6"/>
+        <location file="include/basic.h" line="737" column="6" bodyfile="src/basic/array.c" bodystart="17" bodyend="25" declfile="include/basic.h" declline="737" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ad2d19349908ed2a14140d33bf51629a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2654,7 +3729,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="671" column="6" declfile="include/basic.h" declline="671" declcolumn="6"/>
+        <location file="include/basic.h" line="738" column="6" bodyfile="src/basic/array.c" bodystart="27" bodyend="35" declfile="include/basic.h" declline="738" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a555a2d99ddd912aed6c23c1b7f181fbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2671,7 +3746,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="672" column="9" declfile="include/basic.h" declline="672" declcolumn="9"/>
+        <location file="include/basic.h" line="739" column="9" bodyfile="src/basic/array.c" bodystart="37" bodyend="43" declfile="include/basic.h" declline="739" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a80814c864756da9fd6a4d206c4053b26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2696,7 +3771,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="673" column="6" declfile="include/basic.h" declline="673" declcolumn="6"/>
+        <location file="include/basic.h" line="740" column="6" bodyfile="src/basic/array.c" bodystart="343" bodyend="357" declfile="include/basic.h" declline="740" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a6249a30e03091e0097be165fd447ab25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2721,7 +3796,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="674" column="6" declfile="include/basic.h" declline="674" declcolumn="6"/>
+        <location file="include/basic.h" line="741" column="6" bodyfile="src/basic/array.c" bodystart="326" bodyend="341" declfile="include/basic.h" declline="741" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a3bb1b507bc152015d00a6e239dcc39ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2746,7 +3821,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="675" column="6" declfile="include/basic.h" declline="675" declcolumn="6"/>
+        <location file="include/basic.h" line="742" column="6" bodyfile="src/basic/array.c" bodystart="359" bodyend="373" declfile="include/basic.h" declline="742" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a10db67c91f83eac882df05463f29edf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2763,7 +3838,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="676" column="6" declfile="include/basic.h" declline="676" declcolumn="6"/>
+        <location file="include/basic.h" line="743" column="6" bodyfile="src/basic/array.c" bodystart="426" bodyend="445" declfile="include/basic.h" declline="743" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a0f66eb0bc390f79924cdea6358f18243" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2780,7 +3855,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="677" column="6" declfile="include/basic.h" declline="677" declcolumn="6"/>
+        <location file="include/basic.h" line="744" column="6" bodyfile="src/basic/array.c" bodystart="447" bodyend="466" declfile="include/basic.h" declline="744" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae5c7d95dad0bc7d5fd85db9c9fec3361" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2797,7 +3872,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="678" column="6" declfile="include/basic.h" declline="678" declcolumn="6"/>
+        <location file="include/basic.h" line="745" column="6" bodyfile="src/basic/array.c" bodystart="670" bodyend="689" declfile="include/basic.h" declline="745" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1abecee5383a8df1f74a1cc79af744020d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2814,7 +3889,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="679" column="6" declfile="include/basic.h" declline="679" declcolumn="6"/>
+        <location file="include/basic.h" line="746" column="6" bodyfile="src/basic/array.c" bodystart="649" bodyend="668" declfile="include/basic.h" declline="746" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a7c3ee270a20b9715231edcfd1b8b2c12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2835,7 +3910,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="680" column="9" declfile="include/basic.h" declline="680" declcolumn="9"/>
+        <location file="include/basic.h" line="747" column="9" bodyfile="src/basic/array.c" bodystart="468" bodyend="486" declfile="include/basic.h" declline="747" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a97046e187654a294ce854d7f441f0f4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2860,7 +3935,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="681" column="6" declfile="include/basic.h" declline="681" declcolumn="6"/>
+        <location file="include/basic.h" line="748" column="6" bodyfile="src/basic/array.c" bodystart="488" bodyend="511" declfile="include/basic.h" declline="748" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a3e5e6d11d8aa6f4de388c84a297592db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2885,7 +3960,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="682" column="6" declfile="include/basic.h" declline="682" declcolumn="6"/>
+        <location file="include/basic.h" line="749" column="6" bodyfile="src/basic/array.c" bodystart="513" bodyend="535" declfile="include/basic.h" declline="749" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1abeaa98786890da848853eb1ca294dad4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2910,7 +3985,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="683" column="6" declfile="include/basic.h" declline="683" declcolumn="6"/>
+        <location file="include/basic.h" line="750" column="6" bodyfile="src/basic/array.c" bodystart="537" bodyend="559" declfile="include/basic.h" declline="750" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a70f54b5b63111d3d14476da79357f3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2935,7 +4010,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="684" column="6" declfile="include/basic.h" declline="684" declcolumn="6"/>
+        <location file="include/basic.h" line="751" column="6" bodyfile="src/basic/array.c" bodystart="561" bodyend="591" declfile="include/basic.h" declline="751" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a3b3a087b821261b5f70f95c435f94553" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2960,7 +4035,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="685" column="6" declfile="include/basic.h" declline="685" declcolumn="6"/>
+        <location file="include/basic.h" line="752" column="6" bodyfile="src/basic/array.c" bodystart="593" bodyend="619" declfile="include/basic.h" declline="752" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a0413802aed30e77312d145c785028b82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2985,7 +4060,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="686" column="6" declfile="include/basic.h" declline="686" declcolumn="6"/>
+        <location file="include/basic.h" line="753" column="6" bodyfile="src/basic/array.c" bodystart="621" bodyend="647" declfile="include/basic.h" declline="753" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1acac5d55e8d22685e55efef4b6737f5cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3002,7 +4077,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="691" column="9" declfile="include/basic.h" declline="691" declcolumn="9"/>
+        <location file="include/basic.h" line="758" column="9" bodyfile="src/basic/int_expression.c" bodystart="119" bodyend="177" declfile="include/basic.h" declline="758" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a82b38ae80b08b12294c9bfc7f74ef707" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3019,7 +4094,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="692" column="9" declfile="include/basic.h" declline="692" declcolumn="9"/>
+        <location file="include/basic.h" line="759" column="9" bodyfile="src/basic/int_expression.c" bodystart="46" bodyend="85" declfile="include/basic.h" declline="759" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a74736577f6e6c03730accb1bf6609a30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3040,7 +4115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="697" column="6" declfile="include/basic.h" declline="697" declcolumn="6"/>
+        <location file="include/basic.h" line="764" column="6" bodyfile="src/basic/double_expression.c" bodystart="81" bodyend="143" declfile="include/basic.h" declline="764" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a8ee284d90bf47b74190b99f3ca1931f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3061,7 +4136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="698" column="6" declfile="include/basic.h" declline="698" declcolumn="6"/>
+        <location file="include/basic.h" line="765" column="6" bodyfile="src/basic/double_expression.c" bodystart="145" bodyend="186" declfile="include/basic.h" declline="765" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1acaeec169031159bc49ecfbdd40db70db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -3078,7 +4153,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="703" column="12" declfile="include/basic.h" declline="703" declcolumn="12"/>
+        <location file="include/basic.h" line="770" column="12" bodyfile="src/basic/string_expression.c" bodystart="89" bodyend="108" declfile="include/basic.h" declline="770" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4727b05ac445c783f91c761aff40ffda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3095,7 +4170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="704" column="9" declfile="include/basic.h" declline="704" declcolumn="9"/>
+        <location file="include/basic.h" line="771" column="9" bodyfile="src/basic/string_expression.c" bodystart="46" bodyend="87" declfile="include/basic.h" declline="771" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1abe611781260b7e77b7926597565b2f2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -3112,7 +4187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="709" column="6" declfile="include/basic.h" declline="709" declcolumn="6"/>
+        <location file="include/basic.h" line="776" column="6" bodyfile="src/basic/console.c" bodystart="151" bodyend="225" declfile="include/basic.h" declline="776" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ad4bc068a37938522b9addf519de12756" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3124,12 +4199,23 @@
           <declname>ctx</declname>
         </param>
         <briefdescription>
+<para>Loads a library by appending it to the end of a running program This will cause many pointers in the context to become invalid, so the <ref refid="main_8c_1ad4bc068a37938522b9addf519de12756" kindref="member">library_statement()</ref> function will regenerate them. Do not rely on copies of any ptrs inside ctx from before this call! </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="710" column="6" declfile="include/basic.h" declline="710" declcolumn="6"/>
+        <location file="include/basic.h" line="777" column="6" bodyfile="src/basic/main.c" bodystart="285" bodyend="398" declfile="include/basic.h" declline="777" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af0412313c94342985b8a8c2cb7e8808f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3146,7 +4232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="711" column="6" declfile="include/basic.h" declline="711" declcolumn="6"/>
+        <location file="include/basic.h" line="778" column="6" bodyfile="src/basic/function.c" bodystart="479" bodyend="494" declfile="include/basic.h" declline="778" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae64f409fce646c35026a2f3c376601fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3167,7 +4253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="712" column="6" declfile="include/basic.h" declline="712" declcolumn="6"/>
+        <location file="include/basic.h" line="779" column="6" bodyfile="src/basic/function.c" bodystart="116" bodyend="120" declfile="include/basic.h" declline="779" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a98495ca274489e72135a13df2a16caca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -3188,7 +4274,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="713" column="9" declfile="include/basic.h" declline="713" declcolumn="9"/>
+        <location file="include/basic.h" line="780" column="9" bodyfile="src/basic/function.c" bodystart="123" bodyend="183" declfile="include/basic.h" declline="780" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a02cb6072b5475bea18fc8d39f54fa1b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -3209,7 +4295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="714" column="6" declfile="include/basic.h" declline="714" declcolumn="6"/>
+        <location file="include/basic.h" line="781" column="6" bodyfile="src/basic/variable.c" bodystart="467" bodyend="486" declfile="include/basic.h" declline="781" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae9c342e06df1aa6a33395f385c46138b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -3230,7 +4316,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="715" column="6" declfile="include/basic.h" declline="715" declcolumn="6"/>
+        <location file="include/basic.h" line="782" column="6" bodyfile="src/basic/variable.c" bodystart="446" bodyend="465" declfile="include/basic.h" declline="782" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a4f4d220db2cd25e991803885926174ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -3251,7 +4337,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="716" column="6" declfile="include/basic.h" declline="716" declcolumn="6"/>
+        <location file="include/basic.h" line="783" column="6" bodyfile="src/basic/variable.c" bodystart="425" bodyend="444" declfile="include/basic.h" declline="783" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1acec189e89abfedbc1303781f0f708e50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3268,7 +4354,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="717" column="9" declfile="include/basic.h" declline="717" declcolumn="9"/>
+        <location file="include/basic.h" line="784" column="9" bodyfile="src/basic/maths.c" bodystart="138" bodyend="144" declfile="include/basic.h" declline="784" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ab096fbf99da97d870adaaace45f99f7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3285,7 +4371,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="718" column="9" declfile="include/basic.h" declline="718" declcolumn="9"/>
+        <location file="include/basic.h" line="785" column="9" bodyfile="src/basic/maths.c" bodystart="146" bodyend="152" declfile="include/basic.h" declline="785" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a325120ffce1738ef4a82e8d754d526d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3302,7 +4388,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="719" column="9" declfile="include/basic.h" declline="719" declcolumn="9"/>
+        <location file="include/basic.h" line="786" column="9" bodyfile="src/basic/maths.c" bodystart="154" bodyend="160" declfile="include/basic.h" declline="786" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a8d25e29c6b8d86342bf578d6e6386f18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3323,7 +4409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="720" column="6" declfile="include/basic.h" declline="720" declcolumn="6"/>
+        <location file="include/basic.h" line="787" column="6" bodyfile="src/basic/maths.c" bodystart="31" bodyend="38" declfile="include/basic.h" declline="787" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a1fd65ff1967a2bfa1531d7904d7acb2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -3340,7 +4426,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="721" column="6" declfile="include/basic.h" declline="721" declcolumn="6"/>
+        <location file="include/basic.h" line="788" column="6" bodyfile="src/basic/string.c" bodystart="16" bodyend="24" declfile="include/basic.h" declline="788" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ab885f1f5e3c83ec8968f6ac907ad91e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -3357,7 +4443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="722" column="6" declfile="include/basic.h" declline="722" declcolumn="6"/>
+        <location file="include/basic.h" line="789" column="6" bodyfile="src/basic/string.c" bodystart="26" bodyend="34" declfile="include/basic.h" declline="789" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ab4a551ec8e1d5bbf9fab39fb206ea0fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3378,7 +4464,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="723" column="6" declfile="include/basic.h" declline="723" declcolumn="6"/>
+        <location file="include/basic.h" line="790" column="6" bodyfile="src/basic/variable.c" bodystart="40" bodyend="59" declfile="include/basic.h" declline="790" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ac127b0839b0590fcef5ab5f6e1667b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3403,7 +4489,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="724" column="6" declfile="include/basic.h" declline="724" declcolumn="6"/>
+        <location file="include/basic.h" line="791" column="6" bodyfile="src/basic/variable.c" bodystart="61" bodyend="124" declfile="include/basic.h" declline="791" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ab2e3f135cc94d8d1fd6ea171cf0274ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -3423,12 +4509,41 @@
           <declname>res</declname>
         </param>
         <briefdescription>
+<para>Check if a function name is a builtin function returning a string, if it is, call its handler and set its return value. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fn_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function name to look for </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>interpreter context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to return value of function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint64_t true/false return </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="725" column="6" declfile="include/basic.h" declline="725" declcolumn="6"/>
+        <location file="include/basic.h" line="792" column="6" bodyfile="src/basic/function.c" bodystart="263" bodyend="272" declfile="include/basic.h" declline="792" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a18a7475dc2375b336b77a16072ab671e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3449,7 +4564,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="726" column="9" declfile="include/basic.h" declline="726" declcolumn="9"/>
+        <location file="include/basic.h" line="793" column="9" bodyfile="src/basic/function.c" bodystart="275" bodyend="313" declfile="include/basic.h" declline="793" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a0c16defca496eb524d314acda0d90cec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3474,7 +4589,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="727" column="6" declfile="include/basic.h" declline="727" declcolumn="6"/>
+        <location file="include/basic.h" line="794" column="6" bodyfile="src/basic/function.c" bodystart="315" bodyend="351" declfile="include/basic.h" declline="794" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a9717f394c3cd17edb3244faced02ce20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -3495,7 +4610,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="728" column="12" declfile="include/basic.h" declline="728" declcolumn="12"/>
+        <location file="include/basic.h" line="795" column="12" bodyfile="src/basic/function.c" bodystart="185" bodyend="221" declfile="include/basic.h" declline="795" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a788080c9c038e4ad8b9c5f3dbd7ac808" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -3520,7 +4635,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="729" column="6" declfile="include/basic.h" declline="729" declcolumn="6"/>
+        <location file="include/basic.h" line="796" column="6" bodyfile="src/basic/function.c" bodystart="243" bodyend="252" declfile="include/basic.h" declline="796" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae70ef13e23858d5c0b0ea830e546b60f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -3540,12 +4655,41 @@
           <declname>res</declname>
         </param>
         <briefdescription>
+<para>Check if a function name is a builtin function returning an integer value, if it is, call its handler and set its return value. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fn_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>function name to look for </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>interpreter context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to return value of function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint64_t true/false return </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="730" column="6" declfile="include/basic.h" declline="730" declcolumn="6"/>
+        <location file="include/basic.h" line="797" column="6" bodyfile="src/basic/function.c" bodystart="232" bodyend="241" declfile="include/basic.h" declline="797" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1afbcb040352042a6a451104022f4c33c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref> *</type>
@@ -3566,7 +4710,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="731" column="22" declfile="include/basic.h" declline="731" declcolumn="22"/>
+        <location file="include/basic.h" line="798" column="22" bodyfile="src/basic/function.c" bodystart="468" bodyend="477" declfile="include/basic.h" declline="798" declcolumn="22"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a98b976193c080a9fea36c2368f929c86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3578,12 +4722,23 @@
           <declname>ctx</declname>
         </param>
         <briefdescription>
+<para>Initialise the local call stack. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="732" column="6" declfile="include/basic.h" declline="732" declcolumn="6"/>
+        <location file="include/basic.h" line="799" column="6" bodyfile="src/basic/main.c" bodystart="597" bodyend="602" declfile="include/basic.h" declline="799" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a2b23683b3c4532cc9a489e857aba8ce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3595,12 +4750,23 @@
           <declname>ctx</declname>
         </param>
         <briefdescription>
+<para>Free variables held on the local call stack. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="733" column="6" declfile="include/basic.h" declline="733" declcolumn="6"/>
+        <location file="include/basic.h" line="800" column="6" bodyfile="src/basic/main.c" bodystart="566" bodyend="590" declfile="include/basic.h" declline="800" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a18b719731b4f7ffbad27ebf12e1ec348" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -3617,7 +4783,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="734" column="6" declfile="include/basic.h" declline="734" declcolumn="6"/>
+        <location file="include/basic.h" line="801" column="6" bodyfile="src/basic/function.c" bodystart="496" bodyend="503" declfile="include/basic.h" declline="801" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a5c11e3d5030f995bd246a57cc0ab5cb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3634,7 +4800,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="735" column="6" declfile="include/basic.h" declline="735" declcolumn="6"/>
+        <location file="include/basic.h" line="802" column="6" bodyfile="src/basic/function.c" bodystart="551" bodyend="561" declfile="include/basic.h" declline="802" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1adeda5bab28da3cd45cffea5d21407903" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3651,7 +4817,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="736" column="6" declfile="include/basic.h" declline="736" declcolumn="6"/>
+        <location file="include/basic.h" line="803" column="6" bodyfile="src/basic/function.c" bodystart="505" bodyend="549" declfile="include/basic.h" declline="803" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a1066dbd361fdf3e3ee94c502348abb87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3668,7 +4834,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="737" column="6" declfile="include/basic.h" declline="737" declcolumn="6"/>
+        <location file="include/basic.h" line="804" column="6" bodyfile="src/basic/function.c" bodystart="563" bodyend="582" declfile="include/basic.h" declline="804" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a33e9e1f737477f45cac071d8959bae12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3685,7 +4851,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="738" column="6" declfile="include/basic.h" declline="738" declcolumn="6"/>
+        <location file="include/basic.h" line="805" column="6" bodyfile="src/basic/function.c" bodystart="584" bodyend="600" declfile="include/basic.h" declline="805" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a1a4e67a19d87086f7b689cd84ae74532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3702,7 +4868,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="741" column="6" declfile="include/basic.h" declline="741" declcolumn="6"/>
+        <location file="include/basic.h" line="808" column="6" bodyfile="src/basic/sockets.c" bodystart="196" bodyend="208" declfile="include/basic.h" declline="808" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a2aafe651b1769f80c4ae4e61edaecda2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3719,7 +4885,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="746" column="6" declfile="include/basic.h" declline="746" declcolumn="6"/>
+        <location file="include/basic.h" line="813" column="6" bodyfile="src/basic/sockets.c" bodystart="94" bodyend="110" declfile="include/basic.h" declline="813" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1abc958efc5a855338d27771377b9a9693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3736,7 +4902,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="747" column="6" declfile="include/basic.h" declline="747" declcolumn="6"/>
+        <location file="include/basic.h" line="814" column="6" bodyfile="src/basic/sockets.c" bodystart="58" bodyend="92" declfile="include/basic.h" declline="814" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1acc7edf1c75bf52eec246686ba690c0e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3748,12 +4914,24 @@
           <declname>ctx</declname>
         </param>
         <briefdescription>
+<para>Process SOCKREAD statement. </para>
         </briefdescription>
         <detaileddescription>
+<para>The SOCKREAD statement will yield while waiting for data, essentially if there is no complete line in the data buffer yet, it will yield back to the OS task loop for other processes to get a turn. Each time the process is entered while waiting for the data to be completed, it will just loop back against the same SOCKREAD statement again until completed.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="748" column="6" declfile="include/basic.h" declline="748" declcolumn="6"/>
+        <location file="include/basic.h" line="815" column="6" bodyfile="src/basic/sockets.c" bodystart="18" bodyend="56" declfile="include/basic.h" declline="815" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a19c0d5d102db5c468f8f07bfed33ce3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3774,7 +4952,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="751" column="6" declfile="include/basic.h" declline="751" declcolumn="6"/>
+        <location file="include/basic.h" line="818" column="6" bodyfile="src/basic/lowlevel.c" bodystart="8" bodyend="16" declfile="include/basic.h" declline="818" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a5f6f5e32c9a01fab0b640a11b59334d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3799,7 +4977,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="752" column="6" declfile="include/basic.h" declline="752" declcolumn="6"/>
+        <location file="include/basic.h" line="819" column="6" bodyfile="src/basic/lowlevel.c" bodystart="18" bodyend="27" declfile="include/basic.h" declline="819" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af80c26826e9de2d0deac499b7397747d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -3820,7 +4998,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="753" column="9" declfile="include/basic.h" declline="753" declcolumn="9"/>
+        <location file="include/basic.h" line="820" column="9" bodyfile="src/basic/lowlevel.c" bodystart="29" bodyend="44" declfile="include/basic.h" declline="820" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a60ffb590ee4be02d8e8e71421b11cdf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3837,7 +5015,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="763" column="6" declfile="include/basic.h" declline="763" declcolumn="6"/>
+        <location file="include/basic.h" line="830" column="6" bodyfile="src/basic/graphics.c" bodystart="230" bodyend="242" declfile="include/basic.h" declline="830" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa752bd8346c7616612f1888605eee182" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3854,7 +5032,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="764" column="6" declfile="include/basic.h" declline="764" declcolumn="6"/>
+        <location file="include/basic.h" line="831" column="6" bodyfile="src/basic/graphics.c" bodystart="198" bodyend="214" declfile="include/basic.h" declline="831" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a13e735601b49512ba7d757f3dcdbc067" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3871,7 +5049,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="765" column="6" declfile="include/basic.h" declline="765" declcolumn="6"/>
+        <location file="include/basic.h" line="832" column="6" bodyfile="src/basic/graphics.c" bodystart="188" bodyend="196" declfile="include/basic.h" declline="832" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a0f288d69d997db0c2c09158b0b7c0cf7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3888,7 +5066,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="766" column="6" declfile="include/basic.h" declline="766" declcolumn="6"/>
+        <location file="include/basic.h" line="833" column="6" bodyfile="src/basic/graphics.c" bodystart="174" bodyend="186" declfile="include/basic.h" declline="833" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1af146bc8a69aadd70d08267c5f50b7abc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3905,7 +5083,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="767" column="6" declfile="include/basic.h" declline="767" declcolumn="6"/>
+        <location file="include/basic.h" line="834" column="6" bodyfile="src/basic/graphics.c" bodystart="166" bodyend="172" declfile="include/basic.h" declline="834" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a351eb0fe6ae02c9eeb861ab014c0ce27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3922,7 +5100,113 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="768" column="6" declfile="include/basic.h" declline="768" declcolumn="6"/>
+        <location file="include/basic.h" line="835" column="6" bodyfile="src/basic/graphics.c" bodystart="216" bodyend="228" declfile="include/basic.h" declline="835" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1ac37e5bc6123d0c82d1a7da1ed257b731" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loadsprite_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>loadsprite_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="836" column="6" bodyfile="src/basic/graphics.c" bodystart="98" bodyend="142" declfile="include/basic.h" declline="836" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a436df0bd102a25c990821ae3949f3e64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void freesprite_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>freesprite_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="837" column="6" bodyfile="src/basic/graphics.c" bodystart="144" bodyend="151" declfile="include/basic.h" declline="837" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1aa8bc7cf7ea28fa42974f3b02179e2ba1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void plot_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>plot_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="838" column="6" bodyfile="src/basic/graphics.c" bodystart="153" bodyend="164" declfile="include/basic.h" declline="838" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a889cce18303cba5e282f8613441625a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void free_sprite</definition>
+        <argsstring>(struct basic_ctx *ctx, int64_t sprite_handle)</argsstring>
+        <name>free_sprite</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>sprite_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="839" column="6" bodyfile="src/basic/graphics.c" bodystart="37" bodyend="45" declfile="include/basic.h" declline="839" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a1a6d6cda81ba5d50ae5b9e7b78594d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void autoflip_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>autoflip_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="840" column="6" bodyfile="src/basic/graphics.c" bodystart="79" bodyend="86" declfile="include/basic.h" declline="840" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a7325151b4f78d0f05b3fae69ef70c401" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void flip_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>flip_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="841" column="6" bodyfile="src/basic/graphics.c" bodystart="88" bodyend="96" declfile="include/basic.h" declline="841" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a141ef8feeaeb6e4d2e77039ba4a3164e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3934,12 +5218,24 @@
           <declname>ctx</declname>
         </param>
         <briefdescription>
+<para>Process INPUT statement. </para>
         </briefdescription>
         <detaileddescription>
+<para>The INPUT statement will yield while waiting for input, essentially if there is no complete line in the input buffer yet, it will yield back to the OS task loop for other processes to get a turn. Each time the process is entered while waiting for the input line to be completed, it will just loop back against the same INPUT statement again until completed.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="780" column="6" declfile="include/basic.h" declline="780" declcolumn="6"/>
+        <location file="include/basic.h" line="853" column="6" bodyfile="src/basic/console.c" bodystart="77" bodyend="104" declfile="include/basic.h" declline="853" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa79d393bc53a7587af19bb1efb76a9e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3956,7 +5252,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="781" column="6" declfile="include/basic.h" declline="781" declcolumn="6"/>
+        <location file="include/basic.h" line="854" column="6" bodyfile="src/basic/console.c" bodystart="106" bodyend="111" declfile="include/basic.h" declline="854" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a930b943b79750ff6ff07d594b14db781" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3973,7 +5269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="782" column="6" declfile="include/basic.h" declline="782" declcolumn="6"/>
+        <location file="include/basic.h" line="855" column="6" bodyfile="src/basic/console.c" bodystart="113" bodyend="121" declfile="include/basic.h" declline="855" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1abffec674ac0197db69350612d5ced1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3990,7 +5286,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="783" column="6" declfile="include/basic.h" declline="783" declcolumn="6"/>
+        <location file="include/basic.h" line="856" column="6" bodyfile="src/basic/console.c" bodystart="123" bodyend="135" declfile="include/basic.h" declline="856" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a868b87233705ab22e1b93c632e15b6c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4011,7 +5307,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="784" column="6" declfile="include/basic.h" declline="784" declcolumn="6"/>
+        <location file="include/basic.h" line="857" column="6" bodyfile="src/basic/console.c" bodystart="137" bodyend="142" declfile="include/basic.h" declline="857" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aabca0a0f88ad93cea8fa1a1ffba32fa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4028,7 +5324,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="785" column="6" declfile="include/basic.h" declline="785" declcolumn="6"/>
+        <location file="include/basic.h" line="858" column="6" bodyfile="src/basic/console.c" bodystart="144" bodyend="149" declfile="include/basic.h" declline="858" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a7819293510d81ebc888c8487a60ef9db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void keymap_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>keymap_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="859" column="6" bodyfile="src/basic/console.c" bodystart="227" bodyend="256" declfile="include/basic.h" declline="859" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a74a2cb553e82e778dfd7a2c3cd39fa37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -4045,7 +5358,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="788" column="6" declfile="include/basic.h" declline="788" declcolumn="6"/>
+        <location file="include/basic.h" line="862" column="6" bodyfile="src/basic/flow_control.c" bodystart="7" bodyend="41" declfile="include/basic.h" declline="862" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a5c2b65ab1d1749489a08e52f572824db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4062,7 +5375,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="789" column="6" declfile="include/basic.h" declline="789" declcolumn="6"/>
+        <location file="include/basic.h" line="863" column="6" bodyfile="src/basic/flow_control.c" bodystart="43" bodyend="59" declfile="include/basic.h" declline="863" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ab14de683d192b4d11f91a47deea7fc7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4079,7 +5392,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="790" column="6" declfile="include/basic.h" declline="790" declcolumn="6"/>
+        <location file="include/basic.h" line="864" column="6" bodyfile="src/basic/flow_control.c" bodystart="61" bodyend="113" declfile="include/basic.h" declline="864" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa739b2352b3c0ab06fef1924eef65819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4096,7 +5409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="791" column="6" declfile="include/basic.h" declline="791" declcolumn="6"/>
+        <location file="include/basic.h" line="865" column="6" bodyfile="src/basic/flow_control.c" bodystart="115" bodyend="132" declfile="include/basic.h" declline="865" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a9155587fe9dd2137324d4c29673d5612" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4113,7 +5426,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="792" column="6" declfile="include/basic.h" declline="792" declcolumn="6"/>
+        <location file="include/basic.h" line="866" column="6" bodyfile="src/basic/flow_control.c" bodystart="134" bodyend="144" declfile="include/basic.h" declline="866" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ae1239d2b4023bbaa8a8b1d3e1ba255cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4130,7 +5443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="793" column="6" declfile="include/basic.h" declline="793" declcolumn="6"/>
+        <location file="include/basic.h" line="867" column="6" bodyfile="src/basic/flow_control.c" bodystart="146" bodyend="177" declfile="include/basic.h" declline="867" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1aa5385d1217fac2c289687952e2c3394e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4147,7 +5460,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="794" column="6" declfile="include/basic.h" declline="794" declcolumn="6"/>
+        <location file="include/basic.h" line="868" column="6" bodyfile="src/basic/flow_control.c" bodystart="179" bodyend="222" declfile="include/basic.h" declline="868" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a6e49ec283da5e1e2034ce0eba3fe0f6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4164,7 +5477,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="795" column="6" declfile="include/basic.h" declline="795" declcolumn="6"/>
+        <location file="include/basic.h" line="869" column="6" bodyfile="src/basic/flow_control.c" bodystart="224" bodyend="235" declfile="include/basic.h" declline="869" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ac1c2636efc012daa7b6353fc1ba11f5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4181,7 +5494,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="796" column="6" declfile="include/basic.h" declline="796" declcolumn="6"/>
+        <location file="include/basic.h" line="870" column="6" bodyfile="src/basic/flow_control.c" bodystart="238" bodyend="254" declfile="include/basic.h" declline="870" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1ad986c439ccafd354c73c65c4ad1f8a67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4198,7 +5511,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="797" column="6" declfile="include/basic.h" declline="797" declcolumn="6"/>
+        <location file="include/basic.h" line="871" column="6" bodyfile="src/basic/flow_control.c" bodystart="256" bodyend="264" declfile="include/basic.h" declline="871" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="basic_8h_1a74a931514b48a5c2b109777f27e0b298" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4215,7 +5528,181 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="798" column="6" declfile="include/basic.h" declline="798" declcolumn="6"/>
+        <location file="include/basic.h" line="872" column="6" bodyfile="src/basic/flow_control.c" bodystart="266" bodyend="274" declfile="include/basic.h" declline="872" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1adb9c78bacd0d5a8262ce1604fedb56d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void panic_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>panic_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="873" column="6" declfile="include/basic.h" declline="873" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1ace5feb40eacb8976e66c34c47125a2f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_getvar_int</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_getvar_int</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="886" column="9" bodyfile="src/basic/reflection.c" bodystart="8" bodyend="15" declfile="include/basic.h" declline="886" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a6996bb1a7e518bc0cae15e0865303fb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void basic_getvar_real</definition>
+        <argsstring>(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>basic_getvar_real</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="887" column="6" bodyfile="src/basic/reflection.c" bodystart="17" bodyend="24" declfile="include/basic.h" declline="887" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1afb1666c8a606eb18a411379ccfd656f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_getvar_string</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_getvar_string</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="888" column="6" bodyfile="src/basic/reflection.c" bodystart="26" bodyend="33" declfile="include/basic.h" declline="888" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1acd1f990d3bdd66c5f72bde924566a31d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_existsvar_int</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_existsvar_int</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="890" column="9" bodyfile="src/basic/reflection.c" bodystart="35" bodyend="42" declfile="include/basic.h" declline="890" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1a072765e65fc6f356f774b7b4181905ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_existsvar_real</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_existsvar_real</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="891" column="9" bodyfile="src/basic/reflection.c" bodystart="44" bodyend="51" declfile="include/basic.h" declline="891" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1ad3ee4a0930292618c9965ca3b49fdb08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_existsvar_string</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_existsvar_string</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="892" column="9" bodyfile="src/basic/reflection.c" bodystart="53" bodyend="60" declfile="include/basic.h" declline="892" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1ae74b69fb8198fd9d897d589f645faa55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setvari_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>setvari_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="894" column="6" bodyfile="src/basic/reflection.c" bodystart="62" bodyend="74" declfile="include/basic.h" declline="894" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1ae68caac5770bd0935376c2c35271cc44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setvarr_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>setvarr_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="895" column="6" bodyfile="src/basic/reflection.c" bodystart="76" bodyend="90" declfile="include/basic.h" declline="895" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="basic_8h_1acd8c73f52a91a64dd8b9fb19d8064795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setvars_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>setvars_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="896" column="6" bodyfile="src/basic/reflection.c" bodystart="92" bodyend="105" declfile="include/basic.h" declline="896" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

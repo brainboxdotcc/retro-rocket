@@ -5,70 +5,97 @@
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <incdepgraph>
-      <node id="25">
+      <node id="31">
         <label>ata.h</label>
         <link refid="ata_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
       </node>
       <node id="4">
         <label>stdbool.h</label>
       </node>
-      <node id="38">
+      <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
       </node>
-      <node id="28">
+      <node id="34">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="41">
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="46">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="50">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="60">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="37">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="35">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="9">
         <label>spinlock.h</label>
         <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
-      <node id="48">
+      <node id="53">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="28">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -77,31 +104,40 @@
       <node id="8">
         <label>idt.h</label>
         <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="53">
+      <node id="58">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="44">
         <label>basic_tokenizer.h</label>
         <link refid="basic__tokenizer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="48">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="27">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
@@ -111,78 +147,88 @@
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="34">
+      <node id="40">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
-      <node id="15">
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
         <label>io.h</label>
         <link refid="io_8h"/>
       </node>
-      <node id="10">
+      <node id="15">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="49">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="43">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="35">
+      <node id="41">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="54">
+      <node id="59">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="18">
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="49">
+      <node id="54">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="51">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="32">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="21">
+      <node id="26">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="36">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
       </node>
-      <node id="33">
+      <node id="39">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="47">
+      <node id="52">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -207,15 +253,9 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
@@ -227,9 +267,7 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
@@ -240,6 +278,8 @@
         <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
@@ -277,6 +317,8 @@
         </childnode>
         <childnode refid="43" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
         <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
@@ -299,30 +341,46 @@
         </childnode>
         <childnode refid="54" relation="include">
         </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
       </node>
-      <node id="16">
+      <node id="21">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="33">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="17">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="40">
+      <node id="45">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="11">
+      <node id="16">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
@@ -334,35 +392,35 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="42">
+      <node id="47">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="24">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="38">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
-      <node id="23">
+      <node id="29">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="25">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="22">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
@@ -372,23 +430,31 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="19">
         <label>string.h</label>
         <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="30">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="56">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="61">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -398,11 +464,43 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="27">
+      <node id="93">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="54">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="66">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="70">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="75">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="38">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="82">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="71">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="85">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -410,53 +508,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="107">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="101">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="47">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="106">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="59">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="111">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="102">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="88">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="109">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -464,57 +604,261 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="64">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="99">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="41">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="100">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="90">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="55">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="96">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="67">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="113">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="48">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="60">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="92">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="73">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="56">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="112">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="81">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="61">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="37">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="95">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="53">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="94">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="79">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="89">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="45">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="86">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="97">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="62">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="52">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="69">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="46">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="108">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="58">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="87">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="80">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="84">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="44">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="103">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="104">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="78">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -549,29 +893,15 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -579,42 +909,272 @@
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="51">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="36">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="39">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="72">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="50">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="83">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="42">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="68">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="63">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="98">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="49">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
       </node>
       <node id="1">
         <label>pci.h</label>
@@ -628,9 +1188,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="91">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="74">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="40">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -864,7 +1442,7 @@
         </inbodydescription>
         <location file="include/pci.h" line="51" column="9" bodyfile="include/pci.h" bodystart="51" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="define" id="pci_8h_1a888b0de3c4aebe2c98b66a2aa0fd3ddd" prot="public" static="no">
+      <memberdef kind="define" id="pci_8h_1a52a8dd2d2ae82a3ffb8d0fe6f8a98606" prot="public" static="no">
         <name>PCI_CAPABILITY_POINTER</name>
         <initializer>0x34</initializer>
         <briefdescription>
@@ -941,7 +1519,7 @@
         </inbodydescription>
         <location file="include/pci.h" line="59" column="9" bodyfile="include/pci.h" bodystart="59" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="define" id="pci_8h_1a0b2f01589632fdeb18108c8a8f1d0a0d" prot="public" static="no">
+      <memberdef kind="define" id="pci_8h_1aa33fb5e8a7251724645eb3e092ab1686" prot="public" static="no">
         <name>PCI_STATUS_CAPABILITIES_LIST</name>
         <initializer>(1 &lt;&lt; 4)</initializer>
         <briefdescription>
@@ -1238,6 +1816,39 @@
         </inbodydescription>
         <location file="include/pci.h" line="88" column="9" bodyfile="include/pci.h" bodystart="88" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="define" id="pci_8h_1a86c7613d8dae6662401ba10250c6957f" prot="public" static="no">
+        <name>PCI_CAPABILITY_MSIX</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="90" column="9" bodyfile="include/pci.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a3d4b2687b1ba0ff11a538153c6bcbaf4" prot="public" static="no">
+        <name>PCI_MSIX_ENABLE</name>
+        <initializer>(1 &lt;&lt; 15)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="92" column="9" bodyfile="include/pci.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pci_8h_1a85c71c008443fc1e01893d367b34f34d" prot="public" static="no">
+        <name>PCI_MSIX_FUNCTION_MASK</name>
+        <initializer>(1 &lt;&lt; 14)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="93" column="9" bodyfile="include/pci.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="define" id="pci_8h_1a91d98d5078b9c0b784e68dcbbca8cb2d" prot="public" static="no">
         <name>PCI_BAR_TYPE_MEMORY</name>
         <initializer>0x00</initializer>
@@ -1247,7 +1858,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="90" column="9" bodyfile="include/pci.h" bodystart="90" bodyend="-1"/>
+        <location file="include/pci.h" line="95" column="9" bodyfile="include/pci.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1af851c079188594b6a0c4d271545676d1" prot="public" static="no">
         <name>PCI_BAR_TYPE_IOPORT</name>
@@ -1258,7 +1869,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="91" column="9" bodyfile="include/pci.h" bodystart="91" bodyend="-1"/>
+        <location file="include/pci.h" line="96" column="9" bodyfile="include/pci.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1aa22a6d0a85a157316b6528864bf8bd86" prot="public" static="no">
         <name>PCI_HEADER_TYPE_DEVICE</name>
@@ -1269,7 +1880,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="93" column="9" bodyfile="include/pci.h" bodystart="93" bodyend="-1"/>
+        <location file="include/pci.h" line="98" column="9" bodyfile="include/pci.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1ad8e741ca14aec81566cefb1936f16510" prot="public" static="no">
         <name>PCI_HEADER_TYPE_BRIDGE</name>
@@ -1280,7 +1891,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="94" column="9" bodyfile="include/pci.h" bodystart="94" bodyend="-1"/>
+        <location file="include/pci.h" line="99" column="9" bodyfile="include/pci.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1a31cd01509b5097e0fb1257b5b701b4eb" prot="public" static="no">
         <name>PCI_HEADER_TYPE_CARDBUS</name>
@@ -1291,7 +1902,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="95" column="9" bodyfile="include/pci.h" bodystart="95" bodyend="-1"/>
+        <location file="include/pci.h" line="100" column="9" bodyfile="include/pci.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1a36f8e61ddafeaa474bf6d95ad5d4b6d3" prot="public" static="no">
         <name>PCI_TYPE_BRIDGE</name>
@@ -1302,7 +1913,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="96" column="9" bodyfile="include/pci.h" bodystart="96" bodyend="-1"/>
+        <location file="include/pci.h" line="101" column="9" bodyfile="include/pci.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1a10bf7d300fb36b56e999a704fec54b28" prot="public" static="no">
         <name>PCI_TYPE_SATA</name>
@@ -1313,7 +1924,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="97" column="9" bodyfile="include/pci.h" bodystart="97" bodyend="-1"/>
+        <location file="include/pci.h" line="102" column="9" bodyfile="include/pci.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1a6e719bea36ac98073329ee789f7a8f67" prot="public" static="no">
         <name>PCI_NONE</name>
@@ -1324,7 +1935,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="98" column="9" bodyfile="include/pci.h" bodystart="98" bodyend="-1"/>
+        <location file="include/pci.h" line="103" column="9" bodyfile="include/pci.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1a616b1485f3933c23fee5d1c039286517" prot="public" static="no">
         <name>DEVICE_PER_BUS</name>
@@ -1335,7 +1946,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="101" column="9" bodyfile="include/pci.h" bodystart="101" bodyend="-1"/>
+        <location file="include/pci.h" line="106" column="9" bodyfile="include/pci.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="pci_8h_1ab0d2b8cb6cd3a8b0f09661af854727d4" prot="public" static="no">
         <name>FUNCTION_PER_DEVICE</name>
@@ -1346,7 +1957,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="102" column="9" bodyfile="include/pci.h" bodystart="102" bodyend="-1"/>
+        <location file="include/pci.h" line="107" column="9" bodyfile="include/pci.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -1361,7 +1972,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="29" column="18" declfile="include/pci.h" declline="29" declcolumn="18"/>
+        <location file="include/pci.h" line="29" column="18" bodyfile="src/pci.c" bodystart="180" bodyend="-1" declfile="include/pci.h" declline="29" declcolumn="18"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1379,12 +1990,33 @@
           <declname>field</declname>
         </param>
         <briefdescription>
+<para>Read a value from a PCI configuration space field. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>field</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the configuration field. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read (size determined by field). </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="104" column="10" declfile="include/pci.h" declline="104" declcolumn="10"/>
+        <location file="include/pci.h" line="115" column="10" bodyfile="src/pci.c" bodystart="210" bodyend="233" declfile="include/pci.h" declline="115" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a0f62b415645f8773747ea15af6177ead" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1404,12 +2036,39 @@
           <declname>value</declname>
         </param>
         <briefdescription>
+<para>Write a value into a PCI configuration space field. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>field</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the configuration field. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to write (size determined by field). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="105" column="6" declfile="include/pci.h" declline="105" declcolumn="6"/>
+        <location file="include/pci.h" line="123" column="6" bodyfile="src/pci.c" bodystart="289" bodyend="312" declfile="include/pci.h" declline="123" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a2958aa8618c13dcac19b96c6749e8ca9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1421,12 +2080,25 @@
           <declname>dev</declname>
         </param>
         <briefdescription>
+<para>Get the PCI device class/subclass identifier. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Encoded device type (class &lt;&lt; 8 | subclass). </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="106" column="10" declfile="include/pci.h" declline="106" declcolumn="10"/>
+        <location file="include/pci.h" line="130" column="10" bodyfile="src/pci.c" bodystart="317" bodyend="320" declfile="include/pci.h" declline="130" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a2b914ecc0d51fc49d191e1cab5a42035" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1438,12 +2110,25 @@
           <declname>dev</declname>
         </param>
         <briefdescription>
+<para>Get the secondary bus number from a PCI bridge device. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI bridge device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Secondary bus number. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="107" column="10" declfile="include/pci.h" declline="107" declcolumn="10"/>
+        <location file="include/pci.h" line="137" column="10" bodyfile="src/pci.c" bodystart="325" bodyend="327" declfile="include/pci.h" declline="137" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1aa31df8f900c2306e32d389ff2ddc7144" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1455,12 +2140,25 @@
           <declname>dev</declname>
         </param>
         <briefdescription>
+<para>Determine if the device is a single-function endpoint. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Non-zero if endpoint, zero if multifunction/bridge. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="108" column="10" declfile="include/pci.h" declline="108" declcolumn="10"/>
+        <location file="include/pci.h" line="144" column="10" bodyfile="src/pci.c" bodystart="332" bodyend="335" declfile="include/pci.h" declline="144" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a6314b13112829af868417a59b03c7a3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
@@ -1492,12 +2190,65 @@
           <declname>device_type</declname>
         </param>
         <briefdescription>
+<para>Scan a specific PCI function for matching IDs or type. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vendor_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vendor ID to match (0 = wildcard). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID to match (0 = wildcard). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bus number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device slot number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device class/type to match (-1 = any). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Matching PCI device or dev_zero if none. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="109" column="11" declfile="include/pci.h" declline="109" declcolumn="11"/>
+        <location file="include/pci.h" line="156" column="11" bodyfile="src/pci.c" bodystart="340" bodyend="371" declfile="include/pci.h" declline="156" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1aa1505d7a496707c68f2e39c3208ab519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
@@ -1525,12 +2276,57 @@
           <declname>device_type</declname>
         </param>
         <briefdescription>
+<para>Scan all functions of a given PCI device slot. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vendor_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vendor ID to match (0 = wildcard). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID to match (0 = wildcard). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bus number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device slot number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device class/type to match (-1 = any). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Matching PCI device or dev_zero if none. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="110" column="11" declfile="include/pci.h" declline="110" declcolumn="11"/>
+        <location file="include/pci.h" line="169" column="11" bodyfile="src/pci.c" bodystart="416" bodyend="443" declfile="include/pci.h" declline="169" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a4f76d3aca55ca73e8e130b3d05ce337c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
@@ -1554,12 +2350,49 @@
           <declname>device_type</declname>
         </param>
         <briefdescription>
+<para>Scan all devices on a given PCI bus. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vendor_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vendor ID to match (0 = wildcard). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID to match (0 = wildcard). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bus number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device class/type to match (-1 = any). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>First matching PCI device or dev_zero if none. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="111" column="11" declfile="include/pci.h" declline="111" declcolumn="11"/>
+        <location file="include/pci.h" line="181" column="11" bodyfile="src/pci.c" bodystart="450" bodyend="477" declfile="include/pci.h" declline="181" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a23395c1f682d006bba59e854b41b975f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
@@ -1579,12 +2412,41 @@
           <declname>device_type</declname>
         </param>
         <briefdescription>
+<para>Find a device by vendor, device, or type. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vendor_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Vendor ID to match (0 = any). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID to match (0 = any). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device class/type to match (-1 = any). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Matching PCI device or dev_zero if none. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="112" column="11" declfile="include/pci.h" declline="112" declcolumn="11"/>
+        <location file="include/pci.h" line="191" column="11" bodyfile="src/pci.c" bodystart="483" bodyend="505" declfile="include/pci.h" declline="191" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1ac1163b8d93711c6fa01dfbffd2b4f0bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1592,12 +2454,13 @@
         <argsstring>()</argsstring>
         <name>init_pci</name>
         <briefdescription>
+<para>Initialise the PCI subsystem and enumerate devices. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="113" column="6" declfile="include/pci.h" declline="113" declcolumn="6"/>
+        <location file="include/pci.h" line="197" column="6" bodyfile="src/pci.c" bodystart="510" bodyend="537" declfile="include/pci.h" declline="197" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1acfcfa5ee1f172b02ed5ded3f9a48c14f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1609,12 +2472,25 @@
           <declname>device</declname>
         </param>
         <briefdescription>
+<para>Enable bus mastering on a PCI device. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if bus mastering was newly enabled, false if already set. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="114" column="6" declfile="include/pci.h" declline="114" declcolumn="6"/>
+        <location file="include/pci.h" line="204" column="6" bodyfile="src/pci.c" bodystart="184" bodyend="192" declfile="include/pci.h" declline="204" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a99c835f2d27af0e6335617180be46775" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -1626,12 +2502,25 @@
           <declname>field</declname>
         </param>
         <briefdescription>
+<para>Get the type of a PCI Base Address Register (BAR). </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>field</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw BAR field value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 = memory, 1 = I/O. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="115" column="9" declfile="include/pci.h" declline="115" declcolumn="9"/>
+        <location file="include/pci.h" line="211" column="9" bodyfile="src/pci.c" bodystart="198" bodyend="200" declfile="include/pci.h" declline="211" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1ae173ef988f04776521bbb441754b632f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -1643,12 +2532,25 @@
           <declname>field</declname>
         </param>
         <briefdescription>
+<para>Extract an I/O base address from a BAR. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>field</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw BAR field value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>I/O port base address. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="116" column="10" declfile="include/pci.h" declline="116" declcolumn="10"/>
+        <location file="include/pci.h" line="218" column="10" bodyfile="src/pci.c" bodystart="202" bodyend="204" declfile="include/pci.h" declline="218" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1aabf8de69d779907c7a09bd5f274b8d94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1660,12 +2562,25 @@
           <declname>field</declname>
         </param>
         <briefdescription>
+<para>Extract a memory base address from a BAR. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>field</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw BAR field value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Memory-mapped base address. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="117" column="10" declfile="include/pci.h" declline="117" declcolumn="10"/>
+        <location file="include/pci.h" line="225" column="10" bodyfile="src/pci.c" bodystart="206" bodyend="208" declfile="include/pci.h" declline="225" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1abbdb3592d2988357e39ecb89edf42803" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1677,17 +2592,30 @@
           <declname>device</declname>
         </param>
         <briefdescription>
+<para>Test whether a device descriptor represents &apos;not found&apos;. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if no device, false otherwise. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="118" column="6" declfile="include/pci.h" declline="118" declcolumn="6"/>
+        <location file="include/pci.h" line="232" column="6" bodyfile="src/pci.c" bodystart="194" bodyend="196" declfile="include/pci.h" declline="232" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="pci_8h_1a23a74014c6c0f6b9e5baeec2ab71f857" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="pci_8h_1abaad9a1f44a869380761a057a7d85b9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool pci_enable_msi</definition>
-        <argsstring>(pci_dev_t device, uint32_t vector, bool edgetrigger, bool deassert)</argsstring>
+        <argsstring>(pci_dev_t device, uint32_t vector, uint32_t lapic_id)</argsstring>
         <name>pci_enable_msi</name>
         <param>
           <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
@@ -1698,20 +2626,45 @@
           <declname>vector</declname>
         </param>
         <param>
-          <type>bool</type>
-          <declname>edgetrigger</declname>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>deassert</declname>
+          <type>uint32_t</type>
+          <declname>lapic_id</declname>
         </param>
         <briefdescription>
+<para>Enable MSI (Message Signalled Interrupts) on a device. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>APIC interrupt vector to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lapic_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>local APIC ID of the CPU to route the vector to </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if MSI was enabled successfully. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="120" column="6" declfile="include/pci.h" declline="120" declcolumn="6"/>
+        <location file="include/pci.h" line="241" column="6" bodyfile="src/pci.c" bodystart="549" bodyend="612" declfile="include/pci.h" declline="241" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1aea7e8359de57f6fe2ba661fb2cbe0841" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1719,12 +2672,13 @@
         <argsstring>()</argsstring>
         <name>pci_display_device_list</name>
         <briefdescription>
+<para>Display enumerated PCI devices to the system log. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="121" column="6" declfile="include/pci.h" declline="121" declcolumn="6"/>
+        <location file="include/pci.h" line="246" column="6" bodyfile="src/pci.c" bodystart="383" bodyend="411" declfile="include/pci.h" declline="246" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1ae7f216cacb07fed85ffc9a988f7559b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1736,12 +2690,25 @@
           <declname>list</declname>
         </param>
         <briefdescription>
+<para>Get a list of all enumerated PCI devices. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to array of devices (output). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of devices in the list. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="122" column="8" declfile="include/pci.h" declline="122" declcolumn="8"/>
+        <location file="include/pci.h" line="253" column="8" bodyfile="src/pci.c" bodystart="373" bodyend="381" declfile="include/pci.h" declline="253" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="pci_8h_1a16049e7066a54bf300d2900c01ad3795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1757,12 +2724,180 @@
           <declname>enable</declname>
         </param>
         <briefdescription>
+<para>Enable or disable legacy INTx interrupt signalling. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True = enable, False = disable. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/pci.h" line="123" column="6" declfile="include/pci.h" declline="123" declcolumn="6"/>
+        <location file="include/pci.h" line="260" column="6" bodyfile="src/pci.c" bodystart="539" bodyend="547" declfile="include/pci.h" declline="260" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a44a7ba4d9b4824c39171b6c48d8c9d1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pci_enable_msix</definition>
+        <argsstring>(pci_dev_t device, uint32_t vector, uint16_t entry, uint32_t lapic_id)</argsstring>
+        <name>pci_enable_msix</name>
+        <param>
+          <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>entry</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>lapic_id</declname>
+        </param>
+        <briefdescription>
+<para>Enable MSI-X (extended message signalled interrupts). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCI device descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>APIC interrupt vector to assign. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>entry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MSI-X table entry to configure. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lapic_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>local APIC ID of the CPU to route the vector to </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if MSI-X was enabled successfully. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="270" column="6" bodyfile="src/pci.c" bodystart="614" bodyend="687" declfile="include/pci.h" declline="270" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pci_8h_1a9388fd28fe0a2e0eb3214518dcb66c97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t pci_setup_interrupt</definition>
+        <argsstring>(const char *name, pci_dev_t dev, uint8_t logical_cpu_id, isr_t handler, void *context)</argsstring>
+        <name>pci_setup_interrupt</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>logical_cpu_id</declname>
+        </param>
+        <param>
+          <type><ref refid="idt_8h_1a7a3af27140adcc73f278f9d9c9dcd4bc" kindref="member">isr_t</ref></type>
+          <declname>handler</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Configure an interrupt for a PCI device (MSI/MSI-X if available). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Attempts to enable MSI/MSI-X for the given PCI device, routing the interrupt to the specified Local APIC ID. If the device does not support MSI/MSI-X, falls back to legacy INTx routing.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Human-readable device name (used in logs/debug output). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The PCI device handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logical_cpu_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logical CPU ID of the target CPU that should receive the interrupt. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt service routine to register. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Opaque pointer passed to the ISR when the interrupt fires.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="warning"><para>The lapic_id parameter must be a valid logical ID corresponding to an online CPU. Passing an invalid or offline CPU ID will result in undefined behaviour and may cause interrupts to be lost.</para>
+</simplesect>
+<simplesect kind="return"><para>The assigned interrupt vector (64–255 if MSI/MSI-X was used, or IRQ_START + line if falling back to legacy INTx).</para>
+</simplesect>
+<simplesect kind="note"><para>Drivers should always check the returned vector to confirm which interrupt mechanism was actually configured. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/pci.h" line="296" column="10" bodyfile="src/pci.c" bodystart="690" bodyend="713" declfile="include/pci.h" declline="296" declcolumn="10"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1770,7 +2905,7 @@
     <detaileddescription>
 <para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
 </simplesect>
 </para>
     </detaileddescription>

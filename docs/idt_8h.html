@@ -86,55 +86,158 @@ $(document).ready(function(){initNavTree('idt_8h.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">idt.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__ptr.html">idt_ptr_t</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__ptr__t.html">idt_ptr_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry.html">idt_entry_t</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structidt__entry__t.html">idt_entry_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a2f1acd8b2febbced6e8918fa9084d00d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a2f1acd8b2febbced6e8918fa9084d00d">USE_IOAPIC</a></td></tr>
+<tr class="separator:a2f1acd8b2febbced6e8918fa9084d00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87cbc7cff225b4ad63d67d47c21f933f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a87cbc7cff225b4ad63d67d47c21f933f">MAX_CPUS</a>&#160;&#160;&#160;256</td></tr>
+<tr class="separator:a87cbc7cff225b4ad63d67d47c21f933f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a7a3af27140adcc73f278f9d9c9dcd4bc"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">isr_t</a>) (uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber, void *opaque)</td></tr>
+<tr class="memdesc:a7a3af27140adcc73f278f9d9c9dcd4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer type for interrupt and IRQ handlers.  <a href="idt_8h.html#a7a3af27140adcc73f278f9d9c9dcd4bc">More...</a><br /></td></tr>
+<tr class="separator:a7a3af27140adcc73f278f9d9c9dcd4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a280c0c4d1ccde2fd517a7951ca937f5b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structidt__ptr.html">idt_ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a280c0c4d1ccde2fd517a7951ca937f5b">__attribute__</a> ((packed))</td></tr>
-<tr class="separator:a280c0c4d1ccde2fd517a7951ca937f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35fe413107af682030ab7a4b6dff19b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a35fe413107af682030ab7a4b6dff19b8">init_idt</a> ()</td></tr>
-<tr class="separator:a35fe413107af682030ab7a4b6dff19b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a458f47d1ce87ab7b443665f1b0419534"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structidt__ptr__t.html">idt_ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a458f47d1ce87ab7b443665f1b0419534">__attribute__</a> ((packed)) <a class="el" href="structidt__ptr__t.html">idt_ptr_t</a></td></tr>
+<tr class="memdesc:a458f47d1ce87ab7b443665f1b0419534"><td class="mdescLeft">&#160;</td><td class="mdescRight">ACPI Root System Description Pointer (RSDP)  <a href="idt_8h.html#a458f47d1ce87ab7b443665f1b0419534">More...</a><br /></td></tr>
+<tr class="separator:a458f47d1ce87ab7b443665f1b0419534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42ea541423c53a479403b58384e19df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a42ea541423c53a479403b58384e19df7">init_idt</a> (void)</td></tr>
+<tr class="memdesc:a42ea541423c53a479403b58384e19df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the IDT and enable interrupts.  <a href="idt_8h.html#a42ea541423c53a479403b58384e19df7">More...</a><br /></td></tr>
+<tr class="separator:a42ea541423c53a479403b58384e19df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d46d7c4e33f7136bc518c26c24bf8f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a1d46d7c4e33f7136bc518c26c24bf8f9">idt_init</a> (void *idt)</td></tr>
+<tr class="memdesc:a1d46d7c4e33f7136bc518c26c24bf8f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Low-level assembly routine to populate the IDT.  <a href="idt_8h.html#a1d46d7c4e33f7136bc518c26c24bf8f9">More...</a><br /></td></tr>
 <tr class="separator:a1d46d7c4e33f7136bc518c26c24bf8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac58b11f9cfbfe9217a7e9a256f6a1038"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#ac58b11f9cfbfe9217a7e9a256f6a1038">pic_eoi</a> (int irq)</td></tr>
+<tr class="memdesc:ac58b11f9cfbfe9217a7e9a256f6a1038"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send End-of-Interrupt (EOI) to the PIC.  <a href="idt_8h.html#ac58b11f9cfbfe9217a7e9a256f6a1038">More...</a><br /></td></tr>
 <tr class="separator:ac58b11f9cfbfe9217a7e9a256f6a1038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf4b3f918fbda500ebf08c8b17dfb46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#aaaf4b3f918fbda500ebf08c8b17dfb46">io_wait</a> (void)</td></tr>
+<tr class="memdesc:aaaf4b3f918fbda500ebf08c8b17dfb46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Small I/O delay for hardware synchronisation.  <a href="idt_8h.html#aaaf4b3f918fbda500ebf08c8b17dfb46">More...</a><br /></td></tr>
+<tr class="separator:aaaf4b3f918fbda500ebf08c8b17dfb46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a999453d510cd4178931cf51d7ba0ec2f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a999453d510cd4178931cf51d7ba0ec2f">alloc_msi_vector</a> (uint8_t cpu)</td></tr>
+<tr class="memdesc:a999453d510cd4178931cf51d7ba0ec2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a free MSI interrupt vector on a given CPU.  <a href="idt_8h.html#a999453d510cd4178931cf51d7ba0ec2f">More...</a><br /></td></tr>
+<tr class="separator:a999453d510cd4178931cf51d7ba0ec2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3567555043c64e8065fbe9f47d0dd894"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a3567555043c64e8065fbe9f47d0dd894">free_msi_vector</a> (uint8_t cpu, int vec)</td></tr>
+<tr class="memdesc:a3567555043c64e8065fbe9f47d0dd894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a previously allocated MSI interrupt vector on a given CPU.  <a href="idt_8h.html#a3567555043c64e8065fbe9f47d0dd894">More...</a><br /></td></tr>
+<tr class="separator:a3567555043c64e8065fbe9f47d0dd894"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a15cc23a7bd19af939b9ff5b7bd2ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a65a15cc23a7bd19af939b9ff5b7bd2ad">load_ap_shared_idt</a> ()</td></tr>
+<tr class="memdesc:a65a15cc23a7bd19af939b9ff5b7bd2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the shared IDT and enable interrupts on an Application Processor (AP).  <a href="idt_8h.html#a65a15cc23a7bd19af939b9ff5b7bd2ad">More...</a><br /></td></tr>
+<tr class="separator:a65a15cc23a7bd19af939b9ff5b7bd2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ab28e82ae69032cb4ad3ec3a0be3d7129"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#ab28e82ae69032cb4ad3ec3a0be3d7129">limit</a></td></tr>
 <tr class="separator:ab28e82ae69032cb4ad3ec3a0be3d7129"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab43a5b10c2bc104ddd909a4cf11d6d6a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#ab43a5b10c2bc104ddd909a4cf11d6d6a">base</a></td></tr>
-<tr class="separator:ab43a5b10c2bc104ddd909a4cf11d6d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9523167633082272d9b1ee3d88034de0"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structidt__entry.html">idt_entry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a9523167633082272d9b1ee3d88034de0">__attribute__</a></td></tr>
-<tr class="separator:a9523167633082272d9b1ee3d88034de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fea997d947588217b4eff20c7b8dce3"><td class="memItemLeft" align="right" valign="top">volatile idt_ptr_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a7fea997d947588217b4eff20c7b8dce3">idt64</a></td></tr>
+<tr class="memitem:aeca790c0426654358d031f8180e84aca"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#aeca790c0426654358d031f8180e84aca">base</a></td></tr>
+<tr class="separator:aeca790c0426654358d031f8180e84aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ea706dc2651399cf5716cb5a43d784"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a76ea706dc2651399cf5716cb5a43d784">offset_1</a></td></tr>
+<tr class="separator:a76ea706dc2651399cf5716cb5a43d784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c44289c163c1460544d6ee0900d02ba"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a1c44289c163c1460544d6ee0900d02ba">selector</a></td></tr>
+<tr class="separator:a1c44289c163c1460544d6ee0900d02ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a254d5bd1552992f9c17e038f363987ec"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a254d5bd1552992f9c17e038f363987ec">ist</a></td></tr>
+<tr class="separator:a254d5bd1552992f9c17e038f363987ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a771f46b9319de86ef361459e347db04f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a771f46b9319de86ef361459e347db04f">type_attributes</a></td></tr>
+<tr class="separator:a771f46b9319de86ef361459e347db04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa18dd24379a45a52460ba2a95194cdb2"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#aa18dd24379a45a52460ba2a95194cdb2">offset_2</a></td></tr>
+<tr class="separator:aa18dd24379a45a52460ba2a95194cdb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4be04fdeed2e2f7a688472f0f38390fc"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a4be04fdeed2e2f7a688472f0f38390fc">offset_3</a></td></tr>
+<tr class="separator:a4be04fdeed2e2f7a688472f0f38390fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85a38ad3adb021b224bf4d87a0465119"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a85a38ad3adb021b224bf4d87a0465119">zero</a></td></tr>
+<tr class="separator:a85a38ad3adb021b224bf4d87a0465119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fea997d947588217b4eff20c7b8dce3"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structidt__ptr__t.html">idt_ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="idt_8h.html#a7fea997d947588217b4eff20c7b8dce3">idt64</a></td></tr>
 <tr class="separator:a7fea997d947588217b4eff20c7b8dce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a280c0c4d1ccde2fd517a7951ca937f5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a280c0c4d1ccde2fd517a7951ca937f5b">&#9670;&nbsp;</a></span>__attribute__()</h2>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a87cbc7cff225b4ad63d67d47c21f933f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87cbc7cff225b4ad63d67d47c21f933f">&#9670;&nbsp;</a></span>MAX_CPUS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structidt__ptr.html">idt_ptr</a> <a class="el" href="struct____attribute____.html">__attribute__</a> </td>
+          <td class="memname">#define MAX_CPUS&#160;&#160;&#160;256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>MAX_CPUS is set to 256 (not the expected physical core count).</dd></dl>
+<p>Local APIC IDs in xAPIC mode are 8-bit fields (0–255). These IDs are not guaranteed to be sequential, zero-based, or densely packed. Some systems leave gaps in the LAPIC ID space, and the bootstrap processor (BSP) may not be assigned LAPIC ID 0.</p>
+<p>In x2APIC mode, APIC IDs extend to 32 bits. If firmware enables x2APIC before handoff, we accept it and operate in that mode, but we currently only initialise CPUs whose LAPIC IDs are &lt;= 254. LAPIC ID 255 is reserved for broadcast and never used. Any CPUs with IDs above 254 are ignored.</p>
+<p>By sizing arrays to 256, we can index directly by LAPIC ID without needing a LAPIC→OS CPU remapping table. This simplifies per‑CPU structures at the cost of a small amount of extra memory. Future support for &gt;254 LAPIC IDs may require remapping or dynamic allocation. </p>
+
+</div>
+</div>
+<a id="a2f1acd8b2febbced6e8918fa9084d00d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f1acd8b2febbced6e8918fa9084d00d">&#9670;&nbsp;</a></span>USE_IOAPIC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USE_IOAPIC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a7a3af27140adcc73f278f9d9c9dcd4bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a3af27140adcc73f278f9d9c9dcd4bc">&#9670;&nbsp;</a></span>isr_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* isr_t) (uint8_t isrnumber, uint64_t errorcode, uint64_t irqnumber, void *opaque)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer type for interrupt and IRQ handlers. </p>
+<p>This defines the signature of an interrupt service routine (ISR) that may be registered via <code>register_interrupt_handler</code>. It will be called whenever a matching interrupt or IRQ occurs.</p>
+<p>All handlers receive the interrupt vector number, error code (if any), the IRQ number (for hardware IRQs, this is <code>isrnumber - 32</code>), and a user-defined opaque pointer that was passed during registration. This allows for stateful or device-specific behaviour in shared or reentrant interrupt contexts.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isrnumber</td><td>The IDT entry number (0–255), corresponding to the triggered interrupt vector. </td></tr>
+    <tr><td class="paramname">errorcode</td><td>A CPU-generated error code for certain exceptions (e.g. page faults). Always 0 for IRQs. </td></tr>
+    <tr><td class="paramname">irqnumber</td><td>For IRQs, this is typically <code>isrnumber - 32</code>; otherwise 0. </td></tr>
+    <tr><td class="paramname">opaque</td><td>The same pointer that was passed to <code>register_interrupt_handler</code>; used for context or state. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a458f47d1ce87ab7b443665f1b0419534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a458f47d1ce87ab7b443665f1b0419534">&#9670;&nbsp;</a></span>__attribute__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structidt__ptr__t.html">idt_ptr_t</a> <a class="el" href="struct____attribute____.html">__attribute__</a> </td>
           <td>(</td>
           <td class="paramtype">(packed)&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -142,6 +245,86 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>ACPI Root System Description Pointer (RSDP) </p>
+<p>FAT32 FSINFO structure.</p>
+<p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
+<p>Definition of a DHCP packet.</p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
+
+</div>
+</div>
+<a id="a999453d510cd4178931cf51d7ba0ec2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a999453d510cd4178931cf51d7ba0ec2f">&#9670;&nbsp;</a></span>alloc_msi_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int alloc_msi_vector </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>cpu</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate a free MSI interrupt vector on a given CPU. </p>
+<p>Allocates an IDT vector in the range 64–255 for use with Message Signalled Interrupts (MSI/MSI-X), associated with the specified Local APIC ID.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td>Logical CPU ID of the target CPU.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector number (64–255) on success, -1 if no free vector is available on that CPU.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>After allocation, the driver must program the device’s MSI/MSI-X capability structure with the returned vector and Local APIC ID, and register an interrupt handler for the vector on the specified CPU. </dd></dl>
+
+</div>
+</div>
+<a id="a3567555043c64e8065fbe9f47d0dd894"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3567555043c64e8065fbe9f47d0dd894">&#9670;&nbsp;</a></span>free_msi_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_msi_vector </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>cpu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>vec</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free a previously allocated MSI interrupt vector on a given CPU. </p>
+<p>Marks the given MSI vector as available for reuse on the specified Local APIC ID.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td>Logical CPU ID of the CPU that the vector belongs to. </td></tr>
+    <tr><td class="paramname">vec</td><td>The MSI vector to free (64–255).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>Behaviour is undefined if freeing a vector that was never allocated on the given CPU, or is still in use.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Drivers should call this during teardown to avoid leaking interrupt vectors on that CPU. </dd></dl>
 
 </div>
 </div>
@@ -161,10 +344,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Low-level assembly routine to populate the IDT. </p>
+<p>Fills the IDT with ISR and IRQ stub addresses defined in loader.S.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idt</td><td>Pointer to the IDT base.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Invoked internally by <a class="el" href="idt_8h.html#a42ea541423c53a479403b58384e19df7" title="Initialise the IDT and enable interrupts.">init_idt()</a>. Not for driver use. </dd></dl>
+
 </div>
 </div>
-<a id="a35fe413107af682030ab7a4b6dff19b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35fe413107af682030ab7a4b6dff19b8">&#9670;&nbsp;</a></span>init_idt()</h2>
+<a id="a42ea541423c53a479403b58384e19df7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42ea541423c53a479403b58384e19df7">&#9670;&nbsp;</a></span>init_idt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,11 +365,61 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void init_idt </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialise the IDT and enable interrupts. </p>
+<p>Sets up the full 256-entry Interrupt Descriptor Table (IDT), remaps or disables the legacy PIC depending on configuration, configures the PIT to 50Hz (if APIC timer is not used), and loads the IDT register. CPU interrupts are enabled at the end.</p>
+<dl class="section note"><dt>Note</dt><dd>Called once during kernel bootstrap. Drivers must not call this directly. </dd></dl>
+
+</div>
+</div>
+<a id="aaaf4b3f918fbda500ebf08c8b17dfb46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaf4b3f918fbda500ebf08c8b17dfb46">&#9670;&nbsp;</a></span>io_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void io_wait </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Small I/O delay for hardware synchronisation. </p>
+<p>Performs an I/O write to port 0x80 to allow hardware devices (such as the PIC) time to settle after reprogramming.</p>
+<dl class="section note"><dt>Note</dt><dd>Typically only needed by low-level kernel code. Most drivers do not need to call this. </dd></dl>
+
+</div>
+</div>
+<a id="a65a15cc23a7bd19af939b9ff5b7bd2ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65a15cc23a7bd19af939b9ff5b7bd2ad">&#9670;&nbsp;</a></span>load_ap_shared_idt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void load_ap_shared_idt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load the shared IDT and enable interrupts on an Application Processor (AP). </p>
+<p>This function loads the global Interrupt Descriptor Table (IDT) pointer into the AP's IDTR register using the <code>lidt</code> instruction. After the IDT is loaded, it enables external interrupts via <code>sti</code> (wrapped by <a class="el" href="io_8h.html#a46886fcdf5af666afe41598958dc0bdd" title="Enable maskable hardware interrupts.">interrupts_on()</a>).</p>
+<p>It is typically called during AP startup before entering the scheduler loop, ensuring that the AP can handle interrupts using the same IDT as the BSP.</p>
+<dl class="section note"><dt>Note</dt><dd>All APs share the same IDT (idt64) in this design. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>lidt, <a class="el" href="io_8h.html#a46886fcdf5af666afe41598958dc0bdd" title="Enable maskable hardware interrupts.">interrupts_on</a> </dd></dl>
 
 </div>
 </div>
@@ -196,31 +439,27 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Send End-of-Interrupt (EOI) to the PIC. </p>
+<p>Notifies the PIC(s) that interrupt handling has finished. For IRQs &gt;= 8, signals both slave and master PICs.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">irq</td><td>The IRQ line number (0–15).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Normally issued automatically by the kernel after invoking registered handlers. Only call directly when writing low-level PIC-specific code. </dd></dl>
+
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a9523167633082272d9b1ee3d88034de0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9523167633082272d9b1ee3d88034de0">&#9670;&nbsp;</a></span>__attribute__</h2>
+<a id="aeca790c0426654358d031f8180e84aca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeca790c0426654358d031f8180e84aca">&#9670;&nbsp;</a></span>base</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structidt__entry.html">idt_entry</a> <a class="el" href="struct____attribute____.html">__attribute__</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab43a5b10c2bc104ddd909a4cf11d6d6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab43a5b10c2bc104ddd909a4cf11d6d6a">&#9670;&nbsp;</a></span>base</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* base</td>
+          <td class="memname">uint64_t base</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -237,7 +476,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">volatile idt_ptr_t idt64</td>
+          <td class="memname">volatile <a class="el" href="structidt__ptr__t.html">idt_ptr_t</a> idt64</td>
         </tr>
       </table>
   </td>
@@ -245,6 +484,20 @@ Variables</h2></td></tr>
 <span class="mlabels"><span class="mlabel">extern</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a254d5bd1552992f9c17e038f363987ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a254d5bd1552992f9c17e038f363987ec">&#9670;&nbsp;</a></span>ist</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ist</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -263,13 +516,97 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a76ea706dc2651399cf5716cb5a43d784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76ea706dc2651399cf5716cb5a43d784">&#9670;&nbsp;</a></span>offset_1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t offset_1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa18dd24379a45a52460ba2a95194cdb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa18dd24379a45a52460ba2a95194cdb2">&#9670;&nbsp;</a></span>offset_2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t offset_2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4be04fdeed2e2f7a688472f0f38390fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be04fdeed2e2f7a688472f0f38390fc">&#9670;&nbsp;</a></span>offset_3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t offset_3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1c44289c163c1460544d6ee0900d02ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c44289c163c1460544d6ee0900d02ba">&#9670;&nbsp;</a></span>selector</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t selector</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a771f46b9319de86ef361459e347db04f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a771f46b9319de86ef361459e347db04f">&#9670;&nbsp;</a></span>type_attributes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t type_attributes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85a38ad3adb021b224bf4d87a0465119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85a38ad3adb021b224bf4d87a0465119">&#9670;&nbsp;</a></span>zero</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t zero</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="idt_8h.html">idt.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

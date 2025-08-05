@@ -173,10 +173,10 @@
         </inbodydescription>
         <location file="include/ahci.h" line="208" column="10" bodyfile="include/ahci.h" bodystart="208" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structahci__hba__mem__t_1a27544b631c6d2b71f05e15bff529ea08" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="structahci__hba__mem__t_1a7a19c4ffadeeebd055da4d72d38f79df" prot="public" static="no" mutable="no">
         <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref></type>
-        <definition>ahci_hba_port_t ahci_hba_mem_t::ports[1]</definition>
-        <argsstring>[1]</argsstring>
+        <definition>ahci_hba_port_t ahci_hba_mem_t::ports[32]</definition>
+        <argsstring>[32]</argsstring>
         <name>ports</name>
         <briefdescription>
         </briefdescription>
@@ -252,7 +252,7 @@
       <member refid="structahci__hba__mem__t_1a1d935ecd9e3b038c81e26e4e28b77be9" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ghc</name></member>
       <member refid="structahci__hba__mem__t_1a5f0818745d8fc0da85cc17a85815cff9" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>is</name></member>
       <member refid="structahci__hba__mem__t_1a1d1c1772ac7e3009aaaa3198a95aef3f" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>pi</name></member>
-      <member refid="structahci__hba__mem__t_1a27544b631c6d2b71f05e15bff529ea08" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ports</name></member>
+      <member refid="structahci__hba__mem__t_1a7a19c4ffadeeebd055da4d72d38f79df" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>ports</name></member>
       <member refid="structahci__hba__mem__t_1a86678552011a3e74f5b7ff676c926a01" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>rsv</name></member>
       <member refid="structahci__hba__mem__t_1a0f439393ae9c260fd35c1f7565147e35" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>vendor</name></member>
       <member refid="structahci__hba__mem__t_1a74c55d339a8104bea69039718203e6c7" prot="public" virt="non-virtual"><scope>ahci_hba_mem_t</scope><name>vs</name></member>

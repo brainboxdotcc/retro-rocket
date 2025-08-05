@@ -46,7 +46,7 @@ var dhcp_8h =
     [ "boot_file", "dhcp_8h.html#a78ed9edda7b542ef10c7d09dbbde1eeb", null ],
     [ "client_hardware_addr", "dhcp_8h.html#a668cf3710953f506bc14fad30c1141c4", null ],
     [ "client_ip", "dhcp_8h.html#a6ad36fdf5e7ffa340dd06acddff4365b", null ],
-    [ "flags", "dhcp_8h.html#a1e87af3c18a2fd36c61faf89949bdc3f", null ],
+    [ "flags", "dhcp_8h.html#a773b39d480759f67926cb18ae2219281", null ],
     [ "hardware_addr_len", "dhcp_8h.html#a2b6b06607261b860332af4cbe9316bdd", null ],
     [ "hardware_type", "dhcp_8h.html#ac69dc2d63f0ca8d2fd3c7bdebf5d7180", null ],
     [ "hops", "dhcp_8h.html#a2719bad26c6e7de2bc08439cea7111ce", null ],

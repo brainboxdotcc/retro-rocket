@@ -4,11 +4,43 @@
     <compoundname>keyboard.h</compoundname>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <invincdepgraph>
-      <node id="28">
+      <node id="94">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="55">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="67">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="71">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="76">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="39">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="83">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="72">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="86">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -16,53 +48,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="108">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="102">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="48">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="107">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="60">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="112">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="103">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="89">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="110">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -70,11 +144,79 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="65">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="100">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="42">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="101">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="91">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="56">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="58">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="97">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="68">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="114">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="49">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="61">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="93">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="74">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="113">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="82">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
       </node>
       <node id="1">
         <label>keyboard.h</label>
@@ -82,51 +224,187 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="62">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="38">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="96">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="54">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="95">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="80">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="90">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="46">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="87">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="98">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="63">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="53">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="70">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="47">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="109">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="59">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="88">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="81">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="85">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="45">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="104">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="105">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="79">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -161,27 +439,15 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -191,44 +457,272 @@
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="52">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="36">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="40">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="73">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="51">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="84">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="43">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="69">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="64">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="77">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="99">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="50">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="37">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -240,9 +734,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="92">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="75">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="41">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -253,6 +765,59 @@
         </childnode>
       </node>
     </invincdepgraph>
+    <innerclass refid="structkey__state" prot="public">key_state</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="keyboard_8h_1a449ccc57026c5272a583c9bc04ed3acb" prot="public" static="no">
+        <name>REPEAT_DELAY_TICKS</name>
+        <initializer>25</initializer>
+        <briefdescription>
+<para>Delay before held keys begin to auto-repeat. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Measured in scheduler ticks (centi-seconds, i.e. 1/100 s). A value of 25 = 250 ms delay before repeat starts. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="27" column="9" bodyfile="include/keyboard.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8h_1a4712beea8d600e863ebd00c72c770b8e" prot="public" static="no">
+        <name>REPEAT_RATE_TICKS</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Interval between auto-repeats once a key is held down. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Measured in scheduler ticks (centi-seconds, i.e. 1/100 s). A value of 5 = 50 ms between repeats (~20 chars/sec). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="35" column="9" bodyfile="include/keyboard.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8h_1a5c28e05d04961202172037075ea93d40" prot="public" static="no">
+        <name>KEYBOARD_BUFFER_SIZE</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Size of the circular keyboard buffer in bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>All translated keypresses are queued here. When the buffer fills, new input will overwrite oldest unread characters. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="43" column="9" bodyfile="include/keyboard.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8h_1a90b389e53b75437df6d8405238c807da" prot="public" static="no">
+        <name>MAX_SCANCODE</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="45" column="9" bodyfile="include/keyboard.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="enum">
       <memberdef kind="enum" id="keyboard_8h_1a28ea8f371588faf8c0f361fd56c0db0b" prot="public" static="no" strong="no">
         <type></type>
@@ -338,13 +903,14 @@
           </detaileddescription>
         </enumvalue>
         <briefdescription>
-<para>Extended keys. BASIC reports these keypresses directly via INKEY$. </para>
+<para>Extended (non-ASCII) keys. </para>
         </briefdescription>
         <detaileddescription>
+<para>These are returned by <ref refid="keyboard_8h_1af186c1d48613bd858b7f774e5bd47935" kindref="member">kgetc()</ref> when pressed. BASIC exposes them directly via INKEY$. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="12" column="1" bodyfile="include/keyboard.h" bodystart="12" bodyend="23"/>
+        <location file="include/keyboard.h" line="53" column="1" bodyfile="include/keyboard.h" bodystart="53" bodyend="64"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -354,13 +920,14 @@
         <argsstring>()</argsstring>
         <name>init_keyboard</name>
         <briefdescription>
-<para>Claim keyboard interrupt. </para>
+<para>Initialises the keyboard driver. </para>
         </briefdescription>
         <detaileddescription>
+<para>Claims IRQ1, sets up the scan code map, and clears the keyboard buffer ready for use. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="28" column="6" declfile="include/keyboard.h" declline="28" declcolumn="6"/>
+        <location file="include/keyboard.h" line="83" column="6" bodyfile="src/keyboard.c" bodystart="173" bodyend="181" declfile="include/keyboard.h" declline="83" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="keyboard_8h_1af186c1d48613bd858b7f774e5bd47935" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned char</type>
@@ -372,7 +939,7 @@
           <declname>cons</declname>
         </param>
         <briefdescription>
-<para>Returns next key in circular buffer, or 255 if no key available. </para>
+<para>Reads the next key from the keyboard buffer. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -380,17 +947,17 @@
 <parametername>cons</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>current console </para>
+<para>Current console (unused, reserved for future use). </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>unsigned char key from circular buffer </para>
+<simplesect kind="return"><para>ASCII character or extended key constant, or 255 if no input is available. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="36" column="15" declfile="include/keyboard.h" declline="36" declcolumn="15"/>
+        <location file="include/keyboard.h" line="92" column="15" declfile="include/keyboard.h" declline="92" declcolumn="15"/>
       </memberdef>
       <memberdef kind="function" id="keyboard_8h_1afdb02475d45b894eb5ec2a57b4100eea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -398,16 +965,16 @@
         <argsstring>()</argsstring>
         <name>ctrl_held</name>
         <briefdescription>
-<para>Returns true if the CTRL key is held down. </para>
+<para>Tests if the CTRL key is currently held down. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>true if CTRL key held </para>
+<para><simplesect kind="return"><para>true if CTRL is held, false otherwise. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="43" column="6" declfile="include/keyboard.h" declline="43" declcolumn="6"/>
+        <location file="include/keyboard.h" line="99" column="6" bodyfile="src/keyboard.c" bodystart="250" bodyend="253" declfile="include/keyboard.h" declline="99" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="keyboard_8h_1a91e9663f1e43e4aca8439739c3b10c69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -415,16 +982,16 @@
         <argsstring>()</argsstring>
         <name>shift_held</name>
         <briefdescription>
-<para>Returns true if the SHIFT key is held down. </para>
+<para>Tests if the SHIFT key is currently held down. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>true if SHIFT key held </para>
+<para><simplesect kind="return"><para>true if SHIFT is held, false otherwise. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="50" column="6" declfile="include/keyboard.h" declline="50" declcolumn="6"/>
+        <location file="include/keyboard.h" line="106" column="6" bodyfile="src/keyboard.c" bodystart="255" bodyend="258" declfile="include/keyboard.h" declline="106" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="keyboard_8h_1ac7d5ba52d15d8a0066ee06b39399411f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -432,16 +999,16 @@
         <argsstring>()</argsstring>
         <name>alt_held</name>
         <briefdescription>
-<para>Returns true if the ALT key is held down. </para>
+<para>Tests if the ALT key is currently held down. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>true if ALT key held </para>
+<para><simplesect kind="return"><para>true if ALT is held, false otherwise. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="57" column="6" declfile="include/keyboard.h" declline="57" declcolumn="6"/>
+        <location file="include/keyboard.h" line="113" column="6" bodyfile="src/keyboard.c" bodystart="260" bodyend="263" declfile="include/keyboard.h" declline="113" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="keyboard_8h_1af491f52ce63929279d3733c13ba771d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -449,26 +1016,61 @@
         <argsstring>()</argsstring>
         <name>caps_lock_on</name>
         <briefdescription>
-<para>Returns true if the CAPS LOCK key is enganged. </para>
+<para>Tests if CAPS LOCK is currently engaged. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>true if CAPS LOCK is on </para>
+<para><simplesect kind="return"><para>true if CAPS LOCK is on, false otherwise. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/keyboard.h" line="64" column="6" declfile="include/keyboard.h" declline="64" declcolumn="6"/>
+        <location file="include/keyboard.h" line="120" column="6" bodyfile="src/keyboard.c" bodystart="265" bodyend="268" declfile="include/keyboard.h" declline="120" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8h_1ab5cfd80e1528c2d400a6833d10d8c364" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void load_keymap_from_string</definition>
+        <argsstring>(const char *text)</argsstring>
+        <name>load_keymap_from_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Load a keymap from a null-terminated text string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Format: &amp;1E a A # scancode &amp;1E produces &apos;a&apos; and &apos;A&apos; &amp;02 1 ! # scancode &amp;02 produces &apos;1&apos; and &apos;!&apos; &amp;1C &amp;0D # scancode &amp;1C is Enter (hex 0D)</para>
+<para><itemizedlist>
+<listitem><para>Lines starting with &apos;#&apos; are comments.</para>
+</listitem><listitem><para>First field must be scancode prefixed with &amp; (hexadecimal).</para>
+</listitem><listitem><para>Two tokens may follow: normal (unshifted) and shifted.</para>
+</listitem><listitem><para>If only one token is given, shifted = normal. </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/keyboard.h" line="122" column="6" bodyfile="src/keyboard.c" bodystart="87" bodyend="152" declfile="include/keyboard.h" declline="122" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Low-level keyboard input driver for Retro Rocket. </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
+<para><simplesect kind="author"><para>Craig Edwards </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025</para>
 </simplesect>
+This module handles:<itemizedlist>
+<listitem><para>PS/2 scan code to ASCII translation (UK layout by default).</para>
+</listitem><listitem><para>Modifier key state tracking (Shift, Ctrl, Alt, Caps Lock).</para>
+</listitem><listitem><para>Buffered keypress input for use by the console/OS.</para>
+</listitem><listitem><para>Extended keycodes for non-ASCII keys (arrows, paging, etc).</para>
+</listitem><listitem><para>Key repeat timing control.</para>
+</listitem></itemizedlist>
 </para>
+<para>BASIC programs see input via INKEY$, which may return ASCII characters or extended key constants defined here. </para>
     </detaileddescription>
     <location file="include/keyboard.h"/>
   </compounddef>

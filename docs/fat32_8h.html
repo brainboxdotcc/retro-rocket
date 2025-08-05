@@ -148,7 +148,7 @@ Macros</h2></td></tr>
 <tr class="separator:aca71ac2df704b07a4c5a6df78f06bae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b9d773a3987b01fdca3c1013fab4f10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a1b9d773a3987b01fdca3c1013fab4f10">CLUSTER_FREE</a>&#160;&#160;&#160;0x00000000</td></tr>
 <tr class="separator:a1b9d773a3987b01fdca3c1013fab4f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67410fff1de66462e0eecbc703811c5a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a67410fff1de66462e0eecbc703811c5a">GPT_EFI_SYSTEM</a>&#160;&#160;&#160;&quot;28732AC1-1FF8-D211-BA4B-00A0C93EC93B&quot;</td></tr>
+<tr class="memitem:a67410fff1de66462e0eecbc703811c5a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a67410fff1de66462e0eecbc703811c5a">GPT_EFI_SYSTEM</a>&#160;&#160;&#160;&quot;C12A7328-F81F-11D2-BA4B-00A0C93EC93B&quot;</td></tr>
 <tr class="memdesc:a67410fff1de66462e0eecbc703811c5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">EFI system partition GUID.  <a href="fat32_8h.html#a67410fff1de66462e0eecbc703811c5a">More...</a><br /></td></tr>
 <tr class="separator:a67410fff1de66462e0eecbc703811c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a463a8a224f6ad57583643e9d1490a593"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a463a8a224f6ad57583643e9d1490a593">GPT_MICROSOFT_BASIC_DATA</a>&#160;&#160;&#160;&quot;EBD0A0A2-B9E5-4433-87C0-68B6B72699C7&quot;</td></tr>
@@ -280,7 +280,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a1b257aa7e0fdd8b11372edf885302176"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1b257aa7e0fdd8b11372edf885302176">&#9670;&nbsp;</a></span>ATTR_ARCHIVE</h2>
@@ -515,7 +515,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPT_EFI_SYSTEM&#160;&#160;&#160;&quot;28732AC1-1FF8-D211-BA4B-00A0C93EC93B&quot;</td>
+          <td class="memname">#define GPT_EFI_SYSTEM&#160;&#160;&#160;&quot;C12A7328-F81F-11D2-BA4B-00A0C93EC93B&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -560,7 +560,16 @@ Variables</h2></td></tr>
 <p>FAT32 FSINFO structure. </p>
 <p>Long filename entry, overlays a <a class="el" href="structdirectory__entry__t.html" title="A directory entry, e.g. file, volume label, directory, long filename entry.">directory_entry_t</a>. These entries repeat before a non-lfn entry, each holding up to 13 UCS-2 characters. Note that they are not stored in order, the 'order' attribute indicates which order they go in.</p>
 <p>FAT32 BIOS parameter block (BPB), stored in the boot sector of the drive.</p>
-<p>A directory entry, e.g. file, volume label, directory, long filename entry. </p>
+<p>A directory entry, e.g. file, volume label, directory, long filename entry.</p>
+<p>FAT32 FSINFO structure.</p>
+<p>There is actually more to an ethernet frame than this (see the STD documents!) but we don't have access to it from the software.</p>
+<p>Definition of a DHCP packet.</p>
+<p>Format of an ARP packet (per RFC 826)</p>
+<p>Root System Description Table (RSDT)</p>
+<p>Generic ACPI System Description Table Header.</p>
+<p>This structure serves as the entry point to the ACPI system description tables. Its location is typically found by scanning the BIOS memory range. It may point to either the RSDT (ACPI 1.0) or XSDT (ACPI 2.0+).</p>
+<p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
 
 </div>
 </div>
@@ -1362,7 +1371,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="fat32_8h.html">fat32.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

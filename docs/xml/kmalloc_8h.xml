@@ -4,6 +4,7 @@
     <compoundname>kmalloc.h</compoundname>
     <includes local="no">stddef.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <includedby refid="kmalloc_8c" local="no">kmalloc.c</includedby>
     <incdepgraph>
       <node id="2">
         <label>stddef.h</label>
@@ -16,11 +17,43 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="28">
+      <node id="94">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="55">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="67">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="71">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="76">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="39">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="83">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="72">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="86">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -28,53 +61,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="108">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="102">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="48">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="107">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="60">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="112">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="103">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="89">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="110">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -82,57 +157,261 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="65">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="100">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="42">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="101">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="91">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="56">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="58">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="97">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="68">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="114">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="49">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="61">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="93">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="74">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="113">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="82">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="62">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="38">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="96">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="54">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="95">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="80">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="90">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="46">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="87">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="98">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="63">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="53">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="70">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="47">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="109">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="59">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="88">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="81">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="85">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="45">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="104">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="105">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="79">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -167,27 +446,15 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -197,50 +464,280 @@
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="52">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="36">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="40">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="73">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="51">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="84">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="43">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="69">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="64">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
       </node>
       <node id="1">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="99">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="50">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="37">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -252,9 +749,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="92">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="75">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="41">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -265,23 +780,72 @@
         </childnode>
       </node>
     </invincdepgraph>
-    <innerclass refid="structheader__t" prot="public">header_t</innerclass>
-    <innerclass refid="structfooter__t" prot="public">footer_t</innerclass>
-    <innerclass refid="structheap__t" prot="public">heap_t</innerclass>
       <sectiondef kind="define">
-      <memberdef kind="define" id="kmalloc_8h_1a604474f5c0892ea2c6c16b5e45c59f59" prot="public" static="no">
-        <name>HEAP_MAGIC</name>
-        <initializer>0xDEADDEADDEADDEADull</initializer>
+      <memberdef kind="define" id="kmalloc_8h_1aae7ce33f5dd0ec931b2551438b55e716" prot="public" static="no">
+        <name>kfree_null</name>
+        <param><defname>p</defname></param>
+        <initializer>do { <ref refid="kmalloc_8c_1a595b89fbbc872879d27d666f5cf8eba6" kindref="member">kfree</ref>(*(<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)); *(<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>) = NULL; } while (0)</initializer>
         <briefdescription>
+<para>Free memory and set the pointer to NULL. </para>
         </briefdescription>
         <detaileddescription>
+<para>This macro safely frees a dynamically allocated pointer and sets it to NULL to avoid dangling references. It must be passed the address of the pointer (i.e., a pointer to the pointer).</para>
+<para>Example usage: <programlisting><codeline><highlight class="normal">void*<sp/>ptr<sp/>=<sp/>kmalloc(128);</highlight></codeline>
+<codeline><highlight class="normal">kfree_null(&amp;ptr);<sp/>//<sp/>ptr<sp/>is<sp/>now<sp/>NULL</highlight></codeline>
+</programlisting></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the pointer to be freed. Must not be NULL. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="14" column="9" bodyfile="include/kmalloc.h" bodystart="14" bodyend="-1"/>
+        <location file="include/kmalloc.h" line="130" column="9" bodyfile="include/kmalloc.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
+      <memberdef kind="function" id="kmalloc_8h_1ae9571189e4229763c03dbf08f551f33f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_heap</definition>
+        <argsstring>(void)</argsstring>
+        <name>init_heap</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialise the kernel heap. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets up internal data structures required for dynamic memory allocation. Should be called early during kernel initialisation. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="21" column="6" bodyfile="src/kmalloc.c" bodystart="30" bodyend="54" declfile="include/kmalloc.h" declline="21" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1ac4160aa7c6aafbda9023bde041fe0476" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_heapinfo</definition>
+        <argsstring>(void)</argsstring>
+        <name>print_heapinfo</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Print diagnostic heap information to the terminal. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Outputs allocator statistics such as used, free, and total heap space. Primarily for debugging and diagnostics. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="29" column="6" bodyfile="src/kmalloc.c" bodystart="56" bodyend="58" declfile="include/kmalloc.h" declline="29" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1aa6bcd5af56ca7ffbc761b010cbd70e39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
         <definition>void* kmalloc</definition>
@@ -292,37 +856,25 @@
           <declname>size</declname>
         </param>
         <briefdescription>
+<para>Allocate memory from the kernel heap. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to allocate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to allocated memory, or NULL if allocation fails. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="53" column="6" declfile="include/kmalloc.h" declline="53" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1adc6f21bbda2c71015c428920cf785abd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void *</type>
-        <definition>void* kmalloc_ext</definition>
-        <argsstring>(uint64_t size, uint8_t align, uint64_t *phys)</argsstring>
-        <name>kmalloc_ext</name>
-        <param>
-          <type>uint64_t</type>
-          <declname>size</declname>
-        </param>
-        <param>
-          <type>uint8_t</type>
-          <declname>align</declname>
-        </param>
-        <param>
-          <type>uint64_t *</type>
-          <declname>phys</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="54" column="6" declfile="include/kmalloc.h" declline="54" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="37" column="6" bodyfile="src/kmalloc.c" bodystart="60" bodyend="67" declfile="include/kmalloc.h" declline="37" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1ab78be9148ec4aacde543a359c126cba0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -334,92 +886,23 @@
           <declname>addr</declname>
         </param>
         <briefdescription>
+<para>Free previously allocated memory. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer previously returned by kmalloc/kcalloc/krealloc. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="55" column="6" declfile="include/kmalloc.h" declline="55" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1aba7ce08189c188afd939c2228c320421" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="structheap__t" kindref="compound">heap_t</ref> *</type>
-        <definition>heap_t* create_heap</definition>
-        <argsstring>(uint64_t addr, uint64_t end, uint64_t max, uint64_t min, uint8_t user, uint8_t rw)</argsstring>
-        <name>create_heap</name>
-        <param>
-          <type>uint64_t</type>
-          <declname>addr</declname>
-        </param>
-        <param>
-          <type>uint64_t</type>
-          <declname>end</declname>
-        </param>
-        <param>
-          <type>uint64_t</type>
-          <declname>max</declname>
-        </param>
-        <param>
-          <type>uint64_t</type>
-          <declname>min</declname>
-        </param>
-        <param>
-          <type>uint8_t</type>
-          <declname>user</declname>
-        </param>
-        <param>
-          <type>uint8_t</type>
-          <declname>rw</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="56" column="7" declfile="include/kmalloc.h" declline="56" declcolumn="7"/>
-      </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1a632fb5550678e7d65db823fb1adc2dd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void init_heap</definition>
-        <argsstring>()</argsstring>
-        <name>init_heap</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="57" column="6" declfile="include/kmalloc.h" declline="57" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1a56ae8e632dd1a93d76e4a9b9f265f3a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void print_heapinfo</definition>
-        <argsstring>()</argsstring>
-        <name>print_heapinfo</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="58" column="6" declfile="include/kmalloc.h" declline="58" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1a48ed44cd60d7dd25dc396e20739a3a84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void preboot_fail</definition>
-        <argsstring>(const char *msg)</argsstring>
-        <name>preboot_fail</name>
-        <param>
-          <type>const char *</type>
-          <declname>msg</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="include/kmalloc.h" line="59" column="6" declfile="include/kmalloc.h" declline="59" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="44" column="6" bodyfile="src/kmalloc.c" bodystart="69" bodyend="82" declfile="include/kmalloc.h" declline="44" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1a4af91afe377146f47af63dac6fb93fb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -435,12 +918,33 @@
           <declname>size</declname>
         </param>
         <briefdescription>
+<para>Allocate zero-initialised memory. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of elements. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of each element in bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to allocated memory, or NULL if allocation fails. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="60" column="6" declfile="include/kmalloc.h" declline="60" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="53" column="6" bodyfile="src/kmalloc.c" bodystart="101" bodyend="105" declfile="include/kmalloc.h" declline="53" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1aece282b3071af855886669942d53537a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -456,12 +960,34 @@
           <declname>new_size</declname>
         </param>
         <briefdescription>
+<para>Resize previously allocated memory block. </para>
         </briefdescription>
         <detaileddescription>
+<para>Preserves contents up to the lesser of old and new sizes.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory allocated by kmalloc/kcalloc/krealloc. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New size in bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to reallocated memory, or NULL if resizing fails. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="61" column="6" declfile="include/kmalloc.h" declline="61" declcolumn="6"/>
+        <location file="include/kmalloc.h" line="64" column="6" bodyfile="src/kmalloc.c" bodystart="107" bodyend="115" declfile="include/kmalloc.h" declline="64" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="kmalloc_8h_1a2ae41a466ab6ea275ca1ebae81b56945" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -473,51 +999,144 @@
           <declname>size</declname>
         </param>
         <briefdescription>
+<para>Allocate memory from low (identity-mapped) memory under 4GB. </para>
         </briefdescription>
         <detaileddescription>
+<para>Intended for DMA buffers or page tables that require low physical addresses.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to allocate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Physical address of the allocated block (below 4GB). </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="62" column="10" declfile="include/kmalloc.h" declline="62" declcolumn="10"/>
+        <location file="include/kmalloc.h" line="74" column="10" bodyfile="src/kmalloc.c" bodystart="84" bodyend="94" declfile="include/kmalloc.h" declline="74" declcolumn="10"/>
       </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1ab1204bd1ce4097b381452452445b75f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="kmalloc_8h_1a60f2a49082216212a87de02d7c79851f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void kfree_low</definition>
+        <argsstring>(uint32_t addr)</argsstring>
+        <name>kfree_low</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+<para>Free a low-memory allocation made with <ref refid="kmalloc_8h_1a2ae41a466ab6ea275ca1ebae81b56945" kindref="member">kmalloc_low()</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Only needed if low memory is explicitly managed and reused.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Physical address of the block to free. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="83" column="6" bodyfile="src/kmalloc.c" bodystart="97" bodyend="99" declfile="include/kmalloc.h" declline="83" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1ab604a2802a10b33ba4b0a35fd6e2c791" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
         <definition>uint64_t get_free_memory</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>get_free_memory</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Get total amount of free memory. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Free heap space in bytes. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="63" column="10" declfile="include/kmalloc.h" declline="63" declcolumn="10"/>
+        <location file="include/kmalloc.h" line="90" column="10" bodyfile="src/kmalloc.c" bodystart="117" bodyend="119" declfile="include/kmalloc.h" declline="90" declcolumn="10"/>
       </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1a3637eb65ed827e7cba29a4dc57273a37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="kmalloc_8h_1a3e38ab345d3a310a5841a319f1b1ea8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
         <definition>uint64_t get_used_memory</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>get_used_memory</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Get total amount of used memory. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Used heap space in bytes. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="64" column="10" declfile="include/kmalloc.h" declline="64" declcolumn="10"/>
+        <location file="include/kmalloc.h" line="97" column="10" bodyfile="src/kmalloc.c" bodystart="121" bodyend="123" declfile="include/kmalloc.h" declline="97" declcolumn="10"/>
       </memberdef>
-      <memberdef kind="function" id="kmalloc_8h_1a9227ee8bcad10a2503376915463f28b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="kmalloc_8h_1a47b68e64f4a43adec7c74cfefb79f4fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
         <definition>uint64_t get_total_memory</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>get_total_memory</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Get total available memory managed by the kernel heap. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Total heap size in bytes. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/kmalloc.h" line="65" column="10" declfile="include/kmalloc.h" declline="65" declcolumn="10"/>
+        <location file="include/kmalloc.h" line="104" column="10" bodyfile="src/kmalloc.c" bodystart="125" bodyend="127" declfile="include/kmalloc.h" declline="104" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="kmalloc_8h_1a48ed44cd60d7dd25dc396e20739a3a84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void preboot_fail</definition>
+        <argsstring>(const char *msg)</argsstring>
+        <name>preboot_fail</name>
+        <param>
+          <type>const char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Halt the system with a preboot failure message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Used when a critical failure occurs before full initialisation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Null-terminated string describing the failure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/kmalloc.h" line="113" column="6" bodyfile="src/kmalloc.c" bodystart="23" bodyend="28" declfile="include/kmalloc.h" declline="113" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -525,7 +1144,11 @@
     <detaileddescription>
 <para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025</para>
+</simplesect>
+<simplesect kind="author"><para>Craig Edwards </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025 </para>
 </simplesect>
 </para>
     </detaileddescription>

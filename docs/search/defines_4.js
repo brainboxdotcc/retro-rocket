@@ -1,15 +1,16 @@
 var searchData=
 [
-  ['e1000_5f82577lm_3943',['E1000_82577LM',['../e1000_8h.html#a2f6b24febdf809da6dc1eb3eb442ffbc',1,'e1000.h']]],
-  ['e1000_5fdev_3944',['E1000_DEV',['../e1000_8h.html#ac6d995430312047962084a7d49455482',1,'e1000.h']]],
-  ['e1000_5fi217_3945',['E1000_I217',['../e1000_8h.html#af8371850493100934c56fe17c0b2cab3',1,'e1000.h']]],
-  ['e1000_5fnum_5frx_5fdesc_3946',['E1000_NUM_RX_DESC',['../e1000_8h.html#aa8ed57c88df5582770a3d7214c80fc19',1,'e1000.h']]],
-  ['e1000_5fnum_5ftx_5fdesc_3947',['E1000_NUM_TX_DESC',['../e1000_8h.html#a072841f719ac7f2481decdb11eda3dfe',1,'e1000.h']]],
-  ['ectrl_5fslu_3948',['ECTRL_SLU',['../e1000_8h.html#addf126d9993702a223ef20a03173e2f6',1,'e1000.h']]],
-  ['error_5fmask_3949',['ERROR_MASK',['../dns_8h.html#a10916ab21f8ba06e447e898790ef6a4b',1,'dns.h']]],
-  ['ethernet_5ftype_5farp_3950',['ETHERNET_TYPE_ARP',['../arp_8h.html#a4c4f153799e067ed950a33e35590cf48',1,'arp.h']]],
-  ['ethernet_5ftype_5fip_3951',['ETHERNET_TYPE_IP',['../ip_8h.html#a44ade6ec22bb8ca7dd31a313bbaa458b',1,'ip.h']]],
-  ['ethernet_5ftype_5fip6_3952',['ETHERNET_TYPE_IP6',['../ip_8h.html#ad86447cb2614688c35c6658af52db4cd',1,'ip.h']]],
-  ['eval_5fend_5fline_3953',['EVAL_END_LINE',['../basic_8h.html#aed46a4c9764a1d0bb5501f0a2a4b4b51',1,'basic.h']]],
-  ['eval_5fline_3954',['EVAL_LINE',['../basic_8h.html#a1d28f33b55479f791aed387d6cc2dd75',1,'basic.h']]]
+  ['data_5frot_6323',['DATA_ROT',['../debugger_8h.html#af4d0d0a35b850a74b00e587f525b449d',1,'debugger.h']]],
+  ['data_5fxor_6324',['DATA_XOR',['../debugger_8h.html#aff73b043f5ee952cb342abf36ceae01d',1,'debugger.h']]],
+  ['debug_5fbreak_6325',['DEBUG_BREAK',['../basic_8h.html#a3d93354890ac62b45842cac3737212c4',1,'basic.h']]],
+  ['debug_5fdst_5fport_6326',['DEBUG_DST_PORT',['../debugger_8h.html#ae53029ffe581df20293a810c40f9745d',1,'debugger.h']]],
+  ['debug_5fstep_6327',['DEBUG_STEP',['../basic_8h.html#a9313e0837a51cfb3a8b3bf799095caac',1,'basic.h']]],
+  ['debug_5ftrace_6328',['DEBUG_TRACE',['../basic_8h.html#a1a14f2ab6e23e263754ecca29d5114f1',1,'basic.h']]],
+  ['default_5fcolour_6329',['DEFAULT_COLOUR',['../video_8h.html#a2f54719dcdf8932e3141388b38dee848',1,'video.h']]],
+  ['deleted_5fentry_6330',['DELETED_ENTRY',['../fat32_8h.html#a25e14f7cee749eae300f179067563f09',1,'fat32.h']]],
+  ['device_5fper_5fbus_6331',['DEVICE_PER_BUS',['../pci_8h.html#a616b1485f3933c23fee5d1c039286517',1,'pci.h']]],
+  ['dhcp_5ftransaction_5fidentifier_6332',['DHCP_TRANSACTION_IDENTIFIER',['../dhcp_8h.html#a7d226f4bf1debfefe743b2aa4b567fda',1,'dhcp.h']]],
+  ['dn_5fcomp_5fbitmask_6333',['DN_COMP_BITMASK',['../dns_8h.html#a9f2aecc6a47afa74b56373db4fd54e64',1,'dns.h']]],
+  ['dns_5fdst_5fport_6334',['DNS_DST_PORT',['../dns_8h.html#a2db807ffd39a189e6b55b508c203c5f8',1,'dns.h']]],
+  ['dns_5fresult_5fcached_6335',['DNS_RESULT_CACHED',['../dns_8h.html#a78ae0c85451ab6602e6b51e31c5602c3',1,'dns.h']]]
 ];

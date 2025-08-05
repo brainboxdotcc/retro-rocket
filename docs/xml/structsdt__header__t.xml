@@ -10,12 +10,13 @@
         <argsstring>[4]</argsstring>
         <name>signature</name>
         <briefdescription>
+<para>Table identifier (e.g. &quot;APIC&quot;, &quot;DSDT&quot;, etc.) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="29" column="6" bodyfile="include/acpi.h" bodystart="29" bodyend="-1"/>
+        <location file="include/acpi.h" line="39" column="6" bodyfile="include/acpi.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1abe57e83b002ec9c735441cdf583c2a85" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>length</name>
         <briefdescription>
+<para>Total length of the table, including this header. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="30" column="10" bodyfile="include/acpi.h" bodystart="30" bodyend="-1"/>
+        <location file="include/acpi.h" line="40" column="10" bodyfile="include/acpi.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1a7ca1eb8b50d806ab4cd2e354b7029bff" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>revision</name>
         <briefdescription>
+<para>Table version. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="31" column="9" bodyfile="include/acpi.h" bodystart="31" bodyend="-1"/>
+        <location file="include/acpi.h" line="41" column="9" bodyfile="include/acpi.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1aa299d8aed090e515ea3d0a6615e6f13b" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -49,12 +52,13 @@
         <argsstring></argsstring>
         <name>checksum</name>
         <briefdescription>
+<para>Entire table checksum. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="32" column="9" bodyfile="include/acpi.h" bodystart="32" bodyend="-1"/>
+        <location file="include/acpi.h" line="42" column="9" bodyfile="include/acpi.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1a617232300a3a39c41cd8af74b9c3c660" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -62,12 +66,13 @@
         <argsstring>[6]</argsstring>
         <name>oem_id</name>
         <briefdescription>
+<para>OEM identifier string. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="33" column="6" bodyfile="include/acpi.h" bodystart="33" bodyend="-1"/>
+        <location file="include/acpi.h" line="43" column="6" bodyfile="include/acpi.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1a80ae2966dc905c4d6afef8d39c558a06" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -75,12 +80,13 @@
         <argsstring>[8]</argsstring>
         <name>oem_table_id</name>
         <briefdescription>
+<para>OEM-defined table identifier. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="34" column="6" bodyfile="include/acpi.h" bodystart="34" bodyend="-1"/>
+        <location file="include/acpi.h" line="44" column="6" bodyfile="include/acpi.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1ab45624493b14b1ec7a7b00243f6ae1c0" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -88,12 +94,13 @@
         <argsstring></argsstring>
         <name>oem_revision</name>
         <briefdescription>
+<para>OEM table revision. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="35" column="10" bodyfile="include/acpi.h" bodystart="35" bodyend="-1"/>
+        <location file="include/acpi.h" line="45" column="10" bodyfile="include/acpi.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1a2c5951f2b6e6e98fc2301c32be64a891" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -101,12 +108,13 @@
         <argsstring></argsstring>
         <name>creator_id</name>
         <briefdescription>
+<para>Vendor ID of utility that created the table. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="36" column="10" bodyfile="include/acpi.h" bodystart="36" bodyend="-1"/>
+        <location file="include/acpi.h" line="46" column="10" bodyfile="include/acpi.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsdt__header__t_1a2ef1914f5362f7775b8eeb9f6691da2d" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -114,18 +122,20 @@
         <argsstring></argsstring>
         <name>creator_revision</name>
         <briefdescription>
+<para>Version of utility that created the table. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/acpi.h" line="37" column="10" bodyfile="include/acpi.h" bodystart="37" bodyend="-1"/>
+        <location file="include/acpi.h" line="47" column="10" bodyfile="include/acpi.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>System Description Table Header. </para>
+<para>Generic ACPI System Description Table Header. </para>
     </briefdescription>
     <detaileddescription>
+<para>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -157,7 +167,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/acpi.h" line="28" column="1" bodyfile="include/acpi.h" bodystart="28" bodyend="38"/>
+    <location file="include/acpi.h" line="38" column="1" bodyfile="include/acpi.h" bodystart="38" bodyend="48"/>
     <listofallmembers>
       <member refid="structsdt__header__t_1aa299d8aed090e515ea3d0a6615e6f13b" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>checksum</name></member>
       <member refid="structsdt__header__t_1a2c5951f2b6e6e98fc2301c32be64a891" prot="public" virt="non-virtual"><scope>sdt_header_t</scope><name>creator_id</name></member>

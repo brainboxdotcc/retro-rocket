@@ -10,7 +10,7 @@ var structahci__hba__mem__t =
     [ "ghc", "structahci__hba__mem__t.html#a1d935ecd9e3b038c81e26e4e28b77be9", null ],
     [ "is", "structahci__hba__mem__t.html#a5f0818745d8fc0da85cc17a85815cff9", null ],
     [ "pi", "structahci__hba__mem__t.html#a1d1c1772ac7e3009aaaa3198a95aef3f", null ],
-    [ "ports", "structahci__hba__mem__t.html#a27544b631c6d2b71f05e15bff529ea08", null ],
+    [ "ports", "structahci__hba__mem__t.html#a7a19c4ffadeeebd055da4d72d38f79df", null ],
     [ "rsv", "structahci__hba__mem__t.html#a86678552011a3e74f5b7ff676c926a01", null ],
     [ "vendor", "structahci__hba__mem__t.html#a0f439393ae9c260fd35c1f7565147e35", null ],
     [ "vs", "structahci__hba__mem__t.html#a74c55d339a8104bea69039718203e6c7", null ]

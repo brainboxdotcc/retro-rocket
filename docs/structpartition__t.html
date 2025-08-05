@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structpartition__t.html',''); initResi
 </div><!--header-->
 <div class="contents">
 
-<p>A disk partition on a storage device.  
+<p>A disk partition entry within the MBR.  
  <a href="structpartition__t.html#details">More...</a></p>
 
 <p><code>#include &lt;partition.h&gt;</code></p>
@@ -107,32 +107,32 @@ $(document).ready(function(){initNavTree('structpartition__t.html',''); initResi
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:ab01c8d7cfc6427c47cbe89bdde5733d2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#ab01c8d7cfc6427c47cbe89bdde5733d2">bootable</a></td></tr>
-<tr class="memdesc:ab01c8d7cfc6427c47cbe89bdde5733d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition is bootable.  <a href="structpartition__t.html#ab01c8d7cfc6427c47cbe89bdde5733d2">More...</a><br /></td></tr>
+<tr class="memdesc:ab01c8d7cfc6427c47cbe89bdde5733d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition is bootable (0x80 = bootable, 0x00 = non-bootable).  <a href="structpartition__t.html#ab01c8d7cfc6427c47cbe89bdde5733d2">More...</a><br /></td></tr>
 <tr class="separator:ab01c8d7cfc6427c47cbe89bdde5733d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e25a719ac40ee7bce35a9287eab818d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#a3e25a719ac40ee7bce35a9287eab818d">starthead</a></td></tr>
-<tr class="memdesc:a3e25a719ac40ee7bce35a9287eab818d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting head.  <a href="structpartition__t.html#a3e25a719ac40ee7bce35a9287eab818d">More...</a><br /></td></tr>
+<tr class="memdesc:a3e25a719ac40ee7bce35a9287eab818d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting head of the partition.  <a href="structpartition__t.html#a3e25a719ac40ee7bce35a9287eab818d">More...</a><br /></td></tr>
 <tr class="separator:a3e25a719ac40ee7bce35a9287eab818d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a538d9cdd9d12ea7b4c6730e3f9e8ed5f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#a538d9cdd9d12ea7b4c6730e3f9e8ed5f">startcylsect</a></td></tr>
-<tr class="memdesc:a538d9cdd9d12ea7b4c6730e3f9e8ed5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting cylinder and sector.  <a href="structpartition__t.html#a538d9cdd9d12ea7b4c6730e3f9e8ed5f">More...</a><br /></td></tr>
+<tr class="memdesc:a538d9cdd9d12ea7b4c6730e3f9e8ed5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting cylinder and sector of the partition.  <a href="structpartition__t.html#a538d9cdd9d12ea7b4c6730e3f9e8ed5f">More...</a><br /></td></tr>
 <tr class="separator:a538d9cdd9d12ea7b4c6730e3f9e8ed5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab59cfb3e84da908a96cab4ab4c1af0da"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#ab59cfb3e84da908a96cab4ab4c1af0da">systemid</a></td></tr>
-<tr class="memdesc:ab59cfb3e84da908a96cab4ab4c1af0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">partition type id  <a href="structpartition__t.html#ab59cfb3e84da908a96cab4ab4c1af0da">More...</a><br /></td></tr>
+<tr class="memdesc:ab59cfb3e84da908a96cab4ab4c1af0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition type identifier.  <a href="structpartition__t.html#ab59cfb3e84da908a96cab4ab4c1af0da">More...</a><br /></td></tr>
 <tr class="separator:ab59cfb3e84da908a96cab4ab4c1af0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ed9a76ac12341935e919877fa003051"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#a1ed9a76ac12341935e919877fa003051">endhead</a></td></tr>
-<tr class="memdesc:a1ed9a76ac12341935e919877fa003051"><td class="mdescLeft">&#160;</td><td class="mdescRight">End head.  <a href="structpartition__t.html#a1ed9a76ac12341935e919877fa003051">More...</a><br /></td></tr>
+<tr class="memdesc:a1ed9a76ac12341935e919877fa003051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ending head of the partition.  <a href="structpartition__t.html#a1ed9a76ac12341935e919877fa003051">More...</a><br /></td></tr>
 <tr class="separator:a1ed9a76ac12341935e919877fa003051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4be6901182a34286c7b8f55d2adf64b1"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#a4be6901182a34286c7b8f55d2adf64b1">endcylsect</a></td></tr>
-<tr class="memdesc:a4be6901182a34286c7b8f55d2adf64b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">End cylinder and sector.  <a href="structpartition__t.html#a4be6901182a34286c7b8f55d2adf64b1">More...</a><br /></td></tr>
+<tr class="memdesc:a4be6901182a34286c7b8f55d2adf64b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ending cylinder and sector of the partition.  <a href="structpartition__t.html#a4be6901182a34286c7b8f55d2adf64b1">More...</a><br /></td></tr>
 <tr class="separator:a4be6901182a34286c7b8f55d2adf64b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98196469e7c6ff383eaa9b243b8a98fc"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#a98196469e7c6ff383eaa9b243b8a98fc">startlba</a></td></tr>
-<tr class="memdesc:a98196469e7c6ff383eaa9b243b8a98fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA.  <a href="structpartition__t.html#a98196469e7c6ff383eaa9b243b8a98fc">More...</a><br /></td></tr>
+<tr class="memdesc:a98196469e7c6ff383eaa9b243b8a98fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA (Logical Block Address) of the partition.  <a href="structpartition__t.html#a98196469e7c6ff383eaa9b243b8a98fc">More...</a><br /></td></tr>
 <tr class="separator:a98196469e7c6ff383eaa9b243b8a98fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdda3a9c88bfd7ba74bbb2290ef83743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpartition__t.html#afdda3a9c88bfd7ba74bbb2290ef83743">length</a></td></tr>
-<tr class="memdesc:afdda3a9c88bfd7ba74bbb2290ef83743"><td class="mdescLeft">&#160;</td><td class="mdescRight">LBA length.  <a href="structpartition__t.html#afdda3a9c88bfd7ba74bbb2290ef83743">More...</a><br /></td></tr>
+<tr class="memdesc:afdda3a9c88bfd7ba74bbb2290ef83743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the partition in sectors.  <a href="structpartition__t.html#afdda3a9c88bfd7ba74bbb2290ef83743">More...</a><br /></td></tr>
 <tr class="separator:afdda3a9c88bfd7ba74bbb2290ef83743"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A disk partition on a storage device. </p>
+<div class="textblock"><p>A disk partition entry within the MBR. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="ab01c8d7cfc6427c47cbe89bdde5733d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab01c8d7cfc6427c47cbe89bdde5733d2">&#9670;&nbsp;</a></span>bootable</h2>
@@ -146,7 +146,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Partition is bootable. </p>
+<p>Partition is bootable (0x80 = bootable, 0x00 = non-bootable). </p>
 
 </div>
 </div>
@@ -162,7 +162,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>End cylinder and sector. </p>
+<p>Ending cylinder and sector of the partition. </p>
 
 </div>
 </div>
@@ -178,7 +178,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>End head. </p>
+<p>Ending head of the partition. </p>
 
 </div>
 </div>
@@ -194,7 +194,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>LBA length. </p>
+<p>Length of the partition in sectors. </p>
 
 </div>
 </div>
@@ -210,7 +210,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Starting cylinder and sector. </p>
+<p>Starting cylinder and sector of the partition. </p>
 
 </div>
 </div>
@@ -226,7 +226,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Starting head. </p>
+<p>Starting head of the partition. </p>
 
 </div>
 </div>
@@ -242,7 +242,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Starting LBA. </p>
+<p>Starting LBA (Logical Block Address) of the partition. </p>
 
 </div>
 </div>
@@ -258,7 +258,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>partition type id </p>
+<p>Partition type identifier. </p>
 
 </div>
 </div>
@@ -268,7 +268,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structpartition__t.html">partition_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

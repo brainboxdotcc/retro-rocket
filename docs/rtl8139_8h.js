@@ -7,7 +7,6 @@ var rtl8139_8h =
     [ "CR_RE", "rtl8139_8h.html#ad1295667f0a3de4bdcc7ad87c474c73e", null ],
     [ "CR_RST", "rtl8139_8h.html#a31f84f2a2d4e6e7de18add4f8db8e585", null ],
     [ "CR_TE", "rtl8139_8h.html#ae101fdaac1072c6ed0899e0c30511d81", null ],
-    [ "get_mac_addr", "rtl8139_8h.html#a0e3fafea6c03ce458e3c1d35387042bd", null ],
     [ "RTL8139_DEVICE_ID", "rtl8139_8h.html#a832875eaec4756d1ba1309eb5b18d77c", null ],
     [ "RTL8139_VENDOR_ID", "rtl8139_8h.html#a3f195356e45805ccf74184a3616ba53a", null ],
     [ "RX_BUF_SIZE", "rtl8139_8h.html#a690f985c933da2ce6fe62b6c61dfa662", null ],
@@ -74,6 +73,7 @@ var rtl8139_8h =
       [ "FIFOTMS", "rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611a747e4a3ecb8924f0b56e65104cecb0c4", null ],
       [ "CSCR", "rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611a5e33309348beaa903376dcd2889b18da", null ],
       [ "PARA78", "rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611afd37b443dd70246c9d89d96e884d0576", null ],
+      [ "RxEarlyThresh", "rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611a9bc7317b84618caaa824761deab985c8", null ],
       [ "PARA7c", "rtl8139_8h.html#af5c4b440c6a9c15ea97d4455ea996611a1997d8f3f5bb1408474bb6f90de0b502", null ]
     ] ],
     [ "rtl8139_rx_status_bits", "rtl8139_8h.html#a67504abfbdb64607f32c6f4b76676f56", [
@@ -110,10 +110,9 @@ var rtl8139_8h =
       [ "TX_TABT", "rtl8139_8h.html#a2e53add6ee3b8f979db8707505e29015a5d35f650798d5b2ceaba9bc081784ec9", null ],
       [ "TX_CRS", "rtl8139_8h.html#a2e53add6ee3b8f979db8707505e29015aacfae4836cc3918914bb2cc828254d37", null ]
     ] ],
-    [ "init_rtl8139", "rtl8139_8h.html#aaeab8345c9dcf11708bfa095299f408a", null ],
+    [ "init_rtl8139", "rtl8139_8h.html#afb381866b5dc5f09b132f63c9abc142b", null ],
     [ "read_mac_addr", "rtl8139_8h.html#a6ffee74a1d59b89074475e3f63b90467", null ],
     [ "receive_packet", "rtl8139_8h.html#a2e3eda51e49f15540e2bff7ea40f05db", null ],
-    [ "rtl8139_get_mac_addr", "rtl8139_8h.html#a6afdb8e39171181fcfd0e49f28b10e3e", null ],
     [ "rtl8139_handler", "rtl8139_8h.html#afcf1f3ad1e43a154cdee3c48beae8a93", null ],
-    [ "rtl8139_send_packet", "rtl8139_8h.html#aa8376ab52bb984dc5977fde84cc6ac20", null ]
+    [ "rtl8139_send_packet", "rtl8139_8h.html#a6d2a8cbf3e4ea167997308e42a50d9b1", null ]
 ];

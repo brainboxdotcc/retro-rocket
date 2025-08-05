@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('structgpt__header__t.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
+<p>The GPT (GUID Partition Table) header.  
+ <a href="structgpt__header__t.html#details">More...</a></p>
+
 <p><code>#include &lt;partition.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for gpt_header_t:</div>
@@ -104,37 +107,54 @@ $(document).ready(function(){initNavTree('structgpt__header__t.html',''); initRe
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a6068cb2a223959b8ba48756174df4c4a"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a6068cb2a223959b8ba48756174df4c4a">signature</a> [8]</td></tr>
+<tr class="memdesc:a6068cb2a223959b8ba48756174df4c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPT signature, should be "EFI PART".  <a href="structgpt__header__t.html#a6068cb2a223959b8ba48756174df4c4a">More...</a><br /></td></tr>
 <tr class="separator:a6068cb2a223959b8ba48756174df4c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fafdbba3d58c482bc05764b675fa9da"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a2fafdbba3d58c482bc05764b675fa9da">gpt_revision</a></td></tr>
+<tr class="memdesc:a2fafdbba3d58c482bc05764b675fa9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPT revision number.  <a href="structgpt__header__t.html#a2fafdbba3d58c482bc05764b675fa9da">More...</a><br /></td></tr>
 <tr class="separator:a2fafdbba3d58c482bc05764b675fa9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93f13eaade92102060ef1e1f3647ae34"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a93f13eaade92102060ef1e1f3647ae34">header_size</a></td></tr>
+<tr class="memdesc:a93f13eaade92102060ef1e1f3647ae34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the GPT header in bytes.  <a href="structgpt__header__t.html#a93f13eaade92102060ef1e1f3647ae34">More...</a><br /></td></tr>
 <tr class="separator:a93f13eaade92102060ef1e1f3647ae34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93911710223d932c2cf8b13a446ad2ee"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a93911710223d932c2cf8b13a446ad2ee">crc_checksum</a></td></tr>
+<tr class="memdesc:a93911710223d932c2cf8b13a446ad2ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC32 checksum of the GPT header.  <a href="structgpt__header__t.html#a93911710223d932c2cf8b13a446ad2ee">More...</a><br /></td></tr>
 <tr class="separator:a93911710223d932c2cf8b13a446ad2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c3d23fdfae446b6279948a531823563"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a9c3d23fdfae446b6279948a531823563">reserved0</a></td></tr>
+<tr class="memdesc:a9c3d23fdfae446b6279948a531823563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field, must be zero.  <a href="structgpt__header__t.html#a9c3d23fdfae446b6279948a531823563">More...</a><br /></td></tr>
 <tr class="separator:a9c3d23fdfae446b6279948a531823563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31ab348171b597b5286d41dfeb536601"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a31ab348171b597b5286d41dfeb536601">lba_of_this_header</a></td></tr>
+<tr class="memdesc:a31ab348171b597b5286d41dfeb536601"><td class="mdescLeft">&#160;</td><td class="mdescRight">LBA of this GPT header.  <a href="structgpt__header__t.html#a31ab348171b597b5286d41dfeb536601">More...</a><br /></td></tr>
 <tr class="separator:a31ab348171b597b5286d41dfeb536601"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10bb3ec26bd2ece9e999998ce1a2a775"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a10bb3ec26bd2ece9e999998ce1a2a775">lba_of_alternative_header</a></td></tr>
+<tr class="memdesc:a10bb3ec26bd2ece9e999998ce1a2a775"><td class="mdescLeft">&#160;</td><td class="mdescRight">LBA of the alternative (backup) GPT header.  <a href="structgpt__header__t.html#a10bb3ec26bd2ece9e999998ce1a2a775">More...</a><br /></td></tr>
 <tr class="separator:a10bb3ec26bd2ece9e999998ce1a2a775"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a709210fecd013c9b8be9845a3b327ea4"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a709210fecd013c9b8be9845a3b327ea4">first_usable_block</a></td></tr>
+<tr class="memdesc:a709210fecd013c9b8be9845a3b327ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">First usable LBA for partitions.  <a href="structgpt__header__t.html#a709210fecd013c9b8be9845a3b327ea4">More...</a><br /></td></tr>
 <tr class="separator:a709210fecd013c9b8be9845a3b327ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb93ed937a0d07dff3a6f2efd14d47be"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#abb93ed937a0d07dff3a6f2efd14d47be">last_usable_block</a></td></tr>
+<tr class="memdesc:abb93ed937a0d07dff3a6f2efd14d47be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last usable LBA for partitions.  <a href="structgpt__header__t.html#abb93ed937a0d07dff3a6f2efd14d47be">More...</a><br /></td></tr>
 <tr class="separator:abb93ed937a0d07dff3a6f2efd14d47be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79ed891ffe92857df146217a391ee7fa"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a79ed891ffe92857df146217a391ee7fa">disk_guid</a> [16]</td></tr>
+<tr class="memdesc:a79ed891ffe92857df146217a391ee7fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disk GUID in binary form.  <a href="structgpt__header__t.html#a79ed891ffe92857df146217a391ee7fa">More...</a><br /></td></tr>
 <tr class="separator:a79ed891ffe92857df146217a391ee7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcfc685bd90fe623008e90be7dfd7308"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#afcfc685bd90fe623008e90be7dfd7308">lba_of_partition_entries</a></td></tr>
+<tr class="memdesc:afcfc685bd90fe623008e90be7dfd7308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting LBA of the partition entries array.  <a href="structgpt__header__t.html#afcfc685bd90fe623008e90be7dfd7308">More...</a><br /></td></tr>
 <tr class="separator:afcfc685bd90fe623008e90be7dfd7308"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d7bc9c7b484aa08d13839a12c25fc41"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a9d7bc9c7b484aa08d13839a12c25fc41">number_partition_entries</a></td></tr>
+<tr class="memdesc:a9d7bc9c7b484aa08d13839a12c25fc41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of partition entries.  <a href="structgpt__header__t.html#a9d7bc9c7b484aa08d13839a12c25fc41">More...</a><br /></td></tr>
 <tr class="separator:a9d7bc9c7b484aa08d13839a12c25fc41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b3f4a73cf3544ab6ae31ad15f984d05"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a7b3f4a73cf3544ab6ae31ad15f984d05">size_of_each_entry</a></td></tr>
+<tr class="memdesc:a7b3f4a73cf3544ab6ae31ad15f984d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of each partition entry in bytes.  <a href="structgpt__header__t.html#a7b3f4a73cf3544ab6ae31ad15f984d05">More...</a><br /></td></tr>
 <tr class="separator:a7b3f4a73cf3544ab6ae31ad15f984d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8f8ae51701b9683ff0bc3e04efda0f2"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#ac8f8ae51701b9683ff0bc3e04efda0f2">crc_32_of_entries</a></td></tr>
+<tr class="memdesc:ac8f8ae51701b9683ff0bc3e04efda0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC32 checksum of the partition entries array.  <a href="structgpt__header__t.html#ac8f8ae51701b9683ff0bc3e04efda0f2">More...</a><br /></td></tr>
 <tr class="separator:ac8f8ae51701b9683ff0bc3e04efda0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f036a7d24e25521e33a1bfabb38cbac"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpt__header__t.html#a6f036a7d24e25521e33a1bfabb38cbac">reserved1</a> []</td></tr>
+<tr class="memdesc:a6f036a7d24e25521e33a1bfabb38cbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved space, must be zero.  <a href="structgpt__header__t.html#a6f036a7d24e25521e33a1bfabb38cbac">More...</a><br /></td></tr>
 <tr class="separator:a6f036a7d24e25521e33a1bfabb38cbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The GPT (GUID Partition Table) header. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="ac8f8ae51701b9683ff0bc3e04efda0f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8f8ae51701b9683ff0bc3e04efda0f2">&#9670;&nbsp;</a></span>crc_32_of_entries</h2>
 
@@ -146,6 +166,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>CRC32 checksum of the partition entries array. </p>
 
 </div>
 </div>
@@ -161,6 +183,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>CRC32 checksum of the GPT header. </p>
+
 </div>
 </div>
 <a id="a79ed891ffe92857df146217a391ee7fa"></a>
@@ -174,6 +198,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Disk GUID in binary form. </p>
 
 </div>
 </div>
@@ -189,6 +215,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>First usable LBA for partitions. </p>
+
 </div>
 </div>
 <a id="a2fafdbba3d58c482bc05764b675fa9da"></a>
@@ -202,6 +230,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>GPT revision number. </p>
 
 </div>
 </div>
@@ -217,6 +247,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Size of the GPT header in bytes. </p>
+
 </div>
 </div>
 <a id="abb93ed937a0d07dff3a6f2efd14d47be"></a>
@@ -230,6 +262,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Last usable LBA for partitions. </p>
 
 </div>
 </div>
@@ -245,6 +279,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>LBA of the alternative (backup) GPT header. </p>
+
 </div>
 </div>
 <a id="afcfc685bd90fe623008e90be7dfd7308"></a>
@@ -258,6 +294,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Starting LBA of the partition entries array. </p>
 
 </div>
 </div>
@@ -273,6 +311,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>LBA of this GPT header. </p>
+
 </div>
 </div>
 <a id="a9d7bc9c7b484aa08d13839a12c25fc41"></a>
@@ -286,6 +326,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Number of partition entries. </p>
 
 </div>
 </div>
@@ -301,6 +343,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Reserved field, must be zero. </p>
+
 </div>
 </div>
 <a id="a6f036a7d24e25521e33a1bfabb38cbac"></a>
@@ -314,6 +358,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reserved space, must be zero. </p>
 
 </div>
 </div>
@@ -329,6 +375,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>GPT signature, should be "EFI PART". </p>
+
 </div>
 </div>
 <a id="a7b3f4a73cf3544ab6ae31ad15f984d05"></a>
@@ -343,6 +391,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Size of each partition entry in bytes. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -351,7 +401,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structgpt__header__t.html">gpt_header_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

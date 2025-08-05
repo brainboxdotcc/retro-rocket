@@ -104,12 +104,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:af06d81941ccd1def50b5cb31471b26f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the approximate number of decimal places in a double value. This uses a very simple loop which repeatedly multiplies the value by ten, until all that remains is a whole number greater than or equal to 1.  <a href="fpu_8h.html#af06d81941ccd1def50b5cb31471b26f9">More...</a><br /></td></tr>
 <tr class="separator:af06d81941ccd1def50b5cb31471b26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37eb4f4e2722507e0a98aff05e5fb2c1"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fpu_8h.html#a37eb4f4e2722507e0a98aff05e5fb2c1">double_to_string</a> (double x, char *<a class="el" href="ahci_8h.html#a6519522ad9a6f45e7a8d25d31392a977">p</a>, int64_t <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, uint8_t precision)</td></tr>
-<tr class="memdesc:a37eb4f4e2722507e0a98aff05e5fb2c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a doubleing point number to char* string, with a specified decimal precision.  <a href="fpu_8h.html#a37eb4f4e2722507e0a98aff05e5fb2c1">More...</a><br /></td></tr>
+<tr class="memdesc:a37eb4f4e2722507e0a98aff05e5fb2c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a double number to char* string, with a specified decimal precision.  <a href="fpu_8h.html#a37eb4f4e2722507e0a98aff05e5fb2c1">More...</a><br /></td></tr>
 <tr class="separator:a37eb4f4e2722507e0a98aff05e5fb2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="af06d81941ccd1def50b5cb31471b26f9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af06d81941ccd1def50b5cb31471b26f9">&#9670;&nbsp;</a></span>double_determine_decimal_places()</h2>
@@ -176,7 +176,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Convert a doubleing point number to char* string, with a specified decimal precision. </p>
+<p>Convert a double number to char* string, with a specified decimal precision. </p>
 <p>This function retains accuraccy by converting to 64 bit integers and string representations as early as possible, then operating on fixed-point representations of the floating point number. When we deal with fixed point, we don't lose accuraccy due to rounding.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -236,7 +236,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="fpu_8h.html">fpu.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

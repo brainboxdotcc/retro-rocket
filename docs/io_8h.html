@@ -90,37 +90,54 @@ $(document).ready(function(){initNavTree('io_8h.html',''); initResizable(); });
 <div class="title">io.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Inline helpers for performing privileged I/O port access and interrupt control.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab52bf4ee1747fde943d805c11698c2b5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#ab52bf4ee1747fde943d805c11698c2b5">outb</a> (uint16_t port, uint8_t value)</td></tr>
+<tr class="memdesc:ab52bf4ee1747fde943d805c11698c2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output a single byte to an I/O port.  <a href="io_8h.html#ab52bf4ee1747fde943d805c11698c2b5">More...</a><br /></td></tr>
 <tr class="separator:ab52bf4ee1747fde943d805c11698c2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0223c8898dfec29069879dc51076e28a"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a0223c8898dfec29069879dc51076e28a">inb</a> (uint16_t port)</td></tr>
+<tr class="memdesc:a0223c8898dfec29069879dc51076e28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input a single byte from an I/O port.  <a href="io_8h.html#a0223c8898dfec29069879dc51076e28a">More...</a><br /></td></tr>
 <tr class="separator:a0223c8898dfec29069879dc51076e28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2f39bde7b2e87793f55352c72d07ebe"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#ab2f39bde7b2e87793f55352c72d07ebe">inw</a> (uint16_t port)</td></tr>
+<tr class="memdesc:ab2f39bde7b2e87793f55352c72d07ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input a 16‑bit word from an I/O port.  <a href="io_8h.html#ab2f39bde7b2e87793f55352c72d07ebe">More...</a><br /></td></tr>
 <tr class="separator:ab2f39bde7b2e87793f55352c72d07ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcfdb4b08f3df0e69c1b6d35f489d154"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#adcfdb4b08f3df0e69c1b6d35f489d154">outw</a> (uint16_t port, unsigned short value)</td></tr>
+<tr class="memdesc:adcfdb4b08f3df0e69c1b6d35f489d154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output a 16‑bit word to an I/O port.  <a href="io_8h.html#adcfdb4b08f3df0e69c1b6d35f489d154">More...</a><br /></td></tr>
 <tr class="separator:adcfdb4b08f3df0e69c1b6d35f489d154"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c1c3745e8a1005612597adc3d7d5e47"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a9c1c3745e8a1005612597adc3d7d5e47">inl</a> (uint16_t port)</td></tr>
+<tr class="memdesc:a9c1c3745e8a1005612597adc3d7d5e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input a 32‑bit doubleword from an I/O port.  <a href="io_8h.html#a9c1c3745e8a1005612597adc3d7d5e47">More...</a><br /></td></tr>
 <tr class="separator:a9c1c3745e8a1005612597adc3d7d5e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69a113b29ec341dbc385f2538c0f02b8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a69a113b29ec341dbc385f2538c0f02b8">outl</a> (uint16_t port, unsigned long value)</td></tr>
+<tr class="memdesc:a69a113b29ec341dbc385f2538c0f02b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output a 32‑bit doubleword to an I/O port.  <a href="io_8h.html#a69a113b29ec341dbc385f2538c0f02b8">More...</a><br /></td></tr>
 <tr class="separator:a69a113b29ec341dbc385f2538c0f02b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3085dfe0e360b8e5df685ef28dafca8a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a3085dfe0e360b8e5df685ef28dafca8a">insl</a> (uint16_t port, void *buffer, uint32_t count)</td></tr>
+<tr class="memdesc:a3085dfe0e360b8e5df685ef28dafca8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input a sequence of 32‑bit values from an I/O port.  <a href="io_8h.html#a3085dfe0e360b8e5df685ef28dafca8a">More...</a><br /></td></tr>
 <tr class="separator:a3085dfe0e360b8e5df685ef28dafca8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ff9c725b92b32dfde9096d5bdb4899d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a6ff9c725b92b32dfde9096d5bdb4899d">insw</a> (uint16_t port, void *buffer, uint32_t count)</td></tr>
+<tr class="memdesc:a6ff9c725b92b32dfde9096d5bdb4899d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input a sequence of 16‑bit values from an I/O port.  <a href="io_8h.html#a6ff9c725b92b32dfde9096d5bdb4899d">More...</a><br /></td></tr>
 <tr class="separator:a6ff9c725b92b32dfde9096d5bdb4899d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90b9f1a5070a90b6fcf8efd67a97c857"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a90b9f1a5070a90b6fcf8efd67a97c857">outsw</a> (uint16_t port, void *buffer, uint32_t count)</td></tr>
+<tr class="memdesc:a90b9f1a5070a90b6fcf8efd67a97c857"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output a sequence of 16‑bit values to an I/O port.  <a href="io_8h.html#a90b9f1a5070a90b6fcf8efd67a97c857">More...</a><br /></td></tr>
 <tr class="separator:a90b9f1a5070a90b6fcf8efd67a97c857"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46886fcdf5af666afe41598958dc0bdd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a46886fcdf5af666afe41598958dc0bdd">interrupts_on</a> ()</td></tr>
+<tr class="memdesc:a46886fcdf5af666afe41598958dc0bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable maskable hardware interrupts.  <a href="io_8h.html#a46886fcdf5af666afe41598958dc0bdd">More...</a><br /></td></tr>
 <tr class="separator:a46886fcdf5af666afe41598958dc0bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c582d1cb52de82f2eff17fad06174bb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a2c582d1cb52de82f2eff17fad06174bb">interrupts_off</a> ()</td></tr>
+<tr class="memdesc:a2c582d1cb52de82f2eff17fad06174bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable maskable hardware interrupts.  <a href="io_8h.html#a2c582d1cb52de82f2eff17fad06174bb">More...</a><br /></td></tr>
 <tr class="separator:a2c582d1cb52de82f2eff17fad06174bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58a506461b9da6c5a0717bdd2fcf27dc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html#a58a506461b9da6c5a0717bdd2fcf27dc">wait_forever</a> ()</td></tr>
+<tr class="memdesc:a58a506461b9da6c5a0717bdd2fcf27dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Halt the CPU and remain halted forever.  <a href="io_8h.html#a58a506461b9da6c5a0717bdd2fcf27dc">More...</a><br /></td></tr>
 <tr class="separator:a58a506461b9da6c5a0717bdd2fcf27dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Inline helpers for performing privileged I/O port access and interrupt control. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025</dd></dl>
+<p>These functions provide low‑level access to the x86 I/O port space and interrupt enable/disable instructions. They are privileged operations and must only be invoked from kernel mode. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a0223c8898dfec29069879dc51076e28a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0223c8898dfec29069879dc51076e28a">&#9670;&nbsp;</a></span>inb()</h2>
@@ -145,6 +162,15 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Input a single byte from an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Byte read from the port. </dd></dl>
 
 </div>
 </div>
@@ -171,6 +197,15 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Input a 32‑bit doubleword from an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Doubleword read from the port. </dd></dl>
 
 </div>
 </div>
@@ -214,6 +249,16 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Input a sequence of 32‑bit values from an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+    <tr><td class="paramname">buffer</td><td>Pointer to destination buffer. </td></tr>
+    <tr><td class="paramname">count</td><td>Number of doublewords to read. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a6ff9c725b92b32dfde9096d5bdb4899d"></a>
@@ -256,6 +301,16 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Input a sequence of 16‑bit values from an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+    <tr><td class="paramname">buffer</td><td>Pointer to destination buffer. </td></tr>
+    <tr><td class="paramname">count</td><td>Number of words to read. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a2c582d1cb52de82f2eff17fad06174bb"></a>
@@ -280,6 +335,9 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Disable maskable hardware interrupts. </p>
+<p>Executes the <code>cli</code> instruction. </p>
 
 </div>
 </div>
@@ -306,6 +364,9 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Enable maskable hardware interrupts. </p>
+<p>Executes the <code>sti</code> instruction. </p>
+
 </div>
 </div>
 <a id="ab2f39bde7b2e87793f55352c72d07ebe"></a>
@@ -331,6 +392,15 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Input a 16‑bit word from an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Word read from the port. </dd></dl>
 
 </div>
 </div>
@@ -368,6 +438,15 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Output a single byte to an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+    <tr><td class="paramname">value</td><td>Byte to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a69a113b29ec341dbc385f2538c0f02b8"></a>
@@ -403,6 +482,15 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Output a 32‑bit doubleword to an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+    <tr><td class="paramname">value</td><td>Doubleword to write. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -446,6 +534,16 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Output a sequence of 16‑bit values to an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+    <tr><td class="paramname">buffer</td><td>Pointer to source buffer. </td></tr>
+    <tr><td class="paramname">count</td><td>Number of words to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="adcfdb4b08f3df0e69c1b6d35f489d154"></a>
@@ -482,6 +580,15 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Output a 16‑bit word to an I/O port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>16‑bit I/O port address. </td></tr>
+    <tr><td class="paramname">value</td><td>Word to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a58a506461b9da6c5a0717bdd2fcf27dc"></a>
@@ -507,6 +614,9 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Halt the CPU and remain halted forever. </p>
+<p>Loops indefinitely, executing the <code>hlt</code> instruction on each iteration. Used to stop execution in unrecoverable conditions. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -515,7 +625,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="io_8h.html">io.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

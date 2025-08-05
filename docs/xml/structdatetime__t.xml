@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>century</name>
         <briefdescription>
+<para>Century (e.g., 20 for year 20xx) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/clock.h" line="25" column="9" bodyfile="include/clock.h" bodystart="25" bodyend="-1"/>
+        <location file="include/clock.h" line="32" column="9" bodyfile="include/clock.h" bodystart="32" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdatetime__t_1a085c6705129014a66a8c9faee283ef29" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>year</name>
         <briefdescription>
+<para>Year within the century (0–99) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/clock.h" line="26" column="9" bodyfile="include/clock.h" bodystart="26" bodyend="-1"/>
+        <location file="include/clock.h" line="33" column="9" bodyfile="include/clock.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdatetime__t_1a69a3491a78234c70fcd6dbdf7cd4c8c4" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>month</name>
         <briefdescription>
+<para>Month (1–12) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/clock.h" line="27" column="9" bodyfile="include/clock.h" bodystart="27" bodyend="-1"/>
+        <location file="include/clock.h" line="34" column="9" bodyfile="include/clock.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdatetime__t_1afabded25c81cb29402963646e458e652" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -49,12 +52,13 @@
         <argsstring></argsstring>
         <name>day</name>
         <briefdescription>
+<para>Day of the month (1–31) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/clock.h" line="28" column="9" bodyfile="include/clock.h" bodystart="28" bodyend="-1"/>
+        <location file="include/clock.h" line="35" column="9" bodyfile="include/clock.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdatetime__t_1a2f40a1600a005b946eda5582f3368f08" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -62,12 +66,13 @@
         <argsstring></argsstring>
         <name>hour</name>
         <briefdescription>
+<para>Hour (0–23) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/clock.h" line="29" column="9" bodyfile="include/clock.h" bodystart="29" bodyend="-1"/>
+        <location file="include/clock.h" line="36" column="9" bodyfile="include/clock.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdatetime__t_1a2f66889685c065cc329bcd90f067d53e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -75,12 +80,13 @@
         <argsstring></argsstring>
         <name>minute</name>
         <briefdescription>
+<para>Minute (0–59) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/clock.h" line="30" column="9" bodyfile="include/clock.h" bodystart="30" bodyend="-1"/>
+        <location file="include/clock.h" line="37" column="9" bodyfile="include/clock.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdatetime__t_1a11d19b04bb5d36df03b097fbade51775" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -88,18 +94,20 @@
         <argsstring></argsstring>
         <name>second</name>
         <briefdescription>
+<para>Second (0–59) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/clock.h" line="31" column="9" bodyfile="include/clock.h" bodystart="31" bodyend="-1"/>
+        <location file="include/clock.h" line="38" column="9" bodyfile="include/clock.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>A representation of date and time. </para>
+<para>Structure representing date and time components. </para>
     </briefdescription>
     <detaileddescription>
+<para>Note: All values are in binary (not BCD). The <computeroutput>century</computeroutput> field is supplied by CMOS register 0x32 if supported by the BIOS. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -119,7 +127,7 @@
         <label>uint8_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/clock.h" line="24" column="1" bodyfile="include/clock.h" bodystart="24" bodyend="32"/>
+    <location file="include/clock.h" line="31" column="1" bodyfile="include/clock.h" bodystart="31" bodyend="39"/>
     <listofallmembers>
       <member refid="structdatetime__t_1a47c95a965cf321c500654ef7303cc8b6" prot="public" virt="non-virtual"><scope>datetime_t</scope><name>century</name></member>
       <member refid="structdatetime__t_1afabded25c81cb29402963646e458e652" prot="public" virt="non-virtual"><scope>datetime_t</scope><name>day</name></member>

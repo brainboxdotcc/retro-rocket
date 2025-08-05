@@ -4,11 +4,43 @@
     <compoundname>apic.h</compoundname>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <invincdepgraph>
-      <node id="28">
+      <node id="94">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="55">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="67">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="71">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="76">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="39">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="83">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="72">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="86">
+        <label>retrofs.c</label>
+        <link refid="retrofs_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -16,53 +48,95 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="108">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
       <node id="5">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="102">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="15">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="25">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="48">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="107">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="60">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="27">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="112">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="19">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="103">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="9">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>idt.h</label>
-        <link refid="idt_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
+      <node id="12">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="89">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="110">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
       </node>
       <node id="6">
         <label>basic_tokenizer.h</label>
@@ -70,57 +144,261 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="65">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="100">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="42">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="101">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="91">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="56">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="58">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="97">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="68">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="114">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="49">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="61">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="93">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="33">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="74">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="57">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="113">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="82">
+        <label>fat32.c</label>
+        <link refid="fat32_8c"/>
+      </node>
+      <node id="8">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="62">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="38">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="96">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="54">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="21">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="95">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="16">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="80">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="90">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="20">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="46">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="87">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="34">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="98">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="32">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="63">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="53">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="70">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="47">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="109">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="59">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="30">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="88">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="81">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="85">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="22">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="45">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="104">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="105">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="14">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="79">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
       </node>
       <node id="2">
         <label>kernel.h</label>
@@ -155,27 +433,15 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -185,44 +451,272 @@
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
       </node>
-      <node id="23">
+      <node id="52">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="31">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="36">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="40">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="73">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="51">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="18">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="84">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="43">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="69">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="17">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="24">
+      <node id="35">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="64">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="24">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
       </node>
-      <node id="26">
+      <node id="77">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="99">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="23">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="50">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="37">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -240,9 +734,27 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="92">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="75">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="41">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -258,56 +770,217 @@
         <name>APIC_ADDRESS</name>
         <initializer>0x4000</initializer>
         <briefdescription>
+<para>Default virtual memory mapping address for the Local APIC MMIO page. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="9" column="9" bodyfile="include/apic.h" bodystart="9" bodyend="-1"/>
+        <location file="include/apic.h" line="24" column="9" bodyfile="include/apic.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1a96bccef7658e28a44636ba3a66ff1fe1" prot="public" static="no">
         <name>APIC_BASE_MSR</name>
         <initializer>0x1B</initializer>
         <briefdescription>
+<para>Model Specific Register (MSR) index for LAPIC base address (IA32_APIC_BASE). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="10" column="9" bodyfile="include/apic.h" bodystart="10" bodyend="-1"/>
+        <location file="include/apic.h" line="27" column="9" bodyfile="include/apic.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1ac41d667f86d1c94403420c6ff4a3c5de" prot="public" static="no">
         <name>APIC_BASE_MSR_ENABLE</name>
         <initializer>0x800</initializer>
         <briefdescription>
+<para>Bitmask in IA32_APIC_BASE MSR to enable the Local APIC. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="11" column="9" bodyfile="include/apic.h" bodystart="11" bodyend="-1"/>
+        <location file="include/apic.h" line="30" column="9" bodyfile="include/apic.h" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1ad97a7d2b89d63e06c3e5e9e081dd9194" prot="public" static="no">
         <name>APIC_ID</name>
         <initializer>0x0020</initializer>
         <briefdescription>
+<para>Local APIC ID Register (read-only). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="14" column="9" bodyfile="include/apic.h" bodystart="14" bodyend="-1"/>
+        <location file="include/apic.h" line="37" column="9" bodyfile="include/apic.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="apic_8h_1ab1a256486b56b5660f30be7a7c352672" prot="public" static="no">
         <name>APIC_VERSION</name>
         <initializer>0x0030</initializer>
         <briefdescription>
+<para>Local APIC Version Register (read-only). </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="15" column="9" bodyfile="include/apic.h" bodystart="15" bodyend="-1"/>
+        <location file="include/apic.h" line="40" column="9" bodyfile="include/apic.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a2545c1ddec7ab80d2de4699ac7f50233" prot="public" static="no">
+        <name>APIC_TPR</name>
+        <initializer>0x0080</initializer>
+        <briefdescription>
+<para>Task Priority Register (TPR). Controls interrupt priority threshold. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="43" column="9" bodyfile="include/apic.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a4881a5cd4ac835ee7067833dd11dd0fb" prot="public" static="no">
+        <name>APIC_ICR_LOW</name>
+        <initializer>0x0300</initializer>
+        <briefdescription>
+<para>Interrupt Command Register (ICR), low dword (vector + control flags). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="46" column="9" bodyfile="include/apic.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a72955b951b6ac22fb4103193ed4c6015" prot="public" static="no">
+        <name>APIC_ICR_HIGH</name>
+        <initializer>0x0310</initializer>
+        <briefdescription>
+<para>Interrupt Command Register (ICR), high dword (destination LAPIC ID). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="49" column="9" bodyfile="include/apic.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a36e55c5f0681888a658d7b115ccc50aa" prot="public" static="no">
+        <name>APIC_DM_FIXED</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+<para>Fixed delivery mode: deliver interrupt using vector field. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="56" column="9" bodyfile="include/apic.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a229473e86a744bc818fd06ea9c10e5a7" prot="public" static="no">
+        <name>APIC_DM_NMI</name>
+        <initializer>0x400</initializer>
+        <briefdescription>
+<para>Non-Maskable Interrupt (NMI) delivery mode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="59" column="9" bodyfile="include/apic.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a1534bf5d476038b479b989ea594194d5" prot="public" static="no">
+        <name>APIC_DM_INIT</name>
+        <initializer>0x500</initializer>
+        <briefdescription>
+<para>INIT delivery mode: reset target CPU to INIT state. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="62" column="9" bodyfile="include/apic.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a32e9fbec28e1b0407b81f4a6e4824831" prot="public" static="no">
+        <name>APIC_DM_STARTUP</name>
+        <initializer>0x600</initializer>
+        <briefdescription>
+<para>Startup IPI delivery mode: start target CPU at specified vector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="65" column="9" bodyfile="include/apic.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1afbfcd47e179fc1a4c675d8a1c6a123e8" prot="public" static="no">
+        <name>IA32_X2APIC_ICR</name>
+        <initializer>0x830</initializer>
+        <briefdescription>
+<para>MSR index for the x2APIC Interrupt Command Register (ICR). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="72" column="9" bodyfile="include/apic.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a4ca56cb53496206005761273c662d1ca" prot="public" static="no">
+        <name>APIC_WAKE_IPI</name>
+        <initializer>240</initializer>
+        <briefdescription>
+<para>Vector number used for custom AP wake-up IPIs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="79" column="9" bodyfile="include/apic.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1a89f18338ba3503e7c23be7a02638d478" prot="public" static="no">
+        <name>APIC_DEST_NO_SHORTHAND</name>
+        <initializer>(0 &lt;&lt; 18)</initializer>
+        <briefdescription>
+<para>Destination shorthand: no shorthand, use explicit LAPIC ID. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="82" column="9" bodyfile="include/apic.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1acb6babc16752ee74afc9970e9966de5c" prot="public" static="no">
+        <name>APIC_DEST_PHYSICAL</name>
+        <initializer>(0 &lt;&lt; 11)</initializer>
+        <briefdescription>
+<para>Destination mode: physical addressing. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="85" column="9" bodyfile="include/apic.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1ad5c68bd04677ad376321cb9c336c750c" prot="public" static="no">
+        <name>APIC_LEVEL_ASSERT</name>
+        <initializer>(1 &lt;&lt; 14)</initializer>
+        <briefdescription>
+<para>Assert level for IPI (used to trigger delivery). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="88" column="9" bodyfile="include/apic.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="apic_8h_1aebd8dff6576005e6c14bced32a8de05c" prot="public" static="no">
+        <name>APIC_TRIGGER_EDGE</name>
+        <initializer>(0 &lt;&lt; 15)</initializer>
+        <briefdescription>
+<para>Edge-triggered delivery mode for IPI. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="91" column="9" bodyfile="include/apic.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -321,12 +994,30 @@
           <declname>reg</declname>
         </param>
         <briefdescription>
+<para>Read a Local APIC register. </para>
         </briefdescription>
         <detaileddescription>
+<para>Works in both xAPIC and x2APIC modes:<itemizedlist>
+<listitem><para>In xAPIC mode, the register is memory‑mapped at the LAPIC base address.</para>
+</listitem><listitem><para>In x2APIC mode, registers are accessed via MSRs at 0x800 + (reg &gt;&gt; 4).</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset (e.g. APIC_TPR = 0x80). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint32_t Value read from the register. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="17" column="10" declfile="include/apic.h" declline="17" declcolumn="10"/>
+        <location file="include/apic.h" line="107" column="10" bodyfile="src/apic.c" bodystart="37" bodyend="44" declfile="include/apic.h" declline="107" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="apic_8h_1a7ba83fbfa8fda429adf009e0bfb6a02a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -342,35 +1033,378 @@
           <declname>value</declname>
         </param>
         <briefdescription>
+<para>Write to a Local APIC register. </para>
         </briefdescription>
         <detaileddescription>
+<para>Works in both xAPIC and x2APIC modes:<itemizedlist>
+<listitem><para>In xAPIC mode, the register is memory‑mapped at the LAPIC base address.</para>
+</listitem><listitem><para>In x2APIC mode, registers are written via MSRs at 0x800 + (reg &gt;&gt; 4).</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset (e.g. APIC_TPR = 0x80). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to write. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="18" column="6" declfile="include/apic.h" declline="18" declcolumn="6"/>
+        <location file="include/apic.h" line="119" column="6" bodyfile="src/apic.c" bodystart="28" bodyend="35" declfile="include/apic.h" declline="119" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="apic_8h_1a02715a39c4320f513fcecee66a032837" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>uint8_t</type>
-        <definition>uint8_t cpu_id</definition>
-        <argsstring>()</argsstring>
+      <memberdef kind="function" id="apic_8h_1ae432e81c207ce0b8e9c880bd3c89eb33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t cpu_id</definition>
+        <argsstring>(void)</argsstring>
         <name>cpu_id</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
+<para>Get the Local APIC ID of the current CPU. </para>
         </briefdescription>
         <detaileddescription>
+<para>In xAPIC mode this is an 8-bit value read from the LAPIC ID register. In x2APIC mode this is a 32-bit value read from MSR 0x802.</para>
+<para><simplesect kind="return"><para>uint32_t LAPIC ID of the current CPU. </para>
+</simplesect>
+<simplesect kind="note"><para>LAPIC IDs are assigned by hardware/firmware and may be sparse, non-contiguous, or not zero-based. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/apic.h" line="19" column="9" declfile="include/apic.h" declline="19" declcolumn="9"/>
+        <location file="include/apic.h" line="131" column="10" bodyfile="src/apic.c" bodystart="46" bodyend="54" declfile="include/apic.h" declline="131" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1a4b661f6d8fb7bf5b98900736716e6957" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t logical_cpu_id</definition>
+        <argsstring>(void)</argsstring>
+        <name>logical_cpu_id</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the OS-assigned logical CPU ID of the current CPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logical CPU IDs are zero-based, contiguous indices used internally by the kernel. They are mapped to LAPIC IDs via cpu_id_mapping[].</para>
+<para><simplesect kind="return"><para>uint8_t Logical CPU ID of the current CPU. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="141" column="9" bodyfile="src/apic.c" bodystart="56" bodyend="58" declfile="include/apic.h" declline="141" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1a507b74424d63988396ff06870f49eb71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_lapic_address</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_lapic_address</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the physical address of the Local APIC MMIO region. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is only valid when xAPIC mode is active. In x2APIC mode, LAPIC registers are accessed via MSRs instead of MMIO.</para>
+<para><simplesect kind="return"><para>uint64_t Physical address of the LAPIC MMIO base. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="151" column="10" bodyfile="src/apic.c" bodystart="7" bodyend="17" declfile="include/apic.h" declline="151" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1abe067e3cf6c101bb76e395bd916e2d9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int x2apic_enabled</definition>
+        <argsstring>(void)</argsstring>
+        <name>x2apic_enabled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Determine if x2APIC mode is enabled. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Checks both CPUID feature flags and the IA32_APIC_BASE MSR to confirm whether x2APIC is active.</para>
+<para><simplesect kind="return"><para>int Non-zero if x2APIC mode is enabled, zero otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="161" column="5" bodyfile="src/apic.c" bodystart="78" bodyend="85" declfile="include/apic.h" declline="161" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1abce401f079aedc55879daff1d981fe74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t rdmsr</definition>
+        <argsstring>(uint32_t msr)</argsstring>
+        <name>rdmsr</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>msr</declname>
+        </param>
+        <briefdescription>
+<para>Read a 64-bit Model Specific Register (MSR). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The MSR address to read. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint64_t The value read from the MSR. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="169" column="10" bodyfile="src/apic.c" bodystart="60" bodyend="66" declfile="include/apic.h" declline="169" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1a3908f9ca99543c3c668cfc94b5ede08c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t get_lapic_id_from_cpu_id</definition>
+        <argsstring>(uint8_t cpu_id)</argsstring>
+        <name>get_lapic_id_from_cpu_id</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>cpu_id</declname>
+        </param>
+        <briefdescription>
+<para>Map a logical CPU ID to its LAPIC ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cpu_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logical CPU ID (zero-based, kernel-assigned). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint32_t LAPIC ID for the given logical CPU ID. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="177" column="10" bodyfile="src/acpi.c" bodystart="45" bodyend="47" declfile="include/apic.h" declline="177" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1acc467223ecf45e6cc5ea3c90a5d3d210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t get_cpu_id_from_lapic_id</definition>
+        <argsstring>(uint32_t lapic_id)</argsstring>
+        <name>get_cpu_id_from_lapic_id</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>lapic_id</declname>
+        </param>
+        <briefdescription>
+<para>Map a LAPIC ID to its logical CPU ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lapic_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LAPIC ID as reported by hardware. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint8_t Logical CPU ID assigned to this LAPIC ID, or 255 if unmapped. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="186" column="9" bodyfile="src/acpi.c" bodystart="49" bodyend="56" declfile="include/apic.h" declline="186" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1a9263bf02ae52585b8ab22b22e9601aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void boot_aps</definition>
+        <argsstring>()</argsstring>
+        <name>boot_aps</name>
+        <briefdescription>
+<para>Initialise and bring Application Processors (APs) online via Limine SMP. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function uses the Limine SMP response to discover all CPUs in the system, map their LAPIC IDs to logical CPU IDs, and assign each AP an entry point (<computeroutput>kmain_ap</computeroutput>). The Bootstrap Processor (BSP) is detected and skipped, as are CPUs with processor IDs &gt;= 255 (reserved for broadcast or outside kernel limits).</para>
+<para>Once all eligible APs are assigned their startup entry point, this function spins until each AP reports online by incrementing <ref refid="ap_8c_1af56323875051578c0d3a96a0b539b550" kindref="member">aps_online</ref>.</para>
+<para><simplesect kind="note"><para>This does not directly issue INIT/SIPI IPIs; Limine handles the actual startup of APs. The kernel only assigns the entry function and waits. </para>
+</simplesect>
+<simplesect kind="warning"><para>Systems with more than 254 CPUs are truncated to 254 usable cores.</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="ap_8c_1a028e57710817ce6fbaac2cb51db61d2e" kindref="member">kmain_ap</ref>, <ref refid="ap_8c_1af56323875051578c0d3a96a0b539b550" kindref="member">aps_online</ref>, <ref refid="acpi_8c_1a91ebfd207f8030a1983a6c1ffe1647a0" kindref="member">set_lapic_id_for_cpu_id</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="205" column="6" bodyfile="src/acpi.c" bodystart="236" bodyend="268" declfile="include/apic.h" declline="205" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1a4ed383d44eb512de5ffda7e40b60dd54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void apic_send_ipi</definition>
+        <argsstring>(uint32_t lapic_id, uint8_t vector)</argsstring>
+        <name>apic_send_ipi</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>lapic_id</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>vector</declname>
+        </param>
+        <briefdescription>
+<para>Send an Inter-Processor Interrupt (IPI) to a specific LAPIC ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Supports both xAPIC (ICR registers) and x2APIC (IA32_X2APIC_ICR MSR).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lapic_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination LAPIC ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt vector to deliver. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="216" column="6" bodyfile="src/apic.c" bodystart="87" bodyend="106" declfile="include/apic.h" declline="216" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1ab9e5a39ff990b4f143ec56a9915f97c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void wake_cpu</definition>
+        <argsstring>(uint8_t logical_cpu_id)</argsstring>
+        <name>wake_cpu</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>logical_cpu_id</declname>
+        </param>
+        <briefdescription>
+<para>Send a wake-up IPI to a target logical CPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is used to wake an Application Processor (AP) from a halted or waiting state. It resolves the kernel-assigned logical CPU ID into the hardware LAPIC ID and then sends a fixed-mode IPI using the predefined wake-up vector (APIC_WAKE_IPI).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logical_cpu_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logical CPU ID (zero-based, contiguous index assigned by the kernel).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The Local APIC on the target CPU must already be enabled for the wake-up IPI to be accepted. This function assumes that LAPIC initialisation has been performed during CPU bring-up. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="233" column="6" bodyfile="src/apic.c" bodystart="108" bodyend="110" declfile="include/apic.h" declline="233" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1ad7f4cf430c05d00d25c8c5fb5b030bf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void apic_setup_ap</definition>
+        <argsstring>()</argsstring>
+        <name>apic_setup_ap</name>
+        <briefdescription>
+<para>Initialise the Local APIC on an Application Processor (AP). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function enables the Local APIC by setting the spurious interrupt vector register&apos;s enable bit, and lowers the Task Priority Register (TPR) to zero so that the AP can receive all interrupts.</para>
+<para>It is typically invoked during AP startup after IDT installation, allowing the processor to handle interrupts and inter-processor IPIs.</para>
+<para><simplesect kind="note"><para>This does not configure LAPIC timers or IPI handlers; it only ensures that the APIC is enabled and accepting interrupts.</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="apic_8h_1a7ba83fbfa8fda429adf009e0bfb6a02a" kindref="member">apic_write</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="lapic__timer_8h_1abad6e91426bdfd1f569bf2cfbe386e49" kindref="member">APIC_SVR</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="apic_8h_1a2545c1ddec7ab80d2de4699ac7f50233" kindref="member">APIC_TPR</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="252" column="6" bodyfile="src/apic.c" bodystart="112" bodyend="115" declfile="include/apic.h" declline="252" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="apic_8h_1a975abbcb07823f32d9aeedc9ed677a9f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cpu_serialise</definition>
+        <argsstring>(void)</argsstring>
+        <name>cpu_serialise</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Serialises all pending CPU operations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function enforces a strict ordering of all memory, I/O, and MSR operations issued by the CPU prior to the call. It ensures that all writes and reads complete and are globally visible before any instructions issued after the call are allowed to execute.</para>
+<para>Implementation details:<itemizedlist>
+<listitem><para><computeroutput>mfence</computeroutput> is used to flush and order all pending memory operations, including MMIO writes to devices such as the LAPIC or IOAPIC.</para>
+</listitem><listitem><para><computeroutput>cpuid</computeroutput> is a serialising instruction which drains the CPU pipeline, guaranteeing that no later instructions are executed until all earlier ones have fully completed. It also serves as a convenient barrier in emulators such as QEMU, which may otherwise defer committing MMIO state.</para>
+</listitem></itemizedlist>
+</para>
+<para>This is particularly important when programming interrupt controllers (APIC, IOAPIC, PIC), as their state machines may lose or misroute interrupts if configuration writes have not yet taken effect before enabling interrupts with <computeroutput>sti</computeroutput>.</para>
+<para><simplesect kind="note"><para>This function clobbers the general-purpose registers EAX, EBX, ECX, and EDX as required by the <computeroutput>cpuid</computeroutput> instruction. It does not return any values. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/apic.h" line="279" column="20" bodyfile="include/apic.h" bodystart="279" bodyend="283"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Local APIC (Advanced Programmable Interrupt Controller) interface. </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
+<para><simplesect kind="author"><para>Craig Edwards </para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012-2023 </para>
+<simplesect kind="copyright"><para>Copyright (c) 2012-2025</para>
 </simplesect>
+This header provides low-level routines and register definitions to interface with the Local APIC (LAPIC) on x86_64 systems. It allows for reading and writing LAPIC registers, detecting the current CPU&apos;s LAPIC ID, sending inter-processor interrupts (IPIs), and querying the LAPIC base address.</para>
+<para>The LAPIC is a per-core interrupt controller responsible for:<itemizedlist>
+<listitem><para>Handling local interrupts (e.g., timer, thermal, performance counters).</para>
+</listitem><listitem><para>Providing per-core programmable timer functionality.</para>
+</listitem><listitem><para>Supporting Inter-Processor Interrupts (IPIs) for SMP coordination.</para>
+</listitem><listitem><para>Forwarding external interrupts via the I/O APIC.</para>
+</listitem></itemizedlist>
 </para>
+<para>Both xAPIC (MMIO) and x2APIC (MSR-based) modes are supported by this interface. </para>
     </detaileddescription>
     <location file="include/apic.h"/>
   </compounddef>

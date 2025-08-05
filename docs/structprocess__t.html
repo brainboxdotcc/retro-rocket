@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('structprocess__t.html',''); initResiza
 </div><!--header-->
 <div class="contents">
 
+<p>Represents a process in the system.  
+ <a href="structprocess__t.html#details">More...</a></p>
+
 <p><code>#include &lt;taskswitch.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for process_t:</div>
@@ -136,7 +139,10 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a35426bef9435a3bc4399ee832dab5cf2"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#a35426bef9435a3bc4399ee832dab5cf2">next</a></td></tr>
 <tr class="separator:a35426bef9435a3bc4399ee832dab5cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a process in the system. </p>
+<p>Each process has its own PID, optional parent PID, execution state, associated console, and BASIC execution context. Processes are linked in a global doubly-linked list for scheduling. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="aac89744257f50e77369d583e70974822"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aac89744257f50e77369d583e70974822">&#9670;&nbsp;</a></span>code</h2>
 
@@ -148,6 +154,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>BASIC interpreter context </p>
 
 </div>
 </div>
@@ -162,6 +169,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Associated console </p>
 
 </div>
 </div>
@@ -176,6 +184,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Logical CPU this process is assigned to </p>
 
 </div>
 </div>
@@ -190,6 +199,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Current selected directory </p>
 
 </div>
 </div>
@@ -204,6 +214,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Directory of program </p>
 
 </div>
 </div>
@@ -218,6 +229,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Group ID (future use) </p>
 
 </div>
 </div>
@@ -232,6 +244,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Filename of program </p>
 
 </div>
 </div>
@@ -246,6 +259,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Next process in doubly linked list </p>
 
 </div>
 </div>
@@ -260,6 +274,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Unique process ID </p>
 
 </div>
 </div>
@@ -274,6 +289,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Parent process ID </p>
 
 </div>
 </div>
@@ -288,6 +304,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Previous process in doubly linked list </p>
 
 </div>
 </div>
@@ -302,6 +319,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Size of program in bytes </p>
 
 </div>
 </div>
@@ -316,6 +334,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Start time (UNIX epoch) </p>
 
 </div>
 </div>
@@ -330,6 +349,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Running state </p>
 
 </div>
 </div>
@@ -344,6 +364,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>User ID (future use) </p>
 
 </div>
 </div>
@@ -358,6 +379,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>PID being waited on </p>
 
 </div>
 </div>
@@ -367,7 +389,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structprocess__t.html">process_t</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:52 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

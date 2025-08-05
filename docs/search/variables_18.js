@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['y_3316',['y',['../structconsole.html#a1e4d9fbe95f48cfbcca68b597f0952f4',1,'console']]],
-  ['year_3317',['year',['../structdatetime__t.html#a085c6705129014a66a8c9faee283ef29',1,'datetime_t::year()'],['../structfs__directory__entry__t.html#a189d674effd3a783f2a0fec76eb4dc3a',1,'fs_directory_entry_t::year()'],['../struct____attribute____.html#a7b7d1a44b586f753e2a41f54453d2786',1,'__attribute__::year()']]],
-  ['years_5fsince_5f1900_3318',['years_since_1900',['../struct____attribute____.html#a00ace6d37f44d66f779bf7ebea45a062',1,'__attribute__']]],
-  ['your_5fip_3319',['your_ip',['../structdhcp__packet__t.html#ab997615306be729334915673d83ae0f6',1,'dhcp_packet_t::your_ip()'],['../dhcp_8h.html#a19bc64fdcff8744c5cb34f4f69e9a832',1,'your_ip():&#160;dhcp.h']]]
+  ['x_5693',['x',['../structflanterm__fb__queue__item.html#abf9d5ae4627aa55a6a8e493210643eed',1,'flanterm_fb_queue_item::x()'],['../structconsole.html#acdabb6d09ff37db3aa529a457b51dc51',1,'console::x()']]],
+  ['xid_5694',['xid',['../structdhcp__packet__t.html#aea1cfa7677da532a83bfa4de9ca7bf24',1,'dhcp_packet_t::xid()'],['../dhcp_8h.html#ad031a042dfee0c8192ef5e606c7a1354',1,'xid():&#160;dhcp.h']]],
+  ['xsdt_5faddress_5695',['xsdt_address',['../structrsdp__t.html#a9e01f9df50bd375bdddbd254220fb432',1,'rsdp_t::xsdt_address()'],['../acpi_8h.html#adebb20019785a766c6461acccdfac9a3',1,'xsdt_address():&#160;acpi.h']]]
 ];

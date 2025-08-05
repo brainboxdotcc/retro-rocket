@@ -93,18 +93,22 @@ $(document).ready(function(){initNavTree('clock_8h.html',''); initResizable(); }
 <div class="title">clock.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Interfaces for accessing and manipulating real-time clock (RTC) values.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdatetime__t.html">datetime_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A representation of date and time.  <a href="structdatetime__t.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing date and time components.  <a href="structdatetime__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a02ad034d26db2c14b7e295b0c50fc11d"><td class="memItemLeft" align="right" valign="top">typedef uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a></td></tr>
+<tr class="memdesc:a02ad034d26db2c14b7e295b0c50fc11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">POSIX-style time representation, counting seconds since epoch.  <a href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">More...</a><br /></td></tr>
 <tr class="separator:a02ad034d26db2c14b7e295b0c50fc11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -112,32 +116,34 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a69ae2c8a40198aac3773362260014c21"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#a69ae2c8a40198aac3773362260014c21">cmos_port_t</a> { <a class="el" href="clock_8h.html#a69ae2c8a40198aac3773362260014c21a6fe5cfee4adf90dfd38fd18914c5b986">CMOS_ADDR</a> = 0x70
 , <a class="el" href="clock_8h.html#a69ae2c8a40198aac3773362260014c21a5d0fad18a24a081df89af28de4d7c315">CMOS_DATA</a> = 0x71
  }</td></tr>
-<tr class="memdesc:a69ae2c8a40198aac3773362260014c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">CMOS IO port addresses.  <a href="clock_8h.html#a69ae2c8a40198aac3773362260014c21">More...</a><br /></td></tr>
+<tr class="memdesc:a69ae2c8a40198aac3773362260014c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">CMOS I/O port addresses used for RTC access.  <a href="clock_8h.html#a69ae2c8a40198aac3773362260014c21">More...</a><br /></td></tr>
 <tr class="separator:a69ae2c8a40198aac3773362260014c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:acaac299510c8ace6baf3848cf616de85"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#acaac299510c8ace6baf3848cf616de85">get_datetime_str</a> ()</td></tr>
-<tr class="memdesc:acaac299510c8ace6baf3848cf616de85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current date and time as a string.  <a href="clock_8h.html#acaac299510c8ace6baf3848cf616de85">More...</a><br /></td></tr>
+<tr class="memdesc:acaac299510c8ace6baf3848cf616de85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the current date and time as a human-readable string.  <a href="clock_8h.html#acaac299510c8ace6baf3848cf616de85">More...</a><br /></td></tr>
 <tr class="separator:acaac299510c8ace6baf3848cf616de85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5422fc453dd6b462d4bc1fc0df9e4bd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#a5422fc453dd6b462d4bc1fc0df9e4bd8">get_datetime</a> (<a class="el" href="structdatetime__t.html">datetime_t</a> *dt)</td></tr>
-<tr class="memdesc:a5422fc453dd6b462d4bc1fc0df9e4bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current date and time as a <a class="el" href="structdatetime__t.html" title="A representation of date and time.">datetime_t</a>.  <a href="clock_8h.html#a5422fc453dd6b462d4bc1fc0df9e4bd8">More...</a><br /></td></tr>
+<tr class="memdesc:a5422fc453dd6b462d4bc1fc0df9e4bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the current date and time into a <a class="el" href="structdatetime__t.html" title="Structure representing date and time components.">datetime_t</a> structure.  <a href="clock_8h.html#a5422fc453dd6b462d4bc1fc0df9e4bd8">More...</a><br /></td></tr>
 <tr class="separator:a5422fc453dd6b462d4bc1fc0df9e4bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff93106d7e8609959f1bd8185a822def"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#aff93106d7e8609959f1bd8185a822def">init_realtime_clock</a> ()</td></tr>
-<tr class="memdesc:aff93106d7e8609959f1bd8185a822def"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the realtime clock.  <a href="clock_8h.html#aff93106d7e8609959f1bd8185a822def">More...</a><br /></td></tr>
+<tr class="memdesc:aff93106d7e8609959f1bd8185a822def"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the Real-Time Clock (RTC) subsystem.  <a href="clock_8h.html#aff93106d7e8609959f1bd8185a822def">More...</a><br /></td></tr>
 <tr class="separator:aff93106d7e8609959f1bd8185a822def"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7841e681c8c9d59818568d39553642c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#ae7841e681c8c9d59818568d39553642c">time</a> (<a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a> *t)</td></tr>
-<tr class="memdesc:ae7841e681c8c9d59818568d39553642c"><td class="mdescLeft">&#160;</td><td class="mdescRight">POSIX time function returning time_t.  <a href="clock_8h.html#ae7841e681c8c9d59818568d39553642c">More...</a><br /></td></tr>
+<tr class="memdesc:ae7841e681c8c9d59818568d39553642c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the current time in POSIX epoch format.  <a href="clock_8h.html#ae7841e681c8c9d59818568d39553642c">More...</a><br /></td></tr>
 <tr class="separator:ae7841e681c8c9d59818568d39553642c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ed0af74b6ab22d8c7a1b7ba9733e12d"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#a0ed0af74b6ab22d8c7a1b7ba9733e12d">day_of_year</a> (uint64_t year, uint8_t month, uint8_t day)</td></tr>
-<tr class="memdesc:a0ed0af74b6ab22d8c7a1b7ba9733e12d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the day of year given any particular year, month an day Ported from js: <a href="https://stackoverflow.com/a/75032366/3022125">https://stackoverflow.com/a/75032366/3022125</a>.  <a href="clock_8h.html#a0ed0af74b6ab22d8c7a1b7ba9733e12d">More...</a><br /></td></tr>
+<tr class="memdesc:a0ed0af74b6ab22d8c7a1b7ba9733e12d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the ordinal day of the year for a given date.  <a href="clock_8h.html#a0ed0af74b6ab22d8c7a1b7ba9733e12d">More...</a><br /></td></tr>
 <tr class="separator:a0ed0af74b6ab22d8c7a1b7ba9733e12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8224f7fa51de1642e6634e72f2f06be2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html#a8224f7fa51de1642e6634e72f2f06be2">get_weekday_from_date</a> (<a class="el" href="structdatetime__t.html">datetime_t</a> *dt)</td></tr>
+<tr class="memdesc:a8224f7fa51de1642e6634e72f2f06be2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the weekday index from a given date.  <a href="clock_8h.html#a8224f7fa51de1642e6634e72f2f06be2">More...</a><br /></td></tr>
 <tr class="separator:a8224f7fa51de1642e6634e72f2f06be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2023 </dd></dl>
+<div class="textblock"><p>Interfaces for accessing and manipulating real-time clock (RTC) values. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012–2025 </dd></dl>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a02ad034d26db2c14b7e295b0c50fc11d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02ad034d26db2c14b7e295b0c50fc11d">&#9670;&nbsp;</a></span>time_t</h2>
@@ -150,6 +156,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>POSIX-style time representation, counting seconds since epoch. </p>
 
 </div>
 </div>
@@ -166,10 +174,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>CMOS IO port addresses. </p>
+<p>CMOS I/O port addresses used for RTC access. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a69ae2c8a40198aac3773362260014c21a6fe5cfee4adf90dfd38fd18914c5b986"></a>CMOS_ADDR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a69ae2c8a40198aac3773362260014c21a5d0fad18a24a081df89af28de4d7c315"></a>CMOS_DATA&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a69ae2c8a40198aac3773362260014c21a6fe5cfee4adf90dfd38fd18914c5b986"></a>CMOS_ADDR&#160;</td><td class="fielddoc"><p>CMOS register select port. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a69ae2c8a40198aac3773362260014c21a5d0fad18a24a081df89af28de4d7c315"></a>CMOS_DATA&#160;</td><td class="fielddoc"><p>CMOS data read/write port. </p>
+</td></tr>
 </table>
 
 </div>
@@ -207,16 +217,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calculate the day of year given any particular year, month an day Ported from js: <a href="https://stackoverflow.com/a/75032366/3022125">https://stackoverflow.com/a/75032366/3022125</a>. </p>
+<p>Calculate the ordinal day of the year for a given date. </p>
+<p>Ported from JavaScript (see: <a href="https://stackoverflow.com/a/75032366/3022125">https://stackoverflow.com/a/75032366/3022125</a>) Useful for computing time offsets or determining seasonal positions.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">year</td><td>year number </td></tr>
-    <tr><td class="paramname">month</td><td>month number, 1-12 </td></tr>
-    <tr><td class="paramname">day</td><td>day number, 1-31 </td></tr>
+    <tr><td class="paramname">year</td><td>Full year (e.g., 2025) </td></tr>
+    <tr><td class="paramname">month</td><td>Month (1–12) </td></tr>
+    <tr><td class="paramname">day</td><td>Day of the month (1–31) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>uint64_t days </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>uint64_t Day of the year (1–366) </dd></dl>
 
 </div>
 </div>
@@ -236,10 +247,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the current date and time as a <a class="el" href="structdatetime__t.html" title="A representation of date and time.">datetime_t</a>. </p>
+<p>Retrieve the current date and time into a <a class="el" href="structdatetime__t.html" title="Structure representing date and time components.">datetime_t</a> structure. </p>
+<p>Accesses the hardware RTC and converts its registers to a structured format.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>date and time to fill </td></tr>
+    <tr><td class="paramname">dt</td><td>Pointer to a <a class="el" href="structdatetime__t.html" title="Structure representing date and time components.">datetime_t</a> structure to fill with current values </td></tr>
   </table>
   </dd>
 </dl>
@@ -261,8 +273,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the current date and time as a string. </p>
-<dl class="section return"><dt>Returns</dt><dd>const char* date and time </dd></dl>
+<p>Retrieve the current date and time as a human-readable string. </p>
+<p>Returns a static buffer containing the current date and time, formatted in the style: <code>"Weekday, DD Month YYYY HH:MM:SS"</code></p>
+<p>Example: <code>"Mon, 28 Jul 2025 01:45:12"</code></p>
+<dl class="section return"><dt>Returns</dt><dd>const char* Pointer to a statically allocated string buffer (overwritten on subsequent calls). </dd></dl>
 
 </div>
 </div>
@@ -282,6 +296,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Calculate the weekday index from a given date. </p>
+<p>Uses a modified version of Zeller's Congruence with precomputed tables for month codes and century codes (starting from the 18th century). The function accounts for leap years.</p>
+<p>Weekdays are returned as an integer where:</p><ul>
+<li>0 = Sunday</li>
+<li>1 = Monday</li>
+<li>2 = Tuesday</li>
+<li>3 = Wednesday</li>
+<li>4 = Thursday</li>
+<li>5 = Friday</li>
+<li>6 = Saturday</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Pointer to a <code><a class="el" href="structdatetime__t.html" title="Structure representing date and time components.">datetime_t</a></code> structure containing the full date </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int Weekday index (0 = Sunday ... 6 = Saturday) </dd></dl>
+
 </div>
 </div>
 <a id="aff93106d7e8609959f1bd8185a822def"></a>
@@ -299,7 +332,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialise the realtime clock. </p>
+<p>Initialise the Real-Time Clock (RTC) subsystem. </p>
+<p>Must be called during early boot to configure RTC access and disable periodic interrupts. </p>
 
 </div>
 </div>
@@ -319,14 +353,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>POSIX time function returning time_t. </p>
+<p>Retrieve the current time in POSIX epoch format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">t</td><td>Pointer to copy time value into if non-null </td></tr>
+    <tr><td class="paramname">t</td><td>If non-null, the time value is also stored at this pointer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>time_t Current time </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>time_t Number of seconds since 00:00:00 UTC on 1 January 1970 </dd></dl>
 
 </div>
 </div>
@@ -336,7 +370,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="clock_8h.html">clock.h</a></li>
-    <li class="footer">Generated on Tue May 9 2023 19:56:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
