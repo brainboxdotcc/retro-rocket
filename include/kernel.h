@@ -81,8 +81,16 @@ void validate_limine_page_tables_and_gdt(void);
 		uint64_t calls;
 	} profile_entry;
 
-	#define PROFILE_MAX_FUNCS   8192
+	typedef struct profile_edge {
+		void *parent;
+		void *child;
+		uint64_t calls;
+		uint64_t total_cycles;
+	} profile_edge;
+
+	#define PROFILE_MAX_FUNCS 8192
+	#define PROFILE_MAX_EDGES 32768
 
 	void profile_dump(void);
-	void profile_init(uint8_t* pre_allocated);
+	void profile_init(uint8_t* pre_allocated_funcs, uint8_t* pre_allocated_edges);
 #endif

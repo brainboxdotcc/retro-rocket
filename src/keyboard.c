@@ -270,8 +270,9 @@ bool caps_lock_on()
 static void push_to_buffer(char x) {
 #ifdef PROFILE_KERNEL
 	if (ctrl_held() && alt_held() && shift_held() && x == 'P') {
-		dprintf("Dumping callgrind.out to serial port...\n");
+		kprintf("\nDumping callgrind.out to serial port...\n");
 		profile_dump();
+		kprintf("Profile written.\n");
 		return;
 	}
 #endif

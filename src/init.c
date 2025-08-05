@@ -38,7 +38,7 @@ void init()
 	kprintf("THIS IS A PROFILING BUILD - Expect things to run slower!\n");
 	setforeground(current_console, COLOUR_WHITE);
 	serial_init(COM1);
-	profile_init(kmalloc(sizeof(profile_entry) * PROFILE_MAX_FUNCS));
+	profile_init(kmalloc(sizeof(profile_entry) * PROFILE_MAX_FUNCS), kmalloc(sizeof(profile_edge) * PROFILE_MAX_EDGES));
 	dprintf("Initialising profiler done!\n");
 #endif
 
