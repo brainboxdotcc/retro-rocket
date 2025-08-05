@@ -5,6 +5,14 @@
 #include <stdatomic.h>
 #include "uacpi/context.h"
 
+/**
+ * @brief Yeah its memory hungry. Seems it prefers speed over ram use.
+ * In testing on qemu 6.2.0, it took 15mb peak to parse and boot, so
+ * this 64mb is a very generous amount to deal with real hardware's
+ * beastly AML.
+ */
+#define UACPI_ARENA_SIZE (1024 * 1024 * 4)
+
 volatile struct limine_rsdp_request rsdp_request = {
 	.id = LIMINE_RSDP_REQUEST,
 	.revision = 0,
@@ -13,6 +21,9 @@ volatile struct limine_rsdp_request rsdp_request = {
 extern volatile struct limine_smp_request smp_request;
 
 extern size_t aps_online;
+
+buddy_allocator_t acpi_pool = { 0 };
+void* uacpi_region = NULL;
 
 static uint8_t lapic_ids[256] = {0}; // CPU core Local APIC IDs
 static uint8_t ioapic_ids[256] = {0}; // CPU core Local APIC IDs
@@ -61,27 +72,28 @@ void init_uacpi(void) {
 	mhz = tsc_per_sec / 1000000;
 	dprintf("mhz = %lu, tsc_per_sec = %lu\n", mhz, tsc_per_sec);
 
-	dprintf("init_uacpi uacpi_initialize(0)\n");
+	uacpi_region = kmalloc(UACPI_ARENA_SIZE);
+	if (!uacpi_region) {
+		preboot_fail("Cannot claim 64mb uACPI arena");
+	}
+	buddy_init(&acpi_pool, uacpi_region, 6, 22);
+
 	uacpi_context_set_log_level(UACPI_LOG_INFO);
 	st = uacpi_initialize(0);
-	dprintf("init_uacpi uacpi_initialize(0) done\n");
 	if (uacpi_unlikely_error(st)) {
 		preboot_fail("uACPI init failed");
 	}
 
-	dprintf("init_uacpi uacpi_namespace_load()\n");
 	st = uacpi_namespace_load();
 	if (uacpi_unlikely_error(st)) {
 		preboot_fail("uACPI namespace load failed");
 	}
-	dprintf("init_uacpi uacpi_namespace_load() done\n");
 
-	dprintf("init_uacpi uacpi_namespace_initialize()\n");
 	st = uacpi_namespace_initialize();
 	if (uacpi_unlikely_error(st)) {
 		preboot_fail("uACPI namespace init failed");
 	}
-	dprintf("init_uacpi uacpi_namespace_initialize() done\n");
+	dprintf("init_uacpi done. Peak allocation: %lu Current allocation: %lu\n", acpi_pool.peak_bytes, acpi_pool.current_bytes);
 }
 
 void delay_ns(uint64_t ns) {
@@ -252,6 +264,7 @@ void boot_aps() {
 			_mm_pause();
 		}
 	}
+	kfree_null(&uacpi_region);
 }
 
 uint32_t irq_to_gsi(uint8_t irq) {
@@ -280,11 +293,11 @@ void uacpi_kernel_log(uacpi_log_level level, const uacpi_char *msg) {
 
 // Memory allocation
 void *uacpi_kernel_alloc(uacpi_size size) {
-	return kmalloc(size);
+	return buddy_malloc(&acpi_pool, size);
 }
 
 void uacpi_kernel_free(void *ptr) {
-	kfree(ptr);
+	buddy_free(&acpi_pool, ptr);
 }
 
 // Physical memory mapping (flat model)

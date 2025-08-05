@@ -62,6 +62,7 @@
 #include "dns.h"
 #include "drawing.h"
 #include "fpu.h"
+#include "buddy_allocator.h"
 #include "retrofs.h"
 
 #define assert(expr, message) if (!(expr)) { \

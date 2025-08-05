@@ -14,7 +14,6 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
 void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque)
 {
 	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)opaque;
-	dprintf("AHCI IRQ\n");
 	uint32_t is = abar->is;
 	for (int i = 0; i < 32; i++) {
 		if (is & (1u << i)) {
