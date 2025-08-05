@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structhashmap" kind="struct" language="C++" prot="public">
+    <compoundname>hashmap</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhashmap_1a783d051249e78c7ef01638d373832000" prot="public" static="no" mutable="no">
+        <type>void *(*</type>
+        <definition>void*(* hashmap::malloc) (size_t)</definition>
+        <argsstring>)(size_t)</argsstring>
+        <name>malloc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="29" column="1" bodyfile="src/hashmap.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1ad028825dc317f16692b71f7cdd1a459d" prot="public" static="no" mutable="no">
+        <type>void *(*</type>
+        <definition>void*(* hashmap::realloc) (void *, size_t)</definition>
+        <argsstring>)(void *, size_t)</argsstring>
+        <name>realloc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="30" column="1" bodyfile="src/hashmap.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1aa3ba3f44579689d44c755595ca975a4e" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* hashmap::free) (const void *)</definition>
+        <argsstring>)(const void *)</argsstring>
+        <name>free</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="31" column="1" bodyfile="src/hashmap.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1ad9c41ec0544294e872d1e88836438fa8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool hashmap::oom</definition>
+        <argsstring></argsstring>
+        <name>oom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="32" column="6" bodyfile="src/hashmap.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a0b27a7632dd90ef06450ade0facf8cfd" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::elsize</definition>
+        <argsstring></argsstring>
+        <name>elsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="33" column="8" bodyfile="src/hashmap.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a80f6c06e49a6e1eeaf4c54f4b0dd54a3" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::cap</definition>
+        <argsstring></argsstring>
+        <name>cap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="34" column="8" bodyfile="src/hashmap.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a6eee37fe0b771db138668d34acfd3ea6" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t hashmap::seed0</definition>
+        <argsstring></argsstring>
+        <name>seed0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="35" column="10" bodyfile="src/hashmap.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a482d7a8eb303ff1ba564c04810f49755" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t hashmap::seed1</definition>
+        <argsstring></argsstring>
+        <name>seed1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="36" column="10" bodyfile="src/hashmap.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a31e9b3ba3c885a3b7d4162cbc087be1c" prot="public" static="no" mutable="no">
+        <type>uint64_t(*</type>
+        <definition>uint64_t(* hashmap::hash) (const void *item, uint64_t seed0, uint64_t seed1)</definition>
+        <argsstring>)(const void *item, uint64_t seed0, uint64_t seed1)</argsstring>
+        <name>hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="37" column="1" bodyfile="src/hashmap.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a023a3383985392db1060c3f521f18cc4" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* hashmap::compare) (const void *a, const void *b, void *udata)</definition>
+        <argsstring>)(const void *a, const void *b, void *udata)</argsstring>
+        <name>compare</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="38" column="1" bodyfile="src/hashmap.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a07ee117a82933e6a76a225bb2bb78b90" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* hashmap::elfree) (const void *item)</definition>
+        <argsstring>)(const void *item)</argsstring>
+        <name>elfree</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="39" column="1" bodyfile="src/hashmap.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a871717dd737199b8cf4c7398b4f92e56" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* hashmap::udata</definition>
+        <argsstring></argsstring>
+        <name>udata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="40" column="6" bodyfile="src/hashmap.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1ae3dcca1664c48acb0c8bf97576af2cff" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::bucketsz</definition>
+        <argsstring></argsstring>
+        <name>bucketsz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="41" column="8" bodyfile="src/hashmap.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a70de7d53a62f7a365d048b4ec50b4370" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::nbuckets</definition>
+        <argsstring></argsstring>
+        <name>nbuckets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="42" column="8" bodyfile="src/hashmap.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a83401730a6fa4c715c7abee57143a072" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::count</definition>
+        <argsstring></argsstring>
+        <name>count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="43" column="8" bodyfile="src/hashmap.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a00834c3149411d634009e7a1ec583fb2" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::mask</definition>
+        <argsstring></argsstring>
+        <name>mask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="44" column="8" bodyfile="src/hashmap.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1add4b16757a8fc0b6512f0d697f6a9984" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::growat</definition>
+        <argsstring></argsstring>
+        <name>growat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="45" column="8" bodyfile="src/hashmap.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a25af27b2a8aea1a561f8dd68ca0cc9e2" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hashmap::shrinkat</definition>
+        <argsstring></argsstring>
+        <name>shrinkat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="46" column="8" bodyfile="src/hashmap.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a3e766a0c0823ac31b0899c35c4b9f8e5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* hashmap::buckets</definition>
+        <argsstring></argsstring>
+        <name>buckets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="47" column="6" bodyfile="src/hashmap.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1a0589732ee5a065d6a5376a7cf04364a3" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* hashmap::spare</definition>
+        <argsstring></argsstring>
+        <name>spare</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="48" column="6" bodyfile="src/hashmap.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhashmap_1abfa2d20809cb4fb98d7cce3476849048" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* hashmap::edata</definition>
+        <argsstring></argsstring>
+        <name>edata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="49" column="6" bodyfile="src/hashmap.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>size_t</label>
+      </node>
+      <node id="8">
+        <label>void *</label>
+      </node>
+      <node id="10">
+        <label>void *(*)(size_t)</label>
+      </node>
+      <node id="1">
+        <label>hashmap</label>
+        <link refid="structhashmap"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>hash</edgelabel>
+          <edgelabel>seed0</edgelabel>
+          <edgelabel>seed1</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>elfree</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>bucketsz</edgelabel>
+          <edgelabel>cap</edgelabel>
+          <edgelabel>count</edgelabel>
+          <edgelabel>elsize</edgelabel>
+          <edgelabel>growat</edgelabel>
+          <edgelabel>mask</edgelabel>
+          <edgelabel>nbuckets</edgelabel>
+          <edgelabel>shrinkat</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>compare</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>oom</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>realloc</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>buckets</edgelabel>
+          <edgelabel>edata</edgelabel>
+          <edgelabel>spare</edgelabel>
+          <edgelabel>udata</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>free</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>malloc</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="7">
+        <label>void *(*)(void *, size_t)</label>
+      </node>
+      <node id="5">
+        <label>int</label>
+      </node>
+      <node id="3">
+        <label>void(*)(const void *item)</label>
+      </node>
+      <node id="6">
+        <label>bool</label>
+      </node>
+      <node id="9">
+        <label>void(*)(const void *)</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/hashmap.c" line="28" column="1" bodyfile="src/hashmap.c" bodystart="28" bodyend="50"/>
+    <listofallmembers>
+      <member refid="structhashmap_1a3e766a0c0823ac31b0899c35c4b9f8e5" prot="public" virt="non-virtual"><scope>hashmap</scope><name>buckets</name></member>
+      <member refid="structhashmap_1ae3dcca1664c48acb0c8bf97576af2cff" prot="public" virt="non-virtual"><scope>hashmap</scope><name>bucketsz</name></member>
+      <member refid="structhashmap_1a80f6c06e49a6e1eeaf4c54f4b0dd54a3" prot="public" virt="non-virtual"><scope>hashmap</scope><name>cap</name></member>
+      <member refid="structhashmap_1a023a3383985392db1060c3f521f18cc4" prot="public" virt="non-virtual"><scope>hashmap</scope><name>compare</name></member>
+      <member refid="structhashmap_1a83401730a6fa4c715c7abee57143a072" prot="public" virt="non-virtual"><scope>hashmap</scope><name>count</name></member>
+      <member refid="structhashmap_1abfa2d20809cb4fb98d7cce3476849048" prot="public" virt="non-virtual"><scope>hashmap</scope><name>edata</name></member>
+      <member refid="structhashmap_1a07ee117a82933e6a76a225bb2bb78b90" prot="public" virt="non-virtual"><scope>hashmap</scope><name>elfree</name></member>
+      <member refid="structhashmap_1a0b27a7632dd90ef06450ade0facf8cfd" prot="public" virt="non-virtual"><scope>hashmap</scope><name>elsize</name></member>
+      <member refid="structhashmap_1aa3ba3f44579689d44c755595ca975a4e" prot="public" virt="non-virtual"><scope>hashmap</scope><name>free</name></member>
+      <member refid="structhashmap_1add4b16757a8fc0b6512f0d697f6a9984" prot="public" virt="non-virtual"><scope>hashmap</scope><name>growat</name></member>
+      <member refid="structhashmap_1a31e9b3ba3c885a3b7d4162cbc087be1c" prot="public" virt="non-virtual"><scope>hashmap</scope><name>hash</name></member>
+      <member refid="structhashmap_1a783d051249e78c7ef01638d373832000" prot="public" virt="non-virtual"><scope>hashmap</scope><name>malloc</name></member>
+      <member refid="structhashmap_1a00834c3149411d634009e7a1ec583fb2" prot="public" virt="non-virtual"><scope>hashmap</scope><name>mask</name></member>
+      <member refid="structhashmap_1a70de7d53a62f7a365d048b4ec50b4370" prot="public" virt="non-virtual"><scope>hashmap</scope><name>nbuckets</name></member>
+      <member refid="structhashmap_1ad9c41ec0544294e872d1e88836438fa8" prot="public" virt="non-virtual"><scope>hashmap</scope><name>oom</name></member>
+      <member refid="structhashmap_1ad028825dc317f16692b71f7cdd1a459d" prot="public" virt="non-virtual"><scope>hashmap</scope><name>realloc</name></member>
+      <member refid="structhashmap_1a6eee37fe0b771db138668d34acfd3ea6" prot="public" virt="non-virtual"><scope>hashmap</scope><name>seed0</name></member>
+      <member refid="structhashmap_1a482d7a8eb303ff1ba564c04810f49755" prot="public" virt="non-virtual"><scope>hashmap</scope><name>seed1</name></member>
+      <member refid="structhashmap_1a25af27b2a8aea1a561f8dd68ca0cc9e2" prot="public" virt="non-virtual"><scope>hashmap</scope><name>shrinkat</name></member>
+      <member refid="structhashmap_1a0589732ee5a065d6a5376a7cf04364a3" prot="public" virt="non-virtual"><scope>hashmap</scope><name>spare</name></member>
+      <member refid="structhashmap_1a871717dd737199b8cf4c7398b4f92e56" prot="public" virt="non-virtual"><scope>hashmap</scope><name>udata</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

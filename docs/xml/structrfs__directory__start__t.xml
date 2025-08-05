@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrfs__directory__start__t" kind="struct" language="C++" prot="public">
+    <compoundname>rfs_directory_start_t</compoundname>
+    <includes local="no">retrofs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrfs__directory__start__t_1a23433f20334bc0eb67046b9f49d51af0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rfs_directory_start_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="67" column="10" bodyfile="include/retrofs.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__start__t_1a91e1d746c6e2fdfd2617c569b1fdbeec" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rfs_directory_start_t::title[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>title</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="68" column="6" bodyfile="include/retrofs.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__start__t_1a83f8050afdd972930ce5a02fc5cc6c45" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_directory_start_t::parent</definition>
+        <argsstring></argsstring>
+        <name>parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="69" column="10" bodyfile="include/retrofs.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__start__t_1a3ad10ef57a35c30dd2192a5ae4b667c2" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_directory_start_t::sectors</definition>
+        <argsstring></argsstring>
+        <name>sectors</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="70" column="10" bodyfile="include/retrofs.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__start__t_1aa62b28276a1926465e6d0bdfc8a282cb" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_directory_start_t::continuation</definition>
+        <argsstring></argsstring>
+        <name>continuation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="71" column="10" bodyfile="include/retrofs.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__start__t_1aa46fcc9ac6e22ac1acc41fc60921f07d" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rfs_directory_start_t::reserved[]</definition>
+        <argsstring>[]</argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="72" column="6" bodyfile="include/retrofs.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>rfs_directory_start_t</label>
+        <link refid="structrfs__directory__start__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>continuation</edgelabel>
+          <edgelabel>parent</edgelabel>
+          <edgelabel>sectors</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>reserved</edgelabel>
+          <edgelabel>title</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>flags</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/retrofs.h" line="66" column="1" bodyfile="include/retrofs.h" bodystart="66" bodyend="73"/>
+    <listofallmembers>
+      <member refid="structrfs__directory__start__t_1aa62b28276a1926465e6d0bdfc8a282cb" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>continuation</name></member>
+      <member refid="structrfs__directory__start__t_1a23433f20334bc0eb67046b9f49d51af0" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>flags</name></member>
+      <member refid="structrfs__directory__start__t_1a83f8050afdd972930ce5a02fc5cc6c45" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>parent</name></member>
+      <member refid="structrfs__directory__start__t_1aa46fcc9ac6e22ac1acc41fc60921f07d" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>reserved</name></member>
+      <member refid="structrfs__directory__start__t_1a3ad10ef57a35c30dd2192a5ae4b667c2" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>sectors</name></member>
+      <member refid="structrfs__directory__start__t_1a91e1d746c6e2fdfd2617c569b1fdbeec" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>title</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

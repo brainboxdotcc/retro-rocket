@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structsprite__t" kind="struct" language="C++" prot="public">
+    <compoundname>sprite_t</compoundname>
+    <includes local="no">basic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsprite__t_1a891b821b2a6635cca55882ea10079964" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sprite_t::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="212" column="10" bodyfile="include/basic.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsprite__t_1a4b2e7c463aa17ecdce17f74f03602f65" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sprite_t::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="213" column="10" bodyfile="include/basic.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsprite__t_1a8b1fd8f84e490d9f578a30f411713e97" prot="public" static="no" mutable="no">
+        <type>uint32_t *</type>
+        <definition>uint32_t* sprite_t::pixels</definition>
+        <argsstring></argsstring>
+        <name>pixels</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic.h" line="214" column="10" bodyfile="include/basic.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>sprite_t</label>
+        <link refid="structsprite__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>height</edgelabel>
+          <edgelabel>pixels</edgelabel>
+          <edgelabel>width</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint32_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/basic.h" line="211" column="1" bodyfile="include/basic.h" bodystart="211" bodyend="215"/>
+    <listofallmembers>
+      <member refid="structsprite__t_1a4b2e7c463aa17ecdce17f74f03602f65" prot="public" virt="non-virtual"><scope>sprite_t</scope><name>height</name></member>
+      <member refid="structsprite__t_1a8b1fd8f84e490d9f578a30f411713e97" prot="public" virt="non-virtual"><scope>sprite_t</scope><name>pixels</name></member>
+      <member refid="structsprite__t_1a891b821b2a6635cca55882ea10079964" prot="public" virt="non-virtual"><scope>sprite_t</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1419 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ip_8c" kind="file" language="C++">
+    <compoundname>ip.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ip_8c_1ae06a7aa536fce71c898cf196c4354bc0" prot="public" static="no">
+        <name>MAX_REASSEMBLIES</name>
+        <initializer>64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="7" column="9" bodyfile="src/net/ip.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ip_8c_1a78cd68f418f3579e51849b5dcaeb5b21" prot="public" static="no">
+        <name>FRAG_TIMEOUT_TICKS</name>
+        <initializer>300</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="8" column="9" bodyfile="src/net/ip.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ip_8c_1ac230e902906ab35b0b45fa2de870a4cb" prot="public" static="no">
+        <name>FRAG_GC_INTERVAL</name>
+        <initializer>150</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="9" column="9" bodyfile="src/net/ip.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ip_8c_1a5bdab5d96be1af39dda9ae08da73251d" prot="public" static="no">
+        <name>FRAG_MEM_LIMIT</name>
+        <initializer>(2 * 1024 * 1024)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="10" column="9" bodyfile="src/net/ip.c" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ip_8c_1a05479c672d32bd30d66deab11f20f4f8" prot="public" static="no">
+        <name>TCP_MAX_PACKET_SIZE</name>
+        <initializer>(65536 + sizeof(ip_packet_t))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="11" column="9" bodyfile="src/net/ip.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="ip_8c_1a2d6dd3031d8e8ae564a17572a1a5af4b" prot="public" static="no" mutable="no">
+        <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
+        <definition>spinlock_t tcp_send_spinlock</definition>
+        <argsstring></argsstring>
+        <name>tcp_send_spinlock</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="13" column="12" bodyfile="src/net/ip.c" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a4a20d3f29246ff06fd287c195fb3b5ad" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t last_id</definition>
+        <argsstring></argsstring>
+        <name>last_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="14" column="10" bodyfile="src/net/ip.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1ada0d7881688ca9983c592003f20c66b3" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t my_ip[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>my_ip</name>
+        <initializer>= {0, 0, 0, 0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="15" column="9" bodyfile="src/net/ip.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a9d4da000395bede0dbfdd8232f8c03a7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t zero_hardware_addr[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>zero_hardware_addr</name>
+        <initializer>= {0, 0, 0, 0, 0, 0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="16" column="9" bodyfile="src/net/ip.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a58bff71356890c43c2f9ecbbc8e5efcb" prot="public" static="no" mutable="no">
+        <type><ref refid="structpacket__queue__item__t" kindref="compound">packet_queue_item_t</ref> *</type>
+        <definition>packet_queue_item_t* packet_queue</definition>
+        <argsstring></argsstring>
+        <name>packet_queue</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="17" column="21" bodyfile="src/net/ip.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a6125bebd59f0e7d42e376b3290904d87" prot="public" static="no" mutable="no">
+        <type><ref refid="structpacket__queue__item__t" kindref="compound">packet_queue_item_t</ref> *</type>
+        <definition>packet_queue_item_t* packet_queue_end</definition>
+        <argsstring></argsstring>
+        <name>packet_queue_end</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="18" column="21" bodyfile="src/net/ip.c" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a9bccf5c44f19ed32be16e03df2bc2fa3" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char ip_addr[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>ip_addr</name>
+        <initializer>= { 0, 0, 0, 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="19" column="6" bodyfile="src/net/ip.c" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1af35b683b49f96e5686f99b329f768b99" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int is_ip_allocated</definition>
+        <argsstring></argsstring>
+        <name>is_ip_allocated</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="20" column="5" bodyfile="src/net/ip.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1ae7fad87cf014030c6364d4f963aac8e8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dns_addr</definition>
+        <argsstring></argsstring>
+        <name>dns_addr</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="21" column="10" bodyfile="src/net/ip.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1ab913ad1e18df42991659f4271c6a810b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t gateway_addr</definition>
+        <argsstring></argsstring>
+        <name>gateway_addr</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="21" column="20" bodyfile="src/net/ip.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a0a283760faaf99e00bbebe2719e252f0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t netmask</definition>
+        <argsstring></argsstring>
+        <name>netmask</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="21" column="34" bodyfile="src/net/ip.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1a12770212379d1208a1f07961b62cb733" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+        <definition>struct hashmap* frag_map</definition>
+        <argsstring></argsstring>
+        <name>frag_map</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="22" column="14" bodyfile="src/net/ip.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ip_8c_1ab93b0af589dd086790a127286eedf52a" prot="public" static="yes" mutable="no">
+        <type>size_t</type>
+        <definition>size_t frag_mem_total</definition>
+        <argsstring></argsstring>
+        <name>frag_mem_total</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="23" column="15" bodyfile="src/net/ip.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ip_8c_1aea6d2bc78e199d2c6630cd4440708a4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_ip_str</definition>
+        <argsstring>(char *ip_str, const uint8_t *ip)</argsstring>
+        <name>get_ip_str</name>
+        <param>
+          <type>char *</type>
+          <declname>ip_str</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+<para>Convert network byte order IP to a string form for display. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip_str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>character buffer to fill, should be at least 13 bytes </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw 4 byte IP </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="25" column="6" bodyfile="src/net/ip.c" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a2a0164f6cce7e790fe3402e17e2f4597" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t str_to_ip</definition>
+        <argsstring>(const char *ip_str)</argsstring>
+        <name>str_to_ip</name>
+        <param>
+          <type>const char *</type>
+          <declname>ip_str</declname>
+        </param>
+        <briefdescription>
+<para>Convert a string IP to host byte order IP address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip_str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ip as string e.g. &quot;127.0.0.1&quot; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint32_t IP in host byte order </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="30" column="10" bodyfile="src/net/ip.c" bodystart="30" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1aa551ff98bc688620ed7bd69cb9a98a07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gethostaddr</definition>
+        <argsstring>(unsigned char *addr)</argsstring>
+        <name>gethostaddr</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>ip</declname>
+          <defname>addr</defname>
+        </param>
+        <briefdescription>
+<para>Get the current IP address. This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address buffer, should be at least 4 bytes </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero if an IP address is available for use </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="50" column="5" bodyfile="src/net/ip.c" bodystart="50" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a7023347bd0c00d0866e2da72ccc999bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sethostaddr</definition>
+        <argsstring>(const unsigned char *addr)</argsstring>
+        <name>sethostaddr</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>ip</declname>
+          <defname>addr</defname>
+        </param>
+        <briefdescription>
+<para>Set the current IP address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>4 byte buffer for IP address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="55" column="6" bodyfile="src/net/ip.c" bodystart="55" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a41abea862f6e845e6f6df11b4d1d4aee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setdnsaddr</definition>
+        <argsstring>(uint32_t dns)</argsstring>
+        <name>setdnsaddr</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>dns</declname>
+        </param>
+        <briefdescription>
+<para>Set DNS address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DNS address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="60" column="6" bodyfile="src/net/ip.c" bodystart="60" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a4e01d123dc960d1c3e7afc199866b394" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setgatewayaddr</definition>
+        <argsstring>(uint32_t gateway)</argsstring>
+        <name>setgatewayaddr</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>gateway</declname>
+        </param>
+        <briefdescription>
+<para>Set gateway address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gateway address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="64" column="6" bodyfile="src/net/ip.c" bodystart="64" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a04ebf6ef42a22c69b10eb794d233ceec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getdnsaddr</definition>
+        <argsstring>()</argsstring>
+        <name>getdnsaddr</name>
+        <briefdescription>
+<para>Get DNS address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint32_t DNS address </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="68" column="10" bodyfile="src/net/ip.c" bodystart="68" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a8066de476dc28033b24d07a4bd52f718" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getgatewayaddr</definition>
+        <argsstring>()</argsstring>
+        <name>getgatewayaddr</name>
+        <briefdescription>
+<para>Get gateway address This could be allocated by DHCP or statically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint32_t gateway address </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="72" column="10" bodyfile="src/net/ip.c" bodystart="72" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a621c408b11c5b2ba33c9ad1a7bac93ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setnetmask</definition>
+        <argsstring>(uint32_t nm)</argsstring>
+        <name>setnetmask</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>nm</declname>
+        </param>
+        <briefdescription>
+<para>Set network mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>network mask </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="76" column="6" bodyfile="src/net/ip.c" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1af36348a26ea667e87f3427e57ed23bed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getnetmask</definition>
+        <argsstring>()</argsstring>
+        <name>getnetmask</name>
+        <briefdescription>
+<para>Get network mask. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint32_t network mask </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="80" column="10" bodyfile="src/net/ip.c" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a6a30b340faea65631b3a3c49f070ddcc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void free_frag_list</definition>
+        <argsstring>(ip_packet_frag_t *list)</argsstring>
+        <name>free_frag_list</name>
+        <param>
+          <type><ref refid="structip__packet__frag__t" kindref="compound">ip_packet_frag_t</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="84" column="13" bodyfile="src/net/ip.c" bodystart="84" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a172bebdd9b7c7ddf045053ddeba377c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_frag_gc</definition>
+        <argsstring>(void)</argsstring>
+        <name>ip_frag_gc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="97" column="6" bodyfile="src/net/ip.c" bodystart="97" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a0c6727c035a1b0fb8d80502c051d0ef3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t ip_calculate_checksum</definition>
+        <argsstring>(ip_packet_t *packet)</argsstring>
+        <name>ip_calculate_checksum</name>
+        <param>
+          <type>ip_packet_t *</type>
+          <declname>packet</declname>
+        </param>
+        <briefdescription>
+<para>Calculate checksum for IP packet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP packet structure </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint16_t Checksum </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="127" column="10" bodyfile="src/net/ip.c" bodystart="127" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a189c32f3acd569510b06121550e84616" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dequeue_packet</definition>
+        <argsstring>(packet_queue_item_t *cur, packet_queue_item_t *last)</argsstring>
+        <name>dequeue_packet</name>
+        <param>
+          <type><ref refid="structpacket__queue__item__t" kindref="compound">packet_queue_item_t</ref> *</type>
+          <declname>cur</declname>
+        </param>
+        <param>
+          <type><ref refid="structpacket__queue__item__t" kindref="compound">packet_queue_item_t</ref> *</type>
+          <declname>last</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="143" column="6" bodyfile="src/net/ip.c" bodystart="143" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1ac14f37ff566957e2932615943bd6578a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_idle</definition>
+        <argsstring>()</argsstring>
+        <name>ip_idle</name>
+        <briefdescription>
+<para>100Hz background task hooked to local APIC timer </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Called from the local APIC timer interrupt 50 times a second. Attempts to resolve ARP requests for queued packets that we don&apos;t have ARP for yet, and retries ARP requests up to 3 times before dropping packets we cannot route. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="166" column="6" bodyfile="src/net/ip.c" bodystart="166" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a6ba282dea8ed3e36959997e46f834d9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_foreground</definition>
+        <argsstring>()</argsstring>
+        <name>ip_foreground</name>
+        <briefdescription>
+<para>Indeterminate frequency foreground task that steals cycles from idle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="232" column="6" bodyfile="src/net/ip.c" bodystart="232" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a7414e3656c8f1693ae9ed7a658eb7ece" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void queue_packet</definition>
+        <argsstring>([[maybe_unused]] uint8_t *dst_ip, void *data, [[maybe_unused]] uint16_t len)</argsstring>
+        <name>queue_packet</name>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] uint8_t *</type>
+          <declname>dst_ip</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] uint16_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="238" column="6" bodyfile="src/net/ip.c" bodystart="238" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a5c4e2905c23bb53cf128a3912f8ddaea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_send_packet</definition>
+        <argsstring>(uint8_t *dst_ip, void *data, uint16_t len, uint8_t protocol)</argsstring>
+        <name>ip_send_packet</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>dst_ip</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>protocol</declname>
+        </param>
+        <briefdescription>
+<para>Send IP packet to the ethernet driver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dst_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP to send the packet to (255.255.255.255 for broadcast) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw IP packet to send </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data length </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>protocol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sub-protocol encapsulated inside the packet, e.g. UDP, TCP </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="262" column="6" bodyfile="src/net/ip.c" bodystart="262" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a672f7b02ca1cb960b5e0adf8a4ce46de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structip__packet__frag__t" kindref="compound">ip_packet_frag_t</ref> *</type>
+        <definition>ip_packet_frag_t* frag_list_insert</definition>
+        <argsstring>(ip_packet_frag_t *insert, ip_packet_frag_t *list)</argsstring>
+        <name>frag_list_insert</name>
+        <param>
+          <type><ref refid="structip__packet__frag__t" kindref="compound">ip_packet_frag_t</ref> *</type>
+          <declname>insert</declname>
+        </param>
+        <param>
+          <type><ref refid="structip__packet__frag__t" kindref="compound">ip_packet_frag_t</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+<para>Insert fragmented packet part into ordered list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>insert</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fragment to insert (will be sorted by offset) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list to insert into </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ip_packet_frag_t* pointer to start of list </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="338" column="18" bodyfile="src/net/ip.c" bodystart="338" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a1a242a25989e7f23738ef023e7d95999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ip_frag_compare</definition>
+        <argsstring>(const void *a, const void *b, [[maybe_unused]] void *udata)</argsstring>
+        <name>ip_frag_compare</name>
+        <param>
+          <type>const void *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+<para>Comparison function for hash table of fragmented packet lists. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first object to compare </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second object to compare </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>udata</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int 0 for equal, -1 for less than, 1 for greater than; like <ref refid="string_8h_1a11bd144d7d44914099a3aeddf1c8567d" kindref="member">strcmp()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="379" column="5" bodyfile="src/net/ip.c" bodystart="379" bodyend="383"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1aca404934771fcaf1671f5d2f30f6e1cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t ip_frag_hash</definition>
+        <argsstring>(const void *item, uint64_t seed0, uint64_t seed1)</argsstring>
+        <name>ip_frag_hash</name>
+        <param>
+          <type>const void *</type>
+          <declname>item</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <briefdescription>
+<para>Hash two lists of IP fragments for storage in hashmap, keyed by packet id. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item to hash </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first seed from hashmap </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second seed from hashmap </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint64_t hash bucket value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="393" column="10" bodyfile="src/net/ip.c" bodystart="393" bodyend="396"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a35526355cf134e4370369f17f839cf79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_handle_packet</definition>
+        <argsstring>(ip_packet_t *packet, [[maybe_unused]] int n_len)</argsstring>
+        <name>ip_handle_packet</name>
+        <param>
+          <type>ip_packet_t *</type>
+          <declname>packet</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] int</type>
+          <declname>n_len</declname>
+        </param>
+        <briefdescription>
+<para>Handle inbound IP packet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>happens in interrupt!</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>packet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP packet to parse </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Packet length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="405" column="6" bodyfile="src/net/ip.c" bodystart="405" bodyend="553"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a1438927b122b1b407d305c669151a681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip6_handle_packet</definition>
+        <argsstring>([[maybe_unused]] void *packet, [[maybe_unused]] int n_len)</argsstring>
+        <name>ip6_handle_packet</name>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void *</type>
+          <declname>packet</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] int</type>
+          <declname>n_len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="555" column="6" bodyfile="src/net/ip.c" bodystart="555" bodyend="558"/>
+      </memberdef>
+      <memberdef kind="function" id="ip_8c_1a7cf4dd66490d6812fcbba8acbb2533bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ip_init</definition>
+        <argsstring>()</argsstring>
+        <name>ip_init</name>
+        <briefdescription>
+<para>Initialise IP protocol. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/ip.c" line="560" column="6" bodyfile="src/net/ip.c" bodystart="560" bodyend="566"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/net/ip.c"/>
+  </compounddef>
+</doxygen>

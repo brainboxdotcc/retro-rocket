@@ -1,0 +1,1731 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="stdlib_8c" kind="file" language="C++">
+    <compoundname>stdlib.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes local="no">wchar.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="63">
+        <label>wchar.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="stdlib_8c_1a02a84f6f51ade73c96471f806d099e8d" prot="public" static="no">
+        <name>SWAP</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <param><defname>count</defname></param>
+        <param><defname>size</defname></param>
+        <param><defname>tmp</defname></param>
+        <initializer>	{ \
+	count = <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+	do { \
+		tmp = *<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>; \
+		*<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>++ = *<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>; \
+		*<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>++ = tmp; \
+	} while (--count); \
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="234" column="9" bodyfile="src/stdlib.c" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a192dc1ff6f60e0fb9bc1e7a2c930c8a3" prot="public" static="no">
+        <name>COPY</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <param><defname>count</defname></param>
+        <param><defname>size</defname></param>
+        <param><defname>tmp1</defname></param>
+        <param><defname>tmp2</defname></param>
+        <initializer>	{ \
+	count = <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+	tmp1 = <ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>; \
+	tmp2 = <ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>; \
+	do { \
+		*tmp1++ = *tmp2++; \
+	} while (--count); \
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="244" column="9" bodyfile="src/stdlib.c" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a4d7e2899e4c5ef00783ad463aebe5d44" prot="public" static="no">
+        <name>CREATE</name>
+        <param><defname>initval</defname></param>
+        <param><defname>nmemb</defname></param>
+        <param><defname>par_i</defname></param>
+        <param><defname>child_i</defname></param>
+        <param><defname>par</defname></param>
+        <param><defname>child</defname></param>
+        <param><defname>size</defname></param>
+        <param><defname>count</defname></param>
+        <param><defname>tmp</defname></param>
+        <initializer>	{ \
+	for (par_i = initval; (child_i = par_i * 2) &lt;= nmemb; \
+	    par_i = child_i) { \
+		child = <ref refid="gdt_8c_1aeca790c0426654358d031f8180e84aca" kindref="member">base</ref> + child_i * <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+		if (child_i &lt; nmemb &amp;&amp; compar(child, child + <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>) &lt; 0) { \
+			child += <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+			++child_i; \
+		} \
+		par = <ref refid="gdt_8c_1aeca790c0426654358d031f8180e84aca" kindref="member">base</ref> + par_i * <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+		if (compar(child, par) &lt;= 0) \
+			break; \
+		<ref refid="stdlib_8c_1a02a84f6f51ade73c96471f806d099e8d" kindref="member">SWAP</ref>(par, child, count, <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>, tmp); \
+	} \
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="260" column="9" bodyfile="src/stdlib.c" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1af27e6cb8b1e9f2175b4f7074b1fed8c1" prot="public" static="no">
+        <name>SELECT</name>
+        <param><defname>par_i</defname></param>
+        <param><defname>child_i</defname></param>
+        <param><defname>nmemb</defname></param>
+        <param><defname>par</defname></param>
+        <param><defname>child</defname></param>
+        <param><defname>size</defname></param>
+        <param><defname>k</defname></param>
+        <param><defname>count</defname></param>
+        <param><defname>tmp1</defname></param>
+        <param><defname>tmp2</defname></param>
+        <initializer>	{ \
+	for (par_i = 1; (child_i = par_i * 2) &lt;= nmemb; par_i = child_i) { \
+		child = <ref refid="gdt_8c_1aeca790c0426654358d031f8180e84aca" kindref="member">base</ref> + child_i * <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+		if (child_i &lt; nmemb &amp;&amp; compar(child, child + <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>) &lt; 0) { \
+			child += <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+			++child_i; \
+		} \
+		par = <ref refid="gdt_8c_1aeca790c0426654358d031f8180e84aca" kindref="member">base</ref> + par_i * <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+		<ref refid="stdlib_8c_1a192dc1ff6f60e0fb9bc1e7a2c930c8a3" kindref="member">COPY</ref>(par, child, count, <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>, tmp1, tmp2); \
+	} \
+	for (;;) { \
+		child_i = par_i; \
+		par_i = child_i / 2; \
+		child = <ref refid="gdt_8c_1aeca790c0426654358d031f8180e84aca" kindref="member">base</ref> + child_i * <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+		par = <ref refid="gdt_8c_1aeca790c0426654358d031f8180e84aca" kindref="member">base</ref> + par_i * <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>; \
+		if (child_i == 1 || compar(k, par) &lt; 0) { \
+			<ref refid="stdlib_8c_1a192dc1ff6f60e0fb9bc1e7a2c930c8a3" kindref="member">COPY</ref>(child, k, count, <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>, tmp1, tmp2); \
+			break; \
+		} \
+		<ref refid="stdlib_8c_1a192dc1ff6f60e0fb9bc1e7a2c930c8a3" kindref="member">COPY</ref>(child, par, count, <ref refid="fat32_8h_1ab2c6b258f02add8fdf4cfc7c371dd772" kindref="member">size</ref>, tmp1, tmp2); \
+	} \
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="292" column="9" bodyfile="src/stdlib.c" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a6e831dc2badf048ee60184a78a4e23c0" prot="public" static="no">
+        <name>SWAPTYPE_BYTEV</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="383" column="9" bodyfile="src/stdlib.c" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a4383dd9bc36b38922084c1d8a805549a" prot="public" static="no">
+        <name>SWAPTYPE_INTV</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="384" column="9" bodyfile="src/stdlib.c" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1ac6b24540d7b16abf388bf763ac10715c" prot="public" static="no">
+        <name>SWAPTYPE_LONGV</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="385" column="9" bodyfile="src/stdlib.c" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a4fde6f920105b98041f56311572ac8cb" prot="public" static="no">
+        <name>SWAPTYPE_INT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="386" column="9" bodyfile="src/stdlib.c" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a0b8608ec2dfaf6ebed81e416d0159e1f" prot="public" static="no">
+        <name>SWAPTYPE_LONG</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="387" column="9" bodyfile="src/stdlib.c" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1afef1a97466ccf80f01c2e3b9f348cc7b" prot="public" static="no">
+        <name>TYPE_ALIGNED</name>
+        <param><defname>TYPE</defname></param>
+        <param><defname>a</defname></param>
+        <param><defname>es</defname></param>
+        <initializer>	(((char *)<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref> - (char *)0) % sizeof(TYPE) == 0 &amp;&amp; es % sizeof(TYPE) == 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="389" column="9" bodyfile="src/stdlib.c" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a94e98b172e7b50dde8c112d1617d446d" prot="public" static="no">
+        <name>swapcode</name>
+        <param><defname>TYPE</defname></param>
+        <param><defname>parmi</defname></param>
+        <param><defname>parmj</defname></param>
+        <param><defname>n</defname></param>
+        <initializer>	{ 		\
+	size_t <ref refid="ahci_8h_1a752abcfe7ce5874cd9e8012a0346a37b" kindref="member">i</ref> = (<ref refid="ahci_8h_1a5a648f5ec00c526b0dfa2df7a272c6c0" kindref="member">n</ref>) / sizeof (TYPE); 		\
+	TYPE *<ref refid="ahci_8h_1a758f6c558cc8d68e2a25f13e046eae6f" kindref="member">pi</ref> = (TYPE *) (parmi); 			\
+	TYPE *pj = (TYPE *) (parmj); 			\
+	do { 						\
+		TYPE	t = *<ref refid="ahci_8h_1a758f6c558cc8d68e2a25f13e046eae6f" kindref="member">pi</ref>;			\
+		*<ref refid="ahci_8h_1a758f6c558cc8d68e2a25f13e046eae6f" kindref="member">pi</ref>++ = *pj;				\
+		*pj++ = t;				\
+        } while (--<ref refid="ahci_8h_1a752abcfe7ce5874cd9e8012a0346a37b" kindref="member">i</ref> &gt; 0);				\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="392" column="9" bodyfile="src/stdlib.c" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a3ca5ecd34b04d6a243c054ac3a57f68d" prot="public" static="no">
+        <name>swap</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>	do {				\
+	switch (swaptype) {				\
+	case SWAPTYPE_INT: {				\
+		int t = *(int *)(<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>);			\
+		*(int *)(<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>) = *(int *)(<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>);		\
+		*(int *)(<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>) = t;			\
+		break;					\
+	    }						\
+	case SWAPTYPE_LONG: {				\
+		long t = *(long *)(<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>);			\
+		*(long *)(<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>) = *(long *)(<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>);		\
+		*(long *)(<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>) = t;			\
+		break;					\
+	    }						\
+	default:					\
+		<ref refid="stdlib_8c_1ab66c3e98f7ae007575e4a42bcc4a859a" kindref="member">swapfunc</ref>(<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>, <ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>, es, swaptype);		\
+	}						\
+} while (0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="420" column="9" bodyfile="src/stdlib.c" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="stdlib_8c_1a584c607dc0b230ebfdde9a157887c6a9" prot="public" static="no">
+        <name>vecswap</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <param><defname>n</defname></param>
+        <initializer>if ((<ref refid="ahci_8h_1a5a648f5ec00c526b0dfa2df7a272c6c0" kindref="member">n</ref>) &gt; 0) <ref refid="stdlib_8c_1ab66c3e98f7ae007575e4a42bcc4a859a" kindref="member">swapfunc</ref>(<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>, <ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>, <ref refid="ahci_8h_1a5a648f5ec00c526b0dfa2df7a272c6c0" kindref="member">n</ref>, swaptype)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="439" column="9" bodyfile="src/stdlib.c" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="stdlib_8c_1aea43064e0d562e3237ffcd1c91c74395" prot="public" static="yes" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long rand_state</definition>
+        <argsstring></argsstring>
+        <name>rand_state</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="33" column="22" bodyfile="src/stdlib.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="stdlib_8c_1ab017280f95ea769b9422688105f02653" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double strtod</definition>
+        <argsstring>(const char *str, char **endptr)</argsstring>
+        <name>strtod</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>endptr</declname>
+        </param>
+        <briefdescription>
+<para>Convert string to double. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store end of parsed string </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double Converted value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="35" column="8" bodyfile="src/stdlib.c" bodystart="35" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1afe9740349c9dae2391705be75b1075c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long int</type>
+        <definition>long int strtol</definition>
+        <argsstring>(const char *nptr, char **endptr, int base)</argsstring>
+        <name>strtol</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+          <defname>nptr</defname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>endptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>base</declname>
+        </param>
+        <briefdescription>
+<para>Convert string to long integer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store end of parsed string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerical base (e.g. 10, 16) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>long int Converted value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="47" column="10" bodyfile="src/stdlib.c" bodystart="47" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1af171565a8838ed4f4fb2c036dce48c09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long int</type>
+        <definition>unsigned long int strtoul</definition>
+        <argsstring>(const char *nptr, char **endptr, int base)</argsstring>
+        <name>strtoul</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+          <defname>nptr</defname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>endptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>base</declname>
+        </param>
+        <briefdescription>
+<para>Convert string to unsigned long integer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>endptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store end of parsed string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerical base (e.g. 10, 16) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>unsigned long int Converted value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="127" column="19" bodyfile="src/stdlib.c" bodystart="127" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a8dec7c95227ff149687066cf04029191" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void abort</definition>
+        <argsstring>(void)</argsstring>
+        <name>abort</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Terminate the program abnormally. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="193" column="6" bodyfile="src/stdlib.c" bodystart="193" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a7fd89c82095df80e5e12d6b2834a2acc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int atexit</definition>
+        <argsstring>(void(*func)(void))</argsstring>
+        <name>atexit</name>
+        <param>
+          <type>void(*)(void)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Register a function to be called at program exit. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Stub only. Retro Rocket does not have a concept of process termination for C programs, so this function does nothing.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exit handler (ignored) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int Always returns 0 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="198" column="5" bodyfile="src/stdlib.c" bodystart="198" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a55e99c539cf7723ec15e856b7e0a8cee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void exit</definition>
+        <argsstring>(int status)</argsstring>
+        <name>exit</name>
+        <param>
+          <type>int</type>
+          <declname>status</declname>
+        </param>
+        <briefdescription>
+<para>Terminate the program with status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Stub only. Retro Rocket does not execute standalone C programs, so this function does nothing.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exit code (ignored) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="204" column="6" bodyfile="src/stdlib.c" bodystart="204" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1abc6595dbf6880c71628fecf0dbb23d66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* getenv</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>getenv</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Get the value of an environment variable. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Stub only. Retro Rocket is a non-POSIX system with no environment variables. Always returns NULL.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the environment variable (ignored) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char* Always NULL </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="209" column="6" bodyfile="src/stdlib.c" bodystart="209" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a8b0abd498c08f782b325e8532254e962" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int system</definition>
+        <argsstring>(const char *string)</argsstring>
+        <name>system</name>
+        <param>
+          <type>const char *</type>
+          <declname>string</declname>
+        </param>
+        <briefdescription>
+<para>Execute a shell command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Stub only. Retro Rocket cannot execute native programs. Always returns -1.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>string</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command string (ignored) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int Always -1 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="215" column="5" bodyfile="src/stdlib.c" bodystart="215" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1afd5b630e6f7c6e5086faacda3318c6c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* bsearch</definition>
+        <argsstring>(const void *key, const void *base, size_t nitems, size_t size, int(*compar)(const void *, const void *))</argsstring>
+        <name>bsearch</name>
+        <param>
+          <type>const void *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nitems</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int(*)(const void *, const void *)</type>
+          <declname>compar</declname>
+        </param>
+        <briefdescription>
+<para>Binary search. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key to search for </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array base pointer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nitems</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of items in array </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of each element </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compar</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Comparison function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* Pointer to found element or NULL </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="221" column="6" bodyfile="src/stdlib.c" bodystart="221" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1aabf6120eebbf45551e204fccb5c852d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int heapsort</definition>
+        <argsstring>(void *vbase, size_t nmemb, size_t size, int(*compar)(const void *, const void *))</argsstring>
+        <name>heapsort</name>
+        <param>
+          <type>void *</type>
+          <declname>vbase</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nmemb</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>int(*)(const void *, const void *)</type>
+          <declname>compar</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="322" column="5" bodyfile="src/stdlib.c" bodystart="322" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1af3bab84625a1d45d1cc0c98cee392f4d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>char *</type>
+        <definition>static char * med3</definition>
+        <argsstring>(char *, char *, char *, int(*)(const void *, const void *))</argsstring>
+        <name>med3</name>
+        <param>
+          <type>char *</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>char *</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>char *</type>
+          <defname>c</defname>
+        </param>
+        <param>
+          <type>int(*)(const void *, const void *)</type>
+          <defname>cmp</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="446" column="20" bodyfile="src/stdlib.c" bodystart="446" bodyend="451" declfile="src/stdlib.c" declline="362" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1ab66c3e98f7ae007575e4a42bcc4a859a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void swapfunc</definition>
+        <argsstring>(char *, char *, size_t, int)</argsstring>
+        <name>swapfunc</name>
+        <param>
+          <type>char *</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>char *</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <defname>n</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <defname>swaptype</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="403" column="20" bodyfile="src/stdlib.c" bodystart="403" bodyend="418" declfile="src/stdlib.c" declline="363" declcolumn="20"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a3a7693a64c3ae4c335db15c2e7eeac52" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>static unsigned long min</definition>
+        <argsstring>(unsigned long a, unsigned long b)</argsstring>
+        <name>min</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="441" column="29" bodyfile="src/stdlib.c" bodystart="441" bodyend="444"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a60cea9141ca389f74bbeeac2e0f7a076" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void introsort</definition>
+        <argsstring>(char *a, size_t n, size_t es, size_t maxdepth, int swaptype, int(*cmp)(const void *, const void *))</argsstring>
+        <name>introsort</name>
+        <param>
+          <type>char *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>es</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>maxdepth</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>swaptype</declname>
+        </param>
+        <param>
+          <type>int(*)(const void *, const void *)</type>
+          <declname>cmp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="453" column="13" bodyfile="src/stdlib.c" bodystart="453" bodyend="541"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1ab4b5dcfee552bc7f3e1cce5fec547711" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void qsort</definition>
+        <argsstring>(void *a, size_t n, size_t es, int(*cmp)(const void *, const void *))</argsstring>
+        <name>qsort</name>
+        <param>
+          <type>void *</type>
+          <declname>base</declname>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nitems</declname>
+          <defname>n</defname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+          <defname>es</defname>
+        </param>
+        <param>
+          <type>int(*)(const void *, const void *)</type>
+          <declname>compar</declname>
+          <defname>cmp</defname>
+        </param>
+        <briefdescription>
+<para>Quicksort. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array base pointer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nitems</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of items </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of each element </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compar</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Comparison function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="543" column="6" bodyfile="src/stdlib.c" bodystart="543" bodyend="561"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a4476a5dc418924ee3ad18ce699581dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structdiv__t" kindref="compound">div_t</ref></type>
+        <definition>div_t div</definition>
+        <argsstring>(int numer, int denom)</argsstring>
+        <name>div</name>
+        <param>
+          <type>int</type>
+          <declname>numer</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>denom</declname>
+        </param>
+        <briefdescription>
+<para>Divide two integers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>numer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerator </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>denom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Denominator </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structdiv__t" kindref="compound">div_t</ref> Quotient and remainder </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="563" column="7" bodyfile="src/stdlib.c" bodystart="563" bodyend="569"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1aa7cf95c9fb9326be083259f896acfc4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structldiv__t" kindref="compound">ldiv_t</ref></type>
+        <definition>ldiv_t ldiv</definition>
+        <argsstring>(long int numer, long int denom)</argsstring>
+        <name>ldiv</name>
+        <param>
+          <type>long int</type>
+          <declname>numer</declname>
+        </param>
+        <param>
+          <type>long int</type>
+          <declname>denom</declname>
+        </param>
+        <briefdescription>
+<para>Divide two long integers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>numer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerator </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>denom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Denominator </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structldiv__t" kindref="compound">ldiv_t</ref> Quotient and remainder </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="571" column="8" bodyfile="src/stdlib.c" bodystart="571" bodyend="577"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a83a727cc697aea22e24cad5f39198dd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void srand</definition>
+        <argsstring>(unsigned int seed)</argsstring>
+        <name>srand</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>seed</declname>
+        </param>
+        <briefdescription>
+<para>Seed the random number generator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="579" column="6" bodyfile="src/stdlib.c" bodystart="579" bodyend="585"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1ae23144bcbb8e3742b00eb687c36654d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rand</definition>
+        <argsstring>(void)</argsstring>
+        <name>rand</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Generate a pseudo-random number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>int Pseudo-random number </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="587" column="5" bodyfile="src/stdlib.c" bodystart="587" bodyend="591"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1ad9cf9e32bd0f978d081907297dff8822" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mblen</definition>
+        <argsstring>(const char *str, size_t n)</argsstring>
+        <name>mblen</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Determine the number of bytes in the next multibyte character. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Minimal implementation: always returns 0 or 1 depending on whether *str is &apos;\0&apos;. Assumes single-byte encoding.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the multibyte string to examine. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of bytes to inspect. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 if str is NULL or points to &apos;\0&apos;, otherwise 1. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="595" column="5" bodyfile="src/stdlib.c" bodystart="595" bodyend="600"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a0c01be10218767784680ca9654c25da0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mbstowcs</definition>
+        <argsstring>(wchar_t *pwcs, const char *str, size_t n)</argsstring>
+        <name>mbstowcs</name>
+        <param>
+          <type>wchar_t *</type>
+          <declname>pwcs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Convert a multibyte string to a wide-character string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Minimal implementation: treats each byte as one wide character.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pwcs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination buffer for wide characters (may be NULL). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source multibyte string. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of wide characters to write. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of wide characters written (excluding terminator). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="602" column="8" bodyfile="src/stdlib.c" bodystart="602" bodyend="616"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a3e53443f6f3cee3255cc2b43bddf5627" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mbtowc</definition>
+        <argsstring>(wchar_t *pwc, const char *str, size_t n)</argsstring>
+        <name>mbtowc</name>
+        <param>
+          <type>wchar_t *</type>
+          <declname>pwc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Convert the next multibyte character to a wide character. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Minimal implementation: promotes the byte to wchar_t.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pwc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination wide character (may be NULL). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source multibyte character. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of bytes to inspect. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of bytes consumed (0 if str is NULL or empty). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="618" column="5" bodyfile="src/stdlib.c" bodystart="618" bodyend="628"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1aa2ef4b7026332a8d40d9340870d7a400" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t wcstombs</definition>
+        <argsstring>(char *str, const wchar_t *pwcs, size_t n)</argsstring>
+        <name>wcstombs</name>
+        <param>
+          <type>char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>const wchar_t *</type>
+          <declname>pwcs</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Convert a wide-character string to a multibyte string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Minimal implementation: truncates each wide character to the low 8 bits.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination buffer for multibyte string (may be NULL). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pwcs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source wide-character string. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of bytes to write. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of bytes written (excluding terminator). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="630" column="8" bodyfile="src/stdlib.c" bodystart="630" bodyend="644"/>
+      </memberdef>
+      <memberdef kind="function" id="stdlib_8c_1a44f1616f3ea0c21a5c603b68dac56ea5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int wctomb</definition>
+        <argsstring>(char *str, wchar_t wchar)</argsstring>
+        <name>wctomb</name>
+        <param>
+          <type>char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>wchar_t</type>
+          <declname>wchar</declname>
+        </param>
+        <briefdescription>
+<para>Convert a wide character to a multibyte sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Minimal implementation: writes the low 8 bits as a single byte.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination buffer for multibyte sequence. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>wchar</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source wide character. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of bytes written (1), or 0 if str is NULL. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/stdlib.c" line="646" column="5" bodyfile="src/stdlib.c" bodystart="646" bodyend="652"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/stdlib.c"/>
+  </compounddef>
+</doxygen>

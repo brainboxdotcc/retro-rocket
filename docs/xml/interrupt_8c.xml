@@ -1,0 +1,755 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="interrupt_8c" kind="file" language="C++">
+    <compoundname>interrupt.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="interrupt_8h" local="no">interrupt.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="interrupt_8c_1a13e5bcde00f3dd39f1a0b1d9ce617e97" prot="public" static="no">
+        <name>IRQ_VECTOR_BASE</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="11" column="9" bodyfile="src/interrupt.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="interrupt_8c_1ad36db52f446a5f5f0dea64c853619269" prot="public" static="no" mutable="no">
+        <type><ref refid="structshared__interrupt__t" kindref="compound">shared_interrupt_t</ref> *</type>
+        <definition>shared_interrupt_t* shared_interrupt[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>shared_interrupt</name>
+        <initializer>= { 0 }</initializer>
+        <briefdescription>
+<para>Array of linked lists of interrupt handlers by ISR number. Each ISR may have zero or more handlers attached. a NULL here means an empty list, and no handlers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="9" column="20" bodyfile="src/interrupt.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="interrupt_8c_1a7936317cf7d34e6c7d98b0cdd5d90ac8" prot="public" static="no" mutable="no">
+        <type>const char *const</type>
+        <definition>const char* const error_table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>error_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="13" column="25" bodyfile="src/errorhandler.c" bodystart="4" bodyend="-1" declfile="src/interrupt.c" declline="13" declcolumn="25"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="interrupt_8c_1ad914f703f6be6bb5d7cc4fb10b6200d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void remap_irqs_to_ioapic</definition>
+        <argsstring>()</argsstring>
+        <name>remap_irqs_to_ioapic</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Remap legacy IRQs 0–23 to IOAPIC redirection entries. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function configures the IOAPIC to handle all standard IRQs (0 through 23) by setting up redirection table entries with appropriate vector numbers, polarity, and trigger modes. All entries are initially remapped in a masked (disabled) state to prevent spurious interrupts.</para>
+<para>The actual unmasking of IRQs should be done later by calling <computeroutput>ioapic_mask_set(gsi, false)</computeroutput> once an appropriate handler is installed. Calling <computeroutput><ref refid="interrupt_8h_1ac3eb7f114423d53a7d7f47c250a0987a" kindref="member">register_interrupt_handler()</ref></computeroutput> does this automatically. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="15" column="6" bodyfile="src/interrupt.c" bodystart="15" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="interrupt_8c_1ac3eb7f114423d53a7d7f47c250a0987a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool register_interrupt_handler</definition>
+        <argsstring>(uint8_t n, isr_t handler, pci_dev_t device, void *opaque)</argsstring>
+        <name>register_interrupt_handler</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="idt_8h_1a7a3af27140adcc73f278f9d9c9dcd4bc" kindref="member">isr_t</ref></type>
+          <declname>handler</declname>
+        </param>
+        <param>
+          <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+        </param>
+        <briefdescription>
+<para>Register an interrupt handler for a given ISR or IRQ line. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function attaches a handler to an interrupt vector <computeroutput>n</computeroutput>, allowing multiple devices to share the same IRQ line via a linked list of handlers. The handler will be invoked when the interrupt occurs, with the given <computeroutput>opaque</computeroutput> pointer passed back as context.</para>
+<para>If the interrupt number <computeroutput>n</computeroutput> is 32 or higher, it is assumed to be an IRQ (as per the <computeroutput>irq_number_t</computeroutput> scheme), and the corresponding I/O APIC input line is unmasked automatically. This enables delivery of the IRQ to the local APIC once registered.</para>
+<para>For IRQ sharing, you must provide the <computeroutput>device</computeroutput> field correctly so that handlers for multiple PCI devices on the same line can be tracked and dispatched safely. This is a requirement of shared interrupt delivery.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt number — 0–31 are reserved ISRs; 32+ are IRQs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function pointer to the interrupt handler. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>For PCI devices, specify the device node responsible. Used to manage IRQ sharing. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opaque</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A user-defined pointer passed to the handler on invocation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>false</computeroutput> if memory allocation failed or registration was unsuccessful; <computeroutput>true</computeroutput> otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="30" column="6" bodyfile="src/interrupt.c" bodystart="30" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="interrupt_8c_1a80dd45c30be406207765a89f1b22c9c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool deregister_interrupt_handler</definition>
+        <argsstring>(uint8_t n, isr_t handler)</argsstring>
+        <name>deregister_interrupt_handler</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="idt_8h_1a7a3af27140adcc73f278f9d9c9dcd4bc" kindref="member">isr_t</ref></type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>Deregister an interrupt handler for a specific ISR or IRQ. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes the first matching handler function for the given interrupt vector. If the interrupt vector corresponds to an IRQ (n ≥ 32) and no more handlers remain, the interrupt is masked again using the IOAPIC.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The interrupt vector number (0–255). Values ≥ 32 represent IRQs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The handler function to deregister. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the handler was found and removed, false if not found. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="50" column="6" bodyfile="src/interrupt.c" bodystart="50" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="interrupt_8c_1a8d73abd59b89a5a05e28966f82f76c8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void local_apic_clear_interrupt</definition>
+        <argsstring>()</argsstring>
+        <name>local_apic_clear_interrupt</name>
+        <briefdescription>
+<para>Clear local APIC interrupt. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="79" column="6" bodyfile="src/interrupt.c" bodystart="79" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="interrupt_8c_1a1e0b1516a8ed04e2e7d7a1b2a330e6af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Interrupt</definition>
+        <argsstring>(uint64_t isrnumber, uint64_t errorcode)</argsstring>
+        <name>Interrupt</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>isrnumber</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>errorcode</declname>
+        </param>
+        <briefdescription>
+<para>Global entry point for CPU exceptions and software ISRs (ISR &lt; 32). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is the common handler for processor-generated exceptions (such as divide-by-zero, page faults, general protection faults, etc.) and any custom software ISRs within the reserved range 0–31.</para>
+<para>It is invoked directly from the IDT when an exception occurs. The <computeroutput>errorcode</computeroutput> parameter is provided by the CPU and may contain relevant fault information depending on the exception type.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>isrnumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The interrupt service routine number (0–31). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errorcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The associated CPU-generated error code (or zero if unused). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="86" column="6" bodyfile="src/interrupt.c" bodystart="86" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="interrupt_8c_1a4c63eca37378895b250978c41360b097" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IRQ</definition>
+        <argsstring>(uint64_t isrnumber, uint64_t irqnum)</argsstring>
+        <name>IRQ</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>isrnumber</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>errorcode</declname>
+          <defname>irqnum</defname>
+        </param>
+        <briefdescription>
+<para>Global entry point for hardware IRQs (ISR ≥ 32, remapped). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is invoked by the interrupt dispatcher when a hardware interrupt request (IRQ) occurs. The ISR number corresponds to the remapped IRQ vector, typically starting at 32 (e.g., IRQ0 = ISR32).</para>
+<para>These interrupts originate from external devices and are routed through the IOAPIC to the local APIC. All hardware IRQs provide an error code of zero by convention.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>isrnumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The remapped interrupt vector number (≥ 32). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>errorcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Always zero for hardware IRQs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/interrupt.c" line="110" column="6" bodyfile="src/interrupt.c" bodystart="110" bodyend="130"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/interrupt.c"/>
+  </compounddef>
+</doxygen>

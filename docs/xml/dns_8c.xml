@@ -1,0 +1,1262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dns_8c" kind="file" language="C++">
+    <compoundname>dns.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="dns_8c_1a4fc3a0c58dfbd1e68224521185cb9384" prot="public" static="yes" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="3" column="17" bodyfile="src/net/dns.c" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dns_8c_1a05d2734e0342e9698835e5dc6e9fbb77" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t dns_query_port</definition>
+        <argsstring></argsstring>
+        <name>dns_query_port</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="4" column="10" bodyfile="src/net/dns.c" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dns_8c_1a61b14aafc392ece5846cf4647e554d45" prot="public" static="yes" mutable="no">
+        <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+        <definition>struct hashmap* dns_replies</definition>
+        <argsstring></argsstring>
+        <name>dns_replies</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="5" column="22" bodyfile="src/net/dns.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dns_8c_1a2c706b8e13b13e1dc955fd6f6ecd501b" prot="public" static="yes" mutable="no">
+        <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+        <definition>struct hashmap* dns_cache</definition>
+        <argsstring></argsstring>
+        <name>dns_cache</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="6" column="22" bodyfile="src/net/dns.c" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="dns_8c_1a3d6685ea4e8aa18a8dd29b8176160c7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dns_result_ready</definition>
+        <argsstring>(dns_header_t *header, dns_request_t *request, unsigned length, char **error, char *res, uint8_t *outlength)</argsstring>
+        <name>dns_result_ready</name>
+        <param>
+          <type>dns_header_t *</type>
+          <declname>header</declname>
+        </param>
+        <param>
+          <type><ref refid="structdns__request__t" kindref="compound">dns_request_t</ref> *</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>res</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>outlength</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="220" column="6" bodyfile="src/net/dns.c" bodystart="220" bodyend="409" declfile="src/net/dns.c" declline="8" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1ac52a39e7254f694e587db4722ecc682b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t dns_collect_request</definition>
+        <argsstring>(uint16_t id, char *result, size_t max)</argsstring>
+        <name>dns_collect_request</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="411" column="9" bodyfile="src/net/dns.c" bodystart="411" bodyend="434" declfile="src/net/dns.c" declline="9" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1aec754e70a500d0e523ad0ef9643be6db" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int dns_request_compare</definition>
+        <argsstring>(const void *a, const void *b, [[maybe_unused]] void *udata)</argsstring>
+        <name>dns_request_compare</name>
+        <param>
+          <type>const void *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+<para>Comparison function for hash table of DNS requests. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first object to compare </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second object to compare </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>udata</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int 0 for equal, -1 for less than, 1 for greater than; like <ref refid="string_8h_1a11bd144d7d44914099a3aeddf1c8567d" kindref="member">strcmp()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="19" column="12" bodyfile="src/net/dns.c" bodystart="19" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a747a70ba9f127e95c1eaa5c6d6705253" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int dns_cache_compare</definition>
+        <argsstring>(const void *a, const void *b, [[maybe_unused]] void *udata)</argsstring>
+        <name>dns_cache_compare</name>
+        <param>
+          <type>const void *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="25" column="12" bodyfile="src/net/dns.c" bodystart="25" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1ae79b7629d9864fde9bcab08cf5276342" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t dns_request_hash</definition>
+        <argsstring>(const void *item, uint64_t seed0, uint64_t seed1)</argsstring>
+        <name>dns_request_hash</name>
+        <param>
+          <type>const void *</type>
+          <declname>item</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <briefdescription>
+<para>Hash two DNS requests by ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item to hash </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first seed from hashmap </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>seed1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second seed from hashmap </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint64_t hash bucket value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="39" column="17" bodyfile="src/net/dns.c" bodystart="39" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1ae1cab23ab9191bd83f5e74b9efdb4461" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t dns_cache_hash</definition>
+        <argsstring>(const void *item, uint64_t seed0, uint64_t seed1)</argsstring>
+        <name>dns_cache_hash</name>
+        <param>
+          <type>const void *</type>
+          <declname>item</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="44" column="17" bodyfile="src/net/dns.c" bodystart="44" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1aa7246717c596f4e20654e1f2a3b5c2ec" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void packet_to_buffer</definition>
+        <argsstring>(unsigned char *output, const dns_header_t *header, const int length)</argsstring>
+        <name>packet_to_buffer</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>const dns_header_t *</type>
+          <declname>header</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Convert a packet to a buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>output buffer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>header to convert </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of converted packet </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="60" column="13" bodyfile="src/net/dns.c" bodystart="60" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1ae5b2d80a2d41d6a25145e0b18b98a527" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int dns_send_request</definition>
+        <argsstring>(const char *const name, uint32_t resolver_ip, dns_request_t *request, dns_header_t *header, const int length, uint8_t query_type)</argsstring>
+        <name>dns_send_request</name>
+        <param>
+          <type>const char *const</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>resolver_ip</declname>
+        </param>
+        <param>
+          <type><ref refid="structdns__request__t" kindref="compound">dns_request_t</ref> *</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>dns_header_t *</type>
+          <declname>header</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>query_type</declname>
+        </param>
+        <briefdescription>
+<para>Send a DNS request, and increment the next request ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A string representation of the address or hostname being resolved. This is purely for reference purposes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>resolver_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address of the resolver </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>request</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Request information, contains details of the request and any callbacks </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Header for the DNS packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of request packet </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>query_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Query type to send, e.g. A, AAAA, PTR, CNAME </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero if request could not be sent, e.g. due to network stack not up </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="88" column="12" bodyfile="src/net/dns.c" bodystart="88" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1abc1cba8678d9f7892ef121460a45f92c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int dns_make_payload</definition>
+        <argsstring>(const char *const name, const uint8_t rr, const unsigned short rr_class, unsigned char *const payload)</argsstring>
+        <name>dns_make_payload</name>
+        <param>
+          <type>const char *const</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const uint8_t</type>
+          <declname>rr</declname>
+        </param>
+        <param>
+          <type>const unsigned short</type>
+          <declname>rr_class</declname>
+        </param>
+        <param>
+          <type>unsigned char *const</type>
+          <declname>payload</declname>
+        </param>
+        <briefdescription>
+<para>Build a binary payload for a request for a specific type of DNS entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name to resolve. Even reverse DNS uses these label-separated names </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Resource record - identifies the type of record, e.g. A, AAAA, PTR, CNAME </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rr_class</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Resource record class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Packet payload buffer to fill with data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int length of filled buffer </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="128" column="12" bodyfile="src/net/dns.c" bodystart="128" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a88fc51c93321db43c9f27e3ce5a4e72f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dns_handle_packet</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void *data, uint32_t length)</argsstring>
+        <name>dns_handle_packet</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>dst_port</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Handle inbound packet from the IP stack. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dst_port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>destination UDP port </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw packet data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of packet </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="171" column="6" bodyfile="src/net/dns.c" bodystart="171" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a4bc729f8e54bb7b1e1614145d2841131" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void fill_resource_record</definition>
+        <argsstring>(resource_record_t *rr, const unsigned char *input)</argsstring>
+        <name>fill_resource_record</name>
+        <param>
+          <type>resource_record_t *</type>
+          <declname>rr</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="212" column="13" bodyfile="src/net/dns.c" bodystart="212" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a22c2693ed12557013fd31417117869e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool dns_request_is_completed</definition>
+        <argsstring>(uint16_t id)</argsstring>
+        <name>dns_request_is_completed</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="436" column="6" bodyfile="src/net/dns.c" bodystart="436" bodyend="441"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a6f659549a668088efc96a4acc584a587" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dns_delete_request</definition>
+        <argsstring>(uint16_t id)</argsstring>
+        <name>dns_delete_request</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="443" column="6" bodyfile="src/net/dns.c" bodystart="443" bodyend="451"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1ac3b4af185a2535f0e64717041ef4003e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_cached</definition>
+        <argsstring>(uint32_t *ip, const char *hostname)</argsstring>
+        <name>is_cached</name>
+        <param>
+          <type>uint32_t *</type>
+          <declname>ip</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="453" column="6" bodyfile="src/net/dns.c" bodystart="453" bodyend="469"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a376e9c65e585b4864a61f437bab2f49d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t dns_lookup_host_async</definition>
+        <argsstring>(uint32_t resolver_ip, const char *hostname, uint32_t *ip, dns_reply_callback_a callback)</argsstring>
+        <name>dns_lookup_host_async</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>resolver_ip</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>ip</declname>
+        </param>
+        <param>
+          <type><ref refid="dns_8h_1ab9639695b38bed3782b421d7131e6050" kindref="member">dns_reply_callback_a</ref></type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+<para>Look up an IPV4 hostname to IP address, with timeout. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>This function is asynchronous. It will return the ID of the request, and will call the callback once the request has completed.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>resolver_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The IP of the resolver to use, in network byte order </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hostname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Host address to resolve </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to uint32_t IP address to immediately return if the result is cached </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dns_reply_callback_a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback to receive the resolved IP address. If an error occured during resolution, the received IP address will be 0, which is a representation of 0.0.0.0. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint16_t Request ID that was submitted, or 0 on error. a special value DNS_RESULT_CACHED (0xffffffff) is returned if the result was immediately filled from the DNS cache. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="471" column="10" bodyfile="src/net/dns.c" bodystart="471" bodyend="497"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a67996b551fe441ce09f70edaeb0df3f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t dns_blocking_wait_for_result</definition>
+        <argsstring>(uint32_t request_id, uint32_t timeout_ms)</argsstring>
+        <name>dns_blocking_wait_for_result</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>request_id</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="499" column="10" bodyfile="src/net/dns.c" bodystart="499" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1a7cedf2ac9e164672c69b6c5253085490" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t dns_lookup_host</definition>
+        <argsstring>(uint32_t resolver_ip, const char *hostname, uint32_t timeout_ms)</argsstring>
+        <name>dns_lookup_host</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>resolver_ip</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>hostname</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+<para>Look up an IPV4 hostname to IP address, with timeout. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>This function is synchronous! It will block until a suitable DNS request has been obtained from the DNS server you specify, or a timeout is reached.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>resolver_ip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The IP of the resolver to use, in network byte order </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hostname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Host address to resolve </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout in millisseconds </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint32_t Resolved IP address. On error or timeout, the return value is 0, which translates to 0.0.0.0. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="523" column="10" bodyfile="src/net/dns.c" bodystart="523" bodyend="530"/>
+      </memberdef>
+      <memberdef kind="function" id="dns_8c_1adeed35e725749afd93cc14d1d25eecd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_dns</definition>
+        <argsstring>()</argsstring>
+        <name>init_dns</name>
+        <briefdescription>
+<para>Initialise DNS protocol. This binds a UDP port for use with replies. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/dns.c" line="532" column="6" bodyfile="src/net/dns.c" bodystart="532" bodyend="541"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/net/dns.c"/>
+  </compounddef>
+</doxygen>

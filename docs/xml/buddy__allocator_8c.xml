@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="buddy__allocator_8c" kind="file" language="C++">
+    <compoundname>buddy_allocator.c</compoundname>
+    <includes refid="buddy__allocator_8h" local="no">buddy_allocator.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">stdint.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdint.h</label>
+      </node>
+      <node id="1">
+        <label>buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stddef.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="buddy__allocator_8c_1ae3b1d0d15fe8498f84384fe6f84ae74e" prot="public" static="no">
+        <name>BUDDY_MAX_ORDER</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="6" column="9" bodyfile="src/buddy_allocator.c" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="buddy__allocator_8c_1a3c63a2fdc4ec57bc67d1e2fa6036fee7" prot="public" static="no">
+        <name>BUDDY_MIN_ORDER</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="7" column="9" bodyfile="src/buddy_allocator.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="buddy__allocator_8c_1aac69ba3ba684613de095ca08b363e1f1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t order_size</definition>
+        <argsstring>(int order)</argsstring>
+        <name>order_size</name>
+        <param>
+          <type>int</type>
+          <declname>order</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="10" column="22" bodyfile="src/buddy_allocator.c" bodystart="10" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8c_1ae86f71e8be88937627a7271aa046d5ab" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t align_up</definition>
+        <argsstring>(size_t x, size_t align)</argsstring>
+        <name>align_up</name>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>align</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="14" column="22" bodyfile="src/buddy_allocator.c" bodystart="14" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8c_1a2f44b1c1ee3052011b0f0b7d31145e5b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int size_to_order</definition>
+        <argsstring>(buddy_allocator_t *alloc, size_t size)</argsstring>
+        <name>size_to_order</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="18" column="19" bodyfile="src/buddy_allocator.c" bodystart="18" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8c_1a4048e2eb62211ff6b85938275932d26a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t block_offset</definition>
+        <argsstring>(buddy_allocator_t *alloc, void *ptr)</argsstring>
+        <name>block_offset</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="27" column="22" bodyfile="src/buddy_allocator.c" bodystart="27" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8c_1af450f3124103e602c1612867611ae0cf" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>static void* buddy_of</definition>
+        <argsstring>(buddy_allocator_t *alloc, void *ptr, int order)</argsstring>
+        <name>buddy_of</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>order</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="31" column="20" bodyfile="src/buddy_allocator.c" bodystart="31" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8c_1a34f21d560bf403d9a80c05758b0cdd09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void buddy_init</definition>
+        <argsstring>(buddy_allocator_t *alloc, void *backing_pool, int min_order, int max_order)</argsstring>
+        <name>buddy_init</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>backing</declname>
+          <defname>backing_pool</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>min_order</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_order</declname>
+        </param>
+        <briefdescription>
+<para>Initialise a buddy allocator on a given memory region. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allocator instance to initialise. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>backing</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to backing pool memory. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_order</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum order (e.g. 12 for 4KB blocks). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_order</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum order (e.g. 20 for 1MB pool).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The backing region must be at least (1 &lt;&lt; max_order) bytes and aligned to that size. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="40" column="6" bodyfile="src/buddy_allocator.c" bodystart="40" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8c_1aa7d0e0fa45baa1129e43a02892d3731c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* buddy_malloc</definition>
+        <argsstring>(buddy_allocator_t *alloc, size_t size)</argsstring>
+        <name>buddy_malloc</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Allocate a block of memory from the buddy allocator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allocator instance to allocate from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested size in bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to allocated memory, or NULL if out of memory.</para>
+</simplesect>
+Returned blocks are at least min_order in size, and aligned to their block size (power of two). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="54" column="6" bodyfile="src/buddy_allocator.c" bodystart="54" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8c_1aa415d239bff39c3dfd32b56d559dfe37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void buddy_free</definition>
+        <argsstring>(buddy_allocator_t *alloc, void *ptr)</argsstring>
+        <name>buddy_free</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+<para>Free a previously allocated block. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allocator instance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer returned by <ref refid="buddy__allocator_8c_1aa7d0e0fa45baa1129e43a02892d3731c" kindref="member">buddy_malloc</ref>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The block is returned to the free list, and if its buddy is also free, the two are merged into a larger block. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/buddy_allocator.c" line="93" column="6" bodyfile="src/buddy_allocator.c" bodystart="93" bodyend="134"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/buddy_allocator.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1026 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structflanterm__context" kind="struct" language="C++" prot="public">
+    <compoundname>flanterm_context</compoundname>
+    <includes local="no">flanterm_private.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structflanterm__context_1ae1bcb12d8e37f75730ddbacf095f2030" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::tab_size</definition>
+        <argsstring></argsstring>
+        <name>tab_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="46" column="12" bodyfile="include/flanterm_private.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a9488263ce45254f48b3f9d6e6634798a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::autoflush</definition>
+        <argsstring></argsstring>
+        <name>autoflush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="47" column="10" bodyfile="include/flanterm_private.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a83616891d9f657fde5f1fb85a3b22ef5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::cursor_enabled</definition>
+        <argsstring></argsstring>
+        <name>cursor_enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="48" column="10" bodyfile="include/flanterm_private.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a4ec62f9fbdc20b1732bd1446175e8121" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::scroll_enabled</definition>
+        <argsstring></argsstring>
+        <name>scroll_enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="49" column="10" bodyfile="include/flanterm_private.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a65fb55c5e04729b93d3127f3a0bc3d81" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::control_sequence</definition>
+        <argsstring></argsstring>
+        <name>control_sequence</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="50" column="10" bodyfile="include/flanterm_private.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ac44e7fdf818ba7f27ba8499fc86d5be3" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::escape</definition>
+        <argsstring></argsstring>
+        <name>escape</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="51" column="10" bodyfile="include/flanterm_private.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a6ebc4ebe688a08718da640eb81db5a55" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::osc</definition>
+        <argsstring></argsstring>
+        <name>osc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="52" column="10" bodyfile="include/flanterm_private.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a945bdb30ecbc97cb4639842fc092926f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::osc_escape</definition>
+        <argsstring></argsstring>
+        <name>osc_escape</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="53" column="10" bodyfile="include/flanterm_private.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a90d2cb24a7f06784dc557b5158c36807" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::rrr</definition>
+        <argsstring></argsstring>
+        <name>rrr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="54" column="10" bodyfile="include/flanterm_private.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a790ce9482923c5be1e825106daa1eee4" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::discard_next</definition>
+        <argsstring></argsstring>
+        <name>discard_next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="55" column="10" bodyfile="include/flanterm_private.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ae30f962c738df29a0de6ccd429dd51f8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::bold</definition>
+        <argsstring></argsstring>
+        <name>bold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="56" column="10" bodyfile="include/flanterm_private.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a1da0234fc28ed128ce85f2bc66ae1440" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::bg_bold</definition>
+        <argsstring></argsstring>
+        <name>bg_bold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="57" column="10" bodyfile="include/flanterm_private.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a57c6ccacf67995de2766d046ac20c91c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::reverse_video</definition>
+        <argsstring></argsstring>
+        <name>reverse_video</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="58" column="10" bodyfile="include/flanterm_private.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a07085849ee2c169190eb06790b4fc370" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::dec_private</definition>
+        <argsstring></argsstring>
+        <name>dec_private</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="59" column="10" bodyfile="include/flanterm_private.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aeac3781d946607ec6f29aadbd13aaa1a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::insert_mode</definition>
+        <argsstring></argsstring>
+        <name>insert_mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="60" column="10" bodyfile="include/flanterm_private.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a616abafd531a9094d3260197d375df3f" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t flanterm_context::code_point</definition>
+        <argsstring></argsstring>
+        <name>code_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="61" column="14" bodyfile="include/flanterm_private.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aaf108ad73fb2edba0dfebb90d83d1976" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::unicode_remaining</definition>
+        <argsstring></argsstring>
+        <name>unicode_remaining</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="62" column="12" bodyfile="include/flanterm_private.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ae328e9ee4de62f92de7102263dbe8624" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t flanterm_context::g_select</definition>
+        <argsstring></argsstring>
+        <name>g_select</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="63" column="13" bodyfile="include/flanterm_private.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a39d4218970a43297c0d2cff1ad0cbabd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t flanterm_context::charsets[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>charsets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="64" column="13" bodyfile="include/flanterm_private.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a2c84cbaa0a4c54a12fa2a0d7f87f60c8" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::current_charset</definition>
+        <argsstring></argsstring>
+        <name>current_charset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="65" column="12" bodyfile="include/flanterm_private.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ad2a7c636fc0466b91a9e7b76368e0d67" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::escape_offset</definition>
+        <argsstring></argsstring>
+        <name>escape_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="66" column="12" bodyfile="include/flanterm_private.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a3f56b86a9e6c7467ac7105e548879029" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::esc_values_i</definition>
+        <argsstring></argsstring>
+        <name>esc_values_i</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="67" column="12" bodyfile="include/flanterm_private.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a5fe9f9876f9fedf62dba8fd252ab42c9" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::saved_cursor_x</definition>
+        <argsstring></argsstring>
+        <name>saved_cursor_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="68" column="12" bodyfile="include/flanterm_private.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a68f7bdd76f9342c1edcb99a084b31b4c" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::saved_cursor_y</definition>
+        <argsstring></argsstring>
+        <name>saved_cursor_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="69" column="12" bodyfile="include/flanterm_private.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a0437468c50ffffdf02fae6b5ccc4456b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::current_primary</definition>
+        <argsstring></argsstring>
+        <name>current_primary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="70" column="12" bodyfile="include/flanterm_private.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a88cdb1ea744ea03f3041cf82fb3e157b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::current_bg</definition>
+        <argsstring></argsstring>
+        <name>current_bg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="71" column="12" bodyfile="include/flanterm_private.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a3c57cca8ae9ee7ff6ef8e4826dfe7824" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::scroll_top_margin</definition>
+        <argsstring></argsstring>
+        <name>scroll_top_margin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="72" column="12" bodyfile="include/flanterm_private.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aa47e6f21bd7276adafef335225ec73d9" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::scroll_bottom_margin</definition>
+        <argsstring></argsstring>
+        <name>scroll_bottom_margin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="73" column="12" bodyfile="include/flanterm_private.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aa94a453bc4e0dda4f99b0b6e6cd8ff68" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t flanterm_context::esc_values[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>esc_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="74" column="14" bodyfile="include/flanterm_private.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ae8b1fe64d471f12a733bcb1891f0829c" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t flanterm_context::oob_output</definition>
+        <argsstring></argsstring>
+        <name>oob_output</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="75" column="14" bodyfile="include/flanterm_private.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a4770049c73f875939bd5c0b199a3b186" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::saved_state_bold</definition>
+        <argsstring></argsstring>
+        <name>saved_state_bold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="76" column="10" bodyfile="include/flanterm_private.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a5d655c9df4cddc6b7de03a85d41658c1" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::saved_state_bg_bold</definition>
+        <argsstring></argsstring>
+        <name>saved_state_bg_bold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="77" column="10" bodyfile="include/flanterm_private.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a4073b3fe1dc1fb4e72539be721819e61" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool flanterm_context::saved_state_reverse_video</definition>
+        <argsstring></argsstring>
+        <name>saved_state_reverse_video</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="78" column="10" bodyfile="include/flanterm_private.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a90f932f1f1185b5b3158e9ba6775236f" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::saved_state_current_charset</definition>
+        <argsstring></argsstring>
+        <name>saved_state_current_charset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="79" column="12" bodyfile="include/flanterm_private.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aabd98fedb64141e919dc0c074d8bbefb" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::saved_state_current_primary</definition>
+        <argsstring></argsstring>
+        <name>saved_state_current_primary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="80" column="12" bodyfile="include/flanterm_private.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a16d0171893c0d05dec951db98f3e5da8" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::saved_state_current_bg</definition>
+        <argsstring></argsstring>
+        <name>saved_state_current_bg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="81" column="12" bodyfile="include/flanterm_private.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aadcbd888c6d10388a23c37c316857c6d" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::rows</definition>
+        <argsstring></argsstring>
+        <name>rows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="85" column="12" bodyfile="include/flanterm_private.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a0f7bc11da5ad84d869151f6e25ade6d3" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t flanterm_context::cols</definition>
+        <argsstring></argsstring>
+        <name>cols</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="85" column="17" bodyfile="include/flanterm_private.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ad296d79a81e4f85680dd3cd63cd060d7" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::raw_putchar) (struct flanterm_context *, uint8_t c)</definition>
+        <argsstring>)(struct flanterm_context *, uint8_t c)</argsstring>
+        <name>raw_putchar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="87" column="5" bodyfile="include/flanterm_private.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a3e26b03a9057492a774b796e5b688f87" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::clear) (struct flanterm_context *, bool move)</definition>
+        <argsstring>)(struct flanterm_context *, bool move)</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="88" column="5" bodyfile="include/flanterm_private.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ac4c70f752e2260d90b4549d2d727f87e" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_cursor_pos) (struct flanterm_context *, size_t x, size_t y)</definition>
+        <argsstring>)(struct flanterm_context *, size_t x, size_t y)</argsstring>
+        <name>set_cursor_pos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="89" column="5" bodyfile="include/flanterm_private.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1adc07dc026e4e817f62c92513ecc54abc" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::get_cursor_pos) (struct flanterm_context *, size_t *x, size_t *y)</definition>
+        <argsstring>)(struct flanterm_context *, size_t *x, size_t *y)</argsstring>
+        <name>get_cursor_pos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="90" column="5" bodyfile="include/flanterm_private.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a8da9ab62edfd5dda30e71d394746419f" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_fg) (struct flanterm_context *, size_t fg)</definition>
+        <argsstring>)(struct flanterm_context *, size_t fg)</argsstring>
+        <name>set_text_fg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="91" column="5" bodyfile="include/flanterm_private.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a04fdb6453dfcd80a5f099da55360d79f" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_bg) (struct flanterm_context *, size_t bg)</definition>
+        <argsstring>)(struct flanterm_context *, size_t bg)</argsstring>
+        <name>set_text_bg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="92" column="5" bodyfile="include/flanterm_private.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ad0525c244f2b7dac4491bdca01eee61d" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_fg_bright) (struct flanterm_context *, size_t fg)</definition>
+        <argsstring>)(struct flanterm_context *, size_t fg)</argsstring>
+        <name>set_text_fg_bright</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="93" column="5" bodyfile="include/flanterm_private.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ae7bf01acf7d0a92f6bdf2334d1763214" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_bg_bright) (struct flanterm_context *, size_t bg)</definition>
+        <argsstring>)(struct flanterm_context *, size_t bg)</argsstring>
+        <name>set_text_bg_bright</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="94" column="5" bodyfile="include/flanterm_private.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aa90a1053b1daabbb4f069702f5d5a5f3" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_fg_rgb) (struct flanterm_context *, uint32_t fg)</definition>
+        <argsstring>)(struct flanterm_context *, uint32_t fg)</argsstring>
+        <name>set_text_fg_rgb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="95" column="5" bodyfile="include/flanterm_private.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a30ecbe713b8405a439cbfd788a02647a" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_bg_rgb) (struct flanterm_context *, uint32_t bg)</definition>
+        <argsstring>)(struct flanterm_context *, uint32_t bg)</argsstring>
+        <name>set_text_bg_rgb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="96" column="5" bodyfile="include/flanterm_private.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ad64e50fd7673688b25871924f39e00b9" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_fg_default) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>set_text_fg_default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="97" column="5" bodyfile="include/flanterm_private.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a0624c1795fd7fa7682b950171dede3ba" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_bg_default) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>set_text_bg_default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="98" column="5" bodyfile="include/flanterm_private.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ab1cf8814d3f130e80c7b913bdcc03400" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_fg_default_bright) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>set_text_fg_default_bright</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="99" column="5" bodyfile="include/flanterm_private.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a674d55978ee05385cca1a994f8ab20c2" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::set_text_bg_default_bright) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>set_text_bg_default_bright</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="100" column="5" bodyfile="include/flanterm_private.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1aeb5cfd70375a58bdfd2c6c34bfcc1f99" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::move_character) (struct flanterm_context *, size_t new_x, size_t new_y, size_t old_x, size_t old_y)</definition>
+        <argsstring>)(struct flanterm_context *, size_t new_x, size_t new_y, size_t old_x, size_t old_y)</argsstring>
+        <name>move_character</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="101" column="5" bodyfile="include/flanterm_private.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a18f630f9b88967b1e6ba296225d1c9ad" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::scroll) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>scroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="102" column="5" bodyfile="include/flanterm_private.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ac055d60bf54cde3699ff37af546624a9" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::revscroll) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>revscroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="103" column="5" bodyfile="include/flanterm_private.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a0a96cda1c2f429d38d0793ed94f33ec2" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::swap_palette) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>swap_palette</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="104" column="5" bodyfile="include/flanterm_private.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a89f999e69fdcaa663f3d3fe35d8f9efe" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::save_state) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>save_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="105" column="5" bodyfile="include/flanterm_private.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a95fc7c493fb364e2725255d93b87725d" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::restore_state) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>restore_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="106" column="5" bodyfile="include/flanterm_private.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a5b3493acd02dc749a4aaed21d385c01c" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::double_buffer_flush) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>double_buffer_flush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="107" column="5" bodyfile="include/flanterm_private.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a34fa1affd00bd547089b4788440b694a" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::full_refresh) (struct flanterm_context *)</definition>
+        <argsstring>)(struct flanterm_context *)</argsstring>
+        <name>full_refresh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="108" column="5" bodyfile="include/flanterm_private.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1ad9a720c492f5ea0a8e05d44e0f85af6a" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::deinit) (struct flanterm_context *, void(*)(void *, size_t))</definition>
+        <argsstring>)(struct flanterm_context *, void(*)(void *, size_t))</argsstring>
+        <name>deinit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="109" column="5" bodyfile="include/flanterm_private.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structflanterm__context_1a69d03c3103b82d68ded80bc1ed63a214" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* flanterm_context::callback) (struct flanterm_context *, uint64_t, uint64_t, uint64_t, uint64_t)</definition>
+        <argsstring>)(struct flanterm_context *, uint64_t, uint64_t, uint64_t, uint64_t)</argsstring>
+        <name>callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="113" column="5" bodyfile="include/flanterm_private.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="9">
+        <label>size_t</label>
+      </node>
+      <node id="2">
+        <label>void(*)(struct flanterm_context *, size_t *x, size_t *y)</label>
+      </node>
+      <node id="16">
+        <label>void(*)(struct flanterm_context *, void(*)(void *, size_t))</label>
+      </node>
+      <node id="8">
+        <label>void(*)(struct flanterm_context *, uint64_t, uint64_t, uint64_t, uint64_t)</label>
+      </node>
+      <node id="1">
+        <label>flanterm_context</label>
+        <link refid="structflanterm__context"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>get_cursor_pos</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>set_text_fg</edgelabel>
+          <edgelabel>set_text_fg_bright</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>set_cursor_pos</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>clear</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>code_point</edgelabel>
+          <edgelabel>oob_output</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>set_text_bg_rgb</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>callback</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>cols</edgelabel>
+          <edgelabel>current_bg</edgelabel>
+          <edgelabel>current_charset</edgelabel>
+          <edgelabel>current_primary</edgelabel>
+          <edgelabel>esc_values_i</edgelabel>
+          <edgelabel>escape_offset</edgelabel>
+          <edgelabel>rows</edgelabel>
+          <edgelabel>saved_cursor_x</edgelabel>
+          <edgelabel>saved_cursor_y</edgelabel>
+          <edgelabel>saved_state_current_bg</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>esc_values</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>set_text_fg_rgb</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>raw_putchar</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>charsets</edgelabel>
+          <edgelabel>g_select</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>autoflush</edgelabel>
+          <edgelabel>bg_bold</edgelabel>
+          <edgelabel>bold</edgelabel>
+          <edgelabel>control_sequence</edgelabel>
+          <edgelabel>cursor_enabled</edgelabel>
+          <edgelabel>dec_private</edgelabel>
+          <edgelabel>discard_next</edgelabel>
+          <edgelabel>escape</edgelabel>
+          <edgelabel>insert_mode</edgelabel>
+          <edgelabel>osc</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>move_character</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>deinit</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>double_buffer_flush</edgelabel>
+          <edgelabel>full_refresh</edgelabel>
+          <edgelabel>restore_state</edgelabel>
+          <edgelabel>revscroll</edgelabel>
+          <edgelabel>save_state</edgelabel>
+          <edgelabel>scroll</edgelabel>
+          <edgelabel>set_text_bg_default</edgelabel>
+          <edgelabel>set_text_bg_default_bright</edgelabel>
+          <edgelabel>set_text_fg_default</edgelabel>
+          <edgelabel>set_text_fg_default_bright</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>set_text_bg</edgelabel>
+          <edgelabel>set_text_bg_bright</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>uint64_t</label>
+      </node>
+      <node id="17">
+        <label>void(*)(struct flanterm_context *)</label>
+      </node>
+      <node id="7">
+        <label>void(*)(struct flanterm_context *, uint32_t bg)</label>
+      </node>
+      <node id="11">
+        <label>void(*)(struct flanterm_context *, uint32_t fg)</label>
+      </node>
+      <node id="10">
+        <label>uint32_t</label>
+      </node>
+      <node id="13">
+        <label>uint8_t</label>
+      </node>
+      <node id="12">
+        <label>void(*)(struct flanterm_context *, uint8_t c)</label>
+      </node>
+      <node id="5">
+        <label>void(*)(struct flanterm_context *, bool move)</label>
+      </node>
+      <node id="18">
+        <label>void(*)(struct flanterm_context *, size_t bg)</label>
+      </node>
+      <node id="15">
+        <label>void(*)(struct flanterm_context *, size_t new_x, size_t new_y, size_t old_x, size_t old_y)</label>
+      </node>
+      <node id="3">
+        <label>void(*)(struct flanterm_context *, size_t fg)</label>
+      </node>
+      <node id="4">
+        <label>void(*)(struct flanterm_context *, size_t x, size_t y)</label>
+      </node>
+      <node id="14">
+        <label>bool</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/flanterm_private.h" line="43" column="1" bodyfile="include/flanterm_private.h" bodystart="43" bodyend="114"/>
+    <listofallmembers>
+      <member refid="structflanterm__context_1a9488263ce45254f48b3f9d6e6634798a" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>autoflush</name></member>
+      <member refid="structflanterm__context_1a1da0234fc28ed128ce85f2bc66ae1440" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>bg_bold</name></member>
+      <member refid="structflanterm__context_1ae30f962c738df29a0de6ccd429dd51f8" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>bold</name></member>
+      <member refid="structflanterm__context_1a69d03c3103b82d68ded80bc1ed63a214" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>callback</name></member>
+      <member refid="structflanterm__context_1a39d4218970a43297c0d2cff1ad0cbabd" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>charsets</name></member>
+      <member refid="structflanterm__context_1a3e26b03a9057492a774b796e5b688f87" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>clear</name></member>
+      <member refid="structflanterm__context_1a616abafd531a9094d3260197d375df3f" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>code_point</name></member>
+      <member refid="structflanterm__context_1a0f7bc11da5ad84d869151f6e25ade6d3" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>cols</name></member>
+      <member refid="structflanterm__context_1a65fb55c5e04729b93d3127f3a0bc3d81" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>control_sequence</name></member>
+      <member refid="structflanterm__context_1a88cdb1ea744ea03f3041cf82fb3e157b" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>current_bg</name></member>
+      <member refid="structflanterm__context_1a2c84cbaa0a4c54a12fa2a0d7f87f60c8" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>current_charset</name></member>
+      <member refid="structflanterm__context_1a0437468c50ffffdf02fae6b5ccc4456b" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>current_primary</name></member>
+      <member refid="structflanterm__context_1a83616891d9f657fde5f1fb85a3b22ef5" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>cursor_enabled</name></member>
+      <member refid="structflanterm__context_1a07085849ee2c169190eb06790b4fc370" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>dec_private</name></member>
+      <member refid="structflanterm__context_1ad9a720c492f5ea0a8e05d44e0f85af6a" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>deinit</name></member>
+      <member refid="structflanterm__context_1a790ce9482923c5be1e825106daa1eee4" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>discard_next</name></member>
+      <member refid="structflanterm__context_1a5b3493acd02dc749a4aaed21d385c01c" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>double_buffer_flush</name></member>
+      <member refid="structflanterm__context_1aa94a453bc4e0dda4f99b0b6e6cd8ff68" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>esc_values</name></member>
+      <member refid="structflanterm__context_1a3f56b86a9e6c7467ac7105e548879029" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>esc_values_i</name></member>
+      <member refid="structflanterm__context_1ac44e7fdf818ba7f27ba8499fc86d5be3" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>escape</name></member>
+      <member refid="structflanterm__context_1ad2a7c636fc0466b91a9e7b76368e0d67" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>escape_offset</name></member>
+      <member refid="structflanterm__context_1a34fa1affd00bd547089b4788440b694a" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>full_refresh</name></member>
+      <member refid="structflanterm__context_1ae328e9ee4de62f92de7102263dbe8624" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>g_select</name></member>
+      <member refid="structflanterm__context_1adc07dc026e4e817f62c92513ecc54abc" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>get_cursor_pos</name></member>
+      <member refid="structflanterm__context_1aeac3781d946607ec6f29aadbd13aaa1a" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>insert_mode</name></member>
+      <member refid="structflanterm__context_1aeb5cfd70375a58bdfd2c6c34bfcc1f99" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>move_character</name></member>
+      <member refid="structflanterm__context_1ae8b1fe64d471f12a733bcb1891f0829c" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>oob_output</name></member>
+      <member refid="structflanterm__context_1a6ebc4ebe688a08718da640eb81db5a55" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>osc</name></member>
+      <member refid="structflanterm__context_1a945bdb30ecbc97cb4639842fc092926f" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>osc_escape</name></member>
+      <member refid="structflanterm__context_1ad296d79a81e4f85680dd3cd63cd060d7" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>raw_putchar</name></member>
+      <member refid="structflanterm__context_1a95fc7c493fb364e2725255d93b87725d" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>restore_state</name></member>
+      <member refid="structflanterm__context_1a57c6ccacf67995de2766d046ac20c91c" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>reverse_video</name></member>
+      <member refid="structflanterm__context_1ac055d60bf54cde3699ff37af546624a9" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>revscroll</name></member>
+      <member refid="structflanterm__context_1aadcbd888c6d10388a23c37c316857c6d" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>rows</name></member>
+      <member refid="structflanterm__context_1a90d2cb24a7f06784dc557b5158c36807" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>rrr</name></member>
+      <member refid="structflanterm__context_1a89f999e69fdcaa663f3d3fe35d8f9efe" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>save_state</name></member>
+      <member refid="structflanterm__context_1a5fe9f9876f9fedf62dba8fd252ab42c9" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_cursor_x</name></member>
+      <member refid="structflanterm__context_1a68f7bdd76f9342c1edcb99a084b31b4c" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_cursor_y</name></member>
+      <member refid="structflanterm__context_1a5d655c9df4cddc6b7de03a85d41658c1" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_state_bg_bold</name></member>
+      <member refid="structflanterm__context_1a4770049c73f875939bd5c0b199a3b186" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_state_bold</name></member>
+      <member refid="structflanterm__context_1a16d0171893c0d05dec951db98f3e5da8" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_state_current_bg</name></member>
+      <member refid="structflanterm__context_1a90f932f1f1185b5b3158e9ba6775236f" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_state_current_charset</name></member>
+      <member refid="structflanterm__context_1aabd98fedb64141e919dc0c074d8bbefb" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_state_current_primary</name></member>
+      <member refid="structflanterm__context_1a4073b3fe1dc1fb4e72539be721819e61" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>saved_state_reverse_video</name></member>
+      <member refid="structflanterm__context_1a18f630f9b88967b1e6ba296225d1c9ad" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>scroll</name></member>
+      <member refid="structflanterm__context_1aa47e6f21bd7276adafef335225ec73d9" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>scroll_bottom_margin</name></member>
+      <member refid="structflanterm__context_1a4ec62f9fbdc20b1732bd1446175e8121" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>scroll_enabled</name></member>
+      <member refid="structflanterm__context_1a3c57cca8ae9ee7ff6ef8e4826dfe7824" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>scroll_top_margin</name></member>
+      <member refid="structflanterm__context_1ac4c70f752e2260d90b4549d2d727f87e" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_cursor_pos</name></member>
+      <member refid="structflanterm__context_1a04fdb6453dfcd80a5f099da55360d79f" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_bg</name></member>
+      <member refid="structflanterm__context_1ae7bf01acf7d0a92f6bdf2334d1763214" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_bg_bright</name></member>
+      <member refid="structflanterm__context_1a0624c1795fd7fa7682b950171dede3ba" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_bg_default</name></member>
+      <member refid="structflanterm__context_1a674d55978ee05385cca1a994f8ab20c2" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_bg_default_bright</name></member>
+      <member refid="structflanterm__context_1a30ecbe713b8405a439cbfd788a02647a" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_bg_rgb</name></member>
+      <member refid="structflanterm__context_1a8da9ab62edfd5dda30e71d394746419f" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_fg</name></member>
+      <member refid="structflanterm__context_1ad0525c244f2b7dac4491bdca01eee61d" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_fg_bright</name></member>
+      <member refid="structflanterm__context_1ad64e50fd7673688b25871924f39e00b9" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_fg_default</name></member>
+      <member refid="structflanterm__context_1ab1cf8814d3f130e80c7b913bdcc03400" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_fg_default_bright</name></member>
+      <member refid="structflanterm__context_1aa90a1053b1daabbb4f069702f5d5a5f3" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>set_text_fg_rgb</name></member>
+      <member refid="structflanterm__context_1a0a96cda1c2f429d38d0793ed94f33ec2" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>swap_palette</name></member>
+      <member refid="structflanterm__context_1ae1bcb12d8e37f75730ddbacf095f2030" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>tab_size</name></member>
+      <member refid="structflanterm__context_1aaf108ad73fb2edba0dfebb90d83d1976" prot="public" virt="non-virtual"><scope>flanterm_context</scope><name>unicode_remaining</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

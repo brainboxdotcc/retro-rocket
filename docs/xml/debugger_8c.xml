@@ -1,0 +1,1179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="debugger_8c" kind="file" language="C++">
+    <compoundname>debugger.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="1">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="debugger_8c_1ac4031e1149ba7d9c643b6ee0254de73f" prot="public" static="yes" mutable="no">
+        <type><ref refid="structsymbol__t" kindref="compound">symbol_t</ref> *</type>
+        <definition>symbol_t* symbol_table</definition>
+        <argsstring></argsstring>
+        <name>symbol_table</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="3" column="17" bodyfile="src/debugger.c" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="debugger_8c_1a9590c114f5161a0f5814706b60d104c8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t trace_thread_id</definition>
+        <argsstring></argsstring>
+        <name>trace_thread_id</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="4" column="10" bodyfile="src/debugger.c" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="debugger_8c_1ad1fdd628d3c20aaacab2b25c49c7b31a" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool debug_signal</definition>
+        <argsstring></argsstring>
+        <name>debug_signal</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="5" column="13" bodyfile="src/debugger.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="debugger_8c_1a7cc86a350b7cea2495895820492eae11" prot="public" static="no" mutable="no">
+        <type>struct limine_module_request</type>
+        <definition>volatile struct limine_module_request module_request</definition>
+        <argsstring></argsstring>
+        <name>module_request</name>
+        <initializer>= {
+	.<ref refid="dns_8c_1a4fc3a0c58dfbd1e68224521185cb9384" kindref="member">id</ref> = LIMINE_MODULE_REQUEST,
+	.<ref refid="acpi_8h_1ab01c6e281b316b1770d5646f3d3101c4" kindref="member">revision</ref> = 0,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="5" column="13" bodyfile="src/debugger.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="debugger_8c_1a8088f1eab97d356880a0845cb0704737" prot="public" static="yes" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t gdb_proto_junk[][64]</definition>
+        <argsstring>[][64]</argsstring>
+        <name>gdb_proto_junk</name>
+        <initializer>= {
+	{ 0, 33, 50, 33, 54, 46, 54, 47, 33, 27, 125, 15, 42, 48, 54, 125, 33, 35, 218, 105, 125, 46, 54, 50, 33, 51, 50, 52, 111 },
+	{ 12, 51, 32, 54, 35, 39, 50, 33, 42, 44, 47, 27, 125, 1, 53, 54, 125, 46, 54, 50, 33, 51, 50, 52, 125, 51, 54, 41, 42, 54, 39, 54, 32, 125, 45, 35, 42, 39, 42, 41, 54, 52, 54, 125, 42, 32, 125, 54, 50, 35, 47, 54, 49, 111 },
+	{ 2, 38, 54, 35, 218, 27, 125, 17, 42, 49, 125, 218, 44, 38, 125, 33, 53, 42, 47, 40, 125, 33, 53, 42, 32, 125, 32, 218, 32, 33, 54, 46, 125, 53, 50, 49, 125, 54, 46, 45, 50, 33, 53, 218, 125, 32, 38, 51, 35, 44, 38, 33, 42, 47, 54, 32, 28 },
+	{ 0, 33, 50, 33, 54, 46, 54, 47, 33, 27, 125, 58, 44, 38, 125, 50, 35, 54, 125, 50, 41, 35, 54, 50, 49, 218, 125, 50, 32, 125, 54, 32, 48, 50, 41, 50, 33, 54, 49, 125, 50, 32, 125, 218, 44, 38, 125, 46, 50, 218, 125, 51, 54, 105, 125, 46, 54, 50, 33, 51, 50, 52, 111 },
+	{ 16, 41, 50, 35, 42, 55, 42, 48, 50, 33, 42, 44, 47, 27, 125, 1, 53, 54, 35, 54, 125, 42, 32, 125, 47, 44, 125, 116, 32, 38, 49, 44, 116, 111, 125, 12, 47, 41, 218, 125, 49, 54, 41, 38, 32, 42, 44, 47, 32, 125, 50, 47, 49, 125, 49, 54, 48, 50, 218, 111 },
+	{ 4, 50, 35, 47, 42, 47, 52, 27, 125, 3, 54, 45, 54, 50, 33, 54, 49, 125, 50, 33, 33, 54, 46, 45, 33, 32, 125, 46, 50, 218, 125, 33, 35, 42, 52, 52, 54, 35, 125, 32, 50, 35, 48, 50, 32, 46, 125, 44, 39, 54, 35, 55, 41, 44, 36, 111 },
+	{ 16, 44, 47, 48, 41, 38, 32, 42, 44, 47, 27, 125, 14, 54, 50, 33, 51, 50, 52, 32, 125, 48, 50, 47, 47, 44, 33, 125, 54, 32, 48, 50, 41, 50, 33, 54, 111, 125, 12, 47, 41, 218, 125, 54, 39, 50, 45, 44, 35, 50, 33, 54, 111 },
+	{ 11, 38, 49, 52, 46, 54, 47, 33, 27, 125, 18, 48, 48, 54, 32, 32, 125, 49, 54, 47, 42, 54, 49, 111, 125, 15, 44, 33, 125, 49, 38, 54, 125, 33, 44, 125, 35, 42, 52, 53, 33, 32, 125, 65, 125, 49, 38, 54, 125, 33, 44, 125, 107, 218, 44, 38, 107, 111 },
+	{ 18, 49, 39, 42, 32, 44, 35, 218, 27, 125, 10, 55, 125, 218, 44, 38, 125, 36, 50, 47, 33, 125, 45, 44, 36, 54, 35, 105, 125, 51, 38, 42, 41, 49, 125, 218, 44, 38, 35, 125, 44, 36, 47, 125, 12, 0, 105, 125, 46, 54, 50, 33, 51, 50, 52, 111 },
+	{ 23, 50, 42, 41, 32, 50, 55, 54, 125, 33, 35, 42, 52, 52, 54, 35, 54, 49, 27, 125, 8, 54, 35, 47, 54, 41, 125, 45, 50, 47, 42, 48, 125, 46, 44, 49, 38, 41, 54, 125, 47, 44, 33, 125, 55, 44, 38, 47, 49, 111 }
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="422" column="22" bodyfile="src/debugger.c" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="debugger_8c_1a8fe919624e9bbc99c1cedde72b449d9e" prot="public" static="yes" mutable="no">
+        <type>const size_t</type>
+        <definition>const size_t encoded_lengths[]</definition>
+        <argsstring>[]</argsstring>
+        <name>encoded_lengths</name>
+        <initializer>= {
+	29, 54, 57, 63, 60, 56, 53, 58, 56, 50
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="435" column="21" bodyfile="src/debugger.c" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="debugger_8c_1aae0d6230f5cc73dc7557b4894df81f03" prot="public" static="yes" mutable="no">
+        <type>size_t</type>
+        <definition>size_t trace_count</definition>
+        <argsstring></argsstring>
+        <name>trace_count</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="439" column="15" bodyfile="src/debugger.c" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="debugger_8c_1a1e876852a138442131db7a2c6b31787c" prot="public" static="yes" mutable="no">
+        <type>const size_t</type>
+        <definition>const size_t line_count</definition>
+        <argsstring></argsstring>
+        <name>line_count</name>
+        <initializer>= sizeof(<ref refid="debugger_8c_1a8fe919624e9bbc99c1cedde72b449d9e" kindref="member">encoded_lengths</ref>) / sizeof(<ref refid="debugger_8c_1a8fe919624e9bbc99c1cedde72b449d9e" kindref="member">encoded_lengths</ref>[0])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="440" column="21" bodyfile="src/debugger.c" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="debugger_8c_1a7f9e4634158b9a7d25a0bbdfdbea787d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_decode</definition>
+        <argsstring>(char *out, const uint8_t *in, size_t len)</argsstring>
+        <name>gdb_decode</name>
+        <param>
+          <type>char *</type>
+          <declname>out</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="12" column="6" bodyfile="src/debugger.c" bodystart="12" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a3b333bc6da1de45ed95946cdf623c777" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_send_ack</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port)</argsstring>
+        <name>gdb_send_ack</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="20" column="6" bodyfile="src/debugger.c" bodystart="20" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a344e1ee3149d3189cc56b5047b64845b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_send_packet</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *packet)</argsstring>
+        <name>gdb_send_packet</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>packet</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="26" column="6" bodyfile="src/debugger.c" bodystart="26" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1abbbe4d9fc7459a00f4591423b2759814" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_send_nack</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port)</argsstring>
+        <name>gdb_send_nack</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="39" column="6" bodyfile="src/debugger.c" bodystart="39" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1af4f62a848b1a66564b71dc38eb34821c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_ack</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port)</argsstring>
+        <name>gdb_ack</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="45" column="6" bodyfile="src/debugger.c" bodystart="45" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1abbf82f901b0e8f0ddfc30430c967ba05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_retransmit</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port)</argsstring>
+        <name>gdb_retransmit</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="49" column="6" bodyfile="src/debugger.c" bodystart="49" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a2e8481f49b5dbb57a3c4353f3065e99e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_query</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_query</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="53" column="6" bodyfile="src/debugger.c" bodystart="53" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1aa94eade7a6b4578d92def59a31022d3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_variable_command</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_variable_command</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="97" column="6" bodyfile="src/debugger.c" bodystart="97" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1aa8da84f44784dc0a4b05126d1416f7d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_set_thread</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_set_thread</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="117" column="6" bodyfile="src/debugger.c" bodystart="117" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a98af1c9cb0815c8d4b5c10e2388cb230" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_status_query</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_status_query</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="126" column="6" bodyfile="src/debugger.c" bodystart="126" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1ad5f92a556fc6fb580a0aff4862513a26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_regs</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_regs</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="131" column="6" bodyfile="src/debugger.c" bodystart="131" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a5a0f0fca5366690618718c65526cb227" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_reg</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_reg</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="136" column="6" bodyfile="src/debugger.c" bodystart="136" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a4f882da44c3c007b423b319969d68d46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_mem</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_mem</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="146" column="6" bodyfile="src/debugger.c" bodystart="146" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a552b7db8935a67efdd6c1768543a053c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_command</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, const char *command)</argsstring>
+        <name>gdb_command</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="157" column="6" bodyfile="src/debugger.c" bodystart="157" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a3556c65f47174e7424a155623db04098" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_data</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, uint8_t *data, uint32_t length)</argsstring>
+        <name>gdb_data</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="179" column="6" bodyfile="src/debugger.c" bodystart="179" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1af514c70ab0d48beaa67649f2b803c2f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void debug_handle_packet</definition>
+        <argsstring>(uint32_t src_ip, uint16_t src_port, uint16_t dst_port, void *data, uint32_t length)</argsstring>
+        <name>debug_handle_packet</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>src_ip</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>src_port</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>dst_port</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="201" column="6" bodyfile="src/debugger.c" bodystart="201" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1ad5120629e00130e505645001e8106e9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool set_debug_signal</definition>
+        <argsstring>(bool status)</argsstring>
+        <name>set_debug_signal</name>
+        <param>
+          <type>bool</type>
+          <declname>status</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="214" column="6" bodyfile="src/debugger.c" bodystart="214" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a85eed162f35cd2ef9f0101d3b1179362" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool get_debug_signal</definition>
+        <argsstring>()</argsstring>
+        <name>get_debug_signal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="221" column="6" bodyfile="src/debugger.c" bodystart="221" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a4c007aba1c784ceaecb1b28bcc1663ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structsymbol__t" kindref="compound">symbol_t</ref> *</type>
+        <definition>symbol_t* get_sym_table</definition>
+        <argsstring>()</argsstring>
+        <name>get_sym_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="226" column="10" bodyfile="src/debugger.c" bodystart="226" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a9b5c5314461f06d02fc094c8ac4c23eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dump_hex</definition>
+        <argsstring>(void *addr, uint64_t length)</argsstring>
+        <name>dump_hex</name>
+        <param>
+          <type>void *</type>
+          <declname>address</declname>
+          <defname>addr</defname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>print the contents of the specified memory address in hexadecimal format along with the corresponding ASCII characters. The function achieves this by iterating through the memory in chunks of 16 bytes and printing each chunk on a separate line. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a pointer to some memory address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents the number of bytes of memory that should be dumped. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="231" column="6" bodyfile="src/debugger.c" bodystart="231" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a986e784c9c45b77051fdf5e145262019" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void symbol_fail</definition>
+        <argsstring>()</argsstring>
+        <name>symbol_fail</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="258" column="6" bodyfile="src/debugger.c" bodystart="258" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a568e49ee3a2e0adab55fa38535e40835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_debug</definition>
+        <argsstring>()</argsstring>
+        <name>init_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="266" column="6" bodyfile="src/debugger.c" bodystart="266" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a7eb9357383cf48f78ca582c400619930" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* findsymbol</definition>
+        <argsstring>(uint64_t address, uint64_t *offset)</argsstring>
+        <name>findsymbol</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>address</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="365" column="12" bodyfile="src/debugger.c" bodystart="365" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a73b6618270491b1d78d378a62a5a52b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void backtrace</definition>
+        <argsstring>()</argsstring>
+        <name>backtrace</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="393" column="6" bodyfile="src/debugger.c" bodystart="393" bodyend="411"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1aa823fd560cc51c292eba9f1112b32323" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t gdb_trace</definition>
+        <argsstring>(const char *str)</argsstring>
+        <name>gdb_trace</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="413" column="10" bodyfile="src/debugger.c" bodystart="413" bodyend="420"/>
+      </memberdef>
+      <memberdef kind="function" id="debugger_8c_1a02262c30dd504c7b86c22e7fc5de8e1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gdb_emit</definition>
+        <argsstring>()</argsstring>
+        <name>gdb_emit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/debugger.c" line="444" column="6" bodyfile="src/debugger.c" bodystart="444" bodyend="457"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/debugger.c"/>
+  </compounddef>
+</doxygen>

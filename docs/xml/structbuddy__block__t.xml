@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structbuddy__block__t" kind="struct" language="C++" prot="public">
+    <compoundname>buddy_block_t</compoundname>
+    <includes local="no">buddy_allocator.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbuddy__block__t_1a15831d492a162459d6b20b2d204a8740" prot="public" static="no" mutable="no">
+        <type>struct buddy_block *</type>
+        <definition>struct buddy_block* buddy_block_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Next block in free list </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="34" column="18" bodyfile="include/buddy_allocator.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Free list node structure (internal use). </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>struct buddy_block *</label>
+      </node>
+      <node id="1">
+        <label>buddy_block_t</label>
+        <link refid="structbuddy__block__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/buddy_allocator.h" line="33" column="1" bodyfile="include/buddy_allocator.h" bodystart="33" bodyend="35"/>
+    <listofallmembers>
+      <member refid="structbuddy__block__t_1a15831d492a162459d6b20b2d204a8740" prot="public" virt="non-virtual"><scope>buddy_block_t</scope><name>next</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

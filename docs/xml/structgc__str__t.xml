@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structgc__str__t" kind="struct" language="C++" prot="public">
+    <compoundname>gc_str_t</compoundname>
+    <includes local="no">string.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structgc__str__t_1ad31061f7ea38cb845c43ae69cb73b39e" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* gc_str_t::ptr</definition>
+        <argsstring></argsstring>
+        <name>ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Pointer to allocated string </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="19" column="12" bodyfile="include/string.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structgc__str__t_1a2c9b942feec94bde070b7ec2b6c5bf11" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structgc__str__t" kindref="compound">gc_str_t</ref> *</type>
+        <definition>struct gc_str_t* gc_str_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Next entry in linked list </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/string.h" line="20" column="16" bodyfile="include/string.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Linked list node for garbage-collected strings. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Used internally by <ref refid="string_8h_1a261315cf4151cf866ffbc037b6ad91ff" kindref="member">gc_strdup()</ref> and <ref refid="string_8h_1a089f179c55bbeaaba7a4c492a96e52e7" kindref="member">gc()</ref> to track dynamically allocated strings for temporary BASIC execution. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>gc_str_t</label>
+        <link refid="structgc__str__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ptr</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/string.h" line="18" column="1" bodyfile="include/string.h" bodystart="18" bodyend="21"/>
+    <listofallmembers>
+      <member refid="structgc__str__t_1a2c9b942feec94bde070b7ec2b6c5bf11" prot="public" virt="non-virtual"><scope>gc_str_t</scope><name>next</name></member>
+      <member refid="structgc__str__t_1ad31061f7ea38cb845c43ae69cb73b39e" prot="public" virt="non-virtual"><scope>gc_str_t</scope><name>ptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

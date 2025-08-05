@@ -1,0 +1,945 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="printf_8c" kind="file" language="C++">
+    <compoundname>printf.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="string_8h" local="no">string.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="printf_8c_1a955a8838398640452f0a08b3c7f886bf" prot="public" static="no" strong="no">
+        <type></type>
+        <name>printf_state_t</name>
+        <enumvalue id="printf_8c_1a955a8838398640452f0a08b3c7f886bfae583c55c9f9a3aa9888e4ed771d6a9b6" prot="public">
+          <name>STATE_NORMAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="printf_8c_1a955a8838398640452f0a08b3c7f886bfae12294fd1f15a8fdfb822333886f593a" prot="public">
+          <name>STATE_FLAGS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="printf_8c_1a955a8838398640452f0a08b3c7f886bfa9b1266a23ed85db2312d356a48393395" prot="public">
+          <name>STATE_WIDTH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="printf_8c_1a955a8838398640452f0a08b3c7f886bfa0e32dbec910be64732c4fcc980ae4467" prot="public">
+          <name>STATE_MODIFIERS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="printf_8c_1a955a8838398640452f0a08b3c7f886bfa136fe548fd241bab6557b5af26fde1b3" prot="public">
+          <name>STATE_CONVERSION</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="7" column="1" bodyfile="src/printf.c" bodystart="7" bodyend="13"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="printf_8c_1a9aa640196313bea082db80a500d3c60b" prot="public" static="no" mutable="no">
+        <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
+        <definition>spinlock_t console_spinlock</definition>
+        <argsstring></argsstring>
+        <name>console_spinlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="4" column="19" bodyfile="src/init.c" bodystart="5" bodyend="-1" declfile="src/printf.c" declline="4" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="variable" id="printf_8c_1a7501930571e1c3d6c924d8d21ba788a8" prot="public" static="no" mutable="no">
+        <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
+        <definition>spinlock_t debug_console_spinlock</definition>
+        <argsstring></argsstring>
+        <name>debug_console_spinlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="5" column="19" bodyfile="src/init.c" bodystart="6" bodyend="-1" declfile="src/printf.c" declline="5" declcolumn="19"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="printf_8c_1a557d81192f2fe7a8b9e40f1041e372a1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>long long</type>
+        <definition>static long long fetch_number</definition>
+        <argsstring>(va_list args, unsigned flags)</argsstring>
+        <name>fetch_number</name>
+        <param>
+          <type><ref refid="printf_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref></type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="16" column="25" bodyfile="src/printf.c" bodystart="16" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1a136d01821674cc053430b66ff29bb32d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t emit_string</definition>
+        <argsstring>(const unsigned char *s, unsigned flags, unsigned given_wd, fnptr_t fn, void **ptr, const char *end)</argsstring>
+        <name>emit_string</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>given_wd</declname>
+        </param>
+        <param>
+          <type><ref refid="printf_8h_1a32c46e53a96b94d11d0ac6aed7631d4a" kindref="member">fnptr_t</ref></type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="40" column="15" bodyfile="src/printf.c" bodystart="40" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1a228edaa69ed159793510a5e60faec3c4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t emit_number</definition>
+        <argsstring>(long long num, unsigned radix, unsigned flags, unsigned given_wd, fnptr_t fn, void **ptr, const char *end)</argsstring>
+        <name>emit_number</name>
+        <param>
+          <type>long long</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>radix</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>given_wd</declname>
+        </param>
+        <param>
+          <type><ref refid="printf_8h_1a32c46e53a96b94d11d0ac6aed7631d4a" kindref="member">fnptr_t</ref></type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="82" column="15" bodyfile="src/printf.c" bodystart="82" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1afeb4d71308108181d31f8644756b87ee" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int do_printf</definition>
+        <argsstring>(const char *fmt, size_t max, va_list args, fnptr_t fn, void *ptr)</argsstring>
+        <name>do_printf</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type><ref refid="printf_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref></type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type><ref refid="printf_8h_1a32c46e53a96b94d11d0ac6aed7631d4a" kindref="member">fnptr_t</ref></type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="105" column="12" bodyfile="src/printf.c" bodystart="105" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1a0811e5743c01e952a6108956f51cfaa5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int vsprintf_help</definition>
+        <argsstring>(unsigned c, void **ptr, const void *max)</argsstring>
+        <name>vsprintf_help</name>
+        <param>
+          <type>unsigned</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="198" column="12" bodyfile="src/printf.c" bodystart="198" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1ac0ca54b8d1d72520cd648fb57ce0dda2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int vsnprintf</definition>
+        <argsstring>(char *buf, size_t max, const char *fmt, va_list args)</argsstring>
+        <name>vsnprintf</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type><ref refid="printf_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref></type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="211" column="5" bodyfile="src/printf.c" bodystart="211" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1a27f605c4aa6533029bdc816a4a9d06ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int snprintf</definition>
+        <argsstring>(char *buf, size_t max, const char *fmt,...)</argsstring>
+        <name>snprintf</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="218" column="5" bodyfile="src/printf.c" bodystart="218" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1a6e0d7a33300b50de64b6b130218516cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int vprintf_help</definition>
+        <argsstring>(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</argsstring>
+        <name>vprintf_help</name>
+        <param>
+          <type>unsigned</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] const void *</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="227" column="5" bodyfile="src/printf.c" bodystart="227" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1aa8d56afc678f12cbb4d75ca6e6cc94b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dvprintf_help</definition>
+        <argsstring>(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void *max)</argsstring>
+        <name>dvprintf_help</name>
+        <param>
+          <type>unsigned</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void **</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] const void *</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="233" column="5" bodyfile="src/printf.c" bodystart="233" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1acc23aaaff6fcb9a669853efe712ba4b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int vprintf</definition>
+        <argsstring>(const char *fmt, va_list args)</argsstring>
+        <name>vprintf</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type><ref refid="printf_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref></type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="239" column="5" bodyfile="src/printf.c" bodystart="239" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1abf3a700d17878099cbecbb7633dfdd3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dvprintf</definition>
+        <argsstring>(const char *fmt, va_list args)</argsstring>
+        <name>dvprintf</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type><ref refid="printf_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref></type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="250" column="5" bodyfile="src/printf.c" bodystart="250" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1a55f3d956bb2ba20b5059e9e25484a47f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int printf</definition>
+        <argsstring>(const char *fmt,...)</argsstring>
+        <name>printf</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="262" column="5" bodyfile="src/printf.c" bodystart="262" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="printf_8c_1a571270f690c35549229075bb963eabe7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dprintf</definition>
+        <argsstring>(const char *fmt,...)</argsstring>
+        <name>dprintf</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/printf.c" line="271" column="5" bodyfile="src/printf.c" bodystart="271" bodyend="278"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Minimal printf implementation for Retro Rocket. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Craig Edwards </para>
+</simplesect>
+<simplesect kind="copyright"><para>2012–2025</para>
+</simplesect>
+</para>
+<sect1 id="printf_8c_1provenance">
+<title>Provenance</title>
+<para>This implementation originated from a public-domain printf clone commonly circulated in early OSDev / hobbyist C runtimes. The original code dates back to the 1990s, likely adapted from 16‑bit DOS/Minix environments where:<itemizedlist>
+<listitem><para><computeroutput>PR_16</computeroutput> meant &quot;use 16‑bit short&quot;,</para>
+</listitem><listitem><para><computeroutput>PR_32</computeroutput> meant &quot;use 32‑bit long&quot;,</para>
+</listitem><listitem><para><computeroutput>PR_FP</computeroutput> supported &quot;far pointers&quot;, and short identifiers were required because some compilers only guaranteed 8‑character identifier uniqueness.</para>
+</listitem></itemizedlist>
+</para>
+<para>This version has since been heavily modernised:<itemizedlist>
+<listitem><para>All 16‑bit and far pointer cruft removed.</para>
+</listitem><listitem><para>Flags renamed for clarity (<computeroutput>PR_INT32</computeroutput>, <computeroutput>PR_INT64</computeroutput>, <computeroutput>PR_WAS_NEG</computeroutput>).</para>
+</listitem><listitem><para>Goto-based control flow replaced with structured <computeroutput>switch</computeroutput>/<computeroutput>if</computeroutput>.</para>
+</listitem><listitem><para>Doxygen-style documentation added.</para>
+</listitem><listitem><para>Confirmed fit for 32‑/64‑bit protected mode systems.</para>
+</listitem></itemizedlist>
+</para>
+<para>While the skeleton came from public domain code, the current implementation is effectively a clean-room rework and is considered part of the Retro Rocket codebase.</para>
+</sect1>
+<sect1 id="printf_8c_1limitations">
+<title>Limitations</title>
+<para><itemizedlist>
+<listitem><para>Floating point formats (f, e, g) are not implemented.</para>
+</listitem><listitem><para>Width/precision parsing is minimal.</para>
+</listitem><listitem><para>Thread safety relies on external spinlocks around vprintf/dprintf.</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="printf_8c_1intent">
+<title>Intent</title>
+<para>The purpose of this implementation is to provide a lightweight, dependency-free printf family for kernel and low-level userland code, suitable for use in kernel code where full libc is not available. </para>
+</sect1>
+    </detaileddescription>
+    <location file="src/printf.c"/>
+  </compounddef>
+</doxygen>

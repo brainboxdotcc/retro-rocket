@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structbuddy__allocator__t" kind="struct" language="C++" prot="public">
+    <compoundname>buddy_allocator_t</compoundname>
+    <includes local="no">buddy_allocator.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbuddy__allocator__t_1a9d584da816f13a769ecfb198b2d94a6a" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* buddy_allocator_t::pool</definition>
+        <argsstring></argsstring>
+        <name>pool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Base pointer to backing memory pool </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="46" column="9" bodyfile="include/buddy_allocator.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__allocator__t_1a2348ca49f46fb5b5c95699b19d70c2f1" prot="public" static="no" mutable="no">
+        <type><ref refid="structbuddy__block__t" kindref="compound">buddy_block_t</ref> *</type>
+        <definition>buddy_block_t* buddy_allocator_t::free_lists[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>free_lists</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Array of free lists, indexed by order </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="47" column="15" bodyfile="include/buddy_allocator.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__allocator__t_1a209d66de4dc693146d8cb2cfaa405d18" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int buddy_allocator_t::max_order</definition>
+        <argsstring></argsstring>
+        <name>max_order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Maximum order (largest block size) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="48" column="5" bodyfile="include/buddy_allocator.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__allocator__t_1ae685116aa01c02331bd350aa954ad80a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int buddy_allocator_t::min_order</definition>
+        <argsstring></argsstring>
+        <name>min_order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Minimum order (smallest block size) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="49" column="5" bodyfile="include/buddy_allocator.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__allocator__t_1adacf0708f80118fb8fbb20b26600846f" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t buddy_allocator_t::current_bytes</definition>
+        <argsstring></argsstring>
+        <name>current_bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Currently allocated bytes </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="50" column="8" bodyfile="include/buddy_allocator.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__allocator__t_1a80e67bd03b0d69a41ef2eeec744a2bfa" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t buddy_allocator_t::peak_bytes</definition>
+        <argsstring></argsstring>
+        <name>peak_bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Peak allocated bytes </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="51" column="8" bodyfile="include/buddy_allocator.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Buddy allocator instance. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Each instance manages one contiguous memory region obtained from the Retro Rocket base allocator (e.g. via kmalloc). Dispose of the entire instance by calling <ref refid="kmalloc_8h_1aae7ce33f5dd0ec931b2551438b55e716" kindref="member">kfree_null()</ref> on the <ref refid="structbuddy__allocator__t_1a9d584da816f13a769ecfb198b2d94a6a" kindref="member">pool</ref> pointer after teardown. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>size_t</label>
+      </node>
+      <node id="1">
+        <label>buddy_allocator_t</label>
+        <link refid="structbuddy__allocator__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>free_lists</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>current_bytes</edgelabel>
+          <edgelabel>peak_bytes</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>max_order</edgelabel>
+          <edgelabel>min_order</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>struct buddy_block *</label>
+      </node>
+      <node id="5">
+        <label>int</label>
+      </node>
+      <node id="6">
+        <label>uint8_t</label>
+      </node>
+      <node id="2">
+        <label>buddy_block_t</label>
+        <link refid="structbuddy__block__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/buddy_allocator.h" line="45" column="1" bodyfile="include/buddy_allocator.h" bodystart="45" bodyend="52"/>
+    <listofallmembers>
+      <member refid="structbuddy__allocator__t_1adacf0708f80118fb8fbb20b26600846f" prot="public" virt="non-virtual"><scope>buddy_allocator_t</scope><name>current_bytes</name></member>
+      <member refid="structbuddy__allocator__t_1a2348ca49f46fb5b5c95699b19d70c2f1" prot="public" virt="non-virtual"><scope>buddy_allocator_t</scope><name>free_lists</name></member>
+      <member refid="structbuddy__allocator__t_1a209d66de4dc693146d8cb2cfaa405d18" prot="public" virt="non-virtual"><scope>buddy_allocator_t</scope><name>max_order</name></member>
+      <member refid="structbuddy__allocator__t_1ae685116aa01c02331bd350aa954ad80a" prot="public" virt="non-virtual"><scope>buddy_allocator_t</scope><name>min_order</name></member>
+      <member refid="structbuddy__allocator__t_1a80e67bd03b0d69a41ef2eeec744a2bfa" prot="public" virt="non-virtual"><scope>buddy_allocator_t</scope><name>peak_bytes</name></member>
+      <member refid="structbuddy__allocator__t_1a9d584da816f13a769ecfb198b2d94a6a" prot="public" virt="non-virtual"><scope>buddy_allocator_t</scope><name>pool</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

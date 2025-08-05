@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="unionrfs__directory__entry__t" kind="union" language="C++" prot="public">
+    <compoundname>rfs_directory_entry_t</compoundname>
+    <includes local="no">retrofs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="unionrfs__directory__entry__t_1a30553732bb34585bb63b9b251d7da94b" prot="public" static="no" mutable="no">
+        <type><ref refid="structrfs__directory__start__t" kindref="compound">rfs_directory_start_t</ref></type>
+        <definition>rfs_directory_start_t rfs_directory_entry_t::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="76" column="23" bodyfile="include/retrofs.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionrfs__directory__entry__t_1a67fc7093424f99c963d3dfafaf501bc4" prot="public" static="no" mutable="no">
+        <type><ref refid="structrfs__directory__entry__inner__t" kindref="compound">rfs_directory_entry_inner_t</ref></type>
+        <definition>rfs_directory_entry_inner_t rfs_directory_entry_t::entry</definition>
+        <argsstring></argsstring>
+        <name>entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="77" column="29" bodyfile="include/retrofs.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="unionrfs__directory__entry__t_1a27da442d5a302a9bd40f4306604f78c3" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rfs_directory_entry_t::raw[512/2]</definition>
+        <argsstring>[512/2]</argsstring>
+        <name>raw</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="78" column="6" bodyfile="include/retrofs.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>rfs_directory_start_t</label>
+        <link refid="structrfs__directory__start__t"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>continuation</edgelabel>
+          <edgelabel>parent</edgelabel>
+          <edgelabel>sectors</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>reserved</edgelabel>
+          <edgelabel>title</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>flags</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>uint64_t</label>
+      </node>
+      <node id="5">
+        <label>uint32_t</label>
+      </node>
+      <node id="6">
+        <label>rfs_directory_entry_inner_t</label>
+        <link refid="structrfs__directory__entry__inner__t"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>created</edgelabel>
+          <edgelabel>length</edgelabel>
+          <edgelabel>modified</edgelabel>
+          <edgelabel>sector_start</edgelabel>
+          <edgelabel>sequence</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>filename</edgelabel>
+          <edgelabel>reserved</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>flags</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rfs_directory_entry_t</label>
+        <link refid="unionrfs__directory__entry__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>raw</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>start</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>entry</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/retrofs.h" line="75" column="1" bodyfile="include/retrofs.h" bodystart="75" bodyend="79"/>
+    <listofallmembers>
+      <member refid="unionrfs__directory__entry__t_1a67fc7093424f99c963d3dfafaf501bc4" prot="public" virt="non-virtual"><scope>rfs_directory_entry_t</scope><name>entry</name></member>
+      <member refid="unionrfs__directory__entry__t_1a27da442d5a302a9bd40f4306604f78c3" prot="public" virt="non-virtual"><scope>rfs_directory_entry_t</scope><name>raw</name></member>
+      <member refid="unionrfs__directory__entry__t_1a30553732bb34585bb63b9b251d7da94b" prot="public" virt="non-virtual"><scope>rfs_directory_entry_t</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

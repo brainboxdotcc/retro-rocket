@@ -1,0 +1,1179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="hashmap_8c" kind="file" language="C++">
+    <compoundname>hashmap.c</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includes refid="hashmap_8h" local="yes">hashmap.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="6">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="3">
+        <label>stddef.h</label>
+      </node>
+      <node id="7">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="14">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="16">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structbucket" prot="public">bucket</innerclass>
+    <innerclass refid="structhashmap" prot="public">hashmap</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="hashmap_8c_1a1de2481f51a86cbfa0b7d0cdd4d68a69" prot="public" static="no">
+        <name>U8TO64_LE</name>
+        <param><defname>p</defname></param>
+        <initializer>	{  (((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[0])) | ((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[1]) &lt;&lt; 8) | \
+		((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[2]) &lt;&lt; 16) | ((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[3]) &lt;&lt; 24) | \
+		((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[4]) &lt;&lt; 32) | ((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[5]) &lt;&lt; 40) | \
+		((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[6]) &lt;&lt; 48) | ((uint64_t)((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[7]) &lt;&lt; 56)) }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="451" column="9"/>
+      </memberdef>
+      <memberdef kind="define" id="hashmap_8c_1a46b0f26e70f8e8ad39288d04bc710077" prot="public" static="no">
+        <name>U64TO8_LE</name>
+        <param><defname>p</defname></param>
+        <param><defname>v</defname></param>
+        <initializer>	{ <ref refid="hashmap_8c_1a08af2fb25b17973248d8cc16f9aa7c46" kindref="member">U32TO8_LE</ref>((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>), (uint32_t)((v))); \
+	  <ref refid="hashmap_8c_1a08af2fb25b17973248d8cc16f9aa7c46" kindref="member">U32TO8_LE</ref>((<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>) + 4, (uint32_t)((v) &gt;&gt; 32)); }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="456" column="9"/>
+      </memberdef>
+      <memberdef kind="define" id="hashmap_8c_1a08af2fb25b17973248d8cc16f9aa7c46" prot="public" static="no">
+        <name>U32TO8_LE</name>
+        <param><defname>p</defname></param>
+        <param><defname>v</defname></param>
+        <initializer>	{ (<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[0] = (uint8_t)((v)); \
+	  (<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[1] = (uint8_t)((v) &gt;&gt; 8); \
+	  (<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[2] = (uint8_t)((v) &gt;&gt; 16); \
+	  (<ref refid="ahci_8h_1a6519522ad9a6f45e7a8d25d31392a977" kindref="member">p</ref>)[3] = (uint8_t)((v) &gt;&gt; 24); }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="459" column="9"/>
+      </memberdef>
+      <memberdef kind="define" id="hashmap_8c_1addd42b95ef425979d1d0dca095dec800" prot="public" static="no">
+        <name>ROTL</name>
+        <param><defname>x</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>(uint64_t)(((x) &lt;&lt; (<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>)) | ((x) &gt;&gt; (64 - (<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>))))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="464" column="9"/>
+      </memberdef>
+      <memberdef kind="define" id="hashmap_8c_1abd545ba6d36990ee5903ff4d0e6edecf" prot="public" static="no">
+        <name>SIPROUND</name>
+        <initializer>	{ v0 += v1; v1 = <ref refid="hashmap_8c_1addd42b95ef425979d1d0dca095dec800" kindref="member">ROTL</ref>(v1, 13); \
+	  v1 ^= v0; v0 = <ref refid="hashmap_8c_1addd42b95ef425979d1d0dca095dec800" kindref="member">ROTL</ref>(v0, 32); \
+	  v2 += v3; v3 = <ref refid="hashmap_8c_1addd42b95ef425979d1d0dca095dec800" kindref="member">ROTL</ref>(v3, 16); \
+	  v3 ^= v2; \
+	  v0 += v3; v3 = <ref refid="hashmap_8c_1addd42b95ef425979d1d0dca095dec800" kindref="member">ROTL</ref>(v3, 21); \
+	  v3 ^= v0; \
+	  v2 += v1; v1 = <ref refid="hashmap_8c_1addd42b95ef425979d1d0dca095dec800" kindref="member">ROTL</ref>(v1, 17); \
+	  v1 ^= v2; v2 = <ref refid="hashmap_8c_1addd42b95ef425979d1d0dca095dec800" kindref="member">ROTL</ref>(v2, 32); }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="465" column="9"/>
+      </memberdef>
+      <memberdef kind="define" id="hashmap_8c_1aff6ce4cae0564b039bbb4ef0cbdc0032" prot="public" static="no">
+        <name>ROTL32</name>
+        <param><defname>x</defname></param>
+        <param><defname>r</defname></param>
+        <initializer>((x &lt;&lt; <ref refid="ahci_8h_1a4c5c6ceb8ed33456261fa907136e0c3a" kindref="member">r</ref>) | (x &gt;&gt; (32 - <ref refid="ahci_8h_1a4c5c6ceb8ed33456261fa907136e0c3a" kindref="member">r</ref>)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="517" column="9"/>
+      </memberdef>
+      <memberdef kind="define" id="hashmap_8c_1a35851ba6b08c118345278effc46695e6" prot="public" static="no">
+        <name>FMIX32</name>
+        <param><defname>h</defname></param>
+        <initializer>h^=h&gt;&gt;16; h*=0x85ebca6b; h^=h&gt;&gt;13; h*=0xc2b2ae35; h^=h&gt;&gt;16;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="518" column="9"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="hashmap_8c_1a3a187ffa18b39dac0041bf95945f8938" prot="public" static="yes" mutable="no">
+        <type>void *(*</type>
+        <definition>void*(* _malloc) (size_t)</definition>
+        <argsstring>)(size_t)</argsstring>
+        <name>_malloc</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="9" column="8" bodyfile="src/hashmap.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="hashmap_8c_1a9e5b9c1f22acde8a5b26109547509cc5" prot="public" static="yes" mutable="no">
+        <type>void *(*</type>
+        <definition>void*(* _realloc) (void *, size_t)</definition>
+        <argsstring>)(void *, size_t)</argsstring>
+        <name>_realloc</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="10" column="8" bodyfile="src/hashmap.c" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="hashmap_8c_1a9c4c8922b16d819cb501a2d282b101f2" prot="public" static="yes" mutable="no">
+        <type>void(*</type>
+        <definition>void(* _free) (const void *)</definition>
+        <argsstring>)(const void *)</argsstring>
+        <name>_free</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="11" column="8" bodyfile="src/hashmap.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="hashmap_8c_1a7dc1056536642aa43d3aa827d1b6f638" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hashmap_set_allocator</definition>
+        <argsstring>([[maybe_unused]] void *(*malloc)(size_t), [[maybe_unused]] void(*free)(const void *))</argsstring>
+        <name>hashmap_set_allocator</name>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void *(*)(size_t)</type>
+          <declname>malloc</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] void(*)(const void *)</type>
+          <declname>free</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="16" column="6" bodyfile="src/hashmap.c" bodystart="16" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1ab6e431b9a7b2c064d535c122dda9d699" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structbucket" kindref="compound">bucket</ref> *</type>
+        <definition>static struct bucket* bucket_at</definition>
+        <argsstring>(struct hashmap *map, size_t index)</argsstring>
+        <name>bucket_at</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="52" column="20" bodyfile="src/hashmap.c" bodystart="52" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1abd51f19208a97a09c05e957c9568fa02" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>static void* bucket_item</definition>
+        <argsstring>(struct bucket *entry)</argsstring>
+        <name>bucket_item</name>
+        <param>
+          <type>struct <ref refid="structbucket" kindref="compound">bucket</ref> *</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="56" column="13" bodyfile="src/hashmap.c" bodystart="56" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a4a610ea24126c720ed3cb6b071e5c595" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t get_hash</definition>
+        <argsstring>(struct hashmap *map, const void *key)</argsstring>
+        <name>get_hash</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="60" column="17" bodyfile="src/hashmap.c" bodystart="60" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a902396e346ce17278c1c5d8ba3f287fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+        <definition>struct hashmap* hashmap_new_with_allocator</definition>
+        <argsstring>(void *(*_malloc)(size_t), void *(*_realloc)(void *, size_t), void(*_free)(const void *), size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *a, const void *b, void *udata), void(*elfree)(const void *item), void *udata)</argsstring>
+        <name>hashmap_new_with_allocator</name>
+        <param>
+          <type>void *(*)(size_t)</type>
+          <declname>_malloc</declname>
+        </param>
+        <param>
+          <type>void *(*)(void *, size_t)</type>
+          <declname>_realloc</declname>
+        </param>
+        <param>
+          <type>void(*)(const void *)</type>
+          <declname>_free</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>elsize</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cap</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <param>
+          <type>uint64_t(*)(const void *item, uint64_t seed0, uint64_t seed1)</type>
+          <declname>hash</declname>
+        </param>
+        <param>
+          <type>int(*)(const void *<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>, const void *<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>, void *udata)</type>
+          <declname>compare</declname>
+        </param>
+        <param>
+          <type>void(*)(const void *item)</type>
+          <declname>elfree</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="66" column="14" bodyfile="src/hashmap.c" bodystart="66" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a5deb1768129efb6534fb02365b2da3e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+        <definition>struct hashmap* hashmap_new</definition>
+        <argsstring>(size_t elsize, size_t cap, uint64_t seed0, uint64_t seed1, uint64_t(*hash)(const void *item, uint64_t seed0, uint64_t seed1), int(*compare)(const void *a, const void *b, void *udata), void(*elfree)(const void *item), void *udata)</argsstring>
+        <name>hashmap_new</name>
+        <param>
+          <type>size_t</type>
+          <declname>elsize</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cap</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <param>
+          <type>uint64_t(*)(const void *item, uint64_t seed0, uint64_t seed1)</type>
+          <declname>hash</declname>
+        </param>
+        <param>
+          <type>int(*)(const void *<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>, const void *<ref refid="ahci_8h_1a4313c9563516f94387762ab05763456b" kindref="member">b</ref>, void *udata)</type>
+          <declname>compare</declname>
+        </param>
+        <param>
+          <type>void(*)(const void *item)</type>
+          <declname>elfree</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="147" column="14" bodyfile="src/hashmap.c" bodystart="147" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1aefd5ca2ccf06b6935d161a62457c35b4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void free_elements</definition>
+        <argsstring>(struct hashmap *map)</argsstring>
+        <name>free_elements</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="157" column="13" bodyfile="src/hashmap.c" bodystart="157" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1ab09b4f126a08c1e716bac424b1927f19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hashmap_clear</definition>
+        <argsstring>(struct hashmap *map, bool update_cap)</argsstring>
+        <name>hashmap_clear</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>update_cap</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="173" column="6" bodyfile="src/hashmap.c" bodystart="173" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a11b1dc972a7885c19300ab906151deac" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool resize</definition>
+        <argsstring>(struct hashmap *map, size_t new_cap)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>new_cap</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="193" column="13" bodyfile="src/hashmap.c" bodystart="193" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a3f0cd71606aace704e5381aa88f5bf79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* hashmap_set</definition>
+        <argsstring>(struct hashmap *map, const void *item)</argsstring>
+        <name>hashmap_set</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="237" column="6" bodyfile="src/hashmap.c" bodystart="237" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a2344cf3a3b1f5583f3e38004a09f3df5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* hashmap_get</definition>
+        <argsstring>(struct hashmap *map, const void *key)</argsstring>
+        <name>hashmap_get</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="281" column="6" bodyfile="src/hashmap.c" bodystart="281" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1aad3c9111f88493b810d832bb2e61b523" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* hashmap_probe</definition>
+        <argsstring>(struct hashmap *map, uint64_t position)</argsstring>
+        <name>hashmap_probe</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="304" column="6" bodyfile="src/hashmap.c" bodystart="304" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a90f07fcd841a03908ba90514f124f054" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* hashmap_delete</definition>
+        <argsstring>(struct hashmap *map, void *key)</argsstring>
+        <name>hashmap_delete</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="316" column="6" bodyfile="src/hashmap.c" bodystart="316" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1acf2d7645190129fb4880ba452c6436ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hashmap_count</definition>
+        <argsstring>(struct hashmap *map)</argsstring>
+        <name>hashmap_count</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="358" column="8" bodyfile="src/hashmap.c" bodystart="358" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a97ab64db6070065a0e8b5afc23793342" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hashmap_free</definition>
+        <argsstring>(struct hashmap *map)</argsstring>
+        <name>hashmap_free</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="365" column="6" bodyfile="src/hashmap.c" bodystart="365" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1ad07477cf9562c5c78b5dcde3ccf8aced" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hashmap_oom</definition>
+        <argsstring>(struct hashmap *map)</argsstring>
+        <name>hashmap_oom</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="374" column="6" bodyfile="src/hashmap.c" bodystart="374" bodyend="376"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a43b4811046853d778bde1c2077b36f41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hashmap_scan</definition>
+        <argsstring>(struct hashmap *map, bool(*iter)(const void *item, void *udata), void *udata)</argsstring>
+        <name>hashmap_scan</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>bool(*)(const void *item, void *udata)</type>
+          <declname>iter</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>udata</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="381" column="6" bodyfile="src/hashmap.c" bodystart="381" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1abc4cede290fdcdc96168de2c86373882" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hashmap_iter</definition>
+        <argsstring>(struct hashmap *map, size_t *i, void **item)</argsstring>
+        <name>hashmap_iter</name>
+        <param>
+          <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
+          <declname>map</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="414" column="6" bodyfile="src/hashmap.c" bodystart="414" bodyend="428"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a0a8cca7159f7f79fe7e8cecabd12648d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t SIP64</definition>
+        <argsstring>(const uint8_t *in, const size_t inlen, uint64_t seed0, uint64_t seed1)</argsstring>
+        <name>SIP64</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>inlen</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="448" column="17" bodyfile="src/hashmap.c" bodystart="448" bodyend="508"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a810127aa9d92e070833ded11c3914669" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void MM86128</definition>
+        <argsstring>(const void *key, const int len, uint32_t seed, void *out)</argsstring>
+        <name>MM86128</name>
+        <param>
+          <type>const void *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>seed</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="516" column="13" bodyfile="src/hashmap.c" bodystart="516" bodyend="580"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1a9a8e35929f3fa17f10b93594e89e98ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t hashmap_sip</definition>
+        <argsstring>(const void *data, size_t len, uint64_t seed0, uint64_t seed1)</argsstring>
+        <name>hashmap_sip</name>
+        <param>
+          <type>const void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="583" column="10" bodyfile="src/hashmap.c" bodystart="583" bodyend="587"/>
+      </memberdef>
+      <memberdef kind="function" id="hashmap_8c_1ad4691bdceb0c876a591566f65074d0b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t hashmap_murmur</definition>
+        <argsstring>(const void *data, size_t len, uint64_t seed0, [[maybe_unused]] uint64_t seed1)</argsstring>
+        <name>hashmap_murmur</name>
+        <param>
+          <type>const void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>seed0</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] uint64_t</type>
+          <declname>seed1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/hashmap.c" line="590" column="10" bodyfile="src/hashmap.c" bodystart="590" bodyend="596"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/hashmap.c"/>
+  </compounddef>
+</doxygen>

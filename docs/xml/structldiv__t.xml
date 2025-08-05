@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldiv__t" kind="struct" language="C++" prot="public">
+    <compoundname>ldiv_t</compoundname>
+    <includes local="no">stdlib.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldiv__t_1ac56cf5939abb521a3a0c48f422b72271" prot="public" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int ldiv_t::quot</definition>
+        <argsstring></argsstring>
+        <name>quot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Quotient </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/stdlib.h" line="28" column="10" bodyfile="include/stdlib.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldiv__t_1a66737a893b8872671393a49aaf568cb1" prot="public" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int ldiv_t::rem</definition>
+        <argsstring></argsstring>
+        <name>rem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remainder </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/stdlib.h" line="29" column="10" bodyfile="include/stdlib.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Result of long integer division. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ldiv_t</label>
+        <link refid="structldiv__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>quot</edgelabel>
+          <edgelabel>rem</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>int</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/stdlib.h" line="27" column="1" bodyfile="include/stdlib.h" bodystart="27" bodyend="30"/>
+    <listofallmembers>
+      <member refid="structldiv__t_1ac56cf5939abb521a3a0c48f422b72271" prot="public" virt="non-virtual"><scope>ldiv_t</scope><name>quot</name></member>
+      <member refid="structldiv__t_1a66737a893b8872671393a49aaf568cb1" prot="public" virt="non-virtual"><scope>ldiv_t</scope><name>rem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

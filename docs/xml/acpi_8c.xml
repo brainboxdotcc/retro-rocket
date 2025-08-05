@@ -1,0 +1,2186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="acpi_8c" kind="file" language="C++">
+    <compoundname>acpi.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes local="no">uacpi/uacpi.h</includes>
+    <includes local="no">uacpi/namespace.h</includes>
+    <includes local="no">uacpi/resources.h</includes>
+    <includes local="no">stdatomic.h</includes>
+    <includes local="yes">uacpi/context.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>uacpi/uacpi.h</label>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="1">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="65">
+        <label>uacpi/resources.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>uacpi/context.h</label>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>uacpi/namespace.h</label>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structuacpi__pci__dev__wrapper__t" prot="public">uacpi_pci_dev_wrapper_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="acpi_8c_1a3d13132a40a76c88523ef65c13fbbbce" prot="public" static="no">
+        <name>UACPI_ARENA_SIZE</name>
+        <initializer>(1024 * 1024 * 4)</initializer>
+        <briefdescription>
+<para>Yeah its memory hungry. Seems it prefers speed over ram use. In testing on qemu 6.2.0, it took 15mb peak to parse and boot, so this 64mb is a very generous amount to deal with real hardware&apos;s beastly AML. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="14" column="9" bodyfile="src/acpi.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="acpi_8c_1a9f0893ae3aad6ac11d666ec3337a7f3f" prot="public" static="no" mutable="no">
+        <type>struct limine_rsdp_request</type>
+        <definition>volatile struct limine_rsdp_request rsdp_request</definition>
+        <argsstring></argsstring>
+        <name>rsdp_request</name>
+        <initializer>= {
+	.<ref refid="dns_8c_1a4fc3a0c58dfbd1e68224521185cb9384" kindref="member">id</ref> = LIMINE_RSDP_REQUEST,
+	.<ref refid="acpi_8h_1ab01c6e281b316b1770d5646f3d3101c4" kindref="member">revision</ref> = 0,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="1" column="0" bodyfile="src/acpi.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a8d41cd1f16047554af3f08880b0f0fd5" prot="public" static="no" mutable="no">
+        <type>struct limine_smp_request</type>
+        <definition>volatile struct limine_smp_request smp_request</definition>
+        <argsstring></argsstring>
+        <name>smp_request</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="1" column="0" bodyfile="src/ap.c" bodystart="10" bodyend="-1" declfile="src/acpi.c" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1af56323875051578c0d3a96a0b539b550" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t aps_online</definition>
+        <argsstring></argsstring>
+        <name>aps_online</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="23" column="15" bodyfile="src/ap.c" bodystart="15" bodyend="-1" declfile="src/acpi.c" declline="23" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a5c6e2e1e58d9efc4bfe3fdddc00c3ee1" prot="public" static="no" mutable="no">
+        <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref></type>
+        <definition>buddy_allocator_t acpi_pool</definition>
+        <argsstring></argsstring>
+        <name>acpi_pool</name>
+        <initializer>= { 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="25" column="19" bodyfile="src/acpi.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1ab4aa5d73d272ea8292e3b8ed23a69012" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* uacpi_region</definition>
+        <argsstring></argsstring>
+        <name>uacpi_region</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="26" column="6" bodyfile="src/acpi.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1af67b7cb2756090929ebaea4b228e2265" prot="public" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t lapic_ids[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>lapic_ids</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="28" column="16" bodyfile="src/acpi.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a215ea614853f95ef6ea155c8eb4084c9" prot="public" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ioapic_ids[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>ioapic_ids</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="29" column="16" bodyfile="src/acpi.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a0902944e5ef763932980645ae1660a3c" prot="public" static="yes" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t numcore</definition>
+        <argsstring></argsstring>
+        <name>numcore</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="30" column="17" bodyfile="src/acpi.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1ace51d2ac51c77eff5e17636d4887e228" prot="public" static="yes" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t numioapic</definition>
+        <argsstring></argsstring>
+        <name>numioapic</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="31" column="17" bodyfile="src/acpi.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a3627bb2a8b49a253c0a97d4229be3033" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t lapic_ptr</definition>
+        <argsstring></argsstring>
+        <name>lapic_ptr</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="32" column="17" bodyfile="src/acpi.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a6401e102970009b2858f67f5d5b91df5" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ioapic_ptr[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>ioapic_ptr</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="33" column="17" bodyfile="src/acpi.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a62dc9779e2c658b17e24f3054ba2b3e7" prot="public" static="yes" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ioapic_gsi_base[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>ioapic_gsi_base</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="34" column="17" bodyfile="src/acpi.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a5d830e6265449143593f6b84643f0f36" prot="public" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t ioapic_gsi_count[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>ioapic_gsi_count</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="35" column="16" bodyfile="src/acpi.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a7e68e7fd5aa96d008696ec394c6e06ff" prot="public" static="no" mutable="no">
+        <type><ref refid="structpci__irq__route__t" kindref="compound">pci_irq_route_t</ref></type>
+        <definition>pci_irq_route_t pci_irq_routes[MAX_PCI_ROUTES]</definition>
+        <argsstring>[MAX_PCI_ROUTES]</argsstring>
+        <name>pci_irq_routes</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="37" column="17" bodyfile="src/acpi.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a5b4b38a88427baa512cb09572421ef13" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cpu_id_mapping[MAX_CPUS]</definition>
+        <argsstring>[MAX_CPUS]</argsstring>
+        <name>cpu_id_mapping</name>
+        <initializer>= { 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="39" column="10" bodyfile="src/acpi.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a06dbf54ca1190e9fb3f9d7184c8ecbef" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t mhz</definition>
+        <argsstring></argsstring>
+        <name>mhz</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="41" column="10" bodyfile="src/acpi.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a4efeb4fdb7d927e4f9261a29bc566f4a" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t tsc_per_sec</definition>
+        <argsstring></argsstring>
+        <name>tsc_per_sec</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="41" column="15" bodyfile="src/acpi.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1ac50f5e12c4a78c0ee3e0cce37d4cbca5" prot="public" static="yes" mutable="no">
+        <type>uacpi_handle</type>
+        <definition>uacpi_handle last_handle</definition>
+        <argsstring></argsstring>
+        <name>last_handle</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="414" column="21" bodyfile="src/acpi.c" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="acpi_8c_1a944d731c8441bddef20141de6a16e98f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void enumerate_all_gsis</definition>
+        <argsstring>(void)</argsstring>
+        <name>enumerate_all_gsis</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="572" column="6" bodyfile="src/acpi.c" bodystart="572" bodyend="577" declfile="src/acpi.c" declline="43" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a3908f9ca99543c3c668cfc94b5ede08c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t get_lapic_id_from_cpu_id</definition>
+        <argsstring>(uint8_t cpu_id)</argsstring>
+        <name>get_lapic_id_from_cpu_id</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>cpu_id</declname>
+        </param>
+        <briefdescription>
+<para>Map a logical CPU ID to its LAPIC ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cpu_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logical CPU ID (zero-based, kernel-assigned). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint32_t LAPIC ID for the given logical CPU ID. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="45" column="10" bodyfile="src/acpi.c" bodystart="45" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1acc467223ecf45e6cc5ea3c90a5d3d210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t get_cpu_id_from_lapic_id</definition>
+        <argsstring>(uint32_t lapic_id)</argsstring>
+        <name>get_cpu_id_from_lapic_id</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>lapic_id</declname>
+        </param>
+        <briefdescription>
+<para>Map a LAPIC ID to its logical CPU ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lapic_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LAPIC ID as reported by hardware. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint8_t Logical CPU ID assigned to this LAPIC ID, or 255 if unmapped. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="49" column="9" bodyfile="src/acpi.c" bodystart="49" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a91ebfd207f8030a1983a6c1ffe1647a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void set_lapic_id_for_cpu_id</definition>
+        <argsstring>(uint8_t cpu_id, uint32_t lapic_id)</argsstring>
+        <name>set_lapic_id_for_cpu_id</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>cpu_id</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>lapic_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="58" column="6" bodyfile="src/acpi.c" bodystart="58" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a817cd41e353b16e3f4416ff20a502661" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_uacpi</definition>
+        <argsstring>(void)</argsstring>
+        <name>init_uacpi</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="62" column="6" bodyfile="src/acpi.c" bodystart="62" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a8d0b12edc73fcead8218d099d67d1d90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void delay_ns</definition>
+        <argsstring>(uint64_t ns)</argsstring>
+        <name>delay_ns</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>ns</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="99" column="6" bodyfile="src/acpi.c" bodystart="99" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a56ace938864474548cf6df87afd973a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t uacpi_kernel_get_nanoseconds_since_boot</definition>
+        <argsstring>(void)</argsstring>
+        <name>uacpi_kernel_get_nanoseconds_since_boot</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="105" column="10" bodyfile="src/acpi.c" bodystart="105" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a9f562a4b7521b8e7e084f4cf613216ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structrsdp__t" kindref="compound">rsdp_t</ref> *</type>
+        <definition>rsdp_t* get_rsdp</definition>
+        <argsstring>()</argsstring>
+        <name>get_rsdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="109" column="8" bodyfile="src/acpi.c" bodystart="109" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a345ce52ab451d52e95bda847548537c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structsdt__header__t" kindref="compound">sdt_header_t</ref> *</type>
+        <definition>sdt_header_t* get_sdt_header</definition>
+        <argsstring>()</argsstring>
+        <name>get_sdt_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="113" column="14" bodyfile="src/acpi.c" bodystart="113" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ae7164bbaa4c4e814bdeaf05f386103ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t *</type>
+        <definition>uint8_t* get_lapic_ids</definition>
+        <argsstring>()</argsstring>
+        <name>get_lapic_ids</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="118" column="9" bodyfile="src/acpi.c" bodystart="118" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a1a6dfa32a21e7522a6094874a4c36e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t get_cpu_count</definition>
+        <argsstring>()</argsstring>
+        <name>get_cpu_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="122" column="10" bodyfile="src/acpi.c" bodystart="122" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a9a09b0320ee05b488156e6a7f4be862b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_local_apic</definition>
+        <argsstring>()</argsstring>
+        <name>get_local_apic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="126" column="10" bodyfile="src/acpi.c" bodystart="126" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a6cbfbecf6dc77c9aebad4a0836e2b9fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t get_ioapic_count</definition>
+        <argsstring>()</argsstring>
+        <name>get_ioapic_count</name>
+        <briefdescription>
+<para>Get the total number of IOAPICs detected in the system. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Number of IOAPICs. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="130" column="10" bodyfile="src/acpi.c" bodystart="130" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ab3f0de3b6d0c93058d3615110a0c7f39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref></type>
+        <definition>ioapic_t get_ioapic</definition>
+        <argsstring>(uint16_t index)</argsstring>
+        <name>get_ioapic</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve the IOAPIC structure by index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IOAPIC index in internal array </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="structioapic__t" kindref="compound">ioapic_t</ref> structure containing details of the IOAPIC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="134" column="10" bodyfile="src/acpi.c" bodystart="134" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a6a7b623715d2b82f4a870d1e7c2b9d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_acpi</definition>
+        <argsstring>()</argsstring>
+        <name>init_acpi</name>
+        <briefdescription>
+<para>Detect SMP CPU cores and APICs (Local and IOAPIC). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function parses the MADT (APIC table) and sets up CPU topology and IOAPIC data. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="146" column="6" bodyfile="src/acpi.c" bodystart="146" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a9263bf02ae52585b8ab22b22e9601aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void boot_aps</definition>
+        <argsstring>()</argsstring>
+        <name>boot_aps</name>
+        <briefdescription>
+<para>Initialise and bring Application Processors (APs) online via Limine SMP. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function uses the Limine SMP response to discover all CPUs in the system, map their LAPIC IDs to logical CPU IDs, and assign each AP an entry point (<computeroutput>kmain_ap</computeroutput>). The Bootstrap Processor (BSP) is detected and skipped, as are CPUs with processor IDs &gt;= 255 (reserved for broadcast or outside kernel limits).</para>
+<para>Once all eligible APs are assigned their startup entry point, this function spins until each AP reports online by incrementing <ref refid="ap_8c_1af56323875051578c0d3a96a0b539b550" kindref="member">aps_online</ref>.</para>
+<para><simplesect kind="note"><para>This does not directly issue INIT/SIPI IPIs; Limine handles the actual startup of APs. The kernel only assigns the entry function and waits. </para>
+</simplesect>
+<simplesect kind="warning"><para>Systems with more than 254 CPUs are truncated to 254 usable cores.</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="ap_8c_1a028e57710817ce6fbaac2cb51db61d2e" kindref="member">kmain_ap</ref>, <ref refid="ap_8c_1af56323875051578c0d3a96a0b539b550" kindref="member">aps_online</ref>, <ref refid="acpi_8c_1a91ebfd207f8030a1983a6c1ffe1647a0" kindref="member">set_lapic_id_for_cpu_id</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="236" column="6" bodyfile="src/acpi.c" bodystart="236" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1afcb9e82e010b2f0c39229ccbaf3e81bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t irq_to_gsi</definition>
+        <argsstring>(uint8_t irq)</argsstring>
+        <name>irq_to_gsi</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>irq</declname>
+        </param>
+        <briefdescription>
+<para>Translate a legacy IRQ number (0–15) into a GSI using overrides. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>irq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Legacy IRQ number </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Global System Interrupt (GSI) for the IRQ </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="270" column="10" bodyfile="src/acpi.c" bodystart="270" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a76d152ecf0379166b00ef3eaff74b46d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t get_irq_polarity</definition>
+        <argsstring>(uint8_t irq)</argsstring>
+        <name>get_irq_polarity</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>irq</declname>
+        </param>
+        <briefdescription>
+<para>Determine the interrupt polarity of a given IRQ. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>irq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRQ number </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 for active high, 1 for active low </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="275" column="9" bodyfile="src/acpi.c" bodystart="275" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1aa557d11e486ad1c34472272336ba6c8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t get_irq_trigger_mode</definition>
+        <argsstring>(uint8_t irq)</argsstring>
+        <name>get_irq_trigger_mode</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>irq</declname>
+        </param>
+        <briefdescription>
+<para>Determine the trigger mode of a given IRQ. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>irq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRQ number </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 for edge-triggered, 1 for level-triggered </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="280" column="9" bodyfile="src/acpi.c" bodystart="280" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a7b1710d690e858904b5454ea45c05e59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_log</definition>
+        <argsstring>(uacpi_log_level level, const uacpi_char *msg)</argsstring>
+        <name>uacpi_kernel_log</name>
+        <param>
+          <type>uacpi_log_level</type>
+          <declname>level</declname>
+        </param>
+        <param>
+          <type>const uacpi_char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="290" column="6" bodyfile="src/acpi.c" bodystart="290" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ab292fac3ced7213300d14859086f97ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* uacpi_kernel_alloc</definition>
+        <argsstring>(uacpi_size size)</argsstring>
+        <name>uacpi_kernel_alloc</name>
+        <param>
+          <type>uacpi_size</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="295" column="6" bodyfile="src/acpi.c" bodystart="295" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a1a47337dcccf6a7d69cc83588d1744c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_free</definition>
+        <argsstring>(void *ptr)</argsstring>
+        <name>uacpi_kernel_free</name>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="299" column="6" bodyfile="src/acpi.c" bodystart="299" bodyend="301"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a6ec96b4524a534b8443ea57e025f740e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* uacpi_kernel_map</definition>
+        <argsstring>(uacpi_phys_addr addr, uacpi_size len)</argsstring>
+        <name>uacpi_kernel_map</name>
+        <param>
+          <type>uacpi_phys_addr</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="304" column="6" bodyfile="src/acpi.c" bodystart="304" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ad4e3b8610a34a3893f5a281d8cb46aea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_unmap</definition>
+        <argsstring>(void *addr, uacpi_size len)</argsstring>
+        <name>uacpi_kernel_unmap</name>
+        <param>
+          <type>void *</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="308" column="6" bodyfile="src/acpi.c" bodystart="308" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a4cd38279a50dac41731ba39d711327b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_stall</definition>
+        <argsstring>(uacpi_u8 usec)</argsstring>
+        <name>uacpi_kernel_stall</name>
+        <param>
+          <type>uacpi_u8</type>
+          <declname>usec</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="312" column="6" bodyfile="src/acpi.c" bodystart="312" bodyend="314"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a759c8615c7b9bb1cc6cf78f11b55edbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_sleep</definition>
+        <argsstring>(uacpi_u64 msec)</argsstring>
+        <name>uacpi_kernel_sleep</name>
+        <param>
+          <type>uacpi_u64</type>
+          <declname>msec</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="316" column="6" bodyfile="src/acpi.c" bodystart="316" bodyend="318"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a9b3609220fe4a661623e7f75f6498f84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_pci_device_open</definition>
+        <argsstring>(uacpi_pci_address address, uacpi_handle *out_handle)</argsstring>
+        <name>uacpi_kernel_pci_device_open</name>
+        <param>
+          <type>uacpi_pci_address</type>
+          <declname>address</declname>
+        </param>
+        <param>
+          <type>uacpi_handle *</type>
+          <declname>out_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="320" column="14" bodyfile="src/acpi.c" bodystart="320" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a00c774d83cdb25c57cced8aa0db9800f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_io_map</definition>
+        <argsstring>(uacpi_io_addr base, uacpi_size len, uacpi_handle *out_handle)</argsstring>
+        <name>uacpi_kernel_io_map</name>
+        <param>
+          <type>uacpi_io_addr</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uacpi_handle *</type>
+          <declname>out_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="333" column="14" bodyfile="src/acpi.c" bodystart="333" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1aebf6b508022cca4f56049c82e264510f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_io_unmap</definition>
+        <argsstring>(uacpi_handle handle)</argsstring>
+        <name>uacpi_kernel_io_unmap</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="339" column="6" bodyfile="src/acpi.c" bodystart="339" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a92533ad07a304fdc76f90b7d26f4655e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_io_read8</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u8 *out_value)</argsstring>
+        <name>uacpi_kernel_io_read8</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u8 *</type>
+          <declname>out_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="344" column="14" bodyfile="src/acpi.c" bodystart="344" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a6a0c49f901f185ebf096fd49cdacd3ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_io_read16</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u16 *out_value)</argsstring>
+        <name>uacpi_kernel_io_read16</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u16 *</type>
+          <declname>out_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="349" column="14" bodyfile="src/acpi.c" bodystart="349" bodyend="352"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a5b30cbe08d8a62eae62f6dfcc07ad760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_io_read32</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u32 *out_value)</argsstring>
+        <name>uacpi_kernel_io_read32</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u32 *</type>
+          <declname>out_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="354" column="14" bodyfile="src/acpi.c" bodystart="354" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a11890a02381215cb6df992e12dfb8ef3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_io_write8</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u8 value)</argsstring>
+        <name>uacpi_kernel_io_write8</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u8</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="359" column="14" bodyfile="src/acpi.c" bodystart="359" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a13edcc6b9002fcfc51d527c383265b69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_io_write16</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u16 value)</argsstring>
+        <name>uacpi_kernel_io_write16</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u16</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="364" column="14" bodyfile="src/acpi.c" bodystart="364" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a716161c4d04c98ea46f7fb2fd22bbca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_io_write32</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u32 value)</argsstring>
+        <name>uacpi_kernel_io_write32</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="369" column="14" bodyfile="src/acpi.c" bodystart="369" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a03a3bc4ce9d899833d793b043200eb16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_pci_device_close</definition>
+        <argsstring>(uacpi_handle handle)</argsstring>
+        <name>uacpi_kernel_pci_device_close</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="374" column="6" bodyfile="src/acpi.c" bodystart="374" bodyend="376"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ab3796b5c8698494e3f62101828d4e489" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_pci_read8</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u8 *value)</argsstring>
+        <name>uacpi_kernel_pci_read8</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u8 *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="378" column="14" bodyfile="src/acpi.c" bodystart="378" bodyend="382"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a3fd9e2424e14a9a47d5216588757f70f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_pci_read16</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u16 *value)</argsstring>
+        <name>uacpi_kernel_pci_read16</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u16 *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="384" column="14" bodyfile="src/acpi.c" bodystart="384" bodyend="388"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ab3b1d1c72bc35f0830cc2c9d73f226b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_pci_read32</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u32 *value)</argsstring>
+        <name>uacpi_kernel_pci_read32</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u32 *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="390" column="14" bodyfile="src/acpi.c" bodystart="390" bodyend="394"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1aad99efbaaeacf341243c88f26ff0fd11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_pci_write8</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u8 value)</argsstring>
+        <name>uacpi_kernel_pci_write8</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u8</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="396" column="14" bodyfile="src/acpi.c" bodystart="396" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a092bc44ef62a80ad58082e084cde9fa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_pci_write16</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u16 value)</argsstring>
+        <name>uacpi_kernel_pci_write16</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u16</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="402" column="14" bodyfile="src/acpi.c" bodystart="402" bodyend="406"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a2e1068e9d0c2dee2ee75ac8092db5b86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_pci_write32</definition>
+        <argsstring>(uacpi_handle handle, uacpi_size offset, uacpi_u32 value)</argsstring>
+        <name>uacpi_kernel_pci_write32</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uacpi_size</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uacpi_u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="408" column="14" bodyfile="src/acpi.c" bodystart="408" bodyend="412"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a4de503eadb31bbff8011d5e90d3f383d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_handle</type>
+        <definition>uacpi_handle uacpi_kernel_create_mutex</definition>
+        <argsstring>(void)</argsstring>
+        <name>uacpi_kernel_create_mutex</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="417" column="14" bodyfile="src/acpi.c" bodystart="417" bodyend="417"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1aea3115b90a7f963d22e1711b381324b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_free_mutex</definition>
+        <argsstring>(uacpi_handle h)</argsstring>
+        <name>uacpi_kernel_free_mutex</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="419" column="6" bodyfile="src/acpi.c" bodystart="419" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1add870958318c01419887049609cd862c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_acquire_mutex</definition>
+        <argsstring>(uacpi_handle, uacpi_u16)</argsstring>
+        <name>uacpi_kernel_acquire_mutex</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <param>
+          <type>uacpi_u16</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="421" column="14" bodyfile="src/acpi.c" bodystart="421" bodyend="421"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ad407d809a103f427c156e632415a0cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_release_mutex</definition>
+        <argsstring>(uacpi_handle)</argsstring>
+        <name>uacpi_kernel_release_mutex</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="423" column="6" bodyfile="src/acpi.c" bodystart="423" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a878cfdf358375f0bb1ca44bf7991f98f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_handle</type>
+        <definition>uacpi_handle uacpi_kernel_create_event</definition>
+        <argsstring>(void)</argsstring>
+        <name>uacpi_kernel_create_event</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="425" column="14" bodyfile="src/acpi.c" bodystart="425" bodyend="425"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a684ba111833c7badd40e42bbfd203442" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_free_event</definition>
+        <argsstring>(uacpi_handle h)</argsstring>
+        <name>uacpi_kernel_free_event</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="427" column="6" bodyfile="src/acpi.c" bodystart="427" bodyend="427"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a21f167b8884170d5cedc54ab6decbc01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_bool</type>
+        <definition>uacpi_bool uacpi_kernel_wait_for_event</definition>
+        <argsstring>(uacpi_handle, uacpi_u16)</argsstring>
+        <name>uacpi_kernel_wait_for_event</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <param>
+          <type>uacpi_u16</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="429" column="12" bodyfile="src/acpi.c" bodystart="429" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1af4add867e136e0b4eb94dad166537bc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_signal_event</definition>
+        <argsstring>(uacpi_handle)</argsstring>
+        <name>uacpi_kernel_signal_event</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="431" column="6" bodyfile="src/acpi.c" bodystart="431" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a426fd10f062cc4c47b3c26f0e1d67b03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_reset_event</definition>
+        <argsstring>(uacpi_handle)</argsstring>
+        <name>uacpi_kernel_reset_event</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="433" column="6" bodyfile="src/acpi.c" bodystart="433" bodyend="433"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a889fbe06be7fdb558a5f649006b0250a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_thread_id</type>
+        <definition>uacpi_thread_id uacpi_kernel_get_thread_id</definition>
+        <argsstring>(void)</argsstring>
+        <name>uacpi_kernel_get_thread_id</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="435" column="17" bodyfile="src/acpi.c" bodystart="435" bodyend="435"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ac88f94f63ac935ab4f942ccfc832d8ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_handle</type>
+        <definition>uacpi_handle uacpi_kernel_create_spinlock</definition>
+        <argsstring>(void)</argsstring>
+        <name>uacpi_kernel_create_spinlock</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="438" column="14" bodyfile="src/acpi.c" bodystart="438" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1af6a7865d80eb7656a632425cc98df716" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_free_spinlock</definition>
+        <argsstring>(uacpi_handle)</argsstring>
+        <name>uacpi_kernel_free_spinlock</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="440" column="6" bodyfile="src/acpi.c" bodystart="440" bodyend="440"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1afac4f0b162bed16a381fe12ecd1b2fe5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_cpu_flags</type>
+        <definition>uacpi_cpu_flags uacpi_kernel_lock_spinlock</definition>
+        <argsstring>(uacpi_handle)</argsstring>
+        <name>uacpi_kernel_lock_spinlock</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="442" column="17" bodyfile="src/acpi.c" bodystart="442" bodyend="442"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1aff95549e996702c4108ea94e1ccad3d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uacpi_kernel_unlock_spinlock</definition>
+        <argsstring>(uacpi_handle, uacpi_cpu_flags)</argsstring>
+        <name>uacpi_kernel_unlock_spinlock</name>
+        <param>
+          <type>uacpi_handle</type>
+        </param>
+        <param>
+          <type>uacpi_cpu_flags</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="444" column="6" bodyfile="src/acpi.c" bodystart="444" bodyend="444"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1af30ae1358a1dba75f1a3ad9cd43892a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_get_rsdp</definition>
+        <argsstring>(uacpi_phys_addr *out_rsdp_address)</argsstring>
+        <name>uacpi_kernel_get_rsdp</name>
+        <param>
+          <type>uacpi_phys_addr *</type>
+          <declname>out_rsdp_address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="447" column="14" bodyfile="src/acpi.c" bodystart="447" bodyend="450"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a4effd5e0a72a23f89ff350472efabf99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_install_interrupt_handler</definition>
+        <argsstring>(uacpi_u32 irq, uacpi_interrupt_handler handler, uacpi_handle ctx, uacpi_handle *out_irq_handle)</argsstring>
+        <name>uacpi_kernel_install_interrupt_handler</name>
+        <param>
+          <type>uacpi_u32</type>
+          <declname>irq</declname>
+        </param>
+        <param>
+          <type>uacpi_interrupt_handler</type>
+          <declname>handler</declname>
+        </param>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>uacpi_handle *</type>
+          <declname>out_irq_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="452" column="14" bodyfile="src/acpi.c" bodystart="452" bodyend="463"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a93698b672ef4399e00e3352921ed697b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_uninstall_interrupt_handler</definition>
+        <argsstring>(uacpi_interrupt_handler handler, uacpi_handle irq_handle)</argsstring>
+        <name>uacpi_kernel_uninstall_interrupt_handler</name>
+        <param>
+          <type>uacpi_interrupt_handler</type>
+          <declname>handler</declname>
+        </param>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>irq_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="465" column="14" bodyfile="src/acpi.c" bodystart="465" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a5f20e44bb868222911882f64d8359c56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_handle_firmware_request</definition>
+        <argsstring>(uacpi_firmware_request *req)</argsstring>
+        <name>uacpi_kernel_handle_firmware_request</name>
+        <param>
+          <type>uacpi_firmware_request *</type>
+          <declname>req</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="474" column="14" bodyfile="src/acpi.c" bodystart="474" bodyend="488"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1af27e1febdb9a5125d9b4e1496eb5ea21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void async_run_gpe_handler</definition>
+        <argsstring>(uacpi_handle gpe)</argsstring>
+        <name>async_run_gpe_handler</name>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>gpe</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="491" column="6" bodyfile="src/acpi.c" bodystart="491" bodyend="494"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ada1fd7d3478d7ce9d0a38e4973d67782" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_schedule_work</definition>
+        <argsstring>(uacpi_work_type type, uacpi_work_handler handler, uacpi_handle ctx)</argsstring>
+        <name>uacpi_kernel_schedule_work</name>
+        <param>
+          <type>uacpi_work_type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>uacpi_work_handler</type>
+          <declname>handler</declname>
+        </param>
+        <param>
+          <type>uacpi_handle</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="496" column="14" bodyfile="src/acpi.c" bodystart="496" bodyend="507"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a28cc6fa0648cd35b9bcec4ab8a2e01fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_status</type>
+        <definition>uacpi_status uacpi_kernel_wait_for_work_completion</definition>
+        <argsstring>(void)</argsstring>
+        <name>uacpi_kernel_wait_for_work_completion</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="509" column="14" bodyfile="src/acpi.c" bodystart="509" bodyend="512"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a3bd8418d6d2964ae9944643a6172d7f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* triggering_str</definition>
+        <argsstring>(uint8_t trig)</argsstring>
+        <name>triggering_str</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>trig</declname>
+        </param>
+        <briefdescription>
+<para>Return human-readable string for trigger mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>trig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trigger mode value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>&quot;edge&quot; or &quot;level&quot; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="514" column="12" bodyfile="src/acpi.c" bodystart="514" bodyend="516"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a8f12bf635ed1f6ad67ac890e47dbeb93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* polarity_str</definition>
+        <argsstring>(uint8_t pol)</argsstring>
+        <name>polarity_str</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>pol</declname>
+        </param>
+        <briefdescription>
+<para>Return human-readable string for polarity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Polarity value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>&quot;high&quot; or &quot;low&quot; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="518" column="12" bodyfile="src/acpi.c" bodystart="518" bodyend="520"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a7e53dbf0b685d7c7e10ff45cb66e9870" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* sharing_str</definition>
+        <argsstring>(uint8_t share)</argsstring>
+        <name>sharing_str</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>share</declname>
+        </param>
+        <briefdescription>
+<para>Return human-readable string for IRQ sharing model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>share</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sharing type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Descriptive string of the IRQ sharing status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="522" column="12" bodyfile="src/acpi.c" bodystart="522" bodyend="524"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a64393d137f2a37c8efad079b4d15d94d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_iteration_decision</type>
+        <definition>static uacpi_iteration_decision resource_callback</definition>
+        <argsstring>(void *user, uacpi_resource *res)</argsstring>
+        <name>resource_callback</name>
+        <param>
+          <type>void *</type>
+          <declname>user</declname>
+        </param>
+        <param>
+          <type>uacpi_resource *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="526" column="33" bodyfile="src/acpi.c" bodystart="526" bodyend="556"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1ae203fe974b3a26b6ee23c95570efde43" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uacpi_iteration_decision</type>
+        <definition>static uacpi_iteration_decision device_callback</definition>
+        <argsstring>(void *user, uacpi_namespace_node *node, uacpi_u32 depth)</argsstring>
+        <name>device_callback</name>
+        <param>
+          <type>void *</type>
+          <declname>user</declname>
+        </param>
+        <param>
+          <type>uacpi_namespace_node *</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>uacpi_u32</type>
+          <declname>depth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="558" column="33" bodyfile="src/acpi.c" bodystart="558" bodyend="570"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/acpi.c"/>
+  </compounddef>
+</doxygen>

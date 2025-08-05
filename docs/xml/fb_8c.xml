@@ -1,0 +1,1481 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="fb_8c" kind="file" language="C++">
+    <compoundname>fb.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="flanterm_8h" local="no">flanterm.h</includes>
+    <includes refid="fb_8h" local="no">flanterm/fb.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="63">
+        <label>flanterm.h</label>
+        <link refid="flanterm_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="1">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="64">
+        <label>flanterm/fb.h</label>
+        <link refid="fb_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="fb_8c_1aa1dec568e79152c892dcf63f445cbd7a" prot="public" static="no">
+        <name>ALWAYS_INLINE</name>
+        <initializer>inline</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="39" column="10" bodyfile="src/fb.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fb_8c_1ad774138089f007a4fcdfa8ae5ad1c7ee" prot="public" static="no">
+        <name>FLANTERM_IN_FLANTERM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="44" column="9" bodyfile="src/fb.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fb_8c_1a4a64360e813a5c61ba61239bc7ee248d" prot="public" static="no">
+        <name>FLANTERM_FB_BUMP_ALLOC_POOL_SIZE</name>
+        <initializer>873000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="52" column="9" bodyfile="src/fb.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fb_8c_1a31f5487d08e7c9505a5b446607e227b4" prot="public" static="no">
+        <name>FLANTERM_FB_WIDTH_LIMIT</name>
+        <initializer>1920</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="54" column="9" bodyfile="src/fb.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fb_8c_1a44179f8a32bc937bf37bcaa41abce755" prot="public" static="no">
+        <name>FLANTERM_FB_HEIGHT_LIMIT</name>
+        <initializer>1200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="55" column="9" bodyfile="src/fb.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fb_8c_1a6a0732f0e846b32fa68030d78a20ef4b" prot="public" static="no">
+        <name>FONT_BYTES</name>
+        <initializer>((font_width * font_height * <ref refid="fb__private_8h_1aac4d6c5ae9cc64eaa45efa63768ab171" kindref="member">FLANTERM_FB_FONT_GLYPHS</ref>) / 8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="1068" column="9"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="fb_8c_1a9f95827adbfb87220552a8e3e8288860" prot="public" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bump_alloc_pool[873000]</definition>
+        <argsstring>[873000]</argsstring>
+        <name>bump_alloc_pool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="58" column="16" bodyfile="src/fb.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fb_8c_1ab93ad5b7c4437888c70bf3c27cf5981c" prot="public" static="yes" mutable="no">
+        <type>size_t</type>
+        <definition>size_t bump_alloc_ptr</definition>
+        <argsstring></argsstring>
+        <name>bump_alloc_ptr</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="59" column="15" bodyfile="src/fb.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fb_8c_1af8e7cb7729b2e54b356c8a5aeb05564d" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t ft_min_y</definition>
+        <argsstring></argsstring>
+        <name>ft_min_y</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="61" column="16" bodyfile="src/fb.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fb_8c_1a5b488d79468fd5ef4f63826363e5cccc" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t ft_max_y</definition>
+        <argsstring></argsstring>
+        <name>ft_max_y</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="62" column="16" bodyfile="src/fb.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fb_8c_1a6d1c8f204ce49366e162bc3218e3b037" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool bump_allocated_instance</definition>
+        <argsstring></argsstring>
+        <name>bump_allocated_instance</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="87" column="13" bodyfile="src/fb.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fb_8c_1a8ea440f33b82bd931cdadedf1c7ff21a" prot="public" static="yes" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t builtin_font[]</definition>
+        <argsstring>[]</argsstring>
+        <name>builtin_font</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="93" column="22" bodyfile="src/fb.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="fb_8c_1a579d7cbd3c371ade08ced49b71bba019" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>static void* bump_alloc</definition>
+        <argsstring>(size_t s)</argsstring>
+        <name>bump_alloc</name>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="64" column="13" bodyfile="src/fb.c" bodystart="64" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a18b7252187b0e69564837f617ee47b70" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t convert_colour</definition>
+        <argsstring>(struct flanterm_context *_ctx, uint32_t colour)</argsstring>
+        <name>convert_colour</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="438" column="26" bodyfile="src/fb.c" bodystart="438" bodyend="444"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a28cce7d3ba3a7163ce4efb9410cc4be5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_save_state</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_save_state</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="446" column="13" bodyfile="src/fb.c" bodystart="446" bodyend="452"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a93fe01dc793a37048b8c9d027fb2d4b3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_restore_state</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_restore_state</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="454" column="13" bodyfile="src/fb.c" bodystart="454" bodyend="460"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a8dca19fc310fb022278a09659a141ddb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_swap_palette</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_swap_palette</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="462" column="13" bodyfile="src/fb.c" bodystart="462" bodyend="467"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a1137f8bb2c780f3770040243018a5635" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void plot_char_scaled_canvas</definition>
+        <argsstring>(struct flanterm_context *_ctx, struct flanterm_fb_char *c, size_t x, size_t y)</argsstring>
+        <name>plot_char_scaled_canvas</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structflanterm__fb__char" kindref="compound">flanterm_fb_char</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="469" column="13" bodyfile="src/fb.c" bodystart="469" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a52bf7a18445986e2e8eea65505a23cab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void plot_char_scaled_uncanvas</definition>
+        <argsstring>(struct flanterm_context *_ctx, struct flanterm_fb_char *c, size_t x, size_t y)</argsstring>
+        <name>plot_char_scaled_uncanvas</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structflanterm__fb__char" kindref="compound">flanterm_fb_char</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="498" column="13" bodyfile="src/fb.c" bodystart="498" bodyend="527"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1ac18da809135a63cf389055b945a4fe8f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void plot_char_unscaled_canvas</definition>
+        <argsstring>(struct flanterm_context *_ctx, struct flanterm_fb_char *c, size_t x, size_t y)</argsstring>
+        <name>plot_char_unscaled_canvas</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structflanterm__fb__char" kindref="compound">flanterm_fb_char</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="529" column="13" bodyfile="src/fb.c" bodystart="529" bodyend="551"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a6189a7c37ff7470e1cf5335bf55d1347" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t flanterm_ex_get_bounding_min_y</definition>
+        <argsstring>()</argsstring>
+        <name>flanterm_ex_get_bounding_min_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="553" column="9" bodyfile="src/fb.c" bodystart="553" bodyend="555"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a9425df2c54c146117bf9abb0150cf304" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t flanterm_ex_get_bounding_max_y</definition>
+        <argsstring>()</argsstring>
+        <name>flanterm_ex_get_bounding_max_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="557" column="9" bodyfile="src/fb.c" bodystart="557" bodyend="559"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1ab470c35cef4d9795d4af2ee4c56700ec" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void plot_char_unscaled_uncanvas</definition>
+        <argsstring>(struct flanterm_context *_ctx, struct flanterm_fb_char *c, size_t x, size_t y)</argsstring>
+        <name>plot_char_unscaled_uncanvas</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structflanterm__fb__char" kindref="compound">flanterm_fb_char</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="561" column="13" bodyfile="src/fb.c" bodystart="561" bodyend="591"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a5dc9b3dd15119c1da3a23cad91ab5719" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool compare_char</definition>
+        <argsstring>(struct flanterm_fb_char *a, struct flanterm_fb_char *b)</argsstring>
+        <name>compare_char</name>
+        <param>
+          <type>struct <ref refid="structflanterm__fb__char" kindref="compound">flanterm_fb_char</ref> *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structflanterm__fb__char" kindref="compound">flanterm_fb_char</ref> *</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="593" column="20" bodyfile="src/fb.c" bodystart="593" bodyend="595"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a9eb2deb0c056a7f640840eb04ecacab4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void push_to_queue</definition>
+        <argsstring>(struct flanterm_context *_ctx, struct flanterm_fb_char *c, size_t x, size_t y)</argsstring>
+        <name>push_to_queue</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structflanterm__fb__char" kindref="compound">flanterm_fb_char</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="597" column="13" bodyfile="src/fb.c" bodystart="597" bodyend="619"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a0ac9c73e68ff9c88f5a564d4b14b800c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_revscroll</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_revscroll</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="621" column="13" bodyfile="src/fb.c" bodystart="621" bodyend="647"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a6dae7af149b170bcae37bc6221d42e6b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_scroll</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_scroll</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="649" column="13" bodyfile="src/fb.c" bodystart="649" bodyend="672"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a2ecd3275492a6b6816201cf8a9bc174e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_clear</definition>
+        <argsstring>(struct flanterm_context *_ctx, bool move)</argsstring>
+        <name>flanterm_fb_clear</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="674" column="13" bodyfile="src/fb.c" bodystart="674" bodyend="689"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a15bbd0252cf4794bb13aea44a56b792f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_cursor_pos</definition>
+        <argsstring>(struct flanterm_context *_ctx, size_t x, size_t y)</argsstring>
+        <name>flanterm_fb_set_cursor_pos</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="691" column="13" bodyfile="src/fb.c" bodystart="691" bodyend="710"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a393c199ccead0a1ea3096995f388e221" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_get_cursor_pos</definition>
+        <argsstring>(struct flanterm_context *_ctx, size_t *x, size_t *y)</argsstring>
+        <name>flanterm_fb_get_cursor_pos</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="712" column="13" bodyfile="src/fb.c" bodystart="712" bodyend="717"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a918568a201ab7bfa0dbeb112b940ed9f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_move_character</definition>
+        <argsstring>(struct flanterm_context *_ctx, size_t new_x, size_t new_y, size_t old_x, size_t old_y)</argsstring>
+        <name>flanterm_fb_move_character</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>new_x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>new_y</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>old_x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>old_y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="719" column="13" bodyfile="src/fb.c" bodystart="719" bodyend="738"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a1cbb5238f443a1fbf0b8130100a6e822" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_fg</definition>
+        <argsstring>(struct flanterm_context *_ctx, size_t fg)</argsstring>
+        <name>flanterm_fb_set_text_fg</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>fg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="740" column="13" bodyfile="src/fb.c" bodystart="740" bodyend="744"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a2c7aec3d7980b168fa944432c5ee3ab2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_bg</definition>
+        <argsstring>(struct flanterm_context *_ctx, size_t bg)</argsstring>
+        <name>flanterm_fb_set_text_bg</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="746" column="13" bodyfile="src/fb.c" bodystart="746" bodyend="750"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a313d668251f26ce2f94d52f7954a1ff2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_fg_bright</definition>
+        <argsstring>(struct flanterm_context *_ctx, size_t fg)</argsstring>
+        <name>flanterm_fb_set_text_fg_bright</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>fg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="752" column="13" bodyfile="src/fb.c" bodystart="752" bodyend="756"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1ab626db46fe747411789817c2ea4c8146" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_bg_bright</definition>
+        <argsstring>(struct flanterm_context *_ctx, size_t bg)</argsstring>
+        <name>flanterm_fb_set_text_bg_bright</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="758" column="13" bodyfile="src/fb.c" bodystart="758" bodyend="762"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a857d63c04d6fa4c873679ee3a8b634a8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_fg_rgb</definition>
+        <argsstring>(struct flanterm_context *_ctx, uint32_t fg)</argsstring>
+        <name>flanterm_fb_set_text_fg_rgb</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>fg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="764" column="13" bodyfile="src/fb.c" bodystart="764" bodyend="768"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1aa92b2be35f4d10a3934606b9bd5b9b7f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_bg_rgb</definition>
+        <argsstring>(struct flanterm_context *_ctx, uint32_t bg)</argsstring>
+        <name>flanterm_fb_set_text_bg_rgb</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="770" column="13" bodyfile="src/fb.c" bodystart="770" bodyend="774"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1afb64c1b96f0276831c79d243cce2e581" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_fg_default</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_set_text_fg_default</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="776" column="13" bodyfile="src/fb.c" bodystart="776" bodyend="780"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a84d1ebff0bd24c5d4f357bcd189513ef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_bg_default</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_set_text_bg_default</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="782" column="13" bodyfile="src/fb.c" bodystart="782" bodyend="786"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1abef362af253d7f6e2307dcc6a2f80616" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_fg_default_bright</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_set_text_fg_default_bright</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="788" column="13" bodyfile="src/fb.c" bodystart="788" bodyend="792"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a49c42a57eafd2b89bf1c1ad877c8cc41" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_set_text_bg_default_bright</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_set_text_bg_default_bright</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="794" column="13" bodyfile="src/fb.c" bodystart="794" bodyend="798"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a1edcc344b7444a35c908fa44b6772a50" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void draw_cursor</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>draw_cursor</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="800" column="13" bodyfile="src/fb.c" bodystart="800" bodyend="824"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1aa78babc9824cbc703c88ad1fc409dc9c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_double_buffer_flush</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_double_buffer_flush</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="826" column="13" bodyfile="src/fb.c" bodystart="826" bodyend="857"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1ac02262d8fd779fb3c93f938c7fdacbb0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_raw_putchar</definition>
+        <argsstring>(struct flanterm_context *_ctx, uint8_t c)</argsstring>
+        <name>flanterm_fb_raw_putchar</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="859" column="13" bodyfile="src/fb.c" bodystart="859" bodyend="879"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1a1a4a0e5fb93062ec6e549eb01f352175" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_full_refresh</definition>
+        <argsstring>(struct flanterm_context *_ctx)</argsstring>
+        <name>flanterm_fb_full_refresh</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="881" column="13" bodyfile="src/fb.c" bodystart="881" bodyend="906"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1abac5eac8222fbd83f32ad9304b2c04e5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void flanterm_fb_deinit</definition>
+        <argsstring>(struct flanterm_context *_ctx, void(*_free)(void *, size_t))</argsstring>
+        <name>flanterm_fb_deinit</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>_ctx</declname>
+        </param>
+        <param>
+          <type>void(*)(void *, size_t)</type>
+          <declname>_free</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="908" column="13" bodyfile="src/fb.c" bodystart="908" bodyend="932"/>
+      </memberdef>
+      <memberdef kind="function" id="fb_8c_1aca366b49800c485e341934ddc72d8bdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+        <definition>struct flanterm_context* flanterm_fb_init</definition>
+        <argsstring>(void *(*_malloc)(size_t), void(*_free)(void *, size_t), uint32_t *framebuffer, size_t width, size_t height, size_t pitch, uint8_t red_mask_size, uint8_t red_mask_shift, uint8_t green_mask_size, uint8_t green_mask_shift, uint8_t blue_mask_size, uint8_t blue_mask_shift, uint32_t *canvas, uint32_t *ansi_colours, uint32_t *ansi_bright_colours, uint32_t *default_bg, uint32_t *default_fg, uint32_t *default_bg_bright, uint32_t *default_fg_bright, void *font, size_t font_width, size_t font_height, size_t font_spacing, size_t font_scale_x, size_t font_scale_y, size_t margin)</argsstring>
+        <name>flanterm_fb_init</name>
+        <param>
+          <type>void *(*)(size_t)</type>
+          <declname>_malloc</declname>
+        </param>
+        <param>
+          <type>void(*)(void *, size_t)</type>
+          <declname>_free</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>framebuffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pitch</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>red_mask_size</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>red_mask_shift</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>green_mask_size</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>green_mask_shift</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>blue_mask_size</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>blue_mask_shift</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>canvas</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>ansi_colours</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>ansi_bright_colours</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>default_bg</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>default_fg</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>default_bg_bright</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>default_fg_bright</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>font</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>font_width</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>font_height</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>font_spacing</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>font_scale_x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>font_scale_y</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>margin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fb.c" line="934" column="23" bodyfile="src/fb.c" bodystart="934" bodyend="1267"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/fb.c"/>
+  </compounddef>
+</doxygen>

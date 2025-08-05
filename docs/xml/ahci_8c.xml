@@ -1,0 +1,888 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ahci_8c" kind="file" language="C++">
+    <compoundname>ahci.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="ahci_8c_1ad0adbfcf908d06f2a3907802e8265928" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* aligned_buf</definition>
+        <argsstring></argsstring>
+        <name>aligned_buf</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="7" column="6" bodyfile="src/ahci.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8c_1ab33a54f5a7b7ea3d6f2698c1f30d5a7a" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* raw_buf</definition>
+        <argsstring></argsstring>
+        <name>raw_buf</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="360" column="9" bodyfile="src/ahci.c" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8c_1a2c5f4ef732286b78e31ec8d1cb238215" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* buf</definition>
+        <argsstring></argsstring>
+        <name>buf</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="361" column="9" bodyfile="src/ahci.c" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8c_1aa3fa08f596702ce510146ef0b99f12b1" prot="public" static="yes" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* raw_write_buf</definition>
+        <argsstring></argsstring>
+        <name>raw_write_buf</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="362" column="16" bodyfile="src/ahci.c" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ahci_8c_1a811ff141dc2c62fc52486bd2e0c4d449" prot="public" static="yes" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* aligned_write_buf</definition>
+        <argsstring></argsstring>
+        <name>aligned_write_buf</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="363" column="16" bodyfile="src/ahci.c" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ahci_8c_1a6d7e7954c7a7cb6783e759a726a6d41e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ahci_read</definition>
+        <argsstring>(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t *abar)</argsstring>
+        <name>ahci_read</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>count</declname>
+        </param>
+        <param>
+          <type>uint16_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="structahci__hba__mem__t" kindref="compound">ahci_hba_mem_t</ref> *</type>
+          <declname>abar</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="250" column="6" bodyfile="src/ahci.c" bodystart="250" bodyend="357" declfile="src/ahci.c" declline="9" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a5f86b1b710b32bba724bd02538f30eac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ahci_write</definition>
+        <argsstring>(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t *abar)</argsstring>
+        <name>ahci_write</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>count</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="structahci__hba__mem__t" kindref="compound">ahci_hba_mem_t</ref> *</type>
+          <declname>abar</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="528" column="6" bodyfile="src/ahci.c" bodystart="528" bodyend="623" declfile="src/ahci.c" declline="10" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a854200f8079479249d35b929c1cbf2b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ahci_atapi_read</definition>
+        <argsstring>(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t *abar)</argsstring>
+        <name>ahci_atapi_read</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>count</declname>
+        </param>
+        <param>
+          <type>uint16_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="structahci__hba__mem__t" kindref="compound">ahci_hba_mem_t</ref> *</type>
+          <declname>abar</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="439" column="6" bodyfile="src/ahci.c" bodystart="439" bodyend="525" declfile="src/ahci.c" declline="11" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a4a1031f089ff792cfc6c22f251cb5df7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t ahci_read_size</definition>
+        <argsstring>(ahci_hba_port_t *port, ahci_hba_mem_t *abar)</argsstring>
+        <name>ahci_read_size</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type><ref refid="structahci__hba__mem__t" kindref="compound">ahci_hba_mem_t</ref> *</type>
+          <declname>abar</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="365" column="10" bodyfile="src/ahci.c" bodystart="365" bodyend="437" declfile="src/ahci.c" declline="12" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a69676cdbf44f79bd830528fba63f7946" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ahci_handler</definition>
+        <argsstring>([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void *opaque)</argsstring>
+        <name>ahci_handler</name>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] uint8_t</type>
+          <declname>isr</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] uint64_t</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] uint64_t</type>
+          <declname>irq</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="14" column="6" bodyfile="src/ahci.c" bodystart="14" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a5faec4ce40cc7ecfc5f8a01e7518ccd7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int check_type</definition>
+        <argsstring>(ahci_hba_port_t *port)</argsstring>
+        <name>check_type</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="27" column="12" bodyfile="src/ahci.c" bodystart="27" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a3f731f3af4b9cf5fde7ffb8ebe3b23bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void start_cmd</definition>
+        <argsstring>(ahci_hba_port_t *port)</argsstring>
+        <name>start_cmd</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="52" column="6" bodyfile="src/ahci.c" bodystart="52" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a87a8b71a9ff474b5626fe32e8672f0c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void stop_cmd</definition>
+        <argsstring>(ahci_hba_port_t *port)</argsstring>
+        <name>stop_cmd</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="62" column="6" bodyfile="src/ahci.c" bodystart="62" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1ad4facaaf67038580be541df08f74fbde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void port_rebase</definition>
+        <argsstring>(ahci_hba_port_t *port, int portno)</argsstring>
+        <name>port_rebase</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>portno</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="80" column="6" bodyfile="src/ahci.c" bodystart="80" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a60cd04d7eb20bbf35fb2356ab1687bcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int storage_device_ahci_block_read</definition>
+        <argsstring>(void *dev, uint64_t start, uint32_t bytes, unsigned char *buffer)</argsstring>
+        <name>storage_device_ahci_block_read</name>
+        <param>
+          <type>void *</type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="112" column="5" bodyfile="src/ahci.c" bodystart="112" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1a8cf110926059fdb38b939d7a94eacaa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int storage_device_ahci_block_write</definition>
+        <argsstring>(void *dev, uint64_t start, uint32_t bytes, const unsigned char *buffer)</argsstring>
+        <name>storage_device_ahci_block_write</name>
+        <param>
+          <type>void *</type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="157" column="5" bodyfile="src/ahci.c" bodystart="157" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1ad10b16704569d6cb8adbfa9d5045bd1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void probe_port</definition>
+        <argsstring>(ahci_hba_mem_t *abar, pci_dev_t dev)</argsstring>
+        <name>probe_port</name>
+        <param>
+          <type><ref refid="structahci__hba__mem__t" kindref="compound">ahci_hba_mem_t</ref> *</type>
+          <declname>abar</declname>
+        </param>
+        <param>
+          <type><ref refid="unionpci__dev__t" kindref="compound">pci_dev_t</ref></type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="192" column="6" bodyfile="src/ahci.c" bodystart="192" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1af88908abdc3b2c442adf7799b3ae92f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int find_cmdslot</definition>
+        <argsstring>(ahci_hba_port_t *port, ahci_hba_mem_t *abar)</argsstring>
+        <name>find_cmdslot</name>
+        <param>
+          <type><ref refid="structahci__hba__port__t" kindref="compound">ahci_hba_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type><ref refid="structahci__hba__mem__t" kindref="compound">ahci_hba_mem_t</ref> *</type>
+          <declname>abar</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="236" column="5" bodyfile="src/ahci.c" bodystart="236" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="ahci_8c_1aee21823366d10636044f5358d4c6e527" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_ahci</definition>
+        <argsstring>()</argsstring>
+        <name>init_ahci</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ahci.c" line="626" column="6" bodyfile="src/ahci.c" bodystart="626" bodyend="650"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ahci.c"/>
+  </compounddef>
+</doxygen>

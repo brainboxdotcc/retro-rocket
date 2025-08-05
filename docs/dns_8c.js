@@ -1,0 +1,25 @@
+var dns_8c =
+[
+    [ "dns_blocking_wait_for_result", "dns_8c.html#a67996b551fe441ce09f70edaeb0df3f5", null ],
+    [ "dns_cache_compare", "dns_8c.html#a747a70ba9f127e95c1eaa5c6d6705253", null ],
+    [ "dns_cache_hash", "dns_8c.html#ae1cab23ab9191bd83f5e74b9efdb4461", null ],
+    [ "dns_collect_request", "dns_8c.html#ac52a39e7254f694e587db4722ecc682b", null ],
+    [ "dns_delete_request", "dns_8c.html#a6f659549a668088efc96a4acc584a587", null ],
+    [ "dns_handle_packet", "dns_8c.html#a88fc51c93321db43c9f27e3ce5a4e72f", null ],
+    [ "dns_lookup_host", "dns_8c.html#a7cedf2ac9e164672c69b6c5253085490", null ],
+    [ "dns_lookup_host_async", "dns_8c.html#a376e9c65e585b4864a61f437bab2f49d", null ],
+    [ "dns_make_payload", "dns_8c.html#abc1cba8678d9f7892ef121460a45f92c", null ],
+    [ "dns_request_compare", "dns_8c.html#aec754e70a500d0e523ad0ef9643be6db", null ],
+    [ "dns_request_hash", "dns_8c.html#ae79b7629d9864fde9bcab08cf5276342", null ],
+    [ "dns_request_is_completed", "dns_8c.html#a22c2693ed12557013fd31417117869e8", null ],
+    [ "dns_result_ready", "dns_8c.html#a3d6685ea4e8aa18a8dd29b8176160c7f", null ],
+    [ "dns_send_request", "dns_8c.html#ae5b2d80a2d41d6a25145e0b18b98a527", null ],
+    [ "fill_resource_record", "dns_8c.html#a4bc729f8e54bb7b1e1614145d2841131", null ],
+    [ "init_dns", "dns_8c.html#adeed35e725749afd93cc14d1d25eecd5", null ],
+    [ "is_cached", "dns_8c.html#ac3b4af185a2535f0e64717041ef4003e", null ],
+    [ "packet_to_buffer", "dns_8c.html#aa7246717c596f4e20654e1f2a3b5c2ec", null ],
+    [ "dns_cache", "dns_8c.html#a2c706b8e13b13e1dc955fd6f6ecd501b", null ],
+    [ "dns_query_port", "dns_8c.html#a05d2734e0342e9698835e5dc6e9fbb77", null ],
+    [ "dns_replies", "dns_8c.html#a61b14aafc392ece5846cf4647e554d45", null ],
+    [ "id", "dns_8c.html#a4fc3a0c58dfbd1e68224521185cb9384", null ]
+];

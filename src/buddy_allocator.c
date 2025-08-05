@@ -2,11 +2,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// ---------------- Config ----------------
-#define BUDDY_MAX_ORDER 20   // 1 << 20 = 1MB max block
-#define BUDDY_MIN_ORDER 12   // 1 << 12 = 4KB min block
+#define BUDDY_MAX_ORDER 24   // 1 << 24 = 16MB max block
+#define BUDDY_MIN_ORDER 6    // 1 << 6 = 64 byte min block
 
-// ---------------- Helpers ----------------
 static inline size_t order_size(int order) {
 	return (size_t)1 << order;
 }
@@ -33,8 +31,6 @@ static inline void *buddy_of(buddy_allocator_t *alloc, void *ptr, int order) {
 	size_t size = order_size(order);
 	return (uint8_t *)alloc->pool + (off ^ size);
 }
-
-// ---------------- API ----------------
 
 // Initialise an allocator on top of backing_pool of size (1 << max_order)
 void buddy_init(buddy_allocator_t *alloc, void *backing_pool,

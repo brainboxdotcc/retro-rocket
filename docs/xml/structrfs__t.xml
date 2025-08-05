@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrfs__t" kind="struct" language="C++" prot="public">
+    <compoundname>rfs_t</compoundname>
+    <includes local="no">retrofs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrfs__t_1ae6bd3831a1f0eb8a66863fce2accc813" prot="public" static="no" mutable="no">
+        <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+        <definition>storage_device_t* rfs_t::dev</definition>
+        <argsstring></argsstring>
+        <name>dev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="82" column="18" bodyfile="include/retrofs.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__t_1a8fb7ae9882cdc7d92e480d3e7dbe6469" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_t::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="83" column="10" bodyfile="include/retrofs.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__t_1a5d71303a722c42e27f10f13e92bfcf96" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_t::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="84" column="10" bodyfile="include/retrofs.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__t_1a992cd5e42aa81e84c1d8cfe69a9eb23f" prot="public" static="no" mutable="no">
+        <type><ref refid="structrfs__description__block__t" kindref="compound">rfs_description_block_t</ref> *</type>
+        <definition>rfs_description_block_t* rfs_t::desc</definition>
+        <argsstring></argsstring>
+        <name>desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="85" column="25" bodyfile="include/retrofs.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>void *</label>
+      </node>
+      <node id="3">
+        <label>uint64_t</label>
+      </node>
+      <node id="2">
+        <label>rfs_description_block_t</label>
+        <link refid="structrfs__description__block__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>creation_time</edgelabel>
+          <edgelabel>free_space_map_checksum</edgelabel>
+          <edgelabel>free_space_map_length</edgelabel>
+          <edgelabel>free_space_map_start</edgelabel>
+          <edgelabel>identifier</edgelabel>
+          <edgelabel>root_directory</edgelabel>
+          <edgelabel>sequence</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rfs_t</label>
+        <link refid="structrfs__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>desc</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>length</edgelabel>
+          <edgelabel>start</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>dev</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>storage_device_t</label>
+        <link refid="structstorage__device__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>opaque1</edgelabel>
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>block_size</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>blockread</edgelabel>
+          <edgelabel>blockwrite</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>opaque2</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>int</label>
+      </node>
+      <node id="6">
+        <label>uint32_t</label>
+      </node>
+      <node id="5">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/retrofs.h" line="81" column="1" bodyfile="include/retrofs.h" bodystart="81" bodyend="86"/>
+    <listofallmembers>
+      <member refid="structrfs__t_1a992cd5e42aa81e84c1d8cfe69a9eb23f" prot="public" virt="non-virtual"><scope>rfs_t</scope><name>desc</name></member>
+      <member refid="structrfs__t_1ae6bd3831a1f0eb8a66863fce2accc813" prot="public" virt="non-virtual"><scope>rfs_t</scope><name>dev</name></member>
+      <member refid="structrfs__t_1a5d71303a722c42e27f10f13e92bfcf96" prot="public" virt="non-virtual"><scope>rfs_t</scope><name>length</name></member>
+      <member refid="structrfs__t_1a8fb7ae9882cdc7d92e480d3e7dbe6469" prot="public" virt="non-virtual"><scope>rfs_t</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

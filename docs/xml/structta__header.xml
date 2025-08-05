@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structta__header" kind="struct" language="C++" prot="public">
+    <compoundname>ta_header</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structta__header_1a7638346afdbd244b65dea7c04ec18044" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t ta_header::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/tinyalloc.c" line="4" column="8" bodyfile="src/tinyalloc.c" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structta__header_1a1043f8ba83ac48db58cd587f9efa30da" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ta_header::free</definition>
+        <argsstring></argsstring>
+        <name>free</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/tinyalloc.c" line="5" column="6" bodyfile="src/tinyalloc.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structta__header_1a3f73bdfb6d90bf35eb3e0b878ff3705f" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structta__header" kindref="compound">ta_header</ref> *</type>
+        <definition>struct ta_header* ta_header::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/tinyalloc.c" line="6" column="16" bodyfile="src/tinyalloc.c" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>size_t</label>
+      </node>
+      <node id="1">
+        <label>ta_header</label>
+        <link refid="structta__header"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>free</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>bool</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/tinyalloc.c" line="3" column="1" bodyfile="src/tinyalloc.c" bodystart="3" bodyend="7"/>
+    <listofallmembers>
+      <member refid="structta__header_1a1043f8ba83ac48db58cd587f9efa30da" prot="public" virt="non-virtual"><scope>ta_header</scope><name>free</name></member>
+      <member refid="structta__header_1a3f73bdfb6d90bf35eb3e0b878ff3705f" prot="public" virt="non-virtual"><scope>ta_header</scope><name>next</name></member>
+      <member refid="structta__header_1a7638346afdbd244b65dea7c04ec18044" prot="public" virt="non-virtual"><scope>ta_header</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

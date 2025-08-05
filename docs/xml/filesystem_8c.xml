@@ -1,0 +1,1976 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="filesystem_8c" kind="file" language="C++">
+    <compoundname>filesystem.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="filesystem_8h" local="no">filesystem.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="1">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structdirstack__t" prot="public">dirstack_t</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="filesystem_8c_1a2c8156751d296dc1f2698a0c703575a5" prot="public" static="no" mutable="no">
+        <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
+        <definition>filesystem_t* filesystems</definition>
+        <argsstring></argsstring>
+        <name>filesystems</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="4" column="14" bodyfile="src/fs/filesystem.c" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="filesystem_8c_1a482cbb910ba48077f89f45cd56fef240" prot="public" static="no" mutable="no">
+        <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
+        <definition>filesystem_t * dummyfs</definition>
+        <argsstring></argsstring>
+        <name>dummyfs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="4" column="26" bodyfile="src/fs/filesystem.c" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="filesystem_8c_1ae83370e13b4f092c7124551fd77564fb" prot="public" static="no" mutable="no">
+        <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+        <definition>storage_device_t* storagedevices</definition>
+        <argsstring></argsstring>
+        <name>storagedevices</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="5" column="18" bodyfile="src/fs/filesystem.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="filesystem_8c_1a55088647d1ce39b16095537f9d5087a6" prot="public" static="no" mutable="no">
+        <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+        <definition>fs_tree_t* fs_tree</definition>
+        <argsstring></argsstring>
+        <name>fs_tree</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="6" column="11" bodyfile="src/fs/filesystem.c" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="filesystem_8c_1a98e6cfe4eb726687a4415293054c868f" prot="public" static="yes" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fd_last</definition>
+        <argsstring></argsstring>
+        <name>fd_last</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="7" column="17" bodyfile="src/fs/filesystem.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="filesystem_8c_1a3d4144935ba28a69cfe263c9e0b2bbd0" prot="public" static="yes" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fd_alloc</definition>
+        <argsstring></argsstring>
+        <name>fd_alloc</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="8" column="17" bodyfile="src/fs/filesystem.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="filesystem_8c_1a256146db41f117243b08b3814ddf5545" prot="public" static="no" mutable="no">
+        <type><ref refid="structfs__handle__t" kindref="compound">fs_handle_t</ref> *</type>
+        <definition>fs_handle_t* filehandles[FD_MAX]</definition>
+        <argsstring>[FD_MAX]</argsstring>
+        <name>filehandles</name>
+        <initializer>= { NULL }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="9" column="13" bodyfile="src/fs/filesystem.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="filesystem_8c_1a2036437bf32e2b45a6f2a455a7221ab2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t verify_path</definition>
+        <argsstring>(const char *path)</argsstring>
+        <name>verify_path</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="716" column="9" bodyfile="src/fs/filesystem.c" bodystart="716" bodyend="728" declfile="src/fs/filesystem.c" declline="11" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a299b9b008541d290a23f6d83afe7dbc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+        <definition>fs_tree_t * walk_to_node</definition>
+        <argsstring>(fs_tree_t *current_node, const char *path)</argsstring>
+        <name>walk_to_node</name>
+        <param>
+          <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+          <declname>current_node</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="730" column="11" bodyfile="src/fs/filesystem.c" bodystart="730" bodyend="772" declfile="src/fs/filesystem.c" declline="12" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a403ef73bda9c217900e6026f1d4886f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t * find_file_in_dir</definition>
+        <argsstring>(fs_tree_t *directory, const char *filename)</argsstring>
+        <name>find_file_in_dir</name>
+        <param>
+          <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+          <declname>directory</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="774" column="22" bodyfile="src/fs/filesystem.c" bodystart="774" bodyend="788" declfile="src/fs/filesystem.c" declline="13" declcolumn="22"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ae3ccc4869f4ceefdc2407734d4a2530c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fs_write_file</definition>
+        <argsstring>(fs_directory_entry_t *file, uint32_t start, uint32_t length, unsigned char *buffer)</argsstring>
+        <name>fs_write_file</name>
+        <param>
+          <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="817" column="5" bodyfile="src/fs/filesystem.c" bodystart="817" bodyend="825" declfile="src/fs/filesystem.c" declline="14" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a90ae435cc1f4e6cccba5cc179c2bd81c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int register_filesystem</definition>
+        <argsstring>(filesystem_t *newfs)</argsstring>
+        <name>register_filesystem</name>
+        <param>
+          <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
+          <declname>newfs</declname>
+        </param>
+        <briefdescription>
+<para>Register a new filesystem. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newfs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to new filesystem information to register </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="16" column="5" bodyfile="src/fs/filesystem.c" bodystart="16" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a86db0085cc6c14e76ac68e70b79b3a32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
+        <definition>filesystem_t* find_filesystem</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>find_filesystem</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Find a filesystem by name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of filesystem to find </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>filesystem_t* Pointer to filesystem if found, or NULL </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="24" column="14" bodyfile="src/fs/filesystem.c" bodystart="24" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a1c947f6ecb49c4c29193dbfb80f48913" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int register_storage_device</definition>
+        <argsstring>(storage_device_t *newdev)</argsstring>
+        <name>register_storage_device</name>
+        <param>
+          <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+          <declname>newdev</declname>
+        </param>
+        <briefdescription>
+<para>Register a new storage device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newdev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New storage device information to register </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="36" column="5" bodyfile="src/fs/filesystem.c" bodystart="36" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a1a11d52abe39eec5ff5057fb568abcaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
+        <definition>storage_device_t* find_storage_device</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>find_storage_device</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Find a storage device by name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of storage device to find </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>storage_device_t* Pointer to storage device if found, or NULL </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="45" column="18" bodyfile="src/fs/filesystem.c" bodystart="45" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a8261f6e5dfde2a376851ee5e1d60798a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int read_storage_device</definition>
+        <argsstring>(const char *name, uint64_t start_block, uint32_t bytes, unsigned char *data)</argsstring>
+        <name>read_storage_device</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start_block</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Read blocks from storage device by name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of storage device registered by <ref refid="filesystem_8h_1a1c947f6ecb49c4c29193dbfb80f48913" kindref="member">register_storage_device()</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting block number </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read (should be modulus of block size) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to receive read data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="56" column="5" bodyfile="src/fs/filesystem.c" bodystart="56" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1af0bd536bc656fb56dab8eb32e721375b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int write_storage_device</definition>
+        <argsstring>(const char *name, uint64_t start_block, uint32_t bytes, const unsigned char *data)</argsstring>
+        <name>write_storage_device</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start_block</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Write blocks to storage device by name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of storage device registered by <ref refid="filesystem_8h_1a1c947f6ecb49c4c29193dbfb80f48913" kindref="member">register_storage_device()</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting block number </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write (should be modulus of block size) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to write </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="65" column="5" bodyfile="src/fs/filesystem.c" bodystart="65" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a9d19cdc5bd7a86142e5895b7ad40bdf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int alloc_filehandle</definition>
+        <argsstring>(fs_handle_type_t type, fs_directory_entry_t *file, uint32_t ibufsz, uint32_t obufsz)</argsstring>
+        <name>alloc_filehandle</name>
+        <param>
+          <type><ref refid="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3" kindref="member">fs_handle_type_t</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>ibufsz</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>obufsz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="77" column="5" bodyfile="src/fs/filesystem.c" bodystart="77" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a7caa89f3e74209fef454a3f1d1b28e50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t destroy_filehandle</definition>
+        <argsstring>(uint32_t descriptor)</argsstring>
+        <name>destroy_filehandle</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>descriptor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="129" column="10" bodyfile="src/fs/filesystem.c" bodystart="129" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1af29b0affdc800f4d78ab5e9c60a1726a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t* fs_create_file</definition>
+        <argsstring>(const char *pathandfile, size_t bytes)</argsstring>
+        <name>fs_create_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathandfile</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bytes</declname>
+        </param>
+        <briefdescription>
+<para>Create a new empty file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathandfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fully qualified path to new file to create </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size in bytes of file to create </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>fs_directory_entry_t* information on new file on success or NULL </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="158" column="22" bodyfile="src/fs/filesystem.c" bodystart="158" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ade4787d5728ce138b4f86eae5efe000b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t* fs_create_directory</definition>
+        <argsstring>(const char *pathandfile)</argsstring>
+        <name>fs_create_directory</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathandfile</declname>
+        </param>
+        <briefdescription>
+<para>Create a new empty directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathandfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fully qualified path to new directory to create </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size in bytes of directory to create </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>fs_directory_entry_t* information on new directory on success or NULL </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="250" column="22" bodyfile="src/fs/filesystem.c" bodystart="250" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a03545f9ce83d1f2fa1677d90b0f0dd4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mkdir</definition>
+        <argsstring>(const char *pathname, [[maybe_unused]] mode_t mode)</argsstring>
+        <name>mkdir</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathname</declname>
+        </param>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] <ref refid="filesystem_8h_1af456ddc19314d0bde5426f9027e96b05" kindref="member">mode_t</ref></type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="345" column="5" bodyfile="src/fs/filesystem.c" bodystart="345" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ab58b880337bae46decb3c6dd1ad1b285" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int _open</definition>
+        <argsstring>(const char *filename, int oflag)</argsstring>
+        <name>_open</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>oflag</declname>
+        </param>
+        <briefdescription>
+<para>POSIX style _open function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>opens a file for read or write access, or creates a new file.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filename to create (fully qualified name) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oflag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>open state for the file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero on success, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="352" column="5" bodyfile="src/fs/filesystem.c" bodystart="352" bodyend="420"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ac2803da508b40c2b16f69738038cec36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void flush_filehandle</definition>
+        <argsstring>([[maybe_unused]] uint32_t descriptor)</argsstring>
+        <name>flush_filehandle</name>
+        <param>
+          <attributes>[[maybe_unused]</attributes>
+          <type>] uint32_t</type>
+          <declname>descriptor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="423" column="6" bodyfile="src/fs/filesystem.c" bodystart="423" bodyend="426"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a9b1e0ee137e6d0bd155c9cb62520b55b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int _close</definition>
+        <argsstring>(uint32_t descriptor)</argsstring>
+        <name>_close</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>fd</declname>
+          <defname>descriptor</defname>
+        </param>
+        <briefdescription>
+<para>POSIX _close function, closes an open file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descriptor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero on success, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="429" column="5" bodyfile="src/fs/filesystem.c" bodystart="429" bodyend="443"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1adf120c47e575996fed5a8ebeff6d38c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long _lseek</definition>
+        <argsstring>(int fd, uint64_t offset, uint64_t origin)</argsstring>
+        <name>_lseek</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>origin</declname>
+        </param>
+        <briefdescription>
+<para>Seek to given position in a file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>offset + origin should be &lt;= current file size</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>offset from origin point </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>origin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>origin point in file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int64_t new file position </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="445" column="6" bodyfile="src/fs/filesystem.c" bodystart="445" bodyend="467"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a38ca3552bb9bdb4c6069381307431fc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t _tell</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>_tell</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+<para>Obtain current file position. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descriptor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int64_t position in file </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="469" column="9" bodyfile="src/fs/filesystem.c" bodystart="469" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a0fd47ee5cad0fcaf36712977a860833f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int _read</definition>
+        <argsstring>(int fd, void *buffer, unsigned int count)</argsstring>
+        <name>_read</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+<para>POSIX _read function, reads bytes from an open file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer to receive data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>count of bytes to read </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero on success, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="475" column="5" bodyfile="src/fs/filesystem.c" bodystart="475" bodyend="547"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ab7aad6d7661082e4aa5ec28badba8ca5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ftruncate</definition>
+        <argsstring>(int fd, uint32_t length)</argsstring>
+        <name>ftruncate</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Truncate a file to the new length. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>any data past the new length may not be recoverable.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descriptor of an open file </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New file length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero on success, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="549" column="5" bodyfile="src/fs/filesystem.c" bodystart="549" bodyend="577"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1af53712a23d902e214c27f686f016e8c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int _write</definition>
+        <argsstring>(int fd, void *buffer, unsigned int count)</argsstring>
+        <name>_write</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+<para>POSIX _write function, writes bytes to an open file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer containing data to write </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>count of bytes to write </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero on success, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="581" column="5" bodyfile="src/fs/filesystem.c" bodystart="581" bodyend="608"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1af06efedfd44e65f4272f81cfce654e0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int _eof</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>_eof</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+<para>POSIX _eof function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>reports if we have reached the end of file marker on any open file.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descriptor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero if not EOF, 1 if EOF, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="610" column="5" bodyfile="src/fs/filesystem.c" bodystart="610" bodyend="613"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a3bb89d5e7c726cafdd19f1901f9d024b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void retrieve_node_from_driver</definition>
+        <argsstring>(fs_tree_t *node)</argsstring>
+        <name>retrieve_node_from_driver</name>
+        <param>
+          <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="615" column="6" bodyfile="src/fs/filesystem.c" bodystart="615" bodyend="680"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a9c8fcbf2fc3f66aca573f60b664816fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+        <definition>fs_tree_t* walk_to_node_internal</definition>
+        <argsstring>(fs_tree_t *current_node, dirstack_t *dir_stack)</argsstring>
+        <name>walk_to_node_internal</name>
+        <param>
+          <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+          <declname>current_node</declname>
+        </param>
+        <param>
+          <type><ref refid="structdirstack__t" kindref="compound">dirstack_t</ref> *</type>
+          <declname>dir_stack</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="688" column="11" bodyfile="src/fs/filesystem.c" bodystart="688" bodyend="714"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1aa371639c2a027bca70b78613a138f971" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t* find_dir_in_dir</definition>
+        <argsstring>(fs_tree_t *directory, const char *filename)</argsstring>
+        <name>find_dir_in_dir</name>
+        <param>
+          <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+          <declname>directory</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="790" column="22" bodyfile="src/fs/filesystem.c" bodystart="790" bodyend="803"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ab6174ea1e5338a32b45778cb26b7ebc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fs_read_file</definition>
+        <argsstring>(fs_directory_entry_t *file, uint32_t start, uint32_t length, unsigned char *buffer)</argsstring>
+        <name>fs_read_file</name>
+        <param>
+          <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+<para>Read raw bytes from any arbitrary file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File to read from </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>starting byte position </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of data to read, starting at the starting position </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to receive read data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="807" column="5" bodyfile="src/fs/filesystem.c" bodystart="807" bodyend="815"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a3692a5983409c6e8f74cbe0c5c3435f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fs_truncate_file</definition>
+        <argsstring>(fs_directory_entry_t *file, uint32_t length)</argsstring>
+        <name>fs_truncate_file</name>
+        <param>
+          <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Truncate an existing file to new length. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Any data beyond the new length is discarded and may not be recoverable.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File to truncate </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New length, should be &lt;= current file size </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="827" column="5" bodyfile="src/fs/filesystem.c" bodystart="827" bodyend="835"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ab090be1194249e12ae9744c33e356470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void delete_tree_node</definition>
+        <argsstring>(fs_tree_t **head_ref, const char *name)</argsstring>
+        <name>delete_tree_node</name>
+        <param>
+          <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> **</type>
+          <declname>head_ref</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="837" column="6" bodyfile="src/fs/filesystem.c" bodystart="837" bodyend="863"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1af6f5acd434205e4b55b81421f4f4427b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void delete_file_node</definition>
+        <argsstring>(fs_directory_entry_t **head_ref, const char *name)</argsstring>
+        <name>delete_file_node</name>
+        <param>
+          <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> **</type>
+          <declname>head_ref</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="865" column="6" bodyfile="src/fs/filesystem.c" bodystart="865" bodyend="892"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1af54d35de43947f1e7e1a86eed9270a6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool fs_delete_file</definition>
+        <argsstring>(const char *pathandfile)</argsstring>
+        <name>fs_delete_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathandfile</declname>
+        </param>
+        <briefdescription>
+<para>Low level delete file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathandfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>path and filename </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if file was deleted </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="894" column="6" bodyfile="src/fs/filesystem.c" bodystart="894" bodyend="951"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1ae475207338a0787caf15949e45badfe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool fs_delete_directory</definition>
+        <argsstring>(const char *pathandfile)</argsstring>
+        <name>fs_delete_directory</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathandfile</declname>
+        </param>
+        <briefdescription>
+<para>Delete a directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathandfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fully qualified path to file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if directory was deleted </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="953" column="6" bodyfile="src/fs/filesystem.c" bodystart="953" bodyend="1014"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1af3cee068f32a919cdd638e0578c1e5f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int unlink</definition>
+        <argsstring>(const char *pathname)</argsstring>
+        <name>unlink</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathname</declname>
+        </param>
+        <briefdescription>
+<para>Delete a file (not a directory) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fully qualified pathname </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero on success, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1017" column="5" bodyfile="src/fs/filesystem.c" bodystart="1017" bodyend="1020"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a570282ae7ba596263ec812b368d99b34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rmdir</definition>
+        <argsstring>(const char *pathname)</argsstring>
+        <name>rmdir</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathname</declname>
+        </param>
+        <briefdescription>
+<para>Remove a directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fully qualified pathname </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int zero on success, -1 on error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1022" column="5" bodyfile="src/fs/filesystem.c" bodystart="1022" bodyend="1025"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a93b69bf53951ce16a8e648f238631696" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t* fs_get_file_info</definition>
+        <argsstring>(const char *pathandfile)</argsstring>
+        <name>fs_get_file_info</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathandfile</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve file information on any arbitrary filename. The item requested can be a file, or a directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathandfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to file or directory </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>fs_directory_entry_t* information on the file. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1027" column="22" bodyfile="src/fs/filesystem.c" bodystart="1027" bodyend="1067"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a603ea722512b12288aaddd6081501dcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int attach_filesystem</definition>
+        <argsstring>(const char *virtual_path, filesystem_t *fs, void *opaque)</argsstring>
+        <name>attach_filesystem</name>
+        <param>
+          <type>const char *</type>
+          <declname>virtual_path</declname>
+        </param>
+        <param>
+          <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
+          <declname>fs</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+        </param>
+        <briefdescription>
+<para>Attach a filesystem to a VFS directory. Do not use this function for end user features, use <ref refid="filesystem_8h_1a7277c11237470183b5d22fc977185169" kindref="member">filesystem_mount()</ref> instead. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The opaque data is optional and if included is driver-specific.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>virtual_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>virtual pathname in the VFS </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filesystem driver name </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opaque</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Opaque data used by the filesystem driver </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int nonzero on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1069" column="5" bodyfile="src/fs/filesystem.c" bodystart="1069" bodyend="1083"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a47cfa7087b707560af1b5a669dfc69b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_filesystem</definition>
+        <argsstring>()</argsstring>
+        <name>init_filesystem</name>
+        <briefdescription>
+<para>Initialise the filesystem This loads the DummyFS filesystem which manages the root directory until any other driver is loaded. DummyFS is a dummy and does nothing. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1085" column="6" bodyfile="src/fs/filesystem.c" bodystart="1085" bodyend="1118"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1aeea14dbba6f8453923e288ece85cf6df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t* fs_get_items</definition>
+        <argsstring>(const char *pathname)</argsstring>
+        <name>fs_get_items</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathname</declname>
+        </param>
+        <briefdescription>
+<para>Get a list of files in a directory. The directory path must be fully qualified from the root directory and must contain no trailing slash. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>fully qualified directory name </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>fs_directory_entry_t* linked list of items, or NULL if empty directory </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1120" column="22" bodyfile="src/fs/filesystem.c" bodystart="1120" bodyend="1124"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1aba196fffbbe3a92cf3d5d4c7372539ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool fs_is_directory</definition>
+        <argsstring>(const char *pathname)</argsstring>
+        <name>fs_is_directory</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathname</declname>
+        </param>
+        <briefdescription>
+<para>Returns true if the given path is a directory, false if it is a file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>full qualified vfs path </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true is a directory </para>
+</simplesect>
+<simplesect kind="return"><para>false is a file </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1126" column="6" bodyfile="src/fs/filesystem.c" bodystart="1126" bodyend="1130"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8c_1a7277c11237470183b5d22fc977185169" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int filesystem_mount</definition>
+        <argsstring>(const char *pathname, const char *device, const char *filesystem_driver)</argsstring>
+        <name>filesystem_mount</name>
+        <param>
+          <type>const char *</type>
+          <declname>pathname</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>device</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filesystem_driver</declname>
+        </param>
+        <briefdescription>
+<para>High level mount function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pathname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VFS path to mount device/driver to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>block device name </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filesystem_driver</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>filesystem driver name </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int 1 for success, 0 for failure </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/filesystem.c" line="1132" column="5" bodyfile="src/fs/filesystem.c" bodystart="1132" bodyend="1147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/fs/filesystem.c"/>
+  </compounddef>
+</doxygen>

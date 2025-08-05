@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrfs__directory__entry__inner__t" kind="struct" language="C++" prot="public">
+    <compoundname>rfs_directory_entry_inner_t</compoundname>
+    <includes local="no">retrofs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1a3d6eb6a55e75926d8fdd7427f0454f43" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rfs_directory_entry_inner_t::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="56" column="10" bodyfile="include/retrofs.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1a69a51eb16f7ce05228c9de72537e2682" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rfs_directory_entry_inner_t::filename[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="57" column="6" bodyfile="include/retrofs.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1acdff45c7758c8c7890ee46d1671c4607" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_directory_entry_inner_t::sector_start</definition>
+        <argsstring></argsstring>
+        <name>sector_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="58" column="10" bodyfile="include/retrofs.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1a143e4086d9b57e71906b83bc74db243b" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_directory_entry_inner_t::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="59" column="10" bodyfile="include/retrofs.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1a6404b300f8fd48c1e6ccd83468d71bd7" prot="public" static="no" mutable="no">
+        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <definition>time_t rfs_directory_entry_inner_t::created</definition>
+        <argsstring></argsstring>
+        <name>created</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="60" column="8" bodyfile="include/retrofs.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1a1d947f038814c4df91a4f9e5234ab226" prot="public" static="no" mutable="no">
+        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <definition>time_t rfs_directory_entry_inner_t::modified</definition>
+        <argsstring></argsstring>
+        <name>modified</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="61" column="8" bodyfile="include/retrofs.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1a36e5d24054a98a1f773678d796646dba" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_directory_entry_inner_t::sequence</definition>
+        <argsstring></argsstring>
+        <name>sequence</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="62" column="10" bodyfile="include/retrofs.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrfs__directory__entry__inner__t_1a2c7e8adf8d2714ab2be2768f8a871c56" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char rfs_directory_entry_inner_t::reserved[]</definition>
+        <argsstring>[]</argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="63" column="6" bodyfile="include/retrofs.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+      <node id="4">
+        <label>uint32_t</label>
+      </node>
+      <node id="1">
+        <label>rfs_directory_entry_inner_t</label>
+        <link refid="structrfs__directory__entry__inner__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>created</edgelabel>
+          <edgelabel>length</edgelabel>
+          <edgelabel>modified</edgelabel>
+          <edgelabel>sector_start</edgelabel>
+          <edgelabel>sequence</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>filename</edgelabel>
+          <edgelabel>reserved</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>flags</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/retrofs.h" line="55" column="1" bodyfile="include/retrofs.h" bodystart="55" bodyend="64"/>
+    <listofallmembers>
+      <member refid="structrfs__directory__entry__inner__t_1a6404b300f8fd48c1e6ccd83468d71bd7" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>created</name></member>
+      <member refid="structrfs__directory__entry__inner__t_1a69a51eb16f7ce05228c9de72537e2682" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>filename</name></member>
+      <member refid="structrfs__directory__entry__inner__t_1a3d6eb6a55e75926d8fdd7427f0454f43" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>flags</name></member>
+      <member refid="structrfs__directory__entry__inner__t_1a143e4086d9b57e71906b83bc74db243b" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>length</name></member>
+      <member refid="structrfs__directory__entry__inner__t_1a1d947f038814c4df91a4f9e5234ab226" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>modified</name></member>
+      <member refid="structrfs__directory__entry__inner__t_1a2c7e8adf8d2714ab2be2768f8a871c56" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>reserved</name></member>
+      <member refid="structrfs__directory__entry__inner__t_1acdff45c7758c8c7890ee46d1671c4607" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>sector_start</name></member>
+      <member refid="structrfs__directory__entry__inner__t_1a36e5d24054a98a1f773678d796646dba" prot="public" virt="non-virtual"><scope>rfs_directory_entry_inner_t</scope><name>sequence</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

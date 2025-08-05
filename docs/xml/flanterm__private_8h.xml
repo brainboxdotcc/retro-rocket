@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="flanterm__private_8h" kind="file" language="C++">
+    <compoundname>flanterm_private.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <incdepgraph>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="1">
+        <label>flanterm_private.h</label>
+        <link refid="flanterm__private_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stddef.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structflanterm__context" prot="public">flanterm_context</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="flanterm__private_8h_1a2fa7cc6b280b94f444a11d79de3d62f9" prot="public" static="no">
+        <name>FLANTERM_MAX_ESC_VALUES</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="41" column="9" bodyfile="include/flanterm_private.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="flanterm__private_8h_1a3eaeaf06304cc0a1736fdc36da5dde70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void flanterm_context_reinit</definition>
+        <argsstring>(struct flanterm_context *ctx)</argsstring>
+        <name>flanterm_context_reinit</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/flanterm_private.h" line="116" column="6" bodyfile="src/flanterm.c" bodystart="79" bodyend="109" declfile="include/flanterm_private.h" declline="116" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/flanterm_private.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,28 @@
+var idt_8c =
+[
+    [ "FIRST_MSI_VECTOR", "idt_8c.html#ae2cb32912a0dad9683fdd07f3288c733", null ],
+    [ "ICW1_ICW4", "idt_8c.html#a964d12193d2b36e8a7ec7fa57438e313", null ],
+    [ "ICW1_INIT", "idt_8c.html#a286dc251f3d73c08e08a53a4696f31ef", null ],
+    [ "ICW4_8086", "idt_8c.html#a42803c5ddcec9e120a6dbf7bc5c1b7af", null ],
+    [ "MSI_RESERVED_MASK", "idt_8c.html#a00088b2d7f9e171802c966750909e6f6", null ],
+    [ "MSI_VECTORS", "idt_8c.html#a3411d302a8565dc77c69a39fa06785c7", null ],
+    [ "MSI_WORDS", "idt_8c.html#a7ce112d10224ac09bee291b79d867d89", null ],
+    [ "PIC1", "idt_8c.html#a6b115109e4a0d3c5fb6252d091e86bfe", null ],
+    [ "PIC1_COMMAND", "idt_8c.html#ad1ba81484ab03e762d2e09f851c0901f", null ],
+    [ "PIC1_DATA", "idt_8c.html#af27e966ec947ca1172f30ae301c5f24b", null ],
+    [ "PIC2", "idt_8c.html#ac90003f52c8d736193efc954ece08e58", null ],
+    [ "PIC2_COMMAND", "idt_8c.html#a11d8793812c9d340e9a64cce26ee0570", null ],
+    [ "PIC2_DATA", "idt_8c.html#ab6d3b9f6f427357310896adf176145f1", null ],
+    [ "PIC_EOI", "idt_8c.html#a170d8eebdb48c16cfcd60cbd46760cb2", null ],
+    [ "__attribute__", "idt_8c.html#aa97e24fea4daabae6b4e5d534ac8066d", null ],
+    [ "alloc_msi_vector", "idt_8c.html#a999453d510cd4178931cf51d7ba0ec2f", null ],
+    [ "free_msi_vector", "idt_8c.html#a3567555043c64e8065fbe9f47d0dd894", null ],
+    [ "init_idt", "idt_8c.html#a35fe413107af682030ab7a4b6dff19b8", null ],
+    [ "io_wait", "idt_8c.html#a6024a6afd45d551f30762531766a185a", null ],
+    [ "load_ap_shared_idt", "idt_8c.html#a65a15cc23a7bd19af939b9ff5b7bd2ad", null ],
+    [ "pic_disable", "idt_8c.html#a617b42efbd15ef9c6d4e7b467c59317e", null ],
+    [ "pic_enable", "idt_8c.html#acec4df702487e44b82b31748a089ad9c", null ],
+    [ "pic_eoi", "idt_8c.html#ac58b11f9cfbfe9217a7e9a256f6a1038", null ],
+    [ "pic_remap", "idt_8c.html#af3dcd40ab20d43c39d9c85774f4d5e7c", null ],
+    [ "msi_bitmap", "idt_8c.html#a662d60372c27399d687c8f80f33a99c4", null ]
+];

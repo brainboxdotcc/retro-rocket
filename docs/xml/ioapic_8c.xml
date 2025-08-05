@@ -1,0 +1,961 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ioapic_8c" kind="file" language="C++">
+    <compoundname>ioapic.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="ioapic_8h" local="no">ioapic.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="1">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ioapic_8c_1a96579b6c58796ee56292cdabbda5a6c8" prot="public" static="no">
+        <name>IOAPIC_INT_UNMASK</name>
+        <initializer>(1 &lt;&lt; 16)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="4" column="9" bodyfile="src/ioapic.c" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ioapic_8c_1a3f288a522da2b7ab11ef391165f5703e" prot="public" static="no">
+        <name>GSI_OFFSET</name>
+        <param><defname>ioapic</defname></param>
+        <param><defname>gsi</defname></param>
+        <initializer>(0x10 + ((gsi - ioapic-&gt;gsi_base) * 2))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="7" column="9" bodyfile="src/ioapic.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ioapic_8c_1a5a98632dab46b7e872b333a23fbd465c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_register_write</definition>
+        <argsstring>(uint32_t index, uint32_t value, ioapic_t *ioapic)</argsstring>
+        <name>ioapic_register_write</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref> *</type>
+          <declname>ioapic</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="9" column="6" bodyfile="src/ioapic.c" bodystart="9" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1ab811cfad3abd61d3882ef8a5703f80bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t ioapic_register_read</definition>
+        <argsstring>(uint32_t index, ioapic_t *ioapic)</argsstring>
+        <name>ioapic_register_read</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref> *</type>
+          <declname>ioapic</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="18" column="10" bodyfile="src/ioapic.c" bodystart="18" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1ac32195be2cddd33592f818a35b28d90d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref> *</type>
+        <definition>ioapic_t* ioapic_find</definition>
+        <argsstring>(uint32_t gsi)</argsstring>
+        <name>ioapic_find</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>gsi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="28" column="10" bodyfile="src/ioapic.c" bodystart="28" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1a7fb74de836c943b6f593423b61f78de7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_write_gsi</definition>
+        <argsstring>(ioapic_t *ioapic, uint32_t gsi, uint32_t lower, uint32_t upper)</argsstring>
+        <name>ioapic_write_gsi</name>
+        <param>
+          <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref> *</type>
+          <declname>ioapic</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>gsi</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>upper</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="46" column="6" bodyfile="src/ioapic.c" bodystart="46" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1a28b79405710e00a55668e2422c682892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_read_gsi</definition>
+        <argsstring>(ioapic_t *ioapic, uint32_t gsi, uint32_t *lower, uint32_t *upper)</argsstring>
+        <name>ioapic_read_gsi</name>
+        <param>
+          <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref> *</type>
+          <declname>ioapic</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>gsi</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>upper</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="52" column="6" bodyfile="src/ioapic.c" bodystart="52" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1a44976865e18e91ad0c952b4e88d74e76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_mask_set</definition>
+        <argsstring>(uint32_t gsi, bool masked)</argsstring>
+        <name>ioapic_mask_set</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>gsi</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>masked</declname>
+        </param>
+        <briefdescription>
+<para>Set or clear the mask bit for a redirection entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gsi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global System Interrupt number to update. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>masked</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True to mask (disable), false to unmask (enable). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="58" column="6" bodyfile="src/ioapic.c" bodystart="58" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1a3574e36c20cd71e8e68e0ca15ea1b426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_redir_set_precalculated</definition>
+        <argsstring>(uint32_t gsi, uint32_t upper, uint32_t lower)</argsstring>
+        <name>ioapic_redir_set_precalculated</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>gsi</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>upper</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>lower</declname>
+        </param>
+        <briefdescription>
+<para>Write a redirection entry using pre‑calculated 64‑bit values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gsi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global System Interrupt number to set. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upper</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper 32 bits of the redirection entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bits of the redirection entry. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="72" column="6" bodyfile="src/ioapic.c" bodystart="72" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1a3af04f015bde166dc22bbbdb591e77a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_redir_set</definition>
+        <argsstring>(uint32_t irq, uint32_t vector, uint32_t del_mode, uint32_t dest_mode, uint32_t intpol, uint32_t trigger_mode, uint32_t mask)</argsstring>
+        <name>ioapic_redir_set</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>irq</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>del_mode</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>dest_mode</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>intpol</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>trigger_mode</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>mask</declname>
+        </param>
+        <briefdescription>
+<para>Configure a redirection entry in the I/O APIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>irq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The IRQ line to configure (relative to the IOAPIC). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The interrupt vector to deliver to the CPU. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>del_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delivery mode (e.g. fixed, lowest priority, NMI). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dest_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination mode (physical or logical). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>intpol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt polarity (active high or low). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>trigger_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trigger mode (edge or level triggered). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to mask (disable) this interrupt line. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="81" column="6" bodyfile="src/ioapic.c" bodystart="81" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1a5c004d39dec23c06b0a3d56049174045" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_redir_unmask</definition>
+        <argsstring>(uint32_t gsi)</argsstring>
+        <name>ioapic_redir_unmask</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>gsi</declname>
+        </param>
+        <briefdescription>
+<para>Unmask (enable) a redirection entry for a given GSI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gsi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Global System Interrupt number to unmask. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="97" column="6" bodyfile="src/ioapic.c" bodystart="97" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="ioapic_8c_1ac9c076ac827e229f57617389706f1e72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ioapic_redir_get</definition>
+        <argsstring>(uint32_t gsi, uint32_t *vector, uint32_t *del_mode, uint32_t *dest_mode, uint32_t *intpol, uint32_t *trigger_mode, uint32_t *mask, uint32_t *destination)</argsstring>
+        <name>ioapic_redir_get</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>gsi</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>del_mode</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>dest_mode</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>intpol</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>trigger_mode</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>mask</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Read a redirection entry from the I/O APIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gsi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global System Interrupt number to query. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: interrupt vector. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>del_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: delivery mode. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dest_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: destination mode. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>intpol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: polarity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>trigger_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: trigger mode. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: mask state. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: APIC ID of the destination CPU. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ioapic.c" line="109" column="6" bodyfile="src/ioapic.c" bodystart="109" bodyend="123"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ioapic.c"/>
+  </compounddef>
+</doxygen>

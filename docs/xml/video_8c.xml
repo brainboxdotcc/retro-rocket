@@ -1,0 +1,1606 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="video_8c" kind="file" language="C++">
+    <compoundname>video.c</compoundname>
+    <includes refid="kernel_8h" local="no">kernel.h</includes>
+    <includes refid="flanterm_8h" local="no">flanterm.h</includes>
+    <includes refid="fb_8h" local="no">flanterm/fb.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>ata.h</label>
+        <link refid="ata_8h"/>
+      </node>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+      </node>
+      <node id="35">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="47">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>buddy_allocator.h</label>
+        <link refid="buddy__allocator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rwlock.h</label>
+        <link refid="rwlock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>spinlock.h</label>
+        <link refid="spinlock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>idt.h</label>
+        <link refid="idt_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="59">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>basic_tokenizer.h</label>
+        <link refid="basic__tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>stdlib.h</label>
+        <link refid="stdlib_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>x86intrin.h</label>
+      </node>
+      <node id="1">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>ioapic.h</label>
+        <link refid="ioapic_8h"/>
+      </node>
+      <node id="5">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="41">
+        <label>keyboard.h</label>
+        <link refid="keyboard_8h"/>
+      </node>
+      <node id="63">
+        <label>flanterm.h</label>
+        <link refid="flanterm_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="15">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>limine.h</label>
+      </node>
+      <node id="42">
+        <label>input.h</label>
+        <link refid="input_8h"/>
+      </node>
+      <node id="60">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>video.h</label>
+        <link refid="video_8h"/>
+      </node>
+      <node id="55">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>filesystem.h</label>
+        <link refid="filesystem_8h"/>
+      </node>
+      <node id="27">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+      </node>
+      <node id="64">
+        <label>flanterm/fb.h</label>
+        <link refid="fb_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>errorhandler.h</label>
+        <link refid="errorhandler_8h"/>
+      </node>
+      <node id="53">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>debugger.h</label>
+        <link refid="debugger_8h"/>
+      </node>
+      <node id="30">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>kmalloc.h</label>
+        <link refid="kmalloc_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>apic.h</label>
+        <link refid="apic_8h"/>
+      </node>
+      <node id="19">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="video_8c_1a45f0e634b526ce7d7df724718489acba" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_x</definition>
+        <argsstring></argsstring>
+        <name>screen_x</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="5" column="16" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ad17da898872a8d4701fd0968e87eba3f" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_y</definition>
+        <argsstring></argsstring>
+        <name>screen_y</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="5" column="26" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ac419833e94c23bb3dc6ef119c47e6343" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t current_x</definition>
+        <argsstring></argsstring>
+        <name>current_x</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="5" column="36" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a20b062c3b15831611a0e308295ef7c78" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t current_y</definition>
+        <argsstring></argsstring>
+        <name>current_y</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="5" column="47" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ab92ca314246f5cfa9a0846f8eb617ce7" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_graphics_x</definition>
+        <argsstring></argsstring>
+        <name>screen_graphics_x</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="5" column="58" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1aaf390b444a1c509e99f44f3490531d53" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_graphics_y</definition>
+        <argsstring></argsstring>
+        <name>screen_graphics_y</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="5" column="77" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a74f18c27b1c5452f409c1b412e419eb5" prot="public" static="yes" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t screen_graphics_stride</definition>
+        <argsstring></argsstring>
+        <name>screen_graphics_stride</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="5" column="96" bodyfile="src/video.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ae6180d097a7770f1d530c732d3524589" prot="public" static="yes" mutable="no">
+        <type><ref refid="structconsole" kindref="compound">console</ref></type>
+        <definition>console first_console</definition>
+        <argsstring></argsstring>
+        <name>first_console</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="6" column="16" bodyfile="src/video.c" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a374c3cd727ba7a5cd980ce6078d2a363" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool wait_state</definition>
+        <argsstring></argsstring>
+        <name>wait_state</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="7" column="6" bodyfile="src/video.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1aa7bf368802400f86b026d4b2ffe95cc1" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool video_flip_is_auto</definition>
+        <argsstring></argsstring>
+        <name>video_flip_is_auto</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="8" column="6" bodyfile="src/video.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a546775547cb62a8bfd7e7dc3e2e90cfe" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool video_dirty</definition>
+        <argsstring></argsstring>
+        <name>video_dirty</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="9" column="6" bodyfile="src/video.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a16b0144065496a8f5888160c13a15a28" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t video_dirty_start</definition>
+        <argsstring></argsstring>
+        <name>video_dirty_start</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="10" column="9" bodyfile="src/video.c" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a4fe611870aaec24ce47b87be4f4f59f8" prot="public" static="no" mutable="no">
+        <type>int64_t</type>
+        <definition>int64_t video_dirty_end</definition>
+        <argsstring></argsstring>
+        <name>video_dirty_end</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="11" column="9" bodyfile="src/video.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a43d9b652336a0df72765cc74cb497381" prot="public" static="no" mutable="no">
+        <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+        <definition>console* current_console</definition>
+        <argsstring></argsstring>
+        <name>current_console</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>Pointer to the currently active console. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="12" column="9" bodyfile="src/video.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a7cc86a350b7cea2495895820492eae11" prot="public" static="no" mutable="no">
+        <type>struct limine_module_request</type>
+        <definition>volatile struct limine_module_request module_request</definition>
+        <argsstring></argsstring>
+        <name>module_request</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="12" column="9" bodyfile="src/debugger.c" bodystart="7" bodyend="-1" declfile="src/video.c" declline="12" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1af4cd2863ab76bfaf5ff461d7245aa4ca" prot="public" static="no" mutable="no">
+        <type>struct limine_framebuffer_request</type>
+        <definition>volatile struct limine_framebuffer_request framebuffer_request</definition>
+        <argsstring></argsstring>
+        <name>framebuffer_request</name>
+        <initializer>= {
+	.<ref refid="dns_8c_1a4fc3a0c58dfbd1e68224521185cb9384" kindref="member">id</ref> = LIMINE_FRAMEBUFFER_REQUEST,
+	.<ref refid="acpi_8h_1ab01c6e281b316b1770d5646f3d3101c4" kindref="member">revision</ref> = 0,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="12" column="9" bodyfile="src/video.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a774df04d3d1a13dd5ac6ad6ac20f4ea9" prot="public" static="yes" mutable="no">
+        <type>void *</type>
+        <definition>void* rr_fb_front</definition>
+        <argsstring></argsstring>
+        <name>rr_fb_front</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="21" column="13" bodyfile="src/video.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1aaab264f4e83f3107706a3082266a134f" prot="public" static="yes" mutable="no">
+        <type>void *</type>
+        <definition>void* rr_fb_back</definition>
+        <argsstring></argsstring>
+        <name>rr_fb_back</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="22" column="13" bodyfile="src/video.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1ae3850b137c752a1203676a6ea021f5e1" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rr_fb_pitch</definition>
+        <argsstring></argsstring>
+        <name>rr_fb_pitch</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="23" column="17" bodyfile="src/video.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a4c25c9ea265fac6c31846c92f9a2bfc0" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rr_fb_height</definition>
+        <argsstring></argsstring>
+        <name>rr_fb_height</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="24" column="17" bodyfile="src/video.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a5ca4f76369e3c31fa6d1c55c1f2220fd" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rr_fb_bytes</definition>
+        <argsstring></argsstring>
+        <name>rr_fb_bytes</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="25" column="17" bodyfile="src/video.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1aa22f4d4e923fea1858cc0e731400a0c8" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+        <definition>struct flanterm_context* ft_ctx</definition>
+        <argsstring></argsstring>
+        <name>ft_ctx</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="27" column="23" bodyfile="src/video.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a9aa640196313bea082db80a500d3c60b" prot="public" static="no" mutable="no">
+        <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
+        <definition>spinlock_t console_spinlock</definition>
+        <argsstring></argsstring>
+        <name>console_spinlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="29" column="19" bodyfile="src/init.c" bodystart="5" bodyend="-1" declfile="src/video.c" declline="29" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="variable" id="video_8c_1a7501930571e1c3d6c924d8d21ba788a8" prot="public" static="no" mutable="no">
+        <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
+        <definition>spinlock_t debug_console_spinlock</definition>
+        <argsstring></argsstring>
+        <name>debug_console_spinlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="30" column="19" bodyfile="src/init.c" bodystart="6" bodyend="-1" declfile="src/video.c" declline="30" declcolumn="19"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="video_8c_1a5b6213693f537c2caf60535c24a68755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr_console_init_from_limine</definition>
+        <argsstring>(void)</argsstring>
+        <name>rr_console_init_from_limine</name>
+        <briefdescription>
+<para>Initialise framebuffer backbuffer from Limine response. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocates a backbuffer equal in size to the primary framebuffer. Must be called before drawing or flipping. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="32" column="6" bodyfile="src/video.c" bodystart="32" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1aa712e88bef297396764bb1a9b810d072" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t framebuffer_address</definition>
+        <argsstring>()</argsstring>
+        <name>framebuffer_address</name>
+        <briefdescription>
+<para>Get the base address of the backbuffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>64-bit physical address of the framebuffer backbuffer. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="44" column="17" bodyfile="src/video.c" bodystart="44" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a50db84ae45ebaba89b42e155676a8bcb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t pixel_address</definition>
+        <argsstring>(int64_t x, int64_t y)</argsstring>
+        <name>pixel_address</name>
+        <param>
+          <type>int64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Calculate pixel offset in framebuffer from coordinates. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pixel X coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pixel Y coordinate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Byte offset into framebuffer; 0 if out of bounds. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="49" column="17" bodyfile="src/video.c" bodystart="49" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1ac016b9fcd07b7c15004752ce172708f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_text_width</definition>
+        <argsstring>()</argsstring>
+        <name>get_text_width</name>
+        <briefdescription>
+<para>Get the console width in text cells (columns). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Width in characters. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="60" column="10" bodyfile="src/video.c" bodystart="60" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a849430deb40da15a4a934f2fee6d87a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_text_height</definition>
+        <argsstring>()</argsstring>
+        <name>get_text_height</name>
+        <briefdescription>
+<para>Get the console height in text cells (rows). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Height in characters. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="65" column="10" bodyfile="src/video.c" bodystart="65" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a14d5e2649778cc0c303071f3c252f43e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ft_write</definition>
+        <argsstring>(struct flanterm_context *ctx, const char *buf, size_t count)</argsstring>
+        <name>ft_write</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="70" column="6" bodyfile="src/video.c" bodystart="70" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a968357d3a0e76c8dcc4a8dabb47e034e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void screenonly</definition>
+        <argsstring>(console *c, const char *s)</argsstring>
+        <name>screenonly</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="78" column="6" bodyfile="src/video.c" bodystart="78" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a9fc73a5f42358dfc5528cecf943aebb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_text_position</definition>
+        <argsstring>(uint64_t *x, uint64_t *y)</argsstring>
+        <name>get_text_position</name>
+        <param>
+          <type>uint64_t *</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Query the current cursor position. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Issues an ANSI position request to the terminal backend. Blocks until a response is received.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store current column. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store current row. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="83" column="6" bodyfile="src/video.c" bodystart="83" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a77f6a7e382b6192d7829bac2f459168e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gotoxy</definition>
+        <argsstring>(uint64_t x, uint64_t y)</argsstring>
+        <name>gotoxy</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Move the cursor to a specific (x,y) cell. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column position. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row position. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="92" column="6" bodyfile="src/video.c" bodystart="92" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1aa8c0a74e65d6a428468b771eda6f4ddf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void putpixel</definition>
+        <argsstring>(int64_t x, int64_t y, uint32_t rgb)</argsstring>
+        <name>putpixel</name>
+        <param>
+          <type>int64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>rgb</declname>
+        </param>
+        <briefdescription>
+<para>Draw a pixel to the backbuffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pixel X coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pixel Y coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rgb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit RGB value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="105" column="6" bodyfile="src/video.c" bodystart="105" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1aa5401ca0e1f952a097a2976b8f652ec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t getpixel</definition>
+        <argsstring>(int64_t x, int64_t y)</argsstring>
+        <name>getpixel</name>
+        <param>
+          <type>int64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Read a pixel from the backbuffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pixel X coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pixel Y coordinate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>32-bit RGB value at the given position. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="112" column="10" bodyfile="src/video.c" bodystart="112" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a89b876ad8ed8fcb7e9ce6f6dd7518512" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void clearscreen</definition>
+        <argsstring>(console *c)</argsstring>
+        <name>clearscreen</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Clear the screen and reset cursor to (0,0). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target console. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="118" column="6" bodyfile="src/video.c" bodystart="118" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a10de4e9cb74656845ee2808d17f3e9b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dput</definition>
+        <argsstring>(const char n)</argsstring>
+        <name>dput</name>
+        <param>
+          <type>const char</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Write a single character directly to the debug port (0xE9). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Character to output. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="125" column="6" bodyfile="src/video.c" bodystart="125" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a6aa3e180e6074ca3376aae3fe2521967" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void put</definition>
+        <argsstring>(console *c, const char n)</argsstring>
+        <name>put</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const char</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Write a single character to the console. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Cursor is advanced after output, and the screen may scroll.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target console. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Character to display. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="133" column="6" bodyfile="src/video.c" bodystart="133" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a1d4ff70fd24e5e51101991bc73fbe02e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void dputstring</definition>
+        <argsstring>(const char *message)</argsstring>
+        <name>dputstring</name>
+        <param>
+          <type>const char *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Write a string to the debug port (0xE9) only. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String to output. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="139" column="6" bodyfile="src/video.c" bodystart="139" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a998a88c58c530407ae8b304a306b74fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void putstring</definition>
+        <argsstring>(console *c, const char *message)</argsstring>
+        <name>putstring</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Write a null-terminated string to the console. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Text begins at the current cursor location. Cursor is updated afterwards, and scrolling occurs if needed.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target console. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String to display. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="155" column="6" bodyfile="src/video.c" bodystart="155" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a1e0f8bca5c0b8bd1a501f75368be0e41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void terminal_callback</definition>
+        <argsstring>(struct flanterm_context *ctx, uint64_t type, uint64_t x, uint64_t y, uint64_t z)</argsstring>
+        <name>terminal_callback</name>
+        <param>
+          <type>struct <ref refid="structflanterm__context" kindref="compound">flanterm_context</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="161" column="6" bodyfile="src/video.c" bodystart="161" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1ab9c32270380ee4550fa848647b745f39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_console</definition>
+        <argsstring>()</argsstring>
+        <name>init_console</name>
+        <briefdescription>
+<para>Initialise the primary console and framebuffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Called during kernel startup. Detects the framebuffer via Limine, initialises Flanterm, loads a font module (if present), and prepares the first console for output. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="175" column="6" bodyfile="src/video.c" bodystart="175" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a2df69cac6f9d6324e3c872532ee4088d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t screen_get_width</definition>
+        <argsstring>()</argsstring>
+        <name>screen_get_width</name>
+        <briefdescription>
+<para>Get the framebuffer width in pixels. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Screen width in pixels. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="245" column="9" bodyfile="src/video.c" bodystart="245" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1aead8dda978d0b4180262e4091be3d4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t screen_get_height</definition>
+        <argsstring>()</argsstring>
+        <name>screen_get_height</name>
+        <briefdescription>
+<para>Get the framebuffer height in pixels. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Screen height in pixels. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="250" column="9" bodyfile="src/video.c" bodystart="250" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a13d5e4c33f3752b877f4ea571bd85ed1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char map_vga_to_ansi</definition>
+        <argsstring>(unsigned char colour)</argsstring>
+        <name>map_vga_to_ansi</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="286" column="15" bodyfile="src/video.c" bodystart="286" bodyend="322"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a3a4f10379412dfac7b7326c608b0ba1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setbackground</definition>
+        <argsstring>(console *c, unsigned char background)</argsstring>
+        <name>setbackground</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>background</declname>
+        </param>
+        <briefdescription>
+<para>Set the background colour for subsequent text. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target console. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>background</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VGA colour index (0–15). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="324" column="6" bodyfile="src/video.c" bodystart="324" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a9eb30d97afe44a6d0a2063f701c13ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setforeground</definition>
+        <argsstring>(console *c, unsigned char foreground)</argsstring>
+        <name>setforeground</name>
+        <param>
+          <type><ref refid="structconsole" kindref="compound">console</ref> *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>foreground</declname>
+        </param>
+        <briefdescription>
+<para>Set the foreground (text) colour for subsequent output. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target console. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>foreground</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VGA colour index (0–15). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="336" column="6" bodyfile="src/video.c" bodystart="336" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a7b94ff9b6be3b686d6f060b060722902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool video_flip_auto</definition>
+        <argsstring>(void)</argsstring>
+        <name>video_flip_auto</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Query whether auto-flip mode is enabled. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if auto-flip is active, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="348" column="6" bodyfile="src/video.c" bodystart="348" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1ae9b6b12d0a2f6561f268660987f9ad66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void set_video_auto_flip</definition>
+        <argsstring>(bool flip)</argsstring>
+        <name>set_video_auto_flip</name>
+        <param>
+          <type>bool</type>
+          <declname>flip</declname>
+        </param>
+        <briefdescription>
+<para>Enable or disable auto-flip mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>flip</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true to enable, false to disable. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="352" column="6" bodyfile="src/video.c" bodystart="352" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1a6b5bc99f337a44e893732a08f1d734f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr_flip</definition>
+        <argsstring>(void)</argsstring>
+        <name>rr_flip</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Copy backbuffer to the frontbuffer if dirty. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If auto-flip is enabled, this occurs automatically after writes. Otherwise, call <ref refid="video_8h_1a6b5bc99f337a44e893732a08f1d734f6" kindref="member">rr_flip()</ref> manually to refresh the display. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="357" column="6" bodyfile="src/video.c" bodystart="357" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="video_8c_1ae061019f3a09b999de9296c92cddd74a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void set_video_dirty_area</definition>
+        <argsstring>(int64_t start, int64_t end)</argsstring>
+        <name>set_video_dirty_area</name>
+        <param>
+          <type>int64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/video.c" line="373" column="6" bodyfile="src/video.c" bodystart="373" bodyend="383"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/video.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrfs__free__space__map__part__t" kind="struct" language="C++" prot="public">
+    <compoundname>rfs_free_space_map_part_t</compoundname>
+    <includes local="no">retrofs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrfs__free__space__map__part__t_1a11ba7239ec1ff73bce3e9741c002cd8d" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_free_space_map_part_t::bits[(512/sizeof(uint64_t))]</definition>
+        <argsstring>[(512/sizeof(uint64_t))]</argsstring>
+        <name>bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="52" column="10" bodyfile="include/retrofs.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>rfs_free_space_map_part_t</label>
+        <link refid="structrfs__free__space__map__part__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>bits</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>uint64_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/retrofs.h" line="51" column="1" bodyfile="include/retrofs.h" bodystart="51" bodyend="53"/>
+    <listofallmembers>
+      <member refid="structrfs__free__space__map__part__t_1a11ba7239ec1ff73bce3e9741c002cd8d" prot="public" virt="non-virtual"><scope>rfs_free_space_map_part_t</scope><name>bits</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
