@@ -212,3 +212,52 @@ char *buddy_strdup(buddy_allocator_t *alloc, const char *s) {
 	memcpy(copy, s, len);
 	return copy;
 }
+
+void *buddy_realloc(buddy_allocator_t *alloc, void *ptr, size_t size) {
+	if (!ptr) {
+		// realloc(NULL, size): malloc
+		return buddy_malloc(alloc, size);
+	}
+	if (size == 0) {
+		// realloc(ptr, 0): free
+		buddy_free(alloc, ptr);
+		return NULL;
+	}
+
+	// Find old size from header
+	buddy_header_t *header = (buddy_header_t *)ptr - 1;
+	int old_order = header->order;
+	size_t old_total = order_size(old_order);
+	size_t old_payload = old_total - sizeof(buddy_header_t);
+
+	// Required order for new size
+	int new_order = size_to_order(header->region, size + sizeof(buddy_header_t));
+
+	if (new_order == old_order) {
+		// Same block size: no change
+		return ptr;
+	} else if (new_order < old_order) {
+		// Shrinking: split block and free remainder
+		header->order = new_order;
+		// Carve off the extra as a buddy block
+		int cur = old_order;
+		// repeatedly split until the leftover is the right order
+		while (cur > new_order) {
+			cur--;
+			buddy_block_t *buddy = (buddy_block_t *)((uint8_t *)header + order_size(cur));
+			buddy->next = header->region->free_lists[cur];
+			header->region->free_lists[cur] = buddy;
+		}
+
+		return ptr;
+	} else {
+		// Growing: allocate + copy + free
+		void *new_ptr = buddy_malloc(alloc, size);
+		if (!new_ptr) {
+			return NULL; // OOM
+		}
+		memcpy(new_ptr, ptr, old_payload);
+		buddy_free(alloc, ptr);
+		return new_ptr;
+	}
+}

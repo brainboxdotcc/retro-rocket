@@ -222,7 +222,7 @@ bool basic_redim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 			if ((uint64_t)size == cur->itemcount) {
 				return true;
 			}
-			cur->values = krealloc(cur->values, sizeof(int64_t) * size);
+			cur->values = buddy_realloc(ctx->allocator, cur->values, sizeof(int64_t) * size);
 			if ((uint64_t)size > cur->itemcount) {
 				/* If array is being expanded, zero the new entries */
 				for (int64_t i = cur->itemcount; i < size; ++i) {
@@ -255,7 +255,7 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
 					buddy_free(ctx->allocator, cur->values[x]);
 				}
 			}
-			cur->values = krealloc(cur->values, sizeof(char*) * size);
+			cur->values = buddy_realloc(ctx->allocator, cur->values, sizeof(char*) * size);
 			if ((uint64_t)size > cur->itemcount) {
 				/* If array is being expanded, zero the new entries */
 				for (int64_t i = cur->itemcount; i < size; ++i) {
@@ -282,7 +282,7 @@ bool basic_redim_double_array(const char* var, int64_t size, struct basic_ctx* c
 			if ((uint64_t)size == cur->itemcount) {
 				return true;
 			}
-			cur->values = krealloc(cur->values, sizeof(double) * size);
+			cur->values = buddy_realloc(ctx->allocator, cur->values, sizeof(double) * size);
 			if ((uint64_t)size > cur->itemcount) {
 				/* If array is being expanded, zero the new entries */
 				for (int64_t i = cur->itemcount; i < size; ++i) {

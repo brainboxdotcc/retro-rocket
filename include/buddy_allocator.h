@@ -94,7 +94,7 @@ typedef struct buddy_allocator {
  * automatically on the first call to @ref buddy_malloc, or may be added
  * eagerly by growing manually.
  */
-void buddy_init(buddy_allocator_t *alloc, int min_order, int max_order, int grow_order);
+void buddy_init(buddy_allocator_t* alloc, int min_order, int max_order, int grow_order);
 
 /**
  * @brief Allocate a block of memory from the buddy allocator.
@@ -107,7 +107,7 @@ void buddy_init(buddy_allocator_t *alloc, int min_order, int max_order, int grow
  * automatically allocated of size (1 << grow_order). Returned blocks
  * are aligned to their block size (power of two).
  */
-void *buddy_malloc(buddy_allocator_t *alloc, size_t size);
+void* buddy_malloc(buddy_allocator_t* alloc, size_t size);
 
 /**
  * @brief Free a previously allocated block.
@@ -119,7 +119,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size);
  * is also free, the two are merged into a larger block. The owning region
  * is identified via a back-pointer stored in the block header.
  */
-void buddy_free(buddy_allocator_t *alloc, const void *ptr);
+void buddy_free(buddy_allocator_t* alloc, const void *ptr);
 
 /**
  * @brief Destroy a buddy allocator and free all regions.
@@ -141,4 +141,17 @@ void buddy_destroy(buddy_allocator_t *alloc);
  * The returned string is allocated from the buddy allocator's
  * private heap and must be freed with @ref buddy_free.
  */
-char* buddy_strdup(buddy_allocator_t *alloc, const char *s);
+char* buddy_strdup(buddy_allocator_t* alloc, const char *s);
+
+/**
+ * @brief Reallocate a block within a buddy allocator.
+ *
+ * Works like krealloc(): if ptr is NULL, behaves like buddy_malloc().
+ * If size == 0, frees the block and returns NULL.
+ *
+ * @param alloc  Buddy allocator to allocate from.
+ * @param ptr    Pointer previously returned by buddy_malloc().
+ * @param size   New desired size in bytes.
+ * @return       Pointer to resized block, or NULL on OOM.
+ */
+void* buddy_realloc(buddy_allocator_t* alloc, void *ptr, size_t size);
