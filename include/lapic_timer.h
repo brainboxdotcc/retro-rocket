@@ -13,10 +13,6 @@
 
 #include <kernel.h>
 
-/* ------------------------------------------------------------------------- */
-/* LAPIC register offsets                                                    */
-/* ------------------------------------------------------------------------- */
-
 #define APIC_SVR         0x0F0  /**< Spurious Interrupt Vector Register */
 #define APIC_TASKPRIOR   0x080  /**< Task Priority Register */
 #define APIC_EOI         0x0B0  /**< End of Interrupt Register */
@@ -36,10 +32,6 @@
 #define APIC_TMRDIV      0x3E0  /**< Divide Configuration Register */
 #define APIC_LAST        0x38F  /**< Last valid APIC register index */
 
-/* ------------------------------------------------------------------------- */
-/* LAPIC control flags                                                       */
-/* ------------------------------------------------------------------------- */
-
 #define APIC_DISABLE     0x10000   /**< Disable a given APIC function */
 #define APIC_SW_ENABLE   0x00100   /**< Enable APIC in software */
 #define APIC_CPUFOCUS    0x00200   /**< CPU focus (for broadcast IPIs) */
@@ -47,16 +39,23 @@
 #define TMR_PERIODIC     0x20000   /**< Timer operates in periodic mode */
 #define TMR_BASEDIV      (1 << 20) /**< Base divider for timer frequency */
 
-/* ------------------------------------------------------------------------- */
-/* Functions                                                                 */
-/* ------------------------------------------------------------------------- */
-
 /**
- * @brief Initialise the LAPIC timer.
+ * @brief Initialise and calibrate the Local APIC timer.
  *
- * Configures the Local APIC timer to generate interrupts at a regular interval
- * defined by the specified quantum.
+ * This function calibrates the LAPIC timer against a stable external timebase
+ * and configures it to generate periodic interrupts at a frequency derived
+ * from the specified quantum.
  *
- * @param quantum Time slice quantum in ticks per second.
+ * Calibration is performed using the ACPI Power Management (PM) timer if it
+ * is available. The PM timer provides a fixed-frequency reference at
+ * 3.579545 MHz, and calibration is performed over ~100 ms for accuracy. If
+ * the PM timer is not available, the function falls back to using the RTC
+ * seconds counter, which requires a 1-second sample period.
+ *
+ * Once calibrated, the LAPIC timer is programmed in periodic mode with a
+ * divisor of 16, and interrupts are routed to IRQ16.
+ *
+ * @param quantum Desired time slice quantum, in ticks per second.
+ * Must be greater than zero.
  */
 void init_lapic_timer(uint64_t quantum);

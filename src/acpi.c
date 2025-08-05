@@ -25,6 +25,9 @@ extern size_t aps_online;
 buddy_allocator_t acpi_pool = { 0 };
 void* uacpi_region = NULL;
 
+static uint64_t pm_timer_port = 0;
+static bool pm_timer_32bit = 0;
+static bool pm_timer_is_io = 0;
 static uint8_t lapic_ids[256] = {0}; // CPU core Local APIC IDs
 static uint8_t ioapic_ids[256] = {0}; // CPU core Local APIC IDs
 static uint16_t numcore = 0;         // number of cores detected
@@ -93,6 +96,7 @@ void init_uacpi(void) {
 	if (uacpi_unlikely_error(st)) {
 		preboot_fail("uACPI namespace init failed");
 	}
+
 	dprintf("init_uacpi done. Peak allocation: %lu Current allocation: %lu\n", acpi_pool.peak_bytes, acpi_pool.current_bytes);
 }
 
@@ -144,8 +148,6 @@ ioapic_t get_ioapic(uint16_t index) {
 }
 
 void init_acpi() {
-	uint8_t *ptr, *ptr2;
-	uint32_t len;
 	uint8_t *rsdt = (uint8_t *) get_sdt_header();
 	numcore = 0;
 	numioapic = 0;
@@ -155,25 +157,47 @@ void init_acpi() {
 	rr_flip();
 
 	// Iterate on ACPI table pointers
-	for (len = *((uint32_t *) (rsdt + 4)), ptr2 = rsdt + 36; ptr2 < rsdt + len; ptr2 += rsdt[0] == 'X' ? 8 : 4) {
-		ptr = (uint8_t *) (uint64_t) (rsdt[0] == 'X' ? *((uint64_t *) ptr2) : *((uint32_t *) ptr2));
-		if (*ptr == 'A' && *(ptr + 1) == 'P' && *(ptr + 2) == 'I' && *(ptr + 3) == 'C') {
+	// First 4 bytes after the table header are the length
+	uint32_t table_len = *((uint32_t *)(rsdt + 4));
+
+	// Work out entry size (RSDT = 32‑bit, XSDT = 64‑bit)
+	bool is_xsdt = (rsdt[0] == 'X');
+	size_t entry_size = is_xsdt ? 8 : 4;
+
+	// Entry count = (total length - header size) / entry size
+	// ACPI header is always 36 bytes
+	size_t entry_count = (table_len - 36) / entry_size;
+
+	// Start of entry array
+	uint8_t* entry_ptr = rsdt + 36;
+
+	for (size_t i = 0; i < entry_count; i++) {
+		uint64_t addr;
+		if (is_xsdt) {
+			addr = *((uint64_t *)(entry_ptr + i * entry_size));
+		} else {
+			addr = *((uint32_t *)(entry_ptr + i * entry_size));
+		}
+
+		uint8_t *acpi_table = (uint8_t *)(uintptr_t)addr;
+
+		if (memcmp(acpi_table, "APIC", 4) == 0) {
 			// found MADT
-			lapic_ptr = (uint64_t) (*((uint32_t *) (ptr + 0x24)));
+			lapic_ptr = (uint64_t) (*((uint32_t *) (acpi_table + 0x24)));
 			kprintf("Detected: 32-Bit Local APIC [base: %lx]\n", lapic_ptr);
-			ptr2 = ptr + *((uint32_t *) (ptr + 4));
+			uint8_t* madt_end = acpi_table + *((uint32_t *) (acpi_table + 4));
 			// iterate on variable length records
-			for (ptr += 44; ptr < ptr2; ptr += ptr[1]) {
-				switch (ptr[0]) {
+			for (acpi_table += 44; acpi_table < madt_end; acpi_table += acpi_table[1]) {
+				switch (acpi_table[0]) {
 					case 0:
-						if (ptr[4] & 1) {
-							lapic_ids[numcore++] = ptr[3];
+						if (acpi_table[4] & 1) {
+							lapic_ids[numcore++] = acpi_table[3];
 						}
 						break; // found Processor Local APIC
 					case 1:
-						ioapic_ptr[numioapic] = (uint64_t) *((uint32_t *) (ptr + 4));
-						ioapic_ids[numioapic] = ptr[2];
-						ioapic_gsi_base[numioapic] = (uint32_t) *((uint32_t *) (ptr + 8));
+						ioapic_ptr[numioapic] = (uint64_t) *((uint32_t *) (acpi_table + 4));
+						ioapic_ids[numioapic] = acpi_table[2];
+						ioapic_gsi_base[numioapic] = (uint32_t) *((uint32_t *) (acpi_table + 8));
 						uint32_t *mmio = (uint32_t *) ioapic_ptr[numioapic];
 						mmio[0] = 0x01;
 						uint32_t count = ((mmio[0x10 / 4]) & 0xFF) + 1;
@@ -184,7 +208,7 @@ void init_acpi() {
 						numioapic++;
 						break;  // found IOAPIC
 					case 2: {
-						madt_override_t *ovr = (madt_override_t *) ptr;
+						madt_override_t *ovr = (madt_override_t *) acpi_table;
 						kprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n",
 							ovr->irq_source, ovr->gsi, ovr->flags);
 						pci_irq_route_t * r = &pci_irq_routes[ovr->irq_source];
@@ -197,12 +221,54 @@ void init_acpi() {
 						break;
 					}
 					case 5:
-						lapic_ptr = *((uint64_t *) (ptr + 4));
+						lapic_ptr = *((uint64_t *) (acpi_table + 4));
 						kprintf("Detected: 64-Bit Local APIC [base: %lx]\n", lapic_ptr);
 						break;             // found 64 bit LAPIC
 				}
 			}
 			break;
+		} else if (memcmp(acpi_table, "FACP", 4) == 0) {
+
+			uint32_t pm_tmr_blk = *((uint32_t *)(acpi_table + 0x40));
+			uint32_t flags = *((uint32_t *)(acpi_table + 112));
+			bool timer_is_32bit = (flags & (1 << 8)) != 0;
+
+			dprintf("PM timer block at 0x%x (%s)\n",
+				pm_tmr_blk,
+				timer_is_32bit ? "32-bit" : "24-bit");
+
+			struct acpi_gas {
+				uint8_t space_id;
+				uint8_t bit_width;
+				uint8_t bit_offset;
+				uint8_t access_size;
+				uint64_t address;
+			} __attribute__((packed));
+
+			struct acpi_gas *xpm = (struct acpi_gas *)(acpi_table + 208);
+
+			if (xpm->address != 0) {
+				if (xpm->space_id == 1) {
+					// I/O space
+					pm_timer_port = (uint16_t)xpm->address;
+					pm_timer_is_io = true;
+					dprintf("Using X_PM_TMR_BLK IO port 0x%04lx\n", pm_timer_port);
+				} else if (xpm->space_id == 0) {
+					// System memory (MMIO)
+					pm_timer_port = (uintptr_t)xpm->address;
+					pm_timer_is_io = false;
+					dprintf("Using X_PM_TMR_BLK MMIO 0x%lx\n", pm_timer_port);
+				} else {
+					dprintf("Unsupported X_PM_TMR_BLK space_id %d\n", xpm->space_id);
+					pm_timer_port = pm_tmr_blk;
+					pm_timer_is_io = true;
+				}
+			} else {
+				// fallback to legacy PM_TMR_BLK
+				pm_timer_port = pm_tmr_blk;
+				pm_timer_is_io = true;
+			}
+			pm_timer_32bit = timer_is_32bit;
 		}
 	}
 	enumerate_all_gsis();
@@ -231,6 +297,31 @@ void init_acpi() {
 		dprintf("IRQ %d maps to GSI %d\n", i, irq_to_gsi(i));
 	}
 	rr_flip();
+}
+
+uint32_t pm_timer_read(void) {
+	if (pm_timer_port == 0) {
+		return 0; // not available
+	}
+
+	uint32_t mask = pm_timer_32bit ? 0xFFFFFFFF : 0xFFFFFF;
+
+	if (pm_timer_is_io) {
+		// I/O port read
+		return inl((uint16_t)pm_timer_port) & mask;
+	} else {
+		// MMIO read
+		volatile uint32_t *reg = (volatile uint32_t *)(uintptr_t)pm_timer_port;
+		return *reg & mask;
+	}
+}
+
+bool pm_timer_available(void) {
+	return pm_timer_port != 0;
+}
+
+bool pm_timer_is_32_bit(void) {
+	return pm_timer_32bit;
 }
 
 void boot_aps() {

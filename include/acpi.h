@@ -198,3 +198,43 @@ const char *sharing_str(uint8_t share);
  * @param info limine CPU info
  */
 void kmain_ap(struct limine_smp_info *info);
+
+/**
+ * @brief Read the current value of the ACPI Power Management (PM) timer.
+ *
+ * The PM timer is a free-running counter defined by the ACPI FADT.
+ * It increments at a fixed rate of 3.579545 MHz, and is either
+ * 24-bit (wraps every ~4.6 seconds) or 32-bit (wraps every ~1193 seconds),
+ * depending on platform capabilities.
+ *
+ * This function automatically handles masking based on the width reported
+ * in the FADT (via pm_timer_is_32_bit()) and returns the raw counter value.
+ *
+ * @return The current PM timer count, masked to 24 or 32 bits.
+ *         Returns 0 if the PM timer is not available.
+ */
+uint32_t pm_timer_read(void);
+
+/**
+ * @brief Check if the ACPI PM timer is available on this system.
+ *
+ * Availability is determined from the FADT (either PM_TMR_BLK or
+ * X_PM_TMR_BLK). If no valid address is reported, the timer is
+ * considered unavailable and alternative calibration sources
+ * (e.g. RTC) must be used.
+ *
+ * @return true if the PM timer is present and usable, false otherwise.
+ */
+bool pm_timer_available(void);
+
+/**
+ * @brief Query whether the PM timer operates in 32-bit mode.
+ *
+ * This information is derived from the TMR_VAL_EXT flag in the
+ * FADT. If set, the PM timer is 32-bit and wraps approximately
+ * every 1193 seconds. If clear, it is 24-bit and wraps every ~4.6
+ * seconds.
+ *
+ * @return true if the PM timer is 32-bit, false if it is 24-bit.
+ */
+bool pm_timer_is_32_bit(void);
