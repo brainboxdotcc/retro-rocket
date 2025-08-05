@@ -413,12 +413,29 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 	}
 	list[0] = ctx->str_variables;
 	size_t len = strlen(var);
+
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_string* cur = list[j];
-		for (; cur; cur = cur->next) {
+		struct ub_var_string* prev = NULL;
+		while (cur) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
+				/* move-to-front optimisation */
+				if (prev) {
+					/* unlink */
+					prev->next = cur->next;
+					/* relink at head */
+					if (j == 0) {
+						cur->next = ctx->str_variables;
+						ctx->str_variables = cur;
+					} else {
+						cur->next = ctx->local_string_variables[j];
+						ctx->local_string_variables[j] = cur;
+					}
+				}
 				return cur->value;
 			}
+			prev = cur;
+			cur = cur->next;
 		}
 	}
 
@@ -492,7 +509,7 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 	if (basic_builtin_int_fn(var, ctx, &retv)) {
 		return retv;
 	}
-	
+
 	if (varname_is_function(var)) {
 		return basic_eval_int_fn(var, ctx);
 	}
@@ -507,18 +524,36 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 		list[j] = ctx->local_int_variables[j];
 	}
 	list[0] = ctx->int_variables;
+
 	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_int* cur = list[j];
-		for (; cur; cur = cur->next) {
+		struct ub_var_int* prev = NULL;
+		while (cur) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				int64_t v = cur->value;
 				/* If ERROR is read, it resets its value */
+				int64_t v = cur->value;
 				if (len == 5 && !strcmp(var, "ERROR")) {
 					basic_set_int_variable("ERROR", 0, ctx, false, false);
 				}
+
+				/* move-to-front optimisation */
+				if (prev) {
+					/* unlink */
+					prev->next = cur->next;
+					/* relink at head */
+					if (j == 0) {
+						cur->next = ctx->int_variables;
+						ctx->int_variables = cur;
+					} else {
+						cur->next = ctx->local_int_variables[j];
+						ctx->local_int_variables[j] = cur;
+					}
+				}
 				return v;
 			}
+			prev = cur;
+			cur = cur->next;
 		}
 	}
 
@@ -531,7 +566,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 	if (basic_builtin_double_fn(var, ctx, res)) {
 		return true;
 	}
-		
+
 	if (varname_is_double_function(var)) {
 		basic_eval_double_fn(var, ctx, res);
 		return true;
@@ -541,24 +576,39 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 		return basic_get_double_array_variable(var, arr_variable_index(ctx), ctx, res);
 	}
 
-
 	struct ub_var_double* list[ctx->call_stack_ptr + 1];
 	int64_t j;
 	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_double_variables[j];
 	}
 	list[0] = ctx->double_variables;
+
 	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_double* cur = list[j];
-		for (; cur; cur = cur->next) {
+		struct ub_var_double* prev = NULL;
+		while (cur) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				*res = cur->value;
+				/* move-to-front optimisation */
+				if (prev) {
+					/* unlink */
+					prev->next = cur->next;
+					/* relink at head */
+					if (j == 0) {
+						cur->next = ctx->double_variables;
+						ctx->double_variables = cur;
+					} else {
+						cur->next = ctx->local_double_variables[j];
+						ctx->local_double_variables[j] = cur;
+					}
+				}
 				return true;
 			}
+			prev = cur;
+			cur = cur->next;
 		}
 	}
-
 
 	if (var[len - 1] == '#') {
 		tokenizer_error_printf(ctx, "No such real variable '%s'", var);
