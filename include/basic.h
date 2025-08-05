@@ -59,6 +59,7 @@ typedef struct for_state {
  */
 typedef struct ub_var_int {
 	const char* varname;
+	size_t name_length;
 	int64_t value;
 	bool global;
 	struct ub_var_int* next;
@@ -69,6 +70,7 @@ typedef struct ub_var_int {
  */
 typedef struct ub_var_double {
 	const char* varname;
+	size_t name_length;
 	double value;
 	bool global;
 	struct ub_var_double* next;
@@ -79,6 +81,7 @@ typedef struct ub_var_double {
  */
 typedef struct ub_var_string {
 	const char* varname;
+	size_t name_length;
 	char* value;
 	bool global;
 	struct ub_var_string* next;

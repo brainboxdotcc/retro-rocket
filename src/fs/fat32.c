@@ -1161,7 +1161,9 @@ int read_fat(fat32_t* info)
 	info->clustersize = par->sectorspercluster;
 	info->clustersize *= sd->block_size;
 
-	assert(info->clustersize > 0, "Cluster size is zero, probably exfat - critical error");
+	if (info->clustersize == 0) {
+		return 0;
+	}
 
 	add_random_entropy(par->serialnumber);
 

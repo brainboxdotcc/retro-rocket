@@ -320,10 +320,11 @@ void chdir_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 	uint8_t cpu = logical_cpu_id();
 	process_t* proc = proc_cur(cpu);
-	const char* old = buddy_strdup(ctx->allocator, proc->csd);
+	// NOTE: CSD does NOT use the BASIC allocator, VFS needs reference to this
+	const char* old = strdup(proc->csd);
 	const char* new = proc_set_csd(proc, csd);
 	if (new && fs_is_directory(new)) {
-		buddy_free(ctx->allocator, old);
+		kfree_null(&old);
 		return;
 	}
 	if (!new) {
@@ -333,6 +334,6 @@ void chdir_statement(struct basic_ctx* ctx)
 	}
 
 	proc_set_csd(proc, old);
-	buddy_free(ctx->allocator, old);
+	kfree_null(&old);
 }
 

@@ -199,6 +199,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
+	size_t len = strlen(var);
 	if (list[local] == NULL) {
 		if (local) {
 			ctx->local_string_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
@@ -206,11 +207,13 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 			ctx->local_string_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
 			ctx->local_string_variables[ctx->call_stack_ptr]->value = buddy_strdup(ctx->allocator, value);
 			ctx->local_string_variables[ctx->call_stack_ptr]->global = global;
+			ctx->local_string_variables[ctx->call_stack_ptr]->name_length = len;
 		} else {
 			ctx->str_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
 			ctx->str_variables->next = NULL;
 			ctx->str_variables->varname = buddy_strdup(ctx->allocator, var);
 			ctx->str_variables->value = buddy_strdup(ctx->allocator, value);
+			ctx->str_variables->name_length = len;
 			ctx->str_variables->global = global;
 		}
 		return;
@@ -220,7 +223,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 			cur = ctx->local_string_variables[ctx->call_stack_ptr];
 		}
 		for (; cur; cur = cur->next) {
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname))	{
 				if (error_set && *cur->value) {
 					/* If ERROR$ is set, can't change it except to empty */
 					return;
@@ -237,6 +240,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 		newvar->next = (local ? ctx->local_string_variables[ctx->call_stack_ptr] : ctx->str_variables);
 		newvar->varname = buddy_strdup(ctx->allocator, var);
 		newvar->value = buddy_strdup(ctx->allocator, value);
+		newvar->name_length = len;
 		newvar->global = global;
 		if (local) {
 			ctx->local_string_variables[ctx->call_stack_ptr] = newvar;
@@ -257,26 +261,28 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
-
+	size_t len = strlen(var);
 	if (list[local] == NULL) {
 		if (local) {
 			//dprintf("Set int variable '%s' to '%d' (gosub local)\n", var, value);
 			ctx->local_int_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 			ctx->local_int_variables[ctx->call_stack_ptr]->next = NULL;
 			ctx->local_int_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
+			ctx->local_int_variables[ctx->call_stack_ptr]->name_length = len;
 			ctx->local_int_variables[ctx->call_stack_ptr]->value = value;
 		} else {
 			//dprintf("Set int variable '%s' to '%d' (default)\n", var, value);
 			ctx->int_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 			ctx->int_variables->next = NULL;
 			ctx->int_variables->varname = buddy_strdup(ctx->allocator, var);
+			ctx->int_variables->name_length = len;
 			ctx->int_variables->value = value;
 		}
 		return;
 	} else {
 		struct ub_var_int* cur = local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables;
 		for (; cur; cur = cur->next) {
-			if (!strcmp(var, cur->varname)) {
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				//dprintf("Set int variable '%s' to '%d' (updating)\n", var, value);
 				cur->value = value;
 				return;
@@ -286,6 +292,7 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 		struct ub_var_int* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 		newvar->next = (local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables);
 		newvar->varname = buddy_strdup(ctx->allocator, var);
+		newvar->name_length = len;
 		newvar->value = value;
 		if (local) {
 			ctx->local_int_variables[ctx->call_stack_ptr] = newvar;
@@ -301,25 +308,25 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 		ctx->double_variables,
 		ctx->local_double_variables[ctx->call_stack_ptr]
 	};
-	//char buffer[MAX_STRINGLEN];
 
 	if (!valid_double_var(var)) {
 		tokenizer_error_printf(ctx, "Malformed variable name '%s'", var);
 		return;
 	}
 
+	size_t len = strlen(var);
 	if (list[local] == NULL) {
 		if (local) {
-			//dprintf("Set double variable '%s' to '%s' (gosub local)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 			ctx->local_double_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
 			ctx->local_double_variables[ctx->call_stack_ptr]->next = NULL;
 			ctx->local_double_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
+			ctx->local_double_variables[ctx->call_stack_ptr]->name_length = len;
 			ctx->local_double_variables[ctx->call_stack_ptr]->value = value;
 		} else {
-			//dprintf("Set double variable '%s' to '%s' (default)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
 			ctx->double_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
 			ctx->double_variables->next = NULL;
 			ctx->double_variables->varname = buddy_strdup(ctx->allocator, var);
+			ctx->double_variables->name_length = len;
 			ctx->double_variables->value = value;
 		}
 		return;
@@ -328,8 +335,7 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 		if (local)
 			cur = ctx->local_double_variables[ctx->call_stack_ptr];
 		for (; cur; cur = cur->next) {
-			if (!strcmp(var, cur->varname)) {
-				//dprintf("Set double variable '%s' to '%s' (updating)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				cur->value = value;
 				return;
 			}
@@ -338,6 +344,7 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 		struct ub_var_double* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
 		newvar->next = (local ? ctx->local_double_variables[ctx->call_stack_ptr] : ctx->double_variables);
 		newvar->varname = buddy_strdup(ctx->allocator, var);
+		newvar->name_length = len;
 		newvar->value = value;
 		if (local) {
 			ctx->local_double_variables[ctx->call_stack_ptr] = newvar;
@@ -372,12 +379,11 @@ const char* basic_test_string_variable(const char* var, struct basic_ctx* ctx)
 		ctx->local_string_variables[ctx->call_stack_ptr],
 		ctx->str_variables
 	};
+	size_t len = strlen(var);
 	for (int j = 0; j < 2; j++) {
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
-			assert(cur->next != cur, "Variable list is linked to itself");
-			assert(cur->varname, "NULL variable name");
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				return cur->value;
 			}
 		}
@@ -388,8 +394,7 @@ const char* basic_test_string_variable(const char* var, struct basic_ctx* ctx)
 const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 {
 	char* retv;
-	int t = basic_builtin_str_fn(var, ctx, &retv);
-	if (t)
+	if (basic_builtin_str_fn(var, ctx, &retv))
 		return retv;
 
 	if (varname_is_string_function(var)) {
@@ -402,17 +407,16 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 	}
 
 	struct ub_var_string* list[ctx->call_stack_ptr + 1];
-	int j;
+	int64_t j;
 	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_string_variables[j];
 	}
 	list[0] = ctx->str_variables;
+	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
-			assert(cur->next != cur, "Variable list is linked to itself");
-			assert(cur->varname, "NULL variable name");
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				return cur->value;
 			}
 		}
@@ -425,17 +429,16 @@ const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
 {
 	struct ub_var_double* list[ctx->call_stack_ptr + 1];
-	int j;
+	int64_t j;
 	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_double_variables[j];
 	}
 	list[0] = ctx->double_variables;
+	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
-			assert(cur->next != cur, "Variable list is linked to itself");
-			assert(cur->varname, "NULL variable name");
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname))	{
 				return true;
 			}
 		}
@@ -446,17 +449,16 @@ bool basic_double_variable_exists(const char* var, struct basic_ctx* ctx)
 bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
 {
 	struct ub_var_string* list[ctx->call_stack_ptr + 1];
-	int j;
+	int64_t j;
 	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_string_variables[j];
 	}
 	list[0] = ctx->str_variables;
+	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_string* cur = list[j];
 		for (; cur; cur = cur->next) {
-			assert(cur->next != cur, "Variable list is linked to itself");
-			assert(cur->varname, "NULL variable name");
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				return true;
 			}
 		}
@@ -467,17 +469,16 @@ bool basic_string_variable_exists(const char* var, struct basic_ctx* ctx)
 bool basic_int_variable_exists(const char* var, struct basic_ctx* ctx)
 {
 	struct ub_var_int* list[ctx->call_stack_ptr + 1];
-	int j;
+	int64_t j;
 	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_int_variables[j];
 	}
 	list[0] = ctx->int_variables;
+	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
-			assert(cur->next != cur, "Variable list is linked to itself");
-			assert(cur->varname, "NULL variable name");
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				return true;
 			}
 		}
@@ -501,20 +502,19 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 	}
 
 	struct ub_var_int* list[ctx->call_stack_ptr + 1];
-	int j;
+	int64_t j;
 	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_int_variables[j];
 	}
 	list[0] = ctx->int_variables;
+	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_int* cur = list[j];
 		for (; cur; cur = cur->next) {
-			assert(cur->next != cur, "Variable list is linked to itself");
-			assert(cur->varname, "NULL variable name");
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				int64_t v = cur->value;
 				/* If ERROR is read, it resets its value */
-				if (!strcmp(var, "ERROR")) {
+				if (len == 5 && !strcmp(var, "ERROR")) {
 					basic_set_int_variable("ERROR", 0, ctx, false, false);
 				}
 				return v;
@@ -543,17 +543,16 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 
 
 	struct ub_var_double* list[ctx->call_stack_ptr + 1];
-	int j;
+	int64_t j;
 	for (j = ctx->call_stack_ptr; j > 0; --j) {
 		list[j] = ctx->local_double_variables[j];
 	}
 	list[0] = ctx->double_variables;
+	size_t len = strlen(var);
 	for (j = ctx->call_stack_ptr; j >= 0; --j) {
 		struct ub_var_double* cur = list[j];
 		for (; cur; cur = cur->next) {
-			assert(cur->next != cur, "Variable list is linked to itself");
-			assert(cur->varname, "NULL variable name");
-			if (!strcmp(var, cur->varname))	{
+			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				*res = cur->value;
 				return true;
 			}
@@ -561,7 +560,7 @@ bool basic_get_double_variable(const char* var, struct basic_ctx* ctx, double* r
 	}
 
 
-	if (var[strlen(var) - 1] == '#') {
+	if (var[len - 1] == '#') {
 		tokenizer_error_printf(ctx, "No such real variable '%s'", var);
 	}
 	*res = 0.0; /* No such variable */
