@@ -508,10 +508,9 @@ void tcp_process_queue(tcp_conn_t* conn, tcp_segment_t* segment, size_t len)
 
 		// Append to recv buffer
 		if (payload_len > 0) {
-			conn->recv_buffer = krealloc(conn->recv_buffer,
-						     conn->recv_buffer_len + payload_len);
-			memcpy(conn->recv_buffer + conn->recv_buffer_len,
-			       payload, payload_len);
+			dprintf("Resize recv buffer %p from %lu to %lu\n", conn->recv_buffer, conn->recv_buffer_len, conn->recv_buffer_len + payload_len);
+			conn->recv_buffer = krealloc(conn->recv_buffer, conn->recv_buffer_len + payload_len);
+			memcpy(conn->recv_buffer + conn->recv_buffer_len, payload, payload_len);
 			conn->recv_buffer_len += payload_len;
 		}
 
@@ -1008,14 +1007,22 @@ void tcp_idle()
 				/* There is buffered data to send from high level functions */
 				size_t amount_to_send = conn->send_buffer_len > 1460 ? 1460 : conn->send_buffer_len;
 				tcp_write(conn, conn->send_buffer, amount_to_send);
-				/* Resize send buffer down */
-				if (conn->send_buffer_len - amount_to_send <= 0) {
+				if (amount_to_send >= conn->send_buffer_len) {
+					// Everything is sent, free buffer entirely
 					kfree_null(&conn->send_buffer);
 					conn->send_buffer = NULL;
+					conn->send_buffer_len = 0;
 				} else {
-					conn->send_buffer = krealloc(conn->send_buffer + amount_to_send, conn->send_buffer_len - amount_to_send);
+					size_t new_len = conn->send_buffer_len - amount_to_send;
+					void *new_buf = kmalloc(new_len);
+					if (new_buf) {
+						memcpy(new_buf, (uint8_t *)conn->send_buffer + amount_to_send, new_len);
+					}
+					kfree_null(&conn->send_buffer);
+					conn->send_buffer = new_buf;
+					conn->send_buffer_len = new_len;
+					dprintf("Size buffer down, new size %lu, amount to send %lu\n", new_len, amount_to_send);
 				}
-				conn->send_buffer_len -= amount_to_send;
 			}
 		} else if (conn->state == TCP_TIME_WAIT && seq_gte(get_isn(), conn->msl_time)) {
 			tcp_free(conn);
@@ -1291,11 +1298,17 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 		/* Resize recv buffer down */
 		if (conn->recv_buffer_len - amount_to_recv <= 0) {
 			kfree_null(&conn->recv_buffer);
-			conn->recv_buffer = NULL;
+			conn->recv_buffer_len = 0;
 		} else {
-			conn->recv_buffer = krealloc(conn->recv_buffer + amount_to_recv, conn->recv_buffer_len - amount_to_recv);
+			size_t new_len = conn->recv_buffer_len - amount_to_recv;
+			void *new_buf = kmalloc(new_len);
+			if (new_buf) {
+				memcpy(new_buf, conn->recv_buffer + amount_to_recv, new_len);
+			}
+			kfree_null(&conn->recv_buffer);
+			conn->recv_buffer = new_buf;
+			conn->recv_buffer_len = new_len;
 		}
-		conn->recv_buffer_len -= amount_to_recv;
 		unlock_spinlock_irq(&lock, flags);
 		return amount_to_recv;
 	}
