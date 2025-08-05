@@ -5,14 +5,6 @@
 #include <stdatomic.h>
 #include "uacpi/context.h"
 
-/**
- * @brief Yeah its memory hungry. Seems it prefers speed over ram use.
- * In testing on qemu 6.2.0, it took 15mb peak to parse and boot, so
- * this 64mb is a very generous amount to deal with real hardware's
- * beastly AML.
- */
-#define UACPI_ARENA_SIZE (1024 * 1024 * 4)
-
 volatile struct limine_rsdp_request rsdp_request = {
 	.id = LIMINE_RSDP_REQUEST,
 	.revision = 0,
@@ -23,7 +15,6 @@ extern volatile struct limine_smp_request smp_request;
 extern size_t aps_online;
 
 buddy_allocator_t acpi_pool = { 0 };
-void* uacpi_region = NULL;
 
 static uint64_t pm_timer_port = 0;
 static bool pm_timer_32bit = 0;
@@ -75,11 +66,7 @@ void init_uacpi(void) {
 	mhz = tsc_per_sec / 1000000;
 	dprintf("mhz = %lu, tsc_per_sec = %lu\n", mhz, tsc_per_sec);
 
-	uacpi_region = kmalloc(UACPI_ARENA_SIZE);
-	if (!uacpi_region) {
-		preboot_fail("Cannot claim 64mb uACPI arena");
-	}
-	buddy_init(&acpi_pool, uacpi_region, 6, 22);
+	buddy_init(&acpi_pool, 6, 22, 22);
 
 	uacpi_context_set_log_level(UACPI_LOG_INFO);
 	st = uacpi_initialize(0);
@@ -355,7 +342,7 @@ void boot_aps() {
 			_mm_pause();
 		}
 	}
-	kfree_null(&uacpi_region);
+	buddy_destroy(&acpi_pool);
 }
 
 uint32_t irq_to_gsi(uint8_t irq) {

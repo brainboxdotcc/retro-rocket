@@ -237,6 +237,7 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	/* Special for empty string storage */
 	*ctx->string_gc_storage = 0;
 	ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
+	buddy_init(&ctx->allocator, 6, 20, 20);
 	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
 
 	// Clean extra whitespace from the program
@@ -525,6 +526,7 @@ void basic_destroy(struct basic_ctx* ctx)
 	ctx->string_gc_storage_next = NULL;
 	hashmap_free(ctx->lines);
 	basic_free_defs(ctx);
+	buddy_destroy(&ctx->allocator);
 	kfree_null(&ctx->program_ptr);
 	kfree_null(&ctx);
 }

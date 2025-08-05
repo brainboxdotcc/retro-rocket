@@ -25,7 +25,9 @@
  * SUCH DAMAGE.
  *
  */
-#pragma once 
+#pragma once
+
+#include "buddy_allocator.h"
 
 /**
  * @brief Maximum length of a string variable
@@ -428,6 +430,10 @@ typedef struct basic_ctx {
 	 * @brief Next ptr for GC'd strings
 	 */
 	 char* string_gc_storage_next;
+	 /**
+	  * @brief Buddy allocator to contain the program's heap
+	  */
+	buddy_allocator_t allocator;
 } basic_ctx;
 
 /**
