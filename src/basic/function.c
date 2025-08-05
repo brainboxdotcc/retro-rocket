@@ -209,7 +209,7 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 		}
 
 		/* Only free the base struct! */
-		kfree_null(&atomic);
+		buddy_free(ctx->allocator, atomic);
 
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
@@ -301,7 +301,7 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		}
 
 		/* Only free the base struct! */
-		kfree_null(&atomic);
+		buddy_free(ctx->allocator, atomic);
 
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
@@ -338,7 +338,7 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		}
 
 		/* Only free the base struct! */
-		kfree_null(&atomic);
+		buddy_free(ctx->allocator, atomic);
 
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
@@ -364,7 +364,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 			
 			char const* lineend = program;
 			
-			char* linetext = kmalloc(lineend - linestart + 1);
+			char* linetext = buddy_malloc(ctx->allocator, lineend - linestart + 1);
 			strlcpy(linetext, linestart, lineend - linestart + 1);
 
 			char* search = linetext;
@@ -399,12 +399,12 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 				struct ub_proc_fn_def* exist_def = basic_find_fn(name, ctx);
 				if (exist_def) {
 					tokenizer_error_printf(ctx, "Duplicate function name '%s'", name);
-					kfree_null(&linetext);
+					buddy_free(ctx->allocator, linetext);
 					return false;
 				}
 
-				struct ub_proc_fn_def* def = kmalloc(sizeof(struct ub_proc_fn_def));
-				def->name = strdup(name);
+				struct ub_proc_fn_def* def = buddy_malloc(ctx->allocator, sizeof(struct ub_proc_fn_def));
+				def->name = buddy_strdup(ctx->allocator, name);
 				def->type = type;
 				def->line = currentline;
 				def->next = ctx->defs;
@@ -425,10 +425,10 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 
 						if (*search == ',' || *search == ')') {
 							pname[pni] = 0;
-							struct ub_param* par = kmalloc(sizeof(struct ub_param));
+							struct ub_param* par = buddy_malloc(ctx->allocator, sizeof(struct ub_param));
 
 							par->next = NULL;
-							par->name = strdup(pname);
+							par->name = buddy_strdup(ctx->allocator, pname);
 
 							if (def->params == NULL) {
 								def->params = par;
@@ -455,7 +455,7 @@ bool basic_parse_fn(struct basic_ctx* ctx)
 			if (*program == '\n') {
 				++program;
 			}
-			kfree_null(&linetext);
+			buddy_free(ctx->allocator, linetext);
 			if (!*program) {
 				break;
 			}
@@ -481,13 +481,13 @@ void basic_free_defs(struct basic_ctx* ctx)
 	for (; ctx->defs; ) {
 		for (; ctx->defs->params; ) {
 			void* next = ctx->defs->params->next;
-			kfree_null(&ctx->defs->params->name);
-			kfree_null(&ctx->defs->params);
+			buddy_free(ctx->allocator, ctx->defs->params->name);
+			buddy_free(ctx->allocator, ctx->defs->params);
 			ctx->defs->params = next;
 		}
 		void* next = ctx->defs->next;
-		kfree_null(&ctx->defs->name);
-		kfree_null(&ctx->defs);
+		buddy_free(ctx->allocator, ctx->defs->name);
+		buddy_free(ctx->allocator, ctx->defs);
 		ctx->defs = next;
 	}
 	ctx->defs = NULL;

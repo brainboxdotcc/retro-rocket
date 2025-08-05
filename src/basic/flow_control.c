@@ -165,7 +165,7 @@ void next_statement(struct basic_ctx* ctx)
 		if (continue_loop) {
 			jump_linenum(ctx->for_stack[ctx->for_stack_ptr - 1].line_after_for, ctx);
 		} else {
-			kfree_null(&ctx->for_stack[ctx->for_stack_ptr - 1].for_variable);
+			buddy_free(ctx->allocator, ctx->for_stack[ctx->for_stack_ptr - 1].for_variable);
 			ctx->for_stack_ptr--;
 			accept_or_return(NEWLINE, ctx);
 		}
@@ -179,7 +179,7 @@ void next_statement(struct basic_ctx* ctx)
 void for_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(FOR, ctx);
-	const char* for_variable = strdup(tokenizer_variable_name(ctx));
+	const char* for_variable = buddy_strdup(ctx->allocator, tokenizer_variable_name(ctx));
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(EQUALS, ctx);
 	if (strchr(for_variable, '#')) {

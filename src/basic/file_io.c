@@ -36,7 +36,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("READ$", "");
-	char* res = kmalloc(MAX_STRINGLEN);
+	char* res = buddy_malloc(ctx->allocator, MAX_STRINGLEN);
 	if (!res) {
 		tokenizer_error_print(ctx, "Error allocating string buffer");
 		return "";
@@ -45,7 +45,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 	while (!_eof(intval) && ofs < MAX_STRINGLEN) {
 		if (_read(intval, res + ofs, 1) != 1) {
 			tokenizer_error_print(ctx, "Error reading from file");
-			kfree_null(&res);
+			buddy_free(ctx->allocator, res);
 			return "";
 		}
 		if (*(res + ofs) == '\n') {
@@ -56,7 +56,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 	}
 	*(res+ofs) = 0;
 	char* ret = gc_strdup(ctx, res);
-	kfree_null(&res);
+	buddy_free(ctx->allocator, res);
 	return ret;
 }
 
@@ -320,10 +320,10 @@ void chdir_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 	uint8_t cpu = logical_cpu_id();
 	process_t* proc = proc_cur(cpu);
-	const char* old = strdup(proc->csd);
+	const char* old = buddy_strdup(ctx->allocator, proc->csd);
 	const char* new = proc_set_csd(proc, csd);
 	if (new && fs_is_directory(new)) {
-		kfree_null(&old);
+		buddy_free(ctx->allocator, old);
 		return;
 	}
 	if (!new) {
@@ -333,6 +333,6 @@ void chdir_statement(struct basic_ctx* ctx)
 	}
 
 	proc_set_csd(proc, old);
-	kfree_null(&old);
+	buddy_free(ctx->allocator, old);
 }
 

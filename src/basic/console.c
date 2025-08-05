@@ -239,7 +239,7 @@ void keymap_statement(struct basic_ctx* ctx)
 		return;
 	}
 
-	unsigned char* keymap = kmalloc(fsi->size + 1);
+	unsigned char* keymap = buddy_malloc(ctx->allocator, fsi->size + 1);
 	if (!keymap) {
 		tokenizer_error_print(ctx, "Out of memory");
 		return;
@@ -252,5 +252,6 @@ void keymap_statement(struct basic_ctx* ctx)
 		tokenizer_error_printf(ctx, "Failed to read keymap file '%s'", path);
 	}
 
-	kfree_null(&keymap);
+	buddy_free(ctx->allocator, keymap);
+	keymap = NULL;
 }

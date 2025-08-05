@@ -201,16 +201,16 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 	}
 	if (list[local] == NULL) {
 		if (local) {
-			ctx->local_string_variables[ctx->call_stack_ptr] = kmalloc(sizeof(struct ub_var_string));
+			ctx->local_string_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
 			ctx->local_string_variables[ctx->call_stack_ptr]->next = NULL;
-			ctx->local_string_variables[ctx->call_stack_ptr]->varname = strdup(var);
-			ctx->local_string_variables[ctx->call_stack_ptr]->value = strdup(value);
+			ctx->local_string_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
+			ctx->local_string_variables[ctx->call_stack_ptr]->value = buddy_strdup(ctx->allocator, value);
 			ctx->local_string_variables[ctx->call_stack_ptr]->global = global;
 		} else {
-			ctx->str_variables = kmalloc(sizeof(struct ub_var_string));
+			ctx->str_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
 			ctx->str_variables->next = NULL;
-			ctx->str_variables->varname = strdup(var);
-			ctx->str_variables->value = strdup(value);
+			ctx->str_variables->varname = buddy_strdup(ctx->allocator, var);
+			ctx->str_variables->value = buddy_strdup(ctx->allocator, value);
 			ctx->str_variables->global = global;
 		}
 		return;
@@ -227,16 +227,16 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 				} else if (error_set) {
 					dprintf("Set ERROR$ to: '%s'\n", value);
 				}
-				kfree_null(&cur->value);
-				cur->value = strdup(value);
+				buddy_free(ctx->allocator, cur->value);
+				cur->value = buddy_strdup(ctx->allocator, value);
 				cur->global = global;
 				return;
 			}
 		}
-		struct ub_var_string* newvar = kmalloc(sizeof(struct ub_var_string));
+		struct ub_var_string* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_string));
 		newvar->next = (local ? ctx->local_string_variables[ctx->call_stack_ptr] : ctx->str_variables);
-		newvar->varname = strdup(var);
-		newvar->value = strdup(value);
+		newvar->varname = buddy_strdup(ctx->allocator, var);
+		newvar->value = buddy_strdup(ctx->allocator, value);
 		newvar->global = global;
 		if (local) {
 			ctx->local_string_variables[ctx->call_stack_ptr] = newvar;
@@ -261,15 +261,15 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 	if (list[local] == NULL) {
 		if (local) {
 			//dprintf("Set int variable '%s' to '%d' (gosub local)\n", var, value);
-			ctx->local_int_variables[ctx->call_stack_ptr] = kmalloc(sizeof(struct ub_var_int));
+			ctx->local_int_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 			ctx->local_int_variables[ctx->call_stack_ptr]->next = NULL;
-			ctx->local_int_variables[ctx->call_stack_ptr]->varname = strdup(var);
+			ctx->local_int_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
 			ctx->local_int_variables[ctx->call_stack_ptr]->value = value;
 		} else {
 			//dprintf("Set int variable '%s' to '%d' (default)\n", var, value);
-			ctx->int_variables = kmalloc(sizeof(struct ub_var_int));
+			ctx->int_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 			ctx->int_variables->next = NULL;
-			ctx->int_variables->varname = strdup(var);
+			ctx->int_variables->varname = buddy_strdup(ctx->allocator, var);
 			ctx->int_variables->value = value;
 		}
 		return;
@@ -283,9 +283,9 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 			}
 		}
 		//dprintf("Set int variable '%s' to '%d'\n", var, value);
-		struct ub_var_int* newvar = kmalloc(sizeof(struct ub_var_int));
+		struct ub_var_int* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 		newvar->next = (local ? ctx->local_int_variables[ctx->call_stack_ptr] : ctx->int_variables);
-		newvar->varname = strdup(var);
+		newvar->varname = buddy_strdup(ctx->allocator, var);
 		newvar->value = value;
 		if (local) {
 			ctx->local_int_variables[ctx->call_stack_ptr] = newvar;
@@ -311,15 +311,15 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 	if (list[local] == NULL) {
 		if (local) {
 			//dprintf("Set double variable '%s' to '%s' (gosub local)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
-			ctx->local_double_variables[ctx->call_stack_ptr] = kmalloc(sizeof(struct ub_var_double));
+			ctx->local_double_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
 			ctx->local_double_variables[ctx->call_stack_ptr]->next = NULL;
-			ctx->local_double_variables[ctx->call_stack_ptr]->varname = strdup(var);
+			ctx->local_double_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
 			ctx->local_double_variables[ctx->call_stack_ptr]->value = value;
 		} else {
 			//dprintf("Set double variable '%s' to '%s' (default)\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
-			ctx->double_variables = kmalloc(sizeof(struct ub_var_double));
+			ctx->double_variables = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
 			ctx->double_variables->next = NULL;
-			ctx->double_variables->varname = strdup(var);
+			ctx->double_variables->varname = buddy_strdup(ctx->allocator, var);
 			ctx->double_variables->value = value;
 		}
 		return;
@@ -335,9 +335,9 @@ void basic_set_double_variable(const char* var, double value, struct basic_ctx* 
 			}
 		}
 		//dprintf("Set double variable '%s' to '%s'\n", var, double_to_string(value, buffer, MAX_STRINGLEN, 0));
-		struct ub_var_double* newvar = kmalloc(sizeof(struct ub_var_double));
+		struct ub_var_double* newvar = buddy_malloc(ctx->allocator, sizeof(struct ub_var_double));
 		newvar->next = (local ? ctx->local_double_variables[ctx->call_stack_ptr] : ctx->double_variables);
-		newvar->varname = strdup(var);
+		newvar->varname = buddy_strdup(ctx->allocator, var);
 		newvar->value = value;
 		if (local) {
 			ctx->local_double_variables[ctx->call_stack_ptr] = newvar;

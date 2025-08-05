@@ -24,7 +24,7 @@ int64_t alloc_sprite(struct basic_ctx* ctx)
 {
 	for (uint64_t i = 0; i < MAX_SPRITES; ++i) {
 		if (ctx->sprites[i] == NULL) {
-			ctx->sprites[i] = kmalloc(sizeof(sprite_t));
+			ctx->sprites[i] = buddy_malloc(ctx->allocator, sizeof(sprite_t));
 			ctx->sprites[i]->width = 0;
 			ctx->sprites[i]->height = 0;
 			ctx->sprites[i]->pixels = NULL;
@@ -40,7 +40,7 @@ void free_sprite(struct basic_ctx* ctx, int64_t sprite_handle)
 		if (ctx->sprites[sprite_handle]->pixels) {
 			stbi_image_free(ctx->sprites[sprite_handle]->pixels);
 		}
-		kfree_null(&ctx->sprites[sprite_handle]);
+		buddy_free(ctx->allocator, ctx->sprites[sprite_handle]);
 	}
 }
 
@@ -119,7 +119,7 @@ void loadsprite_statement(struct basic_ctx* ctx)
 		tokenizer_error_printf(ctx, "Unable to open sprite file '%s'", file);
 		return;
 	}
-	char* buf = kmalloc(f->size);
+	char* buf = buddy_malloc(ctx->allocator, f->size);
 	if (!buf) {
 		free_sprite(ctx, sprite_handle);
 		tokenizer_error_printf(ctx, "Not enough memory to load sprite file '%s'", file);
@@ -131,14 +131,14 @@ void loadsprite_statement(struct basic_ctx* ctx)
 	s->pixels = (uint32_t*)stbi_load_from_memory((unsigned char*)buf, f->size, &w, &h, &n, STBI_rgb_alpha);
 	if (!s->pixels) {
 		tokenizer_error_printf(ctx, "Error loading sprite file '%s': %s", file, stbi_failure_reason());
-		kfree_null(&buf);
+		buddy_free(ctx->allocator, buf);
 		free_sprite(ctx, sprite_handle);
 		return;
 	}
 	s->width = w;
 	s->height = h;
 	dprintf("Width: %d Height: %d Comp: %d\n", w, h, n);
-	kfree_null(&buf);
+	buddy_free(ctx->allocator, buf);
 }
 
 void freesprite_statement(struct basic_ctx* ctx)

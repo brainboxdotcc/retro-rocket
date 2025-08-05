@@ -433,7 +433,7 @@ typedef struct basic_ctx {
 	 /**
 	  * @brief Buddy allocator to contain the program's heap
 	  */
-	buddy_allocator_t allocator;
+	buddy_allocator_t* allocator;
 } basic_ctx;
 
 /**

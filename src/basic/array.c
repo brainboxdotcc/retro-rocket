@@ -130,11 +130,11 @@ bool basic_dim_int_array(const char* var, int64_t size, struct basic_ctx* ctx)
 			return false;
 		}
 	}
-	struct ub_var_int_array* new = buddy_malloc(&ctx->allocator, sizeof(ub_var_int_array));
+	struct ub_var_int_array* new = buddy_malloc(ctx->allocator, sizeof(ub_var_int_array));
 	new->itemcount = size;
 	new->next = ctx->int_array_variables;
-	new->varname = strdup(var);
-	new->values = buddy_malloc(&ctx->allocator, sizeof(int64_t) * size);
+	new->varname = buddy_strdup(ctx->allocator, var);
+	new->values = buddy_malloc(ctx->allocator, sizeof(int64_t) * size);
 	for (int64_t v = 0; v < size; ++v) {
 		new->values[v] = 0;
 	}
@@ -164,11 +164,11 @@ bool basic_dim_string_array(const char* var, int64_t size, struct basic_ctx* ctx
 			return false;
 		}
 	}
-	struct ub_var_string_array* new = buddy_malloc(&ctx->allocator, sizeof(ub_var_string_array));
+	struct ub_var_string_array* new = buddy_malloc(ctx->allocator, sizeof(ub_var_string_array));
 	new->itemcount = size;
 	new->next = ctx->string_array_variables;
-	new->varname = strdup(var);
-	new->values = buddy_malloc(&ctx->allocator, sizeof(char*) * size);
+	new->varname = buddy_strdup(ctx->allocator, var);
+	new->values = buddy_malloc(ctx->allocator, sizeof(char*) * size);
 	for (int64_t v = 0; v < size; ++v) {
 		new->values[v] = NULL;
 	}
@@ -198,11 +198,11 @@ bool basic_dim_double_array(const char* var, int64_t size, struct basic_ctx* ctx
 			return false;
 		}
 	}
-	struct ub_var_double_array* new = buddy_malloc(&ctx->allocator, sizeof(ub_var_double_array));
+	struct ub_var_double_array* new = buddy_malloc(ctx->allocator, sizeof(ub_var_double_array));
 	new->itemcount = size;
 	new->next = ctx->double_array_variables;
-	new->varname = strdup(var);
-	new->values = kmalloc(sizeof(double) * size);
+	new->varname = buddy_strdup(ctx->allocator, var);
+	new->values = buddy_malloc(ctx->allocator, sizeof(double) * size);
 	for (int64_t v = 0; v < size; ++v) {
 		new->values[v] = 0.0;
 	}
@@ -252,7 +252,7 @@ bool basic_redim_string_array(const char* var, int64_t size, struct basic_ctx* c
 			if ((uint64_t)size < cur->itemcount) {
 				/* If string array is being reduced in size, free strings that fall in the freed area */
 				for (uint64_t x = size; x < (uint64_t)cur->itemcount; ++x) {
-					kfree_null(&cur->values[x]);
+					buddy_free(ctx->allocator, cur->values[x]);
 				}
 			}
 			cur->values = krealloc(cur->values, sizeof(char*) * size);
@@ -315,8 +315,8 @@ void basic_set_string_array_variable(const char* var, int64_t index, const char*
 				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", index, cur->itemcount - 1);
 				return;
 			}
-			kfree_null(&cur->values[index]);
-			cur->values[index] = strdup(value);
+			buddy_free(ctx->allocator, cur->values[index]);
+			cur->values[index] = buddy_strdup(ctx->allocator, value);
 			return;
 		}
 	}
@@ -333,8 +333,8 @@ void basic_set_string_array(const char* var, const char* value, struct basic_ctx
 	for (; cur; cur = cur->next) {
 		if (!strcmp(var, cur->varname)) {
 			for (uint64_t x = 0; x < cur->itemcount; ++x) {
-				kfree_null(&cur->values[x]);
-				cur->values[x] = strdup(value);
+				buddy_free(ctx->allocator, cur->values[x]);
+				cur->values[x] = buddy_strdup(ctx->allocator, value);
 			}
 		}
 	}
@@ -498,7 +498,7 @@ bool basic_pop_string_array(const char* var, int64_t pop_pos, struct basic_ctx* 
 				tokenizer_error_printf(ctx, "Array index %ld out of bounds [0..%ld]", pop_pos, cur->itemcount - 1);
 				return false;
 			}
-			kfree_null(&cur->values[pop_pos]);
+			buddy_free(ctx->allocator, cur->values[pop_pos]);
 			for (uint64_t i = (uint64_t)pop_pos; i < cur->itemcount - 1; ++i) {
 				cur->values[i] = cur->values[i + 1];
 			}
@@ -576,7 +576,7 @@ bool basic_push_string_array(const char* var, int64_t push_pos, struct basic_ctx
 				return false;
 			}
 			if (cur->values[cur->itemcount - 1]) {
-				kfree_null(&cur->values[cur->itemcount - 1]);
+				buddy_free(ctx->allocator, cur->values[cur->itemcount - 1]);
 			}
 			for (int64_t i = (int64_t)cur->itemcount - 2; i >= push_pos; --i) {
 				cur->values[i + 1] = cur->values[i];

@@ -119,7 +119,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size);
  * is also free, the two are merged into a larger block. The owning region
  * is identified via a back-pointer stored in the block header.
  */
-void buddy_free(buddy_allocator_t *alloc, void *ptr);
+void buddy_free(buddy_allocator_t *alloc, const void *ptr);
 
 /**
  * @brief Destroy a buddy allocator and free all regions.
@@ -130,3 +130,15 @@ void buddy_free(buddy_allocator_t *alloc, void *ptr);
  * with kfree_null(). The allocator is left in an empty state.
  */
 void buddy_destroy(buddy_allocator_t *alloc);
+
+/**
+ * @brief Duplicate a string into a buddy allocator heap.
+ *
+ * @param alloc  Buddy allocator to allocate from.
+ * @param s      NUL-terminated string to duplicate.
+ * @return Newly allocated string copy, or NULL on OOM.
+ *
+ * The returned string is allocated from the buddy allocator's
+ * private heap and must be freed with @ref buddy_free.
+ */
+char* buddy_strdup(buddy_allocator_t *alloc, const char *s);

@@ -136,7 +136,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 	return NULL; // completely out of memory
 }
 
-void buddy_free(buddy_allocator_t *alloc, void *ptr) {
+void buddy_free(buddy_allocator_t *alloc, const void *ptr) {
 	if (!ptr) return;
 
 	buddy_header_t *header = (buddy_header_t *)ptr - 1;
@@ -202,4 +202,13 @@ void buddy_destroy(buddy_allocator_t *alloc) {
 	alloc->active_region = NULL;
 	alloc->current_bytes = 0;
 	alloc->peak_bytes = 0;
+}
+
+char *buddy_strdup(buddy_allocator_t *alloc, const char *s) {
+	if (!s) return NULL;
+	size_t len = strlen(s) + 1; // include NUL
+	char *copy = (char *)buddy_malloc(alloc, len);
+	if (!copy) return NULL;
+	memcpy(copy, s, len);
+	return copy;
 }

@@ -237,7 +237,10 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 	/* Special for empty string storage */
 	*ctx->string_gc_storage = 0;
 	ctx->string_gc_storage_next = ctx->string_gc_storage + 1;
-	buddy_init(&ctx->allocator, 6, 20, 20);
+	dprintf("New buddy init\n");
+	ctx->allocator = kmalloc(sizeof(buddy_allocator_t));
+	buddy_init(ctx->allocator, 6, 20, 20);
+	dprintf("New buddy init done\n");
 	ctx->lines = hashmap_new(sizeof(ub_line_ref), 0, 5923530135432, 458397058, line_hash, line_compare, NULL, NULL);
 
 	// Clean extra whitespace from the program
@@ -400,7 +403,7 @@ void library_statement(struct basic_ctx* ctx)
 
 struct basic_ctx* basic_clone(struct basic_ctx* old)
 {
-	struct basic_ctx* ctx = kmalloc(sizeof(struct basic_ctx));
+	struct basic_ctx* ctx = buddy_malloc(old->allocator, sizeof(struct basic_ctx));
 	int i;
 
 	ctx->if_nest_level = old->if_nest_level;
@@ -418,6 +421,7 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->debug_status = old->debug_status;
 	ctx->debug_breakpoints = old->debug_breakpoints;
 	ctx->debug_breakpoint_count = old->debug_breakpoint_count;
+	ctx->allocator = old->allocator;
 	memcpy(ctx->sprites, old->sprites, sizeof(ctx->sprites));
 
 	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++) {
@@ -454,79 +458,18 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 
 void basic_destroy(struct basic_ctx* ctx)
 {
-	for (; ctx->int_variables; ) {
-		void* next = ctx->int_variables->next;
-		kfree_null(&ctx->int_variables->varname);
-		kfree_null(&ctx->int_variables);
-		ctx->int_variables = next;
-	}
-	for (; ctx->double_variables; ) {
-		void* next = ctx->double_variables->next;
-		kfree_null(&ctx->double_variables->varname);
-		kfree_null(&ctx->double_variables);
-		ctx->double_variables = next;
-	}
-	for (; ctx->str_variables; ) {
-		void* next = ctx->str_variables->next;
-		kfree_null(&ctx->str_variables->varname);
-		kfree_null(&ctx->str_variables->value);
-		kfree_null(&ctx->str_variables);
-		ctx->str_variables = next;
-	}
-	for (; ctx->int_array_variables; ) {
-		void* next = ctx->int_array_variables->next;
-		kfree_null(&ctx->int_array_variables->varname);
-		kfree_null(&ctx->int_array_variables->values);
-		kfree_null(&ctx->int_array_variables);
-		ctx->int_array_variables = next;
-	}
-	for (; ctx->double_array_variables; ) {
-		void* next = ctx->double_array_variables->next;
-		kfree_null(&ctx->double_array_variables->varname);
-		kfree_null(&ctx->double_array_variables->values);
-		kfree_null(&ctx->double_array_variables);
-		ctx->double_array_variables = next;
-	}
-	for (; ctx->string_array_variables; ) {
-		void* next = ctx->string_array_variables->next;
-		kfree_null(&ctx->string_array_variables->varname);
-		for (size_t f = 0; f < ctx->string_array_variables->itemcount; ++f) {
-			kfree_null(&ctx->string_array_variables->values[f]);
-		}
-		kfree_null(&ctx->string_array_variables);
-		ctx->string_array_variables = next;
-	}
 	for (uint32_t sprite_handle = 0; sprite_handle < MAX_SPRITES; ++sprite_handle) {
 		if (ctx->sprites[sprite_handle]) {
 			free_sprite(ctx, sprite_handle);
-		}
-	}
-	for (size_t x = 0; x < ctx->call_stack_ptr; x++) {
-		for (; ctx->local_int_variables[x]; ) {
-			void* next = ctx->local_int_variables[x]->next;
-			kfree_null(&ctx->local_int_variables[x]->varname);
-			kfree_null(&ctx->local_int_variables[x]);
-			ctx->local_int_variables[x] = next;
-		}
-		for (; ctx->local_double_variables[x]; ) {
-			void* next = ctx->local_double_variables[x]->next;
-			kfree_null(&ctx->local_double_variables[x]->varname);
-			kfree_null(&ctx->local_double_variables[x]);
-			ctx->local_double_variables[x] = next;
-		}
-		for (; ctx->local_string_variables[x]; ) {
-			void* next = ctx->local_string_variables[x]->next;
-			kfree_null(&ctx->local_string_variables[x]->varname);
-			kfree_null(&ctx->local_string_variables[x]->value);
-			kfree_null(&ctx->local_string_variables[x]);
-			ctx->local_string_variables[x] = next;
 		}
 	}
 	kfree_null(&ctx->string_gc_storage);
 	ctx->string_gc_storage_next = NULL;
 	hashmap_free(ctx->lines);
 	basic_free_defs(ctx);
-	buddy_destroy(&ctx->allocator);
+	/* I'm not your pal, buddy... 😂 */
+	buddy_destroy(ctx->allocator);
+	kfree_null(&ctx->allocator);
 	kfree_null(&ctx->program_ptr);
 	kfree_null(&ctx);
 }
@@ -569,21 +512,21 @@ void free_local_heap(struct basic_ctx* ctx)
 {
 	while (ctx->local_string_variables[ctx->call_stack_ptr]) {
 		struct ub_var_string* next = ctx->local_string_variables[ctx->call_stack_ptr]->next;
-		kfree_null(&ctx->local_string_variables[ctx->call_stack_ptr]->value);
-		kfree_null(&ctx->local_string_variables[ctx->call_stack_ptr]->varname);
-		kfree_null(&ctx->local_string_variables[ctx->call_stack_ptr]);
+		buddy_free(ctx->allocator, ctx->local_string_variables[ctx->call_stack_ptr]->value);
+		buddy_free(ctx->allocator, ctx->local_string_variables[ctx->call_stack_ptr]->varname);
+		buddy_free(ctx->allocator, ctx->local_string_variables[ctx->call_stack_ptr]);
 		ctx->local_string_variables[ctx->call_stack_ptr] = next;
 	}
 	while (ctx->local_int_variables[ctx->call_stack_ptr]) {
 		struct ub_var_int* next = ctx->local_int_variables[ctx->call_stack_ptr]->next;
-		kfree_null(&ctx->local_int_variables[ctx->call_stack_ptr]->varname);
-		kfree_null(&ctx->local_int_variables[ctx->call_stack_ptr]);
+		buddy_free(ctx->allocator, ctx->local_int_variables[ctx->call_stack_ptr]->varname);
+		buddy_free(ctx->allocator, ctx->local_int_variables[ctx->call_stack_ptr]);
 		ctx->local_int_variables[ctx->call_stack_ptr] = next;
 	}
 	while (ctx->local_double_variables[ctx->call_stack_ptr]) {
 		struct ub_var_double* next = ctx->local_double_variables[ctx->call_stack_ptr]->next;
-		kfree_null(&ctx->local_double_variables[ctx->call_stack_ptr]->varname);
-		kfree_null(&ctx->local_double_variables[ctx->call_stack_ptr]);
+		buddy_free(ctx->allocator, ctx->local_double_variables[ctx->call_stack_ptr]->varname);
+		buddy_free(ctx->allocator, ctx->local_double_variables[ctx->call_stack_ptr]);
 		ctx->local_double_variables[ctx->call_stack_ptr] = next;
 	}
 	ctx->local_int_variables[ctx->call_stack_ptr] = NULL;
