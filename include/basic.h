@@ -605,6 +605,8 @@ int64_t basic_rgb(struct basic_ctx* ctx);
 int64_t basic_get_free_mem(struct basic_ctx* ctx);
 int64_t basic_get_used_mem(struct basic_ctx* ctx);
 int64_t basic_get_total_mem(struct basic_ctx* ctx);
+int64_t basic_get_program_peak_mem(struct basic_ctx* ctx);
+int64_t basic_get_program_cur_mem(struct basic_ctx* ctx);
 int64_t basic_sockstatus(struct basic_ctx* ctx);
 int64_t basic_ctrlkey(struct basic_ctx* ctx);
 int64_t basic_shiftkey(struct basic_ctx* ctx);

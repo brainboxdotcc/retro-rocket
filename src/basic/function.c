@@ -33,6 +33,8 @@ struct basic_int_fn builtin_int[] =
 	{ basic_get_free_mem,        "MEMFREE"       },
 	{ basic_get_used_mem,        "MEMUSED"       },
 	{ basic_get_total_mem,       "MEMORY"        },
+	{ basic_get_program_peak_mem,"MEMPEAK"       },
+	{ basic_get_program_cur_mem, "MEMPROGRAM"    },
 	{ basic_octval,              "OCTVAL"        },
 	{ basic_openin,              "OPENIN"        },
 	{ basic_openout,             "OPENOUT"       },

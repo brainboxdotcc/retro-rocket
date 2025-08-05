@@ -24,6 +24,16 @@ int64_t basic_get_total_mem(struct basic_ctx* ctx)
 	return get_total_memory();
 }
 
+int64_t basic_get_program_peak_mem(struct basic_ctx* ctx)
+{
+	return ctx->allocator->peak_bytes;
+}
+
+int64_t basic_get_program_cur_mem(struct basic_ctx* ctx)
+{
+	return ctx->allocator->current_bytes;
+}
+
 int64_t basic_getprocid(struct basic_ctx* ctx)
 {
 	PARAMS_START;
