@@ -80,6 +80,7 @@ void input_statement(struct basic_ctx* ctx)
 	const char* var = tokenizer_variable_name(ctx);
 	accept_or_return(VARIABLE, ctx);
 
+	process_state_t newstate = PROC_SUSPENDED;
 	/* Clear buffer */
 	if (kinput(10240, (console*)ctx->cons) != 0) {
 		switch (var[strlen(var) - 1]) {
@@ -97,9 +98,15 @@ void input_statement(struct basic_ctx* ctx)
 		}
 		kfreeinput((console*)ctx->cons);
 		accept_or_return(NEWLINE, ctx);
+		newstate = PROC_RUNNING;
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
 		_mm_pause();
+		newstate = PROC_IO_BOUND;
+	}
+	process_t* proc = proc_cur(logical_cpu_id());
+	if (proc) {
+		proc->state = newstate;
 	}
 }
 

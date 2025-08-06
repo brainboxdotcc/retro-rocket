@@ -157,6 +157,7 @@ void proc_run(process_t* proc)
 	_mm_pause();
 	if (proc_find(proc->waitpid) == NULL) {
 		proc->waitpid = 0;
+		proc->state = PROC_RUNNING;
 		basic_run(proc->code);
 	}
 }
@@ -190,6 +191,7 @@ void proc_wait(process_t* proc, pid_t otherpid)
 		return;
 	}
 	proc->waitpid = otherpid;
+	proc->state = PROC_SUSPENDED;
 }
 
 const char* proc_set_csd(process_t* proc, const char* csd)

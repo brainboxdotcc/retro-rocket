@@ -264,7 +264,6 @@ void basic_set_int_variable(const char* var, int64_t value, struct basic_ctx* ct
 	size_t len = strlen(var);
 	if (list[local] == NULL) {
 		if (local) {
-			//dprintf("Set int variable '%s' to '%d' (gosub local)\n", var, value);
 			ctx->local_int_variables[ctx->call_stack_ptr] = buddy_malloc(ctx->allocator, sizeof(struct ub_var_int));
 			ctx->local_int_variables[ctx->call_stack_ptr]->next = NULL;
 			ctx->local_int_variables[ctx->call_stack_ptr]->varname = buddy_strdup(ctx->allocator, var);
@@ -394,8 +393,9 @@ const char* basic_test_string_variable(const char* var, struct basic_ctx* ctx)
 const char* basic_get_string_variable(const char* var, struct basic_ctx* ctx)
 {
 	char* retv;
-	if (basic_builtin_str_fn(var, ctx, &retv))
+	if (basic_builtin_str_fn(var, ctx, &retv)) {
 		return retv;
+	}
 
 	if (varname_is_string_function(var)) {
 		const char* res = basic_eval_str_fn(var, ctx);

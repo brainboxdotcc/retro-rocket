@@ -12,9 +12,9 @@
  * @brief Represents the current state of a process.
  */
 typedef enum process_state_t {
-	PROC_RUNNING,  /**< Process is currently running */
-	PROC_IDLE,     /**< Process is idle and waiting for CPU time */
-	PROC_DELETE,    /**< Process is marked for deletion */
+	PROC_RUNNING,	/**< Process is currently running */
+	PROC_SUSPENDED,	/**< Process is waiting on another process */
+	PROC_IO_BOUND,  /**< Process is waiting on IO */
 } process_state_t;
 
 /**

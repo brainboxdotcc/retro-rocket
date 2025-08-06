@@ -23,6 +23,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_getproccpuid,        "GETPROCCPUID"  },
 	{ basic_getprocid,           "GETPROCID"     },
 	{ basic_getprocparent,       "GETPROCPARENT" },
+	{ basic_getprocmem,          "GETPROCMEM"    },
 	{ basic_getvar_int,          "GETVARI"       },
 	{ basic_getsize,             "GETSIZE"       },
 	{ basic_hexval,              "HEXVAL"        },
@@ -89,6 +90,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_filetype,            "FILETYPE$"     },
 	{ basic_getname,             "GETNAME$"      },
 	{ basic_getprocname,         "GETPROCNAME$"  },
+	{ basic_getprocstate,        "GETPROCSTATE$" },
 	{ basic_getvar_string,       "GETVARS$"      },
 	{ basic_inkey,               "INKEY$"        },
 	{ basic_insocket,            "INSOCKET$"     },
@@ -150,18 +152,15 @@ uint8_t extract_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
 		*oldptr = 0;
 		if (ctx->param) {
 			size_t len = strlen(ctx->param->name);
-			//dprintf("Set PROC/FN param: %s to ", ctx->param->name);
 			if (ctx->param->name[len - 1] == '$') {
-				//dprintf("string value\n");
 				basic_set_string_variable(ctx->param->name, str_expr(ctx), ctx, true, false);
 			} else if (ctx->param->name[len - 1] == '#') {
 				double f = 0.0;
 				double_expr(ctx, &f);
-				//dprintf("double value\n");
 				basic_set_double_variable(ctx->param->name, f, ctx, true, false);
 			} else {
-				//dprintf("int value\n");
-				basic_set_int_variable(ctx->param->name, expr(ctx), ctx, true, false);
+				int64_t e = expr(ctx);
+				basic_set_int_variable(ctx->param->name, e, ctx, true, false);
 			}
 
 			ctx->param = ctx->param->next;

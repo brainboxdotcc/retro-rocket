@@ -30,6 +30,7 @@ void sockread_statement(struct basic_ctx* ctx)
 
 	int rv = recv(fd, input, MAX_STRINGLEN, false, 10);
 
+	process_state_t newstate = PROC_IO_BOUND;
 	if (rv > 0) {
 		*(input + rv) = 0;
 		switch (var[strlen(var) - 1]) {
@@ -46,12 +47,17 @@ void sockread_statement(struct basic_ctx* ctx)
 				basic_set_int_variable(var, atoll(input, 10), ctx, false, false);
 			break;
 		}
-
+		newstate = PROC_RUNNING;
 		accept_or_return(NEWLINE, ctx);
 	} else if (rv < 0) {
 		tokenizer_error_print(ctx, socket_error(rv));
+		newstate = PROC_RUNNING;
 	} else {
 		jump_linenum(ctx->current_linenum, ctx);
+	}
+	process_t* proc = proc_cur(logical_cpu_id());
+	if (proc) {
+		proc->state = newstate;
 	}
 }
 

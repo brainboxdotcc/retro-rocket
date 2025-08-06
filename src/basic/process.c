@@ -69,3 +69,33 @@ int64_t basic_getproccpuid(struct basic_ctx* ctx)
 	return process ? process->cpu : 0;
 }
 
+int64_t basic_getprocmem(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCMEM", 0);
+	process_t* process = proc_find(proc_id(intval));
+	return process ? process->code->allocator->current_bytes : 0;
+}
+
+char* basic_getprocstate(struct basic_ctx* ctx)
+{
+	PARAMS_START;
+	PARAMS_GET_ITEM(BIP_INT);
+	PARAMS_END("GETPROCSTATE$", 0);
+	process_t* process = proc_find(proc_id(intval));
+	if (!process) {
+		return "ended";
+	}
+	switch (process->state) {
+		case PROC_RUNNING:
+			return "running";
+		case PROC_SUSPENDED:
+			return "suspended";
+		case PROC_IO_BOUND:
+			return "waiting";
+		default:
+			return "unknown";
+	}
+}
+

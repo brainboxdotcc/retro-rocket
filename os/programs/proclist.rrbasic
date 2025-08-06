@@ -2,11 +2,11 @@ REM Process List
 REM ------------
 
 COLOR 15
-PRINT "PID", "PPID", "CPUID", "PROCESS NAME"
+PRINT "PID", "PPID", "CPUID", "MEMORY", "STATE      ", "PROCESS NAME"
 COLOR 7
 PROCline()
 FOR Y = 0 TO GETPROCCOUNT - 1
-	PRINT GETPROCID(Y), GETPROCPARENT(Y), GETPROCCPUID(Y);
+	PRINT GETPROCID(Y), GETPROCPARENT(Y); " ", GETPROCCPUID(Y), FNhumanSize$(GETPROCMEM(Y)), GETPROCSTATE$(Y); " ";
 	COLOR 15
 	PRINT "", LEFT$(GETPROCNAME$(Y), 60)
 	COLOR 7
@@ -16,6 +16,15 @@ COLOR 15
 PRINT GETPROCCOUNT; " Total Processes"
 COLOR 7
 END
+
+DEF FNhumanSize$(size)
+    X$ = STR$(size)
+    IF (size > 1024 * 1024) THEN
+        X$ = STR$(size / 1024 / 1024) + "M"
+        size = 0
+    ENDIF
+    IF (size > 1024) THEN X$ = STR$(size / 1024) + "K"
+=X$
 
 DEF PROCline()
 	FOR X = 0 TO TERMWIDTH - 1
