@@ -37,6 +37,10 @@ typedef uint32_t gid_t;
  */
 typedef uint8_t cpu_id_t;
 
+struct process_t;
+
+typedef bool (*activity_callback_t)(struct process_t*);
+
 /**
  * @brief Represents a process in the system.
  *
@@ -61,6 +65,7 @@ typedef struct process_t {
 	struct basic_ctx*	code;       /**< BASIC interpreter context */
 	struct process_t*	prev;       /**< Previous process in doubly linked list */
 	struct process_t*	next;       /**< Next process in doubly linked list */
+	activity_callback_t	check_idle; /**< If non-null, called to check if the process should remain idle */
 } process_t;
 
 /**
@@ -216,3 +221,5 @@ const char* proc_set_csd(process_t* proc, const char* csd);
  * @brief Initialise the process subsystem.
  */
 void init_process();
+
+void proc_set_idle(process_t* proc, activity_callback_t callback);

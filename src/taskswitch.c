@@ -98,6 +98,7 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 	newproc->ppid = parent_pid;
 	newproc->cons = cons;
 	newproc->cpu = logical_cpu_id();
+	newproc->check_idle = NULL;
 	newproc->start_time = time(NULL);
 	kfree_null(&programtext);
 
@@ -148,18 +149,25 @@ process_t* proc_cur(uint8_t logical_cpu)
 	return cur;
 }
 
-void proc_run(process_t* proc)
-{
-	if (proc->waitpid == 0) {
-		basic_run(proc->code);
-		return;
-	}
-	_mm_pause();
+bool check_wait_pid(process_t* proc) {
 	if (proc_find(proc->waitpid) == NULL) {
 		proc->waitpid = 0;
-		proc->state = PROC_RUNNING;
-		basic_run(proc->code);
+		return false;
 	}
+	return true;
+}
+
+void proc_run(process_t* proc)
+{
+	if (proc->check_idle && !proc->check_idle(proc)) {
+		proc_set_idle(proc, NULL);
+		basic_run(proc->code);
+		return;
+	} else if (proc->check_idle) {
+		_mm_pause();
+		return;
+	}
+	basic_run(proc->code);
 }
 
 process_t* proc_find(pid_t pid)
@@ -184,6 +192,16 @@ bool proc_kill_id(pid_t id)
 	return true;
 }
 
+void proc_set_idle(process_t* proc, activity_callback_t callback) {
+	if (callback) {
+		proc->check_idle = check_wait_pid;
+		proc->state = PROC_SUSPENDED;
+	} else {
+		proc->check_idle = NULL;
+		proc->state = PROC_RUNNING;
+	}
+}
+
 void proc_wait(process_t* proc, pid_t otherpid)
 {
 	if (!proc_find(otherpid)) {
@@ -191,7 +209,7 @@ void proc_wait(process_t* proc, pid_t otherpid)
 		return;
 	}
 	proc->waitpid = otherpid;
-	proc->state = PROC_SUSPENDED;
+	proc_set_idle(proc, check_wait_pid);
 }
 
 const char* proc_set_csd(process_t* proc, const char* csd)
