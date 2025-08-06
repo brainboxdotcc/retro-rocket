@@ -1,9 +1,12 @@
 #include <kernel.h>
 #include <uacpi/uacpi.h>
+#include <uacpi/acpi.h>
+#include <uacpi/helpers.h>
 #include <uacpi/namespace.h>
 #include <uacpi/resources.h>
 #include <stdatomic.h>
 #include "uacpi/context.h"
+#include "uacpi/tables.h"
 
 volatile struct limine_rsdp_request rsdp_request = {
 	.id = LIMINE_RSDP_REQUEST,
@@ -84,6 +87,32 @@ void init_uacpi(void) {
 		preboot_fail("uACPI namespace init failed");
 	}
 
+	struct acpi_fadt *fadt = NULL;
+	st = uacpi_table_fadt(&fadt);
+	if (!uacpi_unlikely_error(st) && fadt) {
+		struct acpi_gas *gas = &fadt->x_pm_tmr_blk;
+
+		if (gas->address_space_id == 1) {
+			// System I/O
+			pm_timer_port = (uint16_t)gas->address;
+			pm_timer_is_io = true;
+			dprintf("Using PM timer IO port 0x%04lx\n", pm_timer_port);
+		} else if (gas->address_space_id == 0) {
+			// System memory (MMIO)
+			pm_timer_port = (uintptr_t)gas->address;
+			pm_timer_is_io = false;
+			dprintf("Using PM timer MMIO 0x%lx\n", pm_timer_port);
+		} else {
+			dprintf("Unsupported PM timer space_id %u\n", gas->address_space_id);
+			pm_timer_port = 0;
+		}
+
+		pm_timer_32bit = (gas->register_bit_width == 32);
+	} else {
+		dprintf("FADT not found, no PM timer available\n");
+		pm_timer_port = 0;
+	}
+
 	dprintf("init_uacpi done. Peak allocation: %lu Current allocation: %lu\n", acpi_pool.peak_bytes, acpi_pool.current_bytes);
 }
 
@@ -112,10 +141,6 @@ uint8_t *get_lapic_ids() {
 
 uint16_t get_cpu_count() {
 	return numcore;
-}
-
-uint64_t get_local_apic() {
-	return (uint64_t) lapic_ptr;
 }
 
 uint16_t get_ioapic_count() {
@@ -214,48 +239,6 @@ void init_acpi() {
 				}
 			}
 			break;
-		} else if (memcmp(acpi_table, "FACP", 4) == 0) {
-
-			uint32_t pm_tmr_blk = *((uint32_t *)(acpi_table + 0x40));
-			uint32_t flags = *((uint32_t *)(acpi_table + 112));
-			bool timer_is_32bit = (flags & (1 << 8)) != 0;
-
-			dprintf("PM timer block at 0x%x (%s)\n",
-				pm_tmr_blk,
-				timer_is_32bit ? "32-bit" : "24-bit");
-
-			struct acpi_gas {
-				uint8_t space_id;
-				uint8_t bit_width;
-				uint8_t bit_offset;
-				uint8_t access_size;
-				uint64_t address;
-			} __attribute__((packed));
-
-			struct acpi_gas *xpm = (struct acpi_gas *)(acpi_table + 208);
-
-			if (xpm->address != 0) {
-				if (xpm->space_id == 1) {
-					// I/O space
-					pm_timer_port = (uint16_t)xpm->address;
-					pm_timer_is_io = true;
-					dprintf("Using X_PM_TMR_BLK IO port 0x%04lx\n", pm_timer_port);
-				} else if (xpm->space_id == 0) {
-					// System memory (MMIO)
-					pm_timer_port = (uintptr_t)xpm->address;
-					pm_timer_is_io = false;
-					dprintf("Using X_PM_TMR_BLK MMIO 0x%lx\n", pm_timer_port);
-				} else {
-					dprintf("Unsupported X_PM_TMR_BLK space_id %d\n", xpm->space_id);
-					pm_timer_port = pm_tmr_blk;
-					pm_timer_is_io = true;
-				}
-			} else {
-				// fallback to legacy PM_TMR_BLK
-				pm_timer_port = pm_tmr_blk;
-				pm_timer_is_io = true;
-			}
-			pm_timer_32bit = timer_is_32bit;
 		}
 	}
 	enumerate_all_gsis();
@@ -294,7 +277,7 @@ uint32_t pm_timer_read(void) {
 	uint32_t mask = pm_timer_32bit ? 0xFFFFFFFF : 0xFFFFFF;
 
 	if (pm_timer_is_io) {
-		// I/O port read
+		// Always use a 32-bit port read
 		return inl((uint16_t)pm_timer_port) & mask;
 	} else {
 		// MMIO read
@@ -302,6 +285,7 @@ uint32_t pm_timer_read(void) {
 		return *reg & mask;
 	}
 }
+
 
 bool pm_timer_available(void) {
 	return pm_timer_port != 0;

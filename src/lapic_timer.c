@@ -38,7 +38,6 @@ void init_lapic_timer(uint64_t quantum)
 		} while (delta_pm < target_delta);
 
 		uint64_t lapic_elapsed = 0xFFFFFFFF - apic_read(APIC_TMRCURRCNT);
-
 		ticks_per_second = (lapic_elapsed * 3579545ULL) / delta_pm;
 	} else {
 		dprintf("CPU#%d APIC timer calibration (RTC fallback)...\n", cpu);

@@ -384,7 +384,7 @@ void pci_display_device_list()
 {
 	pci_dev_t* list;
 	char* device_description = NULL;
-	kprintf("PCI device enumeration:\n");
+	dprintf("PCI device enumeration:\n");
 	size_t count = pci_get_device_list(&list);
 	for (size_t n = 0; n < count; ++n) {
 		uint32_t class = pci_read(list[n], PCI_CLASS);
@@ -400,7 +400,7 @@ void pci_display_device_list()
 			// Don't list bridges
 			continue;
 		}
-		kprintf(
+		dprintf(
 			"%02x:%02x:%02x: %s (%04x:%04x) [%02x:%02x:%02x]\n",
 			list[n].bus_num, list[n].device_num, list[n].function_num,
 			device_description,
