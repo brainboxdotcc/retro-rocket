@@ -1,0 +1,64 @@
+DEF FNrematch(pat$, txt$)
+	FOR I = 0 TO LEN(pat$)
+		re_pat$(I) = MID$(pat$, I, I + 1)
+	NEXT
+	FOR I = 0 TO LEN(txt$)
+		re_txt$(I) = MID$(txt$, I, I + 1)
+	NEXT
+	re_pat_len = LEN(pat$)
+	re_txt_len = LEN(txt$)
+
+	IF re_pat$(0) = "^" THEN
+		IF FNmatchhere(1, 0) = TRUE THEN
+			=TRUE
+		ENDIF
+		=FALSE
+	ENDIF
+
+	FOR i = 0 TO re_txt_len
+		IF FNmatchhere(0, i) = TRUE THEN
+			=TRUE
+		ENDIF
+	NEXT
+=FALSE
+
+DEF FNmatchhere(pi, ti)
+	IF pi = re_pat_len THEN
+		=TRUE
+	ENDIF
+
+	IF re_pat$(pi) = "$" THEN
+		IF pi + 1 = re_pat_len THEN
+			IF ti = re_txt_len THEN
+				=TRUE
+			ENDIF
+			=FALSE
+		ENDIF
+	ENDIF
+
+	IF pi + 1 < re_pat_len THEN
+		IF re_pat$(pi + 1) = "*" THEN
+			=FNmatchstar(re_pat$(pi), pi + 2, ti)
+		ENDIF
+	ENDIF
+
+	IF ti < re_txt_len THEN
+		IF re_pat$(pi) = "." OR re_pat$(pi) = re_txt$(ti) THEN
+			=FNmatchhere(pi + 1, ti + 1)
+		ENDIF
+	ENDIF
+=FALSE
+
+DEF FNmatchstar(c$, pi, ti)
+	FOR i = ti TO re_txt_len
+		IF FNmatchhere(pi, i) = TRUE THEN
+			=TRUE
+		ENDIF
+		IF i = re_txt_len THEN
+			=FALSE
+		ENDIF
+		IF c$ <> "." AND c$ <> re_txt$(i) THEN
+			=FALSE
+		ENDIF
+	NEXT
+=FALSE

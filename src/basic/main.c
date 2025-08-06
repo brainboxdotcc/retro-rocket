@@ -294,6 +294,12 @@ void library_statement(struct basic_ctx* ctx)
 	/* Validate the file exists and is not a directory */
 	fs_directory_entry_t* file_info = fs_get_file_info(lib_file);
 	accept_or_return(NEWLINE, ctx);
+
+	if (basic_in_eval(ctx)) {
+		tokenizer_error_print(ctx, "Loading libraries from EVAL is not allowed");
+		return;
+	}
+
 	if (!file_info || fs_is_directory(lib_file)) {
 		tokenizer_error_printf(ctx, "Not a library file: '%s'", lib_file);
 		return;
@@ -583,15 +589,24 @@ void chain_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 }
 
+bool basic_in_eval(struct basic_ctx* ctx)
+{
+	return (ctx->current_linenum == EVAL_LINE);
+}
+
 void eval_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(EVAL, ctx);
 	const char* v = str_expr(ctx);
 	accept_or_return(NEWLINE, ctx);
 
-	if (ctx->current_linenum == EVAL_LINE) {
+	if (basic_in_eval(ctx)) {
 		ctx->eval_linenum = 0;
-		tokenizer_error_print(ctx, "Recursive EVAL");
+		basic_set_string_variable("ERROR$", "Recursive EVAL", ctx, false, false);
+		basic_set_int_variable("ERROR", 1, ctx, false, false);
+		setforeground(current_console, COLOUR_LIGHTRED);
+		kprintf("Recursive EVAL\n");
+		setforeground(current_console, COLOUR_WHITE);
 		return;
 	}
 
