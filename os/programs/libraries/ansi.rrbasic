@@ -119,8 +119,8 @@ RETPROC
 
 REM process any incoming key into the edit buffer
 DEF PROCEdRun
-	key$ = INKEY$
-	IF key$ > "" THEN PROCEDprocessKey(ASC(key$))
+	KGET key$
+	PROCEDprocessKey(ASC(key$))
 RETPROC
 
 REM internal - Initialise internal history variables

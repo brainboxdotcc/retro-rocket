@@ -149,7 +149,7 @@ process_t* proc_cur(uint8_t logical_cpu)
 	return cur;
 }
 
-bool check_wait_pid(process_t* proc) {
+bool check_wait_pid(process_t* proc, void* opaque) {
 	if (proc_find(proc->waitpid) == NULL) {
 		proc->waitpid = 0;
 		return false;
@@ -159,8 +159,8 @@ bool check_wait_pid(process_t* proc) {
 
 void proc_run(process_t* proc)
 {
-	if (proc->check_idle && !proc->check_idle(proc)) {
-		proc_set_idle(proc, NULL);
+	if (proc->check_idle && !proc->check_idle(proc, proc->idle_context)) {
+		proc_set_idle(proc, NULL, NULL);
 		basic_run(proc->code);
 		return;
 	} else if (proc->check_idle) {
@@ -192,12 +192,17 @@ bool proc_kill_id(pid_t id)
 	return true;
 }
 
-void proc_set_idle(process_t* proc, activity_callback_t callback) {
+void proc_set_idle(process_t* proc, activity_callback_t callback, void* context) {
 	if (callback) {
-		proc->check_idle = check_wait_pid;
+		if (proc->check_idle) {
+			dprintf("WARNING: Possible bug; process '%u' already has an idle callback\n", proc->pid);
+		}
+		proc->check_idle = callback;
+		proc->idle_context = context;
 		proc->state = PROC_SUSPENDED;
 	} else {
 		proc->check_idle = NULL;
+		proc->idle_context = NULL;
 		proc->state = PROC_RUNNING;
 	}
 }
@@ -209,7 +214,7 @@ void proc_wait(process_t* proc, pid_t otherpid)
 		return;
 	}
 	proc->waitpid = otherpid;
-	proc_set_idle(proc, check_wait_pid);
+	proc_set_idle(proc, check_wait_pid, NULL);
 }
 
 const char* proc_set_csd(process_t* proc, const char* csd)

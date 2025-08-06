@@ -5,60 +5,85 @@
 #include <kernel.h>
 
 /**
+ * @brief Idle callback to check if socket is ready to read.
+ *
+ * Used by the scheduler to determine if the SOCKREAD statement
+ * can resume execution. Returns true if still waiting.
+ *
+ * @param proc Process being checked
+ * @param ptr Pointer containing the socket FD (cast from uintptr_t)
+ * @return true if still waiting, false if ready
+ */
+bool check_sockread_ready(process_t* proc, void* ptr) {
+	int64_t fd = (int64_t)(uintptr_t)ptr;
+	return !sock_ready_to_read((int)fd);
+}
+
+/**
  * @brief Process SOCKREAD statement.
- * 
- * The SOCKREAD statement will yield while waiting for data, essentially if
- * there is no complete line in the data buffer yet, it will yield back to
- * the OS task loop for other processes to get a turn. Each time the process
- * is entered while waiting for the data to be completed, it will just
- * loop back against the same SOCKREAD statement again until completed.
- * 
+ *
+ * The SOCKREAD statement yields while waiting for socket data.
+ * It repeatedly checks if the socket has data available without
+ * consuming it, and yields back to the OS if not ready. Once
+ * data is available, the scheduler resumes the statement, which
+ * reads and stores the value in a BASIC variable.
+ *
  * @param ctx BASIC context
  */
 void sockread_statement(struct basic_ctx* ctx)
 {
 	char input[MAX_STRINGLEN];
 	const char* var = NULL;
-	int fd = -1;
 
 	accept_or_return(SOCKREAD, ctx);
-	fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
+
+	int64_t fd = basic_get_numeric_int_variable(tokenizer_variable_name(ctx), ctx);
 	accept_or_return(VARIABLE, ctx);
 	accept_or_return(COMMA, ctx);
+
 	var = tokenizer_variable_name(ctx);
 	accept_or_return(VARIABLE, ctx);
 
-	int rv = recv(fd, input, MAX_STRINGLEN, false, 10);
+	process_t* proc = proc_cur(logical_cpu_id());
 
-	process_state_t newstate = PROC_IO_BOUND;
-	if (rv > 0) {
-		*(input + rv) = 0;
-		switch (var[strlen(var) - 1]) {
-			case '$':
-				basic_set_string_variable(var, input, ctx, false, false);
+	int rv = recv((int)fd, input, MAX_STRINGLEN, false, 10);
+
+	if (rv == 0) {
+		// Not ready yet, yield and retry later
+		proc_set_idle(proc, check_sockread_ready, (void*)(uintptr_t)fd);
+		jump_linenum(ctx->current_linenum, ctx);
+		proc->state = PROC_IO_BOUND;
+		return;
+	}
+
+	// Clear idle state if we're resuming from IO
+	proc_set_idle(proc, NULL, NULL);
+
+	if (rv < 0) {
+		tokenizer_error_print(ctx, socket_error(rv));
+		proc->state = PROC_RUNNING;
+		return;
+	}
+
+	input[rv] = 0; // Null-terminate string
+
+	switch (var[strlen(var) - 1]) {
+		case '$':
+			basic_set_string_variable(var, input, ctx, false, false);
 			break;
-			case '#': {
-				double f = 0;
-				atof(input, &f);
-				basic_set_double_variable(var, f, ctx, false, false);
-				break;
-			}
-			default:
-				basic_set_int_variable(var, atoll(input, 10), ctx, false, false);
+		case '#': {
+			double f = 0;
+			atof(input, &f);
+			basic_set_double_variable(var, f, ctx, false, false);
 			break;
 		}
-		newstate = PROC_RUNNING;
-		accept_or_return(NEWLINE, ctx);
-	} else if (rv < 0) {
-		tokenizer_error_print(ctx, socket_error(rv));
-		newstate = PROC_RUNNING;
-	} else {
-		jump_linenum(ctx->current_linenum, ctx);
+		default:
+			basic_set_int_variable(var, atoll(input, 10), ctx, false, false);
+			break;
 	}
-	process_t* proc = proc_cur(logical_cpu_id());
-	if (proc) {
-		proc->state = newstate;
-	}
+
+	accept_or_return(NEWLINE, ctx);
+	proc->state = PROC_RUNNING;
 }
 
 void connect_statement(struct basic_ctx* ctx)

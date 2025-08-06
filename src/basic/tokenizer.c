@@ -61,6 +61,7 @@ const int keywords[] = {
 	IF,
 	INPUT,
 	KEYMAP,
+	KGET,
 	LET,
 	LIBRARY,
 	LINE,

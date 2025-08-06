@@ -137,8 +137,8 @@
         T(AUTOFLIP) \
         T(FLIP)  \
         T(KEYMAP) \
-	T(MOUNT)
-
+	T(MOUNT) \
+	T(KGET)
 /*
  * Actually generate the enum, with the type token_t
  */

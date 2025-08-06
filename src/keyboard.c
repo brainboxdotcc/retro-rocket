@@ -343,6 +343,11 @@ void keyboard_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t er
 
 }
 
+bool key_waiting()
+{
+	return (buffer_read_ptr < buffer_write_ptr);
+}
+
 
 unsigned char kgetc([[maybe_unused]] console* cons)
 {

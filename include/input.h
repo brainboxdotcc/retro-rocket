@@ -38,27 +38,33 @@
 #pragma once
 
 /**
- * @brief Read a character into the console input buffer.
+ * @brief Poll for a single character of input from the console.
  *
- * - Allocates a buffer on first use (`maxlen + 1` bytes).
- * - Appends typed characters to the buffer.
- * - Null-terminates the string after each call.
+ * This function reads a single character from the console associated
+ * with the specified process, storing it in the input buffer.
  *
- * @param maxlen Maximum buffer size (excluding null terminator).
- * @param cons Pointer to the console structure receiving input.
- * @return
- * - `0` if input is still ongoing,
- * - `1` if the line is complete (terminated with carriage return).
+ * When the user completes a line (e.g. by pressing Enter), the function
+ * returns 1 to indicate the input line is ready for retrieval.
+ * Until then, it returns 0, allowing the caller to yield or retry later.
+ *
+ * @note This function is typically called repeatedly inside a loop or
+ * idle callback, until a full line of input is received.
+ *
+ * @param maxlen Maximum length of the input line.
+ * @param cons Console to read input from.
+ * @return 1 if a full line is available, 0 otherwise.
  */
 size_t kinput(size_t maxlen, console* cons);
 
 /**
- * @brief Free the internal console input buffer.
+ * @brief Free the internal input buffer associated with a console.
  *
- * Resets the console’s input state and releases memory allocated by `kinput()`.
- * Safe to call even if no buffer was allocated.
+ * This function releases the memory used to store a pending line of
+ * input for the specified console. It should be called after input
+ * has been processed, to prevent memory leaks and prepare the console
+ * for the next `kinput()` cycle.
  *
- * @param cons Pointer to the console whose buffer should be freed.
+ * @param cons Console whose input buffer should be freed.
  */
 void kfreeinput(console* cons);
 

@@ -1315,6 +1315,15 @@ int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t time
 	return 0;
 }
 
+bool sock_ready_to_read(int socket) {
+	tcp_conn_t* conn = tcp_find_by_fd(socket);
+	if (!conn || conn->state != TCP_ESTABLISHED) {
+		return false;
+	}
+	return conn->recv_buffer && conn->recv_buffer_len > 0;
+}
+
+
 int tcp_listen(uint32_t addr, uint16_t port, int backlog)
 {
 	if (tcp_port_in_use(addr, port, TCP_PORT_LOCAL)) {

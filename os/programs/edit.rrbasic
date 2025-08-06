@@ -115,8 +115,8 @@ REM handle editor input loop
 DEF PROCedit
 	REPEAT
 		CURSOR currentx + 1, currenty + 2
-		key$ = INKEY$
-		IF key$ > "" THEN PROCprocessKey(ASC(key$))
+		KGET key$
+		PROCprocessKey(ASC(key$))
 	UNTIL FALSE
 RETPROC
 
@@ -230,9 +230,7 @@ RETPROC
 REM confirm exit if file contents changed
 DEF PROCconfirm
 	PROCprompt("Contents changed. Are you sure?")
-	REPEAT
-		input$ = INKEY$
-	UNTIL input$ > ""
+	KGET input$
 	PROCtext
 	IF UPPER$(input$) = "N" THEN RETPROC
 	CLS

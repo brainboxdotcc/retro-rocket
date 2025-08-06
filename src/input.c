@@ -3,21 +3,24 @@
 extern spinlock_t console_spinlock;
 extern spinlock_t debug_console_spinlock;
 
-/* Return values:
- * 0: Not finished entering a line
- * 1: Line complete
- */
+
+static bool stopped = false;
 
 size_t kinput(size_t maxlen, console* cons)
 {
 	cons->last = kgetc(cons);
-	
+
+	if (stopped && cons->buffer != NULL) {
+		return 1;
+	}
+
 	if (cons->last == 255) {
 		__asm__ volatile("hlt");
 		return 0;
 	}
 
 	if (cons->buffer == NULL) {
+		stopped = false;
 		cons->internalbuffer = kmalloc(maxlen + 1);
 		if (!cons->internalbuffer) {
 			return 0;
@@ -67,14 +70,19 @@ size_t kinput(size_t maxlen, console* cons)
 	/* Terminate string */
 	*cons->buffer = 0;
 
+	if (cons->last == '\r') {
+		stopped = true;
+	}
+
 	return cons->last == '\r';
 }
 
 void kfreeinput(console* cons)
 {
 	kfree_null(&cons->internalbuffer);
-	cons->internalbuffer = cons->buffer = NULL;
+	cons->buffer = NULL;
 	cons->bufcnt = 0;
+	stopped = false;
 }
 
 char* kgetinput(console* cons)

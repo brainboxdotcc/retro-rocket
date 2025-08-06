@@ -39,7 +39,21 @@ typedef uint8_t cpu_id_t;
 
 struct process_t;
 
-typedef bool (*activity_callback_t)(struct process_t*);
+/**
+ * @typedef activity_callback_t
+ * @brief Callback to determine if a process is still idle.
+ *
+ * This function is invoked by the scheduler to decide whether
+ * a process should remain suspended (idle) or be resumed.
+ *
+ * Return `true` if the process should remain idle,
+ * `false` if it is ready to run again.
+ *
+ * @param proc Pointer to the process being evaluated
+ * @param opaque For end user use
+ * @return bool true if idle; false if active
+ */
+typedef bool (*activity_callback_t)(struct process_t* proc, void* opaque);
 
 /**
  * @brief Represents a process in the system.
@@ -66,6 +80,7 @@ typedef struct process_t {
 	struct process_t*	prev;       /**< Previous process in doubly linked list */
 	struct process_t*	next;       /**< Next process in doubly linked list */
 	activity_callback_t	check_idle; /**< If non-null, called to check if the process should remain idle */
+	void*			idle_context; /**< Opaque context passed to the check_idle callback */
 } process_t;
 
 /**
@@ -222,4 +237,16 @@ const char* proc_set_csd(process_t* proc, const char* csd);
  */
 void init_process();
 
-void proc_set_idle(process_t* proc, activity_callback_t callback);
+/**
+ * @brief Set or clear the idle state of a process.
+ *
+ * This sets a callback that determines whether the process is ready to resume.
+ * When a callback is provided, the process will be marked as suspended and
+ * polled each scheduling round. If the callback returns false, the process
+ * will be resumed. Passing NULL clears the idle state immediately.
+ *
+ * @param proc Process to update
+ * @param callback Function to poll for resumption readiness, or NULL to resume immediately
+ * @param opaque For use by developer
+ */
+void proc_set_idle(process_t* proc, activity_callback_t callback, void* opaque);

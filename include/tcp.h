@@ -248,6 +248,17 @@ int send(int socket, const void* buffer, uint32_t length);
 int recv(int socket, void* buffer, uint32_t maxlen, bool blocking, uint32_t timeout);
 
 /**
+ * @brief Check if a socket has data ready to be read.
+ *
+ * Non-blocking check for buffered data on the given socket.
+ * Does not consume any data or modify the recv buffer.
+ *
+ * @param socket File descriptor
+ * @return true if there is data available to read, false otherwise
+ */
+bool sock_ready_to_read(int socket);
+
+/**
  * @brief Returns true if the socket is connected
  * 
  * @param socket socket descriptor from connect()

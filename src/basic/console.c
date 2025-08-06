@@ -64,15 +64,29 @@ int64_t basic_capslock(struct basic_ctx* ctx)
 }
 
 /**
- * @brief Process INPUT statement.
- * 
- * The INPUT statement will yield while waiting for input, essentially if
- * there is no complete line in the input buffer yet, it will yield back to
- * the OS task loop for other processes to get a turn. Each time the process
- * is entered while waiting for the input line to be completed, it will just
- * loop back against the same INPUT statement again until completed.
- * 
- * @param ctx BASIC context
+ * Check if input is complete yet
+ * @param proc process
+ * @return true if input is still waiting for completion, false if done
+ */
+bool check_input_in_progress(process_t* proc, void* opaque)
+{
+	return kinput(10240, (console*)proc->code->cons) == 0;
+}
+
+/**
+ * @brief Deferred cooperative input via idle process callback.
+ *
+ * When a BASIC `INPUT` statement is encountered, the interpreter checks whether
+ * a complete line of user input is available via `kinput()`. If not, the process
+ * voluntarily yields using `proc_set_idle()` and assigns a custom callback
+ * (`check_input_in_progress`) to periodically test for input readiness.
+ *
+ * While idle, the process enters `PROC_IO_BOUND` state. Once the callback
+ * returns `false`, the scheduler resumes execution at the original line
+ * (via `jump_linenum()`), and input is finalised and assigned to the variable.
+ *
+ * This mechanism ensures non-blocking interactive IO without requiring preemption,
+ * and keeps the interpreter logic readable and non-reentrant.
  */
 void input_statement(struct basic_ctx* ctx)
 {
@@ -80,34 +94,35 @@ void input_statement(struct basic_ctx* ctx)
 	const char* var = tokenizer_variable_name(ctx);
 	accept_or_return(VARIABLE, ctx);
 
-	process_state_t newstate = PROC_SUSPENDED;
-	/* Clear buffer */
-	if (kinput(10240, (console*)ctx->cons) != 0) {
-		switch (var[strlen(var) - 1]) {
-			case '$':
-				basic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
-			break;
-			case '#':
-				double f = 0;
-				atof(kgetinput((console*)ctx->cons), &f);
-				basic_set_double_variable(var, f, ctx, false, false);
-			break;
-			default:
-				basic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
-			break;
-		}
-		kfreeinput((console*)ctx->cons);
-		accept_or_return(NEWLINE, ctx);
-		newstate = PROC_RUNNING;
-	} else {
-		jump_linenum(ctx->current_linenum, ctx);
-		_mm_pause();
-		newstate = PROC_IO_BOUND;
-	}
 	process_t* proc = proc_cur(logical_cpu_id());
-	if (proc) {
-		proc->state = newstate;
+
+	/* Clear buffer */
+	if (kinput(MAX_STRINGLEN, (console*)proc->code->cons) == 0) {
+		proc_set_idle(proc, check_input_in_progress, NULL);
+		jump_linenum(ctx->current_linenum, ctx);
+		proc->state = PROC_IO_BOUND;
+		return;
 	}
+
+	proc_set_idle(proc, NULL, NULL);
+
+	switch (var[strlen(var) - 1]) {
+		case '$':
+			basic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
+		break;
+		case '#': {
+			double f = 0;
+			atof(kgetinput((console *) ctx->cons), &f);
+			basic_set_double_variable(var, f, ctx, false, false);
+		}
+		break;
+		default:
+			basic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
+		break;
+	}
+	kfreeinput((console*)ctx->cons);
+	accept_or_return(NEWLINE, ctx);
+	proc->state = PROC_RUNNING;
 }
 
 void cls_statement(struct basic_ctx* ctx)
@@ -261,4 +276,65 @@ void keymap_statement(struct basic_ctx* ctx)
 
 	buddy_free(ctx->allocator, keymap);
 	keymap = NULL;
+}
+
+/**
+ * Check if a key is waiting
+ * @param proc Process
+ * @return true if no key is ready, false otherwise
+ */
+bool check_key_waiting(process_t* proc, void* opaque)
+{
+	return !key_waiting(); // Return true if still waiting
+}
+
+/**
+ * @brief Process GET statement.
+ *
+ * The GET statement waits for a keypress, then stores it into
+ * a variable. It behaves like INPUT but only reads a single
+ * character (without requiring ENTER).
+ *
+ * It yields execution while no key is pressed, using the
+ * cooperative multitasking system to prevent blocking.
+ *
+ * @param ctx BASIC context
+ */
+void kget_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(KGET, ctx);
+	const char* var = tokenizer_variable_name(ctx);
+	accept_or_return(VARIABLE, ctx);
+
+	process_t* proc = proc_cur(logical_cpu_id());
+
+	if (!key_waiting()) {
+		proc_set_idle(proc, check_key_waiting, NULL);
+		jump_linenum(ctx->current_linenum, ctx);
+		proc->state = PROC_IO_BOUND;
+		return;
+	}
+
+	proc_set_idle(proc, NULL, NULL);
+
+	unsigned char c = kgetc((console*)ctx->cons);
+
+	switch (var[strlen(var) - 1]) {
+		case '$': {
+			char str[2] = { c, '\0' };
+			basic_set_string_variable(var, str, ctx, false, false);
+			break;
+		}
+		case '#': {
+			double f = (double)c;
+			basic_set_double_variable(var, f, ctx, false, false);
+			break;
+		}
+		default:
+			basic_set_int_variable(var, (int)c, ctx, false, false);
+			break;
+	}
+
+	accept_or_return(NEWLINE, ctx);
+	proc->state = PROC_RUNNING;
 }

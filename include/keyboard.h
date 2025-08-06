@@ -120,3 +120,5 @@ bool alt_held();
 bool caps_lock_on();
 
 void load_keymap_from_string(const char* text);
+
+bool key_waiting();
