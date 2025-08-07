@@ -89,6 +89,7 @@ const int keywords[] = {
 	RETPROC,
 	RETURN,
 	RMDIR,
+	SETTIMEZONE,
 	SETVARI,
 	SETVARR,
 	SETVARS,

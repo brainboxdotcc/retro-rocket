@@ -202,30 +202,37 @@ time_t local_time(time_t timestamp) {
 	return timestamp + get_local_offset_from_buffer(tzdata, timestamp);
 }
 
+static inline int32_t ntohl_signed(const uint8_t *p) {
+	return (int32_t)(
+		((uint32_t)p[0] << 24) |
+		((uint32_t)p[1] << 16) |
+		((uint32_t)p[2] << 8) |
+		((uint32_t)p[3]));
+}
+
 int32_t get_local_offset_from_buffer(const uint8_t *tzdata, time_t timestamp) {
 	if (!tzdata) {
 		return 0;
 	}
-
-	const struct tz_header *hdr = (const struct tz_header *)tzdata;
-
+	const struct tz_header *hdr = (const struct tz_header *) tzdata;
 	if (memcmp(hdr->magic, "TZif", 4) != 0) {
 		return 0;
 	}
 
-	uint32_t timecnt    = ntohl(hdr->timecnt);
-	uint32_t typecnt    = ntohl(hdr->typecnt);
+	uint32_t timecnt = ntohl(hdr->timecnt);
+	uint32_t typecnt = ntohl(hdr->typecnt);
 
 	// Offsets (after the 44-byte header)
 	const uint8_t *trans_times = tzdata + 44;
 	const uint8_t *trans_types = trans_times + timecnt * 4;
-	const uint8_t *ttinfos     = trans_types + timecnt;
+	const uint8_t *ttinfos = trans_types + timecnt;
 
-	// Default type index = 0
 	uint8_t type_index = 0;
-	const uint32_t* trans_times_32 = (const uint32_t*)trans_times;
+	const int32_t *trans_times_32 = (const int32_t *)trans_times;
+
+	// Find latest applicable transition
 	for (uint32_t i = 0; i < timecnt; i++) {
-		uint32_t t = ntohl(trans_times_32[i]);
+		int32_t t = ntohl_signed((uint8_t*)&trans_times_32[i]);
 		if (timestamp >= t) {
 			type_index = trans_types[i];
 		} else {
@@ -237,5 +244,6 @@ int32_t get_local_offset_from_buffer(const uint8_t *tzdata, time_t timestamp) {
 		return 0;
 	}
 
-	return (int32_t)ntohl(ttinfos[type_index * 6]);
+	int32_t offset = ntohl_signed(&ttinfos[type_index * 6]);
+	return offset;
 }

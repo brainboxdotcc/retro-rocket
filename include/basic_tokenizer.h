@@ -135,9 +135,10 @@
 	T(SPRITEFREE) \
 	T(PLOT) \
         T(AUTOFLIP) \
-        T(FLIP)  \
+        T(FLIP) \
         T(KEYMAP) \
 	T(MOUNT) \
+        T(SETTIMEZONE) \
 	T(KGET)
 /*
  * Actually generate the enum, with the type token_t

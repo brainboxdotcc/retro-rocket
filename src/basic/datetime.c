@@ -135,3 +135,14 @@ char* basic_time(struct basic_ctx* ctx)
 	snprintf(tm, 32, "%02d:%02d:%02d", date.hour, date.minute, date.second);
 	return gc_strdup(ctx, tm);
 }
+
+void settimezone_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(SETTIMEZONE, ctx);
+	const char* tz = str_expr(ctx);
+	accept_or_return(NEWLINE, ctx);
+
+	if (!load_timezone(tz)) {
+		tokenizer_error_printf(ctx, "Failed to load timezone '%s'", tz);
+	}
+}

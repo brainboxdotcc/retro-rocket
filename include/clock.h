@@ -65,6 +65,8 @@ int32_t get_local_offset_from_buffer(const uint8_t *tzdata, time_t timestamp);
 
 time_t local_time(time_t timestamp);
 
+bool load_timezone(const char* timezone);
+
 /**
  * @brief Retrieve the current date and time as a human-readable string
  *

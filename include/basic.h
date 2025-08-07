@@ -919,3 +919,4 @@ int64_t basic_getyear(struct basic_ctx* ctx);
 int64_t basic_get_day_of_year(struct basic_ctx* ctx);
 char* basic_date(struct basic_ctx* ctx);
 char* basic_time(struct basic_ctx* ctx);
+void settimezone_statement(struct basic_ctx* ctx);
