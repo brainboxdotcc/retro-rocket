@@ -308,6 +308,7 @@ void boot_aps() {
 			kprintf("WARNING: Your system has more than 254 CPUs; only 254 will be enabled\n");
 			limit = MAX_CPUS - 1;
 		}
+		kprintf("CPUs startup: ");
 		for (uint64_t i = 0; i < limit; i++) {
 			struct limine_smp_info *cpu = smp_request.response->cpus[i];
 			if (cpu->processor_id < 255) {
@@ -315,7 +316,7 @@ void boot_aps() {
 			}
 			if (cpu->lapic_id == smp_request.response->bsp_lapic_id || cpu->processor_id > 254) {
 				if (cpu->lapic_id == smp_request.response->bsp_lapic_id) {
-					kprintf("CPU: %d online; ID: %d\n", cpu->processor_id, cpu->lapic_id);
+					kprintf("0 ");
 				}
 				// Skip BSP and IDs over 254 (255 is broadcast, 256+ are too big for our array)
 				continue;
@@ -325,6 +326,7 @@ void boot_aps() {
 		while (atomic_load(&aps_online) < limit - 1) {
 			_mm_pause();
 		}
+		kprintf("\n");
 	}
 	buddy_destroy(&acpi_pool);
 }

@@ -16,7 +16,7 @@ size_t aps_online = 0;
 simple_cv_t boot_condition;
 
 void wait_for_interpreter_start(struct limine_smp_info *info) {
-	kprintf("CPU: %u online; ID: %u\n", info->processor_id, info->lapic_id);
+	kprintf("%u ", info->processor_id);
 	atomic_fetch_add(&aps_online, 1);
 	simple_cv_wait(&boot_condition);
 }
