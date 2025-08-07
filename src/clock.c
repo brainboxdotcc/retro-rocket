@@ -181,18 +181,27 @@ void init_realtime_clock() {
 bool load_timezone(const char* timezone) {
 	char path[1024];
 	snprintf(path, sizeof(path), "/system/timezones/%s", timezone);
+	void* new_tzdata = NULL;
 
 	fs_directory_entry_t* fsi = fs_get_file_info(path);
 	if (!fsi || fsi->flags & FS_DIRECTORY) {
 		return false;
 	}
 
-	tzdata = kmalloc(fsi->size + 1);
-	if (!tzdata) {
+	new_tzdata = kmalloc(fsi->size + 1);
+	if (!new_tzdata) {
 		return false;
 	}
 
-	return fs_read_file(fsi, 0, fsi->size, tzdata);
+	bool ok = fs_read_file(fsi, 0, fsi->size, new_tzdata);
+	if (!ok) {
+		kfree_null(&new_tzdata);
+		return false;
+	}
+
+	kfree_null(&tzdata);
+	tzdata = new_tzdata;
+	return true;
 }
 
 time_t local_time(time_t timestamp) {
