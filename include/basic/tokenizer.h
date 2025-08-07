@@ -18,7 +18,7 @@
  */
 #pragma once
 
-#include <kernel.h>
+#include "kernel.h"
 
 #define MAX_VARNAME 50
 

@@ -46,7 +46,7 @@
 #include "clock.h"
 #include "lapic_timer.h"
 #include "basic.h"
-#include "basic_tokenizer.h"
+#include "basic/tokenizer.h"
 #include "taskswitch.h"
 #include "acpi.h"
 #include "net.h"
