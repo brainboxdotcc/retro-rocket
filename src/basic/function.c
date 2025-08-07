@@ -53,7 +53,16 @@ struct basic_int_fn builtin_int[] =
 	{ basic_val,                 "VAL"           },
 	{ basic_sgn,                 "SGN"           },
 	{ basic_int,                 "INT"           },
-	{ NULL,                      NULL            }
+	{ basic_gethour,             "HOUR"          },
+	{ basic_getminute,           "MINUTE"        },
+	{ basic_getsecond,           "SECOND"        },
+	{ basic_getepoch,            "EPOCH"         },
+	{ basic_getmonth,            "MONTH"         },
+	{ basic_getday,              "DAY"           },
+	{ basic_getweekday,          "WEEKDAY"       },
+	{ basic_getyear,             "YEAR"          },
+	{ basic_get_day_of_year,     "YDAY"          },
+	{ NULL,                      NULL            },
 };
 
 struct basic_double_fn builtin_double[] = {
@@ -114,7 +123,9 @@ struct basic_str_fn builtin_str[] =
 	{ basic_tokenize,            "TOKENIZE$"     },
 	{ basic_trim,                "TRIM$"         },
 	{ basic_upper,               "UPPER$"        },
-	{ NULL,                      NULL            }
+	{ basic_date,                "DATE$"         },
+	{ basic_time,                "TIME$"         },
+	{ NULL,                      NULL            },
 };
 
 void begin_comma_list(struct ub_proc_fn_def* def, struct basic_ctx* ctx) {
