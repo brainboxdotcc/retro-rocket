@@ -79,5 +79,13 @@ foreach (keymap ${keymap_list})
     get_filename_component(keymap_name ${keymap} NAME)
     copy_system_keymap(${keymap_name} ${keymap_name})
 endforeach()
+set(TIMEZONE_TARGETS "")
+file(GLOB_RECURSE timezone_list RELATIVE ${CMAKE_SOURCE_DIR}/os/system/timezones ${CMAKE_SOURCE_DIR}/os/system/timezones/*)
+foreach (timezone ${timezone_list})
+    copy_system_timezone(${timezone})
+    string(REPLACE "/" "_" TZ_NAME ${timezone})
+    list(APPEND TIMEZONE_TARGETS "timezone_${TZ_NAME}")
+endforeach()
+
 
 iso("rr.iso" "kernel.sym")

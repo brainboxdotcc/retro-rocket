@@ -12,7 +12,28 @@
 /**
  * @brief POSIX-style time representation, counting seconds since epoch
  */
-typedef uint64_t time_t;
+typedef int64_t time_t;
+
+typedef struct {
+	int32_t utc_offset;   // In seconds
+	bool is_dst;          // True if DST in effect
+	const char* abbrev;   // Timezone abbreviation string (from string table)
+} tz_offset_t;
+
+#define TZ_MAGIC "TZif"
+
+// tzfile header struct is 44 bytes for v1
+struct tz_header {
+	char magic[4];    // 'T','Z','i','f'
+	char version[1];  // '2' or '3' or '\0' for v1
+	char reserved[15];
+	uint32_t ttisgmtcnt;
+	uint32_t ttisstdcnt;
+	uint32_t leapcnt;
+	uint32_t timecnt;
+	uint32_t typecnt;
+	uint32_t charcnt;
+} __attribute__((packed));
 
 /**
  * @brief CMOS I/O port addresses used for RTC access
@@ -37,6 +58,12 @@ typedef struct datetime {
 	uint8_t minute;   ///< Minute (0–59)
 	uint8_t second;   ///< Second (0–59)
 } datetime_t;
+
+void datetime_from_time_t(time_t timestamp, datetime_t* dt);
+
+int32_t get_local_offset_from_buffer(const uint8_t *tzdata, time_t timestamp);
+
+time_t local_time(time_t timestamp);
 
 /**
  * @brief Retrieve the current date and time as a human-readable string

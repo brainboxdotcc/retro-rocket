@@ -1,6 +1,9 @@
 #include <kernel.h>
 
-static datetime_t current_datetime;
+#define IS_LEAP(y) ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0))
+
+static datetime_t current_datetime = { 0 };
+static unsigned char* tzdata = NULL;
 
 const char* weekday_map[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 const char* month_map[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -31,6 +34,56 @@ void set_rtc_register(uint16_t reg_num, uint8_t val) {
 uint64_t day_of_year(uint64_t year, uint8_t month, uint8_t day) {
 	return (275 * month / 9) - (((month + 9) / 12) * (1 + (year - 4 * (year / 4) + 2) / 3)) + day - 30;
 }
+
+void datetime_from_time_t(time_t timestamp, datetime_t* dt) {
+	if (!dt) {
+		return;
+	}
+
+	// Break into days and seconds
+	int64_t days = timestamp / 86400;
+	int64_t secs_of_day = timestamp % 86400;
+
+	// Extract time
+	dt->hour = secs_of_day / 3600;
+	dt->minute = (secs_of_day % 3600) / 60;
+	dt->second = secs_of_day % 60;
+
+	// Start from epoch year
+	int64_t year = 1970;
+
+	// Leap year helpers
+	const int days_in_month[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+
+	while (1) {
+		int64_t days_this_year = IS_LEAP(year) ? 366 : 365;
+		if (days < days_this_year)
+			break;
+		days -= days_this_year;
+		year++;
+	}
+
+	// Now determine month and day
+	int64_t month = 1;
+	while (1) {
+		int dim = days_in_month[month - 1];
+		if (month == 2 && IS_LEAP(year))
+			dim++;
+
+		if (days < dim)
+			break;
+
+		days -= dim;
+		month++;
+	}
+
+	// Final assignments
+	dt->year = year % 100;
+	dt->century = year / 100;
+	dt->month = month;
+	dt->day = days + 1;
+}
+
 
 time_t time(time_t* t) {
 	rtc_read_datetime();
@@ -122,5 +175,67 @@ const char* get_datetime_str() {
 
 void init_realtime_clock() {
 	rtc_read_datetime();
-	kprintf("System boot time: %s\n", get_datetime_str());
+	kprintf("System boot time (UTC): %s\n", get_datetime_str());
+}
+
+bool load_timezone(const char* timezone) {
+	char path[1024];
+	snprintf(path, sizeof(path), "/system/timezones/%s", timezone);
+
+	fs_directory_entry_t* fsi = fs_get_file_info(path);
+	if (!fsi || fsi->flags & FS_DIRECTORY) {
+		return false;
+	}
+
+	tzdata = kmalloc(fsi->size + 1);
+	if (!tzdata) {
+		return false;
+	}
+
+	return fs_read_file(fsi, 0, fsi->size, tzdata);
+}
+
+time_t local_time(time_t timestamp) {
+	if (tzdata == NULL) {
+		return timestamp;
+	}
+	return timestamp + get_local_offset_from_buffer(tzdata, timestamp);
+}
+
+int32_t get_local_offset_from_buffer(const uint8_t *tzdata, time_t timestamp) {
+	if (!tzdata) {
+		return 0;
+	}
+
+	const struct tz_header *hdr = (const struct tz_header *)tzdata;
+
+	if (memcmp(hdr->magic, "TZif", 4) != 0) {
+		return 0;
+	}
+
+	uint32_t timecnt    = ntohl(hdr->timecnt);
+	uint32_t typecnt    = ntohl(hdr->typecnt);
+
+	// Offsets (after the 44-byte header)
+	const uint8_t *trans_times = tzdata + 44;
+	const uint8_t *trans_types = trans_times + timecnt * 4;
+	const uint8_t *ttinfos     = trans_types + timecnt;
+
+	// Default type index = 0
+	uint8_t type_index = 0;
+	const uint32_t* trans_times_32 = (const uint32_t*)trans_times;
+	for (uint32_t i = 0; i < timecnt; i++) {
+		uint32_t t = ntohl(trans_times_32[i]);
+		if (timestamp >= t) {
+			type_index = trans_types[i];
+		} else {
+			break;
+		}
+	}
+
+	if (type_index >= typecnt) {
+		return 0;
+	}
+
+	return (int32_t)ntohl(ttinfos[type_index * 6]);
 }
