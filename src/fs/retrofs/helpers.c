@@ -1,7 +1,7 @@
 #include <kernel.h>
 #include <retrofs.h>
 
-int rfs_read_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, void* buffer)
+bool rfs_read_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, void* buffer)
 {
 	const uint64_t total_sectors = rfs->length / RFS_SECTOR_SIZE;
 	const uint64_t nsectors = size_bytes / RFS_SECTOR_SIZE;
@@ -19,7 +19,7 @@ int rfs_read_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, voi
 	return read_storage_device(rfs->dev->name, cluster_start + start_sectors, size_bytes, buffer);
 }
 
-int rfs_write_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, const void* buffer)
+bool rfs_write_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, const void* buffer)
 {
 	const uint64_t total_sectors = rfs->length / RFS_SECTOR_SIZE;
 	const uint64_t nsectors = size_bytes / RFS_SECTOR_SIZE;
@@ -36,4 +36,65 @@ int rfs_write_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, co
 	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
 	dprintf("rfs_write_device(%lu,%lu)\n", cluster_start + start_sectors, size_bytes / RFS_SECTOR_SIZE);
 	return write_storage_device(rfs->dev->name, cluster_start + start_sectors, size_bytes, buffer);
+}
+
+bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* out_sector, size_t* out_index, rfs_directory_entry_inner_t* out_entry_copy) {
+	if (info == NULL || tree == NULL || name == NULL || name[0] == '\0') {
+		return false;
+	}
+
+	uint64_t current = (tree->lbapos != 0) ? tree->lbapos : info->desc->root_directory;
+	rfs_directory_entry_t block[RFS_DEFAULT_DIR_SIZE * 2];
+
+	uint32_t walked = 0;
+	const uint32_t walk_limit = 1u << 16;
+
+	while (current != 0) {
+		if (walked++ > walk_limit) {
+			dprintf("rfs: locate: cycle suspected\n");
+			return false;
+		}
+
+		if (!rfs_read_device(info, current, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
+			dprintf("rfs: locate: read error at %lu\n", current);
+			return false;
+		}
+
+		rfs_directory_start_t* start = (rfs_directory_start_t*)&block[0];
+		if ((start->flags & RFS_FLAG_DIR_START) == 0 || start->sectors != RFS_DEFAULT_DIR_SIZE) {
+			dprintf("rfs: locate: invalid dir block at %lu\n", current);
+			return false;
+		}
+
+		rfs_directory_entry_t* ents = (rfs_directory_entry_t*)&block[1];
+		const size_t entries_per_block = (size_t)((RFS_DEFAULT_DIR_SIZE * 2) - 1);
+
+		for (size_t i = 1; i <= entries_per_block; i++) {
+			rfs_directory_entry_inner_t* e = &ents[i].entry;
+
+			if (e->filename[0] == '\0') {
+				break;
+			}
+
+			if (strcasecmp(e->filename, name) == 0) {
+				if (out_sector != NULL) {
+					*out_sector = current;
+				}
+				if (out_index != NULL) {
+					*out_index = i;
+				}
+				if (out_entry_copy != NULL) {
+					*out_entry_copy = *e;
+				}
+				return true;
+			}
+		}
+
+		if (start->continuation == 0) {
+			break;
+		}
+		current = start->continuation;
+	}
+
+	return false;
 }

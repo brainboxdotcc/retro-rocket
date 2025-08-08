@@ -563,3 +563,43 @@ int do_itoa(int64_t target, char* buf, unsigned radix)
 	strrev(low);
 	return 0;
 }
+
+char* strrchr(const char* s, int c) {
+	const char* last = NULL;
+	unsigned char ch = (unsigned char)c;
+
+	while (*s != '\0') {
+		if ((unsigned char)*s == ch) {
+			last = s;
+		}
+		s++;
+	}
+
+	/* Allow search for '\0' itself */
+	if (ch == '\0') {
+		return (char*)s;
+	}
+
+	return (char*)last;
+}
+
+int strcasecmp(const char* s1, const char* s2) {
+	unsigned char c1, c2;
+
+	while (*s1 != '\0' && *s2 != '\0') {
+		c1 = (unsigned char)tolower((unsigned char)*s1);
+		c2 = (unsigned char)tolower((unsigned char)*s2);
+
+		if (c1 != c2) {
+			return (int)c1 - (int)c2;
+		}
+
+		s1++;
+		s2++;
+	}
+
+	/* Compare the final null terminator as well */
+	c1 = (unsigned char)tolower((unsigned char)*s1);
+	c2 = (unsigned char)tolower((unsigned char)*s2);
+	return (int)c1 - (int)c2;
+}

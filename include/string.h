@@ -290,3 +290,21 @@ int do_atoi(int64_t* dst, char* target, unsigned radix);
  * @return int 0 on success, non-zero on error
  */
 int do_itoa(int64_t target, char* buf, unsigned radix);
+
+/**
+ * @brief Locate the last occurrence of a character in a string.
+ *
+ * @param s Pointer to the null-terminated string to search.
+ * @param c Character to locate (passed as int, converted to unsigned char).
+ * @return Pointer to the last occurrence of c in s, or NULL if not found.
+ */
+char* strrchr(const char* s, int c);
+
+/**
+ * @brief Case-insensitive string comparison.
+ *
+ * @param s1 First null-terminated string.
+ * @param s2 Second null-terminated string.
+ * @return <0 if s1 < s2, 0 if equal, >0 if s1 > s2 (case-insensitive).
+ */
+int strcasecmp(const char* s1, const char* s2);

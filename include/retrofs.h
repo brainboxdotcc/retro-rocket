@@ -96,14 +96,15 @@ typedef struct rfs_free_space_map_part_t {
  * @brief On-disk file entry structure for non-directory entries.
  */
 typedef struct rfs_directory_entry_inner_t {
-	uint32_t flags;                    /**< Entry flags (RFS_FLAG_*). */
+	uint32_t flags;                 /**< Entry flags (RFS_FLAG_*). */
 	char filename[RFS_MAX_NAME];    /**< Null-terminated filename. */
-	uint64_t sector_start;              /**< First sector of file data. */
-	uint64_t length;                    /**< File length in bytes. */
-	time_t created;                   /**< Creation timestamp (UTC). */
-	time_t modified;                  /**< Last modification timestamp (UTC). */
-	uint64_t sequence;                  /**< Incremented when file changes. */
-	char reserved[];                 /**< Reserved for future use / alignment. */
+	uint64_t sector_start;          /**< First sector of file data. */
+	uint64_t length;                /**< File length in bytes. */
+	uint64_t sector_length;         /**< Allocated length in sectors */
+	time_t created;                 /**< Creation timestamp (UTC). */
+	time_t modified;                /**< Last modification timestamp (UTC). */
+	uint64_t sequence;              /**< Incremented when file changes. */
+	char reserved[];                /**< Reserved for future use / alignment. */
 } __attribute__((packed)) rfs_directory_entry_inner_t;
 
 /**
@@ -232,9 +233,9 @@ bool rfs_format(rfs_t *info);
  * @param start_sectors Sector index (relative to filesystem start).
  * @param size_bytes    Number of bytes to read (must be a multiple of sector size).
  * @param buffer        Destination buffer.
- * @return 0 on success, negative value on error.
+ * @return true on success, false on error.
  */
-int rfs_read_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, void *buffer);
+bool rfs_read_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, void *buffer);
 
 /**
  * @brief Write raw sectors to the underlying device.
@@ -246,9 +247,9 @@ int rfs_read_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, voi
  * @param start_sectors Sector index (relative to filesystem start).
  * @param size_bytes    Number of bytes to write (must be a multiple of sector size).
  * @param buffer        Source buffer.
- * @return 0 on success, negative value on error.
+ * @return true on success, false on error.
  */
-int rfs_write_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *buffer);
+bool rfs_write_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *buffer);
 
 /**
  * @brief Find a contiguous extent of free sectors.
@@ -382,6 +383,82 @@ bool rfs_write_file(void *f, uint64_t start, uint32_t length, unsigned char *buf
  */
 bool rfs_truncate_file(void *f, size_t length);
 
+/**
+ * @brief Insert or update a directory entry on disk.
+ *
+ * If an entry with the same name (case-insensitive) already exists in the
+ * directory chain, its metadata is updated in-place, preserving the case
+ * of the supplied @p file->filename. If no matching entry exists, a new one
+ * is appended in the first available slot; if the directory is full, a new
+ * continuation block is allocated and linked.
+ *
+ * This function does not allocate or free file payload sectors if the file
+ * size changes; it is limited to updating directory metadata and allocating
+ * directory blocks when necessary.
+ *
+ * @pre  @p file must be non-NULL.
+ * @pre  @p file->directory must point to a valid fs_tree_t representing the
+ *       parent directory.
+ * @pre  @p file->filename must point to a non-empty NUL-terminated string.
+ * @post On success, the directory chain on disk contains the inserted or
+ *       updated entry, and @p file reflects the same metadata supplied.
+ *
+ * @param file Pointer to a VFS directory entry to insert or update.
+ * @param sector_extent Reserved extent for the file in sectors
+ * @return The same @p file pointer on success, or NULL on error.
+ */
+fs_directory_entry_t* rfs_upsert_directory_entry(fs_directory_entry_t* file, uint64_t sector_extent);
+
+/**
+ * @brief Remove a directory entry from disk by name.
+ *
+ * Finds the first entry in the directory chain whose name matches
+ * @p file->filename case-insensitively, removes it, and compacts the
+ * remaining entries in that block to avoid internal holes. Continuation
+ * blocks are not freed, even if they become empty.
+ *
+ * This function does not modify the free-space map for the file payload;
+ * only the directory metadata is altered.
+ *
+ * @pre  @p file must be non-NULL.
+ * @pre  @p file->directory must point to a valid fs_tree_t representing the
+ *       parent directory.
+ * @pre  @p file->filename must point to a non-empty NUL-terminated string.
+ * @post On success, the directory chain on disk no longer contains an entry
+ *       matching @p file->filename in a case-insensitive comparison.
+ *
+ * @param file Pointer to a VFS directory entry identifying the file to remove.
+ * @return true on success, false if the entry was not found or on I/O error.
+ */
+bool rfs_delete_directory_entry(fs_directory_entry_t* file);
+
+/**
+ * @brief Convert a size in bytes to the number of sectors required.
+ *
+ * This rounds up to the nearest whole sector, so that any non-zero
+ * remainder results in an additional sector being counted.
+ *
+ * @param bytes Size in bytes.
+ * @return Number of sectors required to store @p bytes.
+ */
+uint64_t rfs_bytes_to_sectors(uint64_t bytes);
+
+/**
+ * @brief Locate a directory entry by name within a given directory.
+ *
+ * Searches the specified directory (including any continuation blocks)
+ * for an entry whose filename matches @p name. If found, returns its
+ * on-disk location and a copy of the directory entry structure.
+ *
+ * @param info            Filesystem context (RetroFS instance).
+ * @param tree            VFS tree node representing the directory to search.
+ * @param name            Filename to look up (null-terminated string).
+ * @param out_sector      Receives the sector number containing the entry.
+ * @param out_index       Receives the index of the entry within that sector.
+ * @param out_entry_copy  Receives a copy of the on-disk entry.
+ * @return @c true if the entry was found, @c false otherwise.
+ */
+bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* out_sector, size_t* out_index, rfs_directory_entry_inner_t* out_entry_copy);
 
 _Static_assert(sizeof(rfs_directory_entry_t) == (RFS_SECTOR_SIZE / 2), "Directory entry must be exactly half a sector");
 _Static_assert(sizeof(rfs_description_block_padded_t) == RFS_SECTOR_SIZE, "Description block must be exactly one sector");
