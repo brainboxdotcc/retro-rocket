@@ -18,10 +18,10 @@
 /**
  * @brief Default directory size of a block in sectors
  * (rfs_directory_start_t::sectors)
- * 32 sectors holds 63 files (the first entry is the start
+ * 64 sectors holds 127 files (the first entry is the start
  * entry that contains the continuation pointer etc)
  */
-#define RFS_DEFAULT_DIR_SIZE	32
+#define RFS_DEFAULT_DIR_SIZE	64
 
 #define RFS_FLAG_DIRECTORY	0x0001
 #define RFS_FLAG_LOCKED		0x0002
@@ -125,6 +125,21 @@ static inline size_t bitset_bytes(uint64_t nbits) {
 
 
 void init_rfs();
+bool rfs_format(rfs_t* info);
+int rfs_read_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, void* buffer);
+int rfs_write_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, const void* buffer);
+bool rfs_find_free_extent(rfs_t *info, uint64_t need, uint64_t *out_start_sector);
+bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors, bool mark_used);
+bool rfs_build_level_caches(rfs_t *info);
+
+void* rfs_get_directory(void* t);
+bool rfs_unlink_file(void* dir, const char* name);
+bool rfs_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer);
+uint64_t rfs_create_file(void* dir, const char* name, size_t size);
+uint64_t rfs_create_directory(void* dir, const char* name);
+bool rfs_unlink_dir(void* dir, const char* name);
+bool rfs_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer);
+bool rfs_truncate_file(void* f, size_t length);
 
 _Static_assert(sizeof(rfs_directory_entry_t) == (RFS_SECTOR_SIZE / 2), "Directory entry must be exactly half a sector");
 _Static_assert(sizeof(rfs_description_block_padded_t) == RFS_SECTOR_SIZE, "Description block must be exactly one sector");
