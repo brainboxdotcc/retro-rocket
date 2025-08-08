@@ -1,8 +1,10 @@
 # RetroFS v1 Technical Specification
 
-| **Status:** Draft | **Version:** 1.0 |
-|-------------------|------------------|
-**Audience:** System implementors / filesystem driver authors | **Scope:** On-disk format and required behaviours for RetroFS v1 |
+| **Status:** Draft |
+|-------------------|
+| **Version:** 1.0  |
+**Audience:** System implementors / filesystem driver authors |
+| **Scope:** On-disk format and required behaviours for RetroFS v1 |
 
 ## 1. Conventions and terminology
 
