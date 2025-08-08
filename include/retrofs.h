@@ -86,6 +86,10 @@ typedef struct rfs_t {
 	uint64_t length;
 	rfs_description_block_t* desc;
 	uint64_t total_sectors;
+
+	void   *cache_block;        // owning pointer for all L1/L2 arrays + build buffer
+	size_t  cache_block_size;   // for sanity/debug
+
 	uint64_t l1_groups;
 	uint64_t l2_groups;
 	// L1: per-group free counters and bitsets
@@ -122,6 +126,8 @@ static inline bool bitset_get(const uint8_t *bs, uint64_t idx) {
 static inline size_t bitset_bytes(uint64_t nbits) {
 	return (size_t)((nbits + 7ULL) >> 3);
 }
+
+#define ALIGN_UP(x,a) (((x) + ((a) - 1)) & ~((a) - 1))
 
 
 void init_rfs();
