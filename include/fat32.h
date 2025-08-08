@@ -158,3 +158,30 @@ typedef struct lfn_t {
  * @brief Register fat32 as a filesystem type
  */
 void init_fat32();
+
+uint64_t cluster_to_lba(fat32_t* info, uint32_t cluster);
+uint32_t get_fat_entry(fat32_t* info, uint32_t cluster);
+bool set_fat_entry(fat32_t* info, uint32_t cluster, uint32_t value);
+bool fat32_read_file(void* file, uint64_t start, uint32_t length, unsigned char* buffer);
+int fat32_attach(const char* device_name, const char* path);
+bool fat32_unlink_file(void* dir, const char* name);
+uint32_t find_next_free_fat_entry(fat32_t* info);
+void amend_free_count(fat32_t* info, int adjustment);
+bool fat32_extend_file(void* f, uint32_t size);
+bool read_cluster(fat32_t* info, uint32_t cluster, void* buffer);
+bool write_cluster(fat32_t* info, uint32_t cluster, void* buffer);
+char* parse_shitty_lfn_entry(char* nameptr, uint16_t* wide_chars, uint8_t n_wide_chars);
+void parse_short_name(directory_entry_t* entry, char* name, char* dotless);
+void build_lfn_chain(const char* filename, fs_directory_entry_t* current, directory_entry_t* short_entry, directory_entry_t** entries, size_t* entry_count);
+void free_fat32_directory(fs_directory_entry_t* list);
+void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t cluster, uint8_t* buffer, int bufferoffset, directory_entry_t* short_entry, directory_entry_t* new_entries, int entry_count);
+uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, uint8_t attributes);
+fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint32_t cluster);
+void* fat32_get_directory(void* t);
+uint64_t fat32_create_directory(void* dir, const char* name);
+bool fat32_unlink_file(void* dir, const char* name);
+bool fat32_unlink_dir(void* dir, const char* name);
+uint32_t find_next_free_fat_entry(fat32_t* info);
+uint64_t fat32_create_file(void* dir, const char* name, size_t size);
+bool fat32_truncate_file(void* f, size_t length);
+bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer);

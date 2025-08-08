@@ -30,11 +30,11 @@ bool rfs_format(rfs_t* info) {
 	}
 
 	// Write root directory entry (LBA 1)
-	rfs_directory_entry_t dirent = { 0 };
-	dirent.start.flags = RFS_FLAG_DIR_START;
-	dirent.start.continuation = 0;
-	dirent.start.parent = 0;
-	dirent.start.sectors = RFS_DEFAULT_DIR_SIZE;   // root dir cluster size
+	rfs_directory_entry_t dirent[2] = { 0 };
+	dirent[0].start.flags = RFS_FLAG_DIR_START;
+	dirent[0].start.continuation = 0;
+	dirent[0].start.parent = 0;
+	dirent[0].start.sectors = RFS_DEFAULT_DIR_SIZE;   // root dir cluster size
 	if (!rfs_write_device(info, 1, sizeof(dirent), &dirent)) {
 		dprintf("Failed to write RFS root directory entry\n");
 		return false;
