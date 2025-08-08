@@ -2,24 +2,41 @@
 
 filesystem_t* rfs_fs = NULL;
 
-int rfs_read_device(rfs_t* rfs, uint64_t start, uint64_t size, void* buffer)
+int rfs_read_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, void* buffer)
 {
-	if (!rfs || size > rfs->length) {
+	const uint64_t total_sectors = rfs->length / RFS_SECTOR_SIZE;
+	const uint64_t nsectors = size_bytes / RFS_SECTOR_SIZE;
+
+	if ((size_bytes % RFS_SECTOR_SIZE) != 0) {
+		dprintf("rfs_read_device: size not sector-aligned\n");
 		return 0;
 	}
+	if (start_sectors + nsectors > total_sectors) {
+		dprintf("rfs_read_device: would read past end of device\n");
+		return 0;
+	}
+
 	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
-	dprintf("rfs_read_device(%lu,%lu)\n", cluster_start, size / RFS_SECTOR_SIZE);
-	return read_storage_device(rfs->dev->name, cluster_start + start, size, buffer);
+	return read_storage_device(rfs->dev->name, cluster_start + start_sectors, size_bytes, buffer);
 }
 
-int rfs_write_device(rfs_t* rfs, uint64_t start, uint64_t size, void* buffer)
+int rfs_write_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, void* buffer)
 {
-	if (!rfs || size > rfs->length) {
+	const uint64_t total_sectors = rfs->length / RFS_SECTOR_SIZE;
+	const uint64_t nsectors = size_bytes / RFS_SECTOR_SIZE;
+
+	if ((size_bytes % RFS_SECTOR_SIZE) != 0) {
+		dprintf("rfs_write_device: size not sector-aligned\n");
 		return 0;
 	}
+	if (start_sectors + nsectors > total_sectors) {
+		dprintf("rfs_write_device: would read past end of device\n");
+		return 0;
+	}
+
 	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
-	dprintf("rfs_write_device(%lu,%lu)\n", cluster_start, size / RFS_SECTOR_SIZE);
-	return write_storage_device(rfs->dev->name, cluster_start + start, size, buffer);
+	dprintf("rfs_write_device(%lu,%lu)\n", cluster_start + start_sectors, size_bytes / RFS_SECTOR_SIZE);
+	return write_storage_device(rfs->dev->name, cluster_start + start_sectors, size_bytes, buffer);
 }
 
 bool rfs_reserve_in_fs_map(rfs_t* info, uint64_t start, uint64_t length)
@@ -77,6 +94,224 @@ bool rfs_reserve_in_fs_map(rfs_t* info, uint64_t start, uint64_t length)
 		bit_index = first_bit_in_sector + local_end;
 	}
 
+	return true;
+}
+
+static bool rfs_build_level_caches(rfs_t *info)
+{
+	if (!info || !info->desc) return false;
+
+	// Geometry
+	info->total_sectors = info->length / RFS_SECTOR_SIZE;
+
+	const uint64_t G = RFS_L1_GROUP_SECTORS;       // sectors per L1 group
+	const uint64_t S = RFS_L2_GROUPS_PER_SUPER;    // L1 groups per L2 super-group
+
+	info->l1_groups = (info->total_sectors + G - 1ULL) / G;
+	info->l2_groups = (info->l1_groups   + S - 1ULL) / S;
+
+	// Allocate RAM structures
+	info->l1_free_count = kmalloc(info->l1_groups * sizeof(uint16_t));
+	if (!info->l1_free_count) return false;
+	memset(info->l1_free_count, 0, info->l1_groups * sizeof(uint16_t));
+
+	const size_t l1_bytes = bitset_bytes(info->l1_groups);
+	info->l1_not_full = kmalloc(l1_bytes);
+	info->l1_all_free = kmalloc(l1_bytes);
+	if (!info->l1_not_full || !info->l1_all_free) {
+		kfree_null(&info->l1_not_full);
+		kfree_null(&info->l1_all_free);
+		kfree_null(&info->l1_free_count);
+		return false;
+	}
+	memset(info->l1_not_full, 0, l1_bytes);
+	memset(info->l1_all_free, 0, l1_bytes);
+
+	const size_t l2_bytes = bitset_bytes(info->l2_groups);
+	info->l2_not_full = kmalloc(l2_bytes);
+	info->l2_all_free = kmalloc(l2_bytes);
+	if (!info->l2_not_full || !info->l2_all_free) {
+		kfree_null(&info->l2_not_full);
+		kfree_null(&info->l2_all_free);
+		kfree_null(&info->l1_not_full);
+		kfree_null(&info->l1_all_free);
+		kfree_null(&info->l1_free_count);
+		return false;
+	}
+	memset(info->l2_not_full, 0, l2_bytes);
+	memset(info->l2_all_free, 0, l2_bytes);
+
+	// Stream the Level-0 bitmap (on disk: 1 bit per sector, 1=used, 0=free)
+	const uint64_t map_start = info->desc->free_space_map_start;
+	const uint64_t map_len   = info->desc->free_space_map_length;
+	const uint64_t total_bits = info->total_sectors;
+
+	const uint64_t max_bytes_per_read = RFS_MAP_READ_CHUNK_SECTORS * RFS_SECTOR_SIZE;
+	uint8_t *buf = kmalloc(max_bytes_per_read);
+	if (!buf) {
+		dprintf("rfs_build_level_caches: OOM map buffer\n");
+		kfree_null(&info->l2_not_full);
+		kfree_null(&info->l2_all_free);
+		kfree_null(&info->l1_not_full);
+		kfree_null(&info->l1_all_free);
+		kfree_null(&info->l1_free_count);
+		return false;
+	}
+
+	uint64_t bit_cursor = 0;   // global sector-index represented by next L0 bit
+	uint64_t sector_off = 0;   // offset into L0 map (in sectors)
+
+	while (sector_off < map_len && bit_cursor < total_bits) {
+		const uint64_t remaining      = map_len - sector_off;
+		const uint64_t sectors_this   = MIN(remaining, RFS_MAP_READ_CHUNK_SECTORS);
+		if (sectors_this == 0) {
+			break; // nothing left
+		}
+		const size_t bytes_this = (size_t)(sectors_this * RFS_SECTOR_SIZE);
+		if (!rfs_read_device(info, map_start + sector_off, bytes_this, buf)) {
+			dprintf("rfs_build_level_caches: failed read @LBA %lu (sectors=%lu)\n",
+				map_start + sector_off, sectors_this);
+			kfree_null(&buf);
+			kfree_null(&info->l2_not_full);
+			kfree_null(&info->l2_all_free);
+			kfree_null(&info->l1_not_full);
+			kfree_null(&info->l1_all_free);
+			kfree_null(&info->l1_free_count);
+			return false;
+		}
+
+		// Valid bits in this buffer (don’t run past end of volume)
+		const uint64_t bits_in_buf = MIN(bytes_this * 8ULL, total_bits - bit_cursor);
+
+		// Process 64-bit words of bits; invert so 1-bits mean "free".
+		const uint64_t full_words = bits_in_buf >> 6;   // / 64
+		const uint64_t tail_bits  = bits_in_buf & 63ULL;
+
+		const uint64_t *wptr = (const uint64_t*)buf;
+
+		uint64_t pos = bit_cursor; // global bit index for start of current word
+
+		for (uint64_t wi = 0; wi < full_words; ++wi, ++wptr, pos += 64ULL) {
+			uint64_t word = ~(*wptr); // free=1, used=0
+
+			if (word == 0ULL) {
+				continue; // all used, nothing to accumulate
+			}
+
+			// Distribute this word’s free bits across L1 groups it may span
+			uint64_t remaining = 64ULL;
+			while (word && remaining) {
+				const uint64_t g = pos / G;
+				if (g >= info->l1_groups) {
+					// Safety; shouldn’t happen because bits_in_buf clamps to total_bits
+					break;
+				}
+				const uint64_t group_end = (g + 1ULL) * G;
+				const uint64_t in_group  = group_end - pos;          // bits to group boundary
+				const uint64_t take      = MIN(remaining, in_group); // <=64
+
+				// Mask off only the 'take' LSBs of 'word'
+				const uint64_t mask = (take == 64ULL) ? ~0ULL : ((1ULL << take) - 1ULL);
+				const uint64_t seg  = word & mask;
+
+				if (seg) {
+					const int add = __builtin_popcountll(seg);
+					uint16_t *fc = &info->l1_free_count[g];
+					const uint64_t group_start = g * G;
+					const uint64_t group_size  = (group_start + G <= info->total_sectors)
+								     ? G
+								     : (info->total_sectors - group_start);
+					if (*fc < group_size) {
+						uint64_t room = group_size - *fc;
+						*fc += (uint16_t)MIN((uint64_t)add, room);
+					}
+				}
+
+				// Advance within word and possibly into next group
+				word     >>= take;
+				pos      += take;
+				remaining -= take;
+			}
+		}
+
+		if (tail_bits) {
+			uint64_t tail = ((const uint64_t*)buf)[full_words];
+			uint64_t word = ~tail;
+
+			// Keep only 'tail_bits'
+			const uint64_t mask = (1ULL << tail_bits) - 1ULL;
+			word &= mask;
+
+			uint64_t remaining = tail_bits;
+			while (word && remaining) {
+				const uint64_t g = pos / G;
+				if (g >= info->l1_groups) break;
+
+				const uint64_t group_end = (g + 1ULL) * G;
+				const uint64_t in_group  = group_end - pos;
+				const uint64_t take      = MIN(remaining, in_group);
+
+				const uint64_t seg_mask = (take == 64ULL) ? ~0ULL : ((1ULL << take) - 1ULL);
+				const uint64_t seg      = word & seg_mask;
+
+				if (seg) {
+					const int add = __builtin_popcountll(seg);
+					uint16_t *fc = &info->l1_free_count[g];
+					const uint64_t group_start = g * G;
+					const uint64_t group_size  = (group_start + G <= info->total_sectors)
+								     ? G
+								     : (info->total_sectors - group_start);
+					if (*fc < group_size) {
+						uint64_t room = group_size - *fc;
+						*fc += (uint16_t)MIN((uint64_t)add, room);
+					}
+				}
+
+				word     >>= take;
+				pos      += take;
+				remaining -= take;
+			}
+		}
+
+		bit_cursor += bits_in_buf;
+		sector_off += sectors_this;
+	}
+
+	kfree_null(&buf);
+
+	// Derive L1 bitsets from counters
+	for (uint64_t g = 0; g < info->l1_groups; ++g) {
+		const uint16_t fc = info->l1_free_count[g];
+		bitset_set(info->l1_not_full, g, (fc > 0));
+
+		const uint64_t group_start = g * G;
+		const uint64_t group_size  = (group_start + G <= info->total_sectors)
+					     ? G
+					     : (info->total_sectors - group_start);
+		bitset_set(info->l1_all_free, g, (fc == (uint16_t)group_size));
+	}
+
+	// Build L2 by folding over S children
+	for (uint64_t sg = 0; sg < info->l2_groups; ++sg) {
+		const uint64_t g0 = sg * S;
+		const uint64_t g1 = MIN(g0 + S, info->l1_groups);
+
+		bool any_free = false;
+		bool all_full_groups_free = true;
+
+		for (uint64_t g = g0; g < g1; ++g) {
+			any_free |= bitset_get(info->l1_not_full, g);
+			if (!bitset_get(info->l1_all_free, g)) {
+				all_full_groups_free = false;
+			}
+		}
+
+		bitset_set(info->l2_not_full, sg, any_free);
+		bitset_set(info->l2_all_free, sg, all_full_groups_free);
+	}
+
+	dprintf("RFS: Built L1/L2: total_sectors=%lu, l1_groups=%lu, l2_groups=%lu\n",
+		info->total_sectors, info->l1_groups, info->l2_groups);
 	return true;
 }
 
@@ -211,6 +446,11 @@ rfs_t* rfs_mount_volume(const char* device_name)
 		}
 	}
 	if (!success) {
+		kfree_null(&info);
+		return NULL;
+	}
+	if (!rfs_build_level_caches(info)) {
+		dprintf("Failed to build RFS L1/L2 caches\n");
 		kfree_null(&info);
 		return NULL;
 	}

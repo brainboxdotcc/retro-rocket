@@ -13,6 +13,8 @@
 #define RFS_MAX_NAME 128
 #define RFS_FS_MAP_BITS_PER_SECTOR (512 / sizeof(uint64_t))
 
+#define RFS_MAP_READ_CHUNK_SECTORS 128ULL
+
 /**
  * @brief Default directory size of a block in sectors
  * (rfs_directory_start_t::sectors)
@@ -83,9 +85,47 @@ typedef struct rfs_t {
 	uint64_t start;
 	uint64_t length;
 	rfs_description_block_t* desc;
+	uint64_t total_sectors;
+	uint64_t l1_groups;
+	uint64_t l2_groups;
+	// L1: per-group free counters and bitsets
+	uint16_t *l1_free_count;    // [l1_groups], 0..RFS_L1_GROUP_SECTORS
+	uint8_t  *l1_not_full;      // bitset, 1 if group has any free sector
+	uint8_t  *l1_all_free;      // bitset, 1 if group is entirely free
+	// L2: super-group bitsets (over L1)
+	uint8_t  *l2_not_full;      // bitset, 1 if any child L1 group has free
+	uint8_t  *l2_all_free;      // bitset, 1 if all child L1 groups are fully free
+
 } rfs_t;
+
+// --- free space hierarchy parameters ---
+// One L1 group summarises this many sectors (1 bit per sector in L0).
+// 4096 sectors == 2 MiB at 512B sectors; tune as you like.
+#define RFS_L1_GROUP_SECTORS   (4096ULL)
+
+// One L2 super-group summarises this many L1 groups.
+#define RFS_L2_GROUPS_PER_SUPER (1024ULL)
+
+// Bitset helpers
+static inline void bitset_set(uint8_t *bs, uint64_t idx, bool val) {
+	uint64_t byte = idx >> 3;
+	uint8_t  mask = (uint8_t)(1u << (idx & 7));
+	if (val) bs[byte] |= mask; else bs[byte] &= (uint8_t)~mask;
+}
+
+static inline bool bitset_get(const uint8_t *bs, uint64_t idx) {
+	uint64_t byte = idx >> 3;
+	uint8_t  mask = (uint8_t)(1u << (idx & 7));
+	return (bs[byte] & mask) != 0;
+}
+
+static inline size_t bitset_bytes(uint64_t nbits) {
+	return (size_t)((nbits + 7ULL) >> 3);
+}
+
 
 void init_rfs();
 
 _Static_assert(sizeof(rfs_directory_entry_t) == (RFS_SECTOR_SIZE / 2), "Directory entry must be exactly half a sector");
 _Static_assert(sizeof(rfs_description_block_padded_t) == RFS_SECTOR_SIZE, "Description block must be exactly one sector");
+_Static_assert(RFS_MAP_READ_CHUNK_SECTORS * RFS_SECTOR_SIZE <= (4ULL * 1024 * 1024), "AHCI PRDT entry must be <= 4 MiB");

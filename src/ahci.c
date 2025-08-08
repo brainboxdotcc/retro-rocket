@@ -19,7 +19,7 @@ void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error,
 		if (is & (1u << i)) {
 			uint32_t pis = abar->ports[i].is;
 			abar->ports[i].is = pis; // ack by writing back
-			dprintf("AHCI IRQ: port %d, PxIS=%08x\n", i, pis);
+			//dprintf("AHCI IRQ: port %d, PxIS=%08x\n", i, pis);
 		}
 	}
 }

@@ -18,7 +18,7 @@ include("${CMAKE_SOURCE_DIR}/cmake/custom_targets.cmake")
 file(GLOB_RECURSE SOURCES "src/*.c")
 file(GLOB ASSEMBLY "asm/*")
 
-set(CMAKE_C_FLAGS "-pipe -g -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-declarations -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-discarded-qualifiers -Wno-int-conversion -Wno-int-to-pointer-cast -nostdlib -mno-mmx -mno-3dnow -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=kernel -mno-red-zone -Wno-address-of-packed-member")
+set(CMAKE_C_FLAGS "-pipe -g -mpopcnt -fno-PIC -std=c17 -Wall -Wextra -Wno-deprecated-declarations -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-discarded-qualifiers -Wno-int-conversion -Wno-int-to-pointer-cast -nostdlib -mno-mmx -mno-3dnow -ffreestanding -nostartfiles -nodefaultlibs -mcmodel=kernel -mno-red-zone -Wno-address-of-packed-member")
 
 if(PROFILE_KERNEL)
     add_compile_definitions(PROFILE_KERNEL)
