@@ -137,14 +137,14 @@ Files and directories may set the following bits in their `flags` field:
 **Rules**
 
 * Filenames are **case-preserving**, compared **case-insensitively** (ASCII only).
-* Unused slots **MUST** be marked by `filename[0] == 0`.
+* The slot after the last, if any are unused, **MUST** be marked by `filename[0] == 0`. There may still be further continuation blocks, with their own file entries, the NULL filename just indicates the end of files within **this block only** (see 3.3.3, Directory walk)
 * For directories, `flags` **MUST** include `RFS_FLAG_DIRECTORY` and `length` **MUST** be 0.
 * `sector_length` is the reserved extent size; `length` **MUST NOT** exceed `sector_length * 512`.
-* `sequence` is a human-oriented revision counter: implementations **SHOULD** increment it on payload-modifying writes and **MAY** leave it unchanged on metadata-only updates.
+* `sequence` is a human-oriented revision counter: implementations **SHOULD** increment it on payload-modifying writes and **MAY** leave it unchanged on metadata-only updates. When to increment the counter is left to the implementor, but it is recommended to do this at the point of close().
 
 #### 3.3.3 Directory walk
 
-* Readers **MUST** follow the `continuation` chain until `0`.
+* Readers **MUST** follow the `continuation` chain until `continuation` is `0`.
 * Readers **MUST** bound the walk (implementation-defined limit) to avoid infinite loops on corruption.
 * Within each block, readers **MAY** stop at the first `filename[0] == 0` (end-of-entries for that block).
 
@@ -154,6 +154,7 @@ Files and directories may set the following bits in their `flags` field:
 
 * Every file and directory occupies exactly one **contiguous** extent.
 * When a file write would exceed its reserved capacity (`sector_length * 512`), the file **MUST** be **relocated** to a larger contiguous extent (“extend-and-move”), after which the old extent **MUST** be freed.
+* If there is no extent big enough to contain the file, the implementation may raise an "out of space" error.
 
 ### 4.2 Creation
 
