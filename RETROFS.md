@@ -91,7 +91,7 @@ A directory is stored in one or more directory blocks. Each block is exactly **`
 
 #### 3.3.1 Directory Start entry (first half-sector of the block)
 
-```
+```c
 typedef struct rfs_directory_start_t {
     uint32_t flags;          // MUST include RFS_FLAG_DIR_START
     char     title[128];     // NUL-terminated if shorter
@@ -110,7 +110,7 @@ typedef struct rfs_directory_start_t {
 
 #### 3.3.2 File/Directory entry (other half-sectors)
 
-```
+```c
 typedef struct rfs_directory_entry_inner_t {
     uint32_t flags;              // RFS_FLAG_DIRECTORY et al.
     char     filename[128];      // NUL-terminated
