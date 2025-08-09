@@ -1,13 +1,52 @@
 #include <kernel.h>
 #include <filesystem.h>
 
-filesystem_t* filesystems, *dummyfs;
-storage_device_t* storagedevices = NULL;
-fs_tree_t* fs_tree;
+static const char *fs_error_strings[] = {
+	"No error",
+	"Operation unsupported",
+	"No more file descriptors",
+	"Invalid file descriptor",
+	"Invalid argument",
+	"No such directory",
+	"Invalid file path",
+	"File already exists",
+	"Out of memory",
+	"I/O error",
+	"Seek past end of file",
+	"File not open for output",
+	"File not open for input",
+	"Truncate beyond current length",
+	"No such file",
+	"Invalid filename",
+	"Cycle detected in directory structure",
+	"Broken directory entry",
+	"Invalid filesystem geometry",
+	"No space left on device",
+	"Access outside of volume",
+	"Not an RFS volume",
+	"Not a file",
+	"Invalid VFS data",
+	"Not a directory",
+	"Directory not empty",
+	"File has vanished",
+	"Directory already exists",
+	"Invalid Primary Volume Descriptor",
+	"Invalid Supplementary Volume Descriptor",
+	"Oversized directory",
+	"Buffer would overflow",
+	"No such device",
+	"Long filename too long",
+	"Filesystem is exFAT",
+	"Bad cluster detected"
+};
+
+static filesystem_t* filesystems, *dummyfs;
+static storage_device_t* storagedevices = NULL;
+static fs_tree_t* fs_tree;
 static uint32_t fd_last = 0;
 static uint32_t fd_alloc = 0;
-fs_handle_t* filehandles[FD_MAX] = { NULL };
-uint32_t fs_last_error[MAX_CPUS] = { FS_ERR_NO_ERROR };
+static fs_handle_t* filehandles[FD_MAX] = { NULL };
+static uint32_t fs_last_error[MAX_CPUS] = { FS_ERR_NO_ERROR };
 
 uint8_t verify_path(const char* path);
 fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path);
@@ -858,7 +897,7 @@ fs_directory_entry_t* find_dir_in_dir(fs_tree_t* directory, const char* filename
 
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	if (file && buffer && file->directory && file->directory->responsible_driver) {
+	if (file && buffer && file->directory && file->directory->responsible_driver && file->directory->responsible_driver->readfile) {
 		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
 		return fs ? fs->readfile(file, start, length, buffer) : 0;
 	}
@@ -868,7 +907,7 @@ int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, un
 
 int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	if (file && buffer && file->directory && file->directory->responsible_driver) {
+	if (file && buffer && file->directory && file->directory->responsible_driver && file->directory->responsible_driver->writefile) {
 		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
 		return fs && fs->writefile ? fs->writefile(file, start, length, buffer) : 0;
 	}
@@ -878,7 +917,7 @@ int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, u
 
 int fs_truncate_file(fs_directory_entry_t* file, uint32_t length)
 {
-	if (file && file->directory && file->directory->responsible_driver) {
+	if (file && file->directory && file->directory->responsible_driver && file->directory->responsible_driver->truncatefile) {
 		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
 		return fs && fs->truncatefile ? fs->truncatefile(file, length) : 0;
 	}
@@ -991,12 +1030,18 @@ bool fs_delete_file(const char* pathandfile)
 	}
 	
 	bool rv = false;
-	if (!(fileinfo->flags & FS_DIRECTORY) && directory->responsible_driver && directory->responsible_driver->rm) {
-		rv = directory->responsible_driver->rm(directory, filename);
-		/* Remove the deleted file from the fs_tree_t */
-		if (rv) {
-			delete_file_node(&(directory->files), filename);
+	if (!(fileinfo->flags & FS_DIRECTORY)) {
+		if (directory->responsible_driver && directory->responsible_driver->rm) {
+			rv = directory->responsible_driver->rm(directory, filename);
+			/* Remove the deleted file from the fs_tree_t */
+			if (rv) {
+				delete_file_node(&(directory->files), filename);
+			}
+		} else {
+			fs_set_error(FS_ERR_UNSUPPORTED);
 		}
+	} else {
+		fs_set_error(FS_ERR_NOT_A_FILE);
 	}
 	kfree_null(&pathname);
 	kfree_null(&filename);
@@ -1027,6 +1072,7 @@ bool fs_delete_directory(const char* pathandfile)
 	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return false;
 	}
 	if (*pathname == 0) {
@@ -1050,13 +1096,19 @@ bool fs_delete_directory(const char* pathandfile)
 	}
 	
 	bool rv = false;
-	if ((fileinfo->flags & FS_DIRECTORY) && directory->responsible_driver && directory->responsible_driver->rmdir) {
-		rv = directory->responsible_driver->rmdir(directory, filename);
-		/* Remove the deleted file from the fs_tree_t */
-		if (rv) {
-			delete_file_node(&(directory->files), filename);
-			delete_tree_node(&(directory->child_dirs), filename);
+	if (fileinfo->flags & FS_DIRECTORY) {
+		if (directory->responsible_driver && directory->responsible_driver->rmdir) {
+			rv = directory->responsible_driver->rmdir(directory, filename);
+			/* Remove the deleted file from the fs_tree_t */
+			if (rv) {
+				delete_file_node(&(directory->files), filename);
+				delete_tree_node(&(directory->child_dirs), filename);
+			}
+		} else {
+			fs_set_error(FS_ERR_UNSUPPORTED);
 		}
+	} else {
+		fs_set_error(FS_ERR_NOT_A_DIRECTORY);
 	}
 	kfree_null(&pathname);
 	kfree_null(&filename);
@@ -1197,4 +1249,11 @@ int filesystem_mount(const char* pathname, const char* device, const char* files
 	);
 	return success;
 
+}
+
+const char *fs_strerror(fs_error_t err) {
+	if (err >= 0 && err < (sizeof(fs_error_strings) / sizeof(fs_error_strings[0]))) {
+		return fs_error_strings[err];
+	}
+	return "Unknown filesystem error";
 }

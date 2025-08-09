@@ -44,7 +44,7 @@ char* basic_readstring(struct basic_ctx* ctx)
 	*res = 0;
 	while (!_eof(intval) && ofs < MAX_STRINGLEN) {
 		if (_read(intval, res + ofs, 1) != 1) {
-			tokenizer_error_print(ctx, "Error reading from file");
+			tokenizer_error_printf(ctx, "Error reading from file: %s", fs_strerror(fs_get_error()));
 			buddy_free(ctx->allocator, res);
 			return "";
 		}
@@ -67,7 +67,7 @@ int64_t basic_read(struct basic_ctx* ctx)
 	PARAMS_GET_ITEM(BIP_INT);
 	PARAMS_END("READ", 0);
 	if (_read(intval, &res, 1) != 1) {
-		tokenizer_error_print(ctx, "Error reading from file");
+		tokenizer_error_printf(ctx, "Error reading from file: %s", fs_strerror(fs_get_error()));
 	}
 	return res;
 }
@@ -105,7 +105,9 @@ void restore_statement(struct basic_ctx* ctx)
 void close_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(CLOSE, ctx);
-	_close(expr(ctx));
+	if (_close(expr(ctx)) < 0) {
+		tokenizer_error_printf(ctx, "Error closing file: %s", fs_strerror(fs_get_error()));
+	}
 	accept_or_return(NEWLINE, ctx);
 }
 
@@ -154,6 +156,10 @@ int64_t basic_getnamecount(struct basic_ctx* ctx)
 		return 0;
 	}
 	fs_directory_entry_t* fsl = fs_get_items(dir);
+	if (!fsl) {
+		tokenizer_error_printf(ctx, "Error retrieving directory items: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
 	int count = 0;
 	while (fsl) {
 		fsl = fsl->next;
@@ -174,6 +180,10 @@ char* basic_getname(struct basic_ctx* ctx)
 		return 0;
 	}
 	fs_directory_entry_t* fsl = fs_get_items(dir);
+	if (!fsl) {
+		tokenizer_error_printf(ctx, "Error retrieving directory items: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
@@ -201,6 +211,10 @@ int64_t basic_getsize(struct basic_ctx* ctx)
 	PARAMS_END("GETSIZE", 0);
 	const char* dir = make_full_path(ctx, strval);
 	fs_directory_entry_t* fsl = fs_get_items(dir);
+	if (!fsl) {
+		tokenizer_error_printf(ctx, "Error retrieving directory items: %s", fs_strerror(fs_get_error()));
+		return 0;
+	}
 	int count = 0;
 	while (fsl) {
 		if (count++ == intval) {
@@ -226,7 +240,7 @@ void mkdir_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 	const char* dir = make_full_path(ctx, name);
 	if (!fs_create_directory(dir)) {
-		tokenizer_error_printf(ctx, "Unable to create directory '%s'", dir);
+		tokenizer_error_printf(ctx, "Unable to create directory '%s': %s", dir, fs_strerror(fs_get_error()));
 	}
 }
 
@@ -248,7 +262,7 @@ void rmdir_statement(struct basic_ctx* ctx)
 	const char* name = make_full_path(ctx, str_expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_directory(name)) {
-		tokenizer_error_printf(ctx, "Unable to delete directory '%s'", name);
+		tokenizer_error_printf(ctx, "Unable to delete directory '%s': %s", name, fs_strerror(fs_get_error()));
 	}
 }
 
@@ -259,7 +273,7 @@ void delete_statement(struct basic_ctx* ctx)
 	const char* name = make_full_path(ctx, str_expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 	if (!fs_delete_file(name)) {
-		tokenizer_error_printf(ctx, "Unable to delete file '%s'", name);
+		tokenizer_error_printf(ctx, "Unable to delete file '%s': %s", name, fs_strerror(fs_get_error()));
 	}
 }
 
@@ -275,7 +289,7 @@ void write_statement(struct basic_ctx* ctx)
 	char* out = printable_syntax(ctx);
 	if (out) {
 		if (_write(fd, out, strlen(out)) == -1) {
-			tokenizer_error_print(ctx, "Error writing to file");
+			tokenizer_error_printf(ctx, "Error writing to file: %s", fs_strerror(fs_get_error()));
 		}
 	}
 }

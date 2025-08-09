@@ -85,6 +85,25 @@ typedef enum fs_error_t {
 } fs_error_t;
 
 /**
+ * @brief Retrieve a human-readable string for the last filesystem error code.
+ *
+ * This function maps an fs_error_t code to its corresponding descriptive
+ * string. It does not reset or clear the error code — the last error value
+ * is retained until a new filesystem error is set via fs_set_error().
+ *
+ * @note The validity of the returned error string depends on the result of the
+ *       most recent filesystem API call. If a filesystem function returns an
+ *       error state (e.g. `false` or `0`), you may call this function to
+ *       retrieve a description of that error. If the function succeeded, the
+ *       stored error code may be outdated.
+ *
+ * @param err The fs_error_t code to translate into text.
+ * @return Pointer to a static string describing the error, or
+ *         `"Unknown filesystem error"` if the code is not recognised.
+ */
+const char *fs_strerror(fs_error_t err);
+
+/**
  * @brief A VFS directory entry. Files AND directories have these,
  * but internally there is also a tree of fs_tree_t* which is used
  * for faster access and caching the structure to RAM.
