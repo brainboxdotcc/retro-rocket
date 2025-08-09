@@ -137,12 +137,12 @@ Files and directories may set the following bits in their `flags` field:
 **Rules**
 
 * Filenames are **case-preserving**, compared **case-insensitively** (ASCII only).
-* The slot after the last, if any are unused, **MUST** be marked by `filename[0] == 0`. There may still be further continuation blocks, with their own file entries, the NULL filename just indicates the end of files within **this block only** (see 3.3.3, Directory walk)
+* The slot after the last, if any are unused, **MUST** be marked by `filename[0] == 0`. There may still be further continuation blocks, with their own file entries, the NULL filename just indicates the end of files within **this block only** (see §3.3.4)
 * For directories, `flags` **MUST** include `RFS_FLAG_DIRECTORY` and `length` **MUST** be 0.
 * `sector_length` is the reserved extent size; `length` **MUST NOT** exceed `sector_length * 512`.
 * `sequence` is a human-oriented revision counter: implementations **SHOULD** increment it on payload-modifying writes and **MAY** leave it unchanged on metadata-only updates. When to increment the counter is left to the implementor, but it is recommended to do this at the point of close().
 
-#### 3.3.3 Directory walk
+#### 3.3.4 Directory walk
 
 * Readers **MUST** follow the `continuation` chain until `continuation` is `0`.
 * Readers **MUST** bound the walk (implementation-defined limit) to avoid infinite loops on corruption.
