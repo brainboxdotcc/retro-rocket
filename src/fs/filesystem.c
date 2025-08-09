@@ -53,6 +53,12 @@ storage_device_t* find_storage_device(const char* name)
 	return NULL;
 }
 
+uint64_t fs_get_free_space(const char* path)
+{
+	fs_tree_t* dir = walk_to_node(fs_tree, path);
+	return dir && dir->responsible_driver && dir->responsible_driver->freespace ? dir->responsible_driver->freespace(dir) : 0;
+}
+
 int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, unsigned char* data)
 {
 	storage_device_t* cur = find_storage_device(name);
@@ -1103,6 +1109,7 @@ void init_filesystem()
 	filesystems->createdir = NULL;
 	filesystems->truncatefile = NULL;
 	filesystems->rmdir = NULL;
+	filesystems->freespace = NULL;
 	filesystems->next = NULL;
 
 	dummyfs = filesystems;

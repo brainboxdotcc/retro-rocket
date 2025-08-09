@@ -235,9 +235,12 @@ void *iso_get_directory(void *t) {
 	fs_tree_t *treeitem = (fs_tree_t *) t;
 	if (treeitem) {
 		iso9660 *info = (iso9660 *) treeitem->opaque;
-		return (void *) parse_directory(treeitem, (iso9660 *) treeitem->opaque,
-						treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba,
-						treeitem->size ? treeitem->size : (info->rootextent_len == 1 ? 2048 : info->rootextent_len));
+		/* The root node has no size except rotextent_len, we can get it from the vfs tree */
+		uint32_t size = info->rootextent_len;
+		if (treeitem->lbapos && treeitem->lbapos != info->rootextent_lba) {
+			size = treeitem->size;
+		}
+		return (void *) parse_directory(treeitem, (iso9660 *) treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, size);
 	} else {
 		dprintf("*** BUG *** iso_get_directory: null fs_tree_t*!\n");
 		return NULL;
@@ -294,6 +297,7 @@ iso9660 *iso_mount_volume(const char *name) {
 		kfree_null(&buffer);
 		return NULL;
 	}
+	memset(info, 0, sizeof(iso9660));
 	memset(buffer, 0, fs->block_size);
 	uint32_t volume_descriptor_offset = PVD_LBA;
 	int found_pvd = 0, found_svd = 0;
@@ -357,5 +361,6 @@ void init_iso9660() {
 	iso9660_fs->createdir = NULL;
 	iso9660_fs->rmdir = NULL;
 	iso9660_fs->rm = NULL;
+	iso9660_fs->freespace = NULL;
 	register_filesystem(iso9660_fs);
 }

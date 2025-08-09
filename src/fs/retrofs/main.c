@@ -85,7 +85,11 @@ int rfs_attach(const char* device_name, const char* path)
 {
 	rfs_t* rfs = rfs_mount_volume(device_name);
 	if (rfs) {
-		return attach_filesystem(path, rfs_fs, rfs);
+		int success = attach_filesystem(path, rfs_fs, rfs);
+		if (success) {
+			dprintf("RFS: volume free space on '%s': %lu\n", path, fs_get_free_space(path));
+		}
+		return success;
 	}
 	return 0;
 }
@@ -105,5 +109,6 @@ void init_rfs() {
 	rfs_fs->writefile = rfs_write_file;
 	rfs_fs->rm = rfs_unlink_file;
 	rfs_fs->rmdir = rfs_unlink_dir;
+	rfs_fs->freespace = rfs_get_free_space;
 	register_filesystem(rfs_fs);
 }

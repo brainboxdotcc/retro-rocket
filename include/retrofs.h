@@ -468,6 +468,30 @@ uint64_t rfs_bytes_to_sectors(uint64_t bytes);
  */
 bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* out_sector, size_t* out_index, rfs_directory_entry_inner_t* out_entry_copy);
 
+/**
+ * @brief Calculate the exact number of bytes currently in use on the volume.
+ *
+ * This function uses the in-memory Level-1 free‐sector counters built by
+ * rfs_build_level_caches() to determine usage precisely. It sums the free
+ * sector counts for all L1 groups, converts the total to bytes, and subtracts
+ * from the total volume size. The result is exact as long as the L1 cache is
+ * up to date.
+ *
+ * @param info Pointer to the RetroFS volume context (must have valid L1 cache).
+ * @return Number of bytes currently allocated/used on the volume.
+ *
+ * @note If the volume was not cleanly unmounted, ensure the L1 cache has been
+ *       rebuilt from the on-disk free space map before calling this function.
+ */
+uint64_t rfs_get_used_bytes(rfs_t *info);
+
+/**
+ * @brief VFS endpoint to get free space on the filesystem in bytes
+ * @param fs fs_tree_t
+ * @return free space in bytes
+ */
+uint64_t rfs_get_free_space(void* fs);
+
 _Static_assert(sizeof(rfs_directory_entry_t) == (RFS_SECTOR_SIZE / 2), "Directory entry must be exactly half a sector");
 _Static_assert(sizeof(rfs_description_block_padded_t) == RFS_SECTOR_SIZE, "Description block must be exactly one sector");
 _Static_assert(RFS_MAP_READ_CHUNK_SECTORS * RFS_SECTOR_SIZE <= (4ULL * 1024 * 1024), "AHCI PRDT entry must be <= 4 MiB");

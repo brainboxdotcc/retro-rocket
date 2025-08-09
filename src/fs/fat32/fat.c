@@ -107,4 +107,75 @@ uint32_t get_fat_entry(fat32_t* info, uint32_t cluster)
 	return entry;
 }
 
+/**
+ * @brief Return free space (bytes) on a FAT32 volume.
+ *
+ * Uses FSInfo->freecount when valid; if the free count is unknown
+ * (0xFFFFFFFF) or exceeds the total cluster count, recomputes it by
+ * scanning the FAT and updates FSInfo on disk.
+ */
+uint64_t fat32_get_free_space(void *fs) {
+	fs_tree_t* tree = (fs_tree_t*)fs;
+	if (!tree) {
+		return 0;
+	}
+	fat32_t * info = tree->opaque;
+	if (!info) {
+		dprintf("fat32: invalid args get free space\n");
+		return 0;
+	}
+
+	storage_device_t *sd = find_storage_device(info->device_name);
+	if (!sd) {
+		dprintf("fat32: invalid sd get free space: %s\n", info->device_name);
+		return 0;
+	}
+
+	const uint32_t total_clusters = (uint32_t)(info->length / info->clustersize);
+	uint32_t free_clusters = info->info ? info->info->freecount : 0xFFFFFFFF;
+
+	const bool freecount_invalid = (free_clusters == 0xFFFFFFFFu) || (free_clusters > total_clusters);
+
+	if (freecount_invalid) {
+		dprintf("fat32: freecount invalid\n");
+		/* Rebuild free cluster count by scanning the FAT */
+		uint32_t *buffer = (uint32_t *)kmalloc(sd->block_size);
+		if (!buffer) {
+			return 0;
+		}
+
+		const uint32_t entries_per_sector = (uint32_t)(sd->block_size / sizeof(uint32_t));
+		const uint32_t fat_first_lba = info->start + info->reservedsectors; /* FAT #0 base */
+		uint32_t counted_free = 0;
+		uint32_t cluster_idx = 0;
+
+		for (uint32_t off = 0; off < info->fatsize && cluster_idx < total_clusters; ++off) {
+			if (!read_storage_device(info->device_name, fat_first_lba + off, sd->block_size, (uint8_t *)buffer)) {
+				dprintf("fat32_get_free_space: read fail @ LBA %lu\n", fat_first_lba + off);
+				break; /* return whatever we've counted so far */
+			}
+
+			for (uint32_t t = 0; t < entries_per_sector && cluster_idx < total_clusters; ++t, ++cluster_idx) {
+				if (buffer[t] == CLUSTER_FREE) {
+					++counted_free;
+				}
+			}
+		}
+
+		kfree_null(&buffer);
+		free_clusters = counted_free;
+
+		/* Persist the refreshed freecount to FSInfo (best-effort) */
+		if (info->info) {
+			info->info->freecount = free_clusters;
+			(void)write_storage_device(info->device_name,
+						   info->start + info->fsinfocluster,
+						   sd->block_size,
+						   (unsigned char *)info->info);
+		}
+	}
+
+	return (uint64_t)free_clusters * (uint64_t)info->clustersize;
+}
+
 

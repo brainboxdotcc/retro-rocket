@@ -39,6 +39,7 @@ typedef bool (*truncate_file)(void*, size_t);
 typedef uint64_t (*create_dir)(void*, const char*);
 typedef bool (*delete_file)(void*, const char*);
 typedef bool (*delete_dir)(void*, const char*);
+typedef uint64_t (*get_free_space)(void*);
 
 /* Prototypes for block storage device drivers (see storage_device_t) */
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
@@ -170,6 +171,11 @@ typedef struct filesystem_t {
 	 * are permitted to still exist)
 	 */
 	delete_dir rmdir;
+
+	/**
+	 * Returns the free space on the filesystem in bytes
+	 */
+	get_free_space freespace;
 
 	/**
 	 * @brief Pointer to next filesystem driver or NULL
@@ -452,6 +458,8 @@ int fs_truncate_file(fs_directory_entry_t* file, uint32_t length);
  * @return int nonzero on error
  */
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
+
+uint64_t fs_get_free_space(const char* path);
 
 /**
  * @brief POSIX style _open function

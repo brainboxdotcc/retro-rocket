@@ -185,3 +185,4 @@ uint32_t find_next_free_fat_entry(fat32_t* info);
 uint64_t fat32_create_file(void* dir, const char* name, size_t size);
 bool fat32_truncate_file(void* f, size_t length);
 bool fat32_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer);
+uint64_t fat32_get_free_space(void *fs);

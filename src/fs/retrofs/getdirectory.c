@@ -13,7 +13,6 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 	rfs_directory_entry_t block[RFS_DEFAULT_DIR_SIZE * 2]; // Each holds up to 2 files
 	fs_directory_entry_t* list = NULL;
 
-	dprintf("Read: %lu\n", start_sector);
 	if (!rfs_read_device(info, start_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block)) {
 		return NULL;
 	}
@@ -39,7 +38,6 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 			rfs_directory_entry_inner_t* entry = &files[entry_index].entry;
 			if (entry->filename[0] == 0) {
 				/* End of list */
-				dprintf("rfs: Empty filename; end of directory block\n");
 				break;
 			}
 			/* Process entry */
@@ -50,7 +48,6 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 			file->directory = tree;
 			file->flags = 0;
 			file->size = entry->length;
-			dprintf("Got file: '%s' len %u\n", entry->filename, strlen(entry->filename));
 			if (entry->flags & RFS_FLAG_DIRECTORY) {
 				file->flags |= FS_DIRECTORY;
 			}
@@ -59,7 +56,6 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 		}
 		if (start_entry->continuation == 0) {
 			/* No continuations left */
-			dprintf("rfs: No further continuations, end of directory chain\n");
 			break;
 		} else {
 			if (!rfs_read_device(info, start_entry->continuation, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block)) {

@@ -129,7 +129,11 @@ int fat32_attach(const char* device_name, const char* path)
 {
 	fat32_t* fat32fs = fat32_mount_volume(device_name);
 	if (fat32fs) {
-		return attach_filesystem(path, fat32_fs, fat32fs);
+		int attached = attach_filesystem(path, fat32_fs, fat32fs);
+		if (attached) {
+			dprintf("fat32: free space on '%s': %lu bytes\n", path, fs_get_free_space(path));
+		}
+		return attached;
 	}
 	return 0;
 }
@@ -150,6 +154,7 @@ void init_fat32()
 	fat32_fs->writefile = fat32_write_file;
 	fat32_fs->rm = fat32_unlink_file;
 	fat32_fs->rmdir = fat32_unlink_dir;
+	fat32_fs->freespace = fat32_get_free_space;
 	register_filesystem(fat32_fs);
 
 

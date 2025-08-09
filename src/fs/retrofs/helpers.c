@@ -34,7 +34,6 @@ bool rfs_write_device(rfs_t* rfs, uint64_t start_sectors, uint64_t size_bytes, c
 	}
 
 	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
-	dprintf("rfs_write_device(%lu,%lu)\n", cluster_start + start_sectors, size_bytes / RFS_SECTOR_SIZE);
 	return write_storage_device(rfs->dev->name, cluster_start + start_sectors, size_bytes, buffer);
 }
 
@@ -44,7 +43,6 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 	}
 
 	uint64_t current = (tree->lbapos != 0) ? tree->lbapos : info->desc->root_directory;
-	dprintf("rfs_locate_entry in directory '%s' @ %lu, file '%s'\n", tree->name, current, name);
 	rfs_directory_entry_t block[RFS_DEFAULT_DIR_SIZE * 2];
 
 	uint32_t walked = 0;
@@ -56,7 +54,6 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 			return false;
 		}
 
-		dprintf("Read: %lu\n", current);
 		if (!rfs_read_device(info, current, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
 			dprintf("rfs: locate: read error at %lu\n", current);
 			return false;
@@ -71,12 +68,8 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 		rfs_directory_entry_t* ents = (rfs_directory_entry_t*)&block[1];
 		const size_t entries_per_block = (RFS_DEFAULT_DIR_SIZE * 2) - 1;
 
-		dprintf("Walk block\n");
-
 		for (size_t i = 0; i < entries_per_block; i++) {
 			rfs_directory_entry_inner_t* e = &ents[i].entry;
-
-			dprintf("Entry name: '%s' index '%lu'\n", e->filename, i);
 
 			if (e->filename[0] == '\0') {
 				break;
@@ -97,11 +90,41 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 		}
 
 		if (start->continuation == 0) {
-			dprintf("End of continuations\n");
 			break;
 		}
 		current = start->continuation;
 	}
 
 	return false;
+}
+
+uint64_t rfs_get_free_space(void* fs) {
+	fs_tree_t* tree = (fs_tree_t*)fs;
+	if (!tree) {
+		return 0;
+	}
+	rfs_t* info = tree->opaque;
+	return info->length - rfs_get_used_bytes(info);
+}
+
+uint64_t rfs_get_used_bytes(rfs_t *info) {
+	if (!info || !info->desc) {
+		return 0;
+	}
+
+	const uint64_t total = info->total_sectors;
+	uint64_t free_secs = 0;
+
+	/* Sum free sectors across all L1 groups (tail group handled by builder/marking) */
+	for (uint64_t g = 0; g < info->l1_groups; ++g) {
+		free_secs += (uint64_t)info->l1_free_count[g];
+	}
+
+	/* Defensive clamp */
+	if (free_secs > total) {
+		free_secs = total;
+	}
+
+	const uint64_t used_secs = total - free_secs;
+	return used_secs * (uint64_t)RFS_SECTOR_SIZE;
 }
