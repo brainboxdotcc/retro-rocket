@@ -146,7 +146,7 @@ Files and directories may set the following bits in their `flags` field:
 
 * Readers **MUST** follow the `continuation` chain until `continuation` is `0`.
 * Readers **MUST** bound the walk (implementation-defined limit) to avoid infinite loops on corruption.
-* Within each block, readers **MAY** stop at the first `filename[0] == 0` (end-of-entries for that block).
+* Within each block, readers **MUST** stop at the first `filename[0] == 0` (end-of-entries for that block).
 
 ## 4. Allocation & growth semantics (normative)
 
