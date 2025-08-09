@@ -152,7 +152,7 @@ Files and directories may set the following bits in their `flags` field:
 
 ### 4.1 Extents
 
-* Every file and directory occupies exactly one **contiguous** extent.
+* Every file or directory *block* occupies exactly one **contiguous** extent. Directories may be composed of multiple connected *directory blocks*.
 * When a file write would exceed its reserved capacity (`sector_length * 512`), the file **MUST** be **relocated** to a larger contiguous extent (“extend-and-move”), after which the old extent **MUST** be freed.
 * If there is no extent big enough to contain the file, the implementation may raise an "out of space" error.
 
