@@ -276,6 +276,12 @@ static void push_to_buffer(char x) {
 		return;
 	}
 #endif
+	if (ctrl_held() && shift_held() && x == 'D') {
+		const char* log = dprintf_buffer_snapshot();
+		kprintf("\n%s\n", log);
+		kfree_null(&log);
+		return;
+	}
 	if (buffer_read_ptr > buffer_write_ptr) {
 		beep(1000); // buffer overflow signal
 	} else {

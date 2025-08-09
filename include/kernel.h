@@ -65,6 +65,7 @@
 #include "buddy_allocator.h"
 #include "retrofs.h"
 #include "serial.h"
+#include "debug_ringbuffer.h"
 
 #define assert(expr, message) if (!(expr)) { \
 	kprintf("Assertion failure at %s:%d: %s\n", __FILE__, __LINE__, message); \

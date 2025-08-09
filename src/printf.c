@@ -230,9 +230,13 @@ int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const
 	return 0;
 }
 
+static char dprintf_format_buffer[MAX_STRINGLEN] = { 0 };
+static char* dprintf_buf_offset = dprintf_format_buffer;
+
 int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
 	dput(c);
+	*dprintf_buf_offset++ = c;
 	return 0;
 }
 
@@ -249,12 +253,25 @@ int vprintf(const char *fmt, va_list args)
 
 int dvprintf(const char *fmt, va_list args)
 {
+
 	char counter[25];
 	uint64_t flags;
 	lock_spinlock_irq(&debug_console_spinlock, &flags);
+	dprintf_buf_offset = dprintf_format_buffer;
 	do_itoa(get_ticks(), counter, 10);
-	dput('['); dputstring(counter); dputstring("]: ");
-	int r = do_printf(fmt, SIZE_MAX, args, dvprintf_help, NULL);
+	*dprintf_buf_offset++ = '[';
+	dput('[');
+	dputstring(counter);
+	for (char* x = counter; *x; ++x) {
+		*dprintf_buf_offset++ = *x;
+	}
+	dputstring("]: ");
+	*dprintf_buf_offset++ = ']';
+	*dprintf_buf_offset++ = ':';
+	*dprintf_buf_offset++ = ' ';
+	int r = do_printf(fmt, MAX_STRINGLEN, args, dvprintf_help, NULL);
+	*dprintf_buf_offset = 0;
+	dprintf_buffer_append_line(dprintf_format_buffer, (uint64_t)dprintf_buf_offset - (uint64_t)&dprintf_format_buffer);
 	unlock_spinlock_irq(&debug_console_spinlock, flags);
 	return r;
 }

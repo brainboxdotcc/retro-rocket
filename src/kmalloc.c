@@ -54,6 +54,8 @@ void init_heap() {
 	print_heapinfo();
 
 	ta_init((void*)heapstart, heaplen, 8, 4096);
+
+	dprintf_buffer_init(0);
 }
 
 void print_heapinfo() {
