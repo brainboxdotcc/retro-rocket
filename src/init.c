@@ -9,17 +9,17 @@ init_func_t init_funcs[] = {
 	init_heap, validate_limine_page_tables_and_gdt, init_console,
 	init_acpi, init_idt, boot_aps, init_pci, init_realtime_clock,
 	init_devicenames, init_keyboard, init_ide, init_ahci,
-	init_filesystem, init_iso9660, init_devfs, init_fat32,
+	init_filesystem, init_devfs, init_iso9660, init_fat32,
 	init_rfs, init_rtl8139, init_e1000,
 	NULL,
 };
 
 char* init_funcs_names[] = {
-	"heap",		"gdt",			"console",	"acpi",
-	"idt",		"cpus",			"pci",		"clock",
-	"devicenames",	"keyboard",		"ide",		"ahci",
-	"filesystem",	"iso9660",		"devfs",	"fat32",
-	"rfs",		"rtl8139",		"e1000",
+	"heap",			"gdt",			"console",	"acpi",
+	"idt",			"cpus",			"pci",		"clock",
+	"devicenames",		"keyboard",		"ide",		"ahci",
+	"filesystem",		"devfs",		"iso9660",	"fat32",
+	"rfs",			"rtl8139",		"e1000",
 	NULL,
 };
 

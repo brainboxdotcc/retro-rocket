@@ -474,9 +474,7 @@ int _open(const char* filename, int oflag)
 	if (type == file_random || type == file_input) {
 		dprintf("read into buffer pos=%ld sz=%ld buf=%lx\n", filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, (uint64_t)filehandles[fd]->inbuf);
 		/* Read an initial buffer into the structure up to fd->inbufsize in size */
-		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
-			file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
-			filehandles[fd]->inbuf)) {
+		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize, filehandles[fd]->inbuf)) {
 			/* If we couldn't get the initial buffer, there is something wrong.
 			* Give up the filehandle and return error.
 			*/
@@ -563,7 +561,7 @@ int _read(int fd, void *buffer, unsigned int count)
 
 	/* can't read from a write-only handle */
 	if (filehandles[fd]->type == file_output) {
-		fs_set_error(FS_ERR_NOT_OPEN_FOR_OUTPUT);
+		fs_set_error(FS_ERR_NOT_OPEN_FOR_INPUT);
 		return -1;
 	}
 
@@ -584,7 +582,6 @@ int _read(int fd, void *buffer, unsigned int count)
 		 * Continually read into the input buffer in filehandles[fd]->inbufsize
 		 * chunks maximum until all data is read.
 		 */
-		dprintf("Doesnt fit buffer\n");
 		int readbytes = 0;
 		while (count > 0) {
 			int rb;
