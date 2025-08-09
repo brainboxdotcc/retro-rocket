@@ -28,7 +28,7 @@ void parse_boot([[maybe_unused]] iso9660 *info, [[maybe_unused]] unsigned char *
 int parse_pvd(iso9660 *info, unsigned char *buffer) {
 	PVD *pvd = (PVD *) buffer;
 	if (!VERIFY_ISO9660(pvd)) {
-		kprintf("ISO9660: Invalid PVD found, identifier is not 'CD001'\n");
+		fs_set_error(FS_ERR_INVALID_PVD);
 		return 0;
 	}
 	char *ptr = pvd->volumeidentifier + 31;
@@ -67,7 +67,6 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 	memset(dirbuffer, 0, lengthbytes);
 
 	if (!read_storage_device(info->device->name, start_lba, lengthbytes, dirbuffer)) {
-		kprintf("ISO9660: Could not read LBA sectors 0x%x+0x%x when loading directory!\n", start_lba, lengthbytes / 2048);
 		return NULL;
 	}
 
@@ -78,7 +77,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 	int entrycount = 0;
 
 	if (lengthbytes > MAX_REASONABLE_ISO_DIR_SIZE) {
-		dprintf("ISO9660: Rejecting oversized directory: %u bytes\n", lengthbytes);
+		fs_set_error(FS_ERR_OVERSIZED_DIRECTORY);
 		return NULL;
 	}
 
@@ -92,7 +91,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 
 		// Sanity: Does this entry stay within the buffer?
 		if (walkbuffer + fentry->length > dirbuffer + lengthbytes) {
-			dprintf("ISO9660: Directory entry overflows buffer. fentry->length=%d lengthbytes=%d\n", fentry->length, lengthbytes);
+			fs_set_error(FS_ERR_BUFFER_WOULD_OVERFLOW);
 			break;
 		}
 
@@ -102,7 +101,8 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 		if (entrycount > 2) {
 			fs_directory_entry_t *thisentry = kmalloc(sizeof(fs_directory_entry_t));
 			if (!thisentry) {
-				break;
+				fs_set_error(FS_ERR_OUT_OF_MEMORY);
+				return NULL;
 			}
 
 			// Calculate safe max filename length within this entry
@@ -125,6 +125,10 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 			if (info->joliet == 0) {
 				uint32_t safe_len = fentry->filename_length;
 				thisentry->filename = kmalloc(safe_len + 1);
+				if (!thisentry->filename) {
+					fs_set_error(FS_ERR_OUT_OF_MEMORY);
+					return NULL;
+				}
 				uint32_t j = 0;
 				char *ptr = fentry->filename;
 
@@ -141,6 +145,10 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 			} else {
 				uint32_t safe_len = fentry->filename_length / 2;
 				thisentry->filename = kmalloc(safe_len + 1);
+				if (!thisentry->filename) {
+					fs_set_error(FS_ERR_OUT_OF_MEMORY);
+					return NULL;
+				}
 				uint32_t j = 0;
 				char *ptr = fentry->filename;
 
@@ -168,8 +176,9 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 			thisentry->flags = 0;
 			thisentry->directory = node;
 
-			if (fentry->file_flags & 0x02)
+			if (fentry->file_flags & 0x02) {
 				thisentry->flags |= FS_DIRECTORY;
+			}
 
 			thisentry->next = list;
 			list = thisentry;
@@ -185,7 +194,7 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 int parse_svd(iso9660 *info, unsigned char *buffer) {
 	PVD *svd = (PVD *) buffer;
 	if (!VERIFY_ISO9660(svd)) {
-		kprintf("ISO9660: Invalid SVD found, identifier is not 'CD001'\n");
+		fs_set_error(FS_ERR_INVALID_SVD);
 		return 0;
 	}
 
@@ -240,9 +249,9 @@ void *iso_get_directory(void *t) {
 		if (treeitem->lbapos && treeitem->lbapos != info->rootextent_lba) {
 			size = treeitem->size;
 		}
-		return (void *) parse_directory(treeitem, (iso9660 *) treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, size);
+		return parse_directory(treeitem, (iso9660 *) treeitem->opaque, treeitem->lbapos ? treeitem->lbapos : info->rootextent_lba, size);
 	} else {
-		dprintf("*** BUG *** iso_get_directory: null fs_tree_t*!\n");
+		fs_set_error(FS_ERR_VFS_DATA);
 		return NULL;
 	}
 }
@@ -252,6 +261,7 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 	storage_device_t *fs = find_storage_device(file->device_name);
 
 	if (!fs) {
+		fs_set_error(FS_ERR_VFS_DATA);
 		return false;
 	}
 
@@ -265,11 +275,11 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 
 	unsigned char *readbuf = kmalloc(sectors_size * fs->block_size);
 	if (!readbuf) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 	if (!read_storage_device(file->device_name, sectors_start, length, readbuf)) {
-		kprintf("ISO9660: Could not read LBA sectors 0x%lx-0x%lx!\n", sectors_start,
-			sectors_start + sectors_size);
+		kprintf("ISO9660: Could not read LBA sectors 0x%lx-0x%lx!\n", sectors_start, sectors_start + sectors_size);
 		kfree_null(&readbuf);
 		return false;
 	}
@@ -284,17 +294,19 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 iso9660 *iso_mount_volume(const char *name) {
 	storage_device_t *fs = find_storage_device(name);
 	if (!fs) {
-		dprintf("Can't find storage device %s\n", name);
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return NULL;
 	}
 
 	unsigned char *buffer = kmalloc(fs->block_size);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	iso9660 *info = kmalloc(sizeof(iso9660));
 	if (!info) {
 		kfree_null(&buffer);
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	memset(info, 0, sizeof(iso9660));
@@ -304,7 +316,6 @@ iso9660 *iso_mount_volume(const char *name) {
 	info->device = fs;
 	while (1) {
 		if (!read_storage_device(name, volume_descriptor_offset++, fs->block_size, buffer)) {
-			kprintf("ISO9660: Could not read LBA sector 0x%x from %s!\n", volume_descriptor_offset, name);
 			kfree_null(&info);
 			kfree_null(&buffer);
 			return NULL;

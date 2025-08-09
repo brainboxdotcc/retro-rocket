@@ -1,16 +1,17 @@
 #include <kernel.h>
 #include <retrofs.h>
 
-filesystem_t* rfs_fs = NULL;
+filesystem_t *rfs_fs = NULL;
 
 
-bool read_rfs_description_block(rfs_t* info)
-{
+bool read_rfs_description_block(rfs_t *info) {
 	if (!info) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return 0;
 	}
-	rfs_description_block_padded_t* description_block = kmalloc(sizeof(rfs_description_block_padded_t));
+	rfs_description_block_padded_t *description_block = kmalloc(sizeof(rfs_description_block_padded_t));
 	if (!description_block) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return 0;
 	}
 	if (!rfs_read_device(info, 0, RFS_SECTOR_SIZE, description_block)) {
@@ -28,14 +29,15 @@ bool read_rfs_description_block(rfs_t* info)
 	return true;
 }
 
-rfs_t* rfs_mount_volume(const char* device_name)
-{
+rfs_t *rfs_mount_volume(const char *device_name) {
 	if (!device_name) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
 	char found_guid[64];
-	rfs_t* info = kmalloc(sizeof(rfs_t));
+	rfs_t *info = kmalloc(sizeof(rfs_t));
 	if (!info) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	info->dev = find_storage_device(device_name);
@@ -81,9 +83,8 @@ rfs_t* rfs_mount_volume(const char* device_name)
 }
 
 
-int rfs_attach(const char* device_name, const char* path)
-{
-	rfs_t* rfs = rfs_mount_volume(device_name);
+int rfs_attach(const char *device_name, const char *path) {
+	rfs_t *rfs = rfs_mount_volume(device_name);
 	if (rfs) {
 		int success = attach_filesystem(path, rfs_fs, rfs);
 		if (success) {
@@ -91,6 +92,7 @@ int rfs_attach(const char* device_name, const char* path)
 		}
 		return success;
 	}
+	fs_set_error(FS_ERR_NOT_RFS);
 	return 0;
 }
 

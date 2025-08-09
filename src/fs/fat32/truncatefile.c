@@ -11,6 +11,7 @@ bool fat32_truncate_file(void* f, size_t length)
 	bool first = true;
 	unsigned char* clbuf = kmalloc(info->clustersize);
 	if (!clbuf) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 
@@ -29,6 +30,7 @@ bool fat32_truncate_file(void* f, size_t length)
 	/* Amend size in directory */
 	uint8_t* buffer = kmalloc(info->clustersize);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 	cluster = file->directory->lbapos ? file->directory->lbapos : info->rootdircluster;
@@ -36,7 +38,6 @@ bool fat32_truncate_file(void* f, size_t length)
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			dprintf("couldnt read directory cluster %ld in fat32_truncate_file\n", cluster_to_lba(info, cluster));
 			kfree_null(&buffer);
 			return false;
 		}
@@ -59,7 +60,7 @@ bool fat32_truncate_file(void* f, size_t length)
 		// advance to next cluster in chain until EOF
 		uint32_t nextcluster = get_fat_entry(info, cluster);
 		if (nextcluster >= CLUSTER_BAD) {
-			dprintf("File not found in directory to amend size\n");
+			fs_set_error(FS_ERR_NO_SUCH_FILE);
 			kfree_null(&buffer);
 			return false;
 		} else {

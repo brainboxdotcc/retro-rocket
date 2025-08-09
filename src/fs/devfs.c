@@ -24,6 +24,7 @@ void init_devfs()
 {
 	devfs = kmalloc(sizeof(filesystem_t));
 	if (!devfs) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return;
 	}
 	strlcpy(devfs->name, "devfs", 31);

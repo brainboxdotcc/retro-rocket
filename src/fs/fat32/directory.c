@@ -20,6 +20,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 {
 	unsigned char* buffer = kmalloc(info->clustersize);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	fs_directory_entry_t* list = NULL;
@@ -29,7 +30,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			dprintf("Read failure in parse_fat32_directory cluster=%08x\n", cluster);
 			kfree_null(&buffer);
 			return NULL;
 		}
@@ -100,7 +100,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 			entry = (directory_entry_t*)(buffer + bufferoffset);
 		}
 		if (highest_lfn_order > -1) {
-			dprintf("Cluster ended without sfn\n");
+			fs_set_error(FS_ERR_BROKEN_DIRECTORY);
 		}
 
 		// advance to next cluster in chain until EOF
@@ -133,7 +133,6 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 
 
 	if (!read_cluster(info, cluster, buffer)) {
-		dprintf("Read storage failed when extending directory\n");
 		return;
 	}
 
@@ -157,6 +156,7 @@ void insert_entries_at(bool grow, fat32_t* info, uint32_t entries, uint32_t clus
 		}
 
 		if (entries == info->clustersize / 32) {
+			fs_set_error(FS_ERR_LFN_TOO_LONG);
 			dprintf("fat32: insert_entries_at() overlaps cluster edge, should not happen - LFN too long?\n");
 			return;
 		}
@@ -179,6 +179,7 @@ uint64_t fat32_create_directory(void* dir, const char* name)
 	uint32_t parent_dir_cluster = treeitem->lbapos ? treeitem->lbapos : info->rootdircluster;
 	uint8_t* buffer = kmalloc(info->clustersize);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return 0;
 	}
 	int bufferoffset = 0;
@@ -233,6 +234,7 @@ void* fat32_get_directory(void* t)
 bool fat32_unlink_dir(void* dir, const char* name)
 {
 	if (!dir || !name) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return false;
 	}
 	fs_tree_t* treeitem = (fs_tree_t*)dir;
@@ -243,7 +245,7 @@ bool fat32_unlink_dir(void* dir, const char* name)
 	iter = parse_fat32_directory(treeitem, info, dir_cluster);
 	if (iter) {
 		/* Directory not empty */
-		dprintf("fat32_unlink_dir: Directory not empty\n");
+		fs_set_error(FS_ERR_DIRECTORY_NOT_EMPTY);
 		free_fat32_directory(iter);
 		return false;
 	}

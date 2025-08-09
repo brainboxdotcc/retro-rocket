@@ -24,6 +24,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 	/* Allocate cluster chain to cover file length */
 	uint8_t* blank_cluster = kmalloc(info->clustersize);
 	if (!blank_cluster) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 
@@ -69,6 +70,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 	/* Amend the file's size in its directory entry */
 	uint8_t* buffer = kmalloc(info->clustersize);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 	cluster = file->directory->lbapos ? file->directory->lbapos : info->rootdircluster;
@@ -76,7 +78,6 @@ bool fat32_extend_file(void* f, uint32_t size)
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			dprintf("couldnt read directory cluster %ld in fat32_extend_file\n", cluster_to_lba(info, cluster));
 			kfree_null(&buffer);
 			return false;
 		}
@@ -89,7 +90,6 @@ bool fat32_extend_file(void* f, uint32_t size)
 				entry->size += size;
 				write_cluster(info, cluster, buffer);
 				kfree_null(&buffer);
-				dprintf("Directory info amended\n");
 				return true;
 			}
 			bufferoffset += sizeof(directory_entry_t);
@@ -99,7 +99,7 @@ bool fat32_extend_file(void* f, uint32_t size)
 		// advance to next cluster in chain until EOF
 		uint32_t nextcluster = get_fat_entry(info, cluster);
 		if (nextcluster >= CLUSTER_BAD) {
-			dprintf("File not found in directory to amend size\n");
+			fs_set_error(FS_ERR_NO_SUCH_FILE);
 			kfree_null(&buffer);
 			return false;
 		} else {
@@ -119,7 +119,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	parsed_dir = iter = parse_fat32_directory(treeitem, info, dir_cluster);
 	for (; iter; iter = iter->next) {
 		if (!strcmp(iter->filename, name)) {
-			dprintf("File %s already exists in %s\n", name, treeitem->name);
+			fs_set_error(FS_ERR_FILE_EXISTS);
 			free_fat32_directory(parsed_dir);
 			return 0;
 		}
@@ -130,11 +130,9 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	while (size_in_clusters * info->clustersize < size) {
 		size_in_clusters++;
 	}
-	dprintf("internal create: UNADJUSTED SIZE IN CLUSTERS: %d\n", size_in_clusters);
 	if (size_in_clusters < 1) {
 		size_in_clusters++;
 	}
-	dprintf("internal create: SIZE IN CLUSTERS: %d\n", size_in_clusters);
 
 	/* Allocate cluster chain to cover file length */
 	uint32_t last_cluster = CLUSTER_END;
@@ -160,9 +158,9 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 				return 0;
 			}
 		} else {
-			dprintf("Next free fat entry is end! - disk full?\n");
 			kfree_null(&blank_cluster);
 			free_fat32_directory(parsed_dir);
+			fs_set_error(FS_ERR_NO_SPACE);
 			return 0;
 		}
 		if (last_cluster != CLUSTER_END) {
@@ -176,6 +174,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 	/* Add directory entry (including lfn) */
 	uint8_t* buffer = kmalloc(info->clustersize);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return 0;
 	}
 	uint32_t cluster = dir_cluster;
@@ -185,6 +184,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 
 	build_lfn_chain(name, parsed_dir, &short_entry, &new_entries, &entry_count);
 	if (!new_entries) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return 0;
 	}
 	short_entry.size = size;
@@ -248,6 +248,7 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 			cluster = nextcluster;
 		}
 	}
+	fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 	kfree_null(&buffer);
 	free_fat32_directory(parsed_dir);
 	kfree_null(&new_entries);

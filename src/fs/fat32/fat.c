@@ -151,7 +151,6 @@ uint64_t fat32_get_free_space(void *fs) {
 
 		for (uint32_t off = 0; off < info->fatsize && cluster_idx < total_clusters; ++off) {
 			if (!read_storage_device(info->device_name, fat_first_lba + off, sd->block_size, (uint8_t *)buffer)) {
-				dprintf("fat32_get_free_space: read fail @ LBA %lu\n", fat_first_lba + off);
 				break; /* return whatever we've counted so far */
 			}
 
@@ -168,10 +167,7 @@ uint64_t fat32_get_free_space(void *fs) {
 		/* Persist the refreshed freecount to FSInfo (best-effort) */
 		if (info->info) {
 			info->info->freecount = free_clusters;
-			(void)write_storage_device(info->device_name,
-						   info->start + info->fsinfocluster,
-						   sd->block_size,
-						   (unsigned char *)info->info);
+			write_storage_device(info->device_name, info->start + info->fsinfocluster, sd->block_size, (unsigned char *)info->info);
 		}
 	}
 

@@ -206,13 +206,19 @@ static inline void rfs_update_l2_for_group(rfs_t *info, uint64_t g) {
 }
 
 bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors, bool mark_used) {
-	if (!info || !info->desc || length_sectors == 0) return false;
+	if (!info || !info->desc || length_sectors == 0) {
+		fs_set_error(FS_ERR_INVALID_ARG);
+		return false;
+	}
 
 	const uint64_t total = info->total_sectors;
 	if (start_sector >= total) return false;
 	if (start_sector + length_sectors > total) {
 		length_sectors = total - start_sector; // clamp
-		if (!length_sectors) return false;
+		if (!length_sectors) {
+			fs_set_error(FS_ERR_INVALID_GEOMETRY);
+			return false;
+		}
 	}
 
 	const uint64_t G = RFS_L1_GROUP_SECTORS;        // 4096
@@ -464,16 +470,17 @@ static uint64_t rfs_group_find_run_from(const uint8_t *buf, uint64_t group_bits,
 	return (uint64_t) -1;
 }
 
-// ---------- allocator (find-only) ----------
 bool rfs_find_free_extent(rfs_t *info, uint64_t need, uint64_t *out_start_sector) {
 	uint64_t total, G, S;
 
 	if (!info || !info->desc || !out_start_sector || need == 0) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return false;
 	}
 
 	total = info->total_sectors;
 	if (need > total) {
+		fs_set_error(FS_ERR_NO_SPACE);
 		return false;
 	}
 
@@ -523,6 +530,7 @@ bool rfs_find_free_extent(rfs_t *info, uint64_t need, uint64_t *out_start_sector
 				}
 			}
 		}
+		fs_set_error(FS_ERR_NO_SPACE);
 		return false;
 	}
 
@@ -609,6 +617,7 @@ bool rfs_find_free_extent(rfs_t *info, uint64_t need, uint64_t *out_start_sector
 		}
 	}
 
+	fs_set_error(FS_ERR_NO_SPACE);
 	return false;
 }
 
@@ -713,7 +722,7 @@ bool rfs_build_level_caches(rfs_t *info) {
 		const size_t bytes_this = (size_t) (sectors_this * RFS_SECTOR_SIZE);
 
 		if (!rfs_read_device(info, map_start + sector_off, bytes_this, buf)) {
-			dprintf("rfs_build_level_caches: failed read @LBA %lu (sectors=%lu)\n",
+			kprintf("rfs_build_level_caches: failed read @LBA %lu (sectors=%lu)\n",
 				map_start + sector_off, sectors_this);
 
 			/* Tear down slab on failure */
@@ -872,8 +881,6 @@ bool rfs_build_level_caches(rfs_t *info) {
 		bitset_set(info->l2_all_free, sg, all_full_groups_free);
 	}
 
-	dprintf("RFS: Built L1/L2: total_sectors=%lu, l1_groups=%lu, l2_groups=%lu (slab=%zu bytes)\n",
-		info->total_sectors, info->l1_groups, info->l2_groups, total_bytes);
-
+	dprintf("RFS: Built L1/L2: total_sectors=%lu, l1_groups=%lu, l2_groups=%lu (slab=%zu bytes)\n", info->total_sectors, info->l1_groups, info->l2_groups, total_bytes);
 	return true;
 }

@@ -24,6 +24,7 @@ int rd_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buff
 {
 	storage_device_t* sd = (storage_device_t*)dev;
 	if (!sd) {
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return 0;
 	}
 	ramdisk_t find_disk = { .name = sd->name };
@@ -51,6 +52,7 @@ int rd_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned cha
 {
 	storage_device_t* sd = (storage_device_t*)dev;
 	if (!sd) {
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return 0;
 	}
 	ramdisk_t find_disk = { .name = sd->name };
@@ -80,21 +82,33 @@ const char* init_ramdisk(size_t blocks, size_t blocksize)
 	if (make_unique_device_name("ram", name, sizeof(name))) {
 		uint8_t* data = kmalloc(blocks * blocksize);
 		if (data == NULL) {
-			dprintf("Not enough memory to allocate a ramdisk of size %ld\n", blocks * blocksize);
+			fs_set_error(FS_ERR_OUT_OF_MEMORY);
 			return NULL;
 		}
 		ramdisk_t rd;
 		rd.data = data;
 		rd.name = strdup(name);
+		if (!rd.name) {
+			fs_set_error(FS_ERR_OUT_OF_MEMORY);
+			return NULL;
+		}
 		rd.blocksize =blocksize;
 		rd.blocks = blocks;
 		if (disks == NULL) {
 			disks = hashmap_new(sizeof(ramdisk_t), 0, 86545653, 684395435983, rd_hash, rd_compare, NULL, NULL);
+			if (!disks) {
+				fs_set_error(FS_ERR_OUT_OF_MEMORY);
+				return NULL;
+			}
 		}
 		hashmap_set(disks, &rd);
 		storage_device_t* sd = kmalloc(sizeof(storage_device_t));
+		if (!sd) {
+			fs_set_error(FS_ERR_OUT_OF_MEMORY);
+			return NULL;
+		}
 		sd->opaque1 = 0;
-		sd->opaque2 = (void*)rd.name;
+		sd->opaque2 = rd.name;
 		sd->blockread = rd_block_read;
 		sd->blockwrite = rd_block_write;
 		sd->size = rd.blocks;
@@ -110,6 +124,7 @@ const char* init_ramdisk_from_storage(const char* storage)
 {
 	storage_device_t* sd_src = find_storage_device(storage);
 	if (!sd_src) {
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return NULL;
 	}
 	const char* rd = init_ramdisk(sd_src->size, sd_src->block_size);
@@ -118,12 +133,14 @@ const char* init_ramdisk_from_storage(const char* storage)
 	}
 	storage_device_t* sd_dst = find_storage_device(rd);
 	if (!sd_dst) {
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return NULL;
 	}
 	uint32_t blocks = 1024;
 	uint32_t buffer_size = sd_src->block_size * blocks;
 	uint8_t* buffer = kmalloc(buffer_size);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	uint32_t blocks_left = sd_src->size;
@@ -133,8 +150,14 @@ const char* init_ramdisk_from_storage(const char* storage)
 		if (to_read > blocks_left) {
 			to_read = blocks_left;
 		}
-		read_storage_device(sd_src->name, n, sd_src->block_size * to_read, buffer);
-		write_storage_device(sd_dst->name, n, sd_src->block_size * to_read, buffer);
+		if (!read_storage_device(sd_src->name, n, sd_src->block_size * to_read, buffer)) {
+			kfree_null(&buffer);
+			return NULL;
+		}
+		if (!write_storage_device(sd_dst->name, n, sd_src->block_size * to_read, buffer)) {
+			kfree_null(&buffer);
+			return NULL;
+		}
 		n += to_read;
 		blocks_left -= to_read;
 	}

@@ -7,11 +7,20 @@ fs_tree_t* fs_tree;
 static uint32_t fd_last = 0;
 static uint32_t fd_alloc = 0;
 fs_handle_t* filehandles[FD_MAX] = { NULL };
+uint32_t fs_last_error[MAX_CPUS] = { FS_ERR_NO_ERROR };
 
 uint8_t verify_path(const char* path);
 fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path);
 fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename);
 int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
+
+void fs_set_error(uint32_t error) {
+	fs_last_error[logical_cpu_id()] = error;
+}
+
+uint32_t fs_get_error(void) {
+	return fs_last_error[logical_cpu_id()];
+}
 
 int register_filesystem(filesystem_t* newfs)
 {
@@ -63,27 +72,37 @@ int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, 
 {
 	storage_device_t* cur = find_storage_device(name);
 	if (!cur || !cur->blockread) {
+		fs_set_error(FS_ERR_UNSUPPORTED);
 		return 0;
 	}
-	return cur->blockread(cur, start_block, bytes, data);
+	int success = cur->blockread(cur, start_block, bytes, data);
+	if (!success) {
+		fs_set_error(FS_ERR_IO);
+	}
+	return success;
 }
 
 int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes, const unsigned char* data)
 {
 	storage_device_t* cur = find_storage_device(name);
 	if (!cur || !cur->blockwrite) {
-		dprintf("Write to device '%s' not supported\n", name);
+		fs_set_error(FS_ERR_UNSUPPORTED);
 		return 0;
 	}
 
-	return cur->blockwrite(cur, start_block, bytes, data);
+	int success = cur->blockwrite(cur, start_block, bytes, data);
+	if (!success) {
+		fs_set_error(FS_ERR_IO);
+	}
+	return success;
 }
 
 /* Allocate a new file descriptor and attach it to 'file' */
 int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t ibufsz, uint32_t obufsz)
 {
-	/* Check we havent used up all available fds */
+	/* Check we haven't used up all available fds */
 	if (fd_alloc >= FD_MAX) {
+		fs_set_error(FS_ERR_NO_MORE_FDS);
 		return -1;
 	}
 
@@ -128,6 +147,7 @@ int alloc_filehandle(fs_handle_type_t type, fs_directory_entry_t* file, uint32_t
 			}
 		}
 	}
+	fs_set_error(FS_ERR_NO_MORE_FDS);
 	return -1;
 }
 
@@ -137,6 +157,7 @@ uint32_t destroy_filehandle(uint32_t descriptor)
 	dprintf("destroy_filehandle(%d)\n", descriptor);
 	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL) {
+		fs_set_error(FS_ERR_INVALID_FD);
 		return 0;
 	} else {
 		filehandles[descriptor]->file = NULL;
@@ -165,12 +186,14 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 {
 	fs_directory_entry_t* new_entry = NULL;
 	if (!pathandfile) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
 
 	dprintf("fs_create_file '%s'\n", pathandfile);
 
 	if (!verify_path(pathandfile)) {
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return false;
 	}
 
@@ -193,6 +216,7 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 	dprintf("vfs create: filename: %s pathname: %s\n", filename, pathname);
 
 	if (!filename || !pathname || !*filename) {
+		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return false;
 	}
 	if (*pathname == 0) {
@@ -202,9 +226,9 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
-		dprintf("vfs create: no such path: %s\n", pathname);
 		kfree_null(&pathname);
 		kfree_null(&filename);
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return false;
 	}
 
@@ -214,6 +238,7 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 		dprintf("vfs create: file in %s already exists: %s\n", pathname, filename);
 		kfree_null(&pathname);
 		kfree_null(&filename);
+		fs_set_error(FS_ERR_FILE_EXISTS);
 		return false;
 	}
 	
@@ -225,6 +250,7 @@ fs_directory_entry_t* fs_create_file(const char* pathandfile, size_t bytes)
 			if (!new_entry) {
 				kfree_null(&pathname);
 				kfree_null(&filename);
+				fs_set_error(FS_ERR_OUT_OF_MEMORY);
 				return false;
 			}
 			datetime_t dt;
@@ -258,6 +284,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	fs_directory_entry_t* new_entry = NULL;
 
 	if (!verify_path(pathandfile)) {
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return false;
 	}
 
@@ -278,6 +305,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
+		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return false;
 	}
 	if (*pathname == 0) {
@@ -287,7 +315,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
-		dprintf("vfs create dir: no such path: %s\n", pathname);
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		return false;
@@ -299,6 +327,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 		dprintf("vfs create dir: file in %s already exists: %s\n", pathname, filename);
 		kfree_null(&pathname);
 		kfree_null(&filename);
+		fs_set_error(FS_ERR_FILE_EXISTS);
 		return false;
 	}
 	
@@ -378,6 +407,7 @@ int _open(const char* filename, int oflag)
 	file = fs_get_file_info(filename);
 	if (file == NULL && type == file_input) {
 		dprintf("open for input does not exist: %s\n", filename);
+		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return -1;
 	} else if (file == NULL && type != file_input) {
 		file = fs_create_file(filename, 0);
@@ -395,6 +425,7 @@ int _open(const char* filename, int oflag)
 	 */
 	int fd = alloc_filehandle(type, file, IOBUFSZ, 0);
 	if (fd == -1) {
+		fs_set_error(FS_ERR_NO_MORE_FDS);
 		return -1;
 	}
 
@@ -407,7 +438,7 @@ int _open(const char* filename, int oflag)
 		if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos,
 			file->size <= filehandles[fd]->inbufsize ? file->size : filehandles[fd]->inbufsize,
 			filehandles[fd]->inbuf)) {
-			/* If we couldnt get the initial buffer, there is something wrong.
+			/* If we couldn't get the initial buffer, there is something wrong.
 			* Give up the filehandle and return error.
 			*/
 			destroy_filehandle(fd);
@@ -437,6 +468,7 @@ int _close(uint32_t descriptor)
 	dprintf("_close(%d)\n", descriptor);
 	/* Sanity checks */
 	if (descriptor >= FD_MAX || filehandles[descriptor] == NULL) {
+		fs_set_error(FS_ERR_INVALID_FD);
 		return -1;
 	}
 
@@ -455,6 +487,7 @@ long _lseek(int fd, uint64_t offset, uint64_t origin)
 	} else {
 		if (offset + origin > filehandles[fd]->file->size) {
 			/* Do not allow seeking past end */
+			fs_set_error(FS_ERR_SEEK_PAST_END);
 			return -1;
 		} else {
 			filehandles[fd]->seekpos = offset + origin;
@@ -474,6 +507,9 @@ long _lseek(int fd, uint64_t offset, uint64_t origin)
 
 int64_t _tell(int fd)
 {
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
+		fs_set_error(FS_ERR_INVALID_FD);
+	}
 	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? (int64_t)-1 : (int64_t)filehandles[fd]->seekpos; 
 }
 
@@ -482,11 +518,13 @@ int _read(int fd, void *buffer, unsigned int count)
 {
 	/* Sanity checks */
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
+		fs_set_error(FS_ERR_INVALID_FD);
 		return -1;
 	}
 
 	/* can't read from a write-only handle */
 	if (filehandles[fd]->type == file_output) {
+		fs_set_error(FS_ERR_NOT_OPEN_FOR_OUTPUT);
 		return -1;
 	}
 
@@ -516,10 +554,7 @@ int _read(int fd, void *buffer, unsigned int count)
 			} else {
 				rb = count;
 			}
-			dprintf("Will read %d into inbuf\n", rb);
-
 			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, rb, filehandles[fd]->inbuf)) {
-				dprintf("fs_read_file failed in _read()\n");
 				return -1;
 			}
 
@@ -538,7 +573,6 @@ int _read(int fd, void *buffer, unsigned int count)
 		/* Read the entire lot in one go */
 		if (filehandles[fd]->cached == 0) {
 			if (!fs_read_file(filehandles[fd]->file, filehandles[fd]->seekpos, count, filehandles[fd]->inbuf)) {
-				dprintf("fs_read_file failed in _read() [cached]\n");
 				return -1;
 			}
 			memcpy(buffer, filehandles[fd]->inbuf, count);
@@ -556,15 +590,18 @@ int ftruncate(int fd, uint32_t length)
 {
 	/* Sanity checks */
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
+		fs_set_error(FS_ERR_INVALID_FD);
 		return -1;
 	}
 
 	/* can't truncate a read-only handle */
 	if (filehandles[fd]->type == file_input) {
+		fs_set_error(FS_ERR_NOT_OPEN_FOR_OUTPUT);
 		return -1;
 	}
 
 	if (length > filehandles[fd]->file->size) {
+		fs_set_error(FS_ERR_TRUNCATE_BEYOND_LENGTH);
 		return -1;
 	}
 
@@ -589,11 +626,13 @@ int _write(int fd, void *buffer, unsigned int count)
 	dprintf("_write()\n");
 	/* Sanity checks */
 	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
+		fs_set_error(FS_ERR_INVALID_FD);
 		return -1;
 	}
 
 	/* can't write to a read-only handle */
 	if (filehandles[fd]->type == file_input) {
+		fs_set_error(FS_ERR_NOT_OPEN_FOR_OUTPUT);
 		return -1;
 	}
 
@@ -615,6 +654,9 @@ int _write(int fd, void *buffer, unsigned int count)
 
 int _eof(int fd)
 {
+	if (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) {
+		fs_set_error(FS_ERR_INVALID_FD);
+	}
 	return (fd < 0 || fd >= FD_MAX || filehandles[fd] == NULL) ? -1 : (filehandles[fd]->seekpos >= filehandles[fd]->file->size);
 }
 
@@ -694,6 +736,7 @@ typedef struct dirstack_t
 fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 {
 	if (!current_node) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
 
@@ -742,6 +785,7 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 	/* First build the dir stack */
 	dirstack_t* ds = kmalloc(sizeof(dirstack_t));
 	if (!ds) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	dirstack_t* walk = ds;
@@ -780,6 +824,7 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename)
 {
 	if (!directory || !filename) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
 
@@ -795,7 +840,8 @@ fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filenam
 
 fs_directory_entry_t* find_dir_in_dir(fs_tree_t* directory, const char* filename)
 {
-	if (!directory) {
+	if (!directory || !filename) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
 
@@ -812,21 +858,21 @@ fs_directory_entry_t* find_dir_in_dir(fs_tree_t* directory, const char* filename
 
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	if (file && file->directory && file->directory->responsible_driver) {
+	if (file && buffer && file->directory && file->directory->responsible_driver) {
 		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
 		return fs ? fs->readfile(file, start, length, buffer) : 0;
 	}
-	dprintf("fs_read_file with invalid file information\n");
+	fs_set_error(!file || !buffer ? FS_ERR_INVALID_ARG : FS_ERR_UNSUPPORTED);
 	return 0;
 }
 
 int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer)
 {
-	if (file && file->directory && file->directory->responsible_driver) {
+	if (file && buffer && file->directory && file->directory->responsible_driver) {
 		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
 		return fs && fs->writefile ? fs->writefile(file, start, length, buffer) : 0;
 	}
-	dprintf("fs_write_file with invalid file information\n");
+	fs_set_error(!file || !buffer ? FS_ERR_INVALID_ARG : FS_ERR_UNSUPPORTED);
 	return 0;
 }
 
@@ -836,7 +882,7 @@ int fs_truncate_file(fs_directory_entry_t* file, uint32_t length)
 		filesystem_t* fs = (filesystem_t*)file->directory->responsible_driver;
 		return fs && fs->truncatefile ? fs->truncatefile(file, length) : 0;
 	}
-	dprintf("fs_truncate_file with invalid file information\n");
+	fs_set_error(!file ? FS_ERR_INVALID_ARG : FS_ERR_UNSUPPORTED);
 	return 0;
 }
 
@@ -900,6 +946,7 @@ void delete_file_node(fs_directory_entry_t** head_ref, const char* name)
 bool fs_delete_file(const char* pathandfile)
 {
 	if (!verify_path(pathandfile)) {
+		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return false;
 	}
 
@@ -929,7 +976,7 @@ bool fs_delete_file(const char* pathandfile)
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
-		dprintf("vfs unlink: no such path: %s\n", pathname);
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		return false;
@@ -937,7 +984,7 @@ bool fs_delete_file(const char* pathandfile)
 	fs_directory_entry_t* fileinfo = find_file_in_dir(directory, filename);
 
 	if (!fileinfo) {
-		dprintf("vfs unlink: no file in %s: %s\n", pathname, filename);
+		fs_set_error(FS_ERR_NO_SUCH_FILE);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		return false;
@@ -959,6 +1006,7 @@ bool fs_delete_file(const char* pathandfile)
 bool fs_delete_directory(const char* pathandfile)
 {
 	if (!verify_path(pathandfile)) {
+		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return false;
 	}
 
@@ -988,14 +1036,14 @@ bool fs_delete_directory(const char* pathandfile)
 	}
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
-		dprintf("vfs rmdir: no such path: %s\n", pathname);
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		return false;
 	}
 	fs_directory_entry_t* fileinfo = find_dir_in_dir(directory, filename);
 	if (!fileinfo) {
-		dprintf("vfs rmdir: no such dir in %s: %s\n", pathname, filename);
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		return false;
@@ -1006,12 +1054,8 @@ bool fs_delete_directory(const char* pathandfile)
 		rv = directory->responsible_driver->rmdir(directory, filename);
 		/* Remove the deleted file from the fs_tree_t */
 		if (rv) {
-			for (fs_directory_entry_t* f = directory->files; f; f = f->next) {
-				dprintf("File: %s\n", f->filename);
-			}
 			delete_file_node(&(directory->files), filename);
 			delete_tree_node(&(directory->child_dirs), filename);
-			dprintf("Deletion done\n");
 		}
 	}
 	kfree_null(&pathname);
@@ -1053,6 +1097,7 @@ fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
 	if (*pathname == 0) {
@@ -1076,6 +1121,7 @@ int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 {
 	fs_tree_t* item = walk_to_node(fs_tree, virtual_path);
 	if (item == NULL) {
+		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return 0;
 	}
 	item->responsible_driver = (void*)fs;

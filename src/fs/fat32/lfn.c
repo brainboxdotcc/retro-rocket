@@ -83,6 +83,7 @@ void make_short(directory_entry_t* entry, const char* long_name, fs_directory_en
 void build_lfn_chain(const char* filename, fs_directory_entry_t* current, directory_entry_t* short_entry, directory_entry_t** entries, size_t* entry_count)
 {
 	if (entry_count == NULL || entries == NULL || filename == NULL || current == NULL || short_entry == NULL) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return;
 	}
 	*entry_count = 0;
@@ -90,6 +91,7 @@ void build_lfn_chain(const char* filename, fs_directory_entry_t* current, direct
 	make_short(short_entry, filename, current);
 	*entries = kmalloc(sizeof(lfn_t) * 65);
 	if (!*entries) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return;
 	}
 	lfn_t* lfn = (lfn_t*)*entries;
@@ -120,28 +122,36 @@ void build_lfn_chain(const char* filename, fs_directory_entry_t* current, direct
 void parse_short_name(directory_entry_t* entry, char* name, char* dotless)
 {
 	if (!entry || !name || !dotless) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return;
 	}
 	strlcpy(name, entry->name, 9);
 	char* trans;
-	for (trans = name; *trans; ++trans)
-		if (*trans == ' ')
+	for (trans = name; *trans; ++trans) {
+		if (*trans == ' ') {
 			*trans = 0;
+		}
+	}
 	strlcat(name, ".", 10);
 	strlcat(name, &(entry->name[8]), 13);
-	for (trans = name; *trans; ++trans)
-		if (*trans == ' ')
+	for (trans = name; *trans; ++trans) {
+		if (*trans == ' ') {
 			*trans = 0;
+		}
+	}
 
 	size_t namelen = strlen(name);
 	// remove trailing dot on dir names
-	if (name[namelen - 1] == '.')
+	if (name[namelen - 1] == '.') {
 		name[namelen - 1] = 0;
+	}
 
 	strlcpy(dotless, entry->name, 12);
-	for (trans = dotless + 11; trans >= dotless; --trans)
-		if (*trans == ' ')
+	for (trans = dotless + 11; trans >= dotless; --trans) {
+		if (*trans == ' ') {
 			*trans = 0;
+		}
+	}
 	dotless[12] = 0;
 	name[12] = 0;
 }

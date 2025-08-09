@@ -45,6 +45,45 @@ typedef uint64_t (*get_free_space)(void*);
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
 
+typedef enum fs_error_t {
+	FS_ERR_NO_ERROR = 0,
+	FS_ERR_UNSUPPORTED,
+	FS_ERR_NO_MORE_FDS,
+	FS_ERR_INVALID_FD,
+	FS_ERR_INVALID_ARG,
+	FS_ERR_NO_SUCH_DIRECTORY,
+	FS_ERR_INVALID_FILEPATH,
+	FS_ERR_FILE_EXISTS,
+	FS_ERR_OUT_OF_MEMORY,
+	FS_ERR_IO,
+	FS_ERR_SEEK_PAST_END,
+	FS_ERR_NOT_OPEN_FOR_OUTPUT,
+	FS_ERR_NOT_OPEN_FOR_INPUT,
+	FS_ERR_TRUNCATE_BEYOND_LENGTH,
+	FS_ERR_NO_SUCH_FILE,
+	FS_ERR_INVALID_FILENAME,
+	FS_ERR_CYCLE_DETECTED,
+	FS_ERR_BROKEN_DIRECTORY,
+	FS_ERR_INVALID_GEOMETRY,
+	FS_ERR_NO_SPACE,
+	FS_ERR_OUTSIDE_VOLUME,
+	FS_ERR_NOT_RFS,
+	FS_ERR_NOT_A_FILE,
+	FS_ERR_VFS_DATA,
+	FS_ERR_NOT_A_DIRECTORY,
+	FS_ERR_DIRECTORY_NOT_EMPTY,
+	FS_ERR_FILE_HAS_VANISHED,
+	FS_ERR_DIRECTORY_EXISTS,
+	FS_ERR_INVALID_PVD,
+	FS_ERR_INVALID_SVD,
+	FS_ERR_OVERSIZED_DIRECTORY,
+	FS_ERR_BUFFER_WOULD_OVERFLOW,
+	FS_ERR_NO_SUCH_DEVICE,
+	FS_ERR_LFN_TOO_LONG,
+	FS_ERR_IS_EXFAT,
+	FS_ERR_BAD_CLUSTER,
+} fs_error_t;
+
 /**
  * @brief A VFS directory entry. Files AND directories have these,
  * but internally there is also a tree of fs_tree_t* which is used
@@ -581,3 +620,7 @@ bool fs_delete_file(const char* pathandfile);
  * @return true if directory was deleted
  */
 bool fs_delete_directory(const char* pathandfile);
+
+void fs_set_error(uint32_t error);
+
+uint32_t fs_get_error(void);

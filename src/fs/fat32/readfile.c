@@ -3,6 +3,7 @@
 bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer)
 {
 	if (!f || !buffer) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return false;
 	}
 	fs_directory_entry_t* file = (fs_directory_entry_t*)f;
@@ -15,6 +16,7 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 	uint32_t amount_read = 0;
 	unsigned char* clbuf = kmalloc(info->clustersize);
 	if (!clbuf) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 
@@ -26,12 +28,12 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 	}
 
 	if (cluster >= CLUSTER_BAD) {
-		dprintf("First cluster in file marked BAD or END! cluster=%08x\n", cluster);
+		fs_set_error(FS_ERR_BAD_CLUSTER);
+		return false;
 	}
 
 	while (true) {
 		if (!read_cluster(info, cluster, clbuf)) {
-			kprintf("Read failure in fat32_read_file cluster=%08x\n", cluster);
 			kfree_null(&clbuf);
 			return false;
 		}
@@ -60,7 +62,6 @@ bool fat32_read_file(void* f, uint64_t start, uint32_t length, unsigned char* bu
 
 
 	kfree_null(&clbuf);
-
 	return true;
 }
 

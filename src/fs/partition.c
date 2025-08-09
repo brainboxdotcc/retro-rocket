@@ -98,6 +98,7 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 	uint32_t entries_per_sector = sd->block_size / header->size_of_each_entry;
 	uint8_t* gptbuf = kmalloc(sd->block_size);
 	if (!gptbuf) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		kfree_null(&buffer);
 		return false;
 	}
@@ -121,8 +122,7 @@ bool scan_gpt_entries(storage_device_t* sd, const char* partition_type_guid, uin
 
 		if (!memcmp(gpt->type_guid, partition_type, GUID_BINARY_LEN)) {
 			// Found matching partition
-			dprintf("Found GPT entry %d, start: %ld end: %ld\n",
-				entry_number, gpt->start_lba, gpt->end_lba);
+			dprintf("Found GPT entry %d, start: %ld end: %ld\n", entry_number, gpt->start_lba, gpt->end_lba);
 
 			*start = gpt->start_lba;
 			*length = (gpt->end_lba - gpt->start_lba) + 1; // inclusive LBA range
@@ -148,15 +148,15 @@ bool find_partition_of_type(const char* device_name, uint8_t partition_type, cha
 	}
 	storage_device_t* sd = find_storage_device(device_name);
 	if (!sd || sd->block_size < sizeof(partition_table_t)) {
-		dprintf("Couldn't find '%s' or its block size is less than the size of a partition table\n", device_name);
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return false;
 	}
 	unsigned char* buffer = kmalloc(sd->block_size);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 	if (!read_storage_device(device_name, 0, sd->block_size, buffer)) {
-		dprintf("Couldn't read boot sector of device '%s'\n", device_name);
 		kfree_null(&buffer);
 		return false;
 	}

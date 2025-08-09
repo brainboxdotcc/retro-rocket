@@ -19,7 +19,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 	}
 
 	if (file_start == CLUSTER_END) {
-		dprintf("not found in %s: %s\n", treeitem->name, name);
+		fs_set_error(FS_ERR_NO_SUCH_FILE);
 		free_fat32_directory(parsed_dir);
 		return false;
 	}
@@ -32,6 +32,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 		if (cur < CLUSTER_BAD) {
 			if (!set_fat_entry(info, cur, CLUSTER_FREE)) {
 				free_fat32_directory(parsed_dir);
+				fs_set_error(FS_ERR_BAD_CLUSTER);
 				return false;
 			}
 		}
@@ -42,6 +43,7 @@ bool fat32_unlink_file(void* dir, const char* name)
 	/* Remove related entries from directory */
 	uint8_t* buffer = kmalloc(info->clustersize);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return false;
 	}
 	directory_entry_t* entry_lfn_start = NULL;
@@ -49,7 +51,6 @@ bool fat32_unlink_file(void* dir, const char* name)
 	while (true) {
 		int bufferoffset = 0;
 		if (!read_cluster(info, cluster, buffer)) {
-			kprintf("Read failure in fat32_unlink_file cluster=%08x\n", cluster);
 			kfree_null(&buffer);
 			free_fat32_directory(parsed_dir);
 			return false;
@@ -103,7 +104,5 @@ bool fat32_unlink_file(void* dir, const char* name)
 	}
 	kfree_null(&buffer);
 	free_fat32_directory(parsed_dir);
-	dprintf("fat32 unlink done\n");
 	return true;
 }
-

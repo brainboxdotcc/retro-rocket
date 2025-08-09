@@ -6,19 +6,19 @@ static filesystem_t* fat32_fs = NULL;
 int read_fs_info(fat32_t* info)
 {
 	if (!info) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return 0;
 	}
 	storage_device_t* sd = find_storage_device(info->device_name);
 	if (!sd) {
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return 0;
 	}
 	if (!read_storage_device(info->device_name, info->start + info->fsinfocluster, sd->block_size, (unsigned char*)info->info)) {
-		kprintf("Read failure in read_fs_info\n");
 		return 0;
 	}
 
 	if (info->info->signature1 != FAT32_SIGNATURE || info->info->structsig != FAT32_SIGNATURE2 || info->info->trailsig != FAT32_SIGNATURE3) {
-		kprintf("Malformed FAT32 info sector!\n");
 		return 0;
 	}
 
@@ -28,26 +28,27 @@ int read_fs_info(fat32_t* info)
 int read_fat(fat32_t* info)
 {
 	if (!info) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return 0;
 	}
 	storage_device_t* sd = find_storage_device(info->device_name);
 	if (!sd) {
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return 0;
 	}
 	unsigned char* buffer = kmalloc(sd->block_size);
 	if (!buffer) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return 0;
 	}
 	memset(buffer, 0, sd->block_size);
 	if (!read_storage_device(info->device_name, info->start, sd->block_size, buffer)) {
-		kprintf("FAT32: Could not read FAT parameter block!\n");
 		kfree_null(&buffer);
 		return 0;
 	}
 
 	parameter_block_t* par = (parameter_block_t*)buffer;
 	if (par->signature != 0x28 && par->signature != 0x29) {
-		kprintf("FAT32: Invalid extended bios parameter block signature\n");
 		kfree_null(&buffer);
 		return 0;
 	}
@@ -63,6 +64,7 @@ int read_fat(fat32_t* info)
 	info->clustersize *= sd->block_size;
 
 	if (info->clustersize == 0) {
+		fs_set_error(FS_ERR_IS_EXFAT);
 		return 0;
 	}
 
@@ -76,15 +78,18 @@ int read_fat(fat32_t* info)
 fat32_t* fat32_mount_volume(const char* device_name)
 {
 	if (!device_name) {
+		fs_set_error(FS_ERR_INVALID_ARG);
 		return NULL;
 	}
 	char found_guid[64];
 	storage_device_t* sd = find_storage_device(device_name);
 	if (!sd) {
+		fs_set_error(FS_ERR_NO_SUCH_DEVICE);
 		return NULL;
 	}
 	fat32_t* info = kmalloc(sizeof(fat32_t));
 	if (!info) {
+		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return NULL;
 	}
 	strlcpy(info->device_name, device_name, 16);

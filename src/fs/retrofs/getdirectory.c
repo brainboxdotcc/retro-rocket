@@ -9,16 +9,16 @@
  * @param start_sector Starting sector of directory
  * @return fs_directory_entry_t* or NULL if unable to parse
  */
-fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t start_sector) {
+fs_directory_entry_t *rfs_walk_directory(fs_tree_t *tree, rfs_t *info, uint64_t start_sector) {
 	rfs_directory_entry_t block[RFS_DEFAULT_DIR_SIZE * 2]; // Each holds up to 2 files
-	fs_directory_entry_t* list = NULL;
+	fs_directory_entry_t *list = NULL;
 
 	if (!rfs_read_device(info, start_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block)) {
 		return NULL;
 	}
 
-	rfs_directory_start_t* start_entry = (rfs_directory_start_t*)&block[0];
-	rfs_directory_entry_t* files = (rfs_directory_entry_t*)&block[1];
+	rfs_directory_start_t *start_entry = (rfs_directory_start_t *) &block[0];
+	rfs_directory_entry_t *files = (rfs_directory_entry_t *) &block[1];
 	if (start_entry->sectors != RFS_DEFAULT_DIR_SIZE || (start_entry->flags & RFS_FLAG_DIR_START) == 0) {
 		dprintf("Directory block has bogus values\n");
 		return NULL;
@@ -31,17 +31,18 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 	do {
 		if (walked++ > walk_limit) {
 			dprintf("rfs: rfs_walk_directory: aborting (cycle suspected)\n");
+			fs_set_error(FS_ERR_CYCLE_DETECTED);
 			break;
 		}
 
 		for (size_t entry_index = 0; entry_index < RFS_DEFAULT_DIR_SIZE * 2 - 1; ++entry_index) {
-			rfs_directory_entry_inner_t* entry = &files[entry_index].entry;
+			rfs_directory_entry_inner_t *entry = &files[entry_index].entry;
 			if (entry->filename[0] == 0) {
 				/* End of list */
 				break;
 			}
 			/* Process entry */
-			fs_directory_entry_t* file = kmalloc(sizeof(fs_directory_entry_t));
+			fs_directory_entry_t *file = kmalloc(sizeof(fs_directory_entry_t));
 			file->filename = strdup(entry->filename);
 			file->alt_filename = strdup(entry->filename);
 			file->lbapos = entry->sector_start;
@@ -58,12 +59,13 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 			/* No continuations left */
 			break;
 		} else {
-			if (!rfs_read_device(info, start_entry->continuation, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block)) {
+			if (!rfs_read_device(info, start_entry->continuation, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE,
+					     &block)) {
 				dprintf("rfs: Error reading next directory chain from %lu", start_entry->continuation);
 				return list;
 			}
-			start_entry = (rfs_directory_start_t*)&block[0];
-			files = (rfs_directory_entry_t*)&block[1];
+			start_entry = (rfs_directory_start_t *) &block[0];
+			files = (rfs_directory_entry_t *) &block[1];
 			if (start_entry->sectors != RFS_DEFAULT_DIR_SIZE) {
 				dprintf("Directory block has unexpected length of %lu\n", start_entry->sectors);
 				return list;
@@ -73,13 +75,13 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 	return list;
 }
 
-void* rfs_get_directory(void* t) {
+void *rfs_get_directory(void *t) {
 	if (!t) {
 		dprintf("*** BUG *** rfs_get_directory: null fs_tree_t*!\n");
 		return NULL;
 	}
-	fs_tree_t* tree = (fs_tree_t*)t;
-	rfs_t* info = (rfs_t*)tree->opaque;
+	fs_tree_t *tree = (fs_tree_t *) t;
+	rfs_t *info = (rfs_t *) tree->opaque;
 	return rfs_walk_directory(tree, info, tree->lbapos ? tree->lbapos : info->desc->root_directory);
 
 }
