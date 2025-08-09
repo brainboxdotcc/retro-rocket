@@ -124,6 +124,16 @@ typedef struct rfs_directory_entry_inner_t {
 } __attribute__((packed));
 ```
 
+#### 3.3.3 File/Directory Flags values
+
+Files and directories may set the following bits in their `flags` field:
+
+| Flag Name           | Bit Position | Description |
+|---------------------|--------------|-------------|
+| RFS_FLAG_DIRECTORY  | 0 (0x01)     | This flag **MUST** be set if the entry points at a subdirectory. |
+| RFS_FLAG_LOCKED     | 1 (0x02)     | This flag **MAY** be set to indicate the file is locked against accidental change. Its behaviour is implementation specific |
+| RFS_FLAG_DIR_START  | 2 (0x04)     | This flag **MUST** be set in the directory start entry at the start of each directory block. Directory start blocks without this flag set should be considered invalid and not parsed. |
+
 **Rules**
 
 * Filenames are **case-preserving**, compared **case-insensitively** (ASCII only).
