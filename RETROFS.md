@@ -247,11 +247,11 @@ Although the in-memory mount context (`rfs_t`) is implementation-specific and ou
 
 ### RetroFS Partition Type GUID
 
-**Name:** RetroFS Partition
-**Use:** Identifies a GPT partition formatted with the RetroFS filesystem.
-**GUID (UUID):** `4DEC1156-FEC8-4495-854B-20D888E21AF0`
-**Format:** UUID v4 (random; permanently reserved for RetroFS).
-**Endianness:** Stored in GPT entries as per UEFI specification (little-endian in the first three fields).
+**Name:** RetroFS Partition <br>
+**Use:** Identifies a GPT partition formatted with the RetroFS filesystem. <br>
+**GUID (UUID):** `4DEC1156-FEC8-4495-854B-20D888E21AF0` <br>
+**Format:** UUID v4 (random; permanently reserved for RetroFS). <br>
+**Endianness:** Stored in GPT entries as per UEFI specification (little-endian in the first three fields). <br>
 
 **Operating System Usage**
 
