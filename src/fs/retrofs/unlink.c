@@ -47,26 +47,25 @@ bool rfs_delete_directory_entry(fs_directory_entry_t* file) {
 		}
 
 		/* Treat entries as half-sector units to safely memmove (due to flexible array member). */
-		rfs_directory_entry_t* ents = (rfs_directory_entry_t*)&block[0];
+		rfs_directory_entry_t* ents = (rfs_directory_entry_t*)&block[1];
 
 		/* Scan to find the matching entry and the last used index in this block. */
-		const size_t entries_per_block = (size_t)((RFS_DEFAULT_DIR_SIZE * 2) - 1);
+		const size_t entries_per_block = ((RFS_DEFAULT_DIR_SIZE * 2) - 1);
 		size_t found_idx = (size_t)-1;
 		size_t last_used = 0;
 
-		for (size_t i = 1; i <= entries_per_block; i++) {
+		for (size_t i = 0; i < entries_per_block; i++) {
 			rfs_directory_entry_inner_t* e = &ents[i].entry;
+
+			dprintf("Entry: '%s' index %lu\n", e->filename, i);
 
 			if (e->filename[0] == '\0') {
 				/* We’ve hit the terminator; i-1 is the last used entry. */
-				last_used = (i >= 1) ? (i - 1) : 0;
+				last_used = i ? i - 1 : 0;
 				break;
 			}
 
 			last_used = i;
-
-			/* Defensive: ensure there is a NUL terminator somewhere in the field. */
-			/* No strnlen() in your libc; we rely on well-formed entries as produced by your code. */
 
 			if (found_idx == (size_t)-1) {
 				if (strcasecmp(e->filename, target) == 0) {
@@ -77,6 +76,7 @@ bool rfs_delete_directory_entry(fs_directory_entry_t* file) {
 		}
 
 		if (found_idx != (size_t)-1) {
+			dprintf("Found file at index %lu\n", found_idx);
 			/* Compact: shift following entries left by one within this block, then clear the tail slot. */
 			if (found_idx < last_used) {
 				size_t move_count = last_used - found_idx;

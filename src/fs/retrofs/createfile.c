@@ -69,12 +69,12 @@ fs_directory_entry_t* rfs_upsert_directory_entry(fs_directory_entry_t* file, uin
 			return NULL;
 		}
 
-		rfs_directory_entry_inner_t* ents = (rfs_directory_entry_inner_t*)&block[1];
+		rfs_directory_entry_t* ents = (rfs_directory_entry_t*)&block[1];
 		const size_t entries_per_block = (size_t)((RFS_DEFAULT_DIR_SIZE * 2) - 1);
 
 		/* First pass: try to find an existing entry (case-insensitive) */
 		for (size_t i = 0; i < entries_per_block; i++) {
-			rfs_directory_entry_inner_t* e = &ents[i];
+			rfs_directory_entry_inner_t* e = &ents[i].entry;
 
 			if (e->filename[0] == '\0') {
 				/* Remember first empty slot in the chain */
@@ -122,8 +122,8 @@ fs_directory_entry_t* rfs_upsert_directory_entry(fs_directory_entry_t* file, uin
 			return NULL;
 		}
 
-		rfs_directory_entry_inner_t* ents = (rfs_directory_entry_inner_t*)&block[1];
-		rfs_directory_entry_inner_t* e = &ents[empty_slot_index];
+		rfs_directory_entry_t* ents = (rfs_directory_entry_t*)&block[1];
+		rfs_directory_entry_inner_t* e = &ents[empty_slot_index].entry;
 
 		/* Write new entry; preserve case from file->filename */
 		strlcpy(e->filename, file->filename, RFS_MAX_NAME);
@@ -270,6 +270,7 @@ uint64_t rfs_create_file(void* dir, const char* name, size_t size) {
 	if (reserve_sectors == 0) {
 		reserve_sectors = 1; /* keep it simple: at least one sector */
 	}
+	dprintf("Reserving %lu bytes (%lu sectors)\n", reserve_bytes, reserve_sectors);
 
 	/* 3) Allocate a contiguous extent */
 	uint64_t start_sector = 0;
@@ -277,6 +278,7 @@ uint64_t rfs_create_file(void* dir, const char* name, size_t size) {
 		dprintf("rfs: create_file: no free extent for %lu sectors\n", reserve_sectors);
 		return 0;
 	}
+	dprintf("Got reservation at sector %lu\n", start_sector);
 	/* 4) Zero the allocated extent (security) */
 	const uint64_t chunk_sectors = RFS_MAP_READ_CHUNK_SECTORS; /* 128 sectors = 64 KiB */
 	const size_t   chunk_bytes   = (size_t)(chunk_sectors * RFS_SECTOR_SIZE);
@@ -287,26 +289,29 @@ uint64_t rfs_create_file(void* dir, const char* name, size_t size) {
 	}
 	memset(zero, 0, chunk_bytes);
 
+	dprintf("Mark extent from %lu length %lu\n", start_sector, reserve_sectors);
 	if (!rfs_mark_extent(info, start_sector, reserve_sectors, true)) {
 		dprintf("rfs: create_file: failed to mark extent used\n");
 		kfree_null(&zero);
 		return 0;
 	}
 
+	dprintf("Zeroing extent from %lu\n", start_sector);
 	uint64_t remaining = reserve_sectors, pos = start_sector;
 	while (remaining) {
 		uint64_t this_sectors = (remaining > chunk_sectors) ? chunk_sectors : remaining;
 		uint64_t this_bytes   = this_sectors * RFS_SECTOR_SIZE;
+		dprintf("Zeroing %lu, %lu bytes\n", pos, this_bytes);
 		if (!rfs_write_device(info, pos, this_bytes, zero)) {
 			dprintf("rfs: create_file: zeroing failed at sector %lu\n", pos);
-			kfree(zero);
+			kfree_null(&zero);
 			rfs_mark_extent(info, start_sector, reserve_sectors, false);
 			return 0;
 		}
 		pos += this_sectors;
 		remaining -= this_sectors;
 	}
-	kfree(zero);
+	kfree_null(&zero);
 
 	/* 5) Upsert the directory entry (don’t duplicate that logic) */
 	fs_directory_entry_t de = {0};

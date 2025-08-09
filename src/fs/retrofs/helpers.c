@@ -44,6 +44,7 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 	}
 
 	uint64_t current = (tree->lbapos != 0) ? tree->lbapos : info->desc->root_directory;
+	dprintf("rfs_locate_entry in directory '%s' @ %lu, file '%s'\n", tree->name, current, name);
 	rfs_directory_entry_t block[RFS_DEFAULT_DIR_SIZE * 2];
 
 	uint32_t walked = 0;
@@ -55,6 +56,7 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 			return false;
 		}
 
+		dprintf("Read: %lu\n", current);
 		if (!rfs_read_device(info, current, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
 			dprintf("rfs: locate: read error at %lu\n", current);
 			return false;
@@ -67,10 +69,14 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 		}
 
 		rfs_directory_entry_t* ents = (rfs_directory_entry_t*)&block[1];
-		const size_t entries_per_block = (size_t)((RFS_DEFAULT_DIR_SIZE * 2) - 1);
+		const size_t entries_per_block = (RFS_DEFAULT_DIR_SIZE * 2) - 1;
 
-		for (size_t i = 1; i <= entries_per_block; i++) {
+		dprintf("Walk block\n");
+
+		for (size_t i = 0; i < entries_per_block; i++) {
 			rfs_directory_entry_inner_t* e = &ents[i].entry;
+
+			dprintf("Entry name: '%s' index '%lu'\n", e->filename, i);
 
 			if (e->filename[0] == '\0') {
 				break;
@@ -91,6 +97,7 @@ bool rfs_locate_entry(rfs_t* info, fs_tree_t* tree, const char* name, uint64_t* 
 		}
 
 		if (start->continuation == 0) {
+			dprintf("End of continuations\n");
 			break;
 		}
 		current = start->continuation;

@@ -160,7 +160,7 @@ static bool rfs_extend_and_move(fs_tree_t* tree, rfs_t* info, fs_directory_entry
 }
 
 bool rfs_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buffer) {
-	if (!f || (!length)) {
+	if (!f || !length) {
 		return (length == 0); /* zero-length write is a no-op success */
 	}
 	if (!buffer) {
@@ -193,12 +193,15 @@ bool rfs_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buf
 		return false;
 	}
 
+	dprintf("Found at extent pos %lu len %lu\n", ent.sector_start, ent.sector_length);
+
 	/* End position of the write in bytes */
 	uint64_t end_pos = start + (uint64_t)length;
 
 	/* Ensure capacity: move if we exceed reserved bytes */
 	uint64_t reserved_bytes = ent.sector_length * (uint64_t)RFS_SECTOR_SIZE;
 	if (end_pos > reserved_bytes) {
+		dprintf("Running extend-and-move, end_pos = %lu reserved_bytes = %lu\n", end_pos, reserved_bytes);
 		/* Extend + move to at least end_pos bytes */
 		if (!rfs_extend_and_move(tree, info, file, end_pos)) {
 			return false;
@@ -224,6 +227,7 @@ bool rfs_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buf
 
 	/* Single-sector write */
 	if (first_sector == last_sector) {
+		dprintf("Single sector write: %lu\n", first_sector);
 		if (!rfs_read_device(info, first_sector, RFS_SECTOR_SIZE, sector_buf)) {
 			dprintf("rfs: write_file: read head/tail sector failed\n");
 			kfree(sector_buf);
@@ -237,6 +241,7 @@ bool rfs_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buf
 		}
 		kfree(sector_buf);
 	} else {
+		dprintf("Head partial\n");
 		/* Head partial */
 		size_t head_bytes = RFS_SECTOR_SIZE - head_off;
 		if (!rfs_read_device(info, first_sector, RFS_SECTOR_SIZE, sector_buf)) {
@@ -273,20 +278,20 @@ bool rfs_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buf
 		}
 
 		/* Tail partial */
-		size_t tail_bytes = (size_t)((start + (uint64_t)length) % RFS_SECTOR_SIZE);
+		size_t tail_bytes = ((start + length) % RFS_SECTOR_SIZE);
 		if (tail_bytes == 0) {
 			tail_bytes = RFS_SECTOR_SIZE;
 		}
 		/* tail_bytes currently equals bytes that land in the last sector;
 		   but if the write ends exactly on a sector boundary, the above sets
 		   to full sector; we only need to RMW when there's a partial tail. */
-		if (((start + (uint64_t)length) % RFS_SECTOR_SIZE) != 0) {
+		if (((start + length) % RFS_SECTOR_SIZE) != 0) {
 			if (!rfs_read_device(info, last_sector, RFS_SECTOR_SIZE, sector_buf)) {
 				dprintf("rfs: write_file: read tail failed\n");
 				kfree(sector_buf);
 				return false;
 			}
-			size_t remaining_tail = (size_t)((start + (uint64_t)length) % RFS_SECTOR_SIZE);
+			size_t remaining_tail = ((start + length) % RFS_SECTOR_SIZE);
 			memcpy(sector_buf, cur_buf, remaining_tail);
 			if (!rfs_write_device(info, last_sector, RFS_SECTOR_SIZE, sector_buf)) {
 				dprintf("rfs: write_file: write tail failed\n");
@@ -306,7 +311,7 @@ bool rfs_write_file(void* f, uint64_t start, uint32_t length, unsigned char* buf
 		de.flags     = 0;                /* file */
 		de.size      = end_pos;          /* new logical size */
 
-		if (!rfs_upsert_directory_entry(&de, 0)) { /* 0 => keep sector_length unchanged */
+		if (!rfs_upsert_directory_entry(&de, ent.sector_length)) {
 			dprintf("rfs: write_file: warning: size update failed\n");
 			/* Not fatal for the write itself; data is on disk. */
 		}

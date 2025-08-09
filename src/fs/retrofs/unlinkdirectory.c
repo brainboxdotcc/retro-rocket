@@ -53,14 +53,14 @@ bool rfs_unlink_dir(void* dir, const char* name) {
 				return false;
 			}
 
-			rfs_directory_entry_inner_t* files = (rfs_directory_entry_inner_t*)&block[1];
+			rfs_directory_entry_t* files = (rfs_directory_entry_t*)&block[1];
 			const size_t entries_per_block = (RFS_DEFAULT_DIR_SIZE * 2) - 1;
 
 			for (size_t i = 0; i < entries_per_block; i++) {
-				if (files[i].filename[0] == 0) {
+				if (files[i].entry.filename[0] == 0) {
 					break; /* end of entries in this block */
 				}
-				dprintf("rfs: unlink_dir: not empty (found '%s')\n", files[i].filename);
+				dprintf("rfs: unlink_dir: not empty (found '%s')\n", files[i].entry.filename);
 				return false;
 			}
 
