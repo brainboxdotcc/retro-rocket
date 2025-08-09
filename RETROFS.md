@@ -212,7 +212,7 @@ Files and directories may set the following bits in their `flags` field:
 
 Implementations **SHOULD** reserve more than the initial logical size to reduce churn. A practical policy:
 
-* Default reservation: **1 MiB**.
+* Default reservation: **128 KiB**.
 * Image file types (e.g., `jpg`, `jpeg`, `png`, `gif`, `tiff`, `bmp`, `webp`): **4 MiB**.
 * The reservation **MAY** be adjusted later by extend-and-move when required.
 

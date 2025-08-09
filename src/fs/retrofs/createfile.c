@@ -4,18 +4,18 @@
 /* Table of default size reservations by extension (MB) */
 typedef struct {
 	const char* ext;
-	uint32_t size_mb;
+	uint32_t size_kb;
 } rfs_ext_size_t;
 
 static const rfs_ext_size_t rfs_ext_size_table[] = {
-	{ "jpeg", 4 },
-	{ "jpg",  4 },
-	{ "png",  4 },
-	{ "gif",  4 },
-	{ "bmp",  4 },
-	{ "webp", 4 },
-	{ "tif",  4 },
-	{ "tiff", 4 },
+	{ "jpeg", 4096 },
+	{ "jpg",  4096 },
+	{ "png",  4096 },
+	{ "gif",  4096 },
+	{ "bmp",  4096 },
+	{ "webp", 4096 },
+	{ "tif",  4096 },
+	{ "tiff", 4096 },
 };
 
 fs_directory_entry_t* rfs_upsert_directory_entry(fs_directory_entry_t* file, uint64_t sector_extent) {
@@ -211,23 +211,17 @@ fs_directory_entry_t* rfs_upsert_directory_entry(fs_directory_entry_t* file, uin
 	}
 }
 
-/**
- * @brief Get the default reservation size for a file based on extension.
- *
- * @param filename Filename to check.
- * @return Size in bytes to reserve. Defaults to 1 MB if not in table.
- */
-static size_t rfs_get_default_reservation(const char* filename) {
+size_t rfs_get_default_reservation(const char* filename) {
 	const char* dot = strrchr(filename, '.');
 	if (dot && *(dot + 1)) {
 		const char* ext = dot + 1;
 		for (size_t i = 0; i < sizeof(rfs_ext_size_table) / sizeof(rfs_ext_size_table[0]); i++) {
 			if (strcasecmp(ext, rfs_ext_size_table[i].ext) == 0) {
-				return (size_t)rfs_ext_size_table[i].size_mb * 1024 * 1024;
+				return (size_t)rfs_ext_size_table[i].size_kb * 1024;
 			}
 		}
 	}
-	return 1 * 1024 * 1024; /* Default: 1 MB */
+	return 128 * 1024; /* Default: 128 KB */
 }
 
 uint64_t rfs_bytes_to_sectors(uint64_t bytes) {

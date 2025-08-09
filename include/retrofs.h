@@ -164,6 +164,14 @@ typedef struct rfs_t {
 #define RFS_L2_GROUPS_PER_SUPER (1024ULL) /**< L1 groups per L2 super-group. */
 
 /**
+ * @brief Get the default reservation size for a file based on extension.
+ *
+ * @param filename Filename to check.
+ * @return Size in bytes to reserve. Defaults to 128 KB if not in table.
+ */
+size_t rfs_get_default_reservation(const char* filename);
+
+/**
  * @brief Set or clear a bit in a bitset.
  * @param bs Pointer to bitset.
  * @param idx Bit index.

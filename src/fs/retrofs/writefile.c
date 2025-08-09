@@ -21,7 +21,7 @@ static bool rfs_extend_and_move(fs_tree_t* tree, rfs_t* info, fs_directory_entry
 	const uint64_t old_sectors = ent.sector_length;
 	const uint64_t old_bytes   = ent.length;
 
-	const uint64_t new_sectors = rfs_bytes_to_sectors(min_bytes_required);
+	const uint64_t new_sectors = rfs_bytes_to_sectors(min_bytes_required + rfs_get_default_reservation(ent.filename));
 	uint64_t       new_start   = 0;
 
 	/* Buffers: one zero buffer for zero-fill, one bulk buffer for copying */

@@ -67,7 +67,7 @@ fs_directory_entry_t* rfs_walk_directory(fs_tree_t* tree, rfs_t* info, uint64_t 
 				return list;
 			}
 			start_entry = (rfs_directory_start_t*)&block[0];
-			files = (rfs_directory_entry_inner_t*)&block[1];
+			files = (rfs_directory_entry_t*)&block[1];
 			if (start_entry->sectors != RFS_DEFAULT_DIR_SIZE) {
 				dprintf("Directory block has unexpected length of %lu\n", start_entry->sectors);
 				return list;
