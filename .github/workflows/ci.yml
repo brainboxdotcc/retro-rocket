@@ -18,7 +18,7 @@ jobs:
 
       - name: Install apt packages
         run: sudo apt-get update &&
-             sudo apt-get install nasm xorriso
+             sudo apt-get install nasm xorriso mtools php
 
       - name: Generate CMake
         run: mkdir build && cd build && cmake ..
