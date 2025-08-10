@@ -279,7 +279,6 @@ bool iso_read_file(void *f, uint64_t start, uint32_t length, unsigned char *buff
 		return false;
 	}
 	if (!read_storage_device(file->device_name, sectors_start, length, readbuf)) {
-		kprintf("ISO9660: Could not read LBA sectors 0x%lx-0x%lx!\n", sectors_start, sectors_start + sectors_size);
 		kfree_null(&readbuf);
 		return false;
 	}

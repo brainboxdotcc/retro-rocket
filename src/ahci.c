@@ -171,7 +171,7 @@ int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, c
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
 
 	// Write bounce buffer can only handle 16 sectors (8 KiB) at a time
-	const uint32_t max_per_cmd = 128;
+	const uint32_t max_per_cmd = 16;
 
 	while (sectors > 0) {
 		uint32_t this_xfer = (sectors > max_per_cmd) ? max_per_cmd : sectors;

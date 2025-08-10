@@ -392,7 +392,7 @@ void init_process()
 		}
 		if (cmd != NULL && !strcasecmp(cmd, "install")) {
 			installer();
-			return;
+			wait_forever();
 		}
 	}
 

@@ -103,6 +103,7 @@ static bool write_lbas(const char *devname, uint64_t start_lba, const void *buf,
 	if (write_storage_device(devname, start_lba, bytes, (const unsigned char *)buf) == 0) {
 		return false;
 	}
+	dprintf("Written to '%s' start LBA %lu bytes %u\n", devname, start_lba, bytes);
 	return true;
 }
 
@@ -125,41 +126,29 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 		kprintf("install: unsupported logical sector size %u (need 512)\n", dev->block_size);
 		return false;
 	}
-	if (dev->size == SIZE_MAX || dev->size < (uint64_t)34U * SECTOR_BYTES_REQUIRED) {
+	if (dev->size == SIZE_MAX || dev->size < 34) {
 		kprintf("install: unknown or too-small device size\n");
 		return false;
 	}
 
 	const uint32_t sector_bytes = dev->block_size;
-	const uint64_t lba_count    = dev->size / sector_bytes;
-	const uint64_t last_lba     = lba_count - 1ULL;
+	const uint64_t lba_count    = dev->size;
+	const uint64_t last_lba     = lba_count - 1;
 
-	/* --- Load ESP image fully into RAM --- */
+	/* --- Get ESP image info --- */
 	fs_directory_entry_t *img_ent = fs_get_file_info(esp_image_vfs_path);
 	if (img_ent == NULL) {
 		kprintf("install: ESP image '%s' not found\n", esp_image_vfs_path);
 		return false;
 	}
 
-	uint64_t esp_bytes = img_ent->size; /* adjust to .size if needed */
+	uint64_t esp_bytes = img_ent->size;
 	if (esp_bytes == 0ULL) {
 		kprintf("install: ESP image is empty\n");
 		return false;
 	}
 	if (esp_bytes > 0xFFFFFFFFULL) {
-		kprintf("install: ESP image too large for single read\n");
-		return false;
-	}
-
-	uint8_t *image = (uint8_t *)kmalloc((size_t)esp_bytes);
-	if (image == NULL) {
-		kprintf("install: out of memory for ESP image buffer (%lu bytes)\n", esp_bytes);
-		return false;
-	}
-
-	if (fs_read_file(img_ent, 0U, (uint32_t)esp_bytes, image) != 0) {
-		kprintf("install: fs_read_file failed loading ESP image\n");
-		kfree(image);
+		kprintf("install: ESP image too large for single-file logic\n");
 		return false;
 	}
 
@@ -186,15 +175,13 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	const uint64_t esp_last_lba  = esp_first_lba + esp_sectors - 1ULL;
 
 	if (esp_last_lba >= last_usable) {
-		kprintf("install: disk too small for ESP (%lu sectors)\n", esp_sectors);
-		kfree(image);
+		kprintf("install: disk too small for ESP (%lu sectors ESP, esp_last_lba=%lu last_usable=%lu)\n", esp_sectors, esp_last_lba, last_usable);
 		return false;
 	}
 
 	uint64_t rfs_first_lba = align_up_u64(esp_last_lba + 1ULL, ALIGN_1M_IN_LBAS);
 	if (rfs_first_lba > last_usable) {
 		kprintf("install: no room for RFS after ESP\n");
-		kfree(image);
 		return false;
 	}
 	const uint64_t rfs_last_lba = last_usable;
@@ -202,69 +189,60 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	/* --- Protective MBR (LBA0) --- */
 	uint8_t mbr[SECTOR_BYTES_REQUIRED];
 	memset(mbr, 0, sizeof mbr);
-
 	partition_table_t *ptab = (partition_table_t *)(mbr + PARTITION_TABLE_OFFSET);
 	memset(ptab, 0, sizeof(*ptab));
 
 	ptab->p_entry[0].bootable = 0x00;
 	ptab->p_entry[0].systemid = PARTITION_GPT_PROTECTIVE;
-	ptab->p_entry[0].startlba = 1U;
-	ptab->p_entry[0].length   = (lba_count > 0xFFFFFFFFULL) ? 0xFFFFFFFFU : (uint32_t)(lba_count - 1ULL);
+	ptab->p_entry[0].startlba = 1;
+	ptab->p_entry[0].length   = (lba_count - 1 > 0xFFFFFFFF) ? 0xFFFFFFFF : (uint32_t)(lba_count - 1);
 
 	mbr[510] = 0x55;
 	mbr[511] = 0xAA;
 
 	if (!write_lbas(devname, 0ULL, mbr, sizeof mbr, sector_bytes)) {
 		kprintf("install: write protective MBR failed\n");
-		kfree(image);
 		return false;
 	}
 
-	/* --- Partition Entries (primary/backup share same array) --- */
+	/* --- Partition Entries --- */
 	const uint32_t ptes_buf_bytes = (uint32_t)(ptes_sectors * sector_bytes);
 	uint8_t *ptes_buf = (uint8_t *)kmalloc(ptes_buf_bytes);
-	if (ptes_buf == NULL) {
+	if (!ptes_buf) {
 		kprintf("install: out of memory for PTE buffer\n");
-		kfree(image);
 		return false;
 	}
 	memset(ptes_buf, 0, ptes_buf_bytes);
-
 	gpt_entry_t *ptes = (gpt_entry_t *)ptes_buf;
 
 	/* Entry 0: EFI System */
 	if (!guid_to_binary(GPT_EFI_SYSTEM, ptes[0].type_guid)) {
 		kprintf("install: guid_to_binary failed for GPT_EFI_SYSTEM\n");
 		kfree(ptes_buf);
-		kfree(image);
 		return false;
 	}
 	random_guid_v4(ptes[0].unique_id);
 	ptes[0].start_lba  = esp_first_lba;
 	ptes[0].end_lba    = esp_last_lba;
-	ptes[0].attributes = 0ULL;
 	make_utf16le_name("EFI System", (uint16_t *)ptes[0].name);
 
 	/* Entry 1: RetroFS */
 	if (!guid_to_binary(RFS_GPT_GUID, ptes[1].type_guid)) {
 		kprintf("install: guid_to_binary failed for RFS_GPT_GUID\n");
 		kfree(ptes_buf);
-		kfree(image);
 		return false;
 	}
 	random_guid_v4(ptes[1].unique_id);
 	ptes[1].start_lba  = rfs_first_lba;
 	ptes[1].end_lba    = rfs_last_lba;
-	ptes[1].attributes = 0ULL;
 	make_utf16le_name("RetroFS", (uint16_t *)ptes[1].name);
 
 	const uint32_t ptes_crc = crc32_update(0, ptes_buf, GPT_PTE_COUNT * GPT_PTE_SIZE_BYTES);
 
-	/* --- Primary GPT Header (LBA1) --- */
+	/* --- GPT Headers --- */
 	uint8_t gpth_buf[SECTOR_BYTES_REQUIRED];
 	memset(gpth_buf, 0, sizeof gpth_buf);
 	gpt_header_t *gpth = (gpt_header_t *)gpth_buf;
-
 	memcpy(gpth->signature, GPT_SIGNATURE_TEXT, 8);
 	gpth->gpt_revision              = GPT_REVISION_1_0;
 	gpth->header_size               = GPT_HEADER_SIZE_BYTES;
@@ -272,21 +250,14 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	gpth->lba_of_alternative_header = backup_header_lba;
 	gpth->first_usable_block        = first_usable;
 	gpth->last_usable_block         = last_usable;
+	random_guid_v4(gpth->disk_guid);
+	gpth->lba_of_partition_entries  = primary_ptes_lba;
+	gpth->number_partition_entries  = GPT_PTE_COUNT;
+	gpth->size_of_each_entry        = GPT_PTE_SIZE_BYTES;
+	gpth->crc_32_of_entries         = ptes_crc;
+	gpth->crc_checksum              = 0;
+	gpth->crc_checksum              = crc32_update(0, gpth, GPT_HEADER_SIZE_BYTES);
 
-	{
-		uint8_t disk_guid[16];
-		random_guid_v4(disk_guid);
-		memcpy(gpth->disk_guid, disk_guid, 16);
-	}
-
-	gpth->lba_of_partition_entries = primary_ptes_lba;
-	gpth->number_partition_entries = GPT_PTE_COUNT;
-	gpth->size_of_each_entry       = GPT_PTE_SIZE_BYTES;
-	gpth->crc_32_of_entries        = ptes_crc;
-	gpth->crc_checksum             = 0;
-	gpth->crc_checksum             = crc32_update(0, gpth, GPT_HEADER_SIZE_BYTES);
-
-	/* --- Backup GPT Header (last LBA) --- */
 	uint8_t gptb_buf[SECTOR_BYTES_REQUIRED];
 	memset(gptb_buf, 0, sizeof gptb_buf);
 	gpt_header_t *gptb = (gpt_header_t *)gptb_buf;
@@ -298,85 +269,51 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	gptb->crc_checksum              = crc32_update(0, gptb, GPT_HEADER_SIZE_BYTES);
 
 	/* --- Write GPT structures --- */
-	if (!write_lbas(devname, primary_ptes_lba, ptes_buf, ptes_buf_bytes, sector_bytes)) {
-		kprintf("install: write primary PTEs failed\n");
+	if (!write_lbas(devname, primary_ptes_lba, ptes_buf, ptes_buf_bytes, sector_bytes) ||
+	    !write_lbas(devname, primary_header_lba, gpth_buf, SECTOR_BYTES_REQUIRED, sector_bytes) ||
+	    !write_lbas(devname, backup_ptes_lba, ptes_buf, ptes_buf_bytes, sector_bytes) ||
+	    !write_lbas(devname, backup_header_lba, gptb_buf, SECTOR_BYTES_REQUIRED, sector_bytes)) {
+		kprintf("install: failed writing GPT structures\n");
 		kfree(ptes_buf);
-		kfree(image);
 		return false;
 	}
-	if (!write_lbas(devname, primary_header_lba, gpth_buf, SECTOR_BYTES_REQUIRED, sector_bytes)) {
-		kprintf("install: write primary GPT header failed\n");
-		kfree(ptes_buf);
-		kfree(image);
-		return false;
-	}
-	if (!write_lbas(devname, backup_ptes_lba, ptes_buf, ptes_buf_bytes, sector_bytes)) {
-		kprintf("install: write backup PTEs failed\n");
-		kfree(ptes_buf);
-		kfree(image);
-		return false;
-	}
-	if (!write_lbas(devname, backup_header_lba, gptb_buf, SECTOR_BYTES_REQUIRED, sector_bytes)) {
-		kprintf("install: write backup GPT header failed\n");
-		kfree(ptes_buf);
-		kfree(image);
-		return false;
-	}
-
 	kfree(ptes_buf);
 
-	/* --- Patch BPB HiddenSectors in-memory and write image in 128 KiB chunks --- */
-	if (esp_bytes >= SECTOR_BYTES_REQUIRED) {
-		*(uint32_t *)(image + FAT32_BPB_HIDDEN_OFF) = (uint32_t)esp_first_lba;
-	}
-
-	uint8_t *bounce = (uint8_t *)kmalloc(MAX_WRITE_CHUNK_BYTES);
-	if (bounce == NULL) {
-		kprintf("install: out of memory for bounce buffer\n");
-		kfree(image);
+	/* --- Stream ESP image directly --- */
+	const uint32_t chunk_bytes = 64 * 1024;
+	uint8_t *buf16k = (uint8_t *)kmalloc(chunk_bytes);
+	if (!buf16k) {
+		kprintf("install: out of memory for ESP streaming buffer\n");
 		return false;
 	}
 
-	uint64_t remaining  = esp_bytes;
-	uint64_t offset     = 0ULL;
-	uint64_t out_lba    = esp_first_lba;
+	uint64_t remaining_bytes = esp_bytes;
+	uint64_t read_offset     = 0ULL;
+	uint64_t out_lba         = esp_first_lba;
+	kprintf("FAT image total sectors to write: %lu\n", esp_sectors);
 
-	while (remaining > 0ULL) {
-		uint32_t piece = (remaining > (uint64_t)MAX_WRITE_CHUNK_BYTES)
-				 ? MAX_WRITE_CHUNK_BYTES
-				 : (uint32_t)remaining;
-
-		uint32_t write_bytes = (piece + sector_bytes - 1U) / sector_bytes * sector_bytes;
-
-		if ((write_bytes == piece) && ((uintptr_t)(image + offset) % 1 == 0)) {
-			/* Aligned and whole sectors: write directly */
-			if (!write_lbas(devname, out_lba, image + offset, write_bytes, sector_bytes)) {
-				kprintf("install: write failed at LBA %lu\n", out_lba);
-				kfree(bounce);
-				kfree(image);
-				return false;
-			}
-		} else {
-			/* Copy + pad to sector multiple */
-			memcpy(bounce, image + offset, piece);
-			if (write_bytes > piece) {
-				memset(bounce + piece, 0, write_bytes - piece);
-			}
-			if (!write_lbas(devname, out_lba, bounce, write_bytes, sector_bytes)) {
-				kprintf("install: write failed at LBA %lu\n", out_lba);
-				kfree(bounce);
-				kfree(image);
-				return false;
-			}
+	while (remaining_bytes > 0) {
+		memset(buf16k, (unsigned char)0xCE, chunk_bytes); // test sentinel
+		if (!fs_read_file(img_ent, (uint32_t)read_offset, chunk_bytes, buf16k)) {
+			kprintf("install: fs_read_file failed at offset %lu: %s\n",
+				read_offset, fs_strerror(fs_get_error()));
+			kfree(buf16k);
+			return false;
 		}
 
-		remaining -= piece;
-		offset    += piece;
-		out_lba   += (write_bytes / sector_bytes);
+		uint32_t n_sectors = chunk_bytes / sector_bytes;
+		if (!write_lbas(devname, out_lba, buf16k, chunk_bytes, sector_bytes)) {
+			kprintf("install: write failed at LBA %lu\n", out_lba);
+			kfree(buf16k);
+			return false;
+		}
+
+		read_offset += chunk_bytes;
+		out_lba     += n_sectors;
+		remaining_bytes = (remaining_bytes > chunk_bytes) ? (remaining_bytes - chunk_bytes) : 0;
 	}
 
-	kfree(bounce);
-	kfree(image);
+	kfree(buf16k);
 
 	kprintf("install: GPT + ESP + RFS written to '%s'\n", devname);
 	kprintf("         ESP  %lu..%lu (%lu sectors)\n", esp_first_lba, esp_last_lba, esp_sectors);
@@ -388,7 +325,9 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	uint8_t partitionid = 0;
 	char found_guid[64];
 	rfs_t *info = kmalloc(sizeof(rfs_t));
+	memset(info, 0, sizeof(rfs_t));
 	uint64_t start = 0, length = 0;
+	info->dev = dev;
 
 	if (!find_partition_of_type(devname, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length)) {
 		kprintf("install: Could not find the created RFS to format it on %s\n", devname);
@@ -412,11 +351,13 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	filesystem_mount("/harddisk", devname, "rfs");
 
 	/* TODO: Copy OS files onto RFS; /system, an empty /devices, /programs */
+	kprintf("Copying files...\n");
 
 	return true;
 }
 
 void installer() {
 	kprintf("Installer stub\n");
+	install_gpt_esp_rfs_whole_image("hd0", "/efi.fat");
 	wait_forever();
 }
