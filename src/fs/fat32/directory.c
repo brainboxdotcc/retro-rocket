@@ -37,9 +37,6 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 			return NULL;
 		}
 
-		dprintf("Cluster:\n");
-		dump_hex(buffer, info->clustersize);
-
 		directory_entry_t* entry = (directory_entry_t*)(buffer + bufferoffset);
 		uint32_t entries = 0; /* max of info->clustersize / 32 file entries per cluster */
 
