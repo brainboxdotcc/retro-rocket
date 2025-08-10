@@ -184,7 +184,6 @@ uint64_t fat32_internal_create_file(void* dir, const char* name, size_t size, ui
 
 	build_lfn_chain(name, parsed_dir, &short_entry, &new_entries, &entry_count);
 	if (!new_entries) {
-		fs_set_error(FS_ERR_OUT_OF_MEMORY);
 		return 0;
 	}
 	short_entry.size = size;
