@@ -156,7 +156,7 @@ int64_t basic_getnamecount(struct basic_ctx* ctx)
 		return 0;
 	}
 	fs_directory_entry_t* fsl = fs_get_items(dir);
-	if (!fsl) {
+	if (!fsl && fs_get_error() != FS_ERR_NO_ERROR) {
 		tokenizer_error_printf(ctx, "Error retrieving directory items: %s", fs_strerror(fs_get_error()));
 		return 0;
 	}
@@ -180,7 +180,7 @@ char* basic_getname(struct basic_ctx* ctx)
 		return 0;
 	}
 	fs_directory_entry_t* fsl = fs_get_items(dir);
-	if (!fsl) {
+	if (!fsl && fs_get_error() != FS_ERR_NO_ERROR) {
 		tokenizer_error_printf(ctx, "Error retrieving directory items: %s", fs_strerror(fs_get_error()));
 		return 0;
 	}
@@ -211,7 +211,7 @@ int64_t basic_getsize(struct basic_ctx* ctx)
 	PARAMS_END("GETSIZE", 0);
 	const char* dir = make_full_path(ctx, strval);
 	fs_directory_entry_t* fsl = fs_get_items(dir);
-	if (!fsl) {
+	if (!fsl && fs_get_error() != FS_ERR_NO_ERROR) {
 		tokenizer_error_printf(ctx, "Error retrieving directory items: %s", fs_strerror(fs_get_error()));
 		return 0;
 	}
