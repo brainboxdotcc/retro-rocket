@@ -51,10 +51,6 @@ copy_config(limine.sys limine/limine.sys)
 copy_config(limine-cd.bin limine/limine-cd.bin)
 copy_config(limine-efi.bin limine/limine-cd-efi.bin)
 
-copy_font(system.f08 system.f08)
-copy_font(system.f16 system.f16)
-copy_font(system.f20 system.f20)
-
 copy_image(brainbox.png brainbox.png)
 copy_image(brainbox.gif brainbox.gif)
 copy_image(computer.jpg computer.jpg)

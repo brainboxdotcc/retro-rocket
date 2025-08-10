@@ -24,17 +24,6 @@ function(copy_basic_lib TARGETFILE SOURCEFILE)
     add_dependencies(ISO basic_${SOURCEFILE})
 endfunction()
 
-function(copy_font TARGETFILE SOURCEFILE)
-    set(FILENAME "${CMAKE_SOURCE_DIR}/os/fonts/${SOURCEFILE}")
-    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/fonts/${TARGETFILE}")
-    add_custom_command(OUTPUT ${OUTNAME}
-        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/fonts" && cp ${FILENAME} ${OUTNAME}
-        DEPENDS ${FILENAME})
-    add_custom_target(font_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
-    add_dependencies("kernel.bin" font_${SOURCEFILE})
-    add_dependencies(ISO font_${SOURCEFILE})
-endfunction()
-
 function(copy_system_keymap SOURCEFILE)
     set(FILENAME "${CMAKE_SOURCE_DIR}/os/system/keymaps/${SOURCEFILE}")
     set(OUTNAME "${CMAKE_BINARY_DIR}/iso/system/keymaps/${SOURCEFILE}")
@@ -69,9 +58,9 @@ function(copy_image TARGETFILE SOURCEFILE)
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND mkdir -p "${CMAKE_BINARY_DIR}/iso/images" && cp ${FILENAME} ${OUTNAME}
         DEPENDS ${FILENAME})
-    add_custom_target(font_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
-    add_dependencies("kernel.bin" font_${SOURCEFILE})
-    add_dependencies(ISO font_${SOURCEFILE})
+    add_custom_target(img_${SOURCEFILE} ALL DEPENDS ${OUTNAME})
+    add_dependencies("kernel.bin" img_${SOURCEFILE})
+    add_dependencies(ISO img_${SOURCEFILE})
 endfunction()
 
 function(copy_config TARGETFILE SOURCEFILE)
