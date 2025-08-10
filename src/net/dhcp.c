@@ -96,7 +96,9 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	}
 	dev->get_mac_addr(packet->client_hardware_addr);
 
-	uint8_t * options = packet->options;
+	uint8_t* options = packet->options;
+
+	/* Magic cookie */
 	*((uint32_t*)(options)) = htonl(0x63825363);
 	options += 4;
 
@@ -104,27 +106,28 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	*(options++) = 1;
 	*(options++) = msg_type;
 
-	if (server_ip) {
-		// Server identifier
+	/* Server identifier (if known) */
+	if (server_ip != 0) {
 		*(options++) = OPT_SERVER_IP;
 		*(options++) = 4;
-		*((uint32_t*)(options)) = server_ip;
+		*((uint32_t*)(options)) = server_ip; /* already in network order */
 		options += 4;
 	}
 
-	// Client identifier
-	*(options++) = OPT_CLIENT_MAC;
-	*(options++) = 7;
-	*(options++) = HARDWARE_TYPE_ETHERNET;
+	/* Client Identifier (Option 61): htype (1 byte) + MAC (6 bytes) */
+	*(options++) = OPT_CLIENT_MAC;   /* 61 */
+	*(options++) = 7;                /* length */
+	*(options++) = HARDWARE_TYPE_ETHERNET; /* 0x01 for Ethernet */
 	dev->get_mac_addr(options);
 	options += 6;
 
-	// Requested IP address
-	*(options++) = OPT_REQUESTED_IP;
-	*(options++) = 0x04;
-	*((uint32_t*)(options)) = htonl(0x0a00020e);
-	memcpy((uint32_t*)(options), request_ip, 4);
-	options += 4;
+	/* Requested IP (Option 50) — only if we actually have one to ask for */
+	if (*((uint32_t*)request_ip)) {
+		*(options++) = OPT_REQUESTED_IP; /* 50 */
+		*(options++) = 4;
+		memcpy(options, request_ip, 4);  /* network order expected */
+		options += 4;
+	}
 
 	// Host Name
 	const char* hostname = "retrorocket";
@@ -133,7 +136,6 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	*(options++) = len + 1; // len
 	memcpy(options, hostname, len);
 	options += len;
-	*(options++) = 0x00;
 
 	// Parameter request list
 	*(options++) = OPT_PARAMETER_REQUEST_LIST;
@@ -147,7 +149,7 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	*(options++) = OPT_NETBIOS_NODE_TYPE;
 	*(options++) = OPT_MAX_DHCP_SIZE;
 
-	// END
+	/* END */
 	*(options++) = OPT_END;
 
 	return (uint16_t)((size_t)options - (size_t)packet);

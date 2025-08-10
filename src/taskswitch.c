@@ -1,5 +1,10 @@
 #include <kernel.h>
 
+volatile struct limine_kernel_file_request rr_kfile_req = {
+	.id = LIMINE_KERNEL_FILE_REQUEST,
+	.revision = 0
+};
+
 /**
  * @brief The currently running process on each CPU
  */
@@ -378,6 +383,19 @@ void init_process()
 		init_spinlock(&proc_lock[x]);
 	}
 	process_by_pid = hashmap_new(sizeof(proc_id_t), 0, 704830503, 487304583058, process_hash, process_compare, NULL, NULL);
+
+	if (logical_cpu_id() == 0) {
+		/* Check for kernel commandline to start the installer stub */
+		const char *cmd = NULL;
+		if (rr_kfile_req.response != NULL && rr_kfile_req.response->kernel_file != NULL) {
+			cmd = rr_kfile_req.response->kernel_file->cmdline;
+		}
+		if (cmd != NULL && !strcasecmp(cmd, "install")) {
+			installer();
+			return;
+		}
+	}
+
 	process_t* init = proc_load("/programs/init", (struct console*)current_console, 0, "/");
 	if (!init) {
 		preboot_fail("/programs/init missing or invalid!\n");

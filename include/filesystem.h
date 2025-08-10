@@ -643,3 +643,14 @@ bool fs_delete_directory(const char* pathandfile);
 void fs_set_error(uint32_t error);
 
 uint32_t fs_get_error(void);
+
+/**
+ * @brief Flatten a device, write GPT with ESP + RFS, then write a prebuilt ESP image.
+ *
+ * @param devname             storage device name (e.g. "hd0")
+ * @param esp_image_vfs_path  VFS path to prebuilt FAT32 ESP image (~68 MiB)
+ * @return true on success
+ */
+bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_vfs_path);
+
+void installer();
