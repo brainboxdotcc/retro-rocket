@@ -23,10 +23,14 @@ var filesystem_8c =
     [ "fs_create_file", "filesystem_8c.html#af29b0affdc800f4d78ab5e9c60a1726a", null ],
     [ "fs_delete_directory", "filesystem_8c.html#ae475207338a0787caf15949e45badfe8", null ],
     [ "fs_delete_file", "filesystem_8c.html#af54d35de43947f1e7e1a86eed9270a6d", null ],
+    [ "fs_get_error", "filesystem_8c.html#ad9cbfbf10c992e4f61ffa515f91402d3", null ],
     [ "fs_get_file_info", "filesystem_8c.html#a93b69bf53951ce16a8e648f238631696", null ],
+    [ "fs_get_free_space", "filesystem_8c.html#a6faf812c7cf4fcc102075f238887c91e", null ],
     [ "fs_get_items", "filesystem_8c.html#aeea14dbba6f8453923e288ece85cf6df", null ],
     [ "fs_is_directory", "filesystem_8c.html#aba196fffbbe3a92cf3d5d4c7372539ab", null ],
     [ "fs_read_file", "filesystem_8c.html#ab6174ea1e5338a32b45778cb26b7ebc4", null ],
+    [ "fs_set_error", "filesystem_8c.html#a59cfed9fdbdd4476b57fdf0a163e0a48", null ],
+    [ "fs_strerror", "filesystem_8c.html#a389259c7565d2dd06c28fecfacc60210", null ],
     [ "fs_truncate_file", "filesystem_8c.html#a3692a5983409c6e8f74cbe0c5c3435f4", null ],
     [ "fs_write_file", "filesystem_8c.html#ae3ccc4869f4ceefdc2407734d4a2530c", null ],
     [ "ftruncate", "filesystem_8c.html#ab7aad6d7661082e4aa5ec28badba8ca5", null ],
@@ -47,6 +51,8 @@ var filesystem_8c =
     [ "fd_last", "filesystem_8c.html#a98e6cfe4eb726687a4415293054c868f", null ],
     [ "filehandles", "filesystem_8c.html#a256146db41f117243b08b3814ddf5545", null ],
     [ "filesystems", "filesystem_8c.html#a2c8156751d296dc1f2698a0c703575a5", null ],
+    [ "fs_error_strings", "filesystem_8c.html#ac19766356dc103c69d5f0a50202dd40d", null ],
+    [ "fs_last_error", "filesystem_8c.html#a253e6f668e399ecb396480beedb3d926", null ],
     [ "fs_tree", "filesystem_8c.html#a55088647d1ce39b16095537f9d5087a6", null ],
     [ "storagedevices", "filesystem_8c.html#ae83370e13b4f092c7124551fd77564fb", null ]
 ];

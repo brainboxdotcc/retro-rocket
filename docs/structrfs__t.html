@@ -91,13 +91,16 @@ $(document).ready(function(){initNavTree('structrfs__t.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 
+<p>In-memory RetroFS mount context.  
+ <a href="structrfs__t.html#details">More...</a></p>
+
 <p><code>#include &lt;retrofs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for rfs_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structrfs__t__coll__graph.svg" width="100%" height="530"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structrfs__t__coll__graph.svg" width="100%" height="585"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -111,8 +114,61 @@ Data Fields</h2></td></tr>
 <tr class="separator:a5d71303a722c42e27f10f13e92bfcf96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a992cd5e42aa81e84c1d8cfe69a9eb23f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrfs__description__block__t.html">rfs_description_block_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a992cd5e42aa81e84c1d8cfe69a9eb23f">desc</a></td></tr>
 <tr class="separator:a992cd5e42aa81e84c1d8cfe69a9eb23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52864da269be51c23c7fce7e29685aaa"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a52864da269be51c23c7fce7e29685aaa">total_sectors</a></td></tr>
+<tr class="separator:a52864da269be51c23c7fce7e29685aaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a240061e3f45d030235e91c7ab2a28659"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a240061e3f45d030235e91c7ab2a28659">cache_block</a></td></tr>
+<tr class="separator:a240061e3f45d030235e91c7ab2a28659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c558f771f388314cfb5f593ae3ef71"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a14c558f771f388314cfb5f593ae3ef71">cache_block_size</a></td></tr>
+<tr class="separator:a14c558f771f388314cfb5f593ae3ef71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bab09344d209202ea44d7a5b1f6db33"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a0bab09344d209202ea44d7a5b1f6db33">l1_groups</a></td></tr>
+<tr class="separator:a0bab09344d209202ea44d7a5b1f6db33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa523c3a6e21ecd84ef536fba93368b55"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#aa523c3a6e21ecd84ef536fba93368b55">l2_groups</a></td></tr>
+<tr class="separator:aa523c3a6e21ecd84ef536fba93368b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14d48de7020260a67a176212babbf7b0"><td class="memItemLeft" align="right" valign="top">uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a14d48de7020260a67a176212babbf7b0">l1_free_count</a></td></tr>
+<tr class="separator:a14d48de7020260a67a176212babbf7b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba2b1b55c2e0a690c7c34eb5507ab03a"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#aba2b1b55c2e0a690c7c34eb5507ab03a">l1_not_full</a></td></tr>
+<tr class="separator:aba2b1b55c2e0a690c7c34eb5507ab03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd775506ab7a5ce7d22223548de0ec7"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a8dd775506ab7a5ce7d22223548de0ec7">l1_all_free</a></td></tr>
+<tr class="separator:a8dd775506ab7a5ce7d22223548de0ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d16e906b5810739a5372f9773d32abf"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a1d16e906b5810739a5372f9773d32abf">l2_not_full</a></td></tr>
+<tr class="separator:a1d16e906b5810739a5372f9773d32abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4116fff7c749a65c76c447ed64f0a673"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html#a4116fff7c749a65c76c447ed64f0a673">l2_all_free</a></td></tr>
+<tr class="separator:a4116fff7c749a65c76c447ed64f0a673"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>In-memory RetroFS mount context. </p>
+<p>Holds the filesystem’s geometry, cached metadata, and free space tracking structures. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a240061e3f45d030235e91c7ab2a28659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a240061e3f45d030235e91c7ab2a28659">&#9670;&nbsp;</a></span>cache_block</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* rfs_t::cache_block</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Owning pointer for all L1/L2 arrays and build buffer. </p>
+
+</div>
+</div>
+<a id="a14c558f771f388314cfb5f593ae3ef71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14c558f771f388314cfb5f593ae3ef71">&#9670;&nbsp;</a></span>cache_block_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t rfs_t::cache_block_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Allocated cache block size (for debugging). </p>
+
+</div>
+</div>
 <a id="a992cd5e42aa81e84c1d8cfe69a9eb23f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a992cd5e42aa81e84c1d8cfe69a9eb23f">&#9670;&nbsp;</a></span>desc</h2>
 
@@ -124,6 +180,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Pointer to loaded description block. </p>
 
 </div>
 </div>
@@ -138,6 +195,112 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Backing block device. </p>
+
+</div>
+</div>
+<a id="a8dd775506ab7a5ce7d22223548de0ec7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dd775506ab7a5ce7d22223548de0ec7">&#9670;&nbsp;</a></span>l1_all_free</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t* rfs_t::l1_all_free</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Bitset: group is entirely free. </p>
+
+</div>
+</div>
+<a id="a14d48de7020260a67a176212babbf7b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14d48de7020260a67a176212babbf7b0">&#9670;&nbsp;</a></span>l1_free_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t* rfs_t::l1_free_count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Array of free sector counts for each L1 group. </p>
+
+</div>
+</div>
+<a id="a0bab09344d209202ea44d7a5b1f6db33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bab09344d209202ea44d7a5b1f6db33">&#9670;&nbsp;</a></span>l1_groups</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_t::l1_groups</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Number of L1 groups. </p>
+
+</div>
+</div>
+<a id="aba2b1b55c2e0a690c7c34eb5507ab03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba2b1b55c2e0a690c7c34eb5507ab03a">&#9670;&nbsp;</a></span>l1_not_full</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t* rfs_t::l1_not_full</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Bitset: group has any free sector. </p>
+
+</div>
+</div>
+<a id="a4116fff7c749a65c76c447ed64f0a673"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4116fff7c749a65c76c447ed64f0a673">&#9670;&nbsp;</a></span>l2_all_free</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t* rfs_t::l2_all_free</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Bitset: super-group is entirely free. </p>
+
+</div>
+</div>
+<a id="aa523c3a6e21ecd84ef536fba93368b55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa523c3a6e21ecd84ef536fba93368b55">&#9670;&nbsp;</a></span>l2_groups</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_t::l2_groups</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Number of L2 super-groups. </p>
+
+</div>
+</div>
+<a id="a1d16e906b5810739a5372f9773d32abf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d16e906b5810739a5372f9773d32abf">&#9670;&nbsp;</a></span>l2_not_full</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t* rfs_t::l2_not_full</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Bitset: super-group has any free sector. </p>
 
 </div>
 </div>
@@ -152,6 +315,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Length of the filesystem in sectors. </p>
 
 </div>
 </div>
@@ -166,6 +330,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Start sector of the filesystem on the device. </p>
+
+</div>
+</div>
+<a id="a52864da269be51c23c7fce7e29685aaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52864da269be51c23c7fce7e29685aaa">&#9670;&nbsp;</a></span>total_sectors</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_t::total_sectors</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Total sectors in this filesystem. </p>
 
 </div>
 </div>
@@ -175,7 +355,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structrfs__t.html">rfs_t</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

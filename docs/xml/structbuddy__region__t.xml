@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structbuddy__region__t" kind="struct" language="C++" prot="public">
+    <compoundname>buddy_region_t</compoundname>
+    <includes local="no">buddy_allocator.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbuddy__region__t_1a522b8d657453a03752b10c58c879c469" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* buddy_region_t::pool</definition>
+        <argsstring></argsstring>
+        <name>pool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Base pointer to backing memory pool </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="62" column="9" bodyfile="include/buddy_allocator.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__region__t_1a85aec9b04cc4d6b39ec94439f5689a8b" prot="public" static="no" mutable="no">
+        <type><ref refid="buddy__allocator_8h_1aa2551d240a0fb5eb623eb9524c8e67de" kindref="member">buddy_block_t</ref> *</type>
+        <definition>buddy_block_t* buddy_region_t::free_lists[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>free_lists</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Array of free lists, indexed by order </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="63" column="15" bodyfile="include/buddy_allocator.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__region__t_1ab712426610eda6ced79531557ee110d2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int buddy_region_t::min_order</definition>
+        <argsstring></argsstring>
+        <name>min_order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Minimum order (smallest block size) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="64" column="5" bodyfile="include/buddy_allocator.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__region__t_1a02fbf00e977322c0a5d067669161076f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int buddy_region_t::max_order</definition>
+        <argsstring></argsstring>
+        <name>max_order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Maximum order (largest block size) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="65" column="5" bodyfile="include/buddy_allocator.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__region__t_1afc4dc295599025a90c82cee0d17097c2" prot="public" static="no" mutable="no">
+        <type>struct buddy_region *</type>
+        <definition>struct buddy_region* buddy_region_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Next region in linked list </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="66" column="19" bodyfile="include/buddy_allocator.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Buddy region structure (internal). </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Represents one contiguous pool of memory managed by the buddy allocator. Multiple regions may exist. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>buddy_region_t</label>
+        <link refid="structbuddy__region__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>max_order</edgelabel>
+          <edgelabel>min_order</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>free_lists</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>struct buddy_region *</label>
+      </node>
+      <node id="5">
+        <label>struct buddy_header *</label>
+      </node>
+      <node id="4">
+        <label>buddy_header_t</label>
+        <link refid="structbuddy__header__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>order</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>int</label>
+      </node>
+      <node id="6">
+        <label>uint8_t</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/buddy_allocator.h" line="61" column="1" bodyfile="include/buddy_allocator.h" bodystart="61" bodyend="67"/>
+    <listofallmembers>
+      <member refid="structbuddy__region__t_1a85aec9b04cc4d6b39ec94439f5689a8b" prot="public" virt="non-virtual"><scope>buddy_region_t</scope><name>free_lists</name></member>
+      <member refid="structbuddy__region__t_1a02fbf00e977322c0a5d067669161076f" prot="public" virt="non-virtual"><scope>buddy_region_t</scope><name>max_order</name></member>
+      <member refid="structbuddy__region__t_1ab712426610eda6ced79531557ee110d2" prot="public" virt="non-virtual"><scope>buddy_region_t</scope><name>min_order</name></member>
+      <member refid="structbuddy__region__t_1afc4dc295599025a90c82cee0d17097c2" prot="public" virt="non-virtual"><scope>buddy_region_t</scope><name>next</name></member>
+      <member refid="structbuddy__region__t_1a522b8d657453a03752b10c58c879c469" prot="public" virt="non-virtual"><scope>buddy_region_t</scope><name>pool</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

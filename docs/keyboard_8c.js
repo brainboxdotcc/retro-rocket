@@ -4,6 +4,7 @@ var keyboard_8c =
     [ "caps_lock_on", "keyboard_8c.html#af491f52ce63929279d3733c13ba771d2", null ],
     [ "ctrl_held", "keyboard_8c.html#afdb02475d45b894eb5ec2a57b4100eea", null ],
     [ "init_keyboard", "keyboard_8c.html#ac3a72156d4bbba013e4d62801992794d", null ],
+    [ "key_waiting", "keyboard_8c.html#a86378414e15a4c45269f773f9bc1a34c", null ],
     [ "keyboard_handler", "keyboard_8c.html#afda35d0bfe9f38a6810847c9f2742970", null ],
     [ "keyboard_handler", "keyboard_8c.html#ab24b25eb7f8071189cf8cbf6a90da417", null ],
     [ "keyboard_repeat_tick", "keyboard_8c.html#a2bca7aca5923899893d4ff20136bc279", null ],

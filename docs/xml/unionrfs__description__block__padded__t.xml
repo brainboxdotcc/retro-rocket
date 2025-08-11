@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Structured view. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="47" column="25" bodyfile="include/retrofs.h" bodystart="47" bodyend="-1"/>
+        <location file="include/retrofs.h" line="84" column="25" bodyfile="include/retrofs.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionrfs__description__block__padded__t_1a594b8927bf56421ebce35068cb6cb0a1" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -25,13 +26,15 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Raw bytes view. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="48" column="6" bodyfile="include/retrofs.h" bodystart="48" bodyend="-1"/>
+        <location file="include/retrofs.h" line="85" column="6" bodyfile="include/retrofs.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Padded variant of the description block to exactly fill one sector. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -45,7 +48,7 @@
         <childnode refid="2" relation="usage">
           <edgelabel>desc</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>raw</edgelabel>
         </childnode>
       </node>
@@ -53,7 +56,6 @@
         <label>rfs_description_block_t</label>
         <link refid="structrfs__description__block__t"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>creation_time</edgelabel>
           <edgelabel>free_space_map_checksum</edgelabel>
           <edgelabel>free_space_map_length</edgelabel>
           <edgelabel>free_space_map_start</edgelabel>
@@ -61,12 +63,18 @@
           <edgelabel>root_directory</edgelabel>
           <edgelabel>sequence</edgelabel>
         </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>creation_time</edgelabel>
+        </childnode>
       </node>
       <node id="4">
+        <label>int64_t</label>
+      </node>
+      <node id="5">
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/retrofs.h" line="46" column="1" bodyfile="include/retrofs.h" bodystart="46" bodyend="49"/>
+    <location file="include/retrofs.h" line="83" column="1" bodyfile="include/retrofs.h" bodystart="83" bodyend="86"/>
     <listofallmembers>
       <member refid="unionrfs__description__block__padded__t_1a5ef0b110c0083e5092e92b689727ba95" prot="public" virt="non-virtual"><scope>rfs_description_block_padded_t</scope><name>desc</name></member>
       <member refid="unionrfs__description__block__padded__t_1a594b8927bf56421ebce35068cb6cb0a1" prot="public" virt="non-virtual"><scope>rfs_description_block_padded_t</scope><name>raw</name></member>

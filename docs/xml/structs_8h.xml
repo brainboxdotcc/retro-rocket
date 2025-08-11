@@ -1,0 +1,1211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structs_8h" kind="file" language="C++">
+    <compoundname>structs.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="basic_8h" local="yes">basic.h</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1">
+        <label>structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="124">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="73">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="86">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="109">
+        <label>main.c</label>
+        <link refid="fs_2fat32_2main_8c"/>
+      </node>
+      <node id="105">
+        <label>createfile.c</label>
+        <link refid="fat32_2createfile_8c"/>
+      </node>
+      <node id="51">
+        <label>helpers.c</label>
+        <link refid="helpers_8c"/>
+      </node>
+      <node id="2">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="97">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="43">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>cluster.c</label>
+        <link refid="cluster_8c"/>
+      </node>
+      <node id="114">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="91">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="56">
+        <label>unlinkdirectory.c</label>
+        <link refid="unlinkdirectory_8c"/>
+      </node>
+      <node id="4">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="138">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
+      <node id="6">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="18">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="66">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="79">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="30">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="22">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="133">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="12">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>fsmap.c</label>
+        <link refid="fsmap_8c"/>
+      </node>
+      <node id="15">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="48">
+        <label>format.c</label>
+        <link refid="format_8c"/>
+      </node>
+      <node id="140">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
+      </node>
+      <node id="113">
+        <label>writefile.c</label>
+        <link refid="fat32_2writefile_8c"/>
+      </node>
+      <node id="84">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="130">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="92">
+        <label>buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+      </node>
+      <node id="58">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="121">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="75">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="47">
+        <label>createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="77">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="54">
+        <label>truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="94">
+        <label>debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="103">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="102">
+        <label>debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="127">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="87">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="144">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="55">
+        <label>unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="67">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="80">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="123">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="52">
+        <label>main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="36">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="95">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="76">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="143">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="9">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="136">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="81">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="42">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="126">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="72">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="24">
+        <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="125">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="19">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>lfn.c</label>
+        <link refid="lfn_8c"/>
+      </node>
+      <node id="60">
+        <label>serial.c</label>
+        <link refid="serial_8c"/>
+      </node>
+      <node id="59">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="120">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="23">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="117">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="37">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="128">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="35">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="71">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="50">
+        <label>getdirectory.c</label>
+        <link refid="getdirectory_8c"/>
+      </node>
+      <node id="89">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="65">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="74">
+        <label>datetime.c</label>
+        <link refid="datetime_8c"/>
+      </node>
+      <node id="139">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="78">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="33">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="116">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="25">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="63">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="134">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="46">
+        <label>createdirectory.c</label>
+        <link refid="createdirectory_8c"/>
+      </node>
+      <node id="135">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="107">
+        <label>fat.c</label>
+        <link refid="fat_8c"/>
+      </node>
+      <node id="17">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
+      </node>
+      <node id="3">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="34">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="10">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="21">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="115">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="61">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>unlinkfile.c</label>
+        <link refid="unlinkfile_8c"/>
+      </node>
+      <node id="85">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="88">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="20">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>main.c</label>
+        <link refid="basic_2main_8c"/>
+      </node>
+      <node id="106">
+        <label>directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="110">
+        <label>readfile.c</label>
+        <link refid="fat32_2readfile_8c"/>
+      </node>
+      <node id="27">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="111">
+        <label>truncatefile.c</label>
+        <link refid="fat32_2truncatefile_8c"/>
+      </node>
+      <node id="129">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="7">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="68">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="41">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="122">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="40">
+        <label>installer.c</label>
+        <link refid="installer_8c"/>
+      </node>
+      <node id="96">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="45">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>writefile.c</label>
+        <link refid="retrofs_2writefile_8c"/>
+      </node>
+      <node id="53">
+        <label>readfile.c</label>
+        <link refid="retrofs_2readfile_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structfor__state" prot="public">for_state</innerclass>
+    <innerclass refid="structub__var__int" prot="public">ub_var_int</innerclass>
+    <innerclass refid="structub__var__double" prot="public">ub_var_double</innerclass>
+    <innerclass refid="structub__var__string" prot="public">ub_var_string</innerclass>
+    <innerclass refid="structub__param" prot="public">ub_param</innerclass>
+    <innerclass refid="structub__proc__fn__def" prot="public">ub_proc_fn_def</innerclass>
+    <innerclass refid="structub__var__int__array" prot="public">ub_var_int_array</innerclass>
+    <innerclass refid="structub__var__string__array" prot="public">ub_var_string_array</innerclass>
+    <innerclass refid="structub__var__double__array" prot="public">ub_var_double_array</innerclass>
+    <innerclass refid="structub__var__generic__array" prot="public">ub_var_generic_array</innerclass>
+    <innerclass refid="structub__line__ref" prot="public">ub_line_ref</innerclass>
+    <innerclass refid="structcpuid__result__t" prot="public">cpuid_result_t</innerclass>
+    <innerclass refid="structg__cpuid__vendor__t" prot="public">g_cpuid_vendor_t</innerclass>
+    <innerclass refid="structsprite__t" prot="public">sprite_t</innerclass>
+    <innerclass refid="structbasic__int__fn" prot="public">basic_int_fn</innerclass>
+    <innerclass refid="structbasic__double__fn" prot="public">basic_double_fn</innerclass>
+    <innerclass refid="structbasic__str__fn" prot="public">basic_str_fn</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="structs_8h_1a65231902c1f22532519da8a1c01ba53e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ub_fn_type</name>
+        <enumvalue id="structs_8h_1a65231902c1f22532519da8a1c01ba53eac71ea04245e41b2d6b8e533fcc74c659" prot="public">
+          <name>FT_FN</name>
+          <briefdescription>
+<para>Function type. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a65231902c1f22532519da8a1c01ba53ead53af2599d572a45176f7076ae759bd6" prot="public">
+          <name>FT_PROC</name>
+          <briefdescription>
+<para>Procedure type. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Function or procedure type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>An enumeration that differentiates between a function (FN) and a procedure (PROC). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/structs.h" line="71" column="1" bodyfile="include/basic/structs.h" bodystart="71" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="enum" id="structs_8h_1a2279cec37b8a81d5f18e78d7335b1966" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ub_return_type</name>
+        <enumvalue id="structs_8h_1a2279cec37b8a81d5f18e78d7335b1966a3b89ef745ac9a8ac746aff719e609758" prot="public">
+          <name>RT_MAIN</name>
+          <briefdescription>
+<para>Main program (no return value) </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a2279cec37b8a81d5f18e78d7335b1966af6a45e9ab07167656b5d6509a8cc0a26" prot="public">
+          <name>RT_NONE</name>
+          <briefdescription>
+<para>No return value. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a2279cec37b8a81d5f18e78d7335b1966a0a653b41bba3d33c1017cbc8643c5268" prot="public">
+          <name>RT_STRING</name>
+          <briefdescription>
+<para>String return value. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a2279cec37b8a81d5f18e78d7335b1966a8748e4019711d7c401d6ed2b1568717d" prot="public">
+          <name>RT_INT</name>
+          <briefdescription>
+<para>Integer return value. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a2279cec37b8a81d5f18e78d7335b1966af84eb2d6bedef8785a996abbec035e87" prot="public">
+          <name>RT_FLOAT</name>
+          <briefdescription>
+<para>Double return value. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Return type for FN, PROC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>An enumeration to specify the expected return type of functions or procedures. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/structs.h" line="81" column="1" bodyfile="include/basic/structs.h" bodystart="81" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="enum" id="structs_8h_1a6c0abde6f3447311fde5e92637f7d059" prot="public" static="no" strong="no">
+        <type></type>
+        <name>parameter_type_t</name>
+        <enumvalue id="structs_8h_1a6c0abde6f3447311fde5e92637f7d059a9c51de3187ed2b68fc6ee811f7d9e9a4" prot="public">
+          <name>BIP_STRING</name>
+          <briefdescription>
+<para>String parameter. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a6c0abde6f3447311fde5e92637f7d059a6cf123ea5240cfadbed2b15283cc98ea" prot="public">
+          <name>BIP_INT</name>
+          <briefdescription>
+<para>Integer parameter. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a6c0abde6f3447311fde5e92637f7d059a60a3bc81e662586f9588a11fdf5d1449" prot="public">
+          <name>BIP_DOUBLE</name>
+          <briefdescription>
+<para>Double parameter. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structs_8h_1a6c0abde6f3447311fde5e92637f7d059a23100c70927077e2746555cb5a3fac72" prot="public">
+          <name>BIP_VARIABLE</name>
+          <briefdescription>
+<para>Variable parameter. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Parameter type enumeration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This enumeration defines the types of function parameters that can be passed, such as string, integer, double, or variable. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/structs.h" line="282" column="1" bodyfile="include/basic/structs.h" bodystart="282" bodyend="287"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="structs_8h_1aae35741221b4c2f3ba048b8d86d91365" prot="public" static="no">
+        <type>int64_t(*</type>
+        <definition>typedef int64_t(* builtin_int_fn) (struct basic_ctx *ctx)</definition>
+        <argsstring>)(struct basic_ctx *ctx)</argsstring>
+        <name>builtin_int_fn</name>
+        <briefdescription>
+<para>Integer function signature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a function pointer type for builtin functions that return an integer. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/structs.h" line="224" column="9" bodyfile="include/basic/structs.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structs_8h_1aa5f5a13b3623e8b26ca39fc2d87efffe" prot="public" static="no">
+        <type>char *(*</type>
+        <definition>typedef char*(* builtin_str_fn) (struct basic_ctx *ctx)</definition>
+        <argsstring>)(struct basic_ctx *ctx)</argsstring>
+        <name>builtin_str_fn</name>
+        <briefdescription>
+<para>String function signature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a function pointer type for builtin functions that return a string. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/structs.h" line="231" column="9" bodyfile="include/basic/structs.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structs_8h_1ab8104015746edc0f683c354654570dbd" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* builtin_double_fn) (struct basic_ctx *ctx, double *res)</definition>
+        <argsstring>)(struct basic_ctx *ctx, double *res)</argsstring>
+        <name>builtin_double_fn</name>
+        <briefdescription>
+<para>Real (double) function signature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a function pointer type for builtin functions that return a double. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/structs.h" line="238" column="9" bodyfile="include/basic/structs.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/basic/structs.h"/>
+  </compounddef>
+</doxygen>

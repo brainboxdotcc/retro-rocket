@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structbuddy__allocator__t.html',''); i
 </div><!--header-->
 <div class="contents">
 
-<p>Buddy allocator instance.  
+<p>Growable buddy allocator instance.  
  <a href="structbuddy__allocator__t.html#details">More...</a></p>
 
 <p><code>#include &lt;buddy_allocator.h&gt;</code></p>
@@ -100,29 +100,46 @@ $(document).ready(function(){initNavTree('structbuddy__allocator__t.html',''); i
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structbuddy__allocator__t__coll__graph.svg" width="464" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structbuddy__allocator__t__coll__graph.svg" width="567" height="352"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a9d584da816f13a769ecfb198b2d94a6a"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#a9d584da816f13a769ecfb198b2d94a6a">pool</a></td></tr>
-<tr class="separator:a9d584da816f13a769ecfb198b2d94a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2348ca49f46fb5b5c95699b19d70c2f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbuddy__block__t.html">buddy_block_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#a2348ca49f46fb5b5c95699b19d70c2f1">free_lists</a> [32]</td></tr>
-<tr class="separator:a2348ca49f46fb5b5c95699b19d70c2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a209d66de4dc693146d8cb2cfaa405d18"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#a209d66de4dc693146d8cb2cfaa405d18">max_order</a></td></tr>
-<tr class="separator:a209d66de4dc693146d8cb2cfaa405d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d372d9254277b48615abe20fe445261"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbuddy__region__t.html">buddy_region_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#a9d372d9254277b48615abe20fe445261">regions</a></td></tr>
+<tr class="separator:a9d372d9254277b48615abe20fe445261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6cf1c1693bb6786e27e5b2203c9eb9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbuddy__region__t.html">buddy_region_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#ac6cf1c1693bb6786e27e5b2203c9eb9b">active_region</a></td></tr>
+<tr class="separator:ac6cf1c1693bb6786e27e5b2203c9eb9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad03cdc2ee8983787594647fbe1112e16"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#ad03cdc2ee8983787594647fbe1112e16">grow_order</a></td></tr>
+<tr class="separator:ad03cdc2ee8983787594647fbe1112e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae685116aa01c02331bd350aa954ad80a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#ae685116aa01c02331bd350aa954ad80a">min_order</a></td></tr>
 <tr class="separator:ae685116aa01c02331bd350aa954ad80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a209d66de4dc693146d8cb2cfaa405d18"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#a209d66de4dc693146d8cb2cfaa405d18">max_order</a></td></tr>
+<tr class="separator:a209d66de4dc693146d8cb2cfaa405d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adacf0708f80118fb8fbb20b26600846f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#adacf0708f80118fb8fbb20b26600846f">current_bytes</a></td></tr>
 <tr class="separator:adacf0708f80118fb8fbb20b26600846f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80e67bd03b0d69a41ef2eeec744a2bfa"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbuddy__allocator__t.html#a80e67bd03b0d69a41ef2eeec744a2bfa">peak_bytes</a></td></tr>
 <tr class="separator:a80e67bd03b0d69a41ef2eeec744a2bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Buddy allocator instance. </p>
-<p>Each instance manages one contiguous memory region obtained from the Retro Rocket base allocator (e.g. via kmalloc). Dispose of the entire instance by calling <a class="el" href="kmalloc_8h.html#aae7ce33f5dd0ec931b2551438b55e716" title="Free memory and set the pointer to NULL.">kfree_null()</a> on the <a class="el" href="structbuddy__allocator__t.html#a9d584da816f13a769ecfb198b2d94a6a">pool</a> pointer after teardown. </p>
+<div class="textblock"><p>Growable buddy allocator instance. </p>
+<p>Each instance manages one or more buddy regions, adding new regions as required when allocations exceed current capacity. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a id="ac6cf1c1693bb6786e27e5b2203c9eb9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6cf1c1693bb6786e27e5b2203c9eb9b">&#9670;&nbsp;</a></span>active_region</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbuddy__region__t.html">buddy_region_t</a>* buddy_allocator_t::active_region</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Current target region for allocations </p>
+
+</div>
+</div>
 <a id="adacf0708f80118fb8fbb20b26600846f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adacf0708f80118fb8fbb20b26600846f">&#9670;&nbsp;</a></span>current_bytes</h2>
 
@@ -134,22 +151,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Currently allocated bytes </p>
+<p>Current allocated bytes in this region </p>
 
 </div>
 </div>
-<a id="a2348ca49f46fb5b5c95699b19d70c2f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2348ca49f46fb5b5c95699b19d70c2f1">&#9670;&nbsp;</a></span>free_lists</h2>
+<a id="ad03cdc2ee8983787594647fbe1112e16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad03cdc2ee8983787594647fbe1112e16">&#9670;&nbsp;</a></span>grow_order</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structbuddy__block__t.html">buddy_block_t</a>* buddy_allocator_t::free_lists[32]</td>
+          <td class="memname">int buddy_allocator_t::grow_order</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Array of free lists, indexed by order </p>
+<p>Size of each new region in orders (1 &lt;&lt; grow_order) </p>
 
 </div>
 </div>
@@ -194,22 +211,22 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Peak allocated bytes </p>
+<p>Peak allocated bytes in this region </p>
 
 </div>
 </div>
-<a id="a9d584da816f13a769ecfb198b2d94a6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d584da816f13a769ecfb198b2d94a6a">&#9670;&nbsp;</a></span>pool</h2>
+<a id="a9d372d9254277b48615abe20fe445261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d372d9254277b48615abe20fe445261">&#9670;&nbsp;</a></span>regions</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t* buddy_allocator_t::pool</td>
+          <td class="memname"><a class="el" href="structbuddy__region__t.html">buddy_region_t</a>* buddy_allocator_t::regions</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Base pointer to backing memory pool </p>
+<p>Linked list of regions </p>
 
 </div>
 </div>
@@ -219,7 +236,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structbuddy__allocator__t.html">buddy_allocator_t</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

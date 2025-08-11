@@ -88,9 +88,19 @@ $(document).ready(function(){initNavTree('dir_d44c64559bbebec7f509842c48db8b23.h
 <div class="title">include Directory Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Directory dependency graph for include:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="dir_d44c64559bbebec7f509842c48db8b23_dep.svg" width="227" height="198"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="subdirs"></a>
 Directories</h2></td></tr>
+<tr class="memitem:dir_1e5d3661ed79af157d57e64a38265d09"><td class="memItemLeft" align="right" valign="top">directory &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:dir_22ad97c6964550ab03b1d7de2f5f6647"><td class="memItemLeft" align="right" valign="top">directory &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_22ad97c6964550ab03b1d7de2f5f6647.html">flanterm</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -112,18 +122,20 @@ Files</h2></td></tr>
 <tr class="memitem:basic_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_8h.html">basic.h</a></td></tr>
 <tr class="memdesc:basic_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retro Rocket BASIC interpreter. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:basic__tokenizer_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic__tokenizer_8h.html">basic_tokenizer.h</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:buddy__allocator_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="buddy__allocator_8h.html">buddy_allocator.h</a></td></tr>
+<tr class="memdesc:buddy__allocator_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Growable multi-region buddy allocator for Retro Rocket subsystems. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:clock_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8h.html">clock.h</a></td></tr>
-<tr class="memdesc:clock_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interfaces for accessing and manipulating real-time clock (RTC) values. <br /></td></tr>
+<tr class="memdesc:clock_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interfaces for accessing, converting, and formatting real-time clock (RTC) and timezone values. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:cv_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cv_8h.html">cv.h</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:debug__ringbuffer_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debug__ringbuffer_8h.html">debug_ringbuffer.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:debugger_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugger_8h.html">debugger.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:devfs_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="devfs_8h.html">devfs.h</a></td></tr>
+<tr class="memdesc:devfs_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device filesystem interface for Retro Rocket. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:devicename_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="devicename_8h.html">devicename.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,7 +220,7 @@ Files</h2></td></tr>
 <tr class="memitem:random_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8h.html">random.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:retrofs_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html">retrofs.h</a></td></tr>
-<tr class="memdesc:retrofs_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structures and functions for RetroFS, an ADFS L format inspired file system for Retro Rocket. <br /></td></tr>
+<tr class="memdesc:retrofs_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core structures, constants, and API definitions for RetroFS — an ADFS 'L' format–inspired filesystem for Retro Rocket. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:rr-cpuid_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rr-cpuid_8h.html">rr-cpuid.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,6 +228,9 @@ Files</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:rwlock_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rwlock_8h.html">rwlock.h</a></td></tr>
 <tr class="memdesc:rwlock_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple readers–writer lock implementation for SMP safety. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:serial_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html">serial.h</a></td></tr>
+<tr class="memdesc:serial_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple serial output routines for Retro Rocket (QEMU COM1/COM2). <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:spinlock_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="spinlock_8h.html">spinlock.h</a></td></tr>
 <tr class="memdesc:spinlock_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple x86 spinlock implementation for Retro Rocket kernel. <br /></td></tr>
@@ -251,7 +266,7 @@ Files</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

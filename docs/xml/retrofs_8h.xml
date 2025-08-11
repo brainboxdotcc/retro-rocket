@@ -4,8 +4,20 @@
     <compoundname>retrofs.h</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
+    <includedby refid="createdirectory_8c" local="no">createdirectory.c</includedby>
+    <includedby refid="retrofs_2createfile_8c" local="no">createfile.c</includedby>
+    <includedby refid="format_8c" local="no">format.c</includedby>
+    <includedby refid="fsmap_8c" local="no">fsmap.c</includedby>
+    <includedby refid="getdirectory_8c" local="no">getdirectory.c</includedby>
+    <includedby refid="helpers_8c" local="no">helpers.c</includedby>
+    <includedby refid="fs_2retrofs_2main_8c" local="no">main.c</includedby>
+    <includedby refid="retrofs_2readfile_8c" local="no">readfile.c</includedby>
+    <includedby refid="retrofs_2truncatefile_8c" local="no">truncatefile.c</includedby>
+    <includedby refid="unlink_8c" local="no">unlink.c</includedby>
+    <includedby refid="unlinkdirectory_8c" local="no">unlinkdirectory.c</includedby>
+    <includedby refid="retrofs_2writefile_8c" local="no">writefile.c</includedby>
     <incdepgraph>
-      <node id="32">
+      <node id="52">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
@@ -15,8 +27,59 @@
       <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
       </node>
-      <node id="35">
+      <node id="23">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>stdarg.h</label>
+      </node>
+      <node id="55">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -25,19 +88,43 @@
       <node id="14">
         <label>stdatomic.h</label>
       </node>
-      <node id="47">
+      <node id="26">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="22">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="61">
+      <node id="24">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -45,13 +132,13 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="78">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="58">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -67,13 +154,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="76">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="56">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -89,13 +176,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="74">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="49">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -108,25 +195,27 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="59">
+      <node id="79">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="27">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="69">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="48">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -137,17 +226,33 @@
       <node id="12">
         <label>x86intrin.h</label>
       </node>
-      <node id="23">
+      <node id="43">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
+      <node id="34">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="41">
+      <node id="61">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
@@ -169,26 +274,34 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="70">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="64">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="31">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="42">
+      <node id="62">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="60">
+      <node id="80">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -198,37 +311,85 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="55">
+      <node id="81">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="35">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="72">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="28">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="27">
+      <node id="47">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="57">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="25">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="53">
+      <node id="29">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -269,46 +430,6 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
@@ -316,8 +437,6 @@
         <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -353,16 +472,70 @@
         </childnode>
         <childnode refid="61" relation="include">
         </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
         <childnode refid="1" relation="include">
         </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
       </node>
-      <node id="21">
+      <node id="41">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="37">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
@@ -374,7 +547,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="83">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -392,41 +571,71 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="68">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="44">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="39">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
       <node id="30">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="45">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="65">
+        <label>basic/tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="42">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
@@ -436,13 +645,21 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="51">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="38">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
@@ -454,7 +671,15 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="40">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -464,43 +689,59 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="93">
+      <node id="122">
         <label>memcpy.c</label>
         <link refid="memcpy_8c"/>
       </node>
-      <node id="54">
+      <node id="59">
         <label>console.c</label>
         <link refid="console_8c"/>
       </node>
-      <node id="66">
+      <node id="72">
         <label>reflection.c</label>
         <link refid="reflection_8c"/>
       </node>
-      <node id="70">
+      <node id="95">
+        <label>main.c</label>
+        <link refid="fs_2fat32_2main_8c"/>
+      </node>
+      <node id="91">
+        <label>createfile.c</label>
+        <link refid="fat32_2createfile_8c"/>
+      </node>
+      <node id="108">
+        <label>helpers.c</label>
+        <link refid="helpers_8c"/>
+      </node>
+      <node id="76">
         <label>tokenizer.c</label>
         <link refid="tokenizer_8c"/>
       </node>
-      <node id="75">
+      <node id="83">
         <label>errorhandler.c</label>
         <link refid="errorhandler_8c"/>
       </node>
-      <node id="39">
+      <node id="42">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="90">
+        <label>cluster.c</label>
+        <link refid="cluster_8c"/>
+      </node>
+      <node id="100">
         <label>filesystem.c</label>
         <link refid="filesystem_8c"/>
       </node>
-      <node id="71">
+      <node id="77">
         <label>variable.c</label>
         <link refid="variable_8c"/>
       </node>
-      <node id="85">
-        <label>retrofs.c</label>
-        <link refid="retrofs_8c"/>
+      <node id="113">
+        <label>unlinkdirectory.c</label>
+        <link refid="unlinkdirectory_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -508,7 +749,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="107">
+      <node id="136">
         <label>random.c</label>
         <link refid="random_8c"/>
       </node>
@@ -518,165 +759,199 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="13">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="101">
+      <node id="130">
         <label>net.c</label>
         <link refid="net_8c"/>
       </node>
-      <node id="15">
+      <node id="17">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="27">
         <label>interrupt.c</label>
         <link refid="interrupt_8c"/>
       </node>
-      <node id="47">
+      <node id="52">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="106">
+      <node id="135">
         <label>printf.c</label>
         <link refid="printf_8c"/>
       </node>
-      <node id="59">
+      <node id="65">
         <label>function.c</label>
         <link refid="function_8c"/>
       </node>
-      <node id="27">
+      <node id="29">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="48">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="111">
+      <node id="140">
         <label>taskswitch.c</label>
         <link refid="taskswitch_8c"/>
       </node>
-      <node id="19">
+      <node id="21">
         <label>hashmap.c</label>
         <link refid="hashmap_8c"/>
       </node>
-      <node id="102">
+      <node id="131">
         <label>queue.c</label>
         <link refid="queue_8c"/>
       </node>
-      <node id="9">
+      <node id="11">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="106">
+        <label>fsmap.c</label>
+        <link refid="fsmap_8c"/>
+      </node>
+      <node id="14">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="117">
         <label>input.c</label>
         <link refid="input_8c"/>
       </node>
-      <node id="109">
+      <node id="105">
+        <label>format.c</label>
+        <link refid="format_8c"/>
+      </node>
+      <node id="138">
         <label>stdlib.c</label>
         <link refid="stdlib_8c"/>
       </node>
-      <node id="6">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="99">
+        <label>writefile.c</label>
+        <link refid="fat32_2writefile_8c"/>
       </node>
-      <node id="64">
+      <node id="70">
         <label>maths.c</label>
         <link refid="basic_2maths_8c"/>
       </node>
-      <node id="99">
+      <node id="128">
         <label>icmp.c</label>
         <link refid="icmp_8c"/>
       </node>
-      <node id="41">
+      <node id="78">
+        <label>buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+      </node>
+      <node id="44">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="100">
+      <node id="129">
         <label>ip.c</label>
         <link refid="ip_8c"/>
       </node>
-      <node id="90">
+      <node id="119">
         <label>keyboard.c</label>
         <link refid="keyboard_8c"/>
       </node>
-      <node id="55">
+      <node id="61">
         <label>debugger.c</label>
         <link refid="basic_2debugger_8c"/>
       </node>
-      <node id="57">
+      <node id="104">
+        <label>createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="111">
+        <label>truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="63">
         <label>file_io.c</label>
         <link refid="file__io_8c"/>
       </node>
-      <node id="96">
+      <node id="80">
+        <label>debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="89">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="88">
+        <label>debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="125">
         <label>descriptor.c</label>
         <link refid="descriptor_8c"/>
       </node>
-      <node id="67">
+      <node id="73">
         <label>sockets.c</label>
         <link refid="sockets_8c"/>
       </node>
-      <node id="113">
+      <node id="142">
         <label>video.c</label>
         <link refid="video_8c"/>
       </node>
-      <node id="48">
+      <node id="112">
+        <label>unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="53">
         <label>acpi.c</label>
         <link refid="acpi_8c"/>
       </node>
-      <node id="60">
+      <node id="66">
         <label>graphics.c</label>
         <link refid="graphics_8c"/>
       </node>
-      <node id="92">
+      <node id="121">
         <label>maths.c</label>
         <link refid="maths_8c"/>
       </node>
-      <node id="33">
+      <node id="109">
+        <label>main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="35">
         <label>e1000.c</label>
         <link refid="e1000_8c"/>
       </node>
-      <node id="73">
+      <node id="81">
         <label>debugger.c</label>
         <link refid="debugger_8c"/>
       </node>
-      <node id="56">
+      <node id="62">
         <label>double_expression.c</label>
         <link refid="double__expression_8c"/>
       </node>
-      <node id="112">
+      <node id="141">
         <label>timer.c</label>
         <link refid="timer_8c"/>
-      </node>
-      <node id="81">
-        <label>fat32.c</label>
-        <link refid="fat32_8c"/>
       </node>
       <node id="8">
         <label>cv.h</label>
@@ -684,179 +959,213 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="105">
+      <node id="134">
         <label>pci.c</label>
         <link refid="pci_8c"/>
       </node>
-      <node id="61">
+      <node id="67">
         <label>int_expression.c</label>
         <link refid="int__expression_8c"/>
       </node>
-      <node id="38">
+      <node id="41">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="15">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="31">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="85">
         <label>fb.c</label>
         <link refid="fb_8c"/>
       </node>
-      <node id="95">
+      <node id="124">
         <label>debug.c</label>
         <link refid="debug_8c"/>
       </node>
-      <node id="53">
+      <node id="58">
         <label>array.c</label>
         <link refid="array_8c"/>
       </node>
-      <node id="21">
+      <node id="23">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
-        <childnode refid="22" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="94">
+      <node id="123">
         <label>arp.c</label>
         <link refid="arp_8c"/>
       </node>
-      <node id="16">
+      <node id="18">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="94">
+        <label>lfn.c</label>
+        <link refid="lfn_8c"/>
+      </node>
+      <node id="46">
+        <label>serial.c</label>
+        <link refid="serial_8c"/>
+      </node>
+      <node id="45">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="87">
         <label>fpu.c</label>
         <link refid="fpu_8c"/>
       </node>
-      <node id="89">
+      <node id="118">
         <label>ioapic.c</label>
         <link refid="ioapic_8c"/>
       </node>
-      <node id="20">
+      <node id="22">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="50">
         <label>kmalloc.c</label>
         <link refid="kmalloc_8c"/>
       </node>
-      <node id="86">
+      <node id="115">
         <label>gdt.c</label>
         <link refid="gdt_8c"/>
       </node>
-      <node id="34">
+      <node id="36">
         <label>mmio.c</label>
         <link refid="mmio_8c"/>
       </node>
-      <node id="97">
+      <node id="126">
         <label>dhcp.c</label>
         <link refid="dhcp_8c"/>
       </node>
-      <node id="32">
+      <node id="34">
         <label>mmio.h</label>
         <link refid="mmio_8h"/>
-        <childnode refid="33" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="28">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="62">
+      <node id="68">
         <label>lowlevel.c</label>
         <link refid="lowlevel_8c"/>
       </node>
-      <node id="52">
+      <node id="57">
         <label>ata.c</label>
         <link refid="ata_8c"/>
       </node>
-      <node id="69">
+      <node id="107">
+        <label>getdirectory.c</label>
+        <link refid="getdirectory_8c"/>
+      </node>
+      <node id="75">
         <label>string_expression.c</label>
         <link refid="string__expression_8c"/>
       </node>
-      <node id="46">
+      <node id="51">
         <label>tinyalloc.c</label>
         <link refid="tinyalloc_8c"/>
       </node>
-      <node id="108">
+      <node id="60">
+        <label>datetime.c</label>
+        <link refid="datetime_8c"/>
+      </node>
+      <node id="137">
         <label>rtl8139.c</label>
         <link refid="rtl8139_8c"/>
       </node>
-      <node id="58">
+      <node id="64">
         <label>flow_control.c</label>
         <link refid="flow__control_8c"/>
       </node>
-      <node id="30">
+      <node id="32">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="87">
+      <node id="10">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="116">
         <label>idt.c</label>
         <link refid="idt_8c"/>
       </node>
-      <node id="80">
-        <label>devfs.c</label>
-        <link refid="devfs_8c"/>
-      </node>
-      <node id="84">
+      <node id="102">
         <label>ramdisk.c</label>
         <link refid="ramdisk_8c"/>
       </node>
-      <node id="22">
+      <node id="24">
         <label>init.c</label>
         <link refid="init_8c"/>
       </node>
-      <node id="44">
+      <node id="49">
         <label>tinyalloc.h</label>
         <link refid="tinyalloc_8h"/>
-        <childnode refid="45" relation="include">
+        <childnode refid="50" relation="include">
         </childnode>
-        <childnode refid="46" relation="include">
+        <childnode refid="51" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="30">
         <label>iso9660.c</label>
         <link refid="iso9660_8c"/>
       </node>
-      <node id="103">
+      <node id="132">
         <label>tcp.c</label>
         <link refid="tcp_8c"/>
       </node>
-      <node id="104">
+      <node id="103">
+        <label>createdirectory.c</label>
+        <link refid="createdirectory_8c"/>
+      </node>
+      <node id="133">
         <label>udp.c</label>
         <link refid="udp_8c"/>
       </node>
-      <node id="14">
+      <node id="93">
+        <label>fat.c</label>
+        <link refid="fat_8c"/>
+      </node>
+      <node id="16">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="86">
         <label>flanterm.c</label>
         <link refid="flanterm_8c"/>
       </node>
@@ -893,37 +1202,33 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
         <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="41" relation="include">
         </childnode>
@@ -931,17 +1236,17 @@
         </childnode>
         <childnode refid="43" relation="include">
         </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
         <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
         </childnode>
         <childnode refid="47" relation="include">
         </childnode>
         <childnode refid="48" relation="include">
         </childnode>
         <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
         </childnode>
         <childnode refid="52" relation="include">
         </childnode>
@@ -987,11 +1292,7 @@
         </childnode>
         <childnode refid="73" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
         <childnode refid="74" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="75" relation="include">
         </childnode>
@@ -1007,9 +1308,11 @@
         </childnode>
         <childnode refid="81" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
         <childnode refid="82" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
@@ -1023,15 +1326,9 @@
         </childnode>
         <childnode refid="88" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
         <childnode refid="89" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="90" relation="include">
-        </childnode>
-        <childnode refid="45" relation="include">
         </childnode>
         <childnode refid="91" relation="include">
         </childnode>
@@ -1052,6 +1349,10 @@
         <childnode refid="99" relation="include">
         </childnode>
         <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="101" relation="include">
         </childnode>
@@ -1079,104 +1380,200 @@
         </childnode>
         <childnode refid="113" relation="include">
         </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
       </node>
-      <node id="51">
+      <node id="56">
         <label>apic.c</label>
         <link refid="apic_8c"/>
       </node>
-      <node id="31">
+      <node id="33">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="38">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="43">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="72">
+      <node id="79">
         <label>clock.c</label>
         <link refid="clock_8c"/>
       </node>
-      <node id="50">
+      <node id="9">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
         <label>ap.c</label>
         <link refid="ap_8c"/>
       </node>
-      <node id="18">
+      <node id="20">
         <label>devicename.c</label>
         <link refid="devicename_8c"/>
       </node>
-      <node id="83">
+      <node id="101">
         <label>partition.c</label>
         <link refid="partition_8c"/>
       </node>
-      <node id="42">
+      <node id="47">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="65">
+      <node id="98">
+        <label>unlinkfile.c</label>
+        <link refid="unlinkfile_8c"/>
+      </node>
+      <node id="71">
         <label>process.c</label>
         <link refid="process_8c"/>
       </node>
-      <node id="68">
+      <node id="74">
         <label>string.c</label>
         <link refid="basic_2string_8c"/>
       </node>
-      <node id="17">
+      <node id="19">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="37">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="63">
+      <node id="69">
         <label>main.c</label>
-        <link refid="main_8c"/>
+        <link refid="basic_2main_8c"/>
       </node>
-      <node id="24">
+      <node id="92">
+        <label>directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="96">
+        <label>readfile.c</label>
+        <link refid="fat32_2readfile_8c"/>
+      </node>
+      <node id="26">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="76">
+      <node id="84">
         <label>ethernet.c</label>
         <link refid="ethernet_8c"/>
       </node>
-      <node id="98">
+      <node id="97">
+        <label>truncatefile.c</label>
+        <link refid="fat32_2truncatefile_8c"/>
+      </node>
+      <node id="127">
         <label>dns.c</label>
         <link refid="dns_8c"/>
       </node>
-      <node id="23">
+      <node id="6">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
         <label>kernel.c</label>
         <link refid="kernel_8c"/>
       </node>
-      <node id="49">
+      <node id="54">
         <label>ahci.c</label>
         <link refid="ahci_8c"/>
       </node>
-      <node id="37">
+      <node id="40">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -1188,21 +1585,25 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="12">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="110">
+      <node id="139">
         <label>string.c</label>
         <link refid="string_8c"/>
       </node>
-      <node id="91">
+      <node id="120">
         <label>lapic_timer.c</label>
         <link refid="lapic__timer_8c"/>
       </node>
-      <node id="74">
+      <node id="39">
+        <label>installer.c</label>
+        <link refid="installer_8c"/>
+      </node>
+      <node id="82">
         <label>drawing.c</label>
         <link refid="drawing_8c"/>
       </node>
@@ -1211,12 +1612,44 @@
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
       </node>
       <node id="7">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="114">
+        <label>writefile.c</label>
+        <link refid="retrofs_2writefile_8c"/>
+      </node>
+      <node id="110">
+        <label>readfile.c</label>
+        <link refid="retrofs_2readfile_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structrfs__description__block__t" prot="public">rfs_description_block_t</innerclass>
@@ -1226,17 +1659,19 @@
     <innerclass refid="structrfs__directory__start__t" prot="public">rfs_directory_start_t</innerclass>
     <innerclass refid="unionrfs__directory__entry__t" prot="public">rfs_directory_entry_t</innerclass>
     <innerclass refid="structrfs__t" prot="public">rfs_t</innerclass>
-      <sectiondef kind="define">
+      <sectiondef kind="user-defined">
+      <header>Filesystem Constants</header>
       <memberdef kind="define" id="retrofs_8h_1a0e4f92f12413502ff471ed5404d80df6" prot="public" static="no">
         <name>RFS_SECTOR_SIZE</name>
         <initializer>512</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Size of one logical sector in bytes. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="12" column="9" bodyfile="include/retrofs.h" bodystart="12" bodyend="-1"/>
+        <location file="include/retrofs.h" line="29" column="9" bodyfile="include/retrofs.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1a2b7d6124b62b834bfaceb921b4b2b1bb" prot="public" static="no">
         <name>RFS_MAX_NAME</name>
@@ -1244,10 +1679,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Maximum length of file/directory name (excluding terminator). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="13" column="9" bodyfile="include/retrofs.h" bodystart="13" bodyend="-1"/>
+        <location file="include/retrofs.h" line="30" column="9" bodyfile="include/retrofs.h" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1aa4a364442c5a3451da2edade32468c08" prot="public" static="no">
         <name>RFS_FS_MAP_BITS_PER_SECTOR</name>
@@ -1255,22 +1691,36 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Number of free-space bits stored in a sector. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="14" column="9" bodyfile="include/retrofs.h" bodystart="14" bodyend="-1"/>
+        <location file="include/retrofs.h" line="31" column="9" bodyfile="include/retrofs.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="retrofs_8h_1a23c6a84effa5b35824246bbaee17d507" prot="public" static="no">
+        <name>RFS_MAP_READ_CHUNK_SECTORS</name>
+        <initializer>128ULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Preferred chunk size (in sectors) for reading the free space map. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="33" column="9" bodyfile="include/retrofs.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1a54cc1fc2306ba1d8e64c6c23895570fd" prot="public" static="no">
         <name>RFS_DEFAULT_DIR_SIZE</name>
-        <initializer>32</initializer>
+        <initializer>64</initializer>
         <briefdescription>
-<para>Default directory size of a block in sectors (<ref refid="structrfs__directory__start__t_1a3ad10ef57a35c30dd2192a5ae4b667c2" kindref="member">rfs_directory_start_t::sectors</ref>) 32 sectors holds 63 files (the first entry is the start entry that contains the continuation pointer etc) </para>
+<para>Default number of sectors allocated for a directory block. </para>
         </briefdescription>
         <detaileddescription>
+<para>The first entry is a directory start entry containing metadata and a continuation pointer; remaining entries store files. At 64 sectors, a directory can contain up to 127 files. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="22" column="9" bodyfile="include/retrofs.h" bodystart="22" bodyend="-1"/>
+        <location file="include/retrofs.h" line="42" column="9" bodyfile="include/retrofs.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1af86a1b071c41a7d9fbad6c088af76648" prot="public" static="no">
         <name>RFS_FLAG_DIRECTORY</name>
@@ -1278,10 +1728,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Entry is a directory. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="24" column="9" bodyfile="include/retrofs.h" bodystart="24" bodyend="-1"/>
+        <location file="include/retrofs.h" line="45" column="9" bodyfile="include/retrofs.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1aca130c4ea37b5ba8ab64f16a417e28d8" prot="public" static="no">
         <name>RFS_FLAG_LOCKED</name>
@@ -1289,10 +1740,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Entry is locked/read-only. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="25" column="9" bodyfile="include/retrofs.h" bodystart="25" bodyend="-1"/>
+        <location file="include/retrofs.h" line="46" column="9" bodyfile="include/retrofs.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1aa24b4576d1f509758f6e8226698b51f7" prot="public" static="no">
         <name>RFS_FLAG_DIR_START</name>
@@ -1300,33 +1752,77 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Entry is a directory start block. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="26" column="9" bodyfile="include/retrofs.h" bodystart="26" bodyend="-1"/>
+        <location file="include/retrofs.h" line="47" column="9" bodyfile="include/retrofs.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1a0a865a985f3038788a5b1d024c3c5f93" prot="public" static="no">
         <name>RFS_ID</name>
         <initializer>(uint64_t)0x3153466f72746552ULL</initializer>
         <briefdescription>
+<para>Filesystem identifier magic (&quot;RetroFS1&quot;). </para>
         </briefdescription>
         <detaileddescription>
+<para>Stored in the description block for on-disk format verification. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="28" column="9" bodyfile="include/retrofs.h" bodystart="28" bodyend="-1"/>
+        <location file="include/retrofs.h" line="54" column="9" bodyfile="include/retrofs.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="retrofs_8h_1a12d78567bdb02c7a2a711809ea256837" prot="public" static="no">
         <name>RFS_GPT_GUID</name>
         <initializer>&quot;4DEC1156-FEC8-4495-854B-20D888E21AF0&quot;</initializer>
         <briefdescription>
-<para>RetroFS GPT Partition Type GUID UUID v4 reserved for Retro Rocket RetroFS partitions. </para>
+<para>RetroFS GPT Partition Type GUID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This UUID v4 is reserved for Retro Rocket&apos;s RetroFS partitions. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="61" column="9" bodyfile="include/retrofs.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="retrofs_8h_1a2edcb522edb2eb0eda942e933b1353d1" prot="public" static="no">
+        <name>RFS_L1_GROUP_SECTORS</name>
+        <initializer>(4096ULL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sectors per L1 group (2 MiB at 512B). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="163" column="9" bodyfile="include/retrofs.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="retrofs_8h_1a3f0b46f13df6e029244c1d1bbce20606" prot="public" static="no">
+        <name>RFS_L2_GROUPS_PER_SUPER</name>
+        <initializer>(1024ULL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>L1 groups per L2 super-group. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="164" column="9" bodyfile="include/retrofs.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="retrofs_8h_1afb65d4847594b25424eb2a304e7741c1" prot="public" static="no">
+        <name>ALIGN_UP</name>
+        <param><defname>x</defname></param>
+        <param><defname>a</defname></param>
+        <initializer>(((x) + ((<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>) - 1)) &amp; ~((<ref refid="ahci_8h_1af4007aacd75b22aee32dba9ea96082c0" kindref="member">a</ref>) - 1))</initializer>
+        <briefdescription>
+<para>Align a value upwards to the next multiple of <computeroutput>a</computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="34" column="9" bodyfile="include/retrofs.h" bodystart="34" bodyend="-1"/>
+        <location file="include/retrofs.h" line="212" column="9" bodyfile="include/retrofs.h" bodystart="212" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -1338,6 +1834,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Filesystem magic (RFS_ID). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1351,6 +1848,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector address of root directory start entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1364,6 +1862,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector address of free space map start. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1377,6 +1876,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Length of free space map in sectors. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1390,6 +1890,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Checksum of the free space map. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1403,19 +1904,22 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Incremented whenever the FS is modified.</para>
+<para>Incremented when file changes. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="include/retrofs.h" line="5" column="10" bodyfile="include/retrofs.h" bodystart="5" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="retrofs_8h_1ac308713211f3592e4636ce1081aeb859" prot="public" static="no" mutable="no">
-        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
         <definition>time_t creation_time</definition>
         <argsstring></argsstring>
         <name>creation_time</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Filesystem creation time (UTC). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1429,6 +1933,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Structured view. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1442,6 +1947,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Raw bytes view. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1455,6 +1961,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Free/used sector flags. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1468,6 +1975,8 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Entry flags (RFS_FLAG_*).</para>
+<para>Entry flags (must include RFS_FLAG_DIR_START). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1481,6 +1990,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Null-terminated filename. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1494,6 +2004,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>First sector of file data. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1507,36 +2018,53 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File length in bytes. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="include/retrofs.h" line="3" column="10" bodyfile="include/retrofs.h" bodystart="3" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="retrofs_8h_1a9248245d1367801c5dc29b84940c9537" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t sector_length</definition>
+        <argsstring></argsstring>
+        <name>sector_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocated length in sectors </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="4" column="10" bodyfile="include/retrofs.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="retrofs_8h_1a5dc38d235a8feab75adea3084f527d6f" prot="public" static="no" mutable="no">
-        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
         <definition>time_t created</definition>
         <argsstring></argsstring>
         <name>created</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Creation timestamp (UTC). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="4" column="8" bodyfile="include/retrofs.h" bodystart="4" bodyend="-1"/>
+        <location file="include/retrofs.h" line="5" column="8" bodyfile="include/retrofs.h" bodystart="5" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="retrofs_8h_1a7fe623ec2237ab4683d82849a91d2b87" prot="public" static="no" mutable="no">
-        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
         <definition>time_t modified</definition>
         <argsstring></argsstring>
         <name>modified</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Last modification timestamp (UTC). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="5" column="8" bodyfile="include/retrofs.h" bodystart="5" bodyend="-1"/>
+        <location file="include/retrofs.h" line="6" column="8" bodyfile="include/retrofs.h" bodystart="6" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="retrofs_8h_1a2ca796a84a992a7892982dcb550d33d3" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -1546,10 +2074,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved for future use / alignment. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="7" column="6" bodyfile="include/retrofs.h" bodystart="7" bodyend="-1"/>
+        <location file="include/retrofs.h" line="8" column="6" bodyfile="include/retrofs.h" bodystart="8" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="retrofs_8h_1a6253ff71cb58d4a7e5d5ee6cf0ab8c50" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -1559,6 +2088,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Human-readable directory title. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1572,6 +2102,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector of parent directory start entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1585,6 +2116,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Number of sectors in this directory block. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1598,6 +2130,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector of next directory block, or 0 if none. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1611,6 +2144,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Directory start entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1624,6 +2158,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1640,9 +2175,18 @@
           <type>(packed)</type>
         </param>
         <briefdescription>
-<para>ACPI Root System Description Pointer (RSDP) </para>
+<para>On-disk description block containing global filesystem metadata. </para>
         </briefdescription>
         <detaileddescription>
+<para>Unified representation of either a directory start or file entry.</para>
+<para>On-disk directory start entry.</para>
+<para>On-disk file entry structure for non-directory entries.</para>
+<para>One sector of the free space map, containing an array of 64-bit bitfields.</para>
+<para>Padded variant of the description block to exactly fill one sector.</para>
+<para>Occupies exactly one sector. This is the first structure read when mounting a RetroFS volume.</para>
+<para>This is always the first entry in a directory block.</para>
+<para>Each directory block sector contains two of these (half-sector entries).</para>
+<para>On-disk description block containing global filesystem metadata.</para>
 <para>A disk partition entry within the MBR.</para>
 <para>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t.</para>
 <para>FAT32 FSINFO structure.</para>
@@ -1659,18 +2203,1163 @@
         </inbodydescription>
         <location file="include/retrofs.h" line="1" column="0" bodyfile="src/gdt.c" bodystart="27" bodyend="40" declfile="include/retrofs.h" declline="1" declcolumn="0"/>
       </memberdef>
-      <memberdef kind="function" id="retrofs_8h_1a77ee899b72553734d6c2814efccddb22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void init_rfs</definition>
-        <argsstring>()</argsstring>
-        <name>init_rfs</name>
+      <memberdef kind="function" id="retrofs_8h_1ab8dd70e5f6b324291b30fc7b28cab425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t rfs_get_default_reservation</definition>
+        <argsstring>(const char *filename)</argsstring>
+        <name>rfs_get_default_reservation</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
         <briefdescription>
+<para>Get the default reservation size for a file based on extension. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filename to check. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Size in bytes to reserve. Defaults to 128 KB if not in table. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="88" column="6" bodyfile="src/fs/retrofs.c" bodystart="262" bodyend="278" declfile="include/retrofs.h" declline="88" declcolumn="6"/>
+        <location file="include/retrofs.h" line="172" column="8" bodyfile="src/fs/retrofs/createfile.c" bodystart="209" bodyend="220" declfile="include/retrofs.h" declline="172" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1aba7b398efc7ff474bca4b15403be35fd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void bitset_set</definition>
+        <argsstring>(uint8_t *bs, uint64_t idx, bool val)</argsstring>
+        <name>bitset_set</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>bs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Set or clear a bit in a bitset. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to bitset. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New value (true = set, false = clear). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="180" column="20" bodyfile="include/retrofs.h" bodystart="180" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a5c432433d901608787bf860d32aa4338" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool bitset_get</definition>
+        <argsstring>(const uint8_t *bs, uint64_t idx)</argsstring>
+        <name>bitset_get</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>bs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+<para>Get the value of a bit from a bitset. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to bitset. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>idx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit index. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if bit is set, false if clear. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="196" column="20" bodyfile="include/retrofs.h" bodystart="196" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a237b71aeb1f5c8205f278807a1217d00" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>static size_t bitset_bytes</definition>
+        <argsstring>(uint64_t nbits)</argsstring>
+        <name>bitset_bytes</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>nbits</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the number of bytes needed to store a bitset of given size. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nbits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bits. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of bytes required. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="207" column="22" bodyfile="include/retrofs.h" bodystart="207" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1af0d5bdf2c5488df54a69eed36861a1e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_rfs</definition>
+        <argsstring>(void)</argsstring>
+        <name>init_rfs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialise the RetroFS subsystem. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Prepares any global state needed for RetroFS operation. This should be called once during kernel initialisation before mounting any RetroFS volumes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="221" column="6" bodyfile="src/fs/retrofs/main.c" bodystart="99" bodyend="116" declfile="include/retrofs.h" declline="221" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1afe6611ac18c6910947bc99f12691a936" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_format</definition>
+        <argsstring>(rfs_t *info)</argsstring>
+        <name>rfs_format</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <briefdescription>
+<para>Format a block device or partition with a fresh RetroFS filesystem. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Writes a new description block, initialises the free space map, and creates an empty root directory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an <ref refid="structrfs__t" kindref="compound">rfs_t</ref> structure describing the target volume. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error (e.g., device write failure). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="232" column="6" bodyfile="src/fs/retrofs/format.c" bodystart="4" bodyend="87" declfile="include/retrofs.h" declline="232" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a7aa41789c8d357a0e0d8d83bc0ff7580" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_read_device</definition>
+        <argsstring>(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, void *buffer)</argsstring>
+        <name>rfs_read_device</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>rfs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start_sectors</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>size_bytes</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+<para>Read raw sectors from the underlying device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Low-level helper for retrieving a contiguous range of sectors from the block device.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rfs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filesystem context. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_sectors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sector index (relative to filesystem start). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read (must be a multiple of sector size). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="246" column="6" bodyfile="src/fs/retrofs/helpers.c" bodystart="4" bodyend="21" declfile="include/retrofs.h" declline="246" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1af68c31483d4d81b83304d6aabf979a39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_write_device</definition>
+        <argsstring>(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *buffer)</argsstring>
+        <name>rfs_write_device</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>rfs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start_sectors</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>size_bytes</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+<para>Write raw sectors to the underlying device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Low-level helper for storing a contiguous range of sectors to the block device.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rfs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filesystem context. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_sectors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sector index (relative to filesystem start). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size_bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write (must be a multiple of sector size). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="260" column="6" bodyfile="src/fs/retrofs/helpers.c" bodystart="23" bodyend="40" declfile="include/retrofs.h" declline="260" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1ae89881aa48831a06f9f7b87c7062a64d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_find_free_extent</definition>
+        <argsstring>(rfs_t *info, uint64_t need, uint64_t *out_start_sector)</argsstring>
+        <name>rfs_find_free_extent</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>need</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>out_start_sector</declname>
+        </param>
+        <briefdescription>
+<para>Find a contiguous extent of free sectors. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Searches the in-memory free space map for an extent of at least the requested length.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filesystem context. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>need</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of sectors required. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_start_sector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output: first sector of found extent. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if an extent was found, false if insufficient free space. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="273" column="6" bodyfile="src/fs/retrofs/fsmap.c" bodystart="473" bodyend="622" declfile="include/retrofs.h" declline="273" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1ab460b9c1eac8f02af9c54e02cf315e71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_mark_extent</definition>
+        <argsstring>(rfs_t *info, uint64_t start_sector, uint64_t length_sectors, bool mark_used)</argsstring>
+        <name>rfs_mark_extent</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start_sector</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>length_sectors</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>mark_used</declname>
+        </param>
+        <briefdescription>
+<para>Mark a contiguous extent as used or free in the free space map. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Updates the in-memory free space tracking structures; caller must ensure changes are persisted to disk if necessary.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filesystem context. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_sector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First sector of extent. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length_sectors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of sectors in extent. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mark_used</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true to mark as used, false to mark as free. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error (e.g., bounds check fail). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="287" column="6" bodyfile="src/fs/retrofs/fsmap.c" bodystart="208" bodyend="317" declfile="include/retrofs.h" declline="287" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a68bfd092abff119ace6499907853609a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_build_level_caches</definition>
+        <argsstring>(rfs_t *info)</argsstring>
+        <name>rfs_build_level_caches</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <briefdescription>
+<para>Build L1/L2 cache structures from the on-disk free space map. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Reads the free space map from disk and generates the in-memory summary structures used for fast allocation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filesystem context. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="298" column="6" bodyfile="src/fs/retrofs/fsmap.c" bodystart="637" bodyend="886" declfile="include/retrofs.h" declline="298" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a876aef9a94400e7fb576c78b60ef603f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* rfs_get_directory</definition>
+        <argsstring>(void *t)</argsstring>
+        <name>rfs_get_directory</name>
+        <param>
+          <type>void *</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve a directory structure from a VFS handle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Used by the VFS layer to resolve a directory handle into a RetroFS directory block for further operations.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VFS handle for a directory. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to RetroFS directory block, or NULL on error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="309" column="6" bodyfile="src/fs/retrofs/getdirectory.c" bodystart="78" bodyend="87" declfile="include/retrofs.h" declline="309" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a6dc1377127abd3436b8c3c1da78dadbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_unlink_file</definition>
+        <argsstring>(void *dir, const char *name)</argsstring>
+        <name>rfs_unlink_file</name>
+        <param>
+          <type>void *</type>
+          <declname>dir</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Remove a file from a directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Deletes the directory entry and frees the associated file data sectors in the free space map.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to directory block. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filename to remove. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false if not found or error occurred. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="321" column="6" bodyfile="src/fs/retrofs/unlink.c" bodystart="107" bodyend="147" declfile="include/retrofs.h" declline="321" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a469381f22dcd59d3aedddf42376197fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_read_file</definition>
+        <argsstring>(void *f, uint64_t start, uint32_t length, unsigned char *buffer)</argsstring>
+        <name>rfs_read_file</name>
+        <param>
+          <type>void *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+<para>Read part or all of a file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Reads data starting at the given offset (in bytes from start of file).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to file entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset into file to begin reading. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error or bounds violation. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="334" column="6" bodyfile="src/fs/retrofs/readfile.c" bodystart="4" bodyend="122" declfile="include/retrofs.h" declline="334" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a1eeda8efed6e103f25d8505e302fddfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_create_file</definition>
+        <argsstring>(void *dir, const char *name, size_t size)</argsstring>
+        <name>rfs_create_file</name>
+        <param>
+          <type>void *</type>
+          <declname>dir</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Create a new file in a directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocates space, writes a directory entry, and sets initial file size.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to directory block. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of new file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial size in bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Sector number of new file’s start, or 0 on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="346" column="10" bodyfile="src/fs/retrofs/createfile.c" bodystart="229" bodyend="315" declfile="include/retrofs.h" declline="346" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a88042c064d74afebff8c8024718e5ba3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_create_directory</definition>
+        <argsstring>(void *dir, const char *name)</argsstring>
+        <name>rfs_create_directory</name>
+        <param>
+          <type>void *</type>
+          <declname>dir</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Create a new directory within an existing directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Allocates space for the directory start block and updates the parent.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to parent directory block. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of new directory. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Sector number of new directory’s start block, or 0 on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="357" column="10" bodyfile="src/fs/retrofs/createdirectory.c" bodystart="4" bodyend="109" declfile="include/retrofs.h" declline="357" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1affa287b51abff9d794e8d6d066553031" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_unlink_dir</definition>
+        <argsstring>(void *dir, const char *name)</argsstring>
+        <name>rfs_unlink_dir</name>
+        <param>
+          <type>void *</type>
+          <declname>dir</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Remove an empty directory from its parent. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to parent directory block. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of directory to remove. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false if directory is not empty or not found. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="366" column="6" bodyfile="src/fs/retrofs/unlinkdirectory.c" bodystart="4" bodyend="111" declfile="include/retrofs.h" declline="366" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a5aac434718e1e16dfacc5630b6eada02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_write_file</definition>
+        <argsstring>(void *f, uint64_t start, uint32_t length, unsigned char *buffer)</argsstring>
+        <name>rfs_write_file</name>
+        <param>
+          <type>void *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+<para>Write part or all of a file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Writes data starting at the given offset (in bytes from start of file). Caller must ensure enough space has been allocated beforehand.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to file entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset into file to begin writing. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error or bounds violation. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="380" column="6" bodyfile="src/fs/retrofs/writefile.c" bodystart="155" bodyend="308" declfile="include/retrofs.h" declline="380" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a423e724ebf6c540c67cb3a0f59f8ea48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_truncate_file</definition>
+        <argsstring>(void *f, size_t length)</argsstring>
+        <name>rfs_truncate_file</name>
+        <param>
+          <type>void *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>Truncate or extend a file to a given length. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If truncating, deallocates excess sectors. If extending, allocates new sectors (contents unspecified).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to file entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New size in bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false on error or insufficient space. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="392" column="6" bodyfile="src/fs/retrofs/truncatefile.c" bodystart="4" bodyend="68" declfile="include/retrofs.h" declline="392" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a37eae0c5029794c430e2f47bb401393a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+        <definition>fs_directory_entry_t* rfs_upsert_directory_entry</definition>
+        <argsstring>(fs_directory_entry_t *file, uint64_t sector_extent)</argsstring>
+        <name>rfs_upsert_directory_entry</name>
+        <param>
+          <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>sector_extent</declname>
+        </param>
+        <briefdescription>
+<para>Insert or update a directory entry on disk. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If an entry with the same name (case-insensitive) already exists in the directory chain, its metadata is updated in-place, preserving the case of the supplied <computeroutput>file-&gt;filename</computeroutput>. If no matching entry exists, a new one is appended in the first available slot; if the directory is full, a new continuation block is allocated and linked.</para>
+<para>This function does not allocate or free file payload sectors if the file size changes; it is limited to updating directory metadata and allocating directory blocks when necessary.</para>
+<para><simplesect kind="pre"><para><computeroutput>file</computeroutput> must be non-NULL. </para>
+</simplesect>
+<simplesect kind="pre"><para><computeroutput>file-&gt;directory</computeroutput> must point to a valid <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> representing the parent directory. </para>
+</simplesect>
+<simplesect kind="pre"><para><computeroutput>file-&gt;filename</computeroutput> must point to a non-empty NUL-terminated string. </para>
+</simplesect>
+<simplesect kind="post"><para>On success, the directory chain on disk contains the inserted or updated entry, and <computeroutput>file</computeroutput> reflects the same metadata supplied.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a VFS directory entry to insert or update. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sector_extent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reserved extent for the file in sectors </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The same <computeroutput>file</computeroutput> pointer on success, or NULL on error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="418" column="22" bodyfile="src/fs/retrofs/createfile.c" bodystart="21" bodyend="207" declfile="include/retrofs.h" declline="418" declcolumn="22"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a3b9bc0d368a7890f797fe319633c54d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_delete_directory_entry</definition>
+        <argsstring>(fs_directory_entry_t *file)</argsstring>
+        <name>rfs_delete_directory_entry</name>
+        <param>
+          <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Remove a directory entry from disk by name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Finds the first entry in the directory chain whose name matches <computeroutput>file-&gt;filename</computeroutput> case-insensitively, removes it, and compacts the remaining entries in that block to avoid internal holes. Continuation blocks are not freed, even if they become empty.</para>
+<para>This function does not modify the free-space map for the file payload; only the directory metadata is altered.</para>
+<para><simplesect kind="pre"><para><computeroutput>file</computeroutput> must be non-NULL. </para>
+</simplesect>
+<simplesect kind="pre"><para><computeroutput>file-&gt;directory</computeroutput> must point to a valid <ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> representing the parent directory. </para>
+</simplesect>
+<simplesect kind="pre"><para><computeroutput>file-&gt;filename</computeroutput> must point to a non-empty NUL-terminated string. </para>
+</simplesect>
+<simplesect kind="post"><para>On success, the directory chain on disk no longer contains an entry matching <computeroutput>file-&gt;filename</computeroutput> in a case-insensitive comparison.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a VFS directory entry identifying the file to remove. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success, false if the entry was not found or on I/O error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="441" column="6" bodyfile="src/fs/retrofs/unlink.c" bodystart="4" bodyend="104" declfile="include/retrofs.h" declline="441" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a4ec409e8f4a765bec7dad6a723ef4bb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_bytes_to_sectors</definition>
+        <argsstring>(uint64_t bytes)</argsstring>
+        <name>rfs_bytes_to_sectors</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>bytes</declname>
+        </param>
+        <briefdescription>
+<para>Convert a size in bytes to the number of sectors required. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This rounds up to the nearest whole sector, so that any non-zero remainder results in an additional sector being counted.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size in bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of sectors required to store <computeroutput>bytes</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="452" column="10" bodyfile="src/fs/retrofs/createfile.c" bodystart="222" bodyend="227" declfile="include/retrofs.h" declline="452" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a35fd4da8867e505b24f85c865851deed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rfs_locate_entry</definition>
+        <argsstring>(rfs_t *info, fs_tree_t *tree, const char *name, uint64_t *out_sector, size_t *out_index, rfs_directory_entry_inner_t *out_entry_copy)</argsstring>
+        <name>rfs_locate_entry</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> *</type>
+          <declname>tree</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>uint64_t *</type>
+          <declname>out_sector</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>out_index</declname>
+        </param>
+        <param>
+          <type><ref refid="structrfs__directory__entry__inner__t" kindref="compound">rfs_directory_entry_inner_t</ref> *</type>
+          <declname>out_entry_copy</declname>
+        </param>
+        <briefdescription>
+<para>Locate a directory entry by name within a given directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Searches the specified directory (including any continuation blocks) for an entry whose filename matches <computeroutput>name</computeroutput>. If found, returns its on-disk location and a copy of the directory entry structure.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filesystem context (RetroFS instance). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tree</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VFS tree node representing the directory to search. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filename to look up (null-terminated string). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_sector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Receives the sector number containing the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Receives the index of the entry within that sector. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>out_entry_copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Receives a copy of the on-disk entry. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><computeroutput>true</computeroutput> if the entry was found, <computeroutput>false</computeroutput> otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="469" column="6" bodyfile="src/fs/retrofs/helpers.c" bodystart="42" bodyend="104" declfile="include/retrofs.h" declline="469" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1a5572af757f45e082f138cf773410f61b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_get_used_bytes</definition>
+        <argsstring>(rfs_t *info)</argsstring>
+        <name>rfs_get_used_bytes</name>
+        <param>
+          <type><ref refid="structrfs__t" kindref="compound">rfs_t</ref> *</type>
+          <declname>info</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the exact number of bytes currently in use on the volume. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function uses the in-memory Level-1 free‐sector counters built by <ref refid="retrofs_8h_1a68bfd092abff119ace6499907853609a" kindref="member">rfs_build_level_caches()</ref> to determine usage precisely. It sums the free sector counts for all L1 groups, converts the total to bytes, and subtracts from the total volume size. The result is exact as long as the L1 cache is up to date.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the RetroFS volume context (must have valid L1 cache). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of bytes currently allocated/used on the volume.</para>
+</simplesect>
+<simplesect kind="note"><para>If the volume was not cleanly unmounted, ensure the L1 cache has been rebuilt from the on-disk free space map before calling this function. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="486" column="10" bodyfile="src/fs/retrofs/helpers.c" bodystart="115" bodyend="136" declfile="include/retrofs.h" declline="486" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1add03ce7aa17db9f02d70ddd7e039582a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t rfs_get_free_space</definition>
+        <argsstring>(void *fs)</argsstring>
+        <name>rfs_get_free_space</name>
+        <param>
+          <type>void *</type>
+          <declname>fs</declname>
+        </param>
+        <briefdescription>
+<para>VFS endpoint to get free space on the filesystem in bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structfs__tree__t" kindref="compound">fs_tree_t</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>free space in bytes </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="493" column="10" bodyfile="src/fs/retrofs/helpers.c" bodystart="106" bodyend="113" declfile="include/retrofs.h" declline="493" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="retrofs_8h_1a973f04214c7ac8bc21d8b7ca5e9af016" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -1690,7 +3379,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="90" column="1" declfile="include/retrofs.h" declline="90" declcolumn="1"/>
+        <location file="include/retrofs.h" line="495" column="1" declfile="include/retrofs.h" declline="495" declcolumn="1"/>
       </memberdef>
       <memberdef kind="function" id="retrofs_8h_1a335f2a703c781091af9729a95b375a46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -1710,16 +3399,38 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="91" column="1" declfile="include/retrofs.h" declline="91" declcolumn="1"/>
+        <location file="include/retrofs.h" line="496" column="1" declfile="include/retrofs.h" declline="496" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="retrofs_8h_1aa0d930c2237e216498190b72eef4a60f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>(128ULL *512&lt;=(4ULL *1024 *1024), &quot;AHCI PRDT entry must be &lt;= 4 MiB&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type>128ULL *512&lt;=</type>
+          <array>4ULL *1024 *1024</array>
+        </param>
+        <param>
+          <type>&quot;AHCI PRDT <ref refid="retrofs_8h_1a9e23ed0731911d7a25af7df173bc276d" kindref="member">entry</ref> must be &lt;= 4 MiB&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/retrofs.h" line="497" column="1" declfile="include/retrofs.h" declline="497" declcolumn="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Structures and functions for RetroFS, an ADFS L format inspired file system for Retro Rocket. </para>
+<para>Core structures, constants, and API definitions for RetroFS — an ADFS &apos;L&apos; format–inspired filesystem for Retro Rocket. </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>) </para>
+<para><simplesect kind="author"><para>Craig Edwards (<ulink url="mailto:craigedwards@brainbox.cc">craigedwards@brainbox.cc</ulink>)</para>
 </simplesect>
-<simplesect kind="copyright"><para>Copyright (c) 2012–2025 </para>
+RetroFS is a sector-based filesystem inspired by the Acorn ADFS &apos;L&apos; format. It is optimised for simplicity of implementation and fast free-space allocation, achieved by caching the entire multi-level free space map in RAM. This approach trades higher memory usage (~200 MB/TB) for minimal device I/O during allocation and deletion, making it well-suited to systems where RAM is plentiful relative to storage speed.</para>
+<para>The on-disk format is compact and self-contained, with a fixed-size description block, hierarchical free space map, and half-sector directory entries. The in-memory layout is designed for fast lookups and minimal pointer chasing.</para>
+<para><simplesect kind="copyright"><para>(c) 2012–2025 Craig Edwards </para>
 </simplesect>
 </para>
     </detaileddescription>

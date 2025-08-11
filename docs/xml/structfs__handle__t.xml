@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="293" column="18" bodyfile="include/filesystem.h" bodystart="293" bodyend="-1"/>
+        <location file="include/filesystem.h" line="357" column="18" bodyfile="include/filesystem.h" bodystart="357" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a3767e0c964460f9d114529b25815bb7e" prot="public" static="no" mutable="no">
         <type>unsigned char *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="294" column="15" bodyfile="include/filesystem.h" bodystart="294" bodyend="-1"/>
+        <location file="include/filesystem.h" line="358" column="15" bodyfile="include/filesystem.h" bodystart="358" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1ad2ed98466d85226244177da2a0207e05" prot="public" static="no" mutable="no">
         <type>unsigned char *</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="295" column="15" bodyfile="include/filesystem.h" bodystart="295" bodyend="-1"/>
+        <location file="include/filesystem.h" line="359" column="15" bodyfile="include/filesystem.h" bodystart="359" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1ac58f73bbde3a9f4fde2ba01e55b26577" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="296" column="10" bodyfile="include/filesystem.h" bodystart="296" bodyend="-1"/>
+        <location file="include/filesystem.h" line="360" column="10" bodyfile="include/filesystem.h" bodystart="360" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a5c83459bba23c33e390db430dcafc36e" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="297" column="10" bodyfile="include/filesystem.h" bodystart="297" bodyend="-1"/>
+        <location file="include/filesystem.h" line="361" column="10" bodyfile="include/filesystem.h" bodystart="361" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a8f828766185b1c35103786929fd6673b" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="298" column="10" bodyfile="include/filesystem.h" bodystart="298" bodyend="-1"/>
+        <location file="include/filesystem.h" line="362" column="10" bodyfile="include/filesystem.h" bodystart="362" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a9f7595e558110ebb1edc736ee74d214d" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="299" column="10" bodyfile="include/filesystem.h" bodystart="299" bodyend="-1"/>
+        <location file="include/filesystem.h" line="363" column="10" bodyfile="include/filesystem.h" bodystart="363" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a3a661853cb8cbcdbccd7655c480c97e2" prot="public" static="no" mutable="no">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="300" column="22" bodyfile="include/filesystem.h" bodystart="300" bodyend="-1"/>
+        <location file="include/filesystem.h" line="364" column="22" bodyfile="include/filesystem.h" bodystart="364" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1a4c433ff47f739e72d13e76d684dff8c4" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="301" column="10" bodyfile="include/filesystem.h" bodystart="301" bodyend="-1"/>
+        <location file="include/filesystem.h" line="365" column="10" bodyfile="include/filesystem.h" bodystart="365" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structfs__handle__t_1acf904278cf871b15b0f66d874ed84a69" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="302" column="6" bodyfile="include/filesystem.h" bodystart="302" bodyend="-1"/>
+        <location file="include/filesystem.h" line="366" column="6" bodyfile="include/filesystem.h" bodystart="366" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -154,6 +154,7 @@
         <childnode refid="3" relation="usage">
           <edgelabel>createdir</edgelabel>
           <edgelabel>createfile</edgelabel>
+          <edgelabel>freespace</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
           <edgelabel>getdir</edgelabel>
@@ -287,7 +288,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/filesystem.h" line="292" column="1" bodyfile="include/filesystem.h" bodystart="292" bodyend="303"/>
+    <location file="include/filesystem.h" line="356" column="1" bodyfile="include/filesystem.h" bodystart="356" bodyend="367"/>
     <listofallmembers>
       <member refid="structfs__handle__t_1acf904278cf871b15b0f66d874ed84a69" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>cached</name></member>
       <member refid="structfs__handle__t_1a3a661853cb8cbcdbccd7655c480c97e2" prot="public" virt="non-virtual"><scope>fs_handle_t</scope><name>file</name></member>

@@ -92,13 +92,15 @@ $(document).ready(function(){initNavTree('tokenizer_8h.html',''); initResizable(
 <div class="title">tokenizer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="kernel_8h.html">kernel.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ad004bd52426bd91bc9d41b6efb6ea35d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ad004bd52426bd91bc9d41b6efb6ea35d">MAX_VARNAME</a>&#160;&#160;&#160;50</td></tr>
+<tr class="memdesc:ad004bd52426bd91bc9d41b6efb6ea35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length for variable names.  <a href="tokenizer_8h.html#ad004bd52426bd91bc9d41b6efb6ea35d">More...</a><br /></td></tr>
 <tr class="separator:ad004bd52426bd91bc9d41b6efb6ea35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed8760364c7992625d06c93d12b2496d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#aed8760364c7992625d06c93d12b2496d">GENERATE_ENUM</a>(ENUM)&#160;&#160;&#160;ENUM,</td></tr>
+<tr class="memdesc:aed8760364c7992625d06c93d12b2496d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all tokens recognized by the interpreter.  <a href="tokenizer_8h.html#aed8760364c7992625d06c93d12b2496d">More...</a><br /></td></tr>
 <tr class="separator:aed8760364c7992625d06c93d12b2496d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf58d994c35f18ec84b628d8321f52e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#adf58d994c35f18ec84b628d8321f52e5">GENERATE_STRING</a>(<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a>)&#160;&#160;&#160;#<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaee847e634a4297b274316de8a8ca9921">STRING</a>,</td></tr>
 <tr class="separator:adf58d994c35f18ec84b628d8321f52e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,37 +167,42 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f">AND</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074">OR</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7a48eb0b5d5a758daa1bfac07896eccb">ASTERISK</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6">NOT</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea4730d67b92a52e0e6ef813e8805c1623">EOR</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7a48eb0b5d5a758daa1bfac07896eccb">ASTERISK</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaaabdfe7000ca535236502bb0c87ad944">SLASH</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea140fcc89db148e5975f1486e794675ba">MOD</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea140fcc89db148e5975f1486e794675ba">MOD</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeafe809946a48c76d7ccda8e5bd1e389b7">OPENBRACKET</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea48b044f523c3b1a98190b9cd3dfeff10">CLOSEBRACKET</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea48b044f523c3b1a98190b9cd3dfeff10">CLOSEBRACKET</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea8ce9b27601f653ddc597894a1018c55d">LESSTHAN</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea484f1aeccc501366d064c353cf4b3c05">GREATERTHAN</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea484f1aeccc501366d064c353cf4b3c05">GREATERTHAN</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea949310f9cb536c15919e133f7e7316f3">EQUALS</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea59d02b47a666732cc6577f158272b099">NEWLINE</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea59d02b47a666732cc6577f158272b099">NEWLINE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea95e91c94e7307b0b02d6278061a3aaa8">AMPERSAND</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead66592048e633b05bcb00ea408b39a47">TILDE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead66592048e633b05bcb00ea408b39a47">TILDE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeafde1bb5ef04b28059e61df449501f1c0">GLOBAL</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6a4e1ff15bc0daed40ab38b3ebdc923f">SOCKREAD</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea6a4e1ff15bc0daed40ab38b3ebdc923f">SOCKREAD</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaaf9d42232a00c13fdacd612e4dfcb812">SOCKWRITE</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea20391dd2915a0e64343d24c2f2e40b95">CONNECT</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea20391dd2915a0e64343d24c2f2e40b95">CONNECT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea0f06a4daf1c339047d49e224733000ec">SOCKCLOSE</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa5e0d06ffc1b0ee32eda539e6528a3e6">CLS</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa5e0d06ffc1b0ee32eda539e6528a3e6">CLS</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaeada68b9f24186e84531a9ea174a6d54">GCOL</a>
-, <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab023460c84f774a219d46ccf4665994c">LINE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab023460c84f774a219d46ccf4665994c">LINE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea2fd33892864d1c342d3bead2f2d9ad56">TRIANGLE</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeae552ab0a96c0384a6e918e726b7f6102">RECTANGLE</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa79c827759ea48f0735386c4b1188911">CIRCLE</a>
 , <br />
-&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565">POINT</a>
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeae552ab0a96c0384a6e918e726b7f6102">RECTANGLE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa79c827759ea48f0735386c4b1188911">CIRCLE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565">POINT</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea4129fbc9099a38a45236ef001ac88f7b">OPENOUT</a>
-, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea5d40d07a11694bcaa920c76927d4518c">OPENUP</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea5d40d07a11694bcaa920c76927d4518c">OPENUP</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea9d7d6f31868d66330397c967c4afd2d2">DATA</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea12f3955776faf06252c403542f7ed380">RESTORE</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea61aa7ff70b76bff0fda378cf61d6afbc">WRITE</a>
 , <br />
 &#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaa38c102cd5f16bce8688265f3fcd0898">MKDIR</a>
@@ -211,45 +218,65 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea061dcf4785583d8653942f2d252174fa">POP</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfead0ef00e708ed18ba004480dceb79ecfb">LOCAL</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea2b6ce73e76e23d54b62e59fba07b6616">CHDIR</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea72285f0e2e8529642eb0a6025b12e1e0">LIBRARY</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea094487780ed8c40e1a40978135ada67e">YIELD</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeab8b8202307c0b81f8f74dbb4cc64a0f2">SETVARI</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7cdcfc979695597cf29b3614513c02db">SETVARR</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea8b118c071e206b9f34f39409d553b980">SETVARS</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea458988d6a64b5b380569cc8b0f033796">SPRITELOAD</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeae90b1974186cfb6382abefecbc258f79">SPRITEFREE</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeaf6b3950aa4550694de08caa8d556f49a">PLOT</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea788404a986311ae14b04018c14230c3d">AUTOFLIP</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea97744c5570e743b377f5fb63b9aa3587">FLIP</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7fcbfec4fd61b8625ec554ecb3ee966d">KEYMAP</a>
 , <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfeabe8c81f9db8320b327f4fe513a1a873b">MOUNT</a>
+, <a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea7c967eb66252a307af061191f63d418a">SETTIMEZONE</a>
+, <br />
+&#160;&#160;<a class="el" href="tokenizer_8h.html#a4ebc26c81c029670805b51af165f9cfea254ab1e0ec6ec176c77b1e80d26d5a8c">KGET</a>
 <br />
  }</td></tr>
 <tr class="separator:a4ebc26c81c029670805b51af165f9cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8b20eecbf3cb305174870ee0732f3e38"><td class="memItemLeft" align="right" valign="top">*brief Initialise tokenizer **param program program text *param ctx context *void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a8b20eecbf3cb305174870ee0732f3e38">tokenizer_init</a> (const char *program, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="separator:a8b20eecbf3cb305174870ee0732f3e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab95d257fd507afd722006b98f701aac4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ab95d257fd507afd722006b98f701aac4">tokenizer_next</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:ab95d257fd507afd722006b98f701aac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">advance to next token  <a href="tokenizer_8h.html#ab95d257fd507afd722006b98f701aac4">More...</a><br /></td></tr>
-<tr class="separator:ab95d257fd507afd722006b98f701aac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79ca032550e6866dee021d3da651dbad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a79ca032550e6866dee021d3da651dbad">tokenizer_token</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:a79ca032550e6866dee021d3da651dbad"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek to next token  <a href="tokenizer_8h.html#a79ca032550e6866dee021d3da651dbad">More...</a><br /></td></tr>
-<tr class="separator:a79ca032550e6866dee021d3da651dbad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a269601b38635279d07cffaa53be980d7"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a269601b38635279d07cffaa53be980d7">tokenizer_num</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, int token)</td></tr>
-<tr class="memdesc:a269601b38635279d07cffaa53be980d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get integer number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#a269601b38635279d07cffaa53be980d7">More...</a><br /></td></tr>
-<tr class="separator:a269601b38635279d07cffaa53be980d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30b4e02b1252eb4688912a965c8a458f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a30b4e02b1252eb4688912a965c8a458f">tokenizer_fnum</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, int token, double *f)</td></tr>
-<tr class="memdesc:a30b4e02b1252eb4688912a965c8a458f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get real number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#a30b4e02b1252eb4688912a965c8a458f">More...</a><br /></td></tr>
-<tr class="separator:a30b4e02b1252eb4688912a965c8a458f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8052b7a25debd60b06bd873b4a7f430"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#af8052b7a25debd60b06bd873b4a7f430">tokenizer_variable_name</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:af8052b7a25debd60b06bd873b4a7f430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a variable name as next token (do not advance the pointer)  <a href="tokenizer_8h.html#af8052b7a25debd60b06bd873b4a7f430">More...</a><br /></td></tr>
-<tr class="separator:af8052b7a25debd60b06bd873b4a7f430"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea837c7f0165fca0472bc82305e2779c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#aea837c7f0165fca0472bc82305e2779c">tokenizer_string</a> (char *dest, int <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:aea837c7f0165fca0472bc82305e2779c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a string constant as the next token (do not advance the pointer)  <a href="tokenizer_8h.html#aea837c7f0165fca0472bc82305e2779c">More...</a><br /></td></tr>
-<tr class="separator:aea837c7f0165fca0472bc82305e2779c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e09edb731e8ff60d65cc1296b17f5c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a4e09edb731e8ff60d65cc1296b17f5c6">tokenizer_finished</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:a4e09edb731e8ff60d65cc1296b17f5c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the program is finished (does not advance the pointer)  <a href="tokenizer_8h.html#a4e09edb731e8ff60d65cc1296b17f5c6">More...</a><br /></td></tr>
-<tr class="separator:a4e09edb731e8ff60d65cc1296b17f5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaddfae9451e992d402cbaab9550329a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#aaddfae9451e992d402cbaab9550329a4">tokenizer_error_print</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx, const char *<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
-<tr class="memdesc:aaddfae9451e992d402cbaab9550329a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">display an error to the terminal and end the program  <a href="tokenizer_8h.html#aaddfae9451e992d402cbaab9550329a4">More...</a><br /></td></tr>
-<tr class="separator:aaddfae9451e992d402cbaab9550329a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abadcb4f19d80e60be45f20bbad01e779"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#abadcb4f19d80e60be45f20bbad01e779">get_next_token</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:abadcb4f19d80e60be45f20bbad01e779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next token (advances the pointer past the end of the token)  <a href="tokenizer_8h.html#abadcb4f19d80e60be45f20bbad01e779">More...</a><br /></td></tr>
-<tr class="separator:abadcb4f19d80e60be45f20bbad01e779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adce229f0f08dc3e9a6b0035b30e6ad3c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#adce229f0f08dc3e9a6b0035b30e6ad3c">tokenizer_decimal_number</a> (struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *ctx)</td></tr>
-<tr class="memdesc:adce229f0f08dc3e9a6b0035b30e6ad3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a decimal number is at the current program pointer. (does not advance the pointer)  <a href="tokenizer_8h.html#adce229f0f08dc3e9a6b0035b30e6ad3c">More...</a><br /></td></tr>
-<tr class="separator:adce229f0f08dc3e9a6b0035b30e6ad3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67447b73d4ebd22e263ae4d8d7494a9b"><td class="memItemLeft" align="right" valign="top">*brief Initialise tokenizer **param program program text *param ctx context *void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a67447b73d4ebd22e263ae4d8d7494a9b">tokenizer_init</a> (const char *program, struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="separator:a67447b73d4ebd22e263ae4d8d7494a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00dbb52d768c7b1dc31776d51a4b0c6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a00dbb52d768c7b1dc31776d51a4b0c6b">tokenizer_next</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a00dbb52d768c7b1dc31776d51a4b0c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">advance to next token  <a href="tokenizer_8h.html#a00dbb52d768c7b1dc31776d51a4b0c6b">More...</a><br /></td></tr>
+<tr class="separator:a00dbb52d768c7b1dc31776d51a4b0c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1bbf905fff7e37e6244ceb8ac31656b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ad1bbf905fff7e37e6244ceb8ac31656b">tokenizer_token</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:ad1bbf905fff7e37e6244ceb8ac31656b"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek to next token  <a href="tokenizer_8h.html#ad1bbf905fff7e37e6244ceb8ac31656b">More...</a><br /></td></tr>
+<tr class="separator:ad1bbf905fff7e37e6244ceb8ac31656b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad40ac0288be0a9ef70c9cd31b66663de"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ad40ac0288be0a9ef70c9cd31b66663de">tokenizer_num</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int token)</td></tr>
+<tr class="memdesc:ad40ac0288be0a9ef70c9cd31b66663de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get integer number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#ad40ac0288be0a9ef70c9cd31b66663de">More...</a><br /></td></tr>
+<tr class="separator:ad40ac0288be0a9ef70c9cd31b66663de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a48b9685f151008f71e4346eb1cf68c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a9a48b9685f151008f71e4346eb1cf68c">tokenizer_fnum</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int token, double *f)</td></tr>
+<tr class="memdesc:a9a48b9685f151008f71e4346eb1cf68c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get real number as next token (do not advance the pointer)  <a href="tokenizer_8h.html#a9a48b9685f151008f71e4346eb1cf68c">More...</a><br /></td></tr>
+<tr class="separator:a9a48b9685f151008f71e4346eb1cf68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec506ea7f004aaa4d5cb3a9e4ed1e61e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#aec506ea7f004aaa4d5cb3a9e4ed1e61e">tokenizer_variable_name</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:aec506ea7f004aaa4d5cb3a9e4ed1e61e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a variable name as next token (do not advance the pointer)  <a href="tokenizer_8h.html#aec506ea7f004aaa4d5cb3a9e4ed1e61e">More...</a><br /></td></tr>
+<tr class="separator:aec506ea7f004aaa4d5cb3a9e4ed1e61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a749f588540db6d7cec847d658a9e6a8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a749f588540db6d7cec847d658a9e6a8d">tokenizer_string</a> (char *dest, int <a class="el" href="tcp_8h.html#a8aed22e2c7b283705ec82e0120515618">len</a>, struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a749f588540db6d7cec847d658a9e6a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a string constant as the next token (do not advance the pointer)  <a href="tokenizer_8h.html#a749f588540db6d7cec847d658a9e6a8d">More...</a><br /></td></tr>
+<tr class="separator:a749f588540db6d7cec847d658a9e6a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd37ac7fb189bdb8e99de3ddff44444"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a7dd37ac7fb189bdb8e99de3ddff44444">tokenizer_finished</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a7dd37ac7fb189bdb8e99de3ddff44444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the program is finished (does not advance the pointer)  <a href="tokenizer_8h.html#a7dd37ac7fb189bdb8e99de3ddff44444">More...</a><br /></td></tr>
+<tr class="separator:a7dd37ac7fb189bdb8e99de3ddff44444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bb8f288ca3badb019539980d26250fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a6bb8f288ca3badb019539980d26250fc">tokenizer_error_print</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, const char *<a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
+<tr class="memdesc:a6bb8f288ca3badb019539980d26250fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">display an error to the terminal and end the program  <a href="tokenizer_8h.html#a6bb8f288ca3badb019539980d26250fc">More...</a><br /></td></tr>
+<tr class="separator:a6bb8f288ca3badb019539980d26250fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e911984e6c171ed0bff6c17a6d8c27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a05e911984e6c171ed0bff6c17a6d8c27">tokenizer_error_printf</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, const char *<a class="el" href="serial_8h.html#a381d684d94e6e91dee650357e8f02fa8">fmt</a>,...) <a class="el" href="printf_8h.html#a875d3a11797eeea02bdd633626209f1d">PRINTF_LIKE</a>(2</td></tr>
+<tr class="memdesc:a05e911984e6c171ed0bff6c17a6d8c27"><td class="mdescLeft">&#160;</td><td class="mdescRight">display an error to the terminal and end the program  <a href="tokenizer_8h.html#a05e911984e6c171ed0bff6c17a6d8c27">More...</a><br /></td></tr>
+<tr class="separator:a05e911984e6c171ed0bff6c17a6d8c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c2dde024f06a78140c96f2810c93787"><td class="memItemLeft" align="right" valign="top">void int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#a4c2dde024f06a78140c96f2810c93787">get_next_token</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a4c2dde024f06a78140c96f2810c93787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next token (advances the pointer past the end of the token)  <a href="tokenizer_8h.html#a4c2dde024f06a78140c96f2810c93787">More...</a><br /></td></tr>
+<tr class="separator:a4c2dde024f06a78140c96f2810c93787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab40661a3dcab47340e3f60f66a0ac328"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tokenizer_8h.html#ab40661a3dcab47340e3f60f66a0ac328">tokenizer_decimal_number</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:ab40661a3dcab47340e3f60f66a0ac328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a decimal number is at the current program pointer. (does not advance the pointer)  <a href="tokenizer_8h.html#ab40661a3dcab47340e3f60f66a0ac328">More...</a><br /></td></tr>
+<tr class="separator:ab40661a3dcab47340e3f60f66a0ac328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BBC BASIC interpreter, Retro Rocket OS Project (C) Craig Edwards 2012. loosely based on uBASIC (Copyright (c) 2006, Adam Dunkels, All rights reserved).</p>
@@ -270,7 +297,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>These macros generate both an enum and an array of strings, these are used as part of the tokenizer to parse the names of the keywords out of the BASIC program without having to remember to match up a string and its token enum value in two places. It is also used for error reporting. </p>
+
+<p>List of all tokens recognized by the interpreter. </p>
+<p>Note that built-in function names are not considered tokens. Instead, they are treated like user-defined functions, but with hardcoded handlers rather than being redirected to user-defined code.</p>
+<p>The following #define generates an enum of token types, along with a corresponding array of string representations for each token. These are used in basic.c to perform tokenization during program parsing. </p>
 
 </div>
 </div>
@@ -360,6 +390,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Maximum length for variable names. </p>
+
 </div>
 </div>
 <a id="ae61303e288a41f0e25ff8cd0c6296957"></a>
@@ -379,7 +411,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>All tokens recognised by the interpreter. Note that built in function names are NOT tokens, they are parsed like user functions, just with a hard coded handler instead of redirecting into the user program. </p>
-<p>The #define below builds an enum, and can also build an array of strings of the names in the enum, which is built and used within ubasic.c for tokenization. </p>
+<p>The #define below builds an enum, and can also build an array of strings of the names in the enum, which is built and used within basic.c for tokenization. </p>
 
 </div>
 </div>
@@ -438,6 +470,8 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaf613d73b4e7b570ffd967df4a13c4225"></a>MINUS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea865555c9f2e0458a7078486aa1b3254f"></a>AND&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea96727447c0ad447987df1c6415aef074"></a>OR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea0378ebc895849163b249d0b330257dd6"></a>NOT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea4730d67b92a52e0e6ef813e8805c1623"></a>EOR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea7a48eb0b5d5a758daa1bfac07896eccb"></a>ASTERISK&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaaabdfe7000ca535236502bb0c87ad944"></a>SLASH&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea140fcc89db148e5975f1486e794675ba"></a>MOD&#160;</td><td class="fielddoc"></td></tr>
@@ -463,6 +497,8 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea15108ccafa3232b9067f889b6156f565"></a>POINT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea4129fbc9099a38a45236ef001ac88f7b"></a>OPENOUT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea5d40d07a11694bcaa920c76927d4518c"></a>OPENUP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea9d7d6f31868d66330397c967c4afd2d2"></a>DATA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea12f3955776faf06252c403542f7ed380"></a>RESTORE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea61aa7ff70b76bff0fda378cf61d6afbc"></a>WRITE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaa38c102cd5f16bce8688265f3fcd0898"></a>MKDIR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaca55b35eb23ace758d275b9201760016"></a>RMDIR&#160;</td><td class="fielddoc"></td></tr>
@@ -475,22 +511,35 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea061dcf4785583d8653942f2d252174fa"></a>POP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfead0ef00e708ed18ba004480dceb79ecfb"></a>LOCAL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea2b6ce73e76e23d54b62e59fba07b6616"></a>CHDIR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea72285f0e2e8529642eb0a6025b12e1e0"></a>LIBRARY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea094487780ed8c40e1a40978135ada67e"></a>YIELD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeab8b8202307c0b81f8f74dbb4cc64a0f2"></a>SETVARI&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea7cdcfc979695597cf29b3614513c02db"></a>SETVARR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea8b118c071e206b9f34f39409d553b980"></a>SETVARS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea458988d6a64b5b380569cc8b0f033796"></a>SPRITELOAD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeae90b1974186cfb6382abefecbc258f79"></a>SPRITEFREE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeaf6b3950aa4550694de08caa8d556f49a"></a>PLOT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea788404a986311ae14b04018c14230c3d"></a>AUTOFLIP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea97744c5570e743b377f5fb63b9aa3587"></a>FLIP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea7fcbfec4fd61b8625ec554ecb3ee966d"></a>KEYMAP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfeabe8c81f9db8320b327f4fe513a1a873b"></a>MOUNT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea7c967eb66252a307af061191f63d418a"></a>SETTIMEZONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4ebc26c81c029670805b51af165f9cfea254ab1e0ec6ec176c77b1e80d26d5a8c"></a>KGET&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="abadcb4f19d80e60be45f20bbad01e779"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abadcb4f19d80e60be45f20bbad01e779">&#9670;&nbsp;</a></span>get_next_token()</h2>
+<a id="a4c2dde024f06a78140c96f2810c93787"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c2dde024f06a78140c96f2810c93787">&#9670;&nbsp;</a></span>get_next_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int get_next_token </td>
+          <td class="memname">void int get_next_token </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
@@ -508,8 +557,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adce229f0f08dc3e9a6b0035b30e6ad3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adce229f0f08dc3e9a6b0035b30e6ad3c">&#9670;&nbsp;</a></span>tokenizer_decimal_number()</h2>
+<a id="ab40661a3dcab47340e3f60f66a0ac328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40661a3dcab47340e3f60f66a0ac328">&#9670;&nbsp;</a></span>tokenizer_decimal_number()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -517,7 +566,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool tokenizer_decimal_number </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
@@ -535,8 +584,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aaddfae9451e992d402cbaab9550329a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaddfae9451e992d402cbaab9550329a4">&#9670;&nbsp;</a></span>tokenizer_error_print()</h2>
+<a id="a6bb8f288ca3badb019539980d26250fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bb8f288ca3badb019539980d26250fc">&#9670;&nbsp;</a></span>tokenizer_error_print()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,7 +593,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void tokenizer_error_print </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em>, </td>
         </tr>
         <tr>
@@ -573,8 +622,52 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4e09edb731e8ff60d65cc1296b17f5c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e09edb731e8ff60d65cc1296b17f5c6">&#9670;&nbsp;</a></span>tokenizer_finished()</h2>
+<a id="a05e911984e6c171ed0bff6c17a6d8c27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e911984e6c171ed0bff6c17a6d8c27">&#9670;&nbsp;</a></span>tokenizer_error_printf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tokenizer_error_printf </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>display an error to the terminal and end the program </p>
+<dl class="section note"><dt>Note</dt><dd>If the program is running an EVAL, the error is printed but the program is not ended, instead ERROR$ and ERROR are set.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>context </td></tr>
+    <tr><td class="paramname">error</td><td>error message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7dd37ac7fb189bdb8e99de3ddff44444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd37ac7fb189bdb8e99de3ddff44444">&#9670;&nbsp;</a></span>tokenizer_finished()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -582,7 +675,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int tokenizer_finished </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
@@ -600,8 +693,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a30b4e02b1252eb4688912a965c8a458f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30b4e02b1252eb4688912a965c8a458f">&#9670;&nbsp;</a></span>tokenizer_fnum()</h2>
+<a id="a9a48b9685f151008f71e4346eb1cf68c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a48b9685f151008f71e4346eb1cf68c">&#9670;&nbsp;</a></span>tokenizer_fnum()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -609,7 +702,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void tokenizer_fnum </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em>, </td>
         </tr>
         <tr>
@@ -644,8 +737,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8b20eecbf3cb305174870ee0732f3e38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b20eecbf3cb305174870ee0732f3e38">&#9670;&nbsp;</a></span>tokenizer_init()</h2>
+<a id="a67447b73d4ebd22e263ae4d8d7494a9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67447b73d4ebd22e263ae4d8d7494a9b">&#9670;&nbsp;</a></span>tokenizer_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -659,7 +752,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em>&#160;</td>
         </tr>
         <tr>
@@ -672,8 +765,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab95d257fd507afd722006b98f701aac4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab95d257fd507afd722006b98f701aac4">&#9670;&nbsp;</a></span>tokenizer_next()</h2>
+<a id="a00dbb52d768c7b1dc31776d51a4b0c6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00dbb52d768c7b1dc31776d51a4b0c6b">&#9670;&nbsp;</a></span>tokenizer_next()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -681,7 +774,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void tokenizer_next </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
@@ -698,8 +791,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a269601b38635279d07cffaa53be980d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a269601b38635279d07cffaa53be980d7">&#9670;&nbsp;</a></span>tokenizer_num()</h2>
+<a id="ad40ac0288be0a9ef70c9cd31b66663de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad40ac0288be0a9ef70c9cd31b66663de">&#9670;&nbsp;</a></span>tokenizer_num()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -707,7 +800,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int64_t tokenizer_num </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em>, </td>
         </tr>
         <tr>
@@ -736,8 +829,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aea837c7f0165fca0472bc82305e2779c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea837c7f0165fca0472bc82305e2779c">&#9670;&nbsp;</a></span>tokenizer_string()</h2>
+<a id="a749f588540db6d7cec847d658a9e6a8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a749f588540db6d7cec847d658a9e6a8d">&#9670;&nbsp;</a></span>tokenizer_string()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -757,7 +850,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em>&#160;</td>
         </tr>
         <tr>
@@ -781,8 +874,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a79ca032550e6866dee021d3da651dbad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79ca032550e6866dee021d3da651dbad">&#9670;&nbsp;</a></span>tokenizer_token()</h2>
+<a id="ad1bbf905fff7e37e6244ceb8ac31656b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1bbf905fff7e37e6244ceb8ac31656b">&#9670;&nbsp;</a></span>tokenizer_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -790,7 +883,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int tokenizer_token </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
@@ -808,8 +901,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af8052b7a25debd60b06bd873b4a7f430"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8052b7a25debd60b06bd873b4a7f430">&#9670;&nbsp;</a></span>tokenizer_variable_name()</h2>
+<a id="aec506ea7f004aaa4d5cb3a9e4ed1e61e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec506ea7f004aaa4d5cb3a9e4ed1e61e">&#9670;&nbsp;</a></span>tokenizer_variable_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -817,7 +910,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">const char* tokenizer_variable_name </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structubasic__ctx.html">ubasic_ctx</a> *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
@@ -840,8 +933,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="tokenizer_8h.html">tokenizer.h</a></li>
-    <li class="footer">Generated on Wed May 3 2023 13:47:51 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_1e5d3661ed79af157d57e64a38265d09.html">basic</a></li><li class="navelem"><a class="el" href="tokenizer_8h.html">tokenizer.h</a></li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

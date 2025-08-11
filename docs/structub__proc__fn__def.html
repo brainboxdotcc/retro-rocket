@@ -91,33 +91,40 @@ $(document).ready(function(){initNavTree('structub__proc__fn__def.html',''); ini
 </div><!--header-->
 <div class="contents">
 
-<p>Procedure or function definition Each has a name, a type, a starting line and a parameter list.  
+<p>Procedure or function definition.  
  <a href="structub__proc__fn__def.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_proc_fn_def:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structub__proc__fn__def__coll__graph.svg" width="456" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structub__proc__fn__def__coll__graph.svg" width="456" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a69737ebfd8476239a7f97f08b75e510f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__proc__fn__def.html#a69737ebfd8476239a7f97f08b75e510f">name</a></td></tr>
+<tr class="memdesc:a69737ebfd8476239a7f97f08b75e510f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the function or procedure.  <a href="structub__proc__fn__def.html#a69737ebfd8476239a7f97f08b75e510f">More...</a><br /></td></tr>
 <tr class="separator:a69737ebfd8476239a7f97f08b75e510f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf1a001204ca6a291414325774eda5bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="basic_8h.html#a65231902c1f22532519da8a1c01ba53e">ub_fn_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__proc__fn__def.html#aaf1a001204ca6a291414325774eda5bc">type</a></td></tr>
+<tr class="memitem:aaf1a001204ca6a291414325774eda5bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs_8h.html#a65231902c1f22532519da8a1c01ba53e">ub_fn_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__proc__fn__def.html#aaf1a001204ca6a291414325774eda5bc">type</a></td></tr>
+<tr class="memdesc:aaf1a001204ca6a291414325774eda5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of function or procedure (FN/PROC)  <a href="structub__proc__fn__def.html#aaf1a001204ca6a291414325774eda5bc">More...</a><br /></td></tr>
 <tr class="separator:aaf1a001204ca6a291414325774eda5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3410b24ce2ff1bcbd0b8c77316380be"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__proc__fn__def.html#ab3410b24ce2ff1bcbd0b8c77316380be">line</a></td></tr>
+<tr class="memdesc:ab3410b24ce2ff1bcbd0b8c77316380be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting line number of the function or procedure.  <a href="structub__proc__fn__def.html#ab3410b24ce2ff1bcbd0b8c77316380be">More...</a><br /></td></tr>
 <tr class="separator:ab3410b24ce2ff1bcbd0b8c77316380be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaea6658f10a987ecd19fc991c84cbc7"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__param.html">ub_param</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__proc__fn__def.html#aaaea6658f10a987ecd19fc991c84cbc7">params</a></td></tr>
+<tr class="memdesc:aaaea6658f10a987ecd19fc991c84cbc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linked list of function parameters.  <a href="structub__proc__fn__def.html#aaaea6658f10a987ecd19fc991c84cbc7">More...</a><br /></td></tr>
 <tr class="separator:aaaea6658f10a987ecd19fc991c84cbc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fd77b8a20b660a5167e10095833853c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__proc__fn__def.html">ub_proc_fn_def</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__proc__fn__def.html#a8fd77b8a20b660a5167e10095833853c">next</a></td></tr>
+<tr class="memdesc:a8fd77b8a20b660a5167e10095833853c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next function or procedure definition.  <a href="structub__proc__fn__def.html#a8fd77b8a20b660a5167e10095833853c">More...</a><br /></td></tr>
 <tr class="separator:a8fd77b8a20b660a5167e10095833853c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Procedure or function definition Each has a name, a type, a starting line and a parameter list. </p>
+<div class="textblock"><p>Procedure or function definition. </p>
+<p>This structure holds information about a function or procedure, including its name, type (FN/PROC), starting line number, and a linked list of parameters. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="ab3410b24ce2ff1bcbd0b8c77316380be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3410b24ce2ff1bcbd0b8c77316380be">&#9670;&nbsp;</a></span>line</h2>
@@ -130,6 +137,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Starting line number of the function or procedure. </p>
 
 </div>
 </div>
@@ -145,6 +154,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Name of the function or procedure. </p>
+
 </div>
 </div>
 <a id="a8fd77b8a20b660a5167e10095833853c"></a>
@@ -158,6 +169,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Pointer to the next function or procedure definition. </p>
 
 </div>
 </div>
@@ -173,6 +186,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Linked list of function parameters. </p>
+
 </div>
 </div>
 <a id="aaf1a001204ca6a291414325774eda5bc"></a>
@@ -182,10 +197,12 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="basic_8h.html#a65231902c1f22532519da8a1c01ba53e">ub_fn_type</a> ub_proc_fn_def::type</td>
+          <td class="memname"><a class="el" href="structs_8h.html#a65231902c1f22532519da8a1c01ba53e">ub_fn_type</a> ub_proc_fn_def::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Type of function or procedure (FN/PROC) </p>
 
 </div>
 </div>
@@ -195,7 +212,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__proc__fn__def.html">ub_proc_fn_def</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

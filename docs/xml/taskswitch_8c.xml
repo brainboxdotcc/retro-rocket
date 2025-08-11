@@ -4,7 +4,7 @@
     <compoundname>taskswitch.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <incdepgraph>
-      <node id="32">
+      <node id="52">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
@@ -14,8 +14,59 @@
       <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
       </node>
-      <node id="35">
+      <node id="23">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>stdarg.h</label>
+      </node>
+      <node id="55">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -24,19 +75,43 @@
       <node id="14">
         <label>stdatomic.h</label>
       </node>
-      <node id="47">
+      <node id="26">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="22">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="61">
+      <node id="24">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -44,13 +119,13 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="78">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="58">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -66,13 +141,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="76">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="56">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -88,7 +163,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="74">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
@@ -100,7 +175,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="49">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -113,25 +188,27 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="59">
+      <node id="79">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="27">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="69">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="48">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -142,17 +219,33 @@
       <node id="12">
         <label>x86intrin.h</label>
       </node>
-      <node id="23">
+      <node id="43">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
+      <node id="34">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="41">
+      <node id="61">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
@@ -174,26 +267,34 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="70">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="64">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="31">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="42">
+      <node id="62">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="60">
+      <node id="80">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -203,37 +304,85 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="55">
+      <node id="82">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="35">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="72">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="28">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="27">
+      <node id="47">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="57">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="25">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="53">
+      <node id="29">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -274,46 +423,6 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
@@ -321,8 +430,6 @@
         <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -360,14 +467,68 @@
         </childnode>
         <childnode refid="62" relation="include">
         </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
       </node>
-      <node id="21">
+      <node id="41">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="37">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
@@ -379,7 +540,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="84">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -397,41 +564,71 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="68">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="44">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="39">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
       <node id="30">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="45">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="65">
+        <label>basic/tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="42">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
@@ -441,25 +638,41 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="51">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="38">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="62">
+      <node id="81">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="40">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -469,6 +682,23 @@
       </node>
     </incdepgraph>
       <sectiondef kind="var">
+      <memberdef kind="variable" id="taskswitch_8c_1a9fbef8ef299fdcfc0326cddb385f2ee8" prot="public" static="no" mutable="no">
+        <type>struct limine_kernel_file_request</type>
+        <definition>volatile struct limine_kernel_file_request rr_kfile_req</definition>
+        <argsstring></argsstring>
+        <name>rr_kfile_req</name>
+        <initializer>= {
+	.<ref refid="dns_8c_1a4fc3a0c58dfbd1e68224521185cb9384" kindref="member">id</ref> = LIMINE_KERNEL_FILE_REQUEST,
+	.<ref refid="acpi_8h_1ab01c6e281b316b1770d5646f3d3101c4" kindref="member">revision</ref> = 0
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/taskswitch.c" line="1" column="0" bodyfile="src/taskswitch.c" bodystart="3" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1aec02a136f8c68158ceecb321db083fe7" prot="public" static="no" mutable="no">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
         <definition>process_t* proc_current[MAX_CPUS]</definition>
@@ -482,7 +712,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="6" column="11" bodyfile="src/taskswitch.c" bodystart="6" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="11" column="11" bodyfile="src/taskswitch.c" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1a61f2432ddea8c570469210d4f0813b46" prot="public" static="no" mutable="no">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -497,7 +727,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="12" column="11" bodyfile="src/taskswitch.c" bodystart="12" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="17" column="11" bodyfile="src/taskswitch.c" bodystart="17" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1af39c2d6e299e3e3c2184a6420cd85fbb" prot="public" static="no" mutable="no">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -512,7 +742,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="16" column="11" bodyfile="src/taskswitch.c" bodystart="16" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="21" column="11" bodyfile="src/taskswitch.c" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1ad95aac4b5cf5e07580b1fcb1fffc5749" prot="public" static="no" mutable="no">
         <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
@@ -527,7 +757,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="20" column="12" bodyfile="src/taskswitch.c" bodystart="20" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="25" column="12" bodyfile="src/taskswitch.c" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1aee3f41827e667c2d0dcd74dae45051c2" prot="public" static="no" mutable="no">
         <type><ref refid="spinlock_8h_1af82eed01f0304d83276dda764b213779" kindref="member">spinlock_t</ref></type>
@@ -542,7 +772,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="24" column="12" bodyfile="src/taskswitch.c" bodystart="24" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="29" column="12" bodyfile="src/taskswitch.c" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1a6ecfe70963a36f1fc74ce7c5f5479e11" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structhashmap" kindref="compound">hashmap</ref> *</type>
@@ -556,7 +786,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="32" column="15" bodyfile="src/taskswitch.c" bodystart="32" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="37" column="15" bodyfile="src/taskswitch.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1a98348e79b1c16f9af43ef7e8fc278c22" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -571,7 +801,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="38" column="10" bodyfile="src/taskswitch.c" bodystart="38" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="43" column="10" bodyfile="src/taskswitch.c" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1aa56fabba3ca96349f6e8cde48042e1b4" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -586,7 +816,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="45" column="10" bodyfile="src/taskswitch.c" bodystart="45" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="50" column="10" bodyfile="src/taskswitch.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1a8461048be5ed2ffb92c3a1fd67759f08" prot="public" static="no" mutable="no">
         <type><ref refid="structidle__timer__t" kindref="compound">idle_timer_t</ref> *</type>
@@ -601,7 +831,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="54" column="14" bodyfile="src/taskswitch.c" bodystart="54" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="59" column="14" bodyfile="src/taskswitch.c" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1ac655479725c9e7ef12d2b4ca97b85c62" prot="public" static="no" mutable="no">
         <type><ref refid="structidle__timer__t" kindref="compound">idle_timer_t</ref> *</type>
@@ -615,7 +845,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="54" column="26" bodyfile="src/taskswitch.c" bodystart="54" bodyend="-1"/>
+        <location file="src/taskswitch.c" line="59" column="26" bodyfile="src/taskswitch.c" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="taskswitch_8c_1ab83248c0daa174a8ca16df53a7ab8b7f" prot="public" static="no" mutable="no">
         <type><ref refid="structsimple__cv__t" kindref="compound">simple_cv_t</ref></type>
@@ -628,7 +858,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="56" column="20" bodyfile="src/ap.c" bodystart="16" bodyend="-1" declfile="src/taskswitch.c" declline="56" declcolumn="20"/>
+        <location file="src/taskswitch.c" line="61" column="20" bodyfile="src/ap.c" bodystart="16" bodyend="-1" declfile="src/taskswitch.c" declline="61" declcolumn="20"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -696,7 +926,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="58" column="11" bodyfile="src/taskswitch.c" bodystart="58" bodyend="141"/>
+        <location file="src/taskswitch.c" line="63" column="11" bodyfile="src/taskswitch.c" bodystart="63" bodyend="147"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1aa8769acde79d259426e68e9e4fba6544" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -726,7 +956,28 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="143" column="11" bodyfile="src/taskswitch.c" bodystart="143" bodyend="149"/>
+        <location file="src/taskswitch.c" line="149" column="11" bodyfile="src/taskswitch.c" bodystart="149" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8c_1ad73565bce74e98ff5d035cb77b16b881" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool check_wait_pid</definition>
+        <argsstring>(process_t *proc, void *opaque)</argsstring>
+        <name>check_wait_pid</name>
+        <param>
+          <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
+          <declname>proc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/taskswitch.c" line="157" column="6" bodyfile="src/taskswitch.c" bodystart="157" bodyend="163"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1abb94173794194e3382dc5482b7e0aa62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -754,7 +1005,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="151" column="6" bodyfile="src/taskswitch.c" bodystart="151" bodyend="162"/>
+        <location file="src/taskswitch.c" line="165" column="6" bodyfile="src/taskswitch.c" bodystart="165" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1ab5a40192ac7fb47cf38c7e803ccd0efb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
@@ -784,7 +1035,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="164" column="11" bodyfile="src/taskswitch.c" bodystart="164" bodyend="170"/>
+        <location file="src/taskswitch.c" line="178" column="11" bodyfile="src/taskswitch.c" bodystart="178" bodyend="184"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a7b25ff76590322d996a0cb108665cedc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -816,7 +1067,61 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="172" column="6" bodyfile="src/taskswitch.c" bodystart="172" bodyend="184"/>
+        <location file="src/taskswitch.c" line="186" column="6" bodyfile="src/taskswitch.c" bodystart="186" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="taskswitch_8c_1a8b4483bf423dcb85ed4e0abdfe07ad07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void proc_set_idle</definition>
+        <argsstring>(process_t *proc, activity_callback_t callback, void *context)</argsstring>
+        <name>proc_set_idle</name>
+        <param>
+          <type><ref refid="structprocess__t" kindref="compound">process_t</ref> *</type>
+          <declname>proc</declname>
+        </param>
+        <param>
+          <type><ref refid="taskswitch_8h_1adfca8568dd4c246f6a2cb5c23dc34052" kindref="member">activity_callback_t</ref></type>
+          <declname>callback</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>opaque</declname>
+          <defname>context</defname>
+        </param>
+        <briefdescription>
+<para>Set or clear the idle state of a process. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This sets a callback that determines whether the process is ready to resume. When a callback is provided, the process will be marked as suspended and polled each scheduling round. If the callback returns false, the process will be resumed. Passing NULL clears the idle state immediately.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>proc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Process to update </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to poll for resumption readiness, or NULL to resume immediately </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opaque</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>For use by developer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/taskswitch.c" line="200" column="6" bodyfile="src/taskswitch.c" bodystart="200" bodyend="213"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a8b2b24e480bc2b9188e720c028795cee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -856,7 +1161,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="186" column="6" bodyfile="src/taskswitch.c" bodystart="186" bodyend="193"/>
+        <location file="src/taskswitch.c" line="215" column="6" bodyfile="src/taskswitch.c" bodystart="215" bodyend="223"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1aa0340f929d97ebceb2e0d7eaa9d4d3ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -900,7 +1205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="195" column="12" bodyfile="src/taskswitch.c" bodystart="195" bodyend="217"/>
+        <location file="src/taskswitch.c" line="225" column="12" bodyfile="src/taskswitch.c" bodystart="225" bodyend="247"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a949bb14b82e340cdc2a49f9ecc53b086" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -917,7 +1222,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="219" column="12" bodyfile="src/taskswitch.c" bodystart="219" bodyend="225"/>
+        <location file="src/taskswitch.c" line="249" column="12" bodyfile="src/taskswitch.c" bodystart="249" bodyend="255"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a8951b9dab6452cf831a751d0cda64a5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -945,7 +1250,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="227" column="6" bodyfile="src/taskswitch.c" bodystart="227" bodyend="295"/>
+        <location file="src/taskswitch.c" line="257" column="6" bodyfile="src/taskswitch.c" bodystart="257" bodyend="325"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a01a99ff8bacb9f2f0509b21f45fc7217" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -962,7 +1267,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="297" column="9" bodyfile="src/taskswitch.c" bodystart="297" bodyend="300"/>
+        <location file="src/taskswitch.c" line="327" column="9" bodyfile="src/taskswitch.c" bodystart="327" bodyend="330"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a98ea5946e6a5a7a69b87f081ddf0b1e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="taskswitch_8h_1a7a26cb7f5678736cec66712d6df1d4ed" kindref="member">pid_t</ref></type>
@@ -992,7 +1297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="302" column="7" bodyfile="src/taskswitch.c" bodystart="302" bodyend="315"/>
+        <location file="src/taskswitch.c" line="332" column="7" bodyfile="src/taskswitch.c" bodystart="332" bodyend="345"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1af07a4cb6343c2ca5228d36287bd60a91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1005,7 +1310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="317" column="6" bodyfile="src/taskswitch.c" bodystart="317" bodyend="331"/>
+        <location file="src/taskswitch.c" line="347" column="6" bodyfile="src/taskswitch.c" bodystart="347" bodyend="361"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a52e01dc185bad0060a679bb691f0f908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -1030,7 +1335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="333" column="10" bodyfile="src/taskswitch.c" bodystart="333" bodyend="336"/>
+        <location file="src/taskswitch.c" line="363" column="10" bodyfile="src/taskswitch.c" bodystart="363" bodyend="366"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a66a5b7697b004c2f36dfd98efc5bee1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1055,7 +1360,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="338" column="5" bodyfile="src/taskswitch.c" bodystart="338" bodyend="342"/>
+        <location file="src/taskswitch.c" line="368" column="5" bodyfile="src/taskswitch.c" bodystart="368" bodyend="372"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a891b299b6b04305ac2665e45ce591204" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1088,7 +1393,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="344" column="6" bodyfile="src/taskswitch.c" bodystart="344" bodyend="346"/>
+        <location file="src/taskswitch.c" line="374" column="6" bodyfile="src/taskswitch.c" bodystart="374" bodyend="376"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1ab25d44702b6e10e723714c368c4a7520" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1102,7 +1407,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="348" column="6" bodyfile="src/taskswitch.c" bodystart="348" bodyend="361"/>
+        <location file="src/taskswitch.c" line="378" column="6" bodyfile="src/taskswitch.c" bodystart="378" bodyend="404"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1af57a1ba1649626d231502d6c23bbac49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1119,7 +1424,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="363" column="6" bodyfile="src/taskswitch.c" bodystart="363" bodyend="385"/>
+        <location file="src/taskswitch.c" line="406" column="6" bodyfile="src/taskswitch.c" bodystart="406" bodyend="428"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a1ec64ff3e1bbf088a6611d7304cf72e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1134,7 +1439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="387" column="6" bodyfile="src/taskswitch.c" bodystart="387" bodyend="403"/>
+        <location file="src/taskswitch.c" line="430" column="6" bodyfile="src/taskswitch.c" bodystart="430" bodyend="446"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1a7844baa5edadb538de03bc3494e947cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1164,7 +1469,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="405" column="5" bodyfile="src/taskswitch.c" bodystart="405" bodyend="408"/>
+        <location file="src/taskswitch.c" line="448" column="5" bodyfile="src/taskswitch.c" bodystart="448" bodyend="451"/>
       </memberdef>
       <memberdef kind="function" id="taskswitch_8c_1ad2dd4ffab2aaabd37998ec3b3216af48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1204,7 +1509,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/taskswitch.c" line="410" column="6" bodyfile="src/taskswitch.c" bodystart="410" bodyend="422"/>
+        <location file="src/taskswitch.c" line="453" column="6" bodyfile="src/taskswitch.c" bodystart="453" bodyend="465"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

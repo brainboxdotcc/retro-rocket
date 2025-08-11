@@ -94,37 +94,54 @@ $(document).ready(function(){initNavTree('retrofs_8h.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 
-<p>Structures and functions for RetroFS, an ADFS L format inspired file system for Retro Rocket.  
+<p>Core structures, constants, and API definitions for RetroFS — an ADFS 'L' format–inspired filesystem for Retro Rocket.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="kernel_8h.html">kernel.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__description__block__t.html">rfs_description_block_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk description block containing global filesystem metadata.  <a href="structrfs__description__block__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionrfs__description__block__padded__t.html">rfs_description_block_padded_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padded variant of the description block to exactly fill one sector.  <a href="unionrfs__description__block__padded__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__free__space__map__part__t.html">rfs_free_space_map_part_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One sector of the free space map, containing an array of 64-bit bitfields.  <a href="structrfs__free__space__map__part__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__directory__entry__inner__t.html">rfs_directory_entry_inner_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk file entry structure for non-directory entries.  <a href="structrfs__directory__entry__inner__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__directory__start__t.html">rfs_directory_start_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk directory start entry.  <a href="structrfs__directory__start__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionrfs__directory__entry__t.html">rfs_directory_entry_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unified representation of either a directory start or file entry.  <a href="unionrfs__directory__entry__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__t.html">rfs_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-memory RetroFS mount context.  <a href="structrfs__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a2edcb522edb2eb0eda942e933b1353d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a2edcb522edb2eb0eda942e933b1353d1">RFS_L1_GROUP_SECTORS</a>&#160;&#160;&#160;(4096ULL)</td></tr>
+<tr class="separator:a2edcb522edb2eb0eda942e933b1353d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f0b46f13df6e029244c1d1bbce20606"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a3f0b46f13df6e029244c1d1bbce20606">RFS_L2_GROUPS_PER_SUPER</a>&#160;&#160;&#160;(1024ULL)</td></tr>
+<tr class="separator:a3f0b46f13df6e029244c1d1bbce20606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb65d4847594b25424eb2a304e7741c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#afb65d4847594b25424eb2a304e7741c1">ALIGN_UP</a>(x,  <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>)&#160;&#160;&#160;(((x) + ((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1)) &amp; ~((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1))</td></tr>
+<tr class="memdesc:afb65d4847594b25424eb2a304e7741c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align a value upwards to the next multiple of <code>a</code>.  <a href="retrofs_8h.html#afb65d4847594b25424eb2a304e7741c1">More...</a><br /></td></tr>
+<tr class="separator:afb65d4847594b25424eb2a304e7741c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Filesystem Constants</div></td></tr>
 <tr class="memitem:a0e4f92f12413502ff471ed5404d80df6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a0e4f92f12413502ff471ed5404d80df6">RFS_SECTOR_SIZE</a>&#160;&#160;&#160;512</td></tr>
 <tr class="separator:a0e4f92f12413502ff471ed5404d80df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b7d6124b62b834bfaceb921b4b2b1bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a2b7d6124b62b834bfaceb921b4b2b1bb">RFS_MAX_NAME</a>&#160;&#160;&#160;128</td></tr>
 <tr class="separator:a2b7d6124b62b834bfaceb921b4b2b1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4a364442c5a3451da2edade32468c08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#aa4a364442c5a3451da2edade32468c08">RFS_FS_MAP_BITS_PER_SECTOR</a>&#160;&#160;&#160;(512 / sizeof(uint64_t))</td></tr>
 <tr class="separator:aa4a364442c5a3451da2edade32468c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54cc1fc2306ba1d8e64c6c23895570fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a54cc1fc2306ba1d8e64c6c23895570fd">RFS_DEFAULT_DIR_SIZE</a>&#160;&#160;&#160;32</td></tr>
-<tr class="memdesc:a54cc1fc2306ba1d8e64c6c23895570fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default directory size of a block in sectors (<a class="el" href="structrfs__directory__start__t.html#a3ad10ef57a35c30dd2192a5ae4b667c2">rfs_directory_start_t::sectors</a>) 32 sectors holds 63 files (the first entry is the start entry that contains the continuation pointer etc)  <a href="retrofs_8h.html#a54cc1fc2306ba1d8e64c6c23895570fd">More...</a><br /></td></tr>
+<tr class="memitem:a23c6a84effa5b35824246bbaee17d507"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a23c6a84effa5b35824246bbaee17d507">RFS_MAP_READ_CHUNK_SECTORS</a>&#160;&#160;&#160;128ULL</td></tr>
+<tr class="separator:a23c6a84effa5b35824246bbaee17d507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54cc1fc2306ba1d8e64c6c23895570fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a54cc1fc2306ba1d8e64c6c23895570fd">RFS_DEFAULT_DIR_SIZE</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:a54cc1fc2306ba1d8e64c6c23895570fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default number of sectors allocated for a directory block.  <a href="retrofs_8h.html#a54cc1fc2306ba1d8e64c6c23895570fd">More...</a><br /></td></tr>
 <tr class="separator:a54cc1fc2306ba1d8e64c6c23895570fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af86a1b071c41a7d9fbad6c088af76648"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#af86a1b071c41a7d9fbad6c088af76648">RFS_FLAG_DIRECTORY</a>&#160;&#160;&#160;0x0001</td></tr>
 <tr class="separator:af86a1b071c41a7d9fbad6c088af76648"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,22 +150,98 @@ Macros</h2></td></tr>
 <tr class="memitem:aa24b4576d1f509758f6e8226698b51f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#aa24b4576d1f509758f6e8226698b51f7">RFS_FLAG_DIR_START</a>&#160;&#160;&#160;0x0004</td></tr>
 <tr class="separator:aa24b4576d1f509758f6e8226698b51f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a865a985f3038788a5b1d024c3c5f93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a0a865a985f3038788a5b1d024c3c5f93">RFS_ID</a>&#160;&#160;&#160;(uint64_t)0x3153466f72746552ULL</td></tr>
+<tr class="memdesc:a0a865a985f3038788a5b1d024c3c5f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filesystem identifier magic ("RetroFS1").  <a href="retrofs_8h.html#a0a865a985f3038788a5b1d024c3c5f93">More...</a><br /></td></tr>
 <tr class="separator:a0a865a985f3038788a5b1d024c3c5f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12d78567bdb02c7a2a711809ea256837"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a12d78567bdb02c7a2a711809ea256837">RFS_GPT_GUID</a>&#160;&#160;&#160;&quot;4DEC1156-FEC8-4495-854B-20D888E21AF0&quot;</td></tr>
-<tr class="memdesc:a12d78567bdb02c7a2a711809ea256837"><td class="mdescLeft">&#160;</td><td class="mdescRight">RetroFS GPT Partition Type GUID UUID v4 reserved for Retro Rocket RetroFS partitions.  <a href="retrofs_8h.html#a12d78567bdb02c7a2a711809ea256837">More...</a><br /></td></tr>
+<tr class="memdesc:a12d78567bdb02c7a2a711809ea256837"><td class="mdescLeft">&#160;</td><td class="mdescRight">RetroFS GPT Partition Type GUID.  <a href="retrofs_8h.html#a12d78567bdb02c7a2a711809ea256837">More...</a><br /></td></tr>
 <tr class="separator:a12d78567bdb02c7a2a711809ea256837"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:acf62e62db6f6ac525292a4a573683766"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structrfs__description__block__t.html">rfs_description_block_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#acf62e62db6f6ac525292a4a573683766">__attribute__</a> ((packed)) <a class="el" href="structrfs__description__block__t.html">rfs_description_block_t</a></td></tr>
-<tr class="memdesc:acf62e62db6f6ac525292a4a573683766"><td class="mdescLeft">&#160;</td><td class="mdescRight">ACPI Root System Description Pointer (RSDP)  <a href="retrofs_8h.html#acf62e62db6f6ac525292a4a573683766">More...</a><br /></td></tr>
+<tr class="memdesc:acf62e62db6f6ac525292a4a573683766"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-disk description block containing global filesystem metadata.  <a href="retrofs_8h.html#acf62e62db6f6ac525292a4a573683766">More...</a><br /></td></tr>
 <tr class="separator:acf62e62db6f6ac525292a4a573683766"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77ee899b72553734d6c2814efccddb22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a77ee899b72553734d6c2814efccddb22">init_rfs</a> ()</td></tr>
-<tr class="separator:a77ee899b72553734d6c2814efccddb22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8dd70e5f6b324291b30fc7b28cab425"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#ab8dd70e5f6b324291b30fc7b28cab425">rfs_get_default_reservation</a> (const char *<a class="el" href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a>)</td></tr>
+<tr class="memdesc:ab8dd70e5f6b324291b30fc7b28cab425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the default reservation size for a file based on extension.  <a href="retrofs_8h.html#ab8dd70e5f6b324291b30fc7b28cab425">More...</a><br /></td></tr>
+<tr class="separator:ab8dd70e5f6b324291b30fc7b28cab425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7b398efc7ff474bca4b15403be35fd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#aba7b398efc7ff474bca4b15403be35fd">bitset_set</a> (uint8_t *bs, uint64_t idx, bool val)</td></tr>
+<tr class="memdesc:aba7b398efc7ff474bca4b15403be35fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear a bit in a bitset.  <a href="retrofs_8h.html#aba7b398efc7ff474bca4b15403be35fd">More...</a><br /></td></tr>
+<tr class="separator:aba7b398efc7ff474bca4b15403be35fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c432433d901608787bf860d32aa4338"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5c432433d901608787bf860d32aa4338">bitset_get</a> (const uint8_t *bs, uint64_t idx)</td></tr>
+<tr class="memdesc:a5c432433d901608787bf860d32aa4338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of a bit from a bitset.  <a href="retrofs_8h.html#a5c432433d901608787bf860d32aa4338">More...</a><br /></td></tr>
+<tr class="separator:a5c432433d901608787bf860d32aa4338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a237b71aeb1f5c8205f278807a1217d00"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a237b71aeb1f5c8205f278807a1217d00">bitset_bytes</a> (uint64_t nbits)</td></tr>
+<tr class="memdesc:a237b71aeb1f5c8205f278807a1217d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the number of bytes needed to store a bitset of given size.  <a href="retrofs_8h.html#a237b71aeb1f5c8205f278807a1217d00">More...</a><br /></td></tr>
+<tr class="separator:a237b71aeb1f5c8205f278807a1217d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d5bdf2c5488df54a69eed36861a1e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#af0d5bdf2c5488df54a69eed36861a1e2">init_rfs</a> (void)</td></tr>
+<tr class="memdesc:af0d5bdf2c5488df54a69eed36861a1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the RetroFS subsystem.  <a href="retrofs_8h.html#af0d5bdf2c5488df54a69eed36861a1e2">More...</a><br /></td></tr>
+<tr class="separator:af0d5bdf2c5488df54a69eed36861a1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe6611ac18c6910947bc99f12691a936"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#afe6611ac18c6910947bc99f12691a936">rfs_format</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info)</td></tr>
+<tr class="memdesc:afe6611ac18c6910947bc99f12691a936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format a block device or partition with a fresh RetroFS filesystem.  <a href="retrofs_8h.html#afe6611ac18c6910947bc99f12691a936">More...</a><br /></td></tr>
+<tr class="separator:afe6611ac18c6910947bc99f12691a936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aa41789c8d357a0e0d8d83bc0ff7580"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a7aa41789c8d357a0e0d8d83bc0ff7580">rfs_read_device</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *rfs, uint64_t start_sectors, uint64_t size_bytes, void *buffer)</td></tr>
+<tr class="memdesc:a7aa41789c8d357a0e0d8d83bc0ff7580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read raw sectors from the underlying device.  <a href="retrofs_8h.html#a7aa41789c8d357a0e0d8d83bc0ff7580">More...</a><br /></td></tr>
+<tr class="separator:a7aa41789c8d357a0e0d8d83bc0ff7580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af68c31483d4d81b83304d6aabf979a39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#af68c31483d4d81b83304d6aabf979a39">rfs_write_device</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *buffer)</td></tr>
+<tr class="memdesc:af68c31483d4d81b83304d6aabf979a39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write raw sectors to the underlying device.  <a href="retrofs_8h.html#af68c31483d4d81b83304d6aabf979a39">More...</a><br /></td></tr>
+<tr class="separator:af68c31483d4d81b83304d6aabf979a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae89881aa48831a06f9f7b87c7062a64d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#ae89881aa48831a06f9f7b87c7062a64d">rfs_find_free_extent</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info, uint64_t need, uint64_t *out_start_sector)</td></tr>
+<tr class="memdesc:ae89881aa48831a06f9f7b87c7062a64d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a contiguous extent of free sectors.  <a href="retrofs_8h.html#ae89881aa48831a06f9f7b87c7062a64d">More...</a><br /></td></tr>
+<tr class="separator:ae89881aa48831a06f9f7b87c7062a64d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab460b9c1eac8f02af9c54e02cf315e71"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#ab460b9c1eac8f02af9c54e02cf315e71">rfs_mark_extent</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info, uint64_t start_sector, uint64_t length_sectors, bool mark_used)</td></tr>
+<tr class="memdesc:ab460b9c1eac8f02af9c54e02cf315e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark a contiguous extent as used or free in the free space map.  <a href="retrofs_8h.html#ab460b9c1eac8f02af9c54e02cf315e71">More...</a><br /></td></tr>
+<tr class="separator:ab460b9c1eac8f02af9c54e02cf315e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68bfd092abff119ace6499907853609a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a68bfd092abff119ace6499907853609a">rfs_build_level_caches</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info)</td></tr>
+<tr class="memdesc:a68bfd092abff119ace6499907853609a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build L1/L2 cache structures from the on-disk free space map.  <a href="retrofs_8h.html#a68bfd092abff119ace6499907853609a">More...</a><br /></td></tr>
+<tr class="separator:a68bfd092abff119ace6499907853609a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a876aef9a94400e7fb576c78b60ef603f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a876aef9a94400e7fb576c78b60ef603f">rfs_get_directory</a> (void *t)</td></tr>
+<tr class="memdesc:a876aef9a94400e7fb576c78b60ef603f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a directory structure from a VFS handle.  <a href="retrofs_8h.html#a876aef9a94400e7fb576c78b60ef603f">More...</a><br /></td></tr>
+<tr class="separator:a876aef9a94400e7fb576c78b60ef603f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dc1377127abd3436b8c3c1da78dadbc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a6dc1377127abd3436b8c3c1da78dadbc">rfs_unlink_file</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="memdesc:a6dc1377127abd3436b8c3c1da78dadbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a file from a directory.  <a href="retrofs_8h.html#a6dc1377127abd3436b8c3c1da78dadbc">More...</a><br /></td></tr>
+<tr class="separator:a6dc1377127abd3436b8c3c1da78dadbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a469381f22dcd59d3aedddf42376197fe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">rfs_read_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
+<tr class="memdesc:a469381f22dcd59d3aedddf42376197fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read part or all of a file.  <a href="retrofs_8h.html#a469381f22dcd59d3aedddf42376197fe">More...</a><br /></td></tr>
+<tr class="separator:a469381f22dcd59d3aedddf42376197fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eeda8efed6e103f25d8505e302fddfc"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a1eeda8efed6e103f25d8505e302fddfc">rfs_create_file</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>, size_t <a class="el" href="fat32_8h.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>)</td></tr>
+<tr class="memdesc:a1eeda8efed6e103f25d8505e302fddfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new file in a directory.  <a href="retrofs_8h.html#a1eeda8efed6e103f25d8505e302fddfc">More...</a><br /></td></tr>
+<tr class="separator:a1eeda8efed6e103f25d8505e302fddfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88042c064d74afebff8c8024718e5ba3"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a88042c064d74afebff8c8024718e5ba3">rfs_create_directory</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="memdesc:a88042c064d74afebff8c8024718e5ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new directory within an existing directory.  <a href="retrofs_8h.html#a88042c064d74afebff8c8024718e5ba3">More...</a><br /></td></tr>
+<tr class="separator:a88042c064d74afebff8c8024718e5ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affa287b51abff9d794e8d6d066553031"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#affa287b51abff9d794e8d6d066553031">rfs_unlink_dir</a> (void *dir, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>)</td></tr>
+<tr class="memdesc:affa287b51abff9d794e8d6d066553031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an empty directory from its parent.  <a href="retrofs_8h.html#affa287b51abff9d794e8d6d066553031">More...</a><br /></td></tr>
+<tr class="separator:affa287b51abff9d794e8d6d066553031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aac434718e1e16dfacc5630b6eada02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">rfs_write_file</a> (void *f, uint64_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
+<tr class="memdesc:a5aac434718e1e16dfacc5630b6eada02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write part or all of a file.  <a href="retrofs_8h.html#a5aac434718e1e16dfacc5630b6eada02">More...</a><br /></td></tr>
+<tr class="separator:a5aac434718e1e16dfacc5630b6eada02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a423e724ebf6c540c67cb3a0f59f8ea48">rfs_truncate_file</a> (void *f, size_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>)</td></tr>
+<tr class="memdesc:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Truncate or extend a file to a given length.  <a href="retrofs_8h.html#a423e724ebf6c540c67cb3a0f59f8ea48">More...</a><br /></td></tr>
+<tr class="separator:a423e724ebf6c540c67cb3a0f59f8ea48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37eae0c5029794c430e2f47bb401393a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a37eae0c5029794c430e2f47bb401393a">rfs_upsert_directory_entry</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint64_t sector_extent)</td></tr>
+<tr class="memdesc:a37eae0c5029794c430e2f47bb401393a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert or update a directory entry on disk.  <a href="retrofs_8h.html#a37eae0c5029794c430e2f47bb401393a">More...</a><br /></td></tr>
+<tr class="separator:a37eae0c5029794c430e2f47bb401393a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b9bc0d368a7890f797fe319633c54d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a3b9bc0d368a7890f797fe319633c54d2">rfs_delete_directory_entry</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file)</td></tr>
+<tr class="memdesc:a3b9bc0d368a7890f797fe319633c54d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a directory entry from disk by name.  <a href="retrofs_8h.html#a3b9bc0d368a7890f797fe319633c54d2">More...</a><br /></td></tr>
+<tr class="separator:a3b9bc0d368a7890f797fe319633c54d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ec409e8f4a765bec7dad6a723ef4bb6"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a4ec409e8f4a765bec7dad6a723ef4bb6">rfs_bytes_to_sectors</a> (uint64_t bytes)</td></tr>
+<tr class="memdesc:a4ec409e8f4a765bec7dad6a723ef4bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a size in bytes to the number of sectors required.  <a href="retrofs_8h.html#a4ec409e8f4a765bec7dad6a723ef4bb6">More...</a><br /></td></tr>
+<tr class="separator:a4ec409e8f4a765bec7dad6a723ef4bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35fd4da8867e505b24f85c865851deed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a35fd4da8867e505b24f85c865851deed">rfs_locate_entry</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info, <a class="el" href="structfs__tree__t.html">fs_tree_t</a> *tree, const char *<a class="el" href="partition_8h.html#a01407fb88d72f1334e349771e1a3a44d">name</a>, uint64_t *out_sector, size_t *out_index, <a class="el" href="structrfs__directory__entry__inner__t.html">rfs_directory_entry_inner_t</a> *out_entry_copy)</td></tr>
+<tr class="memdesc:a35fd4da8867e505b24f85c865851deed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locate a directory entry by name within a given directory.  <a href="retrofs_8h.html#a35fd4da8867e505b24f85c865851deed">More...</a><br /></td></tr>
+<tr class="separator:a35fd4da8867e505b24f85c865851deed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5572af757f45e082f138cf773410f61b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5572af757f45e082f138cf773410f61b">rfs_get_used_bytes</a> (<a class="el" href="structrfs__t.html">rfs_t</a> *info)</td></tr>
+<tr class="memdesc:a5572af757f45e082f138cf773410f61b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the exact number of bytes currently in use on the volume.  <a href="retrofs_8h.html#a5572af757f45e082f138cf773410f61b">More...</a><br /></td></tr>
+<tr class="separator:a5572af757f45e082f138cf773410f61b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add03ce7aa17db9f02d70ddd7e039582a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#add03ce7aa17db9f02d70ddd7e039582a">rfs_get_free_space</a> (void *fs)</td></tr>
+<tr class="memdesc:add03ce7aa17db9f02d70ddd7e039582a"><td class="mdescLeft">&#160;</td><td class="mdescRight">VFS endpoint to get free space on the filesystem in bytes.  <a href="retrofs_8h.html#add03ce7aa17db9f02d70ddd7e039582a">More...</a><br /></td></tr>
+<tr class="separator:add03ce7aa17db9f02d70ddd7e039582a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a973f04214c7ac8bc21d8b7ca5e9af016"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a973f04214c7ac8bc21d8b7ca5e9af016">_Static_assert</a> (sizeof(<a class="el" href="unionrfs__directory__entry__t.html">rfs_directory_entry_t</a>)==(512/2), &quot;Directory <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be exactly half <a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a> sector&quot;)</td></tr>
 <tr class="separator:a973f04214c7ac8bc21d8b7ca5e9af016"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a335f2a703c781091af9729a95b375a46"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a335f2a703c781091af9729a95b375a46">_Static_assert</a> (sizeof(<a class="el" href="unionrfs__description__block__padded__t.html">rfs_description_block_padded_t</a>)==512, &quot;Description block must be exactly one sector&quot;)</td></tr>
 <tr class="separator:a335f2a703c781091af9729a95b375a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d930c2237e216498190b72eef4a60f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#aa0d930c2237e216498190b72eef4a60f">_Static_assert</a> (128ULL *512&lt;=(4ULL *1024 *1024), &quot;AHCI PRDT <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be &lt;= 4 MiB&quot;)</td></tr>
+<tr class="separator:aa0d930c2237e216498190b72eef4a60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -164,7 +257,7 @@ Variables</h2></td></tr>
 <tr class="separator:a8b180b6c806500b2800f1bb667d0b10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb520b7f5d67b3209787f3edb26d34fe"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#acb520b7f5d67b3209787f3edb26d34fe">sequence</a></td></tr>
 <tr class="separator:acb520b7f5d67b3209787f3edb26d34fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac308713211f3592e4636ce1081aeb859"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#ac308713211f3592e4636ce1081aeb859">creation_time</a></td></tr>
+<tr class="memitem:ac308713211f3592e4636ce1081aeb859"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#ac308713211f3592e4636ce1081aeb859">creation_time</a></td></tr>
 <tr class="separator:ac308713211f3592e4636ce1081aeb859"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f3d8b769df3878fbd5dfa50edc16cb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrfs__description__block__t.html">rfs_description_block_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a9f3d8b769df3878fbd5dfa50edc16cb3">desc</a></td></tr>
 <tr class="separator:a9f3d8b769df3878fbd5dfa50edc16cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,9 +273,11 @@ Variables</h2></td></tr>
 <tr class="separator:a614c4b5d22d434fedff35b9dec0b79ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a190b76b1f3d5bd26920300e5f073739b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a190b76b1f3d5bd26920300e5f073739b">length</a></td></tr>
 <tr class="separator:a190b76b1f3d5bd26920300e5f073739b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dc38d235a8feab75adea3084f527d6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5dc38d235a8feab75adea3084f527d6f">created</a></td></tr>
+<tr class="memitem:a9248245d1367801c5dc29b84940c9537"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a9248245d1367801c5dc29b84940c9537">sector_length</a></td></tr>
+<tr class="separator:a9248245d1367801c5dc29b84940c9537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dc38d235a8feab75adea3084f527d6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a5dc38d235a8feab75adea3084f527d6f">created</a></td></tr>
 <tr class="separator:a5dc38d235a8feab75adea3084f527d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fe623ec2237ab4683d82849a91d2b87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a7fe623ec2237ab4683d82849a91d2b87">modified</a></td></tr>
+<tr class="memitem:a7fe623ec2237ab4683d82849a91d2b87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a7fe623ec2237ab4683d82849a91d2b87">modified</a></td></tr>
 <tr class="separator:a7fe623ec2237ab4683d82849a91d2b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ca796a84a992a7892982dcb550d33d3"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="retrofs_8h.html#a2ca796a84a992a7892982dcb550d33d3">reserved</a> []</td></tr>
 <tr class="separator:a2ca796a84a992a7892982dcb550d33d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,10 +295,42 @@ Variables</h2></td></tr>
 <tr class="separator:a9e23ed0731911d7a25af7df173bc276d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structures and functions for RetroFS, an ADFS L format inspired file system for Retro Rocket. </p>
-<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012–2025 </dd></dl>
+<div class="textblock"><p>Core structures, constants, and API definitions for RetroFS — an ADFS 'L' format–inspired filesystem for Retro Rocket. </p>
+<dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>)</dd></dl>
+<p>RetroFS is a sector-based filesystem inspired by the Acorn ADFS 'L' format. It is optimised for simplicity of implementation and fast free-space allocation, achieved by caching the entire multi-level free space map in RAM. This approach trades higher memory usage (~200 MB/TB) for minimal device I/O during allocation and deletion, making it well-suited to systems where RAM is plentiful relative to storage speed.</p>
+<p>The on-disk format is compact and self-contained, with a fixed-size description block, hierarchical free space map, and half-sector directory entries. The in-memory layout is designed for fast lookups and minimal pointer chasing.</p>
+<dl class="section copyright"><dt>Copyright</dt><dd>(c) 2012–2025 Craig Edwards </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="afb65d4847594b25424eb2a304e7741c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb65d4847594b25424eb2a304e7741c1">&#9670;&nbsp;</a></span>ALIGN_UP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ALIGN_UP</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((x) + ((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1)) &amp; ~((<a class="el" href="ahci_8h.html#af4007aacd75b22aee32dba9ea96082c0">a</a>) - 1))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Align a value upwards to the next multiple of <code>a</code>. </p>
+
+</div>
+</div>
 <a id="a54cc1fc2306ba1d8e64c6c23895570fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a54cc1fc2306ba1d8e64c6c23895570fd">&#9670;&nbsp;</a></span>RFS_DEFAULT_DIR_SIZE</h2>
 
@@ -211,12 +338,13 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RFS_DEFAULT_DIR_SIZE&#160;&#160;&#160;32</td>
+          <td class="memname">#define RFS_DEFAULT_DIR_SIZE&#160;&#160;&#160;64</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default directory size of a block in sectors (<a class="el" href="structrfs__directory__start__t.html#a3ad10ef57a35c30dd2192a5ae4b667c2">rfs_directory_start_t::sectors</a>) 32 sectors holds 63 files (the first entry is the start entry that contains the continuation pointer etc) </p>
+<p>Default number of sectors allocated for a directory block. </p>
+<p>The first entry is a directory start entry containing metadata and a continuation pointer; remaining entries store files. At 64 sectors, a directory can contain up to 127 files. </p>
 
 </div>
 </div>
@@ -231,6 +359,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Entry is a directory start block. </p>
 
 </div>
 </div>
@@ -245,6 +374,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Entry is a directory. </p>
 
 </div>
 </div>
@@ -259,6 +389,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Entry is locked/read-only. </p>
 
 </div>
 </div>
@@ -273,6 +404,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of free-space bits stored in a sector. </p>
 
 </div>
 </div>
@@ -288,7 +420,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>RetroFS GPT Partition Type GUID UUID v4 reserved for Retro Rocket RetroFS partitions. </p>
+<p>RetroFS GPT Partition Type GUID. </p>
+<p>This UUID v4 is reserved for Retro Rocket's RetroFS partitions. </p>
 
 </div>
 </div>
@@ -304,6 +437,54 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Filesystem identifier magic ("RetroFS1"). </p>
+<p>Stored in the description block for on-disk format verification. </p>
+
+</div>
+</div>
+<a id="a2edcb522edb2eb0eda942e933b1353d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2edcb522edb2eb0eda942e933b1353d1">&#9670;&nbsp;</a></span>RFS_L1_GROUP_SECTORS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RFS_L1_GROUP_SECTORS&#160;&#160;&#160;(4096ULL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sectors per L1 group (2 MiB at 512B). </p>
+
+</div>
+</div>
+<a id="a3f0b46f13df6e029244c1d1bbce20606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f0b46f13df6e029244c1d1bbce20606">&#9670;&nbsp;</a></span>RFS_L2_GROUPS_PER_SUPER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RFS_L2_GROUPS_PER_SUPER&#160;&#160;&#160;(1024ULL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>L1 groups per L2 super-group. </p>
+
+</div>
+</div>
+<a id="a23c6a84effa5b35824246bbaee17d507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c6a84effa5b35824246bbaee17d507">&#9670;&nbsp;</a></span>RFS_MAP_READ_CHUNK_SECTORS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RFS_MAP_READ_CHUNK_SECTORS&#160;&#160;&#160;128ULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Preferred chunk size (in sectors) for reading the free space map. </p>
+
 </div>
 </div>
 <a id="a2b7d6124b62b834bfaceb921b4b2b1bb"></a>
@@ -317,6 +498,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Maximum length of file/directory name (excluding terminator). </p>
 
 </div>
 </div>
@@ -331,6 +513,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Size of one logical sector in bytes. </p>
 
 </div>
 </div>
@@ -351,7 +534,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>ACPI Root System Description Pointer (RSDP) </p>
+<p>On-disk description block containing global filesystem metadata. </p>
+<p>Unified representation of either a directory start or file entry.</p>
+<p>On-disk directory start entry.</p>
+<p>On-disk file entry structure for non-directory entries.</p>
+<p>One sector of the free space map, containing an array of 64-bit bitfields.</p>
+<p>Padded variant of the description block to exactly fill one sector.</p>
+<p>Occupies exactly one sector. This is the first structure read when mounting a RetroFS volume.</p>
+<p>This is always the first entry in a directory block.</p>
+<p>Each directory block sector contains two of these (half-sector entries).</p>
+<p>On-disk description block containing global filesystem metadata.</p>
 <p>A disk partition entry within the MBR.</p>
 <p>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t.</p>
 <p>FAT32 FSINFO structure.</p>
@@ -366,8 +558,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aa0d930c2237e216498190b72eef4a60f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d930c2237e216498190b72eef4a60f">&#9670;&nbsp;</a></span>_Static_assert() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">_Static_assert </td>
+          <td>(</td>
+          <td class="paramtype">128ULL *512&lt;=&#160;</td>
+          <td class="paramname">4ULL *1024 *1024, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&quot;AHCI PRDT <a class="el" href="retrofs_8h.html#a9e23ed0731911d7a25af7df173bc276d">entry</a> must be &lt;= 4 MiB&quot;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a335f2a703c781091af9729a95b375a46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a335f2a703c781091af9729a95b375a46">&#9670;&nbsp;</a></span>_Static_assert() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a335f2a703c781091af9729a95b375a46">&#9670;&nbsp;</a></span>_Static_assert() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -395,7 +615,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a973f04214c7ac8bc21d8b7ca5e9af016"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a973f04214c7ac8bc21d8b7ca5e9af016">&#9670;&nbsp;</a></span>_Static_assert() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a973f04214c7ac8bc21d8b7ca5e9af016">&#9670;&nbsp;</a></span>_Static_assert() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -422,8 +642,141 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a77ee899b72553734d6c2814efccddb22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77ee899b72553734d6c2814efccddb22">&#9670;&nbsp;</a></span>init_rfs()</h2>
+<a id="a237b71aeb1f5c8205f278807a1217d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a237b71aeb1f5c8205f278807a1217d00">&#9670;&nbsp;</a></span>bitset_bytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static size_t bitset_bytes </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>nbits</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate the number of bytes needed to store a bitset of given size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbits</td><td>Number of bits. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes required. </dd></dl>
+
+</div>
+</div>
+<a id="a5c432433d901608787bf860d32aa4338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c432433d901608787bf860d32aa4338">&#9670;&nbsp;</a></span>bitset_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool bitset_get </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>bs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the value of a bit from a bitset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bs</td><td>Pointer to bitset. </td></tr>
+    <tr><td class="paramname">idx</td><td>Bit index. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if bit is set, false if clear. </dd></dl>
+
+</div>
+</div>
+<a id="aba7b398efc7ff474bca4b15403be35fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba7b398efc7ff474bca4b15403be35fd">&#9670;&nbsp;</a></span>bitset_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void bitset_set </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>bs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>idx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set or clear a bit in a bitset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bs</td><td>Pointer to bitset. </td></tr>
+    <tr><td class="paramname">idx</td><td>Bit index. </td></tr>
+    <tr><td class="paramname">val</td><td>New value (true = set, false = clear). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af0d5bdf2c5488df54a69eed36861a1e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d5bdf2c5488df54a69eed36861a1e2">&#9670;&nbsp;</a></span>init_rfs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,11 +784,870 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void init_rfs </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialise the RetroFS subsystem. </p>
+<p>Prepares any global state needed for RetroFS operation. This should be called once during kernel initialisation before mounting any RetroFS volumes. </p>
+
+</div>
+</div>
+<a id="a68bfd092abff119ace6499907853609a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68bfd092abff119ace6499907853609a">&#9670;&nbsp;</a></span>rfs_build_level_caches()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_build_level_caches </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Build L1/L2 cache structures from the on-disk free space map. </p>
+<p>Reads the free space map from disk and generates the in-memory summary structures used for fast allocation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>Filesystem context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error. </dd></dl>
+
+</div>
+</div>
+<a id="a4ec409e8f4a765bec7dad6a723ef4bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ec409e8f4a765bec7dad6a723ef4bb6">&#9670;&nbsp;</a></span>rfs_bytes_to_sectors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_bytes_to_sectors </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert a size in bytes to the number of sectors required. </p>
+<p>This rounds up to the nearest whole sector, so that any non-zero remainder results in an additional sector being counted.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bytes</td><td>Size in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of sectors required to store <code>bytes</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a88042c064d74afebff8c8024718e5ba3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88042c064d74afebff8c8024718e5ba3">&#9670;&nbsp;</a></span>rfs_create_directory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_create_directory </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new directory within an existing directory. </p>
+<p>Allocates space for the directory start block and updates the parent.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Pointer to parent directory block. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of new directory. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Sector number of new directory’s start block, or 0 on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a1eeda8efed6e103f25d8505e302fddfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eeda8efed6e103f25d8505e302fddfc">&#9670;&nbsp;</a></span>rfs_create_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_create_file </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new file in a directory. </p>
+<p>Allocates space, writes a directory entry, and sets initial file size.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Pointer to directory block. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of new file. </td></tr>
+    <tr><td class="paramname">size</td><td>Initial size in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Sector number of new file’s start, or 0 on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a3b9bc0d368a7890f797fe319633c54d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b9bc0d368a7890f797fe319633c54d2">&#9670;&nbsp;</a></span>rfs_delete_directory_entry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_delete_directory_entry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a directory entry from disk by name. </p>
+<p>Finds the first entry in the directory chain whose name matches <code>file-&gt;filename</code> case-insensitively, removes it, and compacts the remaining entries in that block to avoid internal holes. Continuation blocks are not freed, even if they become empty.</p>
+<p>This function does not modify the free-space map for the file payload; only the directory metadata is altered.</p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>file</code> must be non-NULL. </dd>
+<dd>
+<code>file-&gt;directory</code> must point to a valid <a class="el" href="structfs__tree__t.html" title="Used internally by filesystem.c to cache directories to RAM.">fs_tree_t</a> representing the parent directory. </dd>
+<dd>
+<code>file-&gt;filename</code> must point to a non-empty NUL-terminated string. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>On success, the directory chain on disk no longer contains an entry matching <code>file-&gt;filename</code> in a case-insensitive comparison.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>Pointer to a VFS directory entry identifying the file to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false if the entry was not found or on I/O error. </dd></dl>
+
+</div>
+</div>
+<a id="ae89881aa48831a06f9f7b87c7062a64d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae89881aa48831a06f9f7b87c7062a64d">&#9670;&nbsp;</a></span>rfs_find_free_extent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_find_free_extent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>need</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t *&#160;</td>
+          <td class="paramname"><em>out_start_sector</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find a contiguous extent of free sectors. </p>
+<p>Searches the in-memory free space map for an extent of at least the requested length.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>Filesystem context. </td></tr>
+    <tr><td class="paramname">need</td><td>Number of sectors required. </td></tr>
+    <tr><td class="paramname">out_start_sector</td><td>Output: first sector of found extent. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if an extent was found, false if insufficient free space. </dd></dl>
+
+</div>
+</div>
+<a id="afe6611ac18c6910947bc99f12691a936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe6611ac18c6910947bc99f12691a936">&#9670;&nbsp;</a></span>rfs_format()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_format </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format a block device or partition with a fresh RetroFS filesystem. </p>
+<p>Writes a new description block, initialises the free space map, and creates an empty root directory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>Pointer to an <a class="el" href="structrfs__t.html" title="In-memory RetroFS mount context.">rfs_t</a> structure describing the target volume. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error (e.g., device write failure). </dd></dl>
+
+</div>
+</div>
+<a id="ab8dd70e5f6b324291b30fc7b28cab425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8dd70e5f6b324291b30fc7b28cab425">&#9670;&nbsp;</a></span>rfs_get_default_reservation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t rfs_get_default_reservation </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the default reservation size for a file based on extension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>Filename to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Size in bytes to reserve. Defaults to 128 KB if not in table. </dd></dl>
+
+</div>
+</div>
+<a id="a876aef9a94400e7fb576c78b60ef603f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a876aef9a94400e7fb576c78b60ef603f">&#9670;&nbsp;</a></span>rfs_get_directory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* rfs_get_directory </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieve a directory structure from a VFS handle. </p>
+<p>Used by the VFS layer to resolve a directory handle into a RetroFS directory block for further operations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>VFS handle for a directory. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to RetroFS directory block, or NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="add03ce7aa17db9f02d70ddd7e039582a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add03ce7aa17db9f02d70ddd7e039582a">&#9670;&nbsp;</a></span>rfs_get_free_space()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_get_free_space </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>fs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VFS endpoint to get free space on the filesystem in bytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fs</td><td><a class="el" href="structfs__tree__t.html" title="Used internally by filesystem.c to cache directories to RAM.">fs_tree_t</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>free space in bytes </dd></dl>
+
+</div>
+</div>
+<a id="a5572af757f45e082f138cf773410f61b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5572af757f45e082f138cf773410f61b">&#9670;&nbsp;</a></span>rfs_get_used_bytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t rfs_get_used_bytes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the exact number of bytes currently in use on the volume. </p>
+<p>This function uses the in-memory Level-1 free‐sector counters built by <a class="el" href="retrofs_8h.html#a68bfd092abff119ace6499907853609a" title="Build L1/L2 cache structures from the on-disk free space map.">rfs_build_level_caches()</a> to determine usage precisely. It sums the free sector counts for all L1 groups, converts the total to bytes, and subtracts from the total volume size. The result is exact as long as the L1 cache is up to date.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>Pointer to the RetroFS volume context (must have valid L1 cache). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes currently allocated/used on the volume.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the volume was not cleanly unmounted, ensure the L1 cache has been rebuilt from the on-disk free space map before calling this function. </dd></dl>
+
+</div>
+</div>
+<a id="a35fd4da8867e505b24f85c865851deed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35fd4da8867e505b24f85c865851deed">&#9670;&nbsp;</a></span>rfs_locate_entry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_locate_entry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structfs__tree__t.html">fs_tree_t</a> *&#160;</td>
+          <td class="paramname"><em>tree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t *&#160;</td>
+          <td class="paramname"><em>out_sector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>out_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structrfs__directory__entry__inner__t.html">rfs_directory_entry_inner_t</a> *&#160;</td>
+          <td class="paramname"><em>out_entry_copy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Locate a directory entry by name within a given directory. </p>
+<p>Searches the specified directory (including any continuation blocks) for an entry whose filename matches <code>name</code>. If found, returns its on-disk location and a copy of the directory entry structure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>Filesystem context (RetroFS instance). </td></tr>
+    <tr><td class="paramname">tree</td><td>VFS tree node representing the directory to search. </td></tr>
+    <tr><td class="paramname">name</td><td>Filename to look up (null-terminated string). </td></tr>
+    <tr><td class="paramname">out_sector</td><td>Receives the sector number containing the entry. </td></tr>
+    <tr><td class="paramname">out_index</td><td>Receives the index of the entry within that sector. </td></tr>
+    <tr><td class="paramname">out_entry_copy</td><td>Receives a copy of the on-disk entry. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the entry was found, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ab460b9c1eac8f02af9c54e02cf315e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab460b9c1eac8f02af9c54e02cf315e71">&#9670;&nbsp;</a></span>rfs_mark_extent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_mark_extent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>start_sector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>length_sectors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>mark_used</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mark a contiguous extent as used or free in the free space map. </p>
+<p>Updates the in-memory free space tracking structures; caller must ensure changes are persisted to disk if necessary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>Filesystem context. </td></tr>
+    <tr><td class="paramname">start_sector</td><td>First sector of extent. </td></tr>
+    <tr><td class="paramname">length_sectors</td><td>Number of sectors in extent. </td></tr>
+    <tr><td class="paramname">mark_used</td><td>true to mark as used, false to mark as free. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error (e.g., bounds check fail). </dd></dl>
+
+</div>
+</div>
+<a id="a7aa41789c8d357a0e0d8d83bc0ff7580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aa41789c8d357a0e0d8d83bc0ff7580">&#9670;&nbsp;</a></span>rfs_read_device()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_read_device </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>rfs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>start_sectors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>size_bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read raw sectors from the underlying device. </p>
+<p>Low-level helper for retrieving a contiguous range of sectors from the block device.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rfs</td><td>Filesystem context. </td></tr>
+    <tr><td class="paramname">start_sectors</td><td>Sector index (relative to filesystem start). </td></tr>
+    <tr><td class="paramname">size_bytes</td><td>Number of bytes to read (must be a multiple of sector size). </td></tr>
+    <tr><td class="paramname">buffer</td><td>Destination buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error. </dd></dl>
+
+</div>
+</div>
+<a id="a469381f22dcd59d3aedddf42376197fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a469381f22dcd59d3aedddf42376197fe">&#9670;&nbsp;</a></span>rfs_read_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_read_file </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read part or all of a file. </p>
+<p>Reads data starting at the given offset (in bytes from start of file).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Pointer to file entry. </td></tr>
+    <tr><td class="paramname">start</td><td>Offset into file to begin reading. </td></tr>
+    <tr><td class="paramname">length</td><td>Number of bytes to read. </td></tr>
+    <tr><td class="paramname">buffer</td><td>Destination buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error or bounds violation. </dd></dl>
+
+</div>
+</div>
+<a id="a423e724ebf6c540c67cb3a0f59f8ea48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a423e724ebf6c540c67cb3a0f59f8ea48">&#9670;&nbsp;</a></span>rfs_truncate_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_truncate_file </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Truncate or extend a file to a given length. </p>
+<p>If truncating, deallocates excess sectors. If extending, allocates new sectors (contents unspecified).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Pointer to file entry. </td></tr>
+    <tr><td class="paramname">length</td><td>New size in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error or insufficient space. </dd></dl>
+
+</div>
+</div>
+<a id="affa287b51abff9d794e8d6d066553031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affa287b51abff9d794e8d6d066553031">&#9670;&nbsp;</a></span>rfs_unlink_dir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_unlink_dir </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove an empty directory from its parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Pointer to parent directory block. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of directory to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false if directory is not empty or not found. </dd></dl>
+
+</div>
+</div>
+<a id="a6dc1377127abd3436b8c3c1da78dadbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc1377127abd3436b8c3c1da78dadbc">&#9670;&nbsp;</a></span>rfs_unlink_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_unlink_file </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a file from a directory. </p>
+<p>Deletes the directory entry and frees the associated file data sectors in the free space map.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Pointer to directory block. </td></tr>
+    <tr><td class="paramname">name</td><td>Filename to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false if not found or error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a37eae0c5029794c430e2f47bb401393a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37eae0c5029794c430e2f47bb401393a">&#9670;&nbsp;</a></span>rfs_upsert_directory_entry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a>* rfs_upsert_directory_entry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>sector_extent</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insert or update a directory entry on disk. </p>
+<p>If an entry with the same name (case-insensitive) already exists in the directory chain, its metadata is updated in-place, preserving the case of the supplied <code>file-&gt;filename</code>. If no matching entry exists, a new one is appended in the first available slot; if the directory is full, a new continuation block is allocated and linked.</p>
+<p>This function does not allocate or free file payload sectors if the file size changes; it is limited to updating directory metadata and allocating directory blocks when necessary.</p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>file</code> must be non-NULL. </dd>
+<dd>
+<code>file-&gt;directory</code> must point to a valid <a class="el" href="structfs__tree__t.html" title="Used internally by filesystem.c to cache directories to RAM.">fs_tree_t</a> representing the parent directory. </dd>
+<dd>
+<code>file-&gt;filename</code> must point to a non-empty NUL-terminated string. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>On success, the directory chain on disk contains the inserted or updated entry, and <code>file</code> reflects the same metadata supplied.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>Pointer to a VFS directory entry to insert or update. </td></tr>
+    <tr><td class="paramname">sector_extent</td><td>Reserved extent for the file in sectors </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The same <code>file</code> pointer on success, or NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="af68c31483d4d81b83304d6aabf979a39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af68c31483d4d81b83304d6aabf979a39">&#9670;&nbsp;</a></span>rfs_write_device()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_write_device </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structrfs__t.html">rfs_t</a> *&#160;</td>
+          <td class="paramname"><em>rfs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>start_sectors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>size_bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write raw sectors to the underlying device. </p>
+<p>Low-level helper for storing a contiguous range of sectors to the block device.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rfs</td><td>Filesystem context. </td></tr>
+    <tr><td class="paramname">start_sectors</td><td>Sector index (relative to filesystem start). </td></tr>
+    <tr><td class="paramname">size_bytes</td><td>Number of bytes to write (must be a multiple of sector size). </td></tr>
+    <tr><td class="paramname">buffer</td><td>Source buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error. </dd></dl>
+
+</div>
+</div>
+<a id="a5aac434718e1e16dfacc5630b6eada02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aac434718e1e16dfacc5630b6eada02">&#9670;&nbsp;</a></span>rfs_write_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rfs_write_file </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write part or all of a file. </p>
+<p>Writes data starting at the given offset (in bytes from start of file). Caller must ensure enough space has been allocated beforehand.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Pointer to file entry. </td></tr>
+    <tr><td class="paramname">start</td><td>Offset into file to begin writing. </td></tr>
+    <tr><td class="paramname">length</td><td>Number of bytes to write. </td></tr>
+    <tr><td class="paramname">buffer</td><td>Source buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false on error or bounds violation. </dd></dl>
 
 </div>
 </div>
@@ -451,6 +1663,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Free/used sector flags. </p>
 
 </div>
 </div>
@@ -465,6 +1678,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector of next directory block, or 0 if none. </p>
 
 </div>
 </div>
@@ -475,10 +1689,11 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a> created</td>
+          <td class="memname"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> created</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Creation timestamp (UTC). </p>
 
 </div>
 </div>
@@ -489,10 +1704,11 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a> creation_time</td>
+          <td class="memname"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> creation_time</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Filesystem creation time (UTC). </p>
 
 </div>
 </div>
@@ -507,6 +1723,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Structured view. </p>
 
 </div>
 </div>
@@ -521,6 +1738,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File entry. </p>
 
 </div>
 </div>
@@ -535,6 +1753,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Null-terminated filename. </p>
 
 </div>
 </div>
@@ -549,6 +1768,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Entry flags (RFS_FLAG_*).</p>
+<p>Entry flags (must include RFS_FLAG_DIR_START). </p>
 
 </div>
 </div>
@@ -563,6 +1784,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Checksum of the free space map. </p>
 
 </div>
 </div>
@@ -577,6 +1799,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Length of free space map in sectors. </p>
 
 </div>
 </div>
@@ -591,6 +1814,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector address of free space map start. </p>
 
 </div>
 </div>
@@ -605,6 +1829,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Filesystem magic (RFS_ID). </p>
 
 </div>
 </div>
@@ -619,6 +1844,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>File length in bytes. </p>
 
 </div>
 </div>
@@ -629,10 +1855,11 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a> modified</td>
+          <td class="memname"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> modified</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Last modification timestamp (UTC). </p>
 
 </div>
 </div>
@@ -647,6 +1874,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector of parent directory start entry. </p>
 
 </div>
 </div>
@@ -661,6 +1889,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Raw bytes view. </p>
 
 </div>
 </div>
@@ -675,6 +1904,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved for future use / alignment. </p>
 
 </div>
 </div>
@@ -689,6 +1919,22 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector address of root directory start entry. </p>
+
+</div>
+</div>
+<a id="a9248245d1367801c5dc29b84940c9537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9248245d1367801c5dc29b84940c9537">&#9670;&nbsp;</a></span>sector_length</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t sector_length</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Allocated length in sectors </p>
 
 </div>
 </div>
@@ -703,6 +1949,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>First sector of file data. </p>
 
 </div>
 </div>
@@ -717,6 +1964,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of sectors in this directory block. </p>
 
 </div>
 </div>
@@ -731,6 +1979,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Incremented whenever the FS is modified.</p>
+<p>Incremented when file changes. </p>
 
 </div>
 </div>
@@ -745,6 +1995,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Directory start entry. </p>
 
 </div>
 </div>
@@ -759,6 +2010,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Human-readable directory title. </p>
 
 </div>
 </div>
@@ -768,7 +2020,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="retrofs_8h.html">retrofs.h</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

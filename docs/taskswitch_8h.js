@@ -3,6 +3,7 @@ var taskswitch_8h =
     [ "process_t", "structprocess__t.html", "structprocess__t" ],
     [ "proc_id_t", "structproc__id__t.html", "structproc__id__t" ],
     [ "idle_timer_t", "structidle__timer__t.html", "structidle__timer__t" ],
+    [ "activity_callback_t", "taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052", null ],
     [ "cpu_id_t", "taskswitch_8h.html#a66e2436dbfe8b3600c090f28627b621f", null ],
     [ "gid_t", "taskswitch_8h.html#aa7352f1065fe606194d792e2b292cf83", null ],
     [ "pid_t", "taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed", null ],
@@ -14,8 +15,8 @@ var taskswitch_8h =
     ] ],
     [ "process_state_t", "taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854", [
       [ "PROC_RUNNING", "taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857", null ],
-      [ "PROC_IDLE", "taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c", null ],
-      [ "PROC_DELETE", "taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a4740dbae0b209f4840c2b83e57363a36", null ]
+      [ "PROC_SUSPENDED", "taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a9047a83c8b8c5e1700201d27485a6199", null ],
+      [ "PROC_IO_BOUND", "taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854ae68fcdb4ce43d7b70295db3977a7d199", null ]
     ] ],
     [ "init_process", "taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520", null ],
     [ "proc_cur", "taskswitch_8h.html#aa8769acde79d259426e68e9e4fba6544", null ],
@@ -29,6 +30,7 @@ var taskswitch_8h =
     [ "proc_register_idle", "taskswitch_8h.html#ad2dd4ffab2aaabd37998ec3b3216af48", null ],
     [ "proc_run", "taskswitch_8h.html#abb94173794194e3382dc5482b7e0aa62", null ],
     [ "proc_set_csd", "taskswitch_8h.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff", null ],
+    [ "proc_set_idle", "taskswitch_8h.html#a837266f5243f7240269b77b0298afbe2", null ],
     [ "proc_timer", "taskswitch_8h.html#a1ec64ff3e1bbf088a6611d7304cf72e2", null ],
     [ "proc_total", "taskswitch_8h.html#a01a99ff8bacb9f2f0509b21f45fc7217", null ],
     [ "proc_wait", "taskswitch_8h.html#a8b2b24e480bc2b9188e720c028795cee", null ]

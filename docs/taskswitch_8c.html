@@ -101,6 +101,8 @@ Functions</h2></td></tr>
 <tr class="memitem:aa8769acde79d259426e68e9e4fba6544"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#aa8769acde79d259426e68e9e4fba6544">proc_cur</a> (uint8_t logical_cpu)</td></tr>
 <tr class="memdesc:aa8769acde79d259426e68e9e4fba6544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current process for a logical CPU.  <a href="taskswitch_8c.html#aa8769acde79d259426e68e9e4fba6544">More...</a><br /></td></tr>
 <tr class="separator:aa8769acde79d259426e68e9e4fba6544"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad73565bce74e98ff5d035cb77b16b881"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#ad73565bce74e98ff5d035cb77b16b881">check_wait_pid</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc, void *opaque)</td></tr>
+<tr class="separator:ad73565bce74e98ff5d035cb77b16b881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb94173794194e3382dc5482b7e0aa62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#abb94173794194e3382dc5482b7e0aa62">proc_run</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc)</td></tr>
 <tr class="memdesc:abb94173794194e3382dc5482b7e0aa62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute one atomic BASIC cycle for a process.  <a href="taskswitch_8c.html#abb94173794194e3382dc5482b7e0aa62">More...</a><br /></td></tr>
 <tr class="separator:abb94173794194e3382dc5482b7e0aa62"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,6 +112,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7b25ff76590322d996a0cb108665cedc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a7b25ff76590322d996a0cb108665cedc">proc_kill_id</a> (<a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> <a class="el" href="dns_8c.html#a4fc3a0c58dfbd1e68224521185cb9384">id</a>)</td></tr>
 <tr class="memdesc:a7b25ff76590322d996a0cb108665cedc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kill a process by PID.  <a href="taskswitch_8c.html#a7b25ff76590322d996a0cb108665cedc">More...</a><br /></td></tr>
 <tr class="separator:a7b25ff76590322d996a0cb108665cedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b4483bf423dcb85ed4e0abdfe07ad07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a8b4483bf423dcb85ed4e0abdfe07ad07">proc_set_idle</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc, <a class="el" href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">activity_callback_t</a> callback, void *context)</td></tr>
+<tr class="memdesc:a8b4483bf423dcb85ed4e0abdfe07ad07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear the idle state of a process.  <a href="taskswitch_8c.html#a8b4483bf423dcb85ed4e0abdfe07ad07">More...</a><br /></td></tr>
+<tr class="separator:a8b4483bf423dcb85ed4e0abdfe07ad07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b2b24e480bc2b9188e720c028795cee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a8b2b24e480bc2b9188e720c028795cee">proc_wait</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc, <a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a> otherpid)</td></tr>
 <tr class="memdesc:a8b2b24e480bc2b9188e720c028795cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark a process as waiting for another to complete.  <a href="taskswitch_8c.html#a8b2b24e480bc2b9188e720c028795cee">More...</a><br /></td></tr>
 <tr class="separator:a8b2b24e480bc2b9188e720c028795cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,6 +158,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a9fbef8ef299fdcfc0326cddb385f2ee8"><td class="memItemLeft" align="right" valign="top">volatile struct limine_kernel_file_request&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#a9fbef8ef299fdcfc0326cddb385f2ee8">rr_kfile_req</a></td></tr>
+<tr class="separator:a9fbef8ef299fdcfc0326cddb385f2ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec02a136f8c68158ceecb321db083fe7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8c.html#aec02a136f8c68158ceecb321db083fe7">proc_current</a> [<a class="el" href="idt_8h.html#a87cbc7cff225b4ad63d67d47c21f933f">MAX_CPUS</a>] = { NULL }</td></tr>
 <tr class="memdesc:aec02a136f8c68158ceecb321db083fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The currently running process on each CPU.  <a href="taskswitch_8c.html#aec02a136f8c68158ceecb321db083fe7">More...</a><br /></td></tr>
 <tr class="separator:aec02a136f8c68158ceecb321db083fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,6 +193,34 @@ Variables</h2></td></tr>
 <tr class="separator:ab83248c0daa174a8ca16df53a7ab8b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ad73565bce74e98ff5d035cb77b16b881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad73565bce74e98ff5d035cb77b16b881">&#9670;&nbsp;</a></span>check_wait_pid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool check_wait_pid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td>
+          <td class="paramname"><em>proc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab25d44702b6e10e723714c368c4a7520"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab25d44702b6e10e723714c368c4a7520">&#9670;&nbsp;</a></span>init_process()</h2>
 
@@ -576,6 +611,51 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8b4483bf423dcb85ed4e0abdfe07ad07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b4483bf423dcb85ed4e0abdfe07ad07">&#9670;&nbsp;</a></span>proc_set_idle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void proc_set_idle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td>
+          <td class="paramname"><em>proc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">activity_callback_t</a>&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set or clear the idle state of a process. </p>
+<p>This sets a callback that determines whether the process is ready to resume. When a callback is provided, the process will be marked as suspended and polled each scheduling round. If the callback returns false, the process will be resumed. Passing NULL clears the idle state immediately.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">proc</td><td>Process to update </td></tr>
+    <tr><td class="paramname">callback</td><td>Function to poll for resumption readiness, or NULL to resume immediately </td></tr>
+    <tr><td class="paramname">opaque</td><td>For use by developer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a1ec64ff3e1bbf088a6611d7304cf72e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ec64ff3e1bbf088a6611d7304cf72e2">&#9670;&nbsp;</a></span>proc_timer()</h2>
 
@@ -912,6 +992,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9fbef8ef299fdcfc0326cddb385f2ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fbef8ef299fdcfc0326cddb385f2ee8">&#9670;&nbsp;</a></span>rr_kfile_req</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile struct limine_kernel_file_request rr_kfile_req</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .id = LIMINE_KERNEL_FILE_REQUEST,</div>
+<div class="line">    .revision = 0</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a8461048be5ed2ffb92c3a1fd67759f08"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8461048be5ed2ffb92c3a1fd67759f08">&#9670;&nbsp;</a></span>task_idles</h2>
 
@@ -948,7 +1046,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="taskswitch_8c.html">taskswitch.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

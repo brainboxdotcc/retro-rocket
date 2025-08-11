@@ -89,7 +89,11 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 <h3><a id="index_d"></a>- d -</h3><ul>
 <li>data_statement()
 : <a class="el" href="file__io_8c.html#ae5e890c98fad30c57a967bbf6faf1f56">file_io.c</a>
-, <a class="el" href="basic_8h.html#ae5e890c98fad30c57a967bbf6faf1f56">basic.h</a>
+, <a class="el" href="builtin__file__io__functions_8h.html#ae5e890c98fad30c57a967bbf6faf1f56">builtin_file_io_functions.h</a>
+</li>
+<li>datetime_from_time_t()
+: <a class="el" href="clock_8c.html#a1dba690a9bd94807c2086d58a11dad5e">clock.c</a>
+, <a class="el" href="clock_8h.html#a1dba690a9bd94807c2086d58a11dad5e">clock.h</a>
 </li>
 <li>datetime_to_str()
 : <a class="el" href="clock_8c.html#ab1913913a5b7c972308168a69e64d67d">clock.c</a>
@@ -101,6 +105,12 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 <li>debug_handle_packet()
 : <a class="el" href="debugger_8c.html#af514c70ab0d48beaa67649f2b803c2f8">debugger.c</a>
 </li>
+<li>debug_read_cb()
+: <a class="el" href="debuglog_8c.html#ab794ed60752a868bc7a5e84381635b22">debuglog.c</a>
+</li>
+<li>debug_update_cb()
+: <a class="el" href="debuglog_8c.html#aa4c2fdeb18d076956ea7828760196212">debuglog.c</a>
+</li>
 <li>dec_private_parse()
 : <a class="el" href="flanterm_8c.html#afa8d6b435f71ba272532270e9b44e936">flanterm.c</a>
 </li>
@@ -108,7 +118,7 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 : <a class="el" href="flanterm_8c.html#a63247eb11832265f9a06cf8da6d5c0a8">flanterm.c</a>
 </li>
 <li>def_statement()
-: <a class="el" href="basic_8h.html#a5c11e3d5030f995bd246a57cc0ab5cb0">basic.h</a>
+: <a class="el" href="flow__control_8h.html#a5c11e3d5030f995bd246a57cc0ab5cb0">flow_control.h</a>
 , <a class="el" href="function_8c.html#a5c11e3d5030f995bd246a57cc0ab5cb0">function.c</a>
 </li>
 <li>deg()
@@ -122,7 +132,7 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 : <a class="el" href="filesystem_8c.html#af6f5acd434205e4b55b81421f4f4427b">filesystem.c</a>
 </li>
 <li>delete_statement()
-: <a class="el" href="basic_8h.html#a58014a7741d8ade41b9a360bf2855982">basic.h</a>
+: <a class="el" href="builtin__file__io__functions_8h.html#a58014a7741d8ade41b9a360bf2855982">builtin_file_io_functions.h</a>
 , <a class="el" href="file__io_8c.html#a58014a7741d8ade41b9a360bf2855982">file_io.c</a>
 </li>
 <li>delete_tree_node()
@@ -139,20 +149,27 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 : <a class="el" href="filesystem_8c.html#a7caa89f3e74209fef454a3f1d1b28e50">filesystem.c</a>
 </li>
 <li>devfs_attach()
-: <a class="el" href="devfs_8c.html#ab5748aa3033299ca3d6c660b7e4ccf53">devfs.c</a>
+: <a class="el" href="devfs_8c.html#a32b0d3aa4448ab529c670691cfcb4a9f">devfs.c</a>
 </li>
 <li>devfs_get_directory()
-: <a class="el" href="devfs_8c.html#ad3c5fc27fc7f93ec78aad298a876c3a7">devfs.c</a>
+: <a class="el" href="devfs_8c.html#ab8f83f1c6c5225ac9840b00a2937163f">devfs.c</a>
 </li>
 <li>devfs_read_file()
-: <a class="el" href="devfs_8c.html#a4f2cb63c573bf2aad2a8457537909313">devfs.c</a>
+: <a class="el" href="devfs_8c.html#a51ed7927626fd8e7bf9f116a3ea89d3b">devfs.c</a>
+</li>
+<li>devfs_register_text()
+: <a class="el" href="devfs_8c.html#a7e5aa5f5f09a526cfd858c06f6db8948">devfs.c</a>
+, <a class="el" href="devfs_8h.html#a7e5aa5f5f09a526cfd858c06f6db8948">devfs.h</a>
+</li>
+<li>devfs_update_sizes()
+: <a class="el" href="devfs_8c.html#a77c62fb9028ad64b4153196c637e49d0">devfs.c</a>
 </li>
 <li>device_callback()
 : <a class="el" href="acpi_8c.html#ae203fe974b3a26b6ee23c95570efde43">acpi.c</a>
 </li>
 <li>dhcp_discover()
-: <a class="el" href="dhcp_8c.html#a6028f8888ed57058a2980fc21c62f42d">dhcp.c</a>
-, <a class="el" href="dhcp_8h.html#a6028f8888ed57058a2980fc21c62f42d">dhcp.h</a>
+: <a class="el" href="dhcp_8h.html#a6028f8888ed57058a2980fc21c62f42d">dhcp.h</a>
+, <a class="el" href="dhcp_8c.html#a6028f8888ed57058a2980fc21c62f42d">dhcp.c</a>
 </li>
 <li>dhcp_handle_packet()
 : <a class="el" href="dhcp_8c.html#a2b02bccfe5d32532a0f30ae0ff2b8fb5">dhcp.c</a>
@@ -162,12 +179,12 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 , <a class="el" href="dhcp_8c.html#a109d6076d8a1bd76c747e255c695e811">dhcp.c</a>
 </li>
 <li>dim_statement()
-: <a class="el" href="basic_8h.html#a10db67c91f83eac882df05463f29edf1">basic.h</a>
+: <a class="el" href="array_8h.html#a10db67c91f83eac882df05463f29edf1">array.h</a>
 , <a class="el" href="array_8c.html#a10db67c91f83eac882df05463f29edf1">array.c</a>
 </li>
 <li>div()
-: <a class="el" href="stdlib_8h.html#a4476a5dc418924ee3ad18ce699581dfd">stdlib.h</a>
-, <a class="el" href="stdlib_8c.html#a4476a5dc418924ee3ad18ce699581dfd">stdlib.c</a>
+: <a class="el" href="stdlib_8c.html#a4476a5dc418924ee3ad18ce699581dfd">stdlib.c</a>
+, <a class="el" href="stdlib_8h.html#a4476a5dc418924ee3ad18ce699581dfd">stdlib.h</a>
 </li>
 <li>dns_blocking_wait_for_result()
 : <a class="el" href="dns_8c.html#a67996b551fe441ce09f70edaeb0df3f5">dns.c</a>
@@ -229,14 +246,14 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 , <a class="el" href="fpu_8c.html#af06d81941ccd1def50b5cb31471b26f9">fpu.c</a>
 </li>
 <li>double_expr()
-: <a class="el" href="double__expression_8c.html#a74736577f6e6c03730accb1bf6609a30">double_expression.c</a>
-, <a class="el" href="basic_8h.html#a74736577f6e6c03730accb1bf6609a30">basic.h</a>
+: <a class="el" href="expression_8h.html#a74736577f6e6c03730accb1bf6609a30">expression.h</a>
+, <a class="el" href="double__expression_8c.html#a74736577f6e6c03730accb1bf6609a30">double_expression.c</a>
 </li>
 <li>double_factor()
 : <a class="el" href="double__expression_8c.html#a1b7f6dfef81b9819da3211eeb0852615">double_expression.c</a>
 </li>
 <li>double_relation()
-: <a class="el" href="basic_8h.html#a8ee284d90bf47b74190b99f3ca1931f1">basic.h</a>
+: <a class="el" href="expression_8h.html#a8ee284d90bf47b74190b99f3ca1931f1">expression.h</a>
 , <a class="el" href="double__expression_8c.html#a8ee284d90bf47b74190b99f3ca1931f1">double_expression.c</a>
 </li>
 <li>double_term()
@@ -252,6 +269,22 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 <li>dprintf()
 : <a class="el" href="printf_8h.html#a89df6ba151ccecc7859b176502af2f87">printf.h</a>
 , <a class="el" href="printf_8c.html#a571270f690c35549229075bb963eabe7">printf.c</a>
+</li>
+<li>dprintf_buffer_append_line()
+: <a class="el" href="debug__ringbuffer_8h.html#a43be19d4b94003ebaeac63d188a6ecd1">debug_ringbuffer.h</a>
+, <a class="el" href="debug__ringbuffer_8c.html#a43be19d4b94003ebaeac63d188a6ecd1">debug_ringbuffer.c</a>
+</li>
+<li>dprintf_buffer_init()
+: <a class="el" href="debug__ringbuffer_8h.html#a94466dfec80f78fbb5235ebf4546ec6e">debug_ringbuffer.h</a>
+, <a class="el" href="debug__ringbuffer_8c.html#a94466dfec80f78fbb5235ebf4546ec6e">debug_ringbuffer.c</a>
+</li>
+<li>dprintf_buffer_snapshot()
+: <a class="el" href="debug__ringbuffer_8h.html#aa43d4e4a426da2b1f24a42f3559cc0fd">debug_ringbuffer.h</a>
+, <a class="el" href="debug__ringbuffer_8c.html#aa43d4e4a426da2b1f24a42f3559cc0fd">debug_ringbuffer.c</a>
+</li>
+<li>dprintf_size()
+: <a class="el" href="debug__ringbuffer_8h.html#a6bea103d6592e9f651ba10eee514298b">debug_ringbuffer.h</a>
+, <a class="el" href="debug__ringbuffer_8c.html#a6bea103d6592e9f651ba10eee514298b">debug_ringbuffer.c</a>
 </li>
 <li>dput()
 : <a class="el" href="video_8h.html#a10de4e9cb74656845ee2808d17f3e9b7">video.h</a>
@@ -272,19 +305,19 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 : <a class="el" href="fb_8c.html#a1edcc344b7444a35c908fa44b6772a50">fb.c</a>
 </li>
 <li>draw_horizontal_line()
-: <a class="el" href="drawing_8h.html#a57bb8ad7dccb765be14981ddee2440f8">drawing.h</a>
-, <a class="el" href="drawing_8c.html#a57bb8ad7dccb765be14981ddee2440f8">drawing.c</a>
+: <a class="el" href="drawing_8c.html#a57bb8ad7dccb765be14981ddee2440f8">drawing.c</a>
+, <a class="el" href="drawing_8h.html#a57bb8ad7dccb765be14981ddee2440f8">drawing.h</a>
 </li>
 <li>draw_horizontal_rectangle()
-: <a class="el" href="drawing_8c.html#af3247c45af29225f8b887633435c9b1f">drawing.c</a>
-, <a class="el" href="drawing_8h.html#af3247c45af29225f8b887633435c9b1f">drawing.h</a>
+: <a class="el" href="drawing_8h.html#af3247c45af29225f8b887633435c9b1f">drawing.h</a>
+, <a class="el" href="drawing_8c.html#af3247c45af29225f8b887633435c9b1f">drawing.c</a>
 </li>
 <li>draw_line()
 : <a class="el" href="drawing_8h.html#a2a5b74ca1f1aa5b0ba866e2b33bf0f56">drawing.h</a>
 , <a class="el" href="drawing_8c.html#a2a5b74ca1f1aa5b0ba866e2b33bf0f56">drawing.c</a>
 </li>
 <li>draw_line_statement()
-: <a class="el" href="basic_8h.html#a0f288d69d997db0c2c09158b0b7c0cf7">basic.h</a>
+: <a class="el" href="graphics_8h.html#a0f288d69d997db0c2c09158b0b7c0cf7">graphics.h</a>
 , <a class="el" href="graphics_8c.html#a0f288d69d997db0c2c09158b0b7c0cf7">graphics.c</a>
 </li>
 <li>draw_triangle()
@@ -307,7 +340,7 @@ $(document).ready(function(){initNavTree('globals_func_d.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:13 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

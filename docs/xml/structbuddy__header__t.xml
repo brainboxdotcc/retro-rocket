@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structbuddy__header__t" kind="struct" language="C++" prot="public">
+    <compoundname>buddy_header_t</compoundname>
+    <includes local="no">buddy_allocator.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbuddy__header__t_1ab606c074b955dc35f8317a5a96e3221e" prot="public" static="no" mutable="no">
+        <type>struct buddy_header *</type>
+        <definition>struct buddy_header* buddy_header_t::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Next block in free list (valid when free) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="45" column="19" bodyfile="include/buddy_allocator.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__header__t_1a93b586845f2cceb0305e8534599c8e86" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int buddy_header_t::order</definition>
+        <argsstring></argsstring>
+        <name>order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Order of this block (valid when allocated) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="46" column="5" bodyfile="include/buddy_allocator.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbuddy__header__t_1a83cb564557dac0a894fefbc8a6a7770a" prot="public" static="no" mutable="no">
+        <type>struct buddy_region *</type>
+        <definition>struct buddy_region* buddy_header_t::region</definition>
+        <argsstring></argsstring>
+        <name>region</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Owning region (valid when allocated) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="47" column="19" bodyfile="include/buddy_allocator.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Block header used for both free list nodes and allocated blocks. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>When free:<itemizedlist>
+<listitem><para>Only <computeroutput>next</computeroutput> is used (as a linked list pointer).</para>
+</listitem></itemizedlist>
+</para>
+<para>When allocated:<itemizedlist>
+<listitem><para><computeroutput>order</computeroutput> and <computeroutput>region</computeroutput> are valid metadata.</para>
+</listitem><listitem><para>User data begins immediately after the header. </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>struct buddy_region *</label>
+      </node>
+      <node id="3">
+        <label>struct buddy_header *</label>
+      </node>
+      <node id="1">
+        <label>buddy_header_t</label>
+        <link refid="structbuddy__header__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>order</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>int</label>
+      </node>
+    </collaborationgraph>
+    <location file="include/buddy_allocator.h" line="44" column="1" bodyfile="include/buddy_allocator.h" bodystart="44" bodyend="48"/>
+    <listofallmembers>
+      <member refid="structbuddy__header__t_1ab606c074b955dc35f8317a5a96e3221e" prot="public" virt="non-virtual"><scope>buddy_header_t</scope><name>next</name></member>
+      <member refid="structbuddy__header__t_1a93b586845f2cceb0305e8534599c8e86" prot="public" virt="non-virtual"><scope>buddy_header_t</scope><name>order</name></member>
+      <member refid="structbuddy__header__t_1a83cb564557dac0a894fefbc8a6a7770a" prot="public" virt="non-virtual"><scope>buddy_header_t</scope><name>region</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

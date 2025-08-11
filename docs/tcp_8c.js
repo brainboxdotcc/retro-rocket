@@ -10,6 +10,7 @@ var tcp_8c =
     [ "seq_gte", "tcp_8c.html#a473b7dd1cb0588bb1057164a02fc47e1", null ],
     [ "seq_lt", "tcp_8c.html#ae675f3df7ce9d5ddea9050443f6f6dec", null ],
     [ "seq_lte", "tcp_8c.html#aeb3de4fe04475c09b292bf71bf0a175a", null ],
+    [ "sock_ready_to_read", "tcp_8c.html#ae4013d43c90be7603c80e7224765d830", null ],
     [ "socket_error", "tcp_8c.html#a0a5ac590e0a9088bc8ddf519e8e0967d", null ],
     [ "tcp_accept", "tcp_8c.html#aeb880bf940312acdf8a48c4d4dfa0b72", null ],
     [ "tcp_alloc_port", "tcp_8c.html#a4f402771111ada0834a98e599c0bd313", null ],

@@ -216,6 +216,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36">recv</a> (int socket, void *buffer, uint32_t maxlen, bool blocking, uint32_t timeout)</td></tr>
 <tr class="memdesc:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from an open socket. The data is buffered, and this function will fill the buffer when there is data in the buffer to read.  <a href="tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36">More...</a><br /></td></tr>
 <tr class="separator:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4013d43c90be7603c80e7224765d830"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#ae4013d43c90be7603c80e7224765d830">sock_ready_to_read</a> (int socket)</td></tr>
+<tr class="memdesc:ae4013d43c90be7603c80e7224765d830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a socket has data ready to be read.  <a href="tcp_8h.html#ae4013d43c90be7603c80e7224765d830">More...</a><br /></td></tr>
+<tr class="separator:ae4013d43c90be7603c80e7224765d830"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8h.html#a39bac2a3c55fa01613ed4a5579a5ca67">is_connected</a> (int socket)</td></tr>
 <tr class="memdesc:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the socket is connected.  <a href="tcp_8h.html#a39bac2a3c55fa01613ed4a5579a5ca67">More...</a><br /></td></tr>
 <tr class="separator:a39bac2a3c55fa01613ed4a5579a5ca67"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -529,6 +532,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>ACPI Root System Description Pointer (RSDP) </p>
+<p>On-disk description block containing global filesystem metadata.</p>
 <p>A disk partition entry within the MBR.</p>
 <p>Structure and bitfields for representing IP fragmentation. Used within an ip_packet_t.</p>
 <p>FAT32 FSINFO structure.</p>
@@ -928,6 +932,34 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int number of bytes written </dd></dl>
+
+</div>
+</div>
+<a id="ae4013d43c90be7603c80e7224765d830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4013d43c90be7603c80e7224765d830">&#9670;&nbsp;</a></span>sock_ready_to_read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool sock_ready_to_read </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>socket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if a socket has data ready to be read. </p>
+<p>Non-blocking check for buffered data on the given socket. Does not consume any data or modify the recv buffer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">socket</td><td>File descriptor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if there is data available to read, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -1341,6 +1373,14 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Generic ACPI System Description Table Header. </p>
+<p>Formatted printf-style output to the serial port.</p>
+<p>Write a null-terminated string to the serial port.</p>
+<p>Write a single character to the serial port.</p>
+<p>Unified representation of either a directory start or file entry.</p>
+<p>On-disk directory start entry.</p>
+<p>On-disk file entry structure for non-directory entries.</p>
+<p>One sector of the free space map, containing an array of 64-bit bitfields.</p>
+<p>Padded variant of the description block to exactly fill one sector.</p>
 <p>A single GPT partition entry.</p>
 <p>The GPT (GUID Partition Table) header.</p>
 <p>A disk partition table consisting of four MBR partition entries.</p>
@@ -1350,7 +1390,22 @@ Variables</h2></td></tr>
 <p>A directory entry, e.g. file, volume label, directory, long filename entry.</p>
 <p>Root System Description Table (RSDT)</p>
 <p>All ACPI tables begin with this header. It is used to identify table type, length, version, and source information.</p>
-<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses. </p>
+<p>Points to other system description tables using 32-bit addresses. Superseded by XSDT in ACPI 2.0+ which uses 64-bit addresses.</p>
+<p>This is always the first entry in a directory block.</p>
+<p>Each directory block sector contains two of these (half-sector entries).</p>
+<p>Blocks until transmitter is ready.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">port</td><td>Base I/O port. </td></tr>
+    <tr><td class="paramname">c</td><td>Character to write.</td></tr>
+    <tr><td class="paramname">port</td><td>Base I/O port. </td></tr>
+    <tr><td class="paramname">s</td><td>String to write.</td></tr>
+    <tr><td class="paramname">port</td><td>Base I/O port. </td></tr>
+    <tr><td class="paramname">fmt</td><td>Format string. </td></tr>
+    <tr><td class="paramname">...</td><td>Arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1724,7 +1779,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="tcp_8h.html">tcp.h</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

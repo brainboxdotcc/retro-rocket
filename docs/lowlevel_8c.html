@@ -99,22 +99,31 @@ $(document).ready(function(){initNavTree('lowlevel_8c.html',''); initResizable()
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a19c0d5d102db5c468f8f07bfed33ce3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#a19c0d5d102db5c468f8f07bfed33ce3a">write_cpuid</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int leaf)</td></tr>
+<tr class="memdesc:a19c0d5d102db5c468f8f07bfed33ce3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the CPUID information into the provided context for a specific leaf.  <a href="lowlevel_8c.html#a19c0d5d102db5c468f8f07bfed33ce3a">More...</a><br /></td></tr>
 <tr class="separator:a19c0d5d102db5c468f8f07bfed33ce3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f6f5e32c9a01fab0b640a11b59334d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#a5f6f5e32c9a01fab0b640a11b59334d1">write_cpuidex</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int leaf, int subleaf)</td></tr>
+<tr class="memdesc:a5f6f5e32c9a01fab0b640a11b59334d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the CPUID information into the provided context for a specific leaf and subleaf.  <a href="lowlevel_8c.html#a5f6f5e32c9a01fab0b640a11b59334d1">More...</a><br /></td></tr>
 <tr class="separator:a5f6f5e32c9a01fab0b640a11b59334d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af80c26826e9de2d0deac499b7397747d"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#af80c26826e9de2d0deac499b7397747d">get_cpuid_reg</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, int64_t reg)</td></tr>
+<tr class="memdesc:af80c26826e9de2d0deac499b7397747d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a specific CPUID register value from the context.  <a href="lowlevel_8c.html#af80c26826e9de2d0deac499b7397747d">More...</a><br /></td></tr>
 <tr class="separator:af80c26826e9de2d0deac499b7397747d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a988befdafcb2491d0f07b5f5ded58e0e"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#a988befdafcb2491d0f07b5f5ded58e0e">basic_legacy_cpuid</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a988befdafcb2491d0f07b5f5ded58e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a legacy CPUID instruction for a specific leaf and subleaf.  <a href="lowlevel_8c.html#a988befdafcb2491d0f07b5f5ded58e0e">More...</a><br /></td></tr>
 <tr class="separator:a988befdafcb2491d0f07b5f5ded58e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeefd46448bebfea73954e6b48448fbc"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#afeefd46448bebfea73954e6b48448fbc">basic_legacy_getlastcpuid</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:afeefd46448bebfea73954e6b48448fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the last CPUID register value from the context.  <a href="lowlevel_8c.html#afeefd46448bebfea73954e6b48448fbc">More...</a><br /></td></tr>
 <tr class="separator:afeefd46448bebfea73954e6b48448fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08bb8fd0c49417b63889e76620e4f810"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#a08bb8fd0c49417b63889e76620e4f810">basic_cpugetbrand</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a08bb8fd0c49417b63889e76620e4f810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the brand of the CPU.  <a href="lowlevel_8c.html#a08bb8fd0c49417b63889e76620e4f810">More...</a><br /></td></tr>
 <tr class="separator:a08bb8fd0c49417b63889e76620e4f810"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa2ef90f885539364abb5363ccfefbf5"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#afa2ef90f885539364abb5363ccfefbf5">basic_cpugetvendor</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:afa2ef90f885539364abb5363ccfefbf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the vendor of the CPU.  <a href="lowlevel_8c.html#afa2ef90f885539364abb5363ccfefbf5">More...</a><br /></td></tr>
 <tr class="separator:afa2ef90f885539364abb5363ccfefbf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab89f69f6260c87b6cc4ee21b5ea35ee5"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#ab89f69f6260c87b6cc4ee21b5ea35ee5">basic_intoasc</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:ab89f69f6260c87b6cc4ee21b5ea35ee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a number to its ASCII string representation.  <a href="lowlevel_8c.html#ab89f69f6260c87b6cc4ee21b5ea35ee5">More...</a><br /></td></tr>
 <tr class="separator:ab89f69f6260c87b6cc4ee21b5ea35ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca68b975022b959caf87e20f9342144e"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lowlevel_8c.html#aca68b975022b959caf87e20f9342144e">basic_cpuid</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:aca68b975022b959caf87e20f9342144e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the CPUID result for a specific leaf and subleaf.  <a href="lowlevel_8c.html#aca68b975022b959caf87e20f9342144e">More...</a><br /></td></tr>
 <tr class="separator:aca68b975022b959caf87e20f9342144e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -136,6 +145,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets the brand of the CPU. </p>
+<p>Retrieves the CPU brand string.</p>
+<p>This function returns the brand of the CPU, providing information about the specific CPU model that the system is running.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>BASIC interpreter context </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The brand of the CPU </dd></dl>
+
 </div>
 </div>
 <a id="afa2ef90f885539364abb5363ccfefbf5"></a>
@@ -153,6 +173,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets the vendor of the CPU. </p>
+<p>Retrieves the CPU vendor string.</p>
+<p>This function returns the vendor of the CPU, providing information about the manufacturer of the CPU.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>BASIC interpreter context </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The vendor of the CPU </dd></dl>
 
 </div>
 </div>
@@ -172,6 +203,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Retrieves the CPUID result for a specific leaf and subleaf. </p>
+<p>This function executes CPUID for a specified leaf and subleaf and returns the value of a specific CPUID register as defined by the <code>reg</code> parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The BASIC context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The CPUID result of the specified register. </dd></dl>
+
 </div>
 </div>
 <a id="ab89f69f6260c87b6cc4ee21b5ea35ee5"></a>
@@ -189,6 +230,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Converts a number to its ASCII string representation. </p>
+<p>Converts an integer value to a string representation.</p>
+<p>This function converts a number into its ASCII equivalent. For example, the number 123 would be converted to the string "123".</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>BASIC interpreter context </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The ASCII string representation of the number </dd></dl>
 
 </div>
 </div>
@@ -208,6 +260,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Executes a legacy CPUID instruction for a specific leaf and subleaf. </p>
+<p>This function executes the CPUID instruction with a specified leaf and subleaf and stores the result in the context's <code>last_cpuid_result</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The BASIC context where the CPUID result is stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the subleaf is not -1, 0 if it is. </dd></dl>
+
 </div>
 </div>
 <a id="afeefd46448bebfea73954e6b48448fbc"></a>
@@ -225,6 +287,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieves the last CPUID register value from the context. </p>
+<p>This function retrieves the most recent CPUID register value stored in the <code>last_cpuid_result</code> from the provided <code><a class="el" href="structbasic__ctx.html" title="BASIC program context.">basic_ctx</a></code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The BASIC context where the CPUID result is stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The value of the last CPUID register queried. </dd></dl>
 
 </div>
 </div>
@@ -254,6 +326,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Retrieves a specific CPUID register value from the context. </p>
+<p>This function retrieves the value of a specific CPUID register (eax, ebx, ecx, edx) from the <code>last_cpuid_result</code> in the provided <code><a class="el" href="structbasic__ctx.html" title="BASIC program context.">basic_ctx</a></code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The BASIC context where the CPUID result is stored. </td></tr>
+    <tr><td class="paramname">reg</td><td>The register to retrieve (0 = eax, 1 = ebx, 2 = ecx, 3 = edx). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The value of the specified CPUID register. </dd></dl>
+
 </div>
 </div>
 <a id="a19c0d5d102db5c468f8f07bfed33ce3a"></a>
@@ -281,6 +364,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Writes the CPUID information into the provided context for a specific leaf. </p>
+<p>This function retrieves the CPUID information for a given leaf and stores the results in the <code>last_cpuid_result</code> field of the provided <code><a class="el" href="structbasic__ctx.html" title="BASIC program context.">basic_ctx</a></code> context.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The BASIC context where the CPUID result is stored. </td></tr>
+    <tr><td class="paramname">leaf</td><td>The CPUID leaf to query. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -316,6 +409,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Writes the CPUID information into the provided context for a specific leaf and subleaf. </p>
+<p>This function retrieves the CPUID information for a given leaf and subleaf and stores the results in the <code>last_cpuid_result</code> field of the provided <code><a class="el" href="structbasic__ctx.html" title="BASIC program context.">basic_ctx</a></code> context.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The BASIC context where the CPUID result is stored. </td></tr>
+    <tr><td class="paramname">leaf</td><td>The CPUID leaf to query. </td></tr>
+    <tr><td class="paramname">subleaf</td><td>The CPUID subleaf to query. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -324,7 +428,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="lowlevel_8c.html">lowlevel.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

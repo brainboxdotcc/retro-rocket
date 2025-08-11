@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structub__proc__fn__def" kind="struct" language="C++" prot="public">
     <compoundname>ub_proc_fn_def</compoundname>
-    <includes local="no">basic.h</includes>
+    <includes local="no">structs.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structub__proc__fn__def_1a69737ebfd8476239a7f97f08b75e510f" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -10,25 +10,27 @@
         <argsstring></argsstring>
         <name>name</name>
         <briefdescription>
+<para>Name of the function or procedure. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="117" column="12" bodyfile="include/basic.h" bodystart="117" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="107" column="12" bodyfile="include/basic/structs.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__proc__fn__def_1aaf1a001204ca6a291414325774eda5bc" prot="public" static="no" mutable="no">
-        <type><ref refid="basic_8h_1a65231902c1f22532519da8a1c01ba53e" kindref="member">ub_fn_type</ref></type>
+        <type><ref refid="structs_8h_1a65231902c1f22532519da8a1c01ba53e" kindref="member">ub_fn_type</ref></type>
         <definition>ub_fn_type ub_proc_fn_def::type</definition>
         <argsstring></argsstring>
         <name>type</name>
         <briefdescription>
+<para>Type of function or procedure (FN/PROC) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="118" column="12" bodyfile="include/basic.h" bodystart="118" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="108" column="12" bodyfile="include/basic/structs.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__proc__fn__def_1ab3410b24ce2ff1bcbd0b8c77316380be" prot="public" static="no" mutable="no">
         <type>int64_t</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>line</name>
         <briefdescription>
+<para>Starting line number of the function or procedure. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="119" column="9" bodyfile="include/basic.h" bodystart="119" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="109" column="9" bodyfile="include/basic/structs.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__proc__fn__def_1aaaea6658f10a987ecd19fc991c84cbc7" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__param" kindref="compound">ub_param</ref> *</type>
@@ -49,12 +52,13 @@
         <argsstring></argsstring>
         <name>params</name>
         <briefdescription>
+<para>Linked list of function parameters. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="120" column="16" bodyfile="include/basic.h" bodystart="120" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="110" column="16" bodyfile="include/basic/structs.h" bodystart="110" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__proc__fn__def_1a8fd77b8a20b660a5167e10095833853c" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__proc__fn__def" kindref="compound">ub_proc_fn_def</ref> *</type>
@@ -62,18 +66,20 @@
         <argsstring></argsstring>
         <name>next</name>
         <briefdescription>
+<para>Pointer to the next function or procedure definition. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="121" column="22" bodyfile="include/basic.h" bodystart="121" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="111" column="22" bodyfile="include/basic/structs.h" bodystart="111" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Procedure or function definition Each has a name, a type, a starting line and a parameter list. </para>
+<para>Procedure or function definition. </para>
     </briefdescription>
     <detaileddescription>
+<para>This structure holds information about a function or procedure, including its name, type (FN/PROC), starting line number, and a linked list of parameters. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="5">
@@ -115,7 +121,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/basic.h" line="116" column="1" bodyfile="include/basic.h" bodystart="116" bodyend="122"/>
+    <location file="include/basic/structs.h" line="106" column="1" bodyfile="include/basic/structs.h" bodystart="106" bodyend="112"/>
     <listofallmembers>
       <member refid="structub__proc__fn__def_1ab3410b24ce2ff1bcbd0b8c77316380be" prot="public" virt="non-virtual"><scope>ub_proc_fn_def</scope><name>line</name></member>
       <member refid="structub__proc__fn__def_1a69737ebfd8476239a7f97f08b75e510f" prot="public" virt="non-virtual"><scope>ub_proc_fn_def</scope><name>name</name></member>

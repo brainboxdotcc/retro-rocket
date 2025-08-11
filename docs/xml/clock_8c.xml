@@ -4,7 +4,7 @@
     <compoundname>clock.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <incdepgraph>
-      <node id="32">
+      <node id="52">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
@@ -14,8 +14,59 @@
       <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
       </node>
-      <node id="35">
+      <node id="23">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>stdarg.h</label>
+      </node>
+      <node id="55">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -24,19 +75,43 @@
       <node id="14">
         <label>stdatomic.h</label>
       </node>
-      <node id="47">
+      <node id="26">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="22">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="61">
+      <node id="24">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -44,13 +119,13 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="78">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="58">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -66,13 +141,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="76">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="56">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -88,13 +163,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="74">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="49">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -107,25 +182,27 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="59">
+      <node id="79">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="27">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="69">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="48">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -136,17 +213,33 @@
       <node id="12">
         <label>x86intrin.h</label>
       </node>
-      <node id="23">
+      <node id="43">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
+      <node id="34">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="41">
+      <node id="61">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
@@ -168,26 +261,34 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="70">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="64">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="31">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="42">
+      <node id="62">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="60">
+      <node id="80">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -197,37 +298,85 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="55">
+      <node id="82">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="35">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="72">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="28">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="27">
+      <node id="47">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="57">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="25">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="53">
+      <node id="29">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -268,46 +417,6 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
@@ -315,8 +424,6 @@
         <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -354,14 +461,68 @@
         </childnode>
         <childnode refid="62" relation="include">
         </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
       </node>
-      <node id="21">
+      <node id="41">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="37">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
@@ -373,13 +534,19 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="84">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="1">
         <label>clock.c</label>
         <link refid="clock_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="66">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -397,41 +564,71 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="68">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="44">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="39">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
       <node id="30">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="45">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="65">
+        <label>basic/tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="42">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
@@ -441,25 +638,41 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="51">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="38">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="62">
+      <node id="81">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="40">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -468,19 +681,48 @@
         </childnode>
       </node>
     </incdepgraph>
-      <sectiondef kind="var">
-      <memberdef kind="variable" id="clock_8c_1a213ee6f0ec6d88083c8d350fde2202ae" prot="public" static="yes" mutable="no">
-        <type><ref refid="structdatetime__t" kindref="compound">datetime_t</ref></type>
-        <definition>datetime_t current_datetime</definition>
-        <argsstring></argsstring>
-        <name>current_datetime</name>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="clock_8c_1a27e8daa26568168da0701c09af8eb2f8" prot="public" static="no">
+        <name>IS_LEAP</name>
+        <param><defname>y</defname></param>
+        <initializer>((y % 4 == 0 &amp;&amp; y % 100 != 0) || (y % 400 == 0))</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="3" column="19" bodyfile="src/clock.c" bodystart="3" bodyend="-1"/>
+        <location file="src/clock.c" line="3" column="9" bodyfile="src/clock.c" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="clock_8c_1a213ee6f0ec6d88083c8d350fde2202ae" prot="public" static="yes" mutable="no">
+        <type><ref refid="structdatetime__t" kindref="compound">datetime_t</ref></type>
+        <definition>datetime_t current_datetime</definition>
+        <argsstring></argsstring>
+        <name>current_datetime</name>
+        <initializer>= { 0 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/clock.c" line="5" column="19" bodyfile="src/clock.c" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="clock_8c_1ad82770835c7745c2871bdbc93d7311e6" prot="public" static="yes" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* tzdata</definition>
+        <argsstring></argsstring>
+        <name>tzdata</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/clock.c" line="6" column="22" bodyfile="src/clock.c" bodystart="6" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="clock_8c_1a6a0981ce9a86bd9d68fefd2aa88b5034" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -494,7 +736,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="5" column="12" bodyfile="src/clock.c" bodystart="5" bodyend="-1"/>
+        <location file="src/clock.c" line="8" column="12" bodyfile="src/clock.c" bodystart="8" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="clock_8c_1ab436b26ed418007ddb2588ba31c2c3ad" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -508,7 +750,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="6" column="12" bodyfile="src/clock.c" bodystart="6" bodyend="-1"/>
+        <location file="src/clock.c" line="9" column="12" bodyfile="src/clock.c" bodystart="9" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -523,7 +765,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="56" column="6" bodyfile="src/clock.c" bodystart="56" bodyend="74" declfile="src/clock.c" declline="8" declcolumn="6"/>
+        <location file="src/clock.c" line="109" column="6" bodyfile="src/clock.c" bodystart="109" bodyend="127" declfile="src/clock.c" declline="11" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1a8224f7fa51de1642e6634e72f2f06be2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -535,36 +777,26 @@
           <declname>dt</declname>
         </param>
         <briefdescription>
-<para>Calculate the weekday index from a given date. </para>
+<para>Get the weekday index for a given date. </para>
         </briefdescription>
         <detaileddescription>
-<para>Uses a modified version of Zeller&apos;s Congruence with precomputed tables for month codes and century codes (starting from the 18th century). The function accounts for leap years.</para>
-<para>Weekdays are returned as an integer where:<itemizedlist>
-<listitem><para>0 = Sunday</para>
-</listitem><listitem><para>1 = Monday</para>
-</listitem><listitem><para>2 = Tuesday</para>
-</listitem><listitem><para>3 = Wednesday</para>
-</listitem><listitem><para>4 = Thursday</para>
-</listitem><listitem><para>5 = Friday</para>
-</listitem><listitem><para>6 = Saturday</para>
-</listitem></itemizedlist>
-</para>
+<para>0 = Sunday, 1 = Monday, ... 6 = Saturday.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>dt</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to a <computeroutput><ref refid="structdatetime__t" kindref="compound">datetime_t</ref></computeroutput> structure containing the full date </para>
+<para>Pointer to date structure. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>int Weekday index (0 = Sunday ... 6 = Saturday) </para>
+<simplesect kind="return"><para>Weekday index (0–6). </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="87" column="5" bodyfile="src/clock.c" bodystart="87" bodyend="96" declfile="src/clock.c" declline="9" declcolumn="5"/>
+        <location file="src/clock.c" line="140" column="5" bodyfile="src/clock.c" bodystart="140" bodyend="149" declfile="src/clock.c" declline="12" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1a5422fc453dd6b462d4bc1fc0df9e4bd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -576,16 +808,15 @@
           <declname>dt</declname>
         </param>
         <briefdescription>
-<para>Retrieve the current date and time into a <ref refid="structdatetime__t" kindref="compound">datetime_t</ref> structure. </para>
+<para>Read the current RTC value into a <computeroutput><ref refid="structdatetime__t" kindref="compound">datetime_t</ref></computeroutput>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Accesses the hardware RTC and converts its registers to a structured format.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>dt</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to a <ref refid="structdatetime__t" kindref="compound">datetime_t</ref> structure to fill with current values </para>
+<para>Output pointer for current date/time (UTC). </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -593,7 +824,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="11" column="6" bodyfile="src/clock.c" bodystart="11" bodyend="14"/>
+        <location file="src/clock.c" line="14" column="6" bodyfile="src/clock.c" bodystart="14" bodyend="17"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1aecb80e3a98cb51b2ce406daf24d2f26c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -606,7 +837,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="16" column="6" bodyfile="src/clock.c" bodystart="16" bodyend="19"/>
+        <location file="src/clock.c" line="19" column="6" bodyfile="src/clock.c" bodystart="19" bodyend="22"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1a4b4ba8078f133a5e0aecfb236c25e317" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -623,7 +854,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="21" column="9" bodyfile="src/clock.c" bodystart="21" bodyend="24"/>
+        <location file="src/clock.c" line="24" column="9" bodyfile="src/clock.c" bodystart="24" bodyend="27"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1a5c8646e79381e870b7acea77deeb5b81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -644,7 +875,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="26" column="6" bodyfile="src/clock.c" bodystart="26" bodyend="29"/>
+        <location file="src/clock.c" line="29" column="6" bodyfile="src/clock.c" bodystart="29" bodyend="32"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1a0ed0af74b6ab22d8c7a1b7ba9733e12d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -664,16 +895,15 @@
           <declname>day</declname>
         </param>
         <briefdescription>
-<para>Calculate the ordinal day of the year for a given date. </para>
+<para>Calculate day-of-year (1–366) for a given date. </para>
         </briefdescription>
         <detaileddescription>
-<para>Ported from JavaScript (see: <ulink url="https://stackoverflow.com/a/75032366/3022125">https://stackoverflow.com/a/75032366/3022125</ulink>) Useful for computing time offsets or determining seasonal positions.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>year</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Full year (e.g., 2025) </para>
+<para>Full year (e.g. 2025). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -681,7 +911,7 @@
 <parametername>month</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Month (1–12) </para>
+<para>Month number (1–12). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -689,29 +919,69 @@
 <parametername>day</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Day of the month (1–31) </para>
+<para>Day of the month (1–31). </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>uint64_t Day of the year (1–366) </para>
+<simplesect kind="return"><para>Ordinal day of the year (1–366). </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="31" column="10" bodyfile="src/clock.c" bodystart="31" bodyend="33"/>
+        <location file="src/clock.c" line="34" column="10" bodyfile="src/clock.c" bodystart="34" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="clock_8c_1a1dba690a9bd94807c2086d58a11dad5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void datetime_from_time_t</definition>
+        <argsstring>(time_t timestamp, datetime_t *dt)</argsstring>
+        <name>datetime_from_time_t</name>
+        <param>
+          <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
+          <declname>timestamp</declname>
+        </param>
+        <param>
+          <type><ref refid="structdatetime__t" kindref="compound">datetime_t</ref> *</type>
+          <declname>dt</declname>
+        </param>
+        <briefdescription>
+<para>Convert a <computeroutput>time_t</computeroutput> timestamp to a <computeroutput><ref refid="structdatetime__t" kindref="compound">datetime_t</ref></computeroutput> (UTC). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timestamp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seconds since epoch (UTC). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output pointer for the decomposed date/time. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/clock.c" line="38" column="6" bodyfile="src/clock.c" bodystart="38" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1ae7841e681c8c9d59818568d39553642c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
         <definition>time_t time</definition>
         <argsstring>(time_t *t)</argsstring>
         <name>time</name>
         <param>
-          <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref> *</type>
+          <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref> *</type>
           <declname>t</declname>
         </param>
         <briefdescription>
-<para>Retrieve the current time in POSIX epoch format. </para>
+<para>Get the current system time in seconds since epoch. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -719,17 +989,17 @@
 <parametername>t</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>If non-null, the time value is also stored at this pointer </para>
+<para>Optional pointer to store the result. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>time_t Number of seconds since 00:00:00 UTC on 1 January 1970 </para>
+<simplesect kind="return"><para>Seconds since 00:00:00 UTC on 1 Jan 1970. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="35" column="8" bodyfile="src/clock.c" bodystart="35" bodyend="54"/>
+        <location file="src/clock.c" line="88" column="8" bodyfile="src/clock.c" bodystart="88" bodyend="107"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1a06107a6d2df55301644f98a80ef0517a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -750,7 +1020,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="76" column="5" bodyfile="src/clock.c" bodystart="76" bodyend="81"/>
+        <location file="src/clock.c" line="129" column="5" bodyfile="src/clock.c" bodystart="129" bodyend="134"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1ab1913913a5b7c972308168a69e64d67d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -767,7 +1037,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="98" column="12" bodyfile="src/clock.c" bodystart="98" bodyend="116"/>
+        <location file="src/clock.c" line="151" column="12" bodyfile="src/clock.c" bodystart="151" bodyend="169"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1acaac299510c8ace6baf3848cf616de85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -775,18 +1045,17 @@
         <argsstring>()</argsstring>
         <name>get_datetime_str</name>
         <briefdescription>
-<para>Retrieve the current date and time as a human-readable string. </para>
+<para>Get the current date/time as a formatted string. </para>
         </briefdescription>
         <detaileddescription>
-<para>Returns a static buffer containing the current date and time, formatted in the style: <computeroutput>&quot;Weekday, DD Month YYYY HH:MM:SS&quot;</computeroutput></para>
-<para>Example: <computeroutput>&quot;Mon, 28 Jul 2025 01:45:12&quot;</computeroutput></para>
-<para><simplesect kind="return"><para>const char* Pointer to a statically allocated string buffer (overwritten on subsequent calls). </para>
+<para>The returned string uses the format: <computeroutput>&quot;Mon, 28 Jul 2025 01:45:12&quot;</computeroutput>.</para>
+<para><simplesect kind="return"><para>Pointer to a static buffer (overwritten on each call). </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="118" column="12" bodyfile="src/clock.c" bodystart="118" bodyend="121"/>
+        <location file="src/clock.c" line="171" column="12" bodyfile="src/clock.c" bodystart="171" bodyend="174"/>
       </memberdef>
       <memberdef kind="function" id="clock_8c_1aff93106d7e8609959f1bd8185a822def" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -797,11 +1066,130 @@
 <para>Initialise the Real-Time Clock (RTC) subsystem. </para>
         </briefdescription>
         <detaileddescription>
-<para>Must be called during early boot to configure RTC access and disable periodic interrupts. </para>
+<para>Configures RTC access and disables periodic interrupts. Must be called during early kernel initialisation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/clock.c" line="123" column="6" bodyfile="src/clock.c" bodystart="123" bodyend="126"/>
+        <location file="src/clock.c" line="176" column="6" bodyfile="src/clock.c" bodystart="176" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="clock_8c_1ab65017a83e812056d1dfcea435640989" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool load_timezone</definition>
+        <argsstring>(const char *timezone)</argsstring>
+        <name>load_timezone</name>
+        <param>
+          <type>const char *</type>
+          <declname>timezone</declname>
+        </param>
+        <briefdescription>
+<para>Load and parse a timezone file from the system tzdb. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timezone</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IANA timezone name (e.g. &quot;Europe/London&quot;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successfully loaded, false if not found or invalid. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/clock.c" line="181" column="6" bodyfile="src/clock.c" bodystart="181" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="clock_8c_1a190bea845609832cd63c178eea59861b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
+        <definition>time_t local_time</definition>
+        <argsstring>(time_t timestamp)</argsstring>
+        <name>local_time</name>
+        <param>
+          <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
+          <declname>timestamp</declname>
+        </param>
+        <briefdescription>
+<para>Convert a UTC <computeroutput>time_t</computeroutput> to local time using the loaded timezone. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timestamp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seconds since epoch (UTC). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Local time as seconds since epoch. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/clock.c" line="207" column="8" bodyfile="src/clock.c" bodystart="207" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="clock_8c_1a0692dc4979f1315eca1855ce51c9be51" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>static int32_t ntohl_signed</definition>
+        <argsstring>(const uint8_t *p)</argsstring>
+        <name>ntohl_signed</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/clock.c" line="214" column="23" bodyfile="src/clock.c" bodystart="214" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="clock_8c_1a2e498bef9d4d2d77679f42ad7bdb0c04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t get_local_offset_from_buffer</definition>
+        <argsstring>(const uint8_t *tzdata, time_t timestamp)</argsstring>
+        <name>get_local_offset_from_buffer</name>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>tzdata</declname>
+        </param>
+        <param>
+          <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
+          <declname>timestamp</declname>
+        </param>
+        <briefdescription>
+<para>Get the UTC offset/DST state for a given time from a loaded tzfile buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tzdata</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to tzfile in memory. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timestamp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seconds since epoch (UTC). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Offset from UTC in seconds (including DST if applicable). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/clock.c" line="222" column="9" bodyfile="src/clock.c" bodystart="222" bodyend="258"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

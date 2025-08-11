@@ -91,27 +91,31 @@ $(document).ready(function(){initNavTree('structub__line__ref.html',''); initRes
 </div><!--header-->
 <div class="contents">
 
-<p>Line reference in program. Each program has a hashmap of these so it can find a line number in O(1) time.  
+<p>Line reference in program.  
  <a href="structub__line__ref.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_line_ref:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structub__line__ref__coll__graph.svg" width="188" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structub__line__ref__coll__graph.svg" width="188" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a3b8d78ec408ffd8b8571496401edc6ac"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__line__ref.html#a3b8d78ec408ffd8b8571496401edc6ac">line_number</a></td></tr>
+<tr class="memdesc:a3b8d78ec408ffd8b8571496401edc6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line number in the program.  <a href="structub__line__ref.html#a3b8d78ec408ffd8b8571496401edc6ac">More...</a><br /></td></tr>
 <tr class="separator:a3b8d78ec408ffd8b8571496401edc6ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ce3ba31ea4c2b0b65a351e905dfebf0"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__line__ref.html#a7ce3ba31ea4c2b0b65a351e905dfebf0">ptr</a></td></tr>
+<tr class="memdesc:a7ce3ba31ea4c2b0b65a351e905dfebf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the start of the line in the program text.  <a href="structub__line__ref.html#a7ce3ba31ea4c2b0b65a351e905dfebf0">More...</a><br /></td></tr>
 <tr class="separator:a7ce3ba31ea4c2b0b65a351e905dfebf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Line reference in program. Each program has a hashmap of these so it can find a line number in O(1) time. </p>
+<div class="textblock"><p>Line reference in program. </p>
+<p>This structure represents a line number reference in the program, used for quick lookup in the hashmap of lines, allowing O(1) time complexity when searching for line numbers. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a3b8d78ec408ffd8b8571496401edc6ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b8d78ec408ffd8b8571496401edc6ac">&#9670;&nbsp;</a></span>line_number</h2>
@@ -124,6 +128,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Line number in the program. </p>
 
 </div>
 </div>
@@ -139,6 +145,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the start of the line in the program text. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -147,7 +155,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__line__ref.html">ub_line_ref</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Entry flags (must include RFS_FLAG_DIR_START). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="67" column="10" bodyfile="include/retrofs.h" bodystart="67" bodyend="-1"/>
+        <location file="include/retrofs.h" line="116" column="10" bodyfile="include/retrofs.h" bodystart="116" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__directory__start__t_1a91e1d746c6e2fdfd2617c569b1fdbeec" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -25,10 +26,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Human-readable directory title. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="68" column="6" bodyfile="include/retrofs.h" bodystart="68" bodyend="-1"/>
+        <location file="include/retrofs.h" line="117" column="6" bodyfile="include/retrofs.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__directory__start__t_1a83f8050afdd972930ce5a02fc5cc6c45" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -38,10 +40,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector of parent directory start entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="69" column="10" bodyfile="include/retrofs.h" bodystart="69" bodyend="-1"/>
+        <location file="include/retrofs.h" line="118" column="10" bodyfile="include/retrofs.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__directory__start__t_1a3ad10ef57a35c30dd2192a5ae4b667c2" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -51,10 +54,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Number of sectors in this directory block. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="70" column="10" bodyfile="include/retrofs.h" bodystart="70" bodyend="-1"/>
+        <location file="include/retrofs.h" line="119" column="10" bodyfile="include/retrofs.h" bodystart="119" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__directory__start__t_1aa62b28276a1926465e6d0bdfc8a282cb" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -64,10 +68,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector of next directory block, or 0 if none. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="71" column="10" bodyfile="include/retrofs.h" bodystart="71" bodyend="-1"/>
+        <location file="include/retrofs.h" line="120" column="10" bodyfile="include/retrofs.h" bodystart="120" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__directory__start__t_1aa46fcc9ac6e22ac1acc41fc60921f07d" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -77,15 +82,18 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Reserved for future use / alignment. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="72" column="6" bodyfile="include/retrofs.h" bodystart="72" bodyend="-1"/>
+        <location file="include/retrofs.h" line="121" column="6" bodyfile="include/retrofs.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>On-disk directory start entry. </para>
     </briefdescription>
     <detaileddescription>
+<para>This is always the first entry in a directory block. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -114,7 +122,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/retrofs.h" line="66" column="1" bodyfile="include/retrofs.h" bodystart="66" bodyend="73"/>
+    <location file="include/retrofs.h" line="115" column="1" bodyfile="include/retrofs.h" bodystart="115" bodyend="122"/>
     <listofallmembers>
       <member refid="structrfs__directory__start__t_1aa62b28276a1926465e6d0bdfc8a282cb" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>continuation</name></member>
       <member refid="structrfs__directory__start__t_1a23433f20334bc0eb67046b9f49d51af0" prot="public" virt="non-virtual"><scope>rfs_directory_start_t</scope><name>flags</name></member>

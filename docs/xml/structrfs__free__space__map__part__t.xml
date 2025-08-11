@@ -12,13 +12,15 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Free/used sector flags. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="52" column="10" bodyfile="include/retrofs.h" bodystart="52" bodyend="-1"/>
+        <location file="include/retrofs.h" line="92" column="10" bodyfile="include/retrofs.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>One sector of the free space map, containing an array of 64-bit bitfields. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -34,7 +36,7 @@
         <label>uint64_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/retrofs.h" line="51" column="1" bodyfile="include/retrofs.h" bodystart="51" bodyend="53"/>
+    <location file="include/retrofs.h" line="91" column="1" bodyfile="include/retrofs.h" bodystart="91" bodyend="93"/>
     <listofallmembers>
       <member refid="structrfs__free__space__map__part__t_1a11ba7239ec1ff73bce3e9741c002cd8d" prot="public" virt="non-virtual"><scope>rfs_free_space_map_part_t</scope><name>bits</name></member>
     </listofallmembers>

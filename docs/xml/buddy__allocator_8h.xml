@@ -4,6 +4,7 @@
     <compoundname>buddy_allocator.h</compoundname>
     <includes local="no">stddef.h</includes>
     <includes local="no">stdint.h</includes>
+    <includedby refid="context_8h" local="yes">context.h</includedby>
     <includedby refid="kernel_8h" local="yes">kernel.h</includedby>
     <includedby refid="buddy__allocator_8c" local="no">buddy_allocator.c</includedby>
     <incdepgraph>
@@ -23,58 +24,88 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="94">
+      <node id="125">
         <label>memcpy.c</label>
         <link refid="memcpy_8c"/>
       </node>
-      <node id="55">
+      <node id="74">
         <label>console.c</label>
         <link refid="console_8c"/>
       </node>
-      <node id="67">
+      <node id="87">
         <label>reflection.c</label>
         <link refid="reflection_8c"/>
       </node>
-      <node id="71">
+      <node id="110">
+        <label>main.c</label>
+        <link refid="fs_2fat32_2main_8c"/>
+      </node>
+      <node id="106">
+        <label>createfile.c</label>
+        <link refid="fat32_2createfile_8c"/>
+      </node>
+      <node id="52">
+        <label>helpers.c</label>
+        <link refid="helpers_8c"/>
+      </node>
+      <node id="3">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+      </node>
+      <node id="91">
         <label>tokenizer.c</label>
         <link refid="tokenizer_8c"/>
       </node>
-      <node id="76">
+      <node id="2">
+        <label>context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
         <label>errorhandler.c</label>
         <link refid="errorhandler_8c"/>
       </node>
-      <node id="39">
+      <node id="44">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="105">
+        <label>cluster.c</label>
+        <link refid="cluster_8c"/>
+      </node>
+      <node id="115">
         <label>filesystem.c</label>
         <link refid="filesystem_8c"/>
       </node>
-      <node id="72">
+      <node id="92">
         <label>variable.c</label>
         <link refid="variable_8c"/>
       </node>
-      <node id="86">
-        <label>retrofs.c</label>
-        <link refid="retrofs_8c"/>
+      <node id="57">
+        <label>unlinkdirectory.c</label>
+        <link refid="unlinkdirectory_8c"/>
       </node>
-      <node id="3">
+      <node id="5">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="108">
+      <node id="139">
         <label>random.c</label>
         <link refid="random_8c"/>
       </node>
-      <node id="5">
+      <node id="7">
         <label>arp.h</label>
         <link refid="arp_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -82,362 +113,424 @@
         <link refid="buddy__allocator_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="115" relation="include">
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="15">
         <label>dns.h</label>
         <link refid="dns_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="102">
+      <node id="133">
         <label>net.c</label>
         <link refid="net_8c"/>
       </node>
-      <node id="15">
+      <node id="19">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="25">
-        <label>interrupt.c</label>
-        <link refid="interrupt_8c"/>
-      </node>
-      <node id="48">
-        <label>udp.h</label>
-        <link refid="udp_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="107">
-        <label>printf.c</label>
-        <link refid="printf_8c"/>
-      </node>
-      <node id="60">
-        <label>function.c</label>
-        <link refid="function_8c"/>
-      </node>
-      <node id="27">
-        <label>iso9660.h</label>
-        <link refid="iso9660_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-      </node>
-      <node id="44">
-        <label>tcp.h</label>
-        <link refid="tcp_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="112">
-        <label>taskswitch.c</label>
-        <link refid="taskswitch_8c"/>
-      </node>
-      <node id="19">
-        <label>hashmap.c</label>
-        <link refid="hashmap_8c"/>
-      </node>
-      <node id="103">
-        <label>queue.c</label>
-        <link refid="queue_8c"/>
-      </node>
-      <node id="9">
-        <label>devicename.h</label>
-        <link refid="devicename_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="12">
-        <label>drawing.h</label>
-        <link refid="drawing_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="89">
-        <label>input.c</label>
-        <link refid="input_8c"/>
-      </node>
-      <node id="110">
-        <label>stdlib.c</label>
-        <link refid="stdlib_8c"/>
-      </node>
-      <node id="6">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="65">
-        <label>maths.c</label>
-        <link refid="basic_2maths_8c"/>
-      </node>
-      <node id="100">
-        <label>icmp.c</label>
-        <link refid="icmp_8c"/>
-      </node>
-      <node id="115">
-        <label>buddy_allocator.c</label>
-        <link refid="buddy__allocator_8c"/>
-      </node>
-      <node id="42">
-        <label>rtl8139.h</label>
-        <link refid="rtl8139_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="101">
-        <label>ip.c</label>
-        <link refid="ip_8c"/>
-      </node>
-      <node id="91">
-        <label>keyboard.c</label>
-        <link refid="keyboard_8c"/>
-      </node>
-      <node id="56">
-        <label>debugger.c</label>
-        <link refid="basic_2debugger_8c"/>
-      </node>
-      <node id="58">
-        <label>file_io.c</label>
-        <link refid="file__io_8c"/>
-      </node>
-      <node id="97">
-        <label>descriptor.c</label>
-        <link refid="descriptor_8c"/>
-      </node>
-      <node id="68">
-        <label>sockets.c</label>
-        <link refid="sockets_8c"/>
-      </node>
-      <node id="114">
-        <label>video.c</label>
-        <link refid="video_8c"/>
-      </node>
-      <node id="49">
-        <label>acpi.c</label>
-        <link refid="acpi_8c"/>
-      </node>
-      <node id="61">
-        <label>graphics.c</label>
-        <link refid="graphics_8c"/>
-      </node>
-      <node id="93">
-        <label>maths.c</label>
-        <link refid="maths_8c"/>
-      </node>
-      <node id="33">
-        <label>e1000.c</label>
-        <link refid="e1000_8c"/>
-      </node>
-      <node id="74">
-        <label>debugger.c</label>
-        <link refid="debugger_8c"/>
-      </node>
-      <node id="57">
-        <label>double_expression.c</label>
-        <link refid="double__expression_8c"/>
-      </node>
-      <node id="113">
-        <label>timer.c</label>
-        <link refid="timer_8c"/>
-      </node>
-      <node id="82">
-        <label>fat32.c</label>
-        <link refid="fat32_8c"/>
-      </node>
-      <node id="8">
-        <label>cv.h</label>
-        <link refid="cv_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="106">
-        <label>pci.c</label>
-        <link refid="pci_8c"/>
-      </node>
-      <node id="62">
-        <label>int_expression.c</label>
-        <link refid="int__expression_8c"/>
-      </node>
-      <node id="38">
-        <label>printf.h</label>
-        <link refid="printf_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>e1000.h</label>
-        <link refid="e1000_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="29">
-        <label>lapic_timer.h</label>
-        <link refid="lapic__timer_8h"/>
-        <childnode refid="2" relation="include">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="67">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="78">
-        <label>fb.c</label>
-        <link refid="fb_8c"/>
-      </node>
-      <node id="96">
-        <label>debug.c</label>
-        <link refid="debug_8c"/>
-      </node>
-      <node id="54">
-        <label>array.c</label>
-        <link refid="array_8c"/>
-      </node>
-      <node id="21">
-        <label>initialisation-functions.h</label>
-        <link refid="initialisation-functions_8h"/>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-      </node>
-      <node id="95">
-        <label>arp.c</label>
-        <link refid="arp_8c"/>
-      </node>
-      <node id="16">
-        <label>fpu.h</label>
-        <link refid="fpu_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="138">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
       </node>
       <node id="80">
-        <label>fpu.c</label>
-        <link refid="fpu_8c"/>
+        <label>function.c</label>
+        <link refid="function_8c"/>
       </node>
-      <node id="90">
-        <label>ioapic.c</label>
-        <link refid="ioapic_8c"/>
-      </node>
-      <node id="20">
-        <label>icmp.h</label>
-        <link refid="icmp_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="31">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="4" relation="include">
         </childnode>
-      </node>
-      <node id="46">
-        <label>kmalloc.c</label>
-        <link refid="kmalloc_8c"/>
-      </node>
-      <node id="87">
-        <label>gdt.c</label>
-        <link refid="gdt_8c"/>
-      </node>
-      <node id="34">
-        <label>mmio.c</label>
-        <link refid="mmio_8c"/>
-      </node>
-      <node id="98">
-        <label>dhcp.c</label>
-        <link refid="dhcp_8c"/>
-      </node>
-      <node id="32">
-        <label>mmio.h</label>
-        <link refid="mmio_8h"/>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-      </node>
-      <node id="26">
-        <label>ip.h</label>
-        <link refid="ip_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
       <node id="63">
-        <label>lowlevel.c</label>
-        <link refid="lowlevel_8c"/>
-      </node>
-      <node id="53">
-        <label>ata.c</label>
-        <link refid="ata_8c"/>
-      </node>
-      <node id="70">
-        <label>string_expression.c</label>
-        <link refid="string__expression_8c"/>
-      </node>
-      <node id="47">
-        <label>tinyalloc.c</label>
-        <link refid="tinyalloc_8c"/>
-      </node>
-      <node id="109">
-        <label>rtl8139.c</label>
-        <link refid="rtl8139_8c"/>
-      </node>
-      <node id="59">
-        <label>flow_control.c</label>
-        <link refid="flow__control_8c"/>
-      </node>
-      <node id="30">
-        <label>maths.h</label>
-        <link refid="maths_8h"/>
-        <childnode refid="2" relation="include">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="88">
-        <label>idt.c</label>
-        <link refid="idt_8c"/>
+      <node id="143">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
       </node>
-      <node id="81">
+      <node id="23">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="134">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="13">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>fsmap.c</label>
+        <link refid="fsmap_8c"/>
+      </node>
+      <node id="16">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="120">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="49">
+        <label>format.c</label>
+        <link refid="format_8c"/>
+      </node>
+      <node id="141">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
+      </node>
+      <node id="114">
+        <label>writefile.c</label>
+        <link refid="fat32_2writefile_8c"/>
+      </node>
+      <node id="85">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="131">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="93">
+        <label>buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+      </node>
+      <node id="59">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="122">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="76">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="48">
+        <label>createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="78">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="55">
+        <label>truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="95">
+        <label>debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="104">
         <label>devfs.c</label>
         <link refid="devfs_8c"/>
       </node>
-      <node id="85">
+      <node id="103">
+        <label>debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="128">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="88">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="145">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="56">
+        <label>unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="68">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="81">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="124">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="53">
+        <label>main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="37">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="96">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="77">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="144">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="10">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="82">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="43">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="127">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="73">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="25">
+        <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="20">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>lfn.c</label>
+        <link refid="lfn_8c"/>
+      </node>
+      <node id="61">
+        <label>serial.c</label>
+        <link refid="serial_8c"/>
+      </node>
+      <node id="60">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="121">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="24">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="118">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="38">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="129">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="36">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="72">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="51">
+        <label>getdirectory.c</label>
+        <link refid="getdirectory_8c"/>
+      </node>
+      <node id="90">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="66">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="75">
+        <label>datetime.c</label>
+        <link refid="datetime_8c"/>
+      </node>
+      <node id="140">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="79">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="34">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="117">
         <label>ramdisk.c</label>
         <link refid="ramdisk_8c"/>
       </node>
-      <node id="22">
+      <node id="26">
         <label>init.c</label>
         <link refid="init_8c"/>
       </node>
-      <node id="45">
+      <node id="64">
         <label>tinyalloc.h</label>
         <link refid="tinyalloc_8h"/>
-        <childnode refid="46" relation="include">
+        <childnode refid="65" relation="include">
         </childnode>
-        <childnode refid="47" relation="include">
+        <childnode refid="66" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="32">
         <label>iso9660.c</label>
         <link refid="iso9660_8c"/>
       </node>
-      <node id="104">
+      <node id="135">
         <label>tcp.c</label>
         <link refid="tcp_8c"/>
       </node>
-      <node id="105">
+      <node id="47">
+        <label>createdirectory.c</label>
+        <link refid="createdirectory_8c"/>
+      </node>
+      <node id="136">
         <label>udp.c</label>
         <link refid="udp_8c"/>
       </node>
-      <node id="14">
+      <node id="108">
+        <label>fat.c</label>
+        <link refid="fat_8c"/>
+      </node>
+      <node id="18">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="101">
         <label>flanterm.c</label>
         <link refid="flanterm_8c"/>
       </node>
-      <node id="2">
+      <node id="4">
         <label>kernel.h</label>
         <link refid="kernel_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
@@ -464,37 +557,35 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
         <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
         </childnode>
@@ -504,43 +595,17 @@
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
-        <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="52" relation="include">
-        </childnode>
-        <childnode refid="53" relation="include">
-        </childnode>
-        <childnode refid="54" relation="include">
-        </childnode>
-        <childnode refid="55" relation="include">
-        </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
-        <childnode refid="57" relation="include">
-        </childnode>
-        <childnode refid="58" relation="include">
+        <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="59" relation="include">
         </childnode>
         <childnode refid="60" relation="include">
-        </childnode>
-        <childnode refid="61" relation="include">
         </childnode>
         <childnode refid="62" relation="include">
         </childnode>
         <childnode refid="63" relation="include">
         </childnode>
         <childnode refid="64" relation="include">
-        </childnode>
-        <childnode refid="65" relation="include">
-        </childnode>
-        <childnode refid="66" relation="include">
         </childnode>
         <childnode refid="67" relation="include">
         </childnode>
@@ -558,11 +623,7 @@
         </childnode>
         <childnode refid="74" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
         <childnode refid="75" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="76" relation="include">
         </childnode>
@@ -580,8 +641,6 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
@@ -594,15 +653,9 @@
         </childnode>
         <childnode refid="89" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
         <childnode refid="90" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="91" relation="include">
-        </childnode>
-        <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="92" relation="include">
         </childnode>
@@ -614,7 +667,11 @@
         </childnode>
         <childnode refid="96" relation="include">
         </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
         <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="98" relation="include">
         </childnode>
@@ -650,161 +707,348 @@
         </childnode>
         <childnode refid="114" relation="include">
         </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
       </node>
-      <node id="52">
+      <node id="71">
         <label>apic.c</label>
         <link refid="apic_8c"/>
       </node>
-      <node id="31">
+      <node id="35">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="36">
-        <label>partition.h</label>
-        <link refid="partition_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="40">
-        <label>random.h</label>
-        <link refid="random_8h"/>
-        <childnode refid="2" relation="include">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
         </childnode>
       </node>
-      <node id="73">
+      <node id="45">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
         <label>clock.c</label>
         <link refid="clock_8c"/>
       </node>
-      <node id="51">
+      <node id="11">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
         <label>ap.c</label>
         <link refid="ap_8c"/>
       </node>
-      <node id="18">
+      <node id="22">
         <label>devicename.c</label>
         <link refid="devicename_8c"/>
       </node>
-      <node id="84">
+      <node id="116">
         <label>partition.c</label>
         <link refid="partition_8c"/>
       </node>
-      <node id="43">
+      <node id="62">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="66">
+      <node id="113">
+        <label>unlinkfile.c</label>
+        <link refid="unlinkfile_8c"/>
+      </node>
+      <node id="86">
         <label>process.c</label>
         <link refid="process_8c"/>
       </node>
-      <node id="69">
+      <node id="89">
         <label>string.c</label>
         <link refid="basic_2string_8c"/>
       </node>
-      <node id="17">
+      <node id="21">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="39">
         <label>net.h</label>
         <link refid="net_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="64">
+      <node id="84">
         <label>main.c</label>
-        <link refid="main_8c"/>
+        <link refid="basic_2main_8c"/>
       </node>
-      <node id="24">
+      <node id="107">
+        <label>directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="111">
+        <label>readfile.c</label>
+        <link refid="fat32_2readfile_8c"/>
+      </node>
+      <node id="28">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="99">
         <label>ethernet.c</label>
         <link refid="ethernet_8c"/>
       </node>
-      <node id="99">
+      <node id="112">
+        <label>truncatefile.c</label>
+        <link refid="fat32_2truncatefile_8c"/>
+      </node>
+      <node id="130">
         <label>dns.c</label>
         <link refid="dns_8c"/>
       </node>
-      <node id="23">
+      <node id="8">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
         <label>kernel.c</label>
         <link refid="kernel_8c"/>
       </node>
-      <node id="50">
+      <node id="69">
         <label>ahci.c</label>
         <link refid="ahci_8c"/>
       </node>
-      <node id="37">
+      <node id="42">
         <label>pci.h</label>
         <link refid="pci_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="146">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="14">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="111">
+      <node id="142">
         <label>string.c</label>
         <link refid="string_8c"/>
       </node>
-      <node id="92">
+      <node id="123">
         <label>lapic_timer.c</label>
         <link refid="lapic__timer_8c"/>
       </node>
-      <node id="75">
+      <node id="41">
+        <label>installer.c</label>
+        <link refid="installer_8c"/>
+      </node>
+      <node id="97">
         <label>drawing.c</label>
         <link refid="drawing_8c"/>
       </node>
-      <node id="41">
+      <node id="46">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
         </childnode>
       </node>
-      <node id="7">
+      <node id="9">
         <label>clock.h</label>
         <link refid="clock_8h"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="58">
+        <label>writefile.c</label>
+        <link refid="retrofs_2writefile_8c"/>
+      </node>
+      <node id="54">
+        <label>readfile.c</label>
+        <link refid="retrofs_2readfile_8c"/>
+      </node>
     </invincdepgraph>
-    <innerclass refid="structbuddy__block__t" prot="public">buddy_block_t</innerclass>
+    <innerclass refid="structbuddy__header__t" prot="public">buddy_header_t</innerclass>
+    <innerclass refid="structbuddy__region__t" prot="public">buddy_region_t</innerclass>
     <innerclass refid="structbuddy__allocator__t" prot="public">buddy_allocator_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="buddy__allocator_8h_1aa2551d240a0fb5eb623eb9524c8e67de" prot="public" static="no">
+        <type><ref refid="structbuddy__header__t" kindref="compound">buddy_header_t</ref></type>
+        <definition>typedef buddy_header_t buddy_block_t</definition>
+        <argsstring></argsstring>
+        <name>buddy_block_t</name>
+        <briefdescription>
+<para>Alias for clarity when manipulating free lists. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="53" column="24" bodyfile="include/buddy_allocator.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="buddy__allocator_8h_1aee6fd37c832a9ad12f0b9a3866216ff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="buddy__allocator_8h_1a37d8949b4151deb1abd5e9ec5e6621ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void buddy_init</definition>
-        <argsstring>(buddy_allocator_t *alloc, void *backing, int min_order, int max_order)</argsstring>
+        <argsstring>(buddy_allocator_t *alloc, int min_order, int max_order, int grow_order)</argsstring>
         <name>buddy_init</name>
         <param>
           <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
           <declname>alloc</declname>
-        </param>
-        <param>
-          <type>void *</type>
-          <declname>backing</declname>
         </param>
         <param>
           <type>int</type>
@@ -814,8 +1058,12 @@
           <type>int</type>
           <declname>max_order</declname>
         </param>
+        <param>
+          <type>int</type>
+          <declname>grow_order</declname>
+        </param>
         <briefdescription>
-<para>Initialise a buddy allocator on a given memory region. </para>
+<para>Initialise a growable buddy allocator. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -828,18 +1076,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>backing</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Pointer to backing pool memory. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
 <parametername>min_order</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Minimum order (e.g. 12 for 4KB blocks). </para>
+<para>Minimum order (e.g. 6 for 64B blocks). </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -847,15 +1087,23 @@
 <parametername>max_order</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Maximum order (e.g. 20 for 1MB pool).</para>
+<para>Maximum order (e.g. 22 for 4MB region). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grow_order</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Order used when adding new regions (e.g. 22 for 4MB).</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The backing region must be at least (1 &lt;&lt; max_order) bytes and aligned to that size. </para>
+The allocator starts with no regions. The first region is allocated automatically on the first call to <ref refid="buddy__allocator_8c_1aa7d0e0fa45baa1129e43a02892d3731c" kindref="member">buddy_malloc</ref>, or may be added eagerly by growing manually. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/buddy_allocator.h" line="66" column="6" bodyfile="src/buddy_allocator.c" bodystart="40" bodyend="51" declfile="include/buddy_allocator.h" declline="66" declcolumn="6"/>
+        <location file="include/buddy_allocator.h" line="97" column="6" bodyfile="src/buddy_allocator.c" bodystart="35" bodyend="43" declfile="include/buddy_allocator.h" declline="97" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="buddy__allocator_8h_1aa7d0e0fa45baa1129e43a02892d3731c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -893,23 +1141,23 @@ The backing region must be at least (1 &lt;&lt; max_order) bytes and aligned to 
 </parameterlist>
 <simplesect kind="return"><para>Pointer to allocated memory, or NULL if out of memory.</para>
 </simplesect>
-Returned blocks are at least min_order in size, and aligned to their block size (power of two). </para>
+If the active region cannot satisfy the request, a new region is automatically allocated of size (1 &lt;&lt; grow_order). Returned blocks are aligned to their block size (power of two). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/buddy_allocator.h" line="78" column="6" bodyfile="src/buddy_allocator.c" bodystart="54" bodyend="90" declfile="include/buddy_allocator.h" declline="78" declcolumn="6"/>
+        <location file="include/buddy_allocator.h" line="110" column="6" bodyfile="src/buddy_allocator.c" bodystart="81" bodyend="137" declfile="include/buddy_allocator.h" declline="110" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="buddy__allocator_8h_1aa415d239bff39c3dfd32b56d559dfe37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="buddy__allocator_8h_1a3914b13400699a686439ea31c8ec5881" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void buddy_free</definition>
-        <argsstring>(buddy_allocator_t *alloc, void *ptr)</argsstring>
+        <argsstring>(buddy_allocator_t *alloc, const void *ptr)</argsstring>
         <name>buddy_free</name>
         <param>
           <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
           <declname>alloc</declname>
         </param>
         <param>
-          <type>void *</type>
+          <type>const void *</type>
           <declname>ptr</declname>
         </param>
         <briefdescription>
@@ -933,16 +1181,159 @@ Returned blocks are at least min_order in size, and aligned to their block size 
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The block is returned to the free list, and if its buddy is also free, the two are merged into a larger block. </para>
+The block is returned to its owning region’s free list. If its buddy is also free, the two are merged into a larger block. The owning region is identified via a back-pointer stored in the block header. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/buddy_allocator.h" line="89" column="6" bodyfile="src/buddy_allocator.c" bodystart="93" bodyend="134" declfile="include/buddy_allocator.h" declline="89" declcolumn="6"/>
+        <location file="include/buddy_allocator.h" line="122" column="6" bodyfile="src/buddy_allocator.c" bodystart="139" bodyend="189" declfile="include/buddy_allocator.h" declline="122" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8h_1ae408609a4e27ae66db3b45b669b1d26d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void buddy_destroy</definition>
+        <argsstring>(buddy_allocator_t *alloc)</argsstring>
+        <name>buddy_destroy</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <briefdescription>
+<para>Destroy a buddy allocator and free all regions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Allocator instance.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+All regions allocated internally via <ref refid="kmalloc_8h_1aa6bcd5af56ca7ffbc761b010cbd70e39" kindref="member">kmalloc()</ref> are freed with <ref refid="kmalloc_8h_1aae7ce33f5dd0ec931b2551438b55e716" kindref="member">kfree_null()</ref>. The allocator is left in an empty state. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="132" column="6" bodyfile="src/buddy_allocator.c" bodystart="191" bodyend="205" declfile="include/buddy_allocator.h" declline="132" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8h_1a2f9b4a08a4861b0c3502a3795f0fc1d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* buddy_strdup</definition>
+        <argsstring>(buddy_allocator_t *alloc, const char *s)</argsstring>
+        <name>buddy_strdup</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Duplicate a string into a buddy allocator heap. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buddy allocator to allocate from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NUL-terminated string to duplicate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Newly allocated string copy, or NULL on OOM.</para>
+</simplesect>
+The returned string is allocated from the buddy allocator&apos;s private heap and must be freed with <ref refid="buddy__allocator_8c_1a3914b13400699a686439ea31c8ec5881" kindref="member">buddy_free</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="144" column="6" bodyfile="src/buddy_allocator.c" bodystart="207" bodyend="214" declfile="include/buddy_allocator.h" declline="144" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="buddy__allocator_8h_1a58f56c5d39f4e3c06582698f0d577ac0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* buddy_realloc</definition>
+        <argsstring>(buddy_allocator_t *alloc, void *ptr, size_t size)</argsstring>
+        <name>buddy_realloc</name>
+        <param>
+          <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref> *</type>
+          <declname>alloc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Reallocate a block within a buddy allocator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Works like <ref refid="kmalloc_8h_1aece282b3071af855886669942d53537a" kindref="member">krealloc()</ref>: if ptr is NULL, behaves like <ref refid="buddy__allocator_8h_1aa7d0e0fa45baa1129e43a02892d3731c" kindref="member">buddy_malloc()</ref>. If size == 0, frees the block and returns NULL.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alloc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buddy allocator to allocate from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer previously returned by <ref refid="buddy__allocator_8h_1aa7d0e0fa45baa1129e43a02892d3731c" kindref="member">buddy_malloc()</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New desired size in bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to resized block, or NULL on OOM. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/buddy_allocator.h" line="157" column="6" bodyfile="src/buddy_allocator.c" bodystart="216" bodyend="263" declfile="include/buddy_allocator.h" declline="157" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Growable multi-region buddy allocator for Retro Rocket subsystems. </para>
     </briefdescription>
     <detaileddescription>
+<para><simplesect kind="author"><para>Craig Edwards</para>
+</simplesect>
+A buddy memory allocator that provides malloc/free-like semantics on top of one or more contiguous backing pools. Each allocator instance manages a linked list of regions, allowing it to grow dynamically when out of memory. Regions are obtained from the Retro Rocket base allocator (e.g. via kmalloc).</para>
+<para>Allocations are rounded up to the nearest power of two, with a minimum block size set by <ref refid="buddy__allocator_8c_1a37d8949b4151deb1abd5e9ec5e6621ba" kindref="member">buddy_init</ref>. Freeing coalesces buddy blocks within a region to minimise fragmentation.</para>
+<para>Complexity:<itemizedlist>
+<listitem><para>Allocation: O(log n) within a region (splitting blocks). O(1) typical due to &quot;active region&quot; fast path.</para>
+</listitem><listitem><para>Free: O(1) using a region back-pointer in the block header.</para>
+</listitem></itemizedlist>
+</para>
+<para>Notes:<itemizedlist>
+<listitem><para>Not thread safe: wrap calls in a spinlock if used from multiple tasks.</para>
+</listitem><listitem><para>Each allocated block has overhead to store its order and region.</para>
+</listitem><listitem><para>Alignment is always a power of two, at least the minimum block size.</para>
+</listitem><listitem><para>Internal fragmentation can be significant for small allocations.</para>
+</listitem><listitem><para>Regions never merge with each other; fragmentation is managed per region. </para>
+</listitem></itemizedlist>
+</para>
     </detaileddescription>
     <location file="include/buddy_allocator.h"/>
   </compounddef>

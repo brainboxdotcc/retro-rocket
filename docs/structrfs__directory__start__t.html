@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('structrfs__directory__start__t.html','
 </div><!--header-->
 <div class="contents">
 
+<p>On-disk directory start entry.  
+ <a href="structrfs__directory__start__t.html#details">More...</a></p>
+
 <p><code>#include &lt;retrofs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for rfs_directory_start_t:</div>
@@ -116,7 +119,10 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aa46fcc9ac6e22ac1acc41fc60921f07d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__directory__start__t.html#aa46fcc9ac6e22ac1acc41fc60921f07d">reserved</a> []</td></tr>
 <tr class="separator:aa46fcc9ac6e22ac1acc41fc60921f07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>On-disk directory start entry. </p>
+<p>This is always the first entry in a directory block. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="aa62b28276a1926465e6d0bdfc8a282cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa62b28276a1926465e6d0bdfc8a282cb">&#9670;&nbsp;</a></span>continuation</h2>
 
@@ -128,6 +134,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector of next directory block, or 0 if none. </p>
 
 </div>
 </div>
@@ -142,6 +149,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Entry flags (must include RFS_FLAG_DIR_START). </p>
 
 </div>
 </div>
@@ -156,6 +164,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector of parent directory start entry. </p>
 
 </div>
 </div>
@@ -170,6 +179,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reserved for future use / alignment. </p>
 
 </div>
 </div>
@@ -184,6 +194,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of sectors in this directory block. </p>
 
 </div>
 </div>
@@ -198,6 +209,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Human-readable directory title. </p>
 
 </div>
 </div>
@@ -207,7 +219,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structrfs__directory__start__t.html">rfs_directory_start_t</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

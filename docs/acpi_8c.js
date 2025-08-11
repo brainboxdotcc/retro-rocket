@@ -1,7 +1,6 @@
 var acpi_8c =
 [
     [ "uacpi_pci_dev_wrapper_t", "structuacpi__pci__dev__wrapper__t.html", "structuacpi__pci__dev__wrapper__t" ],
-    [ "UACPI_ARENA_SIZE", "acpi_8c.html#a3d13132a40a76c88523ef65c13fbbbce", null ],
     [ "async_run_gpe_handler", "acpi_8c.html#af27e1febdb9a5125d9b4e1496eb5ea21", null ],
     [ "boot_aps", "acpi_8c.html#a9263bf02ae52585b8ab22b22e9601aaf", null ],
     [ "delay_ns", "acpi_8c.html#a8d0b12edc73fcead8218d099d67d1d90", null ],
@@ -15,12 +14,14 @@ var acpi_8c =
     [ "get_irq_trigger_mode", "acpi_8c.html#aa557d11e486ad1c34472272336ba6c8a", null ],
     [ "get_lapic_id_from_cpu_id", "acpi_8c.html#a3908f9ca99543c3c668cfc94b5ede08c", null ],
     [ "get_lapic_ids", "acpi_8c.html#ae7164bbaa4c4e814bdeaf05f386103ba", null ],
-    [ "get_local_apic", "acpi_8c.html#a9a09b0320ee05b488156e6a7f4be862b", null ],
     [ "get_rsdp", "acpi_8c.html#a9f562a4b7521b8e7e084f4cf613216ff", null ],
     [ "get_sdt_header", "acpi_8c.html#a345ce52ab451d52e95bda847548537c5", null ],
     [ "init_acpi", "acpi_8c.html#a6a7b623715d2b82f4a870d1e7c2b9d60", null ],
     [ "init_uacpi", "acpi_8c.html#a817cd41e353b16e3f4416ff20a502661", null ],
     [ "irq_to_gsi", "acpi_8c.html#afcb9e82e010b2f0c39229ccbaf3e81bf", null ],
+    [ "pm_timer_available", "acpi_8c.html#a5a461f27ddfa838c8cd38d81274ae558", null ],
+    [ "pm_timer_is_32_bit", "acpi_8c.html#add7731ecb0ce4dd0dd355c12ce729f18", null ],
+    [ "pm_timer_read", "acpi_8c.html#af7e5a9c0a667bd0511af43cbde2c340d", null ],
     [ "polarity_str", "acpi_8c.html#a8f12bf635ed1f6ad67ac890e47dbeb93", null ],
     [ "resource_callback", "acpi_8c.html#a64393d137f2a37c8efad079b4d15d94d", null ],
     [ "set_lapic_id_for_cpu_id", "acpi_8c.html#a91ebfd207f8030a1983a6c1ffe1647a0", null ],
@@ -84,8 +85,10 @@ var acpi_8c =
     [ "numcore", "acpi_8c.html#a0902944e5ef763932980645ae1660a3c", null ],
     [ "numioapic", "acpi_8c.html#ace51d2ac51c77eff5e17636d4887e228", null ],
     [ "pci_irq_routes", "acpi_8c.html#a7e68e7fd5aa96d008696ec394c6e06ff", null ],
+    [ "pm_timer_32bit", "acpi_8c.html#a859b8276dfe15c616c65ce0f40affdb5", null ],
+    [ "pm_timer_is_io", "acpi_8c.html#a7ee40fd2a0f88c3d1e91cf43a50ad58d", null ],
+    [ "pm_timer_port", "acpi_8c.html#af341083fb60fbfa4b1febc30e3d3eb46", null ],
     [ "rsdp_request", "acpi_8c.html#a9f0893ae3aad6ac11d666ec3337a7f3f", null ],
     [ "smp_request", "acpi_8c.html#a8d41cd1f16047554af3f08880b0f0fd5", null ],
-    [ "tsc_per_sec", "acpi_8c.html#a4efeb4fdb7d927e4f9261a29bc566f4a", null ],
-    [ "uacpi_region", "acpi_8c.html#ab4aa5d73d272ea8292e3b8ed23a69012", null ]
+    [ "tsc_per_sec", "acpi_8c.html#a4efeb4fdb7d927e4f9261a29bc566f4a", null ]
 ];

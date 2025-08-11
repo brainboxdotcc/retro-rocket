@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structsprite__t" kind="struct" language="C++" prot="public">
     <compoundname>sprite_t</compoundname>
-    <includes local="no">basic.h</includes>
+    <includes local="no">structs.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structsprite__t_1a891b821b2a6635cca55882ea10079964" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>width</name>
         <briefdescription>
+<para>Width of the sprite in pixels. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="212" column="10" bodyfile="include/basic.h" bodystart="212" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="214" column="10" bodyfile="include/basic/structs.h" bodystart="214" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsprite__t_1a4b2e7c463aa17ecdce17f74f03602f65" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>height</name>
         <briefdescription>
+<para>Height of the sprite in pixels. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="213" column="10" bodyfile="include/basic.h" bodystart="213" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="215" column="10" bodyfile="include/basic/structs.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsprite__t_1a8b1fd8f84e490d9f578a30f411713e97" prot="public" static="no" mutable="no">
         <type>uint32_t *</type>
@@ -36,17 +38,20 @@
         <argsstring></argsstring>
         <name>pixels</name>
         <briefdescription>
+<para>Pointer to the pixel data of the sprite. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="214" column="10" bodyfile="include/basic.h" bodystart="214" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="216" column="10" bodyfile="include/basic/structs.h" bodystart="216" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Sprite data structure. </para>
     </briefdescription>
     <detaileddescription>
+<para>This structure represents a sprite, which is an image or object used in graphics rendering. It contains the width, height, and pixel data for the sprite image. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -62,7 +67,7 @@
         <label>uint32_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/basic.h" line="211" column="1" bodyfile="include/basic.h" bodystart="211" bodyend="215"/>
+    <location file="include/basic/structs.h" line="213" column="1" bodyfile="include/basic/structs.h" bodystart="213" bodyend="217"/>
     <listofallmembers>
       <member refid="structsprite__t_1a4b2e7c463aa17ecdce17f74f03602f65" prot="public" virt="non-virtual"><scope>sprite_t</scope><name>height</name></member>
       <member refid="structsprite__t_1a8b1fd8f84e490d9f578a30f411713e97" prot="public" virt="non-virtual"><scope>sprite_t</scope><name>pixels</name></member>

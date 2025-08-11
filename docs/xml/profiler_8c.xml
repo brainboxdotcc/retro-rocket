@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="profiler_8c" kind="file" language="C++">
+    <compoundname>profiler.c</compoundname>
+    <briefdescription>
+<para>Retro Rocket kernel profiling subsystem. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This module implements lightweight function profiling for Retro Rocket, using GCC&apos;s <computeroutput>-finstrument-functions</computeroutput> hooks to measure cycle counts and call relationships. Results are dumped in Callgrind-compatible format for analysis in tools such as KCachegrind.</para>
+<para>Note that enabling profiling will make the whole OS 25-50x slower! The hooks for it get placed <emphasis>everywhere</emphasis> even in critical hot paths.</para>
+<sect2 id="profiler_8c_1autotoc_md2">
+<title>Overview</title>
+<para><itemizedlist>
+<listitem><para>Hooks: <computeroutput>__cyg_profile_func_enter()</computeroutput> / <computeroutput>__cyg_profile_func_exit()</computeroutput> are inserted automatically around every C function call.</para>
+</listitem><listitem><para>Each function has a <computeroutput>profile_entry</computeroutput> storing total cycles and call counts.</para>
+</listitem><listitem><para>Each call relationship (parent -&gt; child) has a <computeroutput>profile_edge</computeroutput> with call counts and cumulative cycles.</para>
+</listitem><listitem><para>A fixed-depth stack tracks active function calls to attribute cycles correctly on exit.</para>
+</listitem><listitem><para>Output is streamed over COM1 as a <computeroutput>callgrind.out</computeroutput> log, which can be opened directly in KCachegrind for visualisation.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="profiler_8c_1autotoc_md3">
+<title>Usage</title>
+<para><orderedlist>
+<listitem><para>Build the kernel with <computeroutput>PROFILE_KERNEL=ON</computeroutput> to enable instrumentation.</para>
+</listitem><listitem><para>Allocate memory for <computeroutput>PROFILE_MAX_FUNCS</computeroutput> and <computeroutput>PROFILE_MAX_EDGES</computeroutput>, then call <computeroutput>profile_init()</computeroutput> during startup.</para>
+</listitem><listitem><para>Trigger <computeroutput>profile_dump()</computeroutput> manually (e.g. via hotkey) or automatically on panic to flush results to COM1.</para>
+</listitem><listitem><para>Run QEMU with <computeroutput>-serial <ulink url="file:callgrind.out">file:callgrind.out</ulink></computeroutput> and open the log in KCachegrind.</para>
+</listitem></orderedlist>
+</para>
+</sect2>
+<sect2 id="profiler_8c_1autotoc_md4">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>This code is excluded from profiling (<computeroutput>no_instrument_function</computeroutput>) to prevent recursion.</para>
+</listitem><listitem><para>Serial I/O functions are also excluded so that dumping does not interfere with measurement. </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+    </detaileddescription>
+    <location file="src/profiler.c"/>
+  </compounddef>
+</doxygen>

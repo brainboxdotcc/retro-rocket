@@ -4,12 +4,15 @@
     <compoundname>acpi.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <includes local="no">uacpi/uacpi.h</includes>
+    <includes local="no">uacpi/acpi.h</includes>
+    <includes local="no">uacpi/helpers.h</includes>
     <includes local="no">uacpi/namespace.h</includes>
     <includes local="no">uacpi/resources.h</includes>
     <includes local="no">stdatomic.h</includes>
     <includes local="yes">uacpi/context.h</includes>
+    <includes local="yes">uacpi/tables.h</includes>
     <incdepgraph>
-      <node id="32">
+      <node id="52">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
@@ -19,8 +22,59 @@
       <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
       </node>
-      <node id="35">
+      <node id="23">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>stdarg.h</label>
+      </node>
+      <node id="55">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -29,19 +83,43 @@
       <node id="14">
         <label>stdatomic.h</label>
       </node>
-      <node id="47">
+      <node id="26">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="22">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="61">
+      <node id="24">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -49,13 +127,13 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="78">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="58">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -71,16 +149,16 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="63">
+      <node id="85">
         <label>uacpi/uacpi.h</label>
       </node>
-      <node id="56">
+      <node id="76">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="56">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -96,13 +174,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="74">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="49">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -115,25 +193,30 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="59">
+      <node id="87">
+        <label>uacpi/helpers.h</label>
+      </node>
+      <node id="79">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="27">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="69">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="48">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -144,33 +227,55 @@
       <node id="12">
         <label>x86intrin.h</label>
       </node>
-      <node id="23">
+      <node id="43">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
+      <node id="34">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="1">
         <label>acpi.c</label>
         <link refid="acpi_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="63" relation="include">
+        <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="64" relation="include">
+        <childnode refid="86" relation="include">
         </childnode>
-        <childnode refid="65" relation="include">
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="66" relation="include">
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="41">
+      <node id="61">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
@@ -192,29 +297,37 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="70">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="64">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="31">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="65">
+      <node id="89">
         <label>uacpi/resources.h</label>
       </node>
-      <node id="42">
+      <node id="62">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="60">
+      <node id="80">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -224,43 +337,94 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="55">
+      <node id="82">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="35">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="72">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="66">
+      <node id="86">
+        <label>uacpi/acpi.h</label>
+      </node>
+      <node id="28">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
         <label>uacpi/context.h</label>
       </node>
-      <node id="33">
+      <node id="53">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="27">
+      <node id="47">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="64">
+      <node id="88">
         <label>uacpi/namespace.h</label>
       </node>
-      <node id="37">
+      <node id="57">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="25">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
       </node>
-      <node id="53">
+      <node id="29">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -301,46 +465,6 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
@@ -348,8 +472,6 @@
         <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -387,14 +509,68 @@
         </childnode>
         <childnode refid="62" relation="include">
         </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
       </node>
-      <node id="21">
+      <node id="41">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="37">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
@@ -406,7 +582,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="84">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -424,41 +606,74 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="68">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="44">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="39">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
+      <node id="91">
+        <label>uacpi/tables.h</label>
+      </node>
       <node id="30">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="45">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="65">
+        <label>basic/tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="42">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
@@ -468,25 +683,41 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="51">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="38">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="62">
+      <node id="81">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="40">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -496,20 +727,6 @@
       </node>
     </incdepgraph>
     <innerclass refid="structuacpi__pci__dev__wrapper__t" prot="public">uacpi_pci_dev_wrapper_t</innerclass>
-      <sectiondef kind="define">
-      <memberdef kind="define" id="acpi_8c_1a3d13132a40a76c88523ef65c13fbbbce" prot="public" static="no">
-        <name>UACPI_ARENA_SIZE</name>
-        <initializer>(1024 * 1024 * 4)</initializer>
-        <briefdescription>
-<para>Yeah its memory hungry. Seems it prefers speed over ram use. In testing on qemu 6.2.0, it took 15mb peak to parse and boot, so this 64mb is a very generous amount to deal with real hardware&apos;s beastly AML. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/acpi.c" line="14" column="9" bodyfile="src/acpi.c" bodystart="14" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="var">
       <memberdef kind="variable" id="acpi_8c_1a9f0893ae3aad6ac11d666ec3337a7f3f" prot="public" static="no" mutable="no">
         <type>struct limine_rsdp_request</type>
@@ -526,7 +743,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="1" column="0" bodyfile="src/acpi.c" bodystart="16" bodyend="-1"/>
+        <location file="src/acpi.c" line="1" column="0" bodyfile="src/acpi.c" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a8d41cd1f16047554af3f08880b0f0fd5" prot="public" static="no" mutable="no">
         <type>struct limine_smp_request</type>
@@ -552,7 +769,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="23" column="15" bodyfile="src/ap.c" bodystart="15" bodyend="-1" declfile="src/acpi.c" declline="23" declcolumn="15"/>
+        <location file="src/acpi.c" line="18" column="15" bodyfile="src/ap.c" bodystart="15" bodyend="-1" declfile="src/acpi.c" declline="18" declcolumn="15"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a5c6e2e1e58d9efc4bfe3fdddc00c3ee1" prot="public" static="no" mutable="no">
         <type><ref refid="structbuddy__allocator__t" kindref="compound">buddy_allocator_t</ref></type>
@@ -566,21 +783,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="25" column="19" bodyfile="src/acpi.c" bodystart="25" bodyend="-1"/>
+        <location file="src/acpi.c" line="20" column="19" bodyfile="src/acpi.c" bodystart="20" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="acpi_8c_1ab4aa5d73d272ea8292e3b8ed23a69012" prot="public" static="no" mutable="no">
-        <type>void *</type>
-        <definition>void* uacpi_region</definition>
+      <memberdef kind="variable" id="acpi_8c_1af341083fb60fbfa4b1febc30e3d3eb46" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t pm_timer_port</definition>
         <argsstring></argsstring>
-        <name>uacpi_region</name>
-        <initializer>= NULL</initializer>
+        <name>pm_timer_port</name>
+        <initializer>= 0</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="26" column="6" bodyfile="src/acpi.c" bodystart="26" bodyend="-1"/>
+        <location file="src/acpi.c" line="22" column="17" bodyfile="src/acpi.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a859b8276dfe15c616c65ce0f40affdb5" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool pm_timer_32bit</definition>
+        <argsstring></argsstring>
+        <name>pm_timer_32bit</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="23" column="13" bodyfile="src/acpi.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="acpi_8c_1a7ee40fd2a0f88c3d1e91cf43a50ad58d" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool pm_timer_is_io</definition>
+        <argsstring></argsstring>
+        <name>pm_timer_is_io</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="24" column="13" bodyfile="src/acpi.c" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1af67b7cb2756090929ebaea4b228e2265" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
@@ -594,7 +839,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="28" column="16" bodyfile="src/acpi.c" bodystart="28" bodyend="-1"/>
+        <location file="src/acpi.c" line="25" column="16" bodyfile="src/acpi.c" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a215ea614853f95ef6ea155c8eb4084c9" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
@@ -608,7 +853,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="29" column="16" bodyfile="src/acpi.c" bodystart="29" bodyend="-1"/>
+        <location file="src/acpi.c" line="26" column="16" bodyfile="src/acpi.c" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a0902944e5ef763932980645ae1660a3c" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
@@ -622,7 +867,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="30" column="17" bodyfile="src/acpi.c" bodystart="30" bodyend="-1"/>
+        <location file="src/acpi.c" line="27" column="17" bodyfile="src/acpi.c" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1ace51d2ac51c77eff5e17636d4887e228" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
@@ -636,7 +881,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="31" column="17" bodyfile="src/acpi.c" bodystart="31" bodyend="-1"/>
+        <location file="src/acpi.c" line="28" column="17" bodyfile="src/acpi.c" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a3627bb2a8b49a253c0a97d4229be3033" prot="public" static="yes" mutable="no">
         <type>uint64_t</type>
@@ -650,7 +895,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="32" column="17" bodyfile="src/acpi.c" bodystart="32" bodyend="-1"/>
+        <location file="src/acpi.c" line="29" column="17" bodyfile="src/acpi.c" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a6401e102970009b2858f67f5d5b91df5" prot="public" static="yes" mutable="no">
         <type>uint64_t</type>
@@ -664,7 +909,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="33" column="17" bodyfile="src/acpi.c" bodystart="33" bodyend="-1"/>
+        <location file="src/acpi.c" line="30" column="17" bodyfile="src/acpi.c" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a62dc9779e2c658b17e24f3054ba2b3e7" prot="public" static="yes" mutable="no">
         <type>uint32_t</type>
@@ -678,7 +923,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="34" column="17" bodyfile="src/acpi.c" bodystart="34" bodyend="-1"/>
+        <location file="src/acpi.c" line="31" column="17" bodyfile="src/acpi.c" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a5d830e6265449143593f6b84643f0f36" prot="public" static="yes" mutable="no">
         <type>uint8_t</type>
@@ -692,7 +937,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="35" column="16" bodyfile="src/acpi.c" bodystart="35" bodyend="-1"/>
+        <location file="src/acpi.c" line="32" column="16" bodyfile="src/acpi.c" bodystart="32" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a7e68e7fd5aa96d008696ec394c6e06ff" prot="public" static="no" mutable="no">
         <type><ref refid="structpci__irq__route__t" kindref="compound">pci_irq_route_t</ref></type>
@@ -706,7 +951,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="37" column="17" bodyfile="src/acpi.c" bodystart="37" bodyend="-1"/>
+        <location file="src/acpi.c" line="34" column="17" bodyfile="src/acpi.c" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a5b4b38a88427baa512cb09572421ef13" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -720,7 +965,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="39" column="10" bodyfile="src/acpi.c" bodystart="39" bodyend="-1"/>
+        <location file="src/acpi.c" line="36" column="10" bodyfile="src/acpi.c" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a06dbf54ca1190e9fb3f9d7184c8ecbef" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -734,7 +979,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="41" column="10" bodyfile="src/acpi.c" bodystart="41" bodyend="-1"/>
+        <location file="src/acpi.c" line="38" column="10" bodyfile="src/acpi.c" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1a4efeb4fdb7d927e4f9261a29bc566f4a" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -748,7 +993,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="41" column="15" bodyfile="src/acpi.c" bodystart="41" bodyend="-1"/>
+        <location file="src/acpi.c" line="38" column="15" bodyfile="src/acpi.c" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="acpi_8c_1ac50f5e12c4a78c0ee3e0cce37d4cbca5" prot="public" static="yes" mutable="no">
         <type>uacpi_handle</type>
@@ -762,7 +1007,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="414" column="21" bodyfile="src/acpi.c" bodystart="414" bodyend="-1"/>
+        <location file="src/acpi.c" line="478" column="21" bodyfile="src/acpi.c" bodystart="478" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -780,7 +1025,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="572" column="6" bodyfile="src/acpi.c" bodystart="572" bodyend="577" declfile="src/acpi.c" declline="43" declcolumn="6"/>
+        <location file="src/acpi.c" line="636" column="6" bodyfile="src/acpi.c" bodystart="636" bodyend="641" declfile="src/acpi.c" declline="40" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a3908f9ca99543c3c668cfc94b5ede08c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -810,7 +1055,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="45" column="10" bodyfile="src/acpi.c" bodystart="45" bodyend="47"/>
+        <location file="src/acpi.c" line="42" column="10" bodyfile="src/acpi.c" bodystart="42" bodyend="44"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1acc467223ecf45e6cc5ea3c90a5d3d210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -840,7 +1085,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="49" column="9" bodyfile="src/acpi.c" bodystart="49" bodyend="56"/>
+        <location file="src/acpi.c" line="46" column="9" bodyfile="src/acpi.c" bodystart="46" bodyend="53"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a91ebfd207f8030a1983a6c1ffe1647a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -861,7 +1106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="58" column="6" bodyfile="src/acpi.c" bodystart="58" bodyend="60"/>
+        <location file="src/acpi.c" line="55" column="6" bodyfile="src/acpi.c" bodystart="55" bodyend="57"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a817cd41e353b16e3f4416ff20a502661" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -877,7 +1122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="62" column="6" bodyfile="src/acpi.c" bodystart="62" bodyend="97"/>
+        <location file="src/acpi.c" line="59" column="6" bodyfile="src/acpi.c" bodystart="59" bodyend="117"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a8d0b12edc73fcead8218d099d67d1d90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -894,7 +1139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="99" column="6" bodyfile="src/acpi.c" bodystart="99" bodyend="103"/>
+        <location file="src/acpi.c" line="119" column="6" bodyfile="src/acpi.c" bodystart="119" bodyend="123"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a56ace938864474548cf6df87afd973a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -910,7 +1155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="105" column="10" bodyfile="src/acpi.c" bodystart="105" bodyend="107"/>
+        <location file="src/acpi.c" line="125" column="10" bodyfile="src/acpi.c" bodystart="125" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a9f562a4b7521b8e7e084f4cf613216ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structrsdp__t" kindref="compound">rsdp_t</ref> *</type>
@@ -923,7 +1168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="109" column="8" bodyfile="src/acpi.c" bodystart="109" bodyend="111"/>
+        <location file="src/acpi.c" line="129" column="8" bodyfile="src/acpi.c" bodystart="129" bodyend="131"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a345ce52ab451d52e95bda847548537c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structsdt__header__t" kindref="compound">sdt_header_t</ref> *</type>
@@ -936,7 +1181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="113" column="14" bodyfile="src/acpi.c" bodystart="113" bodyend="116"/>
+        <location file="src/acpi.c" line="133" column="14" bodyfile="src/acpi.c" bodystart="133" bodyend="136"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ae7164bbaa4c4e814bdeaf05f386103ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t *</type>
@@ -949,7 +1194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="118" column="9" bodyfile="src/acpi.c" bodystart="118" bodyend="120"/>
+        <location file="src/acpi.c" line="138" column="9" bodyfile="src/acpi.c" bodystart="138" bodyend="140"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a1a6dfa32a21e7522a6094874a4c36e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -962,20 +1207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="122" column="10" bodyfile="src/acpi.c" bodystart="122" bodyend="124"/>
-      </memberdef>
-      <memberdef kind="function" id="acpi_8c_1a9a09b0320ee05b488156e6a7f4be862b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>uint64_t</type>
-        <definition>uint64_t get_local_apic</definition>
-        <argsstring>()</argsstring>
-        <name>get_local_apic</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/acpi.c" line="126" column="10" bodyfile="src/acpi.c" bodystart="126" bodyend="128"/>
+        <location file="src/acpi.c" line="142" column="10" bodyfile="src/acpi.c" bodystart="142" bodyend="144"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a6cbfbecf6dc77c9aebad4a0836e2b9fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -992,7 +1224,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="130" column="10" bodyfile="src/acpi.c" bodystart="130" bodyend="132"/>
+        <location file="src/acpi.c" line="146" column="10" bodyfile="src/acpi.c" bodystart="146" bodyend="148"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ab3f0de3b6d0c93058d3615110a0c7f39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structioapic__t" kindref="compound">ioapic_t</ref></type>
@@ -1022,7 +1254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="134" column="10" bodyfile="src/acpi.c" bodystart="134" bodyend="144"/>
+        <location file="src/acpi.c" line="150" column="10" bodyfile="src/acpi.c" bodystart="150" bodyend="160"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a6a7b623715d2b82f4a870d1e7c2b9d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1037,7 +1269,71 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="146" column="6" bodyfile="src/acpi.c" bodystart="146" bodyend="234"/>
+        <location file="src/acpi.c" line="162" column="6" bodyfile="src/acpi.c" bodystart="162" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1af7e5a9c0a667bd0511af43cbde2c340d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t pm_timer_read</definition>
+        <argsstring>(void)</argsstring>
+        <name>pm_timer_read</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Read the current value of the ACPI Power Management (PM) timer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The PM timer is a free-running counter defined by the ACPI FADT. It increments at a fixed rate of 3.579545 MHz, and is either 24-bit (wraps every ~4.6 seconds) or 32-bit (wraps every ~1193 seconds), depending on platform capabilities.</para>
+<para>This function automatically handles masking based on the width reported in the FADT (via <ref refid="acpi_8h_1add7731ecb0ce4dd0dd355c12ce729f18" kindref="member">pm_timer_is_32_bit()</ref>) and returns the raw counter value.</para>
+<para><simplesect kind="return"><para>The current PM timer count, masked to 24 or 32 bits. Returns 0 if the PM timer is not available. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="272" column="10" bodyfile="src/acpi.c" bodystart="272" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1a5a461f27ddfa838c8cd38d81274ae558" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pm_timer_available</definition>
+        <argsstring>(void)</argsstring>
+        <name>pm_timer_available</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Check if the ACPI PM timer is available on this system. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Availability is determined from the FADT (either PM_TMR_BLK or X_PM_TMR_BLK). If no valid address is reported, the timer is considered unavailable and alternative calibration sources (e.g. RTC) must be used.</para>
+<para><simplesect kind="return"><para>true if the PM timer is present and usable, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="290" column="6" bodyfile="src/acpi.c" bodystart="290" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="acpi_8c_1add7731ecb0ce4dd0dd355c12ce729f18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool pm_timer_is_32_bit</definition>
+        <argsstring>(void)</argsstring>
+        <name>pm_timer_is_32_bit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Query whether the PM timer operates in 32-bit mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This information is derived from the TMR_VAL_EXT flag in the FADT. If set, the PM timer is 32-bit and wraps approximately every 1193 seconds. If clear, it is 24-bit and wraps every ~4.6 seconds.</para>
+<para><simplesect kind="return"><para>true if the PM timer is 32-bit, false if it is 24-bit. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/acpi.c" line="294" column="6" bodyfile="src/acpi.c" bodystart="294" bodyend="296"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a9263bf02ae52585b8ab22b22e9601aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1060,7 +1356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="236" column="6" bodyfile="src/acpi.c" bodystart="236" bodyend="268"/>
+        <location file="src/acpi.c" line="298" column="6" bodyfile="src/acpi.c" bodystart="298" bodyend="332"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1afcb9e82e010b2f0c39229ccbaf3e81bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -1090,7 +1386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="270" column="10" bodyfile="src/acpi.c" bodystart="270" bodyend="273"/>
+        <location file="src/acpi.c" line="334" column="10" bodyfile="src/acpi.c" bodystart="334" bodyend="337"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a76d152ecf0379166b00ef3eaff74b46d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -1120,7 +1416,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="275" column="9" bodyfile="src/acpi.c" bodystart="275" bodyend="278"/>
+        <location file="src/acpi.c" line="339" column="9" bodyfile="src/acpi.c" bodystart="339" bodyend="342"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1aa557d11e486ad1c34472272336ba6c8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -1150,7 +1446,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="280" column="9" bodyfile="src/acpi.c" bodystart="280" bodyend="283"/>
+        <location file="src/acpi.c" line="344" column="9" bodyfile="src/acpi.c" bodystart="344" bodyend="347"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a7b1710d690e858904b5454ea45c05e59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1171,7 +1467,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="290" column="6" bodyfile="src/acpi.c" bodystart="290" bodyend="292"/>
+        <location file="src/acpi.c" line="354" column="6" bodyfile="src/acpi.c" bodystart="354" bodyend="356"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ab292fac3ced7213300d14859086f97ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -1188,7 +1484,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="295" column="6" bodyfile="src/acpi.c" bodystart="295" bodyend="297"/>
+        <location file="src/acpi.c" line="359" column="6" bodyfile="src/acpi.c" bodystart="359" bodyend="361"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a1a47337dcccf6a7d69cc83588d1744c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1205,7 +1501,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="299" column="6" bodyfile="src/acpi.c" bodystart="299" bodyend="301"/>
+        <location file="src/acpi.c" line="363" column="6" bodyfile="src/acpi.c" bodystart="363" bodyend="365"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a6ec96b4524a534b8443ea57e025f740e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -1226,7 +1522,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="304" column="6" bodyfile="src/acpi.c" bodystart="304" bodyend="306"/>
+        <location file="src/acpi.c" line="368" column="6" bodyfile="src/acpi.c" bodystart="368" bodyend="370"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ad4e3b8610a34a3893f5a281d8cb46aea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1247,7 +1543,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="308" column="6" bodyfile="src/acpi.c" bodystart="308" bodyend="310"/>
+        <location file="src/acpi.c" line="372" column="6" bodyfile="src/acpi.c" bodystart="372" bodyend="374"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a4cd38279a50dac41731ba39d711327b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1264,7 +1560,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="312" column="6" bodyfile="src/acpi.c" bodystart="312" bodyend="314"/>
+        <location file="src/acpi.c" line="376" column="6" bodyfile="src/acpi.c" bodystart="376" bodyend="378"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a759c8615c7b9bb1cc6cf78f11b55edbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1281,7 +1577,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="316" column="6" bodyfile="src/acpi.c" bodystart="316" bodyend="318"/>
+        <location file="src/acpi.c" line="380" column="6" bodyfile="src/acpi.c" bodystart="380" bodyend="382"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a9b3609220fe4a661623e7f75f6498f84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1302,7 +1598,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="320" column="14" bodyfile="src/acpi.c" bodystart="320" bodyend="331"/>
+        <location file="src/acpi.c" line="384" column="14" bodyfile="src/acpi.c" bodystart="384" bodyend="395"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a00c774d83cdb25c57cced8aa0db9800f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1327,7 +1623,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="333" column="14" bodyfile="src/acpi.c" bodystart="333" bodyend="337"/>
+        <location file="src/acpi.c" line="397" column="14" bodyfile="src/acpi.c" bodystart="397" bodyend="401"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1aebf6b508022cca4f56049c82e264510f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1344,7 +1640,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="339" column="6" bodyfile="src/acpi.c" bodystart="339" bodyend="342"/>
+        <location file="src/acpi.c" line="403" column="6" bodyfile="src/acpi.c" bodystart="403" bodyend="406"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a92533ad07a304fdc76f90b7d26f4655e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1369,7 +1665,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="344" column="14" bodyfile="src/acpi.c" bodystart="344" bodyend="347"/>
+        <location file="src/acpi.c" line="408" column="14" bodyfile="src/acpi.c" bodystart="408" bodyend="411"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a6a0c49f901f185ebf096fd49cdacd3ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1394,7 +1690,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="349" column="14" bodyfile="src/acpi.c" bodystart="349" bodyend="352"/>
+        <location file="src/acpi.c" line="413" column="14" bodyfile="src/acpi.c" bodystart="413" bodyend="416"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a5b30cbe08d8a62eae62f6dfcc07ad760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1419,7 +1715,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="354" column="14" bodyfile="src/acpi.c" bodystart="354" bodyend="357"/>
+        <location file="src/acpi.c" line="418" column="14" bodyfile="src/acpi.c" bodystart="418" bodyend="421"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a11890a02381215cb6df992e12dfb8ef3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1444,7 +1740,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="359" column="14" bodyfile="src/acpi.c" bodystart="359" bodyend="362"/>
+        <location file="src/acpi.c" line="423" column="14" bodyfile="src/acpi.c" bodystart="423" bodyend="426"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a13edcc6b9002fcfc51d527c383265b69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1469,7 +1765,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="364" column="14" bodyfile="src/acpi.c" bodystart="364" bodyend="367"/>
+        <location file="src/acpi.c" line="428" column="14" bodyfile="src/acpi.c" bodystart="428" bodyend="431"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a716161c4d04c98ea46f7fb2fd22bbca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1494,7 +1790,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="369" column="14" bodyfile="src/acpi.c" bodystart="369" bodyend="372"/>
+        <location file="src/acpi.c" line="433" column="14" bodyfile="src/acpi.c" bodystart="433" bodyend="436"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a03a3bc4ce9d899833d793b043200eb16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1511,7 +1807,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="374" column="6" bodyfile="src/acpi.c" bodystart="374" bodyend="376"/>
+        <location file="src/acpi.c" line="438" column="6" bodyfile="src/acpi.c" bodystart="438" bodyend="440"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ab3796b5c8698494e3f62101828d4e489" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1536,7 +1832,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="378" column="14" bodyfile="src/acpi.c" bodystart="378" bodyend="382"/>
+        <location file="src/acpi.c" line="442" column="14" bodyfile="src/acpi.c" bodystart="442" bodyend="446"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a3fd9e2424e14a9a47d5216588757f70f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1561,7 +1857,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="384" column="14" bodyfile="src/acpi.c" bodystart="384" bodyend="388"/>
+        <location file="src/acpi.c" line="448" column="14" bodyfile="src/acpi.c" bodystart="448" bodyend="452"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ab3b1d1c72bc35f0830cc2c9d73f226b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1586,7 +1882,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="390" column="14" bodyfile="src/acpi.c" bodystart="390" bodyend="394"/>
+        <location file="src/acpi.c" line="454" column="14" bodyfile="src/acpi.c" bodystart="454" bodyend="458"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1aad99efbaaeacf341243c88f26ff0fd11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1611,7 +1907,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="396" column="14" bodyfile="src/acpi.c" bodystart="396" bodyend="400"/>
+        <location file="src/acpi.c" line="460" column="14" bodyfile="src/acpi.c" bodystart="460" bodyend="464"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a092bc44ef62a80ad58082e084cde9fa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1636,7 +1932,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="402" column="14" bodyfile="src/acpi.c" bodystart="402" bodyend="406"/>
+        <location file="src/acpi.c" line="466" column="14" bodyfile="src/acpi.c" bodystart="466" bodyend="470"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a2e1068e9d0c2dee2ee75ac8092db5b86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1661,7 +1957,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="408" column="14" bodyfile="src/acpi.c" bodystart="408" bodyend="412"/>
+        <location file="src/acpi.c" line="472" column="14" bodyfile="src/acpi.c" bodystart="472" bodyend="476"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a4de503eadb31bbff8011d5e90d3f383d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_handle</type>
@@ -1677,7 +1973,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="417" column="14" bodyfile="src/acpi.c" bodystart="417" bodyend="417"/>
+        <location file="src/acpi.c" line="481" column="14" bodyfile="src/acpi.c" bodystart="481" bodyend="481"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1aea3115b90a7f963d22e1711b381324b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1694,7 +1990,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="419" column="6" bodyfile="src/acpi.c" bodystart="419" bodyend="419"/>
+        <location file="src/acpi.c" line="483" column="6" bodyfile="src/acpi.c" bodystart="483" bodyend="483"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1add870958318c01419887049609cd862c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1713,7 +2009,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="421" column="14" bodyfile="src/acpi.c" bodystart="421" bodyend="421"/>
+        <location file="src/acpi.c" line="485" column="14" bodyfile="src/acpi.c" bodystart="485" bodyend="485"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ad407d809a103f427c156e632415a0cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1729,7 +2025,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="423" column="6" bodyfile="src/acpi.c" bodystart="423" bodyend="423"/>
+        <location file="src/acpi.c" line="487" column="6" bodyfile="src/acpi.c" bodystart="487" bodyend="487"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a878cfdf358375f0bb1ca44bf7991f98f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_handle</type>
@@ -1745,7 +2041,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="425" column="14" bodyfile="src/acpi.c" bodystart="425" bodyend="425"/>
+        <location file="src/acpi.c" line="489" column="14" bodyfile="src/acpi.c" bodystart="489" bodyend="489"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a684ba111833c7badd40e42bbfd203442" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1762,7 +2058,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="427" column="6" bodyfile="src/acpi.c" bodystart="427" bodyend="427"/>
+        <location file="src/acpi.c" line="491" column="6" bodyfile="src/acpi.c" bodystart="491" bodyend="491"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a21f167b8884170d5cedc54ab6decbc01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_bool</type>
@@ -1781,7 +2077,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="429" column="12" bodyfile="src/acpi.c" bodystart="429" bodyend="429"/>
+        <location file="src/acpi.c" line="493" column="12" bodyfile="src/acpi.c" bodystart="493" bodyend="493"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1af4add867e136e0b4eb94dad166537bc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1797,7 +2093,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="431" column="6" bodyfile="src/acpi.c" bodystart="431" bodyend="431"/>
+        <location file="src/acpi.c" line="495" column="6" bodyfile="src/acpi.c" bodystart="495" bodyend="495"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a426fd10f062cc4c47b3c26f0e1d67b03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1813,7 +2109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="433" column="6" bodyfile="src/acpi.c" bodystart="433" bodyend="433"/>
+        <location file="src/acpi.c" line="497" column="6" bodyfile="src/acpi.c" bodystart="497" bodyend="497"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a889fbe06be7fdb558a5f649006b0250a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_thread_id</type>
@@ -1829,7 +2125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="435" column="17" bodyfile="src/acpi.c" bodystart="435" bodyend="435"/>
+        <location file="src/acpi.c" line="499" column="17" bodyfile="src/acpi.c" bodystart="499" bodyend="499"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ac88f94f63ac935ab4f942ccfc832d8ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_handle</type>
@@ -1845,7 +2141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="438" column="14" bodyfile="src/acpi.c" bodystart="438" bodyend="438"/>
+        <location file="src/acpi.c" line="502" column="14" bodyfile="src/acpi.c" bodystart="502" bodyend="502"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1af6a7865d80eb7656a632425cc98df716" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1861,7 +2157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="440" column="6" bodyfile="src/acpi.c" bodystart="440" bodyend="440"/>
+        <location file="src/acpi.c" line="504" column="6" bodyfile="src/acpi.c" bodystart="504" bodyend="504"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1afac4f0b162bed16a381fe12ecd1b2fe5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_cpu_flags</type>
@@ -1877,7 +2173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="442" column="17" bodyfile="src/acpi.c" bodystart="442" bodyend="442"/>
+        <location file="src/acpi.c" line="506" column="17" bodyfile="src/acpi.c" bodystart="506" bodyend="506"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1aff95549e996702c4108ea94e1ccad3d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1896,7 +2192,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="444" column="6" bodyfile="src/acpi.c" bodystart="444" bodyend="444"/>
+        <location file="src/acpi.c" line="508" column="6" bodyfile="src/acpi.c" bodystart="508" bodyend="508"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1af30ae1358a1dba75f1a3ad9cd43892a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1913,7 +2209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="447" column="14" bodyfile="src/acpi.c" bodystart="447" bodyend="450"/>
+        <location file="src/acpi.c" line="511" column="14" bodyfile="src/acpi.c" bodystart="511" bodyend="514"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a4effd5e0a72a23f89ff350472efabf99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1942,7 +2238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="452" column="14" bodyfile="src/acpi.c" bodystart="452" bodyend="463"/>
+        <location file="src/acpi.c" line="516" column="14" bodyfile="src/acpi.c" bodystart="516" bodyend="527"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a93698b672ef4399e00e3352921ed697b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1963,7 +2259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="465" column="14" bodyfile="src/acpi.c" bodystart="465" bodyend="472"/>
+        <location file="src/acpi.c" line="529" column="14" bodyfile="src/acpi.c" bodystart="529" bodyend="536"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a5f20e44bb868222911882f64d8359c56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -1980,7 +2276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="474" column="14" bodyfile="src/acpi.c" bodystart="474" bodyend="488"/>
+        <location file="src/acpi.c" line="538" column="14" bodyfile="src/acpi.c" bodystart="538" bodyend="552"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1af27e1febdb9a5125d9b4e1496eb5ea21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1997,7 +2293,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="491" column="6" bodyfile="src/acpi.c" bodystart="491" bodyend="494"/>
+        <location file="src/acpi.c" line="555" column="6" bodyfile="src/acpi.c" bodystart="555" bodyend="558"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ada1fd7d3478d7ce9d0a38e4973d67782" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -2022,7 +2318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="496" column="14" bodyfile="src/acpi.c" bodystart="496" bodyend="507"/>
+        <location file="src/acpi.c" line="560" column="14" bodyfile="src/acpi.c" bodystart="560" bodyend="571"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a28cc6fa0648cd35b9bcec4ab8a2e01fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_status</type>
@@ -2038,7 +2334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="509" column="14" bodyfile="src/acpi.c" bodystart="509" bodyend="512"/>
+        <location file="src/acpi.c" line="573" column="14" bodyfile="src/acpi.c" bodystart="573" bodyend="576"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a3bd8418d6d2964ae9944643a6172d7f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -2068,7 +2364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="514" column="12" bodyfile="src/acpi.c" bodystart="514" bodyend="516"/>
+        <location file="src/acpi.c" line="578" column="12" bodyfile="src/acpi.c" bodystart="578" bodyend="580"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a8f12bf635ed1f6ad67ac890e47dbeb93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -2098,7 +2394,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="518" column="12" bodyfile="src/acpi.c" bodystart="518" bodyend="520"/>
+        <location file="src/acpi.c" line="582" column="12" bodyfile="src/acpi.c" bodystart="582" bodyend="584"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a7e53dbf0b685d7c7e10ff45cb66e9870" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -2128,7 +2424,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="522" column="12" bodyfile="src/acpi.c" bodystart="522" bodyend="524"/>
+        <location file="src/acpi.c" line="586" column="12" bodyfile="src/acpi.c" bodystart="586" bodyend="588"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1a64393d137f2a37c8efad079b4d15d94d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_iteration_decision</type>
@@ -2149,7 +2445,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="526" column="33" bodyfile="src/acpi.c" bodystart="526" bodyend="556"/>
+        <location file="src/acpi.c" line="590" column="33" bodyfile="src/acpi.c" bodystart="590" bodyend="620"/>
       </memberdef>
       <memberdef kind="function" id="acpi_8c_1ae203fe974b3a26b6ee23c95570efde43" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uacpi_iteration_decision</type>
@@ -2174,7 +2470,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/acpi.c" line="558" column="33" bodyfile="src/acpi.c" bodystart="558" bodyend="570"/>
+        <location file="src/acpi.c" line="622" column="33" bodyfile="src/acpi.c" bodystart="622" bodyend="634"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

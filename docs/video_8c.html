@@ -114,7 +114,7 @@ Functions</h2></td></tr>
 <tr class="separator:a849430deb40da15a4a934f2fee6d87a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14d5e2649778cc0c303071f3c252f43e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a14d5e2649778cc0c303071f3c252f43e">ft_write</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, const char *<a class="el" href="ahci_8c.html#a2c5f4ef732286b78e31ec8d1cb238215">buf</a>, size_t count)</td></tr>
 <tr class="separator:a14d5e2649778cc0c303071f3c252f43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a968357d3a0e76c8dcc4a8dabb47e034e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a968357d3a0e76c8dcc4a8dabb47e034e">screenonly</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="ahci_8h.html#a2e5a04327b5658199f0f7bda2acceee1">c</a>, const char *s)</td></tr>
+<tr class="memitem:a968357d3a0e76c8dcc4a8dabb47e034e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a968357d3a0e76c8dcc4a8dabb47e034e">screenonly</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, const char *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>)</td></tr>
 <tr class="separator:a968357d3a0e76c8dcc4a8dabb47e034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fc73a5f42358dfc5528cecf943aebb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a9fc73a5f42358dfc5528cecf943aebb3">get_text_position</a> (uint64_t *x, uint64_t *y)</td></tr>
 <tr class="memdesc:a9fc73a5f42358dfc5528cecf943aebb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the current cursor position.  <a href="video_8c.html#a9fc73a5f42358dfc5528cecf943aebb3">More...</a><br /></td></tr>
@@ -128,19 +128,19 @@ Functions</h2></td></tr>
 <tr class="memitem:aa5401ca0e1f952a097a2976b8f652ec8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#aa5401ca0e1f952a097a2976b8f652ec8">getpixel</a> (int64_t x, int64_t y)</td></tr>
 <tr class="memdesc:aa5401ca0e1f952a097a2976b8f652ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a pixel from the backbuffer.  <a href="video_8c.html#aa5401ca0e1f952a097a2976b8f652ec8">More...</a><br /></td></tr>
 <tr class="separator:aa5401ca0e1f952a097a2976b8f652ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89b876ad8ed8fcb7e9ce6f6dd7518512"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a89b876ad8ed8fcb7e9ce6f6dd7518512">clearscreen</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="ahci_8h.html#a2e5a04327b5658199f0f7bda2acceee1">c</a>)</td></tr>
+<tr class="memitem:a89b876ad8ed8fcb7e9ce6f6dd7518512"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a89b876ad8ed8fcb7e9ce6f6dd7518512">clearscreen</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>)</td></tr>
 <tr class="memdesc:a89b876ad8ed8fcb7e9ce6f6dd7518512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the screen and reset cursor to (0,0).  <a href="video_8c.html#a89b876ad8ed8fcb7e9ce6f6dd7518512">More...</a><br /></td></tr>
 <tr class="separator:a89b876ad8ed8fcb7e9ce6f6dd7518512"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10de4e9cb74656845ee2808d17f3e9b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a10de4e9cb74656845ee2808d17f3e9b7">dput</a> (const char <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
 <tr class="memdesc:a10de4e9cb74656845ee2808d17f3e9b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a single character directly to the debug port (0xE9).  <a href="video_8c.html#a10de4e9cb74656845ee2808d17f3e9b7">More...</a><br /></td></tr>
 <tr class="separator:a10de4e9cb74656845ee2808d17f3e9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aa3e180e6074ca3376aae3fe2521967"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a6aa3e180e6074ca3376aae3fe2521967">put</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="ahci_8h.html#a2e5a04327b5658199f0f7bda2acceee1">c</a>, const char <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
+<tr class="memitem:a6aa3e180e6074ca3376aae3fe2521967"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a6aa3e180e6074ca3376aae3fe2521967">put</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, const char <a class="el" href="ahci_8h.html#a5a648f5ec00c526b0dfa2df7a272c6c0">n</a>)</td></tr>
 <tr class="memdesc:a6aa3e180e6074ca3376aae3fe2521967"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a single character to the console.  <a href="video_8c.html#a6aa3e180e6074ca3376aae3fe2521967">More...</a><br /></td></tr>
 <tr class="separator:a6aa3e180e6074ca3376aae3fe2521967"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d4ff70fd24e5e51101991bc73fbe02e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a1d4ff70fd24e5e51101991bc73fbe02e">dputstring</a> (const char *message)</td></tr>
 <tr class="memdesc:a1d4ff70fd24e5e51101991bc73fbe02e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a string to the debug port (0xE9) only.  <a href="video_8c.html#a1d4ff70fd24e5e51101991bc73fbe02e">More...</a><br /></td></tr>
 <tr class="separator:a1d4ff70fd24e5e51101991bc73fbe02e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a998a88c58c530407ae8b304a306b74fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a998a88c58c530407ae8b304a306b74fe">putstring</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="ahci_8h.html#a2e5a04327b5658199f0f7bda2acceee1">c</a>, const char *message)</td></tr>
+<tr class="memitem:a998a88c58c530407ae8b304a306b74fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a998a88c58c530407ae8b304a306b74fe">putstring</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, const char *message)</td></tr>
 <tr class="memdesc:a998a88c58c530407ae8b304a306b74fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a null-terminated string to the console.  <a href="video_8c.html#a998a88c58c530407ae8b304a306b74fe">More...</a><br /></td></tr>
 <tr class="separator:a998a88c58c530407ae8b304a306b74fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e0f8bca5c0b8bd1a501f75368be0e41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a1e0f8bca5c0b8bd1a501f75368be0e41">terminal_callback</a> (struct <a class="el" href="structflanterm__context.html">flanterm_context</a> *ctx, uint64_t <a class="el" href="icmp_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a>, uint64_t x, uint64_t y, uint64_t z)</td></tr>
@@ -156,10 +156,10 @@ Functions</h2></td></tr>
 <tr class="separator:aead8dda978d0b4180262e4091be3d4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13d5e4c33f3752b877f4ea571bd85ed1"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a13d5e4c33f3752b877f4ea571bd85ed1">map_vga_to_ansi</a> (unsigned char colour)</td></tr>
 <tr class="separator:a13d5e4c33f3752b877f4ea571bd85ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a4f10379412dfac7b7326c608b0ba1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a3a4f10379412dfac7b7326c608b0ba1c">setbackground</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="ahci_8h.html#a2e5a04327b5658199f0f7bda2acceee1">c</a>, unsigned char background)</td></tr>
+<tr class="memitem:a3a4f10379412dfac7b7326c608b0ba1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a3a4f10379412dfac7b7326c608b0ba1c">setbackground</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, unsigned char background)</td></tr>
 <tr class="memdesc:a3a4f10379412dfac7b7326c608b0ba1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the background colour for subsequent text.  <a href="video_8c.html#a3a4f10379412dfac7b7326c608b0ba1c">More...</a><br /></td></tr>
 <tr class="separator:a3a4f10379412dfac7b7326c608b0ba1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eb30d97afe44a6d0a2063f701c13ca6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a9eb30d97afe44a6d0a2063f701c13ca6">setforeground</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="ahci_8h.html#a2e5a04327b5658199f0f7bda2acceee1">c</a>, unsigned char foreground)</td></tr>
+<tr class="memitem:a9eb30d97afe44a6d0a2063f701c13ca6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a9eb30d97afe44a6d0a2063f701c13ca6">setforeground</a> (<a class="el" href="structconsole.html">console</a> *<a class="el" href="serial_8h.html#adc08ed1554f35803d229aeaf11216b3f">c</a>, unsigned char foreground)</td></tr>
 <tr class="memdesc:a9eb30d97afe44a6d0a2063f701c13ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the foreground (text) colour for subsequent output.  <a href="video_8c.html#a9eb30d97afe44a6d0a2063f701c13ca6">More...</a><br /></td></tr>
 <tr class="separator:a9eb30d97afe44a6d0a2063f701c13ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b94ff9b6be3b686d6f060b060722902"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a7b94ff9b6be3b686d6f060b060722902">video_flip_auto</a> (void)</td></tr>
@@ -205,8 +205,8 @@ Variables</h2></td></tr>
 <tr class="memitem:a43d9b652336a0df72765cc74cb497381"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structconsole.html">console</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a43d9b652336a0df72765cc74cb497381">current_console</a> = NULL</td></tr>
 <tr class="memdesc:a43d9b652336a0df72765cc74cb497381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the currently active console.  <a href="video_8c.html#a43d9b652336a0df72765cc74cb497381">More...</a><br /></td></tr>
 <tr class="separator:a43d9b652336a0df72765cc74cb497381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cc86a350b7cea2495895820492eae11"><td class="memItemLeft" align="right" valign="top">volatile struct limine_module_request&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a7cc86a350b7cea2495895820492eae11">module_request</a></td></tr>
-<tr class="separator:a7cc86a350b7cea2495895820492eae11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab418f2681df92f0d539a9720b832ba7d"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#ab418f2681df92f0d539a9720b832ba7d">font_data</a> []</td></tr>
+<tr class="separator:ab418f2681df92f0d539a9720b832ba7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4cd2863ab76bfaf5ff461d7245aa4ca"><td class="memItemLeft" align="right" valign="top">volatile struct limine_framebuffer_request&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#af4cd2863ab76bfaf5ff461d7245aa4ca">framebuffer_request</a></td></tr>
 <tr class="separator:af4cd2863ab76bfaf5ff461d7245aa4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a774df04d3d1a13dd5ac6ad6ac20f4ea9"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video_8c.html#a774df04d3d1a13dd5ac6ad6ac20f4ea9">rr_fb_front</a> = NULL</td></tr>
@@ -1155,6 +1155,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab418f2681df92f0d539a9720b832ba7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab418f2681df92f0d539a9720b832ba7d">&#9670;&nbsp;</a></span>font_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t font_data[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af4cd2863ab76bfaf5ff461d7245aa4ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af4cd2863ab76bfaf5ff461d7245aa4ca">&#9670;&nbsp;</a></span>framebuffer_request</h2>
 
@@ -1183,28 +1205,6 @@ Variables</h2></td></tr>
           <td class="memname">struct <a class="el" href="structflanterm__context.html">flanterm_context</a>* ft_ctx = NULL</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7cc86a350b7cea2495895820492eae11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cc86a350b7cea2495895820492eae11">&#9670;&nbsp;</a></span>module_request</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile struct limine_module_request module_request</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -1505,7 +1505,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="video_8c.html">video.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -1,5 +1,6 @@
 var taskswitch_8c =
 [
+    [ "check_wait_pid", "taskswitch_8c.html#ad73565bce74e98ff5d035cb77b16b881", null ],
     [ "init_process", "taskswitch_8c.html#ab25d44702b6e10e723714c368c4a7520", null ],
     [ "proc_cur", "taskswitch_8c.html#aa8769acde79d259426e68e9e4fba6544", null ],
     [ "proc_ended", "taskswitch_8c.html#a7844baa5edadb538de03bc3494e947cc", null ],
@@ -14,6 +15,7 @@ var taskswitch_8c =
     [ "proc_run", "taskswitch_8c.html#abb94173794194e3382dc5482b7e0aa62", null ],
     [ "proc_run_next", "taskswitch_8c.html#af07a4cb6343c2ca5228d36287bd60a91", null ],
     [ "proc_set_csd", "taskswitch_8c.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff", null ],
+    [ "proc_set_idle", "taskswitch_8c.html#a8b4483bf423dcb85ed4e0abdfe07ad07", null ],
     [ "proc_timer", "taskswitch_8c.html#a1ec64ff3e1bbf088a6611d7304cf72e2", null ],
     [ "proc_total", "taskswitch_8c.html#a01a99ff8bacb9f2f0509b21f45fc7217", null ],
     [ "proc_wait", "taskswitch_8c.html#a8b2b24e480bc2b9188e720c028795cee", null ],
@@ -29,6 +31,7 @@ var taskswitch_8c =
     [ "proc_lock", "taskswitch_8c.html#aee3f41827e667c2d0dcd74dae45051c2", null ],
     [ "process_by_pid", "taskswitch_8c.html#a6ecfe70963a36f1fc74ce7c5f5479e11", null ],
     [ "process_count", "taskswitch_8c.html#aa56fabba3ca96349f6e8cde48042e1b4", null ],
+    [ "rr_kfile_req", "taskswitch_8c.html#a9fbef8ef299fdcfc0326cddb385f2ee8", null ],
     [ "task_idles", "taskswitch_8c.html#a8461048be5ed2ffb92c3a1fd67759f08", null ],
     [ "timer_idles", "taskswitch_8c.html#ac655479725c9e7ef12d2b4ca97b85c62", null ]
 ];

@@ -96,10 +96,10 @@ $(document).ready(function(){initNavTree('input_8c.html',''); initResizable(); }
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad1207d022962151b2b0d89c803dd5ae2"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8c.html#ad1207d022962151b2b0d89c803dd5ae2">kinput</a> (size_t maxlen, <a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="memdesc:ad1207d022962151b2b0d89c803dd5ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a character into the console input buffer.  <a href="input_8c.html#ad1207d022962151b2b0d89c803dd5ae2">More...</a><br /></td></tr>
+<tr class="memdesc:ad1207d022962151b2b0d89c803dd5ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll for a single character of input from the console.  <a href="input_8c.html#ad1207d022962151b2b0d89c803dd5ae2">More...</a><br /></td></tr>
 <tr class="separator:ad1207d022962151b2b0d89c803dd5ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65464dd8cd9c0efddb97e19102b2482e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8c.html#a65464dd8cd9c0efddb97e19102b2482e">kfreeinput</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
-<tr class="memdesc:a65464dd8cd9c0efddb97e19102b2482e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the internal console input buffer.  <a href="input_8c.html#a65464dd8cd9c0efddb97e19102b2482e">More...</a><br /></td></tr>
+<tr class="memdesc:a65464dd8cd9c0efddb97e19102b2482e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the internal input buffer associated with a console.  <a href="input_8c.html#a65464dd8cd9c0efddb97e19102b2482e">More...</a><br /></td></tr>
 <tr class="separator:a65464dd8cd9c0efddb97e19102b2482e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34b6b79a54527d752aa80ac4c25904b9"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8c.html#a34b6b79a54527d752aa80ac4c25904b9">kgetinput</a> (<a class="el" href="structconsole.html">console</a> *cons)</td></tr>
 <tr class="memdesc:a34b6b79a54527d752aa80ac4c25904b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the accumulated input string for a console.  <a href="input_8c.html#a34b6b79a54527d752aa80ac4c25904b9">More...</a><br /></td></tr>
@@ -111,6 +111,8 @@ Variables</h2></td></tr>
 <tr class="separator:a9aa640196313bea082db80a500d3c60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7501930571e1c3d6c924d8d21ba788a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spinlock_8h.html#af82eed01f0304d83276dda764b213779">spinlock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8c.html#a7501930571e1c3d6c924d8d21ba788a8">debug_console_spinlock</a></td></tr>
 <tr class="separator:a7501930571e1c3d6c924d8d21ba788a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bbd5ff52abed3e07aa5205f1179d9d3"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="input_8c.html#a4bbd5ff52abed3e07aa5205f1179d9d3">stopped</a> = false</td></tr>
+<tr class="separator:a4bbd5ff52abed3e07aa5205f1179d9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a65464dd8cd9c0efddb97e19102b2482e"></a>
@@ -129,11 +131,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Free the internal console input buffer. </p>
-<p>Resets the console’s input state and releases memory allocated by <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Read a character into the console input buffer.">kinput()</a></code>. Safe to call even if no buffer was allocated.</p>
+<p>Free the internal input buffer associated with a console. </p>
+<p>This function releases the memory used to store a pending line of input for the specified console. It should be called after input has been processed, to prevent memory leaks and prepare the console for the next <code><a class="el" href="input_8h.html#ad1207d022962151b2b0d89c803dd5ae2" title="Poll for a single character of input from the console.">kinput()</a></code> cycle.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cons</td><td>Pointer to the console whose buffer should be freed. </td></tr>
+    <tr><td class="paramname">cons</td><td>Console whose input buffer should be freed. </td></tr>
   </table>
   </dd>
 </dl>
@@ -194,24 +196,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Read a character into the console input buffer. </p>
-<ul>
-<li>Allocates a buffer on first use (<code>maxlen + 1</code> bytes).</li>
-<li>Appends typed characters to the buffer.</li>
-<li>Null-terminates the string after each call.</li>
-</ul>
+<p>Poll for a single character of input from the console. </p>
+<p>This function reads a single character from the console associated with the specified process, storing it in the input buffer.</p>
+<p>When the user completes a line (e.g. by pressing Enter), the function returns 1 to indicate the input line is ready for retrieval. Until then, it returns 0, allowing the caller to yield or retry later.</p>
+<dl class="section note"><dt>Note</dt><dd>This function is typically called repeatedly inside a loop or idle callback, until a full line of input is received.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">maxlen</td><td>Maximum buffer size (excluding null terminator). </td></tr>
-    <tr><td class="paramname">cons</td><td>Pointer to the console structure receiving input. </td></tr>
+    <tr><td class="paramname">maxlen</td><td>Maximum length of the input line. </td></tr>
+    <tr><td class="paramname">cons</td><td>Console to read input from. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li><code>0</code> if input is still ongoing,</li>
-<li><code>1</code> if the line is complete (terminated with carriage return). </li>
-</ul>
-</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if a full line is available, 0 otherwise. </dd></dl>
 
 </div>
 </div>
@@ -260,13 +256,35 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a4bbd5ff52abed3e07aa5205f1179d9d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bbd5ff52abed3e07aa5205f1179d9d3">&#9670;&nbsp;</a></span>stopped</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool stopped = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="input_8c.html">input.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

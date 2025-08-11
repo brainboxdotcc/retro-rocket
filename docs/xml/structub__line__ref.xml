@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structub__line__ref" kind="struct" language="C++" prot="public">
     <compoundname>ub_line_ref</compoundname>
-    <includes local="no">basic.h</includes>
+    <includes local="no">structs.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>line_number</name>
         <briefdescription>
+<para>Line number in the program. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="172" column="10" bodyfile="include/basic.h" bodystart="172" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="179" column="10" bodyfile="include/basic/structs.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -23,18 +24,20 @@
         <argsstring></argsstring>
         <name>ptr</name>
         <briefdescription>
+<para>Pointer to the start of the line in the program text. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="173" column="12" bodyfile="include/basic.h" bodystart="173" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="180" column="12" bodyfile="include/basic/structs.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Line reference in program. Each program has a hashmap of these so it can find a line number in O(1) time. </para>
+<para>Line reference in program. </para>
     </briefdescription>
     <detaileddescription>
+<para>This structure represents a line number reference in the program, used for quick lookup in the hashmap of lines, allowing O(1) time complexity when searching for line numbers. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -54,7 +57,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/basic.h" line="171" column="1" bodyfile="include/basic.h" bodystart="171" bodyend="174"/>
+    <location file="include/basic/structs.h" line="178" column="1" bodyfile="include/basic/structs.h" bodystart="178" bodyend="181"/>
     <listofallmembers>
       <member refid="structub__line__ref_1a3b8d78ec408ffd8b8571496401edc6ac" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>line_number</name></member>
       <member refid="structub__line__ref_1a7ce3ba31ea4c2b0b65a351e905dfebf0" prot="public" virt="non-virtual"><scope>ub_line_ref</scope><name>ptr</name></member>

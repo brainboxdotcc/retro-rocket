@@ -126,6 +126,8 @@ Functions</h2></td></tr>
 <tr class="separator:af491f52ce63929279d3733c13ba771d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afda35d0bfe9f38a6810847c9f2742970"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#afda35d0bfe9f38a6810847c9f2742970">keyboard_handler</a> ([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t errorcode, [[maybe_unused]] uint64_t irq, [[maybe_unused]] void *opaque)</td></tr>
 <tr class="separator:afda35d0bfe9f38a6810847c9f2742970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86378414e15a4c45269f773f9bc1a34c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a86378414e15a4c45269f773f9bc1a34c">key_waiting</a> ()</td></tr>
+<tr class="separator:a86378414e15a4c45269f773f9bc1a34c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e60e08c48b0a9e634e17da9249f515e"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a8e60e08c48b0a9e634e17da9249f515e">kgetc</a> ([[maybe_unused]] <a class="el" href="structconsole.html">console</a> *cons)</td></tr>
 <tr class="separator:a8e60e08c48b0a9e634e17da9249f515e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -232,6 +234,23 @@ Variables</h2></td></tr>
 
 <p>Initialises the keyboard driver. </p>
 <p>Claims IRQ1, sets up the scan code map, and clears the keyboard buffer ready for use. </p>
+
+</div>
+</div>
+<a id="a86378414e15a4c45269f773f9bc1a34c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86378414e15a4c45269f773f9bc1a34c">&#9670;&nbsp;</a></span>key_waiting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool key_waiting </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -762,7 +781,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="keyboard_8c.html">keyboard.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

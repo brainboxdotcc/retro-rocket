@@ -2,6 +2,7 @@ var structfilesystem__t =
 [
     [ "createdir", "structfilesystem__t.html#ac33d6d5bdd65541a546fab20594ab7bf", null ],
     [ "createfile", "structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8", null ],
+    [ "freespace", "structfilesystem__t.html#a3cfc358074e53fe2afd3b62ea40d50f6", null ],
     [ "getdir", "structfilesystem__t.html#a99ad863d03be29cf4ddbf592405f12a9", null ],
     [ "mount", "structfilesystem__t.html#a77609a9147050917f0fff5604dd14c36", null ],
     [ "name", "structfilesystem__t.html#ad9e95445e543de2e595f4da41e1b9ff4", null ],

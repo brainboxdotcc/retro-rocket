@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('structub__var__string__array.html','')
 <p>An array of strings.  
  <a href="structub__var__string__array.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_var_string_array:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -106,16 +106,21 @@ $(document).ready(function(){initNavTree('structub__var__string__array.html','')
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a28c819b89b7683cecf3932b0245d0fd2"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string__array.html#a28c819b89b7683cecf3932b0245d0fd2">itemcount</a></td></tr>
+<tr class="memdesc:a28c819b89b7683cecf3932b0245d0fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of items in the array.  <a href="structub__var__string__array.html#a28c819b89b7683cecf3932b0245d0fd2">More...</a><br /></td></tr>
 <tr class="separator:a28c819b89b7683cecf3932b0245d0fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b97bd699ec3bd96713be62ad889e622"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string__array.html#a4b97bd699ec3bd96713be62ad889e622">varname</a></td></tr>
+<tr class="memdesc:a4b97bd699ec3bd96713be62ad889e622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the string array variable.  <a href="structub__var__string__array.html#a4b97bd699ec3bd96713be62ad889e622">More...</a><br /></td></tr>
 <tr class="separator:a4b97bd699ec3bd96713be62ad889e622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0468ca4e4652091b9f8afeb85097901d"><td class="memItemLeft" align="right" valign="top">const char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string__array.html#a0468ca4e4652091b9f8afeb85097901d">values</a></td></tr>
+<tr class="memdesc:a0468ca4e4652091b9f8afeb85097901d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of string values.  <a href="structub__var__string__array.html#a0468ca4e4652091b9f8afeb85097901d">More...</a><br /></td></tr>
 <tr class="separator:a0468ca4e4652091b9f8afeb85097901d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb1eb236e3d5b0f692e1735d41e9b1b5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__string__array.html">ub_var_string_array</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string__array.html#aeb1eb236e3d5b0f692e1735d41e9b1b5">next</a></td></tr>
+<tr class="memdesc:aeb1eb236e3d5b0f692e1735d41e9b1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next string array (for chaining)  <a href="structub__var__string__array.html#aeb1eb236e3d5b0f692e1735d41e9b1b5">More...</a><br /></td></tr>
 <tr class="separator:aeb1eb236e3d5b0f692e1735d41e9b1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An array of strings. </p>
+<p>This structure represents an array of strings in the BASIC interpreter, with a name, the number of items in the array, and the array values. It also supports chaining for handling multiple arrays. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a28c819b89b7683cecf3932b0245d0fd2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a28c819b89b7683cecf3932b0245d0fd2">&#9670;&nbsp;</a></span>itemcount</h2>
@@ -128,6 +133,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Number of items in the array. </p>
 
 </div>
 </div>
@@ -143,6 +150,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the next string array (for chaining) </p>
+
 </div>
 </div>
 <a id="a0468ca4e4652091b9f8afeb85097901d"></a>
@@ -156,6 +165,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Array of string values. </p>
 
 </div>
 </div>
@@ -171,6 +182,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Name of the string array variable. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -179,7 +192,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__var__string__array.html">ub_var_string_array</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

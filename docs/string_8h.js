@@ -19,6 +19,7 @@ var string_8h =
     [ "isupper", "string_8h.html#a06cba797125caea031638f02f524258e", null ],
     [ "isxdigit", "string_8h.html#a9ea6fd19878abf6f8919e901b7db5c74", null ],
     [ "labs", "string_8h.html#ac2504e01693d9eac955a61ea1e2403b5", null ],
+    [ "strcasecmp", "string_8h.html#a706b36f3a672f84685576723c3928baa", null ],
     [ "strchr", "string_8h.html#a12871ed234858ef0e363d2b8aa572fc1", null ],
     [ "strcmp", "string_8h.html#a11bd144d7d44914099a3aeddf1c8567d", null ],
     [ "strdup", "string_8h.html#a86e0df1bf9e434074f958434e0af7581", null ],
@@ -28,6 +29,7 @@ var string_8h =
     [ "strlen", "string_8h.html#ab6d82ea1bcf2827a207a17fd090c5921", null ],
     [ "strncmp", "string_8h.html#a519d57d33362a8ed067cf5fe6937324e", null ],
     [ "strnicmp", "string_8h.html#abfcaa2fc7116e670ae5e1041998efae4", null ],
+    [ "strrchr", "string_8h.html#a0c05a458deff028ef4d4e64059098db4", null ],
     [ "strrev", "string_8h.html#a4c992c1c3ddcc8d245640fd5443d1a10", null ],
     [ "tolower", "string_8h.html#a7c7bfb267464615bfa3b86aa79f42a82", null ],
     [ "toupper", "string_8h.html#a5e77664365c4f7bd9f260f8ccb89a438", null ]

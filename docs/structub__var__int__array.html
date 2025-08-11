@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('structub__var__int__array.html',''); i
 <p>An array of integers.  
  <a href="structub__var__int__array.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_var_int_array:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -106,16 +106,21 @@ $(document).ready(function(){initNavTree('structub__var__int__array.html',''); i
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a1d2adba640f45f6a1c64554bd58b14d6"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int__array.html#a1d2adba640f45f6a1c64554bd58b14d6">itemcount</a></td></tr>
+<tr class="memdesc:a1d2adba640f45f6a1c64554bd58b14d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of items in the array.  <a href="structub__var__int__array.html#a1d2adba640f45f6a1c64554bd58b14d6">More...</a><br /></td></tr>
 <tr class="separator:a1d2adba640f45f6a1c64554bd58b14d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab345e14192c5b3d869af33f5c791cecf"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int__array.html#ab345e14192c5b3d869af33f5c791cecf">varname</a></td></tr>
+<tr class="memdesc:ab345e14192c5b3d869af33f5c791cecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the integer array variable.  <a href="structub__var__int__array.html#ab345e14192c5b3d869af33f5c791cecf">More...</a><br /></td></tr>
 <tr class="separator:ab345e14192c5b3d869af33f5c791cecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e76aa2d852b35b2f4d72555588cfc38"><td class="memItemLeft" align="right" valign="top">int64_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int__array.html#a9e76aa2d852b35b2f4d72555588cfc38">values</a></td></tr>
+<tr class="memdesc:a9e76aa2d852b35b2f4d72555588cfc38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of integer values.  <a href="structub__var__int__array.html#a9e76aa2d852b35b2f4d72555588cfc38">More...</a><br /></td></tr>
 <tr class="separator:a9e76aa2d852b35b2f4d72555588cfc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fb370c37cad3ae89ab6814b37a443dd"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int__array.html">ub_var_int_array</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int__array.html#a9fb370c37cad3ae89ab6814b37a443dd">next</a></td></tr>
+<tr class="memdesc:a9fb370c37cad3ae89ab6814b37a443dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next integer array (for chaining)  <a href="structub__var__int__array.html#a9fb370c37cad3ae89ab6814b37a443dd">More...</a><br /></td></tr>
 <tr class="separator:a9fb370c37cad3ae89ab6814b37a443dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An array of integers. </p>
+<p>This structure represents an array of integers in the BASIC interpreter, with a name, the number of items in the array, and the array values. It also supports chaining for handling multiple arrays. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a1d2adba640f45f6a1c64554bd58b14d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d2adba640f45f6a1c64554bd58b14d6">&#9670;&nbsp;</a></span>itemcount</h2>
@@ -128,6 +133,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Number of items in the array. </p>
 
 </div>
 </div>
@@ -143,6 +150,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the next integer array (for chaining) </p>
+
 </div>
 </div>
 <a id="a9e76aa2d852b35b2f4d72555588cfc38"></a>
@@ -156,6 +165,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Array of integer values. </p>
 
 </div>
 </div>
@@ -171,6 +182,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Name of the integer array variable. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -179,7 +192,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__var__int__array.html">ub_var_int_array</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

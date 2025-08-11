@@ -116,7 +116,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a07aef83877679df4398fa641ff557519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40e84a87e647e4e0f10f32668c8ed3ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854">process_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#a40e84a87e647e4e0f10f32668c8ed3ab">state</a></td></tr>
 <tr class="separator:a40e84a87e647e4e0f10f32668c8ed3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ecc4cac7db5cdf92547364b666dcd9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#a4ecc4cac7db5cdf92547364b666dcd9c">start_time</a></td></tr>
+<tr class="memitem:a4ecc4cac7db5cdf92547364b666dcd9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#a4ecc4cac7db5cdf92547364b666dcd9c">start_time</a></td></tr>
 <tr class="separator:a4ecc4cac7db5cdf92547364b666dcd9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade947bc49b3c970c9b6fe15da2f12f9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="taskswitch_8h.html#a7a26cb7f5678736cec66712d6df1d4ed">pid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#ade947bc49b3c970c9b6fe15da2f12f9b">waitpid</a></td></tr>
 <tr class="separator:ade947bc49b3c970c9b6fe15da2f12f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,11 +138,30 @@ Data Fields</h2></td></tr>
 <tr class="separator:a319121e790b8160ed34c39eba2befe06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35426bef9435a3bc4399ee832dab5cf2"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structprocess__t.html">process_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#a35426bef9435a3bc4399ee832dab5cf2">next</a></td></tr>
 <tr class="separator:a35426bef9435a3bc4399ee832dab5cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c17010c97fc19cead0529f1bc3a380"><td class="memItemLeft" align="right" valign="top"><a class="el" href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">activity_callback_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#ac5c17010c97fc19cead0529f1bc3a380">check_idle</a></td></tr>
+<tr class="separator:ac5c17010c97fc19cead0529f1bc3a380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c947b3c296d37a2290e44c96d68e7c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__t.html#aa1c947b3c296d37a2290e44c96d68e7c">idle_context</a></td></tr>
+<tr class="separator:aa1c947b3c296d37a2290e44c96d68e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a process in the system. </p>
 <p>Each process has its own PID, optional parent PID, execution state, associated console, and BASIC execution context. Processes are linked in a global doubly-linked list for scheduling. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a id="ac5c17010c97fc19cead0529f1bc3a380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5c17010c97fc19cead0529f1bc3a380">&#9670;&nbsp;</a></span>check_idle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">activity_callback_t</a> process_t::check_idle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>If non-null, called to check if the process should remain idle </p>
+
+</div>
+</div>
 <a id="aac89744257f50e77369d583e70974822"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aac89744257f50e77369d583e70974822">&#9670;&nbsp;</a></span>code</h2>
 
@@ -230,6 +249,21 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Group ID (future use) </p>
+
+</div>
+</div>
+<a id="aa1c947b3c296d37a2290e44c96d68e7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c947b3c296d37a2290e44c96d68e7c">&#9670;&nbsp;</a></span>idle_context</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* process_t::idle_context</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Opaque context passed to the check_idle callback </p>
 
 </div>
 </div>
@@ -330,7 +364,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a> process_t::start_time</td>
+          <td class="memname"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> process_t::start_time</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -389,7 +423,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structprocess__t.html">process_t</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

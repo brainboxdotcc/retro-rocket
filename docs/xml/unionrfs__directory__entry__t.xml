@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Directory start entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="76" column="23" bodyfile="include/retrofs.h" bodystart="76" bodyend="-1"/>
+        <location file="include/retrofs.h" line="130" column="23" bodyfile="include/retrofs.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionrfs__directory__entry__t_1a67fc7093424f99c963d3dfafaf501bc4" prot="public" static="no" mutable="no">
         <type><ref refid="structrfs__directory__entry__inner__t" kindref="compound">rfs_directory_entry_inner_t</ref></type>
@@ -25,10 +26,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>File entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="77" column="29" bodyfile="include/retrofs.h" bodystart="77" bodyend="-1"/>
+        <location file="include/retrofs.h" line="131" column="29" bodyfile="include/retrofs.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="unionrfs__directory__entry__t_1a27da442d5a302a9bd40f4306604f78c3" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -38,15 +40,18 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Raw bytes view. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="78" column="6" bodyfile="include/retrofs.h" bodystart="78" bodyend="-1"/>
+        <location file="include/retrofs.h" line="132" column="6" bodyfile="include/retrofs.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Unified representation of either a directory start or file entry. </para>
     </briefdescription>
     <detaileddescription>
+<para>Each directory block sector contains two of these (half-sector entries). </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="3">
@@ -75,15 +80,18 @@
         <label>rfs_directory_entry_inner_t</label>
         <link refid="structrfs__directory__entry__inner__t"/>
         <childnode refid="4" relation="usage">
-          <edgelabel>created</edgelabel>
           <edgelabel>length</edgelabel>
-          <edgelabel>modified</edgelabel>
+          <edgelabel>sector_length</edgelabel>
           <edgelabel>sector_start</edgelabel>
           <edgelabel>sequence</edgelabel>
         </childnode>
         <childnode refid="2" relation="usage">
           <edgelabel>filename</edgelabel>
           <edgelabel>reserved</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>created</edgelabel>
+          <edgelabel>modified</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
           <edgelabel>flags</edgelabel>
@@ -102,11 +110,14 @@
           <edgelabel>entry</edgelabel>
         </childnode>
       </node>
+      <node id="7">
+        <label>int64_t</label>
+      </node>
       <node id="2">
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/retrofs.h" line="75" column="1" bodyfile="include/retrofs.h" bodystart="75" bodyend="79"/>
+    <location file="include/retrofs.h" line="129" column="1" bodyfile="include/retrofs.h" bodystart="129" bodyend="133"/>
     <listofallmembers>
       <member refid="unionrfs__directory__entry__t_1a67fc7093424f99c963d3dfafaf501bc4" prot="public" virt="non-virtual"><scope>rfs_directory_entry_t</scope><name>entry</name></member>
       <member refid="unionrfs__directory__entry__t_1a27da442d5a302a9bd40f4306604f78c3" prot="public" virt="non-virtual"><scope>rfs_directory_entry_t</scope><name>raw</name></member>

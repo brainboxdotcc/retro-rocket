@@ -94,28 +94,37 @@ $(document).ready(function(){initNavTree('structub__var__int.html',''); initResi
 <p>An integer variable.  
  <a href="structub__var__int.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_var_int:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structub__var__int__coll__graph.svg" width="238" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structub__var__int__coll__graph.svg" width="352" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a2744e85bfb487737b7442dfa99c9bd62"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int.html#a2744e85bfb487737b7442dfa99c9bd62">varname</a></td></tr>
+<tr class="memdesc:a2744e85bfb487737b7442dfa99c9bd62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the integer variable.  <a href="structub__var__int.html#a2744e85bfb487737b7442dfa99c9bd62">More...</a><br /></td></tr>
 <tr class="separator:a2744e85bfb487737b7442dfa99c9bd62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296315fdf5c4c077283f3b668eb89962"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int.html#a296315fdf5c4c077283f3b668eb89962">name_length</a></td></tr>
+<tr class="memdesc:a296315fdf5c4c077283f3b668eb89962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the variable name.  <a href="structub__var__int.html#a296315fdf5c4c077283f3b668eb89962">More...</a><br /></td></tr>
+<tr class="separator:a296315fdf5c4c077283f3b668eb89962"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4106a4e6d32df6e5b2da883f4e10ae0c"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int.html#a4106a4e6d32df6e5b2da883f4e10ae0c">value</a></td></tr>
+<tr class="memdesc:a4106a4e6d32df6e5b2da883f4e10ae0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The value of the integer variable.  <a href="structub__var__int.html#a4106a4e6d32df6e5b2da883f4e10ae0c">More...</a><br /></td></tr>
 <tr class="separator:a4106a4e6d32df6e5b2da883f4e10ae0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af005cf66421048f3fcdf4d2c70dea930"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int.html#af005cf66421048f3fcdf4d2c70dea930">global</a></td></tr>
+<tr class="memdesc:af005cf66421048f3fcdf4d2c70dea930"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the variable is global, false if local.  <a href="structub__var__int.html#af005cf66421048f3fcdf4d2c70dea930">More...</a><br /></td></tr>
 <tr class="separator:af005cf66421048f3fcdf4d2c70dea930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8dda4e8cd294e42cf2e7d267f2c10cda"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int.html">ub_var_int</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__int.html#a8dda4e8cd294e42cf2e7d267f2c10cda">next</a></td></tr>
+<tr class="memdesc:a8dda4e8cd294e42cf2e7d267f2c10cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next integer variable (for chaining)  <a href="structub__var__int.html#a8dda4e8cd294e42cf2e7d267f2c10cda">More...</a><br /></td></tr>
 <tr class="separator:a8dda4e8cd294e42cf2e7d267f2c10cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An integer variable. </p>
+<p>This structure represents an integer variable in the BASIC interpreter, with its name, value, and whether it is global or local. It also supports chaining for handling multiple variables. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="af005cf66421048f3fcdf4d2c70dea930"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af005cf66421048f3fcdf4d2c70dea930">&#9670;&nbsp;</a></span>global</h2>
@@ -128,6 +137,24 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>True if the variable is global, false if local. </p>
+
+</div>
+</div>
+<a id="a296315fdf5c4c077283f3b668eb89962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296315fdf5c4c077283f3b668eb89962">&#9670;&nbsp;</a></span>name_length</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t ub_var_int::name_length</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of the variable name. </p>
 
 </div>
 </div>
@@ -143,6 +170,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the next integer variable (for chaining) </p>
+
 </div>
 </div>
 <a id="a4106a4e6d32df6e5b2da883f4e10ae0c"></a>
@@ -156,6 +185,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The value of the integer variable. </p>
 
 </div>
 </div>
@@ -171,6 +202,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Name of the integer variable. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -179,7 +212,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__var__int.html">ub_var_int</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

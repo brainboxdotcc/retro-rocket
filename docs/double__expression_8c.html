@@ -104,8 +104,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a39fa6a8523e7ad45102f2a80f8b21ec9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a39fa6a8523e7ad45102f2a80f8b21ec9">double_term</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
 <tr class="separator:a39fa6a8523e7ad45102f2a80f8b21ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74736577f6e6c03730accb1bf6609a30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a74736577f6e6c03730accb1bf6609a30">double_expr</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
+<tr class="memdesc:a74736577f6e6c03730accb1bf6609a30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a full real (double) expression.  <a href="double__expression_8c.html#a74736577f6e6c03730accb1bf6609a30">More...</a><br /></td></tr>
 <tr class="separator:a74736577f6e6c03730accb1bf6609a30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ee284d90bf47b74190b99f3ca1931f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="double__expression_8c.html#a8ee284d90bf47b74190b99f3ca1931f1">double_relation</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx, double *res)</td></tr>
+<tr class="memdesc:a8ee284d90bf47b74190b99f3ca1931f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a relational real (double) expression.  <a href="double__expression_8c.html#a8ee284d90bf47b74190b99f3ca1931f1">More...</a><br /></td></tr>
 <tr class="separator:a8ee284d90bf47b74190b99f3ca1931f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -136,6 +138,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Evaluates a full real (double) expression. </p>
+<p>This function parses and evaluates a real (double) expression from the BASIC program based on the provided context. It supports floating-point arithmetic operations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>A pointer to the current BASIC program context. </td></tr>
+    <tr><td class="paramname">res</td><td>A pointer to a double where the result will be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -192,6 +204,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Evaluates a relational real (double) expression. </p>
+<p>This function evaluates relational expressions (e.g., &lt;, &gt;, ==) for real numbers. It returns <code>1</code> for true and <code>0</code> for false.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>A pointer to the current BASIC program context. </td></tr>
+    <tr><td class="paramname">res</td><td>A pointer to a double where the result will be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -257,7 +279,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="double__expression_8c.html">double_expression.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

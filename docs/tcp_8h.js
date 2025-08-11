@@ -74,6 +74,7 @@ var tcp_8h =
     [ "queue_push", "tcp_8h.html#a0a273902c052c7f2beef288432bcf713", null ],
     [ "recv", "tcp_8h.html#a6df7b901b1a9f3ec7046f958f9e7cf36", null ],
     [ "send", "tcp_8h.html#a5787e23039c4a2243cbc968a48431d2e", null ],
+    [ "sock_ready_to_read", "tcp_8h.html#ae4013d43c90be7603c80e7224765d830", null ],
     [ "socket_error", "tcp_8h.html#a0a5ac590e0a9088bc8ddf519e8e0967d", null ],
     [ "tcp_accept", "tcp_8h.html#aeb880bf940312acdf8a48c4d4dfa0b72", null ],
     [ "tcp_allocate_fd", "tcp_8h.html#ae2f65a066df4023de8b2507bf2554fa7", null ],

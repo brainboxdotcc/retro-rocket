@@ -141,7 +141,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aac3e5a924fc67e6eb8b2d2d58a7f4d3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#aac3e5a924fc67e6eb8b2d2d58a7f4d3c">tcp_send_segment</a> (<a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn, uint32_t <a class="el" href="tcp_8h.html#aaf1b939170b82732448a965a5b33ad4e">seq</a>, uint8_t <a class="el" href="tcp_8h.html#a24acab6663ca0c43fab3a6b82602362c">flags</a>, const void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, size_t count)</td></tr>
 <tr class="memdesc:aac3e5a924fc67e6eb8b2d2d58a7f4d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a segment to the peer.  <a href="tcp_8c.html#aac3e5a924fc67e6eb8b2d2d58a7f4d3c">More...</a><br /></td></tr>
 <tr class="separator:aac3e5a924fc67e6eb8b2d2d58a7f4d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74284b0a11634f10e384e95bc9ebd803"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a74284b0a11634f10e384e95bc9ebd803">tcp_header_size</a> (tcp_segment_t *s)</td></tr>
+<tr class="memitem:a74284b0a11634f10e384e95bc9ebd803"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a74284b0a11634f10e384e95bc9ebd803">tcp_header_size</a> (tcp_segment_t *<a class="el" href="serial_8h.html#ab87f55bd0280d90925050a4188c14ab5">s</a>)</td></tr>
 <tr class="memdesc:a74284b0a11634f10e384e95bc9ebd803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate size of header for a segment using the payload offset.  <a href="tcp_8c.html#a74284b0a11634f10e384e95bc9ebd803">More...</a><br /></td></tr>
 <tr class="separator:a74284b0a11634f10e384e95bc9ebd803"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75032ffbabb54edf804b6103fb0c510c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a75032ffbabb54edf804b6103fb0c510c">tcp_write</a> (<a class="el" href="structtcp__conn__t.html">tcp_conn_t</a> *conn, const void *<a class="el" href="udp_8h.html#a5c239a1bb87b52b0f1d6d68c4749cd2a">data</a>, size_t count)</td></tr>
@@ -233,6 +233,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#a6df7b901b1a9f3ec7046f958f9e7cf36">recv</a> (int socket, void *buffer, uint32_t maxlen, bool blocking, uint32_t timeout)</td></tr>
 <tr class="memdesc:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from an open socket. The data is buffered, and this function will fill the buffer when there is data in the buffer to read.  <a href="tcp_8c.html#a6df7b901b1a9f3ec7046f958f9e7cf36">More...</a><br /></td></tr>
 <tr class="separator:a6df7b901b1a9f3ec7046f958f9e7cf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4013d43c90be7603c80e7224765d830"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#ae4013d43c90be7603c80e7224765d830">sock_ready_to_read</a> (int socket)</td></tr>
+<tr class="memdesc:ae4013d43c90be7603c80e7224765d830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a socket has data ready to be read.  <a href="tcp_8c.html#ae4013d43c90be7603c80e7224765d830">More...</a><br /></td></tr>
+<tr class="separator:ae4013d43c90be7603c80e7224765d830"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab30a0d5f82ac8f116897d82578ae25eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tcp_8c.html#ab30a0d5f82ac8f116897d82578ae25eb">tcp_listen</a> (uint32_t <a class="el" href="e1000_8h.html#a2cf6caf45728e5af959628648c2116fc">addr</a>, uint16_t port, int backlog)</td></tr>
 <tr class="memdesc:ab30a0d5f82ac8f116897d82578ae25eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a listening TCP socket.  <a href="tcp_8c.html#ab30a0d5f82ac8f116897d82578ae25eb">More...</a><br /></td></tr>
 <tr class="separator:ab30a0d5f82ac8f116897d82578ae25eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -592,6 +595,34 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae4013d43c90be7603c80e7224765d830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4013d43c90be7603c80e7224765d830">&#9670;&nbsp;</a></span>sock_ready_to_read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool sock_ready_to_read </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>socket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if a socket has data ready to be read. </p>
+<p>Non-blocking check for buffered data on the given socket. Does not consume any data or modify the recv buffer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">socket</td><td>File descriptor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if there is data available to read, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -2534,7 +2565,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c72b25b75abe208498b36a3e44a3726c.html">net</a></li><li class="navelem"><a class="el" href="tcp_8c.html">tcp.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

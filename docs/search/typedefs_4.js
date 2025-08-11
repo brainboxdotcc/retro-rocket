@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fnptr_5ft_5716',['fnptr_t',['../printf_8h.html#a32c46e53a96b94d11d0ac6aed7631d4a',1,'printf.h']]]
+  ['ethernet_5fprotocol_5ft_6172',['ethernet_protocol_t',['../ethernet_8h.html#a2afdc291e22708a723346f18e62abe93',1,'ethernet.h']]]
 ];

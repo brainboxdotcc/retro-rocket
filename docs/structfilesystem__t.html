@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('structfilesystem__t.html',''); initRes
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structfilesystem__t__coll__graph.svg" width="507" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structfilesystem__t__coll__graph.svg" width="507" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -135,6 +136,8 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a85128ed0d4bda3d5431f4d44c7a4ccd5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="filesystem_8h.html#a8ec1bba1ee1bc3fe7b46f30eff181e3e">delete_dir</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a85128ed0d4bda3d5431f4d44c7a4ccd5">rmdir</a></td></tr>
 <tr class="memdesc:a85128ed0d4bda3d5431f4d44c7a4ccd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer for <a class="el" href="structfilesystem__t.html#a85128ed0d4bda3d5431f4d44c7a4ccd5" title="Function pointer for rmdir() Remove an existing directory. The directory should already exist in the ...">rmdir()</a> Remove an existing directory. The directory should already exist in the parent directory, and should be empty of all non-special entries (e.g. '.' and '..' are permitted to still exist)  <a href="structfilesystem__t.html#a85128ed0d4bda3d5431f4d44c7a4ccd5">More...</a><br /></td></tr>
 <tr class="separator:a85128ed0d4bda3d5431f4d44c7a4ccd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cfc358074e53fe2afd3b62ea40d50f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="filesystem_8h.html#ad0cfa0bbd250806815c46201b765059d">get_free_space</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a3cfc358074e53fe2afd3b62ea40d50f6">freespace</a></td></tr>
+<tr class="separator:a3cfc358074e53fe2afd3b62ea40d50f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3de5608a3632092ae909303a1ba96fe5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfilesystem__t.html">filesystem_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfilesystem__t.html#a3de5608a3632092ae909303a1ba96fe5">next</a></td></tr>
 <tr class="memdesc:a3de5608a3632092ae909303a1ba96fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to next filesystem driver or NULL.  <a href="structfilesystem__t.html#a3de5608a3632092ae909303a1ba96fe5">More...</a><br /></td></tr>
 <tr class="separator:a3de5608a3632092ae909303a1ba96fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,6 +179,21 @@ Data Fields</h2></td></tr>
 
 <p>Function pointer for <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8" title="Function pointer for createfile() Creates a new file filled with null bytes, of the requested size....">createfile()</a> Creates a new file filled with null bytes, of the requested size. The file size on the media may be larger, to account for slack, but the reported size must be that provided. </p>
 <p>The file must not already exist, <a class="el" href="structfilesystem__t.html#ab7d2e44b34d97365125949fe2ca300e8" title="Function pointer for createfile() Creates a new file filled with null bytes, of the requested size....">createfile()</a> should not overwrite existing data. </p>
+
+</div>
+</div>
+<a id="a3cfc358074e53fe2afd3b62ea40d50f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cfc358074e53fe2afd3b62ea40d50f6">&#9670;&nbsp;</a></span>freespace</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="filesystem_8h.html#ad0cfa0bbd250806815c46201b765059d">get_free_space</a> filesystem_t::freespace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the free space on the filesystem in bytes </p>
 
 </div>
 </div>
@@ -331,7 +349,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structfilesystem__t.html">filesystem_t</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

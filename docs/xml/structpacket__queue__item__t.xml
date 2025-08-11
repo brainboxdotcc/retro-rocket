@@ -31,7 +31,7 @@
         <location file="include/ip.h" line="89" column="9" bodyfile="include/ip.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpacket__queue__item__t_1a74b07ecaf224fa58052ca23b973253fd" prot="public" static="no" mutable="no">
-        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
         <definition>time_t packet_queue_item_t::last_arp</definition>
         <argsstring></argsstring>
         <name>last_arp</name>
@@ -66,10 +66,10 @@
         <label>packet_queue_item_t</label>
         <link refid="structpacket__queue__item__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>last_arp</edgelabel>
+          <edgelabel>packet</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>packet</edgelabel>
+          <edgelabel>last_arp</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>arp_tries</edgelabel>
@@ -78,9 +78,6 @@
           <edgelabel>next</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>uint64_t</label>
-      </node>
       <node id="5">
         <label>struct packet_queue_item *</label>
       </node>
@@ -88,6 +85,9 @@
         <label>uint8_t</label>
       </node>
       <node id="3">
+        <label>int64_t</label>
+      </node>
+      <node id="2">
         <label>ip_packet_t</label>
       </node>
     </collaborationgraph>

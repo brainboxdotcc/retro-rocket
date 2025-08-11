@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Filesystem magic (RFS_ID). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="37" column="10" bodyfile="include/retrofs.h" bodystart="37" bodyend="-1"/>
+        <location file="include/retrofs.h" line="71" column="10" bodyfile="include/retrofs.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__description__block__t_1a64eb99e869702e6db4ac87341f7678c6" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -25,10 +26,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector address of root directory start entry. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="38" column="10" bodyfile="include/retrofs.h" bodystart="38" bodyend="-1"/>
+        <location file="include/retrofs.h" line="72" column="10" bodyfile="include/retrofs.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__description__block__t_1a2d30235db8723ccf79dd4aa229096f1d" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -38,10 +40,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Sector address of free space map start. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="39" column="10" bodyfile="include/retrofs.h" bodystart="39" bodyend="-1"/>
+        <location file="include/retrofs.h" line="73" column="10" bodyfile="include/retrofs.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__description__block__t_1ade7472c9d2520f6d83fde725befdc6ca" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -51,10 +54,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Length of free space map in sectors. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="40" column="10" bodyfile="include/retrofs.h" bodystart="40" bodyend="-1"/>
+        <location file="include/retrofs.h" line="74" column="10" bodyfile="include/retrofs.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__description__block__t_1a36a6790dd7642355e45ca5467c088588" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -64,10 +68,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Checksum of the free space map. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="41" column="10" bodyfile="include/retrofs.h" bodystart="41" bodyend="-1"/>
+        <location file="include/retrofs.h" line="75" column="10" bodyfile="include/retrofs.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__description__block__t_1a42407640d7548acb086cbdad85886e8b" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -77,28 +82,32 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Incremented whenever the FS is modified. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="42" column="10" bodyfile="include/retrofs.h" bodystart="42" bodyend="-1"/>
+        <location file="include/retrofs.h" line="76" column="10" bodyfile="include/retrofs.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structrfs__description__block__t_1a9b47de5d2cf4eb0b706d933b939c00fc" prot="public" static="no" mutable="no">
-        <type><ref refid="clock_8h_1a02ad034d26db2c14b7e295b0c50fc11d" kindref="member">time_t</ref></type>
+        <type><ref refid="clock_8h_1a7f5991675a84025dc7c24754a9b257c0" kindref="member">time_t</ref></type>
         <definition>time_t rfs_description_block_t::creation_time</definition>
         <argsstring></argsstring>
         <name>creation_time</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>Filesystem creation time (UTC). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/retrofs.h" line="43" column="8" bodyfile="include/retrofs.h" bodystart="43" bodyend="-1"/>
+        <location file="include/retrofs.h" line="77" column="8" bodyfile="include/retrofs.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>On-disk description block containing global filesystem metadata. </para>
     </briefdescription>
     <detaileddescription>
+<para>Occupies exactly one sector. This is the first structure read when mounting a RetroFS volume. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
@@ -108,7 +117,6 @@
         <label>rfs_description_block_t</label>
         <link refid="structrfs__description__block__t"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>creation_time</edgelabel>
           <edgelabel>free_space_map_checksum</edgelabel>
           <edgelabel>free_space_map_length</edgelabel>
           <edgelabel>free_space_map_start</edgelabel>
@@ -116,9 +124,15 @@
           <edgelabel>root_directory</edgelabel>
           <edgelabel>sequence</edgelabel>
         </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>creation_time</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>int64_t</label>
       </node>
     </collaborationgraph>
-    <location file="include/retrofs.h" line="36" column="1" bodyfile="include/retrofs.h" bodystart="36" bodyend="44"/>
+    <location file="include/retrofs.h" line="70" column="1" bodyfile="include/retrofs.h" bodystart="70" bodyend="78"/>
     <listofallmembers>
       <member refid="structrfs__description__block__t_1a9b47de5d2cf4eb0b706d933b939c00fc" prot="public" virt="non-virtual"><scope>rfs_description_block_t</scope><name>creation_time</name></member>
       <member refid="structrfs__description__block__t_1a36a6790dd7642355e45ca5467c088588" prot="public" virt="non-virtual"><scope>rfs_description_block_t</scope><name>free_space_map_checksum</name></member>

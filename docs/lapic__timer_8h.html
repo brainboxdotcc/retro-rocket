@@ -150,7 +150,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a600cc0b39c3ec08ab9e848813e23180d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lapic__timer_8h.html#a600cc0b39c3ec08ab9e848813e23180d">init_lapic_timer</a> (uint64_t quantum)</td></tr>
-<tr class="memdesc:a600cc0b39c3ec08ab9e848813e23180d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the LAPIC timer.  <a href="lapic__timer_8h.html#a600cc0b39c3ec08ab9e848813e23180d">More...</a><br /></td></tr>
+<tr class="memdesc:a600cc0b39c3ec08ab9e848813e23180d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise and calibrate the Local APIC timer.  <a href="lapic__timer_8h.html#a600cc0b39c3ec08ab9e848813e23180d">More...</a><br /></td></tr>
 <tr class="separator:a600cc0b39c3ec08ab9e848813e23180d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -536,11 +536,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialise the LAPIC timer. </p>
-<p>Configures the Local APIC timer to generate interrupts at a regular interval defined by the specified quantum.</p>
+<p>Initialise and calibrate the Local APIC timer. </p>
+<p>This function calibrates the LAPIC timer against a stable external timebase and configures it to generate periodic interrupts at a frequency derived from the specified quantum.</p>
+<p>Calibration is performed using the ACPI Power Management (PM) timer if it is available. The PM timer provides a fixed-frequency reference at 3.579545 MHz, and calibration is performed over ~100 ms for accuracy. If the PM timer is not available, the function falls back to using the RTC seconds counter, which requires a 1-second sample period.</p>
+<p>Once calibrated, the LAPIC timer is programmed in periodic mode with a divisor of 16, and interrupts are routed to IRQ16.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">quantum</td><td>Time slice quantum in ticks per second. </td></tr>
+    <tr><td class="paramname">quantum</td><td>Desired time slice quantum, in ticks per second. Must be greater than zero. </td></tr>
   </table>
   </dd>
 </dl>
@@ -553,7 +555,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="lapic__timer_8h.html">lapic_timer.h</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -94,28 +94,37 @@ $(document).ready(function(){initNavTree('structub__var__string.html',''); initR
 <p>A string variable.  
  <a href="structub__var__string.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_var_string:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structub__var__string__coll__graph.svg" width="194" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structub__var__string__coll__graph.svg" width="280" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:af278b453d313a0e63c0395937a795d75"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string.html#af278b453d313a0e63c0395937a795d75">varname</a></td></tr>
+<tr class="memdesc:af278b453d313a0e63c0395937a795d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the string variable.  <a href="structub__var__string.html#af278b453d313a0e63c0395937a795d75">More...</a><br /></td></tr>
 <tr class="separator:af278b453d313a0e63c0395937a795d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb306d5daeecbc3ca2503667e0fdf47f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string.html#acb306d5daeecbc3ca2503667e0fdf47f">name_length</a></td></tr>
+<tr class="memdesc:acb306d5daeecbc3ca2503667e0fdf47f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the variable name.  <a href="structub__var__string.html#acb306d5daeecbc3ca2503667e0fdf47f">More...</a><br /></td></tr>
+<tr class="separator:acb306d5daeecbc3ca2503667e0fdf47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a517112dbc50ed6d63c5f3329268dd1cd"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string.html#a517112dbc50ed6d63c5f3329268dd1cd">value</a></td></tr>
+<tr class="memdesc:a517112dbc50ed6d63c5f3329268dd1cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The value of the string variable.  <a href="structub__var__string.html#a517112dbc50ed6d63c5f3329268dd1cd">More...</a><br /></td></tr>
 <tr class="separator:a517112dbc50ed6d63c5f3329268dd1cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade8e78c672af1108b32c95dd3999ea8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string.html#ade8e78c672af1108b32c95dd3999ea8c">global</a></td></tr>
+<tr class="memdesc:ade8e78c672af1108b32c95dd3999ea8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the variable is global, false if local.  <a href="structub__var__string.html#ade8e78c672af1108b32c95dd3999ea8c">More...</a><br /></td></tr>
 <tr class="separator:ade8e78c672af1108b32c95dd3999ea8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34110f560c0720684e32e58c08fa85bc"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__string.html">ub_var_string</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__string.html#a34110f560c0720684e32e58c08fa85bc">next</a></td></tr>
+<tr class="memdesc:a34110f560c0720684e32e58c08fa85bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next string variable (for chaining)  <a href="structub__var__string.html#a34110f560c0720684e32e58c08fa85bc">More...</a><br /></td></tr>
 <tr class="separator:a34110f560c0720684e32e58c08fa85bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A string variable. </p>
+<p>This structure represents a string variable in the BASIC interpreter, with its name, value, and whether it is global or local. It also supports chaining for handling multiple variables. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="ade8e78c672af1108b32c95dd3999ea8c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade8e78c672af1108b32c95dd3999ea8c">&#9670;&nbsp;</a></span>global</h2>
@@ -128,6 +137,24 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>True if the variable is global, false if local. </p>
+
+</div>
+</div>
+<a id="acb306d5daeecbc3ca2503667e0fdf47f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb306d5daeecbc3ca2503667e0fdf47f">&#9670;&nbsp;</a></span>name_length</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t ub_var_string::name_length</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of the variable name. </p>
 
 </div>
 </div>
@@ -143,6 +170,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the next string variable (for chaining) </p>
+
 </div>
 </div>
 <a id="a517112dbc50ed6d63c5f3329268dd1cd"></a>
@@ -156,6 +185,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The value of the string variable. </p>
 
 </div>
 </div>
@@ -171,6 +202,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Name of the string variable. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -179,7 +212,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__var__string.html">ub_var_string</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

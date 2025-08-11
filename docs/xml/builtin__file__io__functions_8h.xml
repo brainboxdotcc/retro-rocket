@@ -1,0 +1,1810 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="builtin__file__io__functions_8h" kind="file" language="C++">
+    <compoundname>builtin_file_io_functions.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="basic_8h" local="yes">basic.h</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>stdbool.h</label>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+      <node id="1">
+        <label>builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="124">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="73">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="86">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="109">
+        <label>main.c</label>
+        <link refid="fs_2fat32_2main_8c"/>
+      </node>
+      <node id="105">
+        <label>createfile.c</label>
+        <link refid="fat32_2createfile_8c"/>
+      </node>
+      <node id="51">
+        <label>helpers.c</label>
+        <link refid="helpers_8c"/>
+      </node>
+      <node id="2">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="97">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="43">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>cluster.c</label>
+        <link refid="cluster_8c"/>
+      </node>
+      <node id="114">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="91">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="56">
+        <label>unlinkdirectory.c</label>
+        <link refid="unlinkdirectory_8c"/>
+      </node>
+      <node id="4">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="138">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
+      <node id="6">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="18">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="66">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="79">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="30">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="22">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="133">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="12">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>fsmap.c</label>
+        <link refid="fsmap_8c"/>
+      </node>
+      <node id="15">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="48">
+        <label>format.c</label>
+        <link refid="format_8c"/>
+      </node>
+      <node id="140">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
+      </node>
+      <node id="113">
+        <label>writefile.c</label>
+        <link refid="fat32_2writefile_8c"/>
+      </node>
+      <node id="84">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="130">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="92">
+        <label>buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+      </node>
+      <node id="58">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="121">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="75">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="47">
+        <label>createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="77">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="54">
+        <label>truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="94">
+        <label>debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="103">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="102">
+        <label>debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="127">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="87">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="144">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="55">
+        <label>unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="67">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="80">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="123">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="52">
+        <label>main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="36">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="95">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="76">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="143">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="9">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="136">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="81">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="42">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="126">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="72">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="24">
+        <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="125">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="19">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>lfn.c</label>
+        <link refid="lfn_8c"/>
+      </node>
+      <node id="60">
+        <label>serial.c</label>
+        <link refid="serial_8c"/>
+      </node>
+      <node id="59">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="120">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="23">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="117">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="37">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="128">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="35">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="71">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="50">
+        <label>getdirectory.c</label>
+        <link refid="getdirectory_8c"/>
+      </node>
+      <node id="89">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="65">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="74">
+        <label>datetime.c</label>
+        <link refid="datetime_8c"/>
+      </node>
+      <node id="139">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="78">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="33">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="116">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="25">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="63">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="134">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="46">
+        <label>createdirectory.c</label>
+        <link refid="createdirectory_8c"/>
+      </node>
+      <node id="135">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="107">
+        <label>fat.c</label>
+        <link refid="fat_8c"/>
+      </node>
+      <node id="17">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
+      </node>
+      <node id="3">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="34">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="10">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="21">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="115">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="61">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>unlinkfile.c</label>
+        <link refid="unlinkfile_8c"/>
+      </node>
+      <node id="85">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="88">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="20">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>main.c</label>
+        <link refid="basic_2main_8c"/>
+      </node>
+      <node id="106">
+        <label>directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="110">
+        <label>readfile.c</label>
+        <link refid="fat32_2readfile_8c"/>
+      </node>
+      <node id="1">
+        <label>builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="111">
+        <label>truncatefile.c</label>
+        <link refid="fat32_2truncatefile_8c"/>
+      </node>
+      <node id="129">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="7">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="68">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="41">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="122">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="40">
+        <label>installer.c</label>
+        <link refid="installer_8c"/>
+      </node>
+      <node id="96">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="45">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>writefile.c</label>
+        <link refid="retrofs_2writefile_8c"/>
+      </node>
+      <node id="53">
+        <label>readfile.c</label>
+        <link refid="retrofs_2readfile_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a8e02f462865c772b3a164973da8d8e7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* make_full_path</definition>
+        <argsstring>(struct basic_ctx *ctx, const char *relative)</argsstring>
+        <name>make_full_path</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>relative</declname>
+        </param>
+        <briefdescription>
+<para>Creates a full file path by combining the current selected directory (CSD) with a relative path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If the given path is absolute (starts with &apos;/&apos;), it returns the path as is. If it is relative, it combines it with the current selected directory (CSD).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>relative</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The relative file path to be converted into an absolute path </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The full file path as a string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="17" column="12" bodyfile="src/basic/file_io.c" bodystart="7" bodyend="31" declfile="include/basic/builtin_file_io_functions.h" declline="17" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1ae59e663583d153bad2df75f78302030c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void openin_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>openin_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the OPENIN statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since OPENIN is a function in Retro Rocket BASIC, this statement is not supported and raises an error.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="26" column="6" bodyfile="src/basic/file_io.c" bodystart="75" bodyend="78" declfile="include/basic/builtin_file_io_functions.h" declline="26" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a9046714d009f572d4b7813dff7f87cc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void openup_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>openup_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the OPENUP statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since OPENUP is a function in Retro Rocket BASIC, this statement is not supported and raises an error.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="35" column="6" bodyfile="src/basic/file_io.c" bodystart="80" bodyend="83" declfile="include/basic/builtin_file_io_functions.h" declline="35" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1ac5e9f2f653de2c238d2bf738b210d19c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void openout_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>openout_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the OPENOUT statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since OPENOUT is a function in Retro Rocket BASIC, this statement is not supported and raises an error.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="44" column="6" bodyfile="src/basic/file_io.c" bodystart="85" bodyend="88" declfile="include/basic/builtin_file_io_functions.h" declline="44" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1ae8be40ae1c294bdbb7df5053faff1269" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void read_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>read_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the READ statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since the READ statement is not supported in Retro Rocket BASIC (as it relies on DATA statements), this function raises an error.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="54" column="6" bodyfile="src/basic/file_io.c" bodystart="90" bodyend="93" declfile="include/basic/builtin_file_io_functions.h" declline="54" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a5240841a9b6eea5a3803c79408d1ead3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void close_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>close_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the CLOSE statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function closes the file associated with the file descriptor returned by the OPEN statement.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="63" column="6" bodyfile="src/basic/file_io.c" bodystart="105" bodyend="112" declfile="include/basic/builtin_file_io_functions.h" declline="63" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1aa8ddd1cb8f38f7ba7a946ac3ccfb20ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void eof_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>eof_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the EOF function in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The EOF function checks whether the end of file has been reached. It is not supported in Retro Rocket BASIC. This function raises an error.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="73" column="6" bodyfile="src/basic/file_io.c" bodystart="114" bodyend="117" declfile="include/basic/builtin_file_io_functions.h" declline="73" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a58014a7741d8ade41b9a360bf2855982" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void delete_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>delete_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the DELETE statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function deletes the specified file from the file system.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="82" column="6" bodyfile="src/basic/file_io.c" bodystart="270" bodyend="278" declfile="include/basic/builtin_file_io_functions.h" declline="82" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a9a4238a28d16613ad1821c092c68b9ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mkdir_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>mkdir_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the MKDIR statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function creates a new directory at the specified path.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="91" column="6" bodyfile="src/basic/file_io.c" bodystart="236" bodyend="245" declfile="include/basic/builtin_file_io_functions.h" declline="91" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a6cca92514a9ec98d46e6f4504eba6c51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mount_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>mount_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the MOUNT statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function mounts a file system at the specified path, allowing access to the device.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="100" column="6" bodyfile="src/basic/file_io.c" bodystart="247" bodyend="257" declfile="include/basic/builtin_file_io_functions.h" declline="100" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a63999c7a13c1755d9974a556083e0551" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rmdir_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>rmdir_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the RMDIR statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function removes a directory from the file system.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="109" column="6" bodyfile="src/basic/file_io.c" bodystart="259" bodyend="267" declfile="include/basic/builtin_file_io_functions.h" declline="109" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1af57b4a8fdfd6fa8c2d840312244b51d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void write_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>write_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the WRITE statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function writes data to the file specified by the file descriptor. The data is retrieved from the printable syntax of the variable.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="119" column="6" bodyfile="src/basic/file_io.c" bodystart="281" bodyend="295" declfile="include/basic/builtin_file_io_functions.h" declline="119" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a130dcb9c4ac679f7776b7df221caefa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void chdir_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>chdir_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the CHDIR statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function changes the current selected directory (CSD) for the running process.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="128" column="6" bodyfile="src/basic/file_io.c" bodystart="330" bodyend="352" declfile="include/basic/builtin_file_io_functions.h" declline="128" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1ac867c766169d7e81816b209335d9b581" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_filetype</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_filetype</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns the type of a file or directory (either &quot;file&quot; or &quot;directory&quot;). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function checks if the specified path corresponds to a directory or a regular file.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A string indicating whether the path is a &quot;file&quot; or &quot;directory&quot; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="138" column="6" bodyfile="src/basic/file_io.c" bodystart="197" bodyend="204" declfile="include/basic/builtin_file_io_functions.h" declline="138" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1ae5e890c98fad30c57a967bbf6faf1f56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void data_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>data_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the DATA statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The DATA statement is not supported in Retro Rocket BASIC. This function raises an error, suggesting to use files instead.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="148" column="6" bodyfile="src/basic/file_io.c" bodystart="95" bodyend="98" declfile="include/basic/builtin_file_io_functions.h" declline="148" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1ab1aec6bc86c6b84ca41847127e05344e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void restore_statement</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>restore_statement</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Handles the RESTORE statement in BASIC. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Since DATA statements are not supported in Retro Rocket BASIC, this function raises an error indicating there is nothing to restore.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="158" column="6" bodyfile="src/basic/file_io.c" bodystart="100" bodyend="103" declfile="include/basic/builtin_file_io_functions.h" declline="158" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a5f0edecae129eb20b8a5c14ce17d060a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_openin</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_openin</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Opens a file for reading. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function opens a file in read-only mode and returns the file descriptor.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The file descriptor for the opened file </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="168" column="9" bodyfile="src/basic/file_io.c" bodystart="133" bodyend="136" declfile="include/basic/builtin_file_io_functions.h" declline="168" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a66cbfa93d4571f811e91c489fb6c4065" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_openout</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_openout</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Opens a file for writing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function opens a file in write-only mode and returns the file descriptor.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The file descriptor for the opened file </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="178" column="9" bodyfile="src/basic/file_io.c" bodystart="138" bodyend="141" declfile="include/basic/builtin_file_io_functions.h" declline="178" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a4ef74f88dc9c44ddd080bb0445ba4346" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_openup</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_openup</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Opens a file for both reading and writing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function opens a file in read-write mode and returns the file descriptor.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The file descriptor for the opened file </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="188" column="9" bodyfile="src/basic/file_io.c" bodystart="143" bodyend="146" declfile="include/basic/builtin_file_io_functions.h" declline="188" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a24faeda0979f002fc502ba616616aaf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_eof</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_eof</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the end of file (EOF) is reached. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function checks whether the specified file descriptor has reached the end of the file.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if EOF is reached, 0 otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="198" column="9" bodyfile="src/basic/file_io.c" bodystart="228" bodyend="234" declfile="include/basic/builtin_file_io_functions.h" declline="198" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1aca563edd05c3fb8634a5b5da6faf6957" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_read</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_read</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Reads a single byte from the file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function reads a single byte from the file specified by the file descriptor.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The byte read from the file </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="208" column="9" bodyfile="src/basic/file_io.c" bodystart="63" bodyend="73" declfile="include/basic/builtin_file_io_functions.h" declline="208" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1ab103cf02c19e401cd40a687e915427f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_getnamecount</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_getnamecount</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns the number of items (files) in the directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function retrieves the number of items (files) in the specified directory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of items in the directory </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="218" column="9" bodyfile="src/basic/file_io.c" bodystart="148" bodyend="169" declfile="include/basic/builtin_file_io_functions.h" declline="218" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a3a5ebc509dc778eb8156d399d7ff5275" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t basic_getsize</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_getsize</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Gets the size of a file in a directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns the size of a file at the specified index in the directory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The size of the file at the specified index </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="228" column="9" bodyfile="src/basic/file_io.c" bodystart="206" bodyend="226" declfile="include/basic/builtin_file_io_functions.h" declline="228" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a59c0115ba915eb1edb88cac4a153954f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_getname</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_getname</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns the name of a file or directory at a specified index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns the name of a file or directory at the specified index in the directory.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The name of the file or directory at the specified index </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="238" column="6" bodyfile="src/basic/file_io.c" bodystart="171" bodyend="195" declfile="include/basic/builtin_file_io_functions.h" declline="238" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a800a5ab8dff8cabc71386253f3f9e0ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_ramdisk_from_device</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_ramdisk_from_device</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Creates a RAM disk from a specified device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function creates a RAM disk from the specified device and returns a string identifier.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The identifier of the created RAM disk </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="248" column="6" bodyfile="src/basic/file_io.c" bodystart="297" bodyend="307" declfile="include/basic/builtin_file_io_functions.h" declline="248" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__file__io__functions_8h_1a7d9af5dcf158f2d6b8f4fcf779de4863" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_ramdisk_from_size</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_ramdisk_from_size</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Creates a RAM disk with a specified size. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function creates a RAM disk with the specified number of blocks and block size, and returns a string identifier.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The identifier of the created RAM disk </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_file_io_functions.h" line="258" column="6" bodyfile="src/basic/file_io.c" bodystart="309" bodyend="322" declfile="include/basic/builtin_file_io_functions.h" declline="258" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/basic/builtin_file_io_functions.h"/>
+  </compounddef>
+</doxygen>

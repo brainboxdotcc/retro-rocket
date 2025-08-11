@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('structcpuid__result__t.html',''); init
 <p>CPUID instruction result.  
  <a href="structcpuid__result__t.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for cpuid_result_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -106,16 +106,21 @@ $(document).ready(function(){initNavTree('structcpuid__result__t.html',''); init
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a609a49c61f6fdc7187def91dfc9bf3c6"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcpuid__result__t.html#a609a49c61f6fdc7187def91dfc9bf3c6">eax</a></td></tr>
+<tr class="memdesc:a609a49c61f6fdc7187def91dfc9bf3c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The EAX register value from the CPUID instruction.  <a href="structcpuid__result__t.html#a609a49c61f6fdc7187def91dfc9bf3c6">More...</a><br /></td></tr>
 <tr class="separator:a609a49c61f6fdc7187def91dfc9bf3c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cba61af568b8e7a04eca6a4be041b38"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcpuid__result__t.html#a7cba61af568b8e7a04eca6a4be041b38">ebx</a></td></tr>
+<tr class="memdesc:a7cba61af568b8e7a04eca6a4be041b38"><td class="mdescLeft">&#160;</td><td class="mdescRight">The EBX register value from the CPUID instruction.  <a href="structcpuid__result__t.html#a7cba61af568b8e7a04eca6a4be041b38">More...</a><br /></td></tr>
 <tr class="separator:a7cba61af568b8e7a04eca6a4be041b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0d25fb5bc44e6d28a817ced9571adcc"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcpuid__result__t.html#ad0d25fb5bc44e6d28a817ced9571adcc">ecx</a></td></tr>
+<tr class="memdesc:ad0d25fb5bc44e6d28a817ced9571adcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ECX register value from the CPUID instruction.  <a href="structcpuid__result__t.html#ad0d25fb5bc44e6d28a817ced9571adcc">More...</a><br /></td></tr>
 <tr class="separator:ad0d25fb5bc44e6d28a817ced9571adcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecf01b168c2ede04bcd5ec5b0014671f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcpuid__result__t.html#aecf01b168c2ede04bcd5ec5b0014671f">edx</a></td></tr>
+<tr class="memdesc:aecf01b168c2ede04bcd5ec5b0014671f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The EDX register value from the CPUID instruction.  <a href="structcpuid__result__t.html#aecf01b168c2ede04bcd5ec5b0014671f">More...</a><br /></td></tr>
 <tr class="separator:aecf01b168c2ede04bcd5ec5b0014671f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>CPUID instruction result. </p>
+<p>This structure holds the result of a CPUID instruction, which provides detailed information about the CPU, such as supported features and capabilities. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a609a49c61f6fdc7187def91dfc9bf3c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a609a49c61f6fdc7187def91dfc9bf3c6">&#9670;&nbsp;</a></span>eax</h2>
@@ -128,6 +133,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The EAX register value from the CPUID instruction. </p>
 
 </div>
 </div>
@@ -143,6 +150,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>The EBX register value from the CPUID instruction. </p>
+
 </div>
 </div>
 <a id="ad0d25fb5bc44e6d28a817ced9571adcc"></a>
@@ -156,6 +165,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The ECX register value from the CPUID instruction. </p>
 
 </div>
 </div>
@@ -171,6 +182,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>The EDX register value from the CPUID instruction. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -179,7 +192,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structcpuid__result__t.html">cpuid_result_t</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

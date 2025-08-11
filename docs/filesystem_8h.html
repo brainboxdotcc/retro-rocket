@@ -158,6 +158,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a7beb244ba61211f68a03fdd32bb7ac43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ec1bba1ee1bc3fe7b46f30eff181e3e"><td class="memItemLeft" align="right" valign="top">typedef bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a8ec1bba1ee1bc3fe7b46f30eff181e3e">delete_dir</a>) (void *, const char *)</td></tr>
 <tr class="separator:a8ec1bba1ee1bc3fe7b46f30eff181e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0cfa0bbd250806815c46201b765059d"><td class="memItemLeft" align="right" valign="top">typedef uint64_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#ad0cfa0bbd250806815c46201b765059d">get_free_space</a>) (void *)</td></tr>
+<tr class="separator:ad0cfa0bbd250806815c46201b765059d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedade13300b3b7656d01691660c3d275"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#aedade13300b3b7656d01691660c3d275">block_read</a>) (void *, uint64_t, uint32_t, unsigned char *)</td></tr>
 <tr class="separator:aedade13300b3b7656d01691660c3d275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbf0a8246b98b1f4ddca666aeb3fae3d"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#afbf0a8246b98b1f4ddca666aeb3fae3d">block_write</a>) (void *, uint64_t, uint32_t, const unsigned char *)</td></tr>
@@ -165,6 +167,54 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a79fd0fac619cec4fd3447512e1b2d319"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319">fs_error_t</a> { <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a5bf93d1f36209dae714b008b1079913d">FS_ERR_NO_ERROR</a> = 0
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319acf8a9e8e5dda5c68584bf91901816ac0">FS_ERR_UNSUPPORTED</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a242ca8f72d3e1a5e0bb0ed275257f6de">FS_ERR_NO_MORE_FDS</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a4c0eb16aa554b7273877763117b0c011">FS_ERR_INVALID_FD</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a81a0cc60142ee140efd2e499415aa4de">FS_ERR_INVALID_ARG</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319ae07df63ab8123964451f01ed4f1bb2bb">FS_ERR_NO_SUCH_DIRECTORY</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319af23c1c48a6b1aa349491acb092084e11">FS_ERR_INVALID_FILEPATH</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a9054b69442dfcc02039b0dad7cf455de">FS_ERR_FILE_EXISTS</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319abf1b764703700df9d856b7e58ec03340">FS_ERR_OUT_OF_MEMORY</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319aba347b1619b82c5a71af5776b6320bc4">FS_ERR_IO</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a046bf18d686ad7cf178ceccf5db685a5">FS_ERR_SEEK_PAST_END</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a97b7d9e60697868aadc8605f5ce73d6a">FS_ERR_NOT_OPEN_FOR_OUTPUT</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a2c948ad2eaf10d8f3642b0c68eb67d61">FS_ERR_NOT_OPEN_FOR_INPUT</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a58837b7f292b41883170164f562b8825">FS_ERR_TRUNCATE_BEYOND_LENGTH</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a052398cb7e76456a102172ce084cd87b">FS_ERR_NO_SUCH_FILE</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319afd11fac34ca0d8fa47b297e37e9a4415">FS_ERR_INVALID_FILENAME</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a7b362a8004cb0f4c5a5422ec3c0637c0">FS_ERR_CYCLE_DETECTED</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a3e3ed4afda455da55b887f140ddf605e">FS_ERR_BROKEN_DIRECTORY</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319adc05c65460ff5f4c2f4b50f27cac09b1">FS_ERR_INVALID_GEOMETRY</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a6089bd4be181a4d28fc0ef6b9592f9ea">FS_ERR_NO_SPACE</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a9a3de26f17783ca8eb8842f1a8ba7c7c">FS_ERR_OUTSIDE_VOLUME</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a717738d5d64974c4a5da5960258ea8d0">FS_ERR_NOT_RFS</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319aa4166a341ac67b910e2e5a5c9f42cd16">FS_ERR_NOT_A_FILE</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a7e1f1bb055c8e1b0c8aa7f8f0aab77aa">FS_ERR_VFS_DATA</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a2bae637b8bc83f79dfc7e4e79cc4dd91">FS_ERR_NOT_A_DIRECTORY</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a7900b2a0147cc61339de710fe06a6a07">FS_ERR_DIRECTORY_NOT_EMPTY</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a10db9e0f2dc39aa117cafb81a98fd796">FS_ERR_FILE_HAS_VANISHED</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a6387ff6cd9df1ef4bd9ce3980937f9ba">FS_ERR_DIRECTORY_EXISTS</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a9ed1c268cedef74824bb4fce01091fdc">FS_ERR_INVALID_PVD</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a6a4b0f71229fc19c6d3ff06bcfb44460">FS_ERR_INVALID_SVD</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a31570c607fec61d6204f152df5d247c1">FS_ERR_OVERSIZED_DIRECTORY</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319ac3109714875805a155d93b2bb70ebd9b">FS_ERR_BUFFER_WOULD_OVERFLOW</a>
+, <br />
+&#160;&#160;<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319ad2f843422eadb25d3679a536dc87dc35">FS_ERR_NO_SUCH_DEVICE</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a1067d73be030e98f1916209e8b091b84">FS_ERR_LFN_TOO_LONG</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a10138bb5a366ed5d4853a9f7f07b54de">FS_ERR_IS_EXFAT</a>
+, <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319a00956205568c812c36eb888f92819665">FS_ERR_BAD_CLUSTER</a>
+<br />
+ }</td></tr>
+<tr class="separator:a79fd0fac619cec4fd3447512e1b2d319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d25bbf2120c5e2876b6c34e297336d3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a9d25bbf2120c5e2876b6c34e297336d3">fs_handle_type_t</a> { <a class="el" href="filesystem_8h.html#a9d25bbf2120c5e2876b6c34e297336d3a9287f360250a7c0e5085c332fdb7e195">file_input</a>
 , <a class="el" href="filesystem_8h.html#a9d25bbf2120c5e2876b6c34e297336d3a81266c2a12fd55cac32299093ea2804c">file_output</a>
 , <a class="el" href="filesystem_8h.html#a9d25bbf2120c5e2876b6c34e297336d3a5472096f60abca1be816da90d4062c3f">file_random</a>
@@ -174,6 +224,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a389259c7565d2dd06c28fecfacc60210"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a389259c7565d2dd06c28fecfacc60210">fs_strerror</a> (<a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319">fs_error_t</a> err)</td></tr>
+<tr class="memdesc:a389259c7565d2dd06c28fecfacc60210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a human-readable string for the last filesystem error code.  <a href="filesystem_8h.html#a389259c7565d2dd06c28fecfacc60210">More...</a><br /></td></tr>
+<tr class="separator:a389259c7565d2dd06c28fecfacc60210"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90ae435cc1f4e6cccba5cc179c2bd81c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a90ae435cc1f4e6cccba5cc179c2bd81c">register_filesystem</a> (<a class="el" href="structfilesystem__t.html">filesystem_t</a> *newfs)</td></tr>
 <tr class="memdesc:a90ae435cc1f4e6cccba5cc179c2bd81c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new filesystem.  <a href="filesystem_8h.html#a90ae435cc1f4e6cccba5cc179c2bd81c">More...</a><br /></td></tr>
 <tr class="separator:a90ae435cc1f4e6cccba5cc179c2bd81c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,6 +275,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ab6174ea1e5338a32b45778cb26b7ebc4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#ab6174ea1e5338a32b45778cb26b7ebc4">fs_read_file</a> (<a class="el" href="structfs__directory__entry__t.html">fs_directory_entry_t</a> *file, uint32_t <a class="el" href="retrofs_8h.html#af821c0f1bf4d36fbe0a3f5776b71139b">start</a>, uint32_t <a class="el" href="udp_8h.html#a1892eba2086d12ac2b09005aeb09ea3b">length</a>, unsigned char *buffer)</td></tr>
 <tr class="memdesc:ab6174ea1e5338a32b45778cb26b7ebc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read raw bytes from any arbitrary file.  <a href="filesystem_8h.html#ab6174ea1e5338a32b45778cb26b7ebc4">More...</a><br /></td></tr>
 <tr class="separator:ab6174ea1e5338a32b45778cb26b7ebc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6faf812c7cf4fcc102075f238887c91e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a6faf812c7cf4fcc102075f238887c91e">fs_get_free_space</a> (const char *path)</td></tr>
+<tr class="separator:a6faf812c7cf4fcc102075f238887c91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab58b880337bae46decb3c6dd1ad1b285"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#ab58b880337bae46decb3c6dd1ad1b285">_open</a> (const char *<a class="el" href="retrofs_8h.html#ad9769d3d3ba7e8920ae13e0f71e0ca6e">filename</a>, int oflag)</td></tr>
 <tr class="memdesc:ab58b880337bae46decb3c6dd1ad1b285"><td class="mdescLeft">&#160;</td><td class="mdescRight">POSIX style _open function.  <a href="filesystem_8h.html#ab58b880337bae46decb3c6dd1ad1b285">More...</a><br /></td></tr>
 <tr class="separator:ab58b880337bae46decb3c6dd1ad1b285"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -261,6 +316,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ae475207338a0787caf15949e45badfe8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#ae475207338a0787caf15949e45badfe8">fs_delete_directory</a> (const char *pathandfile)</td></tr>
 <tr class="memdesc:ae475207338a0787caf15949e45badfe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a directory.  <a href="filesystem_8h.html#ae475207338a0787caf15949e45badfe8">More...</a><br /></td></tr>
 <tr class="separator:ae475207338a0787caf15949e45badfe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59cfed9fdbdd4476b57fdf0a163e0a48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a59cfed9fdbdd4476b57fdf0a163e0a48">fs_set_error</a> (uint32_t <a class="el" href="ahci_8h.html#adc64ccb7538429fe78e3fe0139267370">error</a>)</td></tr>
+<tr class="separator:a59cfed9fdbdd4476b57fdf0a163e0a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9cbfbf10c992e4f61ffa515f91402d3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#ad9cbfbf10c992e4f61ffa515f91402d3">fs_get_error</a> (void)</td></tr>
+<tr class="separator:ad9cbfbf10c992e4f61ffa515f91402d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a793a111d7f44baa4a95c112fb27bb8b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a793a111d7f44baa4a95c112fb27bb8b4">install_gpt_esp_rfs_whole_image</a> (const char *devname, const char *esp_image_vfs_path)</td></tr>
+<tr class="memdesc:a793a111d7f44baa4a95c112fb27bb8b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten a device, write GPT with ESP + RFS, then write a prebuilt ESP image.  <a href="filesystem_8h.html#a793a111d7f44baa4a95c112fb27bb8b4">More...</a><br /></td></tr>
+<tr class="separator:a793a111d7f44baa4a95c112fb27bb8b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f4ed82d39af1235c0e2dc51e9f52be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="filesystem_8h.html#a66f4ed82d39af1235c0e2dc51e9f52be">installer</a> ()</td></tr>
+<tr class="separator:a66f4ed82d39af1235c0e2dc51e9f52be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Craig Edwards (<a href="#" onclick="location.href='mai'+'lto:'+'cra'+'ig'+'edw'+'ar'+'ds@'+'br'+'ain'+'bo'+'x.c'+'c'; return false;">craig<span style="display: none;">.nosp@m.</span>edwa<span style="display: none;">.nosp@m.</span>rds@b<span style="display: none;">.nosp@m.</span>rain<span style="display: none;">.nosp@m.</span>box.c<span style="display: none;">.nosp@m.</span>c</a>) </dd></dl>
@@ -495,6 +559,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad0cfa0bbd250806815c46201b765059d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0cfa0bbd250806815c46201b765059d">&#9670;&nbsp;</a></span>get_free_space</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint64_t(* get_free_space) (void *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af456ddc19314d0bde5426f9027e96b05"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af456ddc19314d0bde5426f9027e96b05">&#9670;&nbsp;</a></span>mode_t</h2>
 
@@ -566,6 +644,58 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a79fd0fac619cec4fd3447512e1b2d319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79fd0fac619cec4fd3447512e1b2d319">&#9670;&nbsp;</a></span>fs_error_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319">fs_error_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a5bf93d1f36209dae714b008b1079913d"></a>FS_ERR_NO_ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319acf8a9e8e5dda5c68584bf91901816ac0"></a>FS_ERR_UNSUPPORTED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a242ca8f72d3e1a5e0bb0ed275257f6de"></a>FS_ERR_NO_MORE_FDS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a4c0eb16aa554b7273877763117b0c011"></a>FS_ERR_INVALID_FD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a81a0cc60142ee140efd2e499415aa4de"></a>FS_ERR_INVALID_ARG&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319ae07df63ab8123964451f01ed4f1bb2bb"></a>FS_ERR_NO_SUCH_DIRECTORY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319af23c1c48a6b1aa349491acb092084e11"></a>FS_ERR_INVALID_FILEPATH&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a9054b69442dfcc02039b0dad7cf455de"></a>FS_ERR_FILE_EXISTS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319abf1b764703700df9d856b7e58ec03340"></a>FS_ERR_OUT_OF_MEMORY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319aba347b1619b82c5a71af5776b6320bc4"></a>FS_ERR_IO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a046bf18d686ad7cf178ceccf5db685a5"></a>FS_ERR_SEEK_PAST_END&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a97b7d9e60697868aadc8605f5ce73d6a"></a>FS_ERR_NOT_OPEN_FOR_OUTPUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a2c948ad2eaf10d8f3642b0c68eb67d61"></a>FS_ERR_NOT_OPEN_FOR_INPUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a58837b7f292b41883170164f562b8825"></a>FS_ERR_TRUNCATE_BEYOND_LENGTH&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a052398cb7e76456a102172ce084cd87b"></a>FS_ERR_NO_SUCH_FILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319afd11fac34ca0d8fa47b297e37e9a4415"></a>FS_ERR_INVALID_FILENAME&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a7b362a8004cb0f4c5a5422ec3c0637c0"></a>FS_ERR_CYCLE_DETECTED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a3e3ed4afda455da55b887f140ddf605e"></a>FS_ERR_BROKEN_DIRECTORY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319adc05c65460ff5f4c2f4b50f27cac09b1"></a>FS_ERR_INVALID_GEOMETRY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a6089bd4be181a4d28fc0ef6b9592f9ea"></a>FS_ERR_NO_SPACE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a9a3de26f17783ca8eb8842f1a8ba7c7c"></a>FS_ERR_OUTSIDE_VOLUME&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a717738d5d64974c4a5da5960258ea8d0"></a>FS_ERR_NOT_RFS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319aa4166a341ac67b910e2e5a5c9f42cd16"></a>FS_ERR_NOT_A_FILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a7e1f1bb055c8e1b0c8aa7f8f0aab77aa"></a>FS_ERR_VFS_DATA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a2bae637b8bc83f79dfc7e4e79cc4dd91"></a>FS_ERR_NOT_A_DIRECTORY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a7900b2a0147cc61339de710fe06a6a07"></a>FS_ERR_DIRECTORY_NOT_EMPTY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a10db9e0f2dc39aa117cafb81a98fd796"></a>FS_ERR_FILE_HAS_VANISHED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a6387ff6cd9df1ef4bd9ce3980937f9ba"></a>FS_ERR_DIRECTORY_EXISTS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a9ed1c268cedef74824bb4fce01091fdc"></a>FS_ERR_INVALID_PVD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a6a4b0f71229fc19c6d3ff06bcfb44460"></a>FS_ERR_INVALID_SVD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a31570c607fec61d6204f152df5d247c1"></a>FS_ERR_OVERSIZED_DIRECTORY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319ac3109714875805a155d93b2bb70ebd9b"></a>FS_ERR_BUFFER_WOULD_OVERFLOW&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319ad2f843422eadb25d3679a536dc87dc35"></a>FS_ERR_NO_SUCH_DEVICE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a1067d73be030e98f1916209e8b091b84"></a>FS_ERR_LFN_TOO_LONG&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a10138bb5a366ed5d4853a9f7f07b54de"></a>FS_ERR_IS_EXFAT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a79fd0fac619cec4fd3447512e1b2d319a00956205568c812c36eb888f92819665"></a>FS_ERR_BAD_CLUSTER&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a9d25bbf2120c5e2876b6c34e297336d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9d25bbf2120c5e2876b6c34e297336d3">&#9670;&nbsp;</a></span>fs_handle_type_t</h2>
 
@@ -1113,6 +1243,24 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad9cbfbf10c992e4f61ffa515f91402d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9cbfbf10c992e4f61ffa515f91402d3">&#9670;&nbsp;</a></span>fs_get_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fs_get_error </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a93b69bf53951ce16a8e648f238631696"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a93b69bf53951ce16a8e648f238631696">&#9670;&nbsp;</a></span>fs_get_file_info()</h2>
 
@@ -1137,6 +1285,24 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>fs_directory_entry_t* information on the file. </dd></dl>
+
+</div>
+</div>
+<a id="a6faf812c7cf4fcc102075f238887c91e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6faf812c7cf4fcc102075f238887c91e">&#9670;&nbsp;</a></span>fs_get_free_space()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t fs_get_free_space </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1248,6 +1414,53 @@ false is a file </dd></dl>
 
 </div>
 </div>
+<a id="a59cfed9fdbdd4476b57fdf0a163e0a48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59cfed9fdbdd4476b57fdf0a163e0a48">&#9670;&nbsp;</a></span>fs_set_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fs_set_error </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>error</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a389259c7565d2dd06c28fecfacc60210"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a389259c7565d2dd06c28fecfacc60210">&#9670;&nbsp;</a></span>fs_strerror()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* fs_strerror </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="filesystem_8h.html#a79fd0fac619cec4fd3447512e1b2d319">fs_error_t</a>&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieve a human-readable string for the last filesystem error code. </p>
+<p>This function maps an fs_error_t code to its corresponding descriptive string. It does not reset or clear the error code — the last error value is retained until a new filesystem error is set via <a class="el" href="filesystem_8h.html#a59cfed9fdbdd4476b57fdf0a163e0a48">fs_set_error()</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>The validity of the returned error string depends on the result of the most recent filesystem API call. If a filesystem function returns an error state (e.g. <code>false</code> or <code>0</code>), you may call this function to retrieve a description of that error. If the function succeeded, the stored error code may be outdated.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>The fs_error_t code to translate into text. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a static string describing the error, or <code>"Unknown filesystem error"</code> if the code is not recognised. </dd></dl>
+
+</div>
+</div>
 <a id="a3692a5983409c6e8f74cbe0c5c3435f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3692a5983409c6e8f74cbe0c5c3435f4">&#9670;&nbsp;</a></span>fs_truncate_file()</h2>
 
@@ -1342,6 +1555,61 @@ false is a file </dd></dl>
 </div><div class="memdoc">
 
 <p>Initialise the filesystem This loads the DummyFS filesystem which manages the root directory until any other driver is loaded. DummyFS is a dummy and does nothing. </p>
+
+</div>
+</div>
+<a id="a793a111d7f44baa4a95c112fb27bb8b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a793a111d7f44baa4a95c112fb27bb8b4">&#9670;&nbsp;</a></span>install_gpt_esp_rfs_whole_image()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool install_gpt_esp_rfs_whole_image </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>devname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>esp_image_vfs_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flatten a device, write GPT with ESP + RFS, then write a prebuilt ESP image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">devname</td><td>storage device name (e.g. "hd0") </td></tr>
+    <tr><td class="paramname">esp_image_vfs_path</td><td>VFS path to prebuilt FAT32 ESP image (~68 MiB) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success </dd></dl>
+
+</div>
+</div>
+<a id="a66f4ed82d39af1235c0e2dc51e9f52be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f4ed82d39af1235c0e2dc51e9f52be">&#9670;&nbsp;</a></span>installer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void installer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1601,7 +1869,7 @@ false is a file </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="filesystem_8h.html">filesystem.h</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:44 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

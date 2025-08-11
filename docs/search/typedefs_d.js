@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['udp_5fdaemon_5fhandler_5734',['udp_daemon_handler',['../udp_8h.html#aee7d71ca10b9a4f286f45a364ba7c337',1,'udp.h']]],
-  ['uid_5ft_5735',['uid_t',['../taskswitch_8h.html#af2306308627701b66dc6f3babe821ab4',1,'taskswitch.h']]]
+  ['time_5ft_6190',['time_t',['../clock_8h.html#a7f5991675a84025dc7c24754a9b257c0',1,'clock.h']]],
+  ['truncate_5ffile_6191',['truncate_file',['../filesystem_8h.html#afad152e2e2ae6fd9c67f6297507c1f17',1,'filesystem.h']]]
 ];

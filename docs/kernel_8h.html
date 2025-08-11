@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('kernel_8h.html',''); initResizable(); 
 <code>#include &quot;<a class="el" href="clock_8h.html">clock.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="lapic__timer_8h.html">lapic_timer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="basic_8h.html">basic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="basic__tokenizer_8h.html">basic_tokenizer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="tokenizer_8h.html">basic/tokenizer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="taskswitch_8h.html">taskswitch.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="acpi_8h.html">acpi.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="net_8h.html">net.h</a>&quot;</code><br />
@@ -149,6 +149,8 @@ $(document).ready(function(){initNavTree('kernel_8h.html',''); initResizable(); 
 <code>#include &quot;<a class="el" href="fpu_8h.html">fpu.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="buddy__allocator_8h.html">buddy_allocator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="retrofs_8h.html">retrofs.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="serial_8h.html">serial.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="debug__ringbuffer_8h.html">debug_ringbuffer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -195,10 +197,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!(<a class="code" href="basic_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a>)) { \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!(<a class="code" href="expression_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a>)) { \</div>
 <div class="line">    kprintf(<span class="stringliteral">&quot;Assertion failure at %s:%d: %s\n&quot;</span>, __FILE__, __LINE__, message); \</div>
 <div class="line">    __asm__ <span class="keyword">volatile</span>(<span class="stringliteral">&quot;int3&quot;</span>); }</div>
-<div class="ttc" id="abasic_8h_html_acac5d55e8d22685e55efef4b6737f5cb"><div class="ttname"><a href="basic_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a></div><div class="ttdeci">int64_t expr(struct basic_ctx *ctx)</div><div class="ttdef"><b>Definition:</b> int_expression.c:119</div></div>
+<div class="ttc" id="aexpression_8h_html_acac5d55e8d22685e55efef4b6737f5cb"><div class="ttname"><a href="expression_8h.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a></div><div class="ttdeci">int64_t expr(struct basic_ctx *ctx)</div><div class="ttdoc">Evaluates a full integer expression.</div><div class="ttdef"><b>Definition:</b> int_expression.c:119</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -275,7 +277,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="kernel_8h.html">kernel.h</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

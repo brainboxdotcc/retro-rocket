@@ -91,10 +91,10 @@ $(document).ready(function(){initNavTree('structbasic__ctx.html',''); initResiza
 </div><!--header-->
 <div class="contents">
 
-<p>BASIC program context. Every instance of a BASIC program has one of these,* also certain structures such as functions will clone the context and run on the clone until the function completes. Cloned contexts share variables and you should never call <a class="el" href="basic_8h.html#af018882ffc2e5fc5f888c4dea3ecf17c">basic_destroy()</a> on them!  
+<p>BASIC program context.  
  <a href="structbasic__ctx.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;context.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for basic_ctx:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -107,76 +107,76 @@ $(document).ready(function(){initNavTree('structbasic__ctx.html',''); initResiza
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a5aa7876a4b91f966f52107b47de39ef0"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a5aa7876a4b91f966f52107b47de39ef0">ptr</a></td></tr>
-<tr class="memdesc:a5aa7876a4b91f966f52107b47de39ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the start of the next token Always between program_ptr and program_ptr + strlen(program_ptr)  <a href="structbasic__ctx.html#a5aa7876a4b91f966f52107b47de39ef0">More...</a><br /></td></tr>
+<tr class="memdesc:a5aa7876a4b91f966f52107b47de39ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the start of the next token.  <a href="structbasic__ctx.html#a5aa7876a4b91f966f52107b47de39ef0">More...</a><br /></td></tr>
 <tr class="separator:a5aa7876a4b91f966f52107b47de39ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbd42e56aa70c8d98d14f961ce7c1023"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#abbd42e56aa70c8d98d14f961ce7c1023">nextptr</a></td></tr>
-<tr class="memdesc:abbd42e56aa70c8d98d14f961ce7c1023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the character after the next token. Always between program_ptr and program_ptr + strlen(program_ptr)  <a href="structbasic__ctx.html#abbd42e56aa70c8d98d14f961ce7c1023">More...</a><br /></td></tr>
+<tr class="memdesc:abbd42e56aa70c8d98d14f961ce7c1023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the character after the next token.  <a href="structbasic__ctx.html#abbd42e56aa70c8d98d14f961ce7c1023">More...</a><br /></td></tr>
 <tr class="separator:abbd42e56aa70c8d98d14f961ce7c1023"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c3d193580956e83adf2c7af95168a2d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a8c3d193580956e83adf2c7af95168a2d">current_token</a></td></tr>
-<tr class="memdesc:a8c3d193580956e83adf2c7af95168a2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numeric form of the token between ptr and nextptr. Should always be a value within the enum token_t.  <a href="structbasic__ctx.html#a8c3d193580956e83adf2c7af95168a2d">More...</a><br /></td></tr>
+<tr class="memdesc:a8c3d193580956e83adf2c7af95168a2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current token type.  <a href="structbasic__ctx.html#a8c3d193580956e83adf2c7af95168a2d">More...</a><br /></td></tr>
 <tr class="separator:a8c3d193580956e83adf2c7af95168a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9c6cb436ab16d8036eb779e01556bc8"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#aa9c6cb436ab16d8036eb779e01556bc8">current_linenum</a></td></tr>
-<tr class="memdesc:aa9c6cb436ab16d8036eb779e01556bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current line number.  <a href="structbasic__ctx.html#aa9c6cb436ab16d8036eb779e01556bc8">More...</a><br /></td></tr>
+<tr class="memdesc:aa9c6cb436ab16d8036eb779e01556bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current line number in the program.  <a href="structbasic__ctx.html#aa9c6cb436ab16d8036eb779e01556bc8">More...</a><br /></td></tr>
 <tr class="separator:aa9c6cb436ab16d8036eb779e01556bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9f20ba47c7abbaf8b3e1664f3cf4038"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af9f20ba47c7abbaf8b3e1664f3cf4038">errored</a></td></tr>
-<tr class="memdesc:af9f20ba47c7abbaf8b3e1664f3cf4038"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has thrown an error and should end. This may not actually cause termination of the program if we are inside an EVAL at the time.  <a href="structbasic__ctx.html#af9f20ba47c7abbaf8b3e1664f3cf4038">More...</a><br /></td></tr>
+<tr class="memdesc:af9f20ba47c7abbaf8b3e1664f3cf4038"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has thrown an error and should terminate.  <a href="structbasic__ctx.html#af9f20ba47c7abbaf8b3e1664f3cf4038">More...</a><br /></td></tr>
 <tr class="separator:af9f20ba47c7abbaf8b3e1664f3cf4038"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a4996c445c7fe37e6a9a5d9fc8930eac7">ended</a></td></tr>
-<tr class="memdesc:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has ended, e.g. it reached an explicit END statement, or fell off the end of the program to the terminating null char.  <a href="structbasic__ctx.html#a4996c445c7fe37e6a9a5d9fc8930eac7">More...</a><br /></td></tr>
+<tr class="memdesc:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has ended.  <a href="structbasic__ctx.html#a4996c445c7fe37e6a9a5d9fc8930eac7">More...</a><br /></td></tr>
 <tr class="separator:a4996c445c7fe37e6a9a5d9fc8930eac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2f7c0563bf30f810cd6d22cfa414674"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">claimed_flip</a></td></tr>
-<tr class="memdesc:af2f7c0563bf30f810cd6d22cfa414674"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has claimed flipping.  <a href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">More...</a><br /></td></tr>
+<tr class="memdesc:af2f7c0563bf30f810cd6d22cfa414674"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the program has "claimed flipping".  <a href="structbasic__ctx.html#af2f7c0563bf30f810cd6d22cfa414674">More...</a><br /></td></tr>
 <tr class="separator:af2f7c0563bf30f810cd6d22cfa414674"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0675a0370047966ece4a370a7022ec21"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a0675a0370047966ece4a370a7022ec21">program_ptr</a></td></tr>
-<tr class="memdesc:a0675a0370047966ece4a370a7022ec21"><td class="mdescLeft">&#160;</td><td class="mdescRight">The whole program text, untokenized. May have been "cleaned" by an initial preprocessing phase which removes unneccesary spacing etc.  <a href="structbasic__ctx.html#a0675a0370047966ece4a370a7022ec21">More...</a><br /></td></tr>
+<tr class="memdesc:a0675a0370047966ece4a370a7022ec21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the program's entire text (untokenized).  <a href="structbasic__ctx.html#a0675a0370047966ece4a370a7022ec21">More...</a><br /></td></tr>
 <tr class="separator:a0675a0370047966ece4a370a7022ec21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f23433564f0ebd5d9d719a967fe2107"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a2f23433564f0ebd5d9d719a967fe2107">debug_status</a></td></tr>
-<tr class="memdesc:a2f23433564f0ebd5d9d719a967fe2107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug status, with values as of above, e.g. DEBUG_*.  <a href="structbasic__ctx.html#a2f23433564f0ebd5d9d719a967fe2107">More...</a><br /></td></tr>
+<tr class="memdesc:a2f23433564f0ebd5d9d719a967fe2107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debugging status flag (e.g., <code>DEBUG_*</code> values).  <a href="structbasic__ctx.html#a2f23433564f0ebd5d9d719a967fe2107">More...</a><br /></td></tr>
 <tr class="separator:a2f23433564f0ebd5d9d719a967fe2107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c495401b2705b3c0ce8835d155e89b6"><td class="memItemLeft" align="right" valign="top">uint64_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a6c495401b2705b3c0ce8835d155e89b6">debug_breakpoints</a></td></tr>
-<tr class="memdesc:a6c495401b2705b3c0ce8835d155e89b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active debug breakpoints (line numbers)  <a href="structbasic__ctx.html#a6c495401b2705b3c0ce8835d155e89b6">More...</a><br /></td></tr>
+<tr class="memdesc:a6c495401b2705b3c0ce8835d155e89b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of active debug breakpoints (line numbers).  <a href="structbasic__ctx.html#a6c495401b2705b3c0ce8835d155e89b6">More...</a><br /></td></tr>
 <tr class="separator:a6c495401b2705b3c0ce8835d155e89b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bb6169f8c460df638920ba7982a42b9"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a2bb6169f8c460df638920ba7982a42b9">debug_breakpoint_count</a></td></tr>
 <tr class="memdesc:a2bb6169f8c460df638920ba7982a42b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of active breakpoints.  <a href="structbasic__ctx.html#a2bb6169f8c460df638920ba7982a42b9">More...</a><br /></td></tr>
 <tr class="separator:a2bb6169f8c460df638920ba7982a42b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84557325a29c400fcad0d769dee1217d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a84557325a29c400fcad0d769dee1217d">string</a> [1024]</td></tr>
-<tr class="memdesc:a84557325a29c400fcad0d769dee1217d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A context-local string buffer used for parsing function/procedure parameter lists.  <a href="structbasic__ctx.html#a84557325a29c400fcad0d769dee1217d">More...</a><br /></td></tr>
-<tr class="separator:a84557325a29c400fcad0d769dee1217d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae42d9a7e61a7c9ee355e91ed10812a8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int.html">ub_var_int</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#aae42d9a7e61a7c9ee355e91ed10812a8">local_int_variables</a> [255]</td></tr>
-<tr class="memdesc:aae42d9a7e61a7c9ee355e91ed10812a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local integer variable stack for variables declared within a function or procedure scope.  <a href="structbasic__ctx.html#aae42d9a7e61a7c9ee355e91ed10812a8">More...</a><br /></td></tr>
-<tr class="separator:aae42d9a7e61a7c9ee355e91ed10812a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79ce260d06fa95b4da3d0d3c1844402f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__string.html">ub_var_string</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a79ce260d06fa95b4da3d0d3c1844402f">local_string_variables</a> [255]</td></tr>
-<tr class="memdesc:a79ce260d06fa95b4da3d0d3c1844402f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local string variable stack for variables declared within a function or procedure scope.  <a href="structbasic__ctx.html#a79ce260d06fa95b4da3d0d3c1844402f">More...</a><br /></td></tr>
-<tr class="separator:a79ce260d06fa95b4da3d0d3c1844402f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76063404a2a2707560ed74747b1ba1a7"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__double.html">ub_var_double</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a76063404a2a2707560ed74747b1ba1a7">local_double_variables</a> [255]</td></tr>
-<tr class="memdesc:a76063404a2a2707560ed74747b1ba1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local real (double) variable stack for variables declared within a function or procedure scope.  <a href="structbasic__ctx.html#a76063404a2a2707560ed74747b1ba1a7">More...</a><br /></td></tr>
-<tr class="separator:a76063404a2a2707560ed74747b1ba1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45b690756bd8742294c3a9dc2f0edba0"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a45b690756bd8742294c3a9dc2f0edba0">call_stack</a> [255]</td></tr>
-<tr class="memdesc:a45b690756bd8742294c3a9dc2f0edba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call stack, holds the return line numbers for each level of calls to a procedure, function or GOSUB.  <a href="structbasic__ctx.html#a45b690756bd8742294c3a9dc2f0edba0">More...</a><br /></td></tr>
-<tr class="separator:a45b690756bd8742294c3a9dc2f0edba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add37c368272fb5e346655e7e7200d75c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#add37c368272fb5e346655e7e7200d75c">string</a> [<a class="el" href="defines_8h.html#a90bf9480b781825abfeb3f500d75531c">MAX_STRINGLEN</a>]</td></tr>
+<tr class="memdesc:add37c368272fb5e346655e7e7200d75c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local buffer for parsing function/procedure parameter lists.  <a href="structbasic__ctx.html#add37c368272fb5e346655e7e7200d75c">More...</a><br /></td></tr>
+<tr class="separator:add37c368272fb5e346655e7e7200d75c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62460c65721f4da8613ac883686ff015"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int.html">ub_var_int</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a62460c65721f4da8613ac883686ff015">local_int_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a62460c65721f4da8613ac883686ff015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local integer variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#a62460c65721f4da8613ac883686ff015">More...</a><br /></td></tr>
+<tr class="separator:a62460c65721f4da8613ac883686ff015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e434d6e31009b5f14f2305645d64589"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__string.html">ub_var_string</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a6e434d6e31009b5f14f2305645d64589">local_string_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a6e434d6e31009b5f14f2305645d64589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local string variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#a6e434d6e31009b5f14f2305645d64589">More...</a><br /></td></tr>
+<tr class="separator:a6e434d6e31009b5f14f2305645d64589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4b03bf1d9f45ccda06b66715d6f35b3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__double.html">ub_var_double</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#aa4b03bf1d9f45ccda06b66715d6f35b3">local_double_variables</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:aa4b03bf1d9f45ccda06b66715d6f35b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local double (real) variable stack for function/procedure scopes.  <a href="structbasic__ctx.html#aa4b03bf1d9f45ccda06b66715d6f35b3">More...</a><br /></td></tr>
+<tr class="separator:aa4b03bf1d9f45ccda06b66715d6f35b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a545d43671e4ee6aeae650e368cda6a6c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a545d43671e4ee6aeae650e368cda6a6c">call_stack</a> [<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a545d43671e4ee6aeae650e368cda6a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call stack for return line numbers during function, procedure, or <code>GOSUB</code> calls.  <a href="structbasic__ctx.html#a545d43671e4ee6aeae650e368cda6a6c">More...</a><br /></td></tr>
+<tr class="separator:a545d43671e4ee6aeae650e368cda6a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac00d4e20a54a8dbf694b3d4b5b3ea4fa"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#ac00d4e20a54a8dbf694b3d4b5b3ea4fa">call_stack_ptr</a></td></tr>
-<tr class="memdesc:ac00d4e20a54a8dbf694b3d4b5b3ea4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">How far up the call stack we are. The call stack pointer starts at 0, and can go as high as MAX_CALL_STACK_DEPTH - 1.  <a href="structbasic__ctx.html#ac00d4e20a54a8dbf694b3d4b5b3ea4fa">More...</a><br /></td></tr>
+<tr class="memdesc:ac00d4e20a54a8dbf694b3d4b5b3ea4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer indicating the current position in the call stack.  <a href="structbasic__ctx.html#ac00d4e20a54a8dbf694b3d4b5b3ea4fa">More...</a><br /></td></tr>
 <tr class="separator:ac00d4e20a54a8dbf694b3d4b5b3ea4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a918a01877bff7a7e20e3cb6d757ed841"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a918a01877bff7a7e20e3cb6d757ed841">repeat_stack</a> [255]</td></tr>
-<tr class="memdesc:a918a01877bff7a7e20e3cb6d757ed841"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeat stack, holds the return line numbers for each level of REPEAT...UNTIL loop.  <a href="structbasic__ctx.html#a918a01877bff7a7e20e3cb6d757ed841">More...</a><br /></td></tr>
-<tr class="separator:a918a01877bff7a7e20e3cb6d757ed841"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58cdec0cff51dffc7f56f8a3479969e1"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a58cdec0cff51dffc7f56f8a3479969e1">repeat_stack</a> [<a class="el" href="defines_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">MAX_LOOP_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:a58cdec0cff51dffc7f56f8a3479969e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeat stack for handling <code>REPEAT...UNTIL</code> loop control.  <a href="structbasic__ctx.html#a58cdec0cff51dffc7f56f8a3479969e1">More...</a><br /></td></tr>
+<tr class="separator:a58cdec0cff51dffc7f56f8a3479969e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0df0c483df2af35521a6ef256685c2c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af0df0c483df2af35521a6ef256685c2c">repeat_stack_ptr</a></td></tr>
-<tr class="memdesc:af0df0c483df2af35521a6ef256685c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">How far up the REPEAT...UNTIL stack we are. The repeat stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1.  <a href="structbasic__ctx.html#af0df0c483df2af35521a6ef256685c2c">More...</a><br /></td></tr>
+<tr class="memdesc:af0df0c483df2af35521a6ef256685c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer indicating the current position in the repeat stack.  <a href="structbasic__ctx.html#af0df0c483df2af35521a6ef256685c2c">More...</a><br /></td></tr>
 <tr class="separator:af0df0c483df2af35521a6ef256685c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a674578281de38ae65285c41f7479a8c7"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a674578281de38ae65285c41f7479a8c7">oldlen</a></td></tr>
-<tr class="memdesc:a674578281de38ae65285c41f7479a8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous program length, before an EVAL statement. An EVAL statement appends additional lines to the program beyond its original end, storing the previous size in this value. If this value is non-zero an EVAL is in progress, otherwise no EVAL is executing.  <a href="structbasic__ctx.html#a674578281de38ae65285c41f7479a8c7">More...</a><br /></td></tr>
+<tr class="memdesc:a674578281de38ae65285c41f7479a8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous length of the program text, used to detect an <code>EVAL</code> in progress.  <a href="structbasic__ctx.html#a674578281de38ae65285c41f7479a8c7">More...</a><br /></td></tr>
 <tr class="separator:a674578281de38ae65285c41f7479a8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab396154b9578037640184392da4f4aaf"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#ab396154b9578037640184392da4f4aaf">eval_linenum</a></td></tr>
-<tr class="memdesc:ab396154b9578037640184392da4f4aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The return line number for an EVAL statement.  <a href="structbasic__ctx.html#ab396154b9578037640184392da4f4aaf">More...</a><br /></td></tr>
+<tr class="memdesc:ab396154b9578037640184392da4f4aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The return line number for an <code>EVAL</code> statement.  <a href="structbasic__ctx.html#ab396154b9578037640184392da4f4aaf">More...</a><br /></td></tr>
 <tr class="separator:ab396154b9578037640184392da4f4aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22817fa8a77f93282cb43a5ca1170090"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfor__state.html">for_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a22817fa8a77f93282cb43a5ca1170090">for_stack</a> [255]</td></tr>
-<tr class="memdesc:a22817fa8a77f93282cb43a5ca1170090"><td class="mdescLeft">&#160;</td><td class="mdescRight">FOR stack, holds the return line numbers for each level of FOR...NEXT loop.  <a href="structbasic__ctx.html#a22817fa8a77f93282cb43a5ca1170090">More...</a><br /></td></tr>
-<tr class="separator:a22817fa8a77f93282cb43a5ca1170090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac77be6922ca3426764bbfe0b67eb97d3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structfor__state.html">for_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#ac77be6922ca3426764bbfe0b67eb97d3">for_stack</a> [<a class="el" href="defines_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">MAX_LOOP_STACK_DEPTH</a>]</td></tr>
+<tr class="memdesc:ac77be6922ca3426764bbfe0b67eb97d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">FOR loop stack to handle <code>FOR...NEXT</code> loops.  <a href="structbasic__ctx.html#ac77be6922ca3426764bbfe0b67eb97d3">More...</a><br /></td></tr>
+<tr class="separator:ac77be6922ca3426764bbfe0b67eb97d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fedb3eaac1114a3c8f5f5d04d6f6a12"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a7fedb3eaac1114a3c8f5f5d04d6f6a12">for_stack_ptr</a></td></tr>
-<tr class="memdesc:a7fedb3eaac1114a3c8f5f5d04d6f6a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">How far up the FOR...NEXT stack we are. The FOR stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1.  <a href="structbasic__ctx.html#a7fedb3eaac1114a3c8f5f5d04d6f6a12">More...</a><br /></td></tr>
+<tr class="memdesc:a7fedb3eaac1114a3c8f5f5d04d6f6a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer indicating the current position in the FOR loop stack.  <a href="structbasic__ctx.html#a7fedb3eaac1114a3c8f5f5d04d6f6a12">More...</a><br /></td></tr>
 <tr class="separator:a7fedb3eaac1114a3c8f5f5d04d6f6a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a157282323b4469c50186c57519abbfea"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__proc__fn__def.html">ub_proc_fn_def</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a157282323b4469c50186c57519abbfea">defs</a></td></tr>
-<tr class="memdesc:a157282323b4469c50186c57519abbfea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions for procedures and functions in the program.  <a href="structbasic__ctx.html#a157282323b4469c50186c57519abbfea">More...</a><br /></td></tr>
+<tr class="memdesc:a157282323b4469c50186c57519abbfea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of procedures and functions in the program.  <a href="structbasic__ctx.html#a157282323b4469c50186c57519abbfea">More...</a><br /></td></tr>
 <tr class="separator:a157282323b4469c50186c57519abbfea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7353606faa47b1bc7c83cdaf0f3fc80f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__int.html">ub_var_int</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a7353606faa47b1bc7c83cdaf0f3fc80f">int_variables</a></td></tr>
 <tr class="memdesc:a7353606faa47b1bc7c83cdaf0f3fc80f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global integer variable list.  <a href="structbasic__ctx.html#a7353606faa47b1bc7c83cdaf0f3fc80f">More...</a><br /></td></tr>
@@ -197,50 +197,72 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a1d891d5892b28d38c0aa4363a071069b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global double array variable list.  <a href="structbasic__ctx.html#a1d891d5892b28d38c0aa4363a071069b">More...</a><br /></td></tr>
 <tr class="separator:a1d891d5892b28d38c0aa4363a071069b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5db8745b7e7112b990a61ebdebb165b8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structconsole.html">console</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a5db8745b7e7112b990a61ebdebb165b8">cons</a></td></tr>
-<tr class="memdesc:a5db8745b7e7112b990a61ebdebb165b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O Console.  <a href="structbasic__ctx.html#a5db8745b7e7112b990a61ebdebb165b8">More...</a><br /></td></tr>
+<tr class="memdesc:a5db8745b7e7112b990a61ebdebb165b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Console object used for I/O operations in the program.  <a href="structbasic__ctx.html#a5db8745b7e7112b990a61ebdebb165b8">More...</a><br /></td></tr>
 <tr class="separator:a5db8745b7e7112b990a61ebdebb165b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af890048e3ab646719bad1a1f951757c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="basic_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af890048e3ab646719bad1a1f951757c0">fn_type</a></td></tr>
-<tr class="memdesc:af890048e3ab646719bad1a1f951757c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function return type expected. This is only relavent when executing a function atomically.  <a href="structbasic__ctx.html#af890048e3ab646719bad1a1f951757c0">More...</a><br /></td></tr>
+<tr class="memitem:af890048e3ab646719bad1a1f951757c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structs_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af890048e3ab646719bad1a1f951757c0">fn_type</a></td></tr>
+<tr class="memdesc:af890048e3ab646719bad1a1f951757c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected return type of the function being executed.  <a href="structbasic__ctx.html#af890048e3ab646719bad1a1f951757c0">More...</a><br /></td></tr>
 <tr class="separator:af890048e3ab646719bad1a1f951757c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8593d346028574faf17b8e0a80152009"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a8593d346028574faf17b8e0a80152009">fn_return</a></td></tr>
-<tr class="memdesc:a8593d346028574faf17b8e0a80152009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function return value pointer. This is only relavent when executing a function atomically.  <a href="structbasic__ctx.html#a8593d346028574faf17b8e0a80152009">More...</a><br /></td></tr>
+<tr class="memdesc:a8593d346028574faf17b8e0a80152009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the return value of the function being executed.  <a href="structbasic__ctx.html#a8593d346028574faf17b8e0a80152009">More...</a><br /></td></tr>
 <tr class="separator:a8593d346028574faf17b8e0a80152009"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b20d6976e19478de0616f6a6eb18c0c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a2b20d6976e19478de0616f6a6eb18c0c">bracket_depth</a></td></tr>
 <tr class="memdesc:a2b20d6976e19478de0616f6a6eb18c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bracket depth when parsing function or procedure parameter lists.  <a href="structbasic__ctx.html#a2b20d6976e19478de0616f6a6eb18c0c">More...</a><br /></td></tr>
 <tr class="separator:a2b20d6976e19478de0616f6a6eb18c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d93bbf399fba5da373879d9889fead3"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a6d93bbf399fba5da373879d9889fead3">item_begin</a></td></tr>
-<tr class="memdesc:a6d93bbf399fba5da373879d9889fead3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Item start pointer when parsing function or procedure parameter lists.  <a href="structbasic__ctx.html#a6d93bbf399fba5da373879d9889fead3">More...</a><br /></td></tr>
+<tr class="memdesc:a6d93bbf399fba5da373879d9889fead3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Item start pointer when parsing function or procedure parameters.  <a href="structbasic__ctx.html#a6d93bbf399fba5da373879d9889fead3">More...</a><br /></td></tr>
 <tr class="separator:a6d93bbf399fba5da373879d9889fead3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207d939e27d0a1b25d4418971ddd34c3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__param.html">ub_param</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a207d939e27d0a1b25d4418971ddd34c3">param</a></td></tr>
-<tr class="memdesc:a207d939e27d0a1b25d4418971ddd34c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linked list of function parameters when parsing function or procedure parameter lists.  <a href="structbasic__ctx.html#a207d939e27d0a1b25d4418971ddd34c3">More...</a><br /></td></tr>
+<tr class="memdesc:a207d939e27d0a1b25d4418971ddd34c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linked list of parameters for functions and procedures.  <a href="structbasic__ctx.html#a207d939e27d0a1b25d4418971ddd34c3">More...</a><br /></td></tr>
 <tr class="separator:a207d939e27d0a1b25d4418971ddd34c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53852b59657aa0a3e65fa49357dbf7b0"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a53852b59657aa0a3e65fa49357dbf7b0">graphics_colour</a></td></tr>
-<tr class="memdesc:a53852b59657aa0a3e65fa49357dbf7b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current graphics colour (GCOL) for graphics drawing commands.  <a href="structbasic__ctx.html#a53852b59657aa0a3e65fa49357dbf7b0">More...</a><br /></td></tr>
+<tr class="memdesc:a53852b59657aa0a3e65fa49357dbf7b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current graphics color for graphical operations (e.g., drawing lines, shapes).  <a href="structbasic__ctx.html#a53852b59657aa0a3e65fa49357dbf7b0">More...</a><br /></td></tr>
 <tr class="separator:a53852b59657aa0a3e65fa49357dbf7b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bd1fa3ec2d3b4c0b2f33456296e715d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcpuid__result__t.html">cpuid_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a6bd1fa3ec2d3b4c0b2f33456296e715d">last_cpuid_result</a></td></tr>
+<tr class="memdesc:a6bd1fa3ec2d3b4c0b2f33456296e715d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last CPUID instruction result, used for system information.  <a href="structbasic__ctx.html#a6bd1fa3ec2d3b4c0b2f33456296e715d">More...</a><br /></td></tr>
 <tr class="separator:a6bd1fa3ec2d3b4c0b2f33456296e715d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a069084d2fc5fc7c6623473da3b0ff500"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structhashmap.html">hashmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a069084d2fc5fc7c6623473da3b0ff500">lines</a></td></tr>
-<tr class="memdesc:a069084d2fc5fc7c6623473da3b0ff500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashmap of lines for O(1) lookup of line numbers.  <a href="structbasic__ctx.html#a069084d2fc5fc7c6623473da3b0ff500">More...</a><br /></td></tr>
+<tr class="memdesc:a069084d2fc5fc7c6623473da3b0ff500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashmap for quick lookup of line numbers in the program.  <a href="structbasic__ctx.html#a069084d2fc5fc7c6623473da3b0ff500">More...</a><br /></td></tr>
 <tr class="separator:a069084d2fc5fc7c6623473da3b0ff500"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af193438fa4fb81f516c57824e31f1da0"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#af193438fa4fb81f516c57824e31f1da0">if_nest_level</a></td></tr>
-<tr class="memdesc:af193438fa4fb81f516c57824e31f1da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block IF...THEN...ELSE depth.  <a href="structbasic__ctx.html#af193438fa4fb81f516c57824e31f1da0">More...</a><br /></td></tr>
+<tr class="memdesc:af193438fa4fb81f516c57824e31f1da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current depth of block <code>IF...THEN...ELSE</code> statements.  <a href="structbasic__ctx.html#af193438fa4fb81f516c57824e31f1da0">More...</a><br /></td></tr>
 <tr class="separator:af193438fa4fb81f516c57824e31f1da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e16bb3a99bcff493c581fab6757c88c"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a7e16bb3a99bcff493c581fab6757c88c">highest_line</a></td></tr>
-<tr class="memdesc:a7e16bb3a99bcff493c581fab6757c88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">highest line number in program  <a href="structbasic__ctx.html#a7e16bb3a99bcff493c581fab6757c88c">More...</a><br /></td></tr>
+<tr class="memdesc:a7e16bb3a99bcff493c581fab6757c88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highest line number in the program.  <a href="structbasic__ctx.html#a7e16bb3a99bcff493c581fab6757c88c">More...</a><br /></td></tr>
 <tr class="separator:a7e16bb3a99bcff493c581fab6757c88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac06a5cd423d5f1f1aad3d4051f797e93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsprite__t.html">sprite_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#ac06a5cd423d5f1f1aad3d4051f797e93">sprites</a> [1024]</td></tr>
-<tr class="memdesc:ac06a5cd423d5f1f1aad3d4051f797e93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sprites.  <a href="structbasic__ctx.html#ac06a5cd423d5f1f1aad3d4051f797e93">More...</a><br /></td></tr>
-<tr class="separator:ac06a5cd423d5f1f1aad3d4051f797e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3df60380a6aad6b61e39594b7b6f6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsprite__t.html">sprite_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a7b3df60380a6aad6b61e39594b7b6f6d">sprites</a> [<a class="el" href="defines_8h.html#aeb21c7ac080eea985b7701df626d9cf4">MAX_SPRITES</a>]</td></tr>
+<tr class="memdesc:a7b3df60380a6aad6b61e39594b7b6f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of sprites used in the program (if any).  <a href="structbasic__ctx.html#a7b3df60380a6aad6b61e39594b7b6f6d">More...</a><br /></td></tr>
+<tr class="separator:a7b3df60380a6aad6b61e39594b7b6f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d0caf2137b596b061c15bfa7788441c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a1d0caf2137b596b061c15bfa7788441c">string_gc_storage</a></td></tr>
-<tr class="memdesc:a1d0caf2137b596b061c15bfa7788441c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for GC'd strings.  <a href="structbasic__ctx.html#a1d0caf2137b596b061c15bfa7788441c">More...</a><br /></td></tr>
+<tr class="memdesc:a1d0caf2137b596b061c15bfa7788441c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage area for garbage-collected strings.  <a href="structbasic__ctx.html#a1d0caf2137b596b061c15bfa7788441c">More...</a><br /></td></tr>
 <tr class="separator:a1d0caf2137b596b061c15bfa7788441c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40047b898748b53fc546db5b73115ab9"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a40047b898748b53fc546db5b73115ab9">string_gc_storage_next</a></td></tr>
-<tr class="memdesc:a40047b898748b53fc546db5b73115ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Next ptr for GC'd strings.  <a href="structbasic__ctx.html#a40047b898748b53fc546db5b73115ab9">More...</a><br /></td></tr>
+<tr class="memdesc:a40047b898748b53fc546db5b73115ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next free position in the garbage-collected string storage.  <a href="structbasic__ctx.html#a40047b898748b53fc546db5b73115ab9">More...</a><br /></td></tr>
 <tr class="separator:a40047b898748b53fc546db5b73115ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92747689d9e4685e334c3f94cad5a9dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbuddy__allocator__t.html">buddy_allocator_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbasic__ctx.html#a92747689d9e4685e334c3f94cad5a9dd">allocator</a></td></tr>
+<tr class="memdesc:a92747689d9e4685e334c3f94cad5a9dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buddy allocator used for managing the program's heap.  <a href="structbasic__ctx.html#a92747689d9e4685e334c3f94cad5a9dd">More...</a><br /></td></tr>
+<tr class="separator:a92747689d9e4685e334c3f94cad5a9dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>BASIC program context. Every instance of a BASIC program has one of these,* also certain structures such as functions will clone the context and run on the clone until the function completes. Cloned contexts share variables and you should never call <a class="el" href="basic_8h.html#af018882ffc2e5fc5f888c4dea3ecf17c">basic_destroy()</a> on them! </p>
+<div class="textblock"><p>BASIC program context. </p>
+<p>Every instance of a BASIC program has one of these contexts. Certain structures, such as functions, will clone the context and run on the clone until the function completes. Cloned contexts share variables, and you should never call <a class="el" href="context_8h.html#af018882ffc2e5fc5f888c4dea3ecf17c" title="Destroy the BASIC context and free associated resources.">basic_destroy()</a> on them as they are handled differently. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a id="a92747689d9e4685e334c3f94cad5a9dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92747689d9e4685e334c3f94cad5a9dd">&#9670;&nbsp;</a></span>allocator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbuddy__allocator__t.html">buddy_allocator_t</a>* basic_ctx::allocator</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buddy allocator used for managing the program's heap. </p>
+<p>The allocator is used to manage dynamic memory for the program's variables and data structures. </p>
+
+</div>
+</div>
 <a id="a2b20d6976e19478de0616f6a6eb18c0c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2b20d6976e19478de0616f6a6eb18c0c">&#9670;&nbsp;</a></span>bracket_depth</h2>
 
@@ -254,22 +276,24 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bracket depth when parsing function or procedure parameter lists. </p>
+<p>Keeps track of nested parentheses during parameter parsing. </p>
 
 </div>
 </div>
-<a id="a45b690756bd8742294c3a9dc2f0edba0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45b690756bd8742294c3a9dc2f0edba0">&#9670;&nbsp;</a></span>call_stack</h2>
+<a id="a545d43671e4ee6aeae650e368cda6a6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545d43671e4ee6aeae650e368cda6a6c">&#9670;&nbsp;</a></span>call_stack</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint64_t basic_ctx::call_stack[255]</td>
+          <td class="memname">uint64_t basic_ctx::call_stack[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Call stack, holds the return line numbers for each level of calls to a procedure, function or GOSUB. </p>
+<p>Call stack for return line numbers during function, procedure, or <code>GOSUB</code> calls. </p>
+<p>Each index corresponds to a call in the stack, with a maximum depth of <code>MAX_CALL_STACK_DEPTH</code>. </p>
 
 </div>
 </div>
@@ -285,7 +309,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>How far up the call stack we are. The call stack pointer starts at 0, and can go as high as MAX_CALL_STACK_DEPTH - 1. </p>
+<p>Pointer indicating the current position in the call stack. </p>
+<p>Starts at 0 and can go up to <code>MAX_CALL_STACK_DEPTH - 1</code>. </p>
 
 </div>
 </div>
@@ -301,7 +326,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>True if the program has claimed flipping. </p>
+<p>True if the program has "claimed flipping". </p>
+<p>This is relevant to the internal state of the program's execution. </p>
 
 </div>
 </div>
@@ -317,7 +343,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>I/O Console. </p>
+<p>Console object used for I/O operations in the program. </p>
 
 </div>
 </div>
@@ -333,7 +359,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Current line number. </p>
+<p>Current line number in the program. </p>
 
 </div>
 </div>
@@ -349,7 +375,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Numeric form of the token between ptr and nextptr. Should always be a value within the enum token_t. </p>
+<p>Current token type. </p>
+<p>A numeric representation of the token between <code>ptr</code> and <code>nextptr</code>. The value should always be within the <code>token_t</code> enum. </p>
 
 </div>
 </div>
@@ -381,7 +408,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Active debug breakpoints (line numbers) </p>
+<p>Array of active debug breakpoints (line numbers). </p>
+<p>Used during program execution for debugging purposes. </p>
 
 </div>
 </div>
@@ -397,7 +425,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Debug status, with values as of above, e.g. DEBUG_*. </p>
+<p>Debugging status flag (e.g., <code>DEBUG_*</code> values). </p>
+<p>Holds information about the current debugging state. </p>
 
 </div>
 </div>
@@ -413,7 +442,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definitions for procedures and functions in the program. </p>
+<p>Definitions of procedures and functions in the program. </p>
+<p>Linked list of all function and procedure definitions. </p>
 
 </div>
 </div>
@@ -461,7 +491,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>True if the program has ended, e.g. it reached an explicit END statement, or fell off the end of the program to the terminating null char. </p>
+<p>True if the program has ended. </p>
+<p>This occurs when the program reaches an explicit <code>END</code> statement or falls off the end of the program, triggering termination. </p>
 
 </div>
 </div>
@@ -477,7 +508,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>True if the program has thrown an error and should end. This may not actually cause termination of the program if we are inside an EVAL at the time. </p>
+<p>True if the program has thrown an error and should terminate. </p>
+<p>This flag might not cause immediate termination if the program is inside an <code>EVAL</code>. </p>
 
 </div>
 </div>
@@ -493,7 +525,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The return line number for an EVAL statement. </p>
+<p>The return line number for an <code>EVAL</code> statement. </p>
 
 </div>
 </div>
@@ -509,7 +541,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function return value pointer. This is only relavent when executing a function atomically. </p>
+<p>Pointer to the return value of the function being executed. </p>
+<p>This is used for storing the result of a function's execution. </p>
 
 </div>
 </div>
@@ -520,28 +553,30 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="basic_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a> basic_ctx::fn_type</td>
+          <td class="memname"><a class="el" href="structs_8h.html#a2279cec37b8a81d5f18e78d7335b1966">ub_return_type</a> basic_ctx::fn_type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function return type expected. This is only relavent when executing a function atomically. </p>
+<p>Expected return type of the function being executed. </p>
+<p>This is used when executing a function atomically to determine the type of the return value. </p>
 
 </div>
 </div>
-<a id="a22817fa8a77f93282cb43a5ca1170090"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22817fa8a77f93282cb43a5ca1170090">&#9670;&nbsp;</a></span>for_stack</h2>
+<a id="ac77be6922ca3426764bbfe0b67eb97d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac77be6922ca3426764bbfe0b67eb97d3">&#9670;&nbsp;</a></span>for_stack</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structfor__state.html">for_state</a> basic_ctx::for_stack[255]</td>
+          <td class="memname">struct <a class="el" href="structfor__state.html">for_state</a> basic_ctx::for_stack[<a class="el" href="defines_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">MAX_LOOP_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>FOR stack, holds the return line numbers for each level of FOR...NEXT loop. </p>
+<p>FOR loop stack to handle <code>FOR...NEXT</code> loops. </p>
+<p>Contains return line numbers for each level of loop. </p>
 
 </div>
 </div>
@@ -557,7 +592,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>How far up the FOR...NEXT stack we are. The FOR stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1. </p>
+<p>Pointer indicating the current position in the FOR loop stack. </p>
 
 </div>
 </div>
@@ -573,7 +608,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Current graphics colour (GCOL) for graphics drawing commands. </p>
+<p>Current graphics color for graphical operations (e.g., drawing lines, shapes). </p>
 
 </div>
 </div>
@@ -589,7 +624,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>highest line number in program </p>
+<p>Highest line number in the program. </p>
+<p>Keeps track of the largest line number in the program for reference. </p>
 
 </div>
 </div>
@@ -605,7 +641,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Block IF...THEN...ELSE depth. </p>
+<p>Current depth of block <code>IF...THEN...ELSE</code> statements. </p>
+<p>This is used for managing nested <code>IF</code> statements and ensuring correct execution flow. </p>
 
 </div>
 </div>
@@ -638,6 +675,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Global integer variable list. </p>
+<p>Stores all globally scoped integer variables in the program. </p>
 
 </div>
 </div>
@@ -653,7 +691,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Item start pointer when parsing function or procedure parameter lists. </p>
+<p>Item start pointer when parsing function or procedure parameters. </p>
 
 </div>
 </div>
@@ -669,6 +707,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>The last CPUID instruction result, used for system information. </p>
+
 </div>
 </div>
 <a id="a069084d2fc5fc7c6623473da3b0ff500"></a>
@@ -683,55 +723,57 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Hashmap of lines for O(1) lookup of line numbers. </p>
+<p>Hashmap for quick lookup of line numbers in the program. </p>
+<p>Provides efficient access to the program's lines for execution. </p>
 
 </div>
 </div>
-<a id="a76063404a2a2707560ed74747b1ba1a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76063404a2a2707560ed74747b1ba1a7">&#9670;&nbsp;</a></span>local_double_variables</h2>
+<a id="aa4b03bf1d9f45ccda06b66715d6f35b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4b03bf1d9f45ccda06b66715d6f35b3">&#9670;&nbsp;</a></span>local_double_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__double.html">ub_var_double</a>* basic_ctx::local_double_variables[255]</td>
+          <td class="memname">struct <a class="el" href="structub__var__double.html">ub_var_double</a>* basic_ctx::local_double_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Local real (double) variable stack for variables declared within a function or procedure scope. </p>
+<p>Local double (real) variable stack for function/procedure scopes. </p>
 
 </div>
 </div>
-<a id="aae42d9a7e61a7c9ee355e91ed10812a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae42d9a7e61a7c9ee355e91ed10812a8">&#9670;&nbsp;</a></span>local_int_variables</h2>
+<a id="a62460c65721f4da8613ac883686ff015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62460c65721f4da8613ac883686ff015">&#9670;&nbsp;</a></span>local_int_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__int.html">ub_var_int</a>* basic_ctx::local_int_variables[255]</td>
+          <td class="memname">struct <a class="el" href="structub__var__int.html">ub_var_int</a>* basic_ctx::local_int_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Local integer variable stack for variables declared within a function or procedure scope. </p>
+<p>Local integer variable stack for function/procedure scopes. </p>
+<p>Each index in this array corresponds to a specific depth in the call stack. </p>
 
 </div>
 </div>
-<a id="a79ce260d06fa95b4da3d0d3c1844402f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79ce260d06fa95b4da3d0d3c1844402f">&#9670;&nbsp;</a></span>local_string_variables</h2>
+<a id="a6e434d6e31009b5f14f2305645d64589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e434d6e31009b5f14f2305645d64589">&#9670;&nbsp;</a></span>local_string_variables</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structub__var__string.html">ub_var_string</a>* basic_ctx::local_string_variables[255]</td>
+          <td class="memname">struct <a class="el" href="structub__var__string.html">ub_var_string</a>* basic_ctx::local_string_variables[<a class="el" href="defines_8h.html#a36568dfcd0f5dfaaeebb51d3c9aeb303">MAX_CALL_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Local string variable stack for variables declared within a function or procedure scope. </p>
+<p>Local string variable stack for function/procedure scopes. </p>
 
 </div>
 </div>
@@ -747,7 +789,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pointer to the character after the next token. Always between program_ptr and program_ptr + strlen(program_ptr) </p>
+<p>Pointer to the character after the next token. </p>
+<p>This pointer always lies between <code>program_ptr</code> and <code>program_ptr + strlen(program_ptr)</code>. </p>
 
 </div>
 </div>
@@ -763,7 +806,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Previous program length, before an EVAL statement. An EVAL statement appends additional lines to the program beyond its original end, storing the previous size in this value. If this value is non-zero an EVAL is in progress, otherwise no EVAL is executing. </p>
+<p>Previous length of the program text, used to detect an <code>EVAL</code> in progress. </p>
+<p>If this value is non-zero, an <code>EVAL</code> is in progress, and the program has appended additional lines. If zero, no <code>EVAL</code> is executing. </p>
 
 </div>
 </div>
@@ -779,7 +823,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Linked list of function parameters when parsing function or procedure parameter lists. </p>
+<p>Linked list of parameters for functions and procedures. </p>
+<p>This is used when parsing parameter lists in function/procedure calls. </p>
 
 </div>
 </div>
@@ -795,7 +840,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The whole program text, untokenized. May have been "cleaned" by an initial preprocessing phase which removes unneccesary spacing etc. </p>
+<p>Pointer to the program's entire text (untokenized). </p>
+<p>This may have been processed by a preprocessing phase to remove unnecessary spacing, etc. </p>
 
 </div>
 </div>
@@ -811,23 +857,25 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pointer to the start of the next token Always between program_ptr and program_ptr + strlen(program_ptr) </p>
+<p>Pointer to the start of the next token. </p>
+<p>This pointer always lies between <code>program_ptr</code> and <code>program_ptr + strlen(program_ptr)</code>. </p>
 
 </div>
 </div>
-<a id="a918a01877bff7a7e20e3cb6d757ed841"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a918a01877bff7a7e20e3cb6d757ed841">&#9670;&nbsp;</a></span>repeat_stack</h2>
+<a id="a58cdec0cff51dffc7f56f8a3479969e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58cdec0cff51dffc7f56f8a3479969e1">&#9670;&nbsp;</a></span>repeat_stack</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint64_t basic_ctx::repeat_stack[255]</td>
+          <td class="memname">uint64_t basic_ctx::repeat_stack[<a class="el" href="defines_8h.html#ad70e9ba1e1b2bbdb011ab487c2cb353d">MAX_LOOP_STACK_DEPTH</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Repeat stack, holds the return line numbers for each level of REPEAT...UNTIL loop. </p>
+<p>Repeat stack for handling <code>REPEAT...UNTIL</code> loop control. </p>
+<p>Holds the return line numbers for each level of loop nesting. </p>
 
 </div>
 </div>
@@ -843,23 +891,23 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>How far up the REPEAT...UNTIL stack we are. The repeat stack pointer starts at 0, and can go as high as MAX_LOOP_STACK_DEPTH - 1. </p>
+<p>Pointer indicating the current position in the repeat stack. </p>
 
 </div>
 </div>
-<a id="ac06a5cd423d5f1f1aad3d4051f797e93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac06a5cd423d5f1f1aad3d4051f797e93">&#9670;&nbsp;</a></span>sprites</h2>
+<a id="a7b3df60380a6aad6b61e39594b7b6f6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b3df60380a6aad6b61e39594b7b6f6d">&#9670;&nbsp;</a></span>sprites</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structsprite__t.html">sprite_t</a>* basic_ctx::sprites[1024]</td>
+          <td class="memname"><a class="el" href="structsprite__t.html">sprite_t</a>* basic_ctx::sprites[<a class="el" href="defines_8h.html#aeb21c7ac080eea985b7701df626d9cf4">MAX_SPRITES</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sprites. </p>
+<p>Array of sprites used in the program (if any). </p>
 
 </div>
 </div>
@@ -879,19 +927,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a84557325a29c400fcad0d769dee1217d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84557325a29c400fcad0d769dee1217d">&#9670;&nbsp;</a></span>string</h2>
+<a id="add37c368272fb5e346655e7e7200d75c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add37c368272fb5e346655e7e7200d75c">&#9670;&nbsp;</a></span>string</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char basic_ctx::string[1024]</td>
+          <td class="memname">char basic_ctx::string[<a class="el" href="defines_8h.html#a90bf9480b781825abfeb3f500d75531c">MAX_STRINGLEN</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A context-local string buffer used for parsing function/procedure parameter lists. </p>
+<p>Local buffer for parsing function/procedure parameter lists. </p>
 
 </div>
 </div>
@@ -923,7 +971,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Storage for GC'd strings. </p>
+<p>Storage area for garbage-collected strings. </p>
+<p>This holds strings that are subject to garbage collection. </p>
 
 </div>
 </div>
@@ -939,7 +988,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Next ptr for GC'd strings. </p>
+<p>Pointer to the next free position in the garbage-collected string storage. </p>
 
 </div>
 </div>
@@ -949,7 +998,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structbasic__ctx.html">basic_ctx</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

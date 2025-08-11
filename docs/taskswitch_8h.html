@@ -124,6 +124,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a66e2436dbfe8b3600c090f28627b621f"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a66e2436dbfe8b3600c090f28627b621f">cpu_id_t</a></td></tr>
 <tr class="memdesc:a66e2436dbfe8b3600c090f28627b621f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logical CPU ID type.  <a href="taskswitch_8h.html#a66e2436dbfe8b3600c090f28627b621f">More...</a><br /></td></tr>
 <tr class="separator:a66e2436dbfe8b3600c090f28627b621f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfca8568dd4c246f6a2cb5c23dc34052"><td class="memItemLeft" align="right" valign="top">typedef bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">activity_callback_t</a>) (struct <a class="el" href="structprocess__t.html">process_t</a> *proc, void *opaque)</td></tr>
+<tr class="memdesc:adfca8568dd4c246f6a2cb5c23dc34052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback to determine if a process is still idle.  <a href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">More...</a><br /></td></tr>
+<tr class="separator:adfca8568dd4c246f6a2cb5c23dc34052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82c77e5c902b86503a57e02bb4314bad"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">proc_idle_timer_t</a>) (void)</td></tr>
 <tr class="memdesc:a82c77e5c902b86503a57e02bb4314bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer type for an idle timer callback.  <a href="taskswitch_8h.html#a82c77e5c902b86503a57e02bb4314bad">More...</a><br /></td></tr>
 <tr class="separator:a82c77e5c902b86503a57e02bb4314bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,8 +134,8 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ab97efa0d1c4aeaf55ff756bf16685854"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854">process_state_t</a> { <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857">PROC_RUNNING</a>
-, <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c">PROC_IDLE</a>
-, <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a4740dbae0b209f4840c2b83e57363a36">PROC_DELETE</a>
+, <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854a9047a83c8b8c5e1700201d27485a6199">PROC_SUSPENDED</a>
+, <a class="el" href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854ae68fcdb4ce43d7b70295db3977a7d199">PROC_IO_BOUND</a>
  }</td></tr>
 <tr class="memdesc:ab97efa0d1c4aeaf55ff756bf16685854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the current state of a process.  <a href="taskswitch_8h.html#ab97efa0d1c4aeaf55ff756bf16685854">More...</a><br /></td></tr>
 <tr class="separator:ab97efa0d1c4aeaf55ff756bf16685854"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,12 +192,41 @@ Functions</h2></td></tr>
 <tr class="memitem:ab25d44702b6e10e723714c368c4a7520"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520">init_process</a> ()</td></tr>
 <tr class="memdesc:ab25d44702b6e10e723714c368c4a7520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise the process subsystem.  <a href="taskswitch_8h.html#ab25d44702b6e10e723714c368c4a7520">More...</a><br /></td></tr>
 <tr class="separator:ab25d44702b6e10e723714c368c4a7520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a837266f5243f7240269b77b0298afbe2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="taskswitch_8h.html#a837266f5243f7240269b77b0298afbe2">proc_set_idle</a> (<a class="el" href="structprocess__t.html">process_t</a> *proc, <a class="el" href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">activity_callback_t</a> callback, void *opaque)</td></tr>
+<tr class="memdesc:a837266f5243f7240269b77b0298afbe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear the idle state of a process.  <a href="taskswitch_8h.html#a837266f5243f7240269b77b0298afbe2">More...</a><br /></td></tr>
+<tr class="separator:a837266f5243f7240269b77b0298afbe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles process management, multitasking, and scheduling. </p>
 <dl class="section author"><dt>Author</dt><dd>Craig Edwards </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2012-2025 </dd></dl>
 </div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="adfca8568dd4c246f6a2cb5c23dc34052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfca8568dd4c246f6a2cb5c23dc34052">&#9670;&nbsp;</a></span>activity_callback_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">activity_callback_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback to determine if a process is still idle. </p>
+<p>This function is invoked by the scheduler to decide whether a process should remain suspended (idle) or be resumed.</p>
+<p>Return <code>true</code> if the process should remain idle, <code>false</code> if it is ready to run again.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">proc</td><td>Pointer to the process being evaluated </td></tr>
+    <tr><td class="paramname">opaque</td><td>For end user use </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool true if idle; false if active </dd></dl>
+
+</div>
+</div>
 <a id="a66e2436dbfe8b3600c090f28627b621f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66e2436dbfe8b3600c090f28627b621f">&#9670;&nbsp;</a></span>cpu_id_t</h2>
 
@@ -315,9 +347,9 @@ Functions</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a4f8e3722918567a5d152312e9afab857"></a>PROC_RUNNING&#160;</td><td class="fielddoc"><p>Process is currently running </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a6b461cf08706e8456cfd0c5e46c88f5c"></a>PROC_IDLE&#160;</td><td class="fielddoc"><p>Process is idle and waiting for CPU time </p>
+<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a9047a83c8b8c5e1700201d27485a6199"></a>PROC_SUSPENDED&#160;</td><td class="fielddoc"><p>Process is waiting on another process </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854a4740dbae0b209f4840c2b83e57363a36"></a>PROC_DELETE&#160;</td><td class="fielddoc"><p>Process is marked for deletion </p>
+<tr><td class="fieldname"><a id="ab97efa0d1c4aeaf55ff756bf16685854ae68fcdb4ce43d7b70295db3977a7d199"></a>PROC_IO_BOUND&#160;</td><td class="fielddoc"><p>Process is waiting on IO </p>
 </td></tr>
 </table>
 
@@ -679,6 +711,51 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a837266f5243f7240269b77b0298afbe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a837266f5243f7240269b77b0298afbe2">&#9670;&nbsp;</a></span>proc_set_idle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void proc_set_idle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structprocess__t.html">process_t</a> *&#160;</td>
+          <td class="paramname"><em>proc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="taskswitch_8h.html#adfca8568dd4c246f6a2cb5c23dc34052">activity_callback_t</a>&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>opaque</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set or clear the idle state of a process. </p>
+<p>This sets a callback that determines whether the process is ready to resume. When a callback is provided, the process will be marked as suspended and polled each scheduling round. If the callback returns false, the process will be resumed. Passing NULL clears the idle state immediately.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">proc</td><td>Process to update </td></tr>
+    <tr><td class="paramname">callback</td><td>Function to poll for resumption readiness, or NULL to resume immediately </td></tr>
+    <tr><td class="paramname">opaque</td><td>For use by developer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a1ec64ff3e1bbf088a6611d7304cf72e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ec64ff3e1bbf088a6611d7304cf72e2">&#9670;&nbsp;</a></span>proc_timer()</h2>
 
@@ -762,7 +839,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="taskswitch_8h.html">taskswitch.h</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -102,10 +102,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a670da4374490f42ea6e1ccdd4828a843"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="int__expression_8c.html#a670da4374490f42ea6e1ccdd4828a843">factor</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a670da4374490f42ea6e1ccdd4828a843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82b38ae80b08b12294c9bfc7f74ef707"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="int__expression_8c.html#a82b38ae80b08b12294c9bfc7f74ef707">relation</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:a82b38ae80b08b12294c9bfc7f74ef707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a relational integer expression.  <a href="int__expression_8c.html#a82b38ae80b08b12294c9bfc7f74ef707">More...</a><br /></td></tr>
 <tr class="separator:a82b38ae80b08b12294c9bfc7f74ef707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d6b09be6775e0d4e27d555d8aba4305"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="int__expression_8c.html#a4d6b09be6775e0d4e27d555d8aba4305">term</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
 <tr class="separator:a4d6b09be6775e0d4e27d555d8aba4305"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acac5d55e8d22685e55efef4b6737f5cb"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="int__expression_8c.html#acac5d55e8d22685e55efef4b6737f5cb">expr</a> (struct <a class="el" href="structbasic__ctx.html">basic_ctx</a> *ctx)</td></tr>
+<tr class="memdesc:acac5d55e8d22685e55efef4b6737f5cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a full integer expression.  <a href="int__expression_8c.html#acac5d55e8d22685e55efef4b6737f5cb">More...</a><br /></td></tr>
 <tr class="separator:acac5d55e8d22685e55efef4b6737f5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -126,6 +128,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Evaluates a full integer expression. </p>
+<p>This function parses and evaluates an integer expression from the BASIC program based on the provided context. It supports all standard integer operations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>A pointer to the current BASIC program context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the evaluated integer expression as a 64-bit signed integer. </dd></dl>
 
 </div>
 </div>
@@ -162,6 +174,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Evaluates a relational integer expression. </p>
+<p>This function evaluates relational expressions (e.g., &lt;, &gt;, ==) in the context of integer operations. It returns <code>1</code> for true and <code>0</code> for false.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>A pointer to the current BASIC program context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the relational expression as a 64-bit signed integer (<code>1</code> for true, <code>0</code> for false). </dd></dl>
 
 </div>
 </div>
@@ -215,7 +237,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_38cd9eca440b760dc966f21b1f8d8f41.html">basic</a></li><li class="navelem"><a class="el" href="int__expression_8c.html">int_expression.c</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

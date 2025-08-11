@@ -1,11 +1,13 @@
 var structprocess__t =
 [
+    [ "check_idle", "structprocess__t.html#ac5c17010c97fc19cead0529f1bc3a380", null ],
     [ "code", "structprocess__t.html#aac89744257f50e77369d583e70974822", null ],
     [ "cons", "structprocess__t.html#a80a803afc53644e36db504d3dc22b3f4", null ],
     [ "cpu", "structprocess__t.html#a9efd67622874d1d026fb44b259569ac9", null ],
     [ "csd", "structprocess__t.html#a9b3ddad1d78a30249998440a837922b3", null ],
     [ "directory", "structprocess__t.html#a03df500e6a022a5c1f061c8af547476e", null ],
     [ "gid", "structprocess__t.html#a07aef83877679df4398fa641ff557519", null ],
+    [ "idle_context", "structprocess__t.html#aa1c947b3c296d37a2290e44c96d68e7c", null ],
     [ "name", "structprocess__t.html#a39b862a83f8dc13357cfd8cdc8f64a9d", null ],
     [ "next", "structprocess__t.html#a35426bef9435a3bc4399ee832dab5cf2", null ],
     [ "pid", "structprocess__t.html#a0cea0ed21d2f6ed41a5c99b947041eea", null ],

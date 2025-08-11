@@ -91,13 +91,16 @@ $(document).ready(function(){initNavTree('structrfs__description__block__t.html'
 </div><!--header-->
 <div class="contents">
 
+<p>On-disk description block containing global filesystem metadata.  
+ <a href="structrfs__description__block__t.html#details">More...</a></p>
+
 <p><code>#include &lt;retrofs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for rfs_description_block_t:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structrfs__description__block__t__coll__graph.svg" width="279" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structrfs__description__block__t__coll__graph.svg" width="358" height="200"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -115,10 +118,13 @@ Data Fields</h2></td></tr>
 <tr class="separator:a36a6790dd7642355e45ca5467c088588"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42407640d7548acb086cbdad85886e8b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__description__block__t.html#a42407640d7548acb086cbdad85886e8b">sequence</a></td></tr>
 <tr class="separator:a42407640d7548acb086cbdad85886e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b47de5d2cf4eb0b706d933b939c00fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__description__block__t.html#a9b47de5d2cf4eb0b706d933b939c00fc">creation_time</a></td></tr>
+<tr class="memitem:a9b47de5d2cf4eb0b706d933b939c00fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrfs__description__block__t.html#a9b47de5d2cf4eb0b706d933b939c00fc">creation_time</a></td></tr>
 <tr class="separator:a9b47de5d2cf4eb0b706d933b939c00fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>On-disk description block containing global filesystem metadata. </p>
+<p>Occupies exactly one sector. This is the first structure read when mounting a RetroFS volume. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a9b47de5d2cf4eb0b706d933b939c00fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9b47de5d2cf4eb0b706d933b939c00fc">&#9670;&nbsp;</a></span>creation_time</h2>
 
@@ -126,10 +132,11 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="clock_8h.html#a02ad034d26db2c14b7e295b0c50fc11d">time_t</a> rfs_description_block_t::creation_time</td>
+          <td class="memname"><a class="el" href="clock_8h.html#a7f5991675a84025dc7c24754a9b257c0">time_t</a> rfs_description_block_t::creation_time</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Filesystem creation time (UTC). </p>
 
 </div>
 </div>
@@ -144,6 +151,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Checksum of the free space map. </p>
 
 </div>
 </div>
@@ -158,6 +166,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Length of free space map in sectors. </p>
 
 </div>
 </div>
@@ -172,6 +181,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector address of free space map start. </p>
 
 </div>
 </div>
@@ -186,6 +196,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Filesystem magic (RFS_ID). </p>
 
 </div>
 </div>
@@ -200,6 +211,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Sector address of root directory start entry. </p>
 
 </div>
 </div>
@@ -214,6 +226,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Incremented whenever the FS is modified. </p>
 
 </div>
 </div>
@@ -223,7 +236,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structrfs__description__block__t.html">rfs_description_block_t</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

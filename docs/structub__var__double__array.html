@@ -91,31 +91,37 @@ $(document).ready(function(){initNavTree('structub__var__double__array.html','')
 </div><!--header-->
 <div class="contents">
 
-<p>An array of real (double)  
+<p>An array of real (double) values.  
  <a href="structub__var__double__array.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_var_double_array:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structub__var__double__array__coll__graph.svg" width="284" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structub__var__double__array__coll__graph.svg" width="284" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a9ef5668e2f56818ff1211ac769c5a0a4"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__double__array.html#a9ef5668e2f56818ff1211ac769c5a0a4">itemcount</a></td></tr>
+<tr class="memdesc:a9ef5668e2f56818ff1211ac769c5a0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of items in the array.  <a href="structub__var__double__array.html#a9ef5668e2f56818ff1211ac769c5a0a4">More...</a><br /></td></tr>
 <tr class="separator:a9ef5668e2f56818ff1211ac769c5a0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c74f4b0aa92cf0726b48f842289ced7"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__double__array.html#a8c74f4b0aa92cf0726b48f842289ced7">varname</a></td></tr>
+<tr class="memdesc:a8c74f4b0aa92cf0726b48f842289ced7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the double array variable.  <a href="structub__var__double__array.html#a8c74f4b0aa92cf0726b48f842289ced7">More...</a><br /></td></tr>
 <tr class="separator:a8c74f4b0aa92cf0726b48f842289ced7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa386858157be0164e16d521499bd7055"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__double__array.html#aa386858157be0164e16d521499bd7055">values</a></td></tr>
+<tr class="memdesc:aa386858157be0164e16d521499bd7055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of double values.  <a href="structub__var__double__array.html#aa386858157be0164e16d521499bd7055">More...</a><br /></td></tr>
 <tr class="separator:aa386858157be0164e16d521499bd7055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ab4ade81a9de6a2b75cd4419e23bc4"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__double__array.html">ub_var_double_array</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__double__array.html#ad2ab4ade81a9de6a2b75cd4419e23bc4">next</a></td></tr>
+<tr class="memdesc:ad2ab4ade81a9de6a2b75cd4419e23bc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next double array (for chaining)  <a href="structub__var__double__array.html#ad2ab4ade81a9de6a2b75cd4419e23bc4">More...</a><br /></td></tr>
 <tr class="separator:ad2ab4ade81a9de6a2b75cd4419e23bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An array of real (double) </p>
+<div class="textblock"><p>An array of real (double) values. </p>
+<p>This structure represents an array of real (double) values in the BASIC interpreter, with a name, the number of items in the array, and the array values. It also supports chaining for handling multiple arrays. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a9ef5668e2f56818ff1211ac769c5a0a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9ef5668e2f56818ff1211ac769c5a0a4">&#9670;&nbsp;</a></span>itemcount</h2>
@@ -128,6 +134,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Number of items in the array. </p>
 
 </div>
 </div>
@@ -143,6 +151,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the next double array (for chaining) </p>
+
 </div>
 </div>
 <a id="aa386858157be0164e16d521499bd7055"></a>
@@ -156,6 +166,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Array of double values. </p>
 
 </div>
 </div>
@@ -171,6 +183,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Name of the double array variable. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -179,7 +193,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__var__double__array.html">ub_var_double_array</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

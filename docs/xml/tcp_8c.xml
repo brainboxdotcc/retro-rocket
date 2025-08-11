@@ -4,7 +4,7 @@
     <compoundname>tcp.c</compoundname>
     <includes refid="kernel_8h" local="no">kernel.h</includes>
     <incdepgraph>
-      <node id="32">
+      <node id="52">
         <label>ata.h</label>
         <link refid="ata_8h"/>
       </node>
@@ -14,8 +14,59 @@
       <node id="20">
         <label>basic.h</label>
         <link refid="basic_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
       </node>
-      <node id="35">
+      <node id="23">
+        <label>basic/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>stdarg.h</label>
+      </node>
+      <node id="55">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
@@ -24,19 +75,43 @@
       <node id="14">
         <label>stdatomic.h</label>
       </node>
-      <node id="47">
+      <node id="26">
+        <label>basic/validation.h</label>
+        <link refid="validation_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>basic/graphics.h</label>
+        <link refid="graphics_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
         <label>acpi.h</label>
         <link refid="acpi_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="22">
+        <label>basic/structs.h</label>
+        <link refid="structs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
         <label>arp.h</label>
         <link refid="arp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="61">
+      <node id="24">
         <label>buddy_allocator.h</label>
         <link refid="buddy__allocator_8h"/>
         <childnode refid="5" relation="include">
@@ -44,13 +119,13 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="58">
+      <node id="78">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="58">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
@@ -66,13 +141,13 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="76">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="56">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
@@ -88,13 +163,13 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="54">
+      <node id="74">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="49">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
@@ -107,25 +182,27 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="59">
+      <node id="79">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="27">
+        <label>basic/variable.h</label>
+        <link refid="variable_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="49">
+      <node id="69">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="48">
         <label>stdlib.h</label>
         <link refid="stdlib_8h"/>
         <childnode refid="5" relation="include">
@@ -136,17 +213,33 @@
       <node id="12">
         <label>x86intrin.h</label>
       </node>
-      <node id="23">
+      <node id="43">
         <label>ioapic.h</label>
         <link refid="ioapic_8h"/>
       </node>
       <node id="5">
         <label>stddef.h</label>
       </node>
+      <node id="34">
+        <label>basic/array.h</label>
+        <link refid="array_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>basic/flow_control.h</label>
+        <link refid="flow__control_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>limits.h</label>
       </node>
-      <node id="41">
+      <node id="61">
         <label>keyboard.h</label>
         <link refid="keyboard_8h"/>
       </node>
@@ -168,26 +261,34 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="50">
+      <node id="70">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="64">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="31">
+        <label>basic/builtin_real_functions.h</label>
+        <link refid="builtin__real__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="7">
         <label>limine.h</label>
       </node>
-      <node id="42">
+      <node id="62">
         <label>input.h</label>
         <link refid="input_8h"/>
       </node>
-      <node id="60">
+      <node id="80">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
@@ -197,35 +298,83 @@
         <label>video.h</label>
         <link refid="video_8h"/>
       </node>
-      <node id="55">
+      <node id="82">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="52">
+      <node id="35">
+        <label>basic/sockets.h</label>
+        <link refid="sockets_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>basic/defines.h</label>
+        <link refid="defines_8h"/>
+      </node>
+      <node id="72">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="28">
+        <label>basic/builtin_integer_functions.h</label>
+        <link refid="builtin__integer__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
       </node>
-      <node id="27">
+      <node id="47">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="57">
         <label>devfs.h</label>
         <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="25">
+        <label>basic/expression.h</label>
+        <link refid="expression_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
         <label>errorhandler.h</label>
         <link refid="errorhandler_8h"/>
+      </node>
+      <node id="29">
+        <label>basic/builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>tcp.c</label>
@@ -233,7 +382,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="53">
+      <node id="73">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
@@ -274,46 +423,6 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
@@ -321,8 +430,6 @@
         <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
@@ -360,14 +467,68 @@
         </childnode>
         <childnode refid="62" relation="include">
         </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
       </node>
-      <node id="21">
+      <node id="41">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="37">
+        <label>basic/console.h</label>
+        <link refid="console_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
@@ -379,7 +540,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="84">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
@@ -397,41 +564,71 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="48">
+      <node id="68">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="44">
         <label>timer.h</label>
         <link refid="timer_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="39">
+        <label>basic/reflection.h</label>
+        <link refid="reflection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
         <label>debugger.h</label>
         <link refid="debugger_8h"/>
       </node>
       <node id="30">
+        <label>basic/builtin_file_io_functions.h</label>
+        <link refid="builtin__file__io__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="45">
         <label>kmalloc.h</label>
         <link refid="kmalloc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="65">
+        <label>basic/tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>basic/lowlevel.h</label>
+        <link refid="lowlevel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="42">
         <label>apic.h</label>
         <link refid="apic_8h"/>
       </node>
@@ -441,25 +638,41 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="51">
         <label>ahci.h</label>
         <link refid="ahci_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="57">
+      <node id="38">
+        <label>basic/process.h</label>
+        <link refid="process_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="62">
+      <node id="81">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="40">
+        <label>basic/datetime.h</label>
+        <link refid="datetime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
         <label>clock.h</label>
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
@@ -645,7 +858,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="763" column="6" bodyfile="src/net/tcp.c" bodystart="763" bodyend="798" declfile="src/net/tcp.c" declline="27" declcolumn="6"/>
+        <location file="src/net/tcp.c" line="762" column="6" bodyfile="src/net/tcp.c" bodystart="762" bodyend="797" declfile="src/net/tcp.c" declline="27" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a0a5ac590e0a9088bc8ddf519e8e0967d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -1429,7 +1642,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="483" column="6" bodyfile="src/net/tcp.c" bodystart="483" bodyend="538"/>
+        <location file="src/net/tcp.c" line="483" column="6" bodyfile="src/net/tcp.c" bodystart="483" bodyend="537"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a21c3e7df05a0c2e84587e765f4b43909" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1462,7 +1675,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="540" column="6" bodyfile="src/net/tcp.c" bodystart="540" bodyend="544"/>
+        <location file="src/net/tcp.c" line="539" column="6" bodyfile="src/net/tcp.c" bodystart="539" bodyend="543"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a024b4a8b3ea818c47577a130b899fdbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1492,7 +1705,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="552" column="6" bodyfile="src/net/tcp.c" bodystart="552" bodyend="561"/>
+        <location file="src/net/tcp.c" line="551" column="6" bodyfile="src/net/tcp.c" bodystart="551" bodyend="560"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a338f973fea7653505864976cdb77199a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1509,7 +1722,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="563" column="6" bodyfile="src/net/tcp.c" bodystart="563" bodyend="572"/>
+        <location file="src/net/tcp.c" line="562" column="6" bodyfile="src/net/tcp.c" bodystart="562" bodyend="571"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a1a22ad65359d60c3d9563313ea07c004" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1587,7 +1800,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="585" column="6" bodyfile="src/net/tcp.c" bodystart="585" bodyend="647"/>
+        <location file="src/net/tcp.c" line="584" column="6" bodyfile="src/net/tcp.c" bodystart="584" bodyend="646"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1add6d3ca65551b99722275ec5890f16d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1665,7 +1878,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="660" column="6" bodyfile="src/net/tcp.c" bodystart="660" bodyend="666"/>
+        <location file="src/net/tcp.c" line="659" column="6" bodyfile="src/net/tcp.c" bodystart="659" bodyend="665"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a04dd6209768f1bfebe055e5aa222f177" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1743,7 +1956,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="678" column="6" bodyfile="src/net/tcp.c" bodystart="678" bodyend="705"/>
+        <location file="src/net/tcp.c" line="677" column="6" bodyfile="src/net/tcp.c" bodystart="677" bodyend="704"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a745219f2cfc3cff881b8b6d441aace20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1821,7 +2034,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="717" column="6" bodyfile="src/net/tcp.c" bodystart="717" bodyend="741"/>
+        <location file="src/net/tcp.c" line="716" column="6" bodyfile="src/net/tcp.c" bodystart="716" bodyend="740"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a383e5b445608621d0ec2805660fcf10b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1849,7 +2062,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="748" column="6" bodyfile="src/net/tcp.c" bodystart="748" bodyend="751"/>
+        <location file="src/net/tcp.c" line="747" column="6" bodyfile="src/net/tcp.c" bodystart="747" bodyend="750"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1ac7c0f2bbb73bca358db4c8ef67084559" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1927,7 +2140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="810" column="6" bodyfile="src/net/tcp.c" bodystart="810" bodyend="819"/>
+        <location file="src/net/tcp.c" line="809" column="6" bodyfile="src/net/tcp.c" bodystart="809" bodyend="818"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1af061b7b3b7a648a863124f700ca0b0c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2005,7 +2218,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="831" column="6" bodyfile="src/net/tcp.c" bodystart="831" bodyend="849"/>
+        <location file="src/net/tcp.c" line="830" column="6" bodyfile="src/net/tcp.c" bodystart="830" bodyend="848"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a0a315555828672675f3ce51faac160ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2083,7 +2296,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="861" column="6" bodyfile="src/net/tcp.c" bodystart="861" bodyend="865"/>
+        <location file="src/net/tcp.c" line="860" column="6" bodyfile="src/net/tcp.c" bodystart="860" bodyend="864"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a533348445846649da136d821ffa438e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2161,7 +2374,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="877" column="6" bodyfile="src/net/tcp.c" bodystart="877" bodyend="882"/>
+        <location file="src/net/tcp.c" line="876" column="6" bodyfile="src/net/tcp.c" bodystart="876" bodyend="881"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a6035542bb9e0ba654143f88f59425acb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2239,7 +2452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="894" column="6" bodyfile="src/net/tcp.c" bodystart="894" bodyend="897"/>
+        <location file="src/net/tcp.c" line="893" column="6" bodyfile="src/net/tcp.c" bodystart="893" bodyend="896"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1ad5d4343279c0056cbfd3f6409ebb1256" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2317,7 +2530,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="909" column="6" bodyfile="src/net/tcp.c" bodystart="909" bodyend="912"/>
+        <location file="src/net/tcp.c" line="908" column="6" bodyfile="src/net/tcp.c" bodystart="908" bodyend="911"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a44df86a0659fcbe27f20609f888cad57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2395,7 +2608,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="924" column="6" bodyfile="src/net/tcp.c" bodystart="924" bodyend="930"/>
+        <location file="src/net/tcp.c" line="923" column="6" bodyfile="src/net/tcp.c" bodystart="923" bodyend="929"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a5cf351cb80d4c8cc2512ad0f490893c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2473,7 +2686,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="942" column="6" bodyfile="src/net/tcp.c" bodystart="942" bodyend="968"/>
+        <location file="src/net/tcp.c" line="941" column="6" bodyfile="src/net/tcp.c" bodystart="941" bodyend="967"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a8d4611b68b5ca398ee9bc373573afab6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2527,7 +2740,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="977" column="6" bodyfile="src/net/tcp.c" bodystart="977" bodyend="988"/>
+        <location file="src/net/tcp.c" line="976" column="6" bodyfile="src/net/tcp.c" bodystart="976" bodyend="987"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a5505c46ddfafecad526d12d4d1666050" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2542,7 +2755,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="993" column="6" bodyfile="src/net/tcp.c" bodystart="993" bodyend="1026"/>
+        <location file="src/net/tcp.c" line="992" column="6" bodyfile="src/net/tcp.c" bodystart="992" bodyend="1033"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a0e048a052cd5ec7a0bfe8734751990f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2557,7 +2770,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1031" column="6" bodyfile="src/net/tcp.c" bodystart="1031" bodyend="1035"/>
+        <location file="src/net/tcp.c" line="1038" column="6" bodyfile="src/net/tcp.c" bodystart="1038" bodyend="1042"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a249d5d94734e90a3fd51b70fe4810343" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2611,7 +2824,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1045" column="6" bodyfile="src/net/tcp.c" bodystart="1045" bodyend="1061"/>
+        <location file="src/net/tcp.c" line="1052" column="6" bodyfile="src/net/tcp.c" bodystart="1052" bodyend="1068"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a4f402771111ada0834a98e599c0bd313" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -2665,7 +2878,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1071" column="10" bodyfile="src/net/tcp.c" bodystart="1071" bodyend="1090"/>
+        <location file="src/net/tcp.c" line="1078" column="10" bodyfile="src/net/tcp.c" bodystart="1078" bodyend="1097"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1ac4ed2cdd1c291c5083404950e916c98f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2690,7 +2903,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1092" column="5" bodyfile="src/net/tcp.c" bodystart="1092" bodyend="1163"/>
+        <location file="src/net/tcp.c" line="1099" column="5" bodyfile="src/net/tcp.c" bodystart="1099" bodyend="1170"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a616706131cb20d379279872ca4af8e71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2707,7 +2920,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1165" column="5" bodyfile="src/net/tcp.c" bodystart="1165" bodyend="1202"/>
+        <location file="src/net/tcp.c" line="1172" column="5" bodyfile="src/net/tcp.c" bodystart="1172" bodyend="1209"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a5787e23039c4a2243cbc968a48431d2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2761,7 +2974,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1204" column="5" bodyfile="src/net/tcp.c" bodystart="1204" bodyend="1223"/>
+        <location file="src/net/tcp.c" line="1211" column="5" bodyfile="src/net/tcp.c" bodystart="1211" bodyend="1230"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a4a95723a63184d3eb69a619853f560da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2827,7 +3040,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1225" column="5" bodyfile="src/net/tcp.c" bodystart="1225" bodyend="1243"/>
+        <location file="src/net/tcp.c" line="1232" column="5" bodyfile="src/net/tcp.c" bodystart="1232" bodyend="1250"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1ad4725afcb96cfe437fd7a748129b1f33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2857,7 +3070,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1245" column="5" bodyfile="src/net/tcp.c" bodystart="1245" bodyend="1253"/>
+        <location file="src/net/tcp.c" line="1252" column="5" bodyfile="src/net/tcp.c" bodystart="1252" bodyend="1260"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a39bac2a3c55fa01613ed4a5579a5ca67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2887,7 +3100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1255" column="6" bodyfile="src/net/tcp.c" bodystart="1255" bodyend="1264"/>
+        <location file="src/net/tcp.c" line="1262" column="6" bodyfile="src/net/tcp.c" bodystart="1262" bodyend="1271"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1a6df7b901b1a9f3ec7046f958f9e7cf36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2965,7 +3178,38 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1266" column="5" bodyfile="src/net/tcp.c" bodystart="1266" bodyend="1303"/>
+        <location file="src/net/tcp.c" line="1273" column="5" bodyfile="src/net/tcp.c" bodystart="1273" bodyend="1316"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp_8c_1ae4013d43c90be7603c80e7224765d830" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool sock_ready_to_read</definition>
+        <argsstring>(int socket)</argsstring>
+        <name>sock_ready_to_read</name>
+        <param>
+          <type>int</type>
+          <declname>socket</declname>
+        </param>
+        <briefdescription>
+<para>Check if a socket has data ready to be read. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Non-blocking check for buffered data on the given socket. Does not consume any data or modify the recv buffer.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>socket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if there is data available to read, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/net/tcp.c" line="1318" column="6" bodyfile="src/net/tcp.c" bodystart="1318" bodyend="1324"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1ab30a0d5f82ac8f116897d82578ae25eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -3020,7 +3264,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1305" column="5" bodyfile="src/net/tcp.c" bodystart="1305" bodyend="1352"/>
+        <location file="src/net/tcp.c" line="1327" column="5" bodyfile="src/net/tcp.c" bodystart="1327" bodyend="1374"/>
       </memberdef>
       <memberdef kind="function" id="tcp_8c_1aeb880bf940312acdf8a48c4d4dfa0b72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -3051,7 +3295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/net/tcp.c" line="1354" column="5" bodyfile="src/net/tcp.c" bodystart="1354" bodyend="1404"/>
+        <location file="src/net/tcp.c" line="1376" column="5" bodyfile="src/net/tcp.c" bodystart="1376" bodyend="1426"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

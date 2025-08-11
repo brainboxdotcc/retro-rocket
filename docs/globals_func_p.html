@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 : <a class="el" href="dns_8c.html#aa7246717c596f4e20654e1f2a3b5c2ec">dns.c</a>
 </li>
 <li>panic_statement()
-: <a class="el" href="basic_8h.html#adb9c78bacd0d5a8262ce1604fedb56d0">basic.h</a>
+: <a class="el" href="flow__control_8h.html#adb9c78bacd0d5a8262ce1604fedb56d0">flow_control.h</a>
 </li>
 <li>parse_boot()
 : <a class="el" href="iso9660_8c.html#aa160a1ffc5b7625df37b54781e97c134">iso9660.c</a>
@@ -106,16 +106,19 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 : <a class="el" href="iso9660_8c.html#addc4b5cfedd97b04d64d3b8cf349fe47">iso9660.c</a>
 </li>
 <li>parse_fat32_directory()
-: <a class="el" href="fat32_8c.html#af38e80c365dda1fc57d42ad748235421">fat32.c</a>
+: <a class="el" href="fat32_8h.html#af38e80c365dda1fc57d42ad748235421">fat32.h</a>
+, <a class="el" href="directory_8c.html#af38e80c365dda1fc57d42ad748235421">directory.c</a>
 </li>
 <li>parse_pvd()
 : <a class="el" href="iso9660_8c.html#a05ce30664507442d8f3f5accd19aa975">iso9660.c</a>
 </li>
 <li>parse_shitty_lfn_entry()
-: <a class="el" href="fat32_8c.html#a154b6991e5c3e7e4683127ebd47d5883">fat32.c</a>
+: <a class="el" href="fat32_8h.html#a154b6991e5c3e7e4683127ebd47d5883">fat32.h</a>
+, <a class="el" href="lfn_8c.html#a154b6991e5c3e7e4683127ebd47d5883">lfn.c</a>
 </li>
 <li>parse_short_name()
-: <a class="el" href="fat32_8c.html#ab4c188f68625ee95f466fdef2e34a53d">fat32.c</a>
+: <a class="el" href="fat32_8h.html#ab4c188f68625ee95f466fdef2e34a53d">fat32.h</a>
+, <a class="el" href="lfn_8c.html#ab4c188f68625ee95f466fdef2e34a53d">lfn.c</a>
 </li>
 <li>parse_svd()
 : <a class="el" href="iso9660_8c.html#a3fbedc5f73fed33bff13269bcd610a4e">iso9660.c</a>
@@ -230,8 +233,8 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 : <a class="el" href="idt_8c.html#af3dcd40ab20d43c39d9c85774f4d5e7c">idt.c</a>
 </li>
 <li>pixel_address()
-: <a class="el" href="video_8h.html#a50db84ae45ebaba89b42e155676a8bcb">video.h</a>
-, <a class="el" href="video_8c.html#a50db84ae45ebaba89b42e155676a8bcb">video.c</a>
+: <a class="el" href="video_8c.html#a50db84ae45ebaba89b42e155676a8bcb">video.c</a>
+, <a class="el" href="video_8h.html#a50db84ae45ebaba89b42e155676a8bcb">video.h</a>
 </li>
 <li>plot_char_scaled_canvas()
 : <a class="el" href="fb_8c.html#a1137f8bb2c780f3770040243018a5635">fb.c</a>
@@ -249,19 +252,34 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 : <a class="el" href="graphics_8c.html#aac9bc0dba397b4dea8ee50a61e480aea">graphics.c</a>
 </li>
 <li>plot_statement()
-: <a class="el" href="graphics_8c.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">graphics.c</a>
-, <a class="el" href="basic_8h.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">basic.h</a>
+: <a class="el" href="graphics_8h.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">graphics.h</a>
+, <a class="el" href="graphics_8c.html#aa8bc7cf7ea28fa42974f3b02179e2ba1">graphics.c</a>
+</li>
+<li>pm_timer_available()
+: <a class="el" href="acpi_8c.html#a5a461f27ddfa838c8cd38d81274ae558">acpi.c</a>
+, <a class="el" href="acpi_8h.html#a5a461f27ddfa838c8cd38d81274ae558">acpi.h</a>
+</li>
+<li>pm_timer_delta()
+: <a class="el" href="lapic__timer_8c.html#af7414fc34087dfd4ec4b4e70f7478f42">lapic_timer.c</a>
+</li>
+<li>pm_timer_is_32_bit()
+: <a class="el" href="acpi_8c.html#add7731ecb0ce4dd0dd355c12ce729f18">acpi.c</a>
+, <a class="el" href="acpi_8h.html#add7731ecb0ce4dd0dd355c12ce729f18">acpi.h</a>
+</li>
+<li>pm_timer_read()
+: <a class="el" href="acpi_8h.html#af7e5a9c0a667bd0511af43cbde2c340d">acpi.h</a>
+, <a class="el" href="acpi_8c.html#af7e5a9c0a667bd0511af43cbde2c340d">acpi.c</a>
 </li>
 <li>point_statement()
-: <a class="el" href="graphics_8c.html#a13e735601b49512ba7d757f3dcdbc067">graphics.c</a>
-, <a class="el" href="basic_8h.html#a13e735601b49512ba7d757f3dcdbc067">basic.h</a>
+: <a class="el" href="graphics_8h.html#a13e735601b49512ba7d757f3dcdbc067">graphics.h</a>
+, <a class="el" href="graphics_8c.html#a13e735601b49512ba7d757f3dcdbc067">graphics.c</a>
 </li>
 <li>polarity_str()
 : <a class="el" href="acpi_8h.html#a8f12bf635ed1f6ad67ac890e47dbeb93">acpi.h</a>
 , <a class="el" href="acpi_8c.html#a8f12bf635ed1f6ad67ac890e47dbeb93">acpi.c</a>
 </li>
 <li>pop_statement()
-: <a class="el" href="basic_8h.html#ae5c7d95dad0bc7d5fd85db9c9fec3361">basic.h</a>
+: <a class="el" href="array_8h.html#ae5c7d95dad0bc7d5fd85db9c9fec3361">array.h</a>
 , <a class="el" href="array_8c.html#ae5c7d95dad0bc7d5fd85db9c9fec3361">array.c</a>
 </li>
 <li>port_rebase()
@@ -280,23 +298,26 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 , <a class="el" href="kmalloc_8c.html#a56ae8e632dd1a93d76e4a9b9f265f3a2">kmalloc.c</a>
 </li>
 <li>print_statement()
-: <a class="el" href="basic_8h.html#abffec674ac0197db69350612d5ced1d3">basic.h</a>
+: <a class="el" href="console_8h.html#abffec674ac0197db69350612d5ced1d3">console.h</a>
 , <a class="el" href="console_8c.html#abffec674ac0197db69350612d5ced1d3">console.c</a>
 </li>
 <li>printable_syntax()
-: <a class="el" href="console_8c.html#abe611781260b7e77b7926597565b2f2d">console.c</a>
-, <a class="el" href="basic_8h.html#abe611781260b7e77b7926597565b2f2d">basic.h</a>
+: <a class="el" href="context_8h.html#abe611781260b7e77b7926597565b2f2d">context.h</a>
+, <a class="el" href="console_8c.html#abe611781260b7e77b7926597565b2f2d">console.c</a>
 </li>
 <li>printf()
 : <a class="el" href="printf_8h.html#ae4f3b5a019e2549fa1dcb84c2a4e99b8">printf.h</a>
 , <a class="el" href="printf_8c.html#a55f3d956bb2ba20b5059e9e25484a47f">printf.c</a>
 </li>
+<li>prng32()
+: <a class="el" href="installer_8c.html#a33bab6ce08436834bd42c7002de041d8">installer.c</a>
+</li>
 <li>probe_port()
 : <a class="el" href="ahci_8c.html#ad10b16704569d6cb8adbfa9d5045bd1d">ahci.c</a>
 </li>
 <li>proc_cur()
-: <a class="el" href="taskswitch_8h.html#aa8769acde79d259426e68e9e4fba6544">taskswitch.h</a>
-, <a class="el" href="taskswitch_8c.html#aa8769acde79d259426e68e9e4fba6544">taskswitch.c</a>
+: <a class="el" href="taskswitch_8c.html#aa8769acde79d259426e68e9e4fba6544">taskswitch.c</a>
+, <a class="el" href="taskswitch_8h.html#aa8769acde79d259426e68e9e4fba6544">taskswitch.h</a>
 </li>
 <li>proc_ended()
 : <a class="el" href="taskswitch_8h.html#a7844baa5edadb538de03bc3494e947cc">taskswitch.h</a>
@@ -334,8 +355,8 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 , <a class="el" href="taskswitch_8c.html#ad2dd4ffab2aaabd37998ec3b3216af48">taskswitch.c</a>
 </li>
 <li>proc_run()
-: <a class="el" href="taskswitch_8h.html#abb94173794194e3382dc5482b7e0aa62">taskswitch.h</a>
-, <a class="el" href="taskswitch_8c.html#abb94173794194e3382dc5482b7e0aa62">taskswitch.c</a>
+: <a class="el" href="taskswitch_8c.html#abb94173794194e3382dc5482b7e0aa62">taskswitch.c</a>
+, <a class="el" href="taskswitch_8h.html#abb94173794194e3382dc5482b7e0aa62">taskswitch.h</a>
 </li>
 <li>proc_run_next()
 : <a class="el" href="taskswitch_8c.html#af07a4cb6343c2ca5228d36287bd60a91">taskswitch.c</a>
@@ -344,8 +365,12 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 : <a class="el" href="taskswitch_8h.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff">taskswitch.h</a>
 , <a class="el" href="taskswitch_8c.html#aa0340f929d97ebceb2e0d7eaa9d4d3ff">taskswitch.c</a>
 </li>
+<li>proc_set_idle()
+: <a class="el" href="taskswitch_8h.html#a837266f5243f7240269b77b0298afbe2">taskswitch.h</a>
+, <a class="el" href="taskswitch_8c.html#a8b4483bf423dcb85ed4e0abdfe07ad07">taskswitch.c</a>
+</li>
 <li>proc_statement()
-: <a class="el" href="basic_8h.html#adeda5bab28da3cd45cffea5d21407903">basic.h</a>
+: <a class="el" href="flow__control_8h.html#adeda5bab28da3cd45cffea5d21407903">flow_control.h</a>
 , <a class="el" href="function_8c.html#adeda5bab28da3cd45cffea5d21407903">function.c</a>
 </li>
 <li>proc_timer()
@@ -367,8 +392,8 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 : <a class="el" href="taskswitch_8c.html#a52e01dc185bad0060a679bb691f0f908">taskswitch.c</a>
 </li>
 <li>push_statement()
-: <a class="el" href="basic_8h.html#abecee5383a8df1f74a1cc79af744020d">basic.h</a>
-, <a class="el" href="array_8c.html#abecee5383a8df1f74a1cc79af744020d">array.c</a>
+: <a class="el" href="array_8c.html#abecee5383a8df1f74a1cc79af744020d">array.c</a>
+, <a class="el" href="array_8h.html#abecee5383a8df1f74a1cc79af744020d">array.h</a>
 </li>
 <li>push_to_buffer()
 : <a class="el" href="keyboard_8c.html#adaa23568614e9de5ba0771d8515b86b8">keyboard.c</a>
@@ -394,7 +419,7 @@ $(document).ready(function(){initNavTree('globals_func_p.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:13 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('structub__var__generic__array.html',''
 <p>A generic array, we can use this to represent any array regardless of its contained type.  
  <a href="structub__var__generic__array.html#details">More...</a></p>
 
-<p><code>#include &lt;basic.h&gt;</code></p>
+<p><code>#include &lt;structs.h&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for ub_var_generic_array:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -106,16 +106,21 @@ $(document).ready(function(){initNavTree('structub__var__generic__array.html',''
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:af21e1d4abdb6f71f64710b97dd7449b2"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__generic__array.html#af21e1d4abdb6f71f64710b97dd7449b2">itemcount</a></td></tr>
+<tr class="memdesc:af21e1d4abdb6f71f64710b97dd7449b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of items in the array.  <a href="structub__var__generic__array.html#af21e1d4abdb6f71f64710b97dd7449b2">More...</a><br /></td></tr>
 <tr class="separator:af21e1d4abdb6f71f64710b97dd7449b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3facefcc76b7d5683d635404b0f914a5"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__generic__array.html#a3facefcc76b7d5683d635404b0f914a5">varname</a></td></tr>
+<tr class="memdesc:a3facefcc76b7d5683d635404b0f914a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the generic array variable.  <a href="structub__var__generic__array.html#a3facefcc76b7d5683d635404b0f914a5">More...</a><br /></td></tr>
 <tr class="separator:a3facefcc76b7d5683d635404b0f914a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac74a5a05b7300ef7b4149024019b5bf8"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__generic__array.html#ac74a5a05b7300ef7b4149024019b5bf8">values_inaccesible</a></td></tr>
+<tr class="memdesc:ac74a5a05b7300ef7b4149024019b5bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic pointer to the array values.  <a href="structub__var__generic__array.html#ac74a5a05b7300ef7b4149024019b5bf8">More...</a><br /></td></tr>
 <tr class="separator:ac74a5a05b7300ef7b4149024019b5bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c907ab5774af24b24c04528fa84a44e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structub__var__generic__array.html">ub_var_generic_array</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structub__var__generic__array.html#a7c907ab5774af24b24c04528fa84a44e">next</a></td></tr>
+<tr class="memdesc:a7c907ab5774af24b24c04528fa84a44e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next generic array (for chaining)  <a href="structub__var__generic__array.html#a7c907ab5774af24b24c04528fa84a44e">More...</a><br /></td></tr>
 <tr class="separator:a7c907ab5774af24b24c04528fa84a44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A generic array, we can use this to represent any array regardless of its contained type. </p>
+<p>This structure represents a generic array in the BASIC interpreter, where the type of values stored is not specified, allowing flexibility in handling various types of arrays. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="af21e1d4abdb6f71f64710b97dd7449b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af21e1d4abdb6f71f64710b97dd7449b2">&#9670;&nbsp;</a></span>itemcount</h2>
@@ -128,6 +133,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Number of items in the array. </p>
 
 </div>
 </div>
@@ -143,6 +150,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the next generic array (for chaining) </p>
+
 </div>
 </div>
 <a id="ac74a5a05b7300ef7b4149024019b5bf8"></a>
@@ -156,6 +165,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>A generic pointer to the array values. </p>
 
 </div>
 </div>
@@ -171,6 +182,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Name of the generic array variable. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -179,7 +192,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structub__var__generic__array.html">ub_var_generic_array</a></li>
-    <li class="footer">Generated on Tue Aug 5 2025 05:31:12 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sun Aug 10 2025 23:30:45 for Retro Rocket Kernel by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -6,43 +6,59 @@
     <includedby refid="filesystem_8c" local="no">filesystem.c</includedby>
     <includedby refid="iso9660_8c" local="no">iso9660.c</includedby>
     <invincdepgraph>
-      <node id="94">
+      <node id="123">
         <label>memcpy.c</label>
         <link refid="memcpy_8c"/>
       </node>
-      <node id="55">
+      <node id="72">
         <label>console.c</label>
         <link refid="console_8c"/>
       </node>
-      <node id="67">
+      <node id="85">
         <label>reflection.c</label>
         <link refid="reflection_8c"/>
       </node>
-      <node id="71">
+      <node id="108">
+        <label>main.c</label>
+        <link refid="fs_2fat32_2main_8c"/>
+      </node>
+      <node id="104">
+        <label>createfile.c</label>
+        <link refid="fat32_2createfile_8c"/>
+      </node>
+      <node id="50">
+        <label>helpers.c</label>
+        <link refid="helpers_8c"/>
+      </node>
+      <node id="89">
         <label>tokenizer.c</label>
         <link refid="tokenizer_8c"/>
       </node>
-      <node id="76">
+      <node id="96">
         <label>errorhandler.c</label>
         <link refid="errorhandler_8c"/>
       </node>
-      <node id="39">
+      <node id="42">
         <label>ramdisk.h</label>
         <link refid="ramdisk_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="83">
+      <node id="103">
+        <label>cluster.c</label>
+        <link refid="cluster_8c"/>
+      </node>
+      <node id="113">
         <label>filesystem.c</label>
         <link refid="filesystem_8c"/>
       </node>
-      <node id="72">
+      <node id="90">
         <label>variable.c</label>
         <link refid="variable_8c"/>
       </node>
-      <node id="86">
-        <label>retrofs.c</label>
-        <link refid="retrofs_8c"/>
+      <node id="55">
+        <label>unlinkdirectory.c</label>
+        <link refid="unlinkdirectory_8c"/>
       </node>
       <node id="3">
         <label>acpi.h</label>
@@ -50,7 +66,7 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="108">
+      <node id="137">
         <label>random.c</label>
         <link refid="random_8c"/>
       </node>
@@ -60,165 +76,199 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="13">
         <label>dns.h</label>
         <link refid="dns_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="102">
+      <node id="131">
         <label>net.c</label>
         <link refid="net_8c"/>
       </node>
-      <node id="15">
+      <node id="17">
         <label>fat32.h</label>
         <link refid="fat32_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="27">
         <label>interrupt.c</label>
         <link refid="interrupt_8c"/>
       </node>
-      <node id="48">
+      <node id="65">
         <label>udp.h</label>
         <link refid="udp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="107">
+      <node id="136">
         <label>printf.c</label>
         <link refid="printf_8c"/>
       </node>
-      <node id="60">
+      <node id="78">
         <label>function.c</label>
         <link refid="function_8c"/>
       </node>
-      <node id="27">
+      <node id="29">
         <label>iso9660.h</label>
         <link refid="iso9660_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="44">
+      <node id="61">
         <label>tcp.h</label>
         <link refid="tcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="112">
+      <node id="141">
         <label>taskswitch.c</label>
         <link refid="taskswitch_8c"/>
       </node>
-      <node id="19">
+      <node id="21">
         <label>hashmap.c</label>
         <link refid="hashmap_8c"/>
       </node>
-      <node id="103">
+      <node id="132">
         <label>queue.c</label>
         <link refid="queue_8c"/>
       </node>
-      <node id="9">
+      <node id="11">
         <label>devicename.h</label>
         <link refid="devicename_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="48">
+        <label>fsmap.c</label>
+        <link refid="fsmap_8c"/>
+      </node>
+      <node id="14">
         <label>drawing.h</label>
         <link refid="drawing_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="118">
         <label>input.c</label>
         <link refid="input_8c"/>
       </node>
-      <node id="110">
+      <node id="47">
+        <label>format.c</label>
+        <link refid="format_8c"/>
+      </node>
+      <node id="139">
         <label>stdlib.c</label>
         <link refid="stdlib_8c"/>
       </node>
-      <node id="6">
-        <label>basic_tokenizer.h</label>
-        <link refid="basic__tokenizer_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="112">
+        <label>writefile.c</label>
+        <link refid="fat32_2writefile_8c"/>
       </node>
-      <node id="65">
+      <node id="83">
         <label>maths.c</label>
         <link refid="basic_2maths_8c"/>
       </node>
-      <node id="100">
+      <node id="129">
         <label>icmp.c</label>
         <link refid="icmp_8c"/>
       </node>
-      <node id="42">
+      <node id="91">
+        <label>buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+      </node>
+      <node id="57">
         <label>rtl8139.h</label>
         <link refid="rtl8139_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="101">
+      <node id="130">
         <label>ip.c</label>
         <link refid="ip_8c"/>
       </node>
-      <node id="91">
+      <node id="120">
         <label>keyboard.c</label>
         <link refid="keyboard_8c"/>
       </node>
-      <node id="56">
+      <node id="74">
         <label>debugger.c</label>
         <link refid="basic_2debugger_8c"/>
       </node>
-      <node id="58">
+      <node id="46">
+        <label>createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="76">
         <label>file_io.c</label>
         <link refid="file__io_8c"/>
       </node>
-      <node id="97">
+      <node id="53">
+        <label>truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="93">
+        <label>debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="102">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="101">
+        <label>debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="126">
         <label>descriptor.c</label>
         <link refid="descriptor_8c"/>
       </node>
-      <node id="68">
+      <node id="86">
         <label>sockets.c</label>
         <link refid="sockets_8c"/>
       </node>
-      <node id="114">
+      <node id="143">
         <label>video.c</label>
         <link refid="video_8c"/>
       </node>
-      <node id="49">
+      <node id="54">
+        <label>unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="66">
         <label>acpi.c</label>
         <link refid="acpi_8c"/>
       </node>
-      <node id="61">
+      <node id="79">
         <label>graphics.c</label>
         <link refid="graphics_8c"/>
       </node>
-      <node id="93">
+      <node id="122">
         <label>maths.c</label>
         <link refid="maths_8c"/>
       </node>
-      <node id="33">
+      <node id="51">
+        <label>main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="35">
         <label>e1000.c</label>
         <link refid="e1000_8c"/>
       </node>
-      <node id="74">
+      <node id="94">
         <label>debugger.c</label>
         <link refid="debugger_8c"/>
       </node>
-      <node id="57">
+      <node id="75">
         <label>double_expression.c</label>
         <link refid="double__expression_8c"/>
       </node>
-      <node id="113">
+      <node id="142">
         <label>timer.c</label>
         <link refid="timer_8c"/>
-      </node>
-      <node id="82">
-        <label>fat32.c</label>
-        <link refid="fat32_8c"/>
       </node>
       <node id="8">
         <label>cv.h</label>
@@ -226,189 +276,223 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="106">
+      <node id="135">
         <label>pci.c</label>
         <link refid="pci_8c"/>
       </node>
-      <node id="62">
+      <node id="80">
         <label>int_expression.c</label>
         <link refid="int__expression_8c"/>
       </node>
-      <node id="38">
+      <node id="41">
         <label>printf.h</label>
         <link refid="printf_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="15">
         <label>e1000.h</label>
         <link refid="e1000_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="31">
         <label>lapic_timer.h</label>
         <link refid="lapic__timer_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="78">
+      <node id="98">
         <label>fb.c</label>
         <link refid="fb_8c"/>
       </node>
-      <node id="96">
+      <node id="125">
         <label>debug.c</label>
         <link refid="debug_8c"/>
       </node>
-      <node id="54">
+      <node id="71">
         <label>array.c</label>
         <link refid="array_8c"/>
       </node>
-      <node id="21">
+      <node id="23">
         <label>initialisation-functions.h</label>
         <link refid="initialisation-functions_8h"/>
-        <childnode refid="22" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="95">
+      <node id="124">
         <label>arp.c</label>
         <link refid="arp_8c"/>
       </node>
-      <node id="16">
+      <node id="18">
         <label>fpu.h</label>
         <link refid="fpu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="80">
+      <node id="107">
+        <label>lfn.c</label>
+        <link refid="lfn_8c"/>
+      </node>
+      <node id="59">
+        <label>serial.c</label>
+        <link refid="serial_8c"/>
+      </node>
+      <node id="58">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
         <label>fpu.c</label>
         <link refid="fpu_8c"/>
       </node>
-      <node id="90">
+      <node id="119">
         <label>ioapic.c</label>
         <link refid="ioapic_8c"/>
       </node>
-      <node id="20">
+      <node id="22">
         <label>icmp.h</label>
         <link refid="icmp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="46">
+      <node id="63">
         <label>kmalloc.c</label>
         <link refid="kmalloc_8c"/>
       </node>
-      <node id="87">
+      <node id="116">
         <label>gdt.c</label>
         <link refid="gdt_8c"/>
       </node>
-      <node id="34">
+      <node id="36">
         <label>mmio.c</label>
         <link refid="mmio_8c"/>
       </node>
-      <node id="98">
+      <node id="127">
         <label>dhcp.c</label>
         <link refid="dhcp_8c"/>
       </node>
-      <node id="32">
+      <node id="34">
         <label>mmio.h</label>
         <link refid="mmio_8h"/>
-        <childnode refid="33" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="28">
         <label>ip.h</label>
         <link refid="ip_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="63">
+      <node id="81">
         <label>lowlevel.c</label>
         <link refid="lowlevel_8c"/>
       </node>
-      <node id="53">
+      <node id="70">
         <label>ata.c</label>
         <link refid="ata_8c"/>
       </node>
-      <node id="70">
+      <node id="49">
+        <label>getdirectory.c</label>
+        <link refid="getdirectory_8c"/>
+      </node>
+      <node id="88">
         <label>string_expression.c</label>
         <link refid="string__expression_8c"/>
       </node>
-      <node id="47">
+      <node id="64">
         <label>tinyalloc.c</label>
         <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="73">
+        <label>datetime.c</label>
+        <link refid="datetime_8c"/>
       </node>
       <node id="1">
         <label>filesystem.h</label>
         <link refid="filesystem_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="83" relation="include">
+        <childnode refid="113" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="109">
+      <node id="138">
         <label>rtl8139.c</label>
         <link refid="rtl8139_8c"/>
       </node>
-      <node id="59">
+      <node id="77">
         <label>flow_control.c</label>
         <link refid="flow__control_8c"/>
       </node>
-      <node id="30">
+      <node id="32">
         <label>maths.h</label>
         <link refid="maths_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="88">
+      <node id="10">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="117">
         <label>idt.c</label>
         <link refid="idt_8c"/>
       </node>
-      <node id="81">
-        <label>devfs.c</label>
-        <link refid="devfs_8c"/>
-      </node>
-      <node id="85">
+      <node id="115">
         <label>ramdisk.c</label>
         <link refid="ramdisk_8c"/>
       </node>
-      <node id="22">
+      <node id="24">
         <label>init.c</label>
         <link refid="init_8c"/>
       </node>
-      <node id="45">
+      <node id="62">
         <label>tinyalloc.h</label>
         <link refid="tinyalloc_8h"/>
-        <childnode refid="46" relation="include">
+        <childnode refid="63" relation="include">
         </childnode>
-        <childnode refid="47" relation="include">
+        <childnode refid="64" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="30">
         <label>iso9660.c</label>
         <link refid="iso9660_8c"/>
       </node>
-      <node id="104">
+      <node id="133">
         <label>tcp.c</label>
         <link refid="tcp_8c"/>
       </node>
-      <node id="105">
+      <node id="45">
+        <label>createdirectory.c</label>
+        <link refid="createdirectory_8c"/>
+      </node>
+      <node id="134">
         <label>udp.c</label>
         <link refid="udp_8c"/>
       </node>
-      <node id="14">
+      <node id="106">
+        <label>fat.c</label>
+        <link refid="fat_8c"/>
+      </node>
+      <node id="16">
         <label>ethernet.h</label>
         <link refid="ethernet_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="79">
+      <node id="99">
         <label>flanterm.c</label>
         <link refid="flanterm_8c"/>
       </node>
@@ -445,33 +529,31 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
@@ -483,41 +565,15 @@
         </childnode>
         <childnode refid="44" relation="include">
         </childnode>
-        <childnode refid="45" relation="include">
-        </childnode>
-        <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="52" relation="include">
-        </childnode>
-        <childnode refid="53" relation="include">
-        </childnode>
-        <childnode refid="54" relation="include">
-        </childnode>
-        <childnode refid="55" relation="include">
-        </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
         <childnode refid="57" relation="include">
         </childnode>
         <childnode refid="58" relation="include">
-        </childnode>
-        <childnode refid="59" relation="include">
         </childnode>
         <childnode refid="60" relation="include">
         </childnode>
         <childnode refid="61" relation="include">
         </childnode>
         <childnode refid="62" relation="include">
-        </childnode>
-        <childnode refid="63" relation="include">
-        </childnode>
-        <childnode refid="64" relation="include">
         </childnode>
         <childnode refid="65" relation="include">
         </childnode>
@@ -539,11 +595,7 @@
         </childnode>
         <childnode refid="74" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
         <childnode refid="75" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="76" relation="include">
         </childnode>
@@ -561,8 +613,6 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="85" relation="include">
@@ -575,15 +625,9 @@
         </childnode>
         <childnode refid="89" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
         <childnode refid="90" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="91" relation="include">
-        </childnode>
-        <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="92" relation="include">
         </childnode>
@@ -591,7 +635,11 @@
         </childnode>
         <childnode refid="94" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
         <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="96" relation="include">
         </childnode>
@@ -629,106 +677,230 @@
         </childnode>
         <childnode refid="113" relation="include">
         </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
         <childnode refid="114" relation="include">
         </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
       </node>
-      <node id="52">
+      <node id="69">
         <label>apic.c</label>
         <link refid="apic_8c"/>
       </node>
-      <node id="31">
+      <node id="33">
         <label>memcpy.h</label>
         <link refid="memcpy_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="38">
         <label>partition.h</label>
         <link refid="partition_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
       </node>
-      <node id="40">
+      <node id="43">
         <label>random.h</label>
         <link refid="random_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="73">
+      <node id="92">
         <label>clock.c</label>
         <link refid="clock_8c"/>
       </node>
-      <node id="51">
+      <node id="9">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
         <label>ap.c</label>
         <link refid="ap_8c"/>
       </node>
-      <node id="18">
+      <node id="20">
         <label>devicename.c</label>
         <link refid="devicename_8c"/>
       </node>
-      <node id="84">
+      <node id="114">
         <label>partition.c</label>
         <link refid="partition_8c"/>
       </node>
-      <node id="43">
+      <node id="60">
         <label>taskswitch.h</label>
         <link refid="taskswitch_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="66">
+      <node id="111">
+        <label>unlinkfile.c</label>
+        <link refid="unlinkfile_8c"/>
+      </node>
+      <node id="84">
         <label>process.c</label>
         <link refid="process_8c"/>
       </node>
-      <node id="69">
+      <node id="87">
         <label>string.c</label>
         <link refid="basic_2string_8c"/>
       </node>
-      <node id="17">
+      <node id="19">
         <label>hashmap.h</label>
         <link refid="hashmap_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="37">
         <label>net.h</label>
         <link refid="net_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="64">
+      <node id="82">
         <label>main.c</label>
-        <link refid="main_8c"/>
+        <link refid="basic_2main_8c"/>
       </node>
-      <node id="24">
+      <node id="105">
+        <label>directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="109">
+        <label>readfile.c</label>
+        <link refid="fat32_2readfile_8c"/>
+      </node>
+      <node id="26">
         <label>interrupt.h</label>
         <link refid="interrupt_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="77">
+      <node id="97">
         <label>ethernet.c</label>
         <link refid="ethernet_8c"/>
       </node>
-      <node id="99">
+      <node id="110">
+        <label>truncatefile.c</label>
+        <link refid="fat32_2truncatefile_8c"/>
+      </node>
+      <node id="128">
         <label>dns.c</label>
         <link refid="dns_8c"/>
       </node>
-      <node id="23">
+      <node id="6">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
         <label>kernel.c</label>
         <link refid="kernel_8c"/>
       </node>
-      <node id="50">
+      <node id="67">
         <label>ahci.c</label>
         <link refid="ahci_8c"/>
       </node>
-      <node id="37">
+      <node id="40">
         <label>pci.h</label>
         <link refid="pci_8h"/>
         <childnode refid="2" relation="include">
@@ -740,28 +912,56 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="12">
         <label>dhcp.h</label>
         <link refid="dhcp_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="111">
+      <node id="140">
         <label>string.c</label>
         <link refid="string_8c"/>
       </node>
-      <node id="92">
+      <node id="121">
         <label>lapic_timer.c</label>
         <link refid="lapic__timer_8c"/>
       </node>
-      <node id="75">
+      <node id="39">
+        <label>installer.c</label>
+        <link refid="installer_8c"/>
+      </node>
+      <node id="95">
         <label>drawing.c</label>
         <link refid="drawing_8c"/>
       </node>
-      <node id="41">
+      <node id="44">
         <label>retrofs.h</label>
         <link refid="retrofs_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
         </childnode>
       </node>
       <node id="7">
@@ -769,6 +969,14 @@
         <link refid="clock_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="56">
+        <label>writefile.c</label>
+        <link refid="retrofs_2writefile_8c"/>
+      </node>
+      <node id="52">
+        <label>readfile.c</label>
+        <link refid="retrofs_2readfile_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structfs__directory__entry__t" prot="public">fs_directory_entry_t</innerclass>
@@ -880,6 +1088,270 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
+      <memberdef kind="enum" id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319" prot="public" static="no" strong="no">
+        <type></type>
+        <name>fs_error_t</name>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a5bf93d1f36209dae714b008b1079913d" prot="public">
+          <name>FS_ERR_NO_ERROR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319acf8a9e8e5dda5c68584bf91901816ac0" prot="public">
+          <name>FS_ERR_UNSUPPORTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a242ca8f72d3e1a5e0bb0ed275257f6de" prot="public">
+          <name>FS_ERR_NO_MORE_FDS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a4c0eb16aa554b7273877763117b0c011" prot="public">
+          <name>FS_ERR_INVALID_FD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a81a0cc60142ee140efd2e499415aa4de" prot="public">
+          <name>FS_ERR_INVALID_ARG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319ae07df63ab8123964451f01ed4f1bb2bb" prot="public">
+          <name>FS_ERR_NO_SUCH_DIRECTORY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319af23c1c48a6b1aa349491acb092084e11" prot="public">
+          <name>FS_ERR_INVALID_FILEPATH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a9054b69442dfcc02039b0dad7cf455de" prot="public">
+          <name>FS_ERR_FILE_EXISTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319abf1b764703700df9d856b7e58ec03340" prot="public">
+          <name>FS_ERR_OUT_OF_MEMORY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319aba347b1619b82c5a71af5776b6320bc4" prot="public">
+          <name>FS_ERR_IO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a046bf18d686ad7cf178ceccf5db685a5" prot="public">
+          <name>FS_ERR_SEEK_PAST_END</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a97b7d9e60697868aadc8605f5ce73d6a" prot="public">
+          <name>FS_ERR_NOT_OPEN_FOR_OUTPUT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a2c948ad2eaf10d8f3642b0c68eb67d61" prot="public">
+          <name>FS_ERR_NOT_OPEN_FOR_INPUT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a58837b7f292b41883170164f562b8825" prot="public">
+          <name>FS_ERR_TRUNCATE_BEYOND_LENGTH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a052398cb7e76456a102172ce084cd87b" prot="public">
+          <name>FS_ERR_NO_SUCH_FILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319afd11fac34ca0d8fa47b297e37e9a4415" prot="public">
+          <name>FS_ERR_INVALID_FILENAME</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a7b362a8004cb0f4c5a5422ec3c0637c0" prot="public">
+          <name>FS_ERR_CYCLE_DETECTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a3e3ed4afda455da55b887f140ddf605e" prot="public">
+          <name>FS_ERR_BROKEN_DIRECTORY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319adc05c65460ff5f4c2f4b50f27cac09b1" prot="public">
+          <name>FS_ERR_INVALID_GEOMETRY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a6089bd4be181a4d28fc0ef6b9592f9ea" prot="public">
+          <name>FS_ERR_NO_SPACE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a9a3de26f17783ca8eb8842f1a8ba7c7c" prot="public">
+          <name>FS_ERR_OUTSIDE_VOLUME</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a717738d5d64974c4a5da5960258ea8d0" prot="public">
+          <name>FS_ERR_NOT_RFS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319aa4166a341ac67b910e2e5a5c9f42cd16" prot="public">
+          <name>FS_ERR_NOT_A_FILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a7e1f1bb055c8e1b0c8aa7f8f0aab77aa" prot="public">
+          <name>FS_ERR_VFS_DATA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a2bae637b8bc83f79dfc7e4e79cc4dd91" prot="public">
+          <name>FS_ERR_NOT_A_DIRECTORY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a7900b2a0147cc61339de710fe06a6a07" prot="public">
+          <name>FS_ERR_DIRECTORY_NOT_EMPTY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a10db9e0f2dc39aa117cafb81a98fd796" prot="public">
+          <name>FS_ERR_FILE_HAS_VANISHED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a6387ff6cd9df1ef4bd9ce3980937f9ba" prot="public">
+          <name>FS_ERR_DIRECTORY_EXISTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a9ed1c268cedef74824bb4fce01091fdc" prot="public">
+          <name>FS_ERR_INVALID_PVD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a6a4b0f71229fc19c6d3ff06bcfb44460" prot="public">
+          <name>FS_ERR_INVALID_SVD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a31570c607fec61d6204f152df5d247c1" prot="public">
+          <name>FS_ERR_OVERSIZED_DIRECTORY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319ac3109714875805a155d93b2bb70ebd9b" prot="public">
+          <name>FS_ERR_BUFFER_WOULD_OVERFLOW</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319ad2f843422eadb25d3679a536dc87dc35" prot="public">
+          <name>FS_ERR_NO_SUCH_DEVICE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a1067d73be030e98f1916209e8b091b84" prot="public">
+          <name>FS_ERR_LFN_TOO_LONG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a10138bb5a366ed5d4853a9f7f07b54de" prot="public">
+          <name>FS_ERR_IS_EXFAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319a00956205568c812c36eb888f92819665" prot="public">
+          <name>FS_ERR_BAD_CLUSTER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="48" column="1" bodyfile="include/filesystem.h" bodystart="48" bodyend="85"/>
+      </memberdef>
       <memberdef kind="enum" id="filesystem_8h_1a9d25bbf2120c5e2876b6c34e297336d3" prot="public" static="no" strong="no">
         <type></type>
         <name>fs_handle_type_t</name>
@@ -914,7 +1386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="268" column="1" bodyfile="include/filesystem.h" bodystart="268" bodyend="284"/>
+        <location file="include/filesystem.h" line="332" column="1" bodyfile="include/filesystem.h" bodystart="332" bodyend="348"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -1048,6 +1520,19 @@
         </inbodydescription>
         <location file="include/filesystem.h" line="41" column="9" bodyfile="include/filesystem.h" bodystart="41" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="typedef" id="filesystem_8h_1ad0cfa0bbd250806815c46201b765059d" prot="public" static="no">
+        <type>uint64_t(*</type>
+        <definition>typedef uint64_t(* get_free_space) (void *)</definition>
+        <argsstring>)(void *)</argsstring>
+        <name>get_free_space</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="42" column="9" bodyfile="include/filesystem.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="typedef" id="filesystem_8h_1aedade13300b3b7656d01691660c3d275" prot="public" static="no">
         <type>int(*</type>
         <definition>typedef int(* block_read) (void *, uint64_t, uint32_t, unsigned char *)</definition>
@@ -1059,7 +1544,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="44" column="9" bodyfile="include/filesystem.h" bodystart="44" bodyend="-1"/>
+        <location file="include/filesystem.h" line="45" column="9" bodyfile="include/filesystem.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="filesystem_8h_1afbf0a8246b98b1f4ddca666aeb3fae3d" prot="public" static="no">
         <type>int(*</type>
@@ -1072,10 +1557,43 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="45" column="9" bodyfile="include/filesystem.h" bodystart="45" bodyend="-1"/>
+        <location file="include/filesystem.h" line="46" column="9" bodyfile="include/filesystem.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
+      <memberdef kind="function" id="filesystem_8h_1a389259c7565d2dd06c28fecfacc60210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* fs_strerror</definition>
+        <argsstring>(fs_error_t err)</argsstring>
+        <name>fs_strerror</name>
+        <param>
+          <type><ref refid="filesystem_8h_1a79fd0fac619cec4fd3447512e1b2d319" kindref="member">fs_error_t</ref></type>
+          <declname>err</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve a human-readable string for the last filesystem error code. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function maps an fs_error_t code to its corresponding descriptive string. It does not reset or clear the error code — the last error value is retained until a new filesystem error is set via <ref refid="filesystem_8h_1a59cfed9fdbdd4476b57fdf0a163e0a48" kindref="member">fs_set_error()</ref>.</para>
+<para><simplesect kind="note"><para>The validity of the returned error string depends on the result of the most recent filesystem API call. If a filesystem function returns an error state (e.g. <computeroutput>false</computeroutput> or <computeroutput>0</computeroutput>), you may call this function to retrieve a description of that error. If the function succeeded, the stored error code may be outdated.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>err</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The fs_error_t code to translate into text. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to a static string describing the error, or <computeroutput>&quot;Unknown filesystem error&quot;</computeroutput> if the code is not recognised. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="104" column="12" bodyfile="src/fs/filesystem.c" bodystart="1251" bodyend="1256" declfile="include/filesystem.h" declline="104" declcolumn="12"/>
+      </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a90ae435cc1f4e6cccba5cc179c2bd81c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int register_filesystem</definition>
@@ -1104,7 +1622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="312" column="5" bodyfile="src/fs/filesystem.c" bodystart="16" bodyend="22" declfile="include/filesystem.h" declline="312" declcolumn="5"/>
+        <location file="include/filesystem.h" line="376" column="5" bodyfile="src/fs/filesystem.c" bodystart="64" bodyend="70" declfile="include/filesystem.h" declline="376" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a86db0085cc6c14e76ac68e70b79b3a32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfilesystem__t" kindref="compound">filesystem_t</ref> *</type>
@@ -1134,7 +1652,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="320" column="14" bodyfile="src/fs/filesystem.c" bodystart="24" bodyend="33" declfile="include/filesystem.h" declline="320" declcolumn="14"/>
+        <location file="include/filesystem.h" line="384" column="14" bodyfile="src/fs/filesystem.c" bodystart="72" bodyend="81" declfile="include/filesystem.h" declline="384" declcolumn="14"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a1c947f6ecb49c4c29193dbfb80f48913" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1164,7 +1682,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="328" column="5" bodyfile="src/fs/filesystem.c" bodystart="36" bodyend="43" declfile="include/filesystem.h" declline="328" declcolumn="5"/>
+        <location file="include/filesystem.h" line="392" column="5" bodyfile="src/fs/filesystem.c" bodystart="84" bodyend="91" declfile="include/filesystem.h" declline="392" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a1a11d52abe39eec5ff5057fb568abcaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structstorage__device__t" kindref="compound">storage_device_t</ref> *</type>
@@ -1194,7 +1712,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="336" column="18" bodyfile="src/fs/filesystem.c" bodystart="45" bodyend="54" declfile="include/filesystem.h" declline="336" declcolumn="18"/>
+        <location file="include/filesystem.h" line="400" column="18" bodyfile="src/fs/filesystem.c" bodystart="93" bodyend="102" declfile="include/filesystem.h" declline="400" declcolumn="18"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a8261f6e5dfde2a376851ee5e1d60798a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1260,7 +1778,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="347" column="5" bodyfile="src/fs/filesystem.c" bodystart="56" bodyend="63" declfile="include/filesystem.h" declline="347" declcolumn="5"/>
+        <location file="include/filesystem.h" line="411" column="5" bodyfile="src/fs/filesystem.c" bodystart="110" bodyend="122" declfile="include/filesystem.h" declline="411" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1af0bd536bc656fb56dab8eb32e721375b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1326,7 +1844,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="358" column="5" bodyfile="src/fs/filesystem.c" bodystart="65" bodyend="74" declfile="include/filesystem.h" declline="358" declcolumn="5"/>
+        <location file="include/filesystem.h" line="422" column="5" bodyfile="src/fs/filesystem.c" bodystart="124" bodyend="137" declfile="include/filesystem.h" declline="422" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a603ea722512b12288aaddd6081501dcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1382,7 +1900,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="371" column="5" bodyfile="src/fs/filesystem.c" bodystart="1069" bodyend="1083" declfile="include/filesystem.h" declline="371" declcolumn="5"/>
+        <location file="include/filesystem.h" line="435" column="5" bodyfile="src/fs/filesystem.c" bodystart="1169" bodyend="1184" declfile="include/filesystem.h" declline="435" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a7277c11237470183b5d22fc977185169" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1436,7 +1954,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="381" column="5" bodyfile="src/fs/filesystem.c" bodystart="1132" bodyend="1147" declfile="include/filesystem.h" declline="381" declcolumn="5"/>
+        <location file="include/filesystem.h" line="445" column="5" bodyfile="src/fs/filesystem.c" bodystart="1234" bodyend="1249" declfile="include/filesystem.h" declline="445" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a47cfa7087b707560af1b5a669dfc69b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1450,7 +1968,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="388" column="6" bodyfile="src/fs/filesystem.c" bodystart="1085" bodyend="1118" declfile="include/filesystem.h" declline="388" declcolumn="6"/>
+        <location file="include/filesystem.h" line="452" column="6" bodyfile="src/fs/filesystem.c" bodystart="1186" bodyend="1220" declfile="include/filesystem.h" declline="452" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1aeea14dbba6f8453923e288ece85cf6df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -1480,7 +1998,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="397" column="22" bodyfile="src/fs/filesystem.c" bodystart="1120" bodyend="1124" declfile="include/filesystem.h" declline="397" declcolumn="22"/>
+        <location file="include/filesystem.h" line="461" column="22" bodyfile="src/fs/filesystem.c" bodystart="1222" bodyend="1226" declfile="include/filesystem.h" declline="461" declcolumn="22"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1aba196fffbbe3a92cf3d5d4c7372539ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1512,7 +2030,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="406" column="6" bodyfile="src/fs/filesystem.c" bodystart="1126" bodyend="1130" declfile="include/filesystem.h" declline="406" declcolumn="6"/>
+        <location file="include/filesystem.h" line="470" column="6" bodyfile="src/fs/filesystem.c" bodystart="1228" bodyend="1232" declfile="include/filesystem.h" declline="470" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a93b69bf53951ce16a8e648f238631696" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -1542,7 +2060,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="414" column="22" bodyfile="src/fs/filesystem.c" bodystart="1027" bodyend="1067" declfile="include/filesystem.h" declline="414" declcolumn="22"/>
+        <location file="include/filesystem.h" line="478" column="22" bodyfile="src/fs/filesystem.c" bodystart="1126" bodyend="1167" declfile="include/filesystem.h" declline="478" declcolumn="22"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1af29b0affdc800f4d78ab5e9c60a1726a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -1584,7 +2102,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="423" column="22" bodyfile="src/fs/filesystem.c" bodystart="158" bodyend="248" declfile="include/filesystem.h" declline="423" declcolumn="22"/>
+        <location file="include/filesystem.h" line="487" column="22" bodyfile="src/fs/filesystem.c" bodystart="224" bodyend="319" declfile="include/filesystem.h" declline="487" declcolumn="22"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1ade4787d5728ce138b4f86eae5efe000b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structfs__directory__entry__t" kindref="compound">fs_directory_entry_t</ref> *</type>
@@ -1622,7 +2140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="432" column="22" bodyfile="src/fs/filesystem.c" bodystart="250" bodyend="343" declfile="include/filesystem.h" declline="432" declcolumn="22"/>
+        <location file="include/filesystem.h" line="496" column="22" bodyfile="src/fs/filesystem.c" bodystart="321" bodyend="417" declfile="include/filesystem.h" declline="496" declcolumn="22"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a3692a5983409c6e8f74cbe0c5c3435f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1666,7 +2184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="443" column="5" bodyfile="src/fs/filesystem.c" bodystart="827" bodyend="835" declfile="include/filesystem.h" declline="443" declcolumn="5"/>
+        <location file="include/filesystem.h" line="507" column="5" bodyfile="src/fs/filesystem.c" bodystart="915" bodyend="923" declfile="include/filesystem.h" declline="507" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1ab6174ea1e5338a32b45778cb26b7ebc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1732,7 +2250,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="454" column="5" bodyfile="src/fs/filesystem.c" bodystart="807" bodyend="815" declfile="include/filesystem.h" declline="454" declcolumn="5"/>
+        <location file="include/filesystem.h" line="518" column="5" bodyfile="src/fs/filesystem.c" bodystart="895" bodyend="903" declfile="include/filesystem.h" declline="518" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8h_1a6faf812c7cf4fcc102075f238887c91e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t fs_get_free_space</definition>
+        <argsstring>(const char *path)</argsstring>
+        <name>fs_get_free_space</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="520" column="10" bodyfile="src/fs/filesystem.c" bodystart="104" bodyend="108" declfile="include/filesystem.h" declline="520" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1ab58b880337bae46decb3c6dd1ad1b285" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1775,7 +2310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="465" column="5" bodyfile="src/fs/filesystem.c" bodystart="352" bodyend="420" declfile="include/filesystem.h" declline="465" declcolumn="5"/>
+        <location file="include/filesystem.h" line="531" column="5" bodyfile="src/fs/filesystem.c" bodystart="426" bodyend="494" declfile="include/filesystem.h" declline="531" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a0fd47ee5cad0fcaf36712977a860833f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1829,7 +2364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="475" column="5" bodyfile="src/fs/filesystem.c" bodystart="475" bodyend="547" declfile="include/filesystem.h" declline="475" declcolumn="5"/>
+        <location file="include/filesystem.h" line="541" column="5" bodyfile="src/fs/filesystem.c" bodystart="554" bodyend="623" declfile="include/filesystem.h" declline="541" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1af53712a23d902e214c27f686f016e8c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1883,7 +2418,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="485" column="5" bodyfile="src/fs/filesystem.c" bodystart="581" bodyend="608" declfile="include/filesystem.h" declline="485" declcolumn="5"/>
+        <location file="include/filesystem.h" line="551" column="5" bodyfile="src/fs/filesystem.c" bodystart="660" bodyend="689" declfile="include/filesystem.h" declline="551" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a72e233ba0f8c1bbcae1d64cd59fa659e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1913,7 +2448,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="493" column="5" bodyfile="src/fs/filesystem.c" bodystart="429" bodyend="443" declfile="include/filesystem.h" declline="493" declcolumn="5"/>
+        <location file="include/filesystem.h" line="559" column="5" bodyfile="src/fs/filesystem.c" bodystart="503" bodyend="518" declfile="include/filesystem.h" declline="559" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1af06efedfd44e65f4272f81cfce654e0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1944,7 +2479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="504" column="5" bodyfile="src/fs/filesystem.c" bodystart="610" bodyend="613" declfile="include/filesystem.h" declline="504" declcolumn="5"/>
+        <location file="include/filesystem.h" line="570" column="5" bodyfile="src/fs/filesystem.c" bodystart="691" bodyend="697" declfile="include/filesystem.h" declline="570" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a5c84815714d467e6850288b4581b4070" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2000,7 +2535,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="515" column="9" bodyfile="src/fs/filesystem.c" bodystart="445" bodyend="467" declfile="include/filesystem.h" declline="515" declcolumn="9"/>
+        <location file="include/filesystem.h" line="581" column="9" bodyfile="src/fs/filesystem.c" bodystart="520" bodyend="543" declfile="include/filesystem.h" declline="581" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a38ca3552bb9bdb4c6069381307431fc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int64_t</type>
@@ -2030,7 +2565,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="523" column="9" bodyfile="src/fs/filesystem.c" bodystart="469" bodyend="472" declfile="include/filesystem.h" declline="523" declcolumn="9"/>
+        <location file="include/filesystem.h" line="589" column="9" bodyfile="src/fs/filesystem.c" bodystart="545" bodyend="551" declfile="include/filesystem.h" declline="589" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1af3cee068f32a919cdd638e0578c1e5f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2060,7 +2595,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="531" column="5" bodyfile="src/fs/filesystem.c" bodystart="1017" bodyend="1020" declfile="include/filesystem.h" declline="531" declcolumn="5"/>
+        <location file="include/filesystem.h" line="597" column="5" bodyfile="src/fs/filesystem.c" bodystart="1116" bodyend="1119" declfile="include/filesystem.h" declline="597" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1aee98bbe743c2d14dbaa67f01c3fb9ed5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2102,7 +2637,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="540" column="5" declfile="include/filesystem.h" declline="540" declcolumn="5"/>
+        <location file="include/filesystem.h" line="606" column="5" declfile="include/filesystem.h" declline="606" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1a570282ae7ba596263ec812b368d99b34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2132,7 +2667,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="548" column="5" bodyfile="src/fs/filesystem.c" bodystart="1022" bodyend="1025" declfile="include/filesystem.h" declline="548" declcolumn="5"/>
+        <location file="include/filesystem.h" line="614" column="5" bodyfile="src/fs/filesystem.c" bodystart="1121" bodyend="1124" declfile="include/filesystem.h" declline="614" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1ab7aad6d7661082e4aa5ec28badba8ca5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2176,7 +2711,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="559" column="5" bodyfile="src/fs/filesystem.c" bodystart="549" bodyend="577" declfile="include/filesystem.h" declline="559" declcolumn="5"/>
+        <location file="include/filesystem.h" line="625" column="5" bodyfile="src/fs/filesystem.c" bodystart="625" bodyend="656" declfile="include/filesystem.h" declline="625" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1af54d35de43947f1e7e1a86eed9270a6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2206,7 +2741,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="567" column="6" bodyfile="src/fs/filesystem.c" bodystart="894" bodyend="951" declfile="include/filesystem.h" declline="567" declcolumn="6"/>
+        <location file="include/filesystem.h" line="633" column="6" bodyfile="src/fs/filesystem.c" bodystart="982" bodyend="1046" declfile="include/filesystem.h" declline="633" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="filesystem_8h_1ae475207338a0787caf15949e45badfe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2236,7 +2771,95 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/filesystem.h" line="575" column="6" bodyfile="src/fs/filesystem.c" bodystart="953" bodyend="1014" declfile="include/filesystem.h" declline="575" declcolumn="6"/>
+        <location file="include/filesystem.h" line="641" column="6" bodyfile="src/fs/filesystem.c" bodystart="1048" bodyend="1113" declfile="include/filesystem.h" declline="641" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8h_1a59cfed9fdbdd4476b57fdf0a163e0a48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void fs_set_error</definition>
+        <argsstring>(uint32_t error)</argsstring>
+        <name>fs_set_error</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>error</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="643" column="6" bodyfile="src/fs/filesystem.c" bodystart="56" bodyend="58" declfile="include/filesystem.h" declline="643" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8h_1ad9cbfbf10c992e4f61ffa515f91402d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t fs_get_error</definition>
+        <argsstring>(void)</argsstring>
+        <name>fs_get_error</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="645" column="10" bodyfile="src/fs/filesystem.c" bodystart="60" bodyend="62" declfile="include/filesystem.h" declline="645" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8h_1a793a111d7f44baa4a95c112fb27bb8b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool install_gpt_esp_rfs_whole_image</definition>
+        <argsstring>(const char *devname, const char *esp_image_vfs_path)</argsstring>
+        <name>install_gpt_esp_rfs_whole_image</name>
+        <param>
+          <type>const char *</type>
+          <declname>devname</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>esp_image_vfs_path</declname>
+        </param>
+        <briefdescription>
+<para>Flatten a device, write GPT with ESP + RFS, then write a prebuilt ESP image. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>devname</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>storage device name (e.g. &quot;hd0&quot;) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>esp_image_vfs_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VFS path to prebuilt FAT32 ESP image (~68 MiB) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true on success </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="654" column="6" bodyfile="src/fs/installer.c" bodystart="117" bodyend="357" declfile="include/filesystem.h" declline="654" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="filesystem_8h_1a66f4ed82d39af1235c0e2dc51e9f52be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void installer</definition>
+        <argsstring>()</argsstring>
+        <name>installer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/filesystem.h" line="656" column="6" bodyfile="src/fs/installer.c" bodystart="359" bodyend="363" declfile="include/filesystem.h" declline="656" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

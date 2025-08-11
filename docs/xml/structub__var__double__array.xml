@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structub__var__double__array" kind="struct" language="C++" prot="public">
     <compoundname>ub_var_double_array</compoundname>
-    <includes local="no">basic.h</includes>
+    <includes local="no">structs.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structub__var__double__array_1a9ef5668e2f56818ff1211ac769c5a0a4" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>itemcount</name>
         <briefdescription>
+<para>Number of items in the array. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="148" column="10" bodyfile="include/basic.h" bodystart="148" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="150" column="10" bodyfile="include/basic/structs.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__double__array_1a8c74f4b0aa92cf0726b48f842289ced7" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>varname</name>
         <briefdescription>
+<para>Name of the double array variable. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="149" column="12" bodyfile="include/basic.h" bodystart="149" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="151" column="12" bodyfile="include/basic/structs.h" bodystart="151" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__double__array_1aa386858157be0164e16d521499bd7055" prot="public" static="no" mutable="no">
         <type>double *</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>values</name>
         <briefdescription>
+<para>Array of double values. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="150" column="8" bodyfile="include/basic.h" bodystart="150" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="152" column="8" bodyfile="include/basic/structs.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structub__var__double__array_1ad2ab4ade81a9de6a2b75cd4419e23bc4" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structub__var__double__array" kindref="compound">ub_var_double_array</ref> *</type>
@@ -49,18 +52,20 @@
         <argsstring></argsstring>
         <name>next</name>
         <briefdescription>
+<para>Pointer to the next double array (for chaining) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="151" column="27" bodyfile="include/basic.h" bodystart="151" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="153" column="27" bodyfile="include/basic/structs.h" bodystart="153" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>An array of real (double) </para>
+<para>An array of real (double) values. </para>
     </briefdescription>
     <detaileddescription>
+<para>This structure represents an array of real (double) values in the BASIC interpreter, with a name, the number of items in the array, and the array values. It also supports chaining for handling multiple arrays. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -89,7 +94,7 @@
         <label>char</label>
       </node>
     </collaborationgraph>
-    <location file="include/basic.h" line="147" column="1" bodyfile="include/basic.h" bodystart="147" bodyend="152"/>
+    <location file="include/basic/structs.h" line="149" column="1" bodyfile="include/basic/structs.h" bodystart="149" bodyend="154"/>
     <listofallmembers>
       <member refid="structub__var__double__array_1a9ef5668e2f56818ff1211ac769c5a0a4" prot="public" virt="non-virtual"><scope>ub_var_double_array</scope><name>itemcount</name></member>
       <member refid="structub__var__double__array_1ad2ab4ade81a9de6a2b75cd4419e23bc4" prot="public" virt="non-virtual"><scope>ub_var_double_array</scope><name>next</name></member>

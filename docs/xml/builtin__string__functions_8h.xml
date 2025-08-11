@@ -1,0 +1,1702 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="builtin__string__functions_8h" kind="file" language="C++">
+    <compoundname>builtin_string_functions.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="basic_8h" local="yes">basic.h</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>stdbool.h</label>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+      <node id="1">
+        <label>builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="124">
+        <label>memcpy.c</label>
+        <link refid="memcpy_8c"/>
+      </node>
+      <node id="73">
+        <label>console.c</label>
+        <link refid="console_8c"/>
+      </node>
+      <node id="86">
+        <label>reflection.c</label>
+        <link refid="reflection_8c"/>
+      </node>
+      <node id="109">
+        <label>main.c</label>
+        <link refid="fs_2fat32_2main_8c"/>
+      </node>
+      <node id="105">
+        <label>createfile.c</label>
+        <link refid="fat32_2createfile_8c"/>
+      </node>
+      <node id="51">
+        <label>helpers.c</label>
+        <link refid="helpers_8c"/>
+      </node>
+      <node id="2">
+        <label>basic.h</label>
+        <link refid="basic_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>tokenizer.c</label>
+        <link refid="tokenizer_8c"/>
+      </node>
+      <node id="97">
+        <label>errorhandler.c</label>
+        <link refid="errorhandler_8c"/>
+      </node>
+      <node id="43">
+        <label>ramdisk.h</label>
+        <link refid="ramdisk_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>cluster.c</label>
+        <link refid="cluster_8c"/>
+      </node>
+      <node id="114">
+        <label>filesystem.c</label>
+        <link refid="filesystem_8c"/>
+      </node>
+      <node id="91">
+        <label>variable.c</label>
+        <link refid="variable_8c"/>
+      </node>
+      <node id="56">
+        <label>unlinkdirectory.c</label>
+        <link refid="unlinkdirectory_8c"/>
+      </node>
+      <node id="4">
+        <label>acpi.h</label>
+        <link refid="acpi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="138">
+        <label>random.c</label>
+        <link refid="random_8c"/>
+      </node>
+      <node id="6">
+        <label>arp.h</label>
+        <link refid="arp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>dns.h</label>
+        <link refid="dns_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>net.c</label>
+        <link refid="net_8c"/>
+      </node>
+      <node id="18">
+        <label>fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>interrupt.c</label>
+        <link refid="interrupt_8c"/>
+      </node>
+      <node id="66">
+        <label>udp.h</label>
+        <link refid="udp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>printf.c</label>
+        <link refid="printf_8c"/>
+      </node>
+      <node id="79">
+        <label>function.c</label>
+        <link refid="function_8c"/>
+      </node>
+      <node id="30">
+        <label>iso9660.h</label>
+        <link refid="iso9660_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>tcp.h</label>
+        <link refid="tcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>taskswitch.c</label>
+        <link refid="taskswitch_8c"/>
+      </node>
+      <node id="22">
+        <label>hashmap.c</label>
+        <link refid="hashmap_8c"/>
+      </node>
+      <node id="133">
+        <label>queue.c</label>
+        <link refid="queue_8c"/>
+      </node>
+      <node id="12">
+        <label>devicename.h</label>
+        <link refid="devicename_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>fsmap.c</label>
+        <link refid="fsmap_8c"/>
+      </node>
+      <node id="15">
+        <label>drawing.h</label>
+        <link refid="drawing_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>input.c</label>
+        <link refid="input_8c"/>
+      </node>
+      <node id="48">
+        <label>format.c</label>
+        <link refid="format_8c"/>
+      </node>
+      <node id="140">
+        <label>stdlib.c</label>
+        <link refid="stdlib_8c"/>
+      </node>
+      <node id="113">
+        <label>writefile.c</label>
+        <link refid="fat32_2writefile_8c"/>
+      </node>
+      <node id="84">
+        <label>maths.c</label>
+        <link refid="basic_2maths_8c"/>
+      </node>
+      <node id="130">
+        <label>icmp.c</label>
+        <link refid="icmp_8c"/>
+      </node>
+      <node id="92">
+        <label>buddy_allocator.c</label>
+        <link refid="buddy__allocator_8c"/>
+      </node>
+      <node id="58">
+        <label>rtl8139.h</label>
+        <link refid="rtl8139_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>ip.c</label>
+        <link refid="ip_8c"/>
+      </node>
+      <node id="121">
+        <label>keyboard.c</label>
+        <link refid="keyboard_8c"/>
+      </node>
+      <node id="75">
+        <label>debugger.c</label>
+        <link refid="basic_2debugger_8c"/>
+      </node>
+      <node id="47">
+        <label>createfile.c</label>
+        <link refid="retrofs_2createfile_8c"/>
+      </node>
+      <node id="77">
+        <label>file_io.c</label>
+        <link refid="file__io_8c"/>
+      </node>
+      <node id="54">
+        <label>truncatefile.c</label>
+        <link refid="retrofs_2truncatefile_8c"/>
+      </node>
+      <node id="94">
+        <label>debug_ringbuffer.c</label>
+        <link refid="debug__ringbuffer_8c"/>
+      </node>
+      <node id="103">
+        <label>devfs.c</label>
+        <link refid="devfs_8c"/>
+      </node>
+      <node id="102">
+        <label>debuglog.c</label>
+        <link refid="debuglog_8c"/>
+      </node>
+      <node id="127">
+        <label>descriptor.c</label>
+        <link refid="descriptor_8c"/>
+      </node>
+      <node id="87">
+        <label>sockets.c</label>
+        <link refid="sockets_8c"/>
+      </node>
+      <node id="144">
+        <label>video.c</label>
+        <link refid="video_8c"/>
+      </node>
+      <node id="55">
+        <label>unlink.c</label>
+        <link refid="unlink_8c"/>
+      </node>
+      <node id="67">
+        <label>acpi.c</label>
+        <link refid="acpi_8c"/>
+      </node>
+      <node id="80">
+        <label>graphics.c</label>
+        <link refid="graphics_8c"/>
+      </node>
+      <node id="123">
+        <label>maths.c</label>
+        <link refid="maths_8c"/>
+      </node>
+      <node id="52">
+        <label>main.c</label>
+        <link refid="fs_2retrofs_2main_8c"/>
+      </node>
+      <node id="36">
+        <label>e1000.c</label>
+        <link refid="e1000_8c"/>
+      </node>
+      <node id="95">
+        <label>debugger.c</label>
+        <link refid="debugger_8c"/>
+      </node>
+      <node id="76">
+        <label>double_expression.c</label>
+        <link refid="double__expression_8c"/>
+      </node>
+      <node id="143">
+        <label>timer.c</label>
+        <link refid="timer_8c"/>
+      </node>
+      <node id="9">
+        <label>cv.h</label>
+        <link refid="cv_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="136">
+        <label>pci.c</label>
+        <link refid="pci_8c"/>
+      </node>
+      <node id="81">
+        <label>int_expression.c</label>
+        <link refid="int__expression_8c"/>
+      </node>
+      <node id="42">
+        <label>printf.h</label>
+        <link refid="printf_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>e1000.h</label>
+        <link refid="e1000_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>lapic_timer.h</label>
+        <link refid="lapic__timer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>fb.c</label>
+        <link refid="fb_8c"/>
+      </node>
+      <node id="126">
+        <label>debug.c</label>
+        <link refid="debug_8c"/>
+      </node>
+      <node id="72">
+        <label>array.c</label>
+        <link refid="array_8c"/>
+      </node>
+      <node id="24">
+        <label>initialisation-functions.h</label>
+        <link refid="initialisation-functions_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="125">
+        <label>arp.c</label>
+        <link refid="arp_8c"/>
+      </node>
+      <node id="19">
+        <label>fpu.h</label>
+        <link refid="fpu_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>lfn.c</label>
+        <link refid="lfn_8c"/>
+      </node>
+      <node id="60">
+        <label>serial.c</label>
+        <link refid="serial_8c"/>
+      </node>
+      <node id="59">
+        <label>serial.h</label>
+        <link refid="serial_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>fpu.c</label>
+        <link refid="fpu_8c"/>
+      </node>
+      <node id="120">
+        <label>ioapic.c</label>
+        <link refid="ioapic_8c"/>
+      </node>
+      <node id="23">
+        <label>icmp.h</label>
+        <link refid="icmp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>kmalloc.c</label>
+        <link refid="kmalloc_8c"/>
+      </node>
+      <node id="117">
+        <label>gdt.c</label>
+        <link refid="gdt_8c"/>
+      </node>
+      <node id="37">
+        <label>mmio.c</label>
+        <link refid="mmio_8c"/>
+      </node>
+      <node id="128">
+        <label>dhcp.c</label>
+        <link refid="dhcp_8c"/>
+      </node>
+      <node id="35">
+        <label>mmio.h</label>
+        <link refid="mmio_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>ip.h</label>
+        <link refid="ip_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>lowlevel.c</label>
+        <link refid="lowlevel_8c"/>
+      </node>
+      <node id="71">
+        <label>ata.c</label>
+        <link refid="ata_8c"/>
+      </node>
+      <node id="50">
+        <label>getdirectory.c</label>
+        <link refid="getdirectory_8c"/>
+      </node>
+      <node id="89">
+        <label>string_expression.c</label>
+        <link refid="string__expression_8c"/>
+      </node>
+      <node id="65">
+        <label>tinyalloc.c</label>
+        <link refid="tinyalloc_8c"/>
+      </node>
+      <node id="74">
+        <label>datetime.c</label>
+        <link refid="datetime_8c"/>
+      </node>
+      <node id="139">
+        <label>rtl8139.c</label>
+        <link refid="rtl8139_8c"/>
+      </node>
+      <node id="78">
+        <label>flow_control.c</label>
+        <link refid="flow__control_8c"/>
+      </node>
+      <node id="33">
+        <label>maths.h</label>
+        <link refid="maths_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>devfs.h</label>
+        <link refid="devfs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>idt.c</label>
+        <link refid="idt_8c"/>
+      </node>
+      <node id="116">
+        <label>ramdisk.c</label>
+        <link refid="ramdisk_8c"/>
+      </node>
+      <node id="25">
+        <label>init.c</label>
+        <link refid="init_8c"/>
+      </node>
+      <node id="63">
+        <label>tinyalloc.h</label>
+        <link refid="tinyalloc_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>builtin_string_functions.h</label>
+        <link refid="builtin__string__functions_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>iso9660.c</label>
+        <link refid="iso9660_8c"/>
+      </node>
+      <node id="134">
+        <label>tcp.c</label>
+        <link refid="tcp_8c"/>
+      </node>
+      <node id="46">
+        <label>createdirectory.c</label>
+        <link refid="createdirectory_8c"/>
+      </node>
+      <node id="135">
+        <label>udp.c</label>
+        <link refid="udp_8c"/>
+      </node>
+      <node id="107">
+        <label>fat.c</label>
+        <link refid="fat_8c"/>
+      </node>
+      <node id="17">
+        <label>ethernet.h</label>
+        <link refid="ethernet_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>flanterm.c</label>
+        <link refid="flanterm_8c"/>
+      </node>
+      <node id="3">
+        <label>kernel.h</label>
+        <link refid="kernel_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>apic.c</label>
+        <link refid="apic_8c"/>
+      </node>
+      <node id="34">
+        <label>memcpy.h</label>
+        <link refid="memcpy_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>partition.h</label>
+        <link refid="partition_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>random.h</label>
+        <link refid="random_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>clock.c</label>
+        <link refid="clock_8c"/>
+      </node>
+      <node id="10">
+        <label>debug_ringbuffer.h</label>
+        <link refid="debug__ringbuffer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>ap.c</label>
+        <link refid="ap_8c"/>
+      </node>
+      <node id="21">
+        <label>devicename.c</label>
+        <link refid="devicename_8c"/>
+      </node>
+      <node id="115">
+        <label>partition.c</label>
+        <link refid="partition_8c"/>
+      </node>
+      <node id="61">
+        <label>taskswitch.h</label>
+        <link refid="taskswitch_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>unlinkfile.c</label>
+        <link refid="unlinkfile_8c"/>
+      </node>
+      <node id="85">
+        <label>process.c</label>
+        <link refid="process_8c"/>
+      </node>
+      <node id="88">
+        <label>string.c</label>
+        <link refid="basic_2string_8c"/>
+      </node>
+      <node id="20">
+        <label>hashmap.h</label>
+        <link refid="hashmap_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>main.c</label>
+        <link refid="basic_2main_8c"/>
+      </node>
+      <node id="106">
+        <label>directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="110">
+        <label>readfile.c</label>
+        <link refid="fat32_2readfile_8c"/>
+      </node>
+      <node id="27">
+        <label>interrupt.h</label>
+        <link refid="interrupt_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>ethernet.c</label>
+        <link refid="ethernet_8c"/>
+      </node>
+      <node id="111">
+        <label>truncatefile.c</label>
+        <link refid="fat32_2truncatefile_8c"/>
+      </node>
+      <node id="129">
+        <label>dns.c</label>
+        <link refid="dns_8c"/>
+      </node>
+      <node id="7">
+        <label>tokenizer.h</label>
+        <link refid="tokenizer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>kernel.c</label>
+        <link refid="kernel_8c"/>
+      </node>
+      <node id="68">
+        <label>ahci.c</label>
+        <link refid="ahci_8c"/>
+      </node>
+      <node id="41">
+        <label>pci.h</label>
+        <link refid="pci_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ahci.h</label>
+        <link refid="ahci_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>dhcp.h</label>
+        <link refid="dhcp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>string.c</label>
+        <link refid="string_8c"/>
+      </node>
+      <node id="122">
+        <label>lapic_timer.c</label>
+        <link refid="lapic__timer_8c"/>
+      </node>
+      <node id="40">
+        <label>installer.c</label>
+        <link refid="installer_8c"/>
+      </node>
+      <node id="96">
+        <label>drawing.c</label>
+        <link refid="drawing_8c"/>
+      </node>
+      <node id="45">
+        <label>retrofs.h</label>
+        <link refid="retrofs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>clock.h</label>
+        <link refid="clock_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>writefile.c</label>
+        <link refid="retrofs_2writefile_8c"/>
+      </node>
+      <node id="53">
+        <label>readfile.c</label>
+        <link refid="retrofs_2readfile_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="builtin__string__functions_8h_1a440ee18643b7e1a2c277e784d4de7611" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_left</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_left</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns the leftmost part of a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns a substring from the leftmost part of a string, up to the specified number of characters. If the specified length is greater than the string&apos;s length, it will return the entire string.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A substring from the leftmost part of the string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="17" column="6" bodyfile="src/basic/string.c" bodystart="114" bodyend="133" declfile="include/basic/builtin_string_functions.h" declline="17" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a44a755c93bf339a9ece32db5ed4306c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_right</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_right</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns the rightmost part of a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns a substring from the rightmost part of a string, up to the specified number of characters. If the specified length is greater than the string&apos;s length, it will return the entire string.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A substring from the rightmost part of the string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="29" column="6" bodyfile="src/basic/string.c" bodystart="135" bodyend="152" declfile="include/basic/builtin_string_functions.h" declline="29" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a73a5228c7b32fcab2628398d65ffc519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_mid</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_mid</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns a substring from the middle of a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function extracts a substring starting from a specified position within a string and continuing for a specified length.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A substring from the middle of the string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="40" column="6" bodyfile="src/basic/string.c" bodystart="154" bodyend="183" declfile="include/basic/builtin_string_functions.h" declline="40" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1aff36033aabc5748fa65c76e9f00e3701" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_chr</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_chr</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns the ASCII character for a given number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns the ASCII character that corresponds to the specified integer value. If the integer is not a valid ASCII value, the function may return undefined results.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The ASCII character corresponding to the given number </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="51" column="6" bodyfile="src/basic/string.c" bodystart="7" bodyend="14" declfile="include/basic/builtin_string_functions.h" declline="51" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a08232cbcbae6f711c1323daf3a0bbf2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_readstring</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_readstring</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Reads a string from input. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function reads a string from user input or a defined source. It is typically used for getting string input from the user during program execution.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The string read from input </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="62" column="6" bodyfile="src/basic/file_io.c" bodystart="33" bodyend="61" declfile="include/basic/builtin_string_functions.h" declline="62" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a8eb7630027bebc74b952f5d878127e8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_upper</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_upper</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Converts a string to uppercase. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function converts all alphabetic characters in the string to their uppercase equivalents. Non-alphabetic characters remain unchanged.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The uppercase version of the input string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="73" column="6" bodyfile="src/basic/string.c" bodystart="55" bodyend="65" declfile="include/basic/builtin_string_functions.h" declline="73" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1aecfafc809db0f1f2efe65bed9203a1e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_lower</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_lower</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Converts a string to lowercase. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function converts all alphabetic characters in the string to their lowercase equivalents. Non-alphabetic characters remain unchanged.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The lowercase version of the input string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="84" column="6" bodyfile="src/basic/string.c" bodystart="67" bodyend="77" declfile="include/basic/builtin_string_functions.h" declline="84" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a88b94fb7c2c754c122743c942be4a515" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_tokenize</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_tokenize</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Tokenizes a string based on a delimiter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function splits a string into tokens, using a specified delimiter. Each call to the function returns the next token from the string.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The next token from the string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="95" column="6" bodyfile="src/basic/string.c" bodystart="79" bodyend="111" declfile="include/basic/builtin_string_functions.h" declline="95" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a2297d2782fbc9999476091edb8db77b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_csd</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_csd</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Gets the current selected directory (like getcwd in C). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns the path of the current working directory, which is the directory where the program is currently operating from.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The path of the current working directory </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="106" column="6" bodyfile="src/basic/file_io.c" bodystart="325" bodyend="328" declfile="include/basic/builtin_string_functions.h" declline="106" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a08bb8fd0c49417b63889e76620e4f810" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_cpugetbrand</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_cpugetbrand</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Gets the brand of the CPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns the brand of the CPU, providing information about the specific CPU model that the system is running.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The brand of the CPU </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="117" column="6" bodyfile="src/basic/lowlevel.c" bodystart="70" bodyend="108" declfile="include/basic/builtin_string_functions.h" declline="117" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1afa2ef90f885539364abb5363ccfefbf5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_cpugetvendor</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_cpugetvendor</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Gets the vendor of the CPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns the vendor of the CPU, providing information about the manufacturer of the CPU.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The vendor of the CPU </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="128" column="6" bodyfile="src/basic/lowlevel.c" bodystart="110" bodyend="124" declfile="include/basic/builtin_string_functions.h" declline="128" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1ab89f69f6260c87b6cc4ee21b5ea35ee5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_intoasc</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_intoasc</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Converts a number to its ASCII string representation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function converts a number into its ASCII equivalent. For example, the number 123 would be converted to the string &quot;123&quot;.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The ASCII string representation of the number </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="139" column="6" bodyfile="src/basic/lowlevel.c" bodystart="126" bodyend="142" declfile="include/basic/builtin_string_functions.h" declline="139" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a15682f97cd5ad3ce3ec6536e513300f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_ljust</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_ljust</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Left-justifies a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function left-justifies a string by padding it with spaces to a specified length. If the string is longer than the specified length, it will be truncated.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The left-justified string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="150" column="6" bodyfile="src/basic/string.c" bodystart="193" bodyend="215" declfile="include/basic/builtin_string_functions.h" declline="150" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a91be56bff069562489b80f93c096ad0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_rjust</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_rjust</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Right-justifies a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function right-justifies a string by padding it with spaces to a specified length. If the string is longer than the specified length, it will be truncated.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The right-justified string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="161" column="6" bodyfile="src/basic/string.c" bodystart="217" bodyend="242" declfile="include/basic/builtin_string_functions.h" declline="161" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a4d81f2ff20724ca43dfb55e70e2437ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_ltrim</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_ltrim</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Removes leading whitespace from a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function removes any spaces or other whitespace characters from the beginning of the string.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The string with leading whitespace removed </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="171" column="6" bodyfile="src/basic/string.c" bodystart="244" bodyend="254" declfile="include/basic/builtin_string_functions.h" declline="171" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a24583595e3edd139057f8f83247c6cba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_rtrim</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_rtrim</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Removes trailing whitespace from a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function removes any spaces or other whitespace characters from the end of the string.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The string with trailing whitespace removed </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="181" column="6" bodyfile="src/basic/string.c" bodystart="256" bodyend="267" declfile="include/basic/builtin_string_functions.h" declline="181" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1abd2ecc46b314f97883de63933a3a2d59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_trim</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_trim</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Removes both leading and trailing whitespace from a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function removes any spaces or other whitespace characters from both the beginning and the end of the string.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The string with both leading and trailing whitespace removed </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="192" column="6" bodyfile="src/basic/string.c" bodystart="269" bodyend="283" declfile="include/basic/builtin_string_functions.h" declline="192" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a29c02461ba8680be4a29e3d80815dd8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_itoa</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_itoa</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Converts an integer to a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function converts an integer into its string representation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The string representation of the integer </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="202" column="6" bodyfile="src/basic/string.c" bodystart="285" bodyend="305" declfile="include/basic/builtin_string_functions.h" declline="202" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a2fdfb80287c32fbf5dbf3f1c69af4379" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_repeat</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_repeat</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Repeats a string a specified number of times. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function repeats a string multiple times, as specified by the second parameter.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The repeated string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="212" column="6" bodyfile="src/basic/string.c" bodystart="317" bodyend="338" declfile="include/basic/builtin_string_functions.h" declline="212" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1abd5e9796bf884ad61e586d269f4c2631" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_reverse</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_reverse</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Reverses the characters in a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function reverses the characters in a given string.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The reversed string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="222" column="6" bodyfile="src/basic/string.c" bodystart="307" bodyend="315" declfile="include/basic/builtin_string_functions.h" declline="222" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1a1fd65ff1967a2bfa1531d7904d7acb2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_str</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_str</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Returns the string representation of a value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function returns the string equivalent of the given value, whether it&apos;s a string, number, or other type.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The string representation of the value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="233" column="6" bodyfile="src/basic/string.c" bodystart="16" bodyend="24" declfile="include/basic/builtin_string_functions.h" declline="233" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="builtin__string__functions_8h_1ab885f1f5e3c83ec8968f6ac907ad91e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* basic_bool</definition>
+        <argsstring>(struct basic_ctx *ctx)</argsstring>
+        <name>basic_bool</name>
+        <param>
+          <type>struct <ref refid="structbasic__ctx" kindref="compound">basic_ctx</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Converts a boolean value to a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function converts a boolean value (true or false) to its string representation (&quot;True&quot; or &quot;False&quot;).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BASIC interpreter context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The string representation of the boolean value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/basic/builtin_string_functions.h" line="243" column="6" bodyfile="src/basic/string.c" bodystart="26" bodyend="34" declfile="include/basic/builtin_string_functions.h" declline="243" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/basic/builtin_string_functions.h"/>
+  </compounddef>
+</doxygen>

@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structcpuid__result__t" kind="struct" language="C++" prot="public">
     <compoundname>cpuid_result_t</compoundname>
-    <includes local="no">basic.h</includes>
+    <includes local="no">structs.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structcpuid__result__t_1a609a49c61f6fdc7187def91dfc9bf3c6" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>eax</name>
         <briefdescription>
+<para>The EAX register value from the CPUID instruction. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="193" column="14" bodyfile="include/basic.h" bodystart="193" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="190" column="14" bodyfile="include/basic/structs.h" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcpuid__result__t_1a7cba61af568b8e7a04eca6a4be041b38" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -23,12 +24,13 @@
         <argsstring></argsstring>
         <name>ebx</name>
         <briefdescription>
+<para>The EBX register value from the CPUID instruction. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="194" column="14" bodyfile="include/basic.h" bodystart="194" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="191" column="14" bodyfile="include/basic/structs.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcpuid__result__t_1ad0d25fb5bc44e6d28a817ced9571adcc" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -36,12 +38,13 @@
         <argsstring></argsstring>
         <name>ecx</name>
         <briefdescription>
+<para>The ECX register value from the CPUID instruction. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="195" column="14" bodyfile="include/basic.h" bodystart="195" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="192" column="14" bodyfile="include/basic/structs.h" bodystart="192" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcpuid__result__t_1aecf01b168c2ede04bcd5ec5b0014671f" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -49,18 +52,20 @@
         <argsstring></argsstring>
         <name>edx</name>
         <briefdescription>
+<para>The EDX register value from the CPUID instruction. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/basic.h" line="196" column="14" bodyfile="include/basic.h" bodystart="196" bodyend="-1"/>
+        <location file="include/basic/structs.h" line="193" column="14" bodyfile="include/basic/structs.h" bodystart="193" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>CPUID instruction result. </para>
     </briefdescription>
     <detaileddescription>
+<para>This structure holds the result of a CPUID instruction, which provides detailed information about the CPU, such as supported features and capabilities. </para>
     </detaileddescription>
     <collaborationgraph>
       <node id="1">
@@ -77,7 +82,7 @@
         <label>int</label>
       </node>
     </collaborationgraph>
-    <location file="include/basic.h" line="192" column="1" bodyfile="include/basic.h" bodystart="192" bodyend="197"/>
+    <location file="include/basic/structs.h" line="189" column="1" bodyfile="include/basic/structs.h" bodystart="189" bodyend="194"/>
     <listofallmembers>
       <member refid="structcpuid__result__t_1a609a49c61f6fdc7187def91dfc9bf3c6" prot="public" virt="non-virtual"><scope>cpuid_result_t</scope><name>eax</name></member>
       <member refid="structcpuid__result__t_1a7cba61af568b8e7a04eca6a4be041b38" prot="public" virt="non-virtual"><scope>cpuid_result_t</scope><name>ebx</name></member>

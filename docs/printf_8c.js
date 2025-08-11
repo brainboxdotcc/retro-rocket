@@ -21,5 +21,7 @@ var printf_8c =
     [ "vsnprintf", "printf_8c.html#ac0ca54b8d1d72520cd648fb57ce0dda2", null ],
     [ "vsprintf_help", "printf_8c.html#a0811e5743c01e952a6108956f51cfaa5", null ],
     [ "console_spinlock", "printf_8c.html#a9aa640196313bea082db80a500d3c60b", null ],
-    [ "debug_console_spinlock", "printf_8c.html#a7501930571e1c3d6c924d8d21ba788a8", null ]
+    [ "debug_console_spinlock", "printf_8c.html#a7501930571e1c3d6c924d8d21ba788a8", null ],
+    [ "dprintf_buf_offset", "printf_8c.html#afd17c4af27f6b2fc400d62d79af40e69", null ],
+    [ "dprintf_format_buffer", "printf_8c.html#ac84b968ad4a451eca5ec1c69f0fbf05c", null ]
 ];
