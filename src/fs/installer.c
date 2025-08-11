@@ -103,7 +103,6 @@ static bool write_lbas(const char *devname, uint64_t start_lba, const void *buf,
 	if (write_storage_device(devname, start_lba, bytes, (const unsigned char *)buf) == 0) {
 		return false;
 	}
-	dprintf("Written to '%s' start LBA %lu bytes %u\n", devname, start_lba, bytes);
 	return true;
 }
 
@@ -295,8 +294,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	while (remaining_bytes > 0) {
 		memset(buf16k, (unsigned char)0xCE, chunk_bytes); // test sentinel
 		if (!fs_read_file(img_ent, (uint32_t)read_offset, chunk_bytes, buf16k)) {
-			kprintf("install: fs_read_file failed at offset %lu: %s\n",
-				read_offset, fs_strerror(fs_get_error()));
+			kprintf("install: fs_read_file failed at offset %lu: %s\n", read_offset, fs_strerror(fs_get_error()));
 			kfree(buf16k);
 			return false;
 		}
@@ -333,7 +331,8 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 		kprintf("install: Could not find the created RFS to format it on %s\n", devname);
 	} else {
 		info->start = start;
-		info->length = length * info->dev->block_size;
+		info->length = length;
+		info->total_sectors = length;
 		/* 0xFF means we got a GPT partition not MBR partition; only GPT partitions are supported for RFS. */
 		if (partitionid == 0xFF) {
 			success = rfs_format(info);
@@ -344,6 +343,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 		kprintf("install: RFS on device %s formatted successfully\n", devname);
 	} else {
 		kprintf("install: Failed to format RFS on device %s\n", devname);
+		wait_forever();
 	}
 	kfree_null(&info);
 

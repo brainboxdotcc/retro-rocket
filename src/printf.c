@@ -233,10 +233,16 @@ int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const
 static char dprintf_format_buffer[MAX_STRINGLEN] = { 0 };
 static char* dprintf_buf_offset = dprintf_format_buffer;
 
+static void append_debug_buf(char x) {
+	if (dprintf_format_buffer >= dprintf_format_buffer && dprintf_buf_offset - dprintf_format_buffer < MAX_STRINGLEN - 1) {
+		*dprintf_buf_offset++ = x;
+	}
+}
+
 int dvprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
 	dput(c);
-	*dprintf_buf_offset++ = c;
+	//append_debug_buf(c);
 	return 0;
 }
 
@@ -257,21 +263,22 @@ int dvprintf(const char *fmt, va_list args)
 	char counter[25];
 	uint64_t flags;
 	lock_spinlock_irq(&debug_console_spinlock, &flags);
-	dprintf_buf_offset = dprintf_format_buffer;
+	//dprintf_buf_offset = dprintf_format_buffer;
+	//memset(dprintf_format_buffer, 0, sizeof(dprintf_format_buffer));
 	do_itoa(get_ticks(), counter, 10);
-	*dprintf_buf_offset++ = '[';
+	//append_debug_buf('[');
 	dput('[');
 	dputstring(counter);
-	for (char* x = counter; *x; ++x) {
-		*dprintf_buf_offset++ = *x;
-	}
+	//for (char* x = counter; *x; ++x) {
+	//	append_debug_buf(*x);
+	//}
 	dputstring("]: ");
-	*dprintf_buf_offset++ = ']';
-	*dprintf_buf_offset++ = ':';
-	*dprintf_buf_offset++ = ' ';
+	//append_debug_buf(']');
+	//append_debug_buf(':');
+	//append_debug_buf(' ');
 	int r = do_printf(fmt, MAX_STRINGLEN, args, dvprintf_help, NULL);
-	*dprintf_buf_offset = 0;
-	dprintf_buffer_append_line(dprintf_format_buffer, (uint64_t)dprintf_buf_offset - (uint64_t)&dprintf_format_buffer);
+	//append_debug_buf(0);
+	//dprintf_buffer_append_line(dprintf_format_buffer, (uint64_t)dprintf_buf_offset - (uint64_t)&dprintf_format_buffer);
 	unlock_spinlock_irq(&debug_console_spinlock, flags);
 	return r;
 }

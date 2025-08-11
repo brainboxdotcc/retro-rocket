@@ -7,6 +7,13 @@ void kmain()
 {
 	init();
 
+	kprintf("Bringing up network...\n");
+	netdev_t* network = get_active_network_device();
+	if (network) {
+		kprintf("Active network card: %s\n", network->description);
+		network_up();
+	}
+
 	bool live_cd = false, root_fs_mounted = false;
 	if (rr_kfile_req.response) {
 		struct limine_kernel_file_response* kernel_info = rr_kfile_req.response;
@@ -21,13 +28,6 @@ void kmain()
 	}
 	if (!root_fs_mounted) {
 		preboot_fail("Failed to mount boot drive to VFS!");
-	}
-
-	kprintf("Bringing up network...\n");
-	netdev_t* network = get_active_network_device();
-	if (network) {
-		kprintf("Active network card: %s\n", network->description);
-		network_up();
 	}
 
 	init_process();

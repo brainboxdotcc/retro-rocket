@@ -2,7 +2,7 @@
 #include <retrofs.h>
 
 bool rfs_read_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, void *buffer) {
-	const uint64_t total_sectors = rfs->length / RFS_SECTOR_SIZE;
+	const uint64_t total_sectors = rfs->total_sectors;
 	const uint64_t nsectors = size_bytes / RFS_SECTOR_SIZE;
 
 	if ((size_bytes % RFS_SECTOR_SIZE) != 0) {
@@ -16,12 +16,12 @@ bool rfs_read_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, vo
 		return 0;
 	}
 
-	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
-	return read_storage_device(rfs->dev->name, cluster_start + start_sectors, size_bytes, buffer);
+	uint64_t volume_start = rfs->start;
+	return read_storage_device(rfs->dev->name, volume_start + start_sectors, size_bytes, buffer);
 }
 
 bool rfs_write_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *buffer) {
-	const uint64_t total_sectors = rfs->length / RFS_SECTOR_SIZE;
+	const uint64_t total_sectors = rfs->total_sectors;
 	const uint64_t nsectors = size_bytes / RFS_SECTOR_SIZE;
 
 	if ((size_bytes % RFS_SECTOR_SIZE) != 0) {
@@ -30,17 +30,16 @@ bool rfs_write_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, c
 		return 0;
 	}
 	if (start_sectors + nsectors > total_sectors) {
-		dprintf("rfs_write_device: would read past end of device\n");
+		dprintf("rfs_write_device: would write past end of device\n");
 		fs_set_error(FS_ERR_OUTSIDE_VOLUME);
 		return 0;
 	}
 
-	uint64_t cluster_start = rfs->start / RFS_SECTOR_SIZE;
-	return write_storage_device(rfs->dev->name, cluster_start + start_sectors, size_bytes, buffer);
+	uint64_t volume_start = rfs->start;
+	return write_storage_device(rfs->dev->name, volume_start + start_sectors, size_bytes, buffer);
 }
 
-bool rfs_locate_entry(rfs_t *info, fs_tree_t *tree, const char *name, uint64_t *out_sector, size_t *out_index,
-		      rfs_directory_entry_inner_t *out_entry_copy) {
+bool rfs_locate_entry(rfs_t *info, fs_tree_t *tree, const char *name, uint64_t *out_sector, size_t *out_index, rfs_directory_entry_inner_t *out_entry_copy) {
 	if (info == NULL || tree == NULL || name == NULL || name[0] == '\0') {
 		fs_set_error(FS_ERR_INVALID_ARG);
 		return false;
@@ -109,7 +108,7 @@ uint64_t rfs_get_free_space(void *fs) {
 		return 0;
 	}
 	rfs_t *info = tree->opaque;
-	return info->length - rfs_get_used_bytes(info);
+	return (info->length * RFS_SECTOR_SIZE) - rfs_get_used_bytes(info);
 }
 
 uint64_t rfs_get_used_bytes(rfs_t *info) {

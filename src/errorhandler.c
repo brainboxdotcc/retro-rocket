@@ -51,7 +51,10 @@ void error_handler(uint8_t int_no, uint64_t errorcode, [[maybe_unused]] uint64_t
 	interrupts_off();
 	setforeground(current_console, COLOUR_LIGHTWHITE);
 	setbackground(current_console, COLOUR_BLACK);
-	//PANIC_BANNER;
+	const char* log = dprintf_buffer_snapshot();
+	if (log) {
+		kprintf("\n%s\n", log);
+	}
 	setforeground(current_console, COLOUR_LIGHTRED);
 	kprintf("Fatal exception %02X (Error code %016lx): %s\n", int_no, errorcode, error_table[int_no]);
 	setforeground(current_console, COLOUR_WHITE);

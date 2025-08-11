@@ -112,22 +112,20 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buffer)
 {
 	storage_device_t* sd = (storage_device_t*)dev;
-	if (!sd) {
+	if (!sd || !buffer || bytes == 0) {
 		return 0;
 	}
 
-	// Convert byte length to sectors, rounding up
 	uint32_t sectors = (bytes + sd->block_size - 1) / sd->block_size;
-	if (sectors < 1) {
-		sectors = 1;
-	}
+	unsigned char* end = buffer + bytes;
 
 	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
 
+	const uint32_t max_per_cmd = 16;
+
 	if (check_type(port) == AHCI_DEV_SATAPI) {
 		// ATAPI device, 32 KiB bounce buffer → 16 sectors max per command
-		const uint32_t max_per_cmd = 16;
 		while (sectors > 0) {
 			uint32_t this_xfer = (sectors > max_per_cmd) ? max_per_cmd : sectors;
 			if (!ahci_atapi_read(port, start, this_xfer, (uint16_t*)buffer, abar)) {
@@ -139,18 +137,28 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 		}
 		return true;
 	} else {
-		// Hard disk, 64 KiB bounce buffer → 128 sectors max per command
-		const uint32_t max_per_cmd = 128;
 		while (sectors > 0) {
 			uint32_t this_xfer = (sectors > max_per_cmd) ? max_per_cmd : sectors;
-			if (!ahci_read(port, start, this_xfer, (uint16_t*)buffer, abar)) {
-				return false;
+			uint32_t bytes_this = this_xfer * sd->block_size;
+
+			if (buffer + bytes_this > end) {
+				uint64_t bytes_left = (uint64_t)(end - buffer);
+				this_xfer = bytes_left / sd->block_size;
+				if (this_xfer == 0) {
+					break;
+				}
+				bytes_this = this_xfer * sd->block_size;
 			}
+
+			if (!ahci_read(port, start, this_xfer, (uint16_t*)buffer, abar)) {
+				return 0;
+			}
+
 			start   += this_xfer;
-			buffer  += this_xfer * sd->block_size;
+			buffer  += bytes_this;
 			sectors -= this_xfer;
 		}
-		return true;
+		return 1;
 	}
 }
 
@@ -246,11 +254,16 @@ int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar)
 	dprintf("Cannot find free command list entry\n");
 	return -1;
 }
- 
+
 bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar)
 {
 	static uint8_t *raw_read_buf = NULL;
 	static uint8_t *aligned_read_buf = NULL;
+
+	if (count > 128) {
+		preboot_fail("ahci_read > 128 clusters!");
+	}
+	uint32_t o_count = count;
 
 	// Allocate a single reusable DMA-safe bounce buffer if not done already
 	// (big enough for 128 sectors = 64KiB at once, adjust if you need larger)
@@ -317,15 +330,15 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	cmdfis->lba4    = (uint8_t)(starth);
 	cmdfis->lba5    = (uint8_t)(starth >> 8);
 
-	cmdfis->countl  = count & 0xFF;
-	cmdfis->counth  = (count >> 8) & 0xFF;
+	cmdfis->countl  = o_count & 0xFF;
+	cmdfis->counth  = (o_count >> 8) & 0xFF;
 
 	// Wait until port is ready
 	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
 		spin++;
 	}
 	if (spin == 1000000) {
-		dprintf("Port hung [read] (start %lx count %x)\n", start, count);
+		dprintf("Port hung [read] (start %lx count %x)\n", start, o_count);
 		return false;
 	}
 
@@ -337,19 +350,22 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 		if ((port->ci & (1 << slot)) == 0)
 			break;
 		if (port->is & HBA_PxIS_TFES) { // Task file error
-			dprintf("Read disk error (start %lx count %x)\n", start, count);
+			dprintf("Read disk error (start %lx count %x)\n", start, o_count);
 			return false;
 		}
 	}
 
 	// Final error check
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Read disk error (start %lx count %x)\n", start, count);
+		dprintf("Read disk error (start %lx count %x)\n", start, o_count);
 		return false;
 	}
 
 	// Copy out of bounce buffer into caller’s buffer
-	memcpy(buf, aligned_read_buf, (count * HDD_SECTOR_SIZE));
+	if (!buf){
+		return false;
+	}
+	memcpy(buf, aligned_read_buf, (o_count * HDD_SECTOR_SIZE));
 
 	add_random_entropy(*buf);
 
@@ -529,6 +545,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 {
 	uint32_t startl = (start & 0xFFFFFFFF);
 	uint32_t starth = ((start & 0xFFFFFFFF00000000) >> 32);
+	uint32_t o_count = count;
 	port->is = (uint32_t)-1;	   // Clear pending interrupt bits
 	int spin = 0; // Spin lock timeout counter
 	int slot = find_cmdslot(port, abar);
@@ -541,14 +558,14 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 		aligned_write_buf = (uint8_t*)(((uintptr_t)raw_write_buf + 0xFFF) & ~0xFFF);
 	}
 
-	memcpy(aligned_write_buf, buf, count * HDD_SECTOR_SIZE);
+	memcpy(aligned_write_buf, buf, o_count * HDD_SECTOR_SIZE);
 
 	ahci_hba_cmd_header_t* cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
 	cmdheader += slot;
 
 	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t)/sizeof(uint32_t); // Command FIS size
 	cmdheader->w = 1;	   // Write device
-	cmdheader->prdtl = (uint16_t)((count-1)>>4) + 1;	// PRDT entries count
+	cmdheader->prdtl = (uint16_t)((o_count-1)>>4) + 1;	// PRDT entries count
 
 	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
 	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
@@ -560,7 +577,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	for (i=0; i<cmdheader->prdtl-1; i++) {
 		cmdtbl->prdt_entry[i].dba  = (uint32_t)((uint64_t)wr_buf & 0xffffffff);
 		cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)wr_buf >> 32) & 0xffffffff);
-		cmdtbl->prdt_entry[i].dbc = 8*1024 - 1;  // 8 KB
+		cmdtbl->prdt_entry[i].dbc = (16 * HDD_SECTOR_SIZE) - 1;  // 8 KB
 		cmdtbl->prdt_entry[i].i = 1;
 		wr_buf += 8*1024;    // advance by exactly the size of dbc+1
 		count -= 16;      // 16 sectors
@@ -568,7 +585,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	// Last entry
 	cmdtbl->prdt_entry[i].dba  = (uint32_t)((uint64_t)wr_buf & 0xffffffff);
 	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)wr_buf >> 32) & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbc = (count<<9)-1;   // 512 bytes per sector
+	cmdtbl->prdt_entry[i].dbc = (count * HDD_SECTOR_SIZE) - 1;   // 512 bytes per sector
 	cmdtbl->prdt_entry[i].i = 1;
 
 	// Setup command
@@ -588,15 +605,15 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	cmdfis->lba4 = (uint8_t)starth;
 	cmdfis->lba5 = (uint8_t)(starth>>8);
 
-	cmdfis->countl = count & 0xFF;
-	cmdfis->counth = (count >> 8) & 0xFF;
+	cmdfis->countl = o_count & 0xFF;
+	cmdfis->counth = (o_count >> 8) & 0xFF;
 
 	// The below loop waits until the port is no longer busy before issuing a new command
 	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
 		spin++;
 	}
 	if (spin == 1000000) {
-		dprintf("Port hung [write] (start %lx count %x)\n", start, count);
+		dprintf("Port hung [write] (start %lx count %x)\n", start, o_count);
 		return false;
 	}
 
@@ -608,14 +625,14 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 			break;
 		}
 		if (port->is & HBA_PxIS_TFES) { // Task file error
-			dprintf("Write disk error (start %lx count %x)\n", start, count);
+			dprintf("Write disk error (start %lx count %x)\n", start, o_count);
 			return false;
 		}
 	}
 
 	// Check again
 	if (port->is & HBA_PxIS_TFES) {
-		dprintf("Write disk error (start %lx count %x)\n", start, count);
+		dprintf("Write disk error (start %lx count %x)\n", start, o_count);
 		return false;
 	}
 

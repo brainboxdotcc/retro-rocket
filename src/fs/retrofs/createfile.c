@@ -54,11 +54,13 @@ fs_directory_entry_t *rfs_upsert_directory_entry(fs_directory_entry_t *file, uin
 
 	while (current_sector != 0) {
 		if (walked++ > walk_limit) {
+			dprintf("upsert past walk limit\n");
 			fs_set_error(FS_ERR_CYCLE_DETECTED);
 			return NULL;
 		}
 
 		if (!rfs_read_device(info, current_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
+			dprintf("rfs_read_device failed in upsert\n");
 			return NULL;
 		}
 
@@ -98,8 +100,8 @@ fs_directory_entry_t *rfs_upsert_directory_entry(fs_directory_entry_t *file, uin
 				}
 				/* Caller may handle timestamps/sequence; we avoid policy here */
 
-				if (!rfs_write_device(info, current_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE,
-						      &block[0])) {
+				if (!rfs_write_device(info, current_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
+					dprintf("upsert write failed\n");
 					return NULL;
 				}
 
@@ -117,6 +119,7 @@ fs_directory_entry_t *rfs_upsert_directory_entry(fs_directory_entry_t *file, uin
 	/* No existing entry found: insert at the first available empty slot if any */
 	if (have_empty_slot) {
 		if (!rfs_read_device(info, empty_slot_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
+			dprintf("upsert read(2) fail\n");
 			return NULL;
 		}
 
@@ -135,6 +138,7 @@ fs_directory_entry_t *rfs_upsert_directory_entry(fs_directory_entry_t *file, uin
 		/* created/modified left to higher layer policy */
 
 		if (!rfs_write_device(info, empty_slot_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
+			dprintf("upsert write(2) fail\n");
 			return NULL;
 		}
 
@@ -158,6 +162,7 @@ fs_directory_entry_t *rfs_upsert_directory_entry(fs_directory_entry_t *file, uin
 		uint64_t next = last_sector;
 		while (true) {
 			if (!rfs_read_device(info, next, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
+				dprintf("upsert read(3) fail\n");
 				return NULL;
 			}
 			rfs_directory_start_t *s = (rfs_directory_start_t *) &block[0];
@@ -172,6 +177,7 @@ fs_directory_entry_t *rfs_upsert_directory_entry(fs_directory_entry_t *file, uin
 		rfs_directory_start_t *tail = (rfs_directory_start_t *) &block[0];
 		tail->continuation = new_block_sector;
 		if (!rfs_write_device(info, last_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block[0])) {
+			dprintf("upsert write(3) fail\n");
 			return NULL;
 		}
 
@@ -199,6 +205,7 @@ fs_directory_entry_t *rfs_upsert_directory_entry(fs_directory_entry_t *file, uin
 		}
 
 		if (!rfs_write_device(info, new_block_sector, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &newblk[0])) {
+			dprintf("upsert write(4) fail\n");
 			return NULL;
 		}
 
@@ -267,6 +274,10 @@ uint64_t rfs_create_file(void *dir, const char *name, size_t size) {
 		return 0;
 	}
 	dprintf("Got reservation at sector %lu\n", start_sector);
+	if (start_sector < 65) {
+		dprintf("Invalid reservation (would trample root)\n");
+		return 0;
+	}
 	/* 4) Zero the allocated extent (security) */
 	const uint64_t chunk_sectors = RFS_MAP_READ_CHUNK_SECTORS; /* 128 sectors = 64 KiB */
 	const size_t chunk_bytes = (size_t) (chunk_sectors * RFS_SECTOR_SIZE);

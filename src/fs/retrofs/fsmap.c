@@ -208,15 +208,26 @@ static inline void rfs_update_l2_for_group(rfs_t *info, uint64_t g) {
 bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors, bool mark_used) {
 	if (!info || !info->desc || length_sectors == 0) {
 		fs_set_error(FS_ERR_INVALID_ARG);
+		dprintf("rfs_mark_extent: Invalid arg\n");
+		return false;
+	}
+	if (info->desc->free_space_map_start == 0 || !info->l1_not_full || !info->l1_all_free || !info->l1_free_count || !info->l2_not_full || !info->l2_all_free || !info->l2_groups) {
+		fs_set_error(FS_ERR_INVALID_ARG);
+		dprintf("rfs_mark_extent: L1/L2 not initialised\n");
 		return false;
 	}
 
 	const uint64_t total = info->total_sectors;
-	if (start_sector >= total) return false;
+	if (start_sector >= total) {
+		fs_set_error(FS_ERR_INVALID_ARG);
+		dprintf("rfs_mark_extent: start sector out of range\n");
+		return false;
+	}
 	if (start_sector + length_sectors > total) {
 		length_sectors = total - start_sector; // clamp
 		if (!length_sectors) {
 			fs_set_error(FS_ERR_INVALID_GEOMETRY);
+			dprintf("rfs_mark_extent: Invalid geometry\n");
 			return false;
 		}
 	}
@@ -240,6 +251,7 @@ bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors
 
 		if (take == g_size) {
 			// Whole-group fast path: write all 1s (used) or all 0s (free).
+			dprintf("rfs_mark_extent take == g_size, %p %lu\n", sector_buf, sizeof(sector_buf));
 			memset(sector_buf, mark_used ? 0xFF : 0x00, sizeof(sector_buf));
 			if (!rfs_write_device(info, l0_lba, RFS_SECTOR_SIZE, sector_buf)) {
 				dprintf("rfs_mark_extent: write L0 sector %lu failed\n", l0_lba);
@@ -254,6 +266,7 @@ bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors
 			rfs_update_l2_for_group(info, g);
 		} else {
 			// Partial group: read-modify-write
+			dprintf("rfs_mark_extent take != g_size [RMW], %p %lu\n", sector_buf, sizeof(sector_buf));
 			if (!rfs_read_device(info, l0_lba, RFS_SECTOR_SIZE, sector_buf)) {
 				dprintf("rfs_mark_extent: read L0 sector %lu failed\n", l0_lba);
 				return false;
@@ -272,20 +285,19 @@ bool rfs_mark_extent(rfs_t *info, uint64_t start_sector, uint64_t length_sectors
 				const uint8_t mask = (uint8_t) (((1u << span) - 1u) << bit_off);
 
 				const uint8_t before = sector_buf[byte_idx];
-				const uint8_t after = mark_used ? (uint8_t) (before | mask) : (uint8_t) (before &
-													 ~mask);
+				const uint8_t after = mark_used ? (uint8_t) (before | mask) : (uint8_t) (before & ~mask);
 				sector_buf[byte_idx] = after;
 
 				// Count transitions:
 				// used: newly set = (~before) & after & mask == (~before) & mask
 				// free: newly clr = before & (~after) & mask == before & mask
-				const uint8_t delta = mark_used ? (uint8_t) ((~before) & mask) : (uint8_t) (before &
-													    mask);
+				const uint8_t delta = mark_used ? (uint8_t) ((~before) & mask) : (uint8_t) (before & mask);
 				transitions += __builtin_popcount((unsigned) delta);
 				b += span;
 			}
 
 			if (transitions) {
+				dprintf("rfs_mark_extent: prep write %lu %u\n", l0_lba, RFS_SECTOR_SIZE);
 				if (!rfs_write_device(info, l0_lba, RFS_SECTOR_SIZE, sector_buf)) {
 					dprintf("rfs_mark_extent: write L0 sector %lu failed\n", l0_lba);
 					return false;
@@ -369,8 +381,7 @@ static inline bool rfs_load_group_sector(rfs_t *info, uint64_t g, uint8_t *buf) 
  * @param out_prefix  Output pointer for the number of free bits from the start.
  * @param out_suffix  Output pointer for the number of free bits from the end.
  */
-static void
-rfs_group_prefix_suffix_free(const uint8_t *buf, uint64_t group_bits, uint64_t *out_prefix, uint64_t *out_suffix) {
+static void rfs_group_prefix_suffix_free(const uint8_t *buf, uint64_t group_bits, uint64_t *out_prefix, uint64_t *out_suffix) {
 	uint64_t p = 0, s = 0, b = 0;
 
 	// Prefix
@@ -600,7 +611,9 @@ bool rfs_find_free_extent(rfs_t *info, uint64_t need, uint64_t *out_start_sector
 					} else if (bitset_get(info->l1_not_full, gg)) {
 						uint8_t l0n[RFS_SECTOR_SIZE];
 						uint64_t pref, suff;
-						if (!rfs_load_group_sector(info, gg, l0n)) return false;
+						if (!rfs_load_group_sector(info, gg, l0n)) {
+							return false;
+						}
 						rfs_group_prefix_suffix_free(l0n, next_gs, &pref, &suff);
 						(void) suff;
 						prefix_free = pref;
@@ -640,7 +653,7 @@ bool rfs_build_level_caches(rfs_t *info) {
 	}
 
 	/* Geometry */
-	info->total_sectors = info->length / RFS_SECTOR_SIZE;
+	dprintf("RFS build level caches sectors = %lu\n", info->total_sectors);
 
 	const uint64_t G = RFS_L1_GROUP_SECTORS;       /* sectors per L1 group (e.g., 4096) */
 	const uint64_t S = RFS_L2_GROUPS_PER_SUPER;    /* L1 groups per L2 super-group */
@@ -681,9 +694,10 @@ bool rfs_build_level_caches(rfs_t *info) {
 
 	void *block = kmalloc(total_bytes);
 	if (!block) {
-		dprintf("rfs_build_level_caches: OOM cache slab (%zu bytes)\n", total_bytes);
+		dprintf("rfs_build_level_caches: OOM cache slab (%lu bytes)\n", total_bytes);
 		return false;
 	}
+	kprintf("rfs_build_level_caches: cache slab %lu bytes\n", total_bytes);
 
 	/* Publish owning pointer for later teardown */
 	info->cache_block = block;
@@ -697,12 +711,16 @@ bool rfs_build_level_caches(rfs_t *info) {
 	info->l2_all_free = (uint8_t *) ((uint8_t *) block + off_l2_all_free);
 	uint8_t *buf = ((uint8_t *) block + off_buf);
 
+	dprintf("setup l1/l2 cache blocks");
+
 	/* Zero initial state */
 	memset(info->l1_free_count, 0, sz_l1_free_count);
 	memset(info->l1_not_full, 0, sz_l1_not_full);
 	memset(info->l1_all_free, 0, sz_l1_all_free);
 	memset(info->l2_not_full, 0, sz_l2_not_full);
 	memset(info->l2_all_free, 0, sz_l2_all_free);
+
+	dprintf("l1/l2 clear\n");
 
 	/* Stream the Level-0 bitmap (on disk: 1 bit per sector, 1=used, 0=free) */
 	const uint64_t map_start = info->desc->free_space_map_start;
@@ -711,6 +729,8 @@ bool rfs_build_level_caches(rfs_t *info) {
 
 	uint64_t bit_cursor = 0;   /* global sector-index represented by next L0 bit */
 	uint64_t sector_off = 0;   /* offset into L0 map (in sectors) */
+
+	dprintf("l1/l2 start read\n");
 
 	while ((sector_off < map_len) && (bit_cursor < total_bits)) {
 		const uint64_t remaining = map_len - sector_off;
@@ -721,13 +741,10 @@ bool rfs_build_level_caches(rfs_t *info) {
 
 		const size_t bytes_this = (size_t) (sectors_this * RFS_SECTOR_SIZE);
 
+		//kprintf("fsmap read l0 ms+off=%lu bytes=%lu buf=%p off=%lu mlen=%lu\n", map_start + sector_off, bytes_this, buf, sector_off, map_len);
 		if (!rfs_read_device(info, map_start + sector_off, bytes_this, buf)) {
-			kprintf("rfs_build_level_caches: failed read @LBA %lu (sectors=%lu)\n",
-				map_start + sector_off, sectors_this);
-
-			/* Tear down slab on failure */
+			kprintf("rfs_build_level_caches: failed read @LBA %lu (sectors=%lu)\n", map_start + sector_off, sectors_this);
 			rfs_free_level_caches(info);
-
 			return false;
 		}
 
@@ -845,6 +862,8 @@ bool rfs_build_level_caches(rfs_t *info) {
 		sector_off += sectors_this;
 	}
 
+	dprintf("l1/l2 done read\n");
+
 	/* Derive L1 bitsets from counters */
 	for (uint64_t g = 0; g < info->l1_groups; ++g) {
 		const uint16_t fc = info->l1_free_count[g];
@@ -859,6 +878,8 @@ bool rfs_build_level_caches(rfs_t *info) {
 		}
 		bitset_set(info->l1_all_free, g, (fc == (uint16_t) group_size));
 	}
+
+	dprintf("l1 bitset\n");
 
 	/* Build L2 by folding over S children */
 	for (uint64_t sg = 0; sg < info->l2_groups; ++sg) {
@@ -881,6 +902,6 @@ bool rfs_build_level_caches(rfs_t *info) {
 		bitset_set(info->l2_all_free, sg, all_full_groups_free);
 	}
 
-	dprintf("RFS: Built L1/L2: total_sectors=%lu, l1_groups=%lu, l2_groups=%lu (slab=%zu bytes)\n", info->total_sectors, info->l1_groups, info->l2_groups, total_bytes);
+	dprintf("RFS: Built L1/L2: total_sectors=%lu, l1_groups=%lu, l2_groups=%lu (slab=%lu bytes)\n", info->total_sectors, info->l1_groups, info->l2_groups, total_bytes);
 	return true;
 }

@@ -56,7 +56,6 @@ void ethernet_handle_packet(ethernet_frame_t* packet, int len) {
 		handler(data, data_len);
 		return;
 	}
-	dprintf("Unknown packet type %d\n", packet->type);
 }
 
 bool ethernet_register_iee802_number(uint16_t protocol_number, ethernet_protocol_t handler)

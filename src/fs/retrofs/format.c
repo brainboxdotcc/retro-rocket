@@ -7,10 +7,11 @@ bool rfs_format(rfs_t *info) {
 		return false;
 	}
 
-	uint64_t size_sectors = info->length / RFS_SECTOR_SIZE;
+	uint64_t size_sectors = info->length;
 
 	if (!size_sectors) {
 		fs_set_error(FS_ERR_INVALID_GEOMETRY);
+		kprintf("Invalid disk size\n");
 		return false;
 	}
 
@@ -31,7 +32,7 @@ bool rfs_format(rfs_t *info) {
 
 	// Write description block (LBA 0)
 	if (!rfs_write_device(info, 0, sizeof(description_block), &description_block.raw)) {
-		dprintf("Failed to write RFS description block\n");
+		kprintf("Failed to write RFS description block\n");
 		return false;
 	}
 
@@ -42,7 +43,7 @@ bool rfs_format(rfs_t *info) {
 	dirent[0].start.parent = 0;
 	dirent[0].start.sectors = RFS_DEFAULT_DIR_SIZE;   // root dir cluster size
 	if (!rfs_write_device(info, 1, sizeof(dirent), &dirent)) {
-		dprintf("Failed to write RFS root directory entry\n");
+		kprintf("Failed to write RFS root directory entry\n");
 		return false;
 	}
 
@@ -51,9 +52,8 @@ bool rfs_format(rfs_t *info) {
 	uint8_t zerobuf[RFS_SECTOR_SIZE * RFS_MAP_READ_CHUNK_SECTORS] = {0};
 	for (uint64_t i = 0; i < map_sectors; i += chunk) {
 		size_t this_write = (map_sectors - i > chunk) ? chunk : (map_sectors - i);
-		if (!rfs_write_device(info, description_block.desc.free_space_map_start + i,
-				      this_write * RFS_SECTOR_SIZE, zerobuf)) {
-			dprintf("Failed to clear free space map sector %lu\n", i);
+		if (!rfs_write_device(info, description_block.desc.free_space_map_start + i, this_write * RFS_SECTOR_SIZE, zerobuf)) {
+			kprintf("Failed to clear free space map sector %lu\n", i);
 			return false;
 		}
 	}
@@ -64,21 +64,30 @@ bool rfs_format(rfs_t *info) {
 	info->desc = kmalloc(sizeof(rfs_description_block_padded_t));
 	if (!info->desc) {
 		info->desc = old;
+		kprintf("Out of memory for description block\n");
 		return false;
 	}
 	memcpy(info->desc, &description_block, sizeof(rfs_description_block_padded_t));
 
+	if (!rfs_build_level_caches(info)) {
+		kprintf("Failed to build L1/L2 free space map cache\n");
+		return false;
+	}
+
 	// Mark first 65 sectors as used (desc block + root directory)
+	dprintf("format: Mark root extent (0, %u)\n", RFS_DEFAULT_DIR_SIZE + 1);
 	if (!rfs_mark_extent(info, 0, RFS_DEFAULT_DIR_SIZE + 1, true)) {
 		kfree_null(&info->desc);
 		info->desc = old;
+		kprintf("Failed to mark root extent\n");
 		return false;
 	}
 
 	// Mark the free-space map *itself* as used
-	if (!rfs_mark_extent(info, description_block.desc.free_space_map_start,
-			     description_block.desc.free_space_map_length, true)) {
+	dprintf("format: Mark fs extent (%lu, %lu)\n", description_block.desc.free_space_map_start, description_block.desc.free_space_map_length);
+	if (!rfs_mark_extent(info, description_block.desc.free_space_map_start, description_block.desc.free_space_map_length, true)) {
 		kfree_null(&info->desc);
+		kprintf("Failed to mark fsmap extent\n");
 		info->desc = old;
 		return false;
 	}

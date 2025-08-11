@@ -62,7 +62,7 @@ typedef struct fat32_t {
 	uint8_t partitionid;		// Partition ID or 0xFF for a GPT partition
 	char* volume_name;		// Volume name
 	uint64_t start;			// Starting sector
-	uint64_t length;		// Length in sectors
+	uint64_t length;		// Length in bytes
 	uint32_t rootdircluster;	// Cluster number of root dircetory
 	uint16_t reservedsectors;	// Number of reserved sectors
 	uint32_t fsinfocluster;		// Cluster number of FSINFO
