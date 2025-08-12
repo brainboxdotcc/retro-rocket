@@ -30,7 +30,7 @@
 #define RFS_MAX_NAME 128                 /**< Maximum length of file/directory name (excluding terminator). */
 #define RFS_FS_MAP_BITS_PER_SECTOR (512 / sizeof(uint64_t)) /**< Number of free-space bits stored in a sector. */
 
-#define RFS_MAP_READ_CHUNK_SECTORS 16 /**< Preferred chunk size (in sectors) for reading the free space map. */
+#define RFS_MAP_READ_CHUNK_SECTORS 16ULL /**< Preferred chunk size (in sectors) for reading the free space map. */
 
 /**
  * @brief Default number of sectors allocated for a directory block.

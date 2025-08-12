@@ -74,7 +74,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 				/* LFN entry: stash by sequence index (mask off 0x40) */
 				lfn_t* lfn = (lfn_t*)entry;
 				uint8_t idx = (uint8_t)(lfn->order & 0x1F);
-				if (idx > 0 && idx < 256) {
+				if (idx > 0) {
 					memcpy(&lfns[idx], lfn, sizeof(lfn_t));
 					if ((int16_t)idx > highest_lfn_order) {
 						highest_lfn_order = (int16_t)idx;
