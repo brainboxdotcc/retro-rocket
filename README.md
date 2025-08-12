@@ -6,7 +6,7 @@ Imagine an alterate present time, where the [BBC Micro](https://en.wikipedia.org
 
 This is an alternative operating system inspired by [Acorn MOS 3.20](https://en.wikipedia.org/wiki/Acorn_MOS), but modernised for current hardware as a thought experiment and a bit of a toy to have fun with.
 
-Its userland is completely written in a dialect of BASIC based heavily on BBC BASIC, with full access to hardware (just like the old days), multi-tasking, modern filesystem support, internet utilities and more as well as planned backwards compatibility with Acorn features such as ADFS via disk images.
+Its userland is completely written in a dialect of BASIC based heavily on BBC BASIC, with full access to hardware (just like the old days), SMP, multi-tasking, modern filesystem support, internet utilities and more as well as planned backwards compatibility with Acorn features such as ADFS via disk images.
 
 ## 🌟 Features
 
@@ -16,6 +16,7 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
   * 💬A simple IRC client
 * ✏️Graphics drawing commands
 * 💽Virtual File System with support for:
+  * RetroFS (*read/write*)
   * FAT32 (*read/write*)
   * ISO9660 (*read only*)
 * ✅Multitasking of BASIC programs
@@ -25,8 +26,8 @@ Its userland is completely written in a dialect of BASIC based heavily on BBC BA
 
 * An `x86_64` system with CD or DVD drive to boot an ISO image (more options coming soon)
 * Or run under emulation via [QEMU](https://www.qemu.org/)
-* Optionally: RTL8139 or e1000 network card (as supported by QEMU)
-* SATA AHCI compatible optical drive (as supported by QEMU) - IDE is no longer supported!
+* Optionally: RTL8139 or e1000 network card - tested on real hardware!
+* SATA AHCI compatible optical drive and hard drive/SSD (as supported by QEMU) - IDE is no longer supported!
 
 ## 🔨 Technical Details
 
