@@ -8,7 +8,7 @@ PRINT "..."
 
 MOUNT "/devices", "", "devfs"
 MOUNT "/boot", "hd0", "fat32"
-MOUNT "/harddisk", "hd0", "rfs"
+REM MOUNT "/harddisk", "hd0", "rfs"
 
 KEYMAP "qemu"
 

@@ -308,3 +308,5 @@ char* strrchr(const char* s, int c);
  * @return <0 if s1 < s2, 0 if equal, >0 if s1 > s2 (case-insensitive).
  */
 int strcasecmp(const char* s1, const char* s2);
+
+void strtolower(char *s);

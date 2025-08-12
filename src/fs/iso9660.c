@@ -163,6 +163,8 @@ fs_directory_entry_t *parse_directory(fs_tree_t *node, iso9660 *info, uint32_t s
 				thisentry->filename[j] = 0;
 			}
 
+			dprintf("Retrieved filename: %s\n", thisentry->filename);
+
 			thisentry->year = fentry->recording_date.years_since_1900 + 1900;
 			thisentry->month = fentry->recording_date.month;
 			thisentry->day = fentry->recording_date.day;

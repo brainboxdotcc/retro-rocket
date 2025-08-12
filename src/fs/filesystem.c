@@ -40,6 +40,216 @@ static const char *fs_error_strings[] = {
 	"Bad cluster detected"
 };
 
+static struct hashmap* vfs_hash = NULL;
+
+typedef struct vfs_tree_t {
+	const char* path;
+	const char* parent;
+	const char** children;
+	size_t child_count;
+} vfs_tree_t;
+
+typedef struct mountpoint_t {
+	const char* path;
+	size_t len;
+	filesystem_t* responsible_driver;
+	struct mountpoint_t* next;
+} mountpoint_t;
+
+static mountpoint_t* mountpoints = NULL;
+
+bool vfs_add_mountpoint(const char* mountpoint, filesystem_t* responsible_driver) {
+	if (mountpoint == NULL || responsible_driver == NULL) {
+		return false;
+	}
+	mountpoint_t* mount = kmalloc(sizeof(mountpoint_t));
+	if (!mount) {
+		return false;
+	}
+	mount->path = strdup(mountpoint);
+	if (!mount->path) {
+		kfree_null(&mount);
+		return false;
+	}
+	mount->responsible_driver = responsible_driver;
+
+	size_t new_len = strlen(mountpoint);
+	mount->len = new_len;
+
+	mountpoint_t** cur = &mountpoints;
+
+	/* Keep list sorted by path length (descending). */
+	while (*cur && (*cur)->len >= new_len) {
+		cur = &((*cur)->next);
+	}
+
+	mount->next = *cur;
+	*cur = mount;
+	return true;
+}
+
+
+/**
+ * Returns the filesystem driver responsible for handling all fs requests to a path
+ * and its child objects.
+ * @param normalised_path pre-normalised path (can include the filename part)
+ * @return filesystem_t* driver ptr, or NULL if no attached driver (only occurs for
+ * root before the root filesystem is mounted)
+ */
+const mountpoint_t* vfs_get_mountpoint_for(const char* normalised_path) {
+	if (normalised_path == NULL) {
+		return NULL;
+	}
+	for(mountpoint_t* cur = mountpoints; cur; cur = cur->next) {
+		if (strnicmp(normalised_path, cur->path, cur->len) == 0) {
+			/* This check ensures that e.g. /programs isnt matched by /prog */
+			char next = normalised_path[cur->len];
+			if (next == '\0' || next == '/') {
+				return cur;
+			}
+		}
+	}
+	return NULL;
+}
+
+int path_compare(const void *a, const void *b, [[maybe_unused]] void *udata) {
+	const vfs_tree_t* ua = a;
+	const vfs_tree_t* ub = b;
+	return strcasecmp(ua->path, ub->path);
+}
+
+/* ASCII-only, case-insensitive path hash.
+ * Must mirror the semantics of strcasecmp() used in path_compare().
+ */
+uint64_t path_hash(const void *item, uint64_t seed0, uint64_t seed1) {
+	const vfs_tree_t* a = (const vfs_tree_t*)item;
+	const char* s = a->path;
+
+	/* FNV-1a 64-bit offset basis, perturbed by seed0. */
+	uint64_t h = 1469598103934665603ULL ^ seed0;
+
+	for (; *s; ++s) {
+		h ^= (unsigned char)tolower(*s);
+		h *= 1099511628211ULL; /* FNV prime */
+	}
+
+	/* Mix in seed1 and apply a strong finaliser (splitmix64 style). */
+	h ^= seed1;
+	h ^= h >> 30; h *= 0xbf58476d1ce4e5b9ULL;
+	h ^= h >> 27; h *= 0x94d049bb133111ebULL;
+	h ^= h >> 31;
+	return h;
+}
+
+
+bool vfs_path_add_child(const char* path, const char* child) {
+	struct vfs_tree_t* exists = hashmap_get(vfs_hash, &(vfs_tree_t){ .path = path });
+	if (!exists) {
+		return false;
+	}
+	if (exists->child_count == 0) {
+		exists->children = kmalloc(sizeof(char*));
+		exists->children[0] = strdup(child);
+		exists->child_count = 1;
+	} else {
+		for (size_t c = 0; c < exists->child_count; ++c) {
+			if (!strcasecmp(child, exists->children[c])) {
+				/* Already exists */
+				return false;
+			}
+		}
+		void* old = exists->children;
+		exists->children = krealloc(exists->children, sizeof(char*) * (exists->child_count + 1));
+		if (!exists->children) {
+			/* Resize failed */
+			exists->children = old;
+			return false;
+		}
+		exists->child_count++;
+		exists->children[exists->child_count - 1] = strdup(child);
+	}
+	return true;
+}
+
+vfs_tree_t* find_vfs_path(const char* path) {
+	return hashmap_get(vfs_hash, &(vfs_tree_t){ .path = path });
+}
+
+bool make_vfs_path(const char* path) {
+	if (path == NULL) {
+		return false;
+	}
+	vfs_tree_t find;
+	find.path = strdup(path);
+	find.parent = NULL;
+	find.children = NULL;
+	find.child_count = 0;
+	struct vfs_tree_t* exists = hashmap_get(vfs_hash, &find);
+	if (exists != NULL) {
+		kfree_null(&find.path);
+		return false;
+	} else {
+		/* First, split the path and file components */
+		size_t namelen = strlen(path);
+		char* pathinfo = strdup(path);
+		char* pathname = NULL;
+		char* ptr = pathinfo + namelen - 1;
+		if (namelen > 1 && *ptr == '/') {
+			ptr--;
+		}
+		for (; ptr >= pathinfo; --ptr) {
+			if (*ptr == '/') {
+				*ptr = 0;
+				pathname = (strlen(pathinfo) ? strdup(pathinfo) : strdup("/"));
+				break;
+			}
+		}
+		kfree_null(&pathinfo);
+		find.parent = pathname;
+		void* new_item = hashmap_set(vfs_hash, &find);
+		dprintf("VFS tree branch: %s\n", path);
+		/* If parent doesn't exist, create it */
+		bool parent_is_root = (strcmp(find.parent, "/") == 0);
+		if (!find_vfs_path(find.parent)) {
+			/* Recurse up the chain making any parents that don't exist */
+			if (!parent_is_root && !make_vfs_path(find.parent)) {
+				/* Failure frees this node, and its contained pointers */
+				kfree_null(&find.path);
+				kfree_null(&find.parent);
+				hashmap_delete(vfs_hash, new_item);
+				return false;
+			}
+		}
+		/* Add child to parent, now we know it exists for sure */
+		if (!parent_is_root) {
+			vfs_path_add_child(find.parent, path);
+		}
+	}
+	return true;
+}
+
+void init_vfs_tree()
+{
+	dprintf("Init VFS tree\n");
+	vfs_hash = hashmap_new(sizeof(vfs_tree_t), 0, 5648549036, 225546834, path_hash, path_compare, NULL, NULL);
+	if (!vfs_hash) {
+		preboot_fail("Could not initialise vfs tree hash");
+	}
+	make_vfs_path("/");
+
+}
+
+char* fs_get_name_part(const char* path) {
+	if (!path) {
+		return NULL;
+	}
+	const char* start = path + strlen(path);
+	while (start != path && *start != '/') {
+		start--;
+	}
+	return strdup(start + 1);
+}
+
 static filesystem_t* filesystems, *dummyfs;
 static storage_device_t* storagedevices = NULL;
 static fs_tree_t* fs_tree;
@@ -323,6 +533,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	fs_directory_entry_t* new_entry = NULL;
 
 	if (!verify_path(pathandfile)) {
+		dprintf("fs_create_directory: verify path and file failed: '%s'\n", pathandfile);
 		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return false;
 	}
@@ -344,6 +555,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	kfree_null(&pathinfo);
 
 	if (!filename || !pathname || !*filename) {
+		dprintf("Invalid filepath\n");
 		fs_set_error(FS_ERR_INVALID_FILEPATH);
 		return false;
 	}
@@ -355,6 +567,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 	fs_tree_t* directory = walk_to_node(fs_tree, pathname);
 	if (!directory) {
 		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
+		dprintf("fs_create_directory: walk_to_node '%s' failed\n", pathname);
 		kfree_null(&pathname);
 		kfree_null(&filename);
 		return false;
@@ -374,6 +587,7 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 		uint64_t lbapos = directory->responsible_driver->createdir(directory, filename);
 		/* Remove the deleted file from the fs_tree_t */
 		if (lbapos) {
+			dprintf("Driver createdirectory %lu\n", lbapos);
 			new_entry = kmalloc(sizeof(fs_directory_entry_t));
 			datetime_t dt;
 			get_datetime(&dt);
@@ -409,6 +623,8 @@ fs_directory_entry_t* fs_create_directory(const char* pathandfile)
 			new_dir->responsible_driver = directory->responsible_driver;
 			new_dir->size = 0;
 			directory->child_dirs = new_dir;
+		} else {
+			dprintf("driver createdirectory failed\n");
 		}
 	}
 	kfree_null(&pathname);
@@ -702,7 +918,7 @@ void retrieve_node_from_driver(fs_tree_t* node)
 	 * delete the old content first to avoid a memleak.
 	 */
 
-	//kprintf("retrieve_node_from_driver\n");
+	dprintf("retrieve_node_from_driver\n");
 	if (node == NULL) {
 		return;
 	}
@@ -779,7 +995,7 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 	if (current_node->dirty != 0) {
 		retrieve_node_from_driver(current_node);
 	}
-	
+
 	if (dir_stack && current_node->name != NULL && dir_stack->name != NULL && !strcmp(current_node->name, dir_stack->name)) {
 		dir_stack = dir_stack->next;
 		if (!dir_stack) {
@@ -814,10 +1030,14 @@ uint8_t verify_path(const char* path)
 
 fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 {
-	if (!verify_path(path))
+	if (!verify_path(path)) {
+		dprintf("walk_to_node: Verify path failed: %s\n", path);
 		return NULL;
-	if (!strcmp(path, "/"))
+	}
+	if (!strcmp(path, "/")) {
+		dprintf("walk_to_node: returning root of tree: %s\n", path);
 		return fs_tree;
+	}
 	/* First build the dir stack */
 	dirstack_t* ds = kmalloc(sizeof(dirstack_t));
 	if (!ds) {
@@ -833,6 +1053,7 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 		if (*parse == '/') {
 			*parse = 0;
 			walk->name = strdup(last);
+			dprintf("Dirstack part: '%s'\n", walk->name);
 			last = parse + 1;
 
                         dirstack_t* next = kmalloc(sizeof(dirstack_t));
@@ -847,7 +1068,9 @@ fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path)
 	}
 	walk->next = NULL;
 	walk->name = strdup(last);
+	dprintf("Made dirstack: '%s'\n", path);
 	fs_tree_t* result = walk_to_node_internal(current_node, ds);
+	dprintf("Walked nodes, got result %p\n", result);
 	while (ds) {
 		dirstack_t* next = ds->next;
 		kfree_null(&ds->name);
@@ -1168,12 +1391,16 @@ fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 
 int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 {
+	make_vfs_path(virtual_path);
+	vfs_add_mountpoint(virtual_path, fs);
 	fs_tree_t* item = walk_to_node(fs_tree, virtual_path);
 	if (item == NULL) {
 		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return 0;
 	}
 	item->responsible_driver = (void*)fs;
+	item->name = !strcmp(virtual_path, "/") ? strdup("/") : fs_get_name_part(virtual_path);
+	dprintf("Attach virtual path '%s' -> '%s'", virtual_path, item->name ? item->name : "<NULL>");
 	item->opaque = opaque;
 	item->dirty = 1;
 	item->files = NULL;
@@ -1185,6 +1412,7 @@ int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 
 void init_filesystem()
 {
+	init_vfs_tree();
 	filesystems = kmalloc(sizeof(filesystem_t));
 	if (!filesystems) {
 		preboot_fail("Unable to allocate memory for filesystem list");
@@ -1221,7 +1449,14 @@ void init_filesystem()
 
 fs_directory_entry_t* fs_get_items(const char* pathname)
 {
+	// TODO: Replace walk_to_node with a call to responsible driver.
+	// Use 	make_vfs_path(pathname) to get the mountpoint_t, add the
+	// len to the pathname to get the local part the driver is responsible
+	// for, pass that into a new get_dir function that is path aware,
+	// and doesnt take fs_tree. Only if this succeeds do we call
+	// make_vfs_path.
 	fs_tree_t* item = walk_to_node(fs_tree, pathname);
+	make_vfs_path(pathname);
 	return (fs_directory_entry_t*)(item ? item->files : NULL);
 }
 

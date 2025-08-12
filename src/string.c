@@ -13,6 +13,15 @@ unsigned int strlen(const char* str)
 	return len;
 }
 
+void strtolower(char *s) {
+	if (!s) {
+		return;
+	}
+	for (; *s; ++s) {
+		*s = tolower(*s);
+	}
+}
+
 unsigned char isdigit(const char x)
 {
 	return (x >= '0' && x <= '9');

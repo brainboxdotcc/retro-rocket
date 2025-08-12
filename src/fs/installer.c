@@ -1,13 +1,4 @@
 #include <kernel.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include "partition.h"  /* gpt_header_t, gpt_entry_t, partition_table_t, GUID helpers */
-
-/* GPT type GUID strings already provided by kernel.h:
- *   GPT_EFI_SYSTEM
- *   RFS_GPT_GUID
- */
 
 #define GPT_SIGNATURE_TEXT         "EFI PART"
 #define GPT_REVISION_1_0           0x00010000U
@@ -17,8 +8,6 @@
 
 #define ALIGN_1M_IN_LBAS           2048ULL     /* 1 MiB @ 512 B/LBA */
 #define SECTOR_BYTES_REQUIRED      512U
-#define MAX_WRITE_CHUNK_BYTES      (128U * 1024U)
-#define FAT32_BPB_HIDDEN_OFF       0x1C        /* LE u32 */
 
 /* ---------------- CRC32 (poly 0xEDB88320) ---------------- */
 
@@ -52,7 +41,71 @@ static uint32_t crc32_update(uint32_t crc, const void *data, size_t len)
 	return c ^ 0xFFFFFFFFU;
 }
 
-/* ---------------- small helpers ---------------- */
+bool copy_file(const char* source, const char* destination) {
+	fs_directory_entry_t* info = fs_get_file_info(source);
+	kprintf("Copy: '%s' -> '%s'\n", source, destination);
+	if (info && !(info->flags & FS_DIRECTORY) && info->size > 0) {
+		void *file_contents = kmalloc(info->size);
+		bool read_success = fs_read_file(info, 0, info->size, file_contents);
+		if (!read_success) {
+			kprintf("Error reading '%s' (%s)\n", source, fs_strerror(fs_get_error()));
+			kfree_null(&file_contents);
+			return false;
+		}
+		int fh = _open(destination, _O_APPEND);
+		if (fh < 0) {
+			kprintf("Error opening '%s' for writing (%s)\n", destination, fs_strerror(fs_get_error()));
+			kfree_null(&file_contents);
+			return false;
+		}
+		if (_write(fh, file_contents, info->size) == -1) {
+			kprintf("Error writing to '%s' (%s)\n", destination, fs_strerror(fs_get_error()));
+			kfree_null(&file_contents);
+			return false;
+		}
+		_close(fh);
+		kfree_null(&file_contents);
+		kprintf("'%s' -> '%s' (%lu bytes)\n", source, destination, info->size);
+		return true;
+	}
+	kprintf("Could not get info for '%s' or file is empty\n", source);
+	return false;
+}
+
+bool copy_directory(const char* source, const char* destination) {
+	kprintf("Copying directory: '%s' -> '%s'\n", source, destination);
+	if (!fs_create_directory(destination) && fs_get_error() != FS_ERR_DIRECTORY_EXISTS) {
+		kprintf("Error creating directory '%s' (%s)\n", destination, fs_strerror(fs_get_error()));
+		return false;
+	} else {
+		dprintf("Found or created directory: '%s'\n", destination);
+	}
+	fs_directory_entry_t* fsl = fs_get_items(source);
+	if (!fsl) {
+		kprintf("%s is empty\n", source);
+	}
+	while (fsl) {
+		kprintf("Copying item: '%s' -> '%s'\n", source, destination);
+		if (fsl->flags & FS_DIRECTORY) {
+			char subdirectory[MAX_STRINGLEN], new_destination[MAX_STRINGLEN];
+			snprintf(subdirectory, MAX_STRINGLEN - 1, "%s/%s", source, fsl->filename);
+			snprintf(new_destination, MAX_STRINGLEN - 1, "%s/%s", destination, fsl->filename);
+			if (!copy_directory(subdirectory, new_destination)) {
+				kprintf("Error copying directory '%s' (%s)\n", source, fs_strerror(fs_get_error()));
+				return false;
+			}
+		} else {
+			char full_path_in[MAX_STRINGLEN], full_path_out[MAX_STRINGLEN];;
+			snprintf(full_path_in, MAX_STRINGLEN - 1, "%s/%s", source, fsl->filename);
+			snprintf(full_path_out, MAX_STRINGLEN - 1, "%s/%s", destination, fsl->filename);
+			if (!copy_file(full_path_in, full_path_out)) {
+				return false;
+			}
+		}
+		fsl = fsl->next;
+	}
+	return true;
+}
 
 static uint64_t align_up_u64(uint64_t x, uint64_t a)
 {
@@ -76,19 +129,10 @@ static void make_utf16le_name(const char *ascii, uint16_t out36[36])
 	}
 }
 
-/* very simple PRNG; replace with your kernel RNG if available */
-static uint32_t prng_state = 0xC0FFEE01U;
-
-static uint32_t prng32(void)
-{
-	prng_state = prng_state * 1664525U + 1013904223U;
-	return prng_state;
-}
-
 static void random_guid_v4(uint8_t out16[16])
 {
 	for (int i = 0; i < 16; i += 4) {
-		uint32_t r = prng32();
+		uint32_t r = rand();
 		memcpy(out16 + i, &r, 4);
 	}
 	out16[6] = (out16[6] & 0x0F) | 0x40; /* version 4 */
@@ -97,7 +141,7 @@ static void random_guid_v4(uint8_t out16[16])
 
 static bool write_lbas(const char *devname, uint64_t start_lba, const void *buf, uint32_t bytes, uint32_t sector_bytes)
 {
-	if ((bytes % sector_bytes) != 0U) {
+	if ((bytes % sector_bytes) != 0) {
 		return false;
 	}
 	if (write_storage_device(devname, start_lba, bytes, (const unsigned char *)buf) == 0) {
@@ -292,7 +336,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	kprintf("FAT image total sectors to write: %lu\n", esp_sectors);
 
 	while (remaining_bytes > 0) {
-		memset(buf16k, (unsigned char)0xCE, chunk_bytes); // test sentinel
+		memset(buf16k, 0, chunk_bytes);
 		if (!fs_read_file(img_ent, (uint32_t)read_offset, chunk_bytes, buf16k)) {
 			kprintf("install: fs_read_file failed at offset %lu: %s\n", read_offset, fs_strerror(fs_get_error()));
 			kfree(buf16k);
@@ -317,7 +361,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	kprintf("         ESP  %lu..%lu (%lu sectors)\n", esp_first_lba, esp_last_lba, esp_sectors);
 	kprintf("         RFS  %lu..%lu\n", rfs_first_lba, rfs_last_lba);
 
-	/* Now format the partition */
+	/* Now format the RFS partition */
 
 	bool success = false;
 	uint8_t partitionid = 0;
@@ -352,6 +396,39 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 
 	/* TODO: Copy OS files onto RFS; /system, an empty /devices, /programs */
 	kprintf("Copying files...\n");
+
+	fs_directory_entry_t* fsl = fs_get_items("/");
+	for (; fsl; fsl = fsl->next) {
+		kprintf("Found root dir item: %s\n", fsl->filename);
+	}
+	kprintf("End root list\n");
+
+	char path[MAX_STRINGLEN];
+
+	/*fs_create_directory("/harddisk/system");
+	fs_create_directory("/harddisk/system/timezones");
+	fs_create_directory("/harddisk/system/keymaps");*/
+	fs_create_directory("/harddisk/system");
+	fs_create_directory("/harddisk/system/timezones");
+
+	fsl = fs_get_items("/system/timezones");
+	for (; fsl; fsl = fsl->next) {
+		kprintf("Create tz dir /harddisk/system/timezones/%s\n", fsl->filename);
+		snprintf(path, MAX_STRINGLEN, "/harddisk/system/timezones/%s", fsl->filename);
+		if (!fs_create_directory(path)) {
+			kprintf("Failed to create %s: %s\n", path, fs_strerror(fs_get_error()));
+		}
+	}
+
+	fs_create_directory("/harddisk/programs");
+	fs_create_directory("/harddisk/images");
+
+
+	/*copy_directory("/system", "/harddisk/system");
+	copy_directory("/programs", "/harddisk/programs");
+	copy_directory("/images", "/harddisk/images");
+	fs_create_directory("/harddisk/boot");
+	fs_create_directory("/harddisk/devices");*/
 
 	return true;
 }
