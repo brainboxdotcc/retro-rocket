@@ -62,7 +62,6 @@ extern simple_cv_t boot_condition;
 
 process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd)
 {
-	dprintf("proc_load 1\n");
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
 	if (fsi == NULL || (fsi->flags & FS_DIRECTORY)) {
 		kprintf("File does not exist.\n");
@@ -72,20 +71,17 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 		kprintf("Can't execute a directory.\n");
 		return NULL;
 	}
-	dprintf("proc_load 2\n");
 	unsigned char* programtext = kmalloc(fsi->size + 1);
 	if (!programtext) {
 		kprintf("Out of memory starting new process.\n");
 		return NULL;
 	}
-	dprintf("proc_load 3\n");
 	*(programtext + fsi->size) = 0;
 	if (!fs_read_file(fsi, 0, fsi->size, programtext)) {
 		kfree_null(&programtext);
 		kprintf("Failed to read program file for new process.\n");
 		return NULL;
 	}
-	dprintf("proc_load 4: %lu '%s'\n", fsi->size, programtext);
 	process_t* newproc = kmalloc(sizeof(process_t));
 	if (!newproc) {
 		kfree_null(&programtext);
@@ -100,7 +96,6 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 		kprintf("Fatal error parsing program: %s\n", error);
 		return NULL;
 	}
-	dprintf("proc_load 5\n");
 	newproc->waitpid = 0;
 	newproc->name = strdup(fsi->filename);
 	newproc->pid = nextid++;
@@ -115,7 +110,6 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 	newproc->check_idle = NULL;
 	newproc->start_time = time(NULL);
 	kfree_null(&programtext);
-	dprintf("proc_load 6\n");
 	lock_spinlock(&combined_proc_lock);
 	lock_spinlock(&proc_lock[newproc->cpu]);
 	if (proc_list[newproc->cpu] == NULL) {
@@ -146,14 +140,11 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 	if (proc_current[newproc->cpu] == NULL) {
 		proc_current[newproc->cpu] = proc_list[newproc->cpu];
 	}
-	dprintf("proc_load 7\n");
 
 	process_count++;
 	hashmap_set(process_by_pid, &(proc_id_t){ .id = newproc->pid, .proc = newproc });
 	unlock_spinlock(&combined_proc_lock);
 	unlock_spinlock(&proc_lock[newproc->cpu]);
-
-	dprintf("proc_load 8\n");
 
 	return newproc;
 }

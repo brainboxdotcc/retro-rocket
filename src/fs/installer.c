@@ -397,38 +397,11 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	/* TODO: Copy OS files onto RFS; /system, an empty /devices, /programs */
 	kprintf("Copying files...\n");
 
-	fs_directory_entry_t* fsl = fs_get_items("/");
-	for (; fsl; fsl = fsl->next) {
-		kprintf("Found root dir item: %s\n", fsl->filename);
-	}
-	kprintf("End root list\n");
-
-	char path[MAX_STRINGLEN];
-
-	/*fs_create_directory("/harddisk/system");
-	fs_create_directory("/harddisk/system/timezones");
-	fs_create_directory("/harddisk/system/keymaps");*/
-	fs_create_directory("/harddisk/system");
-	fs_create_directory("/harddisk/system/timezones");
-
-	fsl = fs_get_items("/system/timezones");
-	for (; fsl; fsl = fsl->next) {
-		kprintf("Create tz dir /harddisk/system/timezones/%s\n", fsl->filename);
-		snprintf(path, MAX_STRINGLEN, "/harddisk/system/timezones/%s", fsl->filename);
-		if (!fs_create_directory(path)) {
-			kprintf("Failed to create %s: %s\n", path, fs_strerror(fs_get_error()));
-		}
-	}
-
-	fs_create_directory("/harddisk/programs");
-	fs_create_directory("/harddisk/images");
-
-
-	/*copy_directory("/system", "/harddisk/system");
+	copy_directory("/system", "/harddisk/system");
 	copy_directory("/programs", "/harddisk/programs");
 	copy_directory("/images", "/harddisk/images");
 	fs_create_directory("/harddisk/boot");
-	fs_create_directory("/harddisk/devices");*/
+	fs_create_directory("/harddisk/devices");
 
 	return true;
 }

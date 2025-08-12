@@ -42,14 +42,23 @@ bool rfs_format(rfs_t *info) {
 	dirent[0].start.continuation = 0;
 	dirent[0].start.parent = 0;
 	dirent[0].start.sectors = RFS_DEFAULT_DIR_SIZE;   // root dir cluster size
-	if (!rfs_write_device(info, 1, sizeof(dirent), &dirent)) {
-		kprintf("Failed to write RFS root directory entry\n");
-		return false;
-	}
 
 	// RFS_MAP_READ_CHUNK_SECTORS per write = 64K @ 128 sectors
 	const size_t chunk = RFS_MAP_READ_CHUNK_SECTORS;
 	uint8_t zerobuf[RFS_SECTOR_SIZE * RFS_MAP_READ_CHUNK_SECTORS] = {0};
+
+	if (!rfs_write_device(info, 1, sizeof(dirent), &dirent)) {
+		kprintf("Failed to write RFS root directory entry\n");
+		return false;
+	}
+	for (uint64_t i = 0; i < RFS_DEFAULT_DIR_SIZE; i += chunk) {
+		size_t this_write = (RFS_DEFAULT_DIR_SIZE - i > chunk) ? chunk : (RFS_DEFAULT_DIR_SIZE - i);
+		if (!rfs_write_device(info, 2 + i, this_write * RFS_SECTOR_SIZE, zerobuf)) {
+			kprintf("Failed to clear root directory sector %lu\n", i);
+			return false;
+		}
+	}
+
 	for (uint64_t i = 0; i < map_sectors; i += chunk) {
 		size_t this_write = (map_sectors - i > chunk) ? chunk : (map_sectors - i);
 		if (!rfs_write_device(info, description_block.desc.free_space_map_start + i, this_write * RFS_SECTOR_SIZE, zerobuf)) {

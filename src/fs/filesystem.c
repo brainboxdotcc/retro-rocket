@@ -1,6 +1,19 @@
 #include <kernel.h>
 #include <filesystem.h>
 
+static filesystem_t* filesystems, *dummyfs;
+static storage_device_t* storagedevices = NULL;
+static fs_tree_t* fs_tree;
+static uint32_t fd_last = 0;
+static uint32_t fd_alloc = 0;
+static fs_handle_t* filehandles[FD_MAX] = { NULL };
+static uint32_t fs_last_error[MAX_CPUS] = { FS_ERR_NO_ERROR };
+
+uint8_t verify_path(const char* path);
+fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path);
+fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename);
+int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
+
 static const char *fs_error_strings[] = {
 	"No error",
 	"Operation unsupported",
@@ -47,6 +60,7 @@ typedef struct vfs_tree_t {
 	const char* parent;
 	const char** children;
 	size_t child_count;
+	fs_tree_t* node;
 } vfs_tree_t;
 
 typedef struct mountpoint_t {
@@ -175,13 +189,14 @@ vfs_tree_t* find_vfs_path(const char* path) {
 	return hashmap_get(vfs_hash, &(vfs_tree_t){ .path = path });
 }
 
-bool make_vfs_path(const char* path) {
+bool make_vfs_path(const char* path, fs_tree_t* node) {
 	if (path == NULL) {
 		return false;
 	}
 	vfs_tree_t find;
 	find.path = strdup(path);
 	find.parent = NULL;
+	find.node = node;
 	find.children = NULL;
 	find.child_count = 0;
 	struct vfs_tree_t* exists = hashmap_get(vfs_hash, &find);
@@ -212,7 +227,7 @@ bool make_vfs_path(const char* path) {
 		bool parent_is_root = (strcmp(find.parent, "/") == 0);
 		if (!find_vfs_path(find.parent)) {
 			/* Recurse up the chain making any parents that don't exist */
-			if (!parent_is_root && !make_vfs_path(find.parent)) {
+			if (!parent_is_root && !make_vfs_path(find.parent, NULL)) {
 				/* Failure frees this node, and its contained pointers */
 				kfree_null(&find.path);
 				kfree_null(&find.parent);
@@ -235,7 +250,7 @@ void init_vfs_tree()
 	if (!vfs_hash) {
 		preboot_fail("Could not initialise vfs tree hash");
 	}
-	make_vfs_path("/");
+	make_vfs_path("/", fs_tree);
 
 }
 
@@ -249,19 +264,6 @@ char* fs_get_name_part(const char* path) {
 	}
 	return strdup(start + 1);
 }
-
-static filesystem_t* filesystems, *dummyfs;
-static storage_device_t* storagedevices = NULL;
-static fs_tree_t* fs_tree;
-static uint32_t fd_last = 0;
-static uint32_t fd_alloc = 0;
-static fs_handle_t* filehandles[FD_MAX] = { NULL };
-static uint32_t fs_last_error[MAX_CPUS] = { FS_ERR_NO_ERROR };
-
-uint8_t verify_path(const char* path);
-fs_tree_t* walk_to_node(fs_tree_t* current_node, const char* path);
-fs_directory_entry_t* find_file_in_dir(fs_tree_t* directory, const char* filename);
-int fs_write_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
 void fs_set_error(uint32_t error) {
 	fs_last_error[logical_cpu_id()] = error;
@@ -992,7 +994,7 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 		return NULL;
 	}
 
-	if (current_node->dirty != 0) {
+	/*if (current_node->dirty != 0) {
 		retrieve_node_from_driver(current_node);
 	}
 
@@ -1011,6 +1013,31 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 		}
 	}
 
+	return NULL;*/
+
+
+	/* Materialise this node before inspecting children */
+	if (current_node->dirty != 0) {
+		retrieve_node_from_driver(current_node);
+	}
+
+	/* No more segments to consume → we've arrived */
+	if (dir_stack == NULL) {
+		return current_node;
+	}
+
+	/* IMPORTANT CHANGE:
+	   Only consider immediate children named like the next segment.
+	   Do NOT recurse into non-matching branches (prevents /a from
+	   “finding” /x/.../a by DFS). */
+	for (fs_tree_t *child = current_node->child_dirs; child; child = child->next) {
+		if (child->name && dir_stack->name && strcmp(child->name, dir_stack->name) == 0) {
+			/* consume exactly one segment and descend */
+			return walk_to_node_internal(child, dir_stack->next);
+		}
+	}
+
+	/* No matching child at this level */
 	return NULL;
 }
 
@@ -1391,9 +1418,9 @@ fs_directory_entry_t* fs_get_file_info(const char* pathandfile)
 
 int attach_filesystem(const char* virtual_path, filesystem_t* fs, void* opaque)
 {
-	make_vfs_path(virtual_path);
-	vfs_add_mountpoint(virtual_path, fs);
 	fs_tree_t* item = walk_to_node(fs_tree, virtual_path);
+	make_vfs_path(virtual_path, item);
+	vfs_add_mountpoint(virtual_path, fs);
 	if (item == NULL) {
 		fs_set_error(FS_ERR_NO_SUCH_DIRECTORY);
 		return 0;
@@ -1449,21 +1476,54 @@ void init_filesystem()
 
 fs_directory_entry_t* fs_get_items(const char* pathname)
 {
-	// TODO: Replace walk_to_node with a call to responsible driver.
-	// Use 	make_vfs_path(pathname) to get the mountpoint_t, add the
-	// len to the pathname to get the local part the driver is responsible
-	// for, pass that into a new get_dir function that is path aware,
-	// and doesnt take fs_tree. Only if this succeeds do we call
-	// make_vfs_path.
 	fs_tree_t* item = walk_to_node(fs_tree, pathname);
-	make_vfs_path(pathname);
+	make_vfs_path(pathname, item);
 	return (fs_directory_entry_t*)(item ? item->files : NULL);
 }
 
-bool fs_is_directory(const char* pathname)
+bool fs_is_directory(const char* path)
 {
+	if (strcmp(path, "/") == 0) {
+		return true;
+	}
+	/* Get the containing directory of the item in 'pathname' */
+
+	/* First, split the path and file components */
+	uint32_t namelen = strlen(path);
+	char* pathinfo = strdup(path);
+	char* filename = NULL;
+	char* pathname = NULL;
+	char* ptr;
+	for (ptr = pathinfo + namelen; ptr >= pathinfo; --ptr) {
+		if (*ptr == '/') {
+			*ptr = 0;
+			filename = strdup(ptr + 1);
+			pathname = strlen(pathinfo) ? strdup(pathinfo) : strdup("/");
+			break;
+		}
+	}
+	kfree_null(&pathinfo);
+
+	dprintf("FS_IS_DIRECTORY checking path='%s', pathpart='%s' filepart='%s'\n", path, pathname, filename);
+
 	fs_tree_t* item = walk_to_node(fs_tree, pathname);
-	return item != NULL;
+	if (item == NULL) {
+		dprintf("FS_IS_DIRECTORY: WALK TO NODE '%s' FAILED\n", pathname);
+		kfree_null(&filename);
+		kfree_null(&pathname);
+		return false;
+	}
+	for (fs_directory_entry_t* ent = item->files; ent; ent = ent->next) {
+		if (strcasecmp(ent->filename, filename) == 0) {
+			dprintf("FS_IS_DIRECTORY: path='%s' found file='%s' with flags '%u'\n", pathname, ent->filename, ent->flags);
+			kfree_null(&filename);
+			kfree_null(&pathname);
+			return (ent->flags & FS_DIRECTORY) != 0;
+		}
+	}
+	kfree_null(&filename);
+	kfree_null(&pathname);
+	return false;
 }
 
 int filesystem_mount(const char* pathname, const char* device, const char* filesystem_driver)
