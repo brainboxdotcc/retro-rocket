@@ -394,9 +394,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	/* Mount the newly formatted volume */
 	filesystem_mount("/harddisk", devname, "rfs");
 
-	/* TODO: Copy OS files onto RFS; /system, an empty /devices, /programs */
 	kprintf("Copying files...\n");
-
 	copy_directory("/system", "/harddisk/system");
 	copy_directory("/programs", "/harddisk/programs");
 	copy_directory("/images", "/harddisk/images");

@@ -59,8 +59,7 @@ fs_directory_entry_t *rfs_walk_directory(fs_tree_t *tree, rfs_t *info, uint64_t 
 			/* No continuations left */
 			break;
 		} else {
-			if (!rfs_read_device(info, start_entry->continuation, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE,
-					     &block)) {
+			if (!rfs_read_device(info, start_entry->continuation, RFS_SECTOR_SIZE * RFS_DEFAULT_DIR_SIZE, &block)) {
 				dprintf("rfs: Error reading next directory chain from %lu", start_entry->continuation);
 				return list;
 			}
