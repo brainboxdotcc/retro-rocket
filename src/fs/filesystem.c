@@ -313,6 +313,10 @@ storage_device_t* find_storage_device(const char* name)
 	return NULL;
 }
 
+const storage_device_t* get_all_storage_devices() {
+	return storagedevices;
+}
+
 uint64_t fs_get_free_space(const char* path)
 {
 	fs_tree_t* dir = walk_to_node(fs_tree, path);

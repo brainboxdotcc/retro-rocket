@@ -708,6 +708,6 @@ uint32_t pci_setup_interrupt(const char* name, pci_dev_t dev, uint8_t logical_cp
 	uint32_t irq = IRQ_START + irq_line;
 	register_interrupt_handler(irq, handler, dev, context);
 	pci_interrupt_enable(dev, true);
-	kprintf("%s: MSI not available, using legacy IRQ %d\n", name, irq);
+	dprintf("%s: MSI not available, using legacy IRQ %d\n", name, irq);
 	return irq;
 }

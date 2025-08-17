@@ -309,4 +309,23 @@ char* strrchr(const char* s, int c);
  */
 int strcasecmp(const char* s1, const char* s2);
 
+/**
+ * @brief Convert a string to lowercase in place.
+ *
+ * Iterates over the null-terminated string and replaces any
+ * uppercase ASCII letters (A–Z) with their lowercase form.
+ *
+ * @param s Null-terminated string to modify.
+ */
 void strtolower(char *s);
+
+/**
+ * @brief Return visible length of a string ignoring ANSI escapes.
+ *
+ * Skips CSI sequences (ESC '[' ... final byte). Only counts characters
+ * that would actually be displayed.
+ *
+ * @param s Null-terminated string.
+ * @return Visible character count.
+ */
+size_t strlen_ansi(const char *s);

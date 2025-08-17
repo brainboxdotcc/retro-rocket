@@ -241,6 +241,11 @@ typedef struct filesystem_t {
 	struct filesystem_t* next;
 } filesystem_t;
 
+typedef struct {
+	char label[96];
+	bool is_optical;
+} storage_device_ui_t;
+
 /**
  * @brief Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc.
  * 
@@ -295,6 +300,8 @@ typedef struct storage_device_t {
 	 * 
 	 */
 	void* opaque2;
+
+	storage_device_ui_t ui;
 
 	/**
 	 * @brief Pointer to next storage device, or NULL
@@ -398,6 +405,14 @@ int register_storage_device(storage_device_t* newdev);
  * @return storage_device_t* Pointer to storage device if found, or NULL
  */
 storage_device_t* find_storage_device(const char* name);
+
+/**
+ * @brief Return a list of all registered storage devices
+ *
+ * @return storage_device_t* Pointer to first entry in linked list of storage devices,
+ * NULL if list is empty.
+ */
+const storage_device_t* get_all_storage_devices();
 
 /**
  * @brief Read blocks from storage device by name

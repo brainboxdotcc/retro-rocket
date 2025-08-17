@@ -29,6 +29,46 @@
 #define COLOUR_LIGHTYELLOW  14
 #define COLOUR_LIGHTWHITE   15
 
+/* VGA foreground colours as ANSI escapes */
+#define VGA_FG_BLACK        "\x1b[30m"
+#define VGA_FG_BLUE         "\x1b[34m"
+#define VGA_FG_GREEN        "\x1b[32m"
+#define VGA_FG_CYAN         "\x1b[36m"
+#define VGA_FG_RED          "\x1b[31m"
+#define VGA_FG_MAGENTA      "\x1b[35m"
+#define VGA_FG_BROWN        "\x1b[33m"
+#define VGA_FG_WHITE        "\x1b[37m"
+#define VGA_FG_GRAY         "\x1b[90m"
+#define VGA_FG_LIGHTBLUE    "\x1b[94m"
+#define VGA_FG_LIGHTGREEN   "\x1b[92m"
+#define VGA_FG_LIGHTCYAN    "\x1b[96m"
+#define VGA_FG_LIGHTRED     "\x1b[91m"
+#define VGA_FG_LIGHTMAGENTA "\x1b[95m"
+#define VGA_FG_YELLOW       "\x1b[93m"
+#define VGA_FG_LIGHTWHITE   "\x1b[97m"
+
+/* VGA background colours as ANSI escapes */
+#define VGA_BG_BLACK        "\x1b[40m"
+#define VGA_BG_BLUE         "\x1b[44m"
+#define VGA_BG_GREEN        "\x1b[42m"
+#define VGA_BG_CYAN         "\x1b[46m"
+#define VGA_BG_RED          "\x1b[41m"
+#define VGA_BG_MAGENTA      "\x1b[45m"
+#define VGA_BG_BROWN        "\x1b[43m"
+#define VGA_BG_WHITE        "\x1b[47m"
+#define VGA_BG_GRAY         "\x1b[100m"
+#define VGA_BG_LIGHTBLUE    "\x1b[104m"
+#define VGA_BG_LIGHTGREEN   "\x1b[102m"
+#define VGA_BG_LIGHTCYAN    "\x1b[106m"
+#define VGA_BG_LIGHTRED     "\x1b[101m"
+#define VGA_BG_LIGHTMAGENTA "\x1b[105m"
+#define VGA_BG_YELLOW       "\x1b[103m"
+#define VGA_BG_LIGHTWHITE   "\x1b[107m"
+
+/* Reset to defaults */
+#define VGA_RESET           "\x1b[0m"
+
+
 /** @brief Default text colour (white on black). */
 #define DEFAULT_COLOUR COLOUR_WHITE
 
@@ -235,6 +275,8 @@ bool video_flip_auto(void);
 void set_video_auto_flip(bool flip);
 
 void set_video_dirty_area(int64_t start, int64_t end);
+
+const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, bool background);
 
 /* -------------------------------------------------------------------------- */
 /* Globals                                                                    */

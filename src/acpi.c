@@ -196,7 +196,7 @@ void init_acpi() {
 		if (memcmp(acpi_table, "APIC", 4) == 0) {
 			// found MADT
 			lapic_ptr = (uint64_t) (*((uint32_t *) (acpi_table + 0x24)));
-			kprintf("Detected: 32-Bit Local APIC [base: %lx]\n", lapic_ptr);
+			dprintf("Detected: 32-Bit Local APIC [base: %lx]\n", lapic_ptr);
 			uint8_t* madt_end = acpi_table + *((uint32_t *) (acpi_table + 4));
 			// iterate on variable length records
 			for (acpi_table += 44; acpi_table < madt_end; acpi_table += acpi_table[1]) {
@@ -214,14 +214,14 @@ void init_acpi() {
 						mmio[0] = 0x01;
 						uint32_t count = ((mmio[0x10 / 4]) & 0xFF) + 1;
 						ioapic_gsi_count[numioapic] = count;
-						kprintf("Detected: IOAPIC [base: %lx; id: %d gsi base: %d gsi count: %d]\n",
+						dprintf("Detected: IOAPIC [base: %lx; id: %d gsi base: %d gsi count: %d]\n",
 							ioapic_ptr[numioapic], ioapic_ids[numioapic],
 							ioapic_gsi_base[numioapic], count);
 						numioapic++;
 						break;  // found IOAPIC
 					case 2: {
 						madt_override_t *ovr = (madt_override_t *) acpi_table;
-						kprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n",
+						dprintf("Interrupt override: IRQ %d -> GSI %d (flags: 0x%x)\n",
 							ovr->irq_source, ovr->gsi, ovr->flags);
 						pci_irq_route_t * r = &pci_irq_routes[ovr->irq_source];
 						r->exists = true;
@@ -234,7 +234,7 @@ void init_acpi() {
 					}
 					case 5:
 						lapic_ptr = *((uint64_t *) (acpi_table + 4));
-						kprintf("Detected: 64-Bit Local APIC [base: %lx]\n", lapic_ptr);
+						dprintf("Detected: 64-Bit Local APIC [base: %lx]\n", lapic_ptr);
 						break;             // found 64 bit LAPIC
 				}
 			}
@@ -297,9 +297,9 @@ bool pm_timer_is_32_bit(void) {
 
 void boot_aps() {
 	if (numcore > 0) {
-		kprintf("SMP: %d cores, %d IOAPICs\n", numcore, numioapic);
+		dprintf("SMP: %d cores, %d IOAPICs\n", numcore, numioapic);
 		if (!smp_request.response) {
-			kprintf("No SMP response, running uniprocessor.\n");
+			dprintf("No SMP response, running uniprocessor.\n");
 			return;
 		}
 

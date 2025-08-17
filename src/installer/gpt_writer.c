@@ -1,164 +1,6 @@
-#include <kernel.h>
+#include <installer.h>
 
-#define GPT_SIGNATURE_TEXT         "EFI PART"
-#define GPT_REVISION_1_0           0x00010000U
-#define GPT_HEADER_SIZE_BYTES      92U
-#define GPT_PTE_COUNT              128U
-#define GPT_PTE_SIZE_BYTES         128U
-
-#define ALIGN_1M_IN_LBAS           2048ULL     /* 1 MiB @ 512 B/LBA */
-#define SECTOR_BYTES_REQUIRED      512U
-
-/* ---------------- CRC32 (poly 0xEDB88320) ---------------- */
-
-static uint32_t crc32_update(uint32_t crc, const void *data, size_t len)
-{
-	static uint32_t table[256];
-	static bool init = false;
-
-	if (!init) {
-		for (uint32_t i = 0; i < 256; i++) {
-			uint32_t c = i;
-			for (int j = 0; j < 8; j++) {
-				if ((c & 1U) != 0U) {
-					c = 0xEDB88320U ^ (c >> 1);
-				} else {
-					c >>= 1;
-				}
-			}
-			table[i] = c;
-		}
-		init = true;
-	}
-
-	uint32_t c = crc ^ 0xFFFFFFFFU;
-	const uint8_t *p = (const uint8_t *)data;
-
-	for (size_t i = 0; i < len; i++) {
-		c = table[(c ^ p[i]) & 0xFFU] ^ (c >> 8);
-	}
-
-	return c ^ 0xFFFFFFFFU;
-}
-
-bool copy_file(const char* source, const char* destination) {
-	fs_directory_entry_t* info = fs_get_file_info(source);
-	kprintf("Copy: '%s' -> '%s'\n", source, destination);
-	if (info && !(info->flags & FS_DIRECTORY) && info->size > 0) {
-		void *file_contents = kmalloc(info->size);
-		bool read_success = fs_read_file(info, 0, info->size, file_contents);
-		if (!read_success) {
-			kprintf("Error reading '%s' (%s)\n", source, fs_strerror(fs_get_error()));
-			kfree_null(&file_contents);
-			return false;
-		}
-		int fh = _open(destination, _O_APPEND);
-		if (fh < 0) {
-			kprintf("Error opening '%s' for writing (%s)\n", destination, fs_strerror(fs_get_error()));
-			kfree_null(&file_contents);
-			return false;
-		}
-		if (_write(fh, file_contents, info->size) == -1) {
-			kprintf("Error writing to '%s' (%s)\n", destination, fs_strerror(fs_get_error()));
-			kfree_null(&file_contents);
-			return false;
-		}
-		_close(fh);
-		kfree_null(&file_contents);
-		kprintf("'%s' -> '%s' (%lu bytes)\n", source, destination, info->size);
-		return true;
-	}
-	kprintf("Could not get info for '%s' or file is empty\n", source);
-	return false;
-}
-
-bool copy_directory(const char* source, const char* destination) {
-	kprintf("Copying directory: '%s' -> '%s'\n", source, destination);
-	if (!fs_create_directory(destination) && fs_get_error() != FS_ERR_DIRECTORY_EXISTS) {
-		kprintf("Error creating directory '%s' (%s)\n", destination, fs_strerror(fs_get_error()));
-		return false;
-	} else {
-		dprintf("Found or created directory: '%s'\n", destination);
-	}
-	fs_directory_entry_t* fsl = fs_get_items(source);
-	if (!fsl) {
-		kprintf("%s is empty\n", source);
-	}
-	while (fsl) {
-		kprintf("Copying item: '%s' -> '%s'\n", source, destination);
-		if (fsl->flags & FS_DIRECTORY) {
-			char subdirectory[MAX_STRINGLEN], new_destination[MAX_STRINGLEN];
-			snprintf(subdirectory, MAX_STRINGLEN - 1, "%s/%s", source, fsl->filename);
-			snprintf(new_destination, MAX_STRINGLEN - 1, "%s/%s", destination, fsl->filename);
-			if (!copy_directory(subdirectory, new_destination)) {
-				kprintf("Error copying directory '%s' (%s)\n", source, fs_strerror(fs_get_error()));
-				return false;
-			}
-		} else {
-			char full_path_in[MAX_STRINGLEN], full_path_out[MAX_STRINGLEN];;
-			snprintf(full_path_in, MAX_STRINGLEN - 1, "%s/%s", source, fsl->filename);
-			snprintf(full_path_out, MAX_STRINGLEN - 1, "%s/%s", destination, fsl->filename);
-			if (!copy_file(full_path_in, full_path_out)) {
-				return false;
-			}
-		}
-		fsl = fsl->next;
-	}
-	return true;
-}
-
-static uint64_t align_up_u64(uint64_t x, uint64_t a)
-{
-	if (a == 0ULL) {
-		return x;
-	}
-	return (x + (a - 1ULL)) & ~(a - 1ULL);
-}
-
-static void make_utf16le_name(const char *ascii, uint16_t out36[36])
-{
-	size_t n = strlen(ascii);
-	if (n > 36U) {
-		n = 36U;
-	}
-	for (size_t i = 0; i < n; i++) {
-		out36[i] = (uint16_t)(uint8_t)ascii[i];
-	}
-	for (size_t i = n; i < 36U; i++) {
-		out36[i] = 0;
-	}
-}
-
-static void random_guid_v4(uint8_t out16[16])
-{
-	for (int i = 0; i < 16; i += 4) {
-		uint32_t r = rand();
-		memcpy(out16 + i, &r, 4);
-	}
-	out16[6] = (out16[6] & 0x0F) | 0x40; /* version 4 */
-	out16[8] = (out16[8] & 0x3F) | 0x80; /* variant 10 */
-}
-
-static bool write_lbas(const char *devname, uint64_t start_lba, const void *buf, uint32_t bytes, uint32_t sector_bytes)
-{
-	if ((bytes % sector_bytes) != 0) {
-		return false;
-	}
-	if (write_storage_device(devname, start_lba, bytes, (const unsigned char *)buf) == 0) {
-		return false;
-	}
-	return true;
-}
-
-/**
- * @brief Flatten a device, write GPT with ESP + RFS, then write a prebuilt ESP image.
- *
- * @param devname             storage device name (e.g. "hd0")
- * @param esp_image_vfs_path  VFS path to prebuilt FAT32 ESP image (~68 MiB)
- * @return true on success
- */
-bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_vfs_path)
-{
+bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_vfs_path) {
 	storage_device_t *dev = find_storage_device(devname);
 	if (dev == NULL) {
 		kprintf("install: device '%s' not found\n", devname);
@@ -231,7 +73,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 
 	/* --- Protective MBR (LBA0) --- */
 	uint8_t mbr[SECTOR_BYTES_REQUIRED];
-	memset(mbr, 0, sizeof mbr);
+	memset(mbr, 0, sizeof(mbr));
 	partition_table_t *ptab = (partition_table_t *)(mbr + PARTITION_TABLE_OFFSET);
 	memset(ptab, 0, sizeof(*ptab));
 
@@ -243,14 +85,14 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	mbr[510] = 0x55;
 	mbr[511] = 0xAA;
 
-	if (!write_lbas(devname, 0ULL, mbr, sizeof mbr, sector_bytes)) {
+	if (!write_lbas(devname, 0ULL, mbr, sizeof(mbr), sector_bytes)) {
 		kprintf("install: write protective MBR failed\n");
 		return false;
 	}
 
 	/* --- Partition Entries --- */
-	const uint32_t ptes_buf_bytes = (uint32_t)(ptes_sectors * sector_bytes);
-	uint8_t *ptes_buf = (uint8_t *)kmalloc(ptes_buf_bytes);
+	const uint32_t ptes_buf_bytes = (ptes_sectors * sector_bytes);
+	uint8_t *ptes_buf = kmalloc(ptes_buf_bytes);
 	if (!ptes_buf) {
 		kprintf("install: out of memory for PTE buffer\n");
 		return false;
@@ -284,7 +126,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 
 	/* --- GPT Headers --- */
 	uint8_t gpth_buf[SECTOR_BYTES_REQUIRED];
-	memset(gpth_buf, 0, sizeof gpth_buf);
+	memset(gpth_buf, 0, sizeof(gpth_buf));
 	gpt_header_t *gpth = (gpt_header_t *)gpth_buf;
 	memcpy(gpth->signature, GPT_SIGNATURE_TEXT, 8);
 	gpth->gpt_revision              = GPT_REVISION_1_0;
@@ -302,7 +144,7 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	gpth->crc_checksum              = crc32_update(0, gpth, GPT_HEADER_SIZE_BYTES);
 
 	uint8_t gptb_buf[SECTOR_BYTES_REQUIRED];
-	memset(gptb_buf, 0, sizeof gptb_buf);
+	memset(gptb_buf, 0, sizeof(gptb_buf));
 	gpt_header_t *gptb = (gpt_header_t *)gptb_buf;
 	memcpy(gptb, gpth, GPT_HEADER_SIZE_BYTES);
 	gptb->lba_of_this_header        = backup_header_lba;
@@ -324,8 +166,8 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 
 	/* --- Stream ESP image directly --- */
 	const uint32_t chunk_bytes = 64 * 1024;
-	uint8_t *buf16k = (uint8_t *)kmalloc(chunk_bytes);
-	if (!buf16k) {
+	uint8_t *esp_buffer = kmalloc(chunk_bytes);
+	if (!esp_buffer) {
 		kprintf("install: out of memory for ESP streaming buffer\n");
 		return false;
 	}
@@ -336,17 +178,17 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	kprintf("FAT image total sectors to write: %lu\n", esp_sectors);
 
 	while (remaining_bytes > 0) {
-		memset(buf16k, 0, chunk_bytes);
-		if (!fs_read_file(img_ent, (uint32_t)read_offset, chunk_bytes, buf16k)) {
+		memset(esp_buffer, 0, chunk_bytes);
+		if (!fs_read_file(img_ent, (uint32_t)read_offset, chunk_bytes, esp_buffer)) {
 			kprintf("install: fs_read_file failed at offset %lu: %s\n", read_offset, fs_strerror(fs_get_error()));
-			kfree(buf16k);
+			kfree(esp_buffer);
 			return false;
 		}
 
 		uint32_t n_sectors = chunk_bytes / sector_bytes;
-		if (!write_lbas(devname, out_lba, buf16k, chunk_bytes, sector_bytes)) {
+		if (!write_lbas(devname, out_lba, esp_buffer, chunk_bytes, sector_bytes)) {
 			kprintf("install: write failed at LBA %lu\n", out_lba);
-			kfree(buf16k);
+			kfree(esp_buffer);
 			return false;
 		}
 
@@ -355,14 +197,16 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 		remaining_bytes = (remaining_bytes > chunk_bytes) ? (remaining_bytes - chunk_bytes) : 0;
 	}
 
-	kfree(buf16k);
+	kfree(esp_buffer);
 
 	kprintf("install: GPT + ESP + RFS written to '%s'\n", devname);
 	kprintf("         ESP  %lu..%lu (%lu sectors)\n", esp_first_lba, esp_last_lba, esp_sectors);
 	kprintf("         RFS  %lu..%lu\n", rfs_first_lba, rfs_last_lba);
 
-	/* Now format the RFS partition */
+	return prepare_rfs_partition(dev);
+}
 
+bool prepare_rfs_partition(storage_device_t* dev) {
 	bool success = false;
 	uint8_t partitionid = 0;
 	char found_guid[64];
@@ -370,9 +214,9 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	memset(info, 0, sizeof(rfs_t));
 	uint64_t start = 0, length = 0;
 	info->dev = dev;
-
-	if (!find_partition_of_type(devname, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length)) {
-		kprintf("install: Could not find the created RFS to format it on %s\n", devname);
+	/* Find the RFS partition on the device */
+	if (!find_partition_of_type(dev->name, 0xFF, found_guid, RFS_GPT_GUID, &partitionid, &start, &length)) {
+		kprintf("install: Could not find the created RFS to format it on %s\n", dev->name);
 	} else {
 		info->start = start;
 		info->length = length;
@@ -384,28 +228,10 @@ bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_
 	}
 
 	if (success) {
-		kprintf("install: RFS on device %s formatted successfully\n", devname);
+		kprintf("install: RFS on device %s formatted successfully\n", dev->name);
 	} else {
-		kprintf("install: Failed to format RFS on device %s\n", devname);
-		wait_forever();
+		kprintf("install: Failed to format RFS on device %s\n", dev->name);
 	}
 	kfree_null(&info);
-
-	/* Mount the newly formatted volume */
-	filesystem_mount("/harddisk", devname, "rfs");
-
-	kprintf("Copying files...\n");
-	copy_directory("/system", "/harddisk/system");
-	copy_directory("/programs", "/harddisk/programs");
-	copy_directory("/images", "/harddisk/images");
-	fs_create_directory("/harddisk/boot");
-	fs_create_directory("/harddisk/devices");
-
-	return true;
-}
-
-void installer() {
-	kprintf("Installer stub\n");
-	install_gpt_esp_rfs_whole_image("hd0", "/efi.fat");
-	wait_forever();
+	return success;
 }

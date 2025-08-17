@@ -203,7 +203,7 @@ void e1000_handle_receive() {
 
 void e1000_check_link() {
 	uint32_t status = e1000_read_command(REG_STATUS);
-	kprintf("e1000: link is %s\n", (status & 2) ? "up" : "down");
+	dprintf("e1000: link is %s\n", (status & 2) ? "up" : "down");
 }
 
 bool e1000_send_packet(void *p_data, uint16_t p_len) {

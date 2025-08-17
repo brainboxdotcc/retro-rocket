@@ -565,11 +565,63 @@ unsigned char map_vga_to_ansi(unsigned char colour)
 	}
 }
 
+unsigned char map_vga_to_ansi_bg(unsigned char colour)
+{
+	switch (colour) {
+		case 0x00: // Black
+			return 40;
+		case 0x01: // Blue
+			return 44;
+		case 0x02: // Green
+			return 42;
+		case 0x03: // Cyan
+			return 46;
+		case 0x04: // Red
+			return 41;
+		case 0x05: // Magenta
+			return 45;
+		case 0x06: // Brown
+			return 43;
+		case 0x07: // White
+			return 47;
+		case 0x08: // Gray
+			return 100;
+		case 0x09: // Light Blue
+			return 104;
+		case 0x0A: // Light Green
+			return 102;
+		case 0x0B: // Light Cyan
+			return 106;
+		case 0x0C: // Light Red
+			return 101;
+		case 0x0D: // Light Magenta
+			return 105;
+		case 0x0E: // Yellow
+			return 103;
+		default: // Bright White
+			return 107;
+	}
+}
+
+const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, bool background) {
+	unsigned char code;
+
+	if (background) {
+		code = map_vga_to_ansi_bg(vga_colour);
+	} else {
+		code = map_vga_to_ansi(vga_colour);
+	}
+
+	snprintf(out, out_len, "\x1b[%um", code);
+	return out;
+}
+
+
 void setbackground(console* c, unsigned char background)
 {
 	char code[100];
 	uint64_t flags;
-	snprintf(code, 100, "%c[%dm", 27, background + 40);
+	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi_bg(background));
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
 	putstring(c, code);

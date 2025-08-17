@@ -612,3 +612,25 @@ int strcasecmp(const char* s1, const char* s2) {
 	c2 = (unsigned char)tolower((unsigned char)*s2);
 	return (int)c1 - (int)c2;
 }
+
+size_t strlen_ansi(const char *s) {
+	size_t len = 0;
+
+	while (*s) {
+		if (*s == '\x1b' && *(s + 1) == '[') {
+			/* Skip CSI sequence */
+			s += 2;
+			while (*s && !((*s >= '@' && *s <= '~'))) {
+				s++;
+			}
+			if (*s) {
+				s++; /* skip final command character */
+			}
+		} else {
+			len++;
+			s++;
+		}
+	}
+
+	return len;
+}

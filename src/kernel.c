@@ -7,10 +7,8 @@ void kmain()
 {
 	init();
 
-	kprintf("Bringing up network...\n");
-	netdev_t* network = get_active_network_device();
-	if (network) {
-		kprintf("Active network card: %s\n", network->description);
+	if (get_active_network_device()) {
+		kprintf("Bringing up network...");
 		network_up();
 	}
 
