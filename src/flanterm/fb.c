@@ -39,12 +39,12 @@
 #define ALWAYS_INLINE inline
 #endif
 
-#include <kernel.h>
+#include "kernel.h"
 
 #define FLANTERM_IN_FLANTERM
 
-#include <flanterm.h>
-#include <flanterm/fb.h>
+#include "flanterm.h"
+#include "flanterm/fb.h"
 
 #ifndef FLANTERM_FB_DISABLE_BUMP_ALLOC
 

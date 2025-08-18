@@ -403,7 +403,7 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 		size_t prev_end = prev->seq + cur->prev->len;
 
 		if (segment->seq == prev->seq && len == cur->prev->len) {
-			// exact duplicate → drop
+			// exact duplicate -> drop
 			return NULL;
 		}
 
@@ -419,7 +419,7 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 		size_t cur_end = cur->segment->seq + cur->len;
 
 		if (seq_gte(new_end, cur_end)) {
-			// new completely covers cur → remove cur
+			// new completely covers cur -> remove cur
 			next_ord = cur->next;
 			if (cur->prev) cur->prev->next = cur->next;
 			if (cur->next) cur->next->prev = cur->prev;
@@ -431,7 +431,7 @@ tcp_segment_t* tcp_ord_list_insert(tcp_conn_t* conn, tcp_segment_t* segment, siz
 		}
 
 		if (seq_gt(new_end, cur->segment->seq)) {
-			// partial overlap → shrink cur from the left
+			// partial overlap -> shrink cur from the left
 			size_t overlap = new_end - cur->segment->seq;
 			cur->segment->seq += overlap;
 			cur->len -= overlap;

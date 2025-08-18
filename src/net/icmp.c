@@ -154,7 +154,7 @@ void icmp_handle_source_quench_packet(ip_packet_t* encap_packet, icmp_packet_t* 
 {
 	char ip[14];
 	get_ip_str(ip, encap_packet->src_ip);
-	dprintf("ICMP Source Quench from %s — deprecated, ignoring\n", ip);
+	dprintf("ICMP Source Quench from %s - deprecated, ignoring\n", ip);
 }
 
 void icmp_handle_redirect_packet(ip_packet_t* encap_packet, icmp_packet_t* packet, size_t len)

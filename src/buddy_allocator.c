@@ -125,7 +125,7 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 			return ret;
 		}
 
-		// no block here → try another region
+		// no block here -> try another region
 		if (!region->next) {
 			region = buddy_grow(alloc);
 		} else {

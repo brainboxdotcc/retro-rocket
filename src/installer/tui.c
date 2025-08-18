@@ -222,7 +222,7 @@ void draw_progress_bar_cp437(uint64_t x, uint64_t y, uint64_t width, uint64_t pe
 	uint64_t total_half_cells = inner_w * 2;
 	uint64_t filled_halves = (percent * total_half_cells) / 100;
 
-	/* Draw fill (row y+1). Left→right with half-cell precision. */
+	/* Draw fill (row y+1). Left->right with half-cell precision. */
 	setforeground(percent >= 66 ? COLOUR_LIGHTGREEN : (percent >= 33 ? COLOUR_LIGHTYELLOW : (percent >= 15 ? COLOUR_LIGHTRED : COLOUR_DARKRED)));
 	for (uint64_t i = 0; i < inner_w; i++) {
 		uint64_t cell_x = x + 1 + i;

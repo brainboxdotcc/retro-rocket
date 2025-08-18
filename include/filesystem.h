@@ -82,13 +82,15 @@ typedef enum fs_error_t {
 	FS_ERR_LFN_TOO_LONG,
 	FS_ERR_IS_EXFAT,
 	FS_ERR_BAD_CLUSTER,
+	FS_ERR_INTERNAL,
+	FS_ERR_OUT_OF_BOUNDS,
 } fs_error_t;
 
 /**
  * @brief Retrieve a human-readable string for the last filesystem error code.
  *
  * This function maps an fs_error_t code to its corresponding descriptive
- * string. It does not reset or clear the error code — the last error value
+ * string. It does not reset or clear the error code - the last error value
  * is retained until a new filesystem error is set via fs_set_error().
  *
  * @note The validity of the returned error string depends on the result of the
@@ -246,6 +248,8 @@ typedef struct {
 	bool is_optical;
 } storage_device_ui_t;
 
+struct block_cache;
+
 /**
  * @brief Represents a block storage device e.g. a hard disk, DVD-ROM drive, etc.
  * 
@@ -301,7 +305,16 @@ typedef struct storage_device_t {
 	 */
 	void* opaque2;
 
+	/**
+	 * @brief User interface strings, model name, capacity, type
+	 * as human-readable text.
+	 */
 	storage_device_ui_t ui;
+
+	/**
+	 * @brief Block cache for the device
+	 */
+	struct block_cache* cache;
 
 	/**
 	 * @brief Pointer to next storage device, or NULL
@@ -668,4 +681,34 @@ uint32_t fs_get_error(void);
  */
 bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_vfs_path);
 
+/**
+ * @brief Installation stub, installer/main.c
+ */
 void installer();
+
+/**
+ * @brief Enable a block-level cache for a storage device.
+ *
+ * This attaches a new cache instance to the device if one is not already
+ * present. The cache is only created when the device has a valid sector size
+ * and read path. Devices that do not benefit from caching (e.g. ramdisks)
+ * should not call this function.
+ *
+ * @param device  Storage device to enable caching for.
+ * @return        true if a cache was successfully created and attached,
+ *                false if caching could not be enabled (invalid arguments,
+ *                already enabled, or allocation failure).
+ */
+bool storage_enable_cache(storage_device_t *device);
+
+/**
+ * @brief Disable and destroy the cache attached to a storage device.
+ *
+ * If a cache is present on the device it will be destroyed and all resources
+ * freed. After this call, @p sd->cache will be set to NULL. Calling this on
+ * a device without a cache is safe and has no effect.
+ *
+ * @param sd  Storage device to disable caching for.
+ */
+void storage_disable_cache(storage_device_t *sd);
+

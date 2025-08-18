@@ -1,6 +1,6 @@
 /**
  * @file tinyalloc.h
- * @brief Tinyalloc — a small, page-aware heap allocator for Retro Rocket.
+ * @brief Tinyalloc - a small, page-aware heap allocator for Retro Rocket.
  *
  * Provides aligned heap allocation and free operations with
  * low overhead. Intended for kernel use where predictable

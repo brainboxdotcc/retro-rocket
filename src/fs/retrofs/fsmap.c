@@ -81,7 +81,7 @@
  * `rfs_mark_extent(info, start, length, mark_used)` performs the write-through update:
  * - Whole-group fast path (extent exactly covers one or more full groups):
  *     - Write the corresponding L0 sector(s) as all `0xFF` (reserve) or `0x00` (free)
- *       — no read required.
+ *       - no read required.
  *     - Update `l1_free_count[g]` to 0 or `group_size`, and set:
  *         - `l1_not_full[g] = !mark_used`
  *         - `l1_all_free[g] = !mark_used` (only true when freeing an entire group)

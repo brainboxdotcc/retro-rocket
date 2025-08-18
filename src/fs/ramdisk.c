@@ -109,6 +109,7 @@ const char* init_ramdisk(size_t blocks, size_t blocksize)
 		}
 		sd->opaque1 = 0;
 		sd->opaque2 = rd.name;
+		sd->cache = NULL;
 		sd->blockread = rd_block_read;
 		sd->blockwrite = rd_block_write;
 		sd->size = rd.blocks;

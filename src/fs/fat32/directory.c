@@ -82,7 +82,7 @@ fs_directory_entry_t* parse_fat32_directory(fs_tree_t* tree, fat32_t* info, uint
 				}
 				dprintf("long name\n");
 			} else {
-				/* SFN (regular file/dir) — build entry, optionally with LFN */
+				/* SFN (regular file/dir) - build entry, optionally with LFN */
 				char sfn[13];
 				char sfn_dotless[13];
 				dprintf("short name\n");

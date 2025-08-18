@@ -1,5 +1,6 @@
 #include <kernel.h>
 #include <filesystem.h>
+#include "block_cache.h"
 
 static filesystem_t* filesystems, *dummyfs;
 static storage_device_t* storagedevices = NULL;
@@ -50,7 +51,9 @@ static const char *fs_error_strings[] = {
 	"No such device",
 	"Long filename too long",
 	"Filesystem is exFAT",
-	"Bad cluster detected"
+	"Bad cluster detected",
+	"Internal Error",
+	"Out of bounds device access",
 };
 
 static struct hashmap* vfs_hash = NULL;
@@ -302,6 +305,23 @@ int register_storage_device(storage_device_t* newdev)
 	return 1;
 }
 
+bool storage_enable_cache(storage_device_t* device) {
+	if (!device || device->cache || !device->blockread) {
+		dprintf("Invalid device state for cache enable\n");
+		return false;
+	}
+	device->cache = block_cache_create(device);
+	return device->cache != NULL;
+}
+
+
+void storage_disable_cache(storage_device_t *sd) {
+	if (!sd || !sd->cache) {
+		return;
+	}
+	block_cache_destroy(&sd->cache);
+}
+
 storage_device_t* find_storage_device(const char* name)
 {
 	storage_device_t* cur = storagedevices;
@@ -330,11 +350,28 @@ int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, 
 		fs_set_error(FS_ERR_UNSUPPORTED);
 		return 0;
 	}
-	int success = cur->blockread(cur, start_block, bytes, data);
-	if (!success) {
-		fs_set_error(FS_ERR_IO);
+
+	if (cur->cache) {
+		if (block_cache_read(cur->cache, start_block, bytes, data)) {
+			return 1;
+		}
+
+		if (!cur->blockread(cur, start_block, bytes, data)) {
+			fs_set_error(FS_ERR_IO);
+			return 0;
+		}
+
+		/* Prime the cache with what we just read; ignore result */
+		block_cache_write(cur->cache, start_block, bytes, data);
+		return 1;
 	}
-	return success;
+
+	if (!cur->blockread(cur, start_block, bytes, data)) {
+		fs_set_error(FS_ERR_IO);
+		return 0;
+	}
+
+	return 1;
 }
 
 int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes, const unsigned char* data)
@@ -345,11 +382,18 @@ int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes,
 		return 0;
 	}
 
-	int success = cur->blockwrite(cur, start_block, bytes, data);
-	if (!success) {
+	/* Always write the device first */
+	if (!cur->blockwrite(cur, start_block, bytes, data)) {
 		fs_set_error(FS_ERR_IO);
+		return 0;
 	}
-	return success;
+
+	/* Then, if present, update/prime the cache (no I/O here) */
+	if (cur->cache) {
+		block_cache_write(cur->cache, start_block, bytes, data);
+	}
+
+	return 1;
 }
 
 /* Allocate a new file descriptor and attach it to 'file' */
@@ -1025,7 +1069,7 @@ fs_tree_t* walk_to_node_internal(fs_tree_t* current_node, dirstack_t* dir_stack)
 		retrieve_node_from_driver(current_node);
 	}
 
-	/* No more segments to consume → we've arrived */
+	/* No more segments to consume -> we've arrived */
 	if (dir_stack == NULL) {
 		return current_node;
 	}

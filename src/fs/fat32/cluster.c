@@ -56,7 +56,7 @@ uint64_t cluster_to_lba(fat32_t* info, uint32_t cluster)
 
 	const uint64_t spc = (uint64_t)info->clustersize / (uint64_t)sd->block_size;
 
-	/* First data sector = reserved + (num_fats * fat_size) — all in SECTORS */
+	/* First data sector = reserved + (num_fats * fat_size) - all in SECTORS */
 	const uint64_t first_data_sector =
 		(uint64_t)info->reservedsectors + ((uint64_t)info->numberoffats * (uint64_t)info->fatsize);
 

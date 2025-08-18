@@ -121,7 +121,7 @@ uint16_t make_dhcp_packet(dhcp_packet_t* packet, uint8_t msg_type, uint8_t* requ
 	dev->get_mac_addr(options);
 	options += 6;
 
-	/* Requested IP (Option 50) — only if we actually have one to ask for */
+	/* Requested IP (Option 50) - only if we actually have one to ask for */
 	if (*((uint32_t*)request_ip)) {
 		*(options++) = OPT_REQUESTED_IP; /* 50 */
 		*(options++) = 4;

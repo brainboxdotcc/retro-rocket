@@ -72,7 +72,7 @@ typedef struct shared_interrupt_t {
  * handlers for multiple PCI devices on the same line can be tracked and
  * dispatched safely. This is a requirement of shared interrupt delivery.
  *
- * @param n Interrupt number — 0–31 are reserved ISRs; 32+ are IRQs.
+ * @param n Interrupt number - 0–31 are reserved ISRs; 32+ are IRQs.
  * @param handler Function pointer to the interrupt handler.
  * @param device For PCI devices, specify the device node responsible.
  *               Used to manage IRQ sharing.

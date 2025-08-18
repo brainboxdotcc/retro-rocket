@@ -378,13 +378,13 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				abar->ghc |= (1 << 1);  // global IE
 
 
-				storage_device_t* sd = NULL;
-				sd = kmalloc(sizeof(storage_device_t));
+				storage_device_t* sd = kmalloc(sizeof(storage_device_t));
 				if (!sd) {
 					return;
 				}
 				sd->opaque1 = i;
 				sd->opaque2 = (void*)abar;
+				sd->cache = NULL;
 				sd->blockread = storage_device_ahci_block_read;
 				sd->blockwrite = storage_device_ahci_block_write;
 				sd->size = dt == AHCI_DEV_SATA ? ahci_read_size(&abar->ports[i], abar) : SIZE_MAX;
@@ -413,6 +413,7 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				}
 				kprintf("%s storage, Port #%d: %s\n", dt == AHCI_DEV_SATA ? "SATA" : "ATAPI", i, sd->ui.label);
 				register_storage_device(sd);
+				storage_enable_cache(sd);
 			}
 		}
 		pi >>= 1;

@@ -45,7 +45,7 @@ void devfs_register_text(const char *name, devfs_update_cb_t update_cb, devfs_re
 	node->update_cb = update_cb;
 	node->read_cb = read_cb;
 
-	/* Insert at head — safe, we don't mutate older nodes' .next later */
+	/* Insert at head - safe, we don't mutate older nodes' .next later */
 	node->next = devfs_head;
 	devfs_head = node;
 }

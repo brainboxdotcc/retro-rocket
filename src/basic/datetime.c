@@ -68,12 +68,7 @@ char* basic_get_upstr(struct basic_ctx* ctx)
 			buffer[pos++] = ' ';
 		}
 
-		int n = snprintf(buffer + pos, sizeof(buffer) - pos,
-				 "%lu %s",
-				 parts[i].v, parts[i].label);
-		if (n < 0) {
-			n = 0;
-		}
+		size_t n = snprintf(buffer + pos, sizeof(buffer) - pos, "%lu %s", parts[i].v, parts[i].label);
 		if (n >= sizeof(buffer) - pos) {
 			pos = sizeof(buffer) - 1;
 			break;
@@ -83,7 +78,7 @@ char* basic_get_upstr(struct basic_ctx* ctx)
 	}
 
 	if (!started) {
-		(void)snprintf(buffer, sizeof(buffer), "0 sec");
+		snprintf(buffer, sizeof(buffer), "0 sec");
 	} else {
 		buffer[pos] = '\0';
 	}

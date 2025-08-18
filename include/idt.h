@@ -38,7 +38,7 @@ extern volatile idt_ptr_t idt64;
  * for broadcast and never used. Any CPUs with IDs above 254 are ignored.
  *
  * By sizing arrays to 256, we can index directly by LAPIC ID without needing
- * a LAPIC→OS CPU remapping table. This simplifies per‑CPU structures at the
+ * a LAPIC->OS CPU remapping table. This simplifies per‑CPU structures at the
  * cost of a small amount of extra memory. Future support for >254 LAPIC IDs
  * may require remapping or dynamic allocation.
  */

@@ -395,7 +395,7 @@ uacpi_status uacpi_kernel_pci_device_open(uacpi_pci_address address, uacpi_handl
 }
 
 uacpi_status uacpi_kernel_io_map(uacpi_io_addr base, uacpi_size len, uacpi_handle *out_handle) {
-	// For I/O ports, mapping isn't needed — just pass the base through.
+	// For I/O ports, mapping isn't needed - just pass the base through.
 	*out_handle = (uacpi_handle) base;
 	return UACPI_STATUS_OK;
 }

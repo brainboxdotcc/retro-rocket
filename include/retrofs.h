@@ -1,7 +1,7 @@
 /**
  * @file retrofs.h
  * @author Craig Edwards (craigedwards@brainbox.cc)
- * @brief Core structures, constants, and API definitions for RetroFS — an
+ * @brief Core structures, constants, and API definitions for RetroFS - an
  *        ADFS 'L' format–inspired filesystem for Retro Rocket.
  *
  * RetroFS is a sector-based filesystem inspired by the Acorn ADFS 'L' format.
