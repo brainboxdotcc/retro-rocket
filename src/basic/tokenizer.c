@@ -346,17 +346,17 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			if (ctx->claimed_flip) {
 				set_video_auto_flip(true);
 			}
-			setforeground(current_console, COLOUR_LIGHTRED);
+			setforeground(COLOUR_LIGHTRED);
 			kprintf("Error on line %ld: %s\n", ctx->current_linenum, error);
-			setforeground(current_console, COLOUR_WHITE);
+			setforeground(COLOUR_WHITE);
 			ctx->ended = true;
 		}
 	} else {
 		if (!ctx->errored) {
 			ctx->errored = true;
-			setforeground(current_console, COLOUR_LIGHTRED);
+			setforeground(COLOUR_LIGHTRED);
 			kprintf("%s\n", error);
-			setforeground(current_console, COLOUR_WHITE);
+			setforeground(COLOUR_WHITE);
 			jump_linenum(ctx->eval_linenum, ctx);
 		}
 	}

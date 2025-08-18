@@ -2,14 +2,25 @@
 #include <flanterm.h>
 #include <flanterm/fb.h>
 
+volatile struct limine_framebuffer_request framebuffer_request = {
+	.id = LIMINE_FRAMEBUFFER_REQUEST,
+	.revision = 0,
+};
+
+static void *rr_fb_front = NULL;
+static void *rr_fb_back = NULL;
+static uint64_t rr_fb_pitch = 0;
+static uint64_t rr_fb_height = 0;
+static uint64_t rr_fb_bytes = 0;
+struct flanterm_context *ft_ctx = NULL;
+extern spinlock_t console_spinlock;
+extern spinlock_t debug_console_spinlock;
 static int64_t screen_x = 0, screen_y = 0, current_x = 0, current_y = 0, screen_graphics_x = 0, screen_graphics_y = 0, screen_graphics_stride = 1;
-static console first_console;
 bool wait_state = false;
 bool video_flip_is_auto = true;
 bool video_dirty = true;
 int64_t video_dirty_start = -1;
 int64_t video_dirty_end = -1;
-console* current_console = NULL;
 
 static uint8_t font_data[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -270,22 +281,6 @@ static uint8_t font_data[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-volatile struct limine_framebuffer_request framebuffer_request = {
-	.id = LIMINE_FRAMEBUFFER_REQUEST,
-	.revision = 0,
-};
-
-static void *rr_fb_front = NULL;
-static void *rr_fb_back = NULL;
-static uint64_t rr_fb_pitch = 0;
-static uint64_t rr_fb_height = 0;
-static uint64_t rr_fb_bytes = 0;
-
-struct flanterm_context *ft_ctx = NULL;
-
-extern spinlock_t console_spinlock;
-extern spinlock_t debug_console_spinlock;
-
 void rr_console_init_from_limine(void) {
 	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
 	dprintf("fb front: %lx\n", (uint64_t)fb->address);
@@ -298,13 +293,11 @@ void rr_console_init_from_limine(void) {
 	memset(rr_fb_back, 0, rr_fb_bytes);
 }
 
-inline uint64_t framebuffer_address()
-{
+inline uint64_t framebuffer_address() {
 	return (uint64_t)rr_fb_back;
 }
 
-inline uint64_t pixel_address(int64_t x, int64_t y)
-{
+inline uint64_t pixel_address(int64_t x, int64_t y) {
 	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
 	uint64_t pitch = fb->pitch;
 	uint64_t bytes_per_pixel = fb->bpp >> 3;
@@ -314,13 +307,11 @@ inline uint64_t pixel_address(int64_t x, int64_t y)
 	return 0;
 }
 
-uint64_t get_text_width()
-{
+uint64_t get_text_width() {
 	return screen_x;
 }
 
-uint64_t get_text_height()
-{
+uint64_t get_text_height() {
 	return screen_y;
 }
 
@@ -332,63 +323,55 @@ void ft_write(struct flanterm_context *ctx, const char *buf, size_t count) {
 	set_video_dirty_area(flanterm_ex_get_bounding_min_y(), flanterm_ex_get_bounding_max_y());
 }
 
-void screenonly(console* c, const char* s)
-{
+void screenonly(const char* s) {
 	ft_write(ft_ctx, s, strlen(s));
 }
 
-void get_text_position(uint64_t* x, uint64_t* y)
-{
+void get_text_position(uint64_t* x, uint64_t* y) {
 	wait_state = true;
-	putstring(current_console, "\033[6n");
+	putstring("\033[6n");
 	while (wait_state);
 	*x = current_x;
 	*y = current_y;
 }
 
-void gotoxy(uint64_t x, uint64_t y)
-{
+void gotoxy(uint64_t x, uint64_t y) {
 	char cursor_command[32];
 	snprintf(cursor_command, 32, "\033[%ld;%ldH", y % (get_text_height() + 1), x % (get_text_width() + 1));
 	uint64_t flags;
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
-	screenonly(current_console, cursor_command);
+	screenonly(cursor_command);
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
 	set_video_dirty_area(0, screen_graphics_y);
 }
 
-void putpixel(int64_t x, int64_t y, uint32_t rgb)
-{
+void putpixel(int64_t x, int64_t y, uint32_t rgb) {
 	volatile uint32_t* addr = (volatile uint32_t*)(framebuffer_address() + pixel_address(x, y));
 	*addr = rgb;
 	set_video_dirty_area(y, y);
 }
 
-uint32_t getpixel(int64_t x, int64_t y)
-{
+uint32_t getpixel(int64_t x, int64_t y) {
 	return *((volatile uint32_t*)(framebuffer_address() + pixel_address(x, y)));
 }
 
 /* Clear the screen - note this does not send the ansi to the debug console */
-void clearscreen(console* c)
-{
+void clearscreen() {
 	memset(rr_fb_back, 0, rr_fb_bytes);
-	screenonly(c, "\033[2J\033[0;0H");
+	screenonly("\033[2J\033[0;0H");
 	set_video_dirty_area(0, screen_graphics_y);
 }
 
-void dput(const char n)
-{
+void dput(const char n) {
 	outb(0xE9, n);
 }
 
 /* Write one character to the screen. As this calls setcursor() it may
  * trigger scrolling if the character would be off-screen.
  */
-void put(console* c, const char n)
-{
+void put(const char n) {
 	dput(n);
 	ft_write(ft_ctx, &n, 1);
 }
@@ -409,7 +392,7 @@ void dputstring(const char* message)
  * handled by put() and setcursor(), and the internal functions it
  * calls.
  */
-void putstring(console* c, const char* message)
+void putstring(const char* message)
 {
 	dputstring(message);
 	ft_write(ft_ctx, message, strlen(message));
@@ -431,9 +414,6 @@ void terminal_callback(struct flanterm_context *ctx, uint64_t type, uint64_t x, 
 
 void init_console()
 {
-	console* c = &first_console;
-	current_console = c;
-	c->internalbuffer = NULL;
 	if (framebuffer_request.response == NULL || framebuffer_request.response->framebuffer_count < 1) {
 		dprintf("No framebuffer offered\n");
 		wait_forever();
@@ -445,7 +425,7 @@ void init_console()
 	screen_graphics_x = fb->width;
 	screen_graphics_y = fb->height;
 
-	clearscreen(c);
+	clearscreen();
 
 	dprintf("Bringing up flanterm...\n");
 
@@ -477,9 +457,9 @@ void init_console()
 	screen_y = y;
 	dprintf("Framebuffer address: %lx x resolution=%d y resolution=%d\n", framebuffer_address(), screen_get_width(), screen_get_height());
 
-	setforeground(current_console, COLOUR_LIGHTYELLOW);
+	setforeground(COLOUR_LIGHTYELLOW);
 	printf("Retro-Rocket ");
-	setforeground(current_console, COLOUR_WHITE);
+	setforeground(COLOUR_WHITE);
 	printf("64-bit SMP kernel booting\n");
 	rr_flip();
 
@@ -617,26 +597,24 @@ const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, boo
 }
 
 
-void setbackground(console* c, unsigned char background)
-{
+void setbackground(unsigned char background) {
 	char code[100];
 	uint64_t flags;
 	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi_bg(background));
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
-	putstring(c, code);
+	putstring(code);
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
 }
 
-void setforeground(console* c, unsigned char foreground)
-{
+void setforeground(unsigned char foreground) {
 	char code[100];
 	uint64_t flags;
 	snprintf(code, 100, "%c[%dm", 27, map_vga_to_ansi(foreground));
 	lock_spinlock_irq(&console_spinlock, &flags);
 	lock_spinlock(&debug_console_spinlock);
-	putstring(c, code);
+	putstring(code);
 	unlock_spinlock(&debug_console_spinlock);
 	unlock_spinlock_irq(&console_spinlock, flags);
 }

@@ -41,6 +41,22 @@
  */
 #define EFI_FAT_IMAGE "/efi.fat"
 
+/* Print format for “one glyph” */
+#define GLYPH_FMT               "%s"
+
+/* Double box line-drawing: UTF-8 (U+2550..U+255D) */
+#define CP437_DBL_H             "\xE2\x95\x90"  /* U+2550 ═ */
+#define CP437_DBL_V             "\xE2\x95\x91"  /* U+2551 ║ */
+#define CP437_DBL_TL            "\xE2\x95\x94"  /* U+2554 ╔ */
+#define CP437_DBL_TR            "\xE2\x95\x97"  /* U+2557 ╗ */
+#define CP437_DBL_BL            "\xE2\x95\x9A"  /* U+255A ╚ */
+#define CP437_DBL_BR            "\xE2\x95\x9D"  /* U+255D ╝ */
+
+/* Block fills: UTF-8 (U+2588, U+258C, U+2590) */
+#define CP437_BLOCK_FULL        "\xE2\x96\x88"  /* U+2588 █ */
+#define CP437_BLOCK_HALF_LEFT   "\xE2\x96\x8C"  /* U+258C ▌ */
+#define CP437_BLOCK_HALF_RIGHT  "\xE2\x96\x90"  /* U+2590 ▐ */
+
 /**
  * @brief Mapping of a GPT GUID to user-facing labels
  */
@@ -182,7 +198,7 @@ void centre_text(const char* format, ...) PRINTF_LIKE(1,2);
  *
  * @param warning_message Message to display
  */
-void warning(const char* warning_message);
+void warning(const char* warning_message, const char* subtitle);
 
 /**
  * @brief Align a 64-bit value up to the nearest multiple
@@ -261,3 +277,83 @@ bool prepare_rfs_partition(storage_device_t* dev);
  * @return true if a summary was produced, false on low-level failure
  */
 bool probe_device_summary(const storage_device_t *dev, char *out, size_t out_len, bool *usable);
+
+/**
+ * @brief Draw a double-line CP437 box at a given position.
+ *
+ * Draws a rectangular box using DOS CP437 double line drawing characters.
+ * The box is clipped to the current text grid. The interior is left untouched.
+ * On completion, the cursor is restored to its original position.
+ *
+ * @param x       Left column (0-based).
+ * @param y       Top row (0-based).
+ * @param width   Box width in character cells (must be >= 2 after clipping).
+ * @param height  Box height in character cells (must be >= 2 after clipping).
+ */
+void draw_box_cp437_double(uint64_t x, uint64_t y, uint64_t width, uint64_t height);
+
+/**
+ * @brief Draw a centred double-line CP437 box.
+ *
+ * Computes coordinates to centre a box of the requested dimensions
+ * in the current text area. The actual box position and clipped size
+ * are written back to the provided pointers.
+ *
+ * @param req_w   Requested width in character cells.
+ * @param req_h   Requested height in character cells.
+ * @param out_x   Pointer to store the top-left x position.
+ * @param out_y   Pointer to store the top-left y position.
+ * @param out_w   Pointer to store the actual width drawn.
+ * @param out_h   Pointer to store the actual height drawn.
+ */
+void draw_box_cp437_double_center(uint64_t req_w, uint64_t req_h, uint64_t *out_x, uint64_t *out_y, uint64_t *out_w, uint64_t *out_h);
+
+/**
+ * @brief Draw a bordered CP437 progress bar at (x, y).
+ *
+ * Renders a 3-row widget:
+ *   row 0: top border
+ *   row 1: fill area (blocks)
+ *   row 2: bottom border
+ *
+ * Width includes the border; the interior fill width is (width - 2).
+ * Percent is clamped to [0, 100]. The bar uses half-cell resolution.
+ *
+ * @param x        Left column (0-based).
+ * @param y        Top row (0-based).
+ * @param width    Total width in character cells (must be >= 3 after clipping).
+ * @param percent  Completion percent (0..100).
+ */
+void draw_progress_bar_cp437(uint64_t x, uint64_t y, uint64_t width, uint64_t percent);
+
+/**
+ * @brief Draw a bordered single-line CP437 text box.
+ *
+ * Draws a 3-row box (top border, text row, bottom border) at (x, y) with the
+ * given total width. The interior row is filled with the provided text. If the
+ * text does not fit, it is truncated and an ellipsis "..." is appended when
+ * there is room (inner width >= 3). The cursor position is restored on exit.
+ *
+ * @param x      Left column (0-based).
+ * @param y      Top row (0-based).
+ * @param width  Total box width in cells (must be >= 3 after clipping).
+ * @param text   NUL-terminated string to render inside the box (may be NULL).
+ */
+void draw_text_box_cp437(uint64_t x, uint64_t y, uint64_t width, const char *text);
+
+
+/**
+ * @brief Draw a centred single-line CP437 text box.
+ *
+ * Thin wrapper around draw_text_box_cp437(). When the text fits, it is padded
+ * with leading spaces so that it appears centred within the box. When it does
+ * not fit, the truncation/ellipsis logic of draw_text_box_cp437() applies.
+ *
+ * @param x      Left column (0-based).
+ * @param y      Top row (0-based).
+ * @param width  Total box width in cells (must be >= 3 after clipping).
+ * @param text   NUL-terminated string to render inside the box (may be NULL).
+ */
+void draw_text_box_cp437_center(uint64_t x, uint64_t y, uint64_t width, const char *text);
+
+void new_page(const char* title);

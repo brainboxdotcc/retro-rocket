@@ -226,7 +226,7 @@ int snprintf(char *buf, size_t max, const char *fmt, ...)
 
 int vprintf_help(unsigned c, [[maybe_unused]] void **ptr, [[maybe_unused]] const void* max)
 {
-	put(current_console, c);
+	put(c);
 	return 0;
 }
 

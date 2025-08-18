@@ -54,7 +54,7 @@
  * @param cons Console to read input from.
  * @return 1 if a full line is available, 0 otherwise.
  */
-size_t kinput(size_t maxlen, console* cons);
+size_t kinput(size_t maxlen);
 
 /**
  * @brief Free the internal input buffer associated with a console.
@@ -66,7 +66,7 @@ size_t kinput(size_t maxlen, console* cons);
  *
  * @param cons Console whose input buffer should be freed.
  */
-void kfreeinput(console* cons);
+void kfreeinput();
 
 /**
  * @brief Retrieve the accumulated input string for a console.
@@ -76,4 +76,4 @@ void kfreeinput(console* cons);
  *
  * @warning Do not free the returned pointer directly; use @ref kfreeinput().
  */
-char* kgetinput(console* cons);
+char* kgetinput();

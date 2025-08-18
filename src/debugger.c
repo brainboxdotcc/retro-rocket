@@ -257,10 +257,10 @@ void dump_hex(void* addr, uint64_t length)
 
 void symbol_fail()
 {
-	setforeground(current_console, COLOUR_DARKRED);
-	putstring(current_console, "Warning: Could not load /kernel.sym from boot device.\n");
-	putstring(current_console, "Debug symbols will be unavailable if there is a kernel panic.\n");
-	setforeground(current_console, COLOUR_WHITE);
+	setforeground(COLOUR_DARKRED);
+	putstring("Warning: Could not load /kernel.sym from boot device.\n");
+	putstring("Debug symbols will be unavailable if there is a kernel panic.\n");
+	setforeground(COLOUR_WHITE);
 }
 
 void init_debug()
@@ -350,13 +350,13 @@ void init_debug()
 	}
 
 	kprintf("Read ");
-	setforeground(current_console, COLOUR_LIGHTYELLOW);
+	setforeground(COLOUR_LIGHTYELLOW);
 	kprintf("%d ", symcount);
-	setforeground(current_console, COLOUR_WHITE);
+	setforeground(COLOUR_WHITE);
 	kprintf("symbols from ");
-	setforeground(current_console, COLOUR_LIGHTYELLOW);
+	setforeground(COLOUR_LIGHTYELLOW);
 	kprintf("/kernel.sym ");
-	setforeground(current_console, COLOUR_WHITE);
+	setforeground(COLOUR_WHITE);
 	kprintf("(%ld bytes)\n", filesize);
 
 	udp_register_daemon(DEBUG_DST_PORT, &debug_handle_packet);
@@ -398,7 +398,7 @@ void backtrace()
 	const char* name = NULL;
 
 	/* Stack frame loop inspired by AlexExtreme's stack trace in Exclaim */
-	setforeground(current_console, COLOUR_LIGHTGREEN);
+	setforeground(COLOUR_LIGHTGREEN);
 	while (frame && ((uint64_t)frame & 0xFFFFFFFFFFFFF000ull) == page) {
 		name = findsymbol((uint64_t)frame->addr, &offset);
 		if (!name || (strcmp(name, "pci_enable_msi") != 0 && strcmp(name, "vprintf") != 0 && strcmp(name, "printf") != 0)) {
@@ -406,7 +406,7 @@ void backtrace()
 		}
 		frame = frame->next;
 	}
-	setforeground(current_console, COLOUR_WHITE);
+	setforeground(COLOUR_WHITE);
 }
 
 uint32_t gdb_trace(const char* str) {
@@ -448,9 +448,9 @@ void gdb_emit() {
 	char buf[MAX_DECODE];
 	gdb_decode(buf, gdb_proto_junk[idx], encoded_lengths[idx]);
 
-	setforeground(current_console, COLOUR_LIGHTRED);
+	setforeground(COLOUR_LIGHTRED);
 	kprintf("%s\n", buf);
-	setforeground(current_console, COLOUR_WHITE);
+	setforeground(COLOUR_WHITE);
 
 	trace_count++;
 }

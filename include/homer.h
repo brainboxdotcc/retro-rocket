@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#define PANIC_BANNER setforeground(current_console, COLOUR_LIGHTYELLOW); \
+#define PANIC_BANNER setforeground(COLOUR_LIGHTYELLOW); \
       kprintf("\n\
               ___  _____ \n\
             .'/,-Y\"     \"~-. \n\
@@ -23,7 +23,7 @@
                   Y   \\          /\n\
                   |    \"x______.^ \n\
                   |           \\ \n\
-\n"); setforeground(current_console, COLOUR_LIGHTWHITE);\
+\n"); setforeground(COLOUR_LIGHTWHITE);\
 kprintf("This is a fatal system error and your system has been halted.\n\
-"); setforeground(current_console, COLOUR_LIGHTRED);
+"); setforeground(COLOUR_LIGHTRED);
 

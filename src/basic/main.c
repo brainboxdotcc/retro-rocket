@@ -179,12 +179,12 @@ bool basic_hash_lines(struct basic_ctx* ctx, char** error)
 	return true;
 }
 
-struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error)
+struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file, char** error)
 {
 	if (!isdigit(*program)) {
 		/* Program is not line numbered! Auto-number it. */
 		const char* numbered = auto_number(program, 10, 10);
-		struct basic_ctx* c = basic_init(numbered, cons, pid, file, error);
+		struct basic_ctx* c = basic_init(numbered, pid, file, error);
 		kfree_null(&numbered);
 		return c;
 	}
@@ -216,7 +216,6 @@ struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, c
 		ctx->local_string_variables[i] = NULL;
 	for (i = 0; i < MAX_CALL_STACK_DEPTH; i++)
 		ctx->local_double_variables[i] = NULL;
-	ctx->cons = (struct console*)cons;
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
 	// We allocate 5000 bytes extra on the end of the program for EVAL space,
@@ -444,7 +443,6 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 		ctx->repeat_stack[i] = old->repeat_stack[i];
 	}
 
-	ctx->cons = old->cons;
 	ctx->oldlen = old->oldlen;
 	ctx->fn_return = NULL;
 	ctx->program_ptr = old->program_ptr;
@@ -558,7 +556,7 @@ void chain_statement(struct basic_ctx* ctx)
 	process_t* proc = proc_cur(cpu);
 	accept_or_return(CHAIN, ctx);
 	const char* pn = str_expr(ctx);
-	process_t* p = proc_load(pn, ctx->cons, proc->pid, proc->csd);
+	process_t* p = proc_load(pn, proc->pid, proc->csd);
 	if (p == NULL) {
 		accept_or_return(NEWLINE, ctx);
 		return;
@@ -604,9 +602,9 @@ void eval_statement(struct basic_ctx* ctx)
 		ctx->eval_linenum = 0;
 		basic_set_string_variable("ERROR$", "Recursive EVAL", ctx, false, false);
 		basic_set_int_variable("ERROR", 1, ctx, false, false);
-		setforeground(current_console, COLOUR_LIGHTRED);
+		setforeground(COLOUR_LIGHTRED);
 		kprintf("Recursive EVAL\n");
-		setforeground(current_console, COLOUR_WHITE);
+		setforeground(COLOUR_WHITE);
 		return;
 	}
 

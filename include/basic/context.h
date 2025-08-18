@@ -205,11 +205,6 @@ typedef struct basic_ctx {
 	struct ub_var_double_array* double_array_variables;
 
 	/**
-	 * @brief Console object used for I/O operations in the program.
-	 */
-	struct console* cons;
-
-	/**
 	 * @brief Expected return type of the function being executed.
 	 *
 	 * This is used when executing a function atomically to determine the type of the return value.
@@ -308,7 +303,7 @@ typedef struct basic_ctx {
  * @param error Pointer to store any error messages.
  * @return A pointer to the initialized `basic_ctx` context.
  */
-struct basic_ctx* basic_init(const char *program, console* cons, uint32_t pid, const char* file, char** error);
+struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file, char** error);
 
 /**
  * @brief Destroy the BASIC context and free associated resources.

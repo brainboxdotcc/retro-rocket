@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <stdnoreturn.h>
+
 /**
  * @brief Delay before held keys begin to auto-repeat.
  *
@@ -89,7 +91,7 @@ void init_keyboard();
  * @return ASCII character or extended key constant,
  *         or 255 if no input is available.
  */
-unsigned char kgetc(console* cons);
+unsigned char kgetc();
 
 /**
  * @brief Tests if the CTRL key is currently held down.
@@ -122,3 +124,5 @@ bool caps_lock_on();
 void load_keymap_from_string(const char* text);
 
 bool key_waiting();
+
+_Noreturn void reboot(void);

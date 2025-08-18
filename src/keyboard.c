@@ -355,12 +355,32 @@ bool key_waiting()
 }
 
 
-unsigned char kgetc([[maybe_unused]] console* cons)
+unsigned char kgetc()
 {
 	if (buffer_read_ptr >= buffer_write_ptr) {
 		return 255;
 	}
 
 	return keyboard_buffer[buffer_read_ptr++];
+}
+
+_Noreturn void reboot(void)
+{
+	__asm__ volatile ("cli");
+
+	/* Flush any pending data in the 8042 output buffer (status bit 0). */
+	for (int i = 0; i < 16; i++) {
+		if ((inb(0x64) & 0x01) == 0) {
+			break;
+		}
+		(void)inb(0x60);
+	}
+
+	/* Request reset */
+	outb(0x64, 0xFE);
+
+	for (;;) {
+		__asm__ volatile ("hlt");
+	}
 }
 

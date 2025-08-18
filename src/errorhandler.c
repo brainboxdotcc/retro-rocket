@@ -49,15 +49,15 @@ void init_error_handler()
 void error_handler(uint8_t int_no, uint64_t errorcode, [[maybe_unused]] uint64_t irq_no, void* opaque)
 {
 	interrupts_off();
-	setforeground(current_console, COLOUR_LIGHTWHITE);
-	setbackground(current_console, COLOUR_BLACK);
+	setforeground(COLOUR_LIGHTWHITE);
+	setbackground(COLOUR_BLACK);
 	const char* log = dprintf_buffer_snapshot();
 	if (log) {
 		kprintf("\n%s\n", log);
 	}
-	setforeground(current_console, COLOUR_LIGHTRED);
+	setforeground(COLOUR_LIGHTRED);
 	kprintf("Fatal exception %02X (Error code %016lx): %s\n", int_no, errorcode, error_table[int_no]);
-	setforeground(current_console, COLOUR_WHITE);
+	setforeground(COLOUR_WHITE);
 	backtrace();
 	rr_flip();
 #ifdef PROFILE_KERNEL

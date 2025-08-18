@@ -33,7 +33,7 @@ int64_t basic_get_text_cur_y(struct basic_ctx* ctx)
 
 char* basic_inkey(struct basic_ctx* ctx)
 {
-	const uint8_t key[2] = { kgetc((console*)ctx->cons), 0 };
+	const uint8_t key[2] = { kgetc(), 0 };
 	
 	if (*key == 255) {
 		_mm_pause();
@@ -70,7 +70,7 @@ int64_t basic_capslock(struct basic_ctx* ctx)
  */
 bool check_input_in_progress(process_t* proc, void* opaque)
 {
-	return kinput(10240, (console*)proc->code->cons) == 0;
+	return kinput(10240) == 0;
 }
 
 /**
@@ -97,7 +97,7 @@ void input_statement(struct basic_ctx* ctx)
 	process_t* proc = proc_cur(logical_cpu_id());
 
 	/* Clear buffer */
-	if (kinput(MAX_STRINGLEN, (console*)proc->code->cons) == 0) {
+	if (kinput(MAX_STRINGLEN) == 0) {
 		proc_set_idle(proc, check_input_in_progress, NULL);
 		jump_linenum(ctx->current_linenum, ctx);
 		proc->state = PROC_IO_BOUND;
@@ -108,19 +108,19 @@ void input_statement(struct basic_ctx* ctx)
 
 	switch (var[strlen(var) - 1]) {
 		case '$':
-			basic_set_string_variable(var, kgetinput((console*)ctx->cons), ctx, false, false);
+			basic_set_string_variable(var, kgetinput(), ctx, false, false);
 		break;
 		case '#': {
 			double f = 0;
-			atof(kgetinput((console *) ctx->cons), &f);
+			atof(kgetinput(), &f);
 			basic_set_double_variable(var, f, ctx, false, false);
 		}
 		break;
 		default:
-			basic_set_int_variable(var, atoll(kgetinput((console*)ctx->cons), 10), ctx, false, false);
+			basic_set_int_variable(var, atoll(kgetinput(), 10), ctx, false, false);
 		break;
 	}
-	kfreeinput((console*)ctx->cons);
+	kfreeinput();
 	accept_or_return(NEWLINE, ctx);
 	proc->state = PROC_RUNNING;
 }
@@ -128,7 +128,7 @@ void input_statement(struct basic_ctx* ctx)
 void cls_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(CLS, ctx);
-	clearscreen(current_console);
+	clearscreen();
 	accept_or_return(NEWLINE, ctx);
 }
 
@@ -150,7 +150,7 @@ void print_statement(struct basic_ctx* ctx)
 		uint64_t flags;
 		lock_spinlock_irq(&console_spinlock, &flags);
 		lock_spinlock(&debug_console_spinlock);
-		putstring((console*)ctx->cons, out);
+		putstring(out);
 		unlock_spinlock(&debug_console_spinlock);
 		unlock_spinlock_irq(&console_spinlock, flags);
 	}
@@ -159,14 +159,14 @@ void print_statement(struct basic_ctx* ctx)
 void colour_statement(struct basic_ctx* ctx, int tok)
 {
 	accept_or_return(tok, ctx);
-	setforeground((console*)ctx->cons, expr(ctx));
+	setforeground(expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 }
 
 void background_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(BACKGROUND, ctx);
-	setbackground((console*)ctx->cons, expr(ctx));
+	setbackground(expr(ctx));
 	accept_or_return(NEWLINE, ctx);
 }
 
@@ -317,7 +317,7 @@ void kget_statement(struct basic_ctx* ctx)
 
 	proc_set_idle(proc, NULL, NULL);
 
-	unsigned char c = kgetc((console*)ctx->cons);
+	unsigned char c = kgetc();
 
 	switch (var[strlen(var) - 1]) {
 		case '$': {

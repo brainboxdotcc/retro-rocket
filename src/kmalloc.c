@@ -21,7 +21,7 @@ volatile struct limine_memmap_request memory_map_request = {
 };
 
 void preboot_fail(const char* msg) {
-	setforeground(current_console, COLOUR_LIGHTRED);
+	setforeground(COLOUR_LIGHTRED);
 	kprintf("PANIC: %s\n", msg);
 	backtrace();   // show stack trace
 #ifdef PROFILE_KERNEL

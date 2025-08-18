@@ -133,7 +133,7 @@ After filesystems are ready, `init_process()` loads the first userland BASIC pro
 void init_process()
 {
     process_by_pid = hashmap_new(...);
-    process_t* init = proc_load("/programs/init", current_console, 0, "/");
+    process_t* init = proc_load("/programs/init", 0, "/");
     if (!init) {
         preboot_fail("/programs/init missing or invalid!\n");
     }

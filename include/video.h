@@ -72,39 +72,14 @@
 /** @brief Default text colour (white on black). */
 #define DEFAULT_COLOUR COLOUR_WHITE
 
-/**
- * @struct console
- * @brief Represents a text-mode console buffer.
- *
- * Low-level output functions (e.g. put(), putstring()) operate
- * against a console instance. Only one console is active at a time.
- */
-typedef struct {
-	char dirty;              /**< Marks console as modified (needs redraw). */
-	uint8_t x;               /**< Current cursor X position. */
-	uint8_t y;               /**< Current cursor Y position. */
-	uint8_t attributes;      /**< Text attributes (e.g. colours). */
-	uint8_t last;            /**< Last character written. */
-	char* internalbuffer;    /**< Optional backing buffer for console text. */
-	char* buffer;            /**< External buffer, if used. */
-	size_t bufcnt;           /**< Buffer size or counter. */
-} console;
-
 /* -------------------------------------------------------------------------- */
 /* Console text functions                                                     */
 /* -------------------------------------------------------------------------- */
 
 /**
  * @brief Clear the screen and reset cursor to (0,0).
- * @param c Target console.
  */
-void clearscreen(console* c);
-
-/**
- * @brief Set the software cursor to the console's current (x,y).
- * @param c Target console.
- */
-void setcursor(console* c);
+void clearscreen();
 
 /**
  * @brief Write a null-terminated string to the console.
@@ -115,7 +90,7 @@ void setcursor(console* c);
  * @param c Target console.
  * @param message String to display.
  */
-void putstring(console* c, const char* message);
+void putstring(const char* message);
 
 /**
  * @brief Write a string to the debug port (0xE9) only.
@@ -128,10 +103,9 @@ void dputstring(const char* message);
  *
  * Cursor is advanced after output, and the screen may scroll.
  *
- * @param c Target console.
  * @param n Character to display.
  */
-void put(console* c, const char n);
+void put(const char n);
 
 /**
  * @brief Write a single character directly to the debug port (0xE9).
@@ -150,17 +124,15 @@ void init_console();
 
 /**
  * @brief Set the background colour for subsequent text.
- * @param c Target console.
  * @param background VGA colour index (0–15).
  */
-void setbackground(console* c, unsigned char background);
+void setbackground(unsigned char background);
 
 /**
  * @brief Set the foreground (text) colour for subsequent output.
- * @param c Target console.
  * @param foreground VGA colour index (0–15).
  */
-void setforeground(console* c, unsigned char foreground);
+void setforeground(unsigned char foreground);
 
 /* -------------------------------------------------------------------------- */
 /* Screen geometry and framebuffer                                            */
@@ -278,11 +250,3 @@ void set_video_dirty_area(int64_t start, int64_t end);
 
 const char* ansi_colour(char *out, size_t out_len, unsigned char vga_colour, bool background);
 
-/* -------------------------------------------------------------------------- */
-/* Globals                                                                    */
-/* -------------------------------------------------------------------------- */
-
-/**
- * @brief Pointer to the currently active console.
- */
-extern console* current_console;

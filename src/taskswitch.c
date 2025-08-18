@@ -60,7 +60,7 @@ idle_timer_t* task_idles = NULL, *timer_idles = NULL;
 
 extern simple_cv_t boot_condition;
 
-process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd)
+process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd)
 {
 	fs_directory_entry_t* fsi = fs_get_file_info(fullpath);
 	if (fsi == NULL || (fsi->flags & FS_DIRECTORY)) {
@@ -89,7 +89,7 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 		return NULL;
 	}
 	char* error = "Unknown error";
-	newproc->code = basic_init((const char*)programtext, (console*)cons, nextid, fullpath, &error);
+	newproc->code = basic_init((const char*)programtext, nextid, fullpath, &error);
 	if (!newproc->code) {
 		kfree_null(&newproc);
 		kfree_null(&programtext);
@@ -105,7 +105,6 @@ process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pi
 	newproc->start_time = time(NULL);
 	newproc->state = PROC_RUNNING;
 	newproc->ppid = parent_pid;
-	newproc->cons = cons;
 	newproc->cpu = logical_cpu_id();
 	newproc->check_idle = NULL;
 	newproc->start_time = time(NULL);
@@ -318,7 +317,7 @@ void proc_kill(process_t* proc)
 
 	/* Killed the last process? */
 	if (combined_proc_list == NULL) {
-		setforeground(current_console, COLOUR_LIGHTRED);
+		setforeground(COLOUR_LIGHTRED);
 		kprintf("\nSystem halted.");
 		interrupts_off();
 		wait_forever();
@@ -400,7 +399,7 @@ void init_process()
 	}
 
 	dprintf("Spawning /programs/init\n");
-	process_t* init = proc_load("/programs/init", (struct console*)current_console, 0, "/");
+	process_t* init = proc_load("/programs/init", 0, "/");
 	if (!init) {
 		preboot_fail("/programs/init missing or invalid!\n");
 	}

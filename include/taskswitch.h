@@ -75,7 +75,6 @@ typedef struct process_t {
 	const char*		name;       /**< Filename of program */
 	uint64_t		size;       /**< Size of program in bytes */
 	const char*		csd;        /**< Current selected directory */
-	struct console*		cons;       /**< Associated console */
 	struct basic_ctx*	code;       /**< BASIC interpreter context */
 	struct process_t*	prev;       /**< Previous process in doubly linked list */
 	struct process_t*	next;       /**< Next process in doubly linked list */
@@ -126,7 +125,7 @@ typedef struct idle_timer {
  * @param csd Current selected directory
  * @return process_t* Pointer to new process details
  */
-process_t* proc_load(const char* fullpath, struct console* cons, pid_t parent_pid, const char* csd);
+process_t* proc_load(const char* fullpath, pid_t parent_pid, const char* csd);
 
 /**
  * @brief Find a process by PID.
