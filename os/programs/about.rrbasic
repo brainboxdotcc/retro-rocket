@@ -24,7 +24,7 @@ PRINT "rocketsh-2.0"
 COLOUR 14
 PRINT "                                  Memory: ";
 COLOUR 7
-M_MEGS = MEMFREE / 1024 / 1024
+M_MEGS = MEMUSED / 1024 / 1024
 MT_MEGS = MEMORY / 1024 / 1024
 PRINT M_MEGS; "MiB / "; MT_MEGS ; "MiB"
 PRINT "                                  ";
