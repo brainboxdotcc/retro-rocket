@@ -86,7 +86,10 @@ static const gpt_guid_map_t gpt_guid_map[] = {
 	{ "FE3A2A5D-4F32-41A7-B725-ACCC3285A309",       "ChromeOS Kernel",    "ChromeOS" },
 	{ "3CB8E202-3B7E-47DD-8A3C-7FF2A13CFCEC",       "ChromeOS Rootfs",    "ChromeOS" },
 	{ "AA31E02A-400F-11DB-9590-000C2911D1B8",       "VMware VMFS",        "VMware" },
-	{ "42465331-3BA3-10F1-802A-4861696B7521",       "Haiku",              "Haiku" },
+	{ "42465331-3BA3-10F1-802A-4861696B7521",       "Haiku BeFS",         "Haiku" },
+	{ "CEF5A9AD-73BC-4601-89F3-CDEEEEE321A1",       "QNX PowerSafe",      "QNX 6.x" },
+	{ "1B81E7E6-F50D-419B-A739-2AEEF8DA3335",       "Android User Data",  "Android" },
+	{ "DC76DDA9-5AC1-491C-AF42-A82591580C0D",       "Android Data",       "Android" },
 };
 
 /**
@@ -94,20 +97,36 @@ static const gpt_guid_map_t gpt_guid_map[] = {
  */
 static const mbr_id_map_t mbr_id_map[] = {
 	{ 0x01, "FAT12",        "DOS" },
+	{ 0x02, "XENIX Root",   "XENIX" },
+	{ 0x03, "XENIX Usr",    "XENIX" },
 	{ 0x04, "FAT16 <32MB",  "DOS" },
 	{ 0x06, "FAT16",        "DOS" },
 	{ 0x07, "Windows/NTFS", "Windows" },
 	{ 0x0B, "FAT32 CHS",    "DOS" },
 	{ 0x0C, "FAT32 LBA",    "DOS" },
+	{ 0x2E, "RedSea",       "TempleOS" },
+	{ 0x39, "Plan 9",       "Plan 9" },
+	{ 0x63, "MenuetOS",     "MenuetOS" },
+	{ 0x76, "AROS",         "AROS" },
 	{ 0x82, "Linux Swap",   NULL },
 	{ 0x83, "Linux",        "Linux" },
+	{ 0x87, "Windows HPFS", "Windows NT" },
+	{ 0x8B, "Windows HPFS", "Windows NT" },
+	{ 0x8C, "Windows HPFS", "Windows NT" },
+	{ 0x8D, "Hidden FAT12", "DOS"},
+	{ 0x8E, "Linux LVM",    "Linux" },
+	{ 0x97, "Hidden FAT32", "DOS"},
 	{ 0xA5, "FreeBSD",      "BSD" },
 	{ 0xA6, "OpenBSD",      "BSD" },
 	{ 0xA9, "NetBSD",       "BSD" },
+	{ 0xAB, "Apple Boot",   "macOS" },
+	{ 0xAC, "Apple RAID",   "macOS" },
+	{ 0xAD, "ADFS FileCore","RiscOS" },
 	{ 0xAF, "macOS HFS+",   "macOS" },
+	{ 0xB1, "QNX PSFS",     "QNX 6.x" },
+	{ 0xB2, "QNX PSFS",     "QNX 6.x" },
 	{ 0xEB, "BeFS/Haiku",   "Haiku" },
-	{ 0x39, "Plan 9",       "Plan 9" },
-	{ 0x76, "AROS",         "AROS" }
+	{ 0xFB, "VMware VMFS",  "VMware" },
 };
 
 
