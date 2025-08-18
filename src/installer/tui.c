@@ -1,4 +1,9 @@
-#include <kernel.h>
+/**
+ * @file tui.c
+ * @author Craig Edwards
+ * @brief Text UI helpers for installer
+ * @copyright Copyright (c) 2012-2025
+ */
 #include <installer.h>
 
 uint8_t numeric_choice(uint8_t min, uint8_t max) {

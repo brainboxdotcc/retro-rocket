@@ -1,3 +1,9 @@
+/**
+ * @file os_detection.c
+ * @author Craig Edwards
+ * @brief Detects what OS is currently installed on a device
+ * @copyright Copyright (c) 2012-2025
+ */
 #include <installer.h>
 
 static const size_t gpt_guid_map_count = sizeof(gpt_guid_map) / sizeof(gpt_guid_map[0]);

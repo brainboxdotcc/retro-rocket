@@ -1,3 +1,9 @@
+/**
+ * @file installer.h
+ * @author Craig Edwards
+ * @brief Installer functions and definitions
+ * @copyright Copyright (c) 2012-2025
+ */
 #pragma once
 #include <kernel.h>
 

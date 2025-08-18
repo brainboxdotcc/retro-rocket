@@ -1,6 +1,10 @@
+/**
+ * @file crc32.c
+ * @author Craig Edwards
+ * @brief CRC32 (poly 0xEDB88320) for updating GPT
+ * @copyright Copyright (c) 2012-2025
+ */
 #include <installer.h>
-
-/* ---------------- CRC32 (poly 0xEDB88320) ---------------- */
 
 uint32_t crc32_update(uint32_t crc, const void *data, size_t len)
 {

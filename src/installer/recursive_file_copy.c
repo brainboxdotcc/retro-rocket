@@ -1,3 +1,9 @@
+/**
+ * @file recursive_file_copy.c
+ * @author Craig Edwards
+ * @brief Recursive directory structure copier for installer
+ * @copyright Copyright (c) 2012-2025
+ */
 #include <installer.h>
 
 static int progress = 0, block_progress = 0;

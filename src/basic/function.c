@@ -54,6 +54,7 @@ struct basic_int_fn builtin_int[] =
 	{ basic_sgn,                 "SGN"           },
 	{ basic_int,                 "INT"           },
 	{ basic_gethour,             "HOUR"          },
+	{ basic_getupsecs,           "UPSECS"         },
 	{ basic_getminute,           "MINUTE"        },
 	{ basic_getsecond,           "SECOND"        },
 	{ basic_getepoch,            "EPOCH"         },
@@ -125,6 +126,7 @@ struct basic_str_fn builtin_str[] =
 	{ basic_upper,               "UPPER$"        },
 	{ basic_date,                "DATE$"         },
 	{ basic_time,                "TIME$"         },
+	{ basic_get_upstr,           "UPTIME$"       },
 	{ NULL,                      NULL            },
 };
 

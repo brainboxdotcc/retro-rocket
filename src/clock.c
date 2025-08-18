@@ -4,6 +4,7 @@
 
 static datetime_t current_datetime = { 0 };
 static unsigned char* tzdata = NULL;
+static time_t system_boot = 0;
 
 const char* weekday_map[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 const char* month_map[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -133,6 +134,10 @@ int is_leap_year(int year, int month) {
 	return 0;
 }
 
+uint64_t uptime_secs() {
+	return time(NULL) - system_boot;
+}
+
 /*
  * Given a date, calculate it's weekday, using the algorithm described here:
  * http://blog.artofmemory.com/how-to-calculate-the-day-of-the-week-4203.html
@@ -175,6 +180,7 @@ const char* get_datetime_str() {
 
 void init_realtime_clock() {
 	rtc_read_datetime();
+	system_boot = time(NULL);
 	kprintf("System boot time (UTC): %s\n", get_datetime_str());
 }
 

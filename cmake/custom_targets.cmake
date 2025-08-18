@@ -136,20 +136,10 @@ function(symbols TARGETFILE SOURCEFILE)
     add_dependencies(SYMBOLS "kernel.bin")
 endfunction()
 
-function(symbols TARGETFILE SOURCEFILE)
-    set(FILENAME "${CMAKE_BINARY_DIR}/iso/kernel.bin")
-    set(OUTNAME "${CMAKE_BINARY_DIR}/iso/${TARGETFILE}")
-    add_custom_command(OUTPUT ${OUTNAME}
-            COMMAND /bin/nm -a "${CMAKE_BINARY_DIR}/iso/kernel.bin" | sort -d > "${CMAKE_BINARY_DIR}/iso/kernel.sym"
-            DEPENDS ${FILENAME})
-    add_custom_target(SYMBOLS ALL DEPENDS ${OUTNAME})
-    add_dependencies(SYMBOLS "kernel.bin")
-endfunction()
-
 function(iso TARGETFILE SOURCEFILE)
     set(OUTNAME "${CMAKE_BINARY_DIR}/${TARGETFILE}")
     add_custom_command(OUTPUT ${OUTNAME}
         COMMAND php ../build-boot-image.php && xorriso -as mkisofs --quiet -b limine-cd.bin -joliet -no-emul-boot -boot-load-size 4 -boot-info-table -V "RETROROCKET" --protective-msdos-label "${CMAKE_BINARY_DIR}/iso" -o "${CMAKE_BINARY_DIR}/rr.iso"
-        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${keymap_list} ${TIMEZONE_TARGETS})
+        DEPENDS SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" ${basic_program_list} ${basic_library_list} ${KEYMAP_TARGETS} ${TIMEZONE_TARGETS} ${IMAGE_TARGETS})
     add_dependencies(ISO SYMBOLS "kernel.bin" "RUN_run.sh" "DEBUG_debug.sh" "config_limine.cfg")
 endfunction()

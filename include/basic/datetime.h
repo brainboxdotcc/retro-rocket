@@ -102,3 +102,7 @@ char* basic_time(struct basic_ctx* ctx);
  * @param ctx The BASIC context.
  */
 void settimezone_statement(struct basic_ctx* ctx);
+
+char* basic_get_upstr(struct basic_ctx* ctx);
+
+int64_t basic_getupsecs(struct basic_ctx* ctx);

@@ -1,3 +1,9 @@
+/**
+ * @file gpt_writer.c
+ * @author Craig Edwards
+ * @brief GPT, ESP and layout writer for installer
+ * @copyright Copyright (c) 2012-2025
+ */
 #include <installer.h>
 
 bool install_gpt_esp_rfs_whole_image(const char *devname, const char *esp_image_vfs_path) {

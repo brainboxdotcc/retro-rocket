@@ -165,3 +165,5 @@ uint64_t day_of_year(uint64_t year, uint8_t month, uint8_t day);
  * @return Weekday index (0–6).
  */
 int get_weekday_from_date(datetime_t* dt);
+
+uint64_t uptime_secs();

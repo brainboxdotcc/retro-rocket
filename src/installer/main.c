@@ -1,3 +1,9 @@
+/**
+ * @file installer/main.c
+ * @author Craig Edwards
+ * @brief Retro Rocket OS Installer
+ * @copyright Copyright (c) 2012-2025
+ */
 #include <installer.h>
 #include <stdnoreturn.h>
 

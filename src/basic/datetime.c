@@ -24,6 +24,74 @@ int64_t basic_gethour(struct basic_ctx* ctx)
 	return date.hour;
 }
 
+int64_t basic_getupsecs(struct basic_ctx* ctx)
+{
+	return uptime_secs();
+}
+
+char* basic_get_upstr(struct basic_ctx* ctx)
+{
+	uint64_t s = uptime_secs();
+	const uint64_t MIN  = 60ULL;
+	const uint64_t HOUR = 60ULL * MIN;
+	const uint64_t DAY  = 24ULL * HOUR;
+	const uint64_t YEAR = 365ULL * DAY;
+
+	uint64_t yr  = s / YEAR;
+	s %= YEAR;
+	uint64_t day = s / DAY;
+	s %= DAY;
+	uint64_t hr  = s / HOUR;
+	s %= HOUR;
+	uint64_t min = s / MIN;
+	s %= MIN;
+	uint64_t sec = s;
+
+	struct { uint64_t v; const char *label; } parts[] = {
+		{ yr,  "yr"  },
+		{ day, "day" },
+		{ hr,  "hr"  },
+		{ min, "min" },
+		{ sec, "sec" }
+	};
+
+	char buffer[MAX_STRINGLEN];
+	size_t pos = 0;
+	int started = 0;
+
+	for (size_t i = 0; i < sizeof(parts)/sizeof(parts[0]); i++) {
+		if (!parts[i].v) {
+			continue;
+		}
+
+		if (started && pos < sizeof(buffer) - 1) {
+			buffer[pos++] = ' ';
+		}
+
+		int n = snprintf(buffer + pos, sizeof(buffer) - pos,
+				 "%lu %s",
+				 parts[i].v, parts[i].label);
+		if (n < 0) {
+			n = 0;
+		}
+		if (n >= sizeof(buffer) - pos) {
+			pos = sizeof(buffer) - 1;
+			break;
+		}
+		pos += n;
+		started = 1;
+	}
+
+	if (!started) {
+		(void)snprintf(buffer, sizeof(buffer), "0 sec");
+	} else {
+		buffer[pos] = '\0';
+	}
+
+	return (char*)gc_strdup(ctx, buffer);
+}
+
+
 int64_t basic_getminute(struct basic_ctx* ctx)
 {
 	PARAMS_START;
