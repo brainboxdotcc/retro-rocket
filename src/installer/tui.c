@@ -11,6 +11,16 @@ uint8_t numeric_choice(uint8_t min, uint8_t max) {
 	return selection;
 }
 
+bool boolean_choice() {
+	unsigned char selection;
+	do {
+		while ((selection = kgetc()) == 255) { __asm__("hlt"); };
+		selection = toupper(selection);
+	} while (selection != 'Y' && selection != 'N');
+	kprintf("%c\n", selection);
+	return selection == 'Y';
+}
+
 void centre_text(const char* format, ...) {
 	static char buffer[MAX_STRINGLEN];
 	va_list args;
@@ -26,21 +36,53 @@ void centre_text(const char* format, ...) {
 	kprintf("%s", buffer);
 }
 
-void warning(const char* warning_message, const char* subtitle) {
-	size_t l1 = strlen_ansi(warning_message), l2 = subtitle ? strlen_ansi(subtitle) : 0;
-	size_t len = l1 > l2 ? l1 : l2;
-	char empty_line[len + 4 + 1];
-	memset(empty_line, ' ', sizeof(empty_line));
-	empty_line[len + 4] = 0;
-	uint64_t left = (get_text_width() / 2) - (len / 2) - 4, w = len + 8, x, y;
+#include <string.h>
+
+void warning(const char *warning_message, const char *subtitle, const char* colours) {
+	size_t l1 = strlen_ansi(warning_message);
+	size_t l2 = subtitle ? strlen_ansi(subtitle) : 0;
+	size_t len = (l1 > l2) ? l1 : l2;     /* longest visible line */
+	size_t inner_w = len + 4;             /* 2-space margin either side */
+
+	/* build padded interior lines of exactly inner_w chars */
+	char empty_line[inner_w + 1];
+	memset(empty_line, ' ', inner_w);
+	empty_line[inner_w] = '\0';
+
+	char line1[inner_w + 1];
+	memset(line1, ' ', inner_w);
+	memcpy(&line1[((len - l1) / 2) + 2], warning_message, l1);
+	line1[inner_w] = '\0';
+
+	char line2[inner_w + 1];
+	if (subtitle) {
+		memset(line2, ' ', inner_w);
+		memcpy(&line2[((len - l2) / 2) + 2], subtitle, l2);
+		line2[inner_w] = '\0';
+	}
+
+	uint64_t x, y;
 	kprintf("\n");
 	get_text_position(&x, &y);
-	centre_text("%s%s%s%s\n", VGA_FG_LIGHTWHITE, VGA_BG_LIGHTRED, empty_line, VGA_RESET);
-	centre_text("%s%s  %s  %s\n", VGA_FG_LIGHTWHITE, VGA_BG_LIGHTRED, warning_message, VGA_RESET);
-	centre_text("%s%s%s%s\n", VGA_FG_LIGHTWHITE, VGA_BG_LIGHTRED, empty_line, VGA_RESET);
-	draw_box_cp437_double(left, y, w, 5);
+
+	/* print centred interior (each line is inner_w wide) */
+	centre_text("%s%s%s\n", colours, empty_line, VGA_RESET);
+	centre_text("%s%s%s\n", colours, line1,      VGA_RESET);
+	if (subtitle) {
+		centre_text("%s%s%s\n", colours, line2,  VGA_RESET);
+	}
+	centre_text("%s%s%s\n", colours, empty_line, VGA_RESET);
+
+	uint64_t screen_w = get_text_width();
+	uint64_t left     = (screen_w - inner_w) / 2;  /* one cell for the left border */
+	uint64_t w        = inner_w + 1;               /* add vertical borders */
+	uint64_t h        = subtitle ? 6 : 5;          /* 4 or 3 interior rows + borders */
+
+	draw_box_cp437_double(left, y, w, h);
 	kprintf("\n");
 }
+
+
 
 void draw_box_cp437_double(uint64_t x, uint64_t y, uint64_t width, uint64_t height) {
 	uint64_t cur_x;
@@ -176,6 +218,7 @@ void draw_progress_bar_cp437(uint64_t x, uint64_t y, uint64_t width, uint64_t pe
 	uint64_t filled_halves = (percent * total_half_cells) / 100;
 
 	/* Draw fill (row y+1). Left→right with half-cell precision. */
+	setforeground(percent >= 66 ? COLOUR_LIGHTGREEN : (percent >= 33 ? COLOUR_LIGHTYELLOW : (percent >= 15 ? COLOUR_LIGHTRED : COLOUR_DARKRED)));
 	for (uint64_t i = 0; i < inner_w; i++) {
 		uint64_t cell_x = x + 1 + i;
 		gotoxy(cell_x, y + 1);
@@ -190,6 +233,7 @@ void draw_progress_bar_cp437(uint64_t x, uint64_t y, uint64_t width, uint64_t pe
 			kprintf(" ");
 		}
 	}
+	setforeground(COLOUR_WHITE);
 
 	gotoxy(cur_x, cur_y);
 }
@@ -308,4 +352,8 @@ void new_page(const char* title) {
 	clearscreen();
 	kprintf("\n\n\n");
 	centre_text("%s%s%s\n\n", VGA_FG_YELLOW, title, VGA_RESET);
+}
+
+void vertical_tab() {
+	kprintf("\n\n\n\n");
 }

@@ -198,7 +198,7 @@ void centre_text(const char* format, ...) PRINTF_LIKE(1,2);
  *
  * @param warning_message Message to display
  */
-void warning(const char* warning_message, const char* subtitle);
+void warning(const char* warning_message, const char* subtitle, const char* colours);
 
 /**
  * @brief Align a 64-bit value up to the nearest multiple
@@ -357,3 +357,11 @@ void draw_text_box_cp437(uint64_t x, uint64_t y, uint64_t width, const char *tex
 void draw_text_box_cp437_center(uint64_t x, uint64_t y, uint64_t width, const char *text);
 
 void new_page(const char* title);
+
+bool boolean_choice();
+
+void display_progress(const char* message, int progress);
+
+void vertical_tab();
+
+_Noreturn void error_page(const char* fmt, ...) PRINTF_LIKE(1, 2);
