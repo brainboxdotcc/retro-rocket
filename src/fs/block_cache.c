@@ -162,25 +162,29 @@ static void lru_push_tail(block_cache_t *c, lru_node_t *n) {
 	c->lru_count++;
 }
 
-/* Move existing LBA to tail; if not present, create a node and append. */
+/* Move existing LBA to tail; if not present, create a node and append.
+ * LAZY variant: never search; always append a fresh node (duplicates allowed).
+ * Returns 1 on success, 0 on OOM.
+ */
 static int lru_touch(block_cache_t *c, uint64_t lba) {
-	lru_node_t *n = lru_find(c, lba);
-	if (n) {
-		/* Already present; move to MRU end if not already tail. */
-		if (c->lru_tail != n) {
-			lru_unlink(c, n);    /* updates count */
-			lru_push_tail(c, n); /* re-add updates count */
-		}
-		return 1;
-	}
-	/* Not present: create and append. */
-	n = lru_alloc_node(lba);
+	lru_node_t *n = buddy_malloc(&cache_allocator, sizeof(lru_node_t));
 	if (!n) {
 		return 0;
 	}
-	lru_push_tail(c, n);
+	n->lba = lba;
+	n->prev = c->lru_tail;
+	n->next = NULL;
+	if (c->lru_tail) {
+		c->lru_tail->next = n;
+	}
+	c->lru_tail = n;
+	if (!c->lru_head) {
+		c->lru_head = n;
+	}
+	c->lru_count++;
 	return 1;
 }
+
 
 /* Pop the LRU head (returns node; caller frees). */
 static lru_node_t *lru_pop_head(block_cache_t *c) {
@@ -202,26 +206,29 @@ static lru_node_t *lru_pop_head(block_cache_t *c) {
  */
 static void evict_one(block_cache_t *c)
 {
-	lru_node_t *n = lru_pop_head(c);
-	if (!n) {
+	for (;;) {
+		lru_node_t *n = lru_pop_head(c);
+		if (!n) {
+			return; /* nothing to evict */
+		}
+		uint64_t lba = n->lba;
+		lru_free_node(n);
+
+		block_cache_entry_t key = { .lba = lba };
+		block_cache_entry_t *e = hashmap_get(c->map, &key);
+		if (!e) {
+			/* stale node; keep scanning */
+			continue;
+		}
+
+		/* live entry: evict it */
+		if (e->buf) {
+			buddy_free(&cache_allocator, e->buf);
+			e->buf = NULL;
+		}
+		hashmap_delete(c->map, &key);
 		return;
 	}
-	uint64_t lba = n->lba;
-	lru_free_node(n);
-
-	block_cache_entry_t key = { .lba = lba };
-	block_cache_entry_t *e = hashmap_get(c->map, &key);
-	if (!e) {
-		dprintf("BUG: evicted non-existent LBA %lu\n", lba);
-		return;
-	}
-
-	if (e->buf) {
-		buddy_free(&cache_allocator, e->buf);
-		e->buf = NULL;
-	}
-
-	hashmap_delete(c->map, &key);
 }
 
 void* cache_malloc(size_t size) {
@@ -384,7 +391,7 @@ int block_cache_write(block_cache_t *c, uint64_t lba, uint32_t bytes, const unsi
 			c->tick = e->last_used;
 
 			/* Touch MRU position for this LBA. */
-			(void)lru_touch(c, sector_lba);
+			lru_touch(c, sector_lba);
 
 			unlock_spinlock_irq(&c->lock, flags);
 			continue;
