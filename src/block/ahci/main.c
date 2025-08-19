@@ -6,29 +6,27 @@ static uint8_t* aligned_write_buf = NULL;
 void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque)
 {
 	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)opaque;
-	uint32_t is = abar->is;
+	uint32_t interrupt_status = abar->interrupt_status;
 	for (int i = 0; i < 32; i++) {
-		if (is & (1u << i)) {
-			uint32_t pis = abar->ports[i].is;
-			abar->ports[i].is = pis; // ack by writing back
+		if (interrupt_status & (1u << i)) {
+			uint32_t pis = abar->ports[i].interrupt_status;
+			abar->ports[i].interrupt_status = pis; // ack by writing back
 			//dprintf("AHCI IRQ: port %d, PxIS=%08x\n", i, pis);
 		}
 	}
 }
 
-static int check_type(ahci_hba_port_t* port)
+int check_type(ahci_hba_port_t* port)
 {
-	uint32_t ssts = port->ssts;
- 
-	uint8_t ipm = (ssts >> 8) & 0x0F;
+	uint32_t ssts = port->sata_status;
+ 	uint8_t ipm = (ssts >> 8) & 0x0F;
 	uint8_t det = ssts & 0x0F;
  
-	if (det != HBA_PORT_DET_PRESENT)	// Check drive status
+	if (det != HBA_PORT_DET_PRESENT || ipm != HBA_PORT_IPM_ACTIVE) {
 		return AHCI_DEV_NULL;
-	if (ipm != HBA_PORT_IPM_ACTIVE)
-		return AHCI_DEV_NULL;
- 
-	switch (port->sig) {
+	}
+
+	switch (port->signature) {
 		case SATA_SIG_ATAPI:
 			return AHCI_DEV_SATAPI;
 		case SATA_SIG_SEMB:
@@ -64,103 +62,22 @@ void port_rebase(ahci_hba_port_t* port, int portno)
 {
 	stop_cmd(port);
  
-	port->clb = (kmalloc_low(0x100000) & 0xFFFFFFFFFFFFF000) + 0x1000;
-	port->clbu = 0;
-	memset((void*)((uint64_t)port->clb), 0, 1024);
+	port->command_list_base_addr_lower = (kmalloc_low(0x100000) & 0xFFFFFFFFFFFFF000) + 0x1000;
+	port->command_list_base_addr_upper = 0;
+	memset((void*)((uint64_t)port->command_list_base_addr_lower), 0, 1024);
 
-	port->fb = port->clb + (32 * 1024) + (portno << 8);
-	port->fbu = 0;
-	memset((void*)((uint64_t)port->fb), 0, 256);
+	port->fis_base_addr_lower = port->command_list_base_addr_lower + (32 * 1024) + (portno << 8);
+	port->fis_base_addr_upper = 0;
+	memset((void*)((uint64_t)port->fis_base_addr_lower), 0, 256);
 
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)((uint64_t)port->clb);
+	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)((uint64_t)port->command_list_base_addr_lower);
 	for (int i = 0; i < 32; i++) {
-		cmdheader[i].prdtl = 8;
-		cmdheader[i].ctba = port->clb + (40 * 1024) + (portno << 13) + (i << 8);
-		cmdheader[i].ctbau = 0;
-		memset((void*)(uint64_t)cmdheader[i].ctba, 0, 256);
+		cmdheader[i].prdt_length_entries = 8;
+		cmdheader[i].command_table_base_lower = port->command_list_base_addr_lower + (40 * 1024) + (portno << 13) + (i << 8);
+		cmdheader[i].command_table_base_upper = 0;
+		memset((void*)(uint64_t)cmdheader[i].command_table_base_lower, 0, 256);
 	}
 	start_cmd(port);
-}
-
-int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, unsigned char* buffer)
-{
-	storage_device_t* sd = (storage_device_t*)dev;
-	if (!sd || !buffer || bytes == 0) {
-		return 0;
-	}
-
-	uint32_t sectors = (bytes + sd->block_size - 1) / sd->block_size;
-	unsigned char* end = buffer + bytes;
-
-	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
-	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
-
-	const uint32_t max_per_cmd = 16;
-
-	if (check_type(port) == AHCI_DEV_SATAPI) {
-		while (sectors > 0) {
-			uint32_t this_xfer = (sectors > max_per_cmd) ? max_per_cmd : sectors;
-			if (!ahci_atapi_read(port, start, this_xfer, (uint16_t*)buffer, abar)) {
-				return false;
-			}
-			start   += this_xfer;
-			buffer  += this_xfer * sd->block_size;
-			sectors -= this_xfer;
-		}
-		return true;
-	} else {
-		while (sectors > 0) {
-			uint32_t this_xfer = (sectors > max_per_cmd) ? max_per_cmd : sectors;
-			uint32_t bytes_this = this_xfer * sd->block_size;
-
-			if (buffer + bytes_this > end) {
-				uint64_t bytes_left = (uint64_t)(end - buffer);
-				this_xfer = bytes_left / sd->block_size;
-				if (this_xfer == 0) {
-					break;
-				}
-				bytes_this = this_xfer * sd->block_size;
-			}
-
-			if (!ahci_read(port, start, this_xfer, (uint16_t*)buffer, abar)) {
-				return 0;
-			}
-
-			start   += this_xfer;
-			buffer  += bytes_this;
-			sectors -= this_xfer;
-		}
-		return 1;
-	}
-}
-
-int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer)
-{
-	storage_device_t* sd = (storage_device_t*)dev;
-	if (!sd) {
-		return 0;
-	}
-
-	uint32_t sectors = (bytes + sd->block_size - 1) / sd->block_size;
-	if (sectors < 1) {
-		sectors = 1;
-	}
-
-	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
-	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
-
-	const uint32_t max_per_cmd = 16;
-	while (sectors > 0) {
-		uint32_t this_xfer = (sectors > max_per_cmd) ? max_per_cmd : sectors;
-		if (!ahci_write(port, start, this_xfer, (char*)buffer, abar)) {
-			return false;
-		}
-		start   += this_xfer;
-		buffer  += this_xfer * sd->block_size;
-		sectors -= this_xfer;
-	}
-
-	return true;
 }
 
 static void trim_trailing_spaces(char *s) {
@@ -199,7 +116,7 @@ static void build_atapi_label(storage_device_t *sd, const uint8_t *inq) {
 
 bool wait_for_ready(ahci_hba_port_t* port) {
 	int spin = 0;
-	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
+	while ((port->task_file_data & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
 		spin++;
 	}
 	if (spin == 1000000) {
@@ -216,29 +133,29 @@ void fill_prdt(achi_hba_cmd_tbl_t* cmdtbl, size_t index, void* address, uint32_t
 }
 
 ahci_hba_cmd_header_t* get_cmdheader_for_slot(ahci_hba_port_t* port, size_t slot, bool write, bool atapi, uint16_t prdtls) {
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
+	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->command_list_base_addr_lower;
 	cmdheader += slot;
-	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t);
-	cmdheader->w = write ? 1 : 0;
-	cmdheader->a = atapi ? 1 : 0;
-	cmdheader->prdtl = prdtls;
+	cmdheader->command_fis_length = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t);
+	cmdheader->write = write ? 1 : 0;
+	cmdheader->atapi = atapi ? 1 : 0;
+	cmdheader->prdt_length_entries = prdtls;
 	return cmdheader;
 }
 
 achi_hba_cmd_tbl_t* get_and_clear_cmdtbl(ahci_hba_cmd_header_t* cmdheader) {
-	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
+	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->command_table_base_lower);
+	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdt_length_entries - 1) * sizeof(ahci_hba_prdt_entry_t));
 	return cmdtbl;
 }
 
-ahci_fis_reg_h2d_t* setup_reg_h2d(achi_hba_cmd_tbl_t* cmdtbl, uint8_t type, uint8_t command, uint8_t featurel) {
-	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
+ahci_fis_reg_h2d_t* setup_reg_h2d(achi_hba_cmd_tbl_t* cmdtbl, uint8_t type, uint8_t command, uint8_t feature_low) {
+	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->command_fis);
 	memset(cmdfis, 0, sizeof(ahci_fis_reg_h2d_t));
 	cmdfis->fis_type = type;
-	cmdfis->c = 1;
+	cmdfis->command_or_control = 1;
 	cmdfis->command = command;
-	if (featurel) {
-		cmdfis->featurel = featurel;
+	if (feature_low) {
+		cmdfis->feature_low = feature_low;
 	}
 	return cmdfis;
 }
@@ -257,27 +174,27 @@ void fill_reg_h2c(ahci_fis_reg_h2d_t* cmdfis, uint64_t start, uint16_t count) {
 	cmdfis->lba4 = (uint8_t)starth;
 	cmdfis->lba5 = (uint8_t)(starth>>8);
 
-	cmdfis->countl = count & 0xFF;
-	cmdfis->counth = (count >> 8) & 0xFF;
+	cmdfis->count_low = count & 0xFF;
+	cmdfis->count_high = (count >> 8) & 0xFF;
 
 }
 
 void issue_command_to_slot(ahci_hba_port_t *port, uint8_t slot) {
-	port->ci = 1 << slot;
+	port->command_issue = 1 << slot;
 }
 
 bool wait_for_completion(ahci_hba_port_t* port, uint8_t slot, const char* function) {
 	while (true) {
-		if ((port->ci & (1 << slot)) == 0) {
+		if ((port->command_issue & (1 << slot)) == 0) {
 			break;
 		}
-		if (port->is & HBA_PxIS_TFES) {
+		if (port->interrupt_status & HBA_PxIS_TFES) {
 			dprintf("Disk error [%s]\n", function);
 			return false;
 		}
 	}
 
-	if (port->is & HBA_PxIS_TFES) {
+	if (port->interrupt_status & HBA_PxIS_TFES) {
 		dprintf("Disk error [%s]\n", function);
 		return false;
 	}
@@ -290,10 +207,7 @@ bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *ou
 		return false;
 	}
 
-	int slot = find_cmdslot(port, abar);
-	if (slot == -1) {
-		return false;
-	}
+	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
 	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
@@ -318,20 +232,13 @@ bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *ou
 }
 
 /* Issues ATAPI INQUIRY (0x12). 'len' should be <= 255 (6-byte CDB limit). Returns true on success. */
-bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, uint16_t len)
+bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, uint8_t len)
 {
 	if (!out || len == 0) {
 		return false;
 	}
-	if (len > 255) {
-		len = 255;
-	}
 
-	int slot = find_cmdslot(port, abar);
-	if (slot == -1) {
-		dprintf("No free command slots [inquiry]\n");
-		return false;
-	}
+	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
 	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
@@ -341,12 +248,8 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_PACKET, 5);
 
 	memset(cmdtbl->atapi_command, 0, sizeof(cmdtbl->atapi_command));
-	cmdtbl->atapi_command[0] = 0x12;              /* INQUIRY (6) */
-	cmdtbl->atapi_command[1] = 0;                 /* EVPD=0 */
-	cmdtbl->atapi_command[2] = 0;                 /* Page code */
-	cmdtbl->atapi_command[3] = 0;                 /* Reserved */
-	cmdtbl->atapi_command[4] = (uint8_t)len;      /* Allocation length (1 byte for 6-byte CDB) */
-	cmdtbl->atapi_command[5] = 0;                 /* Control */
+	cmdtbl->atapi_command[0] = ATAPI_CMD_INQUIRY;	/* INQUIRY (6) */
+	cmdtbl->atapi_command[4] = len;			/* Allocation length (1 byte for 6-byte CDB) */
 
 	if (!wait_for_ready(port)) {
 		dprintf("Port hung [inquiry]\n");
@@ -366,17 +269,17 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 
 void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 {
-	uint32_t pi = abar->pi;
+	uint32_t port_index = abar->ports_implemented;
 	int i = 0;
 	while (i < 32) {
-		if (pi & 1) {
+		if (port_index & 1) {
 			int dt = check_type(&abar->ports[i]);
 			if (dt == AHCI_DEV_SATA || dt == AHCI_DEV_SATAPI) {
 				port_rebase(&abar->ports[i], i);
 
 				// Enable interrupts for this port
-				abar->ports[i].ie = 0xFFFFFFFF;
-				abar->ghc |= (1 << 1);  // global IE
+				abar->ports[i].interrupt_enable = 0xFFFFFFFF;
+				abar->global_host_control |= (1 << 1);  // global IE
 
 
 				storage_device_t* sd = kmalloc(sizeof(storage_device_t));
@@ -417,16 +320,16 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				storage_enable_cache(sd);
 			}
 		}
-		pi >>= 1;
+		port_index >>= 1;
 		i ++;
 	}
 }
 
 int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar) {
 	// If not set in SACT and CI, the slot is free
-	port->is = (uint32_t)-1;
-	uint32_t slots = (port->sact | port->ci);
-	int cmdslots = (abar->cap & 0x0f00) >> 8;
+	port->interrupt_status = (uint32_t)-1;
+	uint32_t slots = (port->sata_active | port->command_issue);
+	int cmdslots = (abar->host_capabilities & 0x0f00) >> 8;
 	for (int i=0; i<cmdslots; i++) {
 		if ((slots&1) == 0) {
 			return i;
@@ -444,10 +347,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	}
 	uint32_t o_count = count;
 
-	int slot = find_cmdslot(port, abar);
-	if (slot == -1) {
-		return false;
-	}
+	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, ((count - 1) >> 4) + 1);
 	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
@@ -455,10 +355,10 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	uint8_t *rd_buf = aligned_read_buf;
 
 	int i = 0;
-	for (i = 0; i < cmdheader->prdtl - 1; i++) {
-		fill_prdt(cmdtbl, i, rd_buf, 8 * 1024, true);
-		rd_buf += 8 * 1024;
-		count  -= 16;
+	for (i = 0; i < cmdheader->prdt_length_entries - 1; i++) {
+		fill_prdt(cmdtbl, i, rd_buf, 16 * HDD_SECTOR_SIZE, true);
+		rd_buf += 16 * HDD_SECTOR_SIZE;
+		count -= 16;
 	}
 	fill_prdt(cmdtbl, i, rd_buf, count * HDD_SECTOR_SIZE, true);
 
@@ -485,12 +385,8 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	return true;
 }
 
-uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
-{
-	int slot = find_cmdslot(port, abar);
-	if (slot == -1) {
-		return 0;
-	}
+uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar) {
+	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
 	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
@@ -517,27 +413,21 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	return size;
 }
 
-bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar)
-{
+bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar) {
 	size_t sector_size = ATAPI_SECTOR_SIZE;
 	size_t total_bytes = count * sector_size;
 
-	int slot = find_cmdslot(port, abar);
-	if (slot == -1) {
-		dprintf("No free command slots\n");
-		return false;
-	}
+	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
 	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
-	int i = 0;
-	fill_prdt(cmdtbl, i, aligned_read_buf, count * ATAPI_SECTOR_SIZE, true);
+	fill_prdt(cmdtbl, 0, aligned_read_buf, count * ATAPI_SECTOR_SIZE, true);
 
 	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_PACKET, 5);
 
-	cmdtbl->atapi_command[0] = ATAPI_CMD_READ12; // READ(12)
-	cmdtbl->atapi_command[1] = 0;
+	memset(cmdtbl->atapi_command, 0, sizeof(cmdtbl->atapi_command));
+	cmdtbl->atapi_command[0] = ATAPI_CMD_READ12;
 	cmdtbl->atapi_command[2] = (uint8_t)((start >> 24) & 0xff);
 	cmdtbl->atapi_command[3] = (uint8_t)((start >> 16) & 0xff);
 	cmdtbl->atapi_command[4] = (uint8_t)((start >> 8) & 0xff);
@@ -546,12 +436,6 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	cmdtbl->atapi_command[7] = (count >> 16) & 0xFF;
 	cmdtbl->atapi_command[8] = (count >> 8) & 0xFF;
 	cmdtbl->atapi_command[9] = (count >> 0) & 0xFF;
-	cmdtbl->atapi_command[10] = 0; // group/flags
-	cmdtbl->atapi_command[11] = 0; // control
-	cmdtbl->atapi_command[12] = 0;
-	cmdtbl->atapi_command[13] = 0;
-	cmdtbl->atapi_command[14] = 0;
-	cmdtbl->atapi_command[15] = 0;
 
 	if (!wait_for_ready(port)) {
 		dprintf("Port hung [atapi] (start %lx count %x)\n", start, count);
@@ -572,10 +456,7 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 
 bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar) {
 	uint32_t o_count = count;
-	int slot = find_cmdslot(port, abar);
-	if (slot == -1) {
-		return false;
-	}
+	GET_SLOT(port, abar);
 
 	memcpy(aligned_write_buf, buf, o_count * HDD_SECTOR_SIZE);
 
@@ -584,9 +465,9 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	uint8_t* wr_buf = aligned_write_buf;
 	int i;
 
-	for (i = 0; i<cmdheader->prdtl-1; i++) {
+	for (i = 0; i< cmdheader->prdt_length_entries - 1; i++) {
 		fill_prdt(cmdtbl, i, wr_buf, 16 * HDD_SECTOR_SIZE, true);
-		wr_buf += 8*1024;
+		wr_buf += 16 * HDD_SECTOR_SIZE;
 		count -= 16;
 	}
 	fill_prdt(cmdtbl, i, wr_buf, count * HDD_SECTOR_SIZE, true);
@@ -606,52 +487,6 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	}
 
 	return true;
-}
-
-static void ata_copy_str(char *dst, size_t dst_len, const uint8_t *id_page, int word_off, int word_cnt) {
-	size_t n = (size_t)word_cnt * 2;
-	if (n >= dst_len) {
-		n = dst_len - 1;
-	}
-
-	for (size_t i = 0; i < n; i += 2) {
-		dst[i] = (char)id_page[(word_off * 2) + i + 1];
-		dst[i + 1] = (char)id_page[(word_off * 2) + i + 0];
-	}
-	dst[n] = '\0';
-
-	for (long j = n - 1; j >= 0; j--) {
-		if (dst[j] == ' ') {
-			dst[j] = '\0';
-		} else {
-			break;
-		}
-	}
-}
-
-void humanise_capacity(char *out, size_t out_len, uint64_t bytes) {
-	const char *units[] = { "B", "KB", "MB", "GB", "TB", "PB" };
-	int u = 0;
-	uint64_t v = bytes;
-
-	while (v >= 1024 && u < 5) {
-		v /= 1024;
-		u++;
-	}
-
-	snprintf(out, out_len, "%lu %s", v, units[u]);
-}
-
-void build_sata_label(storage_device_t *sd, const uint8_t *id_page) {
-	char model[48] = {0};
-	char size_str[24] = {0};
-	uint16_t w217 = ((const uint16_t *)id_page)[217]; /* 1 = SSD */
-	const char *kind = (w217 == 1) ? "SSD" : "HDD";
-
-	ata_copy_str(model, sizeof(model), id_page, 27, 20);
-	humanise_capacity(size_str, sizeof(size_str), sd->size * sd->block_size);
-	snprintf(sd->ui.label, sizeof(sd->ui.label), "%s - %s (%s)", (model[0] ? model : "ATA Device"), size_str, kind);
-	sd->ui.is_optical = false;
 }
 
 void setup_aligned_buffers() {
