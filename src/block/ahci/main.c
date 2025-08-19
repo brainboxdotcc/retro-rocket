@@ -125,7 +125,7 @@ bool wait_for_ready(ahci_hba_port_t* port) {
 	return true;
 }
 
-void fill_prdt(achi_hba_cmd_tbl_t* cmdtbl, size_t index, void* address, uint32_t byte_count, bool interrupt) {
+void fill_prdt(ahci_hba_cmd_tbl_t* cmdtbl, size_t index, void* address, uint32_t byte_count, bool interrupt) {
 	cmdtbl->prdt_entry[index].data_address_lower = (uint32_t)((uint64_t)address & 0xffffffff);
 	cmdtbl->prdt_entry[index].data_address_upper = (uint32_t)(((uint64_t)(address) >> 32) & 0xffffffff);
 	cmdtbl->prdt_entry[index].byte_count = byte_count - 1;
@@ -142,13 +142,13 @@ ahci_hba_cmd_header_t* get_cmdheader_for_slot(ahci_hba_port_t* port, size_t slot
 	return cmdheader;
 }
 
-achi_hba_cmd_tbl_t* get_and_clear_cmdtbl(ahci_hba_cmd_header_t* cmdheader) {
-	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->command_table_base_lower);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdt_length_entries - 1) * sizeof(ahci_hba_prdt_entry_t));
+ahci_hba_cmd_tbl_t* get_and_clear_cmdtbl(ahci_hba_cmd_header_t* cmdheader) {
+	ahci_hba_cmd_tbl_t *cmdtbl = (ahci_hba_cmd_tbl_t*)((uint64_t)cmdheader->command_table_base_lower);
+	memset(cmdtbl, 0, sizeof(ahci_hba_cmd_tbl_t) + (cmdheader->prdt_length_entries - 1) * sizeof(ahci_hba_prdt_entry_t));
 	return cmdtbl;
 }
 
-ahci_fis_reg_h2d_t* setup_reg_h2d(achi_hba_cmd_tbl_t* cmdtbl, uint8_t type, uint8_t command, uint8_t feature_low) {
+ahci_fis_reg_h2d_t* setup_reg_h2d(ahci_hba_cmd_tbl_t* cmdtbl, uint8_t type, uint8_t command, uint8_t feature_low) {
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->command_fis);
 	memset(cmdfis, 0, sizeof(ahci_fis_reg_h2d_t));
 	cmdfis->fis_type = type;
@@ -201,6 +201,15 @@ bool wait_for_completion(ahci_hba_port_t* port, uint8_t slot, const char* functi
 	return true;
 }
 
+bool issue_and_wait(ahci_hba_port_t* port, uint8_t slot, const char* function) {
+	if (!wait_for_ready(port)) {
+		dprintf("Port hung [%s]\n", function);
+		return false;
+	}
+	issue_command_to_slot(port, slot);
+	return wait_for_completion(port, slot, function);
+}
+
 /* Fills a 512-byte ATA IDENTIFY buffer into 'out'. Returns true on success. */
 bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out) {
 	if (!out) {
@@ -210,20 +219,13 @@ bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *ou
 	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
-	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
+	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
 	fill_prdt(cmdtbl, 0, aligned_read_buf, 512, true);
 
 	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_IDENTIFY, 0);
 
-	if (!wait_for_ready(port)) {
-		dprintf("Port hung [identify]\n");
-		return false;
-	}
-
-	issue_command_to_slot(port, slot);
-
-	if (!wait_for_completion(port, slot, "identify")) {
+	if (!issue_and_wait(port, slot, "identify")) {
 		return false;
 	}
 
@@ -241,7 +243,7 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
-	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
+	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
 	fill_prdt(cmdtbl, 0, aligned_read_buf, len, true);
 
@@ -251,14 +253,7 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 	cmdtbl->atapi_command[0] = ATAPI_CMD_INQUIRY;	/* INQUIRY (6) */
 	cmdtbl->atapi_command[4] = len;			/* Allocation length (1 byte for 6-byte CDB) */
 
-	if (!wait_for_ready(port)) {
-		dprintf("Port hung [inquiry]\n");
-		return false;
-	}
-
-	issue_command_to_slot(port, slot);
-
-	if (!wait_for_completion(port, slot, "inquiry")) {
+	if (!issue_and_wait(port, slot, "inquiry")) {
 		return false;
 	}
 
@@ -350,7 +345,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, ((count - 1) >> 4) + 1);
-	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
+	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
 	uint8_t *rd_buf = aligned_read_buf;
 
@@ -365,14 +360,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	ahci_fis_reg_h2d_t* cmdfis = setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_READ_DMA_EX, 0);
 	fill_reg_h2c(cmdfis, start, o_count);
 
-	if (!wait_for_ready(port)) {
-		dprintf("Port hung [read] (start %lx count %x)\n", start, o_count);
-		return false;
-	}
-
-	issue_command_to_slot(port, slot);
-
-	if (!wait_for_completion(port, slot, "read disk")) {
+	if (!issue_and_wait(port, slot, "read disk")) {
 		return false;
 	}
 
@@ -389,19 +377,12 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar) {
 	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
-	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
- 
+	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
+
 	fill_prdt(cmdtbl, 0, aligned_read_buf, 512, true);
 	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_IDENTIFY, 0);
 
-	if (!wait_for_ready(port)) {
-		dprintf("Port hung [read size]\n");
-		return false;
-	}
-
-	issue_command_to_slot(port, slot);
-
-	if (!wait_for_completion(port, slot, "read size")) {
+	if (!issue_and_wait(port, slot, "read size")) {
 		return 0;
 	}
 
@@ -420,7 +401,7 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	GET_SLOT(port, abar);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
-	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
+	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
 	fill_prdt(cmdtbl, 0, aligned_read_buf, count * ATAPI_SECTOR_SIZE, true);
 
@@ -437,14 +418,7 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 	cmdtbl->atapi_command[8] = (count >> 8) & 0xFF;
 	cmdtbl->atapi_command[9] = (count >> 0) & 0xFF;
 
-	if (!wait_for_ready(port)) {
-		dprintf("Port hung [atapi] (start %lx count %x)\n", start, count);
-		return false;
-	}
-
-	issue_command_to_slot(port, slot);
-
-	if (!wait_for_completion(port, slot, "atapi read")) {
+	if (!issue_and_wait(port, slot, "atapi read")) {
 		return false;
 	}
 
@@ -461,7 +435,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	memcpy(aligned_write_buf, buf, o_count * HDD_SECTOR_SIZE);
 
 	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, true, false, ((o_count-1)>>4) + 1);
-	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
+	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 	uint8_t* wr_buf = aligned_write_buf;
 	int i;
 
@@ -475,14 +449,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	ahci_fis_reg_h2d_t* cmdfis = setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_WRITE_DMA_EX, 0);
 	fill_reg_h2c(cmdfis, start, o_count);
 
-	if (!wait_for_ready(port)) {
-		dprintf("Port hung [write] (start %lx count %x)\n", start, o_count);
-		return false;
-	}
-
-	issue_command_to_slot(port, slot);
-
-	if (!wait_for_completion(port, slot, "write disk")) {
+	if (!issue_and_wait(port, slot, "write disk")) {
 		return false;
 	}
 
