@@ -1,18 +1,10 @@
-#include <kernel.h>
+#include "kernel.h"
 
 void* aligned_buf = NULL;
 uint8_t* raw_buf = NULL;
 uint8_t* buf = NULL;
 static uint8_t* raw_write_buf = NULL;
 static uint8_t* aligned_write_buf = NULL;
-
-int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar);
-bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
-bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
-bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
-uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
-static void build_sata_label(storage_device_t *sd, const uint8_t *id_page);
-static void humanise_capacity(char *out, size_t out_len, uint64_t bytes);
 
 void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque)
 {
@@ -208,9 +200,42 @@ static void build_atapi_label(storage_device_t *sd, const uint8_t *inq) {
 	sd->ui.is_optical = true;
 }
 
+bool wait_for_ready(ahci_hba_port_t* port) {
+	int spin = 0;
+	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
+		spin++;
+	}
+	if (spin == 1000000) {
+		return false;
+	}
+	return true;
+}
+
+void fill_prdt(achi_hba_cmd_tbl_t* cmdtbl, size_t index, void* address, uint32_t byte_count_minus_one, bool interrupt) {
+	cmdtbl->prdt_entry[index].dba = (uint32_t)((uint64_t)address & 0xffffffff);
+	cmdtbl->prdt_entry[index].dbau = (uint32_t)(((uint64_t)(address) >> 32) & 0xffffffff);
+	cmdtbl->prdt_entry[index].dbc = byte_count_minus_one;
+	cmdtbl->prdt_entry[index].i = interrupt ? 1 : 0;
+}
+
+ahci_hba_cmd_header_t* get_cmdheader_for_slot(ahci_hba_port_t* port, size_t slot, bool write, bool atapi, uint16_t prdtls) {
+	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
+	cmdheader += slot;
+	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t);
+	cmdheader->w = write ? 1 : 0;
+	cmdheader->a = atapi ? 1 : 0;
+	cmdheader->prdtl = prdtls;
+	return cmdheader;
+}
+
+achi_hba_cmd_tbl_t* get_and_clear_cmdtbl(ahci_hba_cmd_header_t* cmdheader) {
+	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
+	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
+	return cmdtbl;
+}
+
 /* Fills a 512-byte ATA IDENTIFY buffer into 'out'. Returns true on success. */
-bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out)
-{
+bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out) {
 	if (!out) {
 		return false;
 	}
@@ -227,19 +252,10 @@ bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *ou
 		buf = (uint8_t*)(((uintptr_t)raw_buf + 0xFFF) & ~0xFFF);
 	}
 
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
-	cmdheader += slot;
-	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t);
-	cmdheader->w = 0;
-	cmdheader->prdtl = 1;
+	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
+	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
-	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl - 1) * sizeof(ahci_hba_prdt_entry_t));
-
-	cmdtbl->prdt_entry[0].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
-	cmdtbl->prdt_entry[0].dbau = (uint32_t)(((uint64_t)buf) >> 32);
-	cmdtbl->prdt_entry[0].dbc = 511;
-	cmdtbl->prdt_entry[0].i = 1;
+	fill_prdt(cmdtbl, 0, buf, 511, true);
 
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
 	memset(cmdfis, 0, sizeof(ahci_fis_reg_h2d_t));
@@ -247,11 +263,7 @@ bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *ou
 	cmdfis->c = 1;
 	cmdfis->command = ATA_CMD_IDENTIFY;
 
-	int spin = 0;
-	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
-		spin++;
-	}
-	if (spin == 1000000) {
+	if (!wait_for_ready(port)) {
 		dprintf("Port hung [identify]\n");
 		return false;
 	}
@@ -302,20 +314,10 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 		return false;
 	}
 
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
-	cmdheader += slot;
-	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t);
-	cmdheader->w = 0;
-	cmdheader->a = 1;
-	cmdheader->prdtl = 1;
+	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
+	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
-	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl - 1) * sizeof(ahci_hba_prdt_entry_t));
-
-	cmdtbl->prdt_entry[0].dba = (uint32_t)((uint64_t)aligned_buf & 0xffffffff);
-	cmdtbl->prdt_entry[0].dbau = (uint32_t)(((uint64_t)aligned_buf) >> 32);
-	cmdtbl->prdt_entry[0].dbc = len - 1;
-	cmdtbl->prdt_entry[0].i = 1;
+	fill_prdt(cmdtbl, 0, aligned_buf, len - 1, true);
 
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
 	memset(cmdfis, 0, sizeof(ahci_fis_reg_h2d_t));
@@ -332,11 +334,7 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 	cmdtbl->acmd[4] = (uint8_t)len;      /* Allocation length (1 byte for 6-byte CDB) */
 	cmdtbl->acmd[5] = 0;                 /* Control */
 
-	int spin = 0;
-	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
-		spin++;
-	}
-	if (spin == 1000000) {
+	if (!wait_for_ready(port)) {
 		dprintf("Port hung [inquiry]\n");
 		return false;
 	}
@@ -454,20 +452,13 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 
 	port->is = (uint32_t)-1;
 
-	int spin = 0;
 	int slot = find_cmdslot(port, abar);
 	if (slot == -1) {
 		return false;
 	}
 
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
-	cmdheader += slot;
-	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t); // Command FIS size
-	cmdheader->w   = 0;   // read
-	cmdheader->prdtl = (uint16_t)((count - 1) >> 4) + 1; // PRDT entries count (ceil(count/16))
-
-	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl - 1) * sizeof(ahci_hba_prdt_entry_t));
+	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, ((count - 1) >> 4) + 1);
+	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
 	uint8_t *rd_buf = aligned_read_buf;
 
@@ -503,10 +494,7 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 	cmdfis->countl  = o_count & 0xFF;
 	cmdfis->counth  = (o_count >> 8) & 0xFF;
 
-	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
-		spin++;
-	}
-	if (spin == 1000000) {
+	if (!wait_for_ready(port)) {
 		dprintf("Port hung [read] (start %lx count %x)\n", start, o_count);
 		return false;
 	}
@@ -539,20 +527,13 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 {
 	port->is = (uint32_t) -1;		// Clear pending interrupt bits
-	int spin = 0; // Spin lock timeout counter
 	int slot = find_cmdslot(port, abar);
 	if (slot == -1) {
 		return 0;
 	}
- 
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
-	cmdheader += slot;
-	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t)/sizeof(uint32_t);	// Command FIS size
-	cmdheader->w = 0;		// Read from device
-	cmdheader->prdtl = 1;	// PRDT entries count
- 
-	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
+
+	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
+	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
  
 	if (!raw_buf && !buf) {
 		raw_buf = (uint8_t*)kmalloc_low(HDD_SECTOR_SIZE + 0x1000); // extra for alignment
@@ -561,10 +542,7 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 
 	// 8K bytes (16 sectors) per PRDT
 	// Last entry
-	cmdtbl->prdt_entry[0].dba = (uint32_t)((uint64_t)buf & 0xffffffff);
-	cmdtbl->prdt_entry[0].dbau = (uint32_t)(((uint64_t)(buf) >> 32) & 0xffffffff);
-	cmdtbl->prdt_entry[0].dbc = 511;
-	cmdtbl->prdt_entry[0].i = 1;
+	fill_prdt(cmdtbl, 0, buf, 511, true);
 
 	// Setup command
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
@@ -572,16 +550,12 @@ uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar)
 	cmdfis->fis_type = FIS_TYPE_REG_H2D;
 	cmdfis->c = 1;	// Command
 	cmdfis->command = ATA_CMD_IDENTIFY; // ATA_CMD_READ_DMA_EX;
- 
- 	// The below loop waits until the port is no longer busy before issuing a new command
-	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
-		spin++;
-	}
-	if (spin == 1000000) {
+
+	if (!wait_for_ready(port)) {
 		dprintf("Port hung [read size]\n");
-		return 0;
+		return false;
 	}
- 
+
 	port->ci = 1<<slot;	// Issue command
  
 	// Wait for completion
@@ -623,22 +597,11 @@ bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint
 		return false;
 	}
 
-	ahci_hba_cmd_header_t* cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)(port->clb);
-	cmdheader += slot;
-
-	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t);
-	cmdheader->w = 0;
-	cmdheader->a = 1;
-	cmdheader->prdtl = 1;
-   
-	struct achi_hba_cmd_tbl_t* cmdtbl = (achi_hba_cmd_tbl_t*)(uint64_t)(cmdheader->ctba);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl - 1) * sizeof(ahci_hba_prdt_entry_t));
+	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
+	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
 	int i = 0;
-	cmdtbl->prdt_entry[i].dba = (uint32_t)((uint64_t)aligned_buf  & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)(aligned_buf) >> 32) & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbc = count * ATAPI_SECTOR_SIZE - 1;	   // 2048 bytes per sector
-	cmdtbl->prdt_entry[i].i = 1;
+	fill_prdt(cmdtbl, i, aligned_buf, count * ATAPI_SECTOR_SIZE - 1, true);
 
 	ahci_fis_reg_h2d_t* cmdfis = (ahci_fis_reg_h2d_t*)cmdtbl->cfis;
 	memset(cmdfis, 0, sizeof(ahci_fis_reg_h2d_t));
@@ -704,7 +667,6 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	uint32_t starth = ((start & 0xFFFFFFFF00000000) >> 32);
 	uint32_t o_count = count;
 	port->is = (uint32_t)-1;	   // Clear pending interrupt bits
-	int spin = 0; // Spin lock timeout counter
 	int slot = find_cmdslot(port, abar);
 	if (slot == -1) {
 		return false;
@@ -717,15 +679,8 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 
 	memcpy(aligned_write_buf, buf, o_count * HDD_SECTOR_SIZE);
 
-	ahci_hba_cmd_header_t* cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->clb;
-	cmdheader += slot;
-
-	cmdheader->cfl = sizeof(ahci_fis_reg_h2d_t)/sizeof(uint32_t); // Command FIS size
-	cmdheader->w = 1;	   // Write device
-	cmdheader->prdtl = (uint16_t)((o_count-1)>>4) + 1;	// PRDT entries count
-
-	achi_hba_cmd_tbl_t *cmdtbl = (achi_hba_cmd_tbl_t*)((uint64_t)cmdheader->ctba);
-	memset(cmdtbl, 0, sizeof(achi_hba_cmd_tbl_t) + (cmdheader->prdtl-1)*sizeof(ahci_hba_prdt_entry_t));
+	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, true, false, ((o_count-1)>>4) + 1);
+	achi_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
 
 	uint8_t* wr_buf = aligned_write_buf;
 
@@ -765,11 +720,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	cmdfis->countl = o_count & 0xFF;
 	cmdfis->counth = (o_count >> 8) & 0xFF;
 
-	// The below loop waits until the port is no longer busy before issuing a new command
-	while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && spin < 1000000) {
-		spin++;
-	}
-	if (spin == 1000000) {
+	if (!wait_for_ready(port)) {
 		dprintf("Port hung [write] (start %lx count %x)\n", start, o_count);
 		return false;
 	}
@@ -818,7 +769,7 @@ static void ata_copy_str(char *dst, size_t dst_len, const uint8_t *id_page, int 
 	}
 }
 
-static void humanise_capacity(char *out, size_t out_len, uint64_t bytes) {
+void humanise_capacity(char *out, size_t out_len, uint64_t bytes) {
 	const char *units[] = { "B", "KB", "MB", "GB", "TB", "PB" };
 	int u = 0;
 	uint64_t v = bytes;
@@ -831,7 +782,7 @@ static void humanise_capacity(char *out, size_t out_len, uint64_t bytes) {
 	snprintf(out, out_len, "%lu %s", v, units[u]);
 }
 
-static void build_sata_label(storage_device_t *sd, const uint8_t *id_page) {
+void build_sata_label(storage_device_t *sd, const uint8_t *id_page) {
 	char model[48] = {0};
 	char size_str[24] = {0};
 

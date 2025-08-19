@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include "kernel.h"
+#include <kernel.h>
 
 typedef enum ahci_fis_type_t {
 	FIS_TYPE_REG_H2D	= 0x27,	// Register FIS - host to device
@@ -345,4 +345,14 @@ typedef struct achi_hba_cmd_tbl_t
 #define HDD_SECTOR_SIZE 512
 #define ATAPI_SECTOR_SIZE 2048
 
+struct storage_device_t;
+
 void init_ahci();
+
+int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar);
+bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
+bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
+void build_sata_label(struct storage_device_t *sd, const uint8_t *id_page);
+void humanise_capacity(char *out, size_t out_len, uint64_t bytes);
