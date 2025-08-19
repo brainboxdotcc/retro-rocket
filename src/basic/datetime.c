@@ -11,6 +11,7 @@ void local_or_not(bool local, datetime_t* date)
 	} else {
 		get_datetime(date);
 	}
+	get_weekday_from_date(date); // to update century
 }
 
 int64_t basic_gethour(struct basic_ctx* ctx)
