@@ -1,7 +1,8 @@
-#include "kernel.h"
+#include <kernel.h>
+#include <scsi.h>
 
-static uint8_t* aligned_read_buf = NULL;
-static uint8_t* aligned_write_buf = NULL;
+uint8_t* aligned_read_buf = NULL;
+uint8_t* aligned_write_buf = NULL;
 
 void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error, [[maybe_unused]] uint64_t irq, void* opaque)
 {
@@ -20,13 +21,8 @@ static inline bool ahci_hba_supports_64b(const ahci_hba_mem_t* abar) {
 	return (abar->host_capabilities & HBA_CAP_S64A) != 0;
 }
 
-static inline void split_addr(uint64_t a, uint32_t* lo, uint32_t* hi) {
-	*lo = (uint32_t)a;
-	*hi = (uint32_t)(a >> 32);
-}
-
-static inline uint64_t join_addr(uint32_t lo, uint32_t hi) {
-	return (uint64_t)lo | ((uint64_t)hi << 32);
+void* allocate_ahci(const ahci_hba_mem_t* abar, size_t size) {
+	return ahci_hba_supports_64b(abar) ? kmalloc(size) : (void*)kmalloc_low(size);
 }
 
 int check_type(ahci_hba_port_t* port)
@@ -71,60 +67,29 @@ void stop_cmd(ahci_hba_port_t *port)
 	}
 }
 
-void port_rebase(ahci_hba_port_t* port, int portno)
+void port_rebase(ahci_hba_port_t* port, int portno, ahci_hba_mem_t* abar)
 {
 	stop_cmd(port);
- 
-	port->command_list_base_addr_lower = (kmalloc_low(0x100000) & 0xFFFFFFFFFFFFF000) + 0x1000;
-	port->command_list_base_addr_upper = 0;
-	memset((void*)((uint64_t)port->command_list_base_addr_lower), 0, 1024);
 
-	port->fis_base_addr_lower = port->command_list_base_addr_lower + (32 * 1024) + (portno << 8);
-	port->fis_base_addr_upper = 0;
-	memset((void*)((uint64_t)port->fis_base_addr_lower), 0, 256);
+	uint64_t clb = (((uint64_t)allocate_ahci(abar, 0x100000)) & 0xFFFFFFFFFFFFF000) + 0x1000;
+	port->command_list_base_addr_lower = (uint32_t)clb;
+	port->command_list_base_addr_upper = (uint32_t)(clb >> 32);
+	memset((void*)clb, 0, 1024);
 
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)((uint64_t)port->command_list_base_addr_lower);
+	uint64_t fb = clb + (32 * 1024) + ((uint64_t)portno << 8);
+	port->fis_base_addr_lower = (uint32_t)fb;
+	port->fis_base_addr_upper = (uint32_t)(fb >> 32);
+	memset((void*)fb, 0, 256);
+
+	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uintptr_t)clb;
 	for (int i = 0; i < 32; i++) {
 		cmdheader[i].prdt_length_entries = 8;
-		cmdheader[i].command_table_base_lower = port->command_list_base_addr_lower + (40 * 1024) + (portno << 13) + (i << 8);
-		cmdheader[i].command_table_base_upper = 0;
-		memset((void*)(uint64_t)cmdheader[i].command_table_base_lower, 0, 256);
+		uint64_t ctba = clb + (40 * 1024) + ((uint64_t)portno << 13) + ((uint64_t)i << 8);
+		cmdheader[i].command_table_base_lower = (uint32_t)ctba;
+		cmdheader[i].command_table_base_upper = (uint32_t)(ctba >> 32);
+		memset((void*)(uintptr_t)ctba, 0, 256);
 	}
 	start_cmd(port);
-}
-
-static void trim_trailing_spaces(char *s) {
-	size_t n = strlen(s);
-	while (n > 0) {
-		if (s[n - 1] == ' ') {
-			s[n - 1] = '\0';
-			n--;
-		} else {
-			break;
-		}
-	}
-}
-
-static void build_atapi_label(storage_device_t *sd, const uint8_t *inq) {
-	char vendor[16] = {0};
-	char product[32] = {0};
-	char rev[16] = {0};
-
-	memcpy(vendor,  inq + 8,  8);
-	memcpy(product, inq + 16, 16);
-	memcpy(rev,     inq + 32, 4);
-
-	trim_trailing_spaces(vendor);
-	trim_trailing_spaces(product);
-	trim_trailing_spaces(rev);
-
-	if (rev[0] != '\0') {
-		snprintf(sd->ui.label, sizeof(sd->ui.label), "%s %s - %s (Optical)", vendor, product, rev);
-	} else {
-		snprintf(sd->ui.label, sizeof(sd->ui.label), "%s %s (Optical)", vendor, product);
-	}
-
-	sd->ui.is_optical = true;
 }
 
 bool wait_for_ready(ahci_hba_port_t* port) {
@@ -146,7 +111,8 @@ void fill_prdt(ahci_hba_cmd_tbl_t* cmdtbl, size_t index, void* address, uint32_t
 }
 
 ahci_hba_cmd_header_t* get_cmdheader_for_slot(ahci_hba_port_t* port, size_t slot, bool write, bool atapi, uint16_t prdtls) {
-	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)(uint64_t)port->command_list_base_addr_lower;
+	uint64_t clb = ((uint64_t)port->command_list_base_addr_lower) | ((uint64_t)port->command_list_base_addr_upper << 32);
+	ahci_hba_cmd_header_t *cmdheader = (ahci_hba_cmd_header_t*)clb;
 	cmdheader += slot;
 	cmdheader->command_fis_length = sizeof(ahci_fis_reg_h2d_t) / sizeof(uint32_t);
 	cmdheader->write = write ? 1 : 0;
@@ -156,7 +122,8 @@ ahci_hba_cmd_header_t* get_cmdheader_for_slot(ahci_hba_port_t* port, size_t slot
 }
 
 ahci_hba_cmd_tbl_t* get_and_clear_cmdtbl(ahci_hba_cmd_header_t* cmdheader) {
-	ahci_hba_cmd_tbl_t *cmdtbl = (ahci_hba_cmd_tbl_t*)((uint64_t)cmdheader->command_table_base_lower);
+	uint64_t ctba = ((uint64_t)cmdheader->command_table_base_lower) | ((uint64_t)cmdheader->command_table_base_upper << 32);
+	ahci_hba_cmd_tbl_t *cmdtbl = (ahci_hba_cmd_tbl_t*)ctba;
 	memset(cmdtbl, 0, sizeof(ahci_hba_cmd_tbl_t) + (cmdheader->prdt_length_entries - 1) * sizeof(ahci_hba_prdt_entry_t));
 	return cmdtbl;
 }
@@ -223,58 +190,6 @@ bool issue_and_wait(ahci_hba_port_t* port, uint8_t slot, const char* function) {
 	return wait_for_completion(port, slot, function);
 }
 
-/* Fills a 512-byte ATA IDENTIFY buffer into 'out'. Returns true on success. */
-bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out) {
-	if (!out) {
-		return false;
-	}
-
-	GET_SLOT(port, abar);
-
-	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
-	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
-
-	fill_prdt(cmdtbl, 0, aligned_read_buf, 512, true);
-
-	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_IDENTIFY, 0);
-
-	if (!issue_and_wait(port, slot, "identify")) {
-		return false;
-	}
-
-	memcpy(out, aligned_read_buf, 512);
-	return true;
-}
-
-/* Issues ATAPI INQUIRY (0x12). 'len' should be <= 255 (6-byte CDB limit). Returns true on success. */
-bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, uint8_t len)
-{
-	if (!out || len == 0) {
-		return false;
-	}
-
-	GET_SLOT(port, abar);
-
-	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
-	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
-
-	fill_prdt(cmdtbl, 0, aligned_read_buf, len, true);
-
-	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_PACKET, 5);
-
-	memset(cmdtbl->atapi_command, 0, sizeof(cmdtbl->atapi_command));
-	cmdtbl->atapi_command[0] = ATAPI_CMD_INQUIRY;	/* INQUIRY (6) */
-	cmdtbl->atapi_command[4] = len;			/* Allocation length (1 byte for 6-byte CDB) */
-
-	if (!issue_and_wait(port, slot, "inquiry")) {
-		return false;
-	}
-
-	memcpy(out, aligned_read_buf, len);
-	return true;
-}
-
-
 void probe_port(ahci_hba_mem_t *abar)
 {
 	uint32_t port_index = abar->ports_implemented;
@@ -283,7 +198,7 @@ void probe_port(ahci_hba_mem_t *abar)
 		if (port_index & 1) {
 			int dt = check_type(&abar->ports[i]);
 			if (dt == AHCI_DEV_SATA || dt == AHCI_DEV_SATAPI) {
-				port_rebase(&abar->ports[i], i);
+				port_rebase(&abar->ports[i], i, abar);
 
 				// Enable interrupts for this port
 				abar->ports[i].interrupt_enable = 0xFFFFFFFF;
@@ -322,7 +237,7 @@ void probe_port(ahci_hba_mem_t *abar)
 						sd->ui.is_optical = true;
 					}
 				}
-				kprintf("%s storage, Port #%d: %s\n", dt == AHCI_DEV_SATA ? "SATA" : "ATAPI", i, sd->ui.label);
+				kprintf("%s storage, Port #%d: %s (%d bit)\n", dt == AHCI_DEV_SATA ? "SATA" : "ATAPI", i, sd->ui.label, ahci_hba_supports_64b(abar) ? 64 : 32);
 				register_storage_device(sd);
 				storage_enable_cache(sd);
 			}
@@ -347,126 +262,10 @@ int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar) {
 	return -1;
 }
 
-bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar) {
-
-	if (count > 128) {
-		preboot_fail("ahci_read > 128 clusters!");
-	}
-	uint32_t o_count = count;
-
-	GET_SLOT(port, abar);
-
-	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, ((count - 1) >> 4) + 1);
-	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
-
-	uint8_t *rd_buf = aligned_read_buf;
-
-	int i = 0;
-	for (i = 0; i < cmdheader->prdt_length_entries - 1; i++) {
-		fill_prdt(cmdtbl, i, rd_buf, 16 * HDD_SECTOR_SIZE, true);
-		rd_buf += 16 * HDD_SECTOR_SIZE;
-		count -= 16;
-	}
-	fill_prdt(cmdtbl, i, rd_buf, count * HDD_SECTOR_SIZE, true);
-
-	ahci_fis_reg_h2d_t* cmdfis = setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_READ_DMA_EX, 0);
-	fill_reg_h2c(cmdfis, start, o_count);
-
-	if (!issue_and_wait(port, slot, "read disk")) {
-		return false;
-	}
-
-	if (!buf) {
-		return false;
-	}
-	memcpy(buf, aligned_read_buf, (o_count * HDD_SECTOR_SIZE));
-
-	add_random_entropy(*buf);
-	return true;
-}
-
-uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar) {
-	uint8_t id_page[512] = {0};
-
-	if (!ahci_identify_page(port, abar, id_page)) {
-		return 0;
-	}
-
-	/* Prefer 48-bit MAX LBA if present, else fall back to 28-bit. */
-	uint64_t size = ((uint64_t*)(id_page + ATA_IDENT_MAX_LBA_EXT))[0] & 0xFFFFFFFFFFFull;
-	if (size == 0) {
-		size = ((uint64_t*)(id_page + ATA_IDENT_MAX_LBA))[0] & 0xFFFFFFFFFFFFull;
-	}
-
-	return size;
-}
-
-bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar) {
-	size_t sector_size = ATAPI_SECTOR_SIZE;
-	size_t total_bytes = count * sector_size;
-
-	GET_SLOT(port, abar);
-
-	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, true, 1);
-	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
-
-	fill_prdt(cmdtbl, 0, aligned_read_buf, count * ATAPI_SECTOR_SIZE, true);
-
-	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_PACKET, 5);
-
-	memset(cmdtbl->atapi_command, 0, sizeof(cmdtbl->atapi_command));
-	cmdtbl->atapi_command[0] = ATAPI_CMD_READ12;
-	cmdtbl->atapi_command[2] = (uint8_t)((start >> 24) & 0xff);
-	cmdtbl->atapi_command[3] = (uint8_t)((start >> 16) & 0xff);
-	cmdtbl->atapi_command[4] = (uint8_t)((start >> 8) & 0xff);
-	cmdtbl->atapi_command[5] = (uint8_t)((start >> 0) & 0xff);
-	cmdtbl->atapi_command[6] = (count >> 24) & 0xFF;
-	cmdtbl->atapi_command[7] = (count >> 16) & 0xFF;
-	cmdtbl->atapi_command[8] = (count >> 8) & 0xFF;
-	cmdtbl->atapi_command[9] = (count >> 0) & 0xFF;
-
-	if (!issue_and_wait(port, slot, "atapi read")) {
-		return false;
-	}
-
-	memcpy(buf, aligned_read_buf, total_bytes);
-	add_random_entropy(*buf);
-
-	return true;
-}
-
-bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar) {
-	uint32_t o_count = count;
-	GET_SLOT(port, abar);
-
-	memcpy(aligned_write_buf, buf, o_count * HDD_SECTOR_SIZE);
-
-	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, true, false, ((o_count-1)>>4) + 1);
-	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
-	uint8_t* wr_buf = aligned_write_buf;
-	int i;
-
-	for (i = 0; i< cmdheader->prdt_length_entries - 1; i++) {
-		fill_prdt(cmdtbl, i, wr_buf, 16 * HDD_SECTOR_SIZE, true);
-		wr_buf += 16 * HDD_SECTOR_SIZE;
-		count -= 16;
-	}
-	fill_prdt(cmdtbl, i, wr_buf, count * HDD_SECTOR_SIZE, true);
-
-	ahci_fis_reg_h2d_t* cmdfis = setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_WRITE_DMA_EX, 0);
-	fill_reg_h2c(cmdfis, start, o_count);
-
-	if (!issue_and_wait(port, slot, "write disk")) {
-		return false;
-	}
-
-	return true;
-}
-
-void setup_aligned_buffers() {
+void setup_aligned_buffers(ahci_hba_mem_t* abar) {
 	uint64_t bounce_size = HDD_SECTOR_SIZE * 128 + 0x1000;
-	aligned_read_buf = ((uintptr_t)kmalloc_low(bounce_size) + 0xFFF) & ~0xFFF;
-	aligned_write_buf = ((uintptr_t)kmalloc_low(bounce_size) + 0xFFF) & ~0xFFF;
+	aligned_read_buf  = ((uintptr_t)(allocate_ahci(abar, bounce_size)) + 0xFFF) & ~0xFFF;
+	aligned_write_buf = ((uintptr_t)(allocate_ahci(abar, bounce_size)) + 0xFFF) & ~0xFFF;
 }
 
 void init_ahci() {
@@ -484,8 +283,7 @@ void init_ahci() {
 	}
 
 	ahci_base = pci_mem_base(ahci_base);
-
-	setup_aligned_buffers();
+	setup_aligned_buffers((ahci_hba_mem_t*)ahci_base);
 
 	uint32_t irq_num = pci_setup_interrupt("AHCI", ahci_device, logical_cpu_id(), ahci_handler, ahci_base);
 	dprintf("AHCI base MMIO: %lx INT %d\n", ahci_base, irq_num);

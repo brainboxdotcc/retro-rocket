@@ -5,6 +5,13 @@
  */
 #pragma once
 
+#if !defined(__GNUC__)
+	#error "Retro Rocket is built with GCC only."
+#endif
+#if !defined(__x86_64__) || (__BYTE_ORDER__ != __ORDER_LITTLE_ENDIAN__)
+	#error "Bit-field layout assumed: x86_64 little-endian."
+#endif
+
 #define kprintf printf
 #include <stdint.h>
 #include <stdbool.h>

@@ -260,7 +260,6 @@ typedef struct ahci_hba_cmd_tbl_t {
 	ahci_hba_prdt_entry_t prdt_entry[1];	/**< PRDT entries (0–65535, flexible array) */
 } __attribute__((packed)) ahci_hba_cmd_tbl_t;
 
-
 /* ----------------------------- ATA identify offsets ----------------------------- */
 
 /** @brief ATA IDENTIFY: device type offset (bytes). */
@@ -466,6 +465,27 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
  * @return 0 on success, negative errno-style on failure.
  */
 int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer);
+
+
+bool wait_for_ready(ahci_hba_port_t* port);
+void fill_prdt(ahci_hba_cmd_tbl_t* cmdtbl, size_t index, void* address, uint32_t byte_count, bool interrupt);
+ahci_hba_cmd_header_t* get_cmdheader_for_slot(ahci_hba_port_t* port, size_t slot, bool write, bool atapi, uint16_t prdtls);
+ahci_hba_cmd_tbl_t* get_and_clear_cmdtbl(ahci_hba_cmd_header_t* cmdheader);
+ahci_fis_reg_h2d_t* setup_reg_h2d(ahci_hba_cmd_tbl_t* cmdtbl, uint8_t type, uint8_t command, uint8_t feature_low);
+void fill_reg_h2c(ahci_fis_reg_h2d_t* cmdfis, uint64_t start, uint16_t count);
+void issue_command_to_slot(ahci_hba_port_t *port, uint8_t slot);
+bool wait_for_completion(ahci_hba_port_t* port, uint8_t slot, const char* function);
+bool issue_and_wait(ahci_hba_port_t* port, uint8_t slot, const char* function);
+void trim_trailing_spaces(char *s);
+void build_atapi_label(struct storage_device_t *sd, const uint8_t *inq);
+
+bool atapi_eject(ahci_hba_port_t *port, ahci_hba_mem_t *abar);
+bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
+bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
+bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out);
+bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, uint8_t len);
 
 /* ----------------------------- Layout sanity checks ----------------------------- */
 

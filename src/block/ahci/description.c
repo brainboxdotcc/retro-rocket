@@ -1,5 +1,39 @@
 #include <kernel.h>
 
+void trim_trailing_spaces(char *s) {
+	size_t n = strlen(s);
+	while (n > 0) {
+		if (s[n - 1] == ' ') {
+			s[n - 1] = '\0';
+			n--;
+		} else {
+			break;
+		}
+	}
+}
+
+void build_atapi_label(storage_device_t *sd, const uint8_t *inq) {
+	char vendor[16] = {0};
+	char product[32] = {0};
+	char rev[16] = {0};
+
+	memcpy(vendor,  inq + 8,  8);
+	memcpy(product, inq + 16, 16);
+	memcpy(rev,     inq + 32, 4);
+
+	trim_trailing_spaces(vendor);
+	trim_trailing_spaces(product);
+	trim_trailing_spaces(rev);
+
+	if (rev[0] != '\0') {
+		snprintf(sd->ui.label, sizeof(sd->ui.label), "%s %s - %s (Optical)", vendor, product, rev);
+	} else {
+		snprintf(sd->ui.label, sizeof(sd->ui.label), "%s %s (Optical)", vendor, product);
+	}
+
+	sd->ui.is_optical = true;
+}
+
 void ata_copy_str(char *dst, size_t dst_len, const uint8_t *id_page, int word_off, int word_cnt) {
 	size_t n = word_cnt * 2;
 	if (n >= dst_len) {
