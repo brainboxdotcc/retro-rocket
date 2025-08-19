@@ -94,7 +94,7 @@ struct hashmap *hashmap_new_with_allocator(
 	}
 	// hashmap + spare + edata
 	size_t size = sizeof(struct hashmap)+bucketsz*2;
-	struct hashmap *map = kmalloc(size);
+	struct hashmap *map = _malloc(size);
 	if (!map) {
 		return NULL;
 	}
@@ -120,9 +120,9 @@ struct hashmap *hashmap_new_with_allocator(
 	memset(map->buckets, 0, map->bucketsz*map->nbuckets);
 	map->growat = map->nbuckets*0.75;
 	map->shrinkat = map->nbuckets*0.10;
-    	map->malloc = kmalloc;
-	map->realloc = krealloc;
-	map->free = kfree;
+    	map->malloc = _malloc;
+	map->realloc = _realloc;
+	map->free = _free;
 	return map;
 }
 

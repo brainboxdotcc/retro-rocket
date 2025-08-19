@@ -137,7 +137,9 @@ void *buddy_malloc(buddy_allocator_t *alloc, size_t size) {
 }
 
 void buddy_free(buddy_allocator_t *alloc, const void *ptr) {
-	if (!ptr) return;
+	if (!ptr) {
+		return;
+	}
 
 	buddy_header_t *header = (buddy_header_t *)ptr - 1;
 	int order = header->order;

@@ -25,6 +25,9 @@ const char* choose_drive() {
 			kprintf("    %s%lu%s: (%s) %s\n", VGA_FG_YELLOW, index++, VGA_RESET, cur->name, cur->ui.label);
 			kprintf("       %s%s%s\n\n", VGA_FG_YELLOW, summary, VGA_RESET);
 		}
+		dprintf("Device: %s\n", cur->ui.label);
+		//storage_disable_cache((storage_device_t*)cur);
+		dprintf("Device cache disabled\n");
 	}
 	kprintf("\n");
 	get_text_position(&x, &h);
