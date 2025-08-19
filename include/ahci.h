@@ -58,7 +58,7 @@ typedef struct ahci_fis_reg_d2h_t
  
 	uint8_t  pmport:4;    // Port multiplier
 	uint8_t  rsv0:2;      // Reserved
-	uint8_t  i:1;         // Interrupt bit
+	uint8_t  interrupt:1; // Interrupt bit
 	uint8_t  rsv1:1;      // Reserved
  
 	uint8_t  status;      // Status register
@@ -278,14 +278,14 @@ typedef struct ahci_hba_cmd_header_t
 
 typedef struct ahci_hba_prdt_entry_t
 {
-	uint32_t dba;		// Data base address
-	uint32_t dbau;		// Data base address upper 32 bits
+	uint32_t data_address_lower;	// Data base address
+	uint32_t data_address_upper;	// Data base address upper 32 bits
 	uint32_t rsv0;		// Reserved
  
 	// DW3
-	uint32_t dbc:22;		// Byte count, 4M max
-	uint32_t rsv1:9;		// Reserved
-	uint32_t i:1;		// Interrupt on completion
+	uint32_t byte_count:22;	// Byte count, 4M max
+	uint32_t rsv1:9;	// Reserved
+	uint32_t interrupt:1;	// Interrupt on completion
 } __attribute__((packed)) ahci_hba_prdt_entry_t;
 
 typedef struct achi_hba_cmd_tbl_t
@@ -294,7 +294,7 @@ typedef struct achi_hba_cmd_tbl_t
 	uint8_t  cfis[64];	// Command FIS
  
 	// 0x40
-	uint8_t  acmd[16];	// ATAPI command, 12 or 16 bytes
+	uint8_t  atapi_command[16];	// ATAPI command, 12 or 16 bytes
  
 	// 0x50
 	uint8_t  rsv[48];	// Reserved
