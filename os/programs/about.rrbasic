@@ -1,5 +1,10 @@
 SPRITELOAD brain,"/images/owl.png"
 AUTOFLIP FALSE
+REM Go down 17 lines, then back up, to make room on screen for the images
+FOR Y = 0 TO 16
+    PRINT ""
+NEXT
+CURSOR 0, CURRENTY - 16
 SPRTOP=CURRENTY*16
 COLOUR 14
 PRINT "                                  Retro Rocket"

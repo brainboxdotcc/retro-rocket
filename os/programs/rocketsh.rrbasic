@@ -80,7 +80,7 @@ DEF PROCversion
 	PRINT "Retro Rocket Shell version "; VERSION$; "             │"
 	PRINT "├─────────────────────────────────────────────────────┤"
 	PRINT "│ Licensed under the Apache 2.0 License.              │"
-	PRINT "│ (C) Craig Edwards, Brainbox.cc 2012-2023            │"
+	PRINT "│ (C) Craig Edwards, Brainbox.cc 2012-"; YEAR(FALSE) ;"            │"
 	PRINT "└─────────────────────────────────────────────────────┘"
 	builtin = TRUE
 RETPROC
