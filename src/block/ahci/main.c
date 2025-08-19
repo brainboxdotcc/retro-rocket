@@ -16,6 +16,19 @@ void ahci_handler([[maybe_unused]] uint8_t isr, [[maybe_unused]] uint64_t error,
 	}
 }
 
+static inline bool ahci_hba_supports_64b(const ahci_hba_mem_t* abar) {
+	return (abar->host_capabilities & HBA_CAP_S64A) != 0;
+}
+
+static inline void split_addr(uint64_t a, uint32_t* lo, uint32_t* hi) {
+	*lo = (uint32_t)a;
+	*hi = (uint32_t)(a >> 32);
+}
+
+static inline uint64_t join_addr(uint32_t lo, uint32_t hi) {
+	return (uint64_t)lo | ((uint64_t)hi << 32);
+}
+
 int check_type(ahci_hba_port_t* port)
 {
 	uint32_t ssts = port->sata_status;
@@ -262,7 +275,7 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 }
 
 
-void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
+void probe_port(ahci_hba_mem_t *abar)
 {
 	uint32_t port_index = abar->ports_implemented;
 	int i = 0;
@@ -275,7 +288,6 @@ void probe_port(ahci_hba_mem_t *abar, pci_dev_t dev)
 				// Enable interrupts for this port
 				abar->ports[i].interrupt_enable = 0xFFFFFFFF;
 				abar->global_host_control |= (1 << 1);  // global IE
-
 
 				storage_device_t* sd = kmalloc(sizeof(storage_device_t));
 				if (!sd) {
@@ -374,21 +386,16 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 }
 
 uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar) {
-	GET_SLOT(port, abar);
+	uint8_t id_page[512] = {0};
 
-	ahci_hba_cmd_header_t* cmdheader = get_cmdheader_for_slot(port, slot, false, false, 1);
-	ahci_hba_cmd_tbl_t* cmdtbl = get_and_clear_cmdtbl(cmdheader);
-
-	fill_prdt(cmdtbl, 0, aligned_read_buf, 512, true);
-	setup_reg_h2d(cmdtbl, FIS_TYPE_REG_H2D, ATA_CMD_IDENTIFY, 0);
-
-	if (!issue_and_wait(port, slot, "read size")) {
+	if (!ahci_identify_page(port, abar, id_page)) {
 		return 0;
 	}
 
-	uint64_t size = ((uint64_t*)(aligned_read_buf + ATA_IDENT_MAX_LBA_EXT)) [0] & 0xFFFFFFFFFFFull;
+	/* Prefer 48-bit MAX LBA if present, else fall back to 28-bit. */
+	uint64_t size = ((uint64_t*)(id_page + ATA_IDENT_MAX_LBA_EXT))[0] & 0xFFFFFFFFFFFull;
 	if (size == 0) {
-		size = ((uint64_t*)(aligned_read_buf + ATA_IDENT_MAX_LBA))[0] & (uint64_t)0xFFFFFFFFFFFFull;
+		size = ((uint64_t*)(id_page + ATA_IDENT_MAX_LBA))[0] & 0xFFFFFFFFFFFFull;
 	}
 
 	return size;
@@ -483,5 +490,5 @@ void init_ahci() {
 	uint32_t irq_num = pci_setup_interrupt("AHCI", ahci_device, logical_cpu_id(), ahci_handler, ahci_base);
 	dprintf("AHCI base MMIO: %lx INT %d\n", ahci_base, irq_num);
 
-	probe_port((ahci_hba_mem_t*)ahci_base, ahci_device);
+	probe_port((ahci_hba_mem_t*)ahci_base);
 }

@@ -297,6 +297,8 @@ typedef struct ahci_hba_cmd_tbl_t {
 /** @brief SATA device signature: Port Multiplier. */
 #define	SATA_SIG_PM	0x96690101
 
+#define HBA_CAP_S64A (1u << 31) /* 64-bit Addressing (AHCI CAP.S64A) */
+
 /* ----------------------------- Device type codes ----------------------------- */
 
 /** @brief AHCI enumerated device type: none. */
