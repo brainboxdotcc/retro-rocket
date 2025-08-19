@@ -464,17 +464,11 @@ bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *
 
 	int i = 0;
 	for (i = 0; i < cmdheader->prdtl - 1; i++) {
-		cmdtbl->prdt_entry[i].dba  = (uint32_t)((uint64_t)rd_buf & 0xFFFFFFFF);
-		cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)rd_buf) >> 32);
-		cmdtbl->prdt_entry[i].dbc  = 8 * 1024 - 1; // 16 sectors (8KiB)
-		cmdtbl->prdt_entry[i].i    = 1;            // interrupt on completion
+		fill_prdt(cmdtbl, i, rd_buf, 8 * 1024 - 1, true);
 		rd_buf += 8 * 1024;
 		count  -= 16;
 	}
-	cmdtbl->prdt_entry[i].dba  = (uint32_t)((uint64_t)rd_buf & 0xFFFFFFFF);
-	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)rd_buf) >> 32);
-	cmdtbl->prdt_entry[i].dbc  = (count * HDD_SECTOR_SIZE) - 1; // exact size
-	cmdtbl->prdt_entry[i].i    = 1;
+	fill_prdt(cmdtbl, i, rd_buf, (count * HDD_SECTOR_SIZE) - 1, true);
 
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
 	memset(cmdfis, 0, sizeof(ahci_fis_reg_h2d_t));
@@ -687,18 +681,12 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
 	int i;
 	// 8K bytes (16 sectors) per PRDT
 	for (i=0; i<cmdheader->prdtl-1; i++) {
-		cmdtbl->prdt_entry[i].dba  = (uint32_t)((uint64_t)wr_buf & 0xffffffff);
-		cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)wr_buf >> 32) & 0xffffffff);
-		cmdtbl->prdt_entry[i].dbc = (16 * HDD_SECTOR_SIZE) - 1;  // 8 KB
-		cmdtbl->prdt_entry[i].i = 1;
+		fill_prdt(cmdtbl, i, wr_buf, (16 * HDD_SECTOR_SIZE) - 1, true);
 		wr_buf += 8*1024;    // advance by exactly the size of dbc+1
 		count -= 16;      // 16 sectors
 	}
 	// Last entry
-	cmdtbl->prdt_entry[i].dba  = (uint32_t)((uint64_t)wr_buf & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbau = (uint32_t)(((uint64_t)wr_buf >> 32) & 0xffffffff);
-	cmdtbl->prdt_entry[i].dbc = (count * HDD_SECTOR_SIZE) - 1;   // 512 bytes per sector
-	cmdtbl->prdt_entry[i].i = 1;
+	fill_prdt(cmdtbl, i, wr_buf, (count * HDD_SECTOR_SIZE) - 1, true);
 
 	// Setup command
 	ahci_fis_reg_h2d_t *cmdfis = (ahci_fis_reg_h2d_t*)(&cmdtbl->cfis);
