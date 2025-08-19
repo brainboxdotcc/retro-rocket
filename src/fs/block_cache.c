@@ -111,9 +111,7 @@ static inline lru_node_t *lru_alloc_node(uint64_t lba) {
 }
 
 static inline void lru_free_node(lru_node_t *n) {
-	if (n) {
-		buddy_free(&cache_allocator, n);
-	}
+	buddy_free(&cache_allocator, n);
 }
 
 /* Find first node with given LBA (O(n)). */
