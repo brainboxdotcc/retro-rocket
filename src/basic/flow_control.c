@@ -92,8 +92,7 @@ void if_statement(struct basic_ctx* ctx)
 			while (!tokenizer_finished(ctx)) {
 				int t = tokenizer_token(ctx);
 				tokenizer_next(ctx);
-				if (t == END && tokenizer_token(ctx) == IF) {
-					accept_or_return(IF, ctx);
+				if (t == ENDIF) {
 					accept_or_return(NEWLINE, ctx);
 					return;
 				}
@@ -258,7 +257,7 @@ void endif_statement(struct basic_ctx* ctx)
 	if (ctx->if_nest_level == 0) {
 		tokenizer_error_print(ctx, "ENDIF outside of block IF");
 	}
-	accept_or_return(IF, ctx);
+	accept_or_return(ENDIF, ctx);
 	accept_or_return(NEWLINE, ctx);
 	ctx->if_nest_level--;
 }
@@ -266,9 +265,5 @@ void endif_statement(struct basic_ctx* ctx)
 void end_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(END, ctx);
-	if (tokenizer_token(ctx) == IF) {
-		endif_statement(ctx);
-		return;
-	}
 	ctx->ended = true;
 }
