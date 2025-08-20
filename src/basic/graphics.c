@@ -498,83 +498,164 @@ static bool compute_homography(const dpoint_t screen[4], const dpoint_t tex[4], 
 	return true;
 }
 
-static inline bool point_in_tri(double px, double py, const dpoint_t a, const dpoint_t b, const dpoint_t c) {
-	double abx = b.x - a.x;
-	double aby = b.y - a.y;
-	double bcx = c.x - b.x;
-	double bcy = c.y - b.y;
-	double cax = a.x - c.x;
-	double cay = a.y - c.y;
+/* Draw scanlines between a long edge (L0->L1) and a short edge (S0->S1)
+   for integer rows y in [ceil(y_top), ceil(y_bottom) - 1].
+   If long_is_left != 0, the long edge provides xL; otherwise it provides xR.
+   Projective mapping: u = (H0*x + H1*y + H2) / (H6*x + H7*y + H8)
+                       v = (H3*x + H4*y + H5) / (H6*x + H7*y + H8) */
+static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, dpoint_t S1, double y_top, double y_bottom, int long_is_left, const double H[9], const sprite_t* s, uint64_t framebuffer) {
+	const double H0 = H[0], H1 = H[1], H2 = H[2];
+	const double H3 = H[3], H4 = H[4], H5 = H[5];
+	const double H6 = H[6], H7 = H[7], H8 = H[8];
 
-	double apx = px - a.x;
-	double apy = py - a.y;
-	double bpx = px - b.x;
-	double bpy = py - b.y;
-	double cpx = px - c.x;
-	double cpy = py - c.y;
+	int y0 = (int)ceil(y_top);
+	int y1 = (int)ceil(y_bottom);
+	if (y1 <= y0) {
+		return;
+	}
 
-	double c1 = abx * apy - aby * apx;
-	double c2 = bcx * bpy - bcy * bpx;
-	double c3 = cax * cpy - cay * cpx;
+	for (int y = y0; y < y1; ++y) {
+		double yc = (double)y + 0.5;
 
-	bool all_nonneg = (c1 >= 0.0) && (c2 >= 0.0) && (c3 >= 0.0);
-	bool all_nonpos = (c1 <= 0.0) && (c2 <= 0.0) && (c3 <= 0.0);
+		/* Interpolate x on each edge at this scanline (clamped) */
+		double xa;
+		{
+			double dy = L1.y - L0.y;
+			double t = (dy != 0.0) ? (yc - L0.y) / dy : 0.0;
+			if (t < 0.0) t = 0.0;
+			if (t > 1.0) t = 1.0;
+			xa = L0.x + t * (L1.x - L0.x);
+		}
 
-	return all_nonneg || all_nonpos;
+		double xb;
+		{
+			double dy = S1.y - S0.y;
+			double t = (dy != 0.0) ? (yc - S0.y) / dy : 0.0;
+			if (t < 0.0) t = 0.0;
+			if (t > 1.0) t = 1.0;
+			xb = S0.x + t * (S1.x - S0.x);
+		}
+
+		double xL = long_is_left ? xa : xb;
+		double xR = long_is_left ? xb : xa;
+
+		/* Top-left fill rule: inclusive range [ceil(xL), ceil(xR) - 1] */
+		int x0 = (int)ceil(xL);
+		int x1 = (int)ceil(xR) - 1;
+		if (x1 < x0) {
+			continue;
+		}
+
+		/* Row bases for incremental projective evaluation */
+		double u_base = H1 * yc + H2;
+		double v_base = H4 * yc + H5;
+		double w_base = H7 * yc + H8;
+
+		double x_start = (double)x0 + 0.5;
+
+		double u_num = H0 * x_start + u_base;
+		double v_num = H3 * x_start + v_base;
+		double w     = H6 * x_start + w_base;
+
+		for (int x = x0; x <= x1; ++x) {
+			if (w != 0.0) {
+				double invw = 1.0 / w;
+				double u = u_num * invw;
+				double v = v_num * invw;
+
+				if (u >= -0.5 && v >= -0.5 &&
+				    u <= (double)s->width + 0.5 &&
+				    v <= (double)s->height + 0.5) {
+
+					int ui = (int)(u + 0.5);
+					int vi = (int)(v + 0.5);
+
+					if ((unsigned)ui < (unsigned)s->width &&
+					    (unsigned)vi < (unsigned)s->height) {
+
+						uint32_t src = s->pixels[vi * s->width + ui];
+						if ((src & 0xff000000u) == 0xff000000u) {
+							uint32_t a = (src >> 24) & 0xffu;
+							uint32_t r = (src >> 16) & 0xffu;
+							uint32_t g = (src >> 8)  & 0xffu;
+							uint32_t b =  src        & 0xffu;
+							volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(x, y));
+							*addr = (a << 24) | (b << 16) | (g << 8) | r;
+						}
+					}
+				}
+			}
+
+			/* advance one pixel to the right */
+			u_num += H0;
+			v_num += H3;
+			w     += H6;
+		}
+	}
 }
 
-static inline bool point_in_quad(double px, double py, const dpoint_t q[4]) {
-	return (point_in_tri(px, py, q[0], q[1], q[2]) || point_in_tri(px, py, q[0], q[2], q[3]));
+/* Draw one triangle with spans and incremental projective mapping.
+   H maps [x y 1]^T -> [u_num v_num w]^T, so u = u_num / w, v = v_num / w. */
+/* Draw one triangle of the quad using the shared strip drawer twice (upper+lower). */
+static void raster_tri_projective(const dpoint_t q[4], int ia, int ib, int ic, const double H[9], const sprite_t* s, uint64_t framebuffer) {
+	/* sort vertices by y -> v0 (top), v1 (mid), v2 (bottom) */
+	int i0 = ia;
+	int i1 = ib;
+	int i2 = ic;
+
+	if (q[i1].y < q[i0].y) { int t = i0; i0 = i1; i1 = t; }
+	if (q[i2].y < q[i1].y) { int t = i1; i1 = i2; i2 = t; }
+	if (q[i1].y < q[i0].y) { int t = i0; i0 = i1; i1 = t; }
+
+	dpoint_t v0 = q[i0];
+	dpoint_t v1 = q[i1];
+	dpoint_t v2 = q[i2];
+
+	if (v2.y <= v0.y) {
+		return; /* degenerate */
+	}
+
+	/* Decide which side v1 lies on relative to the long edge v0->v2 */
+	double dxdy_long = (v2.x - v0.x) / (v2.y - v0.y);
+	double x_on_long_at_y1 = v0.x + dxdy_long * (v1.y - v0.y);
+	int long_is_left = (v1.x > x_on_long_at_y1); /* if v1 is right of long, long edge is left */
+
+	/* Upper strip: between long edge (v0->v2) and short edge (v0->v1) over y in [v0.y, v1.y) */
+	if (v1.y > v0.y) {
+		draw_strip_projective(v0, v2, v0, v1, v0.y, v1.y, long_is_left, H, s, framebuffer);
+	}
+
+	/* Lower strip: between long edge (v0->v2) and short edge (v1->v2) over y in [v1.y, v2.y) */
+	if (v2.y > v1.y) {
+		draw_strip_projective(v0, v2, v1, v2, v1.y, v2.y, long_is_left, H, s, framebuffer);
+	}
 }
 
-/* Sample nearest-neighbour from sprite 's' at floating (u,v).
- * Returns packed ARGB as stored in s->pixels. Caller handles alpha policy
- */
-static inline uint32_t sample_sprite_nearest(const sprite_t* s, double u, double v) {
-	if (u < 0.0) {
-		u = 0.0;
-	}
-	if (v < 0.0) {
-		v = 0.0;
-	}
-	if (u > (double)(s->width - 1)) {
-		u = (double)(s->width - 1);
-	}
-	if (v > (double)(s->height - 1)) {
-		v = (double)(s->height - 1);
-	}
-
-	int ui = (int)(u + 0.5);
-	int vi = (int)(v + 0.5);
-
-	return s->pixels[vi * s->width + ui];
-}
-
+/* ---- Drop-in replacement using span rasterisation (no bbox walking) ---- */
 void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3) {
 	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES || ctx->sprites[sprite_handle] == NULL || ctx->sprites[sprite_handle]->pixels == NULL) {
 		return;
 	}
 
-	if (plot_sprite_quad_axis_aligned_int(ctx, sprite_handle, x0, y0, x1, y1, x2, y2, x3, y3)) {
+	if (plot_sprite_quad_axis_aligned_int(ctx, sprite_handle, (int)x0, (int)y0, (int)x1, (int)y1, (int)x2, (int)y2, (int)x3, (int)y3)) {
 		return;
 	}
 
 	sprite_t* s = ctx->sprites[sprite_handle];
 
 	dpoint_t q[4] = {
-		{ .x = x0, .y = y0 },
-		{ .x = x1, .y = y1 },
-		{ .x = x2, .y = y2 },
-		{ .x = x3, .y = y3 },
+		{ .x = (double)x0, .y = (double)y0 },
+		{ .x = (double)x1, .y = (double)y1 },
+		{ .x = (double)x2, .y = (double)y2 },
+		{ .x = (double)x3, .y = (double)y3 },
 	};
 
 	dpoint_t tex[4] = {
-		{ .x = 0.0, .y = 0.0 },
-		{ .x = s->width, .y = 0.0 },
-		{ .x = s->width, .y = s->height },
-		{ .x = 0.0, .y = s->height },
+		{ .x = 0.0,          .y = 0.0 },
+		{ .x = (double)s->width,  .y = 0.0 },
+		{ .x = (double)s->width,  .y = (double)s->height },
+		{ .x = 0.0,          .y = (double)s->height },
 	};
-
 
 	/* Normalise winding: accept CW or CCW by flipping 1<->3 if area is negative. */
 	double area =
@@ -584,13 +665,8 @@ void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, 
 		q[3].x * q[0].y - q[0].x * q[3].y;
 
 	if (area < 0.0) {
-		dpoint_t tmp = q[1];
-		q[1] = q[3];
-		q[3] = tmp;
-
-		dpoint_t ttmp = tex[1];
-		tex[1] = tex[3];
-		tex[3] = ttmp;
+		dpoint_t tmp = q[1]; q[1] = q[3]; q[3] = tmp;
+		dpoint_t ttmp = tex[1]; tex[1] = tex[3]; tex[3] = ttmp;
 	}
 
 	double H[9];
@@ -598,65 +674,26 @@ void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, 
 		return;
 	}
 
+	/* For your dirty-area updater */
 	double minx_d = q[0].x;
 	double maxx_d = q[0].x;
 	double miny_d = q[0].y;
 	double maxy_d = q[0].y;
-
 	for (int i = 1; i < 4; ++i) {
-		if (q[i].x < minx_d) {
-			minx_d = q[i].x;
-		}
-		if (q[i].x > maxx_d) {
-			maxx_d = q[i].x;
-		}
-		if (q[i].y < miny_d) {
-			miny_d = q[i].y;
-		}
-		if (q[i].y > maxy_d) {
-			maxy_d = q[i].y;
-		}
+		if (q[i].x < minx_d) { minx_d = q[i].x; }
+		if (q[i].x > maxx_d) { maxx_d = q[i].x; }
+		if (q[i].y < miny_d) { miny_d = q[i].y; }
+		if (q[i].y > maxy_d) { maxy_d = q[i].y; }
 	}
-
-	int minx = (int)floor(minx_d);
-	int maxx = (int)ceil(maxx_d);
 	int miny = (int)floor(miny_d);
 	int maxy = (int)ceil(maxy_d);
 
 	uint64_t framebuffer = framebuffer_address();
-	for (int py = miny; py <= maxy; ++py) {
-		for (int px = minx; px <= maxx; ++px) {
-			double cx = (double)px + 0.5;
-			double cy = (double)py + 0.5;
 
-			if (!point_in_quad(cx, cy, q)) {
-				continue;
-			}
+	/* Draw only the interior via two triangles */
+	raster_tri_projective(q, 0, 1, 2, H, s, framebuffer);
+	raster_tri_projective(q, 0, 2, 3, H, s, framebuffer);
 
-			double denom = H[6] * cx + H[7] * cy + H[8];
-			if (denom == 0.0) {
-				continue;
-			}
-
-			double u = (H[0] * cx + H[1] * cy + H[2]) / denom;
-			double v = (H[3] * cx + H[4] * cy + H[5]) / denom;
-
-			if (u < -0.5 || v < -0.5 || u > (double)s->width + 0.5 || v > (double)s->height + 0.5) {
-				continue;
-			}
-
-			uint32_t src = sample_sprite_nearest(s, u, v);
-
-			if ((src & 0xff000000) == 0xff000000) {
-				uint32_t a = (src >> 24) & 0xff;
-				uint32_t r = (src >> 16) & 0xff;
-				uint32_t g = (src >> 8) & 0xff;
-				uint32_t b = (src) & 0xff;
-				volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(px, py));
-				*addr = (a << 24) | (b << 16) | (g << 8) | r;
-			}
-		}
-	}
 	set_video_dirty_area(miny, maxy);
 }
 
