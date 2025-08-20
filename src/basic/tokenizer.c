@@ -77,6 +77,7 @@ const int keywords[] = {
 	OPENUP,
 	OR,
 	PLOT,
+	PLOTQUAD,
 	POINT,
 	POP,
 	PRINT,

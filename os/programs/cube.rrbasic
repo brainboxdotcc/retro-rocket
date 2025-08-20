@@ -1,19 +1,64 @@
-REM =======================
-REM Rotating Wireframe Cube
-REM =======================
+REM ======================
+REM Rotating Textured Cube
+REM ======================
 
 CX# = GRAPHICS_WIDTH / 2
 CY# = GRAPHICS_HEIGHT / 2
 SCALE# = 250
 DIST# = 3
 
+SPRITELOAD s1, "/images/s1.png"
+
 DIM VX#,8
 DIM VY#,8
 DIM VZ#,8
+DIM Xr#,8
+DIM Yr#,8
+DIM Zr#,8
 DIM PX#,8
 DIM PY#,8
-DIM EA,12
-DIM EB,12
+
+REM Faces as 4 vertex indices each (6 faces * 4 = 24)
+DIM F,24
+
+REM Back (+Z)
+F(0) = 4
+F(1) = 5
+F(2) = 6
+F(3) = 7
+
+REM Front (-Z)
+F(4) = 0
+F(5) = 1
+F(6) = 2
+F(7) = 3
+
+REM Left (-X)
+F(8) = 0
+F(9) = 3
+F(10) = 7
+F(11) = 4
+
+REM Right (+X)
+F(12) = 1
+F(13) = 2
+F(14) = 6
+F(15) = 5
+
+REM Top (+Y)
+F(16) = 3
+F(17) = 2
+F(18) = 6
+F(19) = 7
+
+REM Bottom (-Y)
+F(20) = 0
+F(21) = 1
+F(22) = 5
+F(23) = 4
+
+DIM DEPTH#,6
+DIM IDX,6
 
 REM Cube vertices
 VX#(0) = -1
@@ -48,38 +93,12 @@ VX#(7) = -1
 VY#(7) =  1
 VZ#(7) =  1
 
-REM Edges
-EA(0) = 0
-EB(0) = 1
-EA(1) = 1
-EB(1) = 2
-EA(2) = 2
-EB(2) = 3
-EA(3) = 3
-EB(3) = 0
-
-EA(4) = 4
-EB(4) = 5
-EA(5) = 5
-EB(5) = 6
-EA(6) = 6
-EB(6) = 7
-EA(7) = 7
-EB(7) = 4
-
-EA(8) = 0
-EB(8) = 4
-EA(9) = 1
-EB(9) = 5
-EA(10) = 2
-EB(10) = 6
-EA(11) = 3
-EB(11) = 7
-
 ANGLE# = 0
 
 CLS
 AUTOFLIP FALSE
+REM for rectangle cull only
+GCOL RGB(0,0,0)
 
 REPEAT
 
@@ -87,19 +106,15 @@ REPEAT
   max_x# = PX#(0)
   min_y# = PY#(0)
   max_y# = PY#(0)
-
   FOR I = 1 TO 7
     IF PX#(I) < min_x# THEN min_x# = PX#(I) - 16
     IF PX#(I) > max_x# THEN max_x# = PX#(I) + 16
     IF PY#(I) < min_y# THEN min_y# = PY#(I) - 16
     IF PY#(I) > max_y# THEN max_y# = PY#(I) + 16
   NEXT
-
-  GCOL RGB(0,0,0)
   RECTANGLE min_x#, min_y#, max_x#, max_y#
 
   ANGLE# = ANGLE# + 0.03
-
   SY# = SIN(ANGLE#)
   CYR# = COS(ANGLE#)
   SX# = SIN(ANGLE# * 0.7)
@@ -116,18 +131,47 @@ REPEAT
     Y1# = Y# * CXR# - Z1# * SX#
     Z2# = Y# * SX# + Z1# * CXR#
 
+    Xr#(I) = X1#
+    Yr#(I) = Y1#
+    Zr#(I) = Z2#
+
     DEN# = Z2# + DIST#
     IF DEN# = 0 THEN DEN# = 0.000001
 
     PX#(I) = CX# + (X1# * SCALE# / DEN#)
     PY#(I) = CY# + (Y1# * SCALE# / DEN#)
+
   NEXT
 
-  GCOL RGB(255,255,255)
-  FOR E = 0 TO 11
-    V1 = EA(E)
-    V2 = EB(E)
-    LINE PX#(V1), PY#(V1), PX#(V2), PY#(V2)
+  FOR f = 0 TO 5
+    a = F(f * 4 + 0)
+    b = F(f * 4 + 1)
+    c = F(f * 4 + 2)
+    d = F(f * 4 + 3)
+    DEPTH#(f) = (Zr#(a) + Zr#(b) + Zr#(c) + Zr#(d)) / 4
+    IDX(f) = f
+  NEXT
+
+  FOR i = 0 TO 4
+    FOR j = 0 TO 4 - i
+      left = IDX(j)
+      right = IDX(j + 1)
+      IF DEPTH#(left) < DEPTH#(right) THEN temp = IDX(j)
+      IF DEPTH#(left) < DEPTH#(right) THEN IDX(j) = IDX(j + 1)
+      IF DEPTH#(left) < DEPTH#(right) THEN IDX(j + 1) = temp
+    NEXT
+  NEXT
+
+  FOR k = 0 TO 5
+    f = IDX(k)
+
+    a = F(f * 4 + 0)
+    b = F(f * 4 + 1)
+    c = F(f * 4 + 2)
+    d = F(f * 4 + 3)
+
+    PLOTQUAD s1, PX#(a),PY#(a), PX#(b),PY#(b), PX#(c),PY#(c), PX#(d),PY#(d)
+
   NEXT
 
   FLIP

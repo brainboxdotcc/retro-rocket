@@ -785,6 +785,8 @@ void statement(struct basic_ctx* ctx)
 			return setvars_statement(ctx);
 		case PLOT:
 			return plot_statement(ctx);
+		case PLOTQUAD:
+			return plotquad_statement(ctx);
 		case AUTOFLIP:
 			return autoflip_statement(ctx);
 		case FLIP:

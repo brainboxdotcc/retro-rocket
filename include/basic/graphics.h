@@ -97,3 +97,24 @@ void autoflip_statement(struct basic_ctx* ctx);
  * @param ctx The current BASIC context.
  */
 void flip_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Implements the BASIC `PLOTQUAD` statement.
+ *
+ * Parses and executes the `PLOTQUAD` keyword from the BASIC interpreter.
+ * This statement expects a sprite handle followed by four (x,y) coordinate
+ * pairs, defining the quadrilateral to which the sprite should be mapped.
+ *
+ * The coordinates may describe any convex quad, allowing sprites to be drawn
+ * with skew and perspective. Internally this delegates to the textured-quad
+ * blitter (`plot_sprite_quad`) to perform the actual rendering.
+ *
+ * Example usage in BASIC:
+ * @code
+ *   PLOTQUAD SPRITEHANDLE, 100,100, 200,120, 190,220, 90,210
+ * @endcode
+ *
+ * @param ctx Pointer to the BASIC execution context, containing parser state,
+ *            sprite table, and current program environment.
+ */
+void plotquad_statement(struct basic_ctx* ctx);

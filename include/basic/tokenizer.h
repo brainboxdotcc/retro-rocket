@@ -145,6 +145,7 @@
     T(MOUNT) \
     T(SETTIMEZONE) \
     T(ENDIF) \
+    T(PLOTQUAD) \
     T(KGET)
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
