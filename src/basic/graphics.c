@@ -427,10 +427,14 @@ void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, 
 	q[3].x = x3; q[3].y = y3;
 
 	dpoint_t tex[4];
-	tex[0].x = 0.0;                tex[0].y = 0.0;
-	tex[1].x = (double)s->width;   tex[1].y = 0.0;
-	tex[2].x = (double)s->width;   tex[2].y = (double)s->height;
-	tex[3].x = 0.0;                tex[3].y = (double)s->height;
+	tex[0].x = 0.0;
+	tex[0].y = 0.0;
+	tex[1].x = s->width;
+	tex[1].y = 0.0;
+	tex[2].x = s->width;
+	tex[2].y = s->height;
+	tex[3].x = 0.0;
+	tex[3].y = s->height;
 
 	/* Normalise winding: accept CW or CCW by flipping 1<->3 if area is negative. */
 	double area =
