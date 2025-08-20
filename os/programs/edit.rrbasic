@@ -22,7 +22,7 @@ ENDPROC
 
 REM draw UI around editor window
 DEF PROCdraw
-	BACKGROUND 4
+	BACKGROUND 1
 	COLOUR 15
 	CURSOR 1, TERMHEIGHT
 	PROCclearLineFromCursor
@@ -42,7 +42,7 @@ ENDPROC
 REM Display prompt in bottom section of screen
 DEF PROCprompt(prompt$)
 	PROCdraw
-	BACKGROUND 4
+	BACKGROUND 1
 	COLOUR 15
 	CURSOR 1, TERMHEIGHT
 	PROCclearLineFromCursor

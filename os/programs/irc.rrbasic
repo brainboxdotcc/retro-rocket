@@ -65,7 +65,7 @@ DEF PROCdisplayInput
 	PROChideCursor
 	CURSOR 2, TERMHEIGHT
 	COLOR 15
-	BACKGROUND 4
+	BACKGROUND 1
 	leftX = LEN(curChannel$) + 5
 	PRINT "["; curChannel$; "] ";
 	CURSOR leftX, TERMHEIGHT
@@ -227,7 +227,7 @@ ENDPROC
 REM draw UI around window
 DEF PROCdraw
 	title$ = "Satellite: IRC Client for Retro Rocket OS"
-	BACKGROUND 4
+	BACKGROUND 1
 	COLOUR 15
 	CURSOR 1, TERMHEIGHT
 	PROCclearLineFromCursor
