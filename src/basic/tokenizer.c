@@ -49,6 +49,7 @@ const int keywords[] = {
 	DIM,
 	ELSE,
 	END,
+	ENDIF,
 	EOF,
 	EOR,
 	EVAL,
@@ -209,8 +210,18 @@ int get_next_token(struct basic_ctx* ctx)
 			size_t len = strlen(token_names[keywords[kt]]);
 			int comparison = strncmp(ctx->ptr, token_names[keywords[kt]], len);
 			if (comparison == 0) {
+				const char* backup = ctx->nextptr;
 				ctx->nextptr = ctx->ptr + len;
-				return keywords[kt];
+				bool next_is_varlike = ((*ctx->nextptr >= '0' && *ctx->nextptr <= '9') || (toupper(*ctx->nextptr) >= 'A' && toupper(*ctx->nextptr) <= 'Z') || *ctx->nextptr == '_');
+				if (!next_is_varlike || keywords[kt] == PROC || keywords[kt] == FN || keywords[kt] == EQUALS) {
+					/* Only return the token if what follows the token is not continuation of a variable-name or keyword-name like sequence, e.g. "END -> ENDING"
+					 * Special case for PROC, FN, =, as PROC and FN can be immediately followed by the name of their subroutine. e.g. PROCfoo
+					 */
+					return keywords[kt];
+				} else {
+					dprintf("*** keyword followed by varlike: '%s' (%d) next: '%u -> %c'\n", token_names[keywords[kt]], keywords[kt], *ctx->nextptr, *ctx->nextptr);
+					ctx->nextptr = backup;
+				}
 			} else if (comparison < 0) {
 				/* We depend upon keyword_tokens being alphabetically sorted,
 				* so that we can bail early if we go too far down the list

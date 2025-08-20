@@ -727,6 +727,8 @@ void statement(struct basic_ctx* ctx)
 			return next_statement(ctx);
 		case END:
 			return end_statement(ctx);
+		case ENDIF:
+			return endif_statement(ctx);
 		case INPUT:
 			return input_statement(ctx);
 		case SOCKREAD:

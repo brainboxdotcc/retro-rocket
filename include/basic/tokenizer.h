@@ -144,6 +144,7 @@
     T(KEYMAP) \
     T(MOUNT) \
     T(SETTIMEZONE) \
+    T(ENDIF) \
     T(KGET)
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
