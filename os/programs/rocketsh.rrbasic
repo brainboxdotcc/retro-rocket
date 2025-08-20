@@ -34,7 +34,7 @@ DEF PROCdisplayPrompt
 	PRINT PROMPT$;
 	COLOR 7
 	PRINT "> ";
-RETPROC
+ENDPROC
 
 REM Command Processor
 DEF PROCprocessCommand(inp$)
@@ -44,23 +44,23 @@ DEF PROCprocessCommand(inp$)
 	IF spaceidx < 1 THEN PROCnoParameters
 	builtin = FALSE
 	PROCbuiltins
-	IF builtin = TRUE THEN RETPROC
+	IF builtin = TRUE THEN ENDPROC
 	FH = OPENIN(PATH$ + "/" + command$)
 	IF FH < 0 THEN PROCevalBasic
 	IF FH > -1 THEN PROCrunCommand(command$)
-RETPROC
+ENDPROC
 
 REM extract parameters from commandline
 DEF PROCextractParameters
 	command$ = LEFT$(inp$, spaceidx - 1)
 	GLOBAL ARGS$ = MID$(inp$, spaceidx, LEN(inp$))
-RETPROC
+ENDPROC
 
 REM commandline with no parameters
 DEF PROCnoParameters
 	command$ = inp$
 	GLOBAL ARGS$ = ""
-RETPROC
+ENDPROC
 
 REM handle builtin commands
 DEF PROCbuiltins
@@ -68,7 +68,7 @@ DEF PROCbuiltins
 	IF command$ = "cd" THEN PROCbuiltinChdir
 	IF command$ = "run" THEN PROCbuiltinRun
 	IF command$ = "version" THEN PROCversion
-RETPROC
+ENDPROC
 
 REM display version information
 DEF PROCversion
@@ -83,27 +83,27 @@ DEF PROCversion
 	PRINT "│ (C) Craig Edwards, Brainbox.cc 2012-"; YEAR(FALSE) ;"            │"
 	PRINT "└─────────────────────────────────────────────────────┘"
 	builtin = TRUE
-RETPROC
+ENDPROC
 
 REM change directory
 DEF PROCbuiltinChdir
 	EVAL "CHDIR " + CHR$(34) + ARGS$ + CHR$(34)
 	builtin = TRUE
-RETPROC
+ENDPROC
 
 REM run command without awareness of shell (no ARGS$)
 DEF PROCbuiltinRun
 	EVAL "CHAIN " + CHR$(34) + ARGS$ + CHR$(34)
 	builtin = TRUE
-RETPROC
+ENDPROC
 
 REM evaluate BASIC statement in context of shell
 DEF PROCevalBasic
 	EVAL inp$
-RETPROC
+ENDPROC
 
 REM run a command within the PATH$
 DEF PROCrunCommand(cmd$)
 	CLOSE FH
 	CHAIN PATH$ + "/" + cmd$
-RETPROC
+ENDPROC

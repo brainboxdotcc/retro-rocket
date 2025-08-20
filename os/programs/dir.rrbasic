@@ -31,4 +31,4 @@ DEF PROCreport
 	IF DIR$ = "" THEN DIR$ = CSD$
 	COLOR 7
 	PRINT N; " items in " + DIR$
-RETPROC
+ENDPROC

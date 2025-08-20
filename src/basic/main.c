@@ -703,8 +703,8 @@ void statement(struct basic_ctx* ctx)
 			return print_statement(ctx);
 		case PROC:
 			return proc_statement(ctx);
-		case RETPROC:
-			return retproc_statement(ctx);
+		case ENDPROC:
+			return endproc_statement(ctx);
 		case IF:
 			return if_statement(ctx);
 		case ELSE:

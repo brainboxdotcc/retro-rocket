@@ -1,88 +1,88 @@
 DEF PROCansi
 	EDhistPtr = -1
-RETPROC
+ENDPROC
 
 REM hide text cursor
 DEF PROChideCursor
 	PRINT CHR$(27);"[?25l";
-RETPROC
+ENDPROC
 
 REM show text cursor
 DEF PROCshowCursor
 	PRINT CHR$(27);"[?25h";
-RETPROC
+ENDPROC
 
 REM clear line from cursor to right
 DEF PROCclearLineFromCursor
 	PRINT CHR$(27) + "[0K";
-RETPROC
+ENDPROC
 
 REM handle up key to recall through history
 DEF PROCEDup
-	IF EDhistPtr = -1 THEN RETPROC
+	IF EDhistPtr = -1 THEN ENDPROC
 	EDPos = EDPos + 1
 	IF EDPos = EDhistSize THEN EDPos = EDhistSize - 1
 	EDin$ = EDhist$(EDPos)
 	EDcurrentx = LEN(EDin$)
-RETPROC
+ENDPROC
 
 REM handle down key to recall through history
 DEF PROCEDdown
-	IF EDhistPtr = -1 THEN RETPROC
+	IF EDhistPtr = -1 THEN ENDPROC
 	EDPos = EDPos - 1
 	IF EDPos < 0 THEN EDPos = 0
 	EDin$ = EDhist$(EDPos)
 	EDcurrentx = LEN(EDin$)
-RETPROC
+ENDPROC
 
 REM add a line to the history (this is not automatic)
 DEF PROCEdAddHistory(hist$)
-	IF EDhistPtr = -1 THEN RETPROC
+	IF EDhistPtr = -1 THEN ENDPROC
 	PUSH EDhist$,1
 	EDhist$(1) = hist$
 	EDhistPtr = EDhistPtr + 1
 	IF EDhistPtr = EDhistSize THEN PROCEDgrow
-RETPROC
+ENDPROC
 
 REM grow the history array to accomodate more history lines
 DEF PROCEDgrow
 	REDIM EDhist$, EDhistSize + 50
 	EDhistSize = EDhistSize + 50
-RETPROC
+ENDPROC
 
 REM handle left edit key
 DEF PROCEDleft
 	EDcurrentx = EDcurrentx - 1
 	IF EDcurrentx < 0 THEN EDcurrentx = 0
-RETPROC
+ENDPROC
 
 REM handle right edit key
 DEF PROCEDright
 	EDcurrentx = EDcurrentx + 1
 	IF EDcurrentx < 0 THEN EDcurrentx = 0
-RETPROC
+ENDPROC
 
 REM handle end edit key
 DEF PROCEDend
 	EDcurrentx = LEN(EDin$)
-RETPROC
+ENDPROC
 
 REM handle home edit key
 DEF PROCEDhome
 	EDcurrentx = 0
-RETPROC
+ENDPROC
 
 REM handle delete edit key
 DEF PROCEDdelete
 	EDlen = LEN(EDin$)
 	IF EDcurrentx < EDlen THEN PROCEDdeleteRight
-RETPROC
+ENDPROC
 
 REM handle backspace edit key
 DEF PROCEDbackSpace
 	cx = EDcurrentx
 	IF cx > 0 THEN PROCEDdeleteLeft
-RETPROC
+ENDPROC
 
 REM delete character to left of cursor, advance left
 DEF PROCEDdeleteLeft
@@ -90,7 +90,7 @@ DEF PROCEDdeleteLeft
 	EDend$ = MID$(EDin$, EDcurrentx, LEN(EDin$))
 	EDin$ = EDstart$ + EDend$
 	EDcurrentx = EDcurrentx - 1
-RETPROC
+ENDPROC
 
 REM delete one character to the right
 DEF PROCEDdeleteRight
@@ -99,29 +99,29 @@ DEF PROCEDdeleteRight
 	EDin$ = EDstart$ + EDend$
 	EDlen = LEN(EDin$)
 	IF EDcurrentx > EDlen THEN EDcurrentx = EDlen
-RETPROC
+ENDPROC
 
 REM clear line from cursor to right
 DEF PROCEDclearLineFromCursor
 	PRINT CHR$(27) + "[0K";
-RETPROC
+ENDPROC
 
 REM insert character into edit line up to TERMWIDTH -1
 DEF PROCEDinsertChar(charInsert)
-	IF (EDcurrentx + EDStartInputX) > (TERMWIDTH - 1) THEN RETPROC
+	IF (EDcurrentx + EDStartInputX) > (TERMWIDTH - 1) THEN ENDPROC
 	EDstart$ = MID$(EDin$, 0, EDcurrentx)
 	EDend$ = MID$(EDin$, EDcurrentx, LEN(EDin$))
 	EDin$ = EDstart$ + CHR$(charInsert) + EDend$
 	EDcurrentx = EDcurrentx + 1
-	IF EDhistPtr = -1 THEN RETPROC
+	IF EDhistPtr = -1 THEN ENDPROC
 	EDhist$(0) = EDin$
-RETPROC
+ENDPROC
 
 REM process any incoming key into the edit buffer
 DEF PROCEdRun
 	KGET key$
 	PROCEDprocessKey(ASC(key$))
-RETPROC
+ENDPROC
 
 REM internal - Initialise internal history variables
 DEF PROCEdInitInternalHistory
@@ -129,12 +129,12 @@ DEF PROCEdInitInternalHistory
 	EDhistSize = 50
 	EDhistPtr = 1
 	EDPos = 0
-RETPROC
+ENDPROC
 
 REM initialise line edit (history = TRUE to enable history, FALSE to disable history)
 DEF PROCEdInit(history)
 	IF history = TRUE THEN PROCEdInitInternalHistory
-RETPROC
+ENDPROC
 
 REM start a line edit at the current cursor position, finished by pressing ENTER or ESC
 DEF PROCEdStart
@@ -145,12 +145,12 @@ DEF PROCEdStart
 	EDStartInputX = CURRENTX + 1
 	EDStartInputY = CURRENTY + 1
 	EdComplete = FALSE
-RETPROC
+ENDPROC
 
 REM handle line enter
 DEF PROCEDenter
 	EdComplete = TRUE
-RETPROC
+ENDPROC
 
 REM handle line abort (ESC) - clears line
 DEF PROCEDabort
@@ -159,7 +159,7 @@ DEF PROCEDabort
 	PROCclearLineFromCursor
 	EdComplete = TRUE
 	EdEsc = TRUE
-RETPROC
+ENDPROC
 
 REM get the line edit result
 DEF FNEdResult$
@@ -176,7 +176,7 @@ DEF PROCEdLine
 	REPEAT
 		PROCEdRun
 	UNTIL EdComplete = TRUE
-RETPROC
+ENDPROC
 
 REM handle line edit keypress
 DEF PROCEDprocessKey(in)
@@ -197,5 +197,5 @@ DEF PROCEDprocessKey(in)
 	PRINT EDin$;
 	CURSOR EDStartInputX + EDcurrentx, EDStartInputY
 	PROCshowCursor
-RETPROC
+ENDPROC
 

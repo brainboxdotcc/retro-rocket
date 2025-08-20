@@ -50,6 +50,7 @@ const int keywords[] = {
 	ELSE,
 	END,
 	ENDIF,
+	ENDPROC,
 	EOF,
 	EOR,
 	EVAL,
@@ -87,7 +88,6 @@ const int keywords[] = {
 	REM,
 	REPEAT,
 	RESTORE,
-	RETPROC,
 	RETURN,
 	RMDIR,
 	SETTIMEZONE,
@@ -219,7 +219,6 @@ int get_next_token(struct basic_ctx* ctx)
 					 */
 					return keywords[kt];
 				} else {
-					dprintf("*** keyword followed by varlike: '%s' (%d) next: '%u -> %c'\n", token_names[keywords[kt]], keywords[kt], *ctx->nextptr, *ctx->nextptr);
 					ctx->nextptr = backup;
 				}
 			} else if (comparison < 0) {

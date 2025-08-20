@@ -18,7 +18,7 @@ END
 REM clear line from cursor to right
 DEF PROCclearLineFromCursor
 	PRINT CHR$(27) + "[0K";
-RETPROC
+ENDPROC
 
 REM draw UI around editor window
 DEF PROCdraw
@@ -37,7 +37,7 @@ DEF PROCdraw
 	COLOUR 7
 	BACKGROUND 0
 	CURSOR 1, 2
-RETPROC
+ENDPROC
 
 REM Display prompt in bottom section of screen
 DEF PROCprompt(prompt$)
@@ -48,23 +48,23 @@ DEF PROCprompt(prompt$)
 	PROCclearLineFromCursor
 	CURSOR 2, TERMHEIGHT
 	PRINT prompt$; ": ";
-RETPROC
+ENDPROC
 
 REM clear prompt
 DEF PROCendPrompt
 	CLS
 	PROCtext
-RETPROC
+ENDPROC
 
 REM hide text cursor
 DEF PROChideCursor
 	PRINT CHR$(27);"[?25l";
-RETPROC
+ENDPROC
 
 REM show text cursor
 DEF PROCshowCursor
 	PRINT CHR$(27);"[?25h";
-RETPROC
+ENDPROC
 
 REM display text to editor window
 DEF PROCtext
@@ -76,11 +76,11 @@ DEF PROCtext
 		IF l < max THEN PRINT LEFT$(content$(l), TERMWIDTH)
 	NEXT
 	PROCshowCursor
-RETPROC
+ENDPROC
 
 REM load a file into the array, translating TAB to four spaces
 DEF PROCload(file$)
-	IF file$ = "" THEN RETPROC
+	IF file$ = "" THEN ENDPROC
 	FH = OPENIN(file$)
 	IF FH < 0 THEN PROCfail
 	lines = 0
@@ -97,19 +97,19 @@ DEF PROCload(file$)
 		IF lines = max THEN PROCgrow
 	UNTIL EOF(FH) = 1
 	CLOSE FH
-RETPROC
+ENDPROC
 
 REM increase array used to store text
 DEF PROCgrow
 	max = max + 100
 	REDIM content$, max
-RETPROC
+ENDPROC
 
 REM error handler
 DEF PROCfail
 	PRINT "Could not open file: "; ARGS$
 	END
-RETPROC
+ENDPROC
 
 REM handle editor input loop
 DEF PROCedit
@@ -118,14 +118,14 @@ DEF PROCedit
 		KGET key$
 		PROCprocessKey(ASC(key$))
 	UNTIL FALSE
-RETPROC
+ENDPROC
 
 REM handle keypress
 DEF PROCprocessKey(in)
 	incopy = in
 	ctrl = CTRLKEY
 	IF ctrl = TRUE THEN PROCctrl(CHR$(incopy))
-	IF ctrl = TRUE THEN RETPROC
+	IF ctrl = TRUE THEN ENDPROC
 	IF in = 27 THEN PROCquit
 	IF in = 13 THEN PROCenter
 	IF in = 250 THEN PROCup
@@ -142,7 +142,7 @@ DEF PROCprocessKey(in)
 	cx = LEN(content$(top + currenty))
 	IF currentx > cx THEN currentx = cx
 	IF (currenty + top) > (lines - 1) THEN currenty = lines - top - 1
-RETPROC
+ENDPROC
 
 REM insert character at current position and advance right
 DEF PROCinsertChar(i)
@@ -152,7 +152,7 @@ DEF PROCinsertChar(i)
 	currentx = currentx + 1
 	dirty = TRUE
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle CTRL+key
 DEF PROCctrl(ctrlkey$)
@@ -160,14 +160,14 @@ DEF PROCctrl(ctrlkey$)
 	IF UPPER$(ctrlkey$) = "W" THEN PROCsearch
 	IF UPPER$(ctrlkey$) = "R" THEN PROCreplace
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle save
 DEF PROCsave
 	IF ARGS$ = "" THEN PROCsaveNew
-	IF ARGS$ = "" THEN RETPROC
+	IF ARGS$ = "" THEN ENDPROC
 	PROCsaveAs
-RETPROC
+ENDPROC
 
 REM handle save over existing file
 DEF PROCsaveAs
@@ -175,40 +175,40 @@ DEF PROCsaveAs
 	INPUT file$
 	IF file$ = "" THEN file$ = ARGS$
 	PROCdoSave(file$)
-RETPROC
+ENDPROC
 
 REM handle save to new file
 DEF PROCsaveNew
 	PROCprompt("Save as")
 	INPUT file$
 	PROCdoSave(file$)
-RETPROC
+ENDPROC
 
 REM save file
 DEF PROCdoSave(saveFileName$)
 	FH = OPENOUT(saveFileName$)
 	IF FH < 0 THEN PROCsaveError(saveFileName$)
-	IF FH < 0 THEN RETPROC
+	IF FH < 0 THEN ENDPROC
 	REM write file line by line
 	FOR X = 0 TO lines - 1
 		WRITE FH, content$(X)
 	NEXT
 	CLOSE FH
 	dirty = FALSE
-RETPROC
+ENDPROC
 
 REM display save error
 DEF PROCsaveError
 	PROCprompt("Unable to save file! Press any key to continue")
 	REPEAT
 	UNTIL INKEY$ > ""
-RETPROC
+ENDPROC
 
 REM text search
 DEF PROCsearch
 	PROCprompt("Search text")
 	INPUT find$
-RETPROC
+ENDPROC
 
 REM search and replace
 DEF PROCreplace
@@ -217,46 +217,46 @@ DEF PROCreplace
 	PROCprompt("Replace text")
 	INPUT replace$
 	dirty = TRUE
-RETPROC
+ENDPROC
 
 REM handle escape key
 DEF PROCquit
 	IF dirty = TRUE THEN PROCconfirm
-	IF dirty = TRUE THEN RETPROC
+	IF dirty = TRUE THEN ENDPROC
 	CLS
 	END
-RETPROC
+ENDPROC
 
 REM confirm exit if file contents changed
 DEF PROCconfirm
 	PROCprompt("Contents changed. Are you sure?")
 	KGET input$
 	PROCtext
-	IF UPPER$(input$) = "N" THEN RETPROC
+	IF UPPER$(input$) = "N" THEN ENDPROC
 	CLS
 	END
-RETPROC
+ENDPROC
 
 REM handle cursor left key
 DEF PROCleft
 	currentx = currentx - 1
 	IF currentx < 0 THEN currentx = 0
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle cursor up key
 DEF PROCup
 	currenty = currenty - 1
 	IF currenty < 0 THEN PROCscrollUp
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle cursor down key
 DEF PROCdown
 	currenty = currenty + 1
 	IF currenty > (TERMHEIGHT - 3) THEN PROCscrollDown
 	PROCtext
-RETPROC
+ENDPROC
 
 REM scroll screen down one line
 DEF PROCscrollDown
@@ -264,49 +264,49 @@ DEF PROCscrollDown
 	top = top + 1
 	IF top > (TERMHEIGHT - 2 + lines) THEN top = TERMHEIGHT - 2 + lines
 	PROCtext
-RETPROC
+ENDPROC
 
 REM Scroll screen up one line
 DEF PROCscrollUp
 	currenty = 0
 	top = top - 1
 	IF top < 0 THEN top = 0
-RETPROC
+ENDPROC
 
 REM handle cursor right key
 DEF PROCright
 	currentx = currentx + 1
 	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle end key
 DEF PROCend
 	currentx = LEN(content$(top + currenty))
 	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle home key
 DEF PROChome
 	currentx = 0
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle page up key
 DEF PROCpageUp
 	top = top - TERMHEIGHT - 2
 	IF top < 0 THEN top = 0
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle page down key
 DEF PROCpageDown
-	IF (top + currenty + TERMHEIGHT - 2) > (lines - 1) THEN RETPROC
+	IF (top + currenty + TERMHEIGHT - 2) > (lines - 1) THEN ENDPROC
 	top = top + TERMHEIGHT - 2
 	IF top > (TERMHEIGHT - 2 + lines) THEN top = TERMHEIGHT - 2 + lines
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle enter key, split line if neccessary
 DEF PROCenter
@@ -324,7 +324,7 @@ DEF PROCenter
 	IF currenty > (TERMHEIGHT - 3) THEN PROCscrollDown
 	dirty = TRUE
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle delete key, join line if neccessary
 DEF PROCdelete
@@ -334,7 +334,7 @@ DEF PROCdelete
 	IF currentx < len THEN PROCdeleteRight
 	dirty = TRUE
 	PROCtext
-RETPROC
+ENDPROC
 
 REM handle backspace
 DEF PROCbackSpace
@@ -343,7 +343,7 @@ DEF PROCbackSpace
 	IF cx > 0 THEN PROCdeleteLeft
 	dirty = TRUE
 	PROCtext
-RETPROC
+ENDPROC
 
 REM delete character to left of cursor, advance left
 DEF PROCdeleteLeft
@@ -351,27 +351,27 @@ DEF PROCdeleteLeft
 	end$ = MID$(content$(top + currenty), currentx, LEN(content$(top + currenty)))
 	content$(top + currenty) = start$ + end$
 	currentx = currentx - 1
-RETPROC
+ENDPROC
 
 REM delete one character to the right
 DEF PROCdeleteRight
 	start$ = MID$(content$(top + currenty), 0, currentx)
 	end$ = MID$(content$(top + currenty), currentx + 1, LEN(content$(top + currenty)))
 	content$(top + currenty) = start$ + end$
-RETPROC
+ENDPROC
 
 REM join the end of the current line to the line below, moving lines up
 DEF PROCjoin
-	IF currenty = (lines - 1) THEN RETPROC
+	IF currenty = (lines - 1) THEN ENDPROC
 	content$(top + currenty) = content$(top + currenty) + content$(top + currenty + 1)
 	POP content$, top + currenty + 1
 	content$(lines - 1) = ""
 	lines = lines - 1
-RETPROC
+ENDPROC
 
 REM join the start of the current line to the line above, moving lines up
 DEF PROCjoinAbove
-	IF currenty = 0 THEN RETPROC
+	IF currenty = 0 THEN ENDPROC
 	newcurrentx = LEN(content$(top + currenty - 1))
 	content$(top + currenty - 1) = content$(top + currenty - 1) + content$(top + currenty)
 	POP content$, top + currenty
@@ -379,4 +379,4 @@ DEF PROCjoinAbove
 	currentx = newcurrentx
 	currenty = currenty - 1
 	lines = lines - 1
-RETPROC
+ENDPROC

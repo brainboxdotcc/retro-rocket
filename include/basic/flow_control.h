@@ -24,13 +24,13 @@ void def_statement(struct basic_ctx* ctx);
 void proc_statement(struct basic_ctx* ctx);
 
 /**
- * @brief Handles the RETPROC statement in BASIC, used for returning from a procedure.
+ * @brief Handles the ENDPROC statement in BASIC, used for returning from a procedure.
  *
- * The RETPROC statement is used to return control from a procedure to the calling location.
+ * The ENDPROC statement is used to return control from a procedure to the calling location.
  *
  * @param ctx The current BASIC program context.
  */
-void retproc_statement(struct basic_ctx* ctx);
+void endproc_statement(struct basic_ctx* ctx);
 
 /**
  * @brief Begins parsing a function's comma-separated parameter list.

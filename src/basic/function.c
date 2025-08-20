@@ -595,12 +595,12 @@ void eq_statement(struct basic_ctx* ctx)
 	ctx->ended = true;
 }
 
-void retproc_statement(struct basic_ctx* ctx)
+void endproc_statement(struct basic_ctx* ctx)
 {
-	accept_or_return(RETPROC, ctx);
+	accept_or_return(ENDPROC, ctx);
 	accept_or_return(NEWLINE, ctx);
 	if (ctx->fn_type != RT_NONE && ctx->fn_type != RT_MAIN)  {
-		tokenizer_error_print(ctx, "Can't RETPROC from a FN");
+		tokenizer_error_print(ctx, "Can't ENDPROC from a FN");
 		return;
 	}
 	ctx->fn_type = RT_MAIN;
@@ -609,7 +609,7 @@ void retproc_statement(struct basic_ctx* ctx)
 		ctx->call_stack_ptr--;
 		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);
 	} else {
-		tokenizer_error_print(ctx, "RETPROC when not inside PROC");
+		tokenizer_error_print(ctx, "ENDPROC when not inside PROC");
 	}
 }
 
