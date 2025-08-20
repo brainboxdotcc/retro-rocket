@@ -590,8 +590,6 @@ int rand(void)
 	return (int)(rand_state >> 1);
 }
 
-#include <wchar.h>
-
 int mblen(const char *str, size_t n)
 {
 	if (str == NULL || n == 0)

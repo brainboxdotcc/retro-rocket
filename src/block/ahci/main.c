@@ -163,19 +163,26 @@ void issue_command_to_slot(ahci_hba_port_t *port, uint8_t slot) {
 	port->command_issue = 1 << slot;
 }
 
+bool is_error(ahci_hba_port_t* port, const char* function) {
+	if (port->interrupt_status & HBA_PxIS_TFES) {
+		fs_error_t fe = ahci_classify_error(port);
+		dprintf("Disk error [%s]: %s [IS=%08x TFD=%08x SERR=%08x]\n", function, fs_strerror(fe), port->interrupt_status, port->task_file_data, port->sata_error);
+		return true;
+	}
+	return false;
+}
+
 bool wait_for_completion(ahci_hba_port_t* port, uint8_t slot, const char* function) {
 	while (true) {
 		if ((port->command_issue & (1 << slot)) == 0) {
 			break;
 		}
-		if (port->interrupt_status & HBA_PxIS_TFES) {
-			dprintf("Disk error [%s]\n", function);
+		if (is_error(port, function)) {
 			return false;
 		}
 	}
 
-	if (port->interrupt_status & HBA_PxIS_TFES) {
-		dprintf("Disk error [%s]\n", function);
+	if (is_error(port, function)) {
 		return false;
 	}
 	return true;

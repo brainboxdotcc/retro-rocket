@@ -18,10 +18,46 @@
 #define SCSI_OP_WRITE_16              0x8A
 #define SCSI_OP_SERVICE_ACTION_IN_16  0x9E  /* use SA=0x10 for READ CAPACITY(16) */
 
+typedef enum scsi_sense_key_t {
+	SCSI_SK_NO_SENSE		= 0x00,
+	SCSI_SK_RECOVERED_ERROR		= 0x01,
+	SCSI_SK_NOT_READY		= 0x02,
+	SCSI_SK_MEDIUM_ERROR		= 0x03,
+	SCSI_SK_HARDWARE_ERROR		= 0x04,
+	SCSI_SK_ILLEGAL_REQUEST		= 0x05,
+	SCSI_SK_UNIT_ATTENTION		= 0x06,
+	SCSI_SK_DATA_PROTECT		= 0x07,
+	SCSI_SK_BLANK_CHECK		= 0x08,
+	SCSI_SK_VENDOR_SPECIFIC		= 0x09,
+	SCSI_SK_COPY_ABORTED		= 0x0A,
+	SCSI_SK_ABORTED_COMMAND		= 0x0B,
+	SCSI_SK_VOLUME_OVERFLOW		= 0x0D,
+	SCSI_SK_MISCOMPARE		= 0x0E,
+} scsi_sense_key_t;
+
+typedef enum scsi_additional_sense_code_t {
+	SCSI_ASC_LUN_NOT_READY		= 0x04,
+	SCSI_ASC_INVALID_FIELD		= 0x24,
+	SCSI_ASC_WRITE_PROTECTED	= 0x27,
+	SCSI_ASC_MEDIA_CHANGED		= 0x28,
+	SCSI_ASC_MEDIUM_NOT_PRESENT	= 0x3A,
+	SCSI_ASC_ANY			= 0xFF, /* Wildcard */
+} scsi_additional_sense_code_t;
+
+typedef enum scsi_additional_sense_code_qualifier_t {
+	SCSI_ASCQ_BECOMING_READY	= 0x01,
+	SCSI_ASCQ_INIT_REQUIRED		= 0x02,
+	SCSI_ASCQ_MANUAL_INTERVENTION	= 0x03,
+	SCSI_ASCQ_MEDIUM_NOT_PRESENT	= 0x00,
+	SCSI_ASCQ_MEDIA_CHANGED		= 0x00,
+	SCSI_ASCQ_WRITE_PROTECTED	= 0x00,
+	SCSI_ASCQ_ANY			= 0xFF, /* Wildcard */
+} scsi_additional_sense_code_qualifier_t;
+
 /* INQUIRY(6) — 6 bytes */
 typedef struct __attribute__((packed)) scsi_cdb_inquiry6 {
 	uint8_t  opcode;       /* 0x12 */
-	uint8_t  evpd;         /* bit0 = EVPD; you use 0 */
+	uint8_t  evpd;         /* bit0 = EVPD */
 	uint8_t  page_code;    /* usually 0 */
 	uint8_t  reserved;     /* 0 */
 	uint8_t  alloc_len;    /* 1-byte allocation length */
@@ -31,7 +67,7 @@ typedef struct __attribute__((packed)) scsi_cdb_inquiry6 {
 /* READ(12) — 12 bytes; LBA and transfer length are big-endian */
 typedef struct __attribute__((packed)) scsi_cdb_read12 {
 	uint8_t  opcode;       /* 0xA8 */
-	uint8_t  flags;        /* DPO/FUA/etc; you use 0 */
+	uint8_t  flags;        /* DPO/FUA/etc */
 	uint32_t lba_be;       /* big-endian */
 	uint32_t xfer_be;      /* big-endian (blocks) */
 	uint8_t  group;        /* 0 */
@@ -61,7 +97,7 @@ typedef struct __attribute__((packed)) scsi_cdb_request_sense6 {
 /* START STOP UNIT (6) — opcode 0x1B */
 typedef struct __attribute__((packed)) scsi_cdb_start_stop_unit6 {
 	uint8_t opcode;      /* 0x1B */
-	uint8_t immed;       /* bit0 IMMED if you need it */
+	uint8_t immed;       /* bit0 IMMED */
 	uint8_t rsv1;
 	uint8_t rsv2;
 	uint8_t power;       /* bits: LOEJ/START/POWER-COND */

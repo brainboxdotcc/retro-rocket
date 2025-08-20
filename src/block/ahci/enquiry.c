@@ -24,7 +24,7 @@ bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, ui
 	cdb->alloc_len = len;
 
 	if (!issue_and_wait(port, slot, "inquiry")) {
-		return false;
+		return atapi_handle_check_condition(port, abar, "inquiry");
 	}
 
 	memcpy(out, aligned_read_buf, len);

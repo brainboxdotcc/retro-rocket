@@ -17,11 +17,11 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	if (check_type(port) == AHCI_DEV_SATAPI) {
 		while (sectors > 0) {
 			uint32_t this_xfer = (sectors > max_per_cmd) ? max_per_cmd : sectors;
-			if (!ahci_atapi_read(port, start, this_xfer, (uint16_t*)buffer, abar)) {
+			if (!ahci_atapi_read(port, start, this_xfer, (char*)buffer, abar)) {
 				return false;
 			}
-			start   += this_xfer;
-			buffer  += this_xfer * sd->block_size;
+			start += this_xfer;
+			buffer += this_xfer * sd->block_size;
 			sectors -= this_xfer;
 		}
 		return true;
@@ -39,12 +39,12 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 				bytes_this = this_xfer * sd->block_size;
 			}
 
-			if (!ahci_read(port, start, this_xfer, (uint16_t*)buffer, abar)) {
+			if (!ahci_read(port, start, this_xfer, (char*)buffer, abar)) {
 				return 0;
 			}
 
-			start   += this_xfer;
-			buffer  += bytes_this;
+			start += this_xfer;
+			buffer += bytes_this;
 			sectors -= this_xfer;
 		}
 		return 1;

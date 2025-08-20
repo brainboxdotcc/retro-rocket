@@ -54,6 +54,18 @@ static const char *fs_error_strings[] = {
 	"Bad cluster detected",
 	"Internal Error",
 	"Out of bounds device access",
+	"Host bus fatal error",
+	"Host bus data error",
+	"Interface/link error",
+	"Taskfile error",
+	"ATAPI check condition",
+	"Operation timed out",
+	"No media present",
+	"Device locked",
+	"Device busy",
+	"Unsupported for device",
+	"Hardware error",
+	"Uncorrectable data error",
 };
 
 static struct hashmap* vfs_hash = NULL;
@@ -357,7 +369,6 @@ int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, 
 		}
 
 		if (!cur->blockread(cur, start_block, bytes, data)) {
-			fs_set_error(FS_ERR_IO);
 			return 0;
 		}
 
@@ -367,7 +378,6 @@ int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, 
 	}
 
 	if (!cur->blockread(cur, start_block, bytes, data)) {
-		fs_set_error(FS_ERR_IO);
 		return 0;
 	}
 
@@ -384,7 +394,6 @@ int write_storage_device(const char* name, uint64_t start_block, uint32_t bytes,
 
 	/* Always write the device first */
 	if (!cur->blockwrite(cur, start_block, bytes, data)) {
-		fs_set_error(FS_ERR_IO);
 		return 0;
 	}
 

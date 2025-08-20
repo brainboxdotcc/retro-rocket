@@ -12,6 +12,16 @@
 #define RAND_MAX_ENTROPY	(size_t)24
 #define RAND_MAX		SIZE_MAX
 
+#define SAMPLE_FROM_BUFFER(p) \
+	(((uint64_t)((const uint8_t*)(p))[0] << 56) | \
+	((uint64_t)((const uint8_t*)(p))[1] << 48) | \
+	((uint64_t)((const uint8_t*)(p))[2] << 40) | \
+	((uint64_t)((const uint8_t*)(p))[3] << 32) | \
+	((uint64_t)((const uint8_t*)(p))[4] << 24) | \
+	((uint64_t)((const uint8_t*)(p))[5] << 16) | \
+	((uint64_t)((const uint8_t*)(p))[6] << 8) | \
+	((uint64_t)((const uint8_t*)(p))[7]))
+
 typedef struct mt_rand_t {
 	uint32_t mt[STATE_VECTOR_LENGTH];
 	int index;

@@ -11,6 +11,7 @@
 #pragma once
 
 #include <kernel.h>
+#include <scsi.h>
 
 /**
  * @brief Frame Information Structure (FIS) type identifiers.
@@ -331,8 +332,11 @@ typedef struct ahci_hba_cmd_tbl_t {
 
 /* ----------------------------- Interrupt/status and ATA opcodes ----------------------------- */
 
-/** @brief PxIS: Task File Error Status (TFES). */
-#define HBA_PxIS_TFES (1 << 30)
+#define HBA_PxIS_TFES	(1 << 30)   /** Task file error */
+#define HBA_PxIS_IFS	(1u << 27)  /* Interface fatal error */
+#define HBA_PxIS_HBDS	(1u << 28)  /* Host bus data error */
+#define HBA_PxIS_HBFS	(1u << 29)  /* Host bus fatal error */
+
 /** @brief ATA command: READ DMA EXT (48-bit). */
 #define ATA_CMD_READ_DMA_EX 0x25
 /** @brief ATA command: WRITE DMA EXT (48-bit). */
@@ -392,7 +396,7 @@ int find_cmdslot(ahci_hba_port_t *port, ahci_hba_mem_t *abar);
  * @param abar AHCI HBA memory block.
  * @return true on success, false on error.
  */
-bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
 
 /**
  * @brief Write to a SATA block device via DMA.
@@ -414,7 +418,7 @@ bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf
  * @param abar AHCI HBA memory block.
  * @return true on success, false on error.
  */
-bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
+bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
 
 /**
  * @brief Query capacity (in bytes) from a SATA device using IDENTIFY data.
@@ -466,26 +470,205 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
  */
 int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer);
 
-
+/**
+ * @brief Wait until the AHCI port and attached device are ready to accept a new command.
+ * @param port AHCI HBA port.
+ * @return true if ready, false on timeout or fatal port state.
+ */
 bool wait_for_ready(ahci_hba_port_t* port);
+
+/**
+ * @brief Fill one PRDT entry in the command table.
+ * @param cmdtbl Command table to modify.
+ * @param index PRDT entry index to fill.
+ * @param address Physical or DMA-able address of the data buffer.
+ * @param byte_count Number of bytes to transfer (1..4MiB per entry, device-dependent).
+ * @param interrupt Set true to request interrupt on completion for this PRDT entry.
+ */
 void fill_prdt(ahci_hba_cmd_tbl_t* cmdtbl, size_t index, void* address, uint32_t byte_count, bool interrupt);
+
+/**
+ * @brief Obtain and initialise a command header for a slot.
+ * @param port AHCI HBA port.
+ * @param slot Command slot number (0..31).
+ * @param write Set true for host-to-device (write), false for device-to-host (read).
+ * @param atapi Set true for ATAPI packet command, false for ATA.
+ * @param prdtls Number of PRDT entries to advertise (PRDTL).
+ * @return Pointer to the prepared command header.
+ */
 ahci_hba_cmd_header_t* get_cmdheader_for_slot(ahci_hba_port_t* port, size_t slot, bool write, bool atapi, uint16_t prdtls);
+
+/**
+ * @brief Return the command table for a header and clear CFIS/ATAPI/reserved regions.
+ * @param cmdheader Command header whose table will be accessed.
+ * @return Pointer to the command table.
+ */
 ahci_hba_cmd_tbl_t* get_and_clear_cmdtbl(ahci_hba_cmd_header_t* cmdheader);
+
+/**
+ * @brief Prepare a Register H2D FIS in the command table.
+ * @param cmdtbl Command table to place the FIS into.
+ * @param type FIS type (e.g., FIS_TYPE_REG_H2D).
+ * @param command ATA/ATAPI command opcode.
+ * @param feature_low Feature low byte.
+ * @return Pointer to the FIS within the command table.
+ */
 ahci_fis_reg_h2d_t* setup_reg_h2d(ahci_hba_cmd_tbl_t* cmdtbl, uint8_t type, uint8_t command, uint8_t feature_low);
+
+/**
+ * @brief Fill LBA and sector count fields in a Register H2D FIS.
+ * @param cmdfis Pointer to the FIS previously created by setup_reg_h2d.
+ * @param start Starting LBA.
+ * @param count Sector count (device logical block units).
+ */
 void fill_reg_h2c(ahci_fis_reg_h2d_t* cmdfis, uint64_t start, uint16_t count);
+
+/**
+ * @brief Issue a prepared command in the given slot by setting PxCI.
+ * @param port AHCI HBA port.
+ * @param slot Command slot number (0..31).
+ */
 void issue_command_to_slot(ahci_hba_port_t *port, uint8_t slot);
+
+/**
+ * @brief Wait for a command slot to complete and detect transport/taskfile errors.
+ * @param port AHCI HBA port.
+ * @param slot Command slot number (0..31).
+ * @param function Short label used for diagnostics/logging.
+ * @return true on success, false if a taskfile/transport error occurred (error already logged).
+ */
 bool wait_for_completion(ahci_hba_port_t* port, uint8_t slot, const char* function);
+
+/**
+ * @brief Convenience wrapper to issue a command and wait for completion.
+ * @param port AHCI HBA port.
+ * @param slot Command slot number (0..31).
+ * @param function Short label used for diagnostics/logging.
+ * @return true on success, false on error (error already logged).
+ */
 bool issue_and_wait(ahci_hba_port_t* port, uint8_t slot, const char* function);
+
+/**
+ * @brief Trim trailing ASCII spaces from a NUL-terminated string in place.
+ * @param s String buffer to modify.
+ */
 void trim_trailing_spaces(char *s);
+
+/**
+ * @brief Build a human-readable ATAPI device label from INQUIRY data.
+ * @param sd Storage device object to receive the label.
+ * @param inq 36+ byte SCSI INQUIRY response buffer.
+ */
 void build_atapi_label(struct storage_device_t *sd, const uint8_t *inq);
 
+/**
+ * @brief Eject removable media from an ATAPI device (ALLOW removal then START STOP with LOEJ).
+ * @param port AHCI HBA port for the device.
+ * @param abar AHCI HBA memory (ABAR) pointer.
+ * @return true on command acceptance, false on error (caller may fetch sense).
+ */
 bool atapi_eject(ahci_hba_port_t *port, ahci_hba_mem_t *abar);
-bool ahci_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
-bool ahci_write(ahci_hba_port_t *port, uint64_t start, uint32_t count, char *buf, ahci_hba_mem_t* abar);
-bool ahci_atapi_read(ahci_hba_port_t *port, uint64_t start, uint32_t count, uint16_t *buf, ahci_hba_mem_t* abar);
-uint64_t ahci_read_size(ahci_hba_port_t *port, ahci_hba_mem_t* abar);
+
+/**
+ * @brief Issue IDENTIFY (ATA or ATAPI) and copy the 512-byte identify page to out.
+ * @param port AHCI HBA port.
+ * @param abar AHCI HBA memory (ABAR) pointer.
+ * @param out Destination buffer for identify data (512 bytes).
+ * @return true on success, false on error.
+ */
 bool ahci_identify_page(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out);
+
+/**
+ * @brief Issue ATAPI INQUIRY (0x12) and copy the response.
+ * @param port AHCI HBA port.
+ * @param abar AHCI HBA memory (ABAR) pointer.
+ * @param out Destination buffer for INQUIRY data.
+ * @param len Allocation length requested and number of bytes to copy.
+ * @return true on success, false on error (caller may use sense mapping).
+ */
 bool atapi_enquiry(ahci_hba_port_t *port, ahci_hba_mem_t *abar, uint8_t *out, uint8_t len);
+
+/**
+ * @brief Map AHCI/AHCI-ATA/ATAPI latched status on a port to a fixed fs_error_t without performing I/O.
+ * @param port AHCI HBA port; uses PxIS/PxSERR/PxTFD/PxSIG snapshots.
+ * @return fs_error_t value describing the failure class.
+ */
+int ahci_classify_error(ahci_hba_port_t* port);
+
+/**
+ * @brief Map SCSI/ATAPI sense (sense key, ASC, ASCQ) to a fixed fs_error_t.
+ * @param sense_key SCSI sense key.
+ * @param additional_sense_code Additional Sense Code (ASC).
+ * @param additional_sense_code_qualifier Additional Sense Code Qualifier (ASCQ).
+ * @return fs_error_t value describing the failure class.
+ */
+int scsi_map_sense_to_fs_error(scsi_sense_key_t sense_key, scsi_additional_sense_code_t additional_sense_code, scsi_additional_sense_code_qualifier_t additional_sense_code_qualifier);
+
+/**
+ * @brief Issue ATAPI REQUEST SENSE (6) and copy sense data to the caller buffer.
+ * @param port AHCI HBA port.
+ * @param abar AHCI HBA memory (ABAR) pointer.
+ * @param out Destination buffer for sense data.
+ * @param out_len Allocation length requested (typically 18).
+ * @return true on success, false on failure to obtain sense data.
+ */
+bool atapi_request_sense6(ahci_hba_port_t* port, ahci_hba_mem_t* abar, uint8_t* out, uint8_t out_len);
+
+/**
+ * @brief Extract sense key, ASC and ASCQ from a fixed-format (0x70/0x71) REQUEST SENSE buffer.
+ * @param buf Sense buffer (>= 14 bytes, typically 18).
+ * @param sense_key Output: sense key.
+ * @param additional_sense_code Output: ASC.
+ * @param additional_sense_code_qualifier Output: ASCQ.
+ */
+void scsi_extract_fixed_sense(const uint8_t* buf, scsi_sense_key_t* sense_key, scsi_additional_sense_code_t* additional_sense_code, scsi_additional_sense_code_qualifier_t* additional_sense_code_qualifier);
+
+/**
+ * @brief Handle ATAPI CHECK CONDITION by issuing REQUEST SENSE, mapping to fs_error_t, logging a single line, and returning false.
+ * @param port AHCI HBA port.
+ * @param abar AHCI HBA memory (ABAR) pointer.
+ * @param function Short label used for diagnostics/logging.
+ * @return Always false to simplify call-sites that branch on failure.
+ */
+bool atapi_handle_check_condition(ahci_hba_port_t* port, ahci_hba_mem_t* abar, const char* function);
+
+
+/**
+ * @brief Map AHCI/AHCI-ATA/ATAPI status to a fixed fs_error_t.
+ *
+ * Uses PxIS priority: HBFS → HBDS → IFS → TFES. For TFES, inspects PxTFD ERR bits.
+ * For ATAPI, returns FS_ERR_ATAPI_CHECK on TFES so the caller can issue REQUEST SENSE.
+ *
+ * This function performs no I/O; it only interprets the latched registers you pass in.
+ */
+int ahci_classify_error(ahci_hba_port_t* port);
+
+/**
+ * @brief Map SCSI/ATAPI sense (SK/ASC/ASCQ) to fs_error_t with fixed message.
+ */
+int scsi_map_sense_to_fs_error(scsi_sense_key_t sense_key, scsi_additional_sense_code_t additional_sense_code, scsi_additional_sense_code_qualifier_t additional_sense_code_qualifier);
+
+/**
+ * @brief Issue ATAPI REQUEST SENSE (6) and copy sense data to 'out'.
+ * Expects 'out_len' >= 18 for standard fixed-format sense.
+ * Returns true on success (command accepted and data DMA'd), false on failure.
+ */
+bool atapi_request_sense6(ahci_hba_port_t* port, ahci_hba_mem_t* abar, uint8_t* out, uint8_t out_len);
+
+/**
+ * @brief Extract SK/ASC/ASCQ from a fixed-format (0x70/0x71) REQUEST SENSE buffer.
+ * Caller guarantees 'buf' points to at least 14 bytes (we usually pass 18).
+ */
+void scsi_extract_fixed_sense(const uint8_t* buf, scsi_sense_key_t* sense_key, scsi_additional_sense_code_t* additional_sense_code, scsi_additional_sense_code_qualifier_t* additional_sense_code_qualifier);
+
+/**
+ * @brief Convenience helper for ATAPI CHECK CONDITION paths.
+ * Issues REQUEST SENSE, extracts and maps sense, logs a single line, then returns false.
+ *
+ * Always returns false so call-sites can simply: if (!atapi_handle_check_condition(...)) return false;
+ * If REQUEST SENSE itself fails, logs a generic timeout/hardware error.
+ */
+bool atapi_handle_check_condition(ahci_hba_port_t* port, ahci_hba_mem_t* abar, const char* function);
 
 /* ----------------------------- Layout sanity checks ----------------------------- */
 
