@@ -259,9 +259,160 @@ typedef struct {
 	double y;
 } dpoint_t;
 
+/* Integer fast path for axis-aligned rectangles (no perspective).
+ * Returns true if it drew the quad; false means "use the general path"
+ */
+static bool plot_sprite_quad_axis_aligned_int(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3) {
+
+	sprite_t* s = ctx->sprites[sprite_handle];
+
+	/* Two perpendicular, axis-aligned edges from q0 */
+	bool u_h = (y1 == y0) && (x1 != x0);
+	bool u_v = (x1 == x0) && (y1 != y0);
+	bool v_h = (y3 == y0) && (x3 != x0);
+	bool v_v = (x3 == x0) && (y3 != y0);
+
+	bool perpendicular = (u_h && v_v) || (u_v && v_h);
+	if (!perpendicular) {
+		return false;
+	}
+
+	/* Rectangle identity for the fourth corner */
+	if (x2 != (x1 + x3 - x0) || y2 != (y1 + y3 - y0)) {
+		return false;
+	}
+
+	/* Integer bbox (no loops) */
+	int minx = (x0 < x1) ? x0 : x1;
+	if (x3 < minx) {
+		minx = x3;
+	}
+	if (x2 < minx) {
+		minx = x2;
+	}
+
+	int maxx = (x0 > x1) ? x0 : x1;
+	if (x3 > maxx) {
+		maxx = x3;
+	}
+	if (x2 > maxx) {
+		maxx = x2;
+	}
+
+	int miny = (y0 < y1) ? y0 : y1;
+	if (y3 < miny) {
+		miny = y3;
+	}
+	if (y2 < miny) {
+		miny = y2;
+	}
+
+	int maxy = (y0 > y1) ? y0 : y1;
+	if (y3 > maxy) {
+		maxy = y3;
+	}
+	if (y2 > maxy) {
+		maxy = y2;
+	}
+
+	if (minx == maxx || miny == maxy) {
+		return true; /* Degenerate rectangle: nothing to draw, but handled. */
+	}
+
+	/* Fixed-point 16.16 steps mapping full sprite (0..w,0..h). */
+	const int64_t fp_shift = 16;
+	const int64_t one_fp = 1 << fp_shift;
+
+	int64_t w = s->width;
+	int64_t h = s->height;
+
+	int64_t dx_u = 0;
+	int64_t dy_u = 0;
+	int64_t dx_v = 0;
+	int64_t dy_v = 0;
+
+	if (u_h) {
+		int64_t run = x1 - x0;
+		if (run == 0) {
+			return false;
+		}
+		dx_u = (w * one_fp) / run;
+		dy_u = 0;
+	} else {
+		int64_t rise = y1 - y0;
+		if (rise == 0) {
+			return false;
+		}
+		dx_u = 0;
+		dy_u = (w * one_fp) / rise;
+	}
+
+	if (v_v) {
+		int64_t rise = y3 - y0;
+		if (rise == 0) {
+			return false;
+		}
+		dx_v = 0;
+		dy_v = (h * one_fp) / rise;
+	} else {
+		int64_t run = x3 - x0;
+		if (run == 0) {
+			return false;
+		}
+		dx_v = (h * one_fp) / run;
+		dy_v = 0;
+	}
+
+	/* Start at bbox top-left, expressed relative to q0. */
+	int64_t u_row = (minx - x0) * dx_u + (miny - y0) * dy_u;
+	int64_t v_row = (minx - x0) * dx_v + (miny - y0) * dy_v;
+
+	for (int py = miny; py <= maxy; ++py) {
+		int64_t u_fp = u_row;
+		int64_t v_fp = v_row;
+
+		for (int px = minx; px <= maxx; ++px) {
+			int64_t ui = (u_fp >> fp_shift);
+			int64_t vi = (v_fp >> fp_shift);
+
+			if (ui < 0) {
+				ui = 0;
+			}
+			if (ui >= w) {
+				ui = w - 1;
+			}
+			if (vi < 0) {
+				vi = 0;
+			}
+			if (vi >= h) {
+				vi = h - 1;
+			}
+
+			uint32_t src = s->pixels[vi * w + ui];
+			if ((src & 0xff000000) == 0xff000000) {
+				uint32_t a = (src >> 24) & 0xff;
+				uint32_t r = (src >> 16) & 0xff;
+				uint32_t g = (src >> 8)  & 0xff;
+				uint32_t b = (src)       & 0xff;
+				putpixel(px, py, (a << 24) | (b << 16) | (g << 8) | r);
+			}
+
+			u_fp += dx_u;
+			v_fp += dx_v;
+		}
+
+		u_row += dy_u;
+		v_row += dy_v;
+	}
+
+	return true;
+}
+
+
 /* Solve an 8x8 linear system via Gauss–Jordan elimination.
-   'a' is augmented as 8 rows of 9 doubles (last column is RHS).
-   Returns true on success. */
+ * 'a' is augmented as 8 rows of 9 doubles (last column is RHS).
+ * Returns true on success
+ */
 static bool solve8(double a[8][9]) {
 	for (int r = 0; r < 8; ++r) {
 		int pivot = r;
@@ -302,10 +453,11 @@ static bool solve8(double a[8][9]) {
 }
 
 /* Build screen->texture homography H such that:
-   [u v 1]^T ~ H * [x y 1]^T, with h33 fixed to 1.
-   screen[0..3] are the quad corners, tex are the corresponding texture corners
-   (typically (0,0),(w,0),(w,h),(0,h) in that order).
-   H_out is 3x3 row-major (length 9). */
+ * [u v 1]^T ~ H * [x y 1]^T, with h33 fixed to 1.
+ * screen[0..3] are the quad corners, tex are the corresponding texture corners
+ * (typically (0,0),(w,0),(w,h),(0,h) in that order).
+ * H_out is 3x3 row-major (length 9).
+ */
 static bool compute_homography(const dpoint_t screen[4], const dpoint_t tex[4], double H_out[9]) {
 	double m[8][9];
 	for (int i = 0; i < 4; ++i) {
@@ -383,7 +535,8 @@ static inline bool point_in_quad(double px, double py, const dpoint_t q[4]) {
 }
 
 /* Sample nearest-neighbour from sprite 's' at floating (u,v).
-   Returns packed ARGB as stored in s->pixels. Caller handles alpha policy. */
+ * Returns packed ARGB as stored in s->pixels. Caller handles alpha policy
+ */
 static inline uint32_t sample_sprite_nearest(const sprite_t* s, double u, double v) {
 	if (u < 0.0) {
 		u = 0.0;
@@ -405,16 +558,11 @@ static inline uint32_t sample_sprite_nearest(const sprite_t* s, double u, double
 }
 
 void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3) {
-	if (sprite_handle < 0) {
+	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES || ctx->sprites[sprite_handle] == NULL || ctx->sprites[sprite_handle]->pixels == NULL) {
 		return;
 	}
-	if (sprite_handle >= MAX_SPRITES) {
-		return;
-	}
-	if (ctx->sprites[sprite_handle] == NULL) {
-		return;
-	}
-	if (ctx->sprites[sprite_handle]->pixels == NULL) {
+
+	if (plot_sprite_quad_axis_aligned_int(ctx, sprite_handle, x0, y0, x1, y1, x2, y2, x3, y3)) {
 		return;
 	}
 
