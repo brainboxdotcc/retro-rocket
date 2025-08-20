@@ -7,6 +7,8 @@ volatile struct limine_framebuffer_request framebuffer_request = {
 	.revision = 0,
 };
 
+struct limine_framebuffer *fb = NULL;
+static uint64_t bytes_per_pixel = 32;
 static void *rr_fb_front = NULL;
 static void *rr_fb_back = NULL;
 static uint64_t rr_fb_pitch = 0;
@@ -282,11 +284,12 @@ static uint8_t font_data[] = {
 };
 
 void rr_console_init_from_limine(void) {
-	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
+	fb = framebuffer_request.response->framebuffers[0];
 	dprintf("fb front: %lx\n", (uint64_t)fb->address);
 	rr_fb_front  = fb->address;
 	rr_fb_pitch  = fb->pitch;
 	rr_fb_height = fb->height;
+	bytes_per_pixel = fb->bpp >> 3;
 	screen_graphics_stride = fb->pitch;
 	rr_fb_bytes  = rr_fb_pitch * rr_fb_height;  // full bytes, includes padding per row
 	rr_fb_back = kmalloc(rr_fb_bytes);
@@ -298,11 +301,8 @@ inline uint64_t framebuffer_address() {
 }
 
 inline uint64_t pixel_address(int64_t x, int64_t y) {
-	struct limine_framebuffer *fb = framebuffer_request.response->framebuffers[0];
-	uint64_t pitch = fb->pitch;
-	uint64_t bytes_per_pixel = fb->bpp >> 3;
 	if (x >= 0 && y >= 0 && x < screen_graphics_x && y < screen_graphics_y) {
-		return (y * pitch) + (x * bytes_per_pixel);
+		return (y * rr_fb_pitch) + (x * bytes_per_pixel);
 	}
 	return 0;
 }
@@ -419,8 +419,6 @@ void init_console()
 		wait_forever();
 	}
 	rr_console_init_from_limine();
-
-	struct limine_framebuffer* fb = framebuffer_request.response->framebuffers[0];
 
 	screen_graphics_x = fb->width;
 	screen_graphics_y = fb->height;

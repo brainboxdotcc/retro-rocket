@@ -523,15 +523,8 @@ static inline bool point_in_tri(double px, double py, const dpoint_t a, const dp
 	return all_nonneg || all_nonpos;
 }
 
-
 static inline bool point_in_quad(double px, double py, const dpoint_t q[4]) {
-	if (point_in_tri(px, py, q[0], q[1], q[2])) {
-		return true;
-	}
-	if (point_in_tri(px, py, q[0], q[2], q[3])) {
-		return true;
-	}
-	return false;
+	return (point_in_tri(px, py, q[0], q[1], q[2]) || point_in_tri(px, py, q[0], q[2], q[3]));
 }
 
 /* Sample nearest-neighbour from sprite 's' at floating (u,v).
@@ -568,21 +561,20 @@ void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, 
 
 	sprite_t* s = ctx->sprites[sprite_handle];
 
-	dpoint_t q[4];
-	q[0].x = x0; q[0].y = y0;
-	q[1].x = x1; q[1].y = y1;
-	q[2].x = x2; q[2].y = y2;
-	q[3].x = x3; q[3].y = y3;
+	dpoint_t q[4] = {
+		{ .x = x0, .y = y0 },
+		{ .x = x1, .y = y1 },
+		{ .x = x2, .y = y2 },
+		{ .x = x3, .y = y3 },
+	};
 
-	dpoint_t tex[4];
-	tex[0].x = 0.0;
-	tex[0].y = 0.0;
-	tex[1].x = s->width;
-	tex[1].y = 0.0;
-	tex[2].x = s->width;
-	tex[2].y = s->height;
-	tex[3].x = 0.0;
-	tex[3].y = s->height;
+	dpoint_t tex[4] = {
+		{ .x = 0.0, .y = 0.0 },
+		{ .x = s->width, .y = 0.0 },
+		{ .x = s->width, .y = s->height },
+		{ .x = 0.0, .y = s->height },
+	};
+
 
 	/* Normalise winding: accept CW or CCW by flipping 1<->3 if area is negative. */
 	double area =
@@ -631,6 +623,7 @@ void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, 
 	int miny = (int)floor(miny_d);
 	int maxy = (int)ceil(maxy_d);
 
+	uint64_t framebuffer = framebuffer_address();
 	for (int py = miny; py <= maxy; ++py) {
 		for (int px = minx; px <= maxx; ++px) {
 			double cx = (double)px + 0.5;
@@ -657,13 +650,14 @@ void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, 
 			if ((src & 0xff000000) == 0xff000000) {
 				uint32_t a = (src >> 24) & 0xff;
 				uint32_t r = (src >> 16) & 0xff;
-				uint32_t g = (src >> 8)  & 0xff;
-				uint32_t b = (src)       & 0xff;
-				uint32_t out = (a << 24) | (b << 16) | (g << 8) | r;
-				putpixel(px, py, out);
+				uint32_t g = (src >> 8) & 0xff;
+				uint32_t b = (src) & 0xff;
+				volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(px, py));
+				*addr = (a << 24) | (b << 16) | (g << 8) | r;
 			}
 		}
 	}
+	set_video_dirty_area(miny, maxy);
 }
 
 
