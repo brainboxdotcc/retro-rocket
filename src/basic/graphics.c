@@ -282,38 +282,15 @@ static bool plot_sprite_quad_axis_aligned_int(struct basic_ctx* ctx, int64_t spr
 		return false;
 	}
 
-	/* Integer bbox (no loops) */
-	int minx = (x0 < x1) ? x0 : x1;
-	if (x3 < minx) {
-		minx = x3;
-	}
-	if (x2 < minx) {
-		minx = x2;
-	}
+	int64_t minx = MIN(MIN(x0, x1), MIN(x2, x3));
+	int64_t maxx = MAX(MAX(x0, x1), MAX(x2, x3));
+	int64_t miny = MIN(MIN(y0, y1), MIN(y2, y3));
+	int64_t maxy = MAX(MAX(y0, y1), MAX(y2, y3));
 
-	int maxx = (x0 > x1) ? x0 : x1;
-	if (x3 > maxx) {
-		maxx = x3;
-	}
-	if (x2 > maxx) {
-		maxx = x2;
-	}
-
-	int miny = (y0 < y1) ? y0 : y1;
-	if (y3 < miny) {
-		miny = y3;
-	}
-	if (y2 < miny) {
-		miny = y2;
-	}
-
-	int maxy = (y0 > y1) ? y0 : y1;
-	if (y3 > maxy) {
-		maxy = y3;
-	}
-	if (y2 > maxy) {
-		maxy = y2;
-	}
+	minx = CLAMP(minx, 0, screen_get_width() - 1);
+	maxx = CLAMP(maxx, 0, screen_get_width() - 1);
+	miny = CLAMP(miny, 0, screen_get_height() - 1);
+	maxy = CLAMP(maxy, 0, screen_get_height() - 1);
 
 	if (minx == maxx || miny == maxy) {
 		return true; /* Degenerate rectangle: nothing to draw, but handled. */
@@ -323,78 +300,51 @@ static bool plot_sprite_quad_axis_aligned_int(struct basic_ctx* ctx, int64_t spr
 	const int64_t fp_shift = 16;
 	const int64_t one_fp = 1 << fp_shift;
 
-	int64_t w = s->width;
-	int64_t h = s->height;
+	int64_t w = s->width, h = s->height, dx_u = 0, dy_u = 0, dx_v = 0, dy_v = 0;
 
-	int64_t dx_u = 0;
-	int64_t dy_u = 0;
-	int64_t dx_v = 0;
-	int64_t dy_v = 0;
+	/* Fixed-point scale per tex axis */
+	int64_t du_fp = w * one_fp;
+	int64_t dv_fp = h * one_fp;
 
-	if (u_h) {
-		int64_t run = x1 - x0;
-		if (run == 0) {
-			return false;
-		}
-		dx_u = (w * one_fp) / run;
-		dy_u = 0;
+	/* Edge q0->q1 drives U: either horizontal or vertical, not both */
+	if (x1 != x0) {
+		dx_u = du_fp / (x1 - x0);
 	} else {
-		int64_t rise = y1 - y0;
-		if (rise == 0) {
-			return false;
-		}
-		dx_u = 0;
-		dy_u = (w * one_fp) / rise;
+		dy_u = du_fp / (y1 - y0);
 	}
 
-	if (v_v) {
-		int64_t rise = y3 - y0;
-		if (rise == 0) {
-			return false;
-		}
-		dx_v = 0;
-		dy_v = (h * one_fp) / rise;
+	/* Edge q0->q3 drives V: either vertical or horizontal, not both */
+	if (x3 != x0) {
+		dx_v = dv_fp / (x3 - x0);
 	} else {
-		int64_t run = x3 - x0;
-		if (run == 0) {
-			return false;
-		}
-		dx_v = (h * one_fp) / run;
-		dy_v = 0;
+		dy_v = dv_fp / (y3 - y0);
 	}
 
 	/* Start at bbox top-left, expressed relative to q0. */
 	int64_t u_row = (minx - x0) * dx_u + (miny - y0) * dy_u;
 	int64_t v_row = (minx - x0) * dx_v + (miny - y0) * dy_v;
 
-	for (int py = miny; py <= maxy; ++py) {
+	uint64_t framebuffer = framebuffer_address();
+
+	for (int64_t py = miny; py <= maxy; ++py) {
 		int64_t u_fp = u_row;
 		int64_t v_fp = v_row;
 
-		for (int px = minx; px <= maxx; ++px) {
+		for (int64_t px = minx; px <= maxx; ++px) {
 			int64_t ui = (u_fp >> fp_shift);
 			int64_t vi = (v_fp >> fp_shift);
 
-			if (ui < 0) {
-				ui = 0;
-			}
-			if (ui >= w) {
-				ui = w - 1;
-			}
-			if (vi < 0) {
-				vi = 0;
-			}
-			if (vi >= h) {
-				vi = h - 1;
-			}
+			ui = CLAMP(ui, 0, w - 1);
+			vi = CLAMP(vi, 0, h - 1);
 
 			uint32_t src = s->pixels[vi * w + ui];
 			if ((src & 0xff000000) == 0xff000000) {
 				uint32_t a = (src >> 24) & 0xff;
 				uint32_t r = (src >> 16) & 0xff;
-				uint32_t g = (src >> 8)  & 0xff;
-				uint32_t b = (src)       & 0xff;
-				putpixel(px, py, (a << 24) | (b << 16) | (g << 8) | r);
+				uint32_t g = (src >> 8) & 0xff;
+				uint32_t b = (src) & 0xff;
+				volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(px, py));
+				*addr = (a << 24) | (b << 16) | (g << 8) | r;
 			}
 
 			u_fp += dx_u;
@@ -498,8 +448,6 @@ static bool compute_homography(const dpoint_t screen[4], const dpoint_t tex[4], 
 	return true;
 }
 
-#define CLAMP(v, lo, hi) (((v) < (lo)) ? (lo) : (((v) > (hi)) ? (hi) : (v)))
-
 /* Draw scanlines between a long edge (L0->L1) and a short edge (S0->S1)
  * for integer rows y in [ceil(y_top), ceil(y_bottom) - 1].
  * If long_is_left != 0, the long edge provides xL; otherwise it provides xR.
@@ -509,7 +457,7 @@ static bool compute_homography(const dpoint_t screen[4], const dpoint_t tex[4], 
  * u = (H0*x + H1*y + H2) / (H6*x + H7*y + H8)
  * v = (H3*x + H4*y + H5) / (H6*x + H7*y + H8)
  */
-static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, dpoint_t S1, double y_top, double y_bottom, int long_is_left, const double H[9], const sprite_t* s, uint64_t framebuffer) {
+inline static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, dpoint_t S1, double y_top, double y_bottom, int long_is_left, const double H[9], const sprite_t* s, uint64_t framebuffer) {
 	const double H0 = H[0], H1 = H[1], H2 = H[2];
 	const double H3 = H[3], H4 = H[4], H5 = H[5];
 	const double H6 = H[6], H7 = H[7], H8 = H[8];
@@ -526,13 +474,19 @@ static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, dpoint_
 	const uint64_t sh = s->height;
 	const double umin = -0.5, vmin = -0.5, umax = (double)sw + 0.5, vmax = (double)sh + 0.5;
 
+	/* hoist viewport size and clip vertical range (top-left rule) */
+	const int screen_width = screen_get_width();
+	const int screen_height = screen_get_height();
+
 	int y0 = ceil(y_top);
-	int y1 = ceil(y_bottom);
-	if (y1 <= y0) {
+	int y1 = ceil(y_bottom) - 1;
+	y0 = CLAMP(y0, 0, screen_height - 1);
+	y1 = CLAMP(y1, 0, screen_height - 1);
+	if (y1 < y0) {
 		return;
 	}
 
-	for (int y = y0; y < y1; ++y) {
+	for (int y = y0; y <= y1; ++y) {
 		double yc = (double)y + 0.5;
 
 		/* Interpolate x on each edge at this scanline (clamped) */
@@ -551,9 +505,11 @@ static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, dpoint_
 		double xL = long_is_left ? xa : xb;
 		double xR = long_is_left ? xb : xa;
 
-		/* Top-left fill rule: inclusive range [ceil(xL), ceil(xR) - 1] */
+		/* Top-left fill rule span, then horizontal clip */
 		int x0 = (int)ceil(xL);
 		int x1 = (int)ceil(xR) - 1;
+		x0 = CLAMP(x0, 0, screen_width - 1);
+		x1 = CLAMP(x1, 0, screen_width - 1);
 		if (x1 < x0) {
 			continue;
 		}
@@ -567,40 +523,38 @@ static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, dpoint_
 
 		double u_num = H0 * x_start + u_base;
 		double v_num = H3 * x_start + v_base;
-		double w     = H6 * x_start + w_base;
+		double w = H6 * x_start + w_base;
 
 		for (int x = x0; x <= x1; ++x) {
 			double u, v;
-			int have_uv = 0;
+			bool have_uv = false;
 
 			if (affine) {
 				u = u_num * invH8;
 				v = v_num * invH8;
-				have_uv = 1;
+				have_uv = true;
 			} else {
 				if (w != 0.0) {
 					double invw = 1.0 / w;
 					u = u_num * invw;
 					v = v_num * invw;
-					have_uv = 1;
+					have_uv = true;
 				}
 			}
 
-			if (have_uv) {
-				if (u >= umin && v >= vmin && u <= umax && v <= vmax) {
-					int ui = (int)(u + 0.5);
-					int vi = (int)(v + 0.5);
+			if (have_uv && u >= umin && v >= vmin && u <= umax && v <= vmax) {
+				uint64_t ui = (uint64_t)(u + 0.5);
+				uint64_t vi = (uint64_t)(v + 0.5);
 
-					if ((unsigned)ui < (unsigned)sw && (unsigned)vi < (unsigned)sh) {
-						uint32_t src = spx[vi * sw + ui];
-						if ((src & 0xff000000) == 0xff000000) {
-							uint32_t a = (src >> 24) & 0xff;
-							uint32_t r = (src >> 16) & 0xff;
-							uint32_t g = (src >> 8) & 0xff;
-							uint32_t b =  src & 0xff;
-							volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(x, y));
-							*addr = (a << 24) | (b << 16) | (g << 8) | r;
-						}
+				if (ui < sw && vi < sh) {
+					uint32_t src = spx[vi * sw + ui];
+					if ((src & 0xff000000) == 0xff000000) {
+						uint32_t a = (src >> 24) & 0xff;
+						uint32_t r = (src >> 16) & 0xff;
+						uint32_t g = (src >> 8) & 0xff;
+						uint32_t b = src & 0xff;
+						volatile uint32_t* addr = (volatile uint32_t*)(framebuffer + pixel_address(x, y));
+						*addr = (a << 24) | (b << 16) | (g << 8) | r;
 					}
 				}
 			}
@@ -614,9 +568,9 @@ static void draw_strip_projective(dpoint_t L0, dpoint_t L1, dpoint_t S0, dpoint_
 }
 
 /* Draw one triangle of the quad using the shared strip drawer twice (upper+lower). */
-static void raster_tri_projective(const dpoint_t q[4], int ia, int ib, int ic, const double H[9], const sprite_t* s, uint64_t framebuffer) {
+inline static void raster_tri_projective(const dpoint_t q[4], int ib, int ic, const double H[9], const sprite_t *s, uint64_t framebuffer) {
 	/* sort vertices by y -> v0 (top), v1 (mid), v2 (bottom) */
-	int i0 = ia;
+	int i0 = 0;
 	int i1 = ib;
 	int i2 = ic;
 
@@ -648,18 +602,18 @@ static void raster_tri_projective(const dpoint_t q[4], int ia, int ib, int ic, c
 	}
 }
 
-void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3) {
+static void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, int64_t y0, int64_t x1, int64_t y1, int64_t x2, int64_t y2, int64_t x3, int64_t y3) {
 	if (sprite_handle < 0 || sprite_handle >= MAX_SPRITES || ctx->sprites[sprite_handle] == NULL || ctx->sprites[sprite_handle]->pixels == NULL) {
 		return;
 	}
 
-	if (plot_sprite_quad_axis_aligned_int(ctx, sprite_handle, (int)x0, (int)y0, (int)x1, (int)y1, (int)x2, (int)y2, (int)x3, (int)y3)) {
+	if (plot_sprite_quad_axis_aligned_int(ctx, sprite_handle, x0, y0, x1, y1, x2, y2, x3, y3)) {
 		return;
 	}
 
-	sprite_t* s = ctx->sprites[sprite_handle];
+	sprite_t* sprite = ctx->sprites[sprite_handle];
 
-	dpoint_t q[4] = {
+	dpoint_t quad_corners[4] = {
 		{ .x = (double)x0, .y = (double)y0 },
 		{ .x = (double)x1, .y = (double)y1 },
 		{ .x = (double)x2, .y = (double)y2 },
@@ -668,35 +622,35 @@ void plot_sprite_quad(struct basic_ctx* ctx, int64_t sprite_handle, int64_t x0, 
 
 	dpoint_t tex[4] = {
 		{ .x = 0.0, .y = 0.0 },
-		{ .x = (double)s->width, .y = 0.0 },
-		{ .x = (double)s->width, .y = (double)s->height },
-		{ .x = 0.0, .y = (double)s->height },
+		{ .x = (double)sprite->width, .y = 0.0 },
+		{ .x = (double)sprite->width, .y = (double)sprite->height },
+		{ .x = 0.0, .y = (double)sprite->height },
 	};
 
 	/* Normalise winding: accept CW or CCW by flipping 1<->3 if area is negative. */
 	double area =
-		q[0].x * q[1].y - q[1].x * q[0].y +
-		q[1].x * q[2].y - q[2].x * q[1].y +
-		q[2].x * q[3].y - q[3].x * q[2].y +
-		q[3].x * q[0].y - q[0].x * q[3].y;
+		quad_corners[0].x * quad_corners[1].y - quad_corners[1].x * quad_corners[0].y +
+		quad_corners[1].x * quad_corners[2].y - quad_corners[2].x * quad_corners[1].y +
+		quad_corners[2].x * quad_corners[3].y - quad_corners[3].x * quad_corners[2].y +
+		quad_corners[3].x * quad_corners[0].y - quad_corners[0].x * quad_corners[3].y;
 
 	if (area < 0.0) {
-		dpoint_t tmp = q[1]; q[1] = q[3]; q[3] = tmp;
+		dpoint_t tmp = quad_corners[1]; quad_corners[1] = quad_corners[3]; quad_corners[3] = tmp;
 		dpoint_t ttmp = tex[1]; tex[1] = tex[3]; tex[3] = ttmp;
 	}
 
-	double H[9];
-	if (!compute_homography(q, tex, H)) {
+	double homography[9];
+	if (!compute_homography(quad_corners, tex, homography)) {
 		return;
 	}
 
 	/* Draw only the interior via two triangles */
 	uint64_t framebuffer = framebuffer_address();
-	raster_tri_projective(q, 0, 1, 2, H, s, framebuffer);
-	raster_tri_projective(q, 0, 2, 3, H, s, framebuffer);
+	raster_tri_projective(quad_corners, 1, 2, homography, sprite, framebuffer);
+	raster_tri_projective(quad_corners, 2, 3, homography, sprite, framebuffer);
 
-	double miny_d = MIN(MIN(q[0].y, q[1].y), MIN(q[2].y, q[3].y));
-	double maxy_d = MAX(MAX(q[0].y, q[1].y), MAX(q[2].y, q[3].y));
+	double miny_d = MIN(MIN(quad_corners[0].y, quad_corners[1].y), MIN(quad_corners[2].y, quad_corners[3].y));
+	double maxy_d = MAX(MAX(quad_corners[0].y, quad_corners[1].y), MAX(quad_corners[2].y, quad_corners[3].y));
 	set_video_dirty_area(floor(miny_d), ceil(maxy_d));
 }
 
