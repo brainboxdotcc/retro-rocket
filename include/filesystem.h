@@ -44,6 +44,7 @@ typedef uint64_t (*get_free_space)(void*);
 /* Prototypes for block storage device drivers (see storage_device_t) */
 typedef int (*block_read)(void*, uint64_t, uint32_t, unsigned char*);
 typedef int (*block_write)(void*, uint64_t, uint32_t, const unsigned char*);
+typedef bool (*block_clear)(void*, uint64_t, uint32_t);
 
 typedef enum fs_error_t {
 	FS_ERR_NO_ERROR = 0,
@@ -299,6 +300,11 @@ typedef struct storage_device_t {
 	block_write blockwrite;
 
 	/**
+	 * @brief Mark blocks as freed on the device
+	 */
+	block_clear blockclear;
+
+	/**
 	 * @brief The block size read and write operations.
 	 * This is usually a sector size on disk drives.
 	 */
@@ -316,6 +322,12 @@ typedef struct storage_device_t {
 	 * 
 	 */
 	void* opaque2;
+
+	/**
+	 * @brief An opaque pointer value which can be given meaning by
+	 * the storage device driver.
+	 */
+	void* opaque3;
 
 	/**
 	 * @brief User interface strings, model name, capacity, type
@@ -557,7 +569,23 @@ int fs_truncate_file(fs_directory_entry_t* file, uint32_t length);
  */
 int fs_read_file(fs_directory_entry_t* file, uint32_t start, uint32_t length, unsigned char* buffer);
 
+/**
+ * @brief Returns the free space in bytes for a path depending on the filesystem attached
+ * @param path path to return space for
+ * @return free space in bytes
+ */
 uint64_t fs_get_free_space(const char* path);
+
+/**
+ * @brief Mark blocks on a block storage as freed, as a hint to the storage device.
+ * May be sent as TRIM or other similar command.
+ * @param dev Storage device
+ * @param start Start sector
+ * @param bytes Number of bytes, must be a multiple of block size
+ * @return nonzero on success, zero on failure or not supported. Lack of support
+ * is not considered fatal.
+ */
+int storage_device_clear_blocks(void* dev, uint64_t start, uint32_t bytes);
 
 /**
  * @brief POSIX style _open function

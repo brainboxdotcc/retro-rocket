@@ -39,6 +39,26 @@ bool rfs_write_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, c
 	return write_storage_device(rfs->dev->name, volume_start + start_sectors, size_bytes, buffer);
 }
 
+bool rfs_clear_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes) {
+	const uint64_t total_sectors = rfs->total_sectors;
+	const uint64_t nsectors = size_bytes / RFS_SECTOR_SIZE;
+
+	if ((size_bytes % RFS_SECTOR_SIZE) != 0) {
+		dprintf("rfs_clear_device: size not sector-aligned\n");
+		fs_set_error(FS_ERR_OUTSIDE_VOLUME);
+		return 0;
+	}
+	if (start_sectors + nsectors > total_sectors) {
+		dprintf("rfs_clear_device: would write past end of device\n");
+		fs_set_error(FS_ERR_OUTSIDE_VOLUME);
+		return 0;
+	}
+
+	uint64_t volume_start = rfs->start;
+	return storage_device_clear_blocks(rfs->dev, volume_start + start_sectors, size_bytes);
+}
+
+
 bool rfs_locate_entry(rfs_t *info, fs_tree_t *tree, const char *name, uint64_t *out_sector, size_t *out_index, rfs_directory_entry_inner_t *out_entry_copy) {
 	if (info == NULL || tree == NULL || name == NULL || name[0] == '\0') {
 		fs_set_error(FS_ERR_INVALID_ARG);

@@ -260,6 +260,16 @@ bool rfs_read_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, vo
 bool rfs_write_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes, const void *buffer);
 
 /**
+ * @brief Hint to the storage driver that we can clear blocks on the device, e.g.
+ * TRIM or similar.
+ * @param rfs 		Filesystem context
+ * @param start_sectors Sector index (relative to the filesystem start)
+ * @param size_bytes	Number of bytes to write (must be a multiple of sector size).
+ * @return true on success, false on error or not supported
+ */
+bool rfs_clear_device(rfs_t *rfs, uint64_t start_sectors, uint64_t size_bytes);
+
+/**
  * @brief Find a contiguous extent of free sectors.
  *
  * Searches the in-memory free space map for an extent of at least

@@ -102,6 +102,7 @@ bool rfs_unlink_dir(void *dir, const char *name) {
 			uint64_t span = start_entry->sectors;
 
 			rfs_mark_extent(info, cur, span, false);
+			rfs_clear_device(info, cur, span * RFS_SECTOR_SIZE);
 
 			cur = next;
 		}

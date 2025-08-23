@@ -73,11 +73,11 @@ bool rfs_delete_directory_entry(fs_directory_entry_t *file) {
 		}
 
 		if (found_idx != (size_t) - 1) {
+
 			/* Compact: shift following entries left by one within this block, then clear the tail slot. */
 			if (found_idx < last_used) {
 				size_t move_count = last_used - found_idx;
-				memmove(&ents[found_idx], &ents[found_idx + 1],
-					move_count * sizeof(rfs_directory_entry_t));
+				memmove(&ents[found_idx], &ents[found_idx + 1], move_count * sizeof(rfs_directory_entry_t));
 			}
 
 			/* Clear the last_used slot (now duplicated or original tail). */
@@ -142,6 +142,8 @@ bool rfs_unlink_file(void *dir, const char *name) {
 		if (!rfs_mark_extent(info, on_disk.sector_start, on_disk.sector_length, false)) {
 			return false;
 		}
+		rfs_clear_device(info, on_disk.sector_start, on_disk.sector_length * RFS_SECTOR_SIZE);
+
 	}
 	return done;
 }

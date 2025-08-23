@@ -355,6 +355,20 @@ uint64_t fs_get_free_space(const char* path)
 	return dir && dir->responsible_driver && dir->responsible_driver->freespace ? dir->responsible_driver->freespace(dir) : 0;
 }
 
+
+int storage_device_clear_blocks(void* dev, uint64_t start, uint32_t bytes) {
+	storage_device_t* sd = (storage_device_t*)dev;
+	if (!sd) {
+		return 0;
+	}
+
+	if (sd->blockclear) {
+		return sd->blockclear(sd, start, bytes);
+	}
+	return 0;
+}
+
+
 int read_storage_device(const char* name, uint64_t start_block, uint32_t bytes, unsigned char* data)
 {
 	storage_device_t* cur = find_storage_device(name);

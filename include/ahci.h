@@ -261,6 +261,27 @@ typedef struct ahci_hba_cmd_tbl_t {
 	ahci_hba_prdt_entry_t prdt_entry[1];	/**< PRDT entries (0–65535, flexible array) */
 } __attribute__((packed)) ahci_hba_cmd_tbl_t;
 
+#define ATA_CMD_DATA_SET_MANAGEMENT 0x06
+
+struct ahci_trim_range {
+	uint64_t lba;      /* 48-bit used */
+	uint32_t sectors;  /* 512-byte sectors */
+};
+
+/* IDENTIFY DEVICE words of interest:
+ *  - w169 bit0: DATA SET MANAGEMENT / TRIM supported
+ *  - w69  bit14: Deterministic read after TRIM (DRAT)
+ *  - w69  bit5 : Read zeroes after TRIM (RZAT)
+ *  - w105     : Max 512B DSM parameter blocks per command (0 => 1)
+ */
+
+typedef struct {
+	bool has_trim;
+	bool drat;
+	bool rzat;
+	uint16_t max_dsm_blocks; /* 512-byte blocks; 0 => 1 */
+} ahci_trim_caps;
+
 /* ----------------------------- ATA identify offsets ----------------------------- */
 
 /** @brief ATA IDENTIFY: device type offset (bytes). */
@@ -669,6 +690,12 @@ void scsi_extract_fixed_sense(const uint8_t* buf, scsi_sense_key_t* sense_key, s
  * If REQUEST SENSE itself fails, logs a generic timeout/hardware error.
  */
 bool atapi_handle_check_condition(ahci_hba_port_t* port, ahci_hba_mem_t* abar, const char* function);
+
+bool ahci_trim_one_range(ahci_hba_port_t *port, ahci_hba_mem_t *abar, const ahci_trim_caps *caps, uint64_t lba, uint32_t sectors);
+
+ahci_trim_caps ahci_probe_trim_caps(const uint16_t *id_words);
+
+bool storage_device_ahci_block_clear(void *dev, uint64_t lba, uint32_t sectors);
 
 /* ----------------------------- Layout sanity checks ----------------------------- */
 

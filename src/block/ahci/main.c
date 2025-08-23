@@ -217,19 +217,28 @@ void probe_port(ahci_hba_mem_t *abar)
 				}
 				sd->opaque1 = i;
 				sd->opaque2 = (void*)abar;
+				sd->opaque3 = NULL;
 				sd->cache = NULL;
 				sd->blockread = storage_device_ahci_block_read;
 				sd->blockwrite = storage_device_ahci_block_write;
+				sd->blockclear = storage_device_ahci_block_clear;
 				sd->size = dt == AHCI_DEV_SATA ? ahci_read_size(&abar->ports[i], abar) : SIZE_MAX;
 				make_unique_device_name(dt == AHCI_DEV_SATA ? "hd" : "cd", sd->name, sizeof(sd->name));
 				sd->block_size = dt == AHCI_DEV_SATA ? HDD_SECTOR_SIZE : ATAPI_SECTOR_SIZE;
 				/* Build end-user label */
 				sd->ui.label[0] = 0;
 				sd->ui.is_optical = false;
+				bool has_trim = false;
 				if (dt == AHCI_DEV_SATA) {
 					uint8_t id_page[512] = {0};
 					if (ahci_identify_page(&abar->ports[i], abar, id_page)) {
 						build_sata_label(sd, id_page);
+						ahci_trim_caps* caps = kmalloc(sizeof(ahci_trim_caps));
+						if (caps) {
+							*caps = ahci_probe_trim_caps((uint16_t *) id_page);
+							sd->opaque3 = caps;
+							has_trim = caps->has_trim;
+						}
 					} else {
 						char size_str[24] = {0};
 						humanise_capacity(size_str, sizeof(size_str), sd->size * sd->block_size);
@@ -244,7 +253,7 @@ void probe_port(ahci_hba_mem_t *abar)
 						sd->ui.is_optical = true;
 					}
 				}
-				kprintf("%s storage, Port #%d: %s (%d bit)\n", dt == AHCI_DEV_SATA ? "SATA" : "ATAPI", i, sd->ui.label, ahci_hba_supports_64b(abar) ? 64 : 32);
+				kprintf("%s storage, Port #%d: %s (%d bit%s)\n", dt == AHCI_DEV_SATA ? "SATA" : "ATAPI", i, sd->ui.label, ahci_hba_supports_64b(abar) ? 64 : 32, has_trim ? ", TRIM" : "");
 				register_storage_device(sd);
 				storage_enable_cache(sd);
 			}

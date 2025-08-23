@@ -130,6 +130,7 @@ static bool rfs_extend_and_move(fs_tree_t *tree, rfs_t *info, fs_directory_entry
 	/* Free the old extent (best-effort) */
 	if (old_sectors > 0) {
 		rfs_mark_extent(info, old_start, old_sectors, false);
+		rfs_clear_device(info, old_start, old_sectors * RFS_SECTOR_SIZE);
 	}
 
 	/* Update dir entry on disk (new start + sector_length, preserve size) */

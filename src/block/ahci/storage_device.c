@@ -9,7 +9,7 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	uint32_t sectors = (bytes + sd->block_size - 1) / sd->block_size;
 	unsigned char* end = buffer + bytes;
 
-	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
+	ahci_hba_mem_t* abar = sd->opaque2;
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
 
 	const uint32_t max_per_cmd = 16;
@@ -51,6 +51,26 @@ int storage_device_ahci_block_read(void* dev, uint64_t start, uint32_t bytes, un
 	}
 }
 
+bool storage_device_ahci_block_clear(void *dev, uint64_t lba, uint32_t bytes) {
+	storage_device_t* sd = (storage_device_t*)dev;
+	if (!sd) {
+		return 0;
+	}
+
+	uint32_t sectors = (bytes + sd->block_size - 1) / sd->block_size;
+	if (sectors < 1) {
+		sectors = 1;
+	}
+
+	ahci_hba_mem_t* abar = sd->opaque2;
+	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
+	ahci_trim_caps* caps = sd->opaque3;
+	if (caps && caps->has_trim) {
+		return ahci_trim_one_range(port, abar, caps, lba, sectors) > 0;
+	}
+	return false;
+}
+
 int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, const unsigned char* buffer) {
 	storage_device_t* sd = (storage_device_t*)dev;
 	if (!sd) {
@@ -62,7 +82,7 @@ int storage_device_ahci_block_write(void* dev, uint64_t start, uint32_t bytes, c
 		sectors = 1;
 	}
 
-	ahci_hba_mem_t* abar = (ahci_hba_mem_t*)sd->opaque2;
+	ahci_hba_mem_t* abar = sd->opaque2;
 	ahci_hba_port_t* port = &abar->ports[sd->opaque1];
 
 	const uint32_t max_per_cmd = 16;
