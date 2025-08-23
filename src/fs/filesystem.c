@@ -1547,6 +1547,7 @@ void init_filesystem()
 
 fs_directory_entry_t* fs_get_items(const char* pathname)
 {
+	fs_set_error(FS_ERR_NO_ERROR);
 	fs_tree_t* item = walk_to_node(fs_tree, pathname);
 	make_vfs_path(pathname, item);
 	return (fs_directory_entry_t*)(item ? item->files : NULL);
