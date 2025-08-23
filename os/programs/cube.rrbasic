@@ -107,14 +107,14 @@ REPEAT
   min_y# = PY#(0)
   max_y# = PY#(0)
   FOR I = 1 TO 7
-    IF PX#(I) < min_x# THEN min_x# = PX#(I) - 16
-    IF PX#(I) > max_x# THEN max_x# = PX#(I) + 16
-    IF PY#(I) < min_y# THEN min_y# = PY#(I) - 16
-    IF PY#(I) > max_y# THEN max_y# = PY#(I) + 16
+    IF PX#(I) < min_x# THEN min_x# = PX#(I)
+    IF PX#(I) > max_x# THEN max_x# = PX#(I)
+    IF PY#(I) < min_y# THEN min_y# = PY#(I)
+    IF PY#(I) > max_y# THEN max_y# = PY#(I)
   NEXT
-  RECTANGLE min_x#, min_y#, max_x#, max_y#
+  RECTANGLE min_x# - 16, min_y# - 16, max_x# + 16, max_y# + 16
 
-  ANGLE# = ANGLE# + 0.03
+  ANGLE# = ANGLE# + 0.07
   SY# = SIN(ANGLE#)
   CYR# = COS(ANGLE#)
   SX# = SIN(ANGLE# * 0.7)
