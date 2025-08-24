@@ -75,6 +75,11 @@ typedef struct basic_ctx {
 	bool claimed_flip;
 
 	/**
+	 * @brief When the current SLEEP instruction will end or 0 if not sleeping
+	 */
+	int64_t sleep_until;
+
+	/**
 	 * @brief Pointer to the program's entire text (untokenized).
 	 *
 	 * This may have been processed by a preprocessing phase to remove unnecessary spacing, etc.

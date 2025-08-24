@@ -313,6 +313,47 @@ void end_statement(struct basic_ctx* ctx)
 	ctx->ended = true;
 }
 
+static bool seek_to_matching_token(struct basic_ctx* ctx, int open_tok, int close_tok, const char* name) {
+	int depth = 1;
+	int64_t line = 0;
+
+	for (;;) {
+		int tok = tokenizer_token(ctx);
+
+		if (tok == ENDOFINPUT) {
+			tokenizer_error_printf(ctx, "Unclosed %s", name);
+			return false;
+		}
+
+		if (tok == NEWLINE) {
+			tokenizer_next(ctx);
+			tok = tokenizer_token(ctx);
+			if (tok == NUMBER) {
+				/* Store the last line number we saw */
+				line = tokenizer_num(ctx, NUMBER);
+			}
+		}
+
+		if (tok == open_tok) {
+			depth++;
+			tokenizer_next(ctx);
+			continue;
+		}
+
+		if (tok == close_tok) {
+			depth--;
+			if (depth == 0) {
+				/* Jump to the last line we saw, which is the one the closing token is on */
+				jump_linenum(line, ctx);
+				return true;
+			}
+		}
+
+		tokenizer_next(ctx);
+	}
+}
+
+
 void while_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(WHILE, ctx);
@@ -333,26 +374,12 @@ void while_statement(struct basic_ctx* ctx)
 	if (!continue_loop) {
 		/* conditional is false, jump to line AFTER the ENDWHILE */
 		ctx->while_stack_ptr--;
-		bool depth = 1;
-		do {
-			int token = tokenizer_token(ctx);
-			if (token == WHILE) {
-				/* Account for other WHILE inside this one */
-				depth++;
-			} else if (token == ENDWHILE) {
-				depth--;
-				if (depth == 0) {
-					while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
-						tokenizer_next(ctx);
-					}
-					break;
-				}
-			} else if (token == ENDOFINPUT) {
-				tokenizer_error_print(ctx, "WHILE has no ENDWHILE");
-				break;
-			}
+		if (!seek_to_matching_token(ctx, WHILE, ENDWHILE, "WHILE")) {
+			return;
+		}
+		while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
 			tokenizer_next(ctx);
-		} while (true);
+		}
 	}
 }
 
@@ -364,4 +391,49 @@ void endwhile_statement(struct basic_ctx* ctx)
 	if (ctx->while_stack_ptr > 0) {
 		jump_linenum(ctx->while_stack[ctx->while_stack_ptr - 1], ctx);
 	}
+}
+
+void continue_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(CONTINUE, ctx);
+
+	int kind = tokenizer_token(ctx);
+	if (kind != WHILE && kind != FOR && kind != REPEAT) {
+		tokenizer_error_print(ctx, "CONTINUE must be followed by WHILE, FOR, or REPEAT");
+		return;
+	}
+	tokenizer_next(ctx);
+	accept_or_return(NEWLINE, ctx);
+
+	if (kind == WHILE) {
+		if (ctx->while_stack_ptr == 0) {
+			tokenizer_error_print(ctx, "CONTINUE WHILE used outside WHILE");
+			return;
+		}
+		/* Your WHILE stack points at the WHILE line itself */
+		jump_linenum(ctx->while_stack[ctx->while_stack_ptr - 1], ctx);
+		return;
+	}
+
+	if (kind == FOR) {
+		if (ctx->for_stack_ptr == 0) {
+			tokenizer_error_print(ctx, "CONTINUE FOR used outside FOR");
+			return;
+		}
+		if (!seek_to_matching_token(ctx, FOR, NEXT, "FOR")) {
+			return;
+		}
+		/* We’re now positioned on NEXT; its handler will execute next. */
+		return;
+	}
+
+	/* REPEAT */
+	if (ctx->repeat_stack_ptr == 0) {
+		tokenizer_error_print(ctx, "CONTINUE REPEAT used outside REPEAT");
+		return;
+	}
+	if (!seek_to_matching_token(ctx, REPEAT, UNTIL, "REPEAT")) {
+		return;
+	}
+	/* We’re now positioned on UNTIL; its handler will execute next. */
 }

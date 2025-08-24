@@ -151,6 +151,8 @@
     T(OFF) \
     T(WHILE) \
     T(ENDWHILE) \
+    T(SLEEP) \
+    T(CONTINUE) \
     T(KGET)
 
 GENERATE_ENUM_LIST(TOKEN, token_t)

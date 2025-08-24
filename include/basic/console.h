@@ -242,3 +242,10 @@ int64_t basic_altkey(struct basic_ctx* ctx);
  * @return A non-zero value if Caps Lock is enabled, 0 otherwise.
  */
 int64_t basic_capslock(struct basic_ctx* ctx);
+
+/**
+ * @brief Waits for a given number of seconds
+ *
+ * @param ctx The interpreter context.
+ */
+void sleep_statement(struct basic_ctx* ctx);

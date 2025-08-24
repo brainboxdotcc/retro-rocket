@@ -202,6 +202,7 @@ struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file
 	ctx->errored = false;
 	ctx->error_handler = NULL;
 	ctx->claimed_flip = false;
+	ctx->sleep_until = 0;
 	ctx->current_token = NO_TOKEN;
 	ctx->int_variables = NULL;
 	memset(ctx->sprites, 0, sizeof(ctx->sprites));
@@ -415,6 +416,7 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->if_nest_level = old->if_nest_level;
 	ctx->current_token = NO_TOKEN;
 	ctx->error_handler = old->error_handler;
+	ctx->sleep_until = old->sleep_until;
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
 	ctx->double_variables = old->double_variables;
@@ -727,6 +729,8 @@ void statement(struct basic_ctx* ctx)
 			return while_statement(ctx);
 		case ENDWHILE:
 			return endwhile_statement(ctx);
+		case CONTINUE:
+			return continue_statement(ctx);
 		case RETURN:
 			return return_statement(ctx);
 		case FOR:
@@ -828,6 +832,8 @@ void statement(struct basic_ctx* ctx)
 			return on_statement(ctx);
 		case OFF:
 			return off_statement(ctx);
+		case SLEEP:
+			return sleep_statement(ctx);
 		case NEWLINE:
 			/* Blank trailing line at end of program, ignore */
 			return;

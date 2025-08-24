@@ -211,3 +211,6 @@ void on_statement(struct basic_ctx* ctx);
 void off_statement(struct basic_ctx* ctx);
 
 void error_statement(struct basic_ctx* ctx);
+
+void continue_statement(struct basic_ctx* ctx);
+

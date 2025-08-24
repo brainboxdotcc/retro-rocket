@@ -338,3 +338,30 @@ void kget_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 	proc->state = PROC_RUNNING;
 }
+
+bool check_sleep_in_progress(process_t* proc, [[maybe_unused]] void* opaque)
+{
+	return time(NULL) < proc->code->sleep_until;
+}
+
+void sleep_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(SLEEP, ctx);
+	int64_t sleep_length = expr(ctx);
+
+	process_t* proc = proc_cur(logical_cpu_id());
+
+	if (ctx->sleep_until == 0) {
+		ctx->sleep_until = time(NULL) + sleep_length;
+		proc_set_idle(proc, check_sleep_in_progress, NULL);
+		jump_linenum(ctx->current_linenum, ctx);
+		proc->state = PROC_SUSPENDED;
+		return;
+	}
+
+	proc_set_idle(proc, NULL, NULL);
+	ctx->sleep_until = 0;
+
+	accept_or_return(NEWLINE, ctx);
+	proc->state = PROC_RUNNING;
+}
