@@ -1,0 +1,12 @@
+PRINT "START"
+N = 0
+WHILE N < 10
+    PRINT "IN OUTER WHILE, N = "; N
+    O = 0
+    WHILE O < 2
+        PRINT "IN INNER WHILE, O = "; O
+        O = O + 1
+    ENDWHILE
+    N = N + 1
+ENDWHILE
+PRINT "LOOPS DONE"

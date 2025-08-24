@@ -151,6 +151,24 @@ void repeat_statement(struct basic_ctx* ctx);
 void until_statement(struct basic_ctx* ctx);
 
 /**
+ * @brief Handles the WHILE statement in BASIC, used to start a loop.
+ *
+ * The WHILE statement starts a loop that continues until its condition is false.
+ *
+ * @param ctx The current BASIC program context.
+ */
+void while_statement(struct basic_ctx* ctx);
+
+/**
+ * @brief Handles the ENDWHILE statement in BASIC, used to end a WHILE loop.
+ *
+ * The ENDWHILE statement loops back to its corresponding WHILE loop
+ *
+ * @param ctx The current BASIC program context.
+ */
+void endwhile_statement(struct basic_ctx* ctx);
+
+/**
  * @brief Handles the ENDIF statement in BASIC, used to close an IF...THEN block.
  *
  * The ENDIF statement closes a block started with an IF statement, ending the conditional execution.

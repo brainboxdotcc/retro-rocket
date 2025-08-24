@@ -149,6 +149,18 @@ typedef struct basic_ctx {
 	uint64_t repeat_stack_ptr;
 
 	/**
+	 * @brief While stack for handling `WHILE...ENDWHILE` loop control.
+	 *
+	 * Holds the return line numbers for each level of loop nesting.
+	 */
+	uint64_t while_stack[MAX_LOOP_STACK_DEPTH];
+
+	/**
+	 * @brief Pointer indicating the current position in the repeat stack.
+	 */
+	uint64_t while_stack_ptr;
+
+	/**
 	 * @brief Previous length of the program text, used to detect an `EVAL` in progress.
 	 *
 	 * If this value is non-zero, an `EVAL` is in progress, and the program has appended

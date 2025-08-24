@@ -246,7 +246,7 @@ struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file
 	// Clean extra whitespace from the program
 	ctx->program_ptr = clean_basic(program, ctx->program_ptr);
 
-	ctx->for_stack_ptr = ctx->call_stack_ptr = ctx->repeat_stack_ptr = 0;
+	ctx->for_stack_ptr = ctx->call_stack_ptr = ctx->repeat_stack_ptr = ctx->while_stack_ptr = 0;
 	ctx->defs = NULL;
 
 	ctx->graphics_colour = 0xFFFFFF;
@@ -443,6 +443,7 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	for (i = 0; i < MAX_LOOP_STACK_DEPTH; i++) {
 		ctx->for_stack[i] = old->for_stack[i];
 		ctx->repeat_stack[i] = old->repeat_stack[i];
+		ctx->while_stack[i] = old->while_stack[i];
 	}
 
 	ctx->oldlen = old->oldlen;
@@ -451,6 +452,7 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	ctx->for_stack_ptr = old->for_stack_ptr;
 	ctx->call_stack_ptr = old->call_stack_ptr;
 	ctx->repeat_stack_ptr = old->repeat_stack_ptr;
+	ctx->while_stack_ptr = old->while_stack_ptr;
 	ctx->defs = old->defs;
 	ctx->claimed_flip = old->claimed_flip;
 	ctx->ended = false;
@@ -721,6 +723,10 @@ void statement(struct basic_ctx* ctx)
 			return repeat_statement(ctx);
 		case UNTIL:
 			return until_statement(ctx);
+		case WHILE:
+			return while_statement(ctx);
+		case ENDWHILE:
+			return endwhile_statement(ctx);
 		case RETURN:
 			return return_statement(ctx);
 		case FOR:
@@ -822,6 +828,9 @@ void statement(struct basic_ctx* ctx)
 			return on_statement(ctx);
 		case OFF:
 			return off_statement(ctx);
+		case NEWLINE:
+			/* Blank trailing line at end of program, ignore */
+			return;
 		default:
 			return tokenizer_error_print(ctx, "Unknown keyword");
 	}

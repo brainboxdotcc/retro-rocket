@@ -149,6 +149,8 @@
     T(PLOTQUAD) \
     T(ON) \
     T(OFF) \
+    T(WHILE) \
+    T(ENDWHILE) \
     T(KGET)
 
 GENERATE_ENUM_LIST(TOKEN, token_t)

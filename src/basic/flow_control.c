@@ -279,7 +279,6 @@ void repeat_statement(struct basic_ctx* ctx)
 
 }
 
-
 void until_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(UNTIL, ctx);
@@ -312,4 +311,57 @@ void end_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(END, ctx);
 	ctx->ended = true;
+}
+
+void while_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(WHILE, ctx);
+	bool continue_loop = conditional(ctx);
+	accept_or_return(NEWLINE, ctx);
+	if (ctx->while_stack_ptr > 0 && ctx->while_stack[ctx->while_stack_ptr - 1] == (uint64_t)ctx->current_linenum) {
+		/* We are already in this while loop */
+	} else if (ctx->while_stack_ptr < MAX_LOOP_STACK_DEPTH) {
+		/* First time around this while loop */
+		if (continue_loop) {
+			ctx->while_stack[ctx->while_stack_ptr] = ctx->current_linenum;
+			ctx->while_stack_ptr++;
+		}
+	} else {
+		tokenizer_error_print(ctx, "WHILE stack exhausted");
+		return;
+	}
+	if (!continue_loop) {
+		/* conditional is false, jump to line AFTER the ENDWHILE */
+		ctx->while_stack_ptr--;
+		bool depth = 1;
+		do {
+			int token = tokenizer_token(ctx);
+			if (token == WHILE) {
+				/* Account for other WHILE inside this one */
+				depth++;
+			} else if (token == ENDWHILE) {
+				depth--;
+				if (depth == 0) {
+					while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
+						tokenizer_next(ctx);
+					}
+					break;
+				}
+			} else if (token == ENDOFINPUT) {
+				tokenizer_error_print(ctx, "WHILE has no ENDWHILE");
+				break;
+			}
+			tokenizer_next(ctx);
+		} while (true);
+	}
+}
+
+void endwhile_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(ENDWHILE, ctx);
+	accept_or_return(NEWLINE, ctx);
+
+	if (ctx->while_stack_ptr > 0) {
+		jump_linenum(ctx->while_stack[ctx->while_stack_ptr - 1], ctx);
+	}
 }
