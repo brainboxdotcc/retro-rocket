@@ -64,7 +64,7 @@ rfs_t *rfs_mount_volume(const char *device_name) {
 		info->total_sectors = info->dev->size;
 		success = read_rfs_description_block(info);
 		if (success) {
-			kprintf("Found RFS volume, device %s start %lu extent %lu\n", device_name, info->start, info->length);
+			dprintf("Found RFS volume, device %s start %lu extent %lu\n", device_name, info->start, info->length);
 		}
 	} else {
 		info->start = start;
@@ -74,7 +74,7 @@ rfs_t *rfs_mount_volume(const char *device_name) {
 		if (partitionid == 0xFF) {
 			success = read_rfs_description_block(info);
 			if (success) {
-				kprintf("Found RFS GPT partition, device %s start %lu extent %lu\n", device_name, info->start, info->length);
+				dprintf("Found RFS GPT partition, device %s start %lu extent %lu\n", device_name, info->start, info->length);
 			}
 		}
 	}

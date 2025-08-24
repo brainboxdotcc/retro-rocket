@@ -187,3 +187,9 @@ void panic_statement(struct basic_ctx* ctx);
  * @return bool True if the program is inside an EVAL, false otherwise.
  */
 bool basic_in_eval(struct basic_ctx* ctx);
+
+void on_statement(struct basic_ctx* ctx);
+
+void off_statement(struct basic_ctx* ctx);
+
+void error_statement(struct basic_ctx* ctx);

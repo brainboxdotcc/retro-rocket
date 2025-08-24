@@ -191,7 +191,7 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 		ctx->local_string_variables[ctx->call_stack_ptr]
 	};
 
-	if (*value && !strcmp(var, "ERROR$")) {
+	if (*value && !strcmp(var, "ERR$")) {
 		error_set = true;
 	}
 
@@ -225,10 +225,10 @@ void basic_set_string_variable(const char* var, const char* value, struct basic_
 		for (; cur; cur = cur->next) {
 			if (len == cur->name_length && !strcmp(var, cur->varname))	{
 				if (error_set && *cur->value) {
-					/* If ERROR$ is set, can't change it except to empty */
+					/* If ERR$ is set, can't change it except to empty */
 					return;
 				} else if (error_set) {
-					dprintf("Set ERROR$ to: '%s'\n", value);
+					dprintf("Set ERR$ to: '%s'\n", value);
 				}
 				buddy_free(ctx->allocator, cur->value);
 				cur->value = buddy_strdup(ctx->allocator, value);
@@ -531,10 +531,10 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 		struct ub_var_int* prev = NULL;
 		while (cur) {
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
-				/* If ERROR is read, it resets its value */
+				/* If ERR is read, it resets its value */
 				int64_t v = cur->value;
-				if (len == 5 && !strcmp(var, "ERROR")) {
-					basic_set_int_variable("ERROR", 0, ctx, false, false);
+				if (len == 5 && !strcmp(var, "ERR")) {
+					basic_set_int_variable("ERR", 0, ctx, false, false);
 				}
 
 				/* move-to-front optimisation */

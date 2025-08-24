@@ -354,6 +354,13 @@ bool key_waiting()
 	return (buffer_read_ptr < buffer_write_ptr);
 }
 
+unsigned char kpeek() {
+	if (buffer_read_ptr >= buffer_write_ptr) {
+		return 255;
+	}
+
+	return keyboard_buffer[buffer_read_ptr];
+}
 
 unsigned char kgetc()
 {

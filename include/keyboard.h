@@ -93,6 +93,16 @@ void init_keyboard();
  */
 unsigned char kgetc();
 
+
+/**
+ * @brief Checks the next key in the keyboard buffer.
+ *
+ * @param cons Current console (unused, reserved for future use).
+ * @return ASCII character or extended key constant,
+ *         or 255 if no input is available.
+ */
+unsigned char kpeek();
+
 /**
  * @brief Tests if the CTRL key is currently held down.
  *

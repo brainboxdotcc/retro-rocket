@@ -53,6 +53,7 @@ const int keywords[] = {
 	ENDPROC,
 	EOF,
 	EOR,
+	ERROR,
 	EVAL,
 	FLIP,
 	FOR,
@@ -72,6 +73,8 @@ const int keywords[] = {
 	MOUNT,
 	NEXT,
 	NOT,
+	OFF,
+	ON,
 	OPENIN,
 	OPENOUT,
 	OPENUP,
@@ -161,12 +164,12 @@ int get_next_token(struct basic_ctx* ctx)
 						return HEXNUMBER;
 					} else {
 						tokenizer_error_print(ctx, "Hexadecimal number too short");
-						return ERROR;
+						return NO_TOKEN;
 					}
 				}
 				if (!isxdigit(ctx->ptr[i])) {
 					tokenizer_error_print(ctx, "Malformed hexadecimal number");
-					return ERROR;
+					return NO_TOKEN;
 				}
 			}
 		} else {
@@ -179,17 +182,17 @@ int get_next_token(struct basic_ctx* ctx)
 						return NUMBER;
 					} else {
 						tokenizer_error_print(ctx, "Number too short");
-						return ERROR;
+						return NO_TOKEN;
 					}
 				}
 				if (!isdigit(ctx->ptr[i]) && ctx->ptr[i] != '.') {
 					tokenizer_error_print(ctx, "Malformed number");
-					return ERROR;
+					return NO_TOKEN;
 				}
 			}
 		}
 		tokenizer_error_print(ctx, "Number too long");
-		return ERROR;
+		return NO_TOKEN;
 	} else if (singlechar(ctx)) {
 		ctx->nextptr = ctx->ptr + 1;
 		return singlechar(ctx);
@@ -269,7 +272,7 @@ int get_next_token(struct basic_ctx* ctx)
 	}
 
 	
-	return ERROR;
+	return NO_TOKEN;
 }
 
 void tokenizer_init(const char *program, struct basic_ctx* ctx)
@@ -349,11 +352,44 @@ void tokenizer_error_printf(struct basic_ctx* ctx, const char* fmt, ...)
 
 void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 {
-	basic_set_string_variable("ERROR$", error, ctx, false, false);
-	basic_set_int_variable("ERROR", 1, ctx, false, false);
-	basic_set_int_variable("ERRORLINE", ctx->current_linenum, ctx, false, false);
+	dprintf("tokenizer_error_print: %s\n", error);
+	basic_set_string_variable("ERR$", error, ctx, false, false);
+	basic_set_int_variable("ERR", 1, ctx, false, false);
+	basic_set_int_variable("ERRLINE", ctx->current_linenum, ctx, false, false);
 	if (ctx->eval_linenum == 0) {
 		if (ctx->ended == 0) {
+			if (ctx->error_handler) {
+				struct ub_proc_fn_def* def = basic_find_fn(ctx->error_handler, ctx);
+				if (def && ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
+					buddy_free(ctx->allocator, ctx->error_handler);
+					ctx->error_handler = NULL;
+					ctx->call_stack_ptr++;
+					init_local_heap(ctx);
+					ctx->call_stack_ptr--;
+					ctx->fn_type = RT_NONE;
+					/*Move to next line */
+					while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
+						tokenizer_next(ctx);
+					}
+					accept_or_return(NEWLINE, ctx);
+					/* Return point is the line after the error */
+					ctx->call_stack[ctx->call_stack_ptr] = tokenizer_num(ctx, NUMBER);
+					ctx->call_stack_ptr++;
+					if (!jump_linenum(def->line, ctx)) {
+						setforeground(COLOUR_LIGHTRED);
+						kprintf("Error on line %ld: Unable to call error handler 'PROC%s', missing line %lu\n", ctx->current_linenum, ctx->error_handler, def->line);
+						setforeground(COLOUR_WHITE);
+						ctx->ended = true;
+						return;
+					}
+					return;
+				} else {
+					setforeground(COLOUR_LIGHTRED);
+					kprintf("Error on line %ld: Unable to call error handler 'PROC%s'\n", ctx->current_linenum, ctx->error_handler);
+					setforeground(COLOUR_WHITE);
+					ctx->ended = true;
+				}
+			}
 			if (ctx->claimed_flip) {
 				set_video_auto_flip(true);
 			}

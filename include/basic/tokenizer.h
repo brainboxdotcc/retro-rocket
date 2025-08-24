@@ -48,6 +48,7 @@
  * enum, which is built and used within basic.c for tokenization.
  */
 #define TOKEN(T) \
+    T(NO_TOKEN) \
     T(ERROR) \
     T(ENDOFINPUT) \
     T(NUMBER) \
@@ -146,6 +147,8 @@
     T(SETTIMEZONE) \
     T(ENDIF) \
     T(PLOTQUAD) \
+    T(ON) \
+    T(OFF) \
     T(KGET)
 
 GENERATE_ENUM_LIST(TOKEN, token_t)
@@ -225,7 +228,7 @@ int tokenizer_finished(struct basic_ctx* ctx);
 /**
  * @brief display an error to the terminal and end the program
  * @note If the program is running an EVAL, the error is printed
- * but the program is not ended, instead ERROR$ and ERROR are set.
+ * but the program is not ended, instead ERR$ and ERR are set.
  *
  * @param ctx context
  * @param error error message
@@ -235,7 +238,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error);
 /**
  * @brief display an error to the terminal and end the program
  * @note If the program is running an EVAL, the error is printed
- * but the program is not ended, instead ERROR$ and ERROR are set.
+ * but the program is not ended, instead ERR$ and ERROR are set.
  *
  * @param ctx context
  * @param error error message

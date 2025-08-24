@@ -129,7 +129,7 @@ void tcp_free(tcp_conn_t* conn)
 uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, size_t len)
 {
 	int array_size = len + sizeof(tcp_ip_pseudo_header_t);
-	tcp_ip_pseudo_header_t* pseudo = kmalloc(array_size * 2);
+	tcp_ip_pseudo_header_t pseudo[array_size * 2];
 	array_size += (array_size % 2); // Ensure buffer is even-aligned
 	memset(pseudo, 0, array_size * 2);
 	pseudo->dst = *((uint32_t*)&packet->dst_ip);
@@ -153,7 +153,6 @@ uint16_t tcp_calculate_checksum(ip_packet_t* packet, tcp_segment_t* segment, siz
 	sum += (sum >> 16);
 
 	add_random_entropy(sum ^ (uint64_t)pseudo);
-	kfree_null(&pseudo);
 	return ~sum;
 }
 
@@ -291,7 +290,7 @@ tcp_conn_t* tcp_send_segment(tcp_conn_t *conn, uint32_t seq, uint8_t flags, cons
 	ip_packet_t encap;
 	tcp_options_t options = { .mss = flags & TCP_SYN ? 1460 : 0 };
 	uint16_t length = sizeof(tcp_segment_t) + count + (flags & TCP_SYN ? 4 : 0);
-	tcp_segment_t * packet = kmalloc(length);
+	tcp_segment_t* packet = kmalloc(length);
 
 	memset(packet, 0, length);
 	packet->src_port = conn->local_port;

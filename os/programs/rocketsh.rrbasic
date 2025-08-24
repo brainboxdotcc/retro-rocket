@@ -1,12 +1,14 @@
 REM *** Retro Rocket BASIC Shell ***
 LIBRARY LIB$ + "/ansi"
 
+ON ERROR PROCerrorHandler
+
 PROCEdInit(TRUE)
 
 REM System variables
 PROMPT$ = "ROCKETSH"
 PATH$ = "/programs"
-VERSION$ = "2.0"
+VERSION$ = "3.0"
 
 REM Welcome message
 PRINT ""
@@ -70,6 +72,17 @@ DEF PROCbuiltins
 	IF command$ = "version" THEN PROCversion
 ENDPROC
 
+DEF PROCerrorHandler
+    COLOUR 12
+    PRINT ""
+    PRINT ERR$
+    PRINT ""
+    COLOUR 7
+    key$ = CHR$(27)
+    EDStartInputY = EDStartInputY + 1
+    ON ERROR PROCerrorHandler
+ENDPROC
+
 REM display version information
 DEF PROCversion
 	PRINT "┌─────────────────────────────────────────────────────┐"
@@ -80,7 +93,7 @@ DEF PROCversion
 	PRINT "Retro Rocket Shell version "; VERSION$; "             │"
 	PRINT "├─────────────────────────────────────────────────────┤"
 	PRINT "│ Licensed under the Apache 2.0 License.              │"
-	PRINT "│ (C) Craig Edwards, Brainbox.cc 2012-"; YEAR(FALSE) ;"            │"
+	PRINT "│ (C) Craig Edwards, Brainbox.cc 2012-"; YEAR(TRUE) ;"            │"
 	PRINT "└─────────────────────────────────────────────────────┘"
 	builtin = TRUE
 ENDPROC

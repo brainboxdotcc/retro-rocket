@@ -1,0 +1,17 @@
+IF ARGS$ = "" THEN
+    PRINT "Syntax: mount <pathname> <device> [filesystem-type]"
+    PRINT ""
+    PRINT "If not specified, the filesytem-type defaults to rfs."
+    END
+ENDIF
+PATH$ = TOKENIZE$(ARGS$, " ")
+DEVICE$ = TOKENIZE$(ARGS$, " ")
+FSTYPE$ = TOKENIZE$(ARGS$, " ")
+IF FSTYPE$ = "" THEN FSTYPE$ = "rfs"
+ISDIR = TRUE
+IF FILETYPE$(PATH$) <> "directory" THEN ISDIR = FALSE
+IF ISDIR = FALSE THEN
+    PRINT "Specified path is not a directory"
+    END
+ENDIF
+MOUNT PATH$, DEVICE$, FSTYPE$

@@ -58,6 +58,52 @@ void else_statement(struct basic_ctx* ctx)
 	tokenizer_error_print(ctx, "Block IF/THEN/ELSE without ENDIF");
 }
 
+void on_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(ON, ctx);
+	accept_or_return(ERROR, ctx);
+	if (tokenizer_token(ctx) == OFF) {
+		accept_or_return(OFF, ctx);
+		buddy_free(ctx->allocator, ctx->error_handler);
+		ctx->error_handler = NULL;
+	} else if (tokenizer_token(ctx) == PROC) {
+		char procname[MAX_STRINGLEN];
+		accept_or_return(PROC, ctx);
+		char* p = procname;
+		size_t procnamelen = 0;
+		while (*ctx->ptr != '\n' && *ctx->ptr != 0 && procnamelen < MAX_STRINGLEN - 1) {
+			if (*ctx->ptr != ' ') {
+				*(p++) = *(ctx->ptr++);
+			}
+			procnamelen++;
+		}
+		*p++ = 0;
+		if (!basic_find_fn(procname, ctx)) {
+			tokenizer_error_printf(ctx, "ON ERROR: No such procedure PROC%s", procname);
+			return;
+		}
+		accept_or_return(VARIABLE, ctx);
+		ctx->error_handler = buddy_strdup(ctx->allocator, procname);
+	} else if (tokenizer_token(ctx) == GOTO || tokenizer_token(ctx) == GOSUB) {
+		tokenizer_error_print(ctx, "ON ERROR GOTO and ON ERROR GOSUB are deprecated. Use ON ERROR PROC");
+	} else {
+		tokenizer_error_print(ctx, "Expected PROC or OFF");
+	}
+}
+
+void off_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(OFF, ctx);
+	tokenizer_error_print(ctx, "OFF without ON ERROR");
+}
+
+void error_statement(struct basic_ctx* ctx)
+{
+	accept_or_return(ERROR, ctx);
+	const char* message = str_expr(ctx);
+	tokenizer_error_print(ctx, message);
+}
+
 void if_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(IF, ctx);

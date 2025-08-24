@@ -200,8 +200,9 @@ struct basic_ctx* basic_init(const char *program, uint32_t pid, const char* file
 	ctx->debug_breakpoint_count = 0;
 	ctx->if_nest_level = 0;
 	ctx->errored = false;
+	ctx->error_handler = NULL;
 	ctx->claimed_flip = false;
-	ctx->current_token = ERROR;
+	ctx->current_token = NO_TOKEN;
 	ctx->int_variables = NULL;
 	memset(ctx->sprites, 0, sizeof(ctx->sprites));
 	ctx->str_variables = NULL;
@@ -412,7 +413,8 @@ struct basic_ctx* basic_clone(struct basic_ctx* old)
 	int i;
 
 	ctx->if_nest_level = old->if_nest_level;
-	ctx->current_token = ERROR;
+	ctx->current_token = NO_TOKEN;
+	ctx->error_handler = old->error_handler;
 	ctx->int_variables = old->int_variables;
 	ctx->str_variables = old->str_variables;
 	ctx->double_variables = old->double_variables;
@@ -600,8 +602,8 @@ void eval_statement(struct basic_ctx* ctx)
 
 	if (basic_in_eval(ctx)) {
 		ctx->eval_linenum = 0;
-		basic_set_string_variable("ERROR$", "Recursive EVAL", ctx, false, false);
-		basic_set_int_variable("ERROR", 1, ctx, false, false);
+		basic_set_string_variable("ERR$", "Recursive EVAL", ctx, false, false);
+		basic_set_int_variable("ERR", 1, ctx, false, false);
 		setforeground(COLOUR_LIGHTRED);
 		kprintf("Recursive EVAL\n");
 		setforeground(COLOUR_WHITE);
@@ -617,8 +619,8 @@ void eval_statement(struct basic_ctx* ctx)
 	}
 
 	if (ctx->oldlen == 0) {
-		basic_set_string_variable("ERROR$", "", ctx, false, false);
-		basic_set_int_variable("ERROR", 0, ctx, false, false);
+		basic_set_string_variable("ERR$", "", ctx, false, false);
+		basic_set_int_variable("ERR", 0, ctx, false, false);
 		ctx->oldlen = strlen(ctx->program_ptr);
 		/* If program doesn't end in newline, add one */
 		char last = ctx->program_ptr[strlen(ctx->program_ptr) - 2];
@@ -814,6 +816,12 @@ void statement(struct basic_ctx* ctx)
 			return let_statement(ctx, false, true);
 		case EQUALS:
 			return eq_statement(ctx);
+		case ERROR:
+			return error_statement(ctx);
+		case ON:
+			return on_statement(ctx);
+		case OFF:
+			return off_statement(ctx);
 		default:
 			return tokenizer_error_print(ctx, "Unknown keyword");
 	}
@@ -821,12 +829,13 @@ void statement(struct basic_ctx* ctx)
 
 void line_statement(struct basic_ctx* ctx)
 {
-	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
-	accept_or_return(NUMBER, ctx);
 	if (tokenizer_token(ctx) == NEWLINE) {
 		/* Empty line! */
+		accept(NEWLINE, ctx);
 		return;
 	}
+	ctx->current_linenum = tokenizer_num(ctx, NUMBER);
+	accept_or_return(NUMBER, ctx);
 	statement(ctx);
 }
 
@@ -834,6 +843,11 @@ void basic_run(struct basic_ctx* ctx)
 {
 	if (basic_finished(ctx)) {
 		return;
+	}
+	/* TODO Make sure this only runs for foreground processes! */
+	if (kpeek() == 27 && ctrl_held() && !ctx->errored) {
+		(void)kgetc();
+		tokenizer_error_print(ctx, "Escape");
 	}
 	line_statement(ctx);
 	if (ctx->errored) {

@@ -111,15 +111,15 @@ fat32_t* fat32_mount_volume(const char* device_name)
 		info->length = sd->size * sd->block_size;
 		success = read_fat(info);
 		if (success) {
-			kprintf("Found FAT32 volume, device %s\n", device_name);
+			dprintf("Found FAT32 volume, device %s\n", device_name);
 		}
 	} else {
 		info->start = start;
 		info->length = length * sd->block_size;
 		if (info->partitionid != 0xFF) {
-			kprintf("Found FAT32 partition, device %s, MBR partition %d\n", device_name, info->partitionid + 1);
+			dprintf("Found FAT32 partition, device %s, MBR partition %d\n", device_name, info->partitionid + 1);
 		} else {
-			kprintf("Found FAT32 partition, device %s, GPT partition %s\n", device_name, found_guid);
+			dprintf("Found FAT32 partition, device %s, GPT partition %s\n", device_name, found_guid);
 		}
 		success = read_fat(info);
 	}

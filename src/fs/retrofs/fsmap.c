@@ -697,7 +697,7 @@ bool rfs_build_level_caches(rfs_t *info) {
 		dprintf("rfs_build_level_caches: OOM cache slab (%lu bytes)\n", total_bytes);
 		return false;
 	}
-	kprintf("rfs_build_level_caches: cache slab %lu bytes\n", total_bytes);
+	dprintf("rfs_build_level_caches: cache slab %lu bytes\n", total_bytes);
 
 	/* Publish owning pointer for later teardown */
 	info->cache_block = block;

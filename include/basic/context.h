@@ -60,6 +60,14 @@ typedef struct basic_ctx {
 	bool ended;
 
 	/**
+	 * @brief If non-null, points at the error handling procedure
+	 * for the program. In the event of an error, instead of terminating the program,
+	 * the error handling procedure is called instead. After the error is handled,
+	 * the line after the error is executed.
+	 */
+	const char* error_handler;
+
+	/**
 	 * @brief True if the program has "claimed flipping".
 	 *
 	 * This is relevant to the internal state of the program's execution.
