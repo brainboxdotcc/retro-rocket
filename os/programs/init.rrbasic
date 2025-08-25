@@ -1,4 +1,4 @@
-GLOBAL LIB$ = "/programs/libraries"
+GLOBAL LIB$ = "/programs/libraries" ' Default library path
 
 PRINT "Mounting ";
 COLOR 14
@@ -6,9 +6,8 @@ PRINT "filesystems";
 COLOR 7
 PRINT "..."
 
-MOUNT "/devices", "", "devfs"
+MOUNT "/devices", "", "devfs" ' Mount filesystems
 MOUNT "/boot", "hd0", "fat32"
-REM MOUNT "/harddisk", "hd0", "rfs"
 
 KEYMAP "qemu"
 

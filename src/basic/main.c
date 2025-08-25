@@ -54,6 +54,11 @@ char* clean_basic(const char* program, char* output_buffer)
 			bracket_depth++;
 		} else if (*p == ')' && !in_quotes) {
 			bracket_depth--;
+		} else if (*p == '\'' && bracket_depth == 0 && !in_quotes) {
+			/* If we see ' then skip it and anything after it to the end of the line or end of program */
+			while (*p && *p != '\r' && *p != '\n') {
+				p++;
+			}
 		}
 		if (!in_quotes && bracket_depth > 0) {
 			if (*p != ' ') {
