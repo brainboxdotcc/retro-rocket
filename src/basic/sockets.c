@@ -16,6 +16,9 @@
  */
 bool check_sockread_ready(process_t* proc, void* ptr) {
 	int64_t fd = (int64_t)(uintptr_t)ptr;
+	if (kpeek() == 27 && ctrl_held()) {
+		return false;
+	}
 	return !sock_ready_to_read((int)fd);
 }
 

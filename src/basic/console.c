@@ -70,6 +70,9 @@ int64_t basic_capslock(struct basic_ctx* ctx)
  */
 bool check_input_in_progress(process_t* proc, void* opaque)
 {
+	if (kpeek() == 27 && ctrl_held()) {
+		return false;
+	}
 	return kinput(10240) == 0;
 }
 
@@ -341,6 +344,9 @@ void kget_statement(struct basic_ctx* ctx)
 
 bool check_sleep_in_progress(process_t* proc, [[maybe_unused]] void* opaque)
 {
+	if (kpeek() == 27 && ctrl_held()) {
+		return false;
+	}
 	return time(NULL) < proc->code->sleep_until;
 }
 
