@@ -68,6 +68,7 @@ REM handle builtin commands
 DEF PROCbuiltins
 	IF command$ = "chdir" THEN PROCbuiltinChdir
 	IF command$ = "cd" THEN PROCbuiltinChdir
+	IF command$ = "up" THEN PROCbuiltinUp
 	IF command$ = "run" THEN PROCbuiltinRun
 	IF command$ = "version" THEN PROCversion
 ENDPROC
@@ -101,6 +102,19 @@ ENDPROC
 REM change directory
 DEF PROCbuiltinChdir
 	EVAL "CHDIR " + CHR$(34) + ARGS$ + CHR$(34)
+	builtin = TRUE
+ENDPROC
+
+DEF PROCbuiltinUp
+    dir$ = CSD$
+    up$ = ""
+    REPEAT
+        next$ = TOKENIZE$(dir$, "/")
+        FULL$ = up$ + "/" + next$
+        IF next$ <> "" THEN IF CSD$ <> FULL$ THEN up$ = FULL$
+    UNTIL dir$ = ""
+    IF up$ = "" THEN up$ = "/"
+	EVAL "CHDIR " + CHR$(34) + up$ + CHR$(34)
 	builtin = TRUE
 ENDPROC
 
