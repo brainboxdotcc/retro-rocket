@@ -249,3 +249,5 @@ int64_t basic_capslock(struct basic_ctx* ctx);
  * @param ctx The interpreter context.
  */
 void sleep_statement(struct basic_ctx* ctx);
+
+bool basic_esc();

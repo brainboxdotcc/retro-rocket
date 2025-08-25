@@ -854,13 +854,17 @@ void line_statement(struct basic_ctx* ctx)
 	statement(ctx);
 }
 
+bool basic_esc() {
+	return (kpeek() == 27 && ctrl_held());
+}
+
 void basic_run(struct basic_ctx* ctx)
 {
 	if (basic_finished(ctx)) {
 		return;
 	}
 	/* TODO Make sure this only runs for foreground processes! */
-	if (kpeek() == 27 && ctrl_held() && !ctx->errored) {
+	if (basic_esc() && !ctx->errored) {
 		(void)kgetc();
 		tokenizer_error_print(ctx, "Escape");
 	}
