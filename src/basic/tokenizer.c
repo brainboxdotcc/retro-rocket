@@ -399,6 +399,22 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			}
 			setforeground(COLOUR_LIGHTRED);
 			kprintf("Error on line %ld: %s\n", ctx->current_linenum, error);
+			setforeground(COLOUR_DARKRED);
+			ub_line_ref* line = hashmap_get(ctx->lines, &(ub_line_ref){ .line_number = ctx->current_linenum });
+			if (line) {
+				char l[MAX_STRINGLEN];
+				char* p = strchr(line->ptr, '\n');
+				strlcpy(l, line->ptr, p ? p - line->ptr + 1 : strlen(line->ptr));
+				size_t offset = ctx->ptr - line->ptr;
+				if (offset > strlen(l)) {
+					offset = 0;
+				}
+				kprintf("%s\n", l);
+				for (size_t x = 0; x < offset - 1; ++x) {
+					put(' ');
+				}
+				kprintf("^\n");
+			}
 			setforeground(COLOUR_WHITE);
 			ctx->ended = true;
 		}

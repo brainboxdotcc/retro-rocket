@@ -13,13 +13,13 @@ bool conditional(struct basic_ctx* ctx)
 	strlcpy(current_line, ctx->ptr, pos ? pos - ctx->ptr + 1 : end - ctx->ptr + 1);
 	for (char* n = current_line; *n && *n != '\n'; ++n) {
 		if (strlen(n) >= 2 && isalnum(*n) && *(n + 1) == '$') {
-			stringlike = true; /* String variable */
+			stringlike = true; // String variable
 			break;
 		} else if (strlen(n) >= 2 && isalnum(*n) && *(n + 1) == '#') {
-			real = true; /* Real variable */
+			real = true; // Real variable
 			break;
 		} else if (strlen(n) >= 3 && isdigit(*n) && *(n + 1) == '.' && isdigit(*(n + 2))) {
-			real = true; /* Decimal number */
+			real = true; // Decimal number
 			break;
 		} else if (strlen(n) >= 5 && *n == ' ' && *(n + 1) == 'T' && *(n + 2) == 'H' && *(n + 3) == 'E' && *(n + 4) == 'N') {
 			break;
@@ -47,13 +47,10 @@ void else_statement(struct basic_ctx* ctx)
 	 */
 	accept_or_return(ELSE, ctx);
 	accept_or_return(NEWLINE, ctx);
-	while (tokenizer_token(ctx) != END && !tokenizer_finished(ctx)) {
+	while (tokenizer_token(ctx) != ENDIF && !tokenizer_finished(ctx)) {
 		tokenizer_next(ctx);
-		if (*ctx->ptr == 'I' && *(ctx->ptr+1) == 'F') {
-			accept_or_return(IF, ctx);
-			accept_or_return(NEWLINE, ctx);
-			return;
-		}
+		accept_or_return(NEWLINE, ctx);
+		return;
 	}
 	tokenizer_error_print(ctx, "Block IF/THEN/ELSE without ENDIF");
 }

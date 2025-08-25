@@ -1,0 +1,18 @@
+d$ = ARGS$
+
+IF d$ = "/" THEN
+    parent$ = "/"
+ELSE
+    i = LEN(d$)
+    WHILE i > 1 AND MID$(d$, i, 1) <> "/"
+        i = i - 1
+    ENDWHILE
+
+    IF i <= 1 THEN
+        parent$ = "/"
+    ELSE
+        parent$ = LEFT$(d$, i - 1)
+    ENDIF
+ENDIF
+
+PRINT parent$
