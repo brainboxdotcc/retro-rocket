@@ -700,8 +700,6 @@ void statement(struct basic_ctx* ctx)
 			return restore_statement(ctx);
 		case CLOSE:
 			return close_statement(ctx);
-		case EOF:
-			return eof_statement(ctx);
 		case PRINT:
 			return print_statement(ctx);
 		case PROC:

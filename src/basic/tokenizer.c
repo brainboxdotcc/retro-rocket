@@ -53,7 +53,6 @@ const int keywords[] = {
 	ENDIF,
 	ENDPROC,
 	ENDWHILE,
-	EOF,
 	EOR,
 	ERROR,
 	EVAL,

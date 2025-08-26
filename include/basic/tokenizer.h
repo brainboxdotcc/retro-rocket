@@ -76,7 +76,6 @@
     T(BACKGROUND) \
     T(EVAL) \
     T(CLOSE) \
-    T(EOF) \
     T(DEF) \
     T(PROC) \
     T(ENDPROC) \
