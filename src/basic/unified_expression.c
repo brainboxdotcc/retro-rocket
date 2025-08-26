@@ -176,7 +176,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			return v;
 		}
 		default:
-			dprintf(ctx, "Expected expression, current token: %d", tok);
+			dprintf("Expected expression, current token: %d", tok);
 			tokenizer_error_print(ctx, "Expected expression");
 			/* Do not advance; return a benign zero to recover */
 			return up_make_int(0);
