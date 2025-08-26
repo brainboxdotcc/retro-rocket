@@ -83,20 +83,6 @@ static up_value up_term(struct basic_ctx *ctx);
 
 static up_value up_factor(struct basic_ctx *ctx);
 
-/* Unsuffixed real-returning built-ins to treat as REAL.
- */
-static inline int up_is_real_func(const char *name) {
-	static const char *const real_funcs[] = {
-		"ACS", "ASN", "ATAN", "ATAN2", "CEIL", "COS", "DEG", "EXP", "FMOD",
-		"GETVARR", "LOG", "POW", "RAD", "REALVAL", "ROUND", "SIN", "SQRT", "TAN",
-		0
-	};
-	for (const char *const *p = real_funcs; *p; ++p) {
-		if (strcmp(name, *p) == 0) return 1;
-	}
-	return 0;
-}
-
 /* ---------- Factor ---------- */
 /* factor := NUMBER | HEXNUMBER | STRING | VARIABLE | '(' expr ')' */
 static up_value up_factor(struct basic_ctx *ctx) {
@@ -160,7 +146,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 				return up_make_real(d);
 			}
 
-			if (up_is_real_func(name)) {
+			if (is_builtin_double_fn(name)) {
 				/* Unsuffixed builtin known to return REAL (fast name check) */
 				double d = 0.0;
 				basic_get_numeric_variable(name, ctx, &d);
@@ -190,7 +176,8 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			return v;
 		}
 		default:
-			tokenizer_error_printf(ctx, "Expected expression, current token: %d", tok);
+			dprintf(ctx, "Expected expression, current token: %d", tok);
+			tokenizer_error_print(ctx, "Expected expression");
 			/* Do not advance; return a benign zero to recover */
 			return up_make_int(0);
 	}
