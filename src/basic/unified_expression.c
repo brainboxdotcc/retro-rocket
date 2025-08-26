@@ -8,40 +8,26 @@
  */
 
 #include <kernel.h>
+#include "basic/unified_expression.h"
 
 /* ---------- Typed value ---------- */
 
-typedef enum {
-	UP_INT,
-	UP_REAL,
-	UP_STR
-} up_kind;
-
-typedef struct {
-	up_kind kind;
-	union {
-		int64_t i;
-		double r;
-		const char *s;
-	} v;
-} up_value;
-
 /* Constructors */
-static inline up_value up_make_int(int64_t x) {
+up_value up_make_int(int64_t x) {
 	up_value v;
 	v.kind = UP_INT;
 	v.v.i = x;
 	return v;
 }
 
-static inline up_value up_make_real(double x) {
+up_value up_make_real(double x) {
 	up_value v;
 	v.kind = UP_REAL;
 	v.v.r = x;
 	return v;
 }
 
-static inline up_value up_make_str(const char *s) {
+up_value up_make_str(const char *s) {
 	up_value v;
 	v.kind = UP_STR;
 	v.v.s = s;
@@ -77,10 +63,10 @@ static inline int up_truth(const up_value *v) {
 
 /* ---------- Forward decls ---------- */
 
-static up_value up_value_expr(struct basic_ctx *ctx);   /* + / - / * / / / MOD and string + */
+static up_value up_value_expr(struct basic_ctx *ctx);   /* + / - and string + (above term) */
 static up_value up_relation_expr(struct basic_ctx *ctx);/* typed relation: returns UP_INT(0/1) */
 static up_value up_term(struct basic_ctx *ctx);
-
+static up_value up_unary(struct basic_ctx *ctx);        /* { + | - }* factor */
 static up_value up_factor(struct basic_ctx *ctx);
 
 /* ---------- Factor ---------- */
@@ -125,11 +111,11 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			if (L && name[L - 1] == '$') {
 				/* String var / string builtin (e.g. MID$) */
 				const char *s = basic_get_string_variable(name, ctx);
-				/* Match your varfactor accept pattern */
 				if (tokenizer_token(ctx) == CLOSEBRACKET) {
 					accept(CLOSEBRACKET, ctx);
+				} else {
+					accept(VARIABLE, ctx);
 				}
-				else { accept(VARIABLE, ctx); }
 				return up_make_str(s ? s : "");
 			}
 
@@ -147,7 +133,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			}
 
 			if (is_builtin_double_fn(name)) {
-				/* Unsuffixed builtin known to return REAL (fast name check) */
+				/* Unsuffixed builtin known to return REAL */
 				double d = 0.0;
 				basic_get_numeric_variable(name, ctx, &d);
 				if (tokenizer_token(ctx) == COMMA) {
@@ -183,17 +169,59 @@ static up_value up_factor(struct basic_ctx *ctx) {
 	}
 }
 
+/* ---------- Unary ---------- */
+/* unary := { PLUS | MINUS }* factor
+ * Handles numeric negation/positivation; strings are not allowed.
+ */
+static up_value up_unary(struct basic_ctx *ctx)
+{
+	int negate = 0;
+	bool saw_sign = false;
+
+	while (1) {
+		int t = tokenizer_token(ctx);
+		if (t == PLUS) {
+			saw_sign = true;
+			tokenizer_next(ctx);
+			continue;
+		}
+		if (t == MINUS) {
+			saw_sign = true;
+			negate ^= 1;        /* flip on each '-' */
+			tokenizer_next(ctx);
+			continue;
+		}
+		break;
+	}
+
+	up_value v = up_factor(ctx);
+
+	if (saw_sign) {
+		/* Unary +/- applied - only valid for numeric. */
+		if (v.kind == UP_STR) {
+			tokenizer_error_print(ctx, "Unary +/- on string");
+			/* recover with zero */
+			return up_make_int(0);
+		}
+		if (negate) {
+			if (v.kind == UP_REAL) v.v.r = -v.v.r;
+			else                   v.v.i = -v.v.i;
+		}
+	}
+	return v;
+}
+
 /* ---------- Term ---------- */
-/* term := factor { (* | / | MOD) factor } */
+/* term := unary { (* | / | MOD) unary } */
 static up_value up_term(struct basic_ctx *ctx) {
-	up_value acc = up_factor(ctx);
+	up_value acc = up_unary(ctx);
 
 	for (;;) {
 		int op = tokenizer_token(ctx);
 		if (op != ASTERISK && op != SLASH && op != MOD) break;
 
 		tokenizer_next(ctx);
-		up_value rhs = up_factor(ctx);
+		up_value rhs = up_unary(ctx);
 
 		/* Only numeric for * / MOD */
 		if (acc.kind == UP_STR || rhs.kind == UP_STR) {
@@ -465,4 +493,12 @@ const char *up_str_expr_strict(struct basic_ctx *ctx)
 int64_t up_relation_i(struct basic_ctx *ctx) {
 	up_value b = up_relation_expr(ctx);
 	return (b.kind == UP_INT) ? b.v.i : up_truth(&b);
+}
+
+void up_eval_value(struct basic_ctx *ctx, up_value *out)
+{
+	if (!out) {
+		return;
+	}
+	*out = up_value_expr(ctx);
 }

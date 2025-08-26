@@ -47,7 +47,7 @@ int ahci_classify_error(ahci_hba_port_t* port) {
 
 	if ((is & HBA_PxIS_TFES) != 0) {
 		if (sig == SATA_SIG_ATAPI) {
-			/* ATAPI: CHECK CONDITION — higher layer should REQUEST SENSE. */
+			/* ATAPI: CHECK CONDITION - higher layer should REQUEST SENSE. */
 			return FS_ERR_ATAPI_CHECK;
 		}
 

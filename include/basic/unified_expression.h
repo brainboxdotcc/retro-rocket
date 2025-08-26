@@ -1,6 +1,3 @@
-#pragma once
-#include <kernel.h>
-
 /**
  * @file unified_expression.h
  * @brief Typed expression and conditional entry points for the unified parser.
@@ -11,41 +8,91 @@
  * integer, real, and string expressions.
  *
  * ### Tokeniser interaction
- * - **Parentheses**: content inside `(` … `)` is parsed as a relation-aware
- *   expression so forms such as `(in<128)` are valid in IF/WHILE.
- * - **String literals**: obtained via `tokenizer_string(...)`. No subsequent
- *   `accept(STRING)` is performed; the tokeniser already advances to lookahead.
+ * - **Parentheses**: content inside `(` .. `)` is parsed as a relation-aware
+ *   expression, so forms such as `(in<128)` are valid in IF/WHILE.
+ * - **String literals**: obtained via `tokenizer_string(...)` and then
+ *   `accept(STRING)`; the tokeniser produces the literal and we consume it.
  * - **Variables and built-ins**:
- *   - Names ending with `$` → STRING.
- *   - Names ending with `#` → REAL.
- *   - Unsuffixed names → INT, *except* for a temporary whitelist of known
- *     real-returning built-ins (implemented in the `.c` file):
- *     `ACS, ASN, ATAN, ATAN2, CEIL, COS, DEG, EXP, FMOD, GETVARR, LOG, POW,
- *      RAD, REALVAL, ROUND, SIN, SQRT, TAN`.
+ *   - Names ending with `$` - STRING.
+ *   - Names ending with `#` - REAL.
+ *   - Unsuffixed names default to INT *unless* the core marks them as real
+ *     built-ins (queried via the interpreter’s registry, e.g.
+ *     `is_builtin_double_fn(name)`).
  *
- * ### Operators
+ * ### Operators and precedence
+ * - **Unary**: leading `+` / `-` bind **tighter** than `* / MOD`.
+ *   Applies to numeric values only (e.g. `A--3`, `-(2+3)`, `-SIN(ANGLE#)`).
  * - **Arithmetic**: `+ - * / MOD`
- *   - Numeric arithmetic; `+` concatenates when both operands are strings.
- *   - Mixed string/numeric on `+` or `-` is an error. `MOD` requires integers.
- *   - Division by zero emits a kernel-style error. INT+REAL promotes to REAL.
- * - **Bitwise**: `AND OR EOR`
- *   - Numeric only; REAL operands are cast to `int64_t`; strings are an error.
+ *   - Numeric arithmetic; `+` concatenates when **both** operands are strings.
+ *   - Mixing string and numeric with `+`/`-` is an error. `MOD` requires INTs.
+ *   - INT↔REAL promotes to REAL; division by zero reports a runtime error.
  * - **Relational**: `< > = <= >= <>`
  *   - Numeric comparisons promote INT↔REAL. String comparisons use `strcmp`.
  *   - Result is INT 0/1.
- * - **Boolean precedence (conditionals)**: `NOT` > `AND` > `OR`, left-associative.
+ * - **Boolean (conditionals)**: `NOT` > `AND` > `OR`, all left-associative.
  *
  * ### Consumption and stop conditions
- * - `up_conditional()` stops before `THEN` / `NEWLINE` / `EOF` / `')'`. `THEN`
- *   is not consumed; statement parsers should continue to `accept(THEN, ctx)`.
+ * - `up_conditional()` stops before `THEN` / `NEWLINE` / `EOF` / `')'`.
+ *   The caller should `accept(THEN, ctx)` if required.
+ * - `up_eval_value()` parses one value expression and **leaves** list
+ *   separators (`,` / `;`), `THEN`, `NEWLINE`, and `EOF` untouched for the
+ *   enclosing statement (e.g. `PRINT`, `INPUT`) to handle.
  *
  * ### String lifetime
- * - String results are duplicated with the GC (`gc_strdup`) to match existing
- *   `str_expr` behaviour.
- *
- * @note The temporary real-builtin whitelist can be replaced by a descriptor
- *       table (name → return type) without API changes.
+ * - String results returned by expression evaluation are duplicated via the
+ *   GC (`gc_strdup`) to match historic `str_expr` behaviour.
  */
+
+#pragma once
+#include <kernel.h>
+
+/**
+ * @enum up_kind
+ * @brief Discriminant for a typed value produced by the unified evaluator.
+ *
+ * Enumerates the runtime kind carried by an ::up_value.
+ */
+typedef enum {
+	/** 64-bit signed integer value. */
+	UP_INT,
+	/** IEEE-754 double-precision real value. */
+	UP_REAL,
+	/** NUL-terminated string pointer. */
+	UP_STR
+} up_kind;
+
+/**
+ * @struct up_value
+ * @brief Discriminated union carrying a typed expression result.
+ *
+ * Represents one value returned by the unified expression evaluator.
+ * The active member of the union is indicated by ::up_value::kind.
+ *
+ * @var up_value::kind
+ *   Tag identifying the active member in ::up_value::v.
+ *
+ * @var up_value::v
+ *   Anonymous union holding the underlying value.
+ *
+ * @var up_value::v::i
+ *   64-bit signed integer; valid when ::up_value::kind is ::UP_INT.
+ *
+ * @var up_value::v::r
+ *   Double-precision real; valid when ::up_value::kind is ::UP_REAL.
+ *
+ * @var up_value::v::s
+ *   Pointer to a NUL-terminated string; valid when ::up_value::kind is ::UP_STR.
+ *   Ownership/lifetime is external to this struct (typically GC-managed).
+ */
+typedef struct {
+	up_kind kind;
+	union {
+		int64_t    i;
+		double     r;
+		const char *s;
+	} v;
+} up_value;
+
 
 /**
  * @brief Evaluate a BASIC conditional (boolean) expression.
@@ -75,7 +122,7 @@ bool up_conditional(struct basic_ctx *ctx);
 int64_t up_relation_i(struct basic_ctx *ctx);
 
 /* ------------------------------------------------------------------------- */
-/* Strict shims — drop-in replacements for legacy int/real/string expr APIs. */
+/* Strict shims - drop-in replacements for legacy int/real/string expr APIs. */
 /* ------------------------------------------------------------------------- */
 
 /**
@@ -110,3 +157,55 @@ void up_double_expr_strict(struct basic_ctx *ctx, double *out);
  * @return Non-NULL GC-managed string pointer.
  */
 const char* up_str_expr_strict(struct basic_ctx *ctx);
+
+/**
+ * @brief Construct a typed value holding an integer.
+ *
+ * @param x  Signed 64-bit integer to store.
+ * @return   up_value tagged as UP_INT with @p x in the integer field.
+ *
+ * @note No allocation is performed.
+ */
+up_value up_make_int(int64_t x);
+
+/**
+ * @brief Construct a typed value holding a real (double).
+ *
+ * @param x  Double to store.
+ * @return   up_value tagged as UP_REAL with @p x in the real field.
+ *
+ * @note No allocation is performed.
+ */
+up_value up_make_real(double x);
+
+/**
+ * @brief Construct a typed value holding a string pointer.
+ *
+ * @param s  Pointer to NUL-terminated string to store (may be NULL).
+ * @return   up_value tagged as UP_STR with @p s in the string field.
+ *
+ * @note The pointer is stored as-is; lifetime/ownership of @p s must be
+ *       managed by the caller (typically GC-allocated in this interpreter).
+ *       No copy is made here.
+ */
+up_value up_make_str(const char *s);
+
+/**
+ * @brief Evaluate a single value expression and return its typed result.
+ *
+ * Parses one expression using the unified evaluator and writes the result to
+ * @p out without coercion (the kind will be UP_INT, UP_REAL, or UP_STR).
+ *
+ * @param ctx  BASIC interpreter context; @c ctx->ptr must point at the start
+ *             of the expression to evaluate.
+ * @param[out] out  Receives the typed result of the evaluation.
+ *
+ * @post On return, @c ctx->ptr is positioned at the first token not consumed
+ *       by the expression. In particular, list separators (','/';'), THEN,
+ *       NEWLINE, and ENDOFINPUT are left untouched for the caller to handle.
+ *
+ * @note Errors encountered during evaluation are reported via the existing
+ *       error machinery (e.g. @c tokenizer_error_print) and reflected in
+ *       @c ctx->errored; this function does not throw or longjmp.
+ */
+void up_eval_value(struct basic_ctx *ctx, up_value *out);

@@ -123,3 +123,13 @@ int64_t basic_get_program_cur_mem(struct basic_ctx* ctx);
  * @return The state of the process (e.g., "running", "suspended", "waiting").
  */
 char* basic_getprocstate(struct basic_ctx* ctx);
+
+void chain_statement(struct basic_ctx* ctx);
+
+void rem_statement(struct basic_ctx* ctx);
+
+void eval_statement(struct basic_ctx* ctx);
+
+void goto_statement(struct basic_ctx* ctx);
+
+void yield_statement(struct basic_ctx* ctx);

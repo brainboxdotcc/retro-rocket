@@ -54,7 +54,7 @@ typedef enum scsi_additional_sense_code_qualifier_t {
 	SCSI_ASCQ_ANY			= 0xFF, /* Wildcard */
 } scsi_additional_sense_code_qualifier_t;
 
-/* INQUIRY(6) — 6 bytes */
+/* INQUIRY(6) - 6 bytes */
 typedef struct __attribute__((packed)) scsi_cdb_inquiry6 {
 	uint8_t  opcode;       /* 0x12 */
 	uint8_t  evpd;         /* bit0 = EVPD */
@@ -64,7 +64,7 @@ typedef struct __attribute__((packed)) scsi_cdb_inquiry6 {
 	uint8_t  control;      /* 0 */
 } scsi_cdb_inquiry6;
 
-/* READ(12) — 12 bytes; LBA and transfer length are big-endian */
+/* READ(12) - 12 bytes; LBA and transfer length are big-endian */
 typedef struct __attribute__((packed)) scsi_cdb_read12 {
 	uint8_t  opcode;       /* 0xA8 */
 	uint8_t  flags;        /* DPO/FUA/etc */
@@ -74,7 +74,7 @@ typedef struct __attribute__((packed)) scsi_cdb_read12 {
 	uint8_t  control;      /* 0 */
 } scsi_cdb_read12;
 
-/* TEST UNIT READY (6) — opcode 0x00 */
+/* TEST UNIT READY (6) - opcode 0x00 */
 typedef struct __attribute__((packed)) scsi_cdb_test_unit_ready6 {
 	uint8_t opcode;      /* 0x00 */
 	uint8_t rsv1;
@@ -84,7 +84,7 @@ typedef struct __attribute__((packed)) scsi_cdb_test_unit_ready6 {
 	uint8_t control;
 } scsi_cdb_test_unit_ready6;
 
-/* REQUEST SENSE (6) — opcode 0x03 */
+/* REQUEST SENSE (6) - opcode 0x03 */
 typedef struct __attribute__((packed)) scsi_cdb_request_sense6 {
 	uint8_t opcode;      /* 0x03 */
 	uint8_t desc;        /* bit0 = DESC; usually 0 */
@@ -94,7 +94,7 @@ typedef struct __attribute__((packed)) scsi_cdb_request_sense6 {
 	uint8_t control;
 } scsi_cdb_request_sense6;
 
-/* START STOP UNIT (6) — opcode 0x1B */
+/* START STOP UNIT (6) - opcode 0x1B */
 typedef struct __attribute__((packed)) scsi_cdb_start_stop_unit6 {
 	uint8_t opcode;      /* 0x1B */
 	uint8_t immed;       /* bit0 IMMED */
@@ -104,7 +104,7 @@ typedef struct __attribute__((packed)) scsi_cdb_start_stop_unit6 {
 	uint8_t control;
 } scsi_cdb_start_stop_unit6;
 
-/* PREVENT/ALLOW MEDIUM REMOVAL (6) — opcode 0x1E */
+/* PREVENT/ALLOW MEDIUM REMOVAL (6) - opcode 0x1E */
 typedef struct __attribute__((packed)) scsi_cdb_prevent_allow6 {
 	uint8_t opcode;      /* 0x1E */
 	uint8_t rsv1;
@@ -114,7 +114,7 @@ typedef struct __attribute__((packed)) scsi_cdb_prevent_allow6 {
 	uint8_t control;
 } scsi_cdb_prevent_allow6;
 
-/* SYNCHRONIZE CACHE (10) — opcode 0x35 */
+/* SYNCHRONIZE CACHE (10) - opcode 0x35 */
 typedef struct __attribute__((packed)) scsi_cdb_synchronize_cache10 {
 	uint8_t  opcode;     /* 0x35 */
 	uint8_t  flags;      /* e.g. SYNC NV; usually 0 */
@@ -124,7 +124,7 @@ typedef struct __attribute__((packed)) scsi_cdb_synchronize_cache10 {
 	uint8_t  control;
 } scsi_cdb_synchronize_cache10;
 
-/* MODE SENSE (10) — opcode 0x5A */
+/* MODE SENSE (10) - opcode 0x5A */
 typedef struct __attribute__((packed)) scsi_cdb_mode_sense10 {
 	uint8_t  opcode;         /* 0x5A */
 	uint8_t  dbd;            /* bit3 DBD; often set to 1 */
@@ -136,7 +136,7 @@ typedef struct __attribute__((packed)) scsi_cdb_mode_sense10 {
 	uint8_t  control;
 } scsi_cdb_mode_sense10;
 
-/* READ(16)/WRITE(16) — opcodes 0x88 / 0x8A */
+/* READ(16)/WRITE(16) - opcodes 0x88 / 0x8A */
 typedef struct __attribute__((packed)) scsi_cdb_rw16 {
 	uint8_t  opcode;     /* 0x88 READ(16) or 0x8A WRITE(16) */
 	uint8_t  flags;      /* DPO/FUA/etc; 0 if unused */

@@ -3,6 +3,7 @@
  * @brief BASIC console IO functions
  */
 #include <kernel.h>
+#include "basic/unified_expression.h"
 
 extern spinlock_t console_spinlock;
 extern spinlock_t debug_console_spinlock;
@@ -176,71 +177,77 @@ void background_statement(struct basic_ctx* ctx)
 char* printable_syntax(struct basic_ctx* ctx)
 {
 	int numprints = 0;
-	int no_newline = 0;
-	int next_hex = 0;
+	bool no_newline = false;
+	bool next_hex = false;
 	char buffer[MAX_STRINGLEN], out[MAX_STRINGLEN];
-	
+
 	*out = 0;
 
 	do {
-		no_newline = 0;
+		bool handled = false;
+		no_newline = false;
 		*buffer = 0;
-		if (tokenizer_token(ctx) == STRING) {
-			if (tokenizer_string(ctx->string, sizeof(ctx->string), ctx)) {
-				snprintf(buffer, MAX_STRINGLEN, "%s", ctx->string);
-				strlcat(out, buffer, MAX_STRINGLEN);
-			} else {
-				tokenizer_error_print(ctx, "Unterminated \"");
-				return NULL;
-			}
-			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == COMMA) {
-			strlcat(out, "\t", MAX_STRINGLEN);
-			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == SEMICOLON) {
-			no_newline = 1;
-			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == TILDE) {
-			next_hex = 1;
-			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == PLUS) {
-			tokenizer_next(ctx);
-		} else if (tokenizer_token(ctx) == OPENBRACKET || tokenizer_token(ctx) == VARIABLE || tokenizer_token(ctx) == NUMBER || tokenizer_token(ctx) == HEXNUMBER) {
-			/* Check if it's a string or numeric expression */
-			const char* oldctx = ctx->ptr;
-			if (tokenizer_token(ctx) != NUMBER && tokenizer_token(ctx) != HEXNUMBER && (*ctx->ptr == '"' || strchr(tokenizer_variable_name(ctx), '$'))) {
-				ctx->ptr = oldctx;
-				strlcpy(buffer, str_expr(ctx), MAX_STRINGLEN);
-				strlcat(out, buffer, MAX_STRINGLEN);
-			} else {
-				ctx->ptr = oldctx;
-				const char* var_name = tokenizer_variable_name(ctx);
-				ctx->ptr = oldctx;
-				bool printable_double = (strchr(var_name, '#') != NULL || is_builtin_double_fn(var_name) || tokenizer_decimal_number(ctx));
-				if (printable_double) {
-					double f = 0.0;
-					char double_buffer[32];
-					ctx->ptr = oldctx;
-					double_expr(ctx, &f);
-					strlcat(buffer, double_to_string(f, double_buffer, 32, 0), MAX_STRINGLEN);
-				} else {
-					ctx->ptr = oldctx;
-					snprintf(buffer, MAX_STRINGLEN, next_hex ? "%lX" : "%ld", expr(ctx));
+
+		switch (tokenizer_token(ctx)) {
+			case COMMA:
+				strlcat(out, "\t", MAX_STRINGLEN);
+				tokenizer_next(ctx);
+				handled = true;
+				break;
+
+			case SEMICOLON:
+				no_newline = 1;
+				tokenizer_next(ctx);
+				handled = true;
+				break;
+
+			case TILDE: /* next value in hex */
+				next_hex = 1;
+				tokenizer_next(ctx);
+				handled = true;
+				break;
+
+			default: {
+				/* Expression (string or numeric) - let the unified parser decide. */
+				up_value v = up_make_int(0);
+				up_eval_value(ctx, &v);  /* <- unified typed evaluator */
+
+				if (v.kind == UP_STR) {
+					/* Strings: append as-is */
+					strlcat(out, v.v.s ? v.v.s : "", MAX_STRINGLEN);
+				} else if (v.kind == UP_REAL) {
+					/* Reals: standard formatter */
+					char dbuf[32];
+					strlcat(buffer, double_to_string(v.v.r, dbuf, sizeof dbuf, 0), MAX_STRINGLEN);
+					strlcat(out, buffer, MAX_STRINGLEN);
+				} else { /* UP_INT */
+					/* Integers: optional hex via ~, otherwise decimal */
+					if (next_hex) {
+						snprintf(buffer, MAX_STRINGLEN, "%lX", (long)v.v.i);
+					} else {
+						snprintf(buffer, MAX_STRINGLEN, "%ld", (long)v.v.i);
+					}
+					strlcat(out, buffer, MAX_STRINGLEN);
 				}
-				strlcat(out, buffer, MAX_STRINGLEN);
-				next_hex = 0;
+				next_hex = false;
+				handled = true;
 			}
-		} else {
 			break;
 		}
+
+		if (!handled) {
+			/* No valid argument/token to process. */
+			break;
+		}
+
 		numprints++;
-	}
-  	while(tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT && numprints < 255);
-  
+	} while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT && numprints < 255);
+
 	if (!no_newline) {
 		strlcat(out, "\n", MAX_STRINGLEN);
 	}
 
+	/* consume line end or EOF sentinel */
 	tokenizer_next(ctx);
 
 	if (ctx->errored) {
