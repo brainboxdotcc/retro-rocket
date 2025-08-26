@@ -75,8 +75,6 @@
     T(COLOR) \
     T(BACKGROUND) \
     T(EVAL) \
-    T(OPENIN) \
-    T(READ) \
     T(CLOSE) \
     T(EOF) \
     T(DEF) \
@@ -116,8 +114,6 @@
     T(RECTANGLE) \
     T(CIRCLE) \
     T(POINT) \
-    T(OPENOUT) \
-    T(OPENUP) \
     T(DATA) \
     T(RESTORE) \
     T(WRITE) \

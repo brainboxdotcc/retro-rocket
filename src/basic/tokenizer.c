@@ -77,9 +77,6 @@ const int keywords[] = {
 	NOT,
 	OFF,
 	ON,
-	OPENIN,
-	OPENOUT,
-	OPENUP,
 	OR,
 	PLOT,
 	PLOTQUAD,
@@ -88,7 +85,6 @@ const int keywords[] = {
 	PRINT,
 	PROC,
 	PUSH,
-	READ,
 	RECTANGLE,
 	REDIM,
 	REM,
@@ -407,9 +403,10 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 				strlcpy(l, line->ptr, p ? p - line->ptr + 1 : strlen(line->ptr));
 				size_t offset = ctx->ptr - line->ptr;
 				if (offset > strlen(l)) {
-					offset = 0;
+					offset = 1;
 				}
 				kprintf("%s\n", l);
+				dprintf("offset=%lu\n", offset);
 				for (size_t x = 0; x < offset - 1; ++x) {
 					put(' ');
 				}

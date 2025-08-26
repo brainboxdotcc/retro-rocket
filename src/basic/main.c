@@ -694,14 +694,6 @@ void statement(struct basic_ctx* ctx)
 			return chain_statement(ctx);
 		case EVAL:
 			return eval_statement(ctx);
-		case OPENIN:
-			return openin_statement(ctx);
-		case OPENOUT:
-			return openout_statement(ctx);
-		case OPENUP:
-			return openup_statement(ctx);
-		case READ:
-			return read_statement(ctx);
 		case DATA:
 			return data_statement(ctx);
 		case RESTORE:

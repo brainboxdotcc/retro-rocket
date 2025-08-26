@@ -3,7 +3,13 @@
  * @brief BASIC foow control functions (loops, conditionals, if/then/else etc)
  */
 #include <kernel.h>
+#include "basic/unified_expression.h"
 
+bool conditional(struct basic_ctx* ctx) {
+	return up_conditional(ctx);
+}
+
+/*
 bool conditional(struct basic_ctx* ctx)
 {
 	char current_line[MAX_STRINGLEN];
@@ -39,6 +45,7 @@ bool conditional(struct basic_ctx* ctx)
 	}
 	return r;
 }
+*/
 
 void else_statement(struct basic_ctx* ctx)
 {
@@ -49,10 +56,12 @@ void else_statement(struct basic_ctx* ctx)
 	accept_or_return(NEWLINE, ctx);
 	while (tokenizer_token(ctx) != ENDIF && !tokenizer_finished(ctx)) {
 		tokenizer_next(ctx);
-		accept_or_return(NEWLINE, ctx);
-		return;
 	}
-	tokenizer_error_print(ctx, "Block IF/THEN/ELSE without ENDIF");
+	if (tokenizer_finished(ctx)) {
+		tokenizer_error_print(ctx, "Block IF/THEN/ELSE without ENDIF");
+	}
+	accept_or_return(ENDIF, ctx);
+	accept_or_return(NEWLINE, ctx);
 }
 
 void on_statement(struct basic_ctx* ctx)
