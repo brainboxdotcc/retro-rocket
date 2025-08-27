@@ -111,6 +111,11 @@ typedef struct basic_ctx {
 	char string[MAX_STRINGLEN];
 
 	/**
+	 * Return types of the call stack
+	 */
+	ub_return_type fn_type_stack[MAX_CALL_STACK_DEPTH];
+
+	/**
 	 * @brief Local integer variable stack for function/procedure scopes.
 	 *
 	 * Each index in this array corresponds to a specific depth in the call stack.

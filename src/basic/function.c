@@ -222,6 +222,14 @@ const char* basic_eval_str_fn(const char* fn_name, struct basic_ctx* ctx)
 			rv = gc_strdup(ctx, (const char*)atomic->fn_return);
 		}
 
+		/* Copy list heads back (int/str/double).
+		 * Move-to-front inside atomic may change them,
+		 * so resync here. Do not free: caller owns.
+		 */
+		ctx->int_variables    = atomic->int_variables;
+		ctx->str_variables    = atomic->str_variables;
+		ctx->double_variables = atomic->double_variables;
+
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
 
@@ -297,7 +305,6 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 		while (extract_comma_list(def, ctx));
 		struct basic_ctx* atomic = basic_clone(ctx);
 		atomic->fn_type = RT_INT;
-		dprintf("Function eval, jump to line %ld\n", def->line);
 		jump_linenum(def->line, atomic);
 
 		while (!basic_finished(atomic)) {
@@ -306,13 +313,20 @@ int64_t basic_eval_int_fn(const char* fn_name, struct basic_ctx* ctx)
 				ctx->errored = true;
 				break;
 			}
-
 		}
 		if (atomic->fn_return == NULL) {
 			tokenizer_error_print(ctx, "End of function without returning value");
 		} else {
 			rv = (int64_t)atomic->fn_return;
 		}
+
+		/* Copy list heads back (int/str/double).
+		 * Move-to-front inside atomic may change them,
+		 * so resync here. Do not free: caller owns.
+		 */
+		ctx->int_variables    = atomic->int_variables;
+		ctx->str_variables    = atomic->str_variables;
+		ctx->double_variables = atomic->double_variables;
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -350,6 +364,14 @@ void basic_eval_double_fn(const char* fn_name, struct basic_ctx* ctx, double* re
 		} else {
 			*res = *((double*)atomic->fn_return);
 		}
+
+		/* Copy list heads back (int/str/double).
+		 * Move-to-front inside atomic may change them,
+		 * so resync here. Do not free: caller owns.
+		 */
+		ctx->int_variables    = atomic->int_variables;
+		ctx->str_variables    = atomic->str_variables;
+		ctx->double_variables = atomic->double_variables;
 
 		/* Only free the base struct! */
 		buddy_free(ctx->allocator, atomic);
@@ -542,6 +564,8 @@ void proc_statement(struct basic_ctx* ctx)
 			init_local_heap(ctx);
 			ctx->call_stack_ptr--;
 		}
+
+		ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
 		ctx->fn_type = RT_NONE;
 
 		while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
@@ -567,7 +591,7 @@ void def_statement(struct basic_ctx* ctx)
 	// Because the function or procedure definition is pre-parsed by basic_init(),
 	// we just skip the entire line moving to the next if we hit a DEF statement.
 	// in the future we should check if the interpreter is actually calling a FN,
-	// to check we dont fall through into a function.
+	// to check we don't fall through into a function.
 	accept_or_return(DEF, ctx);
 	while (*ctx->nextptr && *ctx->nextptr != '\n') ctx->nextptr++;
 	tokenizer_next(ctx);
@@ -579,18 +603,19 @@ void eq_statement(struct basic_ctx* ctx)
 	accept_or_return(EQUALS, ctx);
 
 	if (ctx->fn_type == RT_STRING) {
-		const char* e = str_expr(ctx);
-		ctx->fn_return = (void*)e;
+		ctx->fn_return = (void*)str_expr(ctx);
 	} else if (ctx->fn_type == RT_FLOAT) {
 		double_expr(ctx, (void*)&ctx->fn_return);
-	} else if (ctx->fn_type == RT_INT)  {
+	} else if (ctx->fn_type == RT_INT) {
 		ctx->fn_return = (void*)expr(ctx);
-	} else if (ctx->fn_type == RT_NONE)  {
+	} else if (ctx->fn_type == RT_NONE) {
 		tokenizer_error_print(ctx, "Can't return a value from a PROC");
 		return;
+	} else {
+		dprintf("EQ statement: fn type??? %d\n", ctx->fn_type);
 	}
 
-	accept_or_return(NEWLINE, ctx);
+	//accept_or_return(NEWLINE, ctx);
 
 	ctx->ended = true;
 }
@@ -599,17 +624,24 @@ void endproc_statement(struct basic_ctx* ctx)
 {
 	accept_or_return(ENDPROC, ctx);
 	accept_or_return(NEWLINE, ctx);
-	if (ctx->fn_type != RT_NONE && ctx->fn_type != RT_MAIN)  {
+
+	/* Validate the *current* frame: ENDPROC is only legal in a PROC body. */
+	if (ctx->fn_type != RT_NONE && ctx->fn_type != RT_MAIN) {
 		tokenizer_error_print(ctx, "Can't ENDPROC from a FN");
 		return;
 	}
-	ctx->fn_type = RT_MAIN;
+
 	if (ctx->call_stack_ptr > 0) {
 		free_local_heap(ctx);
 		ctx->call_stack_ptr--;
+
+		/* Now restore the *caller*'s return type. */
+		ctx->fn_type = ctx->fn_type_stack[ctx->call_stack_ptr];
+
 		jump_linenum(ctx->call_stack[ctx->call_stack_ptr], ctx);
 	} else {
 		tokenizer_error_print(ctx, "ENDPROC when not inside PROC");
 	}
 }
+
 

@@ -365,6 +365,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 					ctx->call_stack_ptr++;
 					init_local_heap(ctx);
 					ctx->call_stack_ptr--;
+					ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
 					ctx->fn_type = RT_NONE;
 					/*Move to next line */
 					while (tokenizer_token(ctx) != NEWLINE && tokenizer_token(ctx) != ENDOFINPUT) {
@@ -392,6 +393,7 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 			if (ctx->claimed_flip) {
 				set_video_auto_flip(true);
 			}
+			ctx->ended = true;
 			setforeground(COLOUR_LIGHTRED);
 			kprintf("Error on line %ld: %s\n", ctx->current_linenum, error);
 			setforeground(COLOUR_DARKRED);
@@ -412,7 +414,6 @@ void tokenizer_error_print(struct basic_ctx* ctx, const char* error)
 				kprintf("^\n");
 			}
 			setforeground(COLOUR_WHITE);
-			ctx->ended = true;
 		}
 	} else {
 		if (!ctx->errored) {

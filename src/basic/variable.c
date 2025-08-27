@@ -533,15 +533,15 @@ int64_t basic_get_int_variable(const char* var, struct basic_ctx* ctx)
 			if (len == cur->name_length && !strcmp(var, cur->varname)) {
 				/* If ERR is read, it resets its value */
 				int64_t v = cur->value;
-				if (len == 5 && !strcmp(var, "ERR")) {
+				if (len == 3 && !strcmp(var, "ERR")) {
 					basic_set_int_variable("ERR", 0, ctx, false, false);
 				}
 
 				/* move-to-front optimisation */
 				if (prev) {
-					/* unlink */
+					// unlink
 					prev->next = cur->next;
-					/* relink at head */
+					// relink at head
 					if (j == 0) {
 						cur->next = ctx->int_variables;
 						ctx->int_variables = cur;

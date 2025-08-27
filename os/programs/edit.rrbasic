@@ -6,6 +6,8 @@ currentx = 0
 currenty = 0
 dirty = FALSE
 DIM content$, max
+lastfind$ = ""
+
 
 REM load file, draw UI, start editor input loop
 PROCload(ARGS$)
@@ -204,10 +206,62 @@ DEF PROCsaveError
 	UNTIL INKEY$ > ""
 ENDPROC
 
-REM text search
 DEF PROCsearch
 	PROCprompt("Search text")
 	INPUT find$
+	IF find$ <> "" THEN lastfind$ = find$
+	IF lastfind$ = "" THEN
+	    PROCendPrompt
+	    ENDPROC
+	ENDIF
+	PROCdoFind(lastfind$)
+ENDPROC
+
+REM forward find from cursor, wraps once
+DEF PROCdoFind(needle$)
+	start_line = top + currenty
+	start_col = currentx + 1
+
+	IF FNscanFrom(start_line, start_col, needle$) = TRUE THEN
+	    PROCendPrompt
+	    ENDPROC
+	ENDIF
+
+	IF FNscanFrom(0, 0, needle$) = TRUE THEN
+	    PROCendPrompt
+	    ENDPROC
+	ENDIF
+
+	PROCprompt("Not found. Press any key")
+	REPEAT
+	UNTIL INKEY$ <> ""
+	PROCendPrompt
+ENDPROC
+
+REM scan lines using INSTR; positions are 0-based like MID$
+DEF FNscanFrom(line_from, col_from, needle$)
+	FOR L = line_from TO lines - 1
+		hay$ = content$(L)
+		pos = INSTR(hay$, needle$)
+		IF pos >= 0 THEN
+		    PROCmoveCursorToHit(L, pos)
+            =TRUE
+        ENDIF
+	NEXT
+=FALSE
+
+REM place cursor on L,pos and bring into view
+DEF PROCmoveCursorToHit(L, pos)
+	REM set top so that L is visible
+	win_top = top
+	win_bot = top + TERMHEIGHT - 3
+	IF L < win_top THEN top = L
+	IF L > win_bot THEN top = L - (TERMHEIGHT - 3)
+	IF top < 0 THEN top = 0
+	currenty = L - top
+	currentx = pos
+	IF currentx > (TERMWIDTH - 1) THEN currentx = TERMWIDTH - 1
+    PROCtext
 ENDPROC
 
 REM search and replace

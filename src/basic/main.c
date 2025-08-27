@@ -179,6 +179,7 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 	ctx->double_array_variables = NULL;
 	ctx->oldlen = 0;
 	ctx->fn_return = NULL;
+	memset(ctx->fn_type_stack, 0, sizeof(ctx->fn_type_stack));
 	memset(ctx->local_int_variables, NULL, sizeof(ctx->local_int_variables));
 	memset(ctx->local_string_variables, NULL, sizeof(ctx->local_string_variables));
 	memset(ctx->local_double_variables, NULL, sizeof(ctx->local_double_variables));
@@ -350,6 +351,7 @@ void library_statement(struct basic_ctx *ctx) {
 		dprintf("Calling initialisation constructor '%s' on line %ld with return to line %ld\n", file_info->filename, def->line, next_line);
 		if (ctx->call_stack_ptr < MAX_CALL_STACK_DEPTH) {
 			ctx->call_stack[ctx->call_stack_ptr] = next_line;
+			ctx->fn_type_stack[ctx->call_stack_ptr] = ctx->fn_type; // save caller’s type
 			ctx->call_stack_ptr++;
 			init_local_heap(ctx);
 			ctx->fn_type = RT_NONE;
@@ -388,6 +390,7 @@ struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	ctx->allocator = old->allocator;
 
 	memcpy(ctx->sprites, old->sprites, sizeof(ctx->sprites));
+	memcpy(ctx->fn_type_stack, old->fn_type_stack, sizeof(ctx->fn_type_stack));
 	memcpy(ctx->local_int_variables, old->local_int_variables, sizeof(ctx->local_int_variables));
 	memcpy(ctx->local_string_variables, old->local_string_variables, sizeof(ctx->local_string_variables));
 	memcpy(ctx->local_double_variables, old->local_double_variables, sizeof(ctx->local_double_variables));
