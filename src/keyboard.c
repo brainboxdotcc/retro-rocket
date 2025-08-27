@@ -344,12 +344,11 @@ void keyboard_handler(uint8_t isr, uint64_t errorcode, uint64_t irq, void *opaqu
 			alt_state = false;
 			break;
 		case 0x3A:
-			caps_lock = true;
+			caps_lock = !caps_lock;
 			break;
 		case 0xBA:
-			caps_lock = false;
+			/* Caps lock release */
 			break;
-
 		default: {
 			if ((sc & 0x80) == 0) {
 				/* make */
