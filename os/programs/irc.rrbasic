@@ -31,7 +31,6 @@ DEF PROCmainLoop
 		IF char$ > "" THEN PROCprocess(char$)
 		IF char$ = "" THEN PROCkeyScan
 	UNTIL SOCKSTATUS(FD) = 0
-	SOCKCLOSE FD
 	CLS
 ENDPROC
 
@@ -121,7 +120,7 @@ DEF PROCquitCommand(quitMessage$)
 	IF quitMessage$ = "" THEN PROCsend("QUIT :Satellite IRC Client");
 	IF quitMessage$ > "" THEN PROCsend("QUIT :" + quitMessage$)
 	CLS
-	CLOSESOCKET FD
+	SOCKCLOSE FD
 ENDPROC
 
 DEF PROCrawLogCommand(onoff$)
@@ -400,6 +399,7 @@ DEF PROCping
 ENDPROC
 
 DEF PROCnotice
+REM IF INSTR(lineParts$(2), "Found your hostname ") > 0 THEN ENDPROC
 	PROCout(12, "-" + userNick$ + "- " + lineParts$(2))
 ENDPROC
 
