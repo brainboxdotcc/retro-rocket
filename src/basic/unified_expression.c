@@ -66,6 +66,7 @@ static inline int up_truth(const up_value *v) {
 static up_value up_value_expr(struct basic_ctx *ctx);   /* + / - and string + (above term) */
 static up_value up_relation_expr(struct basic_ctx *ctx);/* typed relation: returns UP_INT(0/1) */
 static up_value up_term(struct basic_ctx *ctx);
+
 static up_value up_unary(struct basic_ctx *ctx);        /* { + | - }* factor */
 static up_value up_factor(struct basic_ctx *ctx);
 
@@ -126,8 +127,11 @@ static up_value up_factor(struct basic_ctx *ctx) {
 				if (tokenizer_token(ctx) == COMMA) {
 					tokenizer_error_print(ctx, "Too many parameters for builtin function");
 				} else {
-					if (tokenizer_token(ctx) == CLOSEBRACKET) { accept(CLOSEBRACKET, ctx); }
-					else { accept(VARIABLE, ctx); }
+					if (tokenizer_token(ctx) == CLOSEBRACKET) {
+						accept(CLOSEBRACKET, ctx);
+					} else {
+						accept(VARIABLE, ctx);
+					}
 				}
 				return up_make_real(d);
 			}
@@ -139,8 +143,11 @@ static up_value up_factor(struct basic_ctx *ctx) {
 				if (tokenizer_token(ctx) == COMMA) {
 					tokenizer_error_print(ctx, "Too many parameters for builtin function");
 				} else {
-					if (tokenizer_token(ctx) == CLOSEBRACKET) { accept(CLOSEBRACKET, ctx); }
-					else { accept(VARIABLE, ctx); }
+					if (tokenizer_token(ctx) == CLOSEBRACKET) {
+						accept(CLOSEBRACKET, ctx);
+					} else {
+						accept(VARIABLE, ctx);
+					}
 				}
 				return up_make_real(d);
 			}
@@ -150,8 +157,11 @@ static up_value up_factor(struct basic_ctx *ctx) {
 			if (tokenizer_token(ctx) == COMMA) {
 				tokenizer_error_print(ctx, "Too many parameters for builtin function");
 			} else {
-				if (tokenizer_token(ctx) == CLOSEBRACKET) { accept(CLOSEBRACKET, ctx); }
-				else { accept(VARIABLE, ctx); }
+				if (tokenizer_token(ctx) == CLOSEBRACKET) {
+					accept(CLOSEBRACKET, ctx);
+				} else {
+					accept(VARIABLE, ctx);
+				}
 			}
 			return up_make_int(n);
 		}
@@ -173,8 +183,7 @@ static up_value up_factor(struct basic_ctx *ctx) {
 /* unary := { PLUS | MINUS }* factor
  * Handles numeric negation/positivation; strings are not allowed.
  */
-static up_value up_unary(struct basic_ctx *ctx)
-{
+static up_value up_unary(struct basic_ctx *ctx) {
 	int negate = 0;
 	bool saw_sign = false;
 
@@ -204,8 +213,11 @@ static up_value up_unary(struct basic_ctx *ctx)
 			return up_make_int(0);
 		}
 		if (negate) {
-			if (v.kind == UP_REAL) v.v.r = -v.v.r;
-			else                   v.v.i = -v.v.i;
+			if (v.kind == UP_REAL) {
+				v.v.r = -v.v.r;
+			} else {
+				v.v.i = -v.v.i;
+			}
 		}
 	}
 	return v;
@@ -218,7 +230,9 @@ static up_value up_term(struct basic_ctx *ctx) {
 
 	for (;;) {
 		int op = tokenizer_token(ctx);
-		if (op != ASTERISK && op != SLASH && op != MOD) break;
+		if (op != ASTERISK && op != SLASH && op != MOD) {
+			break;
+		}
 
 		tokenizer_next(ctx);
 		up_value rhs = up_unary(ctx);
@@ -227,16 +241,23 @@ static up_value up_term(struct basic_ctx *ctx) {
 		if (acc.kind == UP_STR || rhs.kind == UP_STR) {
 			tokenizer_error_print(ctx, "Numeric operator on string");
 			/* recover by treating string as 0 */
-			if (acc.kind == UP_STR) acc = up_make_int(0);
-			if (rhs.kind == UP_STR) rhs = up_make_int(0);
+			if (acc.kind == UP_STR) {
+				acc = up_make_int(0);
+			}
+			if (rhs.kind == UP_STR) {
+				rhs = up_make_int(0);
+			}
 		}
 
 		up_promote_pair(&acc, &rhs);
 
 		switch (op) {
 			case ASTERISK:
-				if (acc.kind == UP_REAL) acc.v.r = acc.v.r * rhs.v.r;
-				else acc.v.i = acc.v.i * rhs.v.i;
+				if (acc.kind == UP_REAL) {
+					acc.v.r = acc.v.r * rhs.v.r;
+				} else {
+					acc.v.i = acc.v.i * rhs.v.i;
+				}
 				break;
 			case SLASH:
 				if (acc.kind == UP_REAL || rhs.kind == UP_REAL) {
@@ -245,8 +266,12 @@ static up_value up_term(struct basic_ctx *ctx) {
 						acc = up_make_real(0.0);
 					} else {
 						/* ensure both real */
-						if (acc.kind != UP_REAL) acc = up_make_real((double) acc.v.i);
-						if (rhs.kind != UP_REAL) rhs = up_make_real((double) rhs.v.i);
+						if (acc.kind != UP_REAL) {
+							acc = up_make_real((double) acc.v.i);
+						}
+						if (rhs.kind != UP_REAL) {
+							rhs = up_make_real((double) rhs.v.i);
+						}
 						acc.v.r = acc.v.r / rhs.v.r;
 					}
 				} else {
@@ -260,7 +285,6 @@ static up_value up_term(struct basic_ctx *ctx) {
 				break;
 			case MOD:
 				if (acc.kind == UP_REAL || rhs.kind == UP_REAL) {
-					tokenizer_error_print(ctx, "MOD requires integers");
 					/* coerce to ints */
 					int64_t a = (acc.kind == UP_REAL) ? (int64_t) acc.v.r : acc.v.i;
 					int64_t b = (rhs.kind == UP_REAL) ? (int64_t) rhs.v.r : rhs.v.i;
@@ -295,7 +319,9 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
 
 	for (;;) {
 		int op = tokenizer_token(ctx);
-		if (op != PLUS && op != MINUS) break;
+		if (op != PLUS && op != MINUS) {
+			break;
+		}
 
 		tokenizer_next(ctx);
 		up_value rhs = up_term(ctx);
@@ -304,8 +330,12 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
 			/* String concatenation */
 			char tmp[MAX_STRINGLEN];
 			tmp[0] = '\0';
-			if (acc.v.s) strlcpy(tmp, acc.v.s, sizeof tmp);
-			if (rhs.v.s) strlcat(tmp, rhs.v.s, sizeof tmp);
+			if (acc.v.s) {
+				strlcpy(tmp, acc.v.s, sizeof(tmp));
+			}
+			if (rhs.v.s) {
+				strlcat(tmp, rhs.v.s, sizeof(tmp));
+			}
 			acc = up_make_str(gc_strdup(ctx, tmp));
 			continue;
 		}
@@ -314,18 +344,28 @@ static up_value up_value_expr(struct basic_ctx *ctx) {
 		if (acc.kind == UP_STR || rhs.kind == UP_STR) {
 			tokenizer_error_print(ctx, "Cannot mix string and number with '+' or '-'");
 			/* recover: treat strings as 0 */
-			if (acc.kind == UP_STR) acc = up_make_int(0);
-			if (rhs.kind == UP_STR) rhs = up_make_int(0);
+			if (acc.kind == UP_STR) {
+				acc = up_make_int(0);
+			}
+			if (rhs.kind == UP_STR) {
+				rhs = up_make_int(0);
+			}
 		}
 
 		up_promote_pair(&acc, &rhs);
 
 		if (op == PLUS) {
-			if (acc.kind == UP_REAL) acc.v.r = acc.v.r + rhs.v.r;
-			else acc.v.i = acc.v.i + rhs.v.i;
+			if (acc.kind == UP_REAL) {
+				acc.v.r = acc.v.r + rhs.v.r;
+			} else {
+				acc.v.i = acc.v.i + rhs.v.i;
+			}
 		} else { /* MINUS */
-			if (acc.kind == UP_REAL) acc.v.r = acc.v.r - rhs.v.r;
-			else acc.v.i = acc.v.i - rhs.v.i;
+			if (acc.kind == UP_REAL) {
+				acc.v.r = acc.v.r - rhs.v.r;
+			} else {
+				acc.v.i = acc.v.i - rhs.v.i;
+			}
 		}
 	}
 
@@ -367,23 +407,36 @@ static up_value up_relation_expr(struct basic_ctx *ctx) {
 				result = 0;
 			} else {
 				int cmp = strcmp(lhs.v.s ? lhs.v.s : "", rhs.v.s ? rhs.v.s : "");
-				if (op == LESSTHAN) result = (mode == 1) ? (cmp <= 0) : (cmp < 0);
-				else if (op == GREATERTHAN) result = (mode == 1) ? (cmp >= 0) : (cmp > 0);
-				else /* EQUALS */           result = (mode == 2) ? (cmp != 0) : (cmp == 0);
+				if (op == LESSTHAN) {
+					result = (mode == 1) ? (cmp <= 0) : (cmp < 0);
+				} else if (op == GREATERTHAN) {
+					result = (mode == 1) ? (cmp >= 0) : (cmp > 0);
+				} else {
+					/* EQUALS */
+					result = (mode == 2) ? (cmp != 0) : (cmp == 0);
+				}
 			}
 		} else {
 			/* Numeric comparison (promote as needed). */
 			up_promote_pair(&lhs, &rhs);
 			if (lhs.kind == UP_REAL) {
-				if (op == LESSTHAN) result = (mode == 1) ? (lhs.v.r <= rhs.v.r) : (lhs.v.r < rhs.v.r);
-				else if (op == GREATERTHAN)
+				if (op == LESSTHAN) {
+					result = (mode == 1) ? (lhs.v.r <= rhs.v.r) : (lhs.v.r < rhs.v.r);
+				} else if (op == GREATERTHAN) {
 					result = (mode == 1) ? (lhs.v.r >= rhs.v.r) : (lhs.v.r > rhs.v.r);
-				else /* EQUALS */           result = (mode == 2) ? (lhs.v.r != rhs.v.r) : (lhs.v.r == rhs.v.r);
+				} else {
+					/* EQUALS */
+					result = (mode == 2) ? (lhs.v.r != rhs.v.r) : (lhs.v.r == rhs.v.r);
+				}
 			} else {
-				if (op == LESSTHAN) result = (mode == 1) ? (lhs.v.i <= rhs.v.i) : (lhs.v.i < rhs.v.i);
-				else if (op == GREATERTHAN)
+				if (op == LESSTHAN) {
+					result = (mode == 1) ? (lhs.v.i <= rhs.v.i) : (lhs.v.i < rhs.v.i);
+				} else if (op == GREATERTHAN) {
 					result = (mode == 1) ? (lhs.v.i >= rhs.v.i) : (lhs.v.i > rhs.v.i);
-				else /* EQUALS */           result = (mode == 2) ? (lhs.v.i != rhs.v.i) : (lhs.v.i == rhs.v.i);
+				} else {
+					/* EQUALS */
+					result = (mode == 2) ? (lhs.v.i != rhs.v.i) : (lhs.v.i == rhs.v.i);
+				}
 			}
 		}
 
@@ -495,8 +548,7 @@ int64_t up_relation_i(struct basic_ctx *ctx) {
 	return (b.kind == UP_INT) ? b.v.i : up_truth(&b);
 }
 
-void up_eval_value(struct basic_ctx *ctx, up_value *out)
-{
+void up_eval_value(struct basic_ctx *ctx, up_value *out) {
 	if (!out) {
 		return;
 	}
