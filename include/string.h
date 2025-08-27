@@ -329,3 +329,21 @@ void strtolower(char *s);
  * @return Visible character count.
  */
 size_t strlen_ansi(const char *s);
+
+/**
+ * @brief Locate a substring in a string.
+ *
+ * Scans the string @p haystack for the first occurrence of the
+ * substring @p needle. The terminating null character is not
+ * compared.
+ *
+ * If @p needle is empty, @p haystack is returned.
+ * If @p needle does not occur in @p haystack, NULL is returned.
+ *
+ * @param haystack  Null-terminated string to search.
+ * @param needle    Null-terminated substring to locate.
+ *
+ * @return Pointer to the beginning of the located substring,
+ *         or NULL if no match is found.
+ */
+const char *strstr(const char *haystack, const char *needle);

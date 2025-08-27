@@ -238,13 +238,13 @@ DEF PROCdoFind(needle$)
 	PROCendPrompt
 ENDPROC
 
-REM scan lines using INSTR; positions are 0-based like MID$
+REM scan lines using INSTR; positions are 1-based
 DEF FNscanFrom(line_from, col_from, needle$)
 	FOR L = line_from TO lines - 1
 		hay$ = content$(L)
 		pos = INSTR(hay$, needle$)
-		IF pos >= 0 THEN
-		    PROCmoveCursorToHit(L, pos)
+		IF pos > 0 THEN
+		    PROCmoveCursorToHit(L, pos - 1)
             =TRUE
         ENDIF
 	NEXT

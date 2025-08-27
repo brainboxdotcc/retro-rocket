@@ -158,7 +158,6 @@ struct basic_ctx *basic_init(const char *program, uint32_t pid, const char *file
 		*error = "Out of memory";
 		return NULL;
 	}
-	int i;
 
 	ctx->debug_status = 0;
 	ctx->debug_breakpoints = NULL;
@@ -368,7 +367,6 @@ void library_statement(struct basic_ctx *ctx) {
 
 struct basic_ctx *basic_clone(struct basic_ctx *old) {
 	struct basic_ctx *ctx = buddy_malloc(old->allocator, sizeof(struct basic_ctx));
-	int i;
 
 	ctx->if_nest_level = old->if_nest_level;
 	ctx->current_token = NO_TOKEN;

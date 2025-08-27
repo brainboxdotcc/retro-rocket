@@ -372,13 +372,18 @@ void dput(const char n) {
  * trigger scrolling if the character would be off-screen.
  */
 void put(const char n) {
-	//dput(n);
+	if (n != 27) {
+		dput(n);
+	}
 	ft_write(ft_ctx, &n, 1);
 }
 
 void dputstring(const char* message)
 {
 	for (; *message; ++message) {
+		if (*message == 27) {
+			continue;
+		}
 		outb(0xE9, *message);
 		if (*message == 13) {
 			outb(0xE9, 10);
@@ -394,7 +399,7 @@ void dputstring(const char* message)
  */
 void putstring(const char* message)
 {
-	//dputstring(message);
+	dputstring(message);
 	ft_write(ft_ctx, message, strlen(message));
 }
 

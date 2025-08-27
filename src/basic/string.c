@@ -35,22 +35,35 @@ char* basic_bool(struct basic_ctx* ctx)
 
 int64_t basic_instr(struct basic_ctx* ctx)
 {
-	char* haystack;
-	char* needle;
+	const char *haystack, *needle;
+
 	PARAMS_START;
 	PARAMS_GET_ITEM(BIP_STRING);
-	haystack = strval;
+	haystack = strval ? strval : "";
 	PARAMS_GET_ITEM(BIP_STRING);
-	needle = strval;
+	needle = strval ? strval : "";
 	PARAMS_END("INSTR", 0);
-	size_t n_len = strlen(needle);
-	for (size_t i = 0; i < strlen(haystack) - n_len + 1; ++i) {
-		if (!strncmp(haystack + i, needle, n_len)) {
-			return i + 1;
-		}
+
+	if (*needle == '\0') {
+		return 1;
 	}
-	return 0;
+
+	/* Quick length check avoids calling strstr on impossible matches */
+	size_t hlen = strlen(haystack);
+	size_t nlen = strlen(needle);
+	if (nlen > hlen) {
+		return 0;
+	}
+
+	const char *p = strstr(haystack, needle);
+	if (!p) {
+		return 0;
+	}
+
+	/* 1-based index as 0 represents substring not found */
+	return (int64_t)((p - haystack) + 1);
 }
+
 
 char* basic_upper(struct basic_ctx* ctx)
 {

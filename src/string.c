@@ -634,3 +634,26 @@ size_t strlen_ansi(const char *s) {
 
 	return len;
 }
+
+/* Minimal strstr implementation */
+const char *strstr(const char *haystack, const char *needle)
+{
+	if (!*needle) {
+		return haystack; /* empty needle matches start */
+	}
+
+	for (const char *h = haystack; *h; ++h) {
+		const char *h_it = h;
+		const char *n_it = needle;
+
+		while (*h_it && *n_it && *h_it == *n_it) {
+			++h_it;
+			++n_it;
+		}
+
+		if (*n_it == '\0') {
+			return h; /* full match */
+		}
+	}
+	return NULL;
+}
